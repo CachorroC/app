@@ -1,0 +1,497 @@
+:root {
+  --md-source: #a700b0;
+  /* primary */
+  --md-ref-palette-primary0: #000000;
+  --md-ref-palette-primary10: #37003a;
+  --md-ref-palette-primary20: #5a005f;
+  --md-ref-palette-primary25: #6c0072;
+  --md-ref-palette-primary30: #7f0086;
+  --md-ref-palette-primary35: #92009a;
+  --md-ref-palette-primary40: #a600af;
+  --md-ref-palette-primary50: #c532cb;
+  --md-ref-palette-primary60: #e351e8;
+  --md-ref-palette-primary70: #fe74ff;
+  --md-ref-palette-primary80: #ffa9f9;
+  --md-ref-palette-primary90: #ffd6f8;
+  --md-ref-palette-primary95: #ffebf9;
+  --md-ref-palette-primary98: #fff7fa;
+  --md-ref-palette-primary99: #fffbff;
+  --md-ref-palette-primary100: #ffffff;
+  /* secondary */
+  --md-ref-palette-secondary0: #000000;
+  --md-ref-palette-secondary10: #002204;
+  --md-ref-palette-secondary20: #00390a;
+  --md-ref-palette-secondary25: #00460e;
+  --md-ref-palette-secondary30: #065315;
+  --md-ref-palette-secondary35: #195f20;
+  --md-ref-palette-secondary40: #276c2b;
+  --md-ref-palette-secondary50: #418541;
+  --md-ref-palette-secondary60: #5ba058;
+  --md-ref-palette-secondary70: #75bc71;
+  --md-ref-palette-secondary80: #8fd88a;
+  --md-ref-palette-secondary90: #aaf5a3;
+  --md-ref-palette-secondary95: #c8ffc0;
+  --md-ref-palette-secondary98: #ecffe4;
+  --md-ref-palette-secondary99: #f6fff0;
+  --md-ref-palette-secondary100: #ffffff;
+  /* tertiary */
+  --md-ref-palette-tertiary0: #000000;
+  --md-ref-palette-tertiary10: #3e0400;
+  --md-ref-palette-tertiary20: #640c00;
+  --md-ref-palette-tertiary25: #791000;
+  --md-ref-palette-tertiary30: #8e1500;
+  --md-ref-palette-tertiary35: #a31900;
+  --md-ref-palette-tertiary40: #b72205;
+  --md-ref-palette-tertiary50: #db3d1f;
+  --md-ref-palette-tertiary60: #ff5636;
+  --md-ref-palette-tertiary70: #ff8a72;
+  --md-ref-palette-tertiary80: #ffb4a5;
+  --md-ref-palette-tertiary90: #ffdad3;
+  --md-ref-palette-tertiary95: #ffede9;
+  --md-ref-palette-tertiary98: #fff8f6;
+  --md-ref-palette-tertiary99: #fffbff;
+  --md-ref-palette-tertiary100: #ffffff;
+  /* neutral */
+  --md-ref-palette-neutral0: #000000;
+  --md-ref-palette-neutral10: #1b0261;
+  --md-ref-palette-neutral20: #302175;
+  --md-ref-palette-neutral25: #3b2d81;
+  --md-ref-palette-neutral30: #47398d;
+  --md-ref-palette-neutral35: #53469a;
+  --md-ref-palette-neutral40: #5f52a7;
+  --md-ref-palette-neutral50: #786bc2;
+  --md-ref-palette-neutral60: #9285dd;
+  --md-ref-palette-neutral70: #ad9ffa;
+  --md-ref-palette-neutral80: #c9bfff;
+  --md-ref-palette-neutral90: #e5deff;
+  --md-ref-palette-neutral95: #f4eeff;
+  --md-ref-palette-neutral98: #fdf8ff;
+  --md-ref-palette-neutral99: #fffbff;
+  --md-ref-palette-neutral100: #ffffff;
+  /* neutral-variant */
+  --md-ref-palette-neutral-variant0: #000000;
+  --md-ref-palette-neutral-variant10: #211920;
+  --md-ref-palette-neutral-variant20: #362e35;
+  --md-ref-palette-neutral-variant25: #423940;
+  --md-ref-palette-neutral-variant30: #4e444b;
+  --md-ref-palette-neutral-variant35: #5a4f57;
+  --md-ref-palette-neutral-variant40: #665b63;
+  --md-ref-palette-neutral-variant50: #7f747c;
+  --md-ref-palette-neutral-variant60: #9a8d96;
+  --md-ref-palette-neutral-variant70: #b5a7b0;
+  --md-ref-palette-neutral-variant80: #d1c3cc;
+  --md-ref-palette-neutral-variant90: #eddee8;
+  --md-ref-palette-neutral-variant95: #fcedf6;
+  --md-ref-palette-neutral-variant98: #fff7fa;
+  --md-ref-palette-neutral-variant99: #fffbff;
+  --md-ref-palette-neutral-variant100: #ffffff;
+  /* error */
+  --md-ref-palette-error0: #000000;
+  --md-ref-palette-error10: #410002;
+  --md-ref-palette-error20: #690005;
+  --md-ref-palette-error25: #7e0007;
+  --md-ref-palette-error30: #93000a;
+  --md-ref-palette-error35: #a80710;
+  --md-ref-palette-error40: #ba1a1a;
+  --md-ref-palette-error50: #de3730;
+  --md-ref-palette-error60: #ff5449;
+  --md-ref-palette-error70: #ff897d;
+  --md-ref-palette-error80: #ffb4ab;
+  --md-ref-palette-error90: #ffdad6;
+  --md-ref-palette-error95: #ffedea;
+  --md-ref-palette-error98: #fff8f7;
+  --md-ref-palette-error99: #fffbff;
+  --md-ref-palette-error100: #ffffff;
+  /* light */
+  --md-sys-color-primary-light: var(
+    --md-ref-palette-primary40
+  );
+  --md-sys-color-on-primary-light: var(
+    --md-ref-palette-primary100
+  );
+  --md-sys-color-primary-container-light: var(
+    --md-ref-palette-primary90
+  );
+  --md-sys-color-on-primary-container-light: var(
+    --md-ref-palette-primary10
+  );
+  --md-sys-color-secondary-light: var(
+    --md-ref-palette-secondary40
+  );
+  --md-sys-color-on-secondary-light: var(
+    --md-ref-palette-tertiary100
+  );
+  --md-sys-color-secondary-container-light: var(
+    --md-ref-palette-secondary90
+  );
+  --md-sys-color-on-secondary-container-light: var(
+    --md-ref-palette-secondary10
+  );
+  --md-sys-color-tertiary-light: var(
+    --md-ref-palette-tertiary40
+  );
+  --md-sys-color-on-tertiary-light: var(
+    --md-ref-palette-tertiary100
+  );
+  --md-sys-color-tertiary-container-light: var(
+    --md-ref-palette-tertiary90
+  );
+  --md-sys-color-on-tertiary-container-light: var(
+    --md-ref-palette-tertiary10
+  );
+  --md-sys-color-error-light: var(--md-ref-palette-error40);
+  --md-sys-color-error-container-light: var(
+    --md-ref-palette-error90
+  );
+  --md-sys-color-on-error-light: var(
+    --md-ref-palette-primary100
+  );
+  --md-sys-color-on-error-container-light: var(
+    --md-ref-palette-error10
+  );
+  --md-sys-color-background-light: var(
+    --md-ref-palette-neutral99
+  );
+  --md-sys-color-on-background-light: var(
+    --md-ref-palette-neutral10
+  );
+  --md-sys-color-surface-light: var(
+    --md-ref-palette-neutral-variant95
+  );
+  --md-sys-color-on-surface-light: var(
+    --md-ref-palette-neutral10
+  );
+  --md-sys-color-surface-variant-light: var(
+    --md-ref-palette-neutral-variant90
+  );
+  --md-sys-color-on-surface-variant-light: var(
+    --md-ref-palette-neutral-variant30
+  );
+  --md-sys-color-outline-light: var(
+    --md-ref-palette-neutral-variant50
+  );
+  --md-sys-color-inverse-on-surface-light: var(
+    --md-ref-palette-neutral95
+  );
+  --md-sys-color-inverse-surface-light: var(
+    --md-ref-palette-neutral20
+  );
+  --md-sys-color-inverse-primary-light: var(
+    --md-ref-palette-primary80
+  );
+  --md-sys-color-shadow-light: var(
+    --md-ref-palette-neutral0
+  );
+  --md-sys-color-surface-tint-light: var(
+    --md-ref-palette-primary40
+  );
+  --md-sys-color-outline-variant-light: var(
+    --md-ref-palette-neutral-variant80
+  );
+  --md-sys-color-scrim-light: var(
+    --md-ref-palette-neutral0
+  );
+  /* dark */
+  --md-sys-color-primary-dark: var(
+    --md-ref-palette-primary80
+  );
+  --md-sys-color-on-primary-dark: var(
+    --md-ref-palette-primary20
+  );
+  --md-sys-color-primary-container-dark: var(
+    --md-ref-palette-primary30
+  );
+  --md-sys-color-on-primary-container-dark: var(
+    --md-ref-palette-primary90
+  );
+  --md-sys-color-secondary-dark: var(
+    --md-ref-palette-secondary80
+  );
+  --md-sys-color-on-secondary-dark: var(
+    --md-ref-palette-secondary20
+  );
+  --md-sys-color-secondary-container-dark: var(
+    --md-ref-palette-secondary30
+  );
+  --md-sys-color-on-secondary-container-dark: var(
+    --md-ref-palette-secondary90
+  );
+  --md-sys-color-tertiary-dark: var(
+    --md-ref-palette-tertiary80
+  );
+  --md-sys-color-on-tertiary-dark: var(
+    --md-ref-palette-tertiary20
+  );
+  --md-sys-color-tertiary-container-dark: var(
+    --md-ref-palette-tertiary30
+  );
+  --md-sys-color-on-tertiary-container-dark: var(
+    --md-ref-palette-tertiary90
+  );
+  --md-sys-color-error-dark: var(--md-ref-palette-error80);
+  --md-sys-color-error-container-dark: var(
+    --md-ref-palette-error30
+  );
+  --md-sys-color-on-error-dark: var(
+    --md-ref-palette-error20
+  );
+  --md-sys-color-on-error-container-dark: var(
+    --md-ref-palette-error90
+  );
+  --md-sys-color-background-dark: var(
+    --md-ref-palette-neutral0
+  );
+  --md-sys-color-on-background-dark: var(
+    --md-ref-palette-neutral90
+  );
+  --md-sys-color-surface-dark: var(
+    --md-ref-palette-neutral10
+  );
+  --md-sys-color-on-surface-dark: var(
+    --md-ref-palette-neutral90
+  );
+  --md-sys-color-surface-variant-dark: var(
+    --md-ref-palette-neutral-variant30
+  );
+  --md-sys-color-on-surface-variant-dark: var(
+    --md-ref-palette-neutral-variant80
+  );
+  --md-sys-color-outline-dark: var(
+    --md-ref-palette-neutral-variant60
+  );
+  --md-sys-color-inverse-on-surface-dark: var(
+    --md-ref-palette-neutral10
+  );
+  --md-sys-color-inverse-surface-dark: var(
+    --md-ref-palette-neutral90
+  );
+  --md-sys-color-inverse-primary-dark: var(
+    --md-ref-palette-primary40
+  );
+  --md-sys-color-shadow-dark: var(
+    --md-ref-palette-neutral0
+  );
+  --md-sys-color-surface-tint-dark: var(
+    --md-ref-palette-primary80
+  );
+  --md-sys-color-outline-variant-dark: var(
+    --md-ref-palette-neutral-variant30
+  );
+  --md-sys-color-scrim-dark: var(--md-ref-palette-neutral0);
+  /* Custom Colors */
+  --md-custom-color-Custom-Color-1: #008471;
+
+  --md-elevation-0: 0px 0px 0px 0px rgba(0, 0, 0, 0.2),
+    0px 0px 0px 0px rgba(0, 0, 0, 0.14),
+    0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-1: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-2: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-3: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+    0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-4: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-5: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 5px 8px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-6: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-7: 0px 4px 5px -2px rgba(0, 0, 0, 0.2),
+    0px 7px 10px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 16px 1px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-8: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-9: 0px 5px 6px -3px rgba(0, 0, 0, 0.2),
+    0px 9px 12px 1px rgba(0, 0, 0, 0.14),
+    0px 3px 16px 2px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-10: 0px 6px 6px -3px rgba(0, 0, 0, 0.2),
+    0px 10px 14px 1px rgba(0, 0, 0, 0.14),
+    0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-11: 0px 6px 7px -4px rgba(0, 0, 0, 0.2),
+    0px 11px 15px 1px rgba(0, 0, 0, 0.14),
+    0px 4px 20px 3px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-12: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
+    0px 12px 17px 2px rgba(0, 0, 0, 0.14),
+    0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-13: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
+    0px 13px 19px 2px rgba(0, 0, 0, 0.14),
+    0px 5px 24px 4px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-14: 0px 7px 9px -4px rgba(0, 0, 0, 0.2),
+    0px 14px 21px 2px rgba(0, 0, 0, 0.14),
+    0px 5px 26px 4px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-15: 0px 8px 9px -5px rgba(0, 0, 0, 0.2),
+    0px 15px 22px 2px rgba(0, 0, 0, 0.14),
+    0px 6px 28px 5px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-16: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
+    0px 16px 24px 2px rgba(0, 0, 0, 0.14),
+    0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-17: 0px 8px 11px -5px rgba(0, 0, 0, 0.2),
+    0px 17px 26px 2px rgba(0, 0, 0, 0.14),
+    0px 6px 32px 5px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-18: 0px 9px 11px -5px rgba(0, 0, 0, 0.2),
+    0px 18px 28px 2px rgba(0, 0, 0, 0.14),
+    0px 7px 34px 6px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-19: 0px 9px 12px -6px rgba(0, 0, 0, 0.2),
+    0px 19px 29px 2px rgba(0, 0, 0, 0.14),
+    0px 7px 36px 6px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-20: 0px 10px 13px -6px rgba(0, 0, 0, 0.2),
+    0px 20px 31px 3px rgba(0, 0, 0, 0.14),
+    0px 8px 38px 7px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-21: 0px 10px 13px -6px rgba(0, 0, 0, 0.2),
+    0px 21px 33px 3px rgba(0, 0, 0, 0.14),
+    0px 8px 40px 7px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-22: 0px 10px 14px -6px rgba(0, 0, 0, 0.2),
+    0px 22px 35px 3px rgba(0, 0, 0, 0.14),
+    0px 8px 42px 7px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-23: 0px 11px 14px -7px rgba(0, 0, 0, 0.2),
+    0px 23px 36px 3px rgba(0, 0, 0, 0.14),
+    0px 9px 44px 8px rgba(0, 0, 0, 0.12);
+
+  --md-elevation-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
+    0px 24px 38px 3px rgba(0, 0, 0, 0.14),
+    0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+
+  /* display - large */
+  --md-sys-typescale-display-large-font-family-name: Poiret
+    One;
+  --md-sys-typescale-display-large-font-family-style: Regular;
+  --md-sys-typescale-display-large-font-weight: 400px;
+  --md-sys-typescale-display-large-font-size: 57px;
+  --md-sys-typescale-display-large-line-height: 64px;
+  --md-sys-typescale-display-large-letter-spacing: -0.25px;
+  /* display - medium */
+  --md-sys-typescale-display-medium-font-family-name: Roboto;
+  --md-sys-typescale-display-medium-font-family-style: Regular;
+  --md-sys-typescale-display-medium-font-weight: 400px;
+  --md-sys-typescale-display-medium-font-size: 45px;
+  --md-sys-typescale-display-medium-line-height: 52px;
+  --md-sys-typescale-display-medium-letter-spacing: 0px;
+  /* display - small */
+  --md-sys-typescale-display-small-font-family-name: Roboto;
+  --md-sys-typescale-display-small-font-family-style: Regular;
+  --md-sys-typescale-display-small-font-weight: 400px;
+  --md-sys-typescale-display-small-font-size: 36px;
+  --md-sys-typescale-display-small-line-height: 44px;
+  --md-sys-typescale-display-small-letter-spacing: 0px;
+  /* headline - large */
+  --md-sys-typescale-headline-large-font-family-name: Roboto;
+  --md-sys-typescale-headline-large-font-family-style: Regular;
+  --md-sys-typescale-headline-large-font-weight: 400px;
+  --md-sys-typescale-headline-large-font-size: 32px;
+  --md-sys-typescale-headline-large-line-height: 40px;
+  --md-sys-typescale-headline-large-letter-spacing: 0px;
+  /* headline - medium */
+  --md-sys-typescale-headline-medium-font-family-name: Roboto;
+  --md-sys-typescale-headline-medium-font-family-style: Regular;
+  --md-sys-typescale-headline-medium-font-weight: 400px;
+  --md-sys-typescale-headline-medium-font-size: 28px;
+  --md-sys-typescale-headline-medium-line-height: 36px;
+  --md-sys-typescale-headline-medium-letter-spacing: 0px;
+  /* headline - small */
+  --md-sys-typescale-headline-small-font-family-name: Roboto;
+  --md-sys-typescale-headline-small-font-family-style: Regular;
+  --md-sys-typescale-headline-small-font-weight: 400px;
+  --md-sys-typescale-headline-small-font-size: 24px;
+  --md-sys-typescale-headline-small-line-height: 32px;
+  --md-sys-typescale-headline-small-letter-spacing: 0px;
+  /* body - large */
+  --md-sys-typescale-body-large-font-family-name: Roboto;
+  --md-sys-typescale-body-large-font-family-style: Regular;
+  --md-sys-typescale-body-large-font-weight: 400px;
+  --md-sys-typescale-body-large-font-size: 16px;
+  --md-sys-typescale-body-large-line-height: 24px;
+  --md-sys-typescale-body-large-letter-spacing: 0.5px;
+  /* body - medium */
+  --md-sys-typescale-body-medium-font-family-name: Roboto;
+  --md-sys-typescale-body-medium-font-family-style: Regular;
+  --md-sys-typescale-body-medium-font-weight: 400px;
+  --md-sys-typescale-body-medium-font-size: 14px;
+  --md-sys-typescale-body-medium-line-height: 20px;
+  --md-sys-typescale-body-medium-letter-spacing: 0.25px;
+  /* body - small */
+  --md-sys-typescale-body-small-font-family-name: Roboto;
+  --md-sys-typescale-body-small-font-family-style: Regular;
+  --md-sys-typescale-body-small-font-weight: 400px;
+  --md-sys-typescale-body-small-font-size: 12px;
+  --md-sys-typescale-body-small-line-height: 16px;
+  --md-sys-typescale-body-small-letter-spacing: 0.4px;
+  /* label - large */
+  --md-sys-typescale-label-large-font-family-name: Roboto;
+  --md-sys-typescale-label-large-font-family-style: Medium;
+  --md-sys-typescale-label-large-font-weight: 500px;
+  --md-sys-typescale-label-large-font-size: 14px;
+  --md-sys-typescale-label-large-line-height: 20px;
+  --md-sys-typescale-label-large-letter-spacing: 0.1px;
+  /* label - medium */
+  --md-sys-typescale-label-medium-font-family-name: Roboto;
+  --md-sys-typescale-label-medium-font-family-style: Medium;
+  --md-sys-typescale-label-medium-font-weight: 500px;
+  --md-sys-typescale-label-medium-font-size: 12px;
+  --md-sys-typescale-label-medium-line-height: 16px;
+  --md-sys-typescale-label-medium-letter-spacing: 0.5px;
+  /* label - small */
+  --md-sys-typescale-label-small-font-family-name: Roboto;
+  --md-sys-typescale-label-small-font-family-style: Medium;
+  --md-sys-typescale-label-small-font-weight: 500px;
+  --md-sys-typescale-label-small-font-size: 11px;
+  --md-sys-typescale-label-small-line-height: 16px;
+  --md-sys-typescale-label-small-letter-spacing: 0.5px;
+  /* title - large */
+  --md-sys-typescale-title-large-font-family-name: Roboto;
+  --md-sys-typescale-title-large-font-family-style: Regular;
+  --md-sys-typescale-title-large-font-weight: 400px;
+  --md-sys-typescale-title-large-font-size: 22px;
+  --md-sys-typescale-title-large-line-height: 28px;
+  --md-sys-typescale-title-large-letter-spacing: 0px;
+  /* title - medium */
+  --md-sys-typescale-title-medium-font-family-name: Roboto;
+  --md-sys-typescale-title-medium-font-family-style: Medium;
+  --md-sys-typescale-title-medium-font-weight: 500px;
+  --md-sys-typescale-title-medium-font-size: 16px;
+  --md-sys-typescale-title-medium-line-height: 24px;
+  --md-sys-typescale-title-medium-letter-spacing: 0.15px;
+  /* title - small */
+  --md-sys-typescale-title-small-font-family-name: Roboto;
+  --md-sys-typescale-title-small-font-family-style: Medium;
+  --md-sys-typescale-title-small-font-weight: 500px;
+  --md-sys-typescale-title-small-font-size: 14px;
+  --md-sys-typescale-title-small-line-height: 20px;
+  --md-sys-typescale-title-small-letter-spacing: 0.1px;
+
+  --max-width: 1100px;
+  --border-radius: 12px;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono",
+    "Segoe UI Mono", "Roboto Mono", "Oxygen Mono",
+    "Ubuntu Monospace", "Source Code Pro", "Fira Mono",
+    "Droid Sans Mono", "Courier New", monospace;
+}

@@ -1,0 +1,302 @@
+$md-source: #a700b0; /* primary */
+$primary0: #000000;
+$primary10: #37003a;
+$primary20: #5a005f;
+$primary25: #6c0072;
+$primary30: #7f0086;
+$primary35: #92009a;
+$primary40: #a600af;
+$primary50: #c532cb;
+$primary60: #e351e8;
+$primary70: #fe74ff;
+$primary80: #ffa9f9;
+$primary90: #ffd6f8;
+$primary95: #ffebf9;
+$primary98: #fff7fa;
+$primary99: #fffbff;
+$primary100: #ffffff; /* secondary */
+$secondary0: #000000;
+$secondary10: #002204;
+$secondary20: #00390a;
+$secondary25: #00460e;
+$secondary30: #065315;
+$secondary35: #195f20;
+$secondary40: #276c2b;
+$secondary50: #418541;
+$secondary60: #5ba058;
+$secondary70: #75bc71;
+$secondary80: #8fd88a;
+$secondary90: #aaf5a3;
+$secondary95: #c8ffc0;
+$secondary98: #ecffe4;
+$secondary99: #f6fff0;
+$secondary100: #ffffff; /* tertiary */
+$tertiary0: #000000;
+$tertiary10: #3e0400;
+$tertiary20: #640c00;
+$tertiary25: #791000;
+$tertiary30: #8e1500;
+$tertiary35: #a31900;
+$tertiary40: #b72205;
+$tertiary50: #db3d1f;
+$tertiary60: #ff5636;
+$tertiary70: #ff8a72;
+$tertiary80: #ffb4a5;
+$tertiary90: #ffdad3;
+$tertiary95: #ffede9;
+$tertiary98: #fff8f6;
+$tertiary99: #fffbff;
+$tertiary100: #ffffff; /* neutral */
+$neutral0: #000000;
+$neutral10: #1b0261;
+$neutral20: #302175;
+$neutral25: #3b2d81;
+$neutral30: #47398d;
+$neutral35: #53469a;
+$neutral40: #5f52a7;
+$neutral50: #786bc2;
+$neutral60: #9285dd;
+$neutral70: #ad9ffa;
+$neutral80: #c9bfff;
+$neutral90: #e5deff;
+$neutral95: #f4eeff;
+$neutral98: #fdf8ff;
+$neutral99: #fffbff;
+$neutral100: #ffffff; /* 
+  neutralVariant */
+$neutralVariant0: #000000;
+$neutralVariant10: #211920;
+$neutralVariant20: #362e35;
+$neutralVariant25: #423940;
+$neutralVariant30: #4e444b;
+$neutralVariant35: #5a4f57;
+$neutralVariant40: #665b63;
+$neutralVariant50: #7f747c;
+$neutralVariant60: #9a8d96;
+$neutralVariant70: #b5a7b0;
+$neutralVariant80: #d1c3cc;
+$neutralVariant90: #eddee8;
+$neutralVariant95: #fcedf6;
+$neutralVariant98: #fff7fa;
+$neutralVariant99: #fffbff;
+$neutralVariant100: #ffffff; /* error */
+$error0: #000000;
+$error10: #410002;
+$error20: #690005;
+$error25: #7e0007;
+$error30: #93000a;
+$error35: #a80710;
+$error40: #ba1a1a;
+$error50: #de3730;
+$error60: #ff5449;
+$error70: #ff897d;
+$error80: #ffb4ab;
+$error90: #ffdad6;
+$error95: #ffedea;
+$error98: #fff8f7;
+$error99: #fffbff;
+$error100: #ffffff;
+$dp0: 0px 0px 0px 0px rgba(0, 0, 0, 0.2),
+  0px 0px 0px 0px rgba(0, 0, 0, 0.14),
+  0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+$dp1: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+  0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+  0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+$dp2: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+  0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+  0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+$dp3: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+  0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+  0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+$dp4: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+  0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+  0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+$dp5: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+  0px 5px 8px 0px rgba(0, 0, 0, 0.14),
+  0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+$dp6: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+  0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+  0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+$dp7: 0px 4px 5px -2px rgba(0, 0, 0, 0.2),
+  0px 7px 10px 1px rgba(0, 0, 0, 0.14),
+  0px 2px 16px 1px rgba(0, 0, 0, 0.12);
+$dp8: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+$dp9: 0px 5px 6px -3px rgba(0, 0, 0, 0.2),
+  0px 9px 12px 1px rgba(0, 0, 0, 0.14),
+  0px 3px 16px 2px rgba(0, 0, 0, 0.12);
+$dp10: 0px 6px 6px -3px rgba(0, 0, 0, 0.2),
+  0px 10px 14px 1px rgba(0, 0, 0, 0.14),
+  0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+$dp11: 0px 6px 7px -4px rgba(0, 0, 0, 0.2),
+  0px 11px 15px 1px rgba(0, 0, 0, 0.14),
+  0px 4px 20px 3px rgba(0, 0, 0, 0.12);
+$dp12: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
+  0px 12px 17px 2px rgba(0, 0, 0, 0.14),
+  0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+$dp13: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
+  0px 13px 19px 2px rgba(0, 0, 0, 0.14),
+  0px 5px 24px 4px rgba(0, 0, 0, 0.12);
+$dp14: 0px 7px 9px -4px rgba(0, 0, 0, 0.2),
+  0px 14px 21px 2px rgba(0, 0, 0, 0.14),
+  0px 5px 26px 4px rgba(0, 0, 0, 0.12);
+$dp15: 0px 8px 9px -5px rgba(0, 0, 0, 0.2),
+  0px 15px 22px 2px rgba(0, 0, 0, 0.14),
+  0px 6px 28px 5px rgba(0, 0, 0, 0.12);
+$dp16: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
+  0px 16px 24px 2px rgba(0, 0, 0, 0.14),
+  0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+$dp17: 0px 8px 11px -5px rgba(0, 0, 0, 0.2),
+  0px 17px 26px 2px rgba(0, 0, 0, 0.14),
+  0px 6px 32px 5px rgba(0, 0, 0, 0.12);
+$dp18: 0px 9px 11px -5px rgba(0, 0, 0, 0.2),
+  0px 18px 28px 2px rgba(0, 0, 0, 0.14),
+  0px 7px 34px 6px rgba(0, 0, 0, 0.12);
+$dp19: 0px 9px 12px -6px rgba(0, 0, 0, 0.2),
+  0px 19px 29px 2px rgba(0, 0, 0, 0.14),
+  0px 7px 36px 6px rgba(0, 0, 0, 0.12);
+$dp20: 0px 10px 13px -6px rgba(0, 0, 0, 0.2),
+  0px 20px 31px 3px rgba(0, 0, 0, 0.14),
+  0px 8px 38px 7px rgba(0, 0, 0, 0.12);
+$dp21: 0px 10px 13px -6px rgba(0, 0, 0, 0.2),
+  0px 21px 33px 3px rgba(0, 0, 0, 0.14),
+  0px 8px 40px 7px rgba(0, 0, 0, 0.12);
+$dp22: 0px 10px 14px -6px rgba(0, 0, 0, 0.2),
+  0px 22px 35px 3px rgba(0, 0, 0, 0.14),
+  0px 8px 42px 7px rgba(0, 0, 0, 0.12);
+$dp23: 0px 11px 14px -7px rgba(0, 0, 0, 0.2),
+  0px 23px 36px 3px rgba(0, 0, 0, 0.14),
+  0px 9px 44px 8px rgba(0, 0, 0, 0.12);
+$dp24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
+  0px 24px 38px 3px rgba(0, 0, 0, 0.14),
+  0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+// & light
+$primaryLight: $primary40;
+$OnprimaryLight: $primary100;
+$primaryContainerLight: $primary90;
+$OnprimaryContainerLight: $primary10;
+$secondaryLight: $secondary40;
+$OnsecondaryLight: $tertiary100;
+$secondaryContainerLight: $secondary90;
+$OnsecondaryContainerLight: $secondary10;
+$tertiaryLight: $tertiary40;
+$OntertiaryLight: $tertiary100;
+$tertiaryContainerLight: $tertiary90;
+$OntertiaryContainerLight: $tertiary10;
+$errorLight: $error40;
+$errorContainerLight: $error90;
+$OnerrorLight: $primary100;
+$OnerrorContainerLight: $error10;
+$backgroundLight: $neutral99;
+$OnbackgroundLight: $neutral10;
+$surfaceLight: $neutralVariant95;
+$OnsurfaceLight: $neutral10;
+$surfaceVariantLight: $neutralVariant90;
+$OnsurfaceVariantLight: $neutralVariant30;
+$outlineLight: $neutralVariant50;
+$inverseOnsurfaceLight: $neutral95;
+$inverseSurfaceLight: $neutral20;
+$inverseprimaryLight: $primary80;
+$shadowLight: $neutral0;
+$surfaceTintLight: $primary40;
+$outlineVariantLight: $neutralVariant80;
+$scrimLight: $neutral0;
+// & dark
+
+:export {
+  @media (prefer-color-scheme: dark) {
+    primary: $primaryDark;
+    Onprimary: $OnprimaryDark;
+    primaryContainer: $primaryContainerDark;
+    OnprimaryContainer: $OnprimaryContainerDark;
+    secondary: $secondaryDark;
+    Onsecondary: $OnsecondaryDark;
+    secondaryContainer: $secondaryContainerDark;
+    OnsecondaryContainer: $OnsecondaryContainerDark;
+    tertiary: $tertiaryDark;
+    Ontertiary: $OntertiaryDark;
+    tertiaryContainer: $tertiaryContainerDark;
+    OntertiaryContainer: $OntertiaryContainerDark;
+    error: $errorDark;
+    errorContainer: $errorContainerDark;
+    Onerror: $OnerrorDark;
+    OnerrorContainer: $OnerrorContainerDark;
+    background: $backgroundDark;
+    Onbackground: $OnbackgroundDark;
+    surface: $surfaceDark;
+    Onsurface: $OnsurfaceDark;
+    surfaceVariant: $surfaceVariantDark;
+    OnsurfaceVariant: $OnsurfaceVariantDark;
+    outline: $outlineDark;
+    inverseOnsurface: $inverseOnsurfaceDark;
+    inverseSurface: $inverseSurfaceDark;
+    inverseprimary: $inverseprimaryDark;
+    shadowColor: $shadowDark;
+    surfaceTint: $surfaceTintDark;
+    outlineVariant: $outlineVariantDark;
+    scrim: $scrimDark;
+    CustomColor1: $CustomColor1;
+  }
+
+  @media (prefer-color-scheme: light) {
+    primary: $primaryLight;
+    Onprimary: $OnprimaryLight;
+    primaryContainer: $primaryContainerLight;
+    OnprimaryContainer: $OnprimaryContainerLight;
+    secondary: $secondaryLight;
+    Onsecondary: $OnsecondaryLight;
+    secondaryContainer: $secondaryContainerLight;
+    OnsecondaryContainer: $OnsecondaryContainerLight;
+    tertiary: $tertiaryLight;
+    Ontertiary: $OntertiaryLight;
+    tertiaryContainer: $tertiaryContainerLight;
+    OntertiaryContainer: $OntertiaryContainerLight;
+    error: $errorLight;
+    errorContainer: $errorContainerLight;
+    Onerror: $OnerrorLight;
+    OnerrorContainer: $OnerrorContainerLight;
+    background: $backgroundLight;
+    Onbackground: $OnbackgroundLight;
+    surface: $surfaceLight;
+    Onsurface: $OnsurfaceLight;
+    surfaceVariant: $surfaceVariantLight;
+    OnsurfaceVariant: $OnsurfaceVariantLight;
+    outline: $outlineLight;
+    inverseOnsurface: $inverseOnsurfaceLight;
+    inverseSurface: $inverseSurfaceLight;
+    inverseprimary: $inverseprimaryLight;
+    shadowColor: $shadowLight;
+    surfaceTint: $surfaceTintLight;
+    outlineVariant: $outlineVariantLight;
+    scrim: $scrimLight;
+    CustomColor1: $CustomColor1;
+  }
+
+  // & surfaces
+  dp0: $dp0;
+  dp1: $dp1;
+  dp2: $dp2;
+  dp3: $dp3;
+  dp4: $dp4;
+  dp5: $dp5;
+  dp6: $dp6;
+  dp7: $dp7;
+  dp8: $dp8;
+  dp9: $dp9;
+  dp10: $dp10;
+  dp11: $dp11;
+  dp12: $dp12;
+  dp13: $dp13;
+  dp14: $dp14;
+  dp15: $dp15;
+  dp16: $dp16;
+  dp17: $dp17;
+  dp18: $dp18;
+  dp19: $dp19;
+  dp20: $dp20;
+  dp21: $dp21;
+  dp22: $dp22;
+  dp23: $dp23;
+  dp24: $dp24;
+}
