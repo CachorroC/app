@@ -1,12 +1,32 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar"
+    ". . . . . . . . . . . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . . . . . . . . . . .";
 }
-
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    ". . . ."
+    ". . . ."
+    ". . . ."
+    ". . . .";
+  grid-area: main;
+}
 .description {
   display: inherit;
   justify-content: inherit;
@@ -97,7 +117,7 @@
 
 .center::before,
 .center::after {
-  content: '';
+  content: "";
   left: 50%;
   position: absolute;
   filter: blur(45px);
@@ -125,7 +145,7 @@
 
 .thirteen::before,
 .thirteen::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
 }

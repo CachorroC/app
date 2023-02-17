@@ -1,8 +1,5 @@
 /** @format */
-import {
-  NextApiRequest,
-  NextApiResponse,
-} from "next/types";
+import { NextApiRequest, NextApiResponse } from "next/types";
 type ResponseData = {
   data: string;
 };
@@ -15,12 +12,8 @@ export default function handler(
   console.log("body: ", body);
 
   if (!body.first || !body.last) {
-    return res
-      .status(400)
-      .json({ data: "First or last name not found" });
+    return res.status(400).json({ data: "First or last name not found" });
   }
 
-  res
-    .status(200)
-    .json({ data: `${body.first} ${body.last}` });
+  res.status(200).json({ data: `${body.first} ${body.last}` });
 }

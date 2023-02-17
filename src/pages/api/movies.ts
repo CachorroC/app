@@ -1,10 +1,7 @@
 /** @format */
 
 import clientPromise from "../../lib/mongodb";
-import {
-  NextApiRequest,
-  NextApiResponse,
-} from "next/types";
+import { NextApiRequest, NextApiResponse } from "next/types";
 
 export default async function Movies(
   req: NextApiRequest,

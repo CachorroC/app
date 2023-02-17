@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '../../lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { NextApiRequest, NextApiResponse } from "next";
+import clientPromise from "../../lib/mongodb";
+import { ObjectId } from "mongodb";
 
 export default async function editLink(
   req: NextApiRequest,
@@ -8,11 +8,11 @@ export default async function editLink(
 ) {
   try {
     const client = await clientPromise;
-    const db = client.db('test');
+    const db = client.db("test");
     const { id } = req.query;
     const { title, content } = req.body;
 
-    const post = await db.collection('links').updateOne(
+    const post = await db.collection("links").updateOne(
       {
         _id: ObjectId,
       },

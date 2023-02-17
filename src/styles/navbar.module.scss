@@ -8,24 +8,20 @@
     height: 10vh;
     display: flex;
     > span {
-      font-variation-settings: 'FILL' 0, 'wght' 200,
-        'GRAD' 0, 'opsz' 24;
+      font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
       color: red;
     }
     &:hover,
     &:active {
-      background-color: var(
-        --md-sys-color-on-tertiary-container
-      );
+      background-color: var(--md-sys-color-on-tertiary-container);
       > span {
-        font-variation-settings: 'FILL' 1, 'wght' 400,
-          'GRAD' 200, 'opsz' 48;
+        font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 48;
       }
     }
   }
 }
 
-.main {
+.navbar {
   top: 0;
   bottom: auto;
   margin: 0 auto;
@@ -35,6 +31,25 @@
   box-shadow: var(--md-elevation-2);
   display: flex;
   flex-flow: row nowrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "menu . search search . extra";
+  grid-area: navbar;
+  .menu {
+    justify-self: center;
+    align-self: center;
+    grid-area: menu;
+  }
+  .extra {
+    grid-area: extra;
+  }
+  .search {
+    justify-self: stretch;
+    align-self: center;
+    grid-area: search;
+  }
   & > .link {
     padding: 2vh;
     flex-grow: 1;
@@ -76,19 +91,13 @@
     margin-left: 0;
     width: auto;
     border-radius: 4px;
-    background-color: rgba(
-      var(--md-sys-color-on-primary),
-      0.15
-    );
+    background-color: rgba(var(--md-sys-color-on-primary), 0.15);
     @media only screen and (max-width: 600px) {
       width: 100%;
       margin-left: 3em;
     }
     &:hover {
-      background-color: rgba(
-        var(--md-sys-color-on-primary),
-        0.25
-      );
+      background-color: rgba(var(--md-sys-color-on-primary), 0.25);
     }
     .searchiconwrapper {
       padding: 0 2em;

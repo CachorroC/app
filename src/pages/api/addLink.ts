@@ -1,7 +1,4 @@
-import {
-  NextApiRequest,
-  NextApiResponse,
-} from "next/types";
+import { NextApiRequest, NextApiResponse } from "next/types";
 import clientPromise from "../../lib/mongodb";
 
 export default async function addLink(
