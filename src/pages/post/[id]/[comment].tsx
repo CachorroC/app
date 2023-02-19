@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import styles from "../../../styles/Home.module.scss";
+import styles from "../../../styles/css/Home.module.css";
 
 export default function CommentPage() {
   const router = useRouter();

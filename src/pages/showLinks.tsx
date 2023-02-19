@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout from "../components/layout";
-import { intLink } from "../types/link.interface";
+import { intLink } from "../interfaces/link.interface";
 type Props = {
   links: [intLink];
 };

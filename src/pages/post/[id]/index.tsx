@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import styles from "../../../styles/Home.module.scss";
+import styles from "../../../styles/css/layout.module.css";
 
 export default function PostPage() {
   const router = useRouter();

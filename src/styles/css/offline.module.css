@@ -1,0 +1,16 @@
+/*colors_core*/
+/*colors_core*/
+/*colors_light*/
+/*colors_core*/
+/*colors_dark*/
+.main {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/*# sourceMappingURL=offline.module.css.map */
