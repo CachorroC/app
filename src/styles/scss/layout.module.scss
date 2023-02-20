@@ -22,7 +22,7 @@
     }
   }
 }
-.container {
+.base {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(10, 1fr);
@@ -31,7 +31,7 @@
   max-height: 100vh;
   max-width: 100vw;
   grid-template-areas:
-    "navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar"
+    "header header header header header header header header header header header header"
     ". . . . . . . . . . . ."
     ". . main main main main main main main main . ."
     ". . main main main main main main main main . ."
@@ -41,54 +41,59 @@
     ". . main main main main main main main main . ."
     ". . main main main main main main main main . ."
     "footer footer footer footer footer footer footer footer footer footer footer footer";
+}
 
-  .navbar {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas: "menu . search search . extra . . . .";
-    grid-area: navbar;
-    position: sticky;
-    top: 0;
-    left: 0;
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: "menu navbar navbar navbar . extra";
+  grid-area: header;
+}
 
-    .menu {
-      justify-self: center;
-      align-self: center;
-      grid-area: menu;
-    }
+.menu {
+  justify-self: center;
+  align-self: center;
+  grid-area: menu;
+}
 
-    .extra {
-      grid-area: extra;
-    }
+.extra {
+  grid-area: extra;
+}
 
-    .search {
-      justify-self: stretch;
-      align-self: center;
-      grid-area: search;
-    }
-    & > a {
-      background-color: var(--md-sys-color-primary);
-      color: var(--md-sys-color-on-primary);
-    }
-  }
-  .main {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-      ". . . ."
-      ". . . ."
-      ". . . ."
-      ". . . .";
-    grid-area: main;
-  }
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: ". . . . . .";
+  justify-self: stretch;
+  align-self: center;
+  grid-area: navbar;
+}
 
-  .footer {
-    grid-area: footer;
-  }
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-auto-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "heroPost heroPost heroPost heroPost"
+    "heroPost heroPost heroPost heroPost"
+    ". . . ."
+    ". . . .";
+  grid-area: main;
+}
+
+.heroPost {
+  grid-area: heroPost;
+}
+
+.footer {
+  grid-area: footer;
 }

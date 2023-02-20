@@ -157,7 +157,8 @@ export default function Index({ allPosts }: Props) {
             date={heroPost.date}
             author={heroPost.author}
             slug={heroPost.slug}
-            excerpt={heroPost.excerpt}
+            excerpt={ heroPost.excerpt }
+            
           />
         )}
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}

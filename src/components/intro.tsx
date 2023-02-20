@@ -1,10 +1,10 @@
 import { CMS_NAME } from "../lib/constants";
 import Layout from "./layout";
-import styles from "../styles/css/intro.module.css";
+import styles from "../styles/css/layout.module.css";
 
 const Intro = () => {
   return (
-    <section className={styles.intro}>
+    <section className={styles.main}>
       <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
         Blog.
       </h1>

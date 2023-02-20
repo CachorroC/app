@@ -14,30 +14,28 @@ import Meta from "./meta";
 import layout from "../styles/css/layout.module.css";
 import Link from "next/link";
 import { Drawer } from "@mui/material";
-import Alert from "./alert";
 
 type Props = {
-  preview?: boolean;
   children: React.ReactNode;
 };
 
-const Layout = ({ preview, children }: Props) => {
+const Layout = ({ children }: Props) => {
   return (
     <>
       <Meta />
-      <div className={layout.container}>
-        <Drawer />
-        <nav className={layout.navbar}>
-          <Link href="/">Home</Link>
-          <Link href="/offline">About</Link>
-          <Link href="/post/first">First Post</Link>
-          <Link href="/post/second">Second Post</Link>
-          <Link href="/showLinks">links</Link>
-        </nav>
+      <div className={layout.base}>
+        <div className={layout.header}>
+          <Drawer />
+          <nav className={layout.navbar}>
+            <Link href="/">Home</Link>
+            <Link href="/offline">About</Link>
+            <Link href="showLinks">Show Links</Link>
+            <Link href="/post/first">First Post</Link>
+            <Link href="/post/second">Second Post</Link>
+            <Link href="/showLinks">links</Link>
+          </nav>
+        </div>
         {children}
-
-        <Alert preview={preview} />
-        <main>{children}</main>
 
         <Footer />
         <footer className={layout.footer}>
