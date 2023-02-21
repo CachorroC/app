@@ -1,137 +1,68 @@
-import Image from 'next/image';
-import { Inter } from '@next/font/google';
-import layout from '../styles/css/layout.module.css';
 import clientPromise from '../lib/mongodb';
-import { InferGetServerSidePropsType } from 'next';
+import { intLink } from '../types/link.interface';
+import Link from 'next/link';
+import styles from '../styles/css/layout.module.css';
+import Head from 'next/head';
 
-const inter = Inter({ subsets: ['latin'] });
-
-export async function getServerSideProps(context: any) {
-  try {
-    await clientPromise;
-    return { props: { isConnected: true } };
-  } catch (e) {
-    console.error(e);
-    return { props: { isConnected: false } };
-  }
-}
-
+// posts will be populated at build time by getStaticProps()
 export default function Home({
-  isConnected,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  links,
+}: {
+  links: intLink[];
+}) {
   return (
     <>
-      <div className={layout.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={layout.code}>
-            {isConnected ? (
-              <h2 className='subtitle'>
-                You are connected to MongoDB
-              </h2>
-            ) : (
-              <h2 className='subtitle'>
-                You are NOT connected to MongoDB. Check the{' '}
-                <code>README.md</code> for instructions.
-              </h2>
-            )}
-          </code>
-        </p>
-        <div>
-          <a
-            href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
+      <ul className={styles.main}>
+        {links.map((link: intLink) => (
+          <Link
+            key={link.name}
+            href={link.url}
+            className={styles.link}
           >
-            By{' '}
-            <Image
-              src='/vercel.svg'
-              alt='Vercel Logo'
-              className={layout.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-      <div className={layout.center}>
-        <Image
-          className={layout.logo}
-          src='/next.svg'
-          alt='Next.js Logo'
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={layout.thirteen}>
-          <Image
-            src='/thirteen.svg'
-            alt='13'
-            width={40}
-            height={31}
-            priority
-          />
-        </div>
-      </div>
-
-      <a
-        href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-        className={layout.card}
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <h2 className={inter.className}>
-          Docs <span>-&gt;</span>
-        </h2>
-        <p className={inter.className}>
-          Find in-depth information about Next.js features
-          and&nbsp;API.
-        </p>
-      </a>
-      <a
-        href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-        className={layout.card}
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <h2 className={inter.className}>
-          Learn <span>-&gt;</span>
-        </h2>
-        <p className={inter.className}>
-          Learn about Next.js in an interactive course
-          with&nbsp;quizzes!
-        </p>
-      </a>
-      <a
-        href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-        className={layout.card}
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <h2 className={inter.className}>
-          Templates <span>-&gt;</span>
-        </h2>
-        <p className={inter.className}>
-          Discover and deploy boilerplate example
-          Next.js&nbsp;projects.
-        </p>
-      </a>
-
-      <a
-        href='https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-        className={layout.card}
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <h2 className={inter.className}>
-          Deploy <span>-&gt;</span>
-        </h2>
-        <p className={inter.className}>
-          Instantly deploy your Next.js site to a shareable
-          URL with&nbsp;Vercel.
-        </p>
-      </a>
+            <li className={styles.card}>
+              <h2 className={styles.linkname}>
+                {link.name}
+              </h2>
+              <span className='material-symbols-outlined'>
+                {link.icon}
+              </span>
+            </li>
+          </Link>
+        ))}
+      </ul>{' '}
     </>
   );
+}
+
+// This function gets called at build time on server-side.
+// It won't be called on client-side, so you can even do
+// direct database queries.
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+
+  try {
+    const client = await clientPromise;
+    const db = client.db('test');
+    const links = await db
+      .collection('links')
+      .find({})
+
+      .limit(20)
+      .toArray();
+
+    // By returning { props: { posts } }, the Home component
+    // will receive `posts` as a prop at build time
+    return {
+      props: {
+        isConnected: true,
+        links: JSON.parse(JSON.stringify(links)),
+      },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      props: { isConnected: false },
+    };
+  }
 }
