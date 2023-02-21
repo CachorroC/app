@@ -1,35 +1,23 @@
-import clientPromise from '../lib/mongodb';
-import { intLink } from '../types/link.interface';
-import Link from 'next/link';
-import styles from '../styles/css/layout.module.css';
-import Head from 'next/head';
+import clientPromise from "../lib/mongodb";
+import { intLink } from "../types/link.interface";
+import Link from "next/link";
+import styles from "../styles/css/layout.module.css";
+import Head from "next/head";
 
 // posts will be populated at build time by getStaticProps()
-export default function Home({
-  links,
-}: {
-  links: intLink[];
-}) {
+export default function Home({ links }: { links: intLink[] }) {
   return (
     <>
       <ul className={styles.main}>
         {links.map((link: intLink) => (
-          <Link
-            key={link.name}
-            href={link.url}
-            className={styles.link}
-          >
+          <Link key={link.name} href={link.url} className={styles.link}>
             <li className={styles.card}>
-              <h2 className={styles.linkname}>
-                {link.name}
-              </h2>
-              <span className='material-symbols-outlined'>
-                {link.icon}
-              </span>
+              <h2 className={styles.linkname}>{link.name}</h2>
+              <span className="material-symbols-outlined">{link.icon}</span>
             </li>
           </Link>
         ))}
-      </ul>{' '}
+      </ul>{" "}
     </>
   );
 }
@@ -43,9 +31,9 @@ export async function getStaticProps() {
 
   try {
     const client = await clientPromise;
-    const db = client.db('test');
+    const db = client.db("test");
     const links = await db
-      .collection('links')
+      .collection("links")
       .find({})
 
       .limit(20)

@@ -17,4 +17,3 @@ export default async function Links(req: NextApiRequest, res: NextApiResponse) {
     console.error(e);
   }
 }
-
