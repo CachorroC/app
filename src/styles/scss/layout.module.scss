@@ -22,6 +22,12 @@
     }
   }
 }
+.card {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  box-shadow: var(--md-elevation-6);
+}
+
 .base {
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
