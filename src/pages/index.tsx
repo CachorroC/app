@@ -40,7 +40,6 @@ export default function Home({
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-
   try {
     const client = await clientPromise;
     const db = client.db('test');
