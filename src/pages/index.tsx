@@ -47,7 +47,6 @@ export async function getStaticProps() {
     const links = await db
       .collection('links')
       .find({})
-
       .limit(20)
       .toArray();
 
