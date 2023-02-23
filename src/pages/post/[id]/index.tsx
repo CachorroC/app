@@ -5,7 +5,6 @@ import styles from "../../../styles/css/layout.module.css";
 export default function PostPage() {
   const router = useRouter();
   const id = router.query.id as string;
-
   return (
     <main className={styles.main}>
       <h1>Post: {id}</h1>
@@ -13,7 +12,6 @@ export default function PostPage() {
         <Link href={`/post/${id}/first-comment`} className={styles.card}>
           First comment
         </Link>
-
         <Link href={`/post/${id}/second-comment`} className={styles.card}>
           Second comment
         </Link>
