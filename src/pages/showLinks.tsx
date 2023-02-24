@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Layout from '../components/layout';
+import styles from '../styles/css/layout.module.css';
 import { intLink } from '../interfaces/link.interface';
 type Props = {
   links: [intLink];
@@ -45,12 +46,10 @@ export default function Links(props: Props) {
   };
   return (
     <>
-      <div className='links-body'>
-        <h1 className='links-body-heading'>
-          Top 20 Added Links
-        </h1>
+      <>
+        <h1 className={styles.title}>Top 20 Added Links</h1>
         {links.length > 0 ? (
-          <ul className='links-list'>
+          <ul className={styles.links}>
             {links.map((link, index) => {
               return (
                 <li
@@ -59,7 +58,6 @@ export default function Links(props: Props) {
                 >
                   <div className='link-item-details'>
                     <h2>{link.name}</h2>
-
                     <p>{link.url}</p>
                   </div>
                   <div className='link-item-actions'>
@@ -83,7 +81,7 @@ export default function Links(props: Props) {
             Ooops! No links added so far
           </h2>
         )}
-      </div>
+      </>
       <style jsx>
         {`
           .links-body {

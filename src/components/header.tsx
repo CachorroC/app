@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Header() {
   return (
     <div className={styles.header}>
-      <Drawer />
+      <span className='material-symbols-outlined'>home</span>
       <nav className={styles.navbar}>
         <Link href='/'>Home</Link>
         <Link href='/offline'>About</Link>
@@ -14,6 +14,7 @@ export default function Header() {
         <Link href='/post/second'>Second Post</Link>
         <Link href='/showLinks'>links</Link>
       </nav>
+      <Drawer />
     </div>
   );
 }

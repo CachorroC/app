@@ -12,7 +12,7 @@ export default function Home({
 }) {
   return (
     <>
-      <ul className={styles.main}>
+      <ul className={styles.links}>
         {links.map((link: intLink) => (
           <Link
             key={link.name}

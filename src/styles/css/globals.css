@@ -439,6 +439,7 @@ h1 {
 }
 
 @media (prefers-color-scheme: dark) {
+  @import url("theme/_tokens.scss");
   html {
     color-scheme: dark;
   }

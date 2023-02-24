@@ -1,5 +1,104 @@
-@import 'theme/theme';
-@import url('theme/_tokens.scss');
+@import 'mixins';
+
+.card {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  box-shadow: var(--md-elevation-6);
+  border-radius: 5rem;
+}
+
+.base {
+  @include grid-container(repeat(12, 1fr), repeat(10, 1fr));
+
+  width: 100vw;
+  height: 100vh;
+  grid-template-areas:
+    'header header header header header header header header header header header header'
+    '. . . . . . . . . . . .'
+    '. . main main main main main main main main . .'
+    '. . main main main main main main main main . .'
+    '. . main main main main main main main main . .'
+    '. . main main main main main main main main . .'
+    '. . main main main main main main main main . .'
+    '. . main main main main main main main main . .'
+    '. . main main main main main main main main . .'
+    'footer footer footer footer footer footer footer footer footer footer footer footer';
+
+  .header {
+    grid-area: header;
+    @include flex-container;
+
+    
+
+    .navbar {
+      @include flex-items(3, 1, 0);
+      @include grid-container(
+        repeat(8, 1fr),
+        1fr,
+        row nowrap,
+        var(--md-elevation-8),
+        var(--md-sys-color-primary-container),
+        var(--md-sys-color-on-primary-container)
+      );
+      grid-template-areas: '. . . . . .';
+      justify-self: stretch;
+      align-self: center;
+      grid-area: navbar;
+    }
+  }
+
+  .main {
+    @include grid-container(
+      repeat(4, 1fr),
+      repeat(7, 1fr),
+      var(--md-elevation-2),
+      var(--md-sys-color-primary-container),
+      var(--md-sys-color-on-primary-container)
+    );
+    grid-template-areas:
+      '. title title .'
+      '. title title .'
+      'links links links links'
+      'links links links links'
+      'links links links links'
+      'links links links links'
+      'links links links links';
+    grid-area: main;
+    .title {
+      grid-area: title;
+      text-align: center;
+      margin: auto;
+      color: var(--md-sys-color-primary);
+    }
+    .links {
+      @include grid-container(
+        repeat(2, 1fr),
+        repeat(7, 1fr),
+        var(--md-elevation-1)
+      );
+      grid-template-areas:
+        '. .'
+        '. .'
+        '. .'
+        '. .'
+        '. .'
+        '. .'
+        '. .';
+      grid-area: links;
+      list-style-position: inside;
+      & > li {
+        background-color: var(
+          --md-sys-color-secondary-container
+        );
+        color: var(--md-sys-color-on-secondary-container);
+      }
+    }
+  }
+
+  .footer {
+    grid-area: footer;
+  }
+}
 @media screen and (prefers-color-scheme: light) {
   @import 'theme/colors.light';
   .base {
@@ -23,86 +122,4 @@
       color: $on-primary-container;
     }
   }
-}
-.card {
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
-  box-shadow: var(--md-elevation-6);
-  border-radius: 5rem;
-}
-
-.base {
-  background-color: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  width: 100vw;
-  height: 100vh;
-  grid-template-areas:
-    'header header header header header header header header header header header header'
-    '. . . . . . . . . . . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    'footer footer footer footer footer footer footer footer footer footer footer footer';
-}
-
-.header {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas: 'menu navbar navbar navbar . extra';
-  grid-area: header;
-}
-
-.menu {
-  justify-self: center;
-  align-self: center;
-  grid-area: menu;
-}
-
-.extra {
-  grid-area: extra;
-}
-
-.navbar {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas: '. . . . . .';
-  justify-self: stretch;
-  align-self: center;
-  grid-area: navbar;
-}
-
-.main {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    '. . . .'
-    '. . . .'
-    '. . . .'
-    '. . . .'
-    '. . . .'
-    '. . . .'
-    '. . . .';
-  grid-area: main;
-}
-
-.footer {
-  grid-area: footer;
 }

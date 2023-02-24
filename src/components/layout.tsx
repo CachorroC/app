@@ -15,6 +15,7 @@ import styles from '../styles/css/layout.module.css';
 import Link from 'next/link';
 import Header from '../components/header';
 import { Drawer } from '@mui/material';
+import Container from '../components/container';
 
 type Props = {
   children: React.ReactNode;
@@ -26,7 +27,7 @@ const Layout = ({ children }: Props) => {
       <Meta />
       <div className={styles.base}>
         <Header />
-        {children}
+        <Container>{children}</Container>
         <Footer />
       </div>
     </>
