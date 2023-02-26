@@ -1,4 +1,9 @@
-@import 'theme/theme';
+@import 'theme/colors';
+@import 'theme/colors.light';
+@import 'theme/colors.dark';
+
+@import url('theme/theme.css');
+@import url('theme/tokens.css');
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -38,7 +43,7 @@
   --card-border-rgb: 131, 134, 135;
 }
 @media (prefers-color-scheme: dark) {
-  @import url('../styles/theme/theme.dark.css');
+  @import url('theme/theme.dark.css');
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -93,7 +98,6 @@ h1 {
   font-family: 'Poiret One';
 }
 @media (prefers-color-scheme: dark) {
-  @import url('theme/_tokens.scss');
   html {
     color-scheme: dark;
   }

@@ -11,13 +11,16 @@
   align-content: stretch;
   align-items: stretch;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  gap: 0 0;
+  grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
+  grid-gap: 1em;
   box-shadow: var(--md-elevation-4);
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
   display: grid;
   grid-auto-flow: row;
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  box-shadow: var(--md-elevation-1);
   width: 100vw;
   height: 100vh;
   grid-template-areas: "header header header header header header header header header header header header" ". . . . . . . . . . . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." "footer footer footer footer footer footer footer footer footer footer footer footer";
@@ -30,10 +33,13 @@
   justify-content: space-around;
   align-items: stretch;
   align-content: center;
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  box-shadow: var(--md-elevation-4);
 }
 .base .header .navbar {
   margin: auto;
-  flex-grow: 3;
+  flex-grow: 2;
   flex-shrink: 1;
   flex-basis: auto;
   align-self: auto;
@@ -42,9 +48,9 @@
   justify-items: stretch;
   align-content: stretch;
   align-items: stretch;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: 1fr;
-  gap: 0 0;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 1em;
   box-shadow: row nowrap;
   background-color: var(--md-elevation-8);
   color: var(--md-sys-color-primary-container);
@@ -62,7 +68,7 @@
   align-items: stretch;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(7, 1fr);
-  gap: 0 0;
+  grid-gap: 1em;
   box-shadow: var(--md-elevation-2);
   background-color: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
@@ -84,7 +90,7 @@
   align-items: stretch;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(7, 1fr);
-  gap: 0 0;
+  grid-gap: 1em;
   box-shadow: var(--md-elevation-1);
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
@@ -95,38 +101,13 @@
   list-style-position: inside;
 }
 .base .main .links > li {
+  padding: 1%;
+  margin: 2rem;
   background-color: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
 }
 .base .footer {
   grid-area: footer;
-}
-
-@media screen and (prefers-color-scheme: light) {
-  /*colors_core*/
-  /*colors_light*/
-  .base {
-    background-color: #ffd6f8;
-    color: #37003a;
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  }
-  .base .header {
-    background-color: #a600af;
-    color: #ffffff;
-    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  }
-}
-@media screen and (prefers-color-scheme: dark) {
-  /*colors_core*/
-  /*colors_dark*/
-  .base {
-    background-color: #000000;
-    color: #e5deff;
-  }
-  .base .header {
-    background-color: #7f0086;
-    color: #ffd6f8;
-  }
 }
 
 /*# sourceMappingURL=layout.module.css.map */

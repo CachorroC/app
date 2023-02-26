@@ -8,8 +8,10 @@
 }
 
 .base {
-  @include grid-container(repeat(12, 1fr), repeat(10, 1fr));
-
+  @include grid-container(repeat(12, 1fr));
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  box-shadow: var(--md-elevation-1);
   width: 100vw;
   height: 100vh;
   grid-template-areas:
@@ -27,14 +29,14 @@
   .header {
     grid-area: header;
     @include flex-container;
-
-    
-
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    box-shadow: var(--md-elevation-4);
     .navbar {
-      @include flex-items(3, 1, 0);
+      @include flex-items(2, 1, 0);
       @include grid-container(
-        repeat(8, 1fr),
-        1fr,
+        repeat(4, 1fr),
+        repeat(2, 1fr),
         row nowrap,
         var(--md-elevation-8),
         var(--md-sys-color-primary-container),
@@ -87,6 +89,8 @@
       grid-area: links;
       list-style-position: inside;
       & > li {
+        padding: 1%;
+        margin: 2rem;
         background-color: var(
           --md-sys-color-secondary-container
         );
@@ -97,29 +101,5 @@
 
   .footer {
     grid-area: footer;
-  }
-}
-@media screen and (prefers-color-scheme: light) {
-  @import 'theme/colors.light';
-  .base {
-    background-color: $primary-container;
-    color: $on-primary-container;
-    box-shadow: $dp1;
-    .header {
-      background-color: $primary;
-      color: $on-primary;
-      box-shadow: $dp4;
-    }
-  }
-}
-@media screen and (prefers-color-scheme: dark) {
-  @import 'theme/colors.dark';
-  .base {
-    background-color: $background;
-    color: $on-background;
-    .header {
-      background-color: $primary-container;
-      color: $on-primary-container;
-    }
   }
 }

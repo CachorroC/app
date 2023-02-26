@@ -18,7 +18,7 @@ import { Drawer } from '@mui/material';
 import Container from '../components/container';
 
 type Props = {
-  children: React.ReactNode;
+  children: React.ReactNode
 };
 
 const Layout = ({ children }: Props) => {

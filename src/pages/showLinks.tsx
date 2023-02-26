@@ -12,7 +12,6 @@ export async function getServerSideProps() {
       'http://localhost:3000/api/getLinks'
     );
     let links = await response.json();
-
     return {
       props: { links: JSON.parse(JSON.stringify(links)) },
     };
