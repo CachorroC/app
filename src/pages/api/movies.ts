@@ -16,12 +16,12 @@ export default async function Movies(
       .find({})
       .sort({ metacritic: -1 })
       .limit(10)
-      .toArray();
+      .toArray(); //?
 
     res.json(movies);
     console.log(res.json(movies));
   } catch (e) {
-    console.log(e);
+    console.log(e); //?
     console.error(e);
   }
-}
+} //?
