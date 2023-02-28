@@ -13,22 +13,24 @@ export default function Home({
   return (
     <>
       <ul className={styles.links}>
-        {links.map((link: intLink) => (
-          <Link
-            key={link.name}
-            href={link.url}
-            className={styles.card}
-          >
-            <li>
-              <h2 className={styles.linkname}>
-                {link.name}
-              </h2>
-              <span className='material-symbols-outlined'>
-                {link.icon}
-              </span>
-            </li>
-          </Link>
-        ))}
+        {links.map((link: intLink) => {
+          return (
+            <Link
+              key={link.name}
+              href={link.url}
+              className={styles.card}
+            >
+              <li>
+                <h2 className={styles.linkname}>
+                  {link.name}
+                </h2>
+                <span className='material-symbols-outlined'>
+                  {link.icon}
+                </span>
+              </li>
+            </Link>
+          );
+        })}
       </ul>{' '}
     </>
   );
@@ -49,7 +51,7 @@ export async function getStaticProps() {
       .limit(20)
       .toArray();
 
-    // By returning { props: { posts } }, the Home component
+    // By returning { props: { posts } }, the Home component/*  */
     // will receive `posts` as a prop at build time
     return {
       props: {
