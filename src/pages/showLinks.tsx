@@ -1,16 +1,14 @@
-import { useState } from 'react';
-import Layout from '../components/layout';
-import styles from '../styles/css/layout.module.css';
-import { intLink } from '../interfaces/link.interface';
+import { useState } from "react";
+import Layout from "../components/layout";
+import styles from "../styles/css/layout.module.css";
+import { intLink } from "../interfaces/link.interface";
 type Props = {
   links: [intLink];
 };
 
 export async function getServerSideProps() {
   try {
-    let response = await fetch(
-      'http://localhost:3000/api/getLinks'
-    );
+    let response = await fetch("http://localhost:3000/api/getLinks");
     let links = await response.json();
     return {
       props: { links: JSON.parse(JSON.stringify(links)) },
@@ -25,22 +23,19 @@ export default function Links(props: Props) {
   const handleDeleteLink = async (linkId: string) => {
     try {
       let response = await fetch(
-        'http://localhost:3000/api/delLink?id=' + linkId,
+        "http://localhost:3000/api/delLink?id=" + linkId,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            Accept: 'application/json, text/plain, */*',
-            'Content-Type': 'application/json',
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
           },
         }
       );
       response = await response.json();
       window.location.reload();
     } catch (error) {
-      console.log(
-        'An error occurred while deleting ',
-        error
-      );
+      console.log("An error occurred while deleting ", error);
     }
   };
   return (
@@ -51,21 +46,16 @@ export default function Links(props: Props) {
           <ul className={styles.links}>
             {links.map((link, index) => {
               return (
-                <li
-                  key={index}
-                  className='link-item'
-                >
-                  <div className='link-item-details'>
+                <li key={index} className="link-item">
+                  <div className="link-item-details">
                     <h2>{link.name}</h2>
                     <p>{link.url}</p>
                   </div>
-                  <div className='link-item-actions'>
+                  <div className="link-item-actions">
                     <a href={`/links/${link._id}`}>Edit</a>
                     <button
                       onClick={() =>
-                        handleDeleteLink(
-                          link._id as unknown as string
-                        )
+                        handleDeleteLink(link._id as unknown as string)
                       }
                     >
                       Delete
@@ -76,9 +66,7 @@ export default function Links(props: Props) {
             })}
           </ul>
         ) : (
-          <h2 className='links-body-heading'>
-            Ooops! No links added so far
-          </h2>
+          <h2 className="links-body-heading">Ooops! No links added so far</h2>
         )}
       </>
       <style jsx>

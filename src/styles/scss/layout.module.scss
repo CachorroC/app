@@ -1,4 +1,4 @@
-@import 'mixins';
+@import "mixins";
 
 .card {
   background-color: var(--md-sys-color-primary-container);
@@ -15,16 +15,16 @@
   width: 100vw;
   height: 100vh;
   grid-template-areas:
-    'header header header header header header header header header header header header'
-    '. . . . . . . . . . . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    '. . main main main main main main main main . .'
-    'footer footer footer footer footer footer footer footer footer footer footer footer';
+    "header header header header header header header header header header header header"
+    ". . . . . . . . . . . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    ". . main main main main main main main main . ."
+    "footer footer footer footer footer footer footer footer footer footer footer footer";
 
   .header {
     grid-area: header;
@@ -42,7 +42,7 @@
         var(--md-sys-color-primary-container),
         var(--md-sys-color-on-primary-container)
       );
-      grid-template-areas: '. . . . . .';
+      grid-template-areas: ". . . . . .";
       justify-self: stretch;
       align-self: center;
       grid-area: navbar;
@@ -58,13 +58,13 @@
       var(--md-sys-color-on-primary-container)
     );
     grid-template-areas:
-      '. title title .'
-      '. title title .'
-      'links links links links'
-      'links links links links'
-      'links links links links'
-      'links links links links'
-      'links links links links';
+      ". title title ."
+      ". title title ."
+      "links links links links"
+      "links links links links"
+      "links links links links"
+      "links links links links"
+      "links links links links";
     grid-area: main;
     .title {
       grid-area: title;
@@ -79,21 +79,19 @@
         var(--md-elevation-1)
       );
       grid-template-areas:
-        '. .'
-        '. .'
-        '. .'
-        '. .'
-        '. .'
-        '. .'
-        '. .';
+        ". ."
+        ". ."
+        ". ."
+        ". ."
+        ". ."
+        ". ."
+        ". .";
       grid-area: links;
       list-style-position: inside;
       & > li {
         padding: 1%;
         margin: 2rem;
-        background-color: var(
-          --md-sys-color-secondary-container
-        );
+        background-color: var(--md-sys-color-secondary-container);
         color: var(--md-sys-color-on-secondary-container);
       }
     }
