@@ -1,0 +1,54 @@
+.planets {
+  display: grid;
+}
+.card {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  grid-template-rows: 0.5fr 1fr 1fr 0.5fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'number number . . . . .'
+    'number number name . . . .'
+    '. . . . . . .'
+    '. temp temp temp . . .';
+  background-color: var(--md-sys-color-tertiary-container);
+  box-shadow: var(--md-elevation-2);
+
+  .number {
+    grid-area: number;
+  }
+  .temp {
+    grid-area: temp;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas: 'min max mean';
+    background-color: var(
+      --md-sys-color-on-tertiary-container
+    );
+
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    li {
+      color: var(--md-sys-color-tertiary-container);
+      display: inline-flex;
+
+      &.min {
+        grid-area: min;
+      }
+      &.max {
+        grid-area: max;
+      }
+      &.mean {
+        grid-area: mean;
+      }
+    }
+  }
+
+  .name {
+    grid-area: name;
+  }
+}
