@@ -37,6 +37,7 @@ export async function getStaticProps() {
 
     // By returning { props: { posts } }, the Home component/*  */
     // will receive `posts` as a prop at build time
+    
     return {
       props: {
         isConnected: true,

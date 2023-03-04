@@ -7,9 +7,9 @@ export default async function getLinks(
 ) {
   try {
     const client = await clientPromise;
-    const db = client.db("test");
+    const db = client.db("sample_training");
 
-    const links = await db.collection("links").find({}).limit(20).toArray();
+    const links = await db.collection("posts").find({}).limit(20).toArray();
 
     res.json(links);
   } catch (e: any | undefined) {
