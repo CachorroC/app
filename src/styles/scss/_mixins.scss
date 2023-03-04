@@ -1,0 +1,48 @@
+//? justify content, justify items, align content, align items, grid-template-columns, grid-template-rows
+@mixin grid-container(
+  $gtc: repeat(auto-fit, minmax(180px, 1fr)),
+  $gtr: repeat(auto-fit, minmax(50px, 1fr)),
+  $bs: var(--md-elevation-4),
+  $bgc: var(--md-sys-color-surface),
+  $color: var(--md-sys-color-on-surface),
+  $jc: space-evenly,
+  $ji: stretch,
+  $ac: stretch,
+  $ai: stretch
+) {
+  justify-content: $jc;
+  justify-items: $ji;
+  align-content: $ac;
+  align-items: $ai;
+  grid-template-columns: $gtc;
+  grid-template-rows: $gtr;
+  grid-gap: 1em;
+  box-shadow: $bs;
+  background-color: $bgc;
+  color: $color;
+  display: grid;
+  grid-auto-flow: row;
+}
+
+@mixin flex-container(
+  $ff: row nowrap,
+  $jc: space-around,
+  $ai: stretch,
+  $ac: center
+) {
+  display: flex;
+  width: 100%;
+  flex-flow: $ff;
+  justify-content: $jc;
+  align-items: $ai;
+  align-content: $ac;
+}
+
+@mixin flex-items($fg: 0, $fs: 1, $order: 0) {
+  margin: auto;
+  flex-grow: $fg;
+  flex-shrink: $fs;
+  flex-basis: auto;
+  align-self: auto;
+  order: $order;
+}
