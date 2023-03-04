@@ -74,7 +74,7 @@ export default function Drawer() {
   );
 
   return (
-    <div>
+    <>
       {(["left", "right", "top", "bottom"] as const).map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
@@ -88,6 +88,6 @@ export default function Drawer() {
           </SwipeableDrawer>
         </React.Fragment>
       ))}
-    </div>
+    </>
   );
 }
