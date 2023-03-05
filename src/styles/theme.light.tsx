@@ -1,6 +1,10 @@
 import { ThemeOptions } from '@mui/material/styles';
 
-export const themeOptions: ThemeOptions = {
+interface ThemeOptions2 extends ThemeOptions {
+  props: object;
+  overrides: object;
+}
+export const themeOptions: ThemeOptions2 = {
   palette: {
     mode: 'light',
     primary: {
