@@ -2,6 +2,7 @@ import Navbar from '../components/navbar';
 import styles from '../styles/css/layout.module.css';
 import DrawerAppBar from './appbar';
 import 'material-symbols';
+import { routes } from '../lib/router';
 import * as React from 'react';
 import {
   AppBar,
@@ -18,6 +19,7 @@ import {
   Typography,
 } from '@mui/material';
 import Link from 'next/link';
+import { intItem } from '../types/router.interface';
 
 const drawerWidth = 240;
 const navItems = [
@@ -51,13 +53,13 @@ export default function Header() {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
+        {routes.map((item) => (
           <Link
-            key={item}
-            href={item}
+            key={item.slug}
+            href={item.slug}
           >
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+              {item.name}
             </ListItemButton>
           </Link>
         ))}
@@ -73,19 +75,22 @@ export default function Header() {
               aria-label='open drawer'
               edge='start'
               onClick={handleDrawerToggle}
+              className={styles.menu}
             >
               <span className='material-symbols-outlined'>
                 density_medium
               </span>
             </IconButton>
-            <Box>
-              {navItems.map((item) => (
-                <Button
-                  key={item}
-                  sx={{ color: '#fff' }}
+            <Box className={styles.navbar}>
+              {routes.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.slug}
                 >
-                  {item}
-                </Button>
+                  <span className='material-symbols-outlined'>
+                    {item.icon}
+                  </span>
+                </Link>
               ))}
             </Box>
           </Toolbar>
