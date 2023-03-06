@@ -1,0 +1,33 @@
+.
+./api
+./api/addLink.ts
+./api/delLink.ts
+./api/editLink.ts
+./api/formdoc.ts
+./api/form.ts
+./api/getLinks.ts
+./api/getLink.ts
+./api/getPlanets.ts
+./api/getPosts.ts
+./api/getWeather.ts
+./api/hello copy.ts
+./api/hello.ts
+./api/index.ts
+./api/links.ts
+./api/movies.ts
+./api/Untitled-1.json
+./_app.tsx
+./blog.tsx
+./_document.tsx
+./index.tsx
+./_offline.tsx
+./planets.tsx
+./post
+./post/[id]
+./post/[id]/[comment].tsx
+./post/[id]/index.tsx
+./posts
+./posts/[slug].tsx
+./showLinks.tsx
+
+4 directories, 26 files
