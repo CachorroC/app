@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Layout from '../components/layout';
-import styles from '../styles/css/card.module.css';
+import styles from '../styles/css/layout.module.css';
 import { intPlanet } from '../interfaces/planet.interface';
 import clientPromise from '../lib/mongodb';
 import Card from '../components/card';
@@ -47,11 +47,12 @@ export default function Planets(props: Props) {
           Top 20 Added Planets
         </h1>
         {planets.length > 0 ? (
-          <ul className={styles.planets}>
+          <ul className={styles.links}>
             {planets.map((planet, index) => {
               return (
                 <Card
                   key={planet.orderFromSun}
+                 
                   name={planet.name}
                   orderFromSun={planet.orderFromSun}
                   hasRings={planet.hasRings}

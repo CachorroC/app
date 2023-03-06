@@ -29,4 +29,6 @@ export const routes: intItem[] = [
     slug: '/api/getLinks',
     icon: 'church',
   },
+  { name: 'api movies', slug: '/api/movies' },
+  { name: 'form', slug: '/api/form', icon: 'form' },
 ];
