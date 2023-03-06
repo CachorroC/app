@@ -52,7 +52,7 @@ export default function Planets(props: Props) {
               return (
                 <Card
                   key={planet.orderFromSun}
-                 
+
                   name={planet.name}
                   orderFromSun={planet.orderFromSun}
                   hasRings={planet.hasRings}

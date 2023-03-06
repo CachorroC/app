@@ -16,14 +16,14 @@ export default function Card(item: intPlanet) {
         </h1>
         <div className={styles.coretext}>
           <h2 className={styles.name}>{item.name}</h2>
-          <ul className={styles.links}>
-            <li className={styles.mean}>
+          <ul >
+            <li >
               {item.surfaceTemperatureC.mean}
             </li>
-            <li className={styles.min}>
+            <li >
               {item.surfaceTemperatureC.min}
             </li>
-            <li className={styles.max}>
+            <li >
               {item.surfaceTemperatureC.max}
             </li>
           </ul>

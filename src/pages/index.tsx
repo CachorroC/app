@@ -15,20 +15,22 @@ export default function Home({
       <ul className={styles.links}>
         {links.map((link: intLink) => {
           return (
-            <Link
-              key={link.name}
-              href={link.url}
+            <div
               className={styles.card}
+              key={link.name}
             >
-              <li className={styles.coretext}>
-                <h2 className={styles.linkname}>
-                  {link.name}
-                </h2>
+              <h2 className={styles.linkname}>
+                {link.name}
+              </h2>
+              <Link
+                href={link.url}
+                className={styles.link}
+              >
                 <span className='material-symbols-outlined'>
                   {link.icon}
                 </span>
-              </li>
-            </Link>
+              </Link>
+            </div>
           );
         })}
       </ul>{' '}

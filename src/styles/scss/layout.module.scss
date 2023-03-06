@@ -68,9 +68,7 @@
     @include grid-container(
       repeat(4, 1fr),
       repeat(7, 1fr),
-      var(--md-elevation-2),
-      var(--md-sys-color-primary-container),
-      var(--md-sys-color-on-primary-container)
+      var(--md-elevation-2)
     );
     grid-template-areas:
       '. title title .'
@@ -89,27 +87,21 @@
     }
     .links {
       @include grid-container(
-        repeat(6, 1fr),
-        repeat(7, 1fr),
+        repeat(4, 1fr),
+        repeat(3, 1fr),
+        2%,
         var(--md-elevation-1)
       );
       grid-template-areas:
-        '. . . . . .'
-        '. . . . . .'
-        '. . . . . .'
-        '. . . . . .'
-        '. . . . . .'
-        '. . . . . .'
-        '. . . . . .';
+        '. . . . '
+        '. . . . '
+        '. . . . ';
       grid-area: links;
       list-style-position: inside;
+      padding: 2%;
       & > li {
         padding: 1%;
         margin: 2rem;
-        background-color: var(
-          --md-sys-color-secondary-container
-        );
-        color: var(--md-sys-color-on-secondary-container);
       }
     }
   }
@@ -120,31 +112,32 @@
 }
 
 .card {
-  background-color: var(--md-sys-color-surface);
+  background-color: var(--md-surface-1);
   color: var(--md-sys-color-on-surface);
-  box-shadow: var(--md-elevation-1);
-  border-radius: 5rem;
+  box-shadow: var(--md-elevation-2);
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
-
-  border: 1px solid #cad0d2;
-  .coretext {
+  padding: 5%;
+  text-align: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  & > a,
+  & > .link {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    border-radius: 5vh;
+    margin: 2%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 15px 0;
-  }
-  & > a {
-    background-color: var(--md-sys-color-tertiary);
-    color: var(--md-sys-color-on-tertiary);
-    margin: 2%;
 
     & > span {
       margin: 0 auto;
       font-variation-settings: 'FILL' 0, 'wght' 300,
         'GRAD' 0, 'opsz' 24;
-      padding: 2%;
     }
     &:hover {
       background-color: var(--md-sys-color-inverse-surface);
@@ -154,5 +147,12 @@
           'GRAD' 0, 'opsz' 48;
       }
     }
+  }
+  &:hover {
+    background-color: var(--md-surface-4);
+  }
+  &:active {
+    background-color: var(--md-surface-5);
+    box-shadow: var(--md-elevation-8);
   }
 }
