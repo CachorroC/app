@@ -26,40 +26,57 @@
   grid-template-areas: "header header header header header header header header header header header header" ". . . . . . . . . . . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." ". . main main main main main main main main . ." "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 .base .header {
-  grid-area: header;
-  display: flex;
-  width: 100%;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  align-items: stretch;
-  align-content: center;
-  background-color: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-  box-shadow: var(--md-elevation-4);
-}
-.base .header .navbar {
-  margin: auto;
-  flex-grow: 2;
-  flex-shrink: 1;
-  flex-basis: auto;
-  align-self: auto;
-  order: 0;
   justify-content: space-evenly;
   justify-items: stretch;
   align-content: stretch;
   align-items: stretch;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-gap: row nowrap;
-  box-shadow: var(--md-elevation-8);
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr;
+  grid-gap: 0px;
+  box-shadow: var(--md-elevation-4);
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  display: grid;
+  grid-auto-flow: row;
+  grid-area: header;
+  grid-template-areas: "menu navbar navbar navbar . extra";
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+.base .header .navbar {
+  justify-content: var(--md-sys-color-on-primary-container);
+  justify-items: stretch;
+  align-content: stretch;
+  align-items: stretch;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 1fr;
+  grid-gap: 0;
+  box-shadow: stretch;
+  background-color: var(--md-elevation-8);
+  color: var(--md-sys-color-primary-container);
   display: grid;
   grid-auto-flow: row;
   grid-template-areas: ". . . . . .";
   justify-self: stretch;
-  align-self: center;
+  align-self: stretch;
   grid-area: navbar;
+}
+.base .header .navbar > a {
+  box-shadow: var(--md-elevation-3);
+  margin: 1%;
+  color: var(--md-sys-color-on-primary);
+}
+.base .header .navbar > a > span {
+  margin: 0 auto;
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+}
+.base .header .navbar > a:hover {
+  color: var(--md-sys-color-on-primary-container);
+  background-color: var(--md-sys-color-primary-container);
+  box-shadow: var(--md-elevation-15);
+}
+.base .header .navbar > a:hover > span {
+  font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 48;
 }
 .base .main {
   justify-content: space-evenly;
