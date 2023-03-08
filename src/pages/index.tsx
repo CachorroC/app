@@ -1,7 +1,7 @@
 import clientPromise from '../lib/mongodb';
 import { intLink } from '../types/link.interface';
 import Link from 'next/link';
-import styles from '../styles/css/layout.module.css';
+import styles from '../styles/css/card.module.css';
 import Head from 'next/head';
 
 // posts will be populated at build time by getStaticProps()
