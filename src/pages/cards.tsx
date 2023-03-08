@@ -55,10 +55,9 @@ export default function Cards(props: Props) {
                 url={card.url}
                 state={card.state}
                 avatar={card.avatar}
-                list={[]}
-              >
-            
-              </Card>
+                list={card.list}
+                button={card.button}
+              ></Card>
             );
           })}
         </ul>

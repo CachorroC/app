@@ -11,6 +11,7 @@ import {
 } from '../types/card';
 import Avatar from './avatar';
 import Button from './button';
+import { Children } from 'react';
 
 type Props = {
   title: string;
@@ -47,13 +48,6 @@ const Card = ({
         name={avatar.name}
         src={avatar.src}
       />
-      <Button
-        text={button.text}
-        icon={button.icon}
-        href={button.href}
-        className={styles.btn1}
-      />
-
       <p className={styles.description}>{description}</p>
       <ul className={styles.list}>
         {list.map((item, index) => {

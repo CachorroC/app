@@ -6,7 +6,7 @@ export interface intCard {
   url: string;
   state: boolean;
   avatar: intAvatar;
-  button: intButton[];
+  button: intButton;
   list: intList[];
   description?: string;
 }
