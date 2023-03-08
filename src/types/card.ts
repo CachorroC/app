@@ -12,15 +12,17 @@ export interface intCard {
 }
 
 export interface intList {
-  title?: string;
-  text?: string;
-  icon?: string;
+  title: string;
+  text: string;
+  icon: string;
 }
 
 export interface intButton {
   text: string;
   icon: string;
   href: string;
+
+  className?: string;
 }
 
 export interface intAvatar {

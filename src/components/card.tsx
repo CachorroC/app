@@ -6,44 +6,69 @@ import Image from 'next/image';
 import {
   intAvatar,
   intButton,
-  intCard,
+  intIndex,
   intList,
 } from '../types/card';
 import Avatar from './avatar';
 import Button from './button';
 
-export default function Card({
-  card,
+type Props = {
+  title: string;
+  _id?: string;
+  index: intIndex;
+  name: string;
+  url: string;
+  state: boolean;
+  avatar: intAvatar;
+  button: intButton;
+  list: intList[];
+  description?: string;
+};
+const Card = ({
+  title,
+  index,
+  name,
+  url,
+  state,
   avatar,
   button,
   list,
-}: {
-  card: intCard;
-  avatar: intAvatar;
-  button: intButton;
-  list: intList;
-}) {
+  description,
+}: Props) => {
   return (
     <div className={styles.card}>
-      <h1 className={styles.title}>{card.title}</h1>
+      <h1 className={styles.title}>{title}</h1>
       <div className={styles.state}>
         <span className='material-symbols-outlined'>
-          {card.state}
+          {state}
         </span>
       </div>
       <Avatar
         name={avatar.name}
         src={avatar.src}
-      ></Avatar>
-      <Button
-        text={''}
-        icon={''}
-        href={''}
       />
-      <div className={styles.btn2}></div>
-      <div className={styles.btn1}></div>
-      <div className={styles.description}></div>
-      <div className={styles.list}></div>
+      <Button
+        text={button.text}
+        icon={button.icon}
+        href={button.href}
+        className={styles.btn1}
+      />
+
+      <p className={styles.description}>{description}</p>
+      <ul className={styles.list}>
+        {list.map((item, index) => {
+          return (
+            <Link
+              key={item.title}
+              title={item.title}
+              as={`/posts/${title}`}
+              href='/posts/[title]'
+            />
+          );
+        })}
+      </ul>
     </div>
   );
-}
+};
+
+export default Card;

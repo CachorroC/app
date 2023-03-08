@@ -32,7 +32,7 @@ const HeroPost = ({
       </h3>
       <DateFormatter dateString={date} />
       <p>{excerpt}</p>
-      <Avatar name={author.name} picture={author.picture} />
+      <Avatar name={author.name} src={author.picture} />
     </section>
   );
 };
