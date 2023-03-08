@@ -7,7 +7,6 @@
     "activityBar.inactiveForeground": "#15202b99",
     "activityBarBadge.background": "#dcc3c4",
     "activityBarBadge.foreground": "#15202b",
-<<<<<<< Updated upstream
     "commandCenter.border": "#15202b99",
     "sash.hoverBorder": "#f49d42",
     "statusBar.background": "#f18412",
@@ -22,22 +21,6 @@
     "editorGroup.border": "#f49d42",
     "statusBar.debuggingBackground": "#127ff1",
     "statusBar.debuggingForeground": "#e7e7e7"
-=======
-    "commandCenter.border": "#e7e7e799",
-    "editorGroup.border": "#8688b8",
-    "sash.hoverBorder": "#8688b8",
-    "statusBar.background": "#6669a5",
-    "statusBar.debuggingBackground": "#a5a266",
-    "statusBar.debuggingForeground": "#15202b",
-    "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#8688b8",
-    "statusBarItem.remoteBackground": "#6669a5",
-    "statusBarItem.remoteForeground": "#e7e7e7",
-    "titleBar.activeBackground": "#6669a5",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#6669a599",
-    "titleBar.inactiveForeground": "#e7e7e799"
->>>>>>> Stashed changes
   },
   "peacock.remoteColor": "#f18412"
 }
