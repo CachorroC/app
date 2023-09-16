@@ -1,93 +1,25 @@
 'use client';
-import { IntCarpeta } from '#@/lib/types/carpetas';
-import { Despacho } from '#@/lib/types/despachos';
-import { DefaultValues,
-         useForm,
-         SubmitHandler,
-         FormProvider,
-         useFormContext, } from 'react-hook-form';
+
 import form from 'components/form/form.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import { useFormContext } from 'react-hook-form';
 import { InputSection } from './InputSection';
 import { SelectSection } from './SelectSection';
+import typography from '#@/styles/fonts/typography.module.scss';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 
-
-export const NuevoProceso = (
+export default function EditCarpeta (
   {
-    despachos,
-    carpeta,
-  }: {
-  despachos: Despacho[];
-  carpeta?: IntCarpeta;
-}
-) => {
-  const {
-    reset,
-    setFocus,
+    carpeta
+  }: {carpeta: MonCarpeta}
+) {
+  const {reset,
     handleSubmit,
-    formState: {
-      errors,
-      dirtyFields,
-      submitCount,
-      isSubmitting,
-      isSubmitSuccessful,
-      isLoading,
-      isSubmitted,
-    },
-    control,
-  } = useFormContext<IntCarpeta>();
-
-  const onSubmit: SubmitHandler<IntCarpeta> = async (
-    data, e
-  ) => {
-    alert(
-      JSON.stringify(
-        e
-      )
-    );
-    alert(
-      JSON.stringify(
-        dirtyFields
-      )
-    );
-    alert(
-      JSON.stringify(
-        data
-      )
-    );
-
-    const newCarpeta: IntCarpeta = {
-      ...carpeta,
-      ...data,
-    };
-
-    const postNewNote = await fetch(
-      `/api/Carpetas/${ data.llaveProceso }`, {
-        method : 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(
-          newCarpeta
-        ),
-      }
-    );
-
-    const nAlert = await postNewNote.json();
-
-    return alert(
-      JSON.stringify(
-        nAlert
-      )
-    );
-  };
+  } = useFormContext();
 
   return (
     <>
       <div className={form.container}>
-        <form className={form.form} onSubmit={handleSubmit(
-          onSubmit
-        )}>
+        <form className={form.form} onSubmit={handleSubmit}>
           <section className={form.section}>
             <section className={form.section}>
               <h3 className={typography.displaySmall}>{'Deudor'}</h3>
@@ -261,85 +193,7 @@ export const NuevoProceso = (
             <sub className={typography.labelSmall}>Enviar</sub>
             <span className="material-symbols-outlined">send</span>
           </button>
-          <section className={form.section}>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    errors,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    dirtyFields,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    submitCount,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    isSubmitting,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    isSubmitSuccessful,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    isLoading,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    carpeta,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-          </section>
+
         </form>
       </div>
       {carpeta && (
@@ -359,4 +213,4 @@ export const NuevoProceso = (
       )}
     </>
   );
-};
+}
