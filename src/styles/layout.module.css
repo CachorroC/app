@@ -22,7 +22,7 @@
   .container {
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(12, 1fr);
-    grid-template-areas: "header header header header header header header header header header header header" "top top top top top top top top top top right right" "left left left left left left left left left left right right" "left left left left left left left left left left right right" "left left left left left left left left left left right right" "left left left left left left left left left left right right" "left left left left left left left left left left right right" "left left left left left left left left left left right right" "left left left left left left left left left left right right" "left left left left left left left left left left right right" "left left left left left left left left left left right right" "left left left left left left left left left left right right";
+    grid-template-areas: "header header header header header header header header header header header header" "top top top top top top top top top right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right";
   }
 }
 
@@ -157,3 +157,5 @@
     transform: rotate(360deg);
   }
 }
+
+/*# sourceMappingURL=layout.module.css.map */

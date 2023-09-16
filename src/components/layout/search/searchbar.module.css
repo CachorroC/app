@@ -126,12 +126,8 @@
     box-shadow: var(--dp12);
   }
 }
-@container link (400px < width < 500px) {
-  .isActive,
-  .notActive {
-    background-color: blue;
-  }
-}
 .title {
   flex: 1;
 }
+
+/*# sourceMappingURL=searchbar.module.css.map */

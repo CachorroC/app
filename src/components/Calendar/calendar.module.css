@@ -61,9 +61,12 @@
   color: var(--primary);
   width: 14.2857142857%;
   font-size: 1.07rem;
+  list-style: none;
 }
 .container .calendar .weeks li,
 .container .calendar .weeks .dias {
   font-weight: 500;
   cursor: default;
 }
+
+/*# sourceMappingURL=calendar.module.css.map */

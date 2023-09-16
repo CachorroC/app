@@ -148,7 +148,7 @@ export default function RootLayout(
                   <ForwardButton />
                 </TopBar>
               </Suspense>
-              <div className={ layout.top}>{ top }S</div>
+              <div className={ layout.top}>{ top }</div>
               <div className={layout.right}>{right}</div>
               <div className={layout.left}>{children}</div>
             </div>

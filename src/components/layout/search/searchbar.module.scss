@@ -159,12 +159,6 @@
   }
 }
 
-@container link (400px < width < 500px) {
-  .isActive,
-  .notActive {
-    background-color: blue;
-  }
-}
 
 .title {
   flex: 1;

@@ -20,7 +20,7 @@ export default async function RightProcesos() {
     ...carpetasRaw
   ].sort(
     (
-      a, b 
+      a, b
     ) => {
       const typeofA = typeof a.fecha;
 
@@ -47,34 +47,34 @@ export default async function RightProcesos() {
       }
 
       return 0;
-    } 
+    }
   );
 
   return (
     <>
-      <Suspense fallback={<Loader />}>
-        {carpetas.map(
-          (
-            carpeta, index 
-          ) => {
-            const {
-              deudor 
-            } = carpeta;
 
-            return (
-              <Card path={'/Procesos'} carpeta={carpeta} key={carpeta._id}>
-                <Suspense fallback={<Loader key={carpeta._id} />}>
-                  <FechaActuacionComponent
-                    carpeta={carpeta}
-                    key={carpeta._id}
-                    index={index}
-                  />
-                </Suspense>
-              </Card>
-            );
-          } 
-        )}
-      </Suspense>
+      {carpetas.map(
+        (
+          carpeta, index
+        ) => {
+          const {
+            deudor
+          } = carpeta;
+
+          return (
+            <Card path={'/Procesos'} carpeta={carpeta} key={carpeta._id}>
+              <Suspense fallback={<Loader key={carpeta._id} />}>
+                <FechaActuacionComponent
+                  carpeta={carpeta}
+                  key={carpeta._id}
+                  index={index}
+                />
+              </Suspense>
+            </Card>
+          );
+        }
+      )}
+
     </>
   );
 }

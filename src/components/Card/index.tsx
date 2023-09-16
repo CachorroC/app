@@ -107,7 +107,7 @@ export const Card = (
           </Link>
           <Link
             className={`${ card.link } ${ isActive && card.isActive }`}
-            href={`/Notas/${ carpeta.llaveProceso }`}
+            href={'/Notas/Nueva'}
           >
             <span className={`material-symbols-outlined ${ card.icon }`}>
               add
