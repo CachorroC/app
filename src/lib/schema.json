@@ -1,0 +1,405 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/IntCarpetaElement"
+  },
+  "definitions": {
+    "IntCarpetaElement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "demanda": {
+          "$ref": "#/definitions/Demanda"
+        },
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+        "categoryTag": {
+          "type": "integer"
+        },
+        "deudor": {
+          "$ref": "#/definitions/Deudor"
+        },
+        "numero": {
+          "type": "integer"
+        },
+        "llaveProceso": {
+          "type": "string"
+        },
+        "tipoProceso": {
+          "$ref": "#/definitions/TipoProceso"
+        },
+        "idProceso": {
+          "type": "integer"
+        },
+        "fecha": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ultimaActuacion": {
+          "$ref": "#/definitions/UltimaActuacion"
+        }
+      },
+      "required": [
+        "_id",
+        "category",
+        "categoryTag",
+        "demanda",
+        "deudor",
+        "llaveProceso",
+        "numero",
+        "tipoProceso"
+      ],
+      "title": "IntCarpetaElement"
+    },
+    "Demanda": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "departamento": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Departamento"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "capitalAdeudado": {
+          "$ref": "#/definitions/CapitalAdeudado"
+        },
+        "entregagarantiasAbogado": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "etapaProcesal": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "fechaPresentacion": {
+          "type": "string"
+        },
+        "municipio": {
+          "type": "string"
+        },
+        "obligacion": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/CapitalAdeudado"
+          }
+        },
+        "radicado": {
+          "type": "string"
+        },
+        "vencimientoPagare": {
+          "type": "string"
+        },
+        "expediente": {
+          "type": "string"
+        },
+        "juzgados": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Juzgado"
+          }
+        }
+      },
+      "required": [
+        "capitalAdeudado",
+        "departamento",
+        "entregagarantiasAbogado",
+        "etapaProcesal",
+        "expediente",
+        "fechaPresentacion",
+        "juzgados",
+        "municipio",
+        "obligacion",
+        "radicado",
+        "vencimientoPagare"
+      ],
+      "title": "Demanda"
+    },
+    "Departamento": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "idCatalogoDetalle": {
+          "type": "integer"
+        },
+        "idCatalogoDetallePadre": {
+          "type": "integer"
+        },
+        "descripcion": {
+          "$ref": "#/definitions/Descripcion"
+        },
+        "codigo": {
+          "type": "string",
+          "format": "integer"
+        }
+      },
+      "required": [
+        "codigo",
+        "descripcion",
+        "idCatalogoDetalle",
+        "idCatalogoDetallePadre"
+      ],
+      "title": "Departamento"
+    },
+    "Juzgado": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "tipo": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "qt-uri-protocols": ["https"]
+        }
+      },
+      "required": ["id", "tipo", "url"],
+      "title": "Juzgado"
+    },
+    "Deudor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tel": {
+          "$ref": "#/definitions/Tel"
+        },
+        "primerNombre": {
+          "type": "string"
+        },
+        "segundoNombre": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "primerApellido": {
+          "type": "string"
+        },
+        "segundoApellido": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "cedula": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "direccion": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cedula",
+        "direccion",
+        "email",
+        "primerApellido",
+        "primerNombre",
+        "segundoApellido",
+        "segundoNombre",
+        "tel"
+      ],
+      "title": "Deudor"
+    },
+    "Tel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fijo": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "celular": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": ["celular", "fijo"],
+      "title": "Tel"
+    },
+    "UltimaActuacion": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "idRegActuacion": {
+          "type": "integer"
+        },
+        "llaveProceso": {
+          "type": "string"
+        },
+        "consActuacion": {
+          "type": "integer"
+        },
+        "fechaActuacion": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actuacion": {
+          "type": "string"
+        },
+        "anotacion": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "fechaInicial": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fechaFinal": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fechaRegistro": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "codRegla": {
+          "$ref": "#/definitions/CodRegla"
+        },
+        "conDocumentos": {
+          "type": "boolean"
+        },
+        "cant": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "actuacion",
+        "anotacion",
+        "cant",
+        "codRegla",
+        "conDocumentos",
+        "consActuacion",
+        "fechaActuacion",
+        "fechaFinal",
+        "fechaInicial",
+        "fechaRegistro",
+        "idRegActuacion",
+        "llaveProceso"
+      ],
+      "title": "UltimaActuacion"
+    },
+    "CapitalAdeudado": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "CapitalAdeudado"
+    },
+    "Category": {
+      "type": "string",
+      "enum": [
+        "Terminados",
+        "LiosJuridicos",
+        "Bancolombia",
+        "Reintegra",
+        "Insolvencia"
+      ],
+      "title": "Category"
+    },
+    "Descripcion": {
+      "type": "string",
+      "enum": ["CUNDINAMARCA", "TOLIMA"],
+      "title": "Descripcion"
+    },
+    "TipoProceso": {
+      "type": "string",
+      "enum": [
+        "HIPOTECARIO",
+        "PRENDARIO",
+        "SINGULAR",
+        "SINGULAR ACUMULADO CON HIPOTECARIO",
+        "SINGULAR ACUM HIPOTECARIO",
+        "11001400308320170071700",
+        "25473418900120170092400",
+        "PRENDARO",
+        " HIPOTECARIO",
+        "HMM PISO 1",
+        "  SINGULAR",
+        "HIPOTECARIA",
+        "HIPOTECARO",
+        "SINGULAR ACUMULADO CON HIPOTECARIO CAJA SOCIAL",
+        "SOACHA",
+        "HIPOTECARIO "
+      ],
+      "title": "TipoProceso"
+    },
+    "CodRegla": {
+      "type": "string",
+      "enum": ["00                              "],
+      "title": "CodRegla"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+version: "3.4"
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    hostname: postgres
+    restart: always
+    networks:
+      - internal
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    env_file:
+      - ./.env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: always
+    networks:
+      - internal
+    command: tunnel --no-autoupdate run --token eyJhIjoiZWQ2NmE1NDZlYWVhMWNlMDBlYjE2YmI1Yzc1NmFkY2EiLCJ0IjoiYzI2MmFhYTYtOTVkYi00YzE5LTk4NzktZTI2YzMwMTg1YmU4IiwicyI6IllUQmhOelk0WkRJdE5HVTNZeTAwTjJZeUxUaGxOVEF0TVRVd1l6WTBNakpqWWpreCJ9
+  app:
+    image: app
+    hostname: app
+    restart: always
+    depends_on:
+      - postgres
+    container_name: app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        BASE_URL: "https://app.rsasesorjuridico.com"
+        HOSTNAME: ${HOSTNAME}
+        MONGODB_URI: ${MONGODB_URI}
+        PORT: ${PORT}
+    env_file: .env
+    environment:
+      PORT: 3000
+      MONGODB_URI: mongodb+srv://cachorro_cami:Tengo1amo@cluster0.ffbyjzl.mongodb.net/?retryWrites=true&w=majority
+      NODE_ENV: production
+    ports:
+      - 5555:3000
+    expose:
+      - 3000
+    networks:
+      - internal
+
+volumes:
+  postgres:
+networks:
+  internal:
+    external: true
+    name: internal

@@ -1,0 +1,273 @@
+.container {
+  container-name: note;
+  container-type: inline-size;
+  display: flex;
+  box-shadow: var(--dp2);
+  border-radius: 2vmin;
+  padding: 1vmin;
+  flex-grow: 1;
+  flex-flow: column wrap;
+  background-color: var(--surface-container);
+}
+
+.sub {
+  color: var(--primary);
+}
+
+.sup {
+  font-size: 0.8rem;
+  flex: 0 0 auto;
+  font-family: var(--raleway);
+}
+
+.buttonsRow {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.section {
+  gap: 2vmin;
+  padding: 1vmin;
+  display: flex;
+  flex-flow: column wrap;
+}
+.section .label {
+  font-family: var(--font-poiret);
+  flex: 1 1 25%;
+}
+.section .titleInput {
+  flex: 2 0 50%;
+}
+
+.submitButton {
+  border: none;
+  border-radius: 2vmin;
+  box-shadow: var(--dp5);
+  flex: 1 0 25%;
+  background-color: var(--secondary);
+}
+.submitButton > span, .submitButton > .icon {
+  color: var(--on-secondary);
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+}
+.submitButton:hover, .submitButton:active {
+  background-color: var(--secondary);
+  box-shadow: var(--dp8);
+}
+.submitButton:hover > span, .submitButton:hover > .icon, .submitButton:active > span, .submitButton:active > .icon {
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 48;
+  color: var(--on-secondary);
+}
+
+.textArea {
+  background-color: var(--surface-variant);
+  border: none;
+  color: var(--on-surface-variant);
+  border-radius: 2vmin;
+  resize: both;
+  text-align: center;
+  padding: 5cqmin;
+  flex: 1;
+}
+.textArea:focus {
+  background-color: var(--surface);
+}
+
+.deleteButton {
+  grid-area: deleteButton;
+}
+
+.addButton {
+  grid-area: addButton;
+}
+
+.HomeButton {
+  grid-area: HomeButton;
+}
+
+.button, .buttonAdd, .buttonDelete, .buttonEdit {
+  border: none;
+  box-shadow: var(--dp5);
+  border-radius: 2vmin;
+  flex-grow: 1;
+  background-color: var(--secondary);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+.buttonEdit {
+  grid-area: editButton;
+}
+.buttonDelete {
+  grid-area: deleteButton;
+}
+.buttonAdd {
+  grid-area: addButton;
+}
+.button > .ButtonTextHelper, .buttonEdit > .ButtonTextHelper, .buttonDelete > .ButtonTextHelper, .buttonAdd > .ButtonTextHelper {
+  display: none;
+  opacity: 0;
+  transition: all 1s;
+}
+.button > span, .buttonEdit > span, .buttonDelete > span, .buttonAdd > span, .button > .icon, .buttonEdit > .icon, .buttonDelete > .icon, .buttonAdd > .icon {
+  color: var(--on-secondary);
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+}
+.button:hover, .buttonEdit:hover, .buttonDelete:hover, .buttonAdd:hover, .button:active, .buttonEdit:active, .buttonDelete:active, .buttonAdd:active {
+  background-color: var(--tertiary-container);
+  box-shadow: var(--dp8);
+}
+.button:hover > span, .buttonEdit:hover > span, .buttonDelete:hover > span, .buttonAdd:hover > span, .button:hover > .icon, .buttonEdit:hover > .icon, .buttonDelete:hover > .icon, .buttonAdd:hover > .icon, .button:active > span, .buttonEdit:active > span, .buttonDelete:active > span, .buttonAdd:active > span, .button:active > .icon, .buttonEdit:active > .icon, .buttonDelete:active > .icon, .buttonAdd:active > .icon {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+  color: var(--tertiary);
+}
+
+.content {
+  align-self: stretch;
+}
+
+.checkboxItem {
+  padding: 15px;
+}
+
+.tareas {
+  display: flex;
+  flex: 1 0 100%;
+  width: 100%;
+  flex-flow: column nowrap;
+}
+
+.select {
+  background-color: var(--primary-container);
+}
+
+.innactive {
+  background-color: var(--outline-variant);
+  color: var(--outline);
+}
+
+.active {
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+} /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.switch .checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.switch .checkbox:checked + .slider {
+  background-color: #2196f3;
+}
+.switch .checkbox:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+.switch .checkbox:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+.switch .slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+/* The slider */
+@container note (min-width: 600px) {
+  .form .section,
+  .nota .section {
+    flex-flow: row nowrap;
+  }
+  .form .section .label,
+  .nota .section .label {
+    flex: 0 1 20%;
+  }
+  .form .section .textArea,
+  .nota .section .textArea {
+    padding: 2cqmin;
+    flex: 1 0 80%;
+  }
+}
+@container note (max-width: 600px) {
+  .form .section,
+  .nota .section {
+    flex-flow: column nowrap;
+  }
+  .form .section .label,
+  .nota .section .label {
+    flex: 1 0 auto;
+  }
+  .form .section .textArea,
+  .nota .section .textArea {
+    flex: 1 0 auto;
+  }
+}
+@container note (width < 100px) {
+  .form,
+  .nota {
+    box-shadow: var(--dp1);
+  }
+}
+@container note ( 100px < width < 200px) {
+  .form,
+  .nota {
+    box-shadow: var(--dp2);
+  }
+}
+@container note ( 200px < width < 300px) {
+  .form,
+  .nota {
+    box-shadow: var(--dp3);
+  }
+}
+@container note ( 300px < width < 400px) {
+  .form,
+  .nota {
+    box-shadow: var(--dp4);
+  }
+}
+@container note ( 400px < width < 500px) {
+  .form,
+  .nota {
+    box-shadow: var(--dp5);
+  }
+}
+@container note ( 500px < width < 600px) {
+  .form,
+  .nota {
+    box-shadow: var(--dp6);
+  }
+}
+@container note ( 600px < width) {
+  .form,
+  .nota {
+    background-color: var(--primary-container);
+    box-shadow: var(--dp7);
+  }
+}

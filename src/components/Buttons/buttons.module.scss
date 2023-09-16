@@ -1,0 +1,95 @@
+.buttonsRow {
+  flex: 1 1 100%;
+}
+.button,
+.active {
+  border: none;
+  padding: 2vmin;
+  border-radius: 2vmin;
+  flex: 1 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-items: center;
+  align-items: center;
+
+  justify-content: center;
+  align-content: center;
+  transition: all 0.3s;
+  &Category {
+    @extend .button;
+    background-color: var(--surface-container-high);
+    & > .icon {
+      color: var(--secondary);
+    }
+  }
+  &Forward {
+    @extend .button;
+    grid-area: forwardButton;
+    background-color: var(--primary-container);
+    & > .icon,
+    & > .text {
+      color: var(--on-primary-container);
+    }
+  }
+  &Backwards {
+    @extend .button;
+    background-color: var(--primary-container);
+    grid-area: backwardsButton;
+    & > .icon,
+    & > .text {
+      color: var(--on-primary-container);
+    }
+  }
+
+  &DrawerMenu {
+    @extend .button;
+    grid-area: drawerMenuButton;
+    background-color: var(--primary-container);
+    & > .icon,
+    & > .text {
+      color: var(--on-primary-container);
+    }
+  }
+
+  &Modal {
+    @extend .button;
+    grid-area: drawerMenuButton;
+    background-color: var(--primary-container);
+    & > .icon,
+    & > .text {
+      color: var(--on-primary-container);
+    }
+  }
+  &Home {
+    @extend .button;
+    grid-area: homeButton;
+    box-shadow: var(--dp2);
+    background-color: var(--primary);
+    & > .icon,
+    & > .text {
+      color: var(--on-primary);
+    }
+  }
+  & > .ButtonTextHelper {
+    display: none;
+    opacity: 0;
+    transition: all 1s;
+  }
+  &:hover,
+  &:active {
+    background-color: var(--primary-fixed);
+    box-shadow: var(--dp6);
+    border: 2px solid var(--outline);
+    & > span {
+      font-variation-settings:
+        "FILL" 1,
+        "wght" 400,
+        "GRAD" 200,
+        "opsz" 24;
+      color: var(--on-primary-fixed);
+    }
+  }
+}
+.active {
+  background-color: var(--tertiary-container);
+}

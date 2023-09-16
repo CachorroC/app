@@ -1,0 +1,26 @@
+.accordion {
+  flex: 0 1 50%;
+  .item {
+    background-color: var(--primary-container);
+    .title {
+      color: var(--on-primary-container);
+    }
+  }
+}
+.isActive {
+  flex: 1 1 100%;
+}
+.content {
+  padding: 1vmin;
+  background-color: var(--surface-container-lowest);
+  border-top: solid 5px var(--outline);
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+.isDone {
+  color: var(--outlined);
+}
+.notDone {
+  color: var(--error);
+}

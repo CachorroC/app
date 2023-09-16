@@ -1,0 +1,136 @@
+.buttonsRow {
+  flex: 1 1 100%;
+}
+
+.button, .buttonHome,
+.activeHome, .buttonModal,
+.activeModal, .buttonDrawerMenu,
+.activeDrawerMenu, .buttonBackwards,
+.activeBackwards, .buttonForward,
+.activeForward, .buttonCategory,
+.activeCategory,
+.active {
+  border: none;
+  padding: 2vmin;
+  border-radius: 2vmin;
+  flex: 1 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  transition: all 0.3s;
+}
+.buttonCategory,
+.activeCategory {
+  background-color: var(--surface-container-high);
+}
+.buttonCategory > .icon,
+.activeCategory > .icon {
+  color: var(--secondary);
+}
+.buttonForward,
+.activeForward {
+  grid-area: forwardButton;
+  background-color: var(--primary-container);
+}
+.buttonForward > .icon, .buttonForward > .text,
+.activeForward > .icon,
+.activeForward > .text {
+  color: var(--on-primary-container);
+}
+.buttonBackwards,
+.activeBackwards {
+  background-color: var(--primary-container);
+  grid-area: backwardsButton;
+}
+.buttonBackwards > .icon, .buttonBackwards > .text,
+.activeBackwards > .icon,
+.activeBackwards > .text {
+  color: var(--on-primary-container);
+}
+.buttonDrawerMenu,
+.activeDrawerMenu {
+  grid-area: drawerMenuButton;
+  background-color: var(--primary-container);
+}
+.buttonDrawerMenu > .icon, .buttonDrawerMenu > .text,
+.activeDrawerMenu > .icon,
+.activeDrawerMenu > .text {
+  color: var(--on-primary-container);
+}
+.buttonModal,
+.activeModal {
+  grid-area: drawerMenuButton;
+  background-color: var(--primary-container);
+}
+.buttonModal > .icon, .buttonModal > .text,
+.activeModal > .icon,
+.activeModal > .text {
+  color: var(--on-primary-container);
+}
+.buttonHome,
+.activeHome {
+  grid-area: homeButton;
+  box-shadow: var(--dp2);
+  background-color: var(--primary);
+}
+.buttonHome > .icon, .buttonHome > .text,
+.activeHome > .icon,
+.activeHome > .text {
+  color: var(--on-primary);
+}
+.button > .ButtonTextHelper, .buttonCategory > .ButtonTextHelper,
+.activeCategory > .ButtonTextHelper, .buttonForward > .ButtonTextHelper,
+.activeForward > .ButtonTextHelper, .buttonBackwards > .ButtonTextHelper,
+.activeBackwards > .ButtonTextHelper, .buttonDrawerMenu > .ButtonTextHelper,
+.activeDrawerMenu > .ButtonTextHelper, .buttonModal > .ButtonTextHelper,
+.activeModal > .ButtonTextHelper, .buttonHome > .ButtonTextHelper,
+.activeHome > .ButtonTextHelper,
+.active > .ButtonTextHelper {
+  display: none;
+  opacity: 0;
+  transition: all 1s;
+}
+.button:hover, .buttonCategory:hover,
+.activeCategory:hover, .buttonForward:hover,
+.activeForward:hover, .buttonBackwards:hover,
+.activeBackwards:hover, .buttonDrawerMenu:hover,
+.activeDrawerMenu:hover, .buttonModal:hover,
+.activeModal:hover, .buttonHome:hover,
+.activeHome:hover, .button:active, .buttonCategory:active,
+.activeCategory:active, .buttonForward:active,
+.activeForward:active, .buttonBackwards:active,
+.activeBackwards:active, .buttonDrawerMenu:active,
+.activeDrawerMenu:active, .buttonModal:active,
+.activeModal:active, .buttonHome:active,
+.activeHome:active,
+.active:hover,
+.active:active {
+  background-color: var(--primary-fixed);
+  box-shadow: var(--dp6);
+  border: 2px solid var(--outline);
+}
+.button:hover > span, .buttonCategory:hover > span,
+.activeCategory:hover > span, .buttonForward:hover > span,
+.activeForward:hover > span, .buttonBackwards:hover > span,
+.activeBackwards:hover > span, .buttonDrawerMenu:hover > span,
+.activeDrawerMenu:hover > span, .buttonModal:hover > span,
+.activeModal:hover > span, .buttonHome:hover > span,
+.activeHome:hover > span, .button:active > span, .buttonCategory:active > span,
+.activeCategory:active > span, .buttonForward:active > span,
+.activeForward:active > span, .buttonBackwards:active > span,
+.activeBackwards:active > span, .buttonDrawerMenu:active > span,
+.activeDrawerMenu:active > span, .buttonModal:active > span,
+.activeModal:active > span, .buttonHome:active > span,
+.activeHome:active > span,
+.active:hover > span,
+.active:active > span {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+  color: var(--on-primary-fixed);
+}
+
+.active {
+  background-color: var(--tertiary-container);
+}

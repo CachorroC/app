@@ -1,0 +1,329 @@
+@import url(./theme/lightTokens.css) (prefers-color-scheme: light);
+@import url(./theme/darkTokens.css) (prefers-color-scheme: dark);
+@import url(./fonts/typography.module.css);
+@import url(./theme/colors.module.css);
+@import url(./theme/tokens.css);
+:root {
+  --display-large-font-family-name: var(--font-poiret);
+  --display-large-font-family-style: Regular;
+  --display-large-font-weight: 400px;
+  --display-large-font-size: 2.5rem;
+  --display-large-line-height: 64px;
+  --display-large-letter-spacing: -0.25px;
+  /* display - medium */
+  --display-medium-font-family-name: var(--font-poiret);
+  --display-medium-font-family-style: Regular;
+  --display-medium-font-weight: 400px;
+  --display-medium-font-size: 1.6rem;
+  --display-medium-line-height: 52px;
+  --display-medium-letter-spacing: 0px;
+  /* display - small */
+  --display-small-font-family-name: var(--font-poiret);
+  --display-small-font-family-style: Regular;
+  --display-small-font-weight: 400px;
+  --display-small-font-size: 1.5rem;
+  --display-small-line-height: 44px;
+  --display-small-letter-spacing: 0px;
+  /* headline - large */
+  --headline-large-font-family-name: Raleway;
+  --headline-large-font-family-style: Regular;
+  --headline-large-font-weight: 400px;
+  --headline-large-font-size: 1.2rem;
+  --headline-large-line-height: 40px;
+  --headline-large-letter-spacing: 0px;
+  /* headline - medium */
+  --headline-medium-font-family-name: Raleway;
+  --headline-medium-font-family-style: Regular;
+  --headline-medium-font-weight: 400px;
+  --headline-medium-font-size: 1rem;
+  --headline-medium-line-height: 36px;
+  --headline-medium-letter-spacing: 0px;
+  /* headline - small */
+  --headline-small-font-family-name: Raleway;
+  --headline-small-font-family-style: Regular;
+  --headline-small-font-weight: 400px;
+  --headline-small-font-size: 0.8rem;
+  --headline-small-line-height: 32px;
+  --headline-small-letter-spacing: 0px;
+  /* body - large */
+  --body-large-font-family-name: var(--inter);
+  --body-large-font-family-style: Regular;
+  --body-large-font-weight: 400px;
+  --body-large-font-size: 1rem;
+  --body-large-line-height: 24px;
+  --body-large-letter-spacing: 0.5px;
+  /* body - medium */
+  --body-medium-font-family-name: var(--inter);
+  --body-medium-font-family-style: Regular;
+  --body-medium-font-weight: 400px;
+  --body-medium-font-size: 0.9rem;
+  --body-medium-line-height: 20px;
+  --body-medium-letter-spacing: 0.25px;
+  /* body - small */
+  --body-small-font-family-name: var(--inter);
+  --body-small-font-family-style: Regular;
+  --body-small-font-weight: 400px;
+  --body-small-font-size: 0.8rem;
+  --body-small-line-height: 16px;
+  --body-small-letter-spacing: 0.4px;
+  /* label - large */
+  --label-large-font-family-name: var(--josefa);
+  --label-large-font-family-style: Medium;
+  --label-large-font-weight: 500px;
+  --label-large-font-size: 0.9rem;
+  --label-large-line-height: 20px;
+  --label-large-letter-spacing: 0.1px;
+  /* label - medium */
+  --label-medium-font-family-name: var(--josefa);
+  --label-medium-font-family-style: Medium;
+  --label-medium-font-weight: 500px;
+  --label-medium-font-size: 0.8rem;
+  --label-medium-line-height: 16px;
+  --label-medium-letter-spacing: 0.5px;
+  /* label - small */
+  --label-small-font-family-name: var(--josefa);
+  --label-small-font-family-style: Medium;
+  --label-small-font-weight: 500px;
+  --label-small-font-size: 0.7rem;
+  --label-small-line-height: 16px;
+  --label-small-letter-spacing: 0.5px;
+  /* title - large */
+  --title-large-font-family-name: Roboto;
+  --title-large-font-family-style: Medium;
+  --title-large-font-weight: 700px;
+  --title-large-font-size: 1rem;
+  --title-large-line-height: 28px;
+  --title-large-letter-spacing: 0px;
+  /* title - medium */
+  --title-medium-font-family-name: Roboto;
+  --title-medium-font-family-style: Medium;
+  --title-medium-font-weight: 700px;
+  --title-medium-font-size: 0.9rem;
+  --title-medium-line-height: 24px;
+  --title-medium-letter-spacing: 0.15px;
+  /* title - small */
+  --title-small-font-family-name: Roboto;
+  --title-small-font-family-style: Medium;
+  --title-small-font-weight: 700px;
+  --title-small-font-size: 0.8rem;
+  --title-small-line-height: 20px;
+  --title-small-letter-spacing: 0.1px;
+  --primary: var(--pal-primary40);
+  --on-primary: var(--pal-neutral100);
+  --primary-container: var(--pal-primary90);
+  --on-primary-container: var(--pal-primary10);
+  --primary-fixed: var(--pal-primary90);
+  --on-primary-fixed: var(--pal-primary10);
+  --primary-fixed-dim: var(--pal-primary80);
+  --on-primary-fixed-variant: var(--pal-primary30);
+  --secondary: var(--pal-secondary40);
+  --on-secondary: var(--pal-neutral100);
+  --secondary-container: var(--pal-secondary90);
+  --on-secondary-container: var(--pal-secondary10);
+  --secondary-fixed: var(--pal-secondary90);
+  --on-secondary-fixed: var(--pal-secondary10);
+  --secondary-fixed-dim: var(--pal-secondary80);
+  --on-secondary-fixed-variant: var(--pal-secondary30);
+  --tertiary: var(--pal-tertiary40);
+  --on-tertiary: var(--pal-neutral100);
+  --tertiary-container: var(--pal-tertiary90);
+  --on-tertiary-container: var(--pal-tertiary10);
+  --tertiary-fixed: var(--pal-tertiary90);
+  --on-tertiary-fixed: var(--pal-tertiary10);
+  --tertiary-fixed-dim: var(--pal-tertiary80);
+  --on-tertiary-fixed-variant: var(--pal-tertiary30);
+  --error: var(--pal-error40);
+  --error-container: var(--pal-error90);
+  --on-error: var(--pal-neutral100);
+  --on-error-container: var(--pal-error10);
+  --background: var(--pal-neutral99);
+  --on-background: var(--pal-neutral10);
+  --outline: var(--pal-neutral50);
+  --inverse-on-surface: var(--pal-neutral95);
+  --inverse-surface: var(--pal-neutral20);
+  --inverse-primary: var(--pal-primary80);
+  --shadow: var(--pal-neutral0);
+  --surface-tint: var(--pal-primary40);
+  --outline-variant: var(--pal-neutral-variant80);
+  --scrim: var(--pal-neutral0);
+  --surface: var(--pal-neutral98);
+  --on-surface: var(--pal-neutral10);
+  --surface-variant: var(--pal-neutral-variant90);
+  --on-surface-variant: var(--pal-neutral-variant30);
+  --surface-container-highest: var(--pal-neutral90);
+  --surface-container-high: var(--pal-neutral92);
+  --surface-container: var(--pal-neutral94);
+  --surface-container-low: var(--pal-neutral96);
+  --surface-container-lowest: var(--pal-neutral100);
+  --surface-dim: var(--pal-neutral87);
+  --surface-bright: var(--pal-neutral98);
+  --on-nav-background: var(--pal-primary12);
+  --nav-background: var(--pal-primary94);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: var(--pal-primary80);
+    --on-primary: var(--pal-primary20);
+    --primary-container: var(--pal-primary30);
+    --on-primary-container: var(--pal-primary90);
+    --primary-fixed: var(--pal-primary90);
+    --on-primary-fixed: var(--pal-primary10);
+    --primary-fixed-dim: var(--pal-primary80);
+    --on-primary-fixed-variant: var(--pal-primary30);
+    --secondary: var(--pal-secondary80);
+    --on-secondary: var(--pal-secondary20);
+    --secondary-container: var(--pal-secondary30);
+    --on-secondary-container: var(--pal-secondary90);
+    --secondary-fixed: var(--pal-secondary90);
+    --on-secondary-fixed: var(--pal-secondary10);
+    --secondary-fixed-dim: var(--pal-secondary80);
+    --on-secondary-fixed-variant: var(--pal-secondary30);
+    --tertiary: var(--pal-tertiary80);
+    --on-tertiary: var(--pal-tertiary20);
+    --tertiary-container: var(--pal-tertiary30);
+    --on-tertiary-container: var(--pal-tertiary90);
+    --tertiary-fixed: var(--pal-tertiary90);
+    --on-tertiary-fixed: var(--pal-tertiary10);
+    --tertiary-fixed-dim: var(--pal-tertiary80);
+    --on-tertiary-fixed-variant: var(--pal-tertiary30);
+    --error: var(--pal-error80);
+    --error-container: var(--pal-error30);
+    --on-error: var(--pal-error20);
+    --on-error-container: var(--pal-error90);
+    --background: var(--pal-neutral10);
+    --on-background: var(--pal-neutral90);
+    --outline: var(--pal-neutral-variant60);
+    --inverse-on-surface: var(--pal-neutral10);
+    --inverse-surface: var(--pal-neutral90);
+    --inverse-primary: var(--pal-primary40);
+    --shadow: var(--pal-neutral0);
+    --surface-tint: var(--pal-primary80);
+    --outline-variant: var(--pal-neutral-variant30);
+    --scrim: var(--pal-neutral0);
+    --surface: var(--pal-neutral6);
+    --on-surface: var(--pal-neutral80);
+    --surface-variant: var(--pal-neutral-variant30);
+    --on-surface-variant: var(--pal-neutral-variant80);
+    --surface-container-highest: var(--pal-neutral22);
+    --surface-container-high: var(--pal-neutral17);
+    --surface-container: var(--pal-neutral12);
+    --surface-container-low: var(--pal-neutral10);
+    --surface-container-lowest: var(--pal-neutral4);
+    --surface-dim: var(--pal-neutral6);
+    --surface-bright: var(--pal-neutral24);
+    --on-nav-background: var(--pal-primary94);
+    --nav-background: var(--pal-primary12);
+  }
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  &:focus {
+    --min-font-size: 14px;
+    --max-font-size: 20px;
+    --full-viewport: 100vw;
+    --min-viewport: 300px;
+    --min-width: 300;
+    --max-viewport: 1920px;
+    border: 2px dashed var(--outline-variant);
+    background-color: var(--surface-variant);
+    color: var(--on-surface-variant);
+  }
+}
+:root,
+html {
+  font-size: calc(14px + (22 - 14) * ((100vw - 600px) / (1920 - 600)));
+}
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+}
+button:focus {
+  outline: var(--error) 5px auto;
+}
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+body {
+  margin: 0 auto;
+  color: var(--on-surface);
+  background-color: var(--surface);
+}
+a {
+  text-decoration: none;
+}
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  width: 1vmin;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+  box-sizing: border-box;
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-right: 16px solid transparent;
+} /* Track */
+::-webkit-scrollbar-track {
+  border-radius: 1vmin;
+  background-color: var(--outline-variant);
+} /* Handle */
+::-webkit-scrollbar-thumb {
+  opacity: 0;
+  background: var(--secondary);
+  border-radius: 1vmin;
+  &:hover {
+    opactity: 1;
+    background: var(--secondary-container);
+  }
+}
+.installButton {
+  border: none;
+  box-shadow: var(--dp5);
+  border-radius: 2vmin;
+  flex-grow: 1;
+  background-color: var(--secondary);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+@media all and (display-mode: fullscreen) {
+  .installButton {
+    display: none;
+  }
+}
+input {
+  transition: all 0.5s ease-in;
+  resize: vertical;
+  font-family: var(--raleway);
+  font-size: 1rem;
+  border-radius: 2vmin;
+  padding: 1vmin;
+  box-sizing: border-box;
+  border: none;
+  background-color: var(--surface-container-low);
+  color: var(--on-background);
+  &:focus {
+    border: 3px dashed var(--primary);
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+  }
+}

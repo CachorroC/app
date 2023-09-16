@@ -1,0 +1,78 @@
+.container {
+  padding: 2vmin;
+  border-radius: 2vmin;
+  box-sizing: border-box;
+  background-color: var(--surface-variant);
+  flex: 1;
+  .calendar {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    .weeks {
+      display: flex;
+      flex-flow: row nowrap;
+      text-align: center;
+    }
+    .days {
+      display: grid;
+      text-align: center;
+      grid-template-columns: repeat(7, 1fr);
+      grid-auto-rows: 1fr;
+      a {
+        padding: 1vmin;
+
+        cursor: pointer;
+        position: relative;
+        &.today {
+          border: solid 2px var(--outline-variant);
+        }
+        &.inactive {
+          color: var(--on-primary-container);
+        }
+        &.disabled {
+          color: var(--outline);
+        }
+        &.active {
+          color: var(--on-primary);
+
+          &::before {
+            background: var(--primary);
+          }
+        }
+
+        &::before {
+          position: absolute;
+          content: "";
+          left: 50%;
+          top: 50%;
+          height: 40px;
+          width: 40px;
+
+          border-radius: 50%;
+          -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        }
+
+        &:not(.active):hover::before {
+          background: #f2f2f2;
+        }
+      }
+    }
+
+    li,
+    .dias {
+      color: var(--primary);
+      width: calc(100% / 7);
+      font-size: 1.07rem;
+    }
+
+    .weeks {
+      li,
+      .dias {
+        font-weight: 500;
+        cursor: default;
+      }
+    }
+  }
+}

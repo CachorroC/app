@@ -1,0 +1,52 @@
+.container,
+.grid,
+.flex {
+  background-color: var(--error-container);
+  border: 2px dashed var(--error);
+  border-radius: 2vmax;
+  color: var(--on-error-container);
+  box-shadow: var(--dp8);
+  text-align: center;
+  box-sizing: border-box;
+  padding: 2vmin;
+  .container {
+    background-color: var(--surface);
+    .container {
+      background-color: var(--sf-1);
+      .container {
+        background-color: var(--sf-2);
+        .container {
+          background-color: var(--sf-3);
+          .container {
+            background-color: var(--primary-container);
+            .container {
+              background-color: var(--secondary-container);
+              .container {
+                background-color: var(--tertiary-container);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.grid {
+  display: grid;
+  flex-flow: row wrap;
+  grid-auto-flow: dense;
+  grid-auto-columns: min-content;
+  grid-auto-rows: min-content;
+  grid-template: min-content;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  gap: 2vmin;
+}
+.flex {
+  display: flex;
+  flex-flow: column nowrap;
+}

@@ -1,0 +1,62 @@
+.container {
+  container-name: procesos;
+  container-type: inline-size;
+}
+.container > * {
+  width: 100%;
+}
+
+.date {
+  background-color: var(--surface-container-high);
+  border: none;
+  color: var(--on-surface-variant);
+  border-radius: 2vmin;
+  resize: both;
+  text-align: center;
+  padding: 5cqmin;
+  flex-grow: 3;
+}
+.date:focus {
+  background-color: var(--surface);
+}
+
+.card {
+  box-sizing: border-box;
+  box-shadow: var(--dp3);
+  padding: 2vmin;
+  gap: 5cqmin;
+  border-radius: 2vmin;
+  text-align: center;
+  display: flex;
+  flex-flow: row wrap;
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+.card .title {
+  color: var(--secondary);
+  text-align: right;
+}
+.card .content {
+  text-align: center;
+  background-color: var(--surface-container);
+  padding: 2cqmin;
+  border-radius: 2cqmin;
+}
+.card .button {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  grid-area: link;
+  border-radius: 2cqmin;
+  padding: 2cqmin;
+  align-self: center;
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+}
+.card .button .icon {
+  margin: 0;
+  grid-area: icon;
+  color: var(--on-secondary);
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  font-size: 2rem;
+}

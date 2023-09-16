@@ -1,0 +1,263 @@
+.container {
+  container-name: card;
+  container-type: inline-size;
+  box-sizing: border-box;
+}
+.container > * {
+  width: 100%;
+}
+.container:hover .date {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  box-shadow: var(--dp20);
+}
+.container:hover .date .actuacion,
+.container:hover .date .anotascion {
+  display: flex;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  align-items: stretch;
+  display: flex;
+  justify-content: space-between;
+  align-content: stretch;
+  flex-flow: row nowrap;
+  padding: 5cqmin;
+  gap: 5cqmin;
+  border-radius: 2vmin;
+  text-align: center;
+}
+.card .date {
+  grid-area: date;
+  background-color: var(--surface);
+  padding: 2cqmin;
+  color: var(--on-surface);
+  font-family: var(--font-poiret);
+  border-radius: 2cqmin;
+  align-self: center;
+}
+.card .sub {
+  color: var(--secondary);
+}
+
+.divider {
+  border: dashed 5px var(--primary);
+}
+
+.sub {
+  color: var(--secondary);
+}
+
+.updated {
+  grid-area: date;
+  background-color: var(--surface-container-highest);
+  box-shadow: var(--dp12);
+  padding: 2cqmin;
+  color: var(--on-surface);
+  font-family: var(--font-poiret);
+  border-radius: 2cqmin;
+  align-self: center;
+}
+
+.date {
+  grid-area: date;
+  background-color: var(--surface-container-high);
+  padding: 2cqmin;
+  color: var(--on-surface);
+  font-family: var(--font-poiret);
+  border-radius: 2vmin;
+  align-self: center;
+  box-sizing: border-box;
+  text-align: center;
+}
+.date > * {
+  width: 100%;
+}
+.date > .date {
+  background-color: var(--surface-container-high);
+  padding: 2cqmin;
+  color: var(--on-surface);
+  font-family: var(--font-poiret);
+  border-radius: 2cqmin;
+  align-self: center;
+}
+.date > .date > .actuacion {
+  display: none;
+}
+.date > .date > .anotacion {
+  display: none;
+}
+.date > .date > .fecha {
+  display: flex;
+}
+
+.dummytxt {
+  height: 6px;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  flex: 0 1 50%;
+  text-align: center;
+}
+
+.links {
+  flex-flow: column nowrap;
+}
+
+.link {
+  background-color: var(--secondary-container);
+  grid-area: link;
+  border-radius: 10cqmin;
+  padding: 1cqmax;
+  flex: 1 0 48%;
+  position: relative;
+}
+.link .icon {
+  margin: 0;
+  grid-area: icon;
+  color: var(--secondary);
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+}
+.link:hover {
+  box-shadow: var(--dp8);
+  background-color: var(--surface-container-highest);
+}
+.link:hover > p {
+  color: var(--primary);
+  font-weight: 800;
+}
+.link:hover .icon {
+  color: var(--tertiary);
+  font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 200, "opsz" 48;
+}
+.link:focus {
+  box-shadow: var(--dp20);
+  background-color: var(--surface-container-highest);
+  border: 2px dashed var(--primary-container);
+}
+.link:active {
+  background-color: var(--ssurface-container-high);
+  box-shadow: var(--dp3);
+}
+.link > .tooltiptext {
+  visibility: hidden;
+  width: auto;
+  background-color: var(--inverse-surface);
+  color: var(--inverse-on-surface);
+  text-align: center;
+  border-radius: 10cqmin;
+  padding: 5cqmin;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.link > .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+.link > .icon {
+  margin: 0;
+  grid-area: icon;
+  color: var(--on-tertiary-container);
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  font-size: 1.5rem;
+}
+.link:hover .tooltiptext, .link:active .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.updated {
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+}
+
+.error {
+  background-color: var(--error-container);
+  color: var(--on-error-container);
+}
+
+@container card ( 300px < width < 400px) {
+  .isActive .link,
+  .isActive .linkIsActive,
+  .notActive .link,
+  .notActive .linkIsActive {
+    flex: 1 0;
+  }
+}
+@container card (380px < width < 400px) {
+  .isActive,
+  .notActive {
+    flex-flow: column nowrap;
+  }
+}
+@container card ( 400px < width < 500px) {
+  .date .actuacion,
+  .date .anotacion {
+    display: none;
+  }
+}
+/*
+@container card (width < 100px) {
+  .form,
+  .card {
+    background-color: red;
+  }
+}
+@container card ( 100px < width < 200px) {
+  .form,
+  .card {
+    background-color: orange;
+  }
+}
+@container card ( 200px < width < 300px) {
+  .form,
+  .card {
+    background-color: yellow;
+  }
+}
+@container card ( 300px < width < 400px) {
+  .form,
+  .card {
+    background-color: green;
+  }
+}
+@container card ( 400px < width < 500px) {
+  .form,
+  .card {
+    background-color: blue;
+  }
+}
+@container card ( 500px < width < 600px) {
+  .form,
+  .card {
+    background-color: purple;
+  }
+}
+@container card ( 600px < width) {
+  .form,
+  .card {
+    background-color: var(--primary-container);
+  }
+} */
+.errorContainer {
+  background-color: var(--error-container);
+  color: var(--on-error-container);
+  box-shadow: var(--dp16);
+  border-radius: 2vmin;
+}
