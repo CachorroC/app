@@ -16,13 +16,13 @@ export const FechaActuacionComponent = async (
   }: {
   carpeta: MonCarpeta;
   index: number;
-} 
+}
 ) => {
   const actuaciones = await getActuaciones(
     {
       carpeta: carpeta,
       index  : index,
-    } 
+    }
   );
 
   const ultimaActuacion = actuaciones
@@ -47,7 +47,7 @@ export const FechaActuacionComponent = async (
       )}
       <sub className={card.date}>
         {fixFechas(
-          ultimaActuacion.fechaActuacion 
+          ultimaActuacion.fechaActuacion
         )}
       </sub>
     </div>
@@ -56,8 +56,8 @@ export const FechaActuacionComponent = async (
 
 export const ActuacionCard = (
   {
-    act 
-  }: { act: Actuacion } 
+    act
+  }: { act: Actuacion }
 ) => {
   const {
     idRegActuacion,
@@ -89,14 +89,14 @@ export const ActuacionCard = (
         <sub
           className={`${ typography.labelSmall } ${ styles.sub }`}
         >{`${ consActuacion } de ${ cant }`}</sub>
-        <Link href={`/Notas/${ llaveProceso }/Nueva`} className={styles.button}>
+        <Link href={'/Notas/Nueva' } className={styles.button}>
           <span className={`material-symbols-outlined ${ styles.icon }`}>
             note_add
           </span>
         </Link>
         <sup className={`${ typography.labelMedium } ${ styles.date }`}>
           {fixFechas(
-            fechaActuacion 
+            fechaActuacion
           )}
         </sup>
       </div>
@@ -109,20 +109,20 @@ export const ActuacionesList = (
     actuaciones,
   }: {
   actuaciones: Actuacion[];
-} 
+}
 ) => {
   return (
     <>
       {actuaciones.map(
         (
-          act, ind, arr 
+          act, ind, arr
         ) => {
           const {
-            idRegActuacion 
+            idRegActuacion
           } = act;
 
           return <ActuacionCard act={act} key={ind} />;
-        } 
+        }
       )}
     </>
   );

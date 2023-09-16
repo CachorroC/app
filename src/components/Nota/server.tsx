@@ -1,5 +1,5 @@
 import { fixFechas } from '#@/lib/project/helper';
-import { getNotasByllaveProceso} from '#@/lib/project/notas';
+import { getNotasByllaveProceso } from '#@/lib/project/notas';
 import { monNota } from 'types/notas';
 import { Suspense } from 'react';
 import { ButtonSkeleton } from 'components/Buttons/ButtonSkeleton';

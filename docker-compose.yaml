@@ -35,7 +35,7 @@ services:
       dockerfile: Dockerfile
       args:
         BASE_URL: "https://app.rsasesorjuridico.com"
-        HOSTNAME: ${HOSTNAME}
+
         MONGODB_URI: ${MONGODB_URI}
         PORT: ${PORT}
     env_file: .env
