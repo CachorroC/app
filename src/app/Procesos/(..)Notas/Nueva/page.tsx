@@ -4,7 +4,7 @@ import { useNotaContext } from '#@/app/context/main-context';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import form from 'components/form/form.module.css';
-import ModalDialog from '#@/lib/hooks/modal-state';
+import Modal from '#@/components/Modal';
 
 export default function Page() {
   const [
@@ -32,7 +32,7 @@ export default function Page() {
   const pathname = usePathname();
 
   return (
-    <ModalDialog>
+    <Modal>
 
       <form className={form.form} action={onCreate}>
         <input type="text" name="llaveProceso" value={ inputNota.llaveProceso } onChange={
@@ -75,6 +75,6 @@ export default function Page() {
         <button type="submit">Add</button>
         <p>{message}</p>
       </form>
-    </ModalDialog>
+    </Modal>
   );
 }

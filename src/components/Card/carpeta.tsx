@@ -10,19 +10,19 @@ import { button } from '../Buttons/buttons.module.css';
 
 export const CarpetaCard = (
   {
-    carpeta 
-  }: { carpeta: MonCarpeta } 
+    carpeta
+  }: { carpeta: MonCarpeta }
 ) => {
   const {
-    llaveProceso, idProceso, _id 
+    llaveProceso, idProceso, _id
   } = carpeta;
 
   const {
-    tel, direccion, email 
+    tel, direccion, email
   } = carpeta.deudor;
 
   const {
-    departamento, municipio, radicado, juzgados 
+    departamento, municipio, radicado, juzgados
   } = carpeta.demanda;
 
   const path = '/Procesos';
@@ -51,7 +51,7 @@ export const CarpetaCard = (
           {juzgados
             && juzgados.map(
               (
-                despacho, index 
+                despacho, index
               ) => {
                 return (
                   <Link
@@ -71,7 +71,7 @@ export const CarpetaCard = (
                     </p>
                   </Link>
                 );
-              } 
+              }
             )}
           {tel.celular && (
             <Link
@@ -104,7 +104,7 @@ export const CarpetaCard = (
           {carpeta.demanda.vencimientoPagare && (
             <p className={typography.labelMedium}>
               {fixFechas(
-                carpeta.demanda.vencimientoPagare 
+                carpeta.demanda.vencimientoPagare
               )}
             </p>
           )}
@@ -120,21 +120,55 @@ export const CarpetaCard = (
           {carpeta.demanda.entregagarantiasAbogado && (
             <p className={typography.labelSmall}>
               {fixFechas(
-                carpeta.demanda.entregagarantiasAbogado 
+                carpeta.demanda.entregagarantiasAbogado
               )}
             </p>
           )}
-          <p>
+          <div>
             {carpeta.demanda.capitalAdeudado
               && fixMoney(
                 {
                   valor: Number(
-                    carpeta.demanda.capitalAdeudado 
+                    carpeta.demanda.capitalAdeudado
                   ),
-                } 
-              )}
-          </p>
+                }
+              ) }
+
+          </div>
         </div>
+        {email && (
+          <Link
+            className={ card.link }
+            href={ email as Route }
+            target={'_blank'}
+          >
+            <span className={`material-symbols-outlined ${ card.icon }`}>
+                mail
+            </span>
+            <span className={card.tooltiptext}>{'Correo Electrónico'}</span>
+          </Link>
+        )}
+        {tel.celular && (
+          <Link
+            key={tel.celular}
+            className={ card.link }
+            target={'_blank'}
+            href={`tel:${ tel.celular }`}
+          >
+            <span className={`material-symbols-outlined ${ card.icon }`}>
+                phone_iphone
+            </span>
+            <span className={card.tooltiptext}>{tel.celular.toString()}</span>
+          </Link>
+        )}
+        {tel.fijo && (
+          <Link key={tel.fijo} className={card.link} href={`tel:${ tel.fijo }`}>
+            <span className={`material-symbols-outlined ${ card.icon }`}>
+                call
+            </span>
+            <span className={card.tooltiptext}>{tel.fijo.toString()}</span>
+          </Link>
+        )}
       </div>
     </div>
   );

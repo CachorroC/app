@@ -2,6 +2,7 @@ import { cache } from 'react';
 import { notasCollection } from '../connection/mongodb';
 import { intNota, notaConvert } from 'types/notas';
 import { ObjectId } from 'mongodb';
+import { notFound } from 'next/navigation';
 
 export async function getNotasByllaveProceso(
   {
@@ -42,14 +43,14 @@ export const getNotaById = cache(
 
     const rawNotas = await collection.findOne(
       {
-        _id: new ObjectId(
+        _id:
           id
-        )
+
       }
     );
 
     if ( !rawNotas ) {
-      return null;
+      return notFound();
     }
 
     const nota = notaConvert.toMonNota(

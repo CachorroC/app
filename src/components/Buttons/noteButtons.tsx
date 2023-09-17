@@ -13,29 +13,29 @@ export function DeleteNoteButton(
   }: {
   id: string;
   llaveProceso: string;
-} 
+}
 ) {
   const [
     message,
     setMessage
   ] = useState(
-    'no Response' 
+    'no Response'
   );
 
   async function onDelete() {
     const res = await fetch(
       `/api/Notas/${ llaveProceso }?_id=${ id }`, {
         method: 'DELETE',
-      } 
+      }
     );
 
     const response = await res.json();
 
     const idk = JSON.stringify(
-      response 
+      response
     );
     setMessage(
-      idk 
+      idk
     );
   }
 
@@ -49,8 +49,8 @@ export function DeleteNoteButton(
 
 export function AddNoteButton(
   {
-    nota, uri 
-  }: { nota: intNota; uri: string } 
+    nota, uri
+  }: { nota: intNota; uri: string }
 ) {
   async function addRequestHandler() {
     const Request = await fetch(
@@ -60,20 +60,20 @@ export function AddNoteButton(
           'content-type': 'application/json',
         },
         body: JSON.stringify(
-          nota 
+          nota
         ),
-      } 
+      }
     )
           .then(
             (
-              fullfilled 
+              fullfilled
             ) => {
               alert(
-                fullfilled.status 
+                fullfilled.status
               );
 
               return fullfilled;
-            } 
+            }
           );
 
     if ( !Request.ok ) {
@@ -83,8 +83,8 @@ export function AddNoteButton(
     const Response = await Request.json();
     alert(
       JSON.stringify(
-        Response 
-      ) 
+        Response
+      )
     );
   }
 
@@ -97,13 +97,13 @@ export function AddNoteButton(
 
 export function EditNoteButton(
   {
-    nota 
-  }: { nota: monNota } 
+    nota
+  }: { nota: monNota }
 ) {
   return (
     <Link
       className={note.buttonEdit}
-      href={`/Notas/${ nota.llaveProceso }/Editar?_id=${ nota._id }`}
+      href={`/Notas/${ nota._id }/Editar?_id=${ nota._id }`}
     >
       <span className={`material-symbols-outlined ${ note.icon }`}>edit</span>
     </Link>

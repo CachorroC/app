@@ -1,6 +1,7 @@
 'use client';
-
+import styles from '#@/components/Card/card.module.css';
 import { useEffect } from 'react';
+import typography from '#@/styles/fonts/typography.module.scss';
 
 export default function Error(
   {
@@ -23,11 +24,12 @@ export default function Error(
   );
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <p>{error.message}</p>
+    <div className={styles.errorContainer}>
+      <h2 className={typography.displayLarge}>Something went wrong!</h2>
+      <p className={typography.bodyMedium}>{error.message}</p>
       <span>{error.digest}</span>
       <button
+        className={styles.error}
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => {

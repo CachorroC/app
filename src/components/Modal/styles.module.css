@@ -1,0 +1,19 @@
+.overlay {
+  container-name: modal;
+  container-type: inline-size;
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  width: 50vw;
+  height: 50svh;
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  display: flex;
+}
+.overlay .wrapper {
+  padding: 2vmin;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  justify-items: stretch;
+}

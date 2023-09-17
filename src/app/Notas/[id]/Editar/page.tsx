@@ -7,21 +7,17 @@ import { notFound } from 'next/navigation';
 export default async function page(
   {
     params,
-    searchParams,
+
   }: {
   params: {
-    llaveProceso: string;
-  };
-  searchParams: {
     id: string;
   };
 }
 ) {
-  const id = searchParams.id;
 
   const nota = await getNotaById(
     {
-      id: id,
+      id: params.id,
     }
   );
 

@@ -7,8 +7,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode, Suspense, useState } from 'react';
 import { Loader } from '../Loader';
-import card from './card.module.css';
-import typography from '#@/styles/fonts/typography.module.css';
+import styles from './card.module.css';
+import typography from '#@/styles/fonts/typography.module.scss';
 import { NombreComponent } from '../nombre';
 import buttons from 'components/Buttons/buttons.module.css';
 import { section } from '../form/form.module.css';
@@ -24,16 +24,6 @@ export const Card = (
   children: ReactNode;
 }
 ) => {
-
-  const {
-    deudor
-  } = carpeta;
-
-  const {
-    email, tel
-  } = deudor;
-
-
   const llaveLength = carpeta.llaveProceso.length;
 
   const errorLLaveProceso = llaveLength < 23;
@@ -56,94 +46,65 @@ export const Card = (
 
 
   return (
-    <div className={card.container}>
-      <div className={card.card}>
-        {errorLLaveProceso && (
-          <div className={card.errorContainer}>
-            <Link href={`/Carpetas/${ carpeta.numero }` as Route}>
-              {'error con el numero de expediente'}
-            </Link>
-          </div>
-        )}
+    <div className={styles.container}>
+      <div className={`${ styles.card } ${ errorLLaveProceso && styles.errorContainer }`}>
 
-        <Suspense fallback={<Loader />}>
-          <NombreComponent key={carpeta.nombre} deudor={carpeta.deudor} />
-        </Suspense>
-        <section className={section}>
-          <sub className={`${ typography.labelSmall } ${ card.sub }`}>
-            {carpeta.numero}
-          </sub>
-          {children}
-        </section>
-        <div className={card.links}>
+        <div className={ styles.title }>
+          <Suspense fallback={<Loader />}>
+            <NombreComponent key={carpeta.nombre} deudor={carpeta.deudor} />
+          </Suspense>
+        </div>
+
+        <sub className={`${ typography.labelSmall } ${ styles.sub }`}>
+          {carpeta.numero}
+        </sub>
+        {children}
+
+        <div className={styles.links}>
           <Link
-            className={`${ card.link } ${ isActive && card.isActive }`}
+            className={`${ styles.link } ${ isActive && styles.isActive }`}
             href={href as Route}
           >
-            <span className={`${ card.icon } material-symbols-outlined`}>
+            <span className={`${ styles.icon } material-symbols-outlined`}>
               file_open
             </span>
-            <span className={card.tooltiptext}>
+            <span className={styles.tooltiptext}>
               {'Actuaciones del proceso'}
             </span>
           </Link>
           <Link
-            className={`${ card.link } ${ isActive && card.isActive }`}
+            className={`${ styles.link } ${ isActive && styles.isActive }`}
             href={`/Procesos/${ carpeta.llaveProceso }/Editar`}
           >
-            <span className={`material-symbols-outlined ${ card.icon }`}>
+            <span className={`material-symbols-outlined ${ styles.icon }`}>
               folder_shared
             </span>
-            <span className={card.tooltiptext}>{'Perfil del Demandado'}</span>
+            <span className={styles.tooltiptext}>{'Perfil del Demandado'}</span>
           </Link>
           <Link
-            className={`${ card.link } ${ isActive && card.isActive }`}
+            className={`${ styles.link } ${ isActive && styles.isActive }`}
             href={`/Procesos/${ carpeta.llaveProceso }` as Route}
           >
-            <span className={`material-symbols-outlined ${ card.icon }`}>
+            <span className={`material-symbols-outlined ${ styles.icon }`}>
               badge
             </span>
-            <span className={card.tooltiptext}>Procesos</span>
+            <span className={styles.tooltiptext}>Procesos</span>
           </Link>
           <Link
-            className={`${ card.link } ${ isActive && card.isActive }`}
+            className={`${ styles.link } ${ isActive && styles.isActive }`}
             href={'/Notas/Nueva'}
           >
-            <span className={`material-symbols-outlined ${ card.icon }`}>
+            <span className={`material-symbols-outlined ${ styles.icon }`}>
               add
             </span>
-            <span className={card.tooltiptext}>{' Agregar nota'}</span>
+            <span className={styles.tooltiptext}>{' Agregar nota'}</span>
           </Link>
-          {email && (
-            <Link
-              className={`${ card.link } ${ isActive && card.isActive }`}
-              href={email as Route}
-            >
-              <span className={`material-symbols-outlined ${ card.icon }`}>
-                mail
-              </span>
-              <span className={card.tooltiptext}>{'Correo Electrónico'}</span>
+          {errorLLaveProceso && (
+
+            <Link href={`/Carpetas/${ carpeta.numero }`  as Route} className={styles.link}>
+              {'error con el numero de expediente'}
             </Link>
-          )}
-          {tel.celular && (
-            <Link
-              key={tel.celular}
-              className={card.link}
-              href={`tel:${ tel.celular }`}
-            >
-              <span className={`material-symbols-outlined ${ card.icon }`}>
-                phone_iphone
-              </span>
-              <span className={card.tooltiptext}>{tel.celular.toString()}</span>
-            </Link>
-          )}
-          {tel.fijo && (
-            <Link key={tel.fijo} className={card.link} href={`tel:${ tel.fijo }`}>
-              <span className={`material-symbols-outlined ${ card.icon }`}>
-                call
-              </span>
-              <span className={card.tooltiptext}>{tel.fijo.toString()}</span>
-            </Link>
+
           )}
         </div>
       </div>

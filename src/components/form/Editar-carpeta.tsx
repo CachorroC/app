@@ -6,20 +6,40 @@ import { InputSection } from './InputSection';
 import { SelectSection } from './SelectSection';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { MonCarpeta } from '#@/lib/types/carpetas';
+import { useEffect } from 'react';
 
 export default function EditCarpeta (
   {
     carpeta
   }: {carpeta: MonCarpeta}
 ) {
-  const {reset,
-    handleSubmit,
+
+  const {
+    reset,
+    handleSubmit
   } = useFormContext();
+
+  function onValid () {
+
+  }
+  useEffect(
+    () => {
+      reset(
+        carpeta
+      );
+
+    }, [
+      carpeta,
+      reset
+    ]
+  );
 
   return (
     <>
       <div className={form.container}>
-        <form className={form.form} onSubmit={handleSubmit}>
+        <form className={form.form} onSubmit={handleSubmit(
+          onValid
+        )}>
           <section className={form.section}>
             <section className={form.section}>
               <h3 className={typography.displaySmall}>{'Deudor'}</h3>
