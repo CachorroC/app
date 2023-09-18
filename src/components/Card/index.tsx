@@ -1,6 +1,5 @@
 'use client';
 
-import { useCategory } from '#@/app/context/main-context';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import type { Route } from 'next';
 import Link from 'next/link';
@@ -10,8 +9,6 @@ import { Loader } from '../Loader';
 import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { NombreComponent } from '../nombre';
-import buttons from 'components/Buttons/buttons.module.css';
-import { section } from '../form/form.module.css';
 
 export const Card = (
   {
@@ -49,16 +46,19 @@ export const Card = (
     <div className={styles.container}>
       <div className={`${ styles.card } ${ errorLLaveProceso && styles.errorContainer }`}>
 
-        <div className={ styles.title }>
-          <Suspense fallback={<Loader />}>
-            <NombreComponent key={carpeta.nombre} deudor={carpeta.deudor} />
-          </Suspense>
-        </div>
+        <div className={styles.section}>
+          <div className={ styles.title }>
+            <Suspense fallback={<Loader />}>
+              <NombreComponent key={carpeta.nombre} deudor={carpeta.deudor} />
+            </Suspense>
+            <sub className={`${ typography.labelSmall } ${ styles.sub }`}>
+              {carpeta.numero}
+            </sub>
+          </div>
 
-        <sub className={`${ typography.labelSmall } ${ styles.sub }`}>
-          {carpeta.numero}
-        </sub>
-        {children}
+
+          {children}
+        </div>
 
         <div className={styles.links}>
           <Link

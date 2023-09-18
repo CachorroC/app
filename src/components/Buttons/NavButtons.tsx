@@ -1,11 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import type { Route } from 'next';
-import buttons from 'components/Buttons/buttons.module.css';
 import navbar from 'components/layout/navbar.module.css';
-import { Dispatch, PropsWithoutRef, SetStateAction } from 'react';
-import { useNavigationContext } from '#@/app/context/main-context';
+import { useNavigationContext } from '#@/app/context/navigation-context';
 
 export const ForwardButton = () => {
   const router = useRouter();
@@ -49,12 +45,12 @@ export const BackwardsButton = () => {
 
 export const DrawerMenuButton = () => {
   const {
-    isNavOpen, setIsNavOpen 
+    isNavOpen, setIsNavOpen
   } = useNavigationContext();
 
   function handleDrawerMenuClick() {
     setIsNavOpen(
-      !isNavOpen 
+      !isNavOpen
     );
   }
 

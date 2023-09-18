@@ -1,35 +1,11 @@
 import { cache } from 'react';
-import clientPromise from '../connection/mongodb';
-import { IntCarpeta, carpetaConvert } from 'types/carpetas';
-import { intNota, notaConvert } from '../types/notas';
+import prisma from '#@/lib/connection/connectDB';
+import { Nota } from '@prisma/client';
 
-async function getNotas() {
-  const client = await clientPromise;
+async function getNotas () {
+  const notas: Nota[] = await prisma.nota.findMany();
 
-  if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico'
-    );
-  }
-
-  const db = client.db(
-    'RyS'
-  );
-
-  const collection = db.collection<intNota>(
-    'Notas'
-  );
-
-  const carpetasRaw = await collection.find(
-    {}
-  )
-        .toArray();
-
-  const carpetas = notaConvert.toMonNotas(
-    carpetasRaw
-  );
-
-  return carpetas;
+  return notas;
 }
 
 export default cache(

@@ -9,72 +9,34 @@ import { EditNoteButton,
          DeleteNoteButton, } from 'components/Buttons/noteButtons';
 import { Accordion } from '../Accordion';
 import getNotas from '#@/lib/project/getNotas';
+import { Nota } from '@prisma/client';
 
-export const Nota = (
+export const NotaComponent = (
   {
     notaRaw,
-    i,
-    arr,
   }: {
-  notaRaw: monNota;
-  i: number;
-  arr: monNota[];
+  notaRaw: Nota;
 }
 ) => {
   const {
-    _id, nota, tareas, fecha, llaveProceso
+    id, text, date, llaveProceso, done, pathname
   } = notaRaw;
 
   return (
-    <div className={note.container} key={_id}>
-      <sup className={note.sup}>{`${ i + 1 }`}</sup>
-
-      <p
-        className={`${ typography.bodySmall } ${ note.textArea }`}
-      >{`Nota: ${ nota }`}</p>
+    <div className={note.container} key={id}>
+      <p className={`${ typography.bodySmall } ${ note.textArea }`}>{`Nota: ${ text }`}</p>
       <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
-        {fixFechas(
-          fecha.toString()
+        {date && fixFechas(
+          date
         )}
       </sub>
       <div className={note.buttonsRow}>
         <Suspense fallback={<ButtonSkeleton />}>
-          <EditNoteButton key={_id} nota={notaRaw} />
+          <EditNoteButton key={id} nota={notaRaw} />
         </Suspense>
         <Suspense fallback={<ButtonSkeleton />}>
-          <DeleteNoteButton llaveProceso={llaveProceso} key={_id} id={_id} />
+          <DeleteNoteButton key={id} id={id} />
         </Suspense>
-      </div>
-      <div className={note.section}>
-        {tareas.map(
-          (
-            tr
-          ) => {
-            return (
-              <Accordion key={tr.tarea}>
-                <h1 className={typography.titleMedium}>{tr.tarea}</h1>
-                <p className={tr.isDone
-                  ? note.innactive
-                  : note.active}>
-                  {`fecha de entrega: ${ fixFechas(
-                    tr.dueDate.toString()
-                  ) }`}
-                </p>
-                <span
-                  className={`${
-                    tr.isDone
-                      ? note.innactive
-                      : note.active
-                  } material-symbols-outlined`}
-                >
-                  {tr.isDone
-                    ? 'assignment_turned_in'
-                    : 'assignment_late'}
-                </span>
-              </Accordion>
-            );
-          }
-        )}
       </div>
     </div>
   );
@@ -99,7 +61,7 @@ export async function Notas(
         (
           nota, i, arr
         ) => {
-          return <Nota notaRaw={nota} i={i} arr={arr} key={nota._id} />;
+          return <NotaComponent  key={ nota.id } notaRaw={ nota } />;
         }
       );
 
@@ -110,7 +72,7 @@ export async function Notas(
       (
         nota, i, arr
       ) => {
-        return <Nota notaRaw={nota} i={i} arr={arr} key={nota._id} />;
+        return <NotaComponent notaRaw={nota}key={nota.id} />;
       }
     );
 
@@ -123,7 +85,7 @@ export async function Notas(
     (
       nota, i, arr
     ) => {
-      return <Nota notaRaw={nota} i={i} arr={arr} key={nota._id} />;
+      return <NotaComponent notaRaw={nota}  key={nota.id} />;
     }
   );
 

@@ -10,17 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Abogado{
-Melissa
-Camilo
-Fernando
-Carmen
+enum Abogado {
+  Melissa
+  Camilo
+  Fernando
+  Carmen
 }
 
 model Tarea {
   text    String
-  id      Int       @id @unique @default(autoincrement())
+  id      Int      @id @unique @default(autoincrement())
   done    Boolean
   date    DateTime
   abogado Abogado
+}
+
+model Nota {
+  text         String
+  id           Int       @id @unique @default(autoincrement())
+  date         String?
+  done         Boolean?
+  pathname     String?
+  llaveProceso String?
 }

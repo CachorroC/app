@@ -1,6 +1,7 @@
 'use client';
 import { ContactoForm, Grupo } from '#@/lib/types/contacto';
 import { intNota } from '#@/lib/types/notas';
+import { Nota } from '@prisma/client';
 import { usePathname } from 'next/navigation';
 import { Dispatch,
          ReactNode,
@@ -16,16 +17,10 @@ const SearchContext = createContext<{
   null
 );
 
-const NavigationContext = createContext<{
-  isNavOpen: boolean;
-  setIsNavOpen: Dispatch<SetStateAction<boolean>>;
-} | null>(
-  null
-);
 
 const NoteContext = createContext<{
-  inputNota: intNota;
-  setInputNota: Dispatch<SetStateAction<intNota>>;
+  inputNota: Nota;
+  setInputNota: Dispatch<SetStateAction<Nota>>;
 } | null>(
   null
 );
@@ -58,12 +53,6 @@ export function SearchProvider(
     ''
   );
 
-  const [
-    isNavOpen,
-    setIsNavOpen
-  ] = useState(
-    false
-  );
 
   const [
     category,
@@ -91,21 +80,15 @@ export function SearchProvider(
   const [
     inputNota,
     setInputNota
-  ] = useState<intNota>(
+  ] = useState<Nota>(
     {
-      nota        : 'Ingresa tu nota',
+      id          : 0,
+      text        : 'Ingresa tu nota',
       llaveProceso: '00000000000000000000000',
       pathname    : '/',
-      fecha       : new Date()
-            .toISOString(),
-      tareas: [
-        {
-          dueDate: new Date()
-                .toISOString(),
-          tarea : '',
-          isDone: false,
-        },
-      ],
+      date        : new Date()
+            .toLocaleString(),
+      done: false
     }
   );
 
@@ -117,36 +100,31 @@ export function SearchProvider(
         setSearch,
       }}
     >
-      <NavigationContext.Provider
+
+
+      <NoteContext.Provider
         value={{
-          isNavOpen,
-          setIsNavOpen,
+          inputNota,
+          setInputNota,
         }}
       >
-
-        <NoteContext.Provider
+        <CategoryContext.Provider
           value={{
-            inputNota,
-            setInputNota,
+            category,
+            setCategory,
           }}
         >
-          <CategoryContext.Provider
+          <ContactoContext.Provider
             value={{
-              category,
-              setCategory,
+              contactoForm,
+              setContactoForm,
             }}
           >
-            <ContactoContext.Provider
-              value={{
-                contactoForm,
-                setContactoForm,
-              }}
-            >
-              {children}
-            </ContactoContext.Provider>
-          </CategoryContext.Provider>
-        </NoteContext.Provider>
-      </NavigationContext.Provider>
+            {children}
+          </ContactoContext.Provider>
+        </CategoryContext.Provider>
+      </NoteContext.Provider>
+
     </SearchContext.Provider>
 
   );
@@ -180,19 +158,7 @@ export function useCategory() {
   return context;
 }
 
-export function useNavigationContext() {
-  const context = useContext(
-    NavigationContext
-  );
 
-  if ( context === null ) {
-    throw new Error(
-      'el contexto de navegacion debe ser utilizado dentro de un contextProvider '
-    );
-  }
-
-  return context;
-}
 
 export function useContactContext() {
   const context = useContext(

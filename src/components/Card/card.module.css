@@ -10,14 +10,16 @@
 
 .card {
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-areas: "title title title links" "sub title title links" "content content content links" "date date date links";
+  display: flex;
+  flex-flow: row nowrap;
   padding: 5cqmin;
   gap: 5cqmin;
   border-radius: 2vmin;
   text-align: center;
+}
+.card .section {
+  display: flex;
+  flex-flow: column nowrap;
 }
 .card .date {
   grid-area: date;
@@ -63,7 +65,8 @@
 
 .title {
   grid-area: title;
-  text-align: center;
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 .links {

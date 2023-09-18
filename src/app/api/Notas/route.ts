@@ -4,72 +4,10 @@ import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 import getNotas from '#@/lib/project/getNotas';
 
-export async function GET(
-  Request: NextRequest
-) {
-  const {
-    searchParams
-  } = new URL(
-    Request.url
-  );
+export async function GET() {
 
   const notas = await getNotas();
 
-  if ( !notas.length ) {
-    throw new Error(
-      'no hay entradas en mongo'
-    );
-  }
-
-  const llaveProceso = searchParams.get(
-    'llaveProceso'
-  );
-
-  if ( llaveProceso ) {
-    const Notas = notas.filter(
-      (
-        nota
-      ) => {
-        return nota.llaveProceso === llaveProceso;
-      }
-    );
-
-    return new NextResponse(
-      JSON.stringify(
-        Notas
-      ), {
-        status : 200,
-        headers: {
-          'content-type': 'application/json',
-        },
-      }
-    );
-  }
-
-  const _id = searchParams.get(
-    '_id'
-  );
-
-  if ( _id ) {
-    const Nota = notas.find(
-      (
-        nota
-      ) => {
-        return nota._id === _id;
-      }
-    );
-
-    return new NextResponse(
-      JSON.stringify(
-        Nota
-      ), {
-        status : 200,
-        headers: {
-          'content-type': 'application/json',
-        },
-      }
-    );
-  }
 
   return new NextResponse(
     JSON.stringify(

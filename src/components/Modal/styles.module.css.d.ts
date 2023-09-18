@@ -1,6 +1,6 @@
 declare const styles: {
-  readonly "overlay": string;
-  readonly "wrapper": string;
+  readonly 'overlay': string;
+  readonly 'wrapper': string;
 };
 export = styles;
 

@@ -17,7 +17,9 @@ export default async function page(
 
   const nota = await getNotaById(
     {
-      id: params.id,
+      id: Number(
+        params.id 
+      ),
     }
   );
 
@@ -29,7 +31,7 @@ export default async function page(
     <div className={note.container}>
       <div className={note.nota}>
         <Edit
-          key={nota.nota}
+          key={nota.id}
           nota={nota}
         />
 

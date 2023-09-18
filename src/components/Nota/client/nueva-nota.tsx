@@ -2,46 +2,25 @@
 import { createNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import form from 'components/form/form.module.css';
 import styles from 'components/form/checkbox/styles.module.css';
-import { Nota } from '@prisma/client';
 
-export const Edit= (
+export const NuevaNota= (
   {
-    nota
-  }: {nota: Nota}
+    llaveProceso = ''
+  }: {llaveProceso?: string}
 ) => {
   const {
     inputNota, setInputNota
   } = useNotaContext();
 
-  async function onCreate(
-    formData: FormData
-  ) {
-    const res = await createNota(
-      formData
-    );
-    res;
-  }
 
   const pathname = usePathname();
-  useEffect(
-    () => {
-      setInputNota(
-        nota
-      );
-
-
-    }, [
-      nota,
-      setInputNota
-    ]
-  );
 
   return (
-    <form className={form.form} action={onCreate}>
-      <input type="text" name="llaveProceso" defaultValue={nota.llaveProceso ?? ''} />
+    <form className={form.form} action={createNota}>
+      <input type="text" name="llaveProceso" defaultValue={llaveProceso} />
       <input type="text" name="nota" value={inputNota.text} onChange={(
         e
       ) => {

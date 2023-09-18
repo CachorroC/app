@@ -1,4 +1,6 @@
-import { Nota } from '#@/components/Nota/server';
+
+
+import { NotaComponent } from '#@/components/Nota/server';
 import getNotas from '#@/lib/project/getNotas';
 
 export default async function Page () {
@@ -11,7 +13,7 @@ export default async function Page () {
           nota, i, arr
         ) => {
           return (
-            <Nota key={nota._id} notaRaw={ nota } i={ i } arr={ arr} />
+            <NotaComponent key={nota.id} notaRaw={ nota } />
           );
         }
       )}

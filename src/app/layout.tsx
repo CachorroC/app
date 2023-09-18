@@ -14,6 +14,7 @@ import { CarpetaProvider } from './context/carpeta-context';
 import { BackwardsButton, ForwardButton } from '#@/components/Buttons/NavButtons';
 import InputSearchBar from '#@/components/layout/search/InputSearchBar';
 import { HomeButton } from '#@/components/Buttons/server-buttons';
+import { NavigationProvider } from './context/navigation-context';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -135,26 +136,29 @@ export default function RootLayout(
       <body
         className={`${ poiret.variable } ${ raleway.variable } ${ inter.variable } ${ roboto.variable } ${ josefina.variable } [ color-scheme: light dark ]`}
       >
-        <CarpetaProvider>
-          <SearchProvider>
-            <div className={layout.container}>
-              <Suspense fallback={<Loader/>}>
-                <TopBar>
-                  <HomeButton />
-                  <Suspense fallback={<input />}>
-                    <InputSearchBar />
-                  </Suspense>
-                  <BackwardsButton />
-                  <ForwardButton />
-                </TopBar>
-              </Suspense>
-              <div className={layout.top}>{ top }</div>
-              <div className={layout.right}>{right}</div>
-              <div className={layout.left}>{children}</div>
-            </div>
-          </SearchProvider>
-        </CarpetaProvider>
-        <Script src={'service-worker.js'} />
+        <NavigationProvider>
+          <CarpetaProvider>
+            <SearchProvider>
+              <div className={layout.container}>
+                <Suspense fallback={<Loader/>}>
+                  <TopBar>
+                    <HomeButton />
+                    <Suspense fallback={<input />}>
+                      <InputSearchBar />
+                    </Suspense>
+                    <BackwardsButton />
+                    <ForwardButton />
+                  </TopBar>
+                </Suspense>
+                <div className={layout.top}>{ top }</div>
+                <div className={layout.right}>{right}</div>
+                <div className={layout.left}>{children}</div>
+              </div>
+            </SearchProvider>
+          </CarpetaProvider>
+          <Script src={ 'service-worker.js' } />
+        </NavigationProvider>
+
       </body>
     </html>
   );

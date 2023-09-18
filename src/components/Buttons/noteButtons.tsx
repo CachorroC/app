@@ -5,44 +5,26 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { useState } from 'react';
 import { DeleteResult } from 'mongodb';
+import { Nota } from '@prisma/client';
+import { deleteNota } from '#@/app/actions';
 
 export function DeleteNoteButton(
   {
     id,
-    llaveProceso,
   }: {
-  id: string;
-  llaveProceso: string;
+  id: number;
 }
 ) {
-  const [
-    message,
-    setMessage
-  ] = useState(
-    'no Response'
-  );
 
-  async function onDelete() {
-    const res = await fetch(
-      `/api/Notas/${ llaveProceso }?_id=${ id }`, {
-        method: 'DELETE',
-      }
-    );
-
-    const response = await res.json();
-
-    const idk = JSON.stringify(
-      response
-    );
-    setMessage(
-      idk
+  function onDelete () {
+    deleteNota(
+      id
     );
   }
 
   return (
-    <button className={note.buttonDelete} onClick={onDelete}>
+    <button className={note.buttonDelete} type='button' onClick={onDelete}>
       <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
-      <p>{message}</p>
     </button>
   );
 }
@@ -54,7 +36,7 @@ export function AddNoteButton(
 ) {
   async function addRequestHandler() {
     const Request = await fetch(
-      `${ uri }/api/Notas`, {
+      'api/Notas', {
         method : 'POST',
         headers: {
           'content-type': 'application/json',
@@ -89,7 +71,7 @@ export function AddNoteButton(
   }
 
   return (
-    <button className={note.buttonAdd} onClick={addRequestHandler}>
+    <button className={note.buttonAdd} type='button' onClick={addRequestHandler}>
       <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
     </button>
   );
@@ -98,12 +80,12 @@ export function AddNoteButton(
 export function EditNoteButton(
   {
     nota
-  }: { nota: monNota }
+  }: { nota: Nota }
 ) {
   return (
     <Link
       className={note.buttonEdit}
-      href={`/Notas/${ nota._id }/Editar?_id=${ nota._id }`}
+      href={`/Notas/${ nota.id.toString() }/Editar`}
     >
       <span className={`material-symbols-outlined ${ note.icon }`}>edit</span>
     </Link>

@@ -1,8 +1,9 @@
-import { NewNota } from 'components/Nota/client';
+import {  NuevaNota } from '#@/components/Nota/client/nueva-nota';
 import { Notas } from 'components/Nota/server';
 import layout from '#@/styles/layout.module.css';
 import { getNotaById } from '#@/lib/project/notas';
 import { notFound } from 'next/navigation';
+import { Edit } from '#@/components/Nota/Edit';
 
 export default async function NuevaNotallaveProceso(
   {
@@ -13,7 +14,9 @@ export default async function NuevaNotallaveProceso(
 ) {
   const nota = await getNotaById(
     {
-      id: params.id
+      id: Number(
+        params.id
+      )
     }
   );
 
@@ -24,7 +27,7 @@ export default async function NuevaNotallaveProceso(
   return (
     <>
 
-      <NewNota key={params.id} llaveProceso={nota.llaveProceso} />
+      <Edit key={params.id} nota={nota} />
 
     </>
   );

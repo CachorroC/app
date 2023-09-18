@@ -3,61 +3,41 @@ import { notasCollection } from '../connection/mongodb';
 import { intNota, notaConvert } from 'types/notas';
 import { ObjectId } from 'mongodb';
 import { notFound } from 'next/navigation';
+import prisma from '#@/lib/connection/connectDB';
 
-export async function getNotasByllaveProceso(
-  {
-    llaveProceso,
-  }: {
+export const  getNotasByllaveProceso = cache(
+  async(
+    {
+      llaveProceso,
+    }: {
   llaveProceso: string;
 }
-) {
-  const collection = await notasCollection();
+  ) =>  {
+    const notas = await prisma.nota.findMany(
+      {
+        where: {
+          llaveProceso: llaveProceso
+        }
+      }
+    );
 
-  const Notas = await collection
-        .find(
-          {
-            llaveProceso: llaveProceso,
-          }
-        )
-        .sort(
-          {
-            fecha: 1,
-          }
-        )
-        .toArray();
-
-  const convert = notaConvert.toMonNotas(
-    Notas
-  );
-
-  return convert;
-}
+    return notas;
+  }
+);
 
 export const getNotaById = cache(
   async (
     {
       id
-    }: {id: string }
+    }: {id: number }
   ) => {
-    const collection = await notasCollection();
-
-    const rawNotas = await collection.findOne(
+    const nota = await prisma.nota.findUnique(
       {
-        _id:
-          id
-
+        where: {
+          id: id
+        }
       }
     );
-
-    if ( !rawNotas ) {
-      return notFound();
-    }
-
-    const nota = notaConvert.toMonNota(
-      rawNotas
-    );
-
-
 
     return nota;
   }

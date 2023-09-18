@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { revalidateTag } from 'next/cache';
 import { addNota } from '#@/lib/project/notas';
 import { NotaBuilder, intNota } from '#@/lib/types/notas';
+import prisma from '#@/lib/connection/connectDB';
 
 export async function createNota (
   formData: FormData
@@ -11,47 +12,79 @@ export async function createNota (
   try {
     const llaveProceso = formData.get(
       'llaveProceso'
+    ) ;
+
+    const text = formData.get(
+      'text'
     ) ?? '';
 
-    const nota = formData.get(
-      'nota'
-    )?? '';
-
-    const fecha = formData.get(
-      'fecha'
-    ) ?? '';
+    const date = formData.get(
+      'date'
+    ) ;
 
     const pathname= formData.get(
       'pathname'
-    ) ?? '';
-
-    const tareas = formData.get(
-      'tareas'
     );
 
-    const newNota = new NotaBuilder(
+    const done = formData.get(
+      'done'
+    ) === 'true'
+      ? true
+      : false;
+
+    const newNota = {
+      llaveProceso: llaveProceso?.toString(),
+      text        : text.toString(),
+      date        : date?.toString(),
+      pathname    : pathname?.toString(),
+      done        : done
+    };
+
+
+    const nota = await prisma.nota.create(
       {
-        llaveProceso: llaveProceso.toString(),
-        nota        : nota.toString(),
-        fecha       : fecha.toString(),
-        pathname    : pathname.toString(),
-        tareas      : []
+        data: newNota
       }
     );
+    revalidateTag(
+      'notas'
+    );
 
-    const id = await addNota(
-      newNota
+    return JSON.stringify(nota);
+
+  } catch ( e ) {
+    console.log(
+      `there was an error: ${ JSON.stringify(
+        e
+      ) }`
+    );
+
+    return null;
+  }
+}
+
+export async function deleteNota (
+  id: number
+) {
+  try {
+    prisma.nota.delete(
+      {
+        where: {
+          id: id
+        }
+      }
     );
     revalidateTag(
-      'posts'
+      'notas'
     );
-
-    return {
-      message: id
-    };
-  } catch ( e ) {
-    return {
-      message: 'There was an error.'
-    };
+    redirect(
+      '/Notas'
+    );
+  } catch ( error ) {
+    console.log(
+      `error, ${ JSON.stringify(
+        error
+      ) }`
+    );
   }
 }
