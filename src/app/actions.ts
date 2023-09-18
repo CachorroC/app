@@ -50,7 +50,9 @@ export async function createNota (
       'notas'
     );
 
-    return JSON.stringify(nota);
+    return JSON.stringify(
+      nota 
+    );
 
   } catch ( e ) {
     console.log(

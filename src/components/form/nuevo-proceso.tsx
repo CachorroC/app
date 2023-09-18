@@ -21,6 +21,8 @@ export const NuevoProceso = (
   carpeta?: IntCarpeta;
 }
 ) => {
+  const methods = useForm<IntCarpeta>();
+
   const {
     reset,
     setFocus,
@@ -83,7 +85,7 @@ export const NuevoProceso = (
   };
 
   return (
-    <>
+    <FormProvider {...methods}>
       <div className={form.container}>
         <form className={form.form} onSubmit={handleSubmit(
           onSubmit
@@ -357,6 +359,6 @@ export const NuevoProceso = (
           value="Reset with values"
         />
       )}
-    </>
+    </FormProvider>
   );
 };

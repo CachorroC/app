@@ -85,7 +85,7 @@ export function EditNoteButton(
   return (
     <Link
       className={note.buttonEdit}
-      href={`/Notas/${ nota.id.toString() }/Editar`}
+      href={`/Notas/${ nota.id.toString() }/Editar` as Route}
     >
       <span className={`material-symbols-outlined ${ note.icon }`}>edit</span>
     </Link>

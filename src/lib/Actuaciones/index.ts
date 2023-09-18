@@ -12,11 +12,11 @@ interface ErrorActuacion {
 }
 
 export async function fetchActuaciones(
-  idProceso: number, index: number 
+  idProceso: number, index: number
 ) {
   try {
     await sleep(
-      index 
+      index
     );
 
     const request = await fetch(
@@ -30,7 +30,7 @@ export async function fetchActuaciones(
         ` status: ${ request.status }, text: ${
           request.statusText
         }, json: ${ JSON.stringify(
-          json 
+          json
         ) }`,
       );
     }
@@ -38,7 +38,7 @@ export async function fetchActuaciones(
     const json = ( await request.json() ) as ConsultaActuacion;
 
     const {
-      actuaciones 
+      actuaciones
     } = json;
 
     return actuaciones;
@@ -51,55 +51,80 @@ export async function fetchActuaciones(
       return null;
     }
     console.log(
-      `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }` 
+      `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
     );
 
     return null;
   }
 }
 
-export async function getActuaciones(
-  {
-    carpeta,
-    index,
-  }: {
+
+
+export const getActuaciones= cache(
+  async (
+    {
+      carpeta,
+      index,
+    }: {
   carpeta: MonCarpeta;
   index: number;
-} 
-) {
-  if ( !carpeta.idProceso ) {
-    return null;
-  }
-
-  const actuaciones = await fetchActuaciones(
-    carpeta.idProceso, index 
-  );
-
-  if ( actuaciones ) {
-    const ultimaActuacion = actuaciones[ 0 ];
-
-    const newDate = new Date(
-      ultimaActuacion.fechaActuacion 
-    )
-          .toISOString();
-
-    const oldDate = carpeta.fecha && new Date(
-      carpeta.fecha 
-    )
-          .toISOString();
-
-    if ( oldDate !== newDate ) {
-      await updateActuaciones(
-        {
-          idProceso  : carpeta.idProceso,
-          actuaciones: actuaciones,
-        } 
-      );
-    }
-  }
-
-  return actuaciones;
 }
+  ) => {
+    const limiteDownTimeServidor = new Date(
+      '2023-09-20'
+    );
+
+    const today = new Date();
+
+    if ( today <= limiteDownTimeServidor ) {
+      const temporaryArray = [];
+
+      if ( carpeta.ultimaActuacion ) {
+        temporaryArray.push(
+          carpeta.ultimaActuacion
+        );
+
+
+        return temporaryArray;
+      }
+
+      return null;
+    }
+
+    if ( !carpeta.idProceso ) {
+      return null;
+    }
+
+    const actuaciones = await fetchActuaciones(
+      carpeta.idProceso, index
+    );
+
+    if ( actuaciones ) {
+      const ultimaActuacion = actuaciones[ 0 ];
+
+      const newDate = new Date(
+        ultimaActuacion.fechaActuacion
+      )
+            .toISOString();
+
+      const oldDate = carpeta.fecha && new Date(
+        carpeta.fecha
+      )
+            .toISOString();
+
+      if ( oldDate !== newDate ) {
+        await updateActuaciones(
+          {
+            idProceso  : carpeta.idProceso,
+            actuaciones: actuaciones,
+          }
+        );
+      }
+    }
+
+    return actuaciones;
+  }
+);
 
 export const updateActuaciones = cache(
   async (
@@ -109,7 +134,7 @@ export const updateActuaciones = cache(
     }: {
     idProceso: number;
     actuaciones: Actuacion[];
-  } 
+  }
   ) => {
     const carpetasColl = await carpetasCollection();
 
@@ -120,7 +145,7 @@ export const updateActuaciones = cache(
       {
         $set: {
           fecha: new Date(
-            actuaciones[ 0 ].fechaActuacion 
+            actuaciones[ 0 ].fechaActuacion
           ),
           ultimaActuacion: actuaciones[ 0 ],
         },
@@ -146,14 +171,14 @@ export const deleteProcesoPrivado = async (
     idProceso,
   }: {
   idProceso: number;
-} 
+}
 ) => {
   const collection = await carpetasCollection();
 
   const deleteOne = await collection.deleteOne(
     {
       idProceso: idProceso,
-    } 
+    }
   );
 
   if ( deleteOne.deletedCount > 0 ) {

@@ -9,7 +9,6 @@ export default function PageProcesos() {
     <>
       <h1 className={typography.displayLarge}>Procesos</h1>
       <CategoryFilterButton />
-
     </>
   );
 }

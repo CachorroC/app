@@ -10,7 +10,6 @@ import { SearchProvider } from './context/main-context';
 import { TopBar } from 'components/layout/top-bar';
 import { inter, josefina, poiret, raleway, roboto } from '#@/styles/fonts';
 import { Loader } from '#@/components/Loader';
-import { CarpetaProvider } from './context/carpeta-context';
 import { BackwardsButton, ForwardButton } from '#@/components/Buttons/NavButtons';
 import InputSearchBar from '#@/components/layout/search/InputSearchBar';
 import { HomeButton } from '#@/components/Buttons/server-buttons';
@@ -137,25 +136,25 @@ export default function RootLayout(
         className={`${ poiret.variable } ${ raleway.variable } ${ inter.variable } ${ roboto.variable } ${ josefina.variable } [ color-scheme: light dark ]`}
       >
         <NavigationProvider>
-          <CarpetaProvider>
-            <SearchProvider>
-              <div className={layout.container}>
-                <Suspense fallback={<Loader/>}>
-                  <TopBar>
-                    <HomeButton />
-                    <Suspense fallback={<input />}>
-                      <InputSearchBar />
-                    </Suspense>
-                    <BackwardsButton />
-                    <ForwardButton />
-                  </TopBar>
-                </Suspense>
-                <div className={layout.top}>{ top }</div>
-                <div className={layout.right}>{right}</div>
-                <div className={layout.left}>{children}</div>
-              </div>
-            </SearchProvider>
-          </CarpetaProvider>
+
+          <SearchProvider>
+            <div className={layout.container}>
+              <Suspense fallback={<Loader/>}>
+                <TopBar>
+                  <HomeButton />
+                  <Suspense fallback={<input />}>
+                    <InputSearchBar />
+                  </Suspense>
+                  <BackwardsButton />
+                  <ForwardButton />
+                </TopBar>
+              </Suspense>
+              <div className={layout.top}>{ top }</div>
+              <div className={layout.right}>{right}</div>
+              <div className={layout.left}>{children}</div>
+            </div>
+          </SearchProvider>
+
           <Script src={ 'service-worker.js' } />
         </NavigationProvider>
 

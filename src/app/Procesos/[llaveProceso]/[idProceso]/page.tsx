@@ -1,5 +1,5 @@
 import { ActuacionCard } from 'components/Actuacion/server-components';
-import { fetchActuaciones, getActuaciones } from '#@/lib/Actuaciones';
+import {  getActuaciones } from '#@/lib/Actuaciones';
 import { notFound } from 'next/navigation';
 import { Fragment } from 'react';
 import { getCarpetaByidProceso } from '#@/lib/project/carpetas';
@@ -12,12 +12,12 @@ export default async function Page(
     llaveProceso: string;
     idProceso: string;
   };
-} 
+}
 ) {
   const carpeta = await getCarpetaByidProceso(
     Number(
-      params.idProceso 
-    ) 
+      params.idProceso
+    )
   );
 
   if ( !carpeta ) {
@@ -28,7 +28,7 @@ export default async function Page(
     {
       carpeta: carpeta,
       index  : 1,
-    } 
+    }
   );
 
   if ( !actuaciones ) {
@@ -42,10 +42,10 @@ export default async function Page(
       )}
       {actuaciones.map(
         (
-          actuacion, index, arr 
+          actuacion, index, arr
         ) => {
           return <ActuacionCard act={actuacion} key={index} />;
-        } 
+        }
       )}
     </Fragment>
   );

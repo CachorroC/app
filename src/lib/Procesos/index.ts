@@ -9,8 +9,9 @@ import { Proceso, ConsultaNumeroRadicacion } from 'types/procesos';
 export const getDespachos = cache(
   async () => {
     try {
+
       const request = await fetch(
-        'https://www.ramajudicial.gov.co/directorioPortal-portlet/api/jsonws/servicioapidirectorio/get-despacho-distritos.18',
+        '/despachos.json',
       );
 
       if ( !request.ok ) {
