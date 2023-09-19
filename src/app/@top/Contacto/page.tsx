@@ -4,7 +4,7 @@ import typography from '#@/styles/fonts/typography.module.scss';
 export default function Page() {
   return (
     <>
-      <h1 className={ typography.displayLarge }>{ 'Contáctenos:' }</h1>
+      <h1 className={typography.displayLarge}>{'Contáctenos:'}</h1>
       <Checkbox />
     </>
   );

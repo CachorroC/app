@@ -21,7 +21,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: var(--surface-container-highest);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -39,11 +39,11 @@
 }
 
 .inputElement:checked + .slider {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 .inputElement:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196f3;
 }
 
 .inputElement:checked + .slider:before {
@@ -60,3 +60,5 @@
 .slider.round:before {
   border-radius: 50%;
 }
+
+/*# sourceMappingURL=styles.module.css.map */

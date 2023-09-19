@@ -38,11 +38,11 @@ define(
     const n = (
       t 
     ) => {
-      return ( t && 'object' == typeof t
+      return t && 'object' == typeof t
         ? t
         : {
-            handle: t 
-          } );
+            handle: t,
+          };
     };
     class i {
       constructor(
@@ -103,7 +103,7 @@ define(
                   s = this.handleRequest(
                     {
                       request: e,
-                      event  : t 
+                      event  : t,
                     } 
                   );
             s && t.respondWith(
@@ -137,7 +137,7 @@ define(
                           return this.handleRequest(
                             {
                               request: s,
-                              event  : t 
+                              event  : t,
                             } 
                           );
                         } 
@@ -146,7 +146,9 @@ define(
               t.waitUntil(
                 s 
               ),
-              t.ports && t.ports[ 0 ] && s.then(
+              t.ports
+              && t.ports[ 0 ]
+              && s.then(
                 () => {
                   return t.ports[ 0 ].postMessage(
                     !0 
@@ -202,7 +204,7 @@ define(
               url    : s,
               request: t,
               event  : e,
-              params : i 
+              params : i,
             } 
           );
         } catch ( t ) {
@@ -240,7 +242,7 @@ define(
                   {
                     url    : s,
                     request: t,
-                    event  : e 
+                    event  : e,
                   } 
                 );
               }
@@ -268,7 +270,7 @@ define(
               url       : t,
               sameOrigin: e,
               request   : s,
-              event     : n 
+              event     : n,
             } 
           );
 
@@ -285,7 +287,7 @@ define(
               && ( i = void 0 ),
               {
                 route : r,
-                params: i 
+                params: i,
               }
             );
           }
@@ -360,9 +362,7 @@ define(
     let c;
 
     const a = () => {
-      return (
-        c || ( ( c = new o() ), c.addFetchListener(), c.addCacheListener() ), c
-      );
+      return c || ( ( c = new o() ), c.addFetchListener(), c.addCacheListener() ), c;
     };
 
     const h = {
@@ -381,13 +381,14 @@ define(
               h.prefix,
               t,
               h.suffix
-            ].filter(
-              (
-                t 
-              ) => {
-                return t && t.length > 0;
-              } 
-            )
+            ]
+                  .filter(
+                    (
+                      t 
+                    ) => {
+                      return t && t.length > 0;
+                    } 
+                  )
                   .join(
                     '-' 
                   );
@@ -408,7 +409,7 @@ define(
           };
 
     function w(
-      t, e 
+                t, e 
     ) {
       const s = e();
 
@@ -422,12 +423,12 @@ define(
     } catch ( t ) {}
 
     function d(
-      t 
+                t 
     ) {
       if ( !t ) {
         throw new s(
           'add-to-cache-list-unexpected-type', {
-            entry: t 
+            entry: t,
           } 
         );
       }
@@ -439,7 +440,7 @@ define(
 
         return {
           cacheKey: e.href,
-          url     : e.href 
+          url     : e.href,
         };
       }
 
@@ -450,7 +451,7 @@ define(
       if ( !n ) {
         throw new s(
           'add-to-cache-list-unexpected-type', {
-            entry: t 
+            entry: t,
           } 
         );
       }
@@ -462,7 +463,7 @@ define(
 
         return {
           cacheKey: t.href,
-          url     : t.href 
+          url     : t.href,
         };
       }
 
@@ -479,7 +480,7 @@ define(
         ),
         {
           cacheKey: i.href,
-          url     : r.href 
+          url     : r.href,
         }
       );
     }
@@ -542,7 +543,7 @@ define(
           return s
             ? new Request(
               s, {
-                headers: t.headers 
+                headers: t.headers,
               } 
             )
             : t;
@@ -553,7 +554,7 @@ define(
     let g;
 
     async function R(
-      t, e 
+                t, e 
     ) {
       let n = null;
 
@@ -566,7 +567,7 @@ define(
       if ( n !== self.location.origin ) {
         throw new s(
           'cross-origin-copy-response', {
-            origin: n 
+            origin: n,
           } 
         );
       }
@@ -613,7 +614,7 @@ define(
     }
 
     function m(
-      t, e 
+                t, e 
     ) {
       const s = new URL(
         t 
@@ -646,7 +647,7 @@ define(
     } catch ( t ) {}
 
     function U(
-      t 
+                t 
     ) {
       return 'string' == typeof t
         ? new Request(
@@ -715,7 +716,7 @@ define(
             n = await t(
               {
                 request: n.clone(),
-                event  : e 
+                event  : e,
               } 
             );
           }
@@ -747,7 +748,7 @@ define(
               {
                 event   : e,
                 request : r,
-                response: t 
+                response: t,
               } 
             );
           }
@@ -800,7 +801,7 @@ define(
                 Object.assign(
                   {}, i 
                 ), {
-                  cacheName: n 
+                  cacheName: n,
                 } 
               );
         s = await caches.match(
@@ -831,7 +832,8 @@ define(
           t 
         );
         var i;
-        await ( ( i = 0 ), new Promise(
+        await ( ( i = 0 ),
+        new Promise(
           (
             t 
           ) => {
@@ -1023,7 +1025,7 @@ define(
                       Object.assign(
                         {}, n 
                       ), {
-                        state: s 
+                        state: s,
                       } 
                     );
 
@@ -1107,9 +1109,10 @@ define(
       handleAll(
         t 
       ) {
-        t instanceof FetchEvent && ( t = {
+        t instanceof FetchEvent
+        && ( t = {
           event  : t,
-          request: t.request 
+          request: t.request,
         } );
 
         const e = t.event,
@@ -1125,7 +1128,7 @@ define(
                 this, {
                   event  : e,
                   request: s,
-                  params : n 
+                  params : n,
                 } 
               ),
               r = this.q(
@@ -1146,7 +1149,7 @@ define(
         await t.runCallbacks(
           'handlerWillStart', {
             event  : n,
-            request: e 
+            request: e,
           } 
         );
 
@@ -1156,7 +1159,7 @@ define(
           ) ), !i || 'error' === i.type ) ) {
             throw new s(
               'no-response', {
-                url: e.url 
+                url: e.url,
               } 
             );
           }
@@ -1165,13 +1168,16 @@ define(
             for ( const r of t.iterateCallbacks(
               'handlerDidError' 
             ) ) {
-              if ( ( ( i = await r(
-                {
-                  error  : s,
-                  event  : n,
-                  request: e 
-                } 
-              ) ), i ) ) {
+              if (
+                ( ( i = await r(
+                  {
+                    error  : s,
+                    event  : n,
+                    request: e,
+                  } 
+                ) ),
+                i )
+              ) {
                 break;
               }
             }
@@ -1189,7 +1195,7 @@ define(
             {
               event   : n,
               request : e,
-              response: i 
+              response: i,
             } 
           );
         }
@@ -1292,7 +1298,7 @@ define(
               t, {
                 integrity: 'no-cors' !== t.mode
                   ? r || s
-                  : void 0 
+                  : void 0,
               } 
             ),
           ) ),
@@ -1393,9 +1399,9 @@ define(
               ...e,
               new y(
                 {
-                  precacheController: this 
+                  precacheController: this,
                 } 
-              )
+              ),
             ],
             fallbackToNetwork: s,
           } 
@@ -1525,7 +1531,7 @@ define(
                 this.strategy.handleAll(
                   {
                     params: {
-                      cacheKey: s 
+                      cacheKey: s,
                     },
                     request: r,
                     event  : t,
@@ -1540,7 +1546,7 @@ define(
 
             return {
               updatedURLs   : s,
-              notUpdatedURLs: n 
+              notUpdatedURLs: n,
             };
           } 
         );
@@ -1570,7 +1576,7 @@ define(
             }
 
             return {
-              deletedURLs: n 
+              deletedURLs: n,
             };
           } 
         );
@@ -1629,7 +1635,7 @@ define(
         if ( !e ) {
           throw new s(
             'non-precached-url', {
-              url: t 
+              url: t,
             } 
           );
         }
@@ -1643,8 +1649,9 @@ define(
             ) ),
             ( s.params = Object.assign(
               {
-                cacheKey: e 
-              }, s.params 
+                cacheKey: e,
+              },
+              s.params,
             ) ),
             this.strategy.handle(
               s 
@@ -1656,7 +1663,7 @@ define(
     let O;
 
     const x = () => {
-      return ( O || ( O = new E() ), O );
+      return O || ( O = new E() ), O;
     };
     class N extends i {
       constructor(
@@ -1730,7 +1737,7 @@ define(
               if ( i ) {
                 const t = i(
                   {
-                    url: r 
+                    url: r,
                   } 
                 );
 
@@ -1750,7 +1757,7 @@ define(
                   cacheKey : e,
                   integrity: t.getIntegrityForCacheKey(
                     e 
-                  ) 
+                  ),
                 };
               }
             }
@@ -1760,7 +1767,7 @@ define(
     }
 
     function k(
-      t 
+                t 
     ) {
       const e = x();
 
@@ -1780,7 +1787,9 @@ define(
               } 
             ) => {
               return t.href === s.href;
-            }, e, n 
+            },
+            e,
+            n,
           );
         } else if ( t instanceof RegExp ) {
           o = new r(

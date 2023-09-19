@@ -1,14 +1,15 @@
 'use client';
 import { LinkCard } from './link';
 import { MonCarpeta } from '#@/lib/types/carpetas';
-import { useCategory, useSearch } from '#@/app/context/main-context';
+import { useCategory } from '#@/app/context/main-context';
 import { arraySorter } from '#@/lib/project/helper';
+import { useSearch } from '#@/app/context/search-context';
 
 export default function SearchOutputList(
-  {
-    path,
-    fechas,
-  }: {
+            {
+              path,
+              fechas,
+            }: {
   path: string;
   fechas: MonCarpeta[];
 }
@@ -19,7 +20,7 @@ export default function SearchOutputList(
 
   const {
     category
-  }= useCategory();
+  } = useCategory();
 
   const rows: any[] = [];
 
@@ -28,9 +29,8 @@ export default function SearchOutputList(
   );
   byNombre.forEach(
     (
-      proceso, index, array
+      proceso
     ) => {
-
       if ( proceso.nombre.toLowerCase()
             .indexOf(
               search.toLowerCase()

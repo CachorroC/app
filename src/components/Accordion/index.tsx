@@ -3,9 +3,9 @@ import { ReactNode, useState } from 'react';
 import styles from './accordion.module.css';
 
 export function Accordion(
-  {
-    children 
-  }: { children: ReactNode } 
+            {
+              children 
+            }: { children: ReactNode } 
 ) {
   const [
     isActive,

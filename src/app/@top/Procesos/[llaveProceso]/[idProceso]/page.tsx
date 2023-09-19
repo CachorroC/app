@@ -7,11 +7,11 @@ import { notFound } from 'next/navigation';
 import { Calendar } from 'components/Calendar/main';
 
 export default async function TopidProcesoPage(
-  {
-    params: {
-      llaveProceso, idProceso 
-    },
-  }: {
+            {
+              params: {
+                llaveProceso, idProceso 
+              },
+            }: {
   params: {
     llaveProceso: string;
     idProceso: string;

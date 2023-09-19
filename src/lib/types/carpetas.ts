@@ -104,6 +104,122 @@ export interface MonCarpeta extends IntCarpeta {
 
 export type CarpetaKeys = keyof IntCarpeta;
 
+export class BuildCarpeta implements MonCarpeta {
+  constructor(
+    {
+      _id,
+      tipoProceso,
+      llaveProceso,
+      demanda,
+      category,
+      categoryTag,
+      numero,
+      deudor: {
+        primerNombre,
+        segundoNombre,
+        primerApellido,
+        segundoApellido,
+        direccion = '',
+        email = '',
+        tel: {
+          fijo = 0, celular = 0 
+        },
+        cedula,
+      },
+    }: WithId<IntCarpeta> 
+  ) {
+    const pN
+      = primerNombre.charAt(
+        0 
+      )
+            .toUpperCase()
+      + primerNombre.toLowerCase()
+            .slice(
+              1 
+            );
+
+    const pA
+      = primerApellido.charAt(
+        0 
+      )
+            .toUpperCase()
+      + primerApellido.toLowerCase()
+            .slice(
+              1 
+            );
+
+    const sN
+      = segundoNombre
+      && segundoNombre.charAt(
+        0 
+      )
+            .toUpperCase()
+        + segundoNombre.toLowerCase()
+              .slice(
+                1 
+              );
+
+    const sA
+      = segundoApellido
+      && segundoApellido.charAt(
+        0 
+      )
+            .toUpperCase()
+        + segundoApellido.toLowerCase()
+              .slice(
+                1 
+              );
+    this.deudor = {
+      primerNombre   : pN,
+      segundoNombre  : sN,
+      primerApellido : pA,
+      segundoApellido: sA,
+      cedula         : Number(
+        cedula 
+      ),
+      direccion,
+      email,
+      tel: {
+        fijo,
+        celular 
+      },
+    };
+    this._id = _id.toString();
+    this.tipoProceso = tipoProceso;
+    this.numero = numero;
+    this.demanda = demanda;
+    this.category = category;
+    this.categoryTag = categoryTag;
+    this.llaveProceso = llaveProceso;
+  }
+  _id: string;
+  fecha?: Date | undefined;
+  ultimaActuacion?: Actuacion | undefined;
+  demanda: intDemanda;
+  category: Category;
+  categoryTag: number;
+  deudor: intDeudor;
+  numero: number;
+  llaveProceso: string;
+  tipoProceso: TipoProceso;
+  idProceso?: number | undefined;
+  get nombre() {
+    const nombres
+      = this.deudor.primerNombre
+      + ( this.deudor.segundoNombre
+        ? ' ' + this.deudor.segundoNombre
+        : ' ' );
+
+    const apellidos = this.deudor.segundoApellido
+      ? this.deudor.primerApellido + ' ' + this.deudor.segundoApellido
+      : this.deudor.primerApellido;
+
+    const rawName = nombres + apellidos;
+
+    return rawName;
+  }
+}
+
 // Converts JSON strings to/from your types
 export class carpetaConvert {
   public static toMonCarpeta(
@@ -164,13 +280,15 @@ export class carpetaConvert {
       get nombre() {
         const nombres
           = this.deudor.primerNombre
-          + ( this.deudor.segundoNombre && ' ' + this.deudor.segundoNombre );
+          + ( this.deudor.segundoNombre
+            ? ' ' + this.deudor.segundoNombre
+            : ' ' );
 
         const apellidos = this.deudor.segundoApellido
           ? this.deudor.primerApellido + ' ' + this.deudor.segundoApellido
           : this.deudor.primerApellido;
 
-        const rawName = nombres + ' ' + apellidos;
+        const rawName = nombres + apellidos;
 
         return rawName;
       },

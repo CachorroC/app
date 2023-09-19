@@ -3,10 +3,12 @@ import { notasCollection } from '#@/lib/connection/mongodb';
 import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 import getNotas from '#@/lib/project/getNotas';
+import { Nota } from '@prisma/client';
+import prisma from '#@/lib/connection/connectDB';
 
 export async function GET() {
+  const notas: Nota[] = await prisma.nota.findMany();
 
-  const notas = await getNotas();
 
 
   return new NextResponse(
@@ -22,17 +24,17 @@ export async function GET() {
 }
 
 export async function POST(
-  request: NextRequest
+            request: NextRequest
 ) {
   const incomingRequest = await request.json();
 
-  const collection = await notasCollection();
-
-  const outgoingRequest = await collection.insertOne(
-    incomingRequest
+  const outgoingRequest = await prisma.nota.create(
+    {
+      data: incomingRequest
+    }
   );
 
-  if ( !outgoingRequest.acknowledged ) {
+  if ( !outgoingRequest ) {
     return new NextResponse(
       null, {
         status: 404,
@@ -42,7 +44,7 @@ export async function POST(
 
   return new NextResponse(
     JSON.stringify(
-      outgoingRequest.insertedId + `${ outgoingRequest.acknowledged }`,
+      outgoingRequest
     ),
     {
       status : 200,
@@ -54,7 +56,7 @@ export async function POST(
 }
 
 export async function PUT(
-  Request: NextRequest
+            Request: NextRequest
 ) {
   const collection = await notasCollection();
 
@@ -117,7 +119,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-  Request: NextRequest
+            Request: NextRequest
 ) {
   const notas = await notasCollection();
 

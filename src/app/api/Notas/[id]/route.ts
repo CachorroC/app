@@ -4,8 +4,8 @@ import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(
-  request: NextRequest,
-  context: { params: { id: string } },
+            request: NextRequest,
+            context: { params: { id: string } },
 ) {
   const {
     searchParams 
@@ -36,8 +36,8 @@ export async function POST(
 }
 
 export async function PUT(
-  request: NextRequest,
-  context: { params: { llaveProceso: string } },
+            request: NextRequest,
+            context: { params: { llaveProceso: string } },
 ) {
   const json = ( await request.json() ) as intNota;
   console.log(
@@ -121,7 +121,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: NextRequest 
+            request: NextRequest 
 ) {
   const {
     searchParams 

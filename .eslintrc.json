@@ -1,5 +1,5 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:storybook/recommended"],
+  "extends": ["next/core-web-vitals"],
   "rules": {
     "array-bracket-newline": [
       "error",
@@ -47,7 +47,7 @@
         },
         "FunctionDeclaration": {
           "body": 1,
-          "parameters": "first"
+          "parameters": 6
         },
         "FunctionExpression": {
           "body": 1,

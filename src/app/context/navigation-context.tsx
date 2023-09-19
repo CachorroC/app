@@ -1,24 +1,29 @@
 'use client';
 
-import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
+import { Dispatch,
+         ReactNode,
+         SetStateAction,
+         createContext,
+         useContext,
+         useState, } from 'react';
 
 export const NavigationContext = createContext<{
   isNavOpen: boolean;
   setIsNavOpen: Dispatch<SetStateAction<boolean>>;
 } | null>(
-  null
+  null 
 );
 
-export function NavigationProvider (
-  {
-    children
-  }: { children: ReactNode }
+export function NavigationProvider(
+            {
+              children 
+            }: { children: ReactNode } 
 ) {
   const [
     isNavOpen,
     setIsNavOpen
   ] = useState(
-    false
+    false 
   );
 
   return (
@@ -35,12 +40,12 @@ export function NavigationProvider (
 
 export function useNavigationContext() {
   const context = useContext(
-    NavigationContext
+    NavigationContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'el contexto de navegacion debe ser utilizado dentro de un contextProvider '
+      'el contexto de navegacion debe ser utilizado dentro de un contextProvider ',
     );
   }
 

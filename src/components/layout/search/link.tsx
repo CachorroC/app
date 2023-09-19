@@ -2,11 +2,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { Route } from 'next';
-import { useSearch, useCategory } from '#@/app/context/main-context';
+import { useCategory } from '#@/app/context/main-context';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
+import { useSearch } from '#@/app/context/search-context';
 
 export const LinkCard = (
   {
@@ -18,7 +19,7 @@ export const LinkCard = (
 } 
 ) => {
   const {
-    search, setSearch 
+    search 
   } = useSearch();
 
   const {
@@ -30,7 +31,7 @@ export const LinkCard = (
   const pathname = usePathname();
 
   const {
-    category, setCategory 
+    category 
   } = useCategory();
 
   const procesosHref = carpeta.llaveProceso

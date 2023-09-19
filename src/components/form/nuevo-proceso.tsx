@@ -11,7 +11,6 @@ import typography from '#@/styles/fonts/typography.module.scss';
 import { InputSection } from './InputSection';
 import { SelectSection } from './SelectSection';
 
-
 export const NuevoProceso = (
   {
     despachos,
@@ -19,7 +18,7 @@ export const NuevoProceso = (
   }: {
   despachos: Despacho[];
   carpeta?: IntCarpeta;
-}
+} 
 ) => {
   const methods = useForm<IntCarpeta>();
 
@@ -40,22 +39,22 @@ export const NuevoProceso = (
   } = useFormContext<IntCarpeta>();
 
   const onSubmit: SubmitHandler<IntCarpeta> = async (
-    data, e
+    data, e 
   ) => {
     alert(
       JSON.stringify(
-        e
-      )
+        e 
+      ) 
     );
     alert(
       JSON.stringify(
-        dirtyFields
-      )
+        dirtyFields 
+      ) 
     );
     alert(
       JSON.stringify(
-        data
-      )
+        data 
+      ) 
     );
 
     const newCarpeta: IntCarpeta = {
@@ -70,17 +69,17 @@ export const NuevoProceso = (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(
-          newCarpeta
+          newCarpeta 
         ),
-      }
+      } 
     );
 
     const nAlert = await postNewNote.json();
 
     return alert(
       JSON.stringify(
-        nAlert
-      )
+        nAlert 
+      ) 
     );
   };
 
@@ -88,7 +87,7 @@ export const NuevoProceso = (
     <FormProvider {...methods}>
       <div className={form.container}>
         <form className={form.form} onSubmit={handleSubmit(
-          onSubmit
+          onSubmit 
         )}>
           <section className={form.section}>
             <section className={form.section}>
@@ -353,7 +352,7 @@ export const NuevoProceso = (
           type="button"
           onClick={() => {
             return reset(
-              carpeta
+              carpeta 
             );
           }}
           value="Reset with values"

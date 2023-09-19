@@ -7,34 +7,34 @@ import { notFound } from 'next/navigation';
 
 export const getCarpetasByllaveProceso = cache(
   async (
-    llaveProceso: string 
+    llaveProceso: string
   ) => {
     const client = await clientPromise;
 
     if ( !client ) {
       throw new Error(
-        'no hay cliente mongólico' 
+        'no hay cliente mongólico'
       );
     }
 
     const db = client.db(
-      'RyS' 
+      'RyS'
     );
 
     const collection = db.collection<IntCarpeta>(
-      'Carpetas' 
+      'Carpetas'
     );
 
     const carpetasRaw = await collection
           .find(
             {
               llaveProceso: llaveProceso,
-            } 
+            }
           )
           .sort(
             {
               fecha: 1,
-            } 
+            }
           )
           .allowDiskUse()
           .toArray();
@@ -44,85 +44,82 @@ export const getCarpetasByllaveProceso = cache(
     }
 
     const carpetas = carpetaConvert.toMonCarpetas(
-      carpetasRaw 
+      carpetasRaw
     );
 
     return carpetas;
-  } 
+  }
 );
 
 export const getCarpetaByllaveProceso = cache(
   async (
-    llaveProceso: string 
+    llaveProceso: string
   ) => {
     const client = await clientPromise;
 
     if ( !client ) {
       throw new Error(
-        'no hay cliente mongólico' 
+        'no hay cliente mongólico'
       );
     }
 
     const db = client.db(
-      'RyS' 
+      'RyS'
     );
 
     const collection = db.collection<IntCarpeta>(
-      'Carpetas' 
+      'Carpetas'
     );
 
-    const carpetasRaw = await collection
-          .find(
+    const carpetaRaw = await collection
+          .findOne(
             {
               llaveProceso: llaveProceso,
-            } 
-          )
-          .sort(
-            {
-              fecha: 1,
-            } 
-          )
-          .allowDiskUse()
-          .toArray();
+            },  {
+              sort: {
+                fecha: 1
+              }
+            }
+          );
 
-    if ( !carpetasRaw ) {
+    if ( !carpetaRaw ) {
       return null;
     }
 
     const carpeta = carpetaConvert.toMonCarpeta(
-      carpetasRaw[ 0 ] 
+      carpetaRaw
     );
 
     return carpeta;
-  } 
+  }
 );
 
 export const getCarpetaById = cache(
   async (
-    _id: string 
+    _id: string
   ) => {
     const client = await clientPromise;
 
     if ( !client ) {
       throw new Error(
-        'no hay cliente mongólico' 
+        'no hay cliente mongólico'
       );
     }
 
     const db = client.db(
-      'RyS' 
+      'RyS'
     );
 
     const collection = db.collection<IntCarpeta>(
-      'Carpetas' 
+      'Carpetas'
     );
 
     const Carpeta = await collection.findOne(
       {
         _id: new ObjectId(
-          _id 
+          _id
         ),
-      } 
+      }
     );
 
     if ( !Carpeta ) {
@@ -130,16 +127,16 @@ export const getCarpetaById = cache(
     }
 
     const carpetas = carpetaConvert.toMonCarpeta(
-      Carpeta 
+      Carpeta
     );
 
     return carpetas;
-  } 
+  }
 );
 
 export const getCarpetabyNumero = cache(
   async (
-    numero: number 
+    numero: number
   ) => {
     const collection = await carpetasCollection();
 
@@ -159,23 +156,27 @@ export const getCarpetabyNumero = cache(
     }
 
     const Carpeta = carpetaConvert.toMonCarpeta(
-      carpeta 
+      carpeta
     );
 
     return Carpeta;
-  } 
+  }
 );
 
 export const getCarpetaByidProceso = cache(
   async (
-    idProceso: number 
+    idProceso: number
   ) => {
     const collection = await carpetasCollection();
 
     const carpeta = await collection.findOne(
       {
         idProceso: idProceso,
-      } 
+      }, {
+        sort: {
+          fecha: 1
+        }
+      }
     );
 
     if ( !carpeta ) {
@@ -183,9 +184,9 @@ export const getCarpetaByidProceso = cache(
     }
 
     const Carpeta = carpetaConvert.toMonCarpeta(
-      carpeta 
+      carpeta
     );
 
     return Carpeta;
-  } 
+  }
 );

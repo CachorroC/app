@@ -1,21 +1,17 @@
-
-
 import { NotaComponent } from '#@/components/Nota/server';
 import getNotas from '#@/lib/project/getNotas';
 
-export default async function Page () {
+export default async function Page() {
   const notas = await getNotas();
 
   return (
     <>
-      { notas.map(
+      {notas.map(
         (
-          nota, i, arr
+          nota, i, arr 
         ) => {
-          return (
-            <NotaComponent key={nota.id} notaRaw={ nota } />
-          );
-        }
+          return <NotaComponent key={nota.id} notaRaw={nota} />;
+        } 
       )}
     </>
   );

@@ -5,24 +5,28 @@ import Link from 'next/link';
 import { Route } from 'next';
 
 export default async function PageCarpetaNumero(
-  {
-    params,
-  }: {
+            {
+              params,
+            }: {
   params: { numero: number };
-}
+} 
 ) {
   const carpeta = await getCarpetabyNumero(
     Number(
-      params.numero
-    )
+      params.numero 
+    ) 
   );
-
 
   if ( !carpeta ) {
     return notFound();
   }
 
-  return ( <>
-    <Link href={ `/Carpetas/id/${ carpeta._id }` as Route }>{  `${ carpeta._id }` }</Link>
-    <Form key={ params.numero } carpeta={ carpeta } /></> );
+  return (
+    <>
+      <Link
+        href={`/Carpetas/id/${ carpeta._id }` as Route}
+      >{`${ carpeta._id }`}</Link>
+      <Form key={params.numero} carpeta={carpeta} />
+    </>
+  );
 }

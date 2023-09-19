@@ -8,16 +8,15 @@ import Link from 'next/link';
 import { Route } from 'next';
 
 export default async function PageCarpetaId(
-  {
-    params,
-  }: {
+            {
+              params,
+            }: {
   params: { _id: string };
-}
+} 
 ) {
   const carpeta = await getCarpetaById(
-    params._id
+    params._id 
   );
-
 
   if ( !carpeta ) {
     return notFound();
@@ -25,8 +24,10 @@ export default async function PageCarpetaId(
 
   return (
     <>
-      <EditCarpeta carpeta={ carpeta } key={ carpeta._id } />
-      <Link href={ `/Carpetas/numero/${ carpeta.numero }` as Route}>{ `${ carpeta.numero }` }</Link>
+      <EditCarpeta carpeta={carpeta} key={carpeta._id} />
+      <Link
+        href={`/Carpetas/numero/${ carpeta.numero }` as Route}
+      >{`${ carpeta.numero }`}</Link>
     </>
   );
 }

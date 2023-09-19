@@ -9,11 +9,14 @@ export default async function Page() {
   const carpetas = await getCarpetas();
 
   return (
-    <>  <Suspense fallback={<Loader />}>
-      <Calendar />
-    </Suspense>
-    <Suspense fallback={ <SearchOutputListSkeleton /> }>
-      <SearchOutputList path={'/Procesos'} fechas={carpetas} />
-    </Suspense></>
+    <>
+      {' '}
+      <Suspense fallback={<Loader />}>
+        <Calendar />
+      </Suspense>
+      <Suspense fallback={<SearchOutputListSkeleton />}>
+        <SearchOutputList path={'/Procesos'} fechas={carpetas} />
+      </Suspense>
+    </>
   );
 }

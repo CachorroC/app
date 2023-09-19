@@ -4,17 +4,17 @@ import Link from 'next/link';
 import calendar from './calendar.module.css';
 
 export function Calendar(
-  {
-    date
-  }: { date?: string }
+            {
+              date 
+            }: { date?: string } 
 ) {
   const today = date
     ? new Date(
-      date
+      date 
     )
     : new Date();
   console.log(
-    today
+    today 
   );
 
   const currentMonth = today.getMonth();
@@ -22,7 +22,7 @@ export function Calendar(
   const currentYear = today.getFullYear();
 
   const rows = CalendarBuilder(
-    date
+    date 
   );
 
   return (
@@ -41,10 +41,10 @@ export function Calendar(
         <div className={calendar.days}>
           {rows.map(
             (
-              row
+              row 
             ) => {
               const day = new Date(
-                row.href
+                row.href 
               )
                     .getDate();
 
@@ -67,7 +67,7 @@ export function Calendar(
                   {day}
                 </Link>
               );
-            }
+            } 
           )}
         </div>
       </div>

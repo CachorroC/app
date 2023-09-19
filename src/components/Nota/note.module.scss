@@ -1,3 +1,4 @@
+
 .container {
   container-name: note;
   container-type: inline-size;
@@ -35,6 +36,88 @@
     flex: 2 0 50%;
   }
 }
+.task {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  justify-items: stretch;
+  &Container {
+    @extend .task;
+    background-color: var(--surface-container);
+  }
+}
+
+/* The switchBox - the box around the slider */
+.switchBox {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 1px solid var(--outline-variant);
+  border-radius: 50vw;;
+  width: 62px;
+  height: 36px;
+}
+
+/* Hide default HTML checkbox */
+.switchBox .inputElement {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  border-radius: 50vw;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--surface-container-highest);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  border-radius: 50vw;
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--outline);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.inputElement:checked + .slider {
+  background-color: var(--primary);
+  &:before{
+    background-color: var(--on-primary);
+  }
+
+}
+
+.inputElement:focus + .slider {
+  box-shadow: 0 0 1px var(--primary);
+}
+
+.inputElement:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 
 .submitButton {
   border: none;
@@ -45,11 +128,8 @@
   & > span,
   & > .icon {
     color: var(--on-secondary);
-    font-variation-settings:
-      "FILL" 0,
-      "wght" 300,
-      "GRAD" 0,
-      "opsz" 24;
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0,
+      'opsz' 24;
   }
   &:hover,
   &:active {
@@ -57,11 +137,8 @@
     box-shadow: var(--dp8);
     & > span,
     & > .icon {
-      font-variation-settings:
-        "FILL" 1,
-        "wght" 600,
-        "GRAD" 200,
-        "opsz" 48;
+      font-variation-settings: 'FILL' 1, 'wght' 600,
+        'GRAD' 200, 'opsz' 48;
       color: var(--on-secondary);
     }
   }
@@ -120,11 +197,8 @@
   & > span,
   & > .icon {
     color: var(--on-secondary);
-    font-variation-settings:
-      "FILL" 0,
-      "wght" 300,
-      "GRAD" 0,
-      "opsz" 24;
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0,
+      'opsz' 24;
   }
   &:hover,
   &:active {
@@ -132,11 +206,8 @@
     box-shadow: var(--dp8);
     & > span,
     & > .icon {
-      font-variation-settings:
-        "FILL" 1,
-        "wght" 400,
-        "GRAD" 200,
-        "opsz" 24;
+      font-variation-settings: 'FILL' 1, 'wght' 400,
+        'GRAD' 200, 'opsz' 24;
       color: var(--tertiary);
     }
   }
@@ -163,51 +234,7 @@
 .active {
   background-color: var(--secondary);
   color: var(--on-secondary);
-} /* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  .checkbox {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    &:checked + .slider {
-      background-color: #2196f3;
-      &:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-      }
-    }
-    &:focus + .slider {
-      box-shadow: 0 0 1px #2196f3;
-    }
-  }
-  .slider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-    &:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      -webkit-transition: 0.4s;
-      transition: 0.4s;
-    }
-  }
-} /* The slider */
+}
 @container note (min-width: 600px) {
   .form,
   .nota {

@@ -12,8 +12,8 @@ import typography from '#@/styles/fonts/typography.module.scss';
 
 export const Form = (
   {
-    carpeta
-  }: { carpeta: MonCarpeta }
+    carpeta 
+  }: { carpeta: MonCarpeta } 
 ) => {
   const methods = useForm();
 
@@ -34,9 +34,8 @@ export const Form = (
     setError,
   } = useFormContext<MonCarpeta>();
 
-
   const onSubmit = async (
-    data: MonCarpeta
+    data: MonCarpeta 
   ) => {
     const newCarpeta = {
       ...carpeta,
@@ -44,7 +43,7 @@ export const Form = (
     };
 
     const {
-      _id, ...mutated
+      _id, ...mutated 
     } = newCarpeta;
 
     const postCarpeta = await fetch(
@@ -54,51 +53,51 @@ export const Form = (
           'content-type': 'application/json',
         },
         body: JSON.stringify(
-          mutated
+          mutated 
         ),
-      }
+      } 
     );
     alert(
       JSON.stringify(
-        postCarpeta.status
-      )
+        postCarpeta.status 
+      ) 
     );
 
     if ( postCarpeta.status > 200 ) {
       setError(
         'root.serverError', {
           type: postCarpeta.statusText,
-        }
+        } 
       );
     }
 
     const updatedCarpeta = ( await postCarpeta.json() ) as MonCarpeta;
     alert(
       JSON.stringify(
-        updatedCarpeta
-      )
+        updatedCarpeta 
+      ) 
     );
     console.log(
-      postCarpeta.status
+      postCarpeta.status 
     );
   };
 
   useEffect(
     () => {
       reset(
-        carpeta
+        carpeta 
       );
     }, [
       reset,
       carpeta
-    ]
+    ] 
   );
 
   return (
     <FormProvider {...methods}>
       <div className={form.container}>
         <form className={form.form} onSubmit={handleSubmit(
-          onSubmit
+          onSubmit 
         )}>
           <section className={form.section}>
             <section className={form.section}>

@@ -4,39 +4,41 @@ import { ChangeEventHandler, useState } from 'react';
 import styles from './styles.module.css';
 import { useContactContext } from '../../../app/context/main-context';
 
-export default function Checkbox () {
+export default function Checkbox() {
   const [
     isChecked,
     setIsChecked
   ] = useState(
-    false
+    false 
   );
 
   const {
-    contactoForm, setContactoForm
+    contactoForm, setContactoForm 
   } = useContactContext();
 
-
-  const  handleTextareaChange:ChangeEventHandler<HTMLInputElement> = (
-    e
+  const handleTextareaChange: ChangeEventHandler<HTMLInputElement> = (
+    e 
   ) => {
     setContactoForm(
       {
         ...contactoForm,
-        newsLetter: e.target.checked
-      }
+        newsLetter: e.target.checked,
+      } 
     );
     setIsChecked(
-      e.target.checked
+      e.target.checked 
     );
   };
 
   return (
-
     <label className={styles.switchBox}>
-      <input className={ styles.inputElement } checked={contactoForm.newsLetter } type='checkbox' onChange={ handleTextareaChange } />
+      <input
+        className={styles.inputElement}
+        checked={contactoForm.newsLetter}
+        type="checkbox"
+        onChange={handleTextareaChange}
+      />
       <span className={styles.slider}></span>
     </label>
-
   );
 }

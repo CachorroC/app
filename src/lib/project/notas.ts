@@ -5,58 +5,54 @@ import { ObjectId } from 'mongodb';
 import { notFound } from 'next/navigation';
 import prisma from '#@/lib/connection/connectDB';
 
-export const  getNotasByllaveProceso = cache(
-  async(
+export const getNotasByllaveProceso = cache(
+  async (
     {
-      llaveProceso,
-    }: {
-  llaveProceso: string;
-}
-  ) =>  {
+      llaveProceso 
+    }: { llaveProceso: string } 
+  ) => {
     const notas = await prisma.nota.findMany(
       {
         where: {
-          llaveProceso: llaveProceso
-        }
-      }
+          llaveProceso: llaveProceso,
+        },
+      } 
     );
 
     return notas;
-  }
+  },
 );
 
 export const getNotaById = cache(
   async (
     {
-      id
-    }: {id: number }
+      id 
+    }: { id: number } 
   ) => {
     const nota = await prisma.nota.findUnique(
       {
         where: {
-          id: id
-        }
-      }
+          id: id,
+        },
+      } 
     );
 
     return nota;
-  }
+  } 
 );
 
-
-
-export async function addNota (
-  nota: intNota
+export async function addNota(
+            nota: intNota 
 ) {
   const collection = await notasCollection();
 
   const insertOne = await collection.insertOne(
-    nota
+    nota 
   );
 
   if ( !insertOne.acknowledged ) {
     throw new Error(
-      'no pudimos agregar la nota a la base de datos, vuelve a intentarlo.'
+      'no pudimos agregar la nota a la base de datos, vuelve a intentarlo.',
     );
   }
 

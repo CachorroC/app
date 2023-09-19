@@ -1,9 +1,9 @@
 import { getTareas } from '#@/lib/project/tareas';
 
 export default async function Page(
-  {
-    params,
-  }: {
+            {
+              params,
+            }: {
   params: { fecha: string[] };
 } 
 ) {

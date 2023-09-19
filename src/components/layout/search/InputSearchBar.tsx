@@ -1,12 +1,12 @@
 'use client';
-import { useSearch } from '#@/app/context/main-context';
 import { usePathname } from 'next/navigation';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import { useEffect } from 'react';
+import { useSearch } from '#@/app/context/search-context';
 
 export default function InputSearchBar() {
   const {
-    search, setSearch 
+    search, setSearch
   } = useSearch();
 
   const pathname = usePathname();
@@ -17,19 +17,18 @@ export default function InputSearchBar() {
 
   return (
     <input
-      type="text"
-      className={searchbar.input}
-      name="search"
+      type="search"
+      className={ searchbar.input }
       value={search}
       placeholder={isHome
         ? 'Buscar'
         : pathname}
       onChange={(
-        input 
+        input
       ) => {
         input.preventDefault();
         setSearch(
-          input.target.value 
+          input.target.value
         );
       }}
     />

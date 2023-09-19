@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 import typography from '#@/styles/fonts/typography.module.scss';
 
 export default function Error(
-  {
-    error,
-    reset,
-  }: {
+            {
+              error,
+              reset,
+            }: {
   error: Error & { digest?: string };
   reset: () => void;
 } 

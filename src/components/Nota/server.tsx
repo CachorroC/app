@@ -13,21 +13,21 @@ import { Nota } from '@prisma/client';
 
 export const NotaComponent = (
   {
-    notaRaw,
-  }: {
-  notaRaw: Nota;
-}
+    notaRaw 
+  }: { notaRaw: Nota } 
 ) => {
   const {
-    id, text, date, llaveProceso, done, pathname
+    id, text, date, llaveProceso, done, pathname 
   } = notaRaw;
 
   return (
     <div className={note.container} key={id}>
-      <p className={`${ typography.bodySmall } ${ note.textArea }`}>{`Nota: ${ text }`}</p>
+      <p
+        className={`${ typography.bodySmall } ${ note.textArea }`}
+      >{`Nota: ${ text }`}</p>
       <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
         {date && fixFechas(
-          date
+          date 
         )}
       </sub>
       <div className={note.buttonsRow}>
@@ -43,15 +43,15 @@ export const NotaComponent = (
 };
 
 export async function Notas(
-  {
-    llaveProceso
-  }: { llaveProceso?: string }
+            {
+              llaveProceso 
+            }: { llaveProceso?: string } 
 ) {
   if ( llaveProceso ) {
     const notas = await getNotasByllaveProceso(
       {
         llaveProceso: llaveProceso,
-      }
+      } 
     );
 
     if ( notas.length === 0 ) {
@@ -59,10 +59,10 @@ export async function Notas(
 
       const NotasRow = nts.map(
         (
-          nota, i, arr
+          nota, i, arr 
         ) => {
-          return <NotaComponent  key={ nota.id } notaRaw={ nota } />;
-        }
+          return <NotaComponent key={nota.id} notaRaw={nota} />;
+        } 
       );
 
       return <>{NotasRow}</>;
@@ -70,10 +70,10 @@ export async function Notas(
 
     const NotasRow = notas.map(
       (
-        nota, i, arr
+        nota, i, arr 
       ) => {
-        return <NotaComponent notaRaw={nota}key={nota.id} />;
-      }
+        return <NotaComponent notaRaw={nota} key={nota.id} />;
+      } 
     );
 
     return <>{NotasRow}</>;
@@ -83,10 +83,10 @@ export async function Notas(
 
   const NotasRow = notas.map(
     (
-      nota, i, arr
+      nota, i, arr 
     ) => {
-      return <NotaComponent notaRaw={nota}  key={nota.id} />;
-    }
+      return <NotaComponent notaRaw={nota} key={nota.id} />;
+    } 
   );
 
   return <>{NotasRow}</>;

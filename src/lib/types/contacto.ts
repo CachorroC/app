@@ -6,37 +6,34 @@
 
 export type Grupo = 'Abogado' | 'Aliado' | 'Demandado' | 'otros';
 
-export interface RawContactoFormValues
-{
-    nombre:     string;
-    grupo:      Grupo;
-    newsLetter: boolean
-    email:      string;
-    telefono:   number;
-    comentario: string;
+export interface RawContactoFormValues {
+  nombre: string;
+  grupo: Grupo;
+  newsLetter: boolean;
+  email: string;
+  telefono: number;
+  comentario: string;
 }
 
-export interface ContactoForm extends RawContactoFormValues
-{
-
-    fecha:      Date;
+export interface ContactoForm extends RawContactoFormValues {
+  fecha: Date;
 }
 
 // Converts JSON strings to/from your types
 export class Convert {
   public static toContactoForm(
-    json: string
+    json: string 
   ): ContactoForm {
     return JSON.parse(
-      json
+      json 
     );
   }
 
   public static contactoFormToJson(
-    value: ContactoForm
+    value: ContactoForm 
   ): string {
     return JSON.stringify(
-      value
+      value 
     );
   }
 }

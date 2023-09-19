@@ -5,12 +5,12 @@
 //   const intNota = Convert.toIntNota(json);
 
 export interface IntNota {
-    text:         string;
-    id:           number;
-    date:         string | null;
-    done:         boolean | null;
-    pathname:     string | null;
-    llaveProceso: string | null;
+  text: string;
+  id: number;
+  date: string | null;
+  done: boolean | null;
+  pathname: string | null;
+  llaveProceso: string | null;
 }
 
 // Converts JSON strings to/from your types

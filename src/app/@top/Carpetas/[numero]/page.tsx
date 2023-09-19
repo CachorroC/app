@@ -5,9 +5,9 @@ import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { Fragment, Suspense } from 'react';
 
 export default async function DefaultProcesosllaveProceso(
-  {
-    params,
-  }: {
+            {
+              params,
+            }: {
   params: {
     numero: string;
   };

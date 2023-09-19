@@ -19,7 +19,7 @@ export const Card = (
   path: string;
   carpeta: MonCarpeta;
   children: ReactNode;
-}
+} 
 ) => {
   const llaveLength = carpeta.llaveProceso.length;
 
@@ -37,17 +37,19 @@ export const Card = (
     || pathname === `${ path }/${ carpeta.llaveProceso }`;
 
   const {
-    primerNombre, segundoNombre, primerApellido, segundoApellido
+    primerNombre, segundoNombre, primerApellido, segundoApellido 
   }
     = carpeta.deudor;
 
-
   return (
     <div className={styles.container}>
-      <div className={`${ styles.card } ${ errorLLaveProceso && styles.errorContainer }`}>
-
+      <div
+        className={`${ styles.card } ${
+          errorLLaveProceso && styles.errorContainer
+        }`}
+      >
         <div className={styles.section}>
-          <div className={ styles.title }>
+          <div className={styles.title}>
             <Suspense fallback={<Loader />}>
               <NombreComponent key={carpeta.nombre} deudor={carpeta.deudor} />
             </Suspense>
@@ -55,7 +57,6 @@ export const Card = (
               {carpeta.numero}
             </sub>
           </div>
-
 
           {children}
         </div>
@@ -100,15 +101,15 @@ export const Card = (
             <span className={styles.tooltiptext}>{' Agregar nota'}</span>
           </Link>
           {errorLLaveProceso && (
-
-            <Link href={`/Carpetas/${ carpeta.numero }`  as Route} className={styles.link}>
+            <Link
+              href={`/Carpetas/${ carpeta.numero }` as Route}
+              className={styles.link}
+            >
               {'error con el numero de expediente'}
             </Link>
-
           )}
         </div>
       </div>
     </div>
   );
-
 };

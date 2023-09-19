@@ -20,7 +20,7 @@ export default async function RightProcesos() {
     ...carpetasRaw
   ].sort(
     (
-      a, b
+      a, b 
     ) => {
       const typeofA = typeof a.fecha;
 
@@ -47,18 +47,17 @@ export default async function RightProcesos() {
       }
 
       return 0;
-    }
+    } 
   );
 
   return (
     <>
-
       {carpetas.map(
         (
-          carpeta, index
+          carpeta, index 
         ) => {
           const {
-            deudor
+            deudor 
           } = carpeta;
 
           return (
@@ -72,9 +71,8 @@ export default async function RightProcesos() {
               </Suspense>
             </Card>
           );
-        }
+        } 
       )}
-
     </>
   );
 }

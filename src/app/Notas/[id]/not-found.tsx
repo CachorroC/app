@@ -11,8 +11,8 @@ export default function NotFound() {
         {'No pudimos localizar el recurso que consultaste'}
       </p>
 
-      <Link href={'/' as Route} className={button}>
-        {'Inicio'}
+      <Link href={'/Notas' as Route} className={button}>
+        {'Notas'}
       </Link>
     </>
   );

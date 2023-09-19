@@ -2,10 +2,10 @@ import { carpetasCollection } from '#@/lib/connection/mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function DELETE(
-  request: NextRequest,
-  {
-    params 
-  }: { params: { llaveProceso: string; idProceso: string } },
+            request: NextRequest,
+            {
+              params 
+            }: { params: { llaveProceso: string; idProceso: string } },
 ) {
   const collection = await carpetasCollection();
 

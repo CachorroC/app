@@ -28,8 +28,8 @@ model Tarea {
 model Nota {
   text         String
   id           Int       @id @unique @default(autoincrement())
-  date         String?
-  done         Boolean?
-  pathname     String?
+  date         String
+  done         Boolean
+  pathname     String
   llaveProceso String?
 }

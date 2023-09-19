@@ -8,37 +8,32 @@ import typography from '#@/styles/fonts/typography.module.scss';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { useEffect } from 'react';
 
-export default function EditCarpeta (
-  {
-    carpeta
-  }: {carpeta: MonCarpeta}
+export default function EditCarpeta(
+            {
+              carpeta 
+            }: { carpeta: MonCarpeta } 
 ) {
-
   const {
-    reset,
-    handleSubmit
+    reset, handleSubmit 
   } = useFormContext();
 
-  function onValid () {
-
-  }
+  function onValid() {}
   useEffect(
     () => {
       reset(
-        carpeta
+        carpeta 
       );
-
     }, [
       carpeta,
       reset
-    ]
+    ] 
   );
 
   return (
     <>
       <div className={form.container}>
         <form className={form.form} onSubmit={handleSubmit(
-          onValid
+          onValid 
         )}>
           <section className={form.section}>
             <section className={form.section}>
@@ -213,7 +208,6 @@ export default function EditCarpeta (
             <sub className={typography.labelSmall}>Enviar</sub>
             <span className="material-symbols-outlined">send</span>
           </button>
-
         </form>
       </div>
       {carpeta && (
@@ -225,7 +219,7 @@ export default function EditCarpeta (
           type="button"
           onClick={() => {
             return reset(
-              carpeta
+              carpeta 
             );
           }}
           value="Reset with values"

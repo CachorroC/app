@@ -9,30 +9,27 @@ import { Nota } from '@prisma/client';
 import { deleteNota } from '#@/app/actions';
 
 export function DeleteNoteButton(
-  {
-    id,
-  }: {
-  id: number;
-}
+            {
+              id 
+            }: { id: number } 
 ) {
-
-  function onDelete () {
+  function onDelete() {
     deleteNota(
-      id
+      id 
     );
   }
 
   return (
-    <button className={note.buttonDelete} type='button' onClick={onDelete}>
+    <button className={note.buttonDelete} type="button" onClick={onDelete}>
       <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
     </button>
   );
 }
 
 export function AddNoteButton(
-  {
-    nota, uri
-  }: { nota: intNota; uri: string }
+            {
+              nota, uri 
+            }: { nota: intNota; uri: string } 
 ) {
   async function addRequestHandler() {
     const Request = await fetch(
@@ -42,20 +39,20 @@ export function AddNoteButton(
           'content-type': 'application/json',
         },
         body: JSON.stringify(
-          nota
+          nota 
         ),
-      }
+      } 
     )
           .then(
             (
-              fullfilled
+              fullfilled 
             ) => {
               alert(
-                fullfilled.status
+                fullfilled.status 
               );
 
               return fullfilled;
-            }
+            } 
           );
 
     if ( !Request.ok ) {
@@ -65,22 +62,26 @@ export function AddNoteButton(
     const Response = await Request.json();
     alert(
       JSON.stringify(
-        Response
-      )
+        Response 
+      ) 
     );
   }
 
   return (
-    <button className={note.buttonAdd} type='button' onClick={addRequestHandler}>
+    <button
+      className={note.buttonAdd}
+      type="button"
+      onClick={addRequestHandler}
+    >
       <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
     </button>
   );
 }
 
 export function EditNoteButton(
-  {
-    nota
-  }: { nota: Nota }
+            {
+              nota 
+            }: { nota: Nota } 
 ) {
   return (
     <Link

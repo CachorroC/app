@@ -30,7 +30,7 @@ export const nombresDeMeses = [
 ];
 
 export function CalendarBuilder(
-  date?: string 
+            date?: string 
 ) {
   const rows = new Set<calendarData>();
 

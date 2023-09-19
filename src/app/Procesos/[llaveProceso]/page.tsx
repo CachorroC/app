@@ -6,9 +6,9 @@ import { Fragment, Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
 export default async function PageProcesosLeftllaveProceso(
-  {
-    params,
-  }: {
+            {
+              params,
+            }: {
   params: {
     llaveProceso: string;
   };

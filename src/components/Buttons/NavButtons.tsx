@@ -45,12 +45,12 @@ export const BackwardsButton = () => {
 
 export const DrawerMenuButton = () => {
   const {
-    isNavOpen, setIsNavOpen
+    isNavOpen, setIsNavOpen 
   } = useNavigationContext();
 
   function handleDrawerMenuClick() {
     setIsNavOpen(
-      !isNavOpen
+      !isNavOpen 
     );
   }
 

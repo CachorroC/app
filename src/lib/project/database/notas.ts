@@ -18,5 +18,5 @@ export const createNota = cache(
     );
 
     return newNota;
-  }
+  },
 );

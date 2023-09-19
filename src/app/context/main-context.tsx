@@ -1,8 +1,6 @@
 'use client';
 import { ContactoForm, Grupo } from '#@/lib/types/contacto';
-import { intNota } from '#@/lib/types/notas';
 import { Nota } from '@prisma/client';
-import { usePathname } from 'next/navigation';
 import { Dispatch,
          ReactNode,
          SetStateAction,
@@ -10,55 +8,37 @@ import { Dispatch,
          useContext,
          useState, } from 'react';
 
-const SearchContext = createContext<{
-  search: string;
-  setSearch: Dispatch<SetStateAction<string>>;
-} | null>(
-  null
-);
-
-
 const NoteContext = createContext<{
   inputNota: Nota;
   setInputNota: Dispatch<SetStateAction<Nota>>;
 } | null>(
-  null
+  null 
 );
 
 const CategoryContext = createContext<{
   category: string;
   setCategory: Dispatch<SetStateAction<string>>;
 } | null>(
-  null
+  null 
 );
 
 const ContactoContext = createContext<{
   contactoForm: ContactoForm;
   setContactoForm: Dispatch<SetStateAction<ContactoForm>>;
 } | null>(
-  null
+  null 
 );
 
-export function SearchProvider(
-  {
-    children,
-  }: {
-  children: ReactNode;
-}
+export function MainProvider(
+            {
+              children 
+            }: { children: ReactNode } 
 ) {
-  const [
-    search,
-    setSearch
-  ] = useState(
-    ''
-  );
-
-
   const [
     category,
     setCategory
   ] = useState(
-    'todos'
+    'todos' 
   );
 
   const [
@@ -71,10 +51,9 @@ export function SearchProvider(
       newsLetter: false,
       email     : 'correo electronico',
       telefono  : 1,
-      comentario:
-      'Este es el espacio para registrar información adicional',
-      fecha: new Date(),
-    }
+      comentario: 'Este es el espacio para registrar información adicional',
+      fecha     : new Date(),
+    } 
   );
 
   const [
@@ -88,86 +67,58 @@ export function SearchProvider(
       pathname    : '/',
       date        : new Date()
             .toLocaleString(),
-      done: false
-    }
+      done: false,
+    } 
   );
 
   return (
-
-    <SearchContext.Provider
+    <NoteContext.Provider
       value={{
-        search,
-        setSearch,
+        inputNota,
+        setInputNota,
       }}
     >
-
-
-      <NoteContext.Provider
+      <CategoryContext.Provider
         value={{
-          inputNota,
-          setInputNota,
+          category,
+          setCategory,
         }}
       >
-        <CategoryContext.Provider
+        <ContactoContext.Provider
           value={{
-            category,
-            setCategory,
+            contactoForm,
+            setContactoForm,
           }}
         >
-          <ContactoContext.Provider
-            value={{
-              contactoForm,
-              setContactoForm,
-            }}
-          >
-            {children}
-          </ContactoContext.Provider>
-        </CategoryContext.Provider>
-      </NoteContext.Provider>
-
-    </SearchContext.Provider>
-
+          {children}
+        </ContactoContext.Provider>
+      </CategoryContext.Provider>
+    </NoteContext.Provider>
   );
-}
-
-export function useSearch() {
-  const context = useContext(
-    SearchContext
-  );
-
-  if ( context === null ) {
-    throw new Error(
-      'useSearch must be used inside a SearchProvider'
-    );
-  }
-
-  return context;
 }
 
 export function useCategory() {
   const context = useContext(
-    CategoryContext
+    CategoryContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'el contexto para la categoria solo debe ser aplicado dentro de un hijo del contexto'
+      'el contexto para la categoria solo debe ser aplicado dentro de un hijo del contexto',
     );
   }
 
   return context;
 }
 
-
-
 export function useContactContext() {
   const context = useContext(
-    ContactoContext
+    ContactoContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'el contexto para contacto se debe utilizar dentro de un proveedor de contacto'
+      'el contexto para contacto se debe utilizar dentro de un proveedor de contacto',
     );
   }
 
@@ -176,12 +127,12 @@ export function useContactContext() {
 
 export function useNotaContext() {
   const context = useContext(
-    NoteContext
+    NoteContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'el estado de la nota solo puede ser leido e invocado dentro del contexto de nota.'
+      'el estado de la nota solo puede ser leido e invocado dentro del contexto de nota.',
     );
   }
 

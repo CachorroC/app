@@ -9,10 +9,11 @@
   top: 10%;
   left: 10%;
   display: flex;
-  .wrapper{padding: 2vmin;
+  .wrapper {
+    padding: 2vmin;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    justify-items:stretch;
+    justify-items: stretch;
   }
 }

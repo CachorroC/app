@@ -1,12 +1,14 @@
 export type Styles = {
   active: string;
   activeBackwards: string;
+  activeCategory: string;
   activeDrawerMenu: string;
   activeForward: string;
   activeHome: string;
   activeModal: string;
   button: string;
   buttonBackwards: string;
+  buttonCategory: string;
   buttonDrawerMenu: string;
   buttonForward: string;
   buttonHome: string;

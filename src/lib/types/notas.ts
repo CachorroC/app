@@ -28,30 +28,30 @@ export interface monNota extends intNota {
 
 export class notaConvert {
   public static toMonNotas(
-    notas: WithId<intNota>[]
+    notas: WithId<intNota>[] 
   ): monNota[] {
     const newNotas = notas.map(
       (
-        nota
+        nota 
       ) => {
         return this.toMonNota(
-          nota
+          nota 
         );
-      }
+      } 
     );
 
     return newNotas;
   }
   public static monNotasToJson(
-    value: monNota[]
+    value: monNota[] 
   ): string {
     return JSON.stringify(
-      value
+      value 
     );
   }
 
   public static toMonNota(
-    nota: WithId<intNota>
+    nota: WithId<intNota> 
   ): monNota {
     const newNota = {
       ...nota,
@@ -61,24 +61,24 @@ export class notaConvert {
     return newNota;
   }
   public static monNotaToJson(
-    value: monNota
+    value: monNota 
   ): string {
     return JSON.stringify(
-      value
+      value 
     );
   }
   public static toTarea(
-    json: string
+    json: string 
   ): Tarea {
     return JSON.parse(
-      json
+      json 
     );
   }
   public static tareaToJson(
-    value: Tarea
+    value: Tarea 
   ): string {
     return JSON.stringify(
-      value
+      value 
     );
   }
 }
@@ -86,8 +86,18 @@ export class notaConvert {
 export class NotaBuilder implements intNota {
   constructor(
     {
-      llaveProceso, fecha, pathname, nota, tareas
-    }: { llaveProceso: string; fecha: string; pathname: string; nota: string;  tareas: Tarea[]}
+      llaveProceso,
+      fecha,
+      pathname,
+      nota,
+      tareas,
+    }: {
+    llaveProceso: string;
+    fecha: string;
+    pathname: string;
+    nota: string;
+    tareas: Tarea[];
+  } 
   ) {
     this.llaveProceso = llaveProceso;
     this.pathname = pathname;

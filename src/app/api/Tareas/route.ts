@@ -3,7 +3,7 @@ import { Tarea } from '#@/lib/types/tareas';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(
-  request: NextRequest 
+            request: NextRequest 
 ) {
   const {
     searchParams 
@@ -32,7 +32,7 @@ export async function POST(
 }
 
 export async function PUT(
-  req: Request 
+            req: Request 
 ) {
   const {
     id, text, done, date, abogado 

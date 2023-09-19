@@ -4,9 +4,9 @@ import { carpetaConvert } from '#@/lib/types/carpetas';
 import { Sort } from 'mongodb';
 
 export default async function Page(
-  {
-    searchParams,
-  }: {
+            {
+              searchParams,
+            }: {
   searchParams: {
     [key: string]: string | string[] | undefined;
   };

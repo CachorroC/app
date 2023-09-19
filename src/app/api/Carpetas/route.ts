@@ -6,7 +6,7 @@ import 'server-only';
 
 //? aqui van las peticiones a todas las carpetas y colleccion carpetas
 export async function GET(
-  Request: NextRequest 
+            Request: NextRequest 
 ) {
   const {
     searchParams, host, hostname, pathname 
@@ -109,7 +109,7 @@ export async function GET(
 }
 
 export async function POST(
-  request: NextRequest 
+            request: NextRequest 
 ) {
   const incomingCarpeta = ( await request.json() ) as IntCarpeta;
 
