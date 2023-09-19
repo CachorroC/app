@@ -86,7 +86,6 @@ $MaxSW: 480px; //maximum sma width
   flex-wrap: nowrap;
   flex-direction: column;
   justify-content: space-between;
-  background-color: var(--surface-bright);
   align-items: stretch;
   border-radius: 2vmin;
   padding: 2vmin;
@@ -107,7 +106,7 @@ $MaxSW: 480px; //maximum sma width
   display: flex;
   flex-flow: row wrap;
   border-radius: 2vmin;
-  background-color: var(--surface-bright);
+  background-color: var(--surface-dim);
   color: var(--on-surface);
   padding: 2vmin;
   gap: 2vmin;

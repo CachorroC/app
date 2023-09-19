@@ -4,6 +4,7 @@ import { usePathname,
          useSelectedLayoutSegment,
          useSelectedLayoutSegments, } from 'next/navigation';
 import { Fragment } from 'react';
+import typography from '#@/styles/fonts/typography.module.scss';
 
 export function CurrentRoute(
             {
@@ -27,7 +28,7 @@ export function CurrentRoute(
         ) => {
           return (
             <div key={seg}>
-              <h1>{seg}</h1>
+              <h1 className={typography.headlineMedium}>{seg}</h1>
             </div>
           );
         }

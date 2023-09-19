@@ -1,7 +1,4 @@
 declare const styles: {
-  readonly 'switchBox': string;
-  readonly 'slider': string;
-  readonly 'inputElement': string;
   readonly 'container': string;
   readonly 'sub': string;
   readonly 'sup': string;
@@ -11,6 +8,10 @@ declare const styles: {
   readonly 'titleInput': string;
   readonly 'task': string;
   readonly 'taskContainer': string;
+  readonly 'switchBox': string;
+  readonly 'inputElement': string;
+  readonly 'slider': string;
+  readonly 'round': string;
   readonly 'submitButton': string;
   readonly 'icon': string;
   readonly 'textArea': string;
