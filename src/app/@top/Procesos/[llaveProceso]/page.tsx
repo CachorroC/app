@@ -9,15 +9,15 @@ import { Calendar } from 'components/Calendar/main';
 
 export default async function DefaultProcesosllaveProceso(
             {
-              params: {
-                llaveProceso 
-              },
+                            params: {
+                                            llaveProceso 
+                            },
             }: {
   params: { llaveProceso: string };
 } 
 ) {
   const Carpeta = await getCarpetaByllaveProceso(
-    llaveProceso 
+              llaveProceso 
   );
 
   if ( !Carpeta ) {
@@ -27,7 +27,10 @@ export default async function DefaultProcesosllaveProceso(
   return (
     <Fragment key={llaveProceso}>
       <Suspense fallback={<Loader />}>
-        <NombreComponent key={Carpeta._id} deudor={Carpeta.deudor} />
+        <NombreComponent
+          key={Carpeta._id}
+          deudor={Carpeta.deudor}
+        />
       </Suspense>
     </Fragment>
   );

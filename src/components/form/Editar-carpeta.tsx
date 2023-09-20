@@ -10,31 +10,34 @@ import { useEffect } from 'react';
 
 export default function EditCarpeta(
             {
-              carpeta 
+                            carpeta 
             }: { carpeta: MonCarpeta } 
 ) {
   const {
-    reset, handleSubmit 
+                  reset, handleSubmit 
   } = useFormContext();
 
   function onValid() {}
   useEffect(
-    () => {
-      reset(
-        carpeta 
-      );
-    }, [
-      carpeta,
-      reset
-    ] 
+              () => {
+                    reset(
+                                carpeta 
+                    );
+              }, [
+                      carpeta,
+                      reset
+              ] 
   );
 
   return (
     <>
       <div className={form.container}>
-        <form className={form.form} onSubmit={handleSubmit(
-          onValid 
-        )}>
+        <form
+          className={form.form}
+          onSubmit={handleSubmit(
+                      onValid 
+          )}
+        >
           <section className={form.section}>
             <section className={form.section}>
               <h3 className={typography.displaySmall}>{'Deudor'}</h3>
@@ -43,7 +46,7 @@ export default function EditCarpeta(
                 title={'Primer Nombre'}
                 type={'text'}
                 rls={{
-                  required: true,
+                                required: true,
                 }}
               />
               <InputSection
@@ -52,7 +55,7 @@ export default function EditCarpeta(
                 title={'Segundo Nombre'}
                 type={'text'}
                 rls={{
-                  required: false,
+                                required: false,
                 }}
               />
               <InputSection
@@ -60,7 +63,7 @@ export default function EditCarpeta(
                 title={'Primer Apellido'}
                 type={'text'}
                 rls={{
-                  required: true,
+                                required: true,
                 }}
               />
               <InputSection
@@ -68,7 +71,7 @@ export default function EditCarpeta(
                 title={'Segundo Apellido'}
                 type={'text'}
                 rls={{
-                  required: false,
+                                required: false,
                 }}
               />
               <InputSection
@@ -76,7 +79,7 @@ export default function EditCarpeta(
                 title={'Cédula de Ciudadanía'}
                 type={'number'}
                 rls={{
-                  required: true,
+                                required: true,
                 }}
               />
               <InputSection
@@ -84,7 +87,7 @@ export default function EditCarpeta(
                 title={'Dirección'}
                 type={'textarea'}
                 rls={{
-                  required: false,
+                                required: false,
                 }}
               />
               <InputSection
@@ -92,8 +95,8 @@ export default function EditCarpeta(
                 title={'Correo Electrónico'}
                 type={'email'}
                 rls={{
-                  required: false,
-                  pattern : /^\S+@\S+$/i,
+                                required: false,
+                                pattern : /^\S+@\S+$/i,
                 }}
               />
               <section className={form.section}>
@@ -114,7 +117,7 @@ export default function EditCarpeta(
               name={'numero'}
               title={'Carpeta Numero'}
               rls={{
-                required: true,
+                              required: true,
               }}
               type={'number'}
             />
@@ -122,8 +125,8 @@ export default function EditCarpeta(
               name={'llaveProceso'}
               title={'Expediente'}
               rls={{
-                required: true,
-                pattern : /\d{23}/g,
+                              required: true,
+                              pattern : /\d{23}/g,
               }}
               type={'text'}
             />
@@ -132,11 +135,11 @@ export default function EditCarpeta(
               name={'category'}
               title={'Grupo al que pertenece'}
               options={[
-                'Bancolombia',
-                'Insolvencia',
-                'Reintegra',
-                'LiosJuridicos',
-                'Terminados',
+                      'Bancolombia',
+                      'Insolvencia',
+                      'Reintegra',
+                      'LiosJuridicos',
+                      'Terminados',
               ]}
             />
 
@@ -144,9 +147,9 @@ export default function EditCarpeta(
               name={'tipoProceso'}
               title={'Proceso del Tipo'}
               options={[
-                'SINGULAR',
-                'HIPOTECARIO',
-                'PRENDARIO'
+                      'SINGULAR',
+                      'HIPOTECARIO',
+                      'PRENDARIO'
               ]}
             />
             <section className={form.section}>
@@ -155,8 +158,8 @@ export default function EditCarpeta(
                 title={'Radicado'}
                 type={'text'}
                 rls={{
-                  required: true,
-                  pattern : /\d{4}\s-\s\d{5}/g,
+                                required: true,
+                                pattern : /\d{4}\s-\s\d{5}/g,
                 }}
               />
               <InputSection
@@ -164,7 +167,7 @@ export default function EditCarpeta(
                 title={'Capital Adeudado'}
                 type={'number'}
                 rls={{
-                  required: true,
+                                required: true,
                 }}
               />
               <InputSection
@@ -204,7 +207,10 @@ export default function EditCarpeta(
               />
             </section>
           </section>
-          <button type="submit" className={form.button}>
+          <button
+            type="submit"
+            className={form.button}
+          >
             <sub className={typography.labelSmall}>Enviar</sub>
             <span className="material-symbols-outlined">send</span>
           </button>
@@ -213,14 +219,14 @@ export default function EditCarpeta(
       {carpeta && (
         <input
           style={{
-            display  : 'block',
-            marginTop: 20,
+                          display  : 'block',
+                          marginTop: 20,
           }}
           type="button"
           onClick={() => {
-            return reset(
-              carpeta 
-            );
+                return reset(
+                            carpeta 
+                );
           }}
           value="Reset with values"
         />

@@ -1,4 +1,4 @@
-import { Loader } from '#@/components/Loader';
+
 import typography from '#@/styles/fonts/typography.module.scss';
 
 export default function MainRightLoading() {

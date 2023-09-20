@@ -39,7 +39,7 @@
   flex: 2 0 50%;
 }
 
-.task, .taskContainer {
+.task, .taskList, .taskContainer {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -47,6 +47,16 @@
 }
 .taskContainer {
   background-color: var(--surface-container);
+}
+.taskList {
+  display: grid;
+  grid-auto-columns: 100%;
+  grid-column-gap: 10px;
+  grid-auto-flow: column;
+  padding: 25px 0px;
+  list-style: none;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
 }
 
 /* The switchBox - the box around the slider */
@@ -307,3 +317,5 @@
     box-shadow: var(--dp7);
   }
 }
+
+/*# sourceMappingURL=note.module.css.map */

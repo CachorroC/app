@@ -1,33 +1,24 @@
 'use client';
 
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler } from 'react';
 import styles from './styles.module.css';
 import { useContactContext } from '../../../app/context/main-context';
 
 export default function Checkbox() {
-  const [
-    isChecked,
-    setIsChecked
-  ] = useState(
-    false 
-  );
 
   const {
-    contactoForm, setContactoForm 
+                  contactoForm, setContactoForm
   } = useContactContext();
 
   const handleTextareaChange: ChangeEventHandler<HTMLInputElement> = (
-    e 
+      e
   ) => {
-    setContactoForm(
-      {
-        ...contactoForm,
-        newsLetter: e.target.checked,
-      } 
-    );
-    setIsChecked(
-      e.target.checked 
-    );
+        setContactoForm(
+                    {
+                                    ...contactoForm,
+                                    newsLetter: e.target.checked,
+                    }
+        );
   };
 
   return (

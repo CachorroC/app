@@ -1,13 +1,13 @@
 module.exports = {
-  globDirectory: 'public/',
+                globDirectory: 'public/',
 
-  globPatterns: [
-    '**/*.{svg,js, html}'
-  ],
+                globPatterns: [
+                        '**/*.{svg,js, html}'
+                ],
 
-  swDest                     : 'public/sw.js',
-  ignoreURLParametersMatching: [
-    /^utm_/,
-    /^fbclid$/
-  ],
+                swDest                     : 'public/sw.js',
+                ignoreURLParametersMatching: [
+                        /^utm_/,
+                        /^fbclid$/
+                ],
 };

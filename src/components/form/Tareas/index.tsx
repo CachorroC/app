@@ -4,97 +4,101 @@ import React from 'react';
 import { DefaultValues, SubmitHandler, useForm } from 'react-hook-form';
 
 const defaultValues: DefaultValues<Tarea> = {
-  date   : new Date(),
-  text   : '',
-  done   : false,
-  abogado: 'Camilo',
+                date   : new Date(),
+                text   : '',
+                done   : false,
+                abogado: 'Camilo',
 };
 
 export function NuevaTarea() {
   const {
-    register,
-    handleSubmit,
-    formState: {
-      dirtyFields,
+                  register,
+                  handleSubmit,
+                  formState: {
+                                  dirtyFields,
 
-      errors,
-    },
+                                  errors,
+                  },
   } = useForm<Tarea>(
-    {
-      defaultValues,
-    } 
+              {
+                              defaultValues,
+              } 
   );
 
   const onSubmit: SubmitHandler<Tarea> = async (
-    data 
+      data 
   ) => {
-    try {
-      const postTarea = await fetch(
-        '/api/Tareas', {
-          method : 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(
-            data 
-          ),
-        } 
-      );
+        try {
+          const postTarea = await fetch(
+                      '/api/Tareas', {
+                                      method : 'POST',
+                                      headers: {
+                                                      'content-type': 'application/json',
+                                      },
+                                      body: JSON.stringify(
+                                                  data 
+                                      ),
+                      } 
+          );
 
-      const tareaWithId = ( await postTarea.json() ) as Tarea;
-      alert(
-        JSON.stringify(
-          tareaWithId 
-        ) 
-      );
+          const tareaWithId = ( await postTarea.json() ) as Tarea;
+          alert(
+                      JSON.stringify(
+                                  tareaWithId 
+                      ) 
+          );
 
-      return console.log(
-        tareaWithId 
-      );
-    } catch ( e ) {
-      alert(
-        JSON.stringify(
-          e 
-        ) 
-      );
+          return console.log(
+                      tareaWithId 
+          );
+        } catch ( e ) {
+          alert(
+                      JSON.stringify(
+                                  e 
+                      ) 
+          );
 
-      return console.log(
-        e 
-      );
-    }
+          return console.log(
+                      e 
+          );
+        }
   };
   console.log(
-    errors 
+              errors 
   );
 
   return (
     <form onSubmit={handleSubmit(
-      onSubmit 
+                onSubmit 
     )}>
       <textarea
         {...register(
-          'text', {
-            required: true,
-          } 
+                    'text', {
+                                    required: true,
+                    } 
         )}
       />
       <input
         type="date"
         placeholder="fecha"
         {...register(
-          'date', {
-            required: true,
-          } 
+                    'date', {
+                                    required: true,
+                    } 
         )}
       />
-      <input type="checkbox" placeholder="done" {...register(
-        'done' 
-      )} />
+      <input
+        type="checkbox"
+        placeholder="done"
+        {...register(
+                    'done' 
+        )}
+      />
       <select
         {...register(
-          'abogado', {
-            required: true,
-          } 
+                    'abogado', {
+                                    required: true,
+                    } 
         )}
       >
         <option value="Melissa">Melissa</option>

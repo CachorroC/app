@@ -3,10 +3,10 @@ import NoteFormOutput from 'components/Nota/client/note-form-output';
 import { CurrentRoute } from '#@/lib/client/current-route';
 import { ReactNode, Suspense } from 'react';
 
-export default function Layout (
+export default function Layout(
             {
-              children
-            }: { children: ReactNode }
+                            children 
+            }: { children: ReactNode } 
 ) {
   return (
     <>
@@ -16,7 +16,6 @@ export default function Layout (
       <NoteFormOutput />
 
       {children}
-
     </>
   );
 }

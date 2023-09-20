@@ -6,7 +6,7 @@ import { useSearch } from '#@/app/context/search-context';
 
 export default function InputSearchBar() {
   const {
-    search, setSearch
+                  search, setSearch 
   } = useSearch();
 
   const pathname = usePathname();
@@ -18,18 +18,18 @@ export default function InputSearchBar() {
   return (
     <input
       type="search"
-      className={ searchbar.input }
+      className={searchbar.input}
       value={search}
       placeholder={isHome
         ? 'Buscar'
         : pathname}
       onChange={(
-        input
+          input 
       ) => {
-        input.preventDefault();
-        setSearch(
-          input.target.value
-        );
+            input.preventDefault();
+            setSearch(
+                        input.target.value 
+            );
       }}
     />
   );

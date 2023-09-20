@@ -8,8 +8,8 @@ export default function NotFound() {
   return (
     <div
       style={{
-        backgroundColor: 'var(--error-container)',
-        color          : 'var(--on-error-container)',
+                      backgroundColor: 'var(--error-container)',
+                      color          : 'var(--on-error-container)',
       }}
     >
       <h2 className={typography.displaySmall}>{'No hay actuaciones'}</h2>
@@ -18,7 +18,10 @@ export default function NotFound() {
           'Por el momento no pudimos encontrar actuaciones vinculadas a este idProceso, te invitamos a corregir el error o a intentar de nuevo más tarde.'
         }
       </p>
-      <Link className={button.button} href={'/' as Route}>
+      <Link
+        className={button.button}
+        href={'/' as Route}
+      >
         <span className={`material-symbols-outlined ${ button.icon }`}>home</span>
         <p className={typography.labelMedium}>{'Inicio'}</p>
       </Link>

@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 
 export default async function page(
             {
-              params,
+                            params,
             }: {
   params: {
     id: string;
@@ -14,11 +14,11 @@ export default async function page(
 } 
 ) {
   const nota = await getNotaById(
-    {
-      id: Number(
-        params.id 
-      ),
-    } 
+              {
+                              id: Number(
+                                          params.id 
+                              ),
+              } 
   );
 
   if ( !nota ) {
@@ -28,7 +28,10 @@ export default async function page(
   return (
     <div className={note.container}>
       <div className={note.nota}>
-        <Edit key={nota.id} nota={nota} />
+        <Edit
+          key={nota.id}
+          nota={nota}
+        />
       </div>
     </div>
   );

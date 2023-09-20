@@ -8,13 +8,13 @@ import { Form } from 'components/form/Form';
 
 export default async function PageCarpetaNumero(
             {
-              params,
+                            params,
             }: {
   params: { llaveProceso: string };
 } 
 ) {
   const carpeta = await getCarpetaByllaveProceso(
-    params.llaveProceso 
+              params.llaveProceso 
   );
 
   const despachos = await getDespachos();
@@ -23,5 +23,10 @@ export default async function PageCarpetaNumero(
     return notFound();
   }
 
-  return <Form key={params.llaveProceso} carpeta={carpeta} />;
+  return (
+    <Form
+      key={params.llaveProceso}
+      carpeta={carpeta}
+    />
+  );
 }

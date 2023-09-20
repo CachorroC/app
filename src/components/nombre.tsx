@@ -3,7 +3,7 @@ import typography from '#@/styles/fonts/typography.module.css';
 
 export function NombreComponent(
             {
-              deudor 
+                            deudor 
             }: { deudor: intDeudor } 
 ) {
   const nombres = deudor.segundoNombre
@@ -17,7 +17,10 @@ export function NombreComponent(
   const rawName = nombres + ' ' + apellidos;
 
   return (
-    <h4 key={deudor.cedula} className={typography.titleMedium}>
+    <h4
+      key={deudor.cedula}
+      className={typography.titleMedium}
+    >
       {rawName}
     </h4>
   );

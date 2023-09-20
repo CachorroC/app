@@ -1,4 +1,4 @@
-version: "3.4"
+version: '3.4'
 
 services:
   postgres:
@@ -34,7 +34,7 @@ services:
       context: ./
       dockerfile: Dockerfile
       args:
-        BASE_URL: "https://app.rsasesorjuridico.com"
+        BASE_URL: 'https://app.rsasesorjuridico.com'
 
         MONGODB_URI: ${MONGODB_URI}
         PORT: ${PORT}

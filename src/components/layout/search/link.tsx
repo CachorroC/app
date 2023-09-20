@@ -10,74 +10,74 @@ import { fixFechas } from '#@/lib/project/helper';
 import { useSearch } from '#@/app/context/search-context';
 
 export const LinkCard = (
-  {
-    path,
-    carpeta,
-  }: {
+    {
+                    path,
+                    carpeta,
+    }: {
   path: string;
   carpeta: MonCarpeta;
 } 
 ) => {
-  const {
-    search 
-  } = useSearch();
+      const {
+                      search 
+      } = useSearch();
 
-  const {
-    deudor, fecha, llaveProceso, idProceso, _id 
-  } = carpeta;
+      const {
+                      deudor, fecha, llaveProceso, idProceso, _id 
+      } = carpeta;
 
-  const Nombre = carpeta.nombre;
+      const Nombre = carpeta.nombre;
 
-  const pathname = usePathname();
+      const pathname = usePathname();
 
-  const {
-    category 
-  } = useCategory();
+      const {
+                      category 
+      } = useCategory();
 
-  const procesosHref = carpeta.llaveProceso
-    ? carpeta.idProceso
-      ? `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProceso }`
-      : `${ path }/${ carpeta.llaveProceso }`
-    : `/Carpetas/${ carpeta.numero }`;
+      const procesosHref = carpeta.llaveProceso
+        ? carpeta.idProceso
+          ? `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProceso }`
+          : `${ path }/${ carpeta.llaveProceso }`
+        : `/Carpetas/${ carpeta.numero }`;
 
-  const isActive
+      const isActive
     = pathname === procesosHref
     || pathname === `${ path }/${ llaveProceso }/${ idProceso }`
     || pathname === `${ path }/${ llaveProceso }`;
 
-  const isSearch
+      const isSearch
     = carpeta.nombre.toLowerCase()
           .indexOf(
-            search.toLowerCase() 
+                      search.toLowerCase() 
           ) === -1;
 
-  if ( category !== 'todos' ) {
-    if ( category !== carpeta.category ) {
-      return null;
-    }
-  }
+      if ( category !== 'todos' ) {
+        if ( category !== carpeta.category ) {
+          return null;
+        }
+      }
 
-  return (
-    <Link
-      key={carpeta._id}
-      href={procesosHref as Route}
-      className={searchbar.container}
-    >
-      <div className={isActive
-        ? searchbar.isActive
-        : searchbar.notActive}>
-        <sup className={`${ !isSearch && searchbar.sub }`}>{carpeta.numero}</sup>
-        <h4
-          key={deudor.cedula}
-          className={`${ typography.titleMedium } ${ searchbar.title }`}
+      return (
+        <Link
+          key={carpeta._id}
+          href={procesosHref as Route}
+          className={searchbar.container}
         >
-          {Nombre}
-        </h4>
+          <div className={isActive
+            ? searchbar.isActive
+            : searchbar.notActive}>
+            <sup className={`${ !isSearch && searchbar.sub }`}>{carpeta.numero}</sup>
+            <h4
+              key={deudor.cedula}
+              className={`${ typography.titleMedium } ${ searchbar.title }`}
+            >
+              {Nombre}
+            </h4>
 
-        {fecha && <sub className={searchbar.date}>{fixFechas(
-          fecha 
-        )}</sub>}
-      </div>
-    </Link>
-  );
+            {fecha && <sub className={searchbar.date}>{fixFechas(
+                        fecha 
+            )}</sub>}
+          </div>
+        </Link>
+      );
 };

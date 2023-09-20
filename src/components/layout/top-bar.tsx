@@ -7,8 +7,8 @@ import SearchOutputListSkeleton from './search/SearchProcesosOutputSkeleton';
 
 export default async function TopBar(
             {
-              children
-            }: { children: ReactNode }
+                            children 
+            }: { children: ReactNode } 
 ) {
   const carpetas = await getCarpetas();
 
@@ -18,10 +18,13 @@ export default async function TopBar(
       <Suspense fallback={<Loader />}>
         <Drawer>
           <Suspense fallback={<SearchOutputListSkeleton />}>
-            <SearchOutputList path={'/Procesos'} fechas={carpetas} />
+            <SearchOutputList
+              path={'/Procesos'}
+              fechas={carpetas}
+            />
           </Suspense>
         </Drawer>
       </Suspense>
     </>
   );
-};
+}

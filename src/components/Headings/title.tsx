@@ -5,7 +5,7 @@ import { fixFechas } from '#@/lib/project/helper';
 
 export default function Title(
             {
-              helper 
+                            helper 
             }: { helper?: string } 
 ) {
   const pathname = usePathname();
@@ -43,34 +43,34 @@ export default function Title(
   }
 
   const days = [
-    'mimingo',
-    'Lunes',
-    'Martes',
-    'Miercoles',
-    'Jueves',
-    'Viernes',
-    'Sabado',
+          'mimingo',
+          'Lunes',
+          'Martes',
+          'Miercoles',
+          'Jueves',
+          'Viernes',
+          'Sabado',
   ];
 
   const months = [
-    'enero',
-    'febrero',
-    'marzo',
-    'abril',
-    'mayo',
-    'junio',
-    'julio',
-    'agosto',
-    'septiembre',
-    'octubre',
-    'noviembre',
-    'diciembre ',
+          'enero',
+          'febrero',
+          'marzo',
+          'abril',
+          'mayo',
+          'junio',
+          'julio',
+          'agosto',
+          'septiembre',
+          'octubre',
+          'noviembre',
+          'diciembre ',
   ];
 
   const txt = helper
     ? helper
     : days[ today.getDay() ] + ' ' + fixFechas(
-      today.toString() 
+                today.toString() 
     );
 
   return (

@@ -1,27 +1,26 @@
-import { CarpetaCard } from '../../../../../components/Card/carpeta';
+
 import { Loader } from '#@/components/Loader';
 import { NombreComponent } from 'components/nombre';
 import { getCarpetaByidProceso } from '#@/lib/project/carpetas';
-import { Fragment, Suspense } from 'react';
+import {  Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { Calendar } from 'components/Calendar/main';
 
-export default async function TopidProcesoPage(
+export default async function TopidProcesoPage (
             {
-              params: {
-                llaveProceso, idProceso 
-              },
+                            params: {
+                                            idProceso
+                            },
             }: {
   params: {
     llaveProceso: string;
     idProceso: string;
   };
-} 
+}
 ) {
   const carpeta = await getCarpetaByidProceso(
-    Number(
-      idProceso 
-    ) 
+              Number(
+                          idProceso
+              )
   );
 
   if ( !carpeta ) {
@@ -31,7 +30,10 @@ export default async function TopidProcesoPage(
   return (
     <>
       <Suspense fallback={<Loader />}>
-        <NombreComponent key={carpeta._id} deudor={carpeta.deudor} />
+        <NombreComponent
+          key={carpeta._id}
+          deudor={carpeta.deudor}
+        />
       </Suspense>
     </>
   );

@@ -5,17 +5,17 @@ export async function GET(
             request: NextRequest 
 ) {
   const tag = request.nextUrl.searchParams.get(
-    'actuaciones' 
+              'actuaciones' 
   );
 
   revalidateTag(
-    tag ?? 'actuaciones' 
+              tag ?? 'actuaciones' 
   );
 
   return NextResponse.json(
-    {
-      revalidated: true,
-      now        : Date.now(),
-    } 
+              {
+                              revalidated: true,
+                              now        : Date.now(),
+              } 
   );
 }

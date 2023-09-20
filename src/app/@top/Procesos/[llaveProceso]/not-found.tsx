@@ -10,7 +10,10 @@ export default function NotFound() {
       <p className={typography.bodyLarge}>
         {'Nopudimos localizar el recurso que consultaste'}
       </p>
-      <Link href={'/' as Route} className={button}>
+      <Link
+        href={'/' as Route}
+        className={button}
+      >
         {'Inicio'}
       </Link>
     </>

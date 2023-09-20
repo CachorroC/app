@@ -6,83 +6,75 @@ export interface calendarData {
 }
 
 export const nombreDiasSemana = [
-  'Mimingo',
-  'L.unes',
-  'Martes',
-  'Miercoles',
-  'Jueves',
-  'Viernes',
+        'Mimingo',
+        'L.unes',
+        'Martes',
+        'Miercoles',
+        'Jueves',
+        'Viernes',
 ];
 
 export const nombresDeMeses = [
-  'Enero',
-  'Febrero',
-  'Marzo',
-  'Abril',
-  'Mayo',
-  'Junio',
-  'Julio',
-  'Agosto',
-  'Septiembre',
-  'Octubre',
-  'Noviembre',
-  'Diciembre',
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Octubre',
+        'Noviembre',
+        'Diciembre',
 ];
 
 export function CalendarBuilder(
-            date?: string 
+            date?: string
 ) {
   const rows = new Set<calendarData>();
 
   const todayNow = date
     ? new Date(
-      date 
+                date
     )
     : new Date();
 
   console.log(
-    todayNow 
+              todayNow
   );
 
-  //* 0-31
-  const currentDayofMonth = todayNow.getDate();
-  //* 0- 11
 
   const currentMonth = todayNow.getMonth();
 
-  //* YYYY
   const currentYear = todayNow.getFullYear();
 
   const today = new Date()
         .getDate();
 
   const firstDayofCurrentMonth = new Date(
-    currentYear,
-    currentMonth,
-    1,
+              currentYear,
+              currentMonth,
+              1,
   )
         .getDay();
 
-  const firstDateofMonth = new Date(
-    currentYear, currentMonth, 1 
-  );
 
-  const firstWeekDayofMonth = firstDateofMonth.getDay();
 
   const lastDateofMonth = new Date(
-    currentYear, currentMonth + 1, 0 
+              currentYear, currentMonth + 1, 0
   )
         .getDate();
 
   const lastDayofMonth = new Date(
-    currentYear,
-    currentMonth,
-    lastDateofMonth,
+              currentYear,
+              currentMonth,
+              lastDateofMonth,
   )
         .getDay();
 
   const lastDateofPastMonth = new Date(
-    currentYear, currentMonth, 0 
+              currentYear, currentMonth, 0
   )
         .getDate();
 
@@ -91,15 +83,15 @@ export function CalendarBuilder(
       lastDateofPastMonth - dayBefore + 1
     }`;
     rows.add(
-      {
-        href     : href,
-        className: 'disabled',
-        current  : false,
-        dayOfWeek: new Date(
-          href 
-        )
-              .getDay(),
-      } 
+                {
+                                href     : href,
+                                className: 'disabled',
+                                current  : false,
+                                dayOfWeek: new Date(
+                                            href
+                                )
+                                      .getDay(),
+                }
     );
   }
 
@@ -109,17 +101,17 @@ export function CalendarBuilder(
     const href = `${ currentYear }-${ currentMonth }-${ dayInMonth }`;
 
     rows.add(
-      {
-        href     : href,
-        current  : true,
-        dayOfWeek: new Date(
-          href 
-        )
-              .getDay(),
-        className: isToday
-          ? 'today'
-          : 'innactive',
-      } 
+                {
+                                href     : href,
+                                current  : true,
+                                dayOfWeek: new Date(
+                                            href
+                                )
+                                      .getDay(),
+                                className: isToday
+                                  ? 'today'
+                                  : 'innactive',
+                }
     );
   }
 
@@ -127,19 +119,19 @@ export function CalendarBuilder(
     const href = `${ currentYear }-${ currentMonth + 1 }-${ dayAfterMonth }`;
 
     rows.add(
-      {
-        href     : href,
-        current  : false,
-        dayOfWeek: new Date(
-          href 
-        )
-              .getDay(),
-        className: 'disabled',
-      } 
+                {
+                                href     : href,
+                                current  : false,
+                                dayOfWeek: new Date(
+                                            href
+                                )
+                                      .getDay(),
+                                className: 'disabled',
+                }
     );
   }
 
   return Array.from(
-    rows 
+              rows
   );
 }

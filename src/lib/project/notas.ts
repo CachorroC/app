@@ -1,58 +1,56 @@
 import { cache } from 'react';
 import { notasCollection } from '../connection/mongodb';
-import { intNota, notaConvert } from 'types/notas';
-import { ObjectId } from 'mongodb';
-import { notFound } from 'next/navigation';
+import { intNota } from 'types/notas';
 import prisma from '#@/lib/connection/connectDB';
 
 export const getNotasByllaveProceso = cache(
-  async (
-    {
-      llaveProceso 
-    }: { llaveProceso: string } 
-  ) => {
-    const notas = await prisma.nota.findMany(
-      {
-        where: {
-          llaveProceso: llaveProceso,
-        },
-      } 
-    );
+            async (
+                {
+                                llaveProceso
+                }: { llaveProceso: string }
+            ) => {
+                  const notas = await prisma.nota.findMany(
+                              {
+                                              where: {
+                                                              llaveProceso: llaveProceso,
+                                              },
+                              }
+                  );
 
-    return notas;
-  },
+                  return notas;
+            },
 );
 
 export const getNotaById = cache(
-  async (
-    {
-      id 
-    }: { id: number } 
-  ) => {
-    const nota = await prisma.nota.findUnique(
-      {
-        where: {
-          id: id,
-        },
-      } 
-    );
+            async (
+                {
+                                id
+                }: { id: number }
+            ) => {
+                  const nota = await prisma.nota.findUnique(
+                              {
+                                              where: {
+                                                              id: id,
+                                              },
+                              }
+                  );
 
-    return nota;
-  } 
+                  return nota;
+            }
 );
 
 export async function addNota(
-            nota: intNota 
+            nota: intNota
 ) {
   const collection = await notasCollection();
 
   const insertOne = await collection.insertOne(
-    nota 
+              nota
   );
 
   if ( !insertOne.acknowledged ) {
     throw new Error(
-      'no pudimos agregar la nota a la base de datos, vuelve a intentarlo.',
+                'no pudimos agregar la nota a la base de datos, vuelve a intentarlo.',
     );
   }
 

@@ -7,11 +7,16 @@ export default async function Page() {
   return (
     <>
       {notas.map(
-        (
-          nota, i, arr 
-        ) => {
-          return <NotaComponent key={nota.id} notaRaw={nota} />;
-        } 
+                  (
+                      nota
+                  ) => {
+                        return (
+                          <NotaComponent
+                            key={nota.id}
+                            notaRaw={nota}
+                          />
+                        );
+                  }
       )}
     </>
   );

@@ -4,15 +4,15 @@
  * @type {import('next').NextConfig}
  **/
 const nextConfig = {
-  output: 'standalone',
+                output: 'standalone',
 
-  experimental: {
-    typedRoutes                     : true,
-    serverActions                   : true,
-    serverComponentsExternalPackages: [
-      'mongodb',
-      'eslint'
-    ],
-  },
+                experimental: {
+                                typedRoutes                     : true,
+                                serverActions                   : true,
+                                serverComponentsExternalPackages: [
+                                        'mongodb',
+                                        'eslint'
+                                ],
+                },
 };
 module.exports = nextConfig;

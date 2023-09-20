@@ -6,7 +6,7 @@ import { Fragment, Suspense } from 'react';
 
 export default async function DefaultProcesosllaveProceso(
             {
-              params,
+                            params,
             }: {
   params: {
     numero: string;
@@ -14,9 +14,9 @@ export default async function DefaultProcesosllaveProceso(
 } 
 ) {
   const Carpeta = await getCarpetabyNumero(
-    Number(
-      params.numero 
-    ) 
+              Number(
+                          params.numero 
+              ) 
   );
 
   return (
@@ -24,10 +24,16 @@ export default async function DefaultProcesosllaveProceso(
       {Carpeta && (
         <Fragment key={params.numero}>
           <Suspense fallback={<Loader />}>
-            <NombreComponent key={Carpeta._id} deudor={Carpeta.deudor} />
+            <NombreComponent
+              key={Carpeta._id}
+              deudor={Carpeta.deudor}
+            />
           </Suspense>
 
-          <CarpetaCard key={Carpeta._id} carpeta={Carpeta} />
+          <CarpetaCard
+            key={Carpeta._id}
+            carpeta={Carpeta}
+          />
         </Fragment>
       )}
     </>

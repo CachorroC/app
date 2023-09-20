@@ -15,7 +15,10 @@ export default async function Page() {
         <Calendar />
       </Suspense>
       <Suspense fallback={<SearchOutputListSkeleton />}>
-        <SearchOutputList path={'/Procesos'} fechas={carpetas} />
+        <SearchOutputList
+          path={'/Procesos'}
+          fechas={carpetas}
+        />
       </Suspense>
     </>
   );

@@ -8,90 +8,96 @@ import { useContactContext } from '../context/main-context';
 
 export default function Page() {
   const {
-    register,
-    handleSubmit,
-    formState: {
-      errors 
-    },
+                  register,
+                  handleSubmit,
+                  formState: {
+                                  errors 
+                  },
   } = useForm<RawContactoFormValues>(
-    {
-      defaultValues: {
-        nombre    : ' ',
-        grupo     : 'otros',
-        newsLetter: false,
-        email     : ' ',
-        telefono  : 1,
-        comentario: 'Este es el espacio para registrar información adicional',
-      },
-    } 
+              {
+                              defaultValues: {
+                                              nombre    : ' ',
+                                              grupo     : 'otros',
+                                              newsLetter: false,
+                                              email     : ' ',
+                                              telefono  : 1,
+                                              comentario: 'Este es el espacio para registrar información adicional',
+                              },
+              } 
   );
 
   const {
-    contactoForm, setContactoForm 
+                  contactoForm, setContactoForm 
   } = useContactContext();
 
   const onSubmit: SubmitHandler<RawContactoFormValues> = async (
-    data, e 
+      data, e 
   ) => {
-    const newData: ContactoForm = {
-      ...data,
-      telefono: Number(
-        data.telefono 
-      ),
-      fecha: new Date(),
-    };
-    setContactoForm(
-      {
-        ...contactoForm,
-        ...newData,
-      } 
-    );
-
-    try {
-      const postData = await fetch(
-        '/api?destino=contacto', {
-          method : 'post',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(
-            newData 
-          ),
-        } 
-      );
-
-      if ( !postData.ok ) {
-        throw new Error(
-          `${ postData.status }: ${ postData.statusText }` 
+        const newData: ContactoForm = {
+                        ...data,
+                        telefono: Number(
+                                    data.telefono 
+                        ),
+                        fecha: new Date(),
+        };
+        setContactoForm(
+                    {
+                                    ...contactoForm,
+                                    ...newData,
+                    } 
         );
-      }
 
-      const msg = await postData.json();
-      alert(
-        JSON.stringify(
-          msg 
-        ) 
-      );
+        try {
+          const postData = await fetch(
+                      '/api?destino=contacto', {
+                                      method : 'post',
+                                      headers: {
+                                                      'Content-Type': 'application/json',
+                                      },
+                                      body: JSON.stringify(
+                                                  newData 
+                                      ),
+                      } 
+          );
 
-      console.log(
-        JSON.stringify(
-          msg 
-        ) 
-      );
-    } catch ( e ) {
-      alert(
-        'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente',
-      );
-    }
+          if ( !postData.ok ) {
+            throw new Error(
+                        `${ postData.status }: ${ postData.statusText }` 
+            );
+          }
+
+          const msg = await postData.json();
+          alert(
+                      JSON.stringify(
+                                  msg 
+                      ) 
+          );
+
+          console.log(
+                      JSON.stringify(
+                                  msg 
+                      ) 
+          );
+        } catch ( e ) {
+          alert(
+                      'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente',
+          );
+        }
   };
 
   return (
     <div className={form.container}>
-      <form onSubmit={handleSubmit(
-        onSubmit 
-      )} className={form.form}>
+      <form
+        onSubmit={handleSubmit(
+                    onSubmit 
+        )}
+        className={form.form}
+      >
         <section className={form.section}>
-          <label htmlFor={'nombre'} className={form.label}>
+          <label
+            htmlFor={'nombre'}
+            className={form.label}
+          >
             Nombre y Apellido
           </label>
           <input
@@ -99,14 +105,17 @@ export default function Page() {
             className={form.textArea}
             placeholder="Nombre y Apellido"
             {...register(
-              'nombre', {
-                required: true,
-              } 
+                        'nombre', {
+                                        required: true,
+                        } 
             )}
           />
         </section>{' '}
         <section className={form.section}>
-          <label htmlFor={'email'} className={form.label}>
+          <label
+            htmlFor={'email'}
+            className={form.label}
+          >
             Correo Electrónico
           </label>
           <input
@@ -114,15 +123,18 @@ export default function Page() {
             className={form.textArea}
             placeholder="correo electrónico"
             {...register(
-              'email', {
-                required: false,
-                pattern : /^\S+@\S+$/i,
-              } 
+                        'email', {
+                                        required: false,
+                                        pattern : /^\S+@\S+$/i,
+                        } 
             )}
           />
         </section>
         <section className={form.section}>
-          <label htmlFor={'telefono'} className={form.label}>
+          <label
+            htmlFor={'telefono'}
+            className={form.label}
+          >
             telefono de contacto
           </label>
           <input
@@ -130,9 +142,9 @@ export default function Page() {
             className={form.textArea}
             placeholder="telefono de contacto"
             {...register(
-              'telefono', {
-                required: false,
-              } 
+                        'telefono', {
+                                        required: false,
+                        } 
             )}
           />
         </section>
@@ -149,7 +161,7 @@ export default function Page() {
               <input
                 className={checkbox.inputElement}
                 {...register(
-                  'newsLetter' 
+                            'newsLetter' 
                 )}
                 type="checkbox"
               />
@@ -157,16 +169,19 @@ export default function Page() {
             </label>
           </section>
           <section className={form.section}>
-            <label htmlFor={'comentario'} className={form.section}>
+            <label
+              htmlFor={'comentario'}
+              className={form.section}
+            >
               {'Escriba su informacion'}
             </label>
             <input
               type={'text'}
               className={form.textArea}
               {...register(
-                'comentario', {
-                  required: true,
-                } 
+                          'comentario', {
+                                          required: true,
+                          } 
               )}
             />
           </section>
@@ -174,9 +189,9 @@ export default function Page() {
         <select
           className={form.selectArea}
           {...register(
-            'grupo', {
-              required: true,
-            } 
+                      'grupo', {
+                                      required: true,
+                      } 
           )}
         >
           <option value="Abogado">Abogado</option>

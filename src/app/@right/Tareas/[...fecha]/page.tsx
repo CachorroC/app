@@ -2,7 +2,7 @@ import { getTareas } from '#@/lib/project/tareas';
 
 export default async function Page(
             {
-              params,
+                            params,
             }: {
   params: { fecha: string[] };
 } 
@@ -16,35 +16,35 @@ export default async function Page(
   const rawTareas = await getTareas();
 
   const matched = rawTareas.filter(
-    (
-      tarea 
-    ) => {
-      const fecha = new Date(
-        Number(
-          ano 
-        ), Number(
-          mes 
-        ), Number(
-          dia 
-        ) 
-      );
+              (
+                  tarea 
+              ) => {
+                    const fecha = new Date(
+                                Number(
+                                            ano 
+                                ), Number(
+                                            mes 
+                                ), Number(
+                                            dia 
+                                ) 
+                    );
 
-      return tarea.date === fecha;
-    } 
+                    return tarea.date === fecha;
+              } 
   );
 
   return (
     <>
       {matched.map(
-        (
-          tarea, i 
-        ) => {
-          return (
-            <div key={i}>
-              <p>{tarea.text}</p>
-            </div>
-          );
-        } 
+                  (
+                      tarea, i 
+                  ) => {
+                        return (
+                          <div key={i}>
+                            <p>{tarea.text}</p>
+                          </div>
+                        );
+                  } 
       )}
     </>
   );

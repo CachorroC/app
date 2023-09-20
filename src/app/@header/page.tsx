@@ -1,7 +1,5 @@
 import { BackwardsButton,
-         ForwardButton,
-         DrawerMenuButton, } from '#@/components/Buttons/NavButtons';
-import { HomeButton } from '#@/components/Buttons/server-buttons';
+         ForwardButton, } from '#@/components/Buttons/NavButtons';
 import TopBar from '#@/components/layout/top-bar';
 
 export default function Page() {

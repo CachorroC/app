@@ -10,17 +10,21 @@ import { deleteNota } from '#@/app/actions';
 
 export function DeleteNoteButton(
             {
-              id 
+                            id 
             }: { id: number } 
 ) {
   function onDelete() {
     deleteNota(
-      id 
+                id 
     );
   }
 
   return (
-    <button className={note.buttonDelete} type="button" onClick={onDelete}>
+    <button
+      className={note.buttonDelete}
+      type="button"
+      onClick={onDelete}
+    >
       <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
     </button>
   );
@@ -28,31 +32,31 @@ export function DeleteNoteButton(
 
 export function AddNoteButton(
             {
-              nota, uri 
+                            nota, uri 
             }: { nota: intNota; uri: string } 
 ) {
   async function addRequestHandler() {
     const Request = await fetch(
-      'api/Notas', {
-        method : 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(
-          nota 
-        ),
-      } 
+                'api/Notas', {
+                                method : 'POST',
+                                headers: {
+                                                'content-type': 'application/json',
+                                },
+                                body: JSON.stringify(
+                                            nota 
+                                ),
+                } 
     )
           .then(
-            (
-              fullfilled 
-            ) => {
-              alert(
-                fullfilled.status 
-              );
+                      (
+                          fullfilled 
+                      ) => {
+                            alert(
+                                        fullfilled.status 
+                            );
 
-              return fullfilled;
-            } 
+                            return fullfilled;
+                      } 
           );
 
     if ( !Request.ok ) {
@@ -61,9 +65,9 @@ export function AddNoteButton(
 
     const Response = await Request.json();
     alert(
-      JSON.stringify(
-        Response 
-      ) 
+                JSON.stringify(
+                            Response 
+                ) 
     );
   }
 
@@ -80,7 +84,7 @@ export function AddNoteButton(
 
 export function EditNoteButton(
             {
-              nota 
+                            nota 
             }: { nota: Nota } 
 ) {
   return (

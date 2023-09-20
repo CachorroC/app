@@ -9,102 +9,102 @@ export async function GET(
             Request: NextRequest 
 ) {
   const {
-    searchParams, host, hostname, pathname 
+                  searchParams, host, hostname, pathname 
   } = new URL(
-    Request.url 
+              Request.url 
   );
 
   const collection = await carpetasCollection();
 
   const carpetas = await collection.find(
-    {} 
+              {} 
   )
         .toArray();
 
   const llaveProceso = searchParams.get(
-    'llaveProceso' 
+              'llaveProceso' 
   );
 
   if ( llaveProceso ) {
     const Demandados = carpetas.filter(
-      (
-        carpeta 
-      ) => {
-        return carpeta.llaveProceso === llaveProceso;
-      } 
+                (
+                    carpeta 
+                ) => {
+                      return carpeta.llaveProceso === llaveProceso;
+                } 
     );
 
     return new NextResponse(
-      JSON.stringify(
-        Demandados 
-      ), {
-        status : 200,
-        headers: {
-          'content-type': 'application/json',
-        },
-      } 
+                JSON.stringify(
+                            Demandados 
+                ), {
+                                status : 200,
+                                headers: {
+                                                'content-type': 'application/json',
+                                },
+                } 
     );
   }
 
   const idProceso = searchParams.get(
-    'idProceso' 
+              'idProceso' 
   );
 
   if ( idProceso ) {
     const Demandados = carpetas.filter(
-      (
-        carpeta 
-      ) => {
-        return carpeta.llaveProceso === llaveProceso;
-      } 
+                (
+                    carpeta 
+                ) => {
+                      return carpeta.llaveProceso === llaveProceso;
+                } 
     );
 
     return new NextResponse(
-      JSON.stringify(
-        Demandados 
-      ), {
-        status : 200,
-        headers: {
-          'content-type': 'application/json',
-        },
-      } 
+                JSON.stringify(
+                            Demandados 
+                ), {
+                                status : 200,
+                                headers: {
+                                                'content-type': 'application/json',
+                                },
+                } 
     );
   }
 
   const _id = searchParams.get(
-    '_id' 
+              '_id' 
   );
 
   if ( _id ) {
     const Carpeta = carpetas.filter(
-      (
-        carpeta 
-      ) => {
-        return carpeta._id.toString() === _id;
-      } 
+                (
+                    carpeta 
+                ) => {
+                      return carpeta._id.toString() === _id;
+                } 
     );
 
     return new NextResponse(
-      JSON.stringify(
-        Carpeta 
-      ), {
-        status : 200,
-        headers: {
-          'content-type': 'application/json',
-        },
-      } 
+                JSON.stringify(
+                            Carpeta 
+                ), {
+                                status : 200,
+                                headers: {
+                                                'content-type': 'application/json',
+                                },
+                } 
     );
   }
 
   return new NextResponse(
-    JSON.stringify(
-      carpetas 
-    ), {
-      status : 200,
-      headers: {
-        'content-type': 'application/json',
-      },
-    } 
+              JSON.stringify(
+                          carpetas 
+              ), {
+                              status : 200,
+                              headers: {
+                                              'content-type': 'application/json',
+                              },
+              } 
   );
 }
 
@@ -116,37 +116,37 @@ export async function POST(
   const collection = await carpetasCollection();
 
   const updateOne = await collection.findOneAndUpdate(
-    {
-      $or: [
-        {
-          numero: incomingCarpeta.numero,
-        },
-        {
-          idProceso: incomingCarpeta.idProceso,
-        },
-        {
-          'deudor.cedula': incomingCarpeta.deudor.cedula,
-        },
-      ],
-    },
-    {
-      $set: incomingCarpeta,
-    },
-    {
-      upsert        : true,
-      returnDocument: 'after',
-    },
+              {
+                              $or: [
+                                      {
+                                                      numero: incomingCarpeta.numero,
+                                      },
+                                      {
+                                                      idProceso: incomingCarpeta.idProceso,
+                                      },
+                                      {
+                                                      'deudor.cedula': incomingCarpeta.deudor.cedula,
+                                      },
+                              ],
+              },
+              {
+                              $set: incomingCarpeta,
+              },
+              {
+                              upsert        : true,
+                              returnDocument: 'after',
+              },
   );
 
   if ( !updateOne ) {
     return new NextResponse(
-      null, {
-        status: 404,
-      } 
+                null, {
+                                status: 404,
+                } 
     );
   }
 
   return NextResponse.json(
-    updateOne 
+              updateOne 
   );
 }

@@ -26,13 +26,13 @@ export interface intTarea {
 
 export class BuildTarea implements intTarea {
   constructor(
-    {
-      _id,
-      date,
-      abogado,
-      done,
-      text,
-    }: {
+      {
+                      _id,
+                      date,
+                      abogado,
+                      done,
+                      text,
+      }: {
     _id: ObjectId;
     date: string;
     abogado: string;
@@ -40,13 +40,13 @@ export class BuildTarea implements intTarea {
     text: string;
   } 
   ) {
-    ( this.id = _id.toString() ),
-    ( this.date = new Date(
-      date 
-    ) ),
-    ( this.abogado = abogado as Abogado ),
-    ( this.text = text ),
-    ( this.done = done );
+        ( this.id = _id.toString() ),
+        ( this.date = new Date(
+                    date 
+        ) ),
+        ( this.abogado = abogado as Abogado ),
+        ( this.text = text ),
+        ( this.done = done );
   }
   id: string;
   date: Date;
@@ -58,24 +58,24 @@ export class BuildTarea implements intTarea {
 // Converts JSON strings to/from your types
 export class tareaConvert {
   public static toTarea(
-    json: string 
+      json: string 
   ) {
-    const nT = JSON.parse(
-      json 
-    );
+        const nT = JSON.parse(
+                    json 
+        );
 
-    const tarea = new BuildTarea(
-      nT 
-    );
+        const tarea = new BuildTarea(
+                    nT 
+        );
 
-    return tarea;
+        return tarea;
   }
 
   public static tareaToJson(
-    value: intTarea 
+      value: intTarea 
   ): string {
-    return JSON.stringify(
-      value 
-    );
+        return JSON.stringify(
+                    value 
+        );
   }
 }

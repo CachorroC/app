@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 
 export default async function PageProcesosLeftllaveProceso(
             {
-              params,
+                            params,
             }: {
   params: {
     llaveProceso: string;
@@ -15,7 +15,7 @@ export default async function PageProcesosLeftllaveProceso(
 } 
 ) {
   const Carpeta = await getCarpetaByllaveProceso(
-    params.llaveProceso 
+              params.llaveProceso 
   );
 
   if ( !Carpeta ) {

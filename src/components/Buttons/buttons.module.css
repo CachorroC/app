@@ -11,6 +11,7 @@
 .activeCategory,
 .active {
   border: none;
+  box-sizing: border-box;
   padding: 2vmin;
   border-radius: 2vmin;
   flex: 1 0 auto;
@@ -81,17 +82,40 @@
 .activeHome > .text {
   color: var(--on-primary);
 }
-.button > .ButtonTextHelper, .buttonCategory > .ButtonTextHelper,
-.activeCategory > .ButtonTextHelper, .buttonForward > .ButtonTextHelper,
-.activeForward > .ButtonTextHelper, .buttonBackwards > .ButtonTextHelper,
-.activeBackwards > .ButtonTextHelper, .buttonDrawerMenu > .ButtonTextHelper,
-.activeDrawerMenu > .ButtonTextHelper, .buttonModal > .ButtonTextHelper,
-.activeModal > .ButtonTextHelper, .buttonHome > .ButtonTextHelper,
-.activeHome > .ButtonTextHelper,
-.active > .ButtonTextHelper {
-  display: none;
-  opacity: 0;
-  transition: all 1s;
+.button:link, .buttonCategory:link,
+.activeCategory:link, .buttonForward:link,
+.activeForward:link, .buttonBackwards:link,
+.activeBackwards:link, .buttonDrawerMenu:link,
+.activeDrawerMenu:link, .buttonModal:link,
+.activeModal:link, .buttonHome:link,
+.activeHome:link, .button:visited, .buttonCategory:visited,
+.activeCategory:visited, .buttonForward:visited,
+.activeForward:visited, .buttonBackwards:visited,
+.activeBackwards:visited, .buttonDrawerMenu:visited,
+.activeDrawerMenu:visited, .buttonModal:visited,
+.activeModal:visited, .buttonHome:visited,
+.activeHome:visited,
+.active:link,
+.active:visited {
+  background-color: var(--surface-container);
+  color: var(--on-surface);
+}
+.button:link > .icon, .buttonCategory:link > .icon,
+.activeCategory:link > .icon, .buttonForward:link > .icon,
+.activeForward:link > .icon, .buttonBackwards:link > .icon,
+.activeBackwards:link > .icon, .buttonDrawerMenu:link > .icon,
+.activeDrawerMenu:link > .icon, .buttonModal:link > .icon,
+.activeModal:link > .icon, .buttonHome:link > .icon,
+.activeHome:link > .icon, .button:visited > .icon, .buttonCategory:visited > .icon,
+.activeCategory:visited > .icon, .buttonForward:visited > .icon,
+.activeForward:visited > .icon, .buttonBackwards:visited > .icon,
+.activeBackwards:visited > .icon, .buttonDrawerMenu:visited > .icon,
+.activeDrawerMenu:visited > .icon, .buttonModal:visited > .icon,
+.activeModal:visited > .icon, .buttonHome:visited > .icon,
+.activeHome:visited > .icon,
+.active:link > .icon,
+.active:visited > .icon {
+  color: var(--on-surface-variant);
 }
 .button:hover, .buttonCategory:hover,
 .activeCategory:hover, .buttonForward:hover,
@@ -133,4 +157,7 @@
 
 .active {
   background-color: var(--tertiary-container);
+  color: var(--on-tertiary-container);
 }
+
+/*# sourceMappingURL=buttons.module.css.map */

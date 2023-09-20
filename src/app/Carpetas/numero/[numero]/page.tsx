@@ -6,15 +6,15 @@ import { Route } from 'next';
 
 export default async function PageCarpetaNumero(
             {
-              params,
+                            params,
             }: {
   params: { numero: number };
 } 
 ) {
   const carpeta = await getCarpetabyNumero(
-    Number(
-      params.numero 
-    ) 
+              Number(
+                          params.numero 
+              ) 
   );
 
   if ( !carpeta ) {
@@ -26,7 +26,10 @@ export default async function PageCarpetaNumero(
       <Link
         href={`/Carpetas/id/${ carpeta._id }` as Route}
       >{`${ carpeta._id }`}</Link>
-      <Form key={params.numero} carpeta={carpeta} />
+      <Form
+        key={params.numero}
+        carpeta={carpeta}
+      />
     </>
   );
 }

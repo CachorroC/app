@@ -7,43 +7,47 @@ import { useSearch } from '#@/app/context/search-context';
 
 export default function SearchOutputList(
             {
-              path,
-              fechas,
+                            path,
+                            fechas,
             }: {
   path: string;
   fechas: MonCarpeta[];
-}
+} 
 ) {
   const {
-    search
+                  search 
   } = useSearch();
 
   const {
-    category
+                  category 
   } = useCategory();
 
   const rows: any[] = [];
 
   const byNombre = arraySorter(
-    fechas, 'nombre'
+              fechas, 'nombre' 
   );
   byNombre.forEach(
-    (
-      proceso
-    ) => {
-      if ( proceso.nombre.toLowerCase()
-            .indexOf(
-              search.toLowerCase()
-            ) === -1 ) {
-        return;
-      }
+              (
+                  proceso 
+              ) => {
+                    if ( proceso.nombre.toLowerCase()
+                          .indexOf(
+                                      search.toLowerCase() 
+                          ) === -1 ) {
+                      return;
+                    }
 
-      if ( category === 'todos' || category === proceso.category ) {
-        rows.push(
-          <LinkCard path={path} carpeta={proceso} key={proceso._id} />
-        );
-      }
-    }
+                    if ( category === 'todos' || category === proceso.category ) {
+                      rows.push(
+                                  <LinkCard
+                                    path={path}
+                                    carpeta={proceso}
+                                    key={proceso._id}
+                                  />,
+                      );
+                    }
+              } 
   );
 
   return <>{rows}</>;

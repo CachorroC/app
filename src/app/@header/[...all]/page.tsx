@@ -7,19 +7,17 @@ import InputSearchBar from 'components/layout/search/InputSearchBar';
 
 export default function Page(
             {
-              params
-            }: {params: {all : string[]}}
+                            params 
+            }: { params: { all: string[] } } 
 ) {
   return (
     <TopBar>
-      { params.all.map(
-        (
-          rt, i
-        ) => {
-          return (
-            <p key={i}>{rt}</p>
-          );
-        }
+      {params.all.map(
+                  (
+                      rt, i 
+                  ) => {
+                        return <p key={i}>{rt}</p>;
+                  } 
       )}
       <DrawerMenuButton />
       <HomeButton />

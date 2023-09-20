@@ -10,68 +10,72 @@ export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 
 export const metadata: Metadata = {
-  title: 'Procesos',
+                title: 'Procesos',
 };
 
 export default async function RightProcesos() {
   const carpetasRaw = await getCarpetas();
 
   const carpetas = [
-    ...carpetasRaw
+          ...carpetasRaw
   ].sort(
-    (
-      a, b 
-    ) => {
-      const typeofA = typeof a.fecha;
+              (
+                  a, b 
+              ) => {
+                    const typeofA = typeof a.fecha;
 
-      const typeofB = typeof b.fecha;
+                    const typeofB = typeof b.fecha;
 
-      if ( !a.fecha || a.fecha === undefined ) {
-        return 1;
-      }
+                    if ( !a.fecha || a.fecha === undefined ) {
+                      return 1;
+                    }
 
-      if ( !b.fecha || b.fecha === undefined ) {
-        return -1;
-      }
+                    if ( !b.fecha || b.fecha === undefined ) {
+                      return -1;
+                    }
 
-      const x = a.fecha.toISOString();
+                    const x = a.fecha.toISOString();
 
-      const y = b.fecha.toISOString();
+                    const y = b.fecha.toISOString();
 
-      if ( x < y ) {
-        return 1;
-      }
+                    if ( x < y ) {
+                      return 1;
+                    }
 
-      if ( x > y ) {
-        return -1;
-      }
+                    if ( x > y ) {
+                      return -1;
+                    }
 
-      return 0;
-    } 
+                    return 0;
+              } 
   );
 
   return (
     <>
       {carpetas.map(
-        (
-          carpeta, index 
-        ) => {
-          const {
-            deudor 
-          } = carpeta;
+                  (
+                      carpeta, index 
+                  ) => {
+                        const {
+                                        deudor 
+                        } = carpeta;
 
-          return (
-            <Card path={'/Procesos'} carpeta={carpeta} key={carpeta._id}>
-              <Suspense fallback={<Loader key={carpeta._id} />}>
-                <FechaActuacionComponent
-                  carpeta={carpeta}
-                  key={carpeta._id}
-                  index={index}
-                />
-              </Suspense>
-            </Card>
-          );
-        } 
+                        return (
+                          <Card
+                            path={'/Procesos'}
+                            carpeta={carpeta}
+                            key={carpeta._id}
+                          >
+                            <Suspense fallback={<Loader key={carpeta._id} />}>
+                              <FechaActuacionComponent
+                                carpeta={carpeta}
+                                key={carpeta._id}
+                                index={index}
+                              />
+                            </Suspense>
+                          </Card>
+                        );
+                  } 
       )}
     </>
   );

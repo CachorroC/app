@@ -7,12 +7,12 @@ import typography from '#@/styles/fonts/typography.module.scss';
 import type { HTMLInputTypeAttribute } from 'react';
 
 export const InputSection = (
-  {
-    name,
-    title,
-    type,
-    rls,
-  }: {
+    {
+                    name,
+                    title,
+                    type,
+                    rls,
+    }: {
   name: FieldPath<IntCarpeta>;
   title: string;
   type: HTMLInputTypeAttribute;
@@ -22,31 +22,31 @@ export const InputSection = (
   >;
 } 
 ) => {
-  const {
-    register, control 
-  } = useFormContext<IntCarpeta>();
+      const {
+                      register, control 
+      } = useFormContext<IntCarpeta>();
 
-  const rules = rls ?? {
-    required: false,
-  };
+      const rules = rls ?? {
+                      required: false,
+      };
 
-  return (
-    <section className={form.section}>
-      <label
-        className={`${ form.label } ${ typography.titleLarge }`}
-        htmlFor={name}
-      >
-        {title}
-      </label>
-      <input
-        key={name}
-        className={form.textArea}
-        type={type}
-        placeholder={title}
-        {...register(
-          name, rules 
-        )}
-      />
-    </section>
-  );
+      return (
+        <section className={form.section}>
+          <label
+            className={`${ form.label } ${ typography.titleLarge }`}
+            htmlFor={name}
+          >
+            {title}
+          </label>
+          <input
+            key={name}
+            className={form.textArea}
+            type={type}
+            placeholder={title}
+            {...register(
+                        name, rules 
+            )}
+          />
+        </section>
+      );
 };

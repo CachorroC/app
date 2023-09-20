@@ -9,90 +9,85 @@ import styles from './note.module.css';
 
 export function Task(
             {
-              task
-            }: { task: Nota }
+                            task 
+            }: { task: Nota } 
 ) {
   const [
-    isEditing,
-    setIsEditing
+          isEditing,
+          setIsEditing
   ] = useState(
-    false
+              false 
   );
 
   const [
-    message,
-    setMessage
+          message,
+          setMessage
   ] = useState(
-    ''
+              '' 
   );
 
   const {
-    inputNota, setInputNota
+                  inputNota, setInputNota 
   } = useNotaContext();
   let taskContent;
 
-
-
-  async function onCreate (
-              formData: FormData
+  async function onCreate(
+              formData: FormData 
   ) {
     const formDataMap = new Map();
 
     for ( const [
-      key,
-      value
+            key,
+            value
     ] of formData ) {
       formDataMap.set(
-        key, value
+                  key, value 
       );
     }
 
     const obj = Object.fromEntries(
-      formDataMap
+                formDataMap 
     );
     console.log(
-      obj
+                obj 
     );
 
     const newNota = {
-      ...task,
-      ...obj
+                    ...task,
+                    ...obj,
     };
     console.log(
-      newNota
+                newNota 
     );
 
     const res = await editNota(
-      newNota
+                newNota 
     );
     setMessage(
-      res.message
+                res.message 
     );
     setIsEditing(
-      false
+                false 
     );
-
-
   }
-
 
   if ( isEditing ) {
     taskContent = (
-      <form  action={onCreate}>
+      <form action={onCreate}>
         <label className={styles.switchBox}>
           <input
             className={styles.inputElement}
-            checked={ inputNota.done }
+            checked={inputNota.done}
             name={'done'}
             onChange={(
-              e
+                e 
             ) => {
-              setInputNota(
-                {
-                  ...task,
-                  done: e.target.checked
-                }
-              );
+                  setInputNota(
+                              {
+                                              ...task,
+                                              done: e.target.checked,
+                              } 
+                  );
             }}
             type="checkbox"
           />
@@ -100,19 +95,18 @@ export function Task(
         </label>
 
         <input
-          value={ inputNota.text }
-          type={ 'text' }
+          value={inputNota.text}
+          type={'text'}
           name={'text'}
-
           onChange={(
-            e
+              e 
           ) => {
-            setInputNota(
-              {
-                ...task,
-                text: e.target.value,
-              }
-            );
+                setInputNota(
+                            {
+                                            ...task,
+                                            text: e.target.value,
+                            } 
+                );
           }}
         />
         <button type="submit">Save</button>
@@ -124,37 +118,38 @@ export function Task(
         <label className={styles.switchBox}>
           <input
             className={styles.inputElement}
-            defaultChecked={task.done }
+            defaultChecked={task.done}
             type="checkbox"
           />
           <span className={styles.slider}></span>
         </label>
 
-        { task.text }
-
+        {task.text}
       </>
     );
   }
 
   return (
-    <div className={ styles.taskContainer }>
+    <div className={styles.taskContainer}>
       <sub>{task.id.toString()}</sub>
-      { taskContent }
-      <p>{ message }</p>
-      <button type='button' onClick={(
-        e
-      ) => {
-
-        setIsEditing(
-          true
-        );
-        setInputNota(
-          {
-            ...task
-          }
-        );
-      }}>
-          Edit
+      {taskContent}
+      <p>{message}</p>
+      <button
+        type="button"
+        onClick={(
+            e 
+        ) => {
+              setIsEditing(
+                          true 
+              );
+              setInputNota(
+                          {
+                                          ...task,
+                          } 
+              );
+        }}
+      >
+        Edit
       </button>
     </div>
   );

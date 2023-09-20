@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import 'server-only';
 import { MongoClient } from 'mongodb';
 import { cache } from 'react';
@@ -20,80 +21,80 @@ if ( process.env.NODE_ENV === 'development' ) {
 
   if ( !globalWithMongo._mongoClientPromise ) {
     client = new MongoClient(
-      uri, options 
+                uri, options
     );
     globalWithMongo._mongoClientPromise = client.connect();
   }
   clientPromise = globalWithMongo._mongoClientPromise;
 } else {
   client = new MongoClient(
-    uri, options 
+              uri, options
   );
   clientPromise = client.connect();
 }
 
 export const tareasCollection = cache(
-  async () => {
-    const client = await clientPromise;
+            async () => {
+                  const client = await clientPromise;
 
-    if ( !client ) {
-      throw new Error(
-        'no hay cliente mongólico' 
-      );
-    }
+                  if ( !client ) {
+                    throw new Error(
+                                'no hay cliente mongólico'
+                    );
+                  }
 
-    const db = client.db(
-      'RyS' 
-    );
+                  const db = client.db(
+                              'RyS'
+                  );
 
-    const carpetas = db.collection<intTarea>(
-      'Tareas' 
-    );
+                  const carpetas = db.collection<intTarea>(
+                              'Tareas'
+                  );
 
-    return carpetas;
-  } 
+                  return carpetas;
+            }
 );
 
 export const carpetasCollection = cache(
-  async () => {
-    const client = await clientPromise;
+            async () => {
+                  const client = await clientPromise;
 
-    if ( !client ) {
-      throw new Error(
-        'no hay cliente mongólico' 
-      );
-    }
+                  if ( !client ) {
+                    throw new Error(
+                                'no hay cliente mongólico'
+                    );
+                  }
 
-    const db = client.db(
-      'RyS' 
-    );
+                  const db = client.db(
+                              'RyS'
+                  );
 
-    const carpetas = db.collection<IntCarpeta>(
-      'Carpetas' 
-    );
+                  const carpetas = db.collection<IntCarpeta>(
+                              'Carpetas'
+                  );
 
-    return carpetas;
-  } 
+                  return carpetas;
+            }
 );
 
 export const notasCollection = async () => {
-  const client = await clientPromise;
+      const client = await clientPromise;
 
-  if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico' 
-    );
-  }
+      if ( !client ) {
+        throw new Error(
+                    'no hay cliente mongólico'
+        );
+      }
 
-  const db = client.db(
-    'RyS' 
-  );
+      const db = client.db(
+                  'RyS'
+      );
 
-  const notas = db.collection<intNota>(
-    'Notas' 
-  );
+      const notas = db.collection<intNota>(
+                  'Notas'
+      );
 
-  return notas;
+      return notas;
 };
 
 export default clientPromise;

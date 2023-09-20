@@ -8,15 +8,18 @@ export default async function PageTareas() {
   return (
     <>
       {tareas.map(
-        (
-          tarea 
-        ) => {
-          return (
-            <div key={tarea.id} className={styles.form}>
-              <p className={typography.bodySmall}>{tarea.text}</p>
-            </div>
-          );
-        } 
+                  (
+                      tarea 
+                  ) => {
+                        return (
+                          <div
+                            key={tarea.id}
+                            className={styles.form}
+                          >
+                            <p className={typography.bodySmall}>{tarea.text}</p>
+                          </div>
+                        );
+                  } 
       )}
     </>
   );

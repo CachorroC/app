@@ -11,26 +11,26 @@ export const NavigationContext = createContext<{
   isNavOpen: boolean;
   setIsNavOpen: Dispatch<SetStateAction<boolean>>;
 } | null>(
-  null 
+            null 
 );
 
 export function NavigationProvider(
             {
-              children 
+                            children 
             }: { children: ReactNode } 
 ) {
   const [
-    isNavOpen,
-    setIsNavOpen
+          isNavOpen,
+          setIsNavOpen
   ] = useState(
-    false 
+              false 
   );
 
   return (
     <NavigationContext.Provider
       value={{
-        isNavOpen,
-        setIsNavOpen,
+                      isNavOpen,
+                      setIsNavOpen,
       }}
     >
       {children}
@@ -40,12 +40,12 @@ export function NavigationProvider(
 
 export function useNavigationContext() {
   const context = useContext(
-    NavigationContext 
+              NavigationContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'el contexto de navegacion debe ser utilizado dentro de un contextProvider ',
+                'el contexto de navegacion debe ser utilizado dentro de un contextProvider ',
     );
   }
 
