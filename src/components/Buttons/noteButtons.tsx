@@ -1,21 +1,19 @@
 'use client';
-import { intNota, monNota } from 'types/notas';
+import { intNota } from 'types/notas';
 import note from 'components/Nota/note.module.css';
 import Link from 'next/link';
 import type { Route } from 'next';
-import { useState } from 'react';
-import { DeleteResult } from 'mongodb';
 import { Nota } from '@prisma/client';
 import { deleteNota } from '#@/app/actions';
 
 export function DeleteNoteButton(
             {
-                            id 
-            }: { id: number } 
+                            id
+            }: { id: number }
 ) {
   function onDelete() {
     deleteNota(
-                id 
+                id
     );
   }
 
@@ -32,8 +30,8 @@ export function DeleteNoteButton(
 
 export function AddNoteButton(
             {
-                            nota, uri 
-            }: { nota: intNota; uri: string } 
+                            nota
+            }: { nota: intNota }
 ) {
   async function addRequestHandler() {
     const Request = await fetch(
@@ -43,20 +41,20 @@ export function AddNoteButton(
                                                 'content-type': 'application/json',
                                 },
                                 body: JSON.stringify(
-                                            nota 
+                                            nota
                                 ),
-                } 
+                }
     )
           .then(
                       (
-                          fullfilled 
+                          fullfilled
                       ) => {
                             alert(
-                                        fullfilled.status 
+                                        fullfilled.status
                             );
 
                             return fullfilled;
-                      } 
+                      }
           );
 
     if ( !Request.ok ) {
@@ -66,8 +64,8 @@ export function AddNoteButton(
     const Response = await Request.json();
     alert(
                 JSON.stringify(
-                            Response 
-                ) 
+                            Response
+                )
     );
   }
 
@@ -84,8 +82,8 @@ export function AddNoteButton(
 
 export function EditNoteButton(
             {
-                            nota 
-            }: { nota: Nota } 
+                            nota
+            }: { nota: Nota }
 ) {
   return (
     <Link

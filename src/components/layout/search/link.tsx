@@ -16,14 +16,14 @@ export const LinkCard = (
     }: {
   path: string;
   carpeta: MonCarpeta;
-} 
+}
 ) => {
       const {
-                      search 
+                      search
       } = useSearch();
 
       const {
-                      deudor, fecha, llaveProceso, idProceso, _id 
+                      deudor, fecha, llaveProceso, idProceso
       } = carpeta;
 
       const Nombre = carpeta.nombre;
@@ -31,7 +31,7 @@ export const LinkCard = (
       const pathname = usePathname();
 
       const {
-                      category 
+                      category
       } = useCategory();
 
       const procesosHref = carpeta.llaveProceso
@@ -48,7 +48,7 @@ export const LinkCard = (
       const isSearch
     = carpeta.nombre.toLowerCase()
           .indexOf(
-                      search.toLowerCase() 
+                      search.toLowerCase()
           ) === -1;
 
       if ( category !== 'todos' ) {
@@ -75,7 +75,7 @@ export const LinkCard = (
             </h4>
 
             {fecha && <sub className={searchbar.date}>{fixFechas(
-                        fecha 
+                        fecha.toString()
             )}</sub>}
           </div>
         </Link>

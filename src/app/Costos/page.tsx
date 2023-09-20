@@ -9,26 +9,25 @@ type FormValues = {
     quantity: number;
   }[];
 };
-let renderCount = 0;
 
 const Total = (
     {
-                    control 
-    }: { control: Control<FormValues> } 
+                    control
+    }: { control: Control<FormValues> }
 ) => {
       const formValues = useWatch(
                   {
                                   name: 'cart',
                                   control,
-                  } 
+                  }
       );
 
       const total = formValues.reduce(
                   (
-                      acc, current 
+                      acc, current
                   ) => {
                         return acc + ( current.price || 0 ) * ( current.quantity || 0 );
-                  }, 0 
+                  }, 0
       );
 
       return <p>Total Amount: {total}</p>;
@@ -40,7 +39,7 @@ export default function Costos() {
                   control,
                   handleSubmit,
                   formState: {
-                                  errors 
+                                  errors
                   },
   } = useForm<FormValues>(
               {
@@ -54,41 +53,40 @@ export default function Costos() {
                                               ],
                               },
                               mode: 'onBlur',
-              } 
+              }
   );
 
   const {
-                  fields, append, remove 
+                  fields, append, remove
   } = useFieldArray(
               {
                               name: 'cart',
                               control,
-              } 
+              }
   );
 
   const onSubmit = (
-      data: FormValues 
+      data: FormValues
   ) => {
         return console.log(
-                    data 
+                    data
         );
   };
-  renderCount++;
 
   return (
     <div>
       <form onSubmit={handleSubmit(
-                  onSubmit 
+                  onSubmit
       )}>
         <input
           {...register(
-                      'firstName' 
+                      'firstName'
           )}
           placeholder="First Name"
         />
         {fields.map(
                     (
-                        field, index 
+                        field, index
                     ) => {
                           return (
                             <div key={field.id}>
@@ -101,7 +99,7 @@ export default function Costos() {
                                   {...register(
  `cart.${ index }.name` as const, {
                  required: true,
- } 
+ }
                                   )}
                                   className={errors?.cart?.[ index ]?.name
                                     ? 'error'
@@ -115,7 +113,7 @@ export default function Costos() {
  `cart.${ index }.quantity` as const, {
                  valueAsNumber: true,
                  required     : true,
- } 
+ }
                                   )}
                                   className={errors?.cart?.[ index ]?.quantity
                                     ? 'error'
@@ -129,7 +127,7 @@ export default function Costos() {
  `cart.${ index }.price` as const, {
                  valueAsNumber: true,
                  required     : true,
- } 
+ }
                                   )}
                                   className={errors?.cart?.[ index ]?.price
                                     ? 'error'
@@ -140,7 +138,7 @@ export default function Costos() {
                                   type="button"
                                   onClick={() => {
                                         return remove(
-                                                    index 
+                                                    index
                                         );
                                   }}
                                 >
@@ -149,7 +147,7 @@ export default function Costos() {
                               </section>
                             </div>
                           );
-                    } 
+                    }
         )}
         <Total control={control} />
         <button
@@ -160,7 +158,7 @@ export default function Costos() {
                                             name    : '',
                                             quantity: 0,
                                             price   : 0,
-                            } 
+                            }
                 );
           }}
         >

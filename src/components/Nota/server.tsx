@@ -1,23 +1,21 @@
 import { fixFechas } from '#@/lib/project/helper';
 import { getNotasByllaveProceso } from '#@/lib/project/notas';
-import { monNota } from 'types/notas';
 import { Suspense } from 'react';
 import { ButtonSkeleton } from 'components/Buttons/ButtonSkeleton';
 import note from './note.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { EditNoteButton,
          DeleteNoteButton, } from 'components/Buttons/noteButtons';
-import { Accordion } from '../Accordion';
 import getNotas from '#@/lib/project/getNotas';
 import { Nota } from '@prisma/client';
 
 export const NotaComponent = (
     {
-                    notaRaw 
-    }: { notaRaw: Nota } 
+                    notaRaw
+    }: { notaRaw: Nota }
 ) => {
       const {
-                      id, text, date, llaveProceso, done, pathname 
+                      id, text, date
       } = notaRaw;
 
       return (
@@ -30,7 +28,7 @@ export const NotaComponent = (
           >{`Nota: ${ text }`}</p>
           <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
             {date && fixFechas(
-                        date 
+                        date.toString()
             )}
           </sub>
           <div className={note.buttonsRow}>
@@ -53,14 +51,14 @@ export const NotaComponent = (
 
 export async function Notas(
             {
-                            llaveProceso 
-            }: { llaveProceso?: string } 
+                            llaveProceso
+            }: { llaveProceso?: string }
 ) {
   if ( llaveProceso ) {
     const notas = await getNotasByllaveProceso(
                 {
                                 llaveProceso: llaveProceso,
-                } 
+                }
     );
 
     if ( notas.length === 0 ) {
@@ -68,7 +66,7 @@ export async function Notas(
 
       const NotasRow = nts.map(
                   (
-                      nota, i, arr 
+                      nota
                   ) => {
                         return (
                           <NotaComponent
@@ -76,7 +74,7 @@ export async function Notas(
                             notaRaw={nota}
                           />
                         );
-                  } 
+                  }
       );
 
       return <>{NotasRow}</>;
@@ -84,7 +82,7 @@ export async function Notas(
 
     const NotasRow = notas.map(
                 (
-                    nota, i, arr 
+                    nota
                 ) => {
                       return (
                         <NotaComponent
@@ -92,7 +90,7 @@ export async function Notas(
                           key={nota.id}
                         />
                       );
-                } 
+                }
     );
 
     return <>{NotasRow}</>;
@@ -102,7 +100,7 @@ export async function Notas(
 
   const NotasRow = notas.map(
               (
-                  nota, i, arr 
+                  nota
               ) => {
                     return (
                       <NotaComponent
@@ -110,7 +108,7 @@ export async function Notas(
                         key={nota.id}
                       />
                     );
-              } 
+              }
   );
 
   return <>{NotasRow}</>;

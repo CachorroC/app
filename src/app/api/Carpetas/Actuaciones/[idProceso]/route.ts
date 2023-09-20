@@ -10,53 +10,52 @@ export async function GET() {
 
   const carpetas = await getCarpetas();
 
-  const totalCarpetas = carpetas.length;
 
   for ( const carpeta of carpetas ) {
     CarpetasMap.set(
-                carpeta._id, carpeta 
+                carpeta._id, carpeta
     );
 
     const indexOfCarpeta = carpetas.indexOf(
-                carpeta 
+                carpeta
     );
     await sleep(
-                1000 
+                1000
     );
 
     const actuaciones = await getActuaciones(
                 {
                                 carpeta: carpeta,
                                 index  : indexOfCarpeta,
-                } 
+                }
     );
 
     if ( actuaciones ) {
       const newCarpeta = {
                       ...carpeta,
                       fecha: new Date(
-                                  actuaciones[ 0 ].fechaActuacion 
+                                  actuaciones[ 0 ].fechaActuacion
                       ),
                       ultimaActuacion: actuaciones[ 0 ],
       };
       CarpetasMap.set(
-                  carpeta._id, newCarpeta 
+                  carpeta._id, newCarpeta
       );
     }
   }
 
   const CarpetasOutput = Array.from(
-              CarpetasMap.values() 
+              CarpetasMap.values()
   );
 
   return new NextResponse(
               JSON.stringify(
-                          CarpetasOutput 
+                          CarpetasOutput
               ), {
                               status : 200,
                               headers: {
                                               'content-type': 'application/json',
                               },
-              } 
+              }
   );
 }

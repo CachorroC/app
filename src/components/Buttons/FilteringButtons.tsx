@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import styles from 'components/Buttons/buttons.module.css';
 import { useCategory } from '#@/app/context/main-context';
 
@@ -10,17 +9,17 @@ export const CategoryButton = (
     }: {
   categoria: string;
   icon: string;
-} 
+}
 ) => {
       const {
-                      category, setCategory 
+                      category, setCategory
       } = useCategory();
 
       return (
         <button
           onClick={() => {
                 setCategory(
-                            categoria 
+                            categoria
                 );
           }}
           type="button"
@@ -59,7 +58,7 @@ export const CategoryFilterButton = () => {
         <>
           {categorias.map(
                       (
-                          categoria, index 
+                          categoria, index
                       ) => {
                             return (
                               <CategoryButton
@@ -68,7 +67,7 @@ export const CategoryFilterButton = () => {
                                 icon={icons[ index ]}
                               />
                             );
-                      } 
+                      }
           )}
         </>
       );

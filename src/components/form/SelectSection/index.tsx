@@ -1,7 +1,7 @@
 'use client';
 
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { FieldPath, useFormContext, useController } from 'react-hook-form';
+import { FieldPath, useFormContext } from 'react-hook-form';
 import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 
@@ -14,7 +14,7 @@ export const SelectSection = (
   name: FieldPath<IntCarpeta>;
   title: string;
   options: string[];
-} 
+}
 ) => {
       const rules = {
                       required: true,
@@ -22,21 +22,10 @@ export const SelectSection = (
 
       const {
                       register,
-                      control,
-                      formState: {
-                                      errors 
-                      },
+
       } = useFormContext<IntCarpeta>();
 
-      const {
-                      field, fieldState 
-      } = useController(
-                  {
-                                  name,
-                                  control,
-                                  rules,
-                  } 
-      );
+
 
       return (
         <section className={form.section}>
@@ -50,13 +39,13 @@ export const SelectSection = (
           <select
             key={name}
             {...register(
-                        name, rules 
+                        name, rules
             )}
             className={form.selectArea}
           >
             {options.map(
                         (
-                            option, index 
+                            option, index
                         ) => {
                               return (
                                 <option
@@ -66,7 +55,7 @@ export const SelectSection = (
                                   {option}
                                 </option>
                               );
-                        } 
+                        }
             )}
           </select>
         </section>

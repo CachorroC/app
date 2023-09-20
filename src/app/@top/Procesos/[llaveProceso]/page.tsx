@@ -1,23 +1,21 @@
-import { CarpetaCard } from 'components/Card/carpeta';
+
 import { Loader } from '#@/components/Loader';
 import { NombreComponent } from 'components/nombre';
-import { getCarpetaByllaveProceso,
-         getCarpetasByllaveProceso, } from '#@/lib/project/carpetas';
+import { getCarpetaByllaveProceso } from '#@/lib/project/carpetas';
 import { Fragment, Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { Calendar } from 'components/Calendar/main';
 
 export default async function DefaultProcesosllaveProceso(
             {
                             params: {
-                                            llaveProceso 
+                                            llaveProceso
                             },
             }: {
   params: { llaveProceso: string };
-} 
+}
 ) {
   const Carpeta = await getCarpetaByllaveProceso(
-              llaveProceso 
+              llaveProceso
   );
 
   if ( !Carpeta ) {

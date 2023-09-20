@@ -2,40 +2,31 @@
 import { InputSection } from 'components/form/InputSection';
 import { SelectSection } from 'components/form/SelectSection';
 import form from 'components/form/form.module.css';
-import { IntCarpeta, MonCarpeta } from '#@/lib/types/carpetas';
+import {  MonCarpeta } from '#@/lib/types/carpetas';
 import React, { useEffect } from 'react';
 import { useFormContext,
-         SubmitHandler,
+
          useForm,
          FormProvider, } from 'react-hook-form';
 import typography from '#@/styles/fonts/typography.module.scss';
 
 export const Form = (
     {
-                    carpeta 
-    }: { carpeta: MonCarpeta } 
+                    carpeta
+    }: { carpeta: MonCarpeta }
 ) => {
       const methods = useForm();
 
       const {
-                      register,
-                      control,
+
                       handleSubmit,
                       reset,
-                      formState: {
-                                      dirtyFields,
-                                      errors,
-                                      submitCount,
-                                      isLoading,
-                                      isSubmitting,
-                                      isSubmitted,
-                                      isSubmitSuccessful,
-                      },
+
                       setError,
       } = useFormContext<MonCarpeta>();
 
       const onSubmit = async (
-          data: MonCarpeta 
+          data: MonCarpeta
       ) => {
             const newCarpeta = {
                             ...carpeta,
@@ -43,7 +34,8 @@ export const Form = (
             };
 
             const {
-                            _id, ...mutated 
+                            // eslint-disable-next-line no-unused-vars
+                            _id, ...mutated
             } = newCarpeta;
 
             const postCarpeta = await fetch(
@@ -53,44 +45,44 @@ export const Form = (
                                                         'content-type': 'application/json',
                                         },
                                         body: JSON.stringify(
-                                                    mutated 
+                                                    mutated
                                         ),
-                        } 
+                        }
             );
             alert(
                         JSON.stringify(
-                                    postCarpeta.status 
-                        ) 
+                                    postCarpeta.status
+                        )
             );
 
             if ( postCarpeta.status > 200 ) {
               setError(
                           'root.serverError', {
                                           type: postCarpeta.statusText,
-                          } 
+                          }
               );
             }
 
             const updatedCarpeta = ( await postCarpeta.json() ) as MonCarpeta;
             alert(
                         JSON.stringify(
-                                    updatedCarpeta 
-                        ) 
+                                    updatedCarpeta
+                        )
             );
             console.log(
-                        postCarpeta.status 
+                        postCarpeta.status
             );
       };
 
       useEffect(
                   () => {
                         reset(
-                                    carpeta 
+                                    carpeta
                         );
                   }, [
                           reset,
                           carpeta
-                  ] 
+                  ]
       );
 
       return (
@@ -99,7 +91,7 @@ export const Form = (
             <form
               className={form.form}
               onSubmit={handleSubmit(
-                          onSubmit 
+                          onSubmit
               )}
             >
               <section className={form.section}>

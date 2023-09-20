@@ -1,115 +1,114 @@
 import { carpetasCollection } from '#@/lib/connection/mongodb';
-import { IntCarpeta, MonCarpeta } from '#@/lib/types/carpetas';
-import { ObjectId } from 'mongodb';
+import { IntCarpeta } from '#@/lib/types/carpetas';
 import { NextRequest, NextResponse } from 'next/server';
 import 'server-only';
 
 //? aqui van las peticiones a todas las carpetas y colleccion carpetas
 export async function GET(
-            Request: NextRequest 
+            Request: NextRequest
 ) {
   const {
-                  searchParams, host, hostname, pathname 
+                  searchParams
   } = new URL(
-              Request.url 
+              Request.url
   );
 
   const collection = await carpetasCollection();
 
   const carpetas = await collection.find(
-              {} 
+              {}
   )
         .toArray();
 
   const llaveProceso = searchParams.get(
-              'llaveProceso' 
+              'llaveProceso'
   );
 
   if ( llaveProceso ) {
     const Demandados = carpetas.filter(
                 (
-                    carpeta 
+                    carpeta
                 ) => {
                       return carpeta.llaveProceso === llaveProceso;
-                } 
+                }
     );
 
     return new NextResponse(
                 JSON.stringify(
-                            Demandados 
+                            Demandados
                 ), {
                                 status : 200,
                                 headers: {
                                                 'content-type': 'application/json',
                                 },
-                } 
+                }
     );
   }
 
   const idProceso = searchParams.get(
-              'idProceso' 
+              'idProceso'
   );
 
   if ( idProceso ) {
     const Demandados = carpetas.filter(
                 (
-                    carpeta 
+                    carpeta
                 ) => {
                       return carpeta.llaveProceso === llaveProceso;
-                } 
+                }
     );
 
     return new NextResponse(
                 JSON.stringify(
-                            Demandados 
+                            Demandados
                 ), {
                                 status : 200,
                                 headers: {
                                                 'content-type': 'application/json',
                                 },
-                } 
+                }
     );
   }
 
   const _id = searchParams.get(
-              '_id' 
+              '_id'
   );
 
   if ( _id ) {
     const Carpeta = carpetas.filter(
                 (
-                    carpeta 
+                    carpeta
                 ) => {
                       return carpeta._id.toString() === _id;
-                } 
+                }
     );
 
     return new NextResponse(
                 JSON.stringify(
-                            Carpeta 
+                            Carpeta
                 ), {
                                 status : 200,
                                 headers: {
                                                 'content-type': 'application/json',
                                 },
-                } 
+                }
     );
   }
 
   return new NextResponse(
               JSON.stringify(
-                          carpetas 
+                          carpetas
               ), {
                               status : 200,
                               headers: {
                                               'content-type': 'application/json',
                               },
-              } 
+              }
   );
 }
 
 export async function POST(
-            request: NextRequest 
+            request: NextRequest
 ) {
   const incomingCarpeta = ( await request.json() ) as IntCarpeta;
 
@@ -142,11 +141,11 @@ export async function POST(
     return new NextResponse(
                 null, {
                                 status: 404,
-                } 
+                }
     );
   }
 
   return NextResponse.json(
-              updateOne 
+              updateOne
   );
 }

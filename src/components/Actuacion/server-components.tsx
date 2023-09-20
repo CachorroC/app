@@ -6,7 +6,6 @@ import { getActuaciones } from '#@/lib/Actuaciones';
 import { Actuacion } from '#@/lib/types/actuaciones';
 import Link from 'next/link';
 import styles from './actuaciones.module.css';
-import type { Route } from 'next';
 import { section } from '../form/form.module.css';
 
 export const FechaActuacionComponent = async (
@@ -16,13 +15,13 @@ export const FechaActuacionComponent = async (
     }: {
   carpeta: MonCarpeta;
   index: number;
-} 
+}
 ) => {
       const actuaciones = await getActuaciones(
                   {
                                   carpeta: carpeta,
                                   index  : index,
-                  } 
+                  }
       );
 
       const ultimaActuacion = actuaciones
@@ -47,7 +46,7 @@ export const FechaActuacionComponent = async (
           )}
           <sub className={card.date}>
             {fixFechas(
-                        ultimaActuacion.fechaActuacion 
+                        ultimaActuacion.fechaActuacion
             )}
           </sub>
         </div>
@@ -56,20 +55,14 @@ export const FechaActuacionComponent = async (
 
 export const ActuacionCard = (
     {
-                    act 
-    }: { act: Actuacion } 
+                    act
+    }: { act: Actuacion }
 ) => {
       const {
-                      idRegActuacion,
-                      llaveProceso,
                       consActuacion,
                       fechaActuacion,
                       actuacion,
                       anotacion,
-                      fechaInicial,
-                      fechaFinal,
-                      fechaRegistro,
-                      codRegla,
                       conDocumentos,
                       cant,
       } = act;
@@ -99,7 +92,7 @@ export const ActuacionCard = (
             </Link>
             <sup className={`${ typography.labelMedium } ${ styles.date }`}>
               {fixFechas(
-                          fechaActuacion 
+                          fechaActuacion
               )}
             </sup>
           </div>
@@ -112,25 +105,22 @@ export const ActuacionesList = (
                     actuaciones,
     }: {
   actuaciones: Actuacion[];
-} 
+}
 ) => {
       return (
         <>
           {actuaciones.map(
                       (
-                          act, ind, arr 
+                          act
                       ) => {
-                            const {
-                                            idRegActuacion 
-                            } = act;
 
                             return (
                               <ActuacionCard
                                 act={act}
-                                key={ind}
+                                key={act.consActuacion}
                               />
                             );
-                      } 
+                      }
           )}
         </>
       );

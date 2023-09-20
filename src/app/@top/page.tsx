@@ -1,4 +1,4 @@
-import { CategoryFilterButton } from 'components/Buttons/FilteringButtons';
+
 import typography from '#@/styles/fonts/typography.module.scss';
 
 export default function Page() {

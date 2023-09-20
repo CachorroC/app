@@ -1,7 +1,6 @@
 import { FechaActuacionComponent } from 'components/Actuacion/server-components';
 import { Loader } from '#@/components/Loader';
-import { getCarpetaByllaveProceso,
-         getCarpetasByllaveProceso, } from '#@/lib/project/carpetas';
+import { getCarpetaByllaveProceso, } from '#@/lib/project/carpetas';
 import { Fragment, Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
@@ -12,10 +11,10 @@ export default async function PageProcesosLeftllaveProceso(
   params: {
     llaveProceso: string;
   };
-} 
+}
 ) {
   const Carpeta = await getCarpetaByllaveProceso(
-              params.llaveProceso 
+              params.llaveProceso
   );
 
   if ( !Carpeta ) {

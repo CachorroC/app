@@ -1,18 +1,10 @@
 'use client';
 import { createNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
 
-export default function AddTask(
-            {
-                            id 
-            }: { id: number } 
-) {
-  const pathname = usePathname();
-
+export default function AddTask() {
   const {
-                  inputNota, setInputNota 
+                  inputNota, setInputNota
   } = useNotaContext();
 
   return (
@@ -23,17 +15,17 @@ export default function AddTask(
         type="text"
         name="text"
         onChange={(
-            e 
+            e
         ) => {
               return setInputNota(
                           (
-                              nn 
+                              nn
                           ) => {
                                 return {
                                                 ...nn,
                                                 text: e.target.value,
                                 };
-                          } 
+                          }
               );
         }}
       />
@@ -42,29 +34,31 @@ export default function AddTask(
           placeholder={'fecha de entrega'}
           type={'date'}
           onChange={(
-              e 
+              e
           ) => {
                 return setInputNota(
                             {
                                             ...inputNota,
-                                            date: e.target.value,
-                            } 
+                                            date: new Date(
+                                                        e.target.value
+                                            ),
+                            }
                 );
           }}
-          value={inputNota.date}
+          value={inputNota.date.toString()}
         />
       )}
       <input
         type="checkbox"
         checked={inputNota.done ?? false}
         onChange={(
-            e 
+            e
         ) => {
               return setInputNota(
                           {
                                           ...inputNota,
                                           done: e.target.checked,
-                          } 
+                          }
               );
         }}
       />

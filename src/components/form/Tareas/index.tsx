@@ -15,18 +15,16 @@ export function NuevaTarea() {
                   register,
                   handleSubmit,
                   formState: {
-                                  dirtyFields,
-
                                   errors,
                   },
   } = useForm<Tarea>(
               {
                               defaultValues,
-              } 
+              }
   );
 
   const onSubmit: SubmitHandler<Tarea> = async (
-      data 
+      data
   ) => {
         try {
           const postTarea = await fetch(
@@ -36,46 +34,46 @@ export function NuevaTarea() {
                                                       'content-type': 'application/json',
                                       },
                                       body: JSON.stringify(
-                                                  data 
+                                                  data
                                       ),
-                      } 
+                      }
           );
 
           const tareaWithId = ( await postTarea.json() ) as Tarea;
           alert(
                       JSON.stringify(
-                                  tareaWithId 
-                      ) 
+                                  tareaWithId
+                      )
           );
 
           return console.log(
-                      tareaWithId 
+                      tareaWithId
           );
         } catch ( e ) {
           alert(
                       JSON.stringify(
-                                  e 
-                      ) 
+                                  e
+                      )
           );
 
           return console.log(
-                      e 
+                      e
           );
         }
   };
   console.log(
-              errors 
+              errors
   );
 
   return (
     <form onSubmit={handleSubmit(
-                onSubmit 
+                onSubmit
     )}>
       <textarea
         {...register(
                     'text', {
                                     required: true,
-                    } 
+                    }
         )}
       />
       <input
@@ -84,21 +82,21 @@ export function NuevaTarea() {
         {...register(
                     'date', {
                                     required: true,
-                    } 
+                    }
         )}
       />
       <input
         type="checkbox"
         placeholder="done"
         {...register(
-                    'done' 
+                    'done'
         )}
       />
       <select
         {...register(
                     'abogado', {
                                     required: true,
-                    } 
+                    }
         )}
       >
         <option value="Melissa">Melissa</option>

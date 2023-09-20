@@ -1,4 +1,4 @@
-import layout from '#@/styles/layout.module.css';
+
 
 export default function Page() {
   const lrs = [
@@ -12,10 +12,10 @@ export default function Page() {
     <>
       {lrs.map(
                   (
-                      lr, i 
+                      lr, i
                   ) => {
                         return <p key={i}>{lr}</p>;
-                  } 
+                  }
       )}
     </>
   );

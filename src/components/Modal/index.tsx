@@ -1,19 +1,19 @@
 'use client';
-import { useCallback, useRef, useEffect, MouseEventHandler } from 'react';
+import { useCallback, useRef, useEffect, MouseEventHandler, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './styles.module.css';
 
 export default function Modal(
             {
-                            children 
-            }: { children: React.ReactNode } 
+                            children
+            }: { children: ReactNode }
 ) {
   const overlay = useRef(
-              null 
+              null
   );
 
   const wrapper = useRef(
-              null 
+              null
   );
 
   const router = useRouter();
@@ -23,12 +23,12 @@ export default function Modal(
                     router.back();
               }, [
                       router
-              ] 
+              ]
   );
 
   const onClick: MouseEventHandler = useCallback(
               (
-                  e 
+                  e
               ) => {
                     if ( e.target === overlay.current || e.target === wrapper.current ) {
                       if ( onDismiss ) {
@@ -45,7 +45,7 @@ export default function Modal(
 
   const onKeyDown = useCallback(
               (
-                  e: KeyboardEvent 
+                  e: KeyboardEvent
               ) => {
                     if ( e.key === 'Escape' ) {
                       onDismiss();
@@ -59,17 +59,17 @@ export default function Modal(
   useEffect(
               () => {
                     document.addEventListener(
-                                'keydown', onKeyDown 
+                                'keydown', onKeyDown
                     );
 
                     return () => {
                           return document.removeEventListener(
-                                      'keydown', onKeyDown 
+                                      'keydown', onKeyDown
                           );
                     };
               }, [
                       onKeyDown
-              ] 
+              ]
   );
 
   return (

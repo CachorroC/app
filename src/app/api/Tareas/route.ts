@@ -3,13 +3,8 @@ import { Tarea } from '#@/lib/types/tareas';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(
-            request: NextRequest 
+            request: NextRequest
 ) {
-  const {
-                  searchParams 
-  } = new URL(
-              request.url 
-  );
 
   const rawTarea = ( await request.json() ) as Tarea;
 
@@ -19,23 +14,23 @@ export async function POST(
                                               done: rawTarea.done,
                                               text: rawTarea.text,
                                               date: new Date(
-                                                          rawTarea.date 
+                                                          rawTarea.date
                                               ),
                                               abogado: rawTarea.abogado,
                               },
-              } 
+              }
   );
 
   return NextResponse.json(
-              insertTarea 
+              insertTarea
   );
 }
 
 export async function PUT(
-            req: Request 
+            req: Request
 ) {
   const {
-                  id, text, done, date, abogado 
+                  id, text, done, date, abogado
   } = await req.json();
 
   const exists = await prisma.tarea.findUnique(
@@ -43,19 +38,19 @@ export async function PUT(
                               where: {
                                               id,
                               },
-              } 
+              }
   );
 
   if ( exists ) {
     return Response.json(
                 JSON.stringify(
-                            exists 
+                            exists
                 ), {
                                 status : 200,
                                 headers: {
                                                 'content-type': 'application/json',
                                 },
-                } 
+                }
     );
   }
 
@@ -67,10 +62,10 @@ export async function PUT(
                                               date,
                                               abogado,
                               },
-              } 
+              }
   );
 
   return Response.json(
-              user 
+              user
   );
 }

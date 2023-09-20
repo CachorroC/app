@@ -1,5 +1,4 @@
 import button from 'components/Buttons/buttons.module.css';
-import { NuevoProceso } from 'components/form/nuevo-proceso';
 import typography from '#@/styles/fonts/typography.module.scss';
 import type { Route } from 'next';
 import Link from 'next/link';

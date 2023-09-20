@@ -1,7 +1,6 @@
 'use client';
-import { createNota, editNota } from '#@/app/actions';
+import {  editNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
-import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import form from 'components/form/form.module.css';
 import styles from 'components/form/checkbox/styles.module.css';
@@ -9,40 +8,38 @@ import { Nota } from '@prisma/client';
 
 export const Edit = (
     {
-                    nota 
-    }: { nota: Nota } 
+                    nota
+    }: { nota: Nota }
 ) => {
       const {
-                      inputNota, setInputNota 
+                      inputNota, setInputNota
       } = useNotaContext();
 
       const [
               message,
               setMessage
       ] = useState<string>(
-                  '' 
+                  ''
       );
 
       async function onCreate() {
         const res = await editNota(
-                    inputNota 
+                    inputNota
         );
         setMessage(
-                    res.message 
+                    res.message
         );
       }
-
-      const pathname = usePathname();
 
       useEffect(
                   () => {
                         setInputNota(
-                                    nota 
+                                    nota
                         );
                   }, [
                           nota,
                           setInputNota
-                  ] 
+                  ]
       );
 
       return (
@@ -65,43 +62,44 @@ export const Edit = (
             name="nota"
             value={inputNota.text}
             onChange={(
-                e 
+                e
             ) => {
                   setInputNota(
                               {
                                               ...inputNota,
                                               text: e.target.value,
-                              } 
+                              }
                   );
             }}
           />
           <input
             type="date"
             name="fecha"
-            value={inputNota.date ?? new Date()
-                  .toLocaleString()}
+            value={inputNota.date.toString()}
             onChange={(
-                e 
+                e
             ) => {
                   setInputNota(
                               {
                                               ...inputNota,
-                                              date: e.target.value,
-                              } 
+                                              date: new Date(
+                                                          e.target.value
+                                              ),
+                              }
                   );
             }}
           />
           <input
             type="text"
             name="pathname"
-            defaultValue={inputNota.pathname ?? pathname}
+            defaultValue={inputNota.pathname}
           />
 
           <label className={styles.switchBox}>
             <input
               className={styles.inputElement}
               name="done"
-              defaultChecked={inputNota.done ?? false}
+              defaultChecked={inputNota.done}
               type="checkbox"
             />
             <span className={styles.slider}></span>

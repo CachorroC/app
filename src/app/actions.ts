@@ -2,13 +2,11 @@
 
 import { redirect } from 'next/navigation';
 import { revalidateTag } from 'next/cache';
-import { addNota } from '#@/lib/project/notas';
-import { NotaBuilder, intNota } from '#@/lib/types/notas';
 import prisma from '#@/lib/connection/connectDB';
 import { Nota } from '@prisma/client';
 
 export async function createNota(
-            formData: FormData 
+            formData: FormData
 ) {
   try {
     const formDataMap = new Map();
@@ -18,15 +16,15 @@ export async function createNota(
             value
     ] of formData ) {
       formDataMap.set(
-                  key, value 
+                  key, value
       );
     }
 
     const obj = Object.fromEntries(
-                formDataMap 
+                formDataMap
     );
     console.log(
-                obj 
+                obj
     );
 
     const nota = await prisma.nota.create(
@@ -34,10 +32,10 @@ export async function createNota(
                                 data: {
                                                 ...obj,
                                 },
-                } 
+                }
     );
     revalidateTag(
-                'notas' 
+                'notas'
     );
 
     return {
@@ -46,20 +44,20 @@ export async function createNota(
   } catch ( e ) {
     console.log(
                 `there was an error: ${ JSON.stringify(
-                            e 
-                ) }` 
+                            e
+                ) }`
     );
 
     return {
                     message: `There was an error. ${ JSON.stringify(
-                                e 
+                                e
                     ) }`,
     };
   }
 }
 
 export async function editNota(
-            Nota: Nota 
+            Nota: Nota
 ) {
   try {
     const nota = await prisma.nota.update(
@@ -68,10 +66,10 @@ export async function editNota(
                                                 id: Nota.id,
                                 },
                                 data: Nota,
-                } 
+                }
     );
     revalidateTag(
-                'notas' 
+                'notas'
     );
 
     return {
@@ -80,20 +78,20 @@ export async function editNota(
   } catch ( e ) {
     console.log(
                 `there was an error: ${ JSON.stringify(
-                            e 
-                ) }` 
+                            e
+                ) }`
     );
 
     return {
                     message: `There was an error. ${ JSON.stringify(
-                                e 
+                                e
                     ) }`,
     };
   }
 }
 
 export async function deleteNota(
-            id: number 
+            id: number
 ) {
   try {
     prisma.nota.delete(
@@ -101,19 +99,19 @@ export async function deleteNota(
                                 where: {
                                                 id: id,
                                 },
-                } 
+                }
     );
     revalidateTag(
-                'notas' 
+                'notas'
     );
     redirect(
-                '/Notas' 
+                '/Notas'
     );
   } catch ( error ) {
     console.log(
                 `error, ${ JSON.stringify(
-                            error 
-                ) }` 
+                            error
+                ) }`
     );
   }
 }

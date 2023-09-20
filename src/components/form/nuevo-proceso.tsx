@@ -1,8 +1,6 @@
 'use client';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { Despacho } from '#@/lib/types/despachos';
-import { DefaultValues,
-         useForm,
+import { useForm,
          SubmitHandler,
          FormProvider,
          useFormContext, } from 'react-hook-form';
@@ -13,18 +11,16 @@ import { SelectSection } from './SelectSection';
 
 export const NuevoProceso = (
     {
-                    despachos,
                     carpeta,
     }: {
-  despachos: Despacho[];
+
   carpeta?: IntCarpeta;
-} 
+}
 ) => {
       const methods = useForm<IntCarpeta>();
 
       const {
                       reset,
-                      setFocus,
                       handleSubmit,
                       formState: {
                                       errors,
@@ -32,29 +28,27 @@ export const NuevoProceso = (
                                       submitCount,
                                       isSubmitting,
                                       isSubmitSuccessful,
-                                      isLoading,
-                                      isSubmitted,
-                      },
-                      control,
+                                      isLoading
+                      }
       } = useFormContext<IntCarpeta>();
 
       const onSubmit: SubmitHandler<IntCarpeta> = async (
-          data, e 
+          data, e
       ) => {
             alert(
                         JSON.stringify(
-                                    e 
-                        ) 
+                                    e
+                        )
             );
             alert(
                         JSON.stringify(
-                                    dirtyFields 
-                        ) 
+                                    dirtyFields
+                        )
             );
             alert(
                         JSON.stringify(
-                                    data 
-                        ) 
+                                    data
+                        )
             );
 
             const newCarpeta: IntCarpeta = {
@@ -69,17 +63,17 @@ export const NuevoProceso = (
                                                         'Content-Type': 'application/json',
                                         },
                                         body: JSON.stringify(
-                                                    newCarpeta 
+                                                    newCarpeta
                                         ),
-                        } 
+                        }
             );
 
             const nAlert = await postNewNote.json();
 
             return alert(
                         JSON.stringify(
-                                    nAlert 
-                        ) 
+                                    nAlert
+                        )
             );
       };
 
@@ -89,7 +83,7 @@ export const NuevoProceso = (
             <form
               className={form.form}
               onSubmit={handleSubmit(
-                          onSubmit 
+                          onSubmit
               )}
             >
               <section className={form.section}>
@@ -358,7 +352,7 @@ export const NuevoProceso = (
               type="button"
               onClick={() => {
                     return reset(
-                                carpeta 
+                                carpeta
                     );
               }}
               value="Reset with values"

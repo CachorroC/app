@@ -1,5 +1,5 @@
 'use client';
-import { ReactNode, Suspense, useState } from 'react';
+import { ReactNode } from 'react';
 import Link from 'next/link';
 import type { Route } from 'next';
 import navbar from 'components/layout/navbar.module.css';
@@ -7,11 +7,11 @@ import { useNavigationContext } from '#@/app/context/navigation-context';
 
 export default function Drawer(
             {
-                            children 
-            }: { children: ReactNode } 
+                            children
+            }: { children: ReactNode }
 ) {
   const {
-                  isNavOpen 
+                  isNavOpen
   } = useNavigationContext();
 
   if ( !isNavOpen ) {

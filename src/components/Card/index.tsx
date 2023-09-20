@@ -4,7 +4,7 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ReactNode, Suspense, useState } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { Loader } from '../Loader';
 import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
@@ -19,7 +19,7 @@ export const Card = (
   path: string;
   carpeta: MonCarpeta;
   children: ReactNode;
-} 
+}
 ) => {
       const llaveLength = carpeta.llaveProceso.length;
 
@@ -36,10 +36,6 @@ export const Card = (
     || pathname === `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProceso }`
     || pathname === `${ path }/${ carpeta.llaveProceso }`;
 
-      const {
-                      primerNombre, segundoNombre, primerApellido, segundoApellido 
-      }
-    = carpeta.deudor;
 
       return (
         <div className={styles.container}>

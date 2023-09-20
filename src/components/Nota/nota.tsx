@@ -1,38 +1,36 @@
 'use client';
-import { createNota, editNota } from '#@/app/actions';
+import {  editNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
 import { Nota } from '@prisma/client';
-import { Route } from 'next';
-import Link from 'next/link';
 import { useState } from 'react';
 import styles from './note.module.css';
 
 export function Task(
             {
-                            task 
-            }: { task: Nota } 
+                            task
+            }: { task: Nota }
 ) {
   const [
           isEditing,
           setIsEditing
   ] = useState(
-              false 
+              false
   );
 
   const [
           message,
           setMessage
   ] = useState(
-              '' 
+              ''
   );
 
   const {
-                  inputNota, setInputNota 
+                  inputNota, setInputNota
   } = useNotaContext();
   let taskContent;
 
   async function onCreate(
-              formData: FormData 
+              formData: FormData
   ) {
     const formDataMap = new Map();
 
@@ -41,15 +39,15 @@ export function Task(
             value
     ] of formData ) {
       formDataMap.set(
-                  key, value 
+                  key, value
       );
     }
 
     const obj = Object.fromEntries(
-                formDataMap 
+                formDataMap
     );
     console.log(
-                obj 
+                obj
     );
 
     const newNota = {
@@ -57,17 +55,17 @@ export function Task(
                     ...obj,
     };
     console.log(
-                newNota 
+                newNota
     );
 
     const res = await editNota(
-                newNota 
+                newNota
     );
     setMessage(
-                res.message 
+                res.message
     );
     setIsEditing(
-                false 
+                false
     );
   }
 
@@ -80,13 +78,13 @@ export function Task(
             checked={inputNota.done}
             name={'done'}
             onChange={(
-                e 
+                e
             ) => {
                   setInputNota(
                               {
                                               ...task,
                                               done: e.target.checked,
-                              } 
+                              }
                   );
             }}
             type="checkbox"
@@ -99,13 +97,13 @@ export function Task(
           type={'text'}
           name={'text'}
           onChange={(
-              e 
+              e
           ) => {
                 setInputNota(
                             {
                                             ...task,
                                             text: e.target.value,
-                            } 
+                            }
                 );
           }}
         />
@@ -136,16 +134,14 @@ export function Task(
       <p>{message}</p>
       <button
         type="button"
-        onClick={(
-            e 
-        ) => {
+        onClick={() => {
               setIsEditing(
-                          true 
+                          true
               );
               setInputNota(
                           {
                                           ...task,
-                          } 
+                          }
               );
         }}
       >

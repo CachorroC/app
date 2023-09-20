@@ -12,12 +12,12 @@ export default async function Page(
     llaveProceso: string;
     idProceso: string;
   };
-} 
+}
 ) {
   const carpeta = await getCarpetaByidProceso(
               Number(
-                          params.idProceso 
-              ) 
+                          params.idProceso
+              )
   );
 
   if ( !carpeta ) {
@@ -28,7 +28,7 @@ export default async function Page(
               {
                               carpeta: carpeta,
                               index  : 1,
-              } 
+              }
   );
 
   if ( !actuaciones ) {
@@ -45,7 +45,7 @@ export default async function Page(
       )}
       {actuaciones.map(
                   (
-                      actuacion, index, arr 
+                      actuacion, index
                   ) => {
                         return (
                           <ActuacionCard
@@ -53,7 +53,7 @@ export default async function Page(
                             key={index}
                           />
                         );
-                  } 
+                  }
       )}
     </Fragment>
   );
