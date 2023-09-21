@@ -67,13 +67,7 @@ export default function Page() {
         <span className="material-symbols-outlined">folder_open</span>
         <h1 className={typography.displayMedium}>{'Quienes Somos'}</h1>
       </Link>
-      <Link
-        className={layout.link}
-        href={'/Procesos/Nuevo'}
-      >
-        <span className="material-symbols-outlined">add</span>
-        <h1 className={typography.displayMedium}>{'NuevoProceso'}</h1>
-      </Link>
+
       <Link
         className={layout.link}
         href={'/Carpetas'}

@@ -1,12 +1,11 @@
-import { BackwardsButton,
-  ForwardButton, } from '#@/components/Buttons/NavButtons';
-import TopBar from '#@/components/layout/top-bar';
 
-export default function Page() {
+import Header from '#@/components/layout/header';
+import getCarpetas from '#@/lib/project/getCarpetas';
+
+export default async function Page () {
+  const carpetas = await getCarpetas();
+
   return (
-    <TopBar>
-      <BackwardsButton />
-      <ForwardButton />
-    </TopBar>
+    <Header carpetas={ carpetas} />
   );
 }
