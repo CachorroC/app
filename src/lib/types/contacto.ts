@@ -22,18 +22,18 @@ export interface ContactoForm extends RawContactoFormValues {
 // Converts JSON strings to/from your types
 export class Convert {
   public static toContactoForm(
-      json: string 
+    json: string 
   ): ContactoForm {
-        return JSON.parse(
-                    json 
-        );
+    return JSON.parse(
+      json 
+    );
   }
 
   public static contactoFormToJson(
-      value: ContactoForm 
+    value: ContactoForm 
   ): string {
-        return JSON.stringify(
-                    value 
-        );
+    return JSON.stringify(
+      value 
+    );
   }
 }

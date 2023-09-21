@@ -1,25 +1,29 @@
 import { z } from 'zod';
 
 export const TareaSchema = z.object(
-            {
-                            tarea  : z.coerce.string(),
-                            isDone : z.coerce.boolean(),
-                            dueDate: z.coerce.string(),
-            } 
+  {
+    tarea  : z.coerce.string(),
+    isDone : z.coerce.boolean(),
+    dueDate: z.coerce.string(),
+  }
 );
 
 export type Tarea = z.infer<typeof TareaSchema>;
 
-export const InputNotaElementSchema = z.object(
-            {
-                            nota  : z.coerce.string(),
-                            tareas: z.array(
-                                        TareaSchema 
-                            ),
-                            llaveProceso: z.coerce.string(),
-                            pathname    : z.coerce.string(),
-                            fecha       : z.coerce.string(),
-            } 
+export const ZodNotaElementSchema = z.object(
+  {
+    'text'        : z.coerce.string(),
+    'id'          : z.coerce.number(),
+    'date'        : z.coerce.date(),
+    'done'        : z.coerce.boolean(),
+    'pathname'    : z.coerce.string(),
+    'llaveProceso': z.union(
+      [
+                z.null(),
+                z.coerce.string()
+      ]
+    ),
+  }
 );
 
-export type InputNotaElement = z.infer<typeof InputNotaElementSchema>;
+export type ZodNotaElement = z.infer<typeof ZodNotaElementSchema>;

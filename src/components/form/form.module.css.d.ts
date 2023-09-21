@@ -1,7 +1,6 @@
 declare const styles: {
   readonly 'container': string;
   readonly 'form': string;
-  readonly 'nota': string;
   readonly 'buttonsRow': string;
   readonly 'section': string;
   readonly 'label': string;
@@ -16,14 +15,8 @@ declare const styles: {
   readonly 'HomeButton': string;
   readonly 'button': string;
   readonly 'ButtonTextHelper': string;
-  readonly 'content': string;
-  readonly 'checkboxItem': string;
-  readonly 'tareas': string;
-  readonly 'select': string;
-  readonly 'innactive': string;
-  readonly 'active': string;
   readonly 'switchBox': string;
-  readonly 'checkbox': string;
+  readonly 'inputElement': string;
   readonly 'slider': string;
 };
 export = styles;

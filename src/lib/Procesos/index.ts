@@ -6,38 +6,38 @@ import { Despacho } from 'types/despachos';
 import { Proceso, ConsultaNumeroRadicacion } from 'types/procesos';
 
 export const getDespachos = cache(
-            async () => {
-                  try {
-                    const request = await fetch(
-                                '/despachos.json' 
-                    );
+  async () => {
+    try {
+      const request = await fetch(
+        '/despachos.json' 
+      );
 
-                    if ( !request.ok ) {
-                      throw new Error(
-                                  'error en los despachos' 
-                      );
-                    }
+      if ( !request.ok ) {
+        throw new Error(
+          'error en los despachos' 
+        );
+      }
 
-                    const response = ( await request.json() ) as Despacho[];
+      const response = ( await request.json() ) as Despacho[];
 
-                    return response;
-                  } catch ( e ) {
-                    if ( e instanceof Error ) {
-                      console.log(
-                                  ` error en la conexion network del getDespacxhos ${ e.name } : ${ e.message }`,
-                      );
-                    }
-                    console.log(
-                                ` error en la conexion network del getDespacxho  =>  ${ e }` 
-                    );
+      return response;
+    } catch ( e ) {
+      if ( e instanceof Error ) {
+        console.log(
+          ` error en la conexion network del getDespacxhos ${ e.name } : ${ e.message }`,
+        );
+      }
+      console.log(
+        ` error en la conexion network del getDespacxho  =>  ${ e }` 
+      );
 
-                    return [];
-                  }
-            } 
+      return [];
+    }
+  } 
 );
 
 export async function newJuzgado(
-            procesos: Proceso[] 
+  procesos: Proceso[] 
 ) {
   const juzgados = new Map<number, intJuzgado>();
 
@@ -45,45 +45,45 @@ export async function newJuzgado(
 
   for ( const proceso of procesos ) {
     const indexOf = procesos.indexOf(
-                proceso 
+      proceso 
     );
 
     const matchedDespacho = Despachos.find(
-                (
-                    despacho 
-                ) => {
-                      const nDesp = despacho.nombre
-                            .toLowerCase()
-                            .normalize(
-                                        'NFD' 
-                            )
-                            .replace(
-                                        /\p{Diacritic}/gu, '' 
-                            )
-                            .trim();
+      (
+        despacho 
+      ) => {
+        const nDesp = despacho.nombre
+          .toLowerCase()
+          .normalize(
+            'NFD' 
+          )
+          .replace(
+            /\p{Diacritic}/gu, '' 
+          )
+          .trim();
 
-                      const pDesp = proceso.despacho
-                            .toLowerCase()
-                            .normalize(
-                                        'NFD' 
-                            )
-                            .replace(
-                                        /\p{Diacritic}/gu, '' 
-                            )
-                            .trim();
+        const pDesp = proceso.despacho
+          .toLowerCase()
+          .normalize(
+            'NFD' 
+          )
+          .replace(
+            /\p{Diacritic}/gu, '' 
+          )
+          .trim();
 
-                      const indexOfDesp = nDesp.indexOf(
-                                  pDesp 
-                      );
+        const indexOfDesp = nDesp.indexOf(
+          pDesp 
+        );
 
-                      if ( indexOfDesp >= 0 ) {
-                        console.log(
-                                    `procesos despacho is in despachos ${ indexOfDesp }` 
-                        );
-                      }
+        if ( indexOfDesp >= 0 ) {
+          console.log(
+            `procesos despacho is in despachos ${ indexOfDesp }` 
+          );
+        }
 
-                      return nDesp === pDesp;
-                } 
+        return nDesp === pDesp;
+      } 
     );
 
     const nameN = matchedDespacho
@@ -91,98 +91,98 @@ export async function newJuzgado(
       : proceso.despacho;
 
     const matchedId = nameN.match(
-                /\d+/g 
+      /\d+/g 
     );
 
     const newId = Number(
-                matchedId?.toString() 
+      matchedId?.toString() 
     );
 
     const newJuzgado: intJuzgado = {
-                    id  : newId ?? 0,
-                    tipo: matchedDespacho
-                      ? matchedDespacho.nombre
-                      : proceso.despacho,
-                    url: matchedDespacho
-                      ? `https://www.ramajudicial.gov.co${ matchedDespacho.url }`
-                      : `https://www.ramajudicial.gov.co${ proceso.despacho
-                            .replaceAll(
-                                        ' ', '-' 
-                            )
-                            .toLowerCase() }`,
+      id  : newId ?? 0,
+      tipo: matchedDespacho
+        ? matchedDespacho.nombre
+        : proceso.despacho,
+      url: matchedDespacho
+        ? `https://www.ramajudicial.gov.co${ matchedDespacho.url }`
+        : `https://www.ramajudicial.gov.co${ proceso.despacho
+          .replaceAll(
+            ' ', '-' 
+          )
+          .toLowerCase() }`,
     };
     juzgados.set(
-                indexOf, newJuzgado 
+      indexOf, newJuzgado 
     );
   }
 
   return Array.from(
-              juzgados.values() 
+    juzgados.values() 
   );
 }
 
 export const procesosCollection = async () => {
-      const client = await clientPromise;
+  const client = await clientPromise;
 
-      if ( !client ) {
-        throw new Error(
-                    'no hay cliente mongólico' 
-        );
-      }
+  if ( !client ) {
+    throw new Error(
+      'no hay cliente mongólico' 
+    );
+  }
 
-      const db = client.db(
-                  'RyS' 
-      );
+  const db = client.db(
+    'RyS' 
+  );
 
-      const carpetas = db.collection<Proceso>(
-                  'Procesos' 
-      );
+  const carpetas = db.collection<Proceso>(
+    'Procesos' 
+  );
 
-      return carpetas;
+  return carpetas;
 };
 
 export async function fetchProceso(
-            llaveProceso: string, index: number 
+  llaveProceso: string, index: number 
 ) {
   try {
     await sleep(
-                index 
+      index 
     );
 
     const req = await fetch(
-                `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=true`,
-                {
-                                next: {
-                                                tags: [
-                                                        'procesos'
-                                                ],
-                                },
-                },
+      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=true`,
+      {
+        next: {
+          tags: [
+                    'procesos'
+          ],
+        },
+      },
     );
 
     if ( !req.ok ) {
       throw new Error(
-                  `${ index }: procesos not ok, status: ${ req.status } with ${ req.statusText } llaveProceso: ${ llaveProceso }`,
+        `${ index }: procesos not ok, status: ${ req.status } with ${ req.statusText } llaveProceso: ${ llaveProceso }`,
       );
     }
 
     const json = ( await req.json() ) as ConsultaNumeroRadicacion;
 
     const {
-                    procesos 
+      procesos 
     } = json;
 
     return procesos;
   } catch ( e ) {
     if ( e instanceof Error ) {
       console.log(
-                  `${ index }: ${ llaveProceso }: error en la conexion network del fetchProceso ${ e.name } : ${ e.message }`,
+        `${ index }: ${ llaveProceso }: error en la conexion network del fetchProceso ${ e.name } : ${ e.message }`,
       );
 
       return null;
     }
     console.log(
-                `${ index }: ${ llaveProceso }: : error en la conexion network del fetchProceso  =>  ${ e }`,
+      `${ index }: ${ llaveProceso }: : error en la conexion network del fetchProceso  =>  ${ e }`,
     );
 
     return null;
@@ -190,50 +190,50 @@ export async function fetchProceso(
 }
 
 export const getProceso = cache(
-            async (
-                {
-                                llaveProceso, index 
-                }: { llaveProceso: string; index: number } 
-            ) => {
-                  const carpColl = await carpetasCollection();
+  async (
+    {
+      llaveProceso, index 
+    }: { llaveProceso: string; index: number } 
+  ) => {
+    const carpColl = await carpetasCollection();
 
-                  const fetchP = await fetchProceso(
-                              llaveProceso, index 
-                  );
+    const fetchP = await fetchProceso(
+      llaveProceso, index 
+    );
 
-                  if ( fetchP ) {
-                    for ( const proceso of fetchP ) {
-                      if ( proceso.esPrivado ) {
-                        continue;
-                      }
+    if ( fetchP ) {
+      for ( const proceso of fetchP ) {
+        if ( proceso.esPrivado ) {
+          continue;
+        }
 
-                      const juzgados = await newJuzgado(
-                                  fetchP 
-                      );
+        const juzgados = await newJuzgado(
+          fetchP 
+        );
 
-                      const updt = await carpColl.updateOne(
-                                  {
-                                                  idProceso: proceso.idProceso,
-                                  },
-                                  {
-                                                  $set: {
-                                                                  idProceso         : proceso.idProceso,
-                                                                  'demanda.juzgados': juzgados,
-                                                  },
-                                  },
-                                  {
-                                                  upsert: true,
-                                  },
-                      );
-
-                      if ( updt.modifiedCount > 0 || updt.upsertedCount > 0 ) {
-                        console.log(
-                                    ` se actualizaron ${ updt.modifiedCount } procesos y se insertaron ${ updt.upsertedCount } procesosn nuevos  `,
-                        );
-                      }
-                    }
-                  }
-
-                  return fetchP;
+        const updt = await carpColl.updateOne(
+          {
+            idProceso: proceso.idProceso,
+          },
+          {
+            $set: {
+              idProceso         : proceso.idProceso,
+              'demanda.juzgados': juzgados,
             },
+          },
+          {
+            upsert: true,
+          },
+        );
+
+        if ( updt.modifiedCount > 0 || updt.upsertedCount > 0 ) {
+          console.log(
+            ` se actualizaron ${ updt.modifiedCount } procesos y se insertaron ${ updt.upsertedCount } procesosn nuevos  `,
+          );
+        }
+      }
+    }
+
+    return fetchP;
+  },
 );

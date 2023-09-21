@@ -37,52 +37,52 @@ export interface Paginacion {
 // Converts JSON strings to/from your types
 export class actuacionConvert {
   public static toConsultaActuacion(
-      json: string 
+    json: string 
   ): ConsultaActuacion {
-        const parsed: ConsultaActuacion = JSON.parse(
-                    json 
-        );
+    const parsed: ConsultaActuacion = JSON.parse(
+      json 
+    );
 
-        return parsed;
+    return parsed;
   }
 
   public static consultaActuacionToJson(
-      value: ConsultaActuacion 
+    value: ConsultaActuacion 
   ): string {
-        return JSON.stringify(
-                    value 
-        );
+    return JSON.stringify(
+      value 
+    );
   }
 
   public static toActuacion(
-      json: string 
+    json: string 
   ): Actuacion {
-        return JSON.parse(
-                    json 
-        );
+    return JSON.parse(
+      json 
+    );
   }
 
   public static actuacioneToJson(
-      value: Actuacion 
+    value: Actuacion 
   ): string {
-        return JSON.stringify(
-                    value 
-        );
+    return JSON.stringify(
+      value 
+    );
   }
 
   public static toPaginacion(
-      json: string 
+    json: string 
   ): Paginacion {
-        return JSON.parse(
-                    json 
-        );
+    return JSON.parse(
+      json 
+    );
   }
 
   public static paginacionToJson(
-      value: Paginacion 
+    value: Paginacion 
   ): string {
-        return JSON.stringify(
-                    value 
-        );
+    return JSON.stringify(
+      value 
+    );
   }
 }

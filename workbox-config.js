@@ -1,13 +1,13 @@
 module.exports = {
-                globDirectory: 'public/',
+  globDirectory: 'public/',
 
-                globPatterns: [
-                        '**/*.{svg,js, html}'
-                ],
+  globPatterns: [
+            '**/*.{svg,js, html, png, json}'
+  ],
 
-                swDest                     : 'public/sw.js',
-                ignoreURLParametersMatching: [
-                        /^utm_/,
-                        /^fbclid$/
-                ],
+  swDest                     : 'src/app/service-worker.js',
+  ignoreURLParametersMatching: [
+            /^utm_/,
+            /^fbclid$/
+  ],
 };

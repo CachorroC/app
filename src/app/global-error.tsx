@@ -1,25 +1,28 @@
 'use client';
 
+import styles from '#@/components/Card/card.module.css';
+
 export default function GlobalError(
-            {
-
-                            reset,
-            }: {
-
-  reset: () => void;
+  {
+    error,
+    reset,
+  }: {
+  error: Error
+  reset: () => void
 }
 ) {
   return (
     <html>
       <body>
-        <h2>Something went wrong!</h2>
-        <button
-          onClick={() => {
-                return reset();
-          }}
-        >
-          Try again
-        </button>
+        <div className={ styles.errorContainer }>
+          <h2>{ error.name }</h2>
+          <p>{ error.message }</p>
+          <button onClick={
+            () => {
+              return reset();
+            }
+          }>Try again</button>
+        </div>
       </body>
     </html>
   );

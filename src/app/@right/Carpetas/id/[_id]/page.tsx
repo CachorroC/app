@@ -5,12 +5,12 @@ import { notFound } from 'next/navigation';
 import { Fragment } from 'react';
 
 export default async function Page(
-            {
-                            params 
-            }: { params: { _id: string } } 
+  {
+    params 
+  }: { params: { _id: string } } 
 ) {
   const carpeta = await getCarpetaById(
-              params._id 
+    params._id 
   );
 
   if ( !carpeta ) {

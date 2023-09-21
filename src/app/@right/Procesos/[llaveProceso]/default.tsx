@@ -8,22 +8,22 @@ import { getNotasByllaveProceso } from '#@/lib/project/notas';
 import {  Suspense } from 'react';
 
 export default async function PageProcesosRightllaveProceso(
-            {
-                            params,
-            }: {
+  {
+    params,
+  }: {
   params: {
     llaveProceso: string;
   };
 }
 ) {
   const notas = await getNotasByllaveProceso(
-              {
-                              llaveProceso: params.llaveProceso,
-              }
+    {
+      llaveProceso: params.llaveProceso,
+    }
   );
 
   const Carpeta = await getCarpetaByllaveProceso(
-              params.llaveProceso
+    params.llaveProceso
   );
 
   return (
@@ -46,16 +46,16 @@ export default async function PageProcesosRightllaveProceso(
         key={params.llaveProceso}
       />
       {notas.map(
-                  (
-                      nota
-                  ) => {
-                        return (
-                          <NotaComponent
-                            notaRaw={nota}
-                            key={nota.id}
-                          />
-                        );
-                  }
+        (
+          nota
+        ) => {
+          return (
+            <NotaComponent
+              notaRaw={nota}
+              key={nota.id}
+            />
+          );
+        }
       )}
     </>
   );

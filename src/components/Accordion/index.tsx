@@ -3,15 +3,15 @@ import { ReactNode, useState } from 'react';
 import styles from './accordion.module.css';
 
 export function Accordion(
-            {
-                            children 
-            }: { children: ReactNode } 
+  {
+    children 
+  }: { children: ReactNode } 
 ) {
   const [
-          isActive,
-          setIsActive
+            isActive,
+            setIsActive
   ] = useState(
-              false 
+    false 
   );
 
   return (
@@ -21,9 +21,9 @@ export function Accordion(
           type="button"
           className={styles.title}
           onClick={() => {
-                setIsActive(
-                            !isActive 
-                );
+            setIsActive(
+              !isActive 
+            );
           }}
         >
           <span className="material-symbols-outlined">

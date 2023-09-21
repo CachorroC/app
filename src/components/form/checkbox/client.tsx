@@ -7,18 +7,18 @@ import { useContactContext } from '../../../app/context/main-context';
 export default function Checkbox() {
 
   const {
-                  contactoForm, setContactoForm
+    contactoForm, setContactoForm
   } = useContactContext();
 
   const handleTextareaChange: ChangeEventHandler<HTMLInputElement> = (
-      e
+    e
   ) => {
-        setContactoForm(
-                    {
-                                    ...contactoForm,
-                                    newsLetter: e.target.checked,
-                    }
-        );
+    setContactoForm(
+      {
+        ...contactoForm,
+        newsLetter: e.target.checked,
+      }
+    );
   };
 
   return (

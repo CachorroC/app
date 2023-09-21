@@ -2,31 +2,31 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 
 export const Name = (
-    {
-                    helper
-    }: { helper?: string }
+  {
+    helper
+  }: { helper?: string }
 ) => {
 
-      const today = new Date();
+  const today = new Date();
 
-      const days = [
-              'mimingo',
-              'Lunes',
-              'Martes',
-              'Miercoles',
-              'Jueves',
-              'Viernes',
-              'Sabado',
-      ];
+  const days = [
+            'mimingo',
+            'Lunes',
+            'Martes',
+            'Miercoles',
+            'Jueves',
+            'Viernes',
+            'Sabado',
+  ];
 
 
 
-      return (
-        <h1 className={typography.titleMedium}>
-          {helper?.toLocaleLowerCase()
+  return (
+    <h1 className={typography.titleMedium}>
+      {helper?.toLocaleLowerCase()
         ?? `${ days[ today.getDay() ] }, ${ fixFechas(
-                    today.toString()
+          today.toString()
         ) }`}
-        </h1>
-      );
+    </h1>
+  );
 };

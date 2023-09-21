@@ -16,18 +16,18 @@ export interface IntNota {
 // Converts JSON strings to/from your types
 export class Convert {
   public static toIntNota(
-      json: string 
+    json: string 
   ): IntNota[] {
-        return JSON.parse(
-                    json 
-        );
+    return JSON.parse(
+      json 
+    );
   }
 
   public static intNotaToJson(
-      value: IntNota[] 
+    value: IntNota[] 
   ): string {
-        return JSON.stringify(
-                    value 
-        );
+    return JSON.stringify(
+      value 
+    );
   }
 }

@@ -2,20 +2,20 @@ import { NextRequest, NextResponse } from 'next/server';
 import { revalidateTag } from 'next/cache';
 
 export async function GET(
-            request: NextRequest 
+  request: NextRequest 
 ) {
   const tag = request.nextUrl.searchParams.get(
-              'actuaciones' 
+    'actuaciones' 
   );
 
   revalidateTag(
-              tag ?? 'actuaciones' 
+    tag ?? 'actuaciones' 
   );
 
   return NextResponse.json(
-              {
-                              revalidated: true,
-                              now        : Date.now(),
-              } 
+    {
+      revalidated: true,
+      now        : Date.now(),
+    } 
   );
 }

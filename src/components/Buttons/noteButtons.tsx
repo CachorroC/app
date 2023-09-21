@@ -7,13 +7,13 @@ import { Nota } from '@prisma/client';
 import { deleteNota } from '#@/app/actions';
 
 export function DeleteNoteButton(
-            {
-                            id
-            }: { id: number }
+  {
+    id
+  }: { id: number }
 ) {
   function onDelete() {
     deleteNota(
-                id
+      id
     );
   }
 
@@ -29,33 +29,33 @@ export function DeleteNoteButton(
 }
 
 export function AddNoteButton(
-            {
-                            nota
-            }: { nota: intNota }
+  {
+    nota
+  }: { nota: intNota }
 ) {
   async function addRequestHandler() {
     const Request = await fetch(
-                'api/Notas', {
-                                method : 'POST',
-                                headers: {
-                                                'content-type': 'application/json',
-                                },
-                                body: JSON.stringify(
-                                            nota
-                                ),
-                }
+      'api/Notas', {
+        method : 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(
+          nota
+        ),
+      }
     )
-          .then(
-                      (
-                          fullfilled
-                      ) => {
-                            alert(
-                                        fullfilled.status
-                            );
-
-                            return fullfilled;
-                      }
+      .then(
+        (
+          fullfilled
+        ) => {
+          alert(
+            fullfilled.status
           );
+
+          return fullfilled;
+        }
+      );
 
     if ( !Request.ok ) {
       return;
@@ -63,9 +63,9 @@ export function AddNoteButton(
 
     const Response = await Request.json();
     alert(
-                JSON.stringify(
-                            Response
-                )
+      JSON.stringify(
+        Response
+      )
     );
   }
 
@@ -81,9 +81,9 @@ export function AddNoteButton(
 }
 
 export function EditNoteButton(
-            {
-                            nota
-            }: { nota: Nota }
+  {
+    nota
+  }: { nota: Nota }
 ) {
   return (
     <Link

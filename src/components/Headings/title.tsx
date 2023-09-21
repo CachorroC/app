@@ -4,9 +4,9 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 
 export default function Title(
-            {
-                            helper
-            }: { helper?: string }
+  {
+    helper
+  }: { helper?: string }
 ) {
   const pathname = usePathname();
 
@@ -14,20 +14,20 @@ export default function Title(
 
 
   const days = [
-          'mimingo',
-          'Lunes',
-          'Martes',
-          'Miercoles',
-          'Jueves',
-          'Viernes',
-          'Sabado',
+            'mimingo',
+            'Lunes',
+            'Martes',
+            'Miercoles',
+            'Jueves',
+            'Viernes',
+            'Sabado',
   ];
 
 
   const txt = helper
     ? helper
     : days[ today.getDay() ] + ' ' + fixFechas(
-                today.toString()
+      today.toString()
     );
 
   return (

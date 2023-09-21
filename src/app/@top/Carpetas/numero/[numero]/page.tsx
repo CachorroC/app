@@ -1,22 +1,22 @@
-import { CarpetaCard } from '../../../../components/Card/carpeta';
+import { CarpetaCard } from '../../../../../components/Card/carpeta';
 import { Loader } from '#@/components/Loader';
 import { NombreComponent } from 'components/nombre';
 import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { Fragment, Suspense } from 'react';
 
 export default async function DefaultProcesosllaveProceso(
-            {
-                            params,
-            }: {
+  {
+    params,
+  }: {
   params: {
     numero: string;
   };
-} 
+}
 ) {
   const Carpeta = await getCarpetabyNumero(
-              Number(
-                          params.numero 
-              ) 
+    Number(
+      params.numero
+    )
   );
 
   return (

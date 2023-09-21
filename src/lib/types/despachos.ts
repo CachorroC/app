@@ -67,18 +67,18 @@ export type Especialidad =
 // Converts JSON strings to/from your types
 export class despachosConvert {
   public static toDespacho(
-      json: string 
+    json: string 
   ): Despacho[] {
-        return JSON.parse(
-                    json 
-        );
+    return JSON.parse(
+      json 
+    );
   }
 
   public static despachoToJson(
-      value: Despacho[] 
+    value: Despacho[] 
   ): string {
-        return JSON.stringify(
-                    value 
-        );
+    return JSON.stringify(
+      value 
+    );
   }
 }

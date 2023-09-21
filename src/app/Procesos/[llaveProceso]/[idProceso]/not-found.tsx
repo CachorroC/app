@@ -7,8 +7,8 @@ export default function NotFound() {
   return (
     <div
       style={{
-                      backgroundColor: 'var(--error-container)',
-                      color          : 'var(--on-error-container)',
+        backgroundColor: 'var(--error-container)',
+        color          : 'var(--on-error-container)',
       }}
     >
       <h2 className={typography.displaySmall}>{'No hay actuaciones'}</h2>

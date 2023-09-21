@@ -2,36 +2,36 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
 export default function ModalDialog(
-            {
-                            children 
-            }: { children: ReactNode } 
+  {
+    children 
+  }: { children: ReactNode } 
 ) {
   const [
-          isOpen,
-          setShow
+            isOpen,
+            setShow
   ] = useState(
-              false 
+    false 
   );
 
   const ref = useRef<HTMLDialogElement>(
-              null 
+    null 
   );
 
   useEffect(
-              () => {
-                    if ( !isOpen ) {
-                      return;
-                    }
+    () => {
+      if ( !isOpen ) {
+        return;
+      }
 
-                    const dialog = ref.current;
-                    dialog && dialog.showModal();
+      const dialog = ref.current;
+      dialog && dialog.showModal();
 
-                    () => {
-                          dialog && dialog.close();
-                    };
-              }, [
-                      isOpen
-              ] 
+      () => {
+        dialog && dialog.close();
+      };
+    }, [
+              isOpen
+    ] 
   );
 
   return (
@@ -39,9 +39,9 @@ export default function ModalDialog(
       <button
         type={'button'}
         onClick={() => {
-              setShow(
-                          false 
-              );
+          setShow(
+            false 
+          );
         }}
       >
         <span className="material-symbols-outlined">close</span>
@@ -55,9 +55,9 @@ export default function ModalDialog(
       <button
         type={'button'}
         onClick={() => {
-              return setShow(
-                          true 
-              );
+          return setShow(
+            true 
+          );
         }}
       >
         Open dialog

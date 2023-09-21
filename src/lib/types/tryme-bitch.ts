@@ -110,179 +110,179 @@ export type CodRegla = '00                              ';
 // and asserts the results of JSON.parse at runtime
 export class Convert {
   public static toIntCarpeta(
-      json: string
+    json: string
   ): IntCarpeta {
-        return cast(
-                    JSON.parse(
-                                json
-                    ), r(
-                                'IntCarpeta'
-                    )
-        );
+    return cast(
+      JSON.parse(
+        json
+      ), r(
+        'IntCarpeta'
+      )
+    );
   }
 
   public static intCarpetaToJson(
-      value: IntCarpeta
+    value: IntCarpeta
   ): string {
-        return JSON.stringify(
-                    uncast(
-                                value, r(
-                                            'IntCarpeta'
-                                )
-                    ), null, 2
-        );
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'IntCarpeta'
+        )
+      ), null, 2
+    );
   }
 
   public static toDemanda(
-      json: string
+    json: string
   ): Demanda {
-        return cast(
-                    JSON.parse(
-                                json
-                    ), r(
-                                'Demanda'
-                    )
-        );
+    return cast(
+      JSON.parse(
+        json
+      ), r(
+        'Demanda'
+      )
+    );
   }
 
   public static demandaToJson(
-      value: Demanda
+    value: Demanda
   ): string {
-        return JSON.stringify(
-                    uncast(
-                                value, r(
-                                            'Demanda'
-                                )
-                    ), null, 2
-        );
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'Demanda'
+        )
+      ), null, 2
+    );
   }
 
   public static toJuzgado(
-      json: string
+    json: string
   ): Juzgado {
-        return cast(
-                    JSON.parse(
-                                json
-                    ), r(
-                                'Juzgado'
-                    )
-        );
+    return cast(
+      JSON.parse(
+        json
+      ), r(
+        'Juzgado'
+      )
+    );
   }
 
   public static juzgadoToJson(
-      value: Juzgado
+    value: Juzgado
   ): string {
-        return JSON.stringify(
-                    uncast(
-                                value, r(
-                                            'Juzgado'
-                                )
-                    ), null, 2
-        );
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'Juzgado'
+        )
+      ), null, 2
+    );
   }
 
   public static toObligacion(
-      json: string
+    json: string
   ): Obligacion {
-        return cast(
-                    JSON.parse(
-                                json
-                    ), r(
-                                'Obligacion'
-                    )
-        );
+    return cast(
+      JSON.parse(
+        json
+      ), r(
+        'Obligacion'
+      )
+    );
   }
 
   public static obligacionToJson(
-      value: Obligacion
+    value: Obligacion
   ): string {
-        return JSON.stringify(
-                    uncast(
-                                value, r(
-                                            'Obligacion'
-                                )
-                    ), null, 2
-        );
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'Obligacion'
+        )
+      ), null, 2
+    );
   }
 
   public static toDeudor(
-      json: string
+    json: string
   ): Deudor {
-        return cast(
-                    JSON.parse(
-                                json
-                    ), r(
-                                'Deudor'
-                    )
-        );
+    return cast(
+      JSON.parse(
+        json
+      ), r(
+        'Deudor'
+      )
+    );
   }
 
   public static deudorToJson(
-      value: Deudor
+    value: Deudor
   ): string {
-        return JSON.stringify(
-                    uncast(
-                                value, r(
-                                            'Deudor'
-                                )
-                    ), null, 2
-        );
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'Deudor'
+        )
+      ), null, 2
+    );
   }
 
   public static toTel(
-      json: string
+    json: string
   ): Tel {
-        return cast(
-                    JSON.parse(
-                                json
-                    ), r(
-                                'Tel'
-                    )
-        );
+    return cast(
+      JSON.parse(
+        json
+      ), r(
+        'Tel'
+      )
+    );
   }
 
   public static telToJson(
-      value: Tel
+    value: Tel
   ): string {
-        return JSON.stringify(
-                    uncast(
-                                value, r(
-                                            'Tel'
-                                )
-                    ), null, 2
-        );
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'Tel'
+        )
+      ), null, 2
+    );
   }
 
   public static toUltimaActuacion(
-      json: string
+    json: string
   ): UltimaActuacion {
-        return cast(
-                    JSON.parse(
-                                json
-                    ), r(
-                                'UltimaActuacion'
-                    )
-        );
+    return cast(
+      JSON.parse(
+        json
+      ), r(
+        'UltimaActuacion'
+      )
+    );
   }
 
   public static ultimaActuacionToJson(
-      value: UltimaActuacion
+    value: UltimaActuacion
   ): string {
-        return JSON.stringify(
-                    uncast(
-                                value, r(
-                                            'UltimaActuacion'
-                                )
-                    ), null, 2
-        );
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'UltimaActuacion'
+        )
+      ), null, 2
+    );
   }
 }
 
 function invalidValue(
-            typ: any, val: any, key: any, parent: any = ''
+  typ: any, val: any, key: any, parent: any = ''
 ): never {
   const prettyTyp = prettyTypeName(
-              typ
+    typ
   );
 
   const parentText = parent
@@ -294,37 +294,37 @@ function invalidValue(
     : '';
 
   throw Error(
-              `Invalid value${ keyText }${ parentText }. Expected ${ prettyTyp } but got ${ JSON.stringify(
-                          val,
-              ) }`,
+    `Invalid value${ keyText }${ parentText }. Expected ${ prettyTyp } but got ${ JSON.stringify(
+      val,
+    ) }`,
   );
 }
 
 function prettyTypeName(
-            typ: any
+  typ: any
 ): string {
   if ( Array.isArray(
-              typ
+    typ
   ) ) {
     if ( typ.length === 2 && typ[ 0 ] === undefined ) {
       return `an optional ${ prettyTypeName(
-                  typ[ 1 ]
+        typ[ 1 ]
       ) }`;
     }
 
     return `one of [${ typ
-          .map(
-                      (
-                          a
-                      ) => {
-                            return prettyTypeName(
-                                        a
-                            );
-                      }
-          )
-          .join(
-                      ', '
-          ) }]`;
+      .map(
+        (
+          a
+        ) => {
+          return prettyTypeName(
+            a
+          );
+        }
+      )
+      .join(
+        ', '
+      ) }]`;
   } else if ( typeof typ === 'object' && typ.literal !== undefined ) {
     return typ.literal;
   }
@@ -333,19 +333,19 @@ function prettyTypeName(
 }
 
 function jsonToJSProps(
-            typ: any
+  typ: any
 ): any {
   if ( typ.jsonToJS === undefined ) {
     const map: any = {};
     typ.props.forEach(
-                (
-                    p: any
-                ) => {
-                      map[ p.json ] = {
-                                      key: p.js,
-                                      typ: p.typ,
-                      } ;
-                }
+      (
+        p: any
+      ) => {
+        map[ p.json ] = {
+          key: p.js,
+          typ: p.typ,
+        } ;
+      }
     );
     typ.jsonToJS = map;
   }
@@ -354,19 +354,19 @@ function jsonToJSProps(
 }
 
 function jsToJSONProps(
-            typ: { jsToJSON: {} | undefined; props: any[]; }
+  typ: { jsToJSON: {} | undefined; props: any[]; }
 ) {
   if ( typ.jsToJSON === undefined ) {
     const map: any = {};
     typ.props.forEach(
-                (
-                    p: any
-                ) => {
-                      map[ p.js ] = {
-                                      key: p.json,
-                                      typ: p.typ,
-                      } ;
-                }
+      (
+        p: any
+      ) => {
+        map[ p.js ] = {
+          key: p.json,
+          typ: p.typ,
+        } ;
+      }
     );
     typ.jsToJSON = map;
   }
@@ -375,26 +375,26 @@ function jsToJSONProps(
 }
 
 function transform(
-            val: any,
-            typ: any,
-            getProps: any,
-            key: any = '',
-            parent: any = '',
+  val: any,
+  typ: any,
+  getProps: any,
+  key: any = '',
+  parent: any = '',
 ): any {
   function transformPrimitive(
-              typ: string, val: any
+    typ: string, val: any
   ): any {
     if ( typeof typ === typeof val ) {
       return val;
     }
 
     return invalidValue(
-                typ, val, key, parent
+      typ, val, key, parent
     );
   }
 
   function transformUnion(
-              typs: any[], val: any
+    typs: any[], val: any
   ): any {
     // val must validate against one typ in typs
     const l = typs.length;
@@ -404,84 +404,84 @@ function transform(
 
       try {
         return transform(
-                    val, typ, getProps
+          val, typ, getProps
         );
       } catch ( _ ) { /* empty */ }
     }
 
     return invalidValue(
-                typs, val, key, parent
+      typs, val, key, parent
     );
   }
 
   function transformEnum(
-              cases: string[], val: any
+    cases: string[], val: any
   ): any {
     if ( cases.indexOf(
-                val
+      val
     ) !== -1 ) {
       return val;
     }
 
     return invalidValue(
-                cases.map(
-                            (
-                                a
-                            ) => {
-                                  return l(
-                                              a
-                                  );
-                            }
-                ),
-                val,
-                key,
-                parent,
+      cases.map(
+        (
+          a
+        ) => {
+          return l(
+            a
+          );
+        }
+      ),
+      val,
+      key,
+      parent,
     );
   }
 
   function transformArray(
-              typ: any, val: any
+    typ: any, val: any
   ): any {
     // val must be an array with no invalid elements
     if ( !Array.isArray(
-                val
+      val
     ) ) {
       return invalidValue(
-                  l(
-                              'array'
-                  ), val, key, parent
+        l(
+          'array'
+        ), val, key, parent
       );
     }
 
     return val.map(
-                (
-                    el
-                ) => {
-                      return transform(
-                                  el, typ, getProps
-                      );
-                }
+      (
+        el
+      ) => {
+        return transform(
+          el, typ, getProps
+        );
+      }
     );
   }
 
   function transformDate(
-              val: any
+    val: any
   ): any {
     if ( val === null ) {
       return null;
     }
 
     const d = new Date(
-                val
+      val
     );
 
     if ( isNaN(
-                d.valueOf()
+      d.valueOf()
     ) ) {
       return invalidValue(
-                  l(
-                              'Date'
-                  ), val, key, parent
+        l(
+          'Date'
+        ), val, key, parent
       );
     }
 
@@ -489,54 +489,54 @@ function transform(
   }
 
   function transformObject(
-              props: { [k: string]: any },
-              additional: any,
-              val: any,
+    props: { [k: string]: any },
+    additional: any,
+    val: any,
   ): any {
     if ( val === null || typeof val !== 'object' || Array.isArray(
-                val
+      val
     ) ) {
       return invalidValue(
-                  l(
-                              ref || 'object'
-                  ), val, key, parent
+        l(
+          ref || 'object'
+        ), val, key, parent
       );
     }
 
     const result: any = {};
     Object.getOwnPropertyNames(
-                props
+      props
     )
-          .forEach(
-                      (
-                          key
-                      ) => {
-                            const prop = props[ key ];
+      .forEach(
+        (
+          key
+        ) => {
+          const prop = props[ key ];
 
-                            const v = Object.prototype.hasOwnProperty.call(
-                                        val, key
-                            )
-                              ? val[ key ]
-                              : undefined;
-                            result[ prop.key ] = transform(
-                                        v, prop.typ, getProps, key, ref
-                            );
-                      }
+          const v = Object.prototype.hasOwnProperty.call(
+            val, key
+          )
+            ? val[ key ]
+            : undefined;
+          result[ prop.key ] = transform(
+            v, prop.typ, getProps, key, ref
           );
+        }
+      );
     Object.getOwnPropertyNames(
-                val
+      val
     )
-          .forEach(
-                      (
-                          key
-                      ) => {
-                            if ( !Object.prototype.hasOwnProperty.call(
-                                        props, key
-                            ) ) {
-                              result[ key ] = val[ key ];
-                            }
-                      }
-          );
+      .forEach(
+        (
+          key
+        ) => {
+          if ( !Object.prototype.hasOwnProperty.call(
+            props, key
+          ) ) {
+            result[ key ] = val[ key ];
+          }
+        }
+      );
 
     return result;
   }
@@ -551,529 +551,531 @@ function transform(
     }
 
     return invalidValue(
-                typ, val, key, parent
+      typ, val, key, parent
     );
   }
 
   if ( typ === false ) {
     return invalidValue(
-                typ, val, key, parent
+      typ, val, key, parent
     );
   }
   let ref: any = undefined;
 
   while ( typeof typ === 'object' && typ.ref !== undefined ) {
-    ref = typ.ref;
-    typ = typeMap[ typ.ref ];
+    let {
+      ref
+    } = typ;
+    typ = typeMap[ ref ];
   }
 
   if (
     Array.isArray(
-                typ
+      typ
     )
   ) {
     return transformEnum(
-                typ, val
+      typ, val
     );
   }
 
   if ( typeof typ === 'object' ) {
     return Object.prototype.hasOwnProperty.call(
-                typ,
-                'unionMembers'
+      typ,
+      'unionMembers'
     )
       ? transformUnion(
-                  typ.unionMembers, val
+        typ.unionMembers, val
       )
       : Object.prototype.hasOwnProperty.call(
-                  typ,
-                  'arrayItems'
+        typ,
+        'arrayItems'
       )
         ? transformArray(
-                    typ.arrayItems, val
+          typ.arrayItems, val
         )
         : Object.prototype.hasOwnProperty.call(
-                    typ,
-                    'props'
+          typ,
+          'props'
         )
           ? transformObject(
-                      getProps(
-                                  typ
-                      ), typ.additional, val
+            getProps(
+              typ
+            ), typ.additional, val
           )
           : invalidValue(
-                      typ, val, key, parent
+            typ, val, key, parent
           );
   }
 
   // Numbers can be parsed by Date but shouldn't be.
   if ( typ === Date && typeof val !== 'number' ) {
     return transformDate(
-                val
+      val
     );
   }
 
   return transformPrimitive(
-              typ, val
+    typ, val
   );
 }
 
 function cast<T>(
-            val: any, typ: any
+  val: any, typ: any
 ): T {
   return transform(
-              val, typ, jsonToJSProps
+    val, typ, jsonToJSProps
   );
 }
 
 function uncast<T>(
-            val: T, typ: any
+  val: T, typ: any
 ): any {
   return transform(
-              val, typ, jsToJSONProps
+    val, typ, jsToJSONProps
   );
 }
 
 function l(
-            typ: any
+  typ: any
 ) {
   return {
-                  literal: typ,
+    literal: typ,
   };
 }
 
 function a(
-            typ: any
+  typ: any
 ) {
   return {
-                  arrayItems: typ,
+    arrayItems: typ,
   };
 }
 
 function u(
-            ...typs: any[]
+  ...typs: any[]
 ) {
   return {
-                  unionMembers: typs,
+    unionMembers: typs,
   };
 }
 
 function o(
-            props: any[], additional: any
+  props: any[], additional: any
 ) {
   return {
-                  props,
-                  additional,
+    props,
+    additional,
   };
 }
 
 
 
 function r(
-            name: string
+  name: string
 ) {
   return {
-                  ref: name,
+    ref: name,
   };
 }
 
 const typeMap: any = {
-                IntCarpeta: o(
-                            [
-                                    {
-                                                    json: '_id',
-                                                    js  : '_id',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'category',
-                                                    js  : 'category',
-                                                    typ : r(
-                                                                'Category'
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'deudor',
-                                                    js  : 'deudor',
-                                                    typ : r(
-                                                                'Deudor'
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'numero',
-                                                    js  : 'numero',
-                                                    typ : 0,
-                                    },
-                                    {
-                                                    json: 'tipoProceso',
-                                                    js  : 'tipoProceso',
-                                                    typ : r(
-                                                                'TipoProceso'
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'idProceso',
-                                                    js  : 'idProceso',
-                                                    typ : u(
-                                                                undefined, 0
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'llaveProceso',
-                                                    js  : 'llaveProceso',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'categoryTag',
-                                                    js  : 'categoryTag',
-                                                    typ : 0,
-                                    },
-                                    {
-                                                    json: 'demanda',
-                                                    js  : 'demanda',
-                                                    typ : r(
-                                                                'Demanda'
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'fecha',
-                                                    js  : 'fecha',
-                                                    typ : u(
-                                                                undefined, Date
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'ultimaActuacion',
-                                                    js  : 'ultimaActuacion',
-                                                    typ : u(
-                                                                undefined, r(
-                                                                            'UltimaActuacion'
-                                                                )
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'nombre',
-                                                    js  : 'nombre',
-                                                    typ : u(
-                                                                undefined, ''
-                                                    ),
-                                    },
-                            ],
-                            false,
+  IntCarpeta: o(
+    [
+              {
+                json: '_id',
+                js  : '_id',
+                typ : '',
+              },
+              {
+                json: 'category',
+                js  : 'category',
+                typ : r(
+                  'Category'
                 ),
-                Demanda: o(
-                            [
-                                    {
-                                                    json: 'departamento',
-                                                    js  : 'departamento',
-                                                    typ : u(
-                                                                r(
-                                                                            'Departamento'
-                                                                ), null
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'juzgados',
-                                                    js  : 'juzgados',
-                                                    typ : a(
-                                                                r(
-                                                                            'Juzgado'
-                                                                )
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'capitalAdeudado',
-                                                    js  : 'capitalAdeudado',
-                                                    typ : u(
-                                                                3.14, null, ''
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'entregaGarantiasAbogado',
-                                                    js  : 'entregaGarantiasAbogado',
-                                                    typ : u(
-                                                                Date, null
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'etapaProcesal',
-                                                    js  : 'etapaProcesal',
-                                                    typ : u(
-                                                                undefined, ''
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'fechaPresentacion',
-                                                    js  : 'fechaPresentacion',
-                                                    typ : u(
-                                                                null, ''
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'municipio',
-                                                    js  : 'municipio',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'obligacion',
-                                                    js  : 'obligacion',
-                                                    typ : r(
-                                                                'Obligacion'
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'radicado',
-                                                    js  : 'radicado',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'vencimientoPagare',
-                                                    js  : 'vencimientoPagare',
-                                                    typ : u(
-                                                                a(
-                                                                            u(
-                                                                                        Date, null
-                                                                            )
-                                                                ), Date, null
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'expediente',
-                                                    js  : 'expediente',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'entregagarantiasAbogado',
-                                                    js  : 'entregagarantiasAbogado',
-                                                    typ : u(
-                                                                undefined, ''
-                                                    ),
-                                    },
-                            ],
-                            false,
+              },
+              {
+                json: 'deudor',
+                js  : 'deudor',
+                typ : r(
+                  'Deudor'
                 ),
-                Juzgado: o(
-                            [
-                                    {
-                                                    json: 'id',
-                                                    js  : 'id',
-                                                    typ : 0,
-                                    },
-                                    {
-                                                    json: 'tipo',
-                                                    js  : 'tipo',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'url',
-                                                    js  : 'url',
-                                                    typ : '',
-                                    },
-                            ],
-                            false,
+              },
+              {
+                json: 'numero',
+                js  : 'numero',
+                typ : 0,
+              },
+              {
+                json: 'tipoProceso',
+                js  : 'tipoProceso',
+                typ : r(
+                  'TipoProceso'
                 ),
-                Obligacion: o(
-                            [
-                                    {
-                                                    json: '0',
-                                                    js  : '0',
-                                                    typ : u(
-                                                                undefined, u(
-                                                                            3.14, ''
-                                                                )
-                                                    ),
-                                    },
-                                    {
-                                                    json: '1',
-                                                    js  : '1',
-                                                    typ : u(
-                                                                3.14, ''
-                                                    ),
-                                    },
-                                    {
-                                                    json: '2',
-                                                    js  : '2',
-                                                    typ : u(
-                                                                undefined, u(
-                                                                            0, ''
-                                                                )
-                                                    ),
-                                    },
-                            ],
-                            false,
+              },
+              {
+                json: 'idProceso',
+                js  : 'idProceso',
+                typ : u(
+                  undefined, 0
                 ),
-                Deudor: o(
-                            [
-                                    {
-                                                    json: 'tel',
-                                                    js  : 'tel',
-                                                    typ : r(
-                                                                'Tel'
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'primerNombre',
-                                                    js  : 'primerNombre',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'segundoNombre',
-                                                    js  : 'segundoNombre',
-                                                    typ : u(
-                                                                undefined, ''
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'primerApellido',
-                                                    js  : 'primerApellido',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'segundoApellido',
-                                                    js  : 'segundoApellido',
-                                                    typ : u(
-                                                                undefined, ''
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'cedula',
-                                                    js  : 'cedula',
-                                                    typ : u(
-                                                                0, null
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'direccion',
-                                                    js  : 'direccion',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'email',
-                                                    js  : 'email',
-                                                    typ : '',
-                                    },
-                            ],
-                            false,
+              },
+              {
+                json: 'llaveProceso',
+                js  : 'llaveProceso',
+                typ : '',
+              },
+              {
+                json: 'categoryTag',
+                js  : 'categoryTag',
+                typ : 0,
+              },
+              {
+                json: 'demanda',
+                js  : 'demanda',
+                typ : r(
+                  'Demanda'
                 ),
-                Tel: o(
-                            [
-                                    {
-                                                    json: 'fijo',
-                                                    js  : 'fijo',
-                                                    typ : u(
-                                                                undefined, u(
-                                                                            0, ''
-                                                                )
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'celular',
-                                                    js  : 'celular',
-                                                    typ : u(
-                                                                undefined, 0
-                                                    ),
-                                    },
-                            ],
-                            false,
+              },
+              {
+                json: 'fecha',
+                js  : 'fecha',
+                typ : u(
+                  undefined, Date
                 ),
-                UltimaActuacion: o(
-                            [
-                                    {
-                                                    json: 'idRegActuacion',
-                                                    js  : 'idRegActuacion',
-                                                    typ : 0,
-                                    },
-                                    {
-                                                    json: 'llaveProceso',
-                                                    js  : 'llaveProceso',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'consActuacion',
-                                                    js  : 'consActuacion',
-                                                    typ : 0,
-                                    },
-                                    {
-                                                    json: 'fechaActuacion',
-                                                    js  : 'fechaActuacion',
-                                                    typ : Date,
-                                    },
-                                    {
-                                                    json: 'actuacion',
-                                                    js  : 'actuacion',
-                                                    typ : '',
-                                    },
-                                    {
-                                                    json: 'anotacion',
-                                                    js  : 'anotacion',
-                                                    typ : u(
-                                                                null, ''
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'fechaInicial',
-                                                    js  : 'fechaInicial',
-                                                    typ : u(
-                                                                Date, null
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'fechaFinal',
-                                                    js  : 'fechaFinal',
-                                                    typ : u(
-                                                                Date, null
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'fechaRegistro',
-                                                    js  : 'fechaRegistro',
-                                                    typ : Date,
-                                    },
-                                    {
-                                                    json: 'codRegla',
-                                                    js  : 'codRegla',
-                                                    typ : r(
-                                                                'CodRegla'
-                                                    ),
-                                    },
-                                    {
-                                                    json: 'conDocumentos',
-                                                    js  : 'conDocumentos',
-                                                    typ : true,
-                                    },
-                                    {
-                                                    json: 'cant',
-                                                    js  : 'cant',
-                                                    typ : 0,
-                                    },
-                            ],
-                            false,
+              },
+              {
+                json: 'ultimaActuacion',
+                js  : 'ultimaActuacion',
+                typ : u(
+                  undefined, r(
+                    'UltimaActuacion'
+                  )
                 ),
-                Category: [
-                        'Bancolombia',
-                        'Insolvencia',
-                        'LiosJuridicos',
-                        'Reintegra',
-                        'Terminados',
-                ],
-                Departamento: [
-                        'BOYACÁ',
-                        'CNDINAMARCA',
-                        'CUN DINAMARCA',
-                        'CUNDINAMARCA',
-                        'CUNDINNAMARCA',
-                        'CUNDINAMARCA ',
-                        'CUNDINNAMARCA ',
-                        'TOLIMA',
-                ],
-                TipoProceso: [
-                        'ACUMULADO',
-                        'HIPOTECARIA',
-                        'HIPOTECARIO',
-                        'PRENDARIO',
-                        'SINGULAR',
-                ],
-                CodRegla: [
-                        '00                              '
-                ],
+              },
+              {
+                json: 'nombre',
+                js  : 'nombre',
+                typ : u(
+                  undefined, ''
+                ),
+              },
+    ],
+    false,
+  ),
+  Demanda: o(
+    [
+              {
+                json: 'departamento',
+                js  : 'departamento',
+                typ : u(
+                  r(
+                    'Departamento'
+                  ), null
+                ),
+              },
+              {
+                json: 'juzgados',
+                js  : 'juzgados',
+                typ : a(
+                  r(
+                    'Juzgado'
+                  )
+                ),
+              },
+              {
+                json: 'capitalAdeudado',
+                js  : 'capitalAdeudado',
+                typ : u(
+                  3.14, null, ''
+                ),
+              },
+              {
+                json: 'entregaGarantiasAbogado',
+                js  : 'entregaGarantiasAbogado',
+                typ : u(
+                  Date, null
+                ),
+              },
+              {
+                json: 'etapaProcesal',
+                js  : 'etapaProcesal',
+                typ : u(
+                  undefined, ''
+                ),
+              },
+              {
+                json: 'fechaPresentacion',
+                js  : 'fechaPresentacion',
+                typ : u(
+                  null, ''
+                ),
+              },
+              {
+                json: 'municipio',
+                js  : 'municipio',
+                typ : '',
+              },
+              {
+                json: 'obligacion',
+                js  : 'obligacion',
+                typ : r(
+                  'Obligacion'
+                ),
+              },
+              {
+                json: 'radicado',
+                js  : 'radicado',
+                typ : '',
+              },
+              {
+                json: 'vencimientoPagare',
+                js  : 'vencimientoPagare',
+                typ : u(
+                  a(
+                    u(
+                      Date, null
+                    )
+                  ), Date, null
+                ),
+              },
+              {
+                json: 'expediente',
+                js  : 'expediente',
+                typ : '',
+              },
+              {
+                json: 'entregagarantiasAbogado',
+                js  : 'entregagarantiasAbogado',
+                typ : u(
+                  undefined, ''
+                ),
+              },
+    ],
+    false,
+  ),
+  Juzgado: o(
+    [
+              {
+                json: 'id',
+                js  : 'id',
+                typ : 0,
+              },
+              {
+                json: 'tipo',
+                js  : 'tipo',
+                typ : '',
+              },
+              {
+                json: 'url',
+                js  : 'url',
+                typ : '',
+              },
+    ],
+    false,
+  ),
+  Obligacion: o(
+    [
+              {
+                json: '0',
+                js  : '0',
+                typ : u(
+                  undefined, u(
+                    3.14, ''
+                  )
+                ),
+              },
+              {
+                json: '1',
+                js  : '1',
+                typ : u(
+                  3.14, ''
+                ),
+              },
+              {
+                json: '2',
+                js  : '2',
+                typ : u(
+                  undefined, u(
+                    0, ''
+                  )
+                ),
+              },
+    ],
+    false,
+  ),
+  Deudor: o(
+    [
+              {
+                json: 'tel',
+                js  : 'tel',
+                typ : r(
+                  'Tel'
+                ),
+              },
+              {
+                json: 'primerNombre',
+                js  : 'primerNombre',
+                typ : '',
+              },
+              {
+                json: 'segundoNombre',
+                js  : 'segundoNombre',
+                typ : u(
+                  undefined, ''
+                ),
+              },
+              {
+                json: 'primerApellido',
+                js  : 'primerApellido',
+                typ : '',
+              },
+              {
+                json: 'segundoApellido',
+                js  : 'segundoApellido',
+                typ : u(
+                  undefined, ''
+                ),
+              },
+              {
+                json: 'cedula',
+                js  : 'cedula',
+                typ : u(
+                  0, null
+                ),
+              },
+              {
+                json: 'direccion',
+                js  : 'direccion',
+                typ : '',
+              },
+              {
+                json: 'email',
+                js  : 'email',
+                typ : '',
+              },
+    ],
+    false,
+  ),
+  Tel: o(
+    [
+              {
+                json: 'fijo',
+                js  : 'fijo',
+                typ : u(
+                  undefined, u(
+                    0, ''
+                  )
+                ),
+              },
+              {
+                json: 'celular',
+                js  : 'celular',
+                typ : u(
+                  undefined, 0
+                ),
+              },
+    ],
+    false,
+  ),
+  UltimaActuacion: o(
+    [
+              {
+                json: 'idRegActuacion',
+                js  : 'idRegActuacion',
+                typ : 0,
+              },
+              {
+                json: 'llaveProceso',
+                js  : 'llaveProceso',
+                typ : '',
+              },
+              {
+                json: 'consActuacion',
+                js  : 'consActuacion',
+                typ : 0,
+              },
+              {
+                json: 'fechaActuacion',
+                js  : 'fechaActuacion',
+                typ : Date,
+              },
+              {
+                json: 'actuacion',
+                js  : 'actuacion',
+                typ : '',
+              },
+              {
+                json: 'anotacion',
+                js  : 'anotacion',
+                typ : u(
+                  null, ''
+                ),
+              },
+              {
+                json: 'fechaInicial',
+                js  : 'fechaInicial',
+                typ : u(
+                  Date, null
+                ),
+              },
+              {
+                json: 'fechaFinal',
+                js  : 'fechaFinal',
+                typ : u(
+                  Date, null
+                ),
+              },
+              {
+                json: 'fechaRegistro',
+                js  : 'fechaRegistro',
+                typ : Date,
+              },
+              {
+                json: 'codRegla',
+                js  : 'codRegla',
+                typ : r(
+                  'CodRegla'
+                ),
+              },
+              {
+                json: 'conDocumentos',
+                js  : 'conDocumentos',
+                typ : true,
+              },
+              {
+                json: 'cant',
+                js  : 'cant',
+                typ : 0,
+              },
+    ],
+    false,
+  ),
+  Category: [
+            'Bancolombia',
+            'Insolvencia',
+            'LiosJuridicos',
+            'Reintegra',
+            'Terminados',
+  ],
+  Departamento: [
+            'BOYACÁ',
+            'CNDINAMARCA',
+            'CUN DINAMARCA',
+            'CUNDINAMARCA',
+            'CUNDINNAMARCA',
+            'CUNDINAMARCA ',
+            'CUNDINNAMARCA ',
+            'TOLIMA',
+  ],
+  TipoProceso: [
+            'ACUMULADO',
+            'HIPOTECARIA',
+            'HIPOTECARIO',
+            'PRENDARIO',
+            'SINGULAR',
+  ],
+  CodRegla: [
+            '00                              '
+  ],
 };

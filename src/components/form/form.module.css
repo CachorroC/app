@@ -1,30 +1,26 @@
 .container {
-  container-name: note;
+  container-name: form;
   container-type: inline-size;
-  grid-area: span 2/span 4;
+  grid-area: span 4/span 4;
   display: flex;
   border-radius: 2vmin;
   flex-flow: column nowrap;
 }
-.container .form,
-.container .nota {
+.container .form {
   border-radius: 2vmin;
   display: flex;
   flex-flow: column nowrap;
-  padding: 2vmin;
-  gap: 2vmin;
+  padding: 2cqmin;
+  gap: 2cqmin;
 }
-.container .form sub,
-.container .nota sub {
+.container .form sub {
   color: var(--primary);
 }
-.container .form .buttonsRow,
-.container .nota .buttonsRow {
+.container .form .buttonsRow {
   display: flex;
   flex-flow: row nowrap;
 }
-.container .form .section,
-.container .nota .section {
+.container .form .section {
   gap: 1cqmin;
   padding: 2vmin;
   flex: 1;
@@ -32,8 +28,7 @@
   flex-flow: column wrap;
   background-color: var(--surface);
 }
-.container .form .section > .section,
-.container .nota .section > .section {
+.container .form .section > .section {
   background-color: var(--surface-container-low);
   gap: 5cqmin;
   padding: 5cqw;
@@ -41,8 +36,7 @@
   flex: 1;
   flex-flow: row wrap;
 }
-.container .form .section > .section > .section,
-.container .nota .section > .section > .section {
+.container .form .section > .section > .section {
   background-color: var(--surface-container-lowest);
   gap: 2cqmin;
   padding: 5cqh;
@@ -50,15 +44,12 @@
   flex: 1;
   flex-flow: column nowrap;
 }
-.container .form .section .label,
-.container .nota .section .label {
+.container .form .section .label {
   font-family: var(--font-poiret);
   flex: 1;
 }
 .container .form .section .titleInput,
-.container .form .section .title,
-.container .nota .section .titleInput,
-.container .nota .section .title {
+.container .form .section .title {
   flex: 2;
 }
 
@@ -85,12 +76,14 @@
 
 .textArea,
 .selectArea {
-  background-color: var(--surface-container-lowest);
+  font-family: var(--raleway);
+  box-sizing: border-box;
+  background-color: var(--surface-container-highest);
   color: var(--on-surface);
   box-shadow: var(--dp2);
   flex: 2;
-  border: solid 2px var(--outline);
-  border-radius: 2vmin;
+  border-bottom: solid 0.5cqmin var(--outline);
+  border-radius: 2cqmin 2cqmin 0 0;
   resize: both;
   text-align: center;
   padding: 1vmin;
@@ -98,11 +91,11 @@
 .textArea:hover,
 .selectArea:hover {
   box-shadow: var(--dp8);
-  border: var(--surface-tint) solid 2px;
+  border-bottom: var(--surface-tint) solid 1cqmin;
 }
 .textArea:focus,
 .selectArea:focus {
-  background-color: var(--surface-container-lowest);
+  border-bottom: var(--primary) solid 1cqmin;
 }
 
 .editButton {
@@ -181,75 +174,70 @@
   color: var(--tertiary);
 }
 
-.content {
-  align-self: stretch;
-}
-
-.checkboxItem {
-  padding: 15px;
-}
-
-.tareas {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.select {
-  background-color: var(--primary-container);
-}
-
-.innactive {
-  background-color: var(--outline-variant);
-  color: var(--outline);
-}
-
-.active {
-  background-color: var(--secondary);
-  color: var(--on-secondary);
-} /* The switch - the box around the slider */
+/* The switchBox - the box around the slider */
 .switchBox {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  box-sizing: border-box;
+  border: 0.1cqmin solid var(--outline-variant);
+  border-radius: 50vw;
+  width: 5cqmin;
+  height: 2cqmin;
 }
-.switchBox .checkbox {
+
+/* Hide default HTML checkbox */
+.switchBox .inputElement {
   opacity: 0;
   width: 0;
   height: 0;
 }
-.switchBox .checkbox:checked + .slider {
-  background-color: #2196f3;
-}
-.switchBox .checkbox:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-.switchBox .checkbox:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-.switchBox .slider {
+
+/* The slider */
+.slider {
+  border-radius: 50vw;
   position: absolute;
+  cursor: pointer;
   top: 0;
   left: 0;
-  z-index: 3;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-.switchBox .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
+  background-color: var(--surface-container-highest);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
-/* The slider */
+.slider:before {
+  border-radius: 2cqmin 2cqmin 0 0;
+  position: absolute;
+  content: "";
+  height: 1.6cqmin;
+  width: 1.6cqmin;
+  left: 0.1cqmin;
+  bottom: 0.1cqmin;
+  background-color: var(--outline);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.inputElement:checked + .slider {
+  background-color: var(--primary);
+}
+.inputElement:checked + .slider:before {
+  background-color: var(--on-primary);
+}
+
+.inputElement:focus + .slider {
+  box-shadow: 0 0 1px var(--primary);
+}
+
+.inputElement:checked + .slider:before {
+  -webkit-transform: translateX(3cqmin);
+  -ms-transform: translateX(3cqmin);
+  transform: translateX(3cqmin);
+}
+
+@container form (min-width: 200px) {
+  .container .form .section {
+    flex-flow: row nowrap;
+  }
+}

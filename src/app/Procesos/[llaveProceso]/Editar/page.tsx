@@ -4,14 +4,14 @@ import { notFound } from 'next/navigation';
 import { Form } from 'components/form/Form';
 
 export default async function PageCarpetaNumero(
-            {
-                            params,
-            }: {
+  {
+    params,
+  }: {
   params: { llaveProceso: string };
 }
 ) {
   const carpeta = await getCarpetaByllaveProceso(
-              params.llaveProceso
+    params.llaveProceso
   );
 
 

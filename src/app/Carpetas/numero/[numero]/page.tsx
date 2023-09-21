@@ -5,16 +5,16 @@ import Link from 'next/link';
 import { Route } from 'next';
 
 export default async function PageCarpetaNumero(
-            {
-                            params,
-            }: {
+  {
+    params,
+  }: {
   params: { numero: number };
 } 
 ) {
   const carpeta = await getCarpetabyNumero(
-              Number(
-                          params.numero 
-              ) 
+    Number(
+      params.numero 
+    ) 
   );
 
   if ( !carpeta ) {

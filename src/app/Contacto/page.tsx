@@ -8,85 +8,85 @@ import { useContactContext } from '../context/main-context';
 
 export default function Page() {
   const {
-                  register,
-                  handleSubmit
+    register,
+    handleSubmit
   } = useForm<RawContactoFormValues>(
-              {
-                              defaultValues: {
-                                              nombre    : ' ',
-                                              grupo     : 'otros',
-                                              newsLetter: false,
-                                              email     : ' ',
-                                              telefono  : 1,
-                                              comentario: 'Este es el espacio para registrar información adicional',
-                              },
-              }
+    {
+      defaultValues: {
+        nombre    : ' ',
+        grupo     : 'otros',
+        newsLetter: false,
+        email     : ' ',
+        telefono  : 1,
+        comentario: 'Este es el espacio para registrar información adicional',
+      },
+    }
   );
 
   const {
-                  contactoForm, setContactoForm
+    contactoForm, setContactoForm
   } = useContactContext();
 
   const onSubmit: SubmitHandler<RawContactoFormValues> = async (
-      data
+    data
   ) => {
-        const newData: ContactoForm = {
-                        ...data,
-                        telefono: Number(
-                                    data.telefono
-                        ),
-                        fecha: new Date(),
-        };
-        setContactoForm(
-                    {
-                                    ...contactoForm,
-                                    ...newData,
-                    }
-        );
+    const newData: ContactoForm = {
+      ...data,
+      telefono: Number(
+        data.telefono
+      ),
+      fecha: new Date(),
+    };
+    setContactoForm(
+      {
+        ...contactoForm,
+        ...newData,
+      }
+    );
 
-        try {
-          const postData = await fetch(
-                      '/api?destino=contacto', {
-                                      method : 'post',
-                                      headers: {
-                                                      'Content-Type': 'application/json',
-                                      },
-                                      body: JSON.stringify(
-                                                  newData
-                                      ),
-                      }
-          );
-
-          if ( !postData.ok ) {
-            throw new Error(
-                        `${ postData.status }: ${ postData.statusText }`
-            );
-          }
-
-          const msg = await postData.json();
-          alert(
-                      JSON.stringify(
-                                  msg
-                      )
-          );
-
-          console.log(
-                      JSON.stringify(
-                                  msg
-                      )
-          );
-        } catch ( e ) {
-          alert(
-                      'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente',
-          );
+    try {
+      const postData = await fetch(
+        '/api?destino=contacto', {
+          method : 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(
+            newData
+          ),
         }
+      );
+
+      if ( !postData.ok ) {
+        throw new Error(
+          `${ postData.status }: ${ postData.statusText }`
+        );
+      }
+
+      const msg = await postData.json();
+      alert(
+        JSON.stringify(
+          msg
+        )
+      );
+
+      console.log(
+        JSON.stringify(
+          msg
+        )
+      );
+    } catch ( e ) {
+      alert(
+        'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente',
+      );
+    }
   };
 
   return (
     <div className={form.container}>
       <form
         onSubmit={handleSubmit(
-                    onSubmit
+          onSubmit
         )}
         className={form.form}
       >
@@ -102,9 +102,9 @@ export default function Page() {
             className={form.textArea}
             placeholder="Nombre y Apellido"
             {...register(
-                        'nombre', {
-                                        required: true,
-                        }
+              'nombre', {
+                required: true,
+              }
             )}
           />
         </section>{' '}
@@ -120,10 +120,10 @@ export default function Page() {
             className={form.textArea}
             placeholder="correo electrónico"
             {...register(
-                        'email', {
-                                        required: false,
-                                        pattern : /^\S+@\S+$/i,
-                        }
+              'email', {
+                required: false,
+                pattern : /^\S+@\S+$/i,
+              }
             )}
           />
         </section>
@@ -139,9 +139,9 @@ export default function Page() {
             className={form.textArea}
             placeholder="telefono de contacto"
             {...register(
-                        'telefono', {
-                                        required: false,
-                        }
+              'telefono', {
+                required: false,
+              }
             )}
           />
         </section>
@@ -158,7 +158,7 @@ export default function Page() {
               <input
                 className={checkbox.inputElement}
                 {...register(
-                            'newsLetter'
+                  'newsLetter'
                 )}
                 type="checkbox"
               />
@@ -176,9 +176,9 @@ export default function Page() {
               type={'text'}
               className={form.textArea}
               {...register(
-                          'comentario', {
-                                          required: true,
-                          }
+                'comentario', {
+                  required: true,
+                }
               )}
             />
           </section>
@@ -186,9 +186,9 @@ export default function Page() {
         <select
           className={form.selectArea}
           {...register(
-                      'grupo', {
-                                      required: true,
-                      }
+            'grupo', {
+              required: true,
+            }
           )}
         >
           <option value="Abogado">Abogado</option>

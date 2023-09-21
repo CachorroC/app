@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import type { Route } from 'next';
 
 export const metadata: Metadata = {
-                title: 'Procesos',
+  title: 'Procesos',
 };
 
 export default function Page() {

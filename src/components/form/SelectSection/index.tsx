@@ -6,58 +6,58 @@ import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 
 export const SelectSection = (
-    {
-                    name,
-                    title,
-                    options,
-    }: {
+  {
+    name,
+    title,
+    options,
+  }: {
   name: FieldPath<IntCarpeta>;
   title: string;
   options: string[];
 }
 ) => {
-      const rules = {
-                      required: true,
-      };
+  const rules = {
+    required: true,
+  };
 
-      const {
-                      register,
+  const {
+    register,
 
-      } = useFormContext<IntCarpeta>();
+  } = useFormContext<IntCarpeta>();
 
 
 
-      return (
-        <section className={form.section}>
-          <label
-            className={`${ form.label } ${ typography.titleLarge }`}
-            htmlFor={name}
-          >
-            {title}
-          </label>
+  return (
+    <section className={form.section}>
+      <label
+        className={`${ form.label } ${ typography.titleLarge }`}
+        htmlFor={name}
+      >
+        {title}
+      </label>
 
-          <select
-            key={name}
-            {...register(
-                        name, rules
-            )}
-            className={form.selectArea}
-          >
-            {options.map(
-                        (
-                            option, index
-                        ) => {
-                              return (
-                                <option
-                                  value={option}
-                                  key={index}
-                                >
-                                  {option}
-                                </option>
-                              );
-                        }
-            )}
-          </select>
-        </section>
-      );
+      <select
+        key={name}
+        {...register(
+          name, rules
+        )}
+        className={form.selectArea}
+      >
+        {options.map(
+          (
+            option, index
+          ) => {
+            return (
+              <option
+                value={option}
+                key={index}
+              >
+                {option}
+              </option>
+            );
+          }
+        )}
+      </select>
+    </section>
+  );
 };

@@ -5,9 +5,9 @@ import { Fragment } from 'react';
 import { getCarpetaByidProceso } from '#@/lib/project/carpetas';
 
 export default async function Page(
-            {
-                            params,
-            }: {
+  {
+    params,
+  }: {
   params: {
     llaveProceso: string;
     idProceso: string;
@@ -15,9 +15,9 @@ export default async function Page(
 }
 ) {
   const carpeta = await getCarpetaByidProceso(
-              Number(
-                          params.idProceso
-              )
+    Number(
+      params.idProceso
+    )
   );
 
   if ( !carpeta ) {
@@ -25,10 +25,10 @@ export default async function Page(
   }
 
   const actuaciones = await getActuaciones(
-              {
-                              carpeta: carpeta,
-                              index  : 1,
-              }
+    {
+      carpeta: carpeta,
+      index  : 1,
+    }
   );
 
   if ( !actuaciones ) {
@@ -44,16 +44,16 @@ export default async function Page(
         />
       )}
       {actuaciones.map(
-                  (
-                      actuacion, index
-                  ) => {
-                        return (
-                          <ActuacionCard
-                            act={actuacion}
-                            key={index}
-                          />
-                        );
-                  }
+        (
+          actuacion, index
+        ) => {
+          return (
+            <ActuacionCard
+              act={actuacion}
+              key={index}
+            />
+          );
+        }
       )}
     </Fragment>
   );

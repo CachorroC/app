@@ -6,66 +6,40 @@ import { useState } from 'react';
 import styles from './note.module.css';
 
 export function Task(
-            {
-                            task
-            }: { task: Nota }
+  {
+    task
+  }: { task: Nota }
 ) {
   const [
-          isEditing,
-          setIsEditing
+            isEditing,
+            setIsEditing
   ] = useState(
-              false
+    false
   );
 
   const [
-          message,
-          setMessage
+            message,
+            setMessage
   ] = useState(
-              ''
+    ''
   );
 
   const {
-                  inputNota, setInputNota
+    inputNota, setInputNota
   } = useNotaContext();
   let taskContent;
 
   async function onCreate(
-              formData: FormData
+    formData: FormData
   ) {
-    const formDataMap = new Map();
-
-    for ( const [
-            key,
-            value
-    ] of formData ) {
-      formDataMap.set(
-                  key, value
-      );
-    }
-
-    const obj = Object.fromEntries(
-                formDataMap
-    );
-    console.log(
-                obj
-    );
-
-    const newNota = {
-                    ...task,
-                    ...obj,
-    };
-    console.log(
-                newNota
-    );
-
     const res = await editNota(
-                newNota
+      formData
     );
     setMessage(
-                res.message
+      res.message
     );
     setIsEditing(
-                false
+      false
     );
   }
 
@@ -78,14 +52,14 @@ export function Task(
             checked={inputNota.done}
             name={'done'}
             onChange={(
-                e
+              e
             ) => {
-                  setInputNota(
-                              {
-                                              ...task,
-                                              done: e.target.checked,
-                              }
-                  );
+              setInputNota(
+                {
+                  ...task,
+                  done: e.target.checked,
+                }
+              );
             }}
             type="checkbox"
           />
@@ -97,14 +71,14 @@ export function Task(
           type={'text'}
           name={'text'}
           onChange={(
-              e
+            e
           ) => {
-                setInputNota(
-                            {
-                                            ...task,
-                                            text: e.target.value,
-                            }
-                );
+            setInputNota(
+              {
+                ...task,
+                text: e.target.value,
+              }
+            );
           }}
         />
         <button type="submit">Save</button>
@@ -135,14 +109,14 @@ export function Task(
       <button
         type="button"
         onClick={() => {
-              setIsEditing(
-                          true
-              );
-              setInputNota(
-                          {
-                                          ...task,
-                          }
-              );
+          setIsEditing(
+            true
+          );
+          setInputNota(
+            {
+              ...task,
+            }
+          );
         }}
       >
         Edit

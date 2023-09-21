@@ -4,52 +4,53 @@ import { carpetasCollection } from '../connection/mongodb';
 import { sleep } from '../project/helper';
 import { Actuacion, ConsultaActuacion } from '../types/actuaciones';
 import { MonCarpeta } from '../types/carpetas';
+import { UltimaActuacion } from '../types/zod/tryme-bitch';
 interface ErrorActuacion {
   StatusCode: number;
   Message: string;
 }
 
 export async function fetchActuaciones(
-            idProceso: number, index: number
+  idProceso: number, index: number
 ) {
   try {
     await sleep(
-                index
+      index
     );
 
     const request = await fetch(
-                `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
+      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
     );
 
     if ( !request.ok ) {
       const json = ( await request.json() ) as ErrorActuacion;
 
       throw new Error(
-                  ` status: ${ request.status }, text: ${
-                    request.statusText
-                  }, json: ${ JSON.stringify(
-                              json
-                  ) }`,
+        ` status: ${ request.status }, text: ${
+          request.statusText
+        }, json: ${ JSON.stringify(
+          json
+        ) }`,
       );
     }
 
     const json = ( await request.json() ) as ConsultaActuacion;
 
     const {
-                    actuaciones
+      actuaciones
     } = json;
 
     return actuaciones;
   } catch ( error ) {
     if ( error instanceof Error ) {
       console.log(
-                  `${ idProceso }: error en la fetchActuaciones => ${ error.name } : ${ error.message }`,
+        `${ idProceso }: error en la fetchActuaciones => ${ error.name } : ${ error.message }`,
       );
 
       return null;
     }
     console.log(
-                `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
+      `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
     );
 
     return null;
@@ -57,124 +58,133 @@ export async function fetchActuaciones(
 }
 
 export const getActuaciones = cache(
-            async (
-                {
-                                carpeta, index
-                }: { carpeta: MonCarpeta; index: number }
-            ) => {
-                  const limiteDownTimeServidor = new Date(
-                              '2023-09-20'
-                  );
+  async (
+    {
+      carpeta, index
+    }: { carpeta: MonCarpeta; index: number }
+  ) => {
+    const limiteDownTimeServidor = new Date(
+      '2023-09-30'
+    );
 
-                  const today = new Date();
+    const today = new Date();
+    console.log(
+      today <= limiteDownTimeServidor
+    );
 
-                  if ( today <= limiteDownTimeServidor ) {
-                    const temporaryArray = [];
+    if ( today <= limiteDownTimeServidor ) {
+      if ( !carpeta.ultimaActuacion ) {
+        return null;
+      }
 
-                    if ( carpeta.ultimaActuacion ) {
-                      temporaryArray.push(
-                                  carpeta.ultimaActuacion
-                      );
+      const temporaryArray = [];
 
-                      return temporaryArray;
-                    }
 
-                    return null;
-                  }
+      temporaryArray.push(
+        carpeta.ultimaActuacion
+      );
 
-                  if ( !carpeta.idProceso ) {
-                    return null;
-                  }
+      return temporaryArray;
 
-                  const actuaciones = await fetchActuaciones(
-                              carpeta.idProceso, index
-                  );
 
-                  if ( actuaciones ) {
-                    const ultimaActuacion = actuaciones[ 0 ];
 
-                    const newDate = new Date(
-                                ultimaActuacion.fechaActuacion
-                    )
-                          .toISOString();
+    }
 
-                    const oldDate = carpeta.fecha && new Date(
-                                carpeta.fecha
-                    )
-                          .toISOString();
+    if ( !carpeta.idProceso ) {
+      return null;
+    }
 
-                    if ( oldDate !== newDate ) {
-                      await updateActuaciones(
-                                  {
-                                                  idProceso  : carpeta.idProceso,
-                                                  actuaciones: actuaciones,
-                                  }
-                      );
-                    }
-                  }
+    const actuaciones = await fetchActuaciones(
+      carpeta.idProceso, index
+    );
 
-                  return actuaciones;
-            },
+    if ( actuaciones ) {
+      const [
+                ultimaActuacion
+      ] = actuaciones;
+
+      const newDate = new Date(
+        ultimaActuacion.fechaActuacion
+      )
+        .toISOString();
+
+      const oldDate = carpeta.fecha && new Date(
+        carpeta.fecha
+      )
+        .toISOString();
+
+      if ( oldDate !== newDate ) {
+        await updateActuaciones(
+          {
+            idProceso  : carpeta.idProceso,
+            actuaciones: actuaciones,
+          }
+        );
+      }
+    }
+
+    return actuaciones;
+  },
 );
 
 export const updateActuaciones = cache(
-            async (
-                {
-                                idProceso,
-                                actuaciones,
-                }: {
+  async (
+    {
+      idProceso,
+      actuaciones,
+    }: {
     idProceso: number;
     actuaciones: Actuacion[];
   }
-            ) => {
-                  const carpetasColl = await carpetasCollection();
+  ) => {
+    const carpetasColl = await carpetasCollection();
 
-                  const updateCarpetawithActuaciones = await carpetasColl.updateOne(
-                              {
-                                              idProceso: idProceso,
-                              },
-                              {
-                                              $set: {
-                                                              fecha: new Date(
-                                                                          actuaciones[ 0 ].fechaActuacion
-                                                              ),
-                                                              ultimaActuacion: actuaciones[ 0 ],
-                                              },
-                              },
-                              {
-                                              upsert: true,
-                              },
-                  );
+    const updateCarpetawithActuaciones = await carpetasColl.updateOne(
+      {
+        idProceso: idProceso,
+      },
+      {
+        $set: {
+          fecha: new Date(
+            actuaciones[ 0 ].fechaActuacion
+          ),
+          ultimaActuacion: actuaciones[ 0 ],
+        },
+      },
+      {
+        upsert: true,
+      },
+    );
 
-                  if (
-                    updateCarpetawithActuaciones.modifiedCount > 0
+    if (
+      updateCarpetawithActuaciones.modifiedCount > 0
       || updateCarpetawithActuaciones.upsertedCount > 0
-                  ) {
-                    console.log(
-                                `se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas y se insertaron ${ updateCarpetawithActuaciones.upsertedCount } carpetas`,
-                    );
-                  }
-            },
+    ) {
+      console.log(
+        `se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas y se insertaron ${ updateCarpetawithActuaciones.upsertedCount } carpetas`,
+      );
+    }
+  },
 );
 
 export const deleteProcesoPrivado = async (
-    {
-                    idProceso,
-    }: {
+  {
+    idProceso,
+  }: {
   idProceso: number;
 }
 ) => {
-      const collection = await carpetasCollection();
+  const collection = await carpetasCollection();
 
-      const deleteOne = await collection.deleteOne(
-                  {
-                                  idProceso: idProceso,
-                  }
-      );
+  const deleteOne = await collection.deleteOne(
+    {
+      idProceso: idProceso,
+    }
+  );
 
-      if ( deleteOne.deletedCount > 0 ) {
-        return true;
-      }
+  if ( deleteOne.deletedCount > 0 ) {
+    return true;
+  }
 
-      return false;
+  return false;
 };

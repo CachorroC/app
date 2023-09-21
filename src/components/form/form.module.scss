@@ -1,17 +1,16 @@
 .container {
-  container-name: note;
+  container-name: form;
   container-type: inline-size;
-  grid-area: span 2 / span 4;
+  grid-area: span 4 / span 4;
   display: flex;
   border-radius: 2vmin;
   flex-flow: column nowrap;
-  .form,
-  .nota {
+  .form {
     border-radius: 2vmin;
     display: flex;
     flex-flow: column nowrap;
-    padding: 2vmin;
-    gap: 2vmin;
+    padding: 2cqmin;
+    gap: 2cqmin;
     sub {
       color: var(--primary);
     }
@@ -62,44 +61,38 @@
   background-color: var(--secondary);
   & > span {
     color: var(--on-secondary);
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 300,
-      'GRAD' 0,
-      'opsz' 24;
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
   }
   &:hover,
   &:active {
     background-color: var(--secondary);
     box-shadow: var(--dp8);
     & > span {
-      font-variation-settings:
-        'FILL' 1,
-        'wght' 600,
-        'GRAD' 200,
-        'opsz' 48;
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 200, 'opsz' 48;
       color: var(--on-secondary);
     }
   }
 }
 .textArea,
 .selectArea {
-  background-color: var(--surface-container-lowest);
+  font-family: var(--raleway);
+  box-sizing: border-box;
+  background-color: var(--surface-container-highest);
   color: var(--on-surface);
   box-shadow: var(--dp2);
   flex: 2;
-  border: solid 2px var(--outline);
-  border-radius: 2vmin;
+  border-bottom: solid .5cqmin var(--outline);
+  border-radius: 2cqmin 2cqmin 0 0;
   resize: both;
   text-align: center;
   padding: 1vmin;
 
   &:hover {
     box-shadow: var(--dp8);
-    border: var(--surface-tint) solid 2px;
+    border-bottom: var(--surface-tint) solid 1cqmin;
   }
   &:focus {
-    background-color: var(--surface-container-lowest);
+    border-bottom: var(--primary) solid 1cqmin;
   }
 }
 
@@ -139,88 +132,86 @@
   }
   & > span {
     color: var(--on-secondary);
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 300,
-      'GRAD' 0,
-      'opsz' 24;
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
   }
   &:hover,
   &:active {
     background-color: var(--tertiary-container);
     box-shadow: var(--dp8);
     & > span {
-      font-variation-settings:
-        'FILL' 1,
-        'wght' 400,
-        'GRAD' 200,
-        'opsz' 24;
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 24;
       color: var(--tertiary);
     }
   }
 }
-.content {
-  align-self: stretch;
-}
-.checkboxItem {
-  padding: 15px;
-}
-.tareas {
-  display: flex;
-  flex-flow: column nowrap;
-}
-.select {
-  background-color: var(--primary-container);
-}
-.innactive {
-  background-color: var(--outline-variant);
-  color: var(--outline);
-}
-.active {
-  background-color: var(--secondary);
-  color: var(--on-secondary);
-} /* The switch - the box around the slider */
+/* The switchBox - the box around the slider */
 .switchBox {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
-  .checkbox {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    &:checked + .slider {
-      background-color: #2196f3;
-      &:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
+  box-sizing: border-box;
+  border: .1cqmin solid var(--outline-variant);
+  border-radius: 50vw;
+  width: 5cqmin;
+  height: 2cqmin;
+}
+
+/* Hide default HTML checkbox */
+.switchBox .inputElement {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  border-radius: 50vw;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--surface-container-highest);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  border-radius: 2cqmin 2cqmin 0 0;
+  position: absolute;
+  content: '';
+  height: 1.6cqmin;
+  width: 1.6cqmin;
+  left: .1cqmin;
+  bottom: .1cqmin;
+  background-color: var(--outline);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.inputElement:checked + .slider {
+  background-color: var(--primary);
+  &:before {
+    background-color: var(--on-primary);
+  }
+}
+
+.inputElement:focus + .slider {
+  box-shadow: 0 0 1px var(--primary);
+}
+
+.inputElement:checked + .slider:before {
+  -webkit-transform: translateX(3cqmin);
+  -ms-transform: translateX(3cqmin);
+  transform: translateX(3cqmin);
+}
+
+@container form (min-width: 200px) {
+  .container {
+    .form {
+      .section {
+        flex-flow: row nowrap;
       }
     }
-    &:focus + .slider {
-      box-shadow: 0 0 1px #2196f3;
-    }
   }
-  .slider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-    &:before {
-      position: absolute;
-      content: '';
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      -webkit-transition: 0.4s;
-      transition: 0.4s;
-    }
-  }
-} /* The slider */
+}

@@ -6,11 +6,11 @@ import {  Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
 export default async function TopidProcesoPage (
-            {
-                            params: {
-                                            idProceso
-                            },
-            }: {
+  {
+    params: {
+      idProceso
+    },
+  }: {
   params: {
     llaveProceso: string;
     idProceso: string;
@@ -18,9 +18,9 @@ export default async function TopidProcesoPage (
 }
 ) {
   const carpeta = await getCarpetaByidProceso(
-              Number(
-                          idProceso
-              )
+    Number(
+      idProceso
+    )
   );
 
   if ( !carpeta ) {

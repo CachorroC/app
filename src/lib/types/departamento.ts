@@ -38,34 +38,34 @@ export type Valor =
 // Converts JSON strings to/from your types
 export class Convert {
   public static toIntDepartamentos(
-      json: string 
+    json: string 
   ): IntDepartamentos {
-        return JSON.parse(
-                    json 
-        );
+    return JSON.parse(
+      json 
+    );
   }
 
   public static intDepartamentosToJson(
-      value: IntDepartamentos 
+    value: IntDepartamentos 
   ): string {
-        return JSON.stringify(
-                    value 
-        );
+    return JSON.stringify(
+      value 
+    );
   }
 
   public static toResult(
-      json: string 
+    json: string 
   ): Result {
-        return JSON.parse(
-                    json 
-        );
+    return JSON.parse(
+      json 
+    );
   }
 
   public static resultToJson(
-      value: Result 
+    value: Result 
   ): string {
-        return JSON.stringify(
-                    value 
-        );
+    return JSON.stringify(
+      value 
+    );
   }
 }

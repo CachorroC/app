@@ -9,5 +9,5 @@ async function getNotas() {
 }
 
 export default cache(
-            getNotas 
+  getNotas 
 );

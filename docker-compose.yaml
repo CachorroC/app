@@ -33,11 +33,6 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-      args:
-        BASE_URL: 'https://app.rsasesorjuridico.com'
-
-        MONGODB_URI: ${MONGODB_URI}
-        PORT: ${PORT}
     env_file: .env
     environment:
       PORT: 3000

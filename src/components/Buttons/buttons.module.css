@@ -54,12 +54,12 @@
 .buttonDrawerMenu,
 .activeDrawerMenu {
   grid-area: drawerMenuButton;
-  background-color: var(--primary-container);
+  background-color: var(--primary-fixed);
 }
 .buttonDrawerMenu > .icon, .buttonDrawerMenu > .text,
 .activeDrawerMenu > .icon,
 .activeDrawerMenu > .text {
-  color: var(--on-primary-container);
+  color: var(--on-primary-fixed);
 }
 .buttonModal,
 .activeModal {

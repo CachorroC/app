@@ -1,4 +1,4 @@
-.overlay {
+.open {
   container-name: modal;
   container-type: inline-size;
   background-color: var(--secondary-container);
@@ -9,11 +9,20 @@
   top: 10%;
   left: 10%;
   display: flex;
+  opacity: 1;
+  transition: all 1.5s ease-in-out;
 }
-.overlay .wrapper {
+.open .wrapper {
   padding: 2vmin;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   justify-items: stretch;
+}
+
+.closed {
+  display: none;
+  width: 0;
+  height: 0;
+  opacity: 0;
 }

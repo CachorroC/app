@@ -2,91 +2,91 @@
 import { ContactoForm, Grupo } from '#@/lib/types/contacto';
 import { Nota } from '@prisma/client';
 import { Dispatch,
-         ReactNode,
-         SetStateAction,
-         createContext,
-         useContext,
-         useState, } from 'react';
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState, } from 'react';
 
 const NoteContext = createContext<{
   inputNota: Nota;
   setInputNota: Dispatch<SetStateAction<Nota>>;
 } | null>(
-            null 
+  null 
 );
 
 const CategoryContext = createContext<{
   category: string;
   setCategory: Dispatch<SetStateAction<string>>;
 } | null>(
-            null 
+  null 
 );
 
 const ContactoContext = createContext<{
   contactoForm: ContactoForm;
   setContactoForm: Dispatch<SetStateAction<ContactoForm>>;
 } | null>(
-            null 
+  null 
 );
 
 export function MainProvider(
-            {
-                            children 
-            }: { children: ReactNode } 
+  {
+    children 
+  }: { children: ReactNode } 
 ) {
   const [
-          category,
-          setCategory
+            category,
+            setCategory
   ] = useState(
-              'todos' 
+    'todos' 
   );
 
   const [
-          contactoForm,
-          setContactoForm
+            contactoForm,
+            setContactoForm
   ] = useState(
-              {
-                              nombre    : ' ',
-                              grupo     : 'otros' as Grupo,
-                              newsLetter: false,
-                              email     : 'correo electronico',
-                              telefono  : 1,
-                              comentario: 'Este es el espacio para registrar información adicional',
-                              fecha     : new Date(),
-              } 
+    {
+      nombre    : ' ',
+      grupo     : 'otros' as Grupo,
+      newsLetter: false,
+      email     : 'correo electronico',
+      telefono  : 1,
+      comentario: 'Este es el espacio para registrar información adicional',
+      fecha     : new Date(),
+    } 
   );
 
   const [
-          inputNota,
-          setInputNota
+            inputNota,
+            setInputNota
   ] = useState<Nota>(
-              {
-                              id          : 0,
-                              text        : '',
-                              pathname    : '',
-                              llaveProceso: null,
-                              date        : new Date(),
-                              done        : false,
-              } 
+    {
+      id          : 0,
+      text        : '',
+      pathname    : '',
+      llaveProceso: null,
+      date        : new Date(),
+      done        : false,
+    } 
   );
 
   return (
     <NoteContext.Provider
       value={{
-                      inputNota,
-                      setInputNota,
+        inputNota,
+        setInputNota,
       }}
     >
       <CategoryContext.Provider
         value={{
-                        category,
-                        setCategory,
+          category,
+          setCategory,
         }}
       >
         <ContactoContext.Provider
           value={{
-                          contactoForm,
-                          setContactoForm,
+            contactoForm,
+            setContactoForm,
           }}
         >
           {children}
@@ -98,12 +98,12 @@ export function MainProvider(
 
 export function useCategory() {
   const context = useContext(
-              CategoryContext 
+    CategoryContext 
   );
 
   if ( context === null ) {
     throw new Error(
-                'el contexto para la categoria solo debe ser aplicado dentro de un hijo del contexto',
+      'el contexto para la categoria solo debe ser aplicado dentro de un hijo del contexto',
     );
   }
 
@@ -112,12 +112,12 @@ export function useCategory() {
 
 export function useContactContext() {
   const context = useContext(
-              ContactoContext 
+    ContactoContext 
   );
 
   if ( context === null ) {
     throw new Error(
-                'el contexto para contacto se debe utilizar dentro de un proveedor de contacto',
+      'el contexto para contacto se debe utilizar dentro de un proveedor de contacto',
     );
   }
 
@@ -126,12 +126,12 @@ export function useContactContext() {
 
 export function useNotaContext() {
   const context = useContext(
-              NoteContext 
+    NoteContext 
   );
 
   if ( context === null ) {
     throw new Error(
-                'el estado de la nota solo puede ser leido e invocado dentro del contexto de nota.',
+      'el estado de la nota solo puede ser leido e invocado dentro del contexto de nota.',
     );
   }
 

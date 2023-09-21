@@ -28,70 +28,70 @@ export interface monNota extends intNota {
 
 export class notaConvert {
   public static toMonNotas(
-      notas: WithId<intNota>[]
+    notas: WithId<intNota>[]
   ): monNota[] {
-        const newNotas = notas.map(
-                    (
-                        nota
-                    ) => {
-                          return this.toMonNota(
-                                      nota
-                          );
-                    }
+    const newNotas = notas.map(
+      (
+        nota
+      ) => {
+        return this.toMonNota(
+          nota
         );
+      }
+    );
 
-        return newNotas;
+    return newNotas;
   }
   public static monNotasToJson(
-      value: monNota[]
+    value: monNota[]
   ): string {
-        return JSON.stringify(
-                    value
-        );
+    return JSON.stringify(
+      value
+    );
   }
 
   public static toMonNota(
-      nota: WithId<intNota>
+    nota: WithId<intNota>
   ): monNota {
-        const newNota = {
-                        ...nota,
-                        _id: nota._id.toString(),
-        };
+    const newNota = {
+      ...nota,
+      _id: nota._id.toString(),
+    };
 
-        return newNota;
+    return newNota;
   }
   public static monNotaToJson(
-      value: monNota
+    value: monNota
   ): string {
-        return JSON.stringify(
-                    value
-        );
+    return JSON.stringify(
+      value
+    );
   }
   public static toTarea(
-      json: string
+    json: string
   ): Tarea {
-        return JSON.parse(
-                    json
-        );
+    return JSON.parse(
+      json
+    );
   }
   public static tareaToJson(
-      value: Tarea
+    value: Tarea
   ): string {
-        return JSON.stringify(
-                    value
-        );
+    return JSON.stringify(
+      value
+    );
   }
 }
 
 export class NotaBuilder implements intNota {
   constructor(
-      {
-                      llaveProceso,
-                      fecha,
-                      pathname,
-                      nota,
-                      tareas,
-      }: {
+    {
+      llaveProceso,
+      fecha,
+      pathname,
+      nota,
+      tareas,
+    }: {
     llaveProceso: string;
     fecha: string;
     pathname: string;
@@ -99,11 +99,11 @@ export class NotaBuilder implements intNota {
     tareas: Tarea[];
   }
   ) {
-        this.llaveProceso = llaveProceso;
-        this.pathname = pathname;
-        this.fecha = fecha;
-        this.nota = nota;
-        this.tareas = tareas;
+    this.llaveProceso = llaveProceso;
+    this.pathname = pathname;
+    this.fecha = fecha;
+    this.nota = nota;
+    this.tareas = tareas;
   }
   llaveProceso: string;
   pathname: string;

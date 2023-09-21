@@ -6,7 +6,7 @@ import { IntCarpeta } from '#@/lib/types/carpetas';
 
 export default function Page() {
   const {
-                  setFocus 
+    setFocus 
   } = useFormContext<IntCarpeta>();
 
   return (
@@ -15,11 +15,11 @@ export default function Page() {
         type={'button'}
         className={form.addButton}
         onClick={() => {
-              setFocus(
-                          'numero', {
-                                          shouldSelect: true,
-                          } 
-              );
+          setFocus(
+            'numero', {
+              shouldSelect: true,
+            } 
+          );
         }}
       >
         <span>{'numero'}</span>
@@ -28,11 +28,11 @@ export default function Page() {
         type={'button'}
         className={form.addButton}
         onClick={() => {
-              setFocus(
-                          'category', {
-                                          shouldSelect: true,
-                          } 
-              );
+          setFocus(
+            'category', {
+              shouldSelect: true,
+            } 
+          );
         }}
       >
         <span>{'categoria'}</span>
@@ -41,11 +41,11 @@ export default function Page() {
         type={'button'}
         className={form.addButton}
         onClick={() => {
-              setFocus(
-                          'llaveProceso', {
-                                          shouldSelect: true,
-                          } 
-              );
+          setFocus(
+            'llaveProceso', {
+              shouldSelect: true,
+            } 
+          );
         }}
       >
         <span>{'expediente'}</span>
@@ -54,11 +54,11 @@ export default function Page() {
         type={'button'}
         className={form.addButton}
         onClick={() => {
-              setFocus(
-                          'tipoProceso', {
-                                          shouldSelect: true,
-                          } 
-              );
+          setFocus(
+            'tipoProceso', {
+              shouldSelect: true,
+            } 
+          );
         }}
       >
         <span>{'tipo de proceso'}</span>
@@ -67,11 +67,11 @@ export default function Page() {
         type={'button'}
         className={form.addButton}
         onClick={() => {
-              setFocus(
-                          'deudor.primerNombre', {
-                                          shouldSelect: true,
-                          } 
-              );
+          setFocus(
+            'deudor.primerNombre', {
+              shouldSelect: true,
+            } 
+          );
         }}
       >
         <span>{'nombre'}</span>
@@ -80,11 +80,11 @@ export default function Page() {
         type={'button'}
         className={form.addButton}
         onClick={() => {
-              setFocus(
-                          'deudor.segundoNombre', {
-                                          shouldSelect: true,
-                          } 
-              );
+          setFocus(
+            'deudor.segundoNombre', {
+              shouldSelect: true,
+            } 
+          );
         }}
       >
         <span>{'segundo nombre'}</span>

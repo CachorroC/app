@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 
 export function useServiceWorker() {
   const [
-          counter,
-          setCounter
+            counter,
+            setCounter
   ] = useState(
-              0
+    0
   );
 
 
@@ -13,65 +13,65 @@ export function useServiceWorker() {
   const sw = navigator.serviceWorker;
 
   useEffect(
-              () => {
-                    const decrement = () => {
-                          setCounter(
-                                      counter - 1
-                          );
-                    };
+    () => {
+      const decrement = () => {
+        setCounter(
+          counter - 1
+        );
+      };
 
-                    const increment = () => {
-                          setCounter(
-                                      counter + 1
-                          );
-                    };
+      const increment = () => {
+        setCounter(
+          counter + 1
+        );
+      };
 
-                    if ( sw ) {
-                      window.addEventListener(
-                                  'load', () => {
-                                        sw.register(
-                                                    './serviceworker.js'
-                                        )
-                                              .then(
-                                                          () => {
-                                                                return sw.ready;
-                                                          }
-                                              )
-                                              .then(
-                                                          () => {
-                                                                sw.addEventListener(
-                                                                            'message', (
-                                                                                {
-                                                                                                data
-                                                                                }
-                                                                            ) => {
-                                                                                  if ( data?.state !== undefined ) {
-                                                                                    increment();
-                                                                                  }
-                                                                                  decrement();
-                                                                            }
-                                                                );
-                                                          }
-                                              );
-                                  }
-                      );
+      if ( sw ) {
+        window.addEventListener(
+          'load', () => {
+            sw.register(
+              './serviceworker.js'
+            )
+              .then(
+                () => {
+                  return sw.ready;
+                }
+              )
+              .then(
+                () => {
+                  sw.addEventListener(
+                    'message', (
+                      {
+                        data
+                      }
+                    ) => {
+                      if ( data?.state !== undefined ) {
+                        increment();
+                      }
+                      decrement();
                     }
+                  );
+                }
+              );
+          }
+        );
+      }
 
-                    return () => {
-                          sw.removeEventListener(
-                                      'message', (
-                                          e
-                                      ) => {
-                                            console.log(
-                                                        e
-                                            );
-                                      }
-                          );
-                    };
-              }, [
-                      counter,
-                      setCounter,
-                      sw
-              ]
+      return () => {
+        sw.removeEventListener(
+          'message', (
+            e
+          ) => {
+            console.log(
+              e
+            );
+          }
+        );
+      };
+    }, [
+              counter,
+              setCounter,
+              sw
+    ]
   );
 }

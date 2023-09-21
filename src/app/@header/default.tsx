@@ -1,18 +1,10 @@
-import { BackwardsButton,
-         ForwardButton,
-         DrawerMenuButton, } from '#@/components/Buttons/NavButtons';
-import { HomeButton } from '#@/components/Buttons/server-buttons';
-import TopBar from '#@/components/layout/top-bar';
-import InputSearchBar from 'components/layout/search/InputSearchBar';
+import getCarpetas from '#@/lib/project/getCarpetas';
+import Header from 'components/layout/header';
 
-export default function Default() {
+export default async function Default () {
+  const carpetas = await getCarpetas();
+
   return (
-    <TopBar>
-      <HomeButton />
-      <BackwardsButton />
-      <InputSearchBar />
-      <ForwardButton />
-      <DrawerMenuButton />
-    </TopBar>
+    <Header carpetas={ carpetas } />
   );
 }

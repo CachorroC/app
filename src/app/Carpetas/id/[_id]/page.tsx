@@ -6,14 +6,14 @@ import Link from 'next/link';
 import { Route } from 'next';
 
 export default async function PageCarpetaId(
-            {
-                            params,
-            }: {
+  {
+    params,
+  }: {
   params: { _id: string };
 }
 ) {
   const carpeta = await getCarpetaById(
-              params._id
+    params._id
   );
 
   if ( !carpeta ) {

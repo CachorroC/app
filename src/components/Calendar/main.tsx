@@ -4,17 +4,17 @@ import Link from 'next/link';
 import calendar from './calendar.module.css';
 
 export function Calendar(
-            {
-                            date 
-            }: { date?: string } 
+  {
+    date 
+  }: { date?: string } 
 ) {
   const today = date
     ? new Date(
-                date 
+      date 
     )
     : new Date();
   console.log(
-              today 
+    today 
   );
 
   const currentMonth = today.getMonth();
@@ -22,7 +22,7 @@ export function Calendar(
   const currentYear = today.getFullYear();
 
   const rows = CalendarBuilder(
-              date 
+    date 
   );
 
   return (
@@ -40,34 +40,34 @@ export function Calendar(
         </div>
         <div className={calendar.days}>
           {rows.map(
-                      (
-                          row 
-                      ) => {
-                            const day = new Date(
-                                        row.href 
-                            )
-                                  .getDate();
+            (
+              row 
+            ) => {
+              const day = new Date(
+                row.href 
+              )
+                .getDate();
 
-                            const setToday = day === today.getDate();
+              const setToday = day === today.getDate();
 
-                            return (
-                              <Link
-                                key={row.href}
-                                href={row.href as Route}
-                                className={
-                                  row.current
-                                    ? setToday
-                                      ? calendar.active
-                                      : row.className === 'today'
-                                        ? calendar.today
-                                        : calendar.inactive
-                                    : calendar.disabled
-                                }
-                              >
-                                {day}
-                              </Link>
-                            );
-                      } 
+              return (
+                <Link
+                  key={row.href}
+                  href={row.href as Route}
+                  className={
+                    row.current
+                      ? setToday
+                        ? calendar.active
+                        : row.className === 'today'
+                          ? calendar.today
+                          : calendar.inactive
+                      : calendar.disabled
+                  }
+                >
+                  {day}
+                </Link>
+              );
+            } 
           )}
         </div>
       </div>

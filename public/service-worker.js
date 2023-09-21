@@ -1,99 +1,164 @@
-const CACHE_NAME = 'offline';
+if ( !self.define ) {
+  let e,
+    i = {};
 
-const OFFLINE_URL = 'offline.html';
+  const r = (
+    r, s
+  ) => {
+    return (
+      ( r = new URL(
+        r + '.js', s
+      ).href ),
+      i[ r ]
+        || new Promise(
+          (
+            i
+          ) => {
+            if ( 'document' in self ) {
+              const e = document.createElement(
+                'script'
+              );
+              ( e.src = r ), ( e.onload = i ), document.head.appendChild(
+                e
+              );
+            } else {
+              ( e = r ), importScripts(
+                r
+              ), i();
+            }
+          }
+        )
+          .then(
+            () => {
+              let e = i[ r ];
 
-self.addEventListener(
-            'install', function (
-                event 
-            ) {
-                  console.log(
-                              '[ServiceWorker] Install' 
-                  );
+              if ( !e ) {
+                throw new Error(
+                  `Module ${ r } didn’t register its module`
+                );
+              }
 
-                  event.waitUntil(
-                              ( async () => {
-                                    const cache = await caches.open(
-                                                CACHE_NAME 
-                                    );
-                                    // Setting {cache: 'reload'} in the new request will ensure that the response
-                                    // isn't fulfilled from the HTTP cache; i.e., it will be from the network.
-                                    await cache.add(
-                                                new Request(
-                                                            OFFLINE_URL, {
-                                                                            cache: 'reload',
-                                                            } 
-                                                ),
-                                    );
-                              } )(),
-                  );
+              return e;
+            }
+          )
+    );
+  };
 
-                  self.skipWaiting();
-            } 
+  self.define = (
+    s, n
+  ) => {
+    const o
+      = e
+      || ( 'document' in self
+        ? document.currentScript.src
+        : '' )
+      || location.href;
+
+    if ( i[ o ] ) {
+      return;
+    }
+    let f = {};
+
+    const a = (
+        e
+      ) => {
+        return r(
+          e, o
+        );
+      },
+      d = {
+        module: {
+          uri: o,
+        },
+        exports: f,
+        require: a,
+      };
+    i[ o ] = Promise.all(
+      s.map(
+        (
+          e
+        ) => {
+          return d[ e ] || a(
+            e
+          );
+        }
+      )
+    )
+      .then(
+        (
+          e
+        ) => {
+          return n(
+            ...e
+          ), f;
+        }
+      );
+  };
+}
+define(
+  [
+            './workbox-2fa7b06d'
+  ], function (
+    e
+  ) {
+    'use strict';
+    self.addEventListener(
+      'message', (
+        e
+      ) => {
+        e.data && 'SKIP_WAITING' === e.data.type && self.skipWaiting();
+      }
+    ),
+    e.precacheAndRoute(
+      [
+                {
+                  url     : 'favicon_package_v0.16/safari-pinned-tab.svg',
+                  revision: '0cbefe8d99c947427f9b1f52deae2e14',
+                },
+                {
+                  url     : 'favicon.svg',
+                  revision: '647c258f4c70523d7acc7f48b7f02f3d',
+                },
+                {
+                  url     : 'icons/logo.svg',
+                  revision: '3d2e3d6d1d261400f6ad07e321890401',
+                },
+                {
+                  url     : 'icons/safari-pinned-tab.svg',
+                  revision: '0cbefe8d99c947427f9b1f52deae2e14',
+                },
+                {
+                  url     : 'logo.svg',
+                  revision: '3d2e3d6d1d261400f6ad07e321890401',
+                },
+                {
+                  url     : 'next.svg',
+                  revision: '8e061864f388b47f33a1c3780831193e',
+                },
+                {
+                  url     : 'p.js',
+                  revision: 'f3783aca39dbe929ebd9c3988fe4d104',
+                },
+                {
+                  url     : 'safari-pinned-tab.svg',
+                  revision: '295206722ab51aa994eaa33c48b0a1a8',
+                },
+                {
+                  url     : 'thirteen.svg',
+                  revision: '53f96b8290673ef9d2895908e69b2f92',
+                },
+                {
+                  url     : 'vercel.svg',
+                  revision: '61c6b19abff40ea7acd577be818f3976',
+                },
+      ],
+      {
+        ignoreURLParametersMatching: [
+                  /^utm_/,
+                  /^fbclid$/
+        ],
+      }
+    );
+  }
 );
-
-self.addEventListener(
-            'activate', (
-                event 
-            ) => {
-                  console.log(
-                              '[ServiceWorker] Activate' 
-                  );
-                  event.waitUntil(
-                              ( async () => {
-                                    // Enable navigation preload if it's supported.
-                                    // See https://developers.google.com/web/updates/2017/02/navigation-preload
-                                    if ( 'navigationPreload' in self.registration ) {
-                                      await self.registration.navigationPreload.enable();
-                                    }
-                              } )(),
-                  );
-
-                  // Tell the active service worker to take control of the page immediately.
-                  self.clients.claim();
-            } 
-);
-
-self.addEventListener(
-            'fetch', function (
-                event 
-            ) {
-                  console.log(
-                              '[Service Worker] Fetch', event.request.url 
-                  );
-
-                  if ( event.request.mode === 'navigate' ) {
-                    event.respondWith(
-                                ( async () => {
-                                      try {
-                                        const preloadResponse = await event.preloadResponse;
-
-                                        if ( preloadResponse ) {
-                                          return preloadResponse;
-                                        }
-
-                                        const networkResponse = await fetch(
-                                                    event.request 
-                                        );
-
-                                        return networkResponse;
-                                      } catch ( error ) {
-                                        console.log(
-                                                    '[Service Worker] Fetch failed; returning offline page instead.',
-                                                    error,
-                                        );
-
-                                        const cache = await caches.open(
-                                                    CACHE_NAME 
-                                        );
-
-                                        const cachedResponse = await cache.match(
-                                                    OFFLINE_URL 
-                                        );
-
-                                        return cachedResponse;
-                                      }
-                                } )(),
-                    );
-                  }
-            } 
-);
+//# sourceMappingURL=service-worker.js.map

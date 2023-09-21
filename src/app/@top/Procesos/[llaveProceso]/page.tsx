@@ -6,16 +6,16 @@ import { Fragment, Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
 export default async function DefaultProcesosllaveProceso(
-            {
-                            params: {
-                                            llaveProceso
-                            },
-            }: {
+  {
+    params: {
+      llaveProceso
+    },
+  }: {
   params: { llaveProceso: string };
 }
 ) {
   const Carpeta = await getCarpetaByllaveProceso(
-              llaveProceso
+    llaveProceso
   );
 
   if ( !Carpeta ) {

@@ -6,9 +6,9 @@ import getCarpetas from '#@/lib/project/getCarpetas';
 import SearchOutputListSkeleton from './search/SearchProcesosOutputSkeleton';
 
 export default async function TopBar(
-            {
-                            children 
-            }: { children: ReactNode } 
+  {
+    children 
+  }: { children: ReactNode } 
 ) {
   const carpetas = await getCarpetas();
 

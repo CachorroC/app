@@ -7,40 +7,40 @@ import React, { createContext,
   useState,
   useContext, } from 'react';
 
-export const SearchContext = createContext<{
-  search: string;
-  setSearch: Dispatch<SetStateAction<string>>;
+const ModalContext = createContext<{
+  isModalOpen: boolean;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 } | null>(
   null
 );
 
-export function SearchProvider(
+export function ModalProvider(
   {
     children
   }: { children: React.ReactNode }
 ) {
   const [
-            search,
-            setSearch
+            isModalOpen,
+            setIsModalOpen
   ] = useState(
-    ' '
+    false
   );
 
   return (
-    <SearchContext.Provider
+    <ModalContext.Provider
       value={{
-        search,
-        setSearch,
+        isModalOpen,
+        setIsModalOpen,
       }}
     >
       {children}
-    </SearchContext.Provider>
+    </ModalContext.Provider>
   );
 }
 
-export function useSearch() {
+export function useModalContext() {
   const context = useContext(
-    SearchContext
+    ModalContext
   );
 
   if ( context === null ) {

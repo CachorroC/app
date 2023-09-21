@@ -8,16 +8,16 @@ export default async function TaskList() {
   return (
     <ul className={styles.taskList}>
       {tasks.map(
-                  (
-                      task 
-                  ) => {
-                        return (
-                          <Task
-                            task={task}
-                            key={task.id}
-                          />
-                        );
-                  } 
+        (
+          task 
+        ) => {
+          return (
+            <Task
+              task={task}
+              key={task.id}
+            />
+          );
+        } 
       )}
     </ul>
   );
