@@ -44,7 +44,7 @@ export const Card = (
           errorLLaveProceso && styles.errorContainer
         }`}
       >
-        <div className={styles.section}>
+        <section className={styles.section}>
           <div className={styles.title}>
             <Suspense fallback={<Loader />}>
               <NombreComponent
@@ -58,7 +58,7 @@ export const Card = (
           </div>
 
           {children}
-        </div>
+        </section>
 
         <div className={styles.links}>
           <Link
@@ -92,7 +92,7 @@ export const Card = (
           </Link>
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={'/Notas/Nueva'}
+            href={`/Notas/Nueva?llaveProceso=${ carpeta.llaveProceso }`}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               add

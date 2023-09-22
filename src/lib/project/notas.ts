@@ -1,7 +1,7 @@
 import { cache } from 'react';
 import { notasCollection } from '../connection/mongodb';
-import { intNota } from 'types/notas';
-import prisma from '#@/lib/connection/connectDB';
+import { ObjectId } from 'mongodb';
+import { notasConvert } from '../types/notas';
 
 export const getNotasByllaveProceso = cache(
   async (
@@ -9,12 +9,17 @@ export const getNotasByllaveProceso = cache(
       llaveProceso
     }: { llaveProceso: string }
   ) => {
-    const notas = await prisma.nota.findMany(
+    const collection = await notasCollection();
+
+    const rawNotas = await collection.find(
       {
-        where: {
-          llaveProceso: llaveProceso,
-        },
+        llaveProceso: llaveProceso
       }
+    )
+      .toArray();
+
+    const notas = notasConvert.toMonNotas(
+      rawNotas
     );
 
     return notas;
@@ -25,36 +30,26 @@ export const getNotaById = cache(
   async (
     {
       id
-    }: { id: number }
+    }: { id: string }
   ) => {
-    const nota = await prisma.nota.findUnique(
+    const collection = await notasCollection();
+
+    const rawNota = await collection.findOne(
       {
-        where: {
-          id: id,
-        },
+        _id: new ObjectId(
+          id
+        )
       }
     );
 
-    return nota;
+    if ( !rawNota ) {
+      return null;
+    }
+
+    const notas = notasConvert.toMonNota(
+      rawNota
+    );
+
+    return notas;
   }
 );
-
-export async function addNota(
-  nota: intNota
-) {
-  const collection = await notasCollection();
-
-  const insertOne = await collection.insertOne(
-    nota
-  );
-
-  if ( !insertOne.acknowledged ) {
-    throw new Error(
-      'no pudimos agregar la nota a la base de datos, vuelve a intentarlo.',
-    );
-  }
-
-  const id = insertOne.insertedId.toString();
-
-  return id;
-}

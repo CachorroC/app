@@ -1,14 +1,14 @@
 'use client';
 import {  editNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
-import { Nota } from '@prisma/client';
 import { useState } from 'react';
 import styles from './note.module.css';
+import { monNota } from '#@/lib/types/notas';
 
 export function Task(
   {
     task
-  }: { task: Nota }
+  }: { task: monNota }
 ) {
   const [
             isEditing,
@@ -103,7 +103,7 @@ export function Task(
 
   return (
     <div className={styles.taskContainer}>
-      <sub>{task.id.toString()}</sub>
+      <sub>{task._id}</sub>
       {taskContent}
       <p>{message}</p>
       <button

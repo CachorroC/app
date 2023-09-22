@@ -2,7 +2,6 @@
 import typography from '#@/styles/fonts/typography.module.scss';
 import styles from '#@/components/Buttons/buttons.module.css';
 import Link from 'next/link';
-import Modal from '#@/components/Modal';
 
 export default function PageProcesos() {
   return (

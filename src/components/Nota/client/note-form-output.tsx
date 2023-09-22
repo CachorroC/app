@@ -7,12 +7,12 @@ import { fixFechas } from '#@/lib/project/helper';
 
 export default function NoteFormOutput() {
   const {
-    inputNota 
+    inputNota
   } = useNotaContext();
 
   return (
     <div className={styles.container}>
-      <sub className={styles.sup}>{inputNota.id}</sub>
+      <sub className={styles.sup}>{inputNota.cod}</sub>
       {inputNota.llaveProceso && (
         <span>{`llaveProceso: ${ inputNota.llaveProceso }`}</span>
       )}
@@ -23,7 +23,7 @@ export default function NoteFormOutput() {
         <p className={`${ typography.bodyMedium } ${ styles.textArea }`}>
           {' '}
           {inputNota.date && fixFechas(
-            inputNota.date.toString() 
+            inputNota.date.toString()
           )}
         </p>
       </section>
@@ -31,7 +31,6 @@ export default function NoteFormOutput() {
 
       <label className={styles.switchBox}>
         <input
-          key={inputNota.id}
           className={styles.inputElement}
           defaultChecked={inputNota.done}
           type="checkbox"

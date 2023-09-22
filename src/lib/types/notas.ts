@@ -5,32 +5,25 @@ import { WithId } from 'mongodb';
 //
 //   const intNota = Convert.toIntNota(json);
 
-export interface intNotaFormValues {
-  nota: string;
-  tareas: Tarea[];
-}
-
-export interface Tarea {
-  tarea: string;
-  isDone: boolean;
-  dueDate: string;
-}
-
-export interface intNota extends intNotaFormValues {
-  llaveProceso: string;
+export interface intNota
+{
+  cod: number;
+  text: string;
   pathname: string;
-  fecha: string;
+  date: Date;
+  done: boolean;
+  llaveProceso?: string | null;
 }
 
 export interface monNota extends intNota {
   _id: string;
 }
 
-export class notaConvert {
+export class notasConvert {
   public static toMonNotas(
-    notas: WithId<intNota>[]
+    rawNotas: WithId<intNota>[]
   ): monNota[] {
-    const newNotas = notas.map(
+    const newNotas = rawNotas.map(
       (
         nota
       ) => {
@@ -67,47 +60,4 @@ export class notaConvert {
       value
     );
   }
-  public static toTarea(
-    json: string
-  ): Tarea {
-    return JSON.parse(
-      json
-    );
-  }
-  public static tareaToJson(
-    value: Tarea
-  ): string {
-    return JSON.stringify(
-      value
-    );
-  }
-}
-
-export class NotaBuilder implements intNota {
-  constructor(
-    {
-      llaveProceso,
-      fecha,
-      pathname,
-      nota,
-      tareas,
-    }: {
-    llaveProceso: string;
-    fecha: string;
-    pathname: string;
-    nota: string;
-    tareas: Tarea[];
-  }
-  ) {
-    this.llaveProceso = llaveProceso;
-    this.pathname = pathname;
-    this.fecha = fecha;
-    this.nota = nota;
-    this.tareas = tareas;
-  }
-  llaveProceso: string;
-  pathname: string;
-  fecha: string;
-  nota: string;
-  tareas: Tarea[];
 }

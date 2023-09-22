@@ -44,7 +44,7 @@
   &DrawerMenu {
     @extend .button;
     grid-area: drawerMenuButton;
-    background-color: var(--primary-fixed);
+    background-color: var(--primary-fixed-dim);
     & > .icon,
     & > .text {
       color: var(--on-primary-fixed);

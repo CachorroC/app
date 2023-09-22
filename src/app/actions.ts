@@ -2,14 +2,14 @@
 
 import { redirect } from 'next/navigation';
 import { revalidateTag } from 'next/cache';
-import prisma from '#@/lib/connection/connectDB';
-import { Nota } from '@prisma/client';
 import { ZodNotaElementSchema } from '#@/lib/types/zod/nota';
+import { notasCollection } from '#@/lib/connection/mongodb';
+import { ObjectId } from 'mongodb';
 
 export async function createNota(
   formData: FormData
 ) {
-  try {
+  try {/*
     const formDataMap = new Map();
 
     for ( const [
@@ -55,20 +55,60 @@ export async function createNota(
     console.log(
       newNota
     );
-
-    const nota = await prisma.nota.create(
+ */
+    const parsed = ZodNotaElementSchema.safeParse(
       {
-        data: {
-          ...newNota,
-        },
+        cod: formData.get(
+          'cod'
+        ),
+        text: formData.get(
+          'text'
+        ),
+        date: formData.get(
+          'date'
+        ),
+        done: formData.get(
+          'done'
+        ),
+        pathname: formData.get(
+          'pathname'
+        ),
+        llaveProceso: formData.get(
+          'llaveProceso'
+        )
+
       }
     );
+    console.log(
+      parsed
+    );
+
+    if ( !parsed.success ) {
+      throw new Error(
+        'no pudimos parsear con zodla nota que ingresaste. Intentalo nuevamente'
+      );
+
+    }
+
+    const {
+      data
+    } = parsed;
+
+    const collection = await notasCollection();
+
+    const nota = await collection.insertOne(
+      {
+        ...data,
+      }
+    );
+
     revalidateTag(
       'notas'
     );
 
     return {
-      message: `Success! id: ${ nota.id }`,
+      message: `success: ${ nota.insertedId }`,
+      id     : nota.insertedId.toString()
     };
   } catch ( e ) {
     console.log(
@@ -78,25 +118,29 @@ export async function createNota(
     );
 
     return {
-      message: `There was an error. ${ JSON.stringify(
+      message: `there was an error in createNota: ${ JSON.stringify(
         e
       ) }`,
+      id: null
     };
   }
 }
 
 
 export async function deleteNota(
-  id: number
+  id: string
 ) {
   try {
-    prisma.nota.delete(
+    const collection = await notasCollection();
+
+    await collection.deleteOne(
       {
-        where: {
-          id: id,
-        },
+        _id: new ObjectId(
+          id
+        )
       }
     );
+
     revalidateTag(
       'notas'
     );
@@ -119,8 +163,8 @@ export async function editNota(
   try {
     const parsed = ZodNotaElementSchema.safeParse(
       {
-        id: formData.get(
-          'id'
+        cod: formData.get(
+          'cod'
         ),
         text: formData.get(
           'text'
@@ -152,16 +196,31 @@ export async function editNota(
     }
 
     const {
+
       data
     } = parsed;
 
-    const nota = await prisma.nota.upsert(
+    const collection = await notasCollection();
+
+
+
+    const nota = await collection.findOneAndUpdate(
       {
-        where : data,
-        update: data,
-        create: data
+        cod: data.cod
+      }, {
+        $set: data
+      }, {
+        upsert: true
       }
+
     );
+
+    if ( !nota ) {
+      throw new Error(
+        'nota not acknlowledged'
+      );
+
+    }
 
     return {
       message: 'success',

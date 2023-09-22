@@ -1,28 +1,20 @@
-import { z } from 'zod';
+import * as z from 'zod';
 
-export const TareaSchema = z.object(
-  {
-    tarea  : z.coerce.string(),
-    isDone : z.coerce.boolean(),
-    dueDate: z.coerce.string(),
-  }
-);
-
-export type Tarea = z.infer<typeof TareaSchema>;
 
 export const ZodNotaElementSchema = z.object(
   {
+    'cod'         : z.coerce.number(),
     'text'        : z.coerce.string(),
-    'id'          : z.coerce.number(),
     'date'        : z.coerce.date(),
-    'done'        : z.coerce.boolean(),
     'pathname'    : z.coerce.string(),
+    'done'        : z.coerce.boolean(),
     'llaveProceso': z.union(
       [
                 z.null(),
                 z.coerce.string()
       ]
-    ),
+    )
+      .optional(),
   }
 );
 

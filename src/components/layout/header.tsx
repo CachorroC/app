@@ -8,9 +8,10 @@ import SearchOutputListSkeleton from './search/SearchProcesosOutputSkeleton';
 import navbar from 'components/layout/navbar.module.css';
 import type { Route } from 'next';
 import Link from 'next/link';
-import { buttonDrawerMenu } from '../Buttons/buttons.module.css';
-import { useRouter } from 'next/router';
+import button from '../Buttons/buttons.module.css';
+import { useRouter } from 'next/navigation';
 import InputSearchBar from './search/InputSearchBar';
+import { Loader } from '../Loader';
 
 export default function Header (
   {
@@ -30,13 +31,16 @@ export default function Header (
   if ( isNavOpen ) {
     topBar = (
 
-      <nav className={navbar.drawer}>
-        <Suspense fallback={<SearchOutputListSkeleton />}>
-          <SearchOutputList
-            path={'/Procesos'}
-            fechas={carpetas}
-          />
-        </Suspense>
+      <nav className={ navbar.drawer }>
+        <div className={navbar.sidenav}>
+          <Suspense fallback={<SearchOutputListSkeleton />}>
+            <SearchOutputList
+              path={'/Procesos'}
+              fechas={carpetas}
+            />
+          </Suspense>
+        </div>
+
         <Link
           className={navbar.button}
           href={'/Carpetas'}
@@ -67,12 +71,7 @@ export default function Header (
         >
           {'Notas'}
         </Link>
-        <Link
-          className={navbar.button}
-          href={'/Procesos/Nuevo'}
-        >
-          {'Nueva carpeta'}
-        </Link>
+
       </nav>
     );
   }
@@ -88,7 +87,9 @@ export default function Header (
         <span className={`material-symbols-outlined ${ navbar.icon }`}>home</span>
         <p className={navbar.ButtonTextHelper}>inicio</p>
       </Link>
-      <InputSearchBar />
+      <Suspense fallback={<Loader />}>
+        <InputSearchBar />
+      </Suspense>
       <button
         type="button"
         className={navbar.buttonForward}
@@ -115,25 +116,18 @@ export default function Header (
       </button>
       <button
         type="button"
-        className={buttonDrawerMenu}
-        onClick={ (
-          e
-        ) => {
+        className={button.buttonDrawerMenu}
+        onClick={ () => {
           setIsNavOpen(
             !isNavOpen
           );
         }}
       >
-        <span className={`material-symbols-outlined ${ navbar.icon }`}>
+        <span className={`material-symbols-outlined ${ button.icon }`}>
           {isNavOpen
             ? 'close'
             : 'menu'}
         </span>
-        <p className={navbar.ButtonTextHelper}>
-          {isNavOpen
-            ? 'cerrar'
-            : 'abrir'}
-        </p>
       </button>
       {topBar}
     </div>

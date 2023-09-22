@@ -2,11 +2,10 @@ import 'server-only';
 import { notasCollection } from '#@/lib/connection/mongodb';
 import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
-import { Nota } from '@prisma/client';
-import prisma from '#@/lib/connection/connectDB';
+import getNotas from '#@/lib/project/getNotas';
 
 export async function GET() {
-  const notas: Nota[] = await prisma.nota.findMany();
+  const notas = await getNotas();
 
   return new NextResponse(
     JSON.stringify(
@@ -25,10 +24,10 @@ export async function POST(
 ) {
   const incomingRequest = await request.json();
 
-  const outgoingRequest = await prisma.nota.create(
-    {
-      data: incomingRequest,
-    }
+  const collection = await notasCollection();
+
+  const outgoingRequest = await collection.insertOne(
+    incomingRequest
   );
 
   if ( !outgoingRequest ) {

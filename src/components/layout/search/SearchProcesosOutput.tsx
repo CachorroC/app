@@ -12,28 +12,28 @@ export default function SearchOutputList(
   }: {
   path: string;
   fechas: MonCarpeta[];
-} 
+}
 ) {
   const {
-    search 
+    search
   } = useSearch();
 
   const {
-    category 
+    category
   } = useCategory();
 
   const rows: any[] = [];
 
   const byNombre = arraySorter(
-    fechas, 'nombre' 
+    fechas, 'fechas'
   );
   byNombre.forEach(
     (
-      proceso 
+      proceso
     ) => {
       if ( proceso.nombre.toLowerCase()
         .indexOf(
-          search.toLowerCase() 
+          search.toLowerCase()
         ) === -1 ) {
         return;
       }
@@ -47,7 +47,7 @@ export default function SearchOutputList(
           />,
         );
       }
-    } 
+    }
   );
 
   return <>{rows}</>;

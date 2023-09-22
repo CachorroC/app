@@ -1,15 +1,14 @@
 'use client';
-import { intNota } from 'types/notas';
+import { intNota, monNota } from 'types/notas';
 import note from 'components/Nota/note.module.css';
 import Link from 'next/link';
 import type { Route } from 'next';
-import { Nota } from '@prisma/client';
 import { deleteNota } from '#@/app/actions';
 
 export function DeleteNoteButton(
   {
     id
-  }: { id: number }
+  }: { id: string }
 ) {
   function onDelete() {
     deleteNota(
@@ -83,12 +82,12 @@ export function AddNoteButton(
 export function EditNoteButton(
   {
     nota
-  }: { nota: Nota }
+  }: { nota : monNota}
 ) {
   return (
     <Link
       className={note.buttonEdit}
-      href={`/Notas/${ nota.id.toString() }/Editar` as Route}
+      href={`/Notas/${ nota._id }/Editar` as Route}
     >
       <span className={`material-symbols-outlined ${ note.icon }`}>edit</span>
     </Link>

@@ -1,4 +1,4 @@
-'use client';
+
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import type { Route } from 'next';
@@ -9,10 +9,6 @@ export default function Drawer(
     children
   }: { children: ReactNode }
 ) {
-
-
-
-
   return (
     <nav className={navbar.drawer}>
       <div className={navbar.sidenav}>{children}</div>
@@ -46,12 +42,7 @@ export default function Drawer(
       >
         {'Notas'}
       </Link>
-      <Link
-        className={navbar.button}
-        href={'/Procesos/Nuevo'}
-      >
-        {'Nueva carpeta'}
-      </Link>
+
     </nav>
   );
 }

@@ -12,9 +12,7 @@ export default async function NuevaNotallaveProceso(
 ) {
   const nota = await getNotaById(
     {
-      id: Number(
-        params.id
-      ),
+      id: params.id
     }
   );
 

@@ -317,25 +317,29 @@ a {
   align-content: center;
 }
 
-@media all and (display-mode: fullscreen) {
-  .installButton {
-    display: none;
-  }
-}
 input {
   transition: all 0.5s ease-in;
-  resize: vertical;
+  resize: both;
   font-family: var(--raleway);
-  font-size: 1rem;
-  border-radius: 2vmin;
-  padding: 1vmin;
-  box-sizing: border-box;
   border: none;
-  background-color: var(--surface-container-low);
-  color: var(--on-background);
+  border-bottom: solid 2px var(--outline);
+  border-radius: 1vmin;
+  box-sizing: border-box;
+  background-color: var(--surface-container-highest);
+  color: var(--on-surface);
+  outline: none;
 }
-input:hover, input:active {
-  border: 3px dashed var(--primary);
+input:hover {
+  box-shadow: var(--dp8);
+  border-bottom: solid 3px var(--outline-variant);
+}
+input:active {
   background-color: var(--primary-container);
   color: var(--on-primary-container);
+  border-bottom: solid 3px var(--primary);
 }
+input:focus {
+  border-bottom: solid 3px var(--primary-fixed);
+}
+
+/*# sourceMappingURL=globals.css.map */

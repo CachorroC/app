@@ -1,6 +1,12 @@
 version: '3.4'
 
 services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
   postgres:
     image: postgres
     container_name: postgres
@@ -15,14 +21,14 @@ services:
     env_file:
       - ./.env
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - database:/var/lib/postgresql/data
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
     restart: always
     networks:
       - internal
-    command: tunnel --no-autoupdate run --token eyJhIjoiZWQ2NmE1NDZlYWVhMWNlMDBlYjE2YmI1Yzc1NmFkY2EiLCJ0IjoiYzI2MmFhYTYtOTVkYi00YzE5LTk4NzktZTI2YzMwMTg1YmU4IiwicyI6IllUQmhOelk0WkRJdE5HVTNZeTAwTjJZeUxUaGxOVEF0TVRVd1l6WTBNakpqWWpreCJ9
+    command:  tunnel --no-autoupdate run --token eyJhIjoiZWQ2NmE1NDZlYWVhMWNlMDBlYjE2YmI1Yzc1NmFkY2EiLCJ0IjoiYzI2MmFhYTYtOTVkYi00YzE5LTk4NzktZTI2YzMwMTg1YmU4IiwicyI6IllUQmhOelk0WkRJdE5HVTNZeTAwTjJZeUxUaGxOVEF0TVRVd1l6WTBNakpqWWpreCJ9
   app:
     image: app
     hostname: app
@@ -38,6 +44,7 @@ services:
       PORT: 3000
       MONGODB_URI: mongodb+srv://cachorro_cami:Tengo1amo@cluster0.ffbyjzl.mongodb.net/?retryWrites=true&w=majority
       NODE_ENV: production
+      DATABASE_URL: postgresql://postgres:Tengo1amo@postgres:5432/RyS?schema=public
     ports:
       - 5555:3000
     expose:
@@ -46,7 +53,9 @@ services:
       - internal
 
 volumes:
-  postgres:
+  database:
+    external: true
+    name: database
 networks:
   internal:
     external: true

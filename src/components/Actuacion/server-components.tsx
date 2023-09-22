@@ -24,13 +24,13 @@ export const FechaActuacionComponent = async (
     }
   );
 
-  const ultimaActuacion = actuaciones
-    ? actuaciones[ 0 ]
-    : carpeta.ultimaActuacion;
-
-  if ( !ultimaActuacion ) {
+  if ( !actuaciones ) {
     return null;
   }
+
+  const [
+            ultimaActuacion
+  ] = actuaciones;
 
   return (
     <div className={section}>

@@ -6,19 +6,19 @@ export default async function TaskList() {
   const tasks = await getNotas();
 
   return (
-    <ul className={styles.taskList}>
+    <div  className={ styles.taskList }>
       {tasks.map(
         (
-          task 
+          task
         ) => {
           return (
             <Task
               task={task}
-              key={task.id}
+              key={task._id}
             />
           );
-        } 
+        }
       )}
-    </ul>
+    </div>
   );
 }

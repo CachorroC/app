@@ -4,7 +4,6 @@ import { carpetasCollection } from '../connection/mongodb';
 import { sleep } from '../project/helper';
 import { Actuacion, ConsultaActuacion } from '../types/actuaciones';
 import { MonCarpeta } from '../types/carpetas';
-import { UltimaActuacion } from '../types/zod/tryme-bitch';
 interface ErrorActuacion {
   StatusCode: number;
   Message: string;
@@ -19,7 +18,11 @@ export async function fetchActuaciones(
     );
 
     const request = await fetch(
-      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
+      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, {
+        next: {
+          revalidate: 32400
+        }
+      }
     );
 
     if ( !request.ok ) {
@@ -63,8 +66,9 @@ export const getActuaciones = cache(
       carpeta, index
     }: { carpeta: MonCarpeta; index: number }
   ) => {
+    /*
     const limiteDownTimeServidor = new Date(
-      '2023-09-30'
+      '2023-09-20'
     );
 
     const today = new Date();
@@ -88,7 +92,7 @@ export const getActuaciones = cache(
 
 
 
-    }
+    } */
 
     if ( !carpeta.idProceso ) {
       return null;
@@ -137,6 +141,10 @@ export const updateActuaciones = cache(
     actuaciones: Actuacion[];
   }
   ) => {
+    const [
+              ultimaActuacion
+    ] = actuaciones;
+
     const carpetasColl = await carpetasCollection();
 
     const updateCarpetawithActuaciones = await carpetasColl.updateOne(
@@ -146,9 +154,9 @@ export const updateActuaciones = cache(
       {
         $set: {
           fecha: new Date(
-            actuaciones[ 0 ].fechaActuacion
+            ultimaActuacion.fechaActuacion
           ),
-          ultimaActuacion: actuaciones[ 0 ],
+          ultimaActuacion: ultimaActuacion,
         },
       },
       {

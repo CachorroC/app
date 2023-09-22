@@ -2,7 +2,8 @@
   container-name: card;
   container-type: inline-size;
   box-sizing: border-box;
-  border: solid 1rem var(--outline);
+  border-radius: 2vmin;
+  border: solid 3px var(--outline);
   & > * {
     width: 100%;
   }

@@ -16,7 +16,7 @@ export default function InputSearchBar() {
 
   return (
     <input
-      type="search"
+      type="text"
       className={searchbar.input}
       value={search}
       placeholder={isHome

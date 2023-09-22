@@ -37,7 +37,7 @@
 }
 .task {
   display: flex;
-  flex-flow: row nowrap;
+ flex-flow: column nowrap;
   justify-content: space-between;
   justify-items: stretch;
   &Container {
@@ -46,13 +46,9 @@
   }
   &List {
     @extend .task;
-    display: grid;
-    grid-auto-columns: 100%;
-    grid-column-gap: 10px;
-    grid-auto-flow: column;
-    padding: 25px 0px;
+
     list-style: none;
-    overflow-x: scroll;
+    overflow: scroll;
     scroll-snap-type: x mandatory;
   }
 }

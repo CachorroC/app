@@ -12,7 +12,7 @@ export default async function Page() {
         ) => {
           return (
             <NotaComponent
-              key={nota.id}
+              key={nota._id}
               notaRaw={nota}
             />
           );

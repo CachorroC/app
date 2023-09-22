@@ -3,12 +3,12 @@ import {  editNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
 import { useEffect, useState } from 'react';
 import styles from 'components/form/form.module.css';
-import { Nota } from '@prisma/client';
+import { monNota } from '#@/lib/types/notas';
 
 export const Edit = (
   {
     nota
-  }: { nota: Nota }
+  }: { nota : monNota}
 ) => {
   const {
     inputNota, setInputNota
@@ -66,9 +66,9 @@ export const Edit = (
         <label className={styles.label} htmlFor={'id'}>{'No.'}</label>
         <input
           className={styles.textArea}
-          type="number"
+          type="text"
           name="id"
-          defaultValue={inputNota.id}
+          defaultValue={nota._id}
         />
       </section>
       <section className={styles.section}>
@@ -120,8 +120,17 @@ export const Edit = (
           <input
             className={styles.inputElement}
             name="done"
-            required={true}
-            defaultChecked={inputNota.done}
+            checked={ inputNota.done }
+            onChange={(
+              e
+            ) => {
+              setInputNota(
+                {
+                  ...inputNota,
+                  done: e.target.checked
+                }
+              );
+            }}
             type="checkbox"
           />
           <span className={styles.slider}></span>

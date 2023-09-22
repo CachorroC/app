@@ -1,6 +1,5 @@
 import { Edit } from 'components/Nota/Edit';
 import { getNotaById } from '#@/lib/project/notas';
-import note from 'components/Nota/note.module.css';
 import { notFound } from 'next/navigation';
 
 export default async function page(
@@ -14,9 +13,7 @@ export default async function page(
 ) {
   const nota = await getNotaById(
     {
-      id: Number(
-        params.id
-      ),
+      id: params.id
     }
   );
 
@@ -27,7 +24,7 @@ export default async function page(
   return (
 
     <Edit
-      key={nota.id}
+      key={nota._id}
       nota={nota}
     />
 

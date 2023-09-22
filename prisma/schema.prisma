@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,13 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-enum Abogado {
-  Melissa
-  Camilo
-  Fernando
-  Carmen
 }
 
 model Tarea {
@@ -27,9 +17,16 @@ model Tarea {
 
 model Nota {
   text         String
-  id           Int       @id @unique @default(autoincrement())
-  date         DateTime
+  id           Int      @id @unique @default(autoincrement())
   done         Boolean
   pathname     String
   llaveProceso String?
+  date         DateTime
+}
+
+enum Abogado {
+  Melissa
+  Camilo
+  Fernando
+  Carmen
 }

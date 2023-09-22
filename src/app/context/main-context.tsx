@@ -1,6 +1,6 @@
 'use client';
 import { ContactoForm, Grupo } from '#@/lib/types/contacto';
-import { Nota } from '@prisma/client';
+import { intNota } from '#@/lib/types/notas';
 import { Dispatch,
   ReactNode,
   SetStateAction,
@@ -9,36 +9,36 @@ import { Dispatch,
   useState, } from 'react';
 
 const NoteContext = createContext<{
-  inputNota: Nota;
-  setInputNota: Dispatch<SetStateAction<Nota>>;
+  inputNota: intNota;
+  setInputNota: Dispatch<SetStateAction<intNota>>;
 } | null>(
-  null 
+  null
 );
 
 const CategoryContext = createContext<{
   category: string;
   setCategory: Dispatch<SetStateAction<string>>;
 } | null>(
-  null 
+  null
 );
 
 const ContactoContext = createContext<{
   contactoForm: ContactoForm;
   setContactoForm: Dispatch<SetStateAction<ContactoForm>>;
 } | null>(
-  null 
+  null
 );
 
 export function MainProvider(
   {
-    children 
-  }: { children: ReactNode } 
+    children
+  }: { children: ReactNode }
 ) {
   const [
             category,
             setCategory
   ] = useState(
-    'todos' 
+    'todos'
   );
 
   const [
@@ -53,21 +53,21 @@ export function MainProvider(
       telefono  : 1,
       comentario: 'Este es el espacio para registrar información adicional',
       fecha     : new Date(),
-    } 
+    }
   );
 
   const [
             inputNota,
             setInputNota
-  ] = useState<Nota>(
+  ] = useState<intNota>(
     {
-      id          : 0,
+      cod         : 0,
       text        : '',
       pathname    : '',
       llaveProceso: null,
       date        : new Date(),
       done        : false,
-    } 
+    }
   );
 
   return (
@@ -98,7 +98,7 @@ export function MainProvider(
 
 export function useCategory() {
   const context = useContext(
-    CategoryContext 
+    CategoryContext
   );
 
   if ( context === null ) {
@@ -112,7 +112,7 @@ export function useCategory() {
 
 export function useContactContext() {
   const context = useContext(
-    ContactoContext 
+    ContactoContext
   );
 
   if ( context === null ) {
@@ -126,7 +126,7 @@ export function useContactContext() {
 
 export function useNotaContext() {
   const context = useContext(
-    NoteContext 
+    NoteContext
   );
 
   if ( context === null ) {
