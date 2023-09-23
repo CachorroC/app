@@ -20,36 +20,34 @@
   display: flex;
   flex-flow: row nowrap;
 }
-.container .form .section {
+
+.section {
   gap: 1cqmin;
   padding: 2vmin;
   flex: 1;
   display: flex;
   flex-flow: column wrap;
-  background-color: var(--surface);
 }
-.container .form .section > .section {
-  background-color: var(--surface-container-low);
+.section > .section {
   gap: 5cqmin;
-  padding: 5cqw;
+  padding: 1cqmin;
   display: flex;
   flex: 1;
   flex-flow: row wrap;
 }
-.container .form .section > .section > .section {
-  background-color: var(--surface-container-lowest);
+.section > .section > .section {
   gap: 2cqmin;
   padding: 5cqh;
   display: flex;
   flex: 1;
   flex-flow: column nowrap;
 }
-.container .form .section .label {
+.section .label {
   font-family: var(--font-poiret);
   flex: 1;
 }
-.container .form .section .titleInput,
-.container .form .section .title {
+.section .titleInput,
+.section .title {
   flex: 2;
 }
 
@@ -78,12 +76,11 @@
 .selectArea {
   font-family: var(--raleway);
   box-sizing: border-box;
-  background-color: var(--surface-container-highest);
+  background-color: var(--surface);
   color: var(--on-surface);
-  box-shadow: var(--dp2);
   flex: 2;
-  border-bottom: solid 2px var(--outline);
-  border-radius: 2vmin 2cqmin 0 0;
+  border-bottom: solid 3px var(--outline);
+  border-radius: 1cqmax 1cqmax 0 0;
   resize: both;
   text-align: center;
   padding: 1vmin;
@@ -91,11 +88,11 @@
 .textArea:hover,
 .selectArea:hover {
   box-shadow: var(--dp8);
-  border-bottom: var(--surface-tint) solid 1cqmin;
+  border-bottom: var(--outline-variant) solid 1cqmin;
 }
 .textArea:focus,
 .selectArea:focus {
-  border-bottom: var(--primary) solid 1cqmin;
+  border-bottom: var(--secondary) solid 1cqmin;
 }
 
 .editButton {
@@ -241,5 +238,3 @@
     flex-flow: row nowrap;
   }
 }
-
-/*# sourceMappingURL=form.module.css.map */

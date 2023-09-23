@@ -10,7 +10,7 @@ export default function Modal(
   }: { children: ReactNode }
 ) {
   const {
-    isModalOpen, setIsModalOpen
+    setIsModalOpen
   } = useModalContext();
 
   const overlay = useRef(
@@ -84,9 +84,7 @@ export default function Modal(
   return (
     <div
       ref={overlay}
-      className={isModalOpen
-        ? styles.open
-        : styles.closed}
+      className={styles.open}
       onClick={onClick}
     >
       <div

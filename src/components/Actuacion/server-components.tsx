@@ -5,8 +5,8 @@ import typography from '#@/styles/fonts/typography.module.scss';
 import { getActuaciones } from '#@/lib/Actuaciones';
 import { Actuacion } from '#@/lib/types/actuaciones';
 import Link from 'next/link';
-import styles from './actuaciones.module.css';
-import { section } from '../form/form.module.css';
+import styles from 'components/Card/card.module.css';
+import { button } from '../Buttons/buttons.module.css';
 
 export const FechaActuacionComponent = async (
   {
@@ -33,7 +33,7 @@ export const FechaActuacionComponent = async (
   ] = actuaciones;
 
   return (
-    <div className={section}>
+    <div className={styles.section}>
       {ultimaActuacion.actuacion && (
         <h5 className={` ${ card.actuacion } ${ typography.titleSmall }`}>
           {ultimaActuacion.actuacion}
@@ -84,7 +84,7 @@ export const ActuacionCard = (
         >{`${ consActuacion } de ${ cant }`}</sub>
         <Link
           href={'/Notas/Nueva'}
-          className={styles.button}
+          className={button}
         >
           <span className={`material-symbols-outlined ${ styles.icon }`}>
             note_add
@@ -113,7 +113,6 @@ export const ActuacionesList = (
         (
           act
         ) => {
-
           return (
             <ActuacionCard
               act={act}

@@ -1,11 +1,11 @@
 export type Styles = {
-  button: string;
-  card: string;
-  container: string;
-  content: string;
-  date: string;
-  icon: string;
-  title: string;
+  'button': string;
+  'card': string;
+  'container': string;
+  'content': string;
+  'date': string;
+  'icon': string;
+  'title': string;
 };
 
 export type ClassNames = keyof Styles;

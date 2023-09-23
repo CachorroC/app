@@ -2,6 +2,7 @@ import { Card } from 'components/Card';
 import { carpetasCollection } from '#@/lib/connection/mongodb';
 import { carpetaConvert } from 'types/carpetas';
 import { Sort } from 'mongodb';
+import layout from '#@/styles/layout.module.css';
 
 export default async function Page(
   {
@@ -29,7 +30,7 @@ export default async function Page(
     .toArray();
 
   return (
-    <>
+    <div className={layout.left}>
       {carpetas.map(
         (
           carpeta
@@ -49,6 +50,6 @@ export default async function Page(
           );
         }
       )}
-    </>
+    </div>
   );
 }

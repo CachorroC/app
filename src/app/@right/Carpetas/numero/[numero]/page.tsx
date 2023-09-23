@@ -3,14 +3,15 @@
 import { useFormContext } from 'react-hook-form';
 import form from 'components/form/form.module.css';
 import { IntCarpeta } from '#@/lib/types/carpetas';
+import layout from '#@/styles/layout.module.css';
 
 export default function Page() {
   const {
-    setFocus 
+    setFocus
   } = useFormContext<IntCarpeta>();
 
   return (
-    <>
+    <div className={layout.left}>
       <button
         type={'button'}
         className={form.addButton}
@@ -18,7 +19,7 @@ export default function Page() {
           setFocus(
             'numero', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -31,7 +32,7 @@ export default function Page() {
           setFocus(
             'category', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -44,7 +45,7 @@ export default function Page() {
           setFocus(
             'llaveProceso', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -57,7 +58,7 @@ export default function Page() {
           setFocus(
             'tipoProceso', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -70,7 +71,7 @@ export default function Page() {
           setFocus(
             'deudor.primerNombre', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -83,12 +84,12 @@ export default function Page() {
           setFocus(
             'deudor.segundoNombre', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
         <span>{'segundo nombre'}</span>
       </button>
-    </>
+    </div>
   );
 }

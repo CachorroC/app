@@ -9,6 +9,7 @@ import { inter, josefina, poiret, raleway, roboto } from '#@/styles/fonts';
 import 'material-symbols';
 import { SearchProvider } from './context/search-context';
 import { ModalProvider } from './context/modal-context';
+import { CarpetaFormProvider } from './context/carpeta-form-context';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -118,12 +119,12 @@ export default function RootLayout(
   {
     children,
     header,
-    top,
+    modal,
     right,
   }: {
   children: ReactNode;
   header: ReactNode;
-  top: ReactNode;
+  modal: ReactNode;
   right: ReactNode;
 }
 ) {
@@ -131,21 +132,22 @@ export default function RootLayout(
     <html lang="es">
       <body
         className={`${ poiret.variable } ${ raleway.variable } ${ inter.variable } ${ roboto.variable } ${ josefina.variable } [ color-scheme: light dark ]`}
-      >
-        <ModalProvider>
+      ><CarpetaFormProvider>
           <SearchProvider>
-            <MainProvider>
-              <div className={layout.container}>
-                {header}
-                <div className={layout.top}>{top}</div>
-                <div className={layout.right}>{right}</div>
-                <div className={layout.left}>{children}</div>
-              </div>
+            <ModalProvider>
+              <MainProvider>
+                <div className={layout.container}>
+                  { header }
+                  {modal}
+                  {children}
+                  <div className={layout.right}>{right}</div>
+                </div>
 
-              <Script src={'service-worker.js'} />
-            </MainProvider>
+                <Script src={'service-worker.js'} />
+              </MainProvider>
+            </ModalProvider>
           </SearchProvider>
-        </ModalProvider>
+        </CarpetaFormProvider>
       </body>
     </html>
   );

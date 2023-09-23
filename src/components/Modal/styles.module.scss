@@ -1,22 +1,37 @@
 .open {
   container-name: modal;
+  z-index: 5;
+  align-items: center;
+  justify-content: center;
   container-type: inline-size;
-  background-color: var(--secondary-container);
-  color: var(--on-secondary-container);
-  width: 50vw;
-  height: 50svh;
+  background-color: rgba(71, 91, 133, 0.493);
+  width: 100vw;
+  height: 100svh;
+  backdrop-filter: blur(2px);
   position: fixed;
-  top: 10%;
-  left: 10%;
+  top: 0;
+  left: 0;
+  flex-flow: column nowrap;
   display: flex;
   opacity: 1;
   transition: all 1.5s ease-in-out;
   .wrapper {
+    width: 50vw;
+    border-radius: 2vmin;
+    box-shadow: var(--dp20);
+
+     background-color: var(--surface-variant);
+  color: var(--on-surface-variant);
+    height: 50lvh;
+    box-sizing: border-box;
     padding: 2vmin;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     justify-content: center;
     justify-items: stretch;
+    & > * {
+      width: 100%;
+    }
   }
 }
 

@@ -7,7 +7,7 @@ import React, { createContext,
   useState,
   useContext, } from 'react';
 
-export const SearchContext = createContext<{
+const SearchContext = createContext<{
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
 } | null>(
@@ -23,7 +23,7 @@ export function SearchProvider(
             search,
             setSearch
   ] = useState(
-    ' '
+    'Buscar'
   );
 
   return (

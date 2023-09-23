@@ -18,22 +18,22 @@
       display: flex;
       flex-flow: row nowrap;
     }
+
+  }
+}
     .section {
       gap: 1cqmin;
       padding: 2vmin;
       flex: 1;
       display: flex;
       flex-flow: column wrap;
-      background-color: var(--surface);
       & > .section {
-        background-color: var(--surface-container-low);
         gap: 5cqmin;
-        padding: 5cqw;
+        padding: 1cqmin;
         display: flex;
         flex: 1;
         flex-flow: row wrap;
         & > .section {
-          background-color: var(--surface-container-lowest);
           gap: 2cqmin;
           padding: 5cqh;
           display: flex;
@@ -50,8 +50,6 @@
         flex: 2;
       }
     }
-  }
-}
 .submitButton {
   border: none;
   box-shadow: var(--dp5);
@@ -77,22 +75,20 @@
 .selectArea {
   font-family: var(--raleway);
   box-sizing: border-box;
-  background-color: var(--surface-container-highest);
+  background-color: var(--surface);
   color: var(--on-surface);
-  box-shadow: var(--dp2);
   flex: 2;
-  border-bottom: solid 2px var(--outline);
-  border-radius: 2vmin 2cqmin 0 0;
+  border-bottom: solid 3px var(--outline);
+  border-radius: 1cqmax 1cqmax 0 0;
   resize: both;
   text-align: center;
   padding: 1vmin;
-
   &:hover {
     box-shadow: var(--dp8);
-    border-bottom: var(--surface-tint) solid 1cqmin;
+    border-bottom: var(--outline-variant) solid 1cqmin;
   }
   &:focus {
-    border-bottom: var(--primary) solid 1cqmin;
+    border-bottom: var(--secondary) solid 1cqmin;
   }
 }
 

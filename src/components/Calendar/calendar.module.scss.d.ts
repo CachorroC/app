@@ -1,13 +1,13 @@
 export type Styles = {
-  active: string;
-  calendar: string;
-  container: string;
-  days: string;
-  dias: string;
-  disabled: string;
-  inactive: string;
-  today: string;
-  weeks: string;
+  'active': string;
+  'calendar': string;
+  'container': string;
+  'days': string;
+  'dias': string;
+  'disabled': string;
+  'inactive': string;
+  'today': string;
+  'weeks': string;
 };
 
 export type ClassNames = keyof Styles;

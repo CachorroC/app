@@ -160,9 +160,11 @@
   --surface-bright: var(--pal-neutral98);
   --on-nav-background: var(--pal-primary12);
   --nav-background: var(--pal-primary94);
+
 }
 @media (prefers-color-scheme: dark) {
   :root {
+
     --primary: var(--pal-primary80);
     --on-primary: var(--pal-primary20);
     --primary-container: var(--pal-primary30);
@@ -236,13 +238,13 @@
 html {
   font-size: calc(14px + (22 - 14) * ((100vw - 600px) / (1920 - 600)));
 }
-.material-symbols-outlined {
+/* .material-symbols-outlined {
   font-family: 'Material Symbols Outlined';
   text-transform: none;
   letter-spacing: normal;
   word-wrap: normal;
   white-space: nowrap;
-}
+} */
 button:focus {
   outline: var(--error) 5px auto;
 }

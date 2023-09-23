@@ -1,31 +1,48 @@
 
 import { getNotaById } from '#@/lib/project/notas';
-import { notFound } from 'next/navigation';
 import { Edit } from '#@/components/Nota/Edit';
+import typography from '#@/styles/fonts/typography.module.scss';
+import layout from '#@/styles/layout.module.css';
 
 export default async function NuevaNotallaveProceso(
   {
-    params,
+    params: {
+      id
+    },
+
   }: {
   params: { id: string };
+  searchParams: { [ key: string ]: string | undefined; };
 }
 ) {
-  const nota = await getNotaById(
-    {
-      id: params.id
-    }
-  );
+  let notaScope;
+  let notaNumber;
 
-  if ( !nota ) {
-    return notFound();
+
+
+  if ( id ) {
+    const nota = await getNotaById(
+      {
+        id: id
+      }
+    );
+    notaNumber= nota?.cod;
+    notaScope = (
+      nota && <Edit
+        key={id}
+        nota={nota}
+      />
+    );
   }
 
   return (
     <>
-      <Edit
-        key={params.id}
-        nota={nota}
-      />
+      <div className={ layout.top }>
+        <h1 className={typography.displayLarge}>{`Nota numero: ${ notaNumber }`}</h1>
+      </div>
+      <div className={ layout.left }>
+        {notaScope}
+      </div>
     </>
   );
 }

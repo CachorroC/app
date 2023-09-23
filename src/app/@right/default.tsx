@@ -8,10 +8,10 @@ export default function Default() {
 
   return (
     <>
+      <AddTask  />
       <Suspense fallback={<Loader />}>
         <CurrentRoute />
-      </Suspense>{' '}
-      <AddTask  />
+      </Suspense>
       <TaskList />
     </>
   );

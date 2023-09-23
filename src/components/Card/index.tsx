@@ -101,7 +101,7 @@ export const Card = (
           </Link>
           {errorLLaveProceso && (
             <Link
-              href={`/Carpetas/${ carpeta.numero }` as Route}
+              href={`/Carpetas/numero/${ carpeta.numero }` as Route}
               className={styles.link}
             >
               {'error con el numero de expediente'}

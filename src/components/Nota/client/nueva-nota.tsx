@@ -2,8 +2,8 @@
 import { createNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
 import { usePathname, useRouter } from 'next/navigation';
-import form from 'components/form/form.module.css';
-import styles from 'components/form/checkbox/styles.module.css';
+import styles from 'components/form/form.module.scss';
+import typography from '#@/styles/fonts/typography.module.scss';
 
 export const NuevaNota = (
   {
@@ -43,80 +43,86 @@ export const NuevaNota = (
     alert(
       res.message
     );
-    router.push(
+    router.replace(
       `/Notas/${ res.id }`
     );
   }
 
 
   return (
-    <div className={form.container}>
+    <div className={styles.container}>
       <form
-        className={ form.form }
+        className={ styles.form }
         action={ onCreate }
       >
-        <section className={form.section}>
-          <label
-            htmlFor="llaveProceso"
-            className={form.label}
-          >
-            {'Expediente'}
-          </label>
+        <h1 className={typography.displayLarge}>Nueva Nota</h1>
+        <section className={styles.section}>
+          <section className={styles.section}>
+            <label
+              htmlFor="llaveProceso"
+              className={styles.label}
+            >
+              {'Expediente'}
+            </label>
+            <input
+              type="text"
+              className={styles.textArea}
+              name="llaveProceso"
+              defaultValue={llaveProceso}
+            />
+          </section>
+          <section className={styles.section}>
+            <label
+              htmlFor="cod"
+              className={styles.label}
+            >
+              {'Numero'}
+            </label>
+            <input
+              type="number"
+              className={styles.textArea}
+              name="cod"
+              value={ cod }
+              onChange={ (
+                e
+              ) => {
+                setInputNota(
+                  {
+                    ...inputNota,
+                    cod: Number(
+                      e.target.value
+                    )
+                  }
+                );
+              }}
+            />
+          </section>
+        </section>
+        <section className={ styles.section }>
+          <label htmlFor='text' className={styles.label}>{'Nota:'}</label>
           <input
             type="text"
-            className={form.textArea}
-            name="llaveProceso"
-            defaultValue={llaveProceso}
-          />
-        </section>
-        <section className={form.section}>
-          <label
-            htmlFor="cod"
-            className={form.label}
-          >
-            {'Numero'}
-          </label>
-          <input
-            type="number"
-            className={form.textArea}
-            name="cod"
-            value={ cod }
-            onChange={ (
-              e
-            ) => {
-              setInputNota(
-                {
-                  ...inputNota,
-                  cod: Number(
-                    e.target.value
-                  )
-                }
-              );
-            }}
-          />
-        </section>
-        <input
-          type="text"
-          className={form.textArea}
-          name="text"
-          value={inputNota.text}
-          onChange={
-            (
-              e
-            ) => {
-              setInputNota(
-                {
-                  ...inputNota,
-                  text: e.target.value,
-                }
-              );
+            className={styles.textArea}
+            name="text"
+            value={inputNota.text}
+            onChange={
+              (
+                e
+              ) => {
+                setInputNota(
+                  {
+                    ...inputNota,
+                    text: e.target.value,
+                  }
+                );
+              }
             }
-          }
-        />
+          />
+        </section>
         <input
           type="date"
           name="date"
-          className={form.textArea}
+          className={styles.textArea}
           value={ `${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }` }
           onChange={(
             e
@@ -134,7 +140,7 @@ export const NuevaNota = (
         />
         <input
           type="text"
-          className={form.textArea}
+          className={styles.textArea}
           name="pathname"
           defaultValue={pathname}
         />

@@ -1,11 +1,11 @@
 declare const styles: {
   readonly 'container': string;
   readonly 'card': string;
+  readonly 'content': string;
   readonly 'section': string;
-  readonly 'date': string;
   readonly 'actuacion': string;
   readonly 'anotacion': string;
-  readonly 'fecha': string;
+  readonly 'date': string;
   readonly 'sub': string;
   readonly 'dummytxt': string;
   readonly 'title': string;

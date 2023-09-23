@@ -3,6 +3,8 @@ import { Loader } from '#@/components/Loader';
 import { getCarpetaByllaveProceso, } from '#@/lib/project/carpetas';
 import { Fragment, Suspense } from 'react';
 import { notFound } from 'next/navigation';
+import { NombreComponent } from '#@/components/nombre';
+import layout from '#@/styles/layout.module.css';
 
 export default async function PageProcesosLeftllaveProceso(
   {
@@ -23,17 +25,27 @@ export default async function PageProcesosLeftllaveProceso(
 
   return (
     <Fragment key={params.llaveProceso}>
-      <p>Page Left llaveProceso</p>
-
-      <Suspense fallback={<Loader key={Carpeta._id} />}>
-        {Carpeta.idProceso && (
-          <FechaActuacionComponent
-            key={Carpeta.idProceso}
-            carpeta={Carpeta}
-            index={1}
+      <div className={ layout.top }>
+        <Suspense fallback={<Loader />}>
+          <NombreComponent
+            key={Carpeta._id}
+            deudor={Carpeta.deudor}
           />
-        )}
-      </Suspense>
+        </Suspense>
+      </div>
+      <div className={ layout.left }>
+
+
+        <Suspense fallback={<Loader key={Carpeta._id} />}>
+          {Carpeta.idProceso && (
+            <FechaActuacionComponent
+              key={Carpeta.idProceso}
+              carpeta={Carpeta}
+              index={1}
+            />
+          )}
+        </Suspense>
+      </div>
     </Fragment>
   );
 }

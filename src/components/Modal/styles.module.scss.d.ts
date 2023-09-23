@@ -1,6 +1,7 @@
 export type Styles = {
-  overlay: string;
-  wrapper: string;
+  'closed': string;
+  'open': string;
+  'wrapper': string;
 };
 
 export type ClassNames = keyof Styles;

@@ -32,6 +32,10 @@ export const getNotaById = cache(
       id
     }: { id: string }
   ) => {
+    if ( id === 'Nueva' ) {
+      return null;
+    }
+
     const collection = await notasCollection();
 
     const rawNota = await collection.findOne(
@@ -42,14 +46,15 @@ export const getNotaById = cache(
       }
     );
 
-    if ( !rawNota ) {
-      return null;
+    if ( rawNota === null ) {
+      return rawNota;
     }
 
-    const notas = notasConvert.toMonNota(
+    const nota = notasConvert.toMonNota(
       rawNota
     );
 
-    return notas;
+    return nota;
+
   }
 );

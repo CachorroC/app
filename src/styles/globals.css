@@ -238,14 +238,13 @@ html {
   font-size: calc(14px + 8 * (100vw - 600px) / 1320);
 }
 
-.material-symbols-outlined {
-  font-family: "Material Symbols Outlined";
+/* .material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
   text-transform: none;
   letter-spacing: normal;
   word-wrap: normal;
   white-space: nowrap;
-}
-
+} */
 button:focus {
   outline: var(--error) 5px auto;
 }
@@ -341,5 +340,3 @@ input:active {
 input:focus {
   border-bottom: solid 3px var(--primary-fixed);
 }
-
-/*# sourceMappingURL=globals.css.map */

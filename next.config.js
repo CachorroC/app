@@ -10,7 +10,6 @@ const nextConfig = {
     typedRoutes                     : true,
     serverActions                   : true,
     serverComponentsExternalPackages: [
-              '@prisma/client',
               'mongodb',
               'eslint'
     ],

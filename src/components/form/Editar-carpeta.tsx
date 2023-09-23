@@ -10,23 +10,23 @@ import { useEffect } from 'react';
 
 export default function EditCarpeta(
   {
-    carpeta 
-  }: { carpeta: MonCarpeta } 
+    carpeta
+  }: { carpeta: MonCarpeta }
 ) {
   const {
-    reset, handleSubmit 
-  } = useFormContext();
+    reset, handleSubmit
+  } = useFormContext<MonCarpeta>();
 
   function onValid() {}
   useEffect(
     () => {
       reset(
-        carpeta 
+        carpeta
       );
     }, [
               carpeta,
               reset
-    ] 
+    ]
   );
 
   return (
@@ -35,7 +35,7 @@ export default function EditCarpeta(
         <form
           className={form.form}
           onSubmit={handleSubmit(
-            onValid 
+            onValid
           )}
         >
           <section className={form.section}>
@@ -225,7 +225,7 @@ export default function EditCarpeta(
           type="button"
           onClick={() => {
             return reset(
-              carpeta 
+              carpeta
             );
           }}
           value="Reset with values"

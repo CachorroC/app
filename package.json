@@ -18,15 +18,15 @@
   "dependencies": {
     "@prisma/client": "^5.3.1",
     "@types/bcrypt": "^5.0.0",
-    "@types/node": "20.6.2",
-    "@types/react": "18.2.21",
+    "@types/node": "20.6.3",
+    "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "bcrypt": "^5.1.1",
     "eslint": "8.49.0",
-    "eslint-config-next": "13.5.1",
-    "material-symbols": "^0.12.0",
+    "eslint-config-next": "13.5.2",
+    "material-symbols": "^0.13.0",
     "mongodb": "^6.1.0",
-    "next": "13.5.1",
+    "next": "13.5.2",
     "prisma": "^5.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -36,5 +36,10 @@
     "typed-css-modules": "^0.7.2",
     "typescript": "5.2.2",
     "zod": "^3.22.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss@<7.0.36": ">=7.0.36"
+    }
   }
 }

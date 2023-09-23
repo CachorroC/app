@@ -30,7 +30,6 @@ export default function Header (
 
   if ( isNavOpen ) {
     topBar = (
-
       <nav className={ navbar.drawer }>
         <div className={navbar.sidenav}>
           <Suspense fallback={<SearchOutputListSkeleton />}>

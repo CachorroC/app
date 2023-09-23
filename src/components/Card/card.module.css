@@ -11,20 +11,57 @@
 
 .card {
   box-sizing: border-box;
+  justify-content: space-around;
   display: flex;
   flex-flow: row nowrap;
+  height: 100%;
+  align-items: stretch;
+  align-content: space-between;
   padding: 5cqmin;
   gap: 5cqmin;
   border-radius: 2vmin;
   text-align: center;
 }
+.card .content {
+  text-align: center;
+  box-sizing: border-box;
+  padding: 2cqmin;
+  display: flex;
+  border-radius: 2cqmin;
+}
 .card .section {
+  justify-content: space-around;
   display: flex;
   flex-flow: column nowrap;
+  height: 100%;
+  align-items: stretch;
+  align-content: space-between;
 }
-.card .date {
+.card .section > .section {
+  justify-content: space-around;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  align-items: stretch;
+  align-content: space-between;
+}
+.card .section > .section > .actuacion {
+  display: none;
+  font-size: 1rem;
+}
+.card .section > .section > .anotacion {
+  display: none;
+  width: auto;
+}
+.card .section > .section:hover > .actuacion, .card .section > .section:active > .actuacion, .card .section > .section:focus > .actuacion {
+  display: inline;
+}
+.card .section > .section:hover > .anotacion, .card .section > .section:active > .anotacion, .card .section > .section:focus > .anotacion {
+  display: inline;
+}
+.card .section > .section > .date {
   grid-area: date;
-  background-color: var(--surface);
+  background-color: var(--surface-container-highest);
   padding: 2cqmin;
   color: var(--on-surface);
   font-family: var(--font-poiret);
@@ -33,28 +70,8 @@
   box-sizing: border-box;
   text-align: center;
 }
-.card .date > * {
-  width: 100%;
-}
-.card .date > .date {
-  background-color: var(--surface-container-high);
-  padding: 2cqmin;
-  color: var(--on-surface);
-  font-family: var(--font-poiret);
-  border-radius: 2cqmin;
-  align-self: center;
-}
-.card .date > .date > .actuacion {
-  display: none;
-}
-.card .date > .date > .anotacion {
-  display: none;
-}
-.card .date > .date > .fecha {
-  display: flex;
-}
 .card .sub {
-  color: var(--secondary);
+  color: var(--tertiary);
   grid-area: sub;
 }
 
@@ -67,7 +84,11 @@
 .title {
   grid-area: title;
   display: flex;
+  justify-content: space-between;
+  align-items: stretch;
   flex-flow: row nowrap;
+  color: var(--tertiary);
+  text-align: left;
 }
 
 .links {
@@ -229,5 +250,3 @@
   box-shadow: var(--dp16);
   border-radius: 2vmin;
 }
-
-/*# sourceMappingURL=card.module.css.map */

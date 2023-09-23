@@ -10,52 +10,71 @@
 }
 .card {
   box-sizing: border-box;
+  justify-content: space-around;
   display: flex;
   flex-flow: row nowrap;
+  height: 100%;
+  align-items: stretch;
+  align-content: space-between;
   padding: 5cqmin;
   gap: 5cqmin;
   border-radius: 2vmin;
   text-align: center;
+  .content {
+    text-align: center;
+    box-sizing: border-box;
+    padding: 2cqmin;
+    display: flex;
+    border-radius: 2cqmin;
+  }
   .section {
+    justify-content: space-around;
     display: flex;
     flex-flow: column nowrap;
-  }
+    height: 100%;
+    align-items: stretch;
+    align-content: space-between;
+    & > .section {
+       justify-content: space-around;
+    display: flex;
+    flex-flow:column nowrap;
+    height: 100%;
+    align-items: stretch;
+    align-content: space-between;
 
-  .date {
-    grid-area: date;
-    background-color: var(--surface);
-    padding: 2cqmin;
-    color: var(--on-surface);
-    font-family: var(--font-poiret);
-    border-radius: 2cqmin;
-    align-self: center;
-
-    box-sizing: border-box;
-    text-align: center;
-    & > * {
-      width: 100%;
+    & > .actuacion {
+      display: none;
+      font-size: 1rem;
     }
+    & > .anotacion {
+      display: none;
+      width: auto;
+    }
+    &:hover,&:active, &:focus{
+        & > .actuacion {
+      display: inline;
+    }
+    & > .anotacion {
+      display: inline;
+    }
+    }
+
     & > .date {
-      background-color: var(--surface-container-high);
+      grid-area: date;
+      background-color: var(--surface-container-highest);
       padding: 2cqmin;
       color: var(--on-surface);
       font-family: var(--font-poiret);
       border-radius: 2cqmin;
       align-self: center;
-      & > .actuacion {
-        display: none;
-      }
-      & > .anotacion {
-        display: none;
-      }
-      & > .fecha {
-        display: flex;
-      }
+      box-sizing: border-box;
+      text-align: center;
+    }
     }
   }
 
   .sub {
-    color: var(--secondary);
+    color: var(--tertiary);
     grid-area: sub;
   }
 }
@@ -68,10 +87,15 @@
 .title {
   grid-area: title;
   display: flex;
+  justify-content: space-between;
+  align-items: stretch;
   flex-flow: row nowrap;
+  color: var(--tertiary);
+  text-align: left;
 }
 .links {
   display: flex;
+
   flex-flow: column nowrap;
   justify-content: space-evenly;
   grid-area: links;
@@ -84,10 +108,10 @@
     grid-area: icon;
     color: var(--secondary);
     font-variation-settings:
-      'FILL' 0,
-      'wght' 300,
-      'GRAD' 0,
-      'opsz' 24;
+      "FILL" 0,
+      "wght" 300,
+      "GRAD" 0,
+      "opsz" 24;
   }
   &:hover {
     box-shadow: var(--dp8);
@@ -99,10 +123,10 @@
     .icon {
       color: var(--tertiary);
       font-variation-settings:
-        'FILL' 1,
-        'wght' 500,
-        'GRAD' 200,
-        'opsz' 48;
+        "FILL" 1,
+        "wght" 500,
+        "GRAD" 200,
+        "opsz" 48;
     }
   }
   &:focus {
@@ -136,7 +160,7 @@
     opacity: 0;
     transition: all 0.5s;
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       top: 100%;
       left: 50%;
@@ -151,10 +175,10 @@
     grid-area: icon;
     color: var(--on-tertiary-container);
     font-variation-settings:
-      'FILL' 0,
-      'wght' 300,
-      'GRAD' 0,
-      'opsz' 24;
+      "FILL" 0,
+      "wght" 300,
+      "GRAD" 0,
+      "opsz" 24;
     font-size: 1.5rem;
   }
   &:hover,

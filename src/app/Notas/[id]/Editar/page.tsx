@@ -1,14 +1,15 @@
-import { Edit } from 'components/Nota/Edit';
+
 import { getNotaById } from '#@/lib/project/notas';
 import { notFound } from 'next/navigation';
+import { Edit } from '#@/components/Nota/Edit';
+import typography from '#@/styles/fonts/typography.module.scss';
+import layout from '#@/styles/layout.module.css';
 
-export default async function page(
+export default async function NuevaNotallaveProceso(
   {
     params,
   }: {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 }
 ) {
   const nota = await getNotaById(
@@ -22,11 +23,16 @@ export default async function page(
   }
 
   return (
-
-    <Edit
-      key={nota._id}
-      nota={nota}
-    />
-
+    <>
+      <div className={ layout.top }>
+        <h1 className={typography.displayLarge}>{`Nota numero: ${ nota.cod }`}</h1>
+      </div>
+      <div className={ layout.left }>
+        <Edit
+          key={params.id}
+          nota={nota}
+        />
+      </div>
+    </>
   );
 }
