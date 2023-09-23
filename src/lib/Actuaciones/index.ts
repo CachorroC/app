@@ -104,7 +104,7 @@ export const getActuaciones = cache(
 
     if ( actuaciones ) {
       const [
-                ultimaActuacion
+        ultimaActuacion
       ] = actuaciones;
 
       const newDate = new Date(
@@ -142,7 +142,7 @@ export const updateActuaciones = cache(
   }
   ) => {
     const [
-              ultimaActuacion
+      ultimaActuacion
     ] = actuaciones;
 
     const carpetasColl = await carpetasCollection();

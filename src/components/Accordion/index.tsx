@@ -8,8 +8,8 @@ export function Accordion(
   }: { children: ReactNode } 
 ) {
   const [
-            isActive,
-            setIsActive
+    isActive,
+    setIsActive
   ] = useState(
     false 
   );

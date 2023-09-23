@@ -6,27 +6,27 @@ export interface calendarData {
 }
 
 export const nombreDiasSemana = [
-          'Mimingo',
-          'L.unes',
-          'Martes',
-          'Miercoles',
-          'Jueves',
-          'Viernes',
+  'Mimingo',
+  'L.unes',
+  'Martes',
+  'Miercoles',
+  'Jueves',
+  'Viernes',
 ];
 
 export const nombresDeMeses = [
-          'Enero',
-          'Febrero',
-          'Marzo',
-          'Abril',
-          'Mayo',
-          'Junio',
-          'Julio',
-          'Agosto',
-          'Septiembre',
-          'Octubre',
-          'Noviembre',
-          'Diciembre',
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre',
 ];
 
 export function CalendarBuilder(

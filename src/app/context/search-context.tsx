@@ -5,7 +5,8 @@ import React, { createContext,
   SetStateAction,
 
   useState,
-  useContext, } from 'react';
+  useContext,
+  ReactNode, } from 'react';
 
 const SearchContext = createContext<{
   search: string;
@@ -17,11 +18,11 @@ const SearchContext = createContext<{
 export function SearchProvider(
   {
     children
-  }: { children: React.ReactNode }
+  }: { children: ReactNode }
 ) {
   const [
-            search,
-            setSearch
+    search,
+    setSearch
   ] = useState(
     'Buscar'
   );

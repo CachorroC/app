@@ -74,8 +74,8 @@ export const Form = (
         carpeta
       );
     }, [
-              reset,
-              carpeta
+      reset,
+      carpeta
     ]
   );
 
@@ -185,11 +185,11 @@ export const Form = (
             name={'category'}
             title={'Grupo al que pertenece'}
             options={[
-                      'Bancolombia',
-                      'Insolvencia',
-                      'Reintegra',
-                      'LiosJuridicos',
-                      'Terminados',
+              'Bancolombia',
+              'Insolvencia',
+              'Reintegra',
+              'LiosJuridicos',
+              'Terminados',
             ]}
           />
 
@@ -197,9 +197,9 @@ export const Form = (
             name={'tipoProceso'}
             title={'Proceso del Tipo'}
             options={[
-                      'SINGULAR',
-                      'HIPOTECARIO',
-                      'PRENDARIO'
+              'SINGULAR',
+              'HIPOTECARIO',
+              'PRENDARIO'
             ]}
           />
           <section className={form.section}>

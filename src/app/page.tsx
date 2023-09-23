@@ -31,7 +31,7 @@ export default function Page() {
         </Link>
         <Link
           className={ layout.link }
-          href={ '/Carpetas' }
+          href={ '/Carpetas' as Route}
         >
           <span className="material-symbols-outlined">folder_open</span>
           <h1 className={ typography.displayMedium }>{ 'Carpetas' }</h1>
@@ -72,13 +72,7 @@ export default function Page() {
           <h1 className={ typography.displayMedium }>{ 'Quienes Somos' }</h1>
         </Link>
 
-        <Link
-          className={ layout.link }
-          href={ '/Carpetas' }
-        >
-          <span className="material-symbols-outlined">person_pin</span>
-          <h1 className={ typography.displayMedium }>{ 'Demandados' }</h1>
-        </Link>
+
       </div></>
   );
 }

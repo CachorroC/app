@@ -35,15 +35,15 @@ export function MainProvider(
   }: { children: ReactNode }
 ) {
   const [
-            category,
-            setCategory
+    category,
+    setCategory
   ] = useState(
     'todos'
   );
 
   const [
-            contactoForm,
-            setContactoForm
+    contactoForm,
+    setContactoForm
   ] = useState(
     {
       nombre    : ' ',
@@ -57,8 +57,8 @@ export function MainProvider(
   );
 
   const [
-            inputNota,
-            setInputNota
+    inputNota,
+    setInputNota
   ] = useState<intNota>(
     {
       cod         : 0,

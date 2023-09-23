@@ -8,9 +8,9 @@ export default async function Page(
 }
 ) {
   const [
-            ano,
-            mes,
-            dia
+    ano,
+    mes,
+    dia
   ]= params.fecha;
 
   const rawTareas = await getTareas();

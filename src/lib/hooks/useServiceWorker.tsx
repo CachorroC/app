@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 export function useServiceWorker() {
   const [
-            counter,
-            setCounter
+    counter,
+    setCounter
   ] = useState(
     0
   );
@@ -69,9 +69,9 @@ export function useServiceWorker() {
         );
       };
     }, [
-              counter,
-              setCounter,
-              sw
+      counter,
+      setCounter,
+      sw
     ]
   );
 }

@@ -7,8 +7,8 @@ export default function ModalDialog(
   }: { children: ReactNode } 
 ) {
   const [
-            isOpen,
-            setShow
+    isOpen,
+    setShow
   ] = useState(
     false 
   );
@@ -30,7 +30,7 @@ export default function ModalDialog(
         dialog && dialog.close();
       };
     }, [
-              isOpen
+      isOpen
     ] 
   );
 

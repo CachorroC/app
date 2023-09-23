@@ -11,15 +11,15 @@ export function Task(
   }: { task: monNota }
 ) {
   const [
-            isEditing,
-            setIsEditing
+    isEditing,
+    setIsEditing
   ] = useState(
     false
   );
 
   const [
-            message,
-            setMessage
+    message,
+    setMessage
   ] = useState(
     ''
   );

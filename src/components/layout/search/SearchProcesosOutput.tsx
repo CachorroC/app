@@ -2,8 +2,12 @@
 import { LinkCard } from './link';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { useCategory } from '#@/app/context/main-context';
-import { arraySorter } from '#@/lib/project/helper';
 import { useSearch } from '#@/app/context/search-context';
+import { useReducer } from 'react';
+import carpetasReducer from '#@/lib/hooks/carpetas-reducer';
+import { buttonDrawerMenu } from '#@/components/Buttons/buttons.module.css';
+import { section } from '#@/components/form/form.module.css';
+
 
 export default function SearchOutputList(
   {
@@ -24,10 +28,14 @@ export default function SearchOutputList(
 
   const rows: any[] = [];
 
-  const byNombre = arraySorter(
-    fechas, 'fechas'
+  const [
+    carpetasReduced,
+    dispatchCarpetas
+  ] =useReducer(
+    carpetasReducer, fechas
   );
-  byNombre.forEach(
+
+  carpetasReduced.forEach(
     (
       proceso
     ) => {
@@ -44,11 +52,59 @@ export default function SearchOutputList(
             path={path}
             carpeta={proceso}
             key={proceso._id}
-          />,
+          />
         );
       }
     }
   );
 
-  return <>{rows}</>;
+  function handleSortByNombre() {
+    dispatchCarpetas(
+      {
+        type: 'nombre',
+      }
+    );
+  }
+
+  function handleSortByApellido() {
+    dispatchCarpetas(
+      {
+        type: 'primerApellido',
+      }
+    );
+  }
+
+  function handleSortByNumero() {
+    dispatchCarpetas(
+      {
+        type: 'numero',
+      }
+    );
+  }
+
+  function handleSortByFecha() {
+    dispatchCarpetas(
+      {
+        type: 'fecha',
+      }
+    );
+  }
+
+  return <>
+    <div className={ section }>
+      <h1>{'ordenar:'}</h1>
+      <button type='button' onClick={ handleSortByNombre } className={ buttonDrawerMenu }>
+        <p>Nombre</p>
+      </button>
+      <button type='button' onClick={ handleSortByApellido } className={ buttonDrawerMenu }>
+        <p>Apellido</p>
+      </button>
+      <button type='button' onClick={ handleSortByNumero } className={ buttonDrawerMenu }>
+        <p>Numero de Carpeta</p>
+      </button>
+      <button type='button' onClick={ handleSortByFecha } className={ buttonDrawerMenu }>
+        <p>Fecha de ultima actuacion</p>
+      </button>
+    </div>
+    { rows }</>;
 }

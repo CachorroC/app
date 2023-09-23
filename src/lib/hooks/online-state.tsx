@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 
 export function useOnlineStatus() {
   const [
-            isOnline,
-            setIsOnline
+    isOnline,
+    setIsOnline
   ] = useState(
     true 
   );
@@ -63,7 +63,7 @@ export function useOnlineStatus() {
         );
       };
     }, [
-              setIsOnline
+      setIsOnline
     ] 
   );
 

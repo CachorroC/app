@@ -1,10 +1,7 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { ReactNode, Suspense, useState } from 'react';
 import layout from '#@/styles/layout.module.css';
-import type { MonCarpeta } from 'types/carpetas';
-import SearchOutputList from './search/SearchProcesosOutput';
-import SearchOutputListSkeleton from './search/SearchProcesosOutputSkeleton';
 import navbar from 'components/layout/navbar.module.css';
 import type { Route } from 'next';
 import Link from 'next/link';
@@ -15,14 +12,14 @@ import { Loader } from '../Loader';
 
 export default function Header (
   {
-    carpetas
-  }: {carpetas: MonCarpeta[]}
+    children
+  }: {children: ReactNode}
 ) {
   const router = useRouter();
 
   const [
-            isNavOpen,
-            setIsNavOpen
+    isNavOpen,
+    setIsNavOpen
   ] = useState(
     false
   );
@@ -32,17 +29,12 @@ export default function Header (
     topBar = (
       <nav className={ navbar.drawer }>
         <div className={navbar.sidenav}>
-          <Suspense fallback={<SearchOutputListSkeleton />}>
-            <SearchOutputList
-              path={'/Procesos'}
-              fechas={carpetas}
-            />
-          </Suspense>
+          {children}
         </div>
 
         <Link
           className={navbar.button}
-          href={'/Carpetas'}
+          href={'/Carpetas' as Route}
         >
           {'Carpetas'}
         </Link>

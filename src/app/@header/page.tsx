@@ -1,11 +1,16 @@
 
+import CarpetasList from '#@/components/Carpetas/client/carpetasList';
 import Header from '#@/components/layout/header';
-import getCarpetas from '#@/lib/project/getCarpetas';
+import SearchOutputListSkeleton from '#@/components/layout/search/SearchProcesosOutputSkeleton';
+import { Suspense } from 'react';
 
-export default async function Page () {
-  const carpetas = await getCarpetas();
+export default function Page () {
 
   return (
-    <Header carpetas={ carpetas} />
+    <Header  >
+      <Suspense fallback={<SearchOutputListSkeleton />}>
+        <CarpetasList path={ '/Procesos' }  />
+      </Suspense>
+    </Header>
   );
 }

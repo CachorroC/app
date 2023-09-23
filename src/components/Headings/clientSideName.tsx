@@ -10,13 +10,13 @@ export const Name = (
   const today = new Date();
 
   const days = [
-            'mimingo',
-            'Lunes',
-            'Martes',
-            'Miercoles',
-            'Jueves',
-            'Viernes',
-            'Sabado',
+    'mimingo',
+    'Lunes',
+    'Martes',
+    'Miercoles',
+    'Jueves',
+    'Viernes',
+    'Sabado',
   ];
 
 

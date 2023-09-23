@@ -97,9 +97,7 @@ $MaxSW: 480px; //maximum sma width
   & > * {
     flex: 1 0 auto;
   }
-  @media (width < 600px) {
-    display: none;
-  }
+
 }
 
 .top {
@@ -113,13 +111,20 @@ $MaxSW: 480px; //maximum sma width
   justify-content: space-between;
   align-items: stretch;
   grid-area: top;
+  overflow: auto;
+
 
   & > * {
     flex: 1 1 100%;
   }
+  @media (width < 600px){
+    flex-flow: row nowrap;
+
+  }
   @media (1200px<width) {
     flex-flow: row nowrap;
   }
+
 }
 
 .left {
@@ -144,6 +149,10 @@ $MaxSW: 480px; //maximum sma width
     flex-basis: 20%;
     align-self: stretch;
     order: 0;
+  }
+ @media (width < 600px) {
+    display: flex;
+    flex-flow: column nowrap;
   }
 }
 

@@ -20,8 +20,8 @@ export function ModalProvider(
   }: { children: React.ReactNode }
 ) {
   const [
-            isModalOpen,
-            setIsModalOpen
+    isModalOpen,
+    setIsModalOpen
   ] = useState(
     false
   );

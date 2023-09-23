@@ -45,11 +45,11 @@ export default function Costos() {
     {
       defaultValues: {
         cart: [
-                  {
-                    name    : 'test',
-                    quantity: 1,
-                    price   : 23000,
-                  },
+          {
+            name    : 'test',
+            quantity: 1,
+            price   : 23000,
+          },
         ],
       },
       mode: 'onBlur',

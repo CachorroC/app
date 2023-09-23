@@ -20,7 +20,7 @@ export default async function Procesos() {
   const carpetasRaw = await getCarpetas();
 
   const carpetas = [
-            ...carpetasRaw
+    ...carpetasRaw
   ].sort(
     (
       a, b

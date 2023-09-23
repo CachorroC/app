@@ -117,15 +117,15 @@ export async function POST(
   const updateOne = await collection.findOneAndUpdate(
     {
       $or: [
-                {
-                  numero: incomingCarpeta.numero,
-                },
-                {
-                  idProceso: incomingCarpeta.idProceso,
-                },
-                {
-                  'deudor.cedula': incomingCarpeta.deudor.cedula,
-                },
+        {
+          numero: incomingCarpeta.numero,
+        },
+        {
+          idProceso: incomingCarpeta.idProceso,
+        },
+        {
+          'deudor.cedula': incomingCarpeta.deudor.cedula,
+        },
       ],
     },
     {

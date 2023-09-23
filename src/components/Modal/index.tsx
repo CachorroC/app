@@ -30,8 +30,8 @@ export default function Modal(
       );
       router.back();
     }, [
-              router,
-              setIsModalOpen
+      router,
+      setIsModalOpen
     ]
   );
 
@@ -46,9 +46,9 @@ export default function Modal(
       }
     },
     [
-              onDismiss,
-              overlay,
-              wrapper
+      onDismiss,
+      overlay,
+      wrapper
     ],
   );
 
@@ -61,7 +61,7 @@ export default function Modal(
       }
     },
     [
-              onDismiss
+      onDismiss
     ],
   );
 
@@ -77,7 +77,7 @@ export default function Modal(
         );
       };
     }, [
-              onKeyDown
+      onKeyDown
     ]
   );
 

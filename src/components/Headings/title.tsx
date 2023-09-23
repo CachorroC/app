@@ -14,13 +14,13 @@ export default function Title(
 
 
   const days = [
-            'mimingo',
-            'Lunes',
-            'Martes',
-            'Miercoles',
-            'Jueves',
-            'Viernes',
-            'Sabado',
+    'mimingo',
+    'Lunes',
+    'Martes',
+    'Miercoles',
+    'Jueves',
+    'Viernes',
+    'Sabado',
   ];
 
 

@@ -50,7 +50,7 @@
       "error",
       2,
       {
-        "ArrayExpression": 5,
+        "ArrayExpression": 1,
         "CallExpression": {
           "arguments": 1
         },
@@ -65,7 +65,7 @@
         "ImportDeclaration": 1,
         "MemberExpression": 1,
         "ObjectExpression": 1,
-        "SwitchCase": 4,
+        "SwitchCase": 2,
         "VariableDeclarator": 1,
         "offsetTernaryExpressions": true
       }

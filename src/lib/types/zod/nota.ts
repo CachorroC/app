@@ -10,8 +10,8 @@ export const ZodNotaElementSchema = z.object(
     'done'        : z.coerce.boolean(),
     'llaveProceso': z.union(
       [
-                z.null(),
-                z.coerce.string()
+        z.null(),
+        z.coerce.string()
       ]
     )
       .optional(),

@@ -154,7 +154,7 @@ export async function fetchProceso(
       {
         next: {
           tags: [
-                    'procesos'
+            'procesos'
           ],
         },
       },

@@ -8,8 +8,8 @@ import { Poiret_One,
 export const inter = Inter(
   {
     subsets: [
-              'latin-ext',
-              'latin'
+      'latin-ext',
+      'latin'
     ],
     variable: '--inter',
   } 
@@ -18,7 +18,7 @@ export const inter = Inter(
 export const josefina = Josefin_Sans(
   {
     subsets: [
-              'latin'
+      'latin'
     ],
     variable: '--josefa',
   } 
@@ -27,7 +27,7 @@ export const josefina = Josefin_Sans(
 export const raleway = Raleway(
   {
     subsets: [
-              'latin'
+      'latin'
     ],
     variable: '--raleway',
   } 
@@ -36,16 +36,16 @@ export const raleway = Raleway(
 export const roboto = Roboto(
   {
     subsets: [
-              'latin'
+      'latin'
     ],
     variable: '--roboto',
     weight  : [
-              '100',
-              '300',
-              '400',
-              '500',
-              '700',
-              '900'
+      '100',
+      '300',
+      '400',
+      '500',
+      '700',
+      '900'
     ],
   } 
 );
@@ -55,8 +55,8 @@ export const poiret = Poiret_One(
     weight  : '400',
     variable: '--font-poiret',
     subsets : [
-              'latin',
-              'latin-ext'
+      'latin',
+      'latin-ext'
     ],
   } 
 );

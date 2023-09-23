@@ -19,7 +19,7 @@ export default function Error(
         error 
       );
     }, [
-              error
+      error
     ] 
   );
 

@@ -5,6 +5,7 @@ import { revalidateTag } from 'next/cache';
 import { ZodNotaElementSchema } from '#@/lib/types/zod/nota';
 import { notasCollection } from '#@/lib/connection/mongodb';
 import { ObjectId } from 'mongodb';
+import { notasConvert } from '#@/lib/types/notas';
 
 export async function createNota(
   formData: FormData
@@ -222,9 +223,13 @@ export async function editNota(
 
     }
 
+    const notaSerialized = notasConvert.toMonNota(
+      nota
+    );
+
     return {
-      message: 'success',
-      data   : nota
+      message: `success: ${ notaSerialized._id }`,
+      data   : notaSerialized
     };
   } catch ( errorSubmitNota ) {
     console.log(

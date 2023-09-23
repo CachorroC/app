@@ -183,11 +183,11 @@ export const NuevoProceso = (
               name={'category'}
               title={'Grupo al que pertenece'}
               options={[
-                        'Bancolombia',
-                        'Insolvencia',
-                        'Reintegra',
-                        'LiosJuridicos',
-                        'Terminados',
+                'Bancolombia',
+                'Insolvencia',
+                'Reintegra',
+                'LiosJuridicos',
+                'Terminados',
               ]}
             />
 
@@ -195,9 +195,9 @@ export const NuevoProceso = (
               name={'tipoProceso'}
               title={'Proceso del Tipo'}
               options={[
-                        'SINGULAR',
-                        'HIPOTECARIO',
-                        'PRENDARIO'
+                'SINGULAR',
+                'HIPOTECARIO',
+                'PRENDARIO'
               ]}
             />
             <section className={form.section}>

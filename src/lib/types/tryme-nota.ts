@@ -419,38 +419,38 @@ function r(
 const typeMap: any = {
   'MonNota': o(
     [
-              {
-                json: '_id',
-                js  : '_id',
-                typ : ''
-              },
-              {
-                json: 'text',
-                js  : 'text',
-                typ : ''
-              },
-              {
-                json: 'date',
-                js  : 'date',
-                typ : Date
-              },
-              {
-                json: 'pathname',
-                js  : 'pathname',
-                typ : ''
-              },
-              {
-                json: 'done',
-                js  : 'done',
-                typ : true
-              },
-              {
-                json: 'llaveProceso',
-                js  : 'llaveProceso',
-                typ : u(
-                  undefined, ''
-                )
-              },
+      {
+        json: '_id',
+        js  : '_id',
+        typ : ''
+      },
+      {
+        json: 'text',
+        js  : 'text',
+        typ : ''
+      },
+      {
+        json: 'date',
+        js  : 'date',
+        typ : Date
+      },
+      {
+        json: 'pathname',
+        js  : 'pathname',
+        typ : ''
+      },
+      {
+        json: 'done',
+        js  : 'done',
+        typ : true
+      },
+      {
+        json: 'llaveProceso',
+        js  : 'llaveProceso',
+        typ : u(
+          undefined, ''
+        )
+      },
     ], false
   ),
 };

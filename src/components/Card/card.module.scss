@@ -99,6 +99,9 @@
   flex-flow: column nowrap;
   justify-content: space-evenly;
   grid-area: links;
+  @media (width < 600px){
+    flex-flow: row nowrap;
+  }
 }
 .link {
   background-color: var(--secondary-container);

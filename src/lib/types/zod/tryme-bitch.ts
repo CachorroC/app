@@ -2,11 +2,11 @@ import * as z from 'zod';
 
 export const CategorySchema = z.enum(
   [
-            'Bancolombia',
-            'Insolvencia',
-            'LiosJuridicos',
-            'Reintegra',
-            'Terminados',
+    'Bancolombia',
+    'Insolvencia',
+    'LiosJuridicos',
+    'Reintegra',
+    'Terminados',
   ] 
 );
 
@@ -14,14 +14,14 @@ export type Category = z.infer<typeof CategorySchema>;
 
 export const DepartamentoSchema = z.enum(
   [
-            'BOYACÁ',
-            'CNDINAMARCA',
-            'CUN DINAMARCA',
-            'CUNDINAMARCA',
-            'CUNDINNAMARCA',
-            'CUNDINAMARCA ',
-            'CUNDINNAMARCA ',
-            'TOLIMA',
+    'BOYACÁ',
+    'CNDINAMARCA',
+    'CUN DINAMARCA',
+    'CUNDINAMARCA',
+    'CUNDINNAMARCA',
+    'CUNDINAMARCA ',
+    'CUNDINNAMARCA ',
+    'TOLIMA',
   ] 
 );
 
@@ -29,11 +29,11 @@ export type Departamento = z.infer<typeof DepartamentoSchema>;
 
 export const TipoProcesoSchema = z.enum(
   [
-            'ACUMULADO',
-            'HIPOTECARIA',
-            'HIPOTECARIO',
-            'PRENDARIO',
-            'SINGULAR',
+    'ACUMULADO',
+    'HIPOTECARIA',
+    'HIPOTECARIO',
+    'PRENDARIO',
+    'SINGULAR',
   ] 
 );
 
@@ -41,7 +41,7 @@ export type TipoProceso = z.infer<typeof TipoProcesoSchema>;
 
 export const CodReglaSchema = z.enum(
   [
-            '00                              '
+    '00                              '
   ] 
 );
 
@@ -56,20 +56,20 @@ export const UltimaActuacionSchema = z.object(
     actuacion     : z.coerce.string(),
     anotacion     : z.union(
       [
-                z.null(),
-                z.coerce.string()
+        z.null(),
+        z.coerce.string()
       ] 
     ),
     fechaInicial: z.union(
       [
-                z.coerce.date(),
-                z.null()
+        z.coerce.date(),
+        z.null()
       ] 
     ),
     fechaFinal: z.union(
       [
-                z.coerce.date(),
-                z.null()
+        z.coerce.date(),
+        z.null()
       ] 
     ),
     fechaRegistro: z.coerce.date(),
@@ -85,15 +85,15 @@ export const TelSchema = z.object(
   {
     fijo: z.union(
       [
-                z.coerce.number(),
-                z.null()
+        z.coerce.number(),
+        z.null()
       ] 
     )
       .optional(),
     celular: z.union(
       [
-                z.coerce.number(),
-                z.null()
+        z.coerce.number(),
+        z.null()
       ] 
     )
       .optional(),
@@ -108,23 +108,23 @@ export const DeudorSchema = z.object(
     primerNombre : z.coerce.string(),
     segundoNombre: z.union(
       [
-                z.null(),
-                z.coerce.string()
+        z.null(),
+        z.coerce.string()
       ] 
     )
       .optional(),
     primerApellido : z.coerce.string(),
     segundoApellido: z.union(
       [
-                z.null(),
-                z.coerce.string()
+        z.null(),
+        z.coerce.string()
       ] 
     )
       .optional(),
     cedula: z.union(
       [
-                z.coerce.number(),
-                z.null()
+        z.coerce.number(),
+        z.null()
       ] 
     ),
     direccion: z.coerce.string(),
@@ -148,8 +148,8 @@ export const DemandaSchema = z.object(
   {
     departamento: z.union(
       [
-                DepartamentoSchema,
-                z.null()
+        DepartamentoSchema,
+        z.null()
       ] 
     ),
     juzgados: z.array(
@@ -157,28 +157,28 @@ export const DemandaSchema = z.object(
     ),
     capitalAdeudado: z.union(
       [
-                z.coerce.number(),
-                z.null(),
-                z.coerce.string()
+        z.coerce.number(),
+        z.null(),
+        z.coerce.string()
       ] 
     ),
     entregaGarantiasAbogado: z.union(
       [
-                z.coerce.date(),
-                z.null()
+        z.coerce.date(),
+        z.null()
       ] 
     ),
     etapaProcesal: z.union(
       [
-                z.null(),
-                z.coerce.string()
+        z.null(),
+        z.coerce.string()
       ] 
     )
       .optional(),
     fechaPresentacion: z.union(
       [
-                z.null(),
-                z.coerce.date()
+        z.null(),
+        z.coerce.date()
       ] 
     ),
     municipio : z.coerce.string(),
@@ -186,31 +186,31 @@ export const DemandaSchema = z.object(
       z.coerce.string(),
       z.union(
         [
-                  z.coerce.number(),
-                  z.coerce.string()
+          z.coerce.number(),
+          z.coerce.string()
         ] 
       ),
     ),
     radicado         : z.coerce.string(),
     vencimientoPagare: z.union(
       [
-                z.array(
-                  z.union(
-                    [
-                              z.coerce.date(),
-                              z.null()
-                    ] 
-                  ) 
-                ),
-                z.null(),
-                z.coerce.string(),
+        z.array(
+          z.union(
+            [
+              z.coerce.date(),
+              z.null()
+            ] 
+          ) 
+        ),
+        z.null(),
+        z.coerce.string(),
       ] 
     ),
     expediente             : z.coerce.string(),
     entregagarantiasAbogado: z.union(
       [
-                z.null(),
-                z.coerce.string()
+        z.null(),
+        z.coerce.string()
       ] 
     )
       .optional(),
@@ -228,8 +228,8 @@ export const IntCarpetaElementSchema = z.object(
     tipoProceso: TipoProcesoSchema,
     idProceso  : z.union(
       [
-                z.coerce.number(),
-                z.null()
+        z.coerce.number(),
+        z.null()
       ] 
     )
       .optional(),
@@ -238,22 +238,22 @@ export const IntCarpetaElementSchema = z.object(
     demanda     : DemandaSchema,
     fecha       : z.union(
       [
-                z.coerce.date(),
-                z.null()
+        z.coerce.date(),
+        z.null()
       ] 
     )
       .optional(),
     ultimaActuacion: z.union(
       [
-                UltimaActuacionSchema,
-                z.null()
+        UltimaActuacionSchema,
+        z.null()
       ] 
     )
       .optional(),
     nombre: z.union(
       [
-                z.null(),
-                z.coerce.string()
+        z.null(),
+        z.coerce.string()
       ] 
     )
       .optional(),

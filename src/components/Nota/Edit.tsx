@@ -1,7 +1,7 @@
 'use client';
 import {  editNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from 'components/form/form.module.css';
 import { monNota } from '#@/lib/types/notas';
 
@@ -14,12 +14,21 @@ export const Edit = (
     inputNota, setInputNota
   } = useNotaContext();
 
+  const focusRef = useRef(
+    null
+  );
+
   const [
-            message,
-            setMessage
+    message,
+    setMessage
   ] = useState<string>(
     ''
   );
+
+  const dateString = inputNota.date.toISOString()
+    .slice(
+      0, 10
+    );
 
   async function onCreate(
     formData: FormData
@@ -37,25 +46,15 @@ export const Edit = (
       setInputNota(
         nota
       );
+      focusRef.current.focus();
     }, [
-              nota,
-              setInputNota
+      nota,
+      setInputNota
     ]
   );
 
-  const inputMonth = String(
-    inputNota.date.getMonth() + 1
-  )
-    .padStart(
-      2, '0'
-    );
 
-  const inputDate = String(
-    inputNota.date.getDate()
-  )
-    .padStart(
-      2, '0'
-    );
+
 
   return ( <div className={styles.container}>
     <form
@@ -82,10 +81,11 @@ export const Edit = (
             : ''}
         />
       </section>
-      <label className={styles.label} htmlFor={'text'}>{'Contenido'}</label>
+      <label className={styles.label} htmlFor={'text'}>{'Nota:'}</label>
       <input
         className={styles.textArea}
         type="text"
+        ref={focusRef}
         name="text"
         value={inputNota.text}
         onChange={(
@@ -99,14 +99,28 @@ export const Edit = (
           );
         }}
       />
+
       <section className={styles.section}>
-        <label className={styles.label} htmlFor={'date'}>{'Fecha'}</label>
+        <label className={styles.label} htmlFor={'date'}>{'Fecha controlled'}</label>
         <input
           type="date"
           className={styles.textArea}
           name="date"
-          defaultValue={`${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }`}
+          value={ dateString }
+          onChange={ (
+            e
+          ) => {
+            setInputNota(
+              {
+                ...inputNota,
+                date: new Date(
+                  e.target.value
+                )
+              }
+            );
+          }}
         />
+        <p>{dateString}</p>
       </section>
       <section className={styles.section}><label className={styles.label} htmlFor={'pathname'}>{'Ruta'}</label>
         <input

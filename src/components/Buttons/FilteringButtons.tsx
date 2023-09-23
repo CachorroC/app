@@ -37,21 +37,21 @@ export const CategoryButton = (
 
 export const CategoryFilterButton = () => {
   const categorias = [
-            'Reintegra',
-            'Bancolombia',
-            'LiosJuridicos',
-            'Insolvencia',
-            'Terminados',
-            'todos',
+    'Reintegra',
+    'Bancolombia',
+    'LiosJuridicos',
+    'Insolvencia',
+    'Terminados',
+    'todos',
   ];
 
   const icons = [
-            'integration_instructions',
-            'account_balance_wallet',
-            'gavel',
-            'money_off',
-            'group_remove',
-            'clear_all',
+    'integration_instructions',
+    'account_balance_wallet',
+    'gavel',
+    'money_off',
+    'group_remove',
+    'clear_all',
   ];
 
   return (

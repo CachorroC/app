@@ -29,7 +29,7 @@ export const FechaActuacionComponent = async (
   }
 
   const [
-            ultimaActuacion
+    ultimaActuacion
   ] = actuaciones;
 
   return (

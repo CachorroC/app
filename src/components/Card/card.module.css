@@ -97,6 +97,11 @@
   justify-content: space-evenly;
   grid-area: links;
 }
+@media (width < 600px) {
+  .links {
+    flex-flow: row nowrap;
+  }
+}
 
 .link {
   background-color: var(--secondary-container);
