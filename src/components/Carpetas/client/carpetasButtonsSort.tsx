@@ -2,12 +2,17 @@
 
 import { useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
 import { buttonDrawerMenu } from '#@/components/Buttons/buttons.module.css';
-import { IntCarpeta, MonCarpeta } from '#@/lib/types/carpetas';
 import { useState } from 'react';
 
-export function CarpetasSortButtons ({carpeta}:{carpeta: MonCarpeta}) {
+export function CarpetasSortButtons (
+  {
+    keys
+  }:{keys:string[]}
+) {
   const dispatchCarpetas = useCarpetaSortDispatch();
-  const carpetaKeys = Object.keys(carpeta)
+
+
+
   const [
     sortDirection,
     setSortDirection
@@ -15,66 +20,48 @@ export function CarpetasSortButtons ({carpeta}:{carpeta: MonCarpeta}) {
     true
   );
 
-  function handleSortByNombre() {
-    return dispatchCarpetas(
-      {
-        type         : 'primerNombre',
-        sortDirection: sortDirection
-      }
-    );
-  }
-
-  function handleSortByApellido() {
-    return dispatchCarpetas(
-      {
-        type         : 'primerApellido',
-        sortDirection: sortDirection
-      }
-    );
-  }
-
-  function handleSortByNumero() {
-    return dispatchCarpetas(
-      {
-        type         : 'numero',
-        sortDirection: sortDirection
-      }
-    );
-  }
-
-  function handleSortByFecha() {
-    return dispatchCarpetas(
-      {
-        type         : 'fecha',
-        sortDirection: sortDirection
-      }
-    );
-  }
 
   return (
-    <><h1>{ 'ordenar:' }</h1>
-      <button className={ buttonDrawerMenu } type='button' onClick={ () => {
-        setSortDirection(
-          sortDirection
-            ? false
-            : true
-        );
-      } }>
+    <>
+      <div>
+        <h1>{ 'ordenar:' }</h1>
         <span> {sortDirection
           ? 'ascendente'
-          : 'descendente' }</span>
+          : 'descendente' } </span>
         <span className='material-symbols-outlined'>{sortDirection
-          ? 'arrow_downward'
-          : 'arrow_upward'}</span>
-      </button><button type='button' onClick={ handleSortByNombre } className={ buttonDrawerMenu }>
-        <p>Nombre</p>
+          ? 'arrow_upward'
+          : 'arrow_downward' }</span>
+      </div>
+      { keys.map(
+        (
+          key
+        ) => {
+          return (
+            <button type='button' onClick={
+              () => {
+                setSortDirection(
+                  (
+                    d
+                  ) => {
+                    return !d;
+                  }
+                );
+                dispatchCarpetas(
+                  {
+                    type         : key,
+                    sortDirection: sortDirection
+                  }
+                );
+              }
+            } className={ buttonDrawerMenu } key={ key }>
 
-      </button><button type='button' onClick={ handleSortByApellido } className={ buttonDrawerMenu }>
-        <p>Apellido</p>
-      </button><button type='button' onClick={ handleSortByNumero } className={ buttonDrawerMenu }>
-        <p>Numero de Carpeta</p>
-      </button><button type='button' onClick={ handleSortByFecha } className={ buttonDrawerMenu }>
-        <p>Fecha de ultima actuacion</p>
-      </button></>
+
+              {key}
+            </button>
+          );
+        }
+      )
+      }</>
+
   );
 }

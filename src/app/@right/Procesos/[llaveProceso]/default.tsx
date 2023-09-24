@@ -1,4 +1,4 @@
-import { Calendar } from '#@/components/Calendar/main';
+import { Calendar } from '#@/components/Buttons/Calendar/main';
 import { CarpetaCard } from '#@/components/Card/carpeta';
 import { Loader } from '#@/components/Loader';
 import { NuevaNota } from '#@/components/Nota/client/nueva-nota';

@@ -67,7 +67,6 @@
   justify-content: space-between;
   align-items: stretch;
   grid-area: top;
-  overflow: auto;
 }
 .top > * {
   flex: 1 1 100%;

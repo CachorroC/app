@@ -14,7 +14,7 @@
   box-sizing: border-box;
   padding: 2vmin;
   border-radius: 2vmin;
-  flex: 1 0 auto;
+  flex: 1;
   display: flex;
   flex-flow: column nowrap;
   justify-items: center;
@@ -63,13 +63,13 @@
 }
 .buttonModal,
 .activeModal {
-  grid-area: drawerMenuButton;
-  background-color: var(--primary-container);
+  grid-area: modal;
+  background-color: var(--tertiary-container);
 }
 .buttonModal > .icon, .buttonModal > .text,
 .activeModal > .icon,
 .activeModal > .text {
-  color: var(--on-primary-container);
+  color: var(--on-tertirary-container);
 }
 .buttonHome,
 .activeHome {

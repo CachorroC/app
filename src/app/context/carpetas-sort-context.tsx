@@ -27,9 +27,6 @@ export function CarpetasSortProvider(
       carpetasReduced
     }>
       <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
-
-
-
         { children }
       </CarpetasSortDispatchContext.Provider>
     </CarpetasSortContext.Provider>
@@ -72,6 +69,24 @@ export function carpetasReducer(
     sortDirection, type
   } = action;
 
+  const asc = [
+    -1,
+    0,
+    1
+  ];
+
+  const dsc = [
+    1,
+    0,
+    -1
+  ];
+
+  const sorter = sortDirection
+    ? asc
+    : dsc;
+
+
+
   switch ( type ) {
       case 'fecha': {
 
@@ -82,15 +97,11 @@ export function carpetasReducer(
             a, b
           ) => {
             if ( !a.fecha || a.fecha === undefined ) {
-              return ( sortDirection
-                ? 1
-                : -1 );
+              return sorter[ 2 ];
             }
 
             if ( !b.fecha || b.fecha === undefined ) {
-              return ( sortDirection
-                ? -1
-                : 1 );
+              return sorter[ 0 ];
             }
 
             const x = a.fecha.toISOString();
@@ -98,22 +109,70 @@ export function carpetasReducer(
             const y = b.fecha.toISOString();
 
             if ( x < y ) {
-              return ( sortDirection
-                ? 1
-                : -1 );
+              return sorter[ 2 ];
             }
 
             if ( x > y ) {
-              return ( sortDirection
-                ? -1
-                : 1 );
+              return sorter[ 0 ];
             }
 
-            return 0;
+            return sorter[ 1 ];
           }
         );
 
       }
+
+      case 'category': {
+        return [
+          ...carpetas
+        ].sort(
+          (
+            a, b
+          ) => {
+
+
+
+            const x = a.categoryTag;
+
+            const y = b.categoryTag;
+
+            if ( x < y ) {
+              return sorter[ 2 ];
+            }
+
+            if ( x > y ) {
+              return sorter[ 0 ];
+            }
+
+            return sorter[ 1 ];
+          }
+        );
+      }
+
+      case 'categoryTag': {
+        return [
+          ...carpetas
+        ].sort(
+          (
+            a, b
+          ) => {
+            const x = a.categoryTag;
+
+            const y = b.categoryTag;
+
+            if ( x < y ) {
+              return sorter[ 2 ];
+            }
+
+            if ( x > y ) {
+              return sorter[ 0 ];
+            }
+
+            return sorter[ 1 ];
+          }
+        );
+      }
+
 
       case 'numero': {
 
@@ -127,19 +186,11 @@ export function carpetasReducer(
 
             const y = b.numero;
 
-            if ( x < y ) {
-              return ( sortDirection
-                ? 1
-                : -1 );
-            }
+            const idk  = sortDirection
+              ? x-y
+              : y-x;
 
-            if ( x > y ) {
-              return ( sortDirection
-                ? -1
-                : 1 );
-            }
-
-            return 0;
+            return idk;
           }
         );
       }
@@ -157,18 +208,14 @@ export function carpetasReducer(
             const y = b.nombre;
 
             if ( x < y ) {
-              return ( sortDirection
-                ? 1
-                : -1 );
+              return sorter[ 2 ];
             }
 
             if ( x > y ) {
-              return ( sortDirection
-                ? -1
-                : 1 );
+              return sorter[ 0 ];
             }
 
-            return 0;
+            return sorter[ 1 ];
           }
         );
       }
@@ -194,7 +241,7 @@ export function carpetasReducer(
               return -1;
             }
 
-            return 0;
+            return sorter[ 1 ];
           }
         );
       }
@@ -220,15 +267,33 @@ export function carpetasReducer(
               return -1;
             }
 
-            return 0;
+            return sorter[ 1 ];
+          }
+        );
+      }
+
+      case type: {
+        return [
+          ...carpetas
+        ].sort(
+          (
+            a, b
+          ) => {
+            const x = a[ `${ type }` ];
+
+            const y = b[ `${ type }` ];
+
+            if ( x > y ) {
+
+            }
           }
         );
       }
 
       default: {
-        throw Error(
-          'Unknown action: ' + action.type
-        );
+        return [
+          ...carpetas
+        ].sort();
       }
   }
 }

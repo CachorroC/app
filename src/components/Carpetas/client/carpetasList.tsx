@@ -1,6 +1,7 @@
 'use client';
 import { LinkCard } from '#@/components/layout/search/link';
 import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
+import { Card } from '#@/components/Card';
 
 
 export default function CarpetasList(
@@ -25,11 +26,13 @@ export default function CarpetasList(
       ) => {
 
         return (
-          <LinkCard
-            path={path}
-            carpeta={proceso}
-            key={proceso._id}
-          />
+          <Card key={ proceso._id } path={path} carpeta={ proceso } >
+            <LinkCard
+              path={path}
+              carpeta={proceso}
+              key={proceso._id}
+            />
+          </Card>
         );
 
       }
