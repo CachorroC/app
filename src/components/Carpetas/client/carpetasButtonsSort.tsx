@@ -1,7 +1,7 @@
 'use client';
 
 import { useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
-import { buttonDrawerMenu } from '#@/components/Buttons/buttons.module.css';
+import button from '#@/components/Buttons/buttons.module.css';
 import { useState } from 'react';
 
 export function CarpetasSortButtons (
@@ -53,7 +53,7 @@ export function CarpetasSortButtons (
                   }
                 );
               }
-            } className={ buttonDrawerMenu } key={ key }>
+            } className={ button.buttonCategory } key={ key }>
 
 
               {key}
