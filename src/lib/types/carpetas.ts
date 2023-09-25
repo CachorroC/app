@@ -421,3 +421,56 @@ export class carpetaConvert {
     );
   }
 }
+
+
+
+export const mockCarpeta: IntCarpeta =  {
+  fecha       : new Date(),
+  nombre      : '',
+  idProceso   : 0,
+  category    : 'Terminados',
+  categoryTag : 0,
+  numero      : 0,
+  llaveProceso: '',
+  tipoProceso : 'HIPOTECARIO',
+  deudor      : {
+    tel: {
+      fijo   : 0,
+      celular: 0
+    },
+    primerNombre   : '',
+    segundoNombre  : null,
+    primerApellido : '',
+    segundoApellido: null,
+    cedula         : 0,
+    direccion      : '',
+    email          : ''
+  },
+  demanda: {
+    departamento           : null,
+    capitalAdeudado        : '',
+    entregagarantiasAbogado: new Date(),
+    etapaProcesal          : null,
+    fechaPresentacion      : new Date(),
+    municipio              : '',
+    obligacion             : {},
+    radicado               : '',
+    vencimientoPagare      : new Date(),
+    expediente             : '',
+    juzgados               : []
+  },
+  ultimaActuacion: {
+    idRegActuacion: 0,
+    llaveProceso  : '',
+    consActuacion : 0,
+    fechaActuacion: '',
+    actuacion     : '',
+    anotacion     : '',
+    fechaInicial  : '',
+    fechaFinal    : '',
+    fechaRegistro : '',
+    codRegla      : '00                              ',
+    conDocumentos : false,
+    cant          : 0
+  }
+};

@@ -43,13 +43,7 @@ export default function Page() {
           <span className="material-symbols-outlined">api</span>
           <h1 className={ typography.displayMedium }>{ 'Tareas' }</h1>
         </Link>
-        <Link
-          className={ layout.link }
-          href={ '/Notas/NuevaNota' }
-        >
-          <span className="material-symbols-outlined">note_add</span>
-          <h1 className={ typography.displayMedium }>{ 'Nueva Nota' }</h1>
-        </Link>
+
         <Link
           className={ layout.link }
           href={ '/Costos' }

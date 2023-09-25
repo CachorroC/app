@@ -6,7 +6,7 @@ const CarpetasSortContext = createContext<MonCarpeta[] | null>(
   null
 );
 
-const CarpetasSortDispatchContext = createContext<Dispatch<{ type: string; sortDirection: boolean }> | null>(
+const CarpetasSortDispatchContext = createContext<Dispatch<{ type: string; sortDirection: boolean;  search?: string}> | null>(
   null
 );
 
@@ -55,7 +55,7 @@ export function useCarpetaSortDispatch () {
 
   if ( context === null ) {
     throw new Error(
-      'useSearch must be used inside a SearchProvider'
+      'useSortDispatchCarpetas must be used inside a CarpetasProvider'
     );
   }
 
@@ -63,10 +63,10 @@ export function useCarpetaSortDispatch () {
 }
 
 export function carpetasReducer(
-  carpetas: MonCarpeta[], action: { type: string; sortDirection: boolean }
+  carpetas: MonCarpeta[], action: { type: string; sortDirection: boolean; search?: string; }
 ) {
   const {
-    sortDirection, type
+    sortDirection, type, search
   } = action;
 
   const asc = [
@@ -88,6 +88,23 @@ export function carpetasReducer(
 
 
   switch ( type ) {
+
+      case 'search': {
+        const utilString = search
+          ? search
+          : 'sin busqueda';
+
+        return [
+          ...carpetas
+        ].filter(
+          (
+            carpeta
+          ) => {
+            return carpeta.nombre === utilString;
+          }
+        );
+      }
+
       case 'fecha': {
 
         return [
@@ -272,28 +289,10 @@ export function carpetasReducer(
         );
       }
 
-      case type: {
-        return [
-          ...carpetas
-        ].sort(
-          (
-            a, b
-          ) => {
-            const x = a[ `${ type }` ];
-
-            const y = b[ `${ type }` ];
-
-            if ( x > y ) {
-
-            }
-          }
-        );
-      }
-
       default: {
-        return [
-          ...carpetas
-        ].sort();
+        throw Error(
+          'Unknown action: ' + action.type
+        );
       }
   }
 }

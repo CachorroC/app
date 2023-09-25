@@ -9,6 +9,7 @@ import button from '../Buttons/buttons.module.css';
 import { useRouter } from 'next/navigation';
 import InputSearchBar from './search/InputSearchBar';
 import { Loader } from '../Loader';
+import typography from '#@/styles/fonts/typography.module.scss';
 
 export default function Header (
   {
@@ -23,51 +24,6 @@ export default function Header (
   ] = useState(
     false
   );
-  let topBar;
-
-  if ( isNavOpen ) {
-    topBar = (
-      <nav className={ navbar.drawer }>
-        <div className={navbar.sidenav}>
-          {children}
-        </div>
-
-        <Link
-          className={navbar.button}
-          href={'/Carpetas' as Route}
-        >
-          {'Carpetas'}
-        </Link>
-        <Link
-          className={navbar.button}
-          href={'/Contacto' as Route}
-        >
-          {'Contacto'}
-        </Link>
-        <Link
-          className={navbar.button}
-          href={'/QuienesSomos'}
-        >
-          {'Quienes Somos'}
-        </Link>
-        <Link
-          className={navbar.button}
-          href={'/Procesos' as Route}
-        >
-          {'Procesos'}
-        </Link>
-        <Link
-          className={navbar.button}
-          href={'/Notas' as Route}
-        >
-          {'Notas'}
-        </Link>
-
-      </nav>
-    );
-  }
-
-
 
   return (
     <div className={ layout.header }>
@@ -120,7 +76,73 @@ export default function Header (
             : 'menu'}
         </span>
       </button>
-      {topBar}
+      { isNavOpen && (
+
+        <nav className={ navbar.drawer }>
+
+          <Link
+            className={ layout.link }
+            href={ '/Procesos' as Route }
+          >
+            <span className="material-symbols-outlined">gavel</span>
+            <h1 className={ typography.labelMedium }>{ 'Procesos' }</h1>
+          </Link>
+          <Link
+            className={ layout.link }
+            href={ '/Notas' as Route }
+          >
+            <span className="material-symbols-outlined">note</span>
+            <h1 className={ typography.labelMedium }>{ 'Notas' }</h1>
+          </Link>
+          <Link
+            className={ layout.link }
+            href={ '/Carpetas' as Route}
+          >
+            <span className="material-symbols-outlined">folder_open</span>
+            <h1 className={ typography.labelMedium }>{ 'Carpetas' }</h1>
+          </Link>
+          <Link
+            className={ layout.link }
+            href={ '/Tareas' }
+          >
+            <span className="material-symbols-outlined">api</span>
+            <h1 className={ typography.labelMedium }>{ 'Tareas' }</h1>
+          </Link>
+          <Link
+            className={ layout.link }
+            href={ '/Notas/Nueva' }
+          >
+            <span className="material-symbols-outlined">note_add</span>
+            <h1 className={ typography.labelMedium }>{ 'Nueva Nota' }</h1>
+          </Link>
+          <Link
+            className={ layout.link }
+            href={ '/Costos' }
+          >
+            <span className="material-symbols-outlined">folder_open</span>
+            <h1 className={ typography.labelMedium }>{ 'Costos' }</h1>
+          </Link>
+          <Link
+            className={ layout.link }
+            href={ '/Contacto' as Route }
+          >
+            <span className="material-symbols-outlined">folder_open</span>
+            <h1 className={ typography.labelMedium }>{ 'Contacto' }</h1>
+          </Link>
+          <Link
+            className={ layout.link }
+            href={ '/QuienesSomos' }
+          >
+            <span className="material-symbols-outlined">folder_open</span>
+            <h1 className={ typography.labelMedium }>{ 'Quienes Somos' }</h1>
+          </Link>
+
+          <div className={navbar.sidenav}>
+            {children}
+          </div>
+
+        </nav>
+      )}
     </div>
 
   );

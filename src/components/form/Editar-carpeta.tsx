@@ -14,10 +14,9 @@ export default function EditCarpeta(
   }: { carpeta: MonCarpeta }
 ) {
   const {
-    reset, handleSubmit
+    reset
   } = useFormContext<MonCarpeta>();
 
-  function onValid() {}
   useEffect(
     () => {
       reset(
@@ -34,11 +33,9 @@ export default function EditCarpeta(
       <div className={form.container}>
         <form
           className={form.form}
-          onSubmit={handleSubmit(
-            onValid
-          )}
+
         >
-          <section className={form.section}>
+          <section>
             <section className={form.section}>
               <h3 className={typography.displaySmall}>{'Deudor'}</h3>
               <InputSection
