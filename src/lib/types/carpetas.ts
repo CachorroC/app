@@ -423,6 +423,7 @@ export class carpetaConvert {
 }
 
 
+export type KeyOfCarpeta = keyof IntCarpeta
 
 export const mockCarpeta: IntCarpeta =  {
   fecha       : new Date(),

@@ -23,9 +23,6 @@ export default async function PageCarpetaNumero(
 
   return (
     <div className={ layout.left}>
-      <Form
-        key={ params.llaveProceso }
-        carpeta={ carpeta } />
       <EditCarpeta key={ params.llaveProceso } carpeta={ carpeta } />
     </div>
   );

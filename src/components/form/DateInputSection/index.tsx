@@ -4,18 +4,19 @@ import { IntCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath, RegisterOptions, useFormContext } from 'react-hook-form';
 import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import type { HTMLInputTypeAttribute } from 'react';
+import { useState } from 'react';
 
-export const InputSection = (
+export const DateInputSection = (
   {
     name,
     title,
-    type,
+    initialValue,
+
     rls,
   }: {
   name: FieldPath<IntCarpeta>;
-  title: string;
-  type: HTMLInputTypeAttribute;
+      title: string;
+      initialValue?: Date;
   rls?: Omit<
     RegisterOptions<IntCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
@@ -26,6 +27,7 @@ export const InputSection = (
     register
   } = useFormContext<IntCarpeta>();
 
+  const [inputValue, setInputValue] = useState()
 
   const rules = rls ?? {
     required: false,
@@ -42,11 +44,10 @@ export const InputSection = (
       <input
         key={name}
         className={form.textArea}
-        type={type}
-        placeholder={title}
-        {...register(
-          name, rules
-        )}
+        type={'date'}
+        placeholder={ title }
+        value={}
+        onChange={}
       />
     </section>
   );

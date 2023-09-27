@@ -85,7 +85,13 @@ export function carpetasReducer(
     ? asc
     : dsc;
 
+  const upper = sortDirection
+    ? 1
+    : -1;
 
+  const downer =  sortDirection
+    ? -1
+    : 1;
 
   switch ( type ) {
 
@@ -277,14 +283,14 @@ export function carpetasReducer(
             const y = b.deudor.primerApellido;
 
             if ( x < y ) {
-              return 1;
+              return upper;
             }
 
             if ( x > y ) {
-              return -1;
+              return  downer;
             }
 
-            return sorter[ 1 ];
+            return 0;
           }
         );
       }

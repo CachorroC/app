@@ -14,7 +14,7 @@ export default function EditCarpeta(
   }: { carpeta: MonCarpeta }
 ) {
   const {
-    reset
+    reset, setValue
   } = useFormContext<MonCarpeta>();
 
   useEffect(
@@ -32,9 +32,7 @@ export default function EditCarpeta(
     <>
       <div className={form.container}>
         <form
-          className={form.form}
-
-        >
+          className={form.form}>
           <section>
             <section className={form.section}>
               <h3 className={typography.displaySmall}>{'Deudor'}</h3>

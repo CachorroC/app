@@ -1,8 +1,6 @@
 'use client';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { useForm,
-  SubmitHandler,
-  FormProvider,
+import {   SubmitHandler,
   useFormContext, } from 'react-hook-form';
 import form from 'components/form/form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
@@ -17,7 +15,6 @@ export const NuevoProceso = (
   carpeta?: IntCarpeta;
 }
 ) => {
-  const methods = useForm<IntCarpeta>();
 
   const {
     reset,
@@ -78,7 +75,7 @@ export const NuevoProceso = (
   };
 
   return (
-    <FormProvider {...methods}>
+    <>
       <div className={form.container}>
         <form
           className={form.form}
@@ -358,6 +355,6 @@ export const NuevoProceso = (
           value="Reset with values"
         />
       )}
-    </FormProvider>
+    </>
   );
 };
