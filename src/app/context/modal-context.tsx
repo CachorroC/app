@@ -45,7 +45,7 @@ export function useModalContext() {
 
   if ( context === null ) {
     throw new Error(
-      'useSearch must be used inside a SearchProvider'
+      'useModalContext must be used inside a ModalProvider'
     );
   }
 

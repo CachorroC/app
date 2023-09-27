@@ -7,7 +7,7 @@ import typography from '#@/styles/fonts/typography.module.scss';
 
 export const NuevaNota = (
   {
-    llaveProceso = '', cod
+    llaveProceso, cod
   }: { llaveProceso?: string; cod: number }
 ) => {
   const {
@@ -32,6 +32,7 @@ export const NuevaNota = (
 
   const pathname = usePathname();
 
+
   const router = useRouter();
 
   async function onCreate(
@@ -44,7 +45,7 @@ export const NuevaNota = (
       res.message
     );
     router.replace(
-      `/Notas/${ res.id }`
+      `/Notas/id/${ res.id }`
     );
   }
 

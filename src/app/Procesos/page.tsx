@@ -52,31 +52,34 @@ export default async function Procesos() {
 
   return (
 
-    <><div className={ layout.top }>
-      <h1 className={ typography.displayLarge }>Procesos</h1>
-      <CategoryFilterButton />
-    </div><div className={ layout.left }>
-      { carpetas.map(
-        (
-          carpeta, index
-        ) => {
+    <>
+      <div className={ layout.top }>
+        <h1 className={ typography.displayLarge }>Procesos</h1>
+        <CategoryFilterButton />
+      </div>
+      <div className={ layout.left }>
+        { carpetas.map(
+          (
+            carpeta, index
+          ) => {
 
-          return (
-            <Card
-              path={ '/Procesos' }
-              carpeta={ carpeta }
-              key={ carpeta._id }
-            >
-              <Suspense fallback={ <Loader key={ carpeta._id } /> }>
-                <FechaActuacionComponent
-                  carpeta={ carpeta }
-                  key={ carpeta._id }
-                  index={ index } />
-              </Suspense>
-            </Card>
-          );
-        }
-      ) }
-    </div></>
+            return (
+              <Card
+                path={ '/Procesos' }
+                carpeta={ carpeta }
+                key={ carpeta._id }
+              >
+                <Suspense fallback={ <Loader key={ carpeta._id } /> }>
+                  <FechaActuacionComponent
+                    carpeta={ carpeta }
+                    key={ carpeta._id }
+                    index={ index } />
+                </Suspense>
+              </Card>
+            );
+          }
+        ) }
+      </div>
+    </>
   );
 }
