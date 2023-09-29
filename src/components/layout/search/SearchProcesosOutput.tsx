@@ -1,23 +1,28 @@
 'use client';
 import { LinkCard } from './link';
-import { MonCarpeta } from '#@/lib/types/carpetas';
 import { useCategory } from '#@/app/context/main-context';
 import { useSearch } from '#@/app/context/search-context';
-import { useReducer } from 'react';
-import carpetasReducer from '#@/lib/hooks/carpetas-reducer';
 import { buttonDrawerMenu } from '#@/components/Buttons/buttons.module.css';
 import { section } from '#@/components/form/form.module.css';
+import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
+import { useState } from 'react';
 
 
 export default function SearchOutputList(
   {
-    path,
-    fechas,
+    path
   }: {
   path: string;
-  fechas: MonCarpeta[];
 }
 ) {
+
+  const [
+    sortDirection,
+    setSortDirection
+  ] = useState(
+    true
+  );
+
   const {
     search
   } = useSearch();
@@ -28,12 +33,10 @@ export default function SearchOutputList(
 
   const rows: any[] = [];
 
-  const [
-    carpetasReduced,
-    dispatchCarpetas
-  ] =useReducer(
-    carpetasReducer, fechas
-  );
+
+  const carpetasReduced = useCarpetaSort();
+
+  const dispatchCarpetas = useCarpetaSortDispatch();
 
   carpetasReduced.forEach(
     (
@@ -59,33 +62,65 @@ export default function SearchOutputList(
   );
 
   function handleSortByNombre() {
+    setSortDirection(
+      (
+        n
+      ) => {
+        return !n;
+      }
+    );
     dispatchCarpetas(
       {
-        type: 'nombre',
+        type         : 'nombre',
+        sortDirection: sortDirection
       }
     );
   }
 
   function handleSortByApellido() {
+    setSortDirection(
+      (
+        n
+      ) => {
+        return !n;
+      }
+    );
     dispatchCarpetas(
       {
-        type: 'primerApellido',
+        type         : 'primerApellido',
+        sortDirection: sortDirection
       }
     );
   }
 
   function handleSortByNumero() {
+    setSortDirection(
+      (
+        n
+      ) => {
+        return !n;
+      }
+    );
     dispatchCarpetas(
       {
-        type: 'numero',
+        type         : 'numero',
+        sortDirection: sortDirection
       }
     );
   }
 
   function handleSortByFecha() {
+    setSortDirection(
+      (
+        n
+      ) => {
+        return !n;
+      }
+    );
     dispatchCarpetas(
       {
-        type: 'fecha',
+        type         : 'fecha',
+        sortDirection: sortDirection
       }
     );
   }

@@ -1,10 +1,9 @@
 'use client';
 
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { FieldPath, RegisterOptions, useFormContext } from 'react-hook-form';
+import { FieldPath, useController, useFormContext } from 'react-hook-form';
 import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { useState } from 'react';
 
 export const DateInputSection = (
   {
@@ -12,26 +11,46 @@ export const DateInputSection = (
     title,
     initialValue,
 
-    rls,
   }: {
   name: FieldPath<IntCarpeta>;
       title: string;
       initialValue?: Date;
-  rls?: Omit<
-    RegisterOptions<IntCarpeta, any>,
-    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
+
 }
 ) => {
+
+
+  const dateValue = initialValue
+    ? initialValue
+    : new Date();
+
+  console.log(
+    dateValue
+  );
+
+
+  const stringDateValue = dateValue.toISOString()
+    .slice(
+      0,  10
+    );
+
+
   const {
-    register
+    control
   } = useFormContext<IntCarpeta>();
 
-  const [inputValue, setInputValue] = useState()
+  const {
+    field, fieldState
+  } = useController(
+    {
+      name,
+      control,
+      defaultValue: stringDateValue
+    }
+  );
 
-  const rules = rls ?? {
-    required: false,
-  };
+
+
 
   return (
     <section className={form.section}>
@@ -41,14 +60,13 @@ export const DateInputSection = (
       >
         {title}
       </label>
-      <input
-        key={name}
-        className={form.textArea}
-        type={'date'}
-        placeholder={ title }
-        value={}
-        onChange={}
-      />
+      <input type="date" { ...field } placeholder={ name } />
+      <p>{fieldState.isTouched && 'Touched'}</p>
+      <p>{fieldState.isDirty && 'Dirty'}</p>
+      <p>{fieldState.invalid
+        ? 'invalid'
+        : 'valid'}</p>
+
     </section>
   );
 };

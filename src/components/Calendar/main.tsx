@@ -6,15 +6,15 @@ import calendar from './calendar.module.css';
 export function Calendar(
   {
     date
-  }: { date?: string }
+  }: { date?: Date }
 ) {
+
   const today = date
-    ? new Date(
-      date
-    )
+    ? date
     : new Date();
+
   console.log(
-    today
+    `calndar: ${ today }`
   );
 
   const currentMonth = today.getMonth();
@@ -22,7 +22,7 @@ export function Calendar(
   const currentYear = today.getFullYear();
 
   const rows = CalendarBuilder(
-    date
+    today
   );
 
   return (
@@ -53,9 +53,7 @@ export function Calendar(
               return (
                 <Link
                   key={row.href}
-                  href={`/Notas/Fecha/${ row.href.replaceAll(
-                    '-', '/'
-                  ) }` as Route}
+                  href={`/Notas/Fecha/${ row.href }` as Route}
                   className={
                     row.current
                       ? setToday

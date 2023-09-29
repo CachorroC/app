@@ -1,4 +1,4 @@
-import { Calendar } from '#@/components/Buttons/Calendar/main';
+import { Calendar } from '#@/components/Calendar/main';
 import { CarpetaCard } from '#@/components/Card/carpeta';
 import { Loader } from '#@/components/Loader';
 import { NuevaNota } from '#@/components/Nota/client/nueva-nota';
@@ -37,7 +37,7 @@ export default async function PageProcesosRightllaveProceso(
       {Carpeta && (
         <>
           <Suspense fallback={<Loader />}>
-            <Calendar date={Carpeta.fecha?.toLocaleString()} />
+            <Calendar date={Carpeta.fecha} />
           </Suspense>
           <Suspense fallback={<Loader />}>
             <CarpetaCard

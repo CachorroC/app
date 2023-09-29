@@ -37,19 +37,11 @@ export default async function PageCarpetaNumero(
           href={`/Carpetas/id/${ carpeta._id }` as Route}
         >{`${ carpeta._id }`}</Link>
         {carpeta && (
-          <Fragment key={params.numero}>
-            <Suspense fallback={<Loader />}>
-              <NombreComponent
-                key={carpeta._id}
-                deudor={carpeta.deudor}
-              />
-            </Suspense>
 
-            <CarpetaCard
-              key={carpeta._id}
-              carpeta={carpeta}
-            />
-          </Fragment>
+          <CarpetaCard
+            key={ carpeta._id }
+            carpeta={ carpeta } />
+
         )}
       </div>
       <div className={ layout.left }>

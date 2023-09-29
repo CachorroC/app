@@ -1,4 +1,4 @@
-import { Calendar } from '#@/components/Buttons/Calendar/main';
+import { Calendar } from '#@/components/Calendar/main';
 import { Loader } from '#@/components/Loader';
 import getCarpetas from '#@/lib/project/getCarpetas';
 import SearchOutputList from 'components/layout/search/SearchProcesosOutput';

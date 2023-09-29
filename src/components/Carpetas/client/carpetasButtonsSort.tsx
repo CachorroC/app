@@ -2,13 +2,20 @@
 
 import { useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
 import button from '#@/components/Buttons/buttons.module.css';
+import { ActionType } from '#@/lib/types/context-actions';
 import { useState } from 'react';
 
-export function CarpetasSortButtons (
-  {
-    keys
-  }:{keys:string[]}
-) {
+export function CarpetasSortButtons () {
+  const keys: ActionType[] = [
+    'fecha',
+    'nombre',
+    'numero',
+    'primerNombre',
+    'primerApellido',
+    'category',
+    'categoryTag'
+  ];
+
   const dispatchCarpetas = useCarpetaSortDispatch();
 
 

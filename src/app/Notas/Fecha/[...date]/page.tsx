@@ -14,20 +14,20 @@ export default async function DatePage (
     incomingDia
   ] = params.date;
 
+  const incomingDate =  new Date(
+    `${ incomingAno }-${ incomingMes }-${ incomingDia }`
+  );
+
   const collection = await notasCollection();
 
   const rawNotas = await collection.find(
+
     {
-      date: new Date(
-        Number(
-          incomingAno
-        ), Number(
-          incomingMes + 1
-        ), Number(
-          incomingDia
-        )
-      )
+      date: {
+        $gte: incomingDate
+      }
     }
+
   )
     .toArray();
 
@@ -41,6 +41,14 @@ export default async function DatePage (
 
   return (
     <>
+      {incomingDate.toLocaleString(
+        'es-CO', {
+          year   : 'numeric',
+          weekday: 'short',
+          month  : 'long',
+          day    : 'numeric',
+        }
+      )}
       {
         notas.map(
           (

@@ -112,8 +112,10 @@ $MaxSW: 480px; //maximum sma width
   grid-area: top;
 
 
-  & > * {
-    flex: 1 1 100%;
+
+
+   &:first-child{
+    flex: 0 1 40%;
   }
   @media (width < 600px){
     flex-flow: row nowrap;

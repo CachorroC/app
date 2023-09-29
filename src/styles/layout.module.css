@@ -68,8 +68,8 @@
   align-items: stretch;
   grid-area: top;
 }
-.top > * {
-  flex: 1 1 100%;
+.top:first-child {
+  flex: 0 1 40%;
 }
 @media (width < 600px) {
   .top {
@@ -163,3 +163,5 @@
     transform: rotate(360deg);
   }
 }
+
+/*# sourceMappingURL=layout.module.css.map */

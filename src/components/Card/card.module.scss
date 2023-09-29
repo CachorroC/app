@@ -3,6 +3,7 @@
   container-type: inline-size;
   box-sizing: border-box;
   border-radius: 2vmin;
+  flex: 1;
   border: solid 3px var(--outline);
   & > * {
     width: 100%;

@@ -1,12 +1,15 @@
 'use client';
 import { MonCarpeta } from '#@/lib/types/carpetas';
+import { IntAction } from '#@/lib/types/context-actions';
 import { Dispatch, ReactNode, createContext, useContext, useReducer } from 'react';
+
+
 
 const CarpetasSortContext = createContext<MonCarpeta[] | null>(
   null
 );
 
-const CarpetasSortDispatchContext = createContext<Dispatch<{ type: string; sortDirection: boolean;  search?: string}> | null>(
+const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
   null
 );
 
@@ -40,7 +43,7 @@ export function useCarpetaSort () {
 
   if ( context === null ) {
     throw new Error(
-      'useSearch must be used inside a SearchProvider'
+      'useCarpetaSort  must be used inside a carpetasort provider r'
     );
   }
 
@@ -63,7 +66,7 @@ export function useCarpetaSortDispatch () {
 }
 
 export function carpetasReducer(
-  carpetas: MonCarpeta[], action: { type: string; sortDirection: boolean; search?: string; }
+  carpetas: MonCarpeta[], action: IntAction
 ) {
   const {
     sortDirection, type, search
@@ -94,6 +97,16 @@ export function carpetasReducer(
     : 1;
 
   switch ( type ) {
+
+      case 'filter': {
+        return carpetas.filter(
+          (
+            t
+          ) => {
+            return t.category !== action.category;
+          }
+        );
+      }
 
       case 'search': {
         const utilString = search

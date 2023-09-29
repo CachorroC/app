@@ -5,14 +5,6 @@ export interface calendarData {
   dayOfWeek: number;
 }
 
-export const nombreDiasSemana = [
-  'Mimingo',
-  'L.unes',
-  'Martes',
-  'Miercoles',
-  'Jueves',
-  'Viernes',
-];
 
 export const nombresDeMeses = [
   'Enero',
@@ -30,24 +22,19 @@ export const nombresDeMeses = [
 ];
 
 export function CalendarBuilder(
-  date?: string
+  date: Date
 ) {
   const rows = new Set<calendarData>();
 
-  const todayNow = date
-    ? new Date(
-      date
-    )
-    : new Date();
 
   console.log(
-    todayNow
+    date
   );
 
 
-  const currentMonth = todayNow.getMonth();
+  const currentMonth = date.getMonth();
 
-  const currentYear = todayNow.getFullYear();
+  const currentYear = date.getFullYear();
 
   const today = new Date()
     .getDate();
@@ -79,7 +66,8 @@ export function CalendarBuilder(
     .getDate();
 
   for ( let dayBefore = firstDayofCurrentMonth; dayBefore > 0; dayBefore-- ) {
-    const href = `${ currentYear }-${ currentMonth - 1 }-${
+
+    const href = `${ currentYear }/${ currentMonth }/${
       lastDateofPastMonth - dayBefore + 1
     }`;
     rows.add(
@@ -98,7 +86,7 @@ export function CalendarBuilder(
   for ( let dayInMonth = 1; dayInMonth <= lastDateofMonth; dayInMonth++ ) {
     const isToday = today === dayInMonth;
 
-    const href = `${ currentYear }-${ currentMonth }-${ dayInMonth }`;
+    const href = `${ currentYear }/${ currentMonth +1 }/${ dayInMonth }`;
 
     rows.add(
       {
@@ -116,7 +104,7 @@ export function CalendarBuilder(
   }
 
   for ( let dayAfterMonth = lastDayofMonth; dayAfterMonth < 6; dayAfterMonth++ ) {
-    const href = `${ currentYear }-${ currentMonth + 1 }-${ dayAfterMonth }`;
+    const href = `${ currentYear }/${ currentMonth +2 }/${ dayAfterMonth }`;
 
     rows.add(
       {
