@@ -1,7 +1,6 @@
 
 import Modal from '#@/components/Modal';
 import { NuevaNota } from '#@/components/Nota/client/nueva-nota';
-import ModalDialog from '#@/lib/hooks/modal-state';
 import getNotas from '#@/lib/project/getNotas';
 
 export default async function Page (
@@ -25,9 +24,7 @@ export default async function Page (
       <Modal>
         <NuevaNota cod={ nuevoCod } llaveProceso={ llaveProceso } />
       </Modal>
-      <ModalDialog>
-        <NuevaNota cod={ nuevoCod } llaveProceso={ llaveProceso } />
-      </ModalDialog>
+
     </>
   );
 }

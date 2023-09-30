@@ -7,6 +7,7 @@ import React, { useEffect } from 'react';
 import { SubmitHandler,
   useFormContext, } from 'react-hook-form';
 import typography from '#@/styles/fonts/typography.module.scss';
+import { DateInputSection } from './DateInputSection';
 
 export const Form = (
   {
@@ -225,6 +226,7 @@ export const Form = (
             title={'Entrega de Garantias'}
             type={'date'}
           />
+          {carpeta.demanda.entregagarantiasAbogado && ( <DateInputSection name={ 'demanda.entregagarantiasAbogado'} initialValue={carpeta.demanda.entregagarantiasAbogado} title={'fecha de entrega de las garantias al abogado'}/> )}
           <InputSection
             name={'demanda.etapaProcesal'}
             title={'etapa procesal'}
@@ -235,6 +237,9 @@ export const Form = (
             title={'fecha de presentacion de la demanda'}
             type={'date'}
           />
+          {carpeta.demanda.fechaPresentacion && ( <DateInputSection name={ 'demanda.fechaPresentacion' }initialValue={
+            carpeta.demanda.fechaPresentacion
+          } title={'fecha de presentacion de la demanda'}/> )}
           <InputSection
             name={'demanda.municipio'}
             title={'Municipio'}

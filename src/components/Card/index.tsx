@@ -21,6 +21,7 @@ export const Card = (
   children: ReactNode;
 }
 ) => {
+
   const llaveLength = carpeta.llaveProceso.length;
 
   const errorLLaveProceso = llaveLength < 23;
@@ -35,6 +36,7 @@ export const Card = (
     = pathname === href
     || pathname === `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProceso }`
     || pathname === `${ path }/${ carpeta.llaveProceso }`;
+
 
 
   return (
@@ -92,7 +94,7 @@ export const Card = (
           </Link>
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Notas/Nueva?llaveProceso=${ carpeta.llaveProceso }`}
+            href={`/Notas/Nueva?llaveProceso=${ carpeta.llaveProceso }` as Route}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               add

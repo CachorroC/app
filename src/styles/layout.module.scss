@@ -29,6 +29,7 @@ $MaxSW: 480px; //maximum sma width
     'right right right right'
     'right right right right'
     'header header header header';
+font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
 
   @media (600px < width < 1200px) {
     grid-template-columns: repeat(8, 1fr);
@@ -112,8 +113,10 @@ $MaxSW: 480px; //maximum sma width
   grid-area: top;
 
 
-  & > * {
-    flex: 1 1 100%;
+
+
+   &:first-child{
+    flex: 0 1 40%;
   }
   @media (width < 600px){
     flex-flow: row nowrap;

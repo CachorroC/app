@@ -202,13 +202,3 @@
   -ms-transform: translateX(3cqmin);
   transform: translateX(3cqmin);
 }
-
-@container form (min-width: 200px) {
-  .container {
-    .form {
-      .section {
-        flex-flow: row nowrap;
-      }
-    }
-  }
-}

@@ -31,14 +31,14 @@ export type Category =
 
 export interface intDemanda {
   departamento: Departamento | null;
-  capitalAdeudado: number | string;
-  entregagarantiasAbogado: Date;
+  capitalAdeudado: number | string | null;
+  entregagarantiasAbogado: Date | null;
   etapaProcesal: null | string;
-  fechaPresentacion: Date;
+  fechaPresentacion: Date | null;
   municipio: string;
   obligacion: { [key: string]: number | string };
   radicado: string;
-  vencimientoPagare: Date;
+  vencimientoPagare:  Array<Date | null> | Date | null;
   expediente: string;
   juzgados: intJuzgado[];
 }
@@ -61,9 +61,9 @@ export interface intJuzgado {
 export interface intDeudor {
   tel: intTel;
   primerNombre: string;
-  segundoNombre: null | string;
+  segundoNombre?:  string;
   primerApellido: string;
-  segundoApellido: null | string;
+  segundoApellido?: string;
   cedula: number | null;
   direccion: string;
   email: string;
@@ -423,6 +423,7 @@ export class carpetaConvert {
 }
 
 
+export type KeyOfCarpeta = keyof IntCarpeta
 
 export const mockCarpeta: IntCarpeta =  {
   fecha       : new Date(),
@@ -439,9 +440,9 @@ export const mockCarpeta: IntCarpeta =  {
       celular: 0
     },
     primerNombre   : '',
-    segundoNombre  : null,
+    segundoNombre  : '',
     primerApellido : '',
-    segundoApellido: null,
+    segundoApellido: '',
     cedula         : 0,
     direccion      : '',
     email          : ''

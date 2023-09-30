@@ -1,8 +1,9 @@
 import { Loader } from 'components/Loader';
+import layout from '#@/styles/layout.module.css';
 
 export default function MainLoading() {
   return (
-    <>
+    <div className={layout.container}>
       <Loader key={'a'} />
       <Loader key={'b'} />
       <Loader key={'c'} />
@@ -13,6 +14,6 @@ export default function MainLoading() {
       <Loader key={'h'} />
       <Loader key={'i'} />
       <Loader key={'j'} />
-    </>
+    </div>
   );
 }

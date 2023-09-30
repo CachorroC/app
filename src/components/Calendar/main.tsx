@@ -5,16 +5,16 @@ import calendar from './calendar.module.css';
 
 export function Calendar(
   {
-    date 
-  }: { date?: string } 
+    date
+  }: { date?: Date }
 ) {
+
   const today = date
-    ? new Date(
-      date 
-    )
+    ? date
     : new Date();
+
   console.log(
-    today 
+    `calndar: ${ today }`
   );
 
   const currentMonth = today.getMonth();
@@ -22,7 +22,7 @@ export function Calendar(
   const currentYear = today.getFullYear();
 
   const rows = CalendarBuilder(
-    date 
+    today
   );
 
   return (
@@ -41,10 +41,10 @@ export function Calendar(
         <div className={calendar.days}>
           {rows.map(
             (
-              row 
+              row
             ) => {
               const day = new Date(
-                row.href 
+                row.href
               )
                 .getDate();
 
@@ -53,7 +53,7 @@ export function Calendar(
               return (
                 <Link
                   key={row.href}
-                  href={row.href as Route}
+                  href={`/Notas/Fecha/${ row.href }` as Route}
                   className={
                     row.current
                       ? setToday
@@ -67,7 +67,7 @@ export function Calendar(
                   {day}
                 </Link>
               );
-            } 
+            }
           )}
         </div>
       </div>

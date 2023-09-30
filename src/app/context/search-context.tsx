@@ -24,7 +24,7 @@ export function SearchProvider(
     search,
     setSearch
   ] = useState(
-    'Buscar'
+    ' '
   );
 
   return (

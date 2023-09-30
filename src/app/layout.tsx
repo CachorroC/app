@@ -11,6 +11,7 @@ import { SearchProvider } from './context/search-context';
 import { ModalProvider } from './context/modal-context';
 import { CarpetaFormProvider } from './context/carpeta-form-context';
 import getCarpetas from '#@/lib/project/getCarpetas';
+
 import { CarpetasSortProvider } from './context/carpetas-sort-context';
 
 const prefix = process.env.NODE_ENV === 'production'
@@ -142,7 +143,8 @@ export default async function RootLayout(
             <SearchProvider>
               <ModalProvider>
                 <MainProvider>
-                  <div className={layout.container}>
+                  <div className={ layout.container }>
+
                     { header }
                     {modal}
                     {children}
