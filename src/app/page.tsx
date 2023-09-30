@@ -19,8 +19,8 @@ export default function Page() {
           className={ layout.link }
           href={ '/Procesos' as Route }
         >
-          <span className="material-symbols-outlined">gavel</span>
-          <h1 className={ typography.displayMedium }>{ 'Procesos' }</h1>
+          <span className="material-symbols-outlined">pace</span>
+          <h1 className={ typography.displayMedium }>{ 'Ultimos Movimientos' }</h1>
         </Link>
         <Link
           className={ layout.link }

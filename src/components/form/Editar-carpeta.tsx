@@ -177,9 +177,9 @@ export default function EditCarpeta(
                 type={'text'}
               />
 
-              {carpeta.demanda.fechaPresentacion && ( <DateInputSection name={ 'demanda.fechaPresentacion' } title={ 'fecha de presentacion de la demanda' } initialValue={new Date(
+              {carpeta.demanda.fechaPresentacion && ( <DateInputSection name={ 'demanda.fechaPresentacion' } title={ 'fecha de presentacion de la demanda' } initialValue={
                 carpeta.demanda.fechaPresentacion
-              )} /> )}
+              } /> )}
               <InputSection
                 name={'demanda.municipio'}
                 title={'Municipio'}

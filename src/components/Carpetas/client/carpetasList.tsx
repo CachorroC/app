@@ -5,6 +5,9 @@ import { Card } from '#@/components/Card';
 import { fixFechas } from '#@/lib/project/helper';
 import card from 'components/Card/card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
+import { useSearch } from '#@/app/context/search-context';
+import { useCategory } from '#@/app/context/main-context';
+import { JSX } from 'react';
 
 
 export default function CarpetasList(
@@ -14,27 +17,39 @@ export default function CarpetasList(
   path: string;
 }
 ) {
+  const rows: JSX.Element[] = [];
 
 
-  const  carpetasReduced= useCarpetaSort();
+  const carpetasReduced = useCarpetaSort();
+
+  const {
+    search
+  } = useSearch();
+
+  const {
+    category
+  } = useCategory();
 
 
+  carpetasReduced.forEach(
+    (
+      proceso, index
+    ) => {
+      const {
+        ultimaActuacion
+      } = proceso;
 
-  return <>
+      if ( proceso.nombre.toLowerCase()
+        .indexOf(
+          search.toLowerCase()
+        ) === -1 ) {
+        return;
+      }
 
-    { carpetasReduced.map(
-
-      (
-        proceso
-      ) => {
-        const {
-          ultimaActuacion
-        } = proceso;
-
-
-
-        return (
-          <Card key={ proceso._id } path={path} carpeta={ proceso } >
+      if ( category === 'todos' || category === proceso.category ) {
+        rows.push(
+          <Card key={ proceso._id } path={ path } carpeta={ proceso } >
+            {index.toString()}
             { ultimaActuacion && (
               <div className={styles.section}>
                 {ultimaActuacion.actuacion && (
@@ -55,8 +70,10 @@ export default function CarpetasList(
             )}
           </Card>
         );
-
       }
-    )
-    }</>;
+    }
+  );
+
+  return <>
+    {rows}</>;
 }

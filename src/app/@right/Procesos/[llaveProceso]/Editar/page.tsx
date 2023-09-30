@@ -1,6 +1,6 @@
 'use client';
 
-import {  useFormContext } from 'react-hook-form';
+import {  FieldPath, useFormContext } from 'react-hook-form';
 import form from 'components/form/form.module.css';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 
@@ -14,7 +14,7 @@ export default function Page () {
 
 
 
-  const carpetaKeys = [
+  const carpetaKeys: FieldPath<IntCarpeta>[] = [
     'deudor.primerNombre',
     'deudor.segundoNombre',
     'deudor.primerApellido',

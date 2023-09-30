@@ -34,7 +34,7 @@ export interface intDemanda {
   capitalAdeudado: number | string | null;
   entregagarantiasAbogado: Date | null;
   etapaProcesal: null | string;
-  fechaPresentacion: string | null;
+  fechaPresentacion: Date | null;
   municipio: string;
   obligacion: { [key: string]: number | string };
   radicado: string;
@@ -452,7 +452,7 @@ export const mockCarpeta: IntCarpeta =  {
     capitalAdeudado        : '',
     entregagarantiasAbogado: new Date(),
     etapaProcesal          : null,
-    fechaPresentacion      : '',
+    fechaPresentacion      : new Date(),
     municipio              : '',
     obligacion             : {},
     radicado               : '',

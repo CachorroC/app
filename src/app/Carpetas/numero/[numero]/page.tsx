@@ -4,9 +4,6 @@ import Link from 'next/link';
 import type{ Route } from 'next';
 import layout from '#@/styles/layout.module.css';
 import { CarpetaCard } from 'components/Card/carpeta';
-import { Loader } from 'components/Loader';
-import { NombreComponent } from 'components/nombre';
-import { Fragment, Suspense } from 'react';
 import { NuevoProceso } from '#@/components/form/nuevo-proceso';
 
 export default async function PageCarpetaNumero(

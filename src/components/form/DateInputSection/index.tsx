@@ -40,8 +40,9 @@ export const DateInputSection = (
   } = useFormContext<IntCarpeta>();
 
   const {
-    field, fieldState
+    fieldState
   } = useController(
+
     {
       name,
       control,
@@ -60,7 +61,7 @@ export const DateInputSection = (
       >
         {title}
       </label>
-      <input type="date" { ...field } placeholder={ name } />
+      <input type="date" name={name} defaultValue={stringDateValue} placeholder={ name } />
       <p>{fieldState.isTouched && 'Touched'}</p>
       <p>{fieldState.isDirty && 'Dirty'}</p>
       <p>{fieldState.invalid

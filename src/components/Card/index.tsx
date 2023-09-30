@@ -21,6 +21,7 @@ export const Card = (
   children: ReactNode;
 }
 ) => {
+
   const llaveLength = carpeta.llaveProceso.length;
 
   const errorLLaveProceso = llaveLength < 23;
@@ -35,6 +36,7 @@ export const Card = (
     = pathname === href
     || pathname === `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProceso }`
     || pathname === `${ path }/${ carpeta.llaveProceso }`;
+
 
 
   return (

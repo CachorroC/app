@@ -237,9 +237,9 @@ export const Form = (
             title={'fecha de presentacion de la demanda'}
             type={'date'}
           />
-          {carpeta.demanda.fechaPresentacion && ( <DateInputSection name={ 'demanda.fechaPresentacion' }initialValue={new Date(
+          {carpeta.demanda.fechaPresentacion && ( <DateInputSection name={ 'demanda.fechaPresentacion' }initialValue={
             carpeta.demanda.fechaPresentacion
-          )} title={'fecha de presentacion de la demanda'}/> )}
+          } title={'fecha de presentacion de la demanda'}/> )}
           <InputSection
             name={'demanda.municipio'}
             title={'Municipio'}
