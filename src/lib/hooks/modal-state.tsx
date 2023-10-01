@@ -2,6 +2,7 @@
 import { useCallback, useRef, useEffect, MouseEventHandler, ReactNode, } from 'react';
 import styles from 'components/Modal/styles.module.css';
 import { useModalContext } from '#@/app/context/modal-context';
+import { buttonBackwards } from '#@/components/Buttons/buttons.module.css';
 
 
 export function ModalDialogButton () {
@@ -10,7 +11,7 @@ export function ModalDialogButton () {
   } = useModalContext();
 
   return (
-    <button onClick={ () => {
+    <button className={buttonBackwards} onClick={ () => {
       setIsModalOpen(
         (
           n

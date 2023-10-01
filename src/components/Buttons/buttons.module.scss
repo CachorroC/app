@@ -5,7 +5,7 @@
 .active {
   border: none;
   box-sizing: border-box;
-  padding: 2vmin;
+  padding: .5vmin 2vmin;
   border-radius: 2vmin;
   flex: 1;
   display: flex;
@@ -44,7 +44,7 @@
   &DrawerMenu {
     @extend .button;
     grid-area: drawerMenuButton;
-    background-color: var(--primary-fixed-dim);
+    background-color: var(--primary-fixed);
     & > .icon,
     & > .text {
       color: var(--on-primary-fixed);

@@ -120,8 +120,8 @@
 }
 
 .link {
-  background-color: var(--surface-variant);
-  color: var(--on-surface-variant);
+  background-color: var(--surface-container-highest);
+  color: var(--on-surface);
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-evenly;
