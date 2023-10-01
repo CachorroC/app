@@ -76,7 +76,7 @@ export const Card = (
           </Link>
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Procesos/${ carpeta.llaveProceso }/Editar`}
+            href={`/Procesos/${ carpeta.llaveProceso }/Editar` as Route}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               folder_shared

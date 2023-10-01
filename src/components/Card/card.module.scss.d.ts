@@ -3,11 +3,11 @@ export type Styles = {
   'anotacion': string;
   'card': string;
   'container': string;
+  'content': string;
   'date': string;
   'dummytxt': string;
   'error': string;
   'errorContainer': string;
-  'fecha': string;
   'icon': string;
   'isActive': string;
   'link': string;
