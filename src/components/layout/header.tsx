@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, Suspense, useState } from 'react';
+import { ReactNode, Suspense } from 'react';
 import layout from '#@/styles/layout.module.css';
 import navbar from 'components/layout/navbar.module.css';
 import type { Route } from 'next';
@@ -9,10 +9,11 @@ import button from '../Buttons/buttons.module.css';
 import { useRouter } from 'next/navigation';
 import InputSearchBar from './search/InputSearchBar';
 import { Loader } from '../Loader';
-import typography from '#@/styles/fonts/typography.module.scss';
 import { NuevaNota } from '../Nota/client/nueva-nota';
 import ModalDialog, { ModalDialogButton } from '#@/lib/hooks/modal-state';
 import { useModalContext } from '#@/app/context/modal-context';
+import { useNavigationContext } from '#@/app/context/main-context';
+import Drawer from './Drawer';
 
 export default function Header (
   {
@@ -22,12 +23,10 @@ export default function Header (
   const router = useRouter();
   let modalSegment;
 
-  const [
+  const {
     isNavOpen,
     setIsNavOpen
-  ] = useState(
-    false
-  );
+  }= useNavigationContext();
 
   const
 
@@ -38,70 +37,12 @@ export default function Header (
   if ( isNavOpen ) {
     modalSegment = (
 
-      <nav className={ navbar.drawer }>
+      <Drawer>
 
-        <Link
-          className={ layout.link }
-          href={ '/Procesos' as Route }
-        >
-          <span className="material-symbols-outlined">gavel</span>
-          <h1 className={ typography.labelMedium }>{ 'Procesos' }</h1>
-        </Link>
-        <Link
-          className={ layout.link }
-          href={ '/Notas' as Route }
-        >
-          <span className="material-symbols-outlined">note</span>
-          <h1 className={ typography.labelMedium }>{ 'Notas' }</h1>
-        </Link>
-        <Link
-          className={ layout.link }
-          href={ '/Carpetas' as Route}
-        >
-          <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.labelMedium }>{ 'Carpetas' }</h1>
-        </Link>
-        <Link
-          className={ layout.link }
-          href={ '/Tareas' }
-        >
-          <span className="material-symbols-outlined">api</span>
-          <h1 className={ typography.labelMedium }>{ 'Tareas' }</h1>
-        </Link>
-        <Link
-          className={ layout.link }
-          href={ '/Notas/Nueva' as Route  }
-        >
-          <span className="material-symbols-outlined">note_add</span>
-          <h1 className={ typography.labelMedium }>{ 'Nueva Nota' }</h1>
-        </Link>
-        <Link
-          className={ layout.link }
-          href={ '/Costos' }
-        >
-          <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.labelMedium }>{ 'Costos' }</h1>
-        </Link>
-        <Link
-          className={ layout.link }
-          href={ '/Contacto' as Route }
-        >
-          <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.labelMedium }>{ 'Contacto' }</h1>
-        </Link>
-        <Link
-          className={ layout.link }
-          href={ '/QuienesSomos' }
-        >
-          <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.labelMedium }>{ 'Quienes Somos' }</h1>
-        </Link>
+        {children}
 
-        <div className={navbar.sidenav}>
-          {children}
-        </div>
 
-      </nav> );
+      </Drawer> );
   }
 
 

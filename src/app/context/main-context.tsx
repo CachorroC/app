@@ -29,6 +29,14 @@ const ContactoContext = createContext<{
   null
 );
 
+const NavigationContext = createContext<{
+ isNavOpen: boolean;
+  setIsNavOpen: Dispatch<SetStateAction<boolean>>;
+} | null>(
+  null
+);
+
+
 export function MainProvider(
   {
     children
@@ -70,29 +78,41 @@ export function MainProvider(
     }
   );
 
+  const [
+    isNavOpen,
+    setIsNavOpen
+  ] = useState(
+    false
+  );
+
   return (
-    <NoteContext.Provider
-      value={{
-        inputNota,
-        setInputNota,
-      }}
-    >
-      <CategoryContext.Provider
+    <NavigationContext.Provider value={{
+      isNavOpen,
+      setIsNavOpen
+    }}>
+      <NoteContext.Provider
         value={{
-          category,
-          setCategory,
+          inputNota,
+          setInputNota,
         }}
       >
-        <ContactoContext.Provider
+        <CategoryContext.Provider
           value={{
-            contactoForm,
-            setContactoForm,
+            category,
+            setCategory,
           }}
         >
-          {children}
-        </ContactoContext.Provider>
-      </CategoryContext.Provider>
-    </NoteContext.Provider>
+          <ContactoContext.Provider
+            value={{
+              contactoForm,
+              setContactoForm,
+            }}
+          >
+            {children}
+          </ContactoContext.Provider>
+        </CategoryContext.Provider>
+      </NoteContext.Provider>
+    </NavigationContext.Provider>
   );
 }
 
@@ -105,6 +125,21 @@ export function useCategory() {
     throw new Error(
       'el contexto para la categoria solo debe ser aplicado dentro de un hijo del contexto',
     );
+  }
+
+  return context;
+}
+
+export function useNavigationContext() {
+  const context = useContext(
+    NavigationContext
+  );
+
+  if ( context === null ) {
+    throw new Error(
+      'Navigation Context has to be used within a Navigationprovider'
+    );
+
   }
 
   return context;

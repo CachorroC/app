@@ -4,10 +4,8 @@
   box-sizing: border-box;
   border-radius: 2vmin;
   flex: 1;
+  display: inline-block;
   border: solid 3px var(--outline);
-}
-.container > * {
-  width: 100%;
 }
 
 .card {
@@ -255,3 +253,5 @@
   box-shadow: var(--dp16);
   border-radius: 2vmin;
 }
+
+/*# sourceMappingURL=card.module.css.map */

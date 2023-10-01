@@ -4,10 +4,9 @@
   box-sizing: border-box;
   border-radius: 2vmin;
   flex: 1;
+  display: inline-block;
+
   border: solid 3px var(--outline);
-  & > * {
-    width: 100%;
-  }
 }
 .card {
   box-sizing: border-box;

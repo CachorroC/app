@@ -58,7 +58,7 @@
   overflow: auto;
 }
 .sidenav > * {
-  width: calc(50% - 2vmin);
+  flex: 1 1 calc(50% - 2vmin);
 }
 
 .button, .buttonHome, .buttonDrawerMenu, .buttonBackwards, .buttonForward {
@@ -131,3 +131,5 @@
     width: 100%;
   }
 }
+
+/*# sourceMappingURL=navbar.module.css.map */

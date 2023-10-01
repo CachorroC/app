@@ -1,27 +1,22 @@
 'use client';
-import { LinkCard } from './link';
-import { useCategory } from '#@/app/context/main-context';
+import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
 import { useSearch } from '#@/app/context/search-context';
-import { buttonDrawerMenu } from '#@/components/Buttons/buttons.module.css';
-import { section } from '#@/components/form/form.module.css';
-import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
-import { useState } from 'react';
+import { useCategory } from '#@/app/context/main-context';
+import { JSX } from 'react';
+import { LinkCard } from './link';
 
 
 export default function SearchOutputList(
   {
-    path
+    path,
   }: {
   path: string;
 }
 ) {
+  const rows: JSX.Element[] = [];
 
-  const [
-    sortDirection,
-    setSortDirection
-  ] = useState(
-    true
-  );
+
+  const carpetasReduced = useCarpetaSort();
 
   const {
     search
@@ -31,12 +26,6 @@ export default function SearchOutputList(
     category
   } = useCategory();
 
-  const rows: any[] = [];
-
-
-  const carpetasReduced = useCarpetaSort();
-
-  const dispatchCarpetas = useCarpetaSortDispatch();
 
   carpetasReduced.forEach(
     (
@@ -61,85 +50,6 @@ export default function SearchOutputList(
     }
   );
 
-  function handleSortByNombre() {
-    setSortDirection(
-      (
-        n
-      ) => {
-        return !n;
-      }
-    );
-    dispatchCarpetas(
-      {
-        type         : 'nombre',
-        sortDirection: sortDirection
-      }
-    );
-  }
-
-  function handleSortByApellido() {
-    setSortDirection(
-      (
-        n
-      ) => {
-        return !n;
-      }
-    );
-    dispatchCarpetas(
-      {
-        type         : 'primerApellido',
-        sortDirection: sortDirection
-      }
-    );
-  }
-
-  function handleSortByNumero() {
-    setSortDirection(
-      (
-        n
-      ) => {
-        return !n;
-      }
-    );
-    dispatchCarpetas(
-      {
-        type         : 'numero',
-        sortDirection: sortDirection
-      }
-    );
-  }
-
-  function handleSortByFecha() {
-    setSortDirection(
-      (
-        n
-      ) => {
-        return !n;
-      }
-    );
-    dispatchCarpetas(
-      {
-        type         : 'fecha',
-        sortDirection: sortDirection
-      }
-    );
-  }
-
   return <>
-    <div className={ section }>
-      <h1>{'ordenar:'}</h1>
-      <button type='button' onClick={ handleSortByNombre } className={ buttonDrawerMenu }>
-        <p>Nombre</p>
-      </button>
-      <button type='button' onClick={ handleSortByApellido } className={ buttonDrawerMenu }>
-        <p>Apellido</p>
-      </button>
-      <button type='button' onClick={ handleSortByNumero } className={ buttonDrawerMenu }>
-        <p>Numero de Carpeta</p>
-      </button>
-      <button type='button' onClick={ handleSortByFecha } className={ buttonDrawerMenu }>
-        <p>Fecha de ultima actuacion</p>
-      </button>
-    </div>
-    { rows }</>;
+    {rows}</>;
 }

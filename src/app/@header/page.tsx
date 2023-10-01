@@ -1,15 +1,15 @@
 
-import CarpetasList from '#@/components/Carpetas/client/carpetasList';
-import Header from '#@/components/layout/header';
+import SearchOutputList from '#@/components/layout/search/SearchProcesosOutput';
 import SearchOutputListSkeleton from '#@/components/layout/search/SearchProcesosOutputSkeleton';
+import Header from 'components/layout/header';
 import { Suspense } from 'react';
 
-export default function Page () {
+export default  function Default () {
 
   return (
-    <Header  >
+    <Header>
       <Suspense fallback={<SearchOutputListSkeleton />}>
-        <CarpetasList path={ '/Procesos' }  />
+        <SearchOutputList path={ '/Procesos' }  />
       </Suspense>
     </Header>
   );
