@@ -1,13 +1,15 @@
 .container {
   container-name: form;
   container-type: inline-size;
-  grid-area: span 4 / span 4;
+  grid-area: span 4 / span 6;
   display: flex;
   border-radius: 2vmin;
   flex-flow: column nowrap;
   .form {
-    border-radius: 2vmin;
     display: flex;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
     flex-flow: column nowrap;
     padding: 2cqmin;
     gap: 2cqmin;
@@ -18,38 +20,37 @@
       display: flex;
       flex-flow: row nowrap;
     }
-
   }
 }
-    .section {
-      gap: 1cqmin;
-      padding: 2vmin;
-      flex: 1;
+.section {
+  gap: 1cqmin;
+  padding: 2vmin;
+  flex: 1;
+  display: flex;
+  flex-flow: column wrap;
+  & > .section {
+    gap: 5cqmin;
+    padding: 1cqmin;
+    display: flex;
+    flex: 1;
+    flex-flow: row wrap;
+    & > .section {
+      gap: 2cqmin;
+      padding: 5cqh;
       display: flex;
-      flex-flow: column wrap;
-      & > .section {
-        gap: 5cqmin;
-        padding: 1cqmin;
-        display: flex;
-        flex: 1;
-        flex-flow: row wrap;
-        & > .section {
-          gap: 2cqmin;
-          padding: 5cqh;
-          display: flex;
-          flex: 1;
-          flex-flow: column nowrap;
-        }
-      }
-      .label {
-        font-family: var(--font-poiret);
-        flex: 1;
-      }
-      .titleInput,
-      .title {
-        flex: 2;
-      }
+      flex: 1;
+      flex-flow: column nowrap;
     }
+  }
+  .label {
+    font-family: var(--font-poiret);
+    flex: 1;
+  }
+  .titleInput,
+  .title {
+    flex: 2;
+  }
+}
 .submitButton {
   border: none;
   box-shadow: var(--dp5);
@@ -145,7 +146,7 @@
   position: relative;
   display: inline-block;
   box-sizing: border-box;
-  border: .1cqmin solid var(--outline-variant);
+  border: 0.1cqmin solid var(--outline-variant);
   border-radius: 50vw;
   width: 5cqmin;
   height: 2cqmin;
@@ -178,8 +179,8 @@
   content: '';
   height: 1.6cqmin;
   width: 1.6cqmin;
-  left: .1cqmin;
-  bottom: .1cqmin;
+  left: 0.1cqmin;
+  bottom: 0.1cqmin;
   background-color: var(--outline);
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -200,14 +201,4 @@
   -webkit-transform: translateX(3cqmin);
   -ms-transform: translateX(3cqmin);
   transform: translateX(3cqmin);
-}
-
-@container form (min-width: 200px) {
-  .container {
-    .form {
-      .section {
-        flex-flow: row nowrap;
-      }
-    }
-  }
 }

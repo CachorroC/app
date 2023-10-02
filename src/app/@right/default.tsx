@@ -1,3 +1,4 @@
+import { Calendar } from '#@/components/Calendar/main';
 import { Loader } from '#@/components/Loader';
 import AddTask from '#@/components/Nota/add-nota';
 import TaskList from '#@/components/Nota/tasks-list';
@@ -8,6 +9,7 @@ export default function Default() {
 
   return (
     <>
+      <Calendar />
       <AddTask  />
       <Suspense fallback={<Loader />}>
         <CurrentRoute />

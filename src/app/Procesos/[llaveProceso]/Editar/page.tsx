@@ -1,7 +1,8 @@
 
 import { getCarpetaByllaveProceso, } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
-import { Form } from 'components/form/Form';
+import EditCarpeta from '#@/components/form/Editar-carpeta';
+import layout from '#@/styles/layout.module.css';
 
 export default async function PageCarpetaNumero(
   {
@@ -20,9 +21,8 @@ export default async function PageCarpetaNumero(
   }
 
   return (
-    <Form
-      key={params.llaveProceso}
-      carpeta={carpeta}
-    />
+    <div className={ layout.left}>
+      <EditCarpeta key={ params.llaveProceso } carpeta={ carpeta } />
+    </div>
   );
 }

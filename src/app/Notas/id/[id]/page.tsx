@@ -3,6 +3,7 @@ import { getNotaById } from '#@/lib/project/notas';
 import { Edit } from '#@/components/Nota/Edit';
 import typography from '#@/styles/fonts/typography.module.scss';
 import layout from '#@/styles/layout.module.css';
+import { notFound } from 'next/navigation';
 
 export default async function NuevaNotallaveProceso(
   {
@@ -12,13 +13,14 @@ export default async function NuevaNotallaveProceso(
 
   }: {
   params: { id: string };
-  searchParams: { [ key: string ]: string | undefined; };
 }
 ) {
   let notaScope;
   let notaNumber;
 
-
+  if ( id === 'Nueva' ) {
+    notFound();
+  }
 
   if ( id ) {
     const nota = await getNotaById(

@@ -7,6 +7,7 @@ import { SelectSection } from './SelectSection';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { useEffect } from 'react';
+import { DateInputSection } from './DateInputSection';
 
 export default function EditCarpeta(
   {
@@ -14,10 +15,9 @@ export default function EditCarpeta(
   }: { carpeta: MonCarpeta }
 ) {
   const {
-    reset, handleSubmit
+    reset,
   } = useFormContext<MonCarpeta>();
 
-  function onValid() {}
   useEffect(
     () => {
       reset(
@@ -33,12 +33,8 @@ export default function EditCarpeta(
     <>
       <div className={form.container}>
         <form
-          className={form.form}
-          onSubmit={handleSubmit(
-            onValid
-          )}
-        >
-          <section className={form.section}>
+          className={form.form}>
+          <section>
             <section className={form.section}>
               <h3 className={typography.displaySmall}>{'Deudor'}</h3>
               <InputSection
@@ -180,11 +176,10 @@ export default function EditCarpeta(
                 title={'etapa procesal'}
                 type={'text'}
               />
-              <InputSection
-                name={'demanda.fechaPresentacion'}
-                title={'fecha de presentacion de la demanda'}
-                type={'date'}
-              />
+
+              {carpeta.demanda.fechaPresentacion && ( <DateInputSection name={ 'demanda.fechaPresentacion' } title={ 'fecha de presentacion de la demanda' } initialValue={
+                carpeta.demanda.fechaPresentacion
+              } /> )}
               <InputSection
                 name={'demanda.municipio'}
                 title={'Municipio'}
@@ -200,11 +195,7 @@ export default function EditCarpeta(
                 title={'Obligacion'}
                 type={'text'}
               />
-              <InputSection
-                name={'demanda.vencimientoPagare'}
-                title={'Vencimiento del pagaré'}
-                type={'date'}
-              />
+              {carpeta.demanda.entregagarantiasAbogado && (  <DateInputSection name={ 'demanda.entregagarantiasAbogado' } title={ 'fecha de presentacion de la demanda' } initialValue={carpeta.demanda.entregagarantiasAbogado} /> )}
             </section>
           </section>
           <button

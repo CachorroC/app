@@ -4,12 +4,15 @@ import { useNotaContext } from '#@/app/context/main-context';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from 'components/form/form.module.scss';
 import typography from '#@/styles/fonts/typography.module.scss';
+import { useOnlineStatus } from '#@/lib/hooks/online-state';
 
 export const NuevaNota = (
   {
-    llaveProceso = '', cod
+    llaveProceso, cod
   }: { llaveProceso?: string; cod: number }
 ) => {
+  const isOnline = useOnlineStatus();
+
   const {
     inputNota, setInputNota
   } = useNotaContext();
@@ -32,6 +35,7 @@ export const NuevaNota = (
 
   const pathname = usePathname();
 
+
   const router = useRouter();
 
   async function onCreate(
@@ -44,7 +48,7 @@ export const NuevaNota = (
       res.message
     );
     router.replace(
-      `/Notas/${ res.id }`
+      `/Notas/id/${ res.id }`
     );
   }
 
@@ -56,7 +60,8 @@ export const NuevaNota = (
         action={ onCreate }
       >
         <h1 className={typography.displayLarge}>Nueva Nota</h1>
-        <section className={styles.section}>
+        <section className={ styles.section }>
+          {isOnline && ( <p>isOnline</p> )}
           <section className={styles.section}>
             <label
               htmlFor="llaveProceso"
@@ -119,51 +124,57 @@ export const NuevaNota = (
             }
           />
         </section>
-        <input
-          type="date"
-          name="date"
-          className={styles.textArea}
-          value={ `${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }` }
-          onChange={(
-            e
-          ) => {
-            setInputNota(
-              {
-                ...inputNota,
-                date: new Date(
-                  e.target.value
-                )
-              }
-            );
-          }}
+        <section className={ styles.section }>
+          <label htmlFor='date' className={styles.label}>Fecha</label>
 
-        />
-        <input
-          type="text"
-          className={styles.textArea}
-          name="pathname"
-          defaultValue={pathname}
-        />
-
-        <label className={styles.switchBox}>
           <input
-            type="checkbox"
-            className={styles.inputElement}
-            name="done"
-            checked={inputNota.done}
+            type="date"
+            name="date"
+            className={styles.textArea}
+            value={ `${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }` }
             onChange={(
               e
             ) => {
               setInputNota(
                 {
                   ...inputNota,
-                  done: e.target.checked
+                  date: new Date(
+                    e.target.value
+                  )
                 }
               );
             }}
+
           />
-          <span className={styles.slider}></span>
-        </label>
+        </section>
+        <input
+          type="text"
+          className={styles.textArea}
+          name="pathname"
+          defaultValue={pathname}
+        />
+        <section className={ styles.section }>
+
+          <label className={styles.switchBox}>
+            <input
+              type="checkbox"
+              className={styles.inputElement}
+              name="done"
+              checked={inputNota.done}
+              onChange={(
+                e
+              ) => {
+                setInputNota(
+                  {
+                    ...inputNota,
+                    done: e.target.checked
+                  }
+                );
+              }}
+            />
+            <span className={styles.slider}></span>
+          </label>
+        </section>
         <button type="submit">Add</button>
 
       </form>

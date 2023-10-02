@@ -37,7 +37,7 @@ export default async function PageProcesosRightllaveProceso(
       {Carpeta && (
         <>
           <Suspense fallback={<Loader />}>
-            <Calendar date={Carpeta.fecha?.toLocaleString()} />
+            <Calendar date={Carpeta.fecha} />
           </Suspense>
           <Suspense fallback={<Loader />}>
             <CarpetaCard

@@ -5,9 +5,9 @@
 .active {
   border: none;
   box-sizing: border-box;
-  padding: 2vmin;
+  padding: .5vmin 2vmin;
   border-radius: 2vmin;
-  flex: 1 0 auto;
+  flex: 1;
   display: flex;
   flex-flow: column nowrap;
   justify-items: center;
@@ -44,7 +44,7 @@
   &DrawerMenu {
     @extend .button;
     grid-area: drawerMenuButton;
-    background-color: var(--primary-fixed-dim);
+    background-color: var(--primary-fixed);
     & > .icon,
     & > .text {
       color: var(--on-primary-fixed);
@@ -53,11 +53,11 @@
 
   &Modal {
     @extend .button;
-    grid-area: drawerMenuButton;
-    background-color: var(--primary-container);
+    grid-area: modal;
+    background-color: var(--tertiary-container);
     & > .icon,
     & > .text {
-      color: var(--on-primary-container);
+      color: var(--on-tertirary-container);
     }
   }
   &Home {

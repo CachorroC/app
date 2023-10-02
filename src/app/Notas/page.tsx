@@ -4,6 +4,7 @@ import layout from '#@/styles/layout.module.css';
 import Link from 'next/link';
 import typography from '#@/styles/fonts/typography.module.scss';
 import styles from '#@/components/Buttons/buttons.module.css';
+import type { Route } from 'next';
 
 export default async function Page() {
   const notas = await getNotas();
@@ -14,7 +15,7 @@ export default async function Page() {
         <h1 className={typography.displayLarge}>{'Notas'}</h1>
         <Link
           className={styles.button}
-          href={'/Notas/Nueva' }
+          href={'/Notas/Nueva' as Route }
         >
           <p className={styles.text}>{'Nueva Nota'}</p>
           <span className={`material-symbols-outlined ${ styles.icon }`}>

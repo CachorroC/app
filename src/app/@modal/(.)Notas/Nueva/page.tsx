@@ -20,8 +20,11 @@ export default async function Page (
   const nuevoCod = 1 + totalNotas;
 
   return (
-    <Modal>
-      <NuevaNota cod={ nuevoCod } llaveProceso={llaveProceso} />
-    </Modal>
+    <>
+      <Modal>
+        <NuevaNota cod={ nuevoCod } llaveProceso={ llaveProceso } />
+      </Modal>
+
+    </>
   );
 }

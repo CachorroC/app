@@ -1,67 +1,133 @@
 'use client';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useEffect, MouseEventHandler, ReactNode, } from 'react';
+import styles from 'components/Modal/styles.module.css';
+import { useModalContext } from '#@/app/context/modal-context';
+import { buttonBackwards } from '#@/components/Buttons/buttons.module.css';
+
+
+export function ModalDialogButton () {
+  const {
+    isModalOpen, setIsModalOpen
+  } = useModalContext();
+
+  return (
+    <button className={buttonBackwards} onClick={ () => {
+      setIsModalOpen(
+        (
+          n
+        ) => {
+          return !n;
+        }
+      );
+    }}>
+      <span className='material-symbols-outlined'>{
+        isModalOpen
+          ? 'close'
+          : 'note_add'
+      }</span>
+
+    </button>
+  );
+}
 
 export default function ModalDialog(
   {
-    children 
-  }: { children: ReactNode } 
+    children
+  }: { children: ReactNode;  }
 ) {
-  const [
-    isOpen,
-    setShow
-  ] = useState(
-    false 
+
+  const overlay = useRef(
+    null
   );
 
-  const ref = useRef<HTMLDialogElement>(
-    null 
+  const wrapper = useRef(
+    null
+  );
+
+  const
+    {
+      isModalOpen,
+      setIsModalOpen
+    }
+  = useModalContext();
+
+  const onDismiss = useCallback(
+    () => {
+      setIsModalOpen(
+        (
+          n
+        ) => {
+          return !n;
+        }
+      );
+    }, [
+
+      setIsModalOpen
+    ]
+  );
+
+  const onClick: MouseEventHandler = useCallback(
+    (
+      e
+    ) => {
+      if ( e.target === overlay.current || e.target === wrapper.current ) {
+        if ( onDismiss ) {
+          onDismiss();
+        }
+      }
+    },
+    [
+      onDismiss,
+      overlay,
+      wrapper
+    ],
+  );
+
+  const onKeyDown = useCallback(
+    (
+      e: KeyboardEvent
+    ) => {
+      if ( e.key === 'Escape' ) {
+        onDismiss();
+      }
+    },
+    [
+      onDismiss
+    ],
   );
 
   useEffect(
     () => {
-      if ( !isOpen ) {
-        return;
-      }
+      document.addEventListener(
+        'keydown', onKeyDown
+      );
 
-      const dialog = ref.current;
-      dialog && dialog.showModal();
-
-      () => {
-        dialog && dialog.close();
+      return () => {
+        return document.removeEventListener(
+          'keydown', onKeyDown
+        );
       };
     }, [
-      isOpen
-    ] 
+      onKeyDown
+    ]
   );
 
   return (
     <>
-      <button
-        type={'button'}
-        onClick={() => {
-          setShow(
-            false 
-          );
-        }}
-      >
-        <span className="material-symbols-outlined">close</span>
-      </button>
-      <dialog
-        ref={ref}
-        className="modal"
-      >
-        {children}
-      </dialog>
-      <button
-        type={'button'}
-        onClick={() => {
-          return setShow(
-            true 
-          );
-        }}
-      >
-        Open dialog
-      </button>
+      { isModalOpen && (
+        <div
+          ref={overlay}
+          className={styles.open}
+          onClick={onClick}
+        >
+          <div
+            ref={wrapper}
+            className={styles.wrapper}
+          >
+            {children}
+          </div>
+        </div>
+      )}
     </>
   );
 }

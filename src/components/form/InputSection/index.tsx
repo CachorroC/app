@@ -26,6 +26,7 @@ export const InputSection = (
     register
   } = useFormContext<IntCarpeta>();
 
+
   const rules = rls ?? {
     required: false,
   };

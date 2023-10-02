@@ -1,5 +1,4 @@
 'use client';
-import { usePathname } from 'next/navigation';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import { useSearch } from '#@/app/context/search-context';
 
@@ -8,20 +7,13 @@ export default function InputSearchBar() {
     search, setSearch
   } = useSearch();
 
-  const pathname = usePathname();
-
-  const isHome = pathname === '/'
-    ? true
-    : false;
-
   return (
+
     <input
       type="text"
       className={searchbar.input}
       value={search}
-      placeholder={isHome
-        ? 'Buscar'
-        : pathname}
+      placeholder={'Buscar'}
       onChange={(
         input
       ) => {
@@ -31,5 +23,7 @@ export default function InputSearchBar() {
         );
       }}
     />
+
+
   );
 }

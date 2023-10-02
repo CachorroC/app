@@ -31,14 +31,14 @@ export type Category =
 
 export interface intDemanda {
   departamento: Departamento | null;
-  capitalAdeudado: number | string;
-  entregagarantiasAbogado: Date;
+  capitalAdeudado: number | string | null;
+  entregagarantiasAbogado: Date | null;
   etapaProcesal: null | string;
-  fechaPresentacion: Date;
+  fechaPresentacion: Date | null;
   municipio: string;
   obligacion: { [key: string]: number | string };
   radicado: string;
-  vencimientoPagare: Date;
+  vencimientoPagare:  Array<Date | null> | Date | null;
   expediente: string;
   juzgados: intJuzgado[];
 }
@@ -61,9 +61,9 @@ export interface intJuzgado {
 export interface intDeudor {
   tel: intTel;
   primerNombre: string;
-  segundoNombre: null | string;
+  segundoNombre?:  string;
   primerApellido: string;
-  segundoApellido: null | string;
+  segundoApellido?: string;
   cedula: number | null;
   direccion: string;
   email: string;
@@ -421,3 +421,57 @@ export class carpetaConvert {
     );
   }
 }
+
+
+export type KeyOfCarpeta = keyof IntCarpeta
+
+export const mockCarpeta: IntCarpeta =  {
+  fecha       : new Date(),
+  nombre      : '',
+  idProceso   : 0,
+  category    : 'Terminados',
+  categoryTag : 0,
+  numero      : 0,
+  llaveProceso: '',
+  tipoProceso : 'HIPOTECARIO',
+  deudor      : {
+    tel: {
+      fijo   : 0,
+      celular: 0
+    },
+    primerNombre   : '',
+    segundoNombre  : '',
+    primerApellido : '',
+    segundoApellido: '',
+    cedula         : 0,
+    direccion      : '',
+    email          : ''
+  },
+  demanda: {
+    departamento           : null,
+    capitalAdeudado        : '',
+    entregagarantiasAbogado: new Date(),
+    etapaProcesal          : null,
+    fechaPresentacion      : new Date(),
+    municipio              : '',
+    obligacion             : {},
+    radicado               : '',
+    vencimientoPagare      : new Date(),
+    expediente             : '',
+    juzgados               : []
+  },
+  ultimaActuacion: {
+    idRegActuacion: 0,
+    llaveProceso  : '',
+    consActuacion : 0,
+    fechaActuacion: '',
+    actuacion     : '',
+    anotacion     : '',
+    fechaInicial  : '',
+    fechaFinal    : '',
+    fechaRegistro : '',
+    codRegla      : '00                              ',
+    conDocumentos : false,
+    cant          : 0
+  }
+};

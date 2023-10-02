@@ -2,7 +2,6 @@ export type Styles = {
   'bodyLarge': string;
   'bodyMedium': string;
   'bodySmall': string;
-  'container': string;
   'displayLarge': string;
   'displayMedium': string;
   'displaySmall': string;

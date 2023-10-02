@@ -7,6 +7,7 @@ import { Actuacion } from '#@/lib/types/actuaciones';
 import Link from 'next/link';
 import styles from 'components/Card/card.module.css';
 import { button } from '../Buttons/buttons.module.css';
+import { Route } from 'next';
 
 export const FechaActuacionComponent = async (
   {
@@ -70,31 +71,36 @@ export const ActuacionCard = (
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h1 className={`${ typography.titleMedium } ${ styles.title }`}>
-          {`${ actuacion }`}
-        </h1>
+        <div className={ styles.section }>
+          <h1 className={`${ typography.titleMedium } ${ styles.title }`}>
+            {`${ actuacion }`}
+          </h1>
+          <sub
+            className={`${ typography.labelSmall } ${ styles.sub }`}
+          >{`${ consActuacion } de ${ cant }`}</sub>
+
+        </div>
         {anotacion && <p className={typography.bodyMedium}>{`${ anotacion }`}</p>}
         {conDocumentos && (
           <span className={`material-symbols-outlined ${ styles.icon }`}>
             file_present
           </span>
         )}
-        <sub
-          className={`${ typography.labelSmall } ${ styles.sub }`}
-        >{`${ consActuacion } de ${ cant }`}</sub>
-        <Link
-          href={'/Notas/Nueva'}
-          className={button}
-        >
-          <span className={`material-symbols-outlined ${ styles.icon }`}>
+        <div className={ styles.links }>
+          <Link
+            href={'/Notas/Nueva' as Route}
+            className={button}
+          >
+            <span className={`material-symbols-outlined ${ styles.icon }`}>
             note_add
-          </span>
-        </Link>
-        <sup className={`${ typography.labelMedium } ${ styles.date }`}>
-          {fixFechas(
-            fechaActuacion
-          )}
-        </sup>
+            </span>
+          </Link>
+          <sup className={`${ typography.labelMedium } ${ styles.date }`}>
+            {fixFechas(
+              fechaActuacion
+            )}
+          </sup>
+        </div>
       </div>
     </div>
   );

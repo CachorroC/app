@@ -3,10 +3,9 @@
   container-type: inline-size;
   box-sizing: border-box;
   border-radius: 2vmin;
+  flex: 1;
+  display: inline-block;
   border: solid 3px var(--outline);
-}
-.container > * {
-  width: 100%;
 }
 
 .card {
@@ -144,13 +143,12 @@
   background-color: var(--inverse-surface);
   color: var(--inverse-on-surface);
   text-align: center;
-  border-radius: 10cqmin;
-  padding: 5cqmin;
+  border-radius: 1cqmin;
+  padding: 1cqmin;
   box-sizing: border-box;
   position: absolute;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
+  bottom: 0;
+  right: 100px;
   opacity: 0;
   transition: all 0.5s;
 }

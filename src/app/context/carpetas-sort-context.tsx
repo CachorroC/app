@@ -1,12 +1,15 @@
 'use client';
 import { MonCarpeta } from '#@/lib/types/carpetas';
+import { IntAction } from '#@/lib/types/context-actions';
 import { Dispatch, ReactNode, createContext, useContext, useReducer } from 'react';
+
+
 
 const CarpetasSortContext = createContext<MonCarpeta[] | null>(
   null
 );
 
-const CarpetasSortDispatchContext = createContext<Dispatch<{ type: string; sortDirection: boolean }> | null>(
+const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
   null
 );
 
@@ -27,9 +30,6 @@ export function CarpetasSortProvider(
       carpetasReduced
     }>
       <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
-
-
-
         { children }
       </CarpetasSortDispatchContext.Provider>
     </CarpetasSortContext.Provider>
@@ -43,7 +43,7 @@ export function useCarpetaSort () {
 
   if ( context === null ) {
     throw new Error(
-      'useSearch must be used inside a SearchProvider'
+      'useCarpetaSort  must be used inside a carpetasort provider r'
     );
   }
 
@@ -58,7 +58,7 @@ export function useCarpetaSortDispatch () {
 
   if ( context === null ) {
     throw new Error(
-      'useSearch must be used inside a SearchProvider'
+      'useSortDispatchCarpetas must be used inside a CarpetasProvider'
     );
   }
 
@@ -66,13 +66,64 @@ export function useCarpetaSortDispatch () {
 }
 
 export function carpetasReducer(
-  carpetas: MonCarpeta[], action: { type: string; sortDirection: boolean }
+  carpetas: MonCarpeta[], action: IntAction
 ) {
   const {
-    sortDirection, type
+    sortDirection, type, search
   } = action;
 
+  const asc = [
+    -1,
+    0,
+    1
+  ];
+
+  const dsc = [
+    1,
+    0,
+    -1
+  ];
+
+  const sorter = sortDirection
+    ? asc
+    : dsc;
+
+  const upper = sortDirection
+    ? 1
+    : -1;
+
+  const downer =  sortDirection
+    ? -1
+    : 1;
+
   switch ( type ) {
+
+      case 'filter': {
+        return carpetas.filter(
+          (
+            t
+          ) => {
+            return t.category !== action.category;
+          }
+        );
+      }
+
+      case 'search': {
+        const utilString = search
+          ? search
+          : 'sin busqueda';
+
+        return [
+          ...carpetas
+        ].filter(
+          (
+            carpeta
+          ) => {
+            return carpeta.nombre === utilString;
+          }
+        );
+      }
+
       case 'fecha': {
 
         return [
@@ -82,15 +133,11 @@ export function carpetasReducer(
             a, b
           ) => {
             if ( !a.fecha || a.fecha === undefined ) {
-              return ( sortDirection
-                ? 1
-                : -1 );
+              return sorter[ 2 ];
             }
 
             if ( !b.fecha || b.fecha === undefined ) {
-              return ( sortDirection
-                ? -1
-                : 1 );
+              return sorter[ 0 ];
             }
 
             const x = a.fecha.toISOString();
@@ -98,22 +145,70 @@ export function carpetasReducer(
             const y = b.fecha.toISOString();
 
             if ( x < y ) {
-              return ( sortDirection
-                ? 1
-                : -1 );
+              return sorter[ 2 ];
             }
 
             if ( x > y ) {
-              return ( sortDirection
-                ? -1
-                : 1 );
+              return sorter[ 0 ];
             }
 
-            return 0;
+            return sorter[ 1 ];
           }
         );
 
       }
+
+      case 'category': {
+        return [
+          ...carpetas
+        ].sort(
+          (
+            a, b
+          ) => {
+
+
+
+            const x = a.categoryTag;
+
+            const y = b.categoryTag;
+
+            if ( x < y ) {
+              return sorter[ 2 ];
+            }
+
+            if ( x > y ) {
+              return sorter[ 0 ];
+            }
+
+            return sorter[ 1 ];
+          }
+        );
+      }
+
+      case 'categoryTag': {
+        return [
+          ...carpetas
+        ].sort(
+          (
+            a, b
+          ) => {
+            const x = a.categoryTag;
+
+            const y = b.categoryTag;
+
+            if ( x < y ) {
+              return sorter[ 2 ];
+            }
+
+            if ( x > y ) {
+              return sorter[ 0 ];
+            }
+
+            return sorter[ 1 ];
+          }
+        );
+      }
+
 
       case 'numero': {
 
@@ -127,19 +222,11 @@ export function carpetasReducer(
 
             const y = b.numero;
 
-            if ( x < y ) {
-              return ( sortDirection
-                ? 1
-                : -1 );
-            }
+            const idk  = sortDirection
+              ? x-y
+              : y-x;
 
-            if ( x > y ) {
-              return ( sortDirection
-                ? -1
-                : 1 );
-            }
-
-            return 0;
+            return idk;
           }
         );
       }
@@ -157,18 +244,14 @@ export function carpetasReducer(
             const y = b.nombre;
 
             if ( x < y ) {
-              return ( sortDirection
-                ? 1
-                : -1 );
+              return sorter[ 2 ];
             }
 
             if ( x > y ) {
-              return ( sortDirection
-                ? -1
-                : 1 );
+              return sorter[ 0 ];
             }
 
-            return 0;
+            return sorter[ 1 ];
           }
         );
       }
@@ -194,7 +277,7 @@ export function carpetasReducer(
               return -1;
             }
 
-            return 0;
+            return sorter[ 1 ];
           }
         );
       }
@@ -213,11 +296,11 @@ export function carpetasReducer(
             const y = b.deudor.primerApellido;
 
             if ( x < y ) {
-              return 1;
+              return upper;
             }
 
             if ( x > y ) {
-              return -1;
+              return  downer;
             }
 
             return 0;

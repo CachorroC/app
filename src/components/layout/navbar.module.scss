@@ -53,7 +53,7 @@
   border-radius: 2vmin;
   overflow: auto;
   & > * {
-    width: calc(50% - 2vmin);
+    flex: 1 1 calc(50% - 2vmin);
   }
 }
 .button {

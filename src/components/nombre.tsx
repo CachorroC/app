@@ -3,8 +3,8 @@ import typography from '#@/styles/fonts/typography.module.css';
 
 export function NombreComponent(
   {
-    deudor 
-  }: { deudor: intDeudor } 
+    deudor
+  }: { deudor: intDeudor }
 ) {
   const nombres = deudor.segundoNombre
     ? deudor.primerNombre + ' ' + deudor.segundoNombre
@@ -19,7 +19,7 @@ export function NombreComponent(
   return (
     <h4
       key={deudor.cedula}
-      className={typography.titleMedium}
+      className={typography.headlineMedium}
     >
       {rawName}
     </h4>
