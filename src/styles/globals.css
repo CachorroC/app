@@ -6,7 +6,11 @@
   --display-large-font-family-name: var(--font-poiret);
   --display-large-font-family-style: Regular;
   --display-large-font-weight: 400px;
+<<<<<<< HEAD
   --display-large-font-size: 57pt;
+=======
+  --display-large-font-size: 57px;
+>>>>>>> 6449c937b49822d641edfafba6f6c3e946d1350f
   --display-large-line-height: 64px;
   --display-large-letter-spacing: -0.25px;
   /* display - medium */

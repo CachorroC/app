@@ -69,7 +69,7 @@ export function carpetasReducer(
   carpetas: MonCarpeta[], action: IntAction
 ) {
   const {
-    sortDirection, type
+    sortDirection, type, search
   } = action;
 
   const asc = [
