@@ -13,6 +13,8 @@ import { CarpetaFormProvider } from './context/carpeta-form-context';
 import getCarpetas from '#@/lib/project/getCarpetas';
 
 import { CarpetasSortProvider } from './context/carpetas-sort-context';
+import { NotasSortProvider } from './context/notas-sort-context';
+import getNotas from '#@/lib/project/getNotas';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -133,29 +135,34 @@ export default async function RootLayout(
 ) {
   const carpetas = await getCarpetas();
 
+  const notas = await getNotas();
+
   return (
     <html lang="es">
       <body
         className={`${ poiret.variable } ${ raleway.variable } ${ inter.variable } ${ roboto.variable } ${ josefina.variable } [ color-scheme: light dark ]`}
       >
+
         <CarpetasSortProvider carpetas={ carpetas }>
-          <CarpetaFormProvider>
-            <SearchProvider>
-              <ModalProvider>
-                <MainProvider>
-                  <div className={ layout.container }>
+          <NotasSortProvider  notas={ notas}>
+            <CarpetaFormProvider>
+              <SearchProvider>
+                <ModalProvider>
+                  <MainProvider>
+                    <div className={ layout.container }>
 
-                    { header }
-                    {modal}
-                    {children}
-                    <div className={layout.right}>{right}</div>
-                  </div>
+                      { header }
+                      {modal}
+                      {children}
+                      <div className={layout.right}>{right}</div>
+                    </div>
 
-                  <Script src={'service-worker.js'} />
-                </MainProvider>
-              </ModalProvider>
-            </SearchProvider>
-          </CarpetaFormProvider>
+                    <Script src={'service-worker.js'} />
+                  </MainProvider>
+                </ModalProvider>
+              </SearchProvider>
+            </CarpetaFormProvider>
+          </NotasSortProvider>
         </CarpetasSortProvider>
       </body>
     </html>

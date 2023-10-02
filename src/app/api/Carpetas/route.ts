@@ -1,5 +1,6 @@
 import { carpetasCollection } from '#@/lib/connection/mongodb';
 import { IntCarpeta } from '#@/lib/types/carpetas';
+import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 import 'server-only';
 
@@ -148,4 +149,93 @@ export async function POST(
   return NextResponse.json(
     updateOne
   );
+}
+
+
+export async function PUT (
+  request :Request
+) {
+  const {
+    searchParams
+  } = new URL(
+    request.url
+  );
+
+  const id = searchParams.get(
+    '_id'
+  );
+
+  const collection = await carpetasCollection();
+
+  try {
+    if ( !id ) {
+      throw new Error(
+        'no se proporcionó un id con la accion, quiso decir POST? '
+      ) ;
+    }
+
+    const query = {
+      _id: new ObjectId(
+        id
+      )
+    };
+
+    const updatedCarpeta = ( await request.json() ) as IntCarpeta;
+
+    const result = await collection.updateOne(
+      query, {
+        $set: updatedCarpeta
+      }
+    );
+
+    if ( result ) {
+
+      return new NextResponse(
+        JSON.stringify(
+          result
+        ),
+        {
+          status    : 200,
+          statusText: `Successfully updated game with id ${ id }`,
+          headers   : {
+            'Content-type': 'application/json'
+          }
+        }
+      );
+    }
+
+    return new NextResponse(
+      null,
+      {
+        status    : 304,
+        statusText: `Game with id: ${ id } not updated`
+      }
+    );
+
+  } catch ( error ) {
+    if ( error instanceof Error ) {
+      console.error(
+        error.message
+      );
+
+      return new NextResponse(
+        JSON.stringify(
+          {
+            error  : error.name,
+            message: error.message
+          }
+        ), {
+          status    : 400,
+          statusText: error.message,
+
+        }
+      );
+    }
+
+    return new NextResponse(
+      null, {
+        status: 400
+      }
+    );
+  }
 }

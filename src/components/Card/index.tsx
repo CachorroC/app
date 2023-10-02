@@ -4,23 +4,31 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ReactNode, Suspense } from 'react';
-import { Loader } from '../Loader';
+import { ReactNode, useState } from 'react';
 import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { NombreComponent } from '../nombre';
 
 export const Card = (
   {
     path,
     carpeta,
     children,
+    complementaryChildren,
   }: {
   path: string;
   carpeta: MonCarpeta;
-  children: ReactNode;
+      children: ReactNode;
+  complementaryChildren?: ReactNode
 }
 ) => {
+
+  const [
+    isContentOpen,
+    setIsContentOpen
+  ] = useState(
+    false
+  );
+
 
   const llaveLength = carpeta.llaveProceso.length;
 
@@ -40,25 +48,30 @@ export const Card = (
 
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={ () => {
+      setIsContentOpen(
+        (
+          n
+        ) => {
+          return !n;
+        }
+      );
+    }}>
       <div
         className={`${ styles.card } ${
           errorLLaveProceso && styles.errorContainer
         }`}
       >
+
         <section className={styles.section}>
           <div className={styles.title}>
-            <Suspense fallback={<Loader />}>
-              <NombreComponent
-                key={carpeta.nombre}
-                deudor={carpeta.deudor}
-              />
-            </Suspense>
+            <h4 className={typography.displaySmall}>{ carpeta.nombre}</h4>
             <sub className={`${ typography.labelSmall } ${ styles.sub }`}>
               {carpeta.numero}
             </sub>
           </div>
 
+          { isContentOpen && complementaryChildren }
           {children}
         </section>
 

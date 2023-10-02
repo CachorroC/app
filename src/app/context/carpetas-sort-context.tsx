@@ -69,7 +69,7 @@ export function carpetasReducer(
   carpetas: MonCarpeta[], action: IntAction
 ) {
   const {
-    sortDirection, type, search
+    sortDirection, type
   } = action;
 
   const asc = [
@@ -88,41 +88,9 @@ export function carpetasReducer(
     ? asc
     : dsc;
 
-  const upper = sortDirection
-    ? 1
-    : -1;
 
-  const downer =  sortDirection
-    ? -1
-    : 1;
 
   switch ( type ) {
-
-      case 'filter': {
-        return carpetas.filter(
-          (
-            t
-          ) => {
-            return t.category !== action.category;
-          }
-        );
-      }
-
-      case 'search': {
-        const utilString = search
-          ? search
-          : 'sin busqueda';
-
-        return [
-          ...carpetas
-        ].filter(
-          (
-            carpeta
-          ) => {
-            return carpeta.nombre === utilString;
-          }
-        );
-      }
 
       case 'fecha': {
 
@@ -252,58 +220,6 @@ export function carpetasReducer(
             }
 
             return sorter[ 1 ];
-          }
-        );
-      }
-
-      case 'primerNombre': {
-
-
-        return [
-          ...carpetas
-        ].sort(
-          (
-            a, b
-          ) => {
-            const x = a.deudor.primerNombre;
-
-            const y = b.deudor.primerNombre;
-
-            if ( x < y ) {
-              return 1;
-            }
-
-            if ( x > y ) {
-              return -1;
-            }
-
-            return sorter[ 1 ];
-          }
-        );
-      }
-
-      case 'primerApellido': {
-
-
-        return [
-          ...carpetas
-        ].sort(
-          (
-            a, b
-          ) => {
-            const x = a.deudor.primerApellido;
-
-            const y = b.deudor.primerApellido;
-
-            if ( x < y ) {
-              return upper;
-            }
-
-            if ( x > y ) {
-              return  downer;
-            }
-
-            return 0;
           }
         );
       }

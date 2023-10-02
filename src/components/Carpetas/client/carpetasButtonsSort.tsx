@@ -10,8 +10,7 @@ export function CarpetasSortButtons () {
     'fecha',
     'nombre',
     'numero',
-    'primerNombre',
-    'primerApellido',
+    'tipoProceso',
     'category',
     'categoryTag'
   ];

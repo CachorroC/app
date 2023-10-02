@@ -164,3 +164,32 @@
     transform: rotate(360deg);
   }
 }
+.section {
+  gap: 1cqmin;
+  padding: 2vmin;
+  flex: 1;
+  display: flex;
+  flex-flow: column wrap;
+}
+.section > .section {
+  gap: 5cqmin;
+  padding: 1cqmin;
+  display: flex;
+  flex: 1;
+  flex-flow: row wrap;
+}
+.section > .section > .section {
+  gap: 2cqmin;
+  padding: 5cqh;
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+}
+.section .label {
+  font-family: var(--font-poiret);
+  flex: 1;
+}
+.section .titleInput,
+.section .title {
+  flex: 2;
+}

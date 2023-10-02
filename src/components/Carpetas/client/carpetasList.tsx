@@ -33,7 +33,7 @@ export default function CarpetasList(
 
   carpetasReduced.forEach(
     (
-      proceso, index
+      proceso
     ) => {
       const {
         ultimaActuacion
@@ -49,25 +49,25 @@ export default function CarpetasList(
       if ( category === 'todos' || category === proceso.category ) {
         rows.push(
           <Card key={ proceso._id } path={ path } carpeta={ proceso } >
-            {index.toString()}
-            { ultimaActuacion && (
-              <div className={styles.section}>
-                {ultimaActuacion.actuacion && (
-                  <h5 className={` ${ card.actuacion } ${ typography.titleSmall }`}>
-                    {`ultima actuacion registrada en el servidor: ${ ultimaActuacion.actuacion }`}                  </h5>
+            <div className={styles.section}>
+              { ultimaActuacion && (
+                <h5 className={ ` ${ card.actuacion } ${ typography.headlineMedium }` }>
+                  { `ultima actuacion registrada en el servidor: ${ ultimaActuacion.actuacion }` }
+                </h5>
+              ) }
+
+              {ultimaActuacion?.anotacion && (
+                <p className={` ${ card.anotacion } ${ typography.labelSmall }`}>
+                  {ultimaActuacion.anotacion}
+                </p>
+              )}
+              <sub className={card.date}>
+                {fixFechas(
+                  ultimaActuacion?.fechaActuacion ?? ''
                 )}
-                {ultimaActuacion.anotacion && (
-                  <p className={` ${ card.anotacion } ${ typography.labelSmall }`}>
-                    {ultimaActuacion.anotacion}
-                  </p>
-                )}
-                <sub className={card.date}>
-                  {fixFechas(
-                    ultimaActuacion.fechaActuacion
-                  )}
-                </sub>
-              </div>
-            )}
+              </sub>
+
+            </div>
           </Card>
         );
       }

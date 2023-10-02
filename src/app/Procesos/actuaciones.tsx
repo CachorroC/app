@@ -1,13 +1,66 @@
-import { fixFechas } from '#@/lib/project/helper';
+import { fixFechas, sleep } from '#@/lib/project/helper';
 import { MonCarpeta } from '#@/lib/types/carpetas';
-import card from '../Card/card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { getActuaciones } from '#@/lib/Actuaciones';
-import { Actuacion } from '#@/lib/types/actuaciones';
+import { Actuacion, ConsultaActuacion } from '#@/lib/types/actuaciones';
 import Link from 'next/link';
 import styles from 'components/Card/card.module.css';
-import { button } from '../Buttons/buttons.module.css';
+import { button } from 'components/Buttons/buttons.module.css';
 import { Route } from 'next';
+interface ErrorActuacion {
+  StatusCode: number;
+  Message: string;
+}
+
+
+async function getActuaciones(
+  {
+    idProceso, index
+  }: {idProceso: number; index: number}
+) {
+  try {
+    await sleep(
+      index
+    );
+
+    const req = await fetch(
+      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, {
+        next: {
+
+          revalidate: 32400
+        }
+      }
+    );
+
+    if ( !req.ok ) {
+      const json = ( await req.json() ) as ErrorActuacion;
+
+      throw new Error(
+        ` status: ${ req.status }, text: ${
+          req.statusText
+        }, json: ${ JSON.stringify(
+          json
+        ) }`,
+      );
+    }
+
+    const json = ( await req.json() ) as ConsultaActuacion;
+
+    return json;
+  } catch ( error ) {
+    if ( error instanceof Error ) {
+      console.log(
+        `${ idProceso }: error en la fetchActuaciones => ${ error.name } : ${ error.message }`,
+      );
+
+      return null;
+    }
+    console.log(
+      `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
+    );
+
+    return null;
+  }
+}
 
 export const FechaActuacionComponent = async (
   {
@@ -18,34 +71,43 @@ export const FechaActuacionComponent = async (
   index: number;
 }
 ) => {
-  const actuaciones = await getActuaciones(
+  if ( !carpeta.idProceso ) {
+    return null;
+  }
+
+  const consultaActuaciones = await getActuaciones(
     {
-      carpeta: carpeta,
-      index  : index,
+      idProceso: carpeta.idProceso,
+      index    : index,
     }
   );
 
-  if ( !actuaciones ) {
+  if ( !consultaActuaciones ) {
     return null;
   }
+
+  const {
+    actuaciones
+  }= consultaActuaciones;
 
   const [
     ultimaActuacion
   ] = actuaciones;
 
+
   return (
     <div className={styles.section}>
       {ultimaActuacion.actuacion && (
-        <h5 className={` ${ card.actuacion } ${ typography.titleSmall }`}>
+        <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
           {ultimaActuacion.actuacion}
         </h5>
       )}
       {ultimaActuacion.anotacion && (
-        <p className={` ${ card.anotacion } ${ typography.labelSmall }`}>
+        <p className={` ${ styles.anotacion } ${ typography.labelSmall }`}>
           {ultimaActuacion.anotacion}
         </p>
-      )}
-      <sub className={card.date}>
+      ) }
+      <sub className={styles.date}>
         {fixFechas(
           ultimaActuacion.fechaActuacion
         )}

@@ -1,4 +1,5 @@
-import { Category } from './carpetas';
+import { Category, IntCarpeta } from './carpetas';
+import { monNota } from './notas';
 
 export interface IntAction{
   type: ActionType
@@ -8,4 +9,11 @@ export interface IntAction{
 
 }
 
-export type ActionType= 'filter' | 'search' | 'sort' | 'category' | 'categoryTag' | 'numero' | 'nombre' | 'primerNombre' | 'primerApellido' | 'fecha'
+export interface IntNotaAction {
+   type: ActionNotaType;
+   sortDirection: boolean;
+ }
+
+export type ActionNotaType = keyof monNota;
+
+export type ActionType = keyof IntCarpeta

@@ -20,7 +20,10 @@ export async function fetchActuaciones(
     const request = await fetch(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, {
         next: {
-          revalidate: 32400
+          revalidate: 32400,
+          tags      : [
+            'actuaciones'
+          ]
         }
       }
     );
@@ -39,11 +42,7 @@ export async function fetchActuaciones(
 
     const json = ( await request.json() ) as ConsultaActuacion;
 
-    const {
-      actuaciones
-    } = json;
-
-    return actuaciones;
+    return json;
   } catch ( error ) {
     if ( error instanceof Error ) {
       console.log(
@@ -66,7 +65,9 @@ export const getActuaciones = cache(
       carpeta, index
     }: { carpeta: MonCarpeta; index: number }
   ) => {
-    /*
+    try {
+
+      /*
     const limiteDownTimeServidor = new Date(
       '2023-09-20'
     );
@@ -94,15 +95,25 @@ export const getActuaciones = cache(
 
     } */
 
-    if ( !carpeta.idProceso ) {
-      return null;
-    }
+      if ( !carpeta.idProceso ) {
+        return null;
+      }
 
-    const actuaciones = await fetchActuaciones(
-      carpeta.idProceso, index
-    );
+      const consultaActuaciones = await fetchActuaciones(
+        carpeta.idProceso, index
+      );
 
-    if ( actuaciones ) {
+      if ( consultaActuaciones === null ) {
+        throw new Error(
+          'no pudimos resolver la peticion de acuaciones, intentalo nuevamente'
+        );
+
+      }
+
+      const {
+        actuaciones
+      } = consultaActuaciones;
+
       const [
         ultimaActuacion
       ] = actuaciones;
@@ -125,9 +136,18 @@ export const getActuaciones = cache(
           }
         );
       }
-    }
 
-    return actuaciones;
+
+      return actuaciones;
+    } catch ( error ) {
+      if ( error instanceof Error ) {
+        console.log(
+          error.message
+        );
+      }
+
+      return null;
+    }
   },
 );
 
@@ -141,35 +161,59 @@ export const updateActuaciones = cache(
     actuaciones: Actuacion[];
   }
   ) => {
-    const [
-      ultimaActuacion
-    ] = actuaciones;
+    try {
+      const [
+        ultimaActuacion
+      ] = actuaciones;
 
-    const carpetasColl = await carpetasCollection();
+      const carpetasColl = await carpetasCollection();
 
-    const updateCarpetawithActuaciones = await carpetasColl.updateOne(
-      {
-        idProceso: idProceso,
-      },
-      {
-        $set: {
-          fecha: new Date(
-            ultimaActuacion.fechaActuacion
-          ),
-          ultimaActuacion: ultimaActuacion,
+      const updateCarpetawithActuaciones = await carpetasColl.updateOne(
+        {
+          idProceso: idProceso,
         },
-      },
-      {
-        upsert: true,
-      },
-    );
+        {
+          $set: {
+            fecha: new Date(
+              ultimaActuacion.fechaActuacion
+            ),
+            ultimaActuacion: ultimaActuacion,
+          },
+        },
+        {
+          upsert: true,
+        },
+      );
 
-    if (
-      updateCarpetawithActuaciones.modifiedCount > 0
+      if ( !updateCarpetawithActuaciones ) {
+        throw new Error(
+          'hubo un error en la peticion de actualizacion de la carpeta'
+        );
+      }
+
+      if (
+        updateCarpetawithActuaciones.modifiedCount > 0
       || updateCarpetawithActuaciones.upsertedCount > 0
-    ) {
+      ) {
+        console.log(
+          `se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas y se insertaron ${ updateCarpetawithActuaciones.upsertedCount } carpetas`,
+        );
+      }
+
+      throw new Error(
+        'llego al final del actualizador '
+      );
+
+    } catch ( error ) {
+      if ( error instanceof Error ) {
+        console.log(
+          error.message
+        );
+      }
       console.log(
-        `se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas y se insertaron ${ updateCarpetawithActuaciones.upsertedCount } carpetas`,
+        JSON.stringify(
+          error
+        )
       );
     }
   },

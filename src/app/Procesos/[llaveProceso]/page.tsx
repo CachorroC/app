@@ -1,10 +1,11 @@
-import { FechaActuacionComponent } from 'components/Actuacion/server-components';
+
 import { Loader } from '#@/components/Loader';
 import { getCarpetaByllaveProceso, } from '#@/lib/project/carpetas';
 import { Fragment, Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { NombreComponent } from '#@/components/nombre';
 import layout from '#@/styles/layout.module.css';
+import { FechaActuacionComponent } from '../actuaciones';
 
 export default async function PageProcesosLeftllaveProceso(
   {

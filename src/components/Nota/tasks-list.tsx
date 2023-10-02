@@ -1,13 +1,15 @@
-import getNotas from '#@/lib/project/getNotas';
+'use client';
+import { useNotaSort } from '#@/app/context/notas-sort-context';
 import { Task } from './nota';
 import styles from 'components/Nota/note.module.css';
 
-export default async function TaskList() {
-  const tasks = await getNotas();
+export default function TaskList () {
+  const notas = useNotaSort();
+
 
   return (
     <div  className={ styles.taskList }>
-      {tasks.map(
+      {notas.map(
         (
           task
         ) => {

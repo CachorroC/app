@@ -32,7 +32,6 @@ export const NuevaNota = (
     );
 
 
-
   const pathname = usePathname();
 
 
@@ -41,6 +40,7 @@ export const NuevaNota = (
   async function onCreate(
     formData: FormData
   ) {
+
     const res = await createNota(
       formData
     );
@@ -102,81 +102,102 @@ export const NuevaNota = (
               }}
             />
           </section>
-        </section>
-        <section className={ styles.section }>
-          <label htmlFor='text' className={styles.label}>{'Nota:'}</label>
-          <input
-            type="text"
-            className={styles.textArea}
-            name="text"
-            value={inputNota.text}
-            onChange={
-              (
-                e
-              ) => {
-                setInputNota(
-                  {
-                    ...inputNota,
-                    text: e.target.value,
-                  }
-                );
-              }
-            }
-          />
-        </section>
-        <section className={ styles.section }>
-          <label htmlFor='date' className={styles.label}>Fecha</label>
 
-          <input
-            type="date"
-            name="date"
-            className={styles.textArea}
-            value={ `${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }` }
-            onChange={(
-              e
-            ) => {
-              setInputNota(
-                {
-                  ...inputNota,
-                  date: new Date(
-                    e.target.value
-                  )
-                }
-              );
-            }}
-
-          />
-        </section>
-        <input
-          type="text"
-          className={styles.textArea}
-          name="pathname"
-          defaultValue={pathname}
-        />
-        <section className={ styles.section }>
-
-          <label className={styles.switchBox}>
+          <section className={ styles.section }>
+            <label htmlFor='text' className={styles.label}>{'Nota:'}</label>
             <input
-              type="checkbox"
-              className={styles.inputElement}
-              name="done"
-              checked={inputNota.done}
+              type="text"
+              className={styles.textArea}
+              name="text"
+              value={inputNota.text}
+              onChange={
+                (
+                  e
+                ) => {
+                  setInputNota(
+                    {
+                      ...inputNota,
+                      text: e.target.value,
+                    }
+                  );
+                }
+              }
+            />
+          </section>
+          <section className={ styles.section }>
+            <label htmlFor='date' className={styles.label}>Fecha</label>
+
+            <input
+              type="date"
+              name="date"
+              className={styles.textArea}
+              value={ `${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }` }
               onChange={(
                 e
               ) => {
+                const [
+                  yearStringer,
+                  monthStringer,
+                  dayStringer
+                ] = e.target.value.split(
+                  '-'
+                );
+
+                const newYear = Number(
+                  yearStringer
+                );
+
+                const newMonth= Number(
+                  monthStringer
+                ) - 1;
+
+                const newDay = Number(
+                  dayStringer
+                );
                 setInputNota(
                   {
                     ...inputNota,
-                    done: e.target.checked
+                    date: new Date(
+                      newYear, newMonth, newDay
+                    )
                   }
                 );
-              }}
-            />
-            <span className={styles.slider}></span>
-          </label>
-        </section>
-        <button type="submit">Add</button>
 
+              }}
+
+            />
+          </section>
+          <input
+            type="text"
+            className={styles.textArea}
+            name="pathname"
+            defaultValue={pathname}
+          />
+          <section className={ styles.section }>
+
+            <label className={styles.switchBox}>
+              <input
+                type="checkbox"
+                className={styles.inputElement}
+                name="done"
+                checked={inputNota.done}
+                onChange={(
+                  e
+                ) => {
+                  setInputNota(
+                    {
+                      ...inputNota,
+                      done: e.target.checked
+                    }
+                  );
+                }}
+              />
+              <span className={styles.slider}></span>
+            </label>
+          </section>
+
+          <button type="submit">Add</button>
+        </section>
       </form>
     </div>
   );

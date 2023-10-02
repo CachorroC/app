@@ -1,4 +1,4 @@
-import { ActuacionCard } from 'components/Actuacion/server-components';
+
 import { getActuaciones } from '#@/lib/Actuaciones';
 import { notFound } from 'next/navigation';
 import { Fragment, Suspense } from 'react';
@@ -6,6 +6,7 @@ import { getCarpetaByidProceso } from '#@/lib/project/carpetas';
 import { NombreComponent } from '#@/components/nombre';
 import layout from '#@/styles/layout.module.css';
 import { Loader } from '#@/components/Loader';
+import { ActuacionCard } from '../../actuaciones';
 
 export default async function Page(
   {

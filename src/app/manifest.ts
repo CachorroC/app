@@ -68,10 +68,27 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     icons: [
       {
-        src    : '/icons/mstile-558x558.png',
-        sizes  : '558x558',
-        type   : 'image/png',
+        src    : '/icon5.png',
+        purpose: 'maskable',
+        type   : 'image/png'
+      },
+      {
+        src: '/icon13.png',
+
         purpose: 'any',
+        type   : 'image/png'
+      },
+      {
+        src    : '/icon.svg',
+        sizes  : '558x558 270x270 144x144 192x192 128x128 72x72 48x48 32x32 16x16',
+        type   : 'image/svg+xml',
+        purpose: 'maskable',
+      },
+      {
+        src    : '/icon.svg',
+        sizes  : '558x558 270x270 144x144 192x192 128x128 72x72 48x48 32x32 16x16',
+        type   : 'image/svg+xml',
+        purpose: 'monochrome',
       },
       {
         src    : '/icons/mstile-558x270.png',

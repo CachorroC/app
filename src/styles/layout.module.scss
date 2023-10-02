@@ -216,3 +216,34 @@ font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
     transform: rotate(360deg);
   }
 }
+
+
+.section {
+  gap: 1cqmin;
+  padding: 2vmin;
+  flex: 1;
+  display: flex;
+  flex-flow: column wrap;
+  & > .section {
+    gap: 5cqmin;
+    padding: 1cqmin;
+    display: flex;
+    flex: 1;
+    flex-flow: row wrap;
+    & > .section {
+      gap: 2cqmin;
+      padding: 5cqh;
+      display: flex;
+      flex: 1;
+      flex-flow: column nowrap;
+    }
+  }
+  .label {
+    font-family: var(--font-poiret);
+    flex: 1;
+  }
+  .titleInput,
+  .title {
+    flex: 2;
+  }
+}

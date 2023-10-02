@@ -5,8 +5,8 @@
   border-radius: 2vmin;
   flex: 1;
   display: inline-block;
-
-  border: solid 3px var(--outline);
+  background-color: var(--surface-container-low);
+  box-shadow: var(--dp1)
 }
 .card {
   box-sizing: border-box;

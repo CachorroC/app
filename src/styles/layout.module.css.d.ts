@@ -8,6 +8,10 @@ declare const styles: {
   readonly 'link': string;
   readonly 'loader': string;
   readonly 'spin': string;
+  readonly 'section': string;
+  readonly 'label': string;
+  readonly 'titleInput': string;
+  readonly 'title': string;
 };
 export = styles;
 
