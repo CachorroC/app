@@ -1,17 +1,19 @@
-import { CardSkeleton } from 'components/Card/card-skeleton';
+import { Loader } from '#@/components/Loader';
+import { Fragment } from 'react';
 
 export default function MainLoading() {
   return (
-    <>
-      <CardSkeleton key={'1'} />
-      <CardSkeleton key={'2'} />
-      <CardSkeleton key={'3'} />
-      <CardSkeleton key={'4'} />
-      <CardSkeleton key={'5'} />
-      <CardSkeleton key={'6'} />
-      <CardSkeleton key={'7'} />
-      <CardSkeleton key={'8'} />
-      <CardSkeleton key={'9'} />
-    </>
+    <Fragment>
+      <Loader key={'a'} />
+      <Loader key={'b'} />
+      <Loader key={'c'} />
+      <Loader key={'d'} />
+      <Loader key={'e'} />
+      <Loader key={'f'} />
+      <Loader key={'g'} />
+      <Loader key={'h'} />
+      <Loader key={'i'} />
+      <Loader key={'j'} />
+    </Fragment>
   );
 }
