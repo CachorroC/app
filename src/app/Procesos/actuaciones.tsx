@@ -1,66 +1,12 @@
-import { fixFechas, sleep } from '#@/lib/project/helper';
+import { fixFechas } from '#@/lib/project/helper';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { Actuacion, ConsultaActuacion } from '#@/lib/types/actuaciones';
+import { Actuacion } from '#@/lib/types/actuaciones';
 import Link from 'next/link';
 import styles from 'components/Card/card.module.css';
 import { button } from 'components/Buttons/buttons.module.css';
 import { Route } from 'next';
-interface ErrorActuacion {
-  StatusCode: number;
-  Message: string;
-}
-
-
-async function getActuaciones(
-  {
-    idProceso, index
-  }: {idProceso: number; index: number}
-) {
-  try {
-    await sleep(
-      index
-    );
-
-    const req = await fetch(
-      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, {
-        next: {
-
-          revalidate: 32400
-        }
-      }
-    );
-
-    if ( !req.ok ) {
-      const json = ( await req.json() ) as ErrorActuacion;
-
-      throw new Error(
-        ` status: ${ req.status }, text: ${
-          req.statusText
-        }, json: ${ JSON.stringify(
-          json
-        ) }`,
-      );
-    }
-
-    const json = ( await req.json() ) as ConsultaActuacion;
-
-    return json;
-  } catch ( error ) {
-    if ( error instanceof Error ) {
-      console.log(
-        `${ idProceso }: error en la fetchActuaciones => ${ error.name } : ${ error.message }`,
-      );
-
-      return null;
-    }
-    console.log(
-      `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
-    );
-
-    return null;
-  }
-}
+import { getActuaciones } from '#@/lib/Actuaciones';
 
 export const FechaActuacionComponent = async (
   {
@@ -75,20 +21,16 @@ export const FechaActuacionComponent = async (
     return null;
   }
 
-  const consultaActuaciones = await getActuaciones(
+  const actuaciones = await getActuaciones(
     {
-      idProceso: carpeta.idProceso,
-      index    : index,
+      carpeta: carpeta,
+      index  : index,
     }
   );
 
-  if ( !consultaActuaciones ) {
+  if ( !actuaciones ) {
     return null;
   }
-
-  const {
-    actuaciones
-  }= consultaActuaciones;
 
   const [
     ultimaActuacion
