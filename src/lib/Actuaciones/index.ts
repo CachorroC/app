@@ -51,6 +51,7 @@ export async function fetchActuaciones(
 
       return null;
     }
+
     console.log(
       `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
     );
@@ -210,6 +211,7 @@ export const updateActuaciones = cache(
           error.message
         );
       }
+
       console.log(
         JSON.stringify(
           error

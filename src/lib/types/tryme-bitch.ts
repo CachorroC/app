@@ -560,6 +560,7 @@ function transform(
       typ, val, key, parent
     );
   }
+
   let ref: any = undefined;
 
   while ( typeof typ === 'object' && typ.ref !== undefined ) {

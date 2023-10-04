@@ -61,6 +61,7 @@ export function NuevaTarea() {
       );
     }
   };
+
   console.log(
     errors
   );

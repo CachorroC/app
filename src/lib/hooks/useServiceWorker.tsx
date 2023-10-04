@@ -48,6 +48,7 @@ export function useServiceWorker() {
                       if ( data?.state !== undefined ) {
                         increment();
                       }
+
                       decrement();
                     }
                   );

@@ -123,17 +123,20 @@
         "blankLine": "always",
         "next": [
           "export",
-          "continue",
-          "break",
+          "case",
           "if",
           "iife",
           "const",
-          "throw",
-          "return",
+          "class",
           "multiline-block-like",
           "try"
         ],
         "prev": "*"
+      },
+      {
+        "blankLine": "always",
+        "next": "*",
+        "prev": [ "block", "block-like", "for", "if", "continue", "return", "throw", "break" ]
       }
     ],
     "quotes": ["error", "single"],

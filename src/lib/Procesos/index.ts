@@ -27,6 +27,7 @@ export const getDespachos = cache(
           ` error en la conexion network del getDespacxhos ${ e.name } : ${ e.message }`,
         );
       }
+
       console.log(
         ` error en la conexion network del getDespacxho  =>  ${ e }` 
       );
@@ -181,6 +182,7 @@ export async function fetchProceso(
 
       return null;
     }
+
     console.log(
       `${ index }: ${ llaveProceso }: : error en la conexion network del fetchProceso  =>  ${ e }`,
     );

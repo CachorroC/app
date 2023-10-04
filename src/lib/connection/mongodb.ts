@@ -4,6 +4,7 @@ import { MongoClient } from 'mongodb';
 import { cache } from 'react';
 import { IntCarpeta } from 'types/carpetas';
 import { intNota } from 'types/notas';
+import { IntPrueba } from '../types/prueba';
 
 const uri
   = process.env.MONGODB_URI
@@ -24,6 +25,7 @@ if ( process.env.NODE_ENV === 'development' ) {
     );
     globalWithMongo._mongoClientPromise = client.connect();
   }
+
   clientPromise = globalWithMongo._mongoClientPromise;
 } else {
   client = new MongoClient(
@@ -70,6 +72,29 @@ export const carpetasCollection = cache(
 
     const carpetas = db.collection<IntCarpeta>(
       'Carpetas'
+    );
+
+    return carpetas;
+  }
+);
+
+
+export const pruebasCollection = cache(
+  async () => {
+    const client = await clientPromise;
+
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico'
+      );
+    }
+
+    const db = client.db(
+      'RyS'
+    );
+
+    const carpetas = db.collection<IntPrueba>(
+      'Pruebas'
     );
 
     return carpetas;

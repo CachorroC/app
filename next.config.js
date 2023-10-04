@@ -10,8 +10,8 @@ const nextConfig = {
     typedRoutes                     : true,
     serverActions                   : true,
     serverComponentsExternalPackages: [
-              'mongodb',
-              'eslint'
+      'mongodb',
+      'eslint'
     ],
   },
 };
