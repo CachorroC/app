@@ -1,4 +1,4 @@
-import { Category, IntCarpeta } from './carpetas';
+import { Category, MonCarpeta } from './carpetas';
 import { monNota } from './notas';
 
 export interface IntAction{
@@ -16,4 +16,4 @@ export interface IntNotaAction {
 
 export type ActionNotaType = keyof monNota;
 
-export type ActionType = keyof IntCarpeta
+export type ActionType = keyof MonCarpeta

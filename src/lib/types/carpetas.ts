@@ -8,18 +8,17 @@ import { WithId } from 'mongodb';
 import { Actuacion } from './actuaciones';
 
 export interface IntCarpeta {
-  demanda: intDemanda;
   category: Category;
-  categoryTag: number;
+  cc?: number | null;
+  demanda: intDemanda;
   deudor: intDeudor;
+  idProcesos?: number[];
+  llaveProceso?: string;
   numero: number;
-  llaveProceso: string;
   tipoProceso: TipoProceso;
-  idProceso?: number;
-  nombre?: string;
   fecha?: Date;
-
   ultimaActuacion?: Actuacion;
+
 }
 
 export type Category =
@@ -27,30 +26,32 @@ export type Category =
   | 'LiosJuridicos'
   | 'Bancolombia'
   | 'Reintegra'
-  | 'Insolvencia';
+  | 'Insolvencia'
+  | 'sin Especificar'
+  | 'todos';
 
 export interface intDemanda {
+  capitalAdeudado: number | null;
   departamento: Departamento | null;
-  capitalAdeudado: number | string | null;
-  entregagarantiasAbogado: Date | null;
+  entregaGarantiasAbogado: Date | null;
   etapaProcesal: null | string;
+  expediente: null | string;
   fechaPresentacion: Date | null;
-  municipio: string;
-  obligacion: { [key: string]: number | string };
-  radicado: string;
-  vencimientoPagare:  Array<Date | null> | Date | null;
-  expediente: string;
-  juzgados: intJuzgado[];
+  juzgados: intJuzgado[] | null;
+  mandamientoPago: Date |null
+  municipio: string | null;
+  obligacion: Obligacion|null;
+  radicado: string|null;
+  tipoProceso:TipoProceso
+  vencimientoPagare:  Date[]| null;
 }
 
-export interface Departamento {
-  idCatalogoDetalle: number;
-  idCatalogoDetallePadre: number;
-  descripcion: Descripcion;
-  codigo: string;
+export interface Obligacion {
+  A?: number | string;
+  B?: number | string;
 }
 
-export type Descripcion = 'CUNDINAMARCA' | 'TOLIMA';
+export type Departamento = 'CUNDINAMARCA' | 'TOLIMA' | 'BOYACÁ';
 
 export interface intJuzgado {
   id: number;
@@ -70,8 +71,8 @@ export interface intDeudor {
 }
 
 export interface intTel {
-  fijo: number | null;
-  celular: number | null;
+  fijo?: number ;
+  celular?: number;
 }
 
 export type TipoProceso =
@@ -94,15 +95,20 @@ export type TipoProceso =
 
 export type CodRegla = '00                              ';
 
-export interface MonCarpeta extends IntCarpeta {
+export interface MonCarpeta extends IntCarpeta
+{
+
+  fecha?: Date;
+  ultimaActuacion?: Actuacion;
   _id: string;
   nombre: string;
-  fecha?: Date;
-
-  ultimaActuacion?: Actuacion;
 }
 
-export type CarpetaKeys = keyof IntCarpeta;
+export type CarpetaKeys = keyof MonCarpeta;
+
+export type Concrete<Type> = {
+  [Property in keyof Type]-?: Type[Property];
+};
 
 export class BuildCarpeta implements MonCarpeta {
   constructor(
@@ -112,7 +118,6 @@ export class BuildCarpeta implements MonCarpeta {
       llaveProceso,
       demanda,
       category,
-      categoryTag,
       numero,
       deudor: {
         primerNombre,
@@ -189,20 +194,20 @@ export class BuildCarpeta implements MonCarpeta {
     this.numero = numero;
     this.demanda = demanda;
     this.category = category;
-    this.categoryTag = categoryTag;
     this.llaveProceso = llaveProceso;
+    this.cc = this.deudor.cedula;
   }
+  fecha?: Date;
+  ultimaActuacion?: Actuacion;
   _id: string;
-  fecha?: Date | undefined;
-  ultimaActuacion?: Actuacion | undefined;
   demanda: intDemanda;
   category: Category;
-  categoryTag: number;
+  cc: number | null;
   deudor: intDeudor;
   numero: number;
-  llaveProceso: string;
+  llaveProceso?: string | undefined;
   tipoProceso: TipoProceso;
-  idProceso?: number | undefined;
+  idProcesos?: number[] | undefined;
   get nombre() {
     const nombres
       = this.deudor.primerNombre
@@ -426,11 +431,11 @@ export class carpetaConvert {
 export type KeyOfCarpeta = keyof IntCarpeta
 
 export const mockCarpeta: IntCarpeta =  {
-  fecha       : new Date(),
-  nombre      : '',
-  idProceso   : 0,
+
+  idProcesos: [
+    0
+  ],
   category    : 'Terminados',
-  categoryTag : 0,
   numero      : 0,
   llaveProceso: '',
   tipoProceso : 'HIPOTECARIO',
@@ -449,29 +454,18 @@ export const mockCarpeta: IntCarpeta =  {
   },
   demanda: {
     departamento           : null,
-    capitalAdeudado        : '',
-    entregagarantiasAbogado: new Date(),
+    capitalAdeudado        : 0,
+    entregaGarantiasAbogado: null,
     etapaProcesal          : null,
-    fechaPresentacion      : new Date(),
-    municipio              : '',
-    obligacion             : {},
-    radicado               : '',
-    vencimientoPagare      : new Date(),
-    expediente             : '',
-    juzgados               : []
+    fechaPresentacion      : null,
+    municipio              : null,
+    tipoProceso            : 'SINGULAR',
+    obligacion             : null,
+    radicado               : null,
+    vencimientoPagare      : null,
+    expediente             : null,
+    juzgados               : null,
+    mandamientoPago        : null
   },
-  ultimaActuacion: {
-    idRegActuacion: 0,
-    llaveProceso  : '',
-    consActuacion : 0,
-    fechaActuacion: '',
-    actuacion     : '',
-    anotacion     : '',
-    fechaInicial  : '',
-    fechaFinal    : '',
-    fechaRegistro : '',
-    codRegla      : '00                              ',
-    conDocumentos : false,
-    cant          : 0
-  }
+  cc: null
 };

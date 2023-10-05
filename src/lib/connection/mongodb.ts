@@ -71,7 +71,7 @@ export const carpetasCollection = cache(
     );
 
     const carpetas = db.collection<IntCarpeta>(
-      'Carpetas'
+      'Pruebas'
     );
 
     return carpetas;

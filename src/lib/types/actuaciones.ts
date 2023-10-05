@@ -1,88 +1,111 @@
 // To parse this data:
 //
-//   import { Convert, ConsultaActuacion } from "./file";
+//   import { Convert } from "./file";
 //
 //   const consultaActuacion = Convert.toConsultaActuacion(json);
 
 export interface ConsultaActuacion {
-  actuaciones: Actuacion[];
-  paginacion: Paginacion;
+    StatusCode: number;
+    Message:    Message;
+    data?:      Data;
+}
+
+
+export type Message = 'OK' | 'Object reference not set to an instance of an object.' | 'No se pueden ver actuaciones de un proceso privado';
+
+export interface Data {
+    actuaciones: Actuacion[];
+    paginacion:  Paginacion;
 }
 
 export interface Actuacion {
-  idRegActuacion: number;
-  llaveProceso: string;
-  consActuacion: number;
-  fechaActuacion: string;
-  actuacion: string;
-  anotacion: null | string;
-  fechaInicial: null | string;
-  fechaFinal: null | string;
-  fechaRegistro: string;
-  codRegla: CodRegla;
-  conDocumentos: boolean;
-  cant: number;
+    idRegActuacion: number;
+    llaveProceso:   string;
+    consActuacion:  number;
+    fechaActuacion: Date;
+    actuacion:      string;
+    anotacion:      null | string;
+    fechaInicial:   Date | null;
+    fechaFinal:     Date | null;
+    fechaRegistro:  Date;
+    codRegla:       CodRegla;
+    conDocumentos:  boolean;
+    cant:           number;
 }
 
 export type CodRegla = '00                              ';
 
 export interface Paginacion {
-  cantidadRegistros: number;
-  registrosPagina: number;
-  cantidadPaginas: number;
-  pagina: number;
-  paginas: null;
+    cantidadRegistros: number;
+    registrosPagina:   number;
+    cantidadPaginas:   number;
+    pagina:            number;
+    paginas:           null;
 }
 
 // Converts JSON strings to/from your types
 export class actuacionConvert {
   public static toConsultaActuacion(
-    json: string 
+    json: string
   ): ConsultaActuacion {
-    const parsed: ConsultaActuacion = JSON.parse(
-      json 
+    return JSON.parse(
+      json
     );
-
-    return parsed;
   }
 
   public static consultaActuacionToJson(
-    value: ConsultaActuacion 
+    value: ConsultaActuacion
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
-  public static toActuacion(
-    json: string 
+  public static toData(
+    json: string
+  ): Data {
+    return JSON.parse(
+      json
+    );
+  }
+
+  public static dataToJson(
+    value: Data
+  ): string {
+    return JSON.stringify(
+      value
+    );
+  }
+
+  public static toActuacione(
+    json: string
   ): Actuacion {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static actuacioneToJson(
-    value: Actuacion 
+    value: Actuacion
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static toPaginacion(
-    json: string 
+    json: string
   ): Paginacion {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static paginacionToJson(
-    value: Paginacion 
+    value: Paginacion
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 }

@@ -2,12 +2,9 @@ import { cache } from 'react';
 import 'server-only';
 import { carpetasCollection } from '../connection/mongodb';
 import { sleep } from '../project/helper';
-import { Actuacion, ConsultaActuacion } from '../types/actuaciones';
+import { Actuacion, ConsultaActuacion, Data, Message } from '../types/actuaciones';
 import { MonCarpeta } from '../types/carpetas';
-interface ErrorActuacion {
-  StatusCode: number;
-  Message: string;
-}
+
 
 export async function fetchActuaciones(
   idProceso: number, index: number
@@ -29,34 +26,43 @@ export async function fetchActuaciones(
     );
 
     if ( !request.ok ) {
-      const json = ( await request.json() ) as ErrorActuacion;
-
-      throw new Error(
-        ` status: ${ request.status }, text: ${
-          request.statusText
-        }, json: ${ JSON.stringify(
-          json
-        ) }`,
-      );
+      const json = ( await request.json() ) as ConsultaActuacion;
+      return json;
     }
 
-    const json = ( await request.json() ) as ConsultaActuacion;
+    const data = ( await request.json() ) as Data;
 
+    const {
+      actuaciones
+    } = data;
+
+    await updateActuaciones(
+      actuaciones
+    );
+
+    const json:ConsultaActuacion = {
+      StatusCode: request.status,
+      Message   : ( request.statusText ) as Message,
+      data      : data
+    };
     return json;
   } catch ( error ) {
     if ( error instanceof Error ) {
       console.log(
         `${ idProceso }: error en la fetchActuaciones => ${ error.name } : ${ error.message }`,
       );
-
-      return null;
     }
 
     console.log(
       `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
     );
 
-    return null;
+    return {
+      StatusCode: 404,
+      Message   : ( JSON.stringify(
+        error
+      ) )as Message
+    };
   }
 }
 
@@ -66,80 +72,72 @@ export const getActuaciones = cache(
       carpeta, index
     }: { carpeta: MonCarpeta; index: number }
   ) => {
+
     try {
+      const actuacionesMap = new Map<number, Actuacion[]>();
 
-      /*
-    const limiteDownTimeServidor = new Date(
-      '2023-09-20'
-    );
-
-    const today = new Date();
-    console.log(
-      today <= limiteDownTimeServidor
-    );
-
-    if ( today <= limiteDownTimeServidor ) {
-      if ( !carpeta.ultimaActuacion ) {
-        return null;
-      }
-
-      const temporaryArray = [];
-
-
-      temporaryArray.push(
-        carpeta.ultimaActuacion
-      );
-
-      return temporaryArray;
-
-
-
-    } */
-
-      if ( !carpeta.idProceso ) {
-        return null;
-      }
-
-      const consultaActuaciones = await fetchActuaciones(
-        carpeta.idProceso, index
-      );
-
-      if ( consultaActuaciones === null ) {
+      if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
         throw new Error(
-          'no pudimos resolver la peticion de acuaciones, intentalo nuevamente'
-        );
-
-      }
-
-      const {
-        actuaciones
-      } = consultaActuaciones;
-
-      const [
-        ultimaActuacion
-      ] = actuaciones;
-
-      const newDate = new Date(
-        ultimaActuacion.fechaActuacion
-      )
-        .toISOString();
-
-      const oldDate = carpeta.fecha && new Date(
-        carpeta.fecha
-      )
-        .toISOString();
-
-      if ( oldDate !== newDate ) {
-        await updateActuaciones(
-          {
-            idProceso  : carpeta.idProceso,
-            actuaciones: actuaciones,
-          }
+          'no existen idProcesos en este proceso'
         );
       }
 
+      for ( const idProceso of carpeta.idProcesos ) {
+        const consultaActuaciones = await fetchActuaciones(
+          idProceso, index
+        );
 
-      return actuaciones;
+        if ( !consultaActuaciones.data ) {
+          continue;
+        }
+
+        const {
+          data
+        } = consultaActuaciones;
+
+        const {
+          actuaciones
+        } = data;
+
+        const [
+          ultimaActuacion
+        ] = actuaciones;
+
+        const incomingDate = new Date(
+          ultimaActuacion.fechaActuacion
+        )
+          .getTime();
+
+        const savedDate = carpeta.fecha
+          ?  new Date(
+            carpeta.fecha
+          )
+            .getTime()
+          : null;
+        console.log(
+          savedDate
+        );
+        console.log(
+          incomingDate
+        );
+
+        if ( !savedDate || savedDate < incomingDate ) {
+
+          await updateActuaciones(
+            actuaciones
+
+          );
+        }
+
+        actuacionesMap.set(
+          idProceso, actuaciones
+        );
+      }
+
+      const Iterablereturn = Array.from(
+        actuacionesMap.values()
+      );
+      return Iterablereturn.flat();
     } catch ( error ) {
       if ( error instanceof Error ) {
         console.log(
@@ -154,52 +152,84 @@ export const getActuaciones = cache(
 
 export const updateActuaciones = cache(
   async (
-    {
-      idProceso,
-      actuaciones,
-    }: {
-    idProceso: number;
-    actuaciones: Actuacion[];
-  }
+    actuaciones: Actuacion[]
   ) => {
     try {
+      if ( actuaciones.length === 0 ) {
+        throw new Error(
+          'no hay actuaciones en el array'
+        );
+
+      }
+
       const [
         ultimaActuacion
       ] = actuaciones;
 
       const carpetasColl = await carpetasCollection();
 
-      const updateCarpetawithActuaciones = await carpetasColl.updateOne(
+      const carpeta = await carpetasColl.findOne(
         {
-          idProceso: idProceso,
-        },
-        {
-          $set: {
-            fecha: new Date(
-              ultimaActuacion.fechaActuacion
-            ),
-            ultimaActuacion: ultimaActuacion,
-          },
-        },
-        {
-          upsert: true,
-        },
+          llaveProceso: ultimaActuacion.llaveProceso
+        }
       );
 
-      if ( !updateCarpetawithActuaciones ) {
-        throw new Error(
-          'hubo un error en la peticion de actualizacion de la carpeta'
+      const incomingDate = new Date(
+        ultimaActuacion.fechaActuacion
+      )
+        .getTime();
+
+      const savedDate = carpeta?.fecha
+        ?  new Date(
+          carpeta.fecha
+        )
+          .getTime()
+        : null;
+      console.log(
+        `saved date: ${ savedDate }`
+      );
+      console.log(
+        `incoming date: ${ incomingDate }`
+      );
+
+      if ( !savedDate || savedDate < incomingDate ) {
+
+
+        const updateCarpetawithActuaciones = await carpetasColl.updateOne(
+          {
+            llaveProceso: ultimaActuacion.llaveProceso,
+          },
+          {
+            $set: {
+              fecha: new Date(
+                ultimaActuacion.fechaActuacion
+              ),
+              ultimaActuacion: ultimaActuacion,
+            },
+          },
+          {
+            upsert: false,
+          },
         );
+
+        if ( !updateCarpetawithActuaciones ) {
+          throw new Error(
+            'hubo un error en la peticion de actualizacion de la carpeta'
+          );
+        }
+
+        if (
+          updateCarpetawithActuaciones.modifiedCount > 0
+      || updateCarpetawithActuaciones.upsertedCount > 0
+        ) {
+          console.log(
+            `se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas y se insertaron ${ updateCarpetawithActuaciones.upsertedCount } carpetas`,
+          );
+        }
       }
 
-      if (
-        updateCarpetawithActuaciones.modifiedCount > 0
-      || updateCarpetawithActuaciones.upsertedCount > 0
-      ) {
-        console.log(
-          `se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas y se insertaron ${ updateCarpetawithActuaciones.upsertedCount } carpetas`,
-        );
-      }
+
+
 
       throw new Error(
         'llego al final del actualizador '

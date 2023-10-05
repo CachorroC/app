@@ -18,19 +18,31 @@ export const getBaseUrl = () => {
 };
 
 export const fixFechas = (
-  rawDate: string
-): string => {
-  return new Date(
-    rawDate
-  )
-    .toLocaleString(
-      'es-CO', {
-        year   : 'numeric',
-        weekday: 'short',
-        month  : 'long',
-        day    : 'numeric',
-      }
-    );
+  rawDate: string | Date
+) => {
+  if ( typeof rawDate === 'string' ) {
+    return new Date(
+      rawDate
+    )
+      .toLocaleString(
+        'es-CO', {
+          year   : 'numeric',
+          weekday: 'short',
+          month  : 'long',
+          day    : 'numeric',
+        }
+      );
+  }
+
+  return rawDate.toLocaleString(
+    'es-CO', {
+      year   : 'numeric',
+      weekday: 'short',
+      month  : 'long',
+      day    : 'numeric',
+    }
+  );
+
 };
 
 export const sleep = (

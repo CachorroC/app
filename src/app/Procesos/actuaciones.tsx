@@ -7,6 +7,7 @@ import styles from 'components/Card/card.module.css';
 import { button } from 'components/Buttons/buttons.module.css';
 import { Route } from 'next';
 import { getActuaciones } from '#@/lib/Actuaciones';
+import ActuacionComponent from '#@/components/Card/actuacion-component';
 
 export const FechaActuacionComponent = async (
   {
@@ -17,7 +18,7 @@ export const FechaActuacionComponent = async (
   index: number;
 }
 ) => {
-  if ( !carpeta.idProceso ) {
+  if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
     return null;
   }
 
@@ -28,7 +29,7 @@ export const FechaActuacionComponent = async (
     }
   );
 
-  if ( !actuaciones ) {
+  if ( !actuaciones || actuaciones.length === 0 ) {
     return null;
   }
 
@@ -38,23 +39,7 @@ export const FechaActuacionComponent = async (
 
 
   return (
-    <div className={styles.section}>
-      {ultimaActuacion.actuacion && (
-        <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
-          {ultimaActuacion.actuacion}
-        </h5>
-      )}
-      {ultimaActuacion.anotacion && (
-        <p className={` ${ styles.anotacion } ${ typography.labelSmall }`}>
-          {ultimaActuacion.anotacion}
-        </p>
-      ) }
-      <sub className={styles.date}>
-        {fixFechas(
-          ultimaActuacion.fechaActuacion
-        )}
-      </sub>
-    </div>
+    <ActuacionComponent incomingActuacion={ ultimaActuacion} />
   );
 };
 
@@ -101,7 +86,7 @@ export const ActuacionCard = (
           </Link>
           <sup className={`${ typography.labelMedium } ${ styles.date }`}>
             {fixFechas(
-              fechaActuacion
+              fechaActuacion.toISOString()
             )}
           </sup>
         </div>

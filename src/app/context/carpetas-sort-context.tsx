@@ -1,5 +1,5 @@
 'use client';
-import { MonCarpeta } from '#@/lib/types/carpetas';
+import { Category, MonCarpeta } from '#@/lib/types/carpetas';
 import { IntAction } from '#@/lib/types/context-actions';
 import { Dispatch, ReactNode, createContext, useContext, useReducer } from 'react';
 
@@ -68,6 +68,16 @@ export function useCarpetaSortDispatch () {
 export function carpetasReducer(
   carpetas: MonCarpeta[], action: IntAction
 ) {
+  const categoriesSorter: Category[] = [
+    'todos',
+    'Bancolombia',
+    'Reintegra',
+    'sin Especificar',
+    'LiosJuridicos',
+    'Insolvencia',
+    'Terminados'
+  ];
+
   const {
     sortDirection, type
   } = action;
@@ -136,33 +146,13 @@ export function carpetasReducer(
 
 
 
-            const x = a.categoryTag;
+            const x = categoriesSorter.indexOf(
+              a.category
+            );
 
-            const y = b.categoryTag;
-
-            if ( x < y ) {
-              return sorter[ 2 ];
-            }
-
-            if ( x > y ) {
-              return sorter[ 0 ];
-            }
-
-            return sorter[ 1 ];
-          }
-        );
-      }
-
-      case 'categoryTag': {
-        return [
-          ...carpetas
-        ].sort(
-          (
-            a, b
-          ) => {
-            const x = a.categoryTag;
-
-            const y = b.categoryTag;
+            const y = categoriesSorter.indexOf(
+              b.category
+            );
 
             if ( x < y ) {
               return sorter[ 2 ];
@@ -176,7 +166,6 @@ export function carpetasReducer(
           }
         );
       }
-
 
       case 'numero': {
 

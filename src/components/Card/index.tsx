@@ -30,19 +30,23 @@ export const Card = (
   );
 
 
-  const llaveLength = carpeta.llaveProceso.length;
+  const llaveLength = carpeta.llaveProceso?.length;
 
-  const errorLLaveProceso = llaveLength < 23;
+  const errorLLaveProceso = llaveLength
+    ? llaveLength < 23
+    : true;
 
   const pathname = usePathname();
 
-  const href = carpeta.idProceso
-    ? `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProceso }`
+  const href = carpeta.idProcesos
+    ? `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProcesos[ 0 ] }`
     : `${ path }/${ carpeta.llaveProceso }`;
 
   const isActive
     = pathname === href
-    || pathname === `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProceso }`
+    || pathname === `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProcesos
+      ? carpeta.idProcesos[ 0 ]
+      : 0 }`
     || pathname === `${ path }/${ carpeta.llaveProceso }`;
 
 

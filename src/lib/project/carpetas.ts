@@ -20,7 +20,7 @@ export const getCarpetasByllaveProceso = cache(
     );
 
     const collection = db.collection<IntCarpeta>(
-      'Carpetas'
+      'Pruebas'
     );
 
     const carpetasRaw = await collection
@@ -66,7 +66,7 @@ export const getCarpetaByllaveProceso = cache(
     );
 
     const collection = db.collection<IntCarpeta>(
-      'Carpetas'
+      'Pruebas'
     );
 
     const carpetaRaw = await collection.findOne(
@@ -109,7 +109,7 @@ export const getCarpetaById = cache(
     );
 
     const collection = db.collection<IntCarpeta>(
-      'Carpetas'
+      'Pruebas'
     );
 
     const Carpeta = await collection.findOne(
