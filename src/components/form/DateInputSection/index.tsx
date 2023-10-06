@@ -20,16 +20,6 @@ export const DateInputSection = (
 }
 ) => {
 
-  const [
-    isInputDateSection,
-    setIsInputDateSection
-  ] = useState(
-    initialValue?.toISOString()
-      .slice(
-        0, 10
-      )
-  );
-
 
   const dateValue = initialValue
     ? initialValue
@@ -46,20 +36,16 @@ export const DateInputSection = (
     );
 
 
+  const [
+    isInputDateSection,
+    setIsInputDateSection
+  ] = useState(
+    stringDateValue
+  );
+
   const {
     control, register
   } = useFormContext<IntCarpeta>();
-
-  const {
-    fieldState
-  } = useController(
-
-    {
-      name,
-      control,
-      defaultValue: stringDateValue
-    }
-  );
 
 
 
@@ -73,15 +59,14 @@ export const DateInputSection = (
         {title}
       </label>
       <input type="date" name={ name } className={form.textArea} defaultValue={ stringDateValue } placeholder={ name } />
-      <p>{fieldState.isTouched && 'Touched'}</p>
-      <input type='date' className={form.textArea}  {...register(
+
+      <input type='date' className={form.textArea} defaultValue={dateValue.toString()} {...register(
         name,  {
           valueAsDate: true,
           required   : true
         }
       )} />
 
-      <p>{ fieldState.isDirty && 'Dirty' }</p>
       <input type='date' name={ name } className={form.textArea}  value={ isInputDateSection } onChange={ (
         e
       ) => {
@@ -89,9 +74,7 @@ export const DateInputSection = (
           e.target.value
         );
       }} />
-      <p>{fieldState.invalid
-        ? 'invalid'
-        : 'valid'}</p>
+
 
     </section>
   );

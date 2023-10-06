@@ -87,7 +87,7 @@ export default function NewNuevoProceso(
             <section className={form.section}>
               <h3 className={ typography.displaySmall }>{ 'Deudor' }</h3>
               <InputSection name={ 'numero' } title={ 'Carpeta número' } type={ 'number' } />
-
+              <input type='number' name='numero' defaultValue={nextNumber} />
               <InputSection
                 name={'deudor.primerNombre'}
                 title={'Primer Nombre'}

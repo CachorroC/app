@@ -20,30 +20,28 @@ export function CarpetaFormProvider(
   const defaultValues: NuevaCarpeta = {
     category: 'Terminados',
     numero  : 0,
-    deudor  : {
-      primerNombre  : '',
-      segundoNombre : '',
-      primerApellido: '',
-      cedula        : 0,
-      direccion     : '',
-      email         : 'correo@ejemplo.com',
-      tel           : {
-        celular: 0,
-        fijo   : 0
-      },
+
+    primerNombre  : '',
+    segundoNombre : '',
+    primerApellido: '',
+    cedula        : 0,
+    direccion     : '',
+    email         : 'correo@ejemplo.com',
+    tel           : {
+      celular: 0,
+      fijo   : 0
     },
-    demanda: {
-      capitalAdeudado        : 1000000,
-      entregaGarantiasAbogado: new Date(),
-      tipoProceso            : 'HIPOTECARIO',
-      vencimientoPagare      : [
-        new Date()
-      ],
-      obligacion: {
-        A: 'primer obligacion',
-        B: 'segunda obligacion'
-      }
+    capitalAdeudado        : 1000000,
+    entregaGarantiasAbogado: new Date(),
+    tipoProceso            : 'HIPOTECARIO',
+    vencimientoPagare      : [
+      new Date()
+    ],
+    obligacion: {
+      A: 'primer obligacion',
+      B: 'segunda obligacion'
     }
+
   };
 
   const [

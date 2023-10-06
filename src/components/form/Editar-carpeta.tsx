@@ -177,7 +177,7 @@ export default function EditCarpeta(
                 type={'text'}
               />
 
-              {carpeta.demanda.fechaPresentacion && ( <DateInputSection name={ 'demanda.fechaPresentacion' } title={ 'fecha de presentacion de la demanda' } initialValue={
+              {carpeta.demanda.fechaPresentacion && ( <DateInputSection key={'demanda.fechaPresentacion'} name={ 'demanda.fechaPresentacion' } title={ 'fecha de presentacion de la demanda' } initialValue={
                 carpeta.demanda.fechaPresentacion
               } /> )}
               <InputSection
@@ -195,7 +195,7 @@ export default function EditCarpeta(
                 title={'Obligacion'}
                 type={'text'}
               />
-              {carpeta.demanda.entregaGarantiasAbogado && (  <DateInputSection name={ 'demanda.entregaGarantiasAbogado' } title={ 'Entrega de garantias al abogado' } initialValue={carpeta.demanda.entregaGarantiasAbogado} /> )}
+              {carpeta.demanda.entregaGarantiasAbogado && (  <DateInputSection key={'demanda.entregaGarantiasAbogado'} name={ 'demanda.entregaGarantiasAbogado' } title={ 'Entrega de garantias al abogado' } initialValue={carpeta.demanda.entregaGarantiasAbogado} /> )}
             </section>
           </section>
           <button

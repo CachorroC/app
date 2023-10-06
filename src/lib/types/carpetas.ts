@@ -3,16 +3,22 @@ import { Actuacion } from './actuaciones';
 
 export interface NuevaCarpeta
 {
-  numero?: number;
-  deudor: intDeudor;
+  numero: number;
+  tel: intTel;
+  primerNombre: string;
+  segundoNombre?: string;
+  primerApellido: string;
+  segundoApellido?: string;
+  cedula: number;
+  direccion?: string;
+  email?: string;
   category: Category;
-  demanda: {
-    capitalAdeudado: number;
-    entregaGarantiasAbogado: Date;
-    obligacion: Obligacion | null;
-    tipoProceso: TipoProceso;
-    vencimientoPagare: Date[];
-  };
+  capitalAdeudado: number;
+  entregaGarantiasAbogado: string; //? Date
+  obligacion: Obligacion;
+  tipoProceso: TipoProceso;
+  vencimientoPagare: string[]; //?Date[]
+
 }
 
 export interface IntCarpeta {
@@ -118,40 +124,12 @@ export interface MonCarpeta extends IntCarpeta {
 
 export type CarpetaKeys = keyof MonCarpeta;
 
+export type NuevaCarpetaKeys = keyof NuevaCarpeta
+
 export type Concrete<Type> = {
   [Property in keyof Type]-?: Type[Property];
 };
 
-export class BuildCarpeta implements NuevaCarpeta {
-  category: Category;
-  demanda: {
-    capitalAdeudado: number;
-    entregaGarantiasAbogado: Date;
-    obligacion: Obligacion | null;
-    tipoProceso: TipoProceso;
-    vencimientoPagare: Date[];
-  };
-  deudor: intDeudor;
-  numero: number;
-
-  constructor (
-    numero: number,
-    deudor: intDeudor,
-    demanda: {
-      capitalAdeudado: number;
-      entregaGarantiasAbogado: Date;
-      obligacion: Obligacion | null;
-      tipoProceso: TipoProceso;
-      vencimientoPagare: Date[];
-    },
-    category: Category
-  ) {
-    this.deudor = deudor;
-    this.demanda = demanda;
-    this.numero = numero;
-    this.category = category;
-  }
-}
 
 // Converts JSON strings to/from your types
 export class carpetaConvert {

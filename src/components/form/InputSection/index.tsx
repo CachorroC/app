@@ -1,10 +1,11 @@
 'use client';
 
-import { NuevaCarpeta } from '#@/lib/types/carpetas';
+import { NuevaCarpeta, NuevaCarpetaKeys } from '#@/lib/types/carpetas';
 import { FieldPath, RegisterOptions, useFormContext } from 'react-hook-form';
 import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import type { HTMLInputTypeAttribute } from 'react';
+import { useCarpetaFormContext } from '#@/app/context/carpeta-form-context';
 
 export const InputSection = (
   {
@@ -13,7 +14,7 @@ export const InputSection = (
     type,
     rls,
   }: {
-  name: FieldPath<NuevaCarpeta>;
+  name: NuevaCarpetaKeys;
   title: string;
   type: HTMLInputTypeAttribute;
   rls?: Omit<
@@ -25,6 +26,21 @@ export const InputSection = (
   const {
     register
   } = useFormContext<NuevaCarpeta>();
+
+  const {
+    nuevaCarpeta, setNuevaCarpeta
+  } = useCarpetaFormContext();
+
+  function handleChange(
+    e
+  ) {
+    setNuevaCarpeta(
+      {
+        ...nuevaCarpeta,
+        [ e.target.name ]: e.target.value
+      }
+    );
+  }
 
 
   const rules = rls ?? {
@@ -39,6 +55,7 @@ export const InputSection = (
       >
         {title}
       </label>
+      <input name={name} value={nuevaCarpeta[ name ]} onChange={handleChange}/>
       <input
         key={name}
         className={form.textArea}
