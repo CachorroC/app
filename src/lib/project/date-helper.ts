@@ -17,6 +17,7 @@ export function InputDateHelper (
     );
 }
 
+// !prints the output of the datehelper
 export function OutputDateHelper (
   incomingDate: string | Date
 ) {
