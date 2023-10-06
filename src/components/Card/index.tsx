@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { ReactNode, useState } from 'react';
 import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
+import InputEntregaGarantias from './demanda/entrega-garantias';
 
 export const Card = (
   {
@@ -62,7 +63,7 @@ export const Card = (
           errorLLaveProceso && styles.errorContainer
         }`}
       >
-
+        {carpeta.demanda.entregagarantiasAbogado && ( <InputEntregaGarantias entregaGarantiasAbogado={ carpeta.demanda.entregagarantiasAbogado} /> )}
         <section className={styles.section}>
           <div className={styles.title}>
             <h4 className={typography.displaySmall}>{ carpeta.nombre}</h4>
