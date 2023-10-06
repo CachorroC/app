@@ -1,6 +1,6 @@
 'use client';
 
-import { IntCarpeta } from '#@/lib/types/carpetas';
+import { NuevaCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath, RegisterOptions, useFormContext } from 'react-hook-form';
 import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
@@ -13,22 +13,22 @@ export const InputSection = (
     type,
     rls,
   }: {
-  name: FieldPath<IntCarpeta>;
+  name: FieldPath<NuevaCarpeta>;
   title: string;
   type: HTMLInputTypeAttribute;
   rls?: Omit<
-    RegisterOptions<IntCarpeta, any>,
+    RegisterOptions<NuevaCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
 }
 ) => {
   const {
     register
-  } = useFormContext<IntCarpeta>();
+  } = useFormContext<NuevaCarpeta>();
 
 
   const rules = rls ?? {
-    required: false,
+    required: true,
   };
 
   return (

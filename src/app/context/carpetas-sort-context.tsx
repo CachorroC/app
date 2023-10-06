@@ -214,8 +214,34 @@ export function carpetasReducer(
       }
 
       default: {
-        throw Error(
-          'Unknown action: ' + action.type
+        return [
+          ...carpetas
+        ].sort(
+          (
+            a, b
+          ) => {
+            const x = a[ type ];
+
+            const y = b[ type ];
+
+            if ( !x || x === undefined ) {
+              return sorter[ 2 ];
+            }
+
+            if ( !y || y === undefined ) {
+              return sorter[ 0 ];
+            }
+
+            if ( x < y ) {
+              return sorter[ 2 ];
+            }
+
+            if ( x > y ) {
+              return sorter[ 0 ];
+            }
+
+            return 0;
+          }
         );
       }
   }

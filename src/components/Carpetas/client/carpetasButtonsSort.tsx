@@ -10,9 +10,9 @@ export function CarpetasSortButtons () {
     'fecha',
     'nombre',
     'numero',
-    'tipoProceso',
     'category',
-    'categoryTag'
+    'tipoProceso',
+    'cc'
   ];
 
   const dispatchCarpetas = useCarpetaSortDispatch();

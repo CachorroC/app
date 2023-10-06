@@ -26,7 +26,7 @@ export async function GET(
     );
   }
 
-  const CarpetasMap = new Map<string, MonCarpeta>();
+  const CarpetasMap = new Map<string | number, MonCarpeta>();
 
   const carpetas = await getCarpetas();
 
@@ -42,24 +42,31 @@ export async function GET(
       1000
     );
 
-    const actuaciones = await getActuaciones(
-      {
-        carpeta: carpeta,
-        index  : indexOfCarpeta,
-      }
-    );
+    if ( !carpeta.idProcesos ) {
+      continue;
+    }
 
-    if ( actuaciones ) {
-      const newCarpeta = {
-        ...carpeta,
-        fecha: new Date(
-          actuaciones[ 0 ].fechaActuacion
-        ),
-        ultimaActuacion: actuaciones[ 0 ],
-      };
-      CarpetasMap.set(
-        carpeta._id, newCarpeta
+    for ( const idProceso of carpeta.idProcesos ) {
+
+      const actuaciones = await getActuaciones(
+        {
+          idProceso: idProceso,
+          index    : indexOfCarpeta,
+        }
       );
+
+      if ( actuaciones ) {
+        const newCarpeta = {
+          ...carpeta,
+          fecha: new Date(
+            actuaciones[ 0 ].fechaActuacion
+          ),
+          ultimaActuacion: actuaciones[ 0 ],
+        };
+        CarpetasMap.set(
+          idProceso, newCarpeta
+        );
+      }
     }
   }
 

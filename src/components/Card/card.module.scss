@@ -43,21 +43,14 @@
     align-content: space-between;
 
     & > .actuacion {
-      display: none;
+      display: inline-flex;
       font-size: 1rem;
     }
     & > .anotacion {
-      display: none;
+      display: inline-flex;
       width: auto;
     }
-    &:hover,&:active, &:focus{
-        & > .actuacion {
-      display: inline;
-    }
-    & > .anotacion {
-      display: inline;
-    }
-    }
+
 
     & > .date {
       grid-area: date;

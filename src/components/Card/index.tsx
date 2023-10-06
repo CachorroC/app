@@ -4,7 +4,7 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 
@@ -13,22 +13,12 @@ export const Card = (
     path,
     carpeta,
     children,
-    complementaryChildren,
   }: {
   path: string;
   carpeta: MonCarpeta;
       children: ReactNode;
-  complementaryChildren?: ReactNode
 }
 ) => {
-
-  const [
-    isContentOpen,
-    setIsContentOpen
-  ] = useState(
-    false
-  );
-
 
   const llaveLength = carpeta.llaveProceso?.length;
 
@@ -52,15 +42,7 @@ export const Card = (
 
 
   return (
-    <div className={styles.container} onClick={ () => {
-      setIsContentOpen(
-        (
-          n
-        ) => {
-          return !n;
-        }
-      );
-    }}>
+    <div className={styles.container} >
       <div
         className={`${ styles.card } ${
           errorLLaveProceso && styles.errorContainer
@@ -74,11 +56,28 @@ export const Card = (
               {carpeta.numero}
             </sub>
           </div>
-
-          { isContentOpen && complementaryChildren }
           {children}
         </section>
 
+        { carpeta.idProcesos && carpeta.idProcesos.map(
+          (
+            idProceso
+          ) => {
+            return (
+              <Link key={idProceso}
+                className={`${ styles.link } ${ isActive && styles.isActive }`}
+                href={`/Procesos/${ carpeta.llaveProceso }/${ idProceso }` as Route}
+              >
+                <span className={`${ styles.icon } material-symbols-outlined`}>
+              update
+                </span>
+                <span className={styles.tooltiptext}>
+                  {'Actuaciones del proceso'}
+                </span>
+              </Link>
+            );
+          }
+        )}
         <div className={styles.links}>
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}

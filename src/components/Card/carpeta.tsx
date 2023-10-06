@@ -15,26 +15,19 @@ export const CarpetaCard = (
 ) => {
   const {
     llaveProceso,
-    idProceso,
+    idProcesos,
+    deudor, demanda,
     _id
   } = carpeta;
 
   const {
     tel,
     email
-  } = carpeta.deudor;
+  } = deudor;
 
   const {
     juzgados
-  } = carpeta.demanda;
-
-  const path = '/Procesos';
-
-  const href = llaveProceso
-    ? idProceso
-      ? `${ path }/${ llaveProceso }/${ idProceso }`
-      : `${ path }/${ llaveProceso }`
-    : `${ path }`;
+  } = demanda;
 
   return (
     <div
@@ -51,16 +44,25 @@ export const CarpetaCard = (
         <p className={typography.labelSmall}>{carpeta.tipoProceso}</p>
         <p className={typography.titleSmall}>{carpeta.deudor.cedula}</p>
 
-        <Link
-          className={button}
-          key={_id}
-          href={href as Route}
-        >
-          <span className={`material-symbols-outlined ${ styles.icon }`}>
-              folder_open
-          </span>
-          <span className={styles.tooltiptext}>Abrir</span>
-        </Link>
+
+        { idProcesos && idProcesos.map(
+          (
+            idProceso
+          ) => {
+            return (
+              <Link
+                className={button}
+                key={idProceso}
+                href={`/Procesos/${ llaveProceso }/${ idProceso }`as Route}
+              >
+                <span className={`material-symbols-outlined ${ styles.icon }`}>
+              update
+                </span>
+                <span className={styles.tooltiptext}>Ultimas Actiaciones</span>
+              </Link>
+            );
+          }
+        )}
         {juzgados
             && juzgados.map(
               (
@@ -114,12 +116,18 @@ export const CarpetaCard = (
             <span className={styles.tooltiptext}>{tel.fijo.toString()}</span>
           </Link>
         )}
-        {carpeta.demanda.vencimientoPagare && (
-          <p className={typography.labelMedium}>
-            {fixFechas(
-              carpeta.demanda.vencimientoPagare.toString()
-            )}
-          </p>
+        { carpeta.demanda.vencimientoPagare && carpeta.demanda.vencimientoPagare.map(
+          (
+            pagare
+          ) => {
+            return (
+              <p key={pagare.getTime()} className={typography.labelMedium}>
+                {fixFechas(
+                  pagare
+                )}
+              </p>
+            );
+          }
         )}
         {email && (
           <Link
@@ -134,10 +142,10 @@ export const CarpetaCard = (
           </Link>
         )}
 
-        {carpeta.demanda.entregagarantiasAbogado && (
+        {carpeta.demanda.entregaGarantiasAbogado && (
           <p className={typography.labelSmall}>
             {fixFechas(
-              carpeta.demanda.entregagarantiasAbogado.toString()
+              carpeta.demanda.entregaGarantiasAbogado
             )}
           </p>
         )}

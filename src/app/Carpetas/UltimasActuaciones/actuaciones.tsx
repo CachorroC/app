@@ -1,41 +1,37 @@
-import { fixFechas } from '#@/lib/project/helper';
-import { MonCarpeta } from '#@/lib/types/carpetas';
+
 import typography from '#@/styles/fonts/typography.module.scss';
 import { Actuacion } from '#@/lib/types/actuaciones';
 import Link from 'next/link';
 import styles from 'components/Card/card.module.css';
 import { button } from 'components/Buttons/buttons.module.css';
 import { Route } from 'next';
-import { getActuaciones } from '#@/lib/Actuaciones';
+import { fetchActuaciones } from '#@/lib/Actuaciones';
 import ActuacionComponent from '#@/components/Card/actuacion-component';
+import { fixFechas } from '#@/lib/project/helper';
 
 export const FechaActuacionComponent = async (
   {
-    carpeta,
+    idProceso,
     index,
   }: {
-  carpeta: MonCarpeta;
+      idProceso: number;
   index: number;
 }
 ) => {
-  if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
-    return null;
-  }
-
-  const actuaciones = await getActuaciones(
-    {
-      carpeta: carpeta,
-      index  : index,
-    }
+  const consultaActuaciones = await fetchActuaciones(
+    idProceso,
+    index
   );
 
-  if ( !actuaciones || actuaciones.length === 0 ) {
-    return null;
+  if ( !consultaActuaciones.actuaciones ) {
+    return (
+      <p>{consultaActuaciones.Message}</p>
+    );
   }
 
   const [
     ultimaActuacion
-  ] = actuaciones;
+  ] = consultaActuaciones.actuaciones;
 
 
   return (
@@ -86,7 +82,7 @@ export const ActuacionCard = (
           </Link>
           <sup className={`${ typography.labelMedium } ${ styles.date }`}>
             {fixFechas(
-              fechaActuacion.toISOString()
+              fechaActuacion
             )}
           </sup>
         </div>
@@ -111,7 +107,7 @@ export const ActuacionesList = (
           return (
             <ActuacionCard
               act={act}
-              key={act.consActuacion}
+              key={act.idRegActuacion}
             />
           );
         }

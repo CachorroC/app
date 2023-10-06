@@ -49,13 +49,8 @@ export default function ActuacionComponent (
         { fechaActuacion && (
           <sub className={styles.date}>
             {
-              fechaActuacion.toLocaleString(
-                'es-CO', {
-                  year   : 'numeric',
-                  weekday: 'short',
-                  month  : 'long',
-                  day    : 'numeric',
-                }
+              fixFechas(
+                fechaActuacion
               )
             }
           </sub>
@@ -66,13 +61,8 @@ export default function ActuacionComponent (
     visibleContent = (
       <sub className={styles.date}>
         {
-          fechaActuacion && fechaActuacion.toLocaleString(
-            'es-CO', {
-              year   : 'numeric',
-              weekday: 'short',
-              month  : 'long',
-              day    : 'numeric',
-            }
+          fixFechas(
+            fechaActuacion
           )
         }
       </sub>

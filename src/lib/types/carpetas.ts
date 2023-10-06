@@ -1,11 +1,19 @@
-// To parse this data:
-//
-//   import { Convert } from "./file";
-//
-//   const intCarpeta = Convert.toIntCarpeta(json);
-
 import { WithId } from 'mongodb';
 import { Actuacion } from './actuaciones';
+
+export interface NuevaCarpeta
+{
+  numero?: number;
+  deudor: intDeudor;
+  category: Category;
+  demanda: {
+    capitalAdeudado: number;
+    entregaGarantiasAbogado: Date;
+    obligacion: Obligacion | null;
+    tipoProceso: TipoProceso;
+    vencimientoPagare: Date[];
+  };
+}
 
 export interface IntCarpeta {
   category: Category;
@@ -18,7 +26,6 @@ export interface IntCarpeta {
   tipoProceso: TipoProceso;
   fecha?: Date;
   ultimaActuacion?: Actuacion;
-
 }
 
 export type Category =
@@ -38,12 +45,12 @@ export interface intDemanda {
   expediente: null | string;
   fechaPresentacion: Date | null;
   juzgados: intJuzgado[] | null;
-  mandamientoPago: Date |null
+  mandamientoPago: Date | null;
   municipio: string | null;
-  obligacion: Obligacion|null;
-  radicado: string|null;
-  tipoProceso:TipoProceso
-  vencimientoPagare:  Date[]| null;
+  obligacion: Obligacion | null;
+  radicado: string | null;
+  tipoProceso: TipoProceso;
+  vencimientoPagare: Date[] | null;
 }
 
 export interface Obligacion {
@@ -51,7 +58,14 @@ export interface Obligacion {
   B?: number | string;
 }
 
-export type Departamento = 'CUNDINAMARCA' | 'TOLIMA' | 'BOYACÁ';
+export type Departamento =
+  | 'CUNDINAMARCA'
+  | 'TOLIMA'
+  | 'BOYACÁ'
+  | 'depto'
+  | 'VAUPES'
+  | 'CASANARE'
+  | 'CESAR';
 
 export interface intJuzgado {
   id: number;
@@ -62,16 +76,16 @@ export interface intJuzgado {
 export interface intDeudor {
   tel: intTel;
   primerNombre: string;
-  segundoNombre?:  string;
+  segundoNombre?: string;
   primerApellido: string;
   segundoApellido?: string;
   cedula: number | null;
-  direccion: string;
-  email: string;
+  direccion?: string;
+  email?: string;
 }
 
 export interface intTel {
-  fijo?: number ;
+  fijo?: number;
   celular?: number;
 }
 
@@ -95,9 +109,7 @@ export type TipoProceso =
 
 export type CodRegla = '00                              ';
 
-export interface MonCarpeta extends IntCarpeta
-{
-
+export interface MonCarpeta extends IntCarpeta {
   fecha?: Date;
   ultimaActuacion?: Actuacion;
   _id: string;
@@ -110,119 +122,34 @@ export type Concrete<Type> = {
   [Property in keyof Type]-?: Type[Property];
 };
 
-export class BuildCarpeta implements MonCarpeta {
-  constructor(
-    {
-      _id,
-      tipoProceso,
-      llaveProceso,
-      demanda,
-      category,
-      numero,
-      deudor: {
-        primerNombre,
-        segundoNombre,
-        primerApellido,
-        segundoApellido,
-        direccion = '',
-        email = '',
-        tel: {
-          fijo = 0, celular = 0
-        },
-        cedula,
-      },
-    }: WithId<IntCarpeta>
+export class BuildCarpeta implements NuevaCarpeta {
+  constructor (
+    numero: number,
+    deudor: intDeudor,
+    demanda: {
+      capitalAdeudado: number;
+      entregaGarantiasAbogado: Date;
+      obligacion: Obligacion | null;
+      tipoProceso: TipoProceso;
+      vencimientoPagare: Date[];
+    },
+    category: Category
   ) {
-    const pN
-      = primerNombre.charAt(
-        0
-      )
-        .toUpperCase()
-      + primerNombre.toLowerCase()
-        .slice(
-          1
-        );
-
-    const pA
-      = primerApellido.charAt(
-        0
-      )
-        .toUpperCase()
-      + primerApellido.toLowerCase()
-        .slice(
-          1
-        );
-
-    const sN
-      = segundoNombre
-      && segundoNombre.charAt(
-        0
-      )
-        .toUpperCase()
-        + segundoNombre.toLowerCase()
-          .slice(
-            1
-          );
-
-    const sA
-      = segundoApellido
-      && segundoApellido.charAt(
-        0
-      )
-        .toUpperCase()
-        + segundoApellido.toLowerCase()
-          .slice(
-            1
-          );
-    this.deudor = {
-      primerNombre   : pN,
-      segundoNombre  : sN,
-      primerApellido : pA,
-      segundoApellido: sA,
-      cedula         : Number(
-        cedula
-      ),
-      direccion,
-      email,
-      tel: {
-        fijo,
-        celular,
-      },
-    };
-    this._id = _id.toString();
-    this.tipoProceso = tipoProceso;
-    this.numero = numero;
+    this.deudor = deudor;
     this.demanda = demanda;
+    this.numero = numero;
     this.category = category;
-    this.llaveProceso = llaveProceso;
-    this.cc = this.deudor.cedula;
   }
-  fecha?: Date;
-  ultimaActuacion?: Actuacion;
-  _id: string;
-  demanda: intDemanda;
-  category: Category;
-  cc: number | null;
   deudor: intDeudor;
   numero: number;
-  llaveProceso?: string | undefined;
-  tipoProceso: TipoProceso;
-  idProcesos?: number[] | undefined;
-  get nombre() {
-    const nombres
-      = this.deudor.primerNombre
-      + ( this.deudor.segundoNombre
-        ? ' ' + this.deudor.segundoNombre
-        : ' ' );
-
-    const apellidos = this.deudor.segundoApellido
-      ? this.deudor.primerApellido + ' ' + this.deudor.segundoApellido
-      : this.deudor.primerApellido;
-
-    const rawName = nombres + apellidos;
-
-    return rawName;
-  }
+  category: Category;
+  demanda: {
+    capitalAdeudado: number;
+    entregaGarantiasAbogado: Date;
+    obligacion: Obligacion | null;
+    tipoProceso: TipoProceso;
+    vencimientoPagare: Date[];
+  };
 }
 
 // Converts JSON strings to/from your types
@@ -427,11 +354,9 @@ export class carpetaConvert {
   }
 }
 
+export type KeyOfCarpeta = keyof IntCarpeta;
 
-export type KeyOfCarpeta = keyof IntCarpeta
-
-export const mockCarpeta: IntCarpeta =  {
-
+export const mockCarpeta: IntCarpeta = {
   idProcesos: [
     0
   ],
@@ -442,7 +367,7 @@ export const mockCarpeta: IntCarpeta =  {
   deudor      : {
     tel: {
       fijo   : 0,
-      celular: 0
+      celular: 0,
     },
     primerNombre   : '',
     segundoNombre  : '',
@@ -450,7 +375,7 @@ export const mockCarpeta: IntCarpeta =  {
     segundoApellido: '',
     cedula         : 0,
     direccion      : '',
-    email          : ''
+    email          : '',
   },
   demanda: {
     departamento           : null,
@@ -465,7 +390,7 @@ export const mockCarpeta: IntCarpeta =  {
     vencimientoPagare      : null,
     expediente             : null,
     juzgados               : null,
-    mandamientoPago        : null
+    mandamientoPago        : null,
   },
-  cc: null
+  cc: null,
 };

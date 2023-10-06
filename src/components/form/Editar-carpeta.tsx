@@ -167,7 +167,7 @@ export default function EditCarpeta(
                 }}
               />
               <InputSection
-                name={'demanda.entregagarantiasAbogado'}
+                name={'demanda.entregaGarantiasAbogado'}
                 title={'Entrega de Garantias'}
                 type={'date'}
               />
@@ -186,16 +186,16 @@ export default function EditCarpeta(
                 type={'textarea'}
               />
               <InputSection
-                name={'demanda.obligacion.1'}
+                name={'demanda.obligacion.A'}
                 title={'Obligacion'}
                 type={'text'}
               />
               <InputSection
-                name={'demanda.obligacion.2'}
+                name={'demanda.obligacion.B'}
                 title={'Obligacion'}
                 type={'text'}
               />
-              {carpeta.demanda.entregagarantiasAbogado && (  <DateInputSection name={ 'demanda.entregagarantiasAbogado' } title={ 'fecha de presentacion de la demanda' } initialValue={carpeta.demanda.entregagarantiasAbogado} /> )}
+              {carpeta.demanda.entregaGarantiasAbogado && (  <DateInputSection name={ 'demanda.entregaGarantiasAbogado' } title={ 'Entrega de garantias al abogado' } initialValue={carpeta.demanda.entregaGarantiasAbogado} /> )}
             </section>
           </section>
           <button

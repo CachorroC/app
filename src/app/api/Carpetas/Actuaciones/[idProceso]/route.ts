@@ -5,7 +5,9 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import { NextResponse } from 'next/server';
 
 //? aqui van las peticiones a todas las actuaciones por cada carpeta, es decir, el timer que va a ejecutarser con el for of de las carpetas
-export async function GET() {
+export async function GET(
+  request: Request, context: {params: {idProceso: string}}
+) {
   const CarpetasMap = new Map<string, MonCarpeta>();
 
   const carpetas = await getCarpetas();
@@ -25,8 +27,10 @@ export async function GET() {
 
     const actuaciones = await getActuaciones(
       {
-        carpeta: carpeta,
-        index  : indexOfCarpeta,
+        idProceso: Number(
+          context.params.idProceso
+        ),
+        index: indexOfCarpeta,
       }
     );
 

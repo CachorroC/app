@@ -6,7 +6,7 @@ import { getCarpetaByidProceso } from '#@/lib/project/carpetas';
 import { NombreComponent } from '#@/components/nombre';
 import layout from '#@/styles/layout.module.css';
 import { Loader } from '#@/components/Loader';
-import { ActuacionCard } from '../../actuaciones';
+import { ActuacionCard } from '../../../UltimasActuaciones/actuaciones';
 
 export default async function Page(
   {
@@ -30,8 +30,10 @@ export default async function Page(
 
   const actuaciones = await getActuaciones(
     {
-      carpeta: carpeta,
-      index  : 1,
+      idProceso: Number(
+        params.idProceso
+      ),
+      index: 1,
     }
   );
 

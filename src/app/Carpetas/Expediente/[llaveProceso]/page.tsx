@@ -5,7 +5,7 @@ import { Fragment, Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { NombreComponent } from '#@/components/nombre';
 import layout from '#@/styles/layout.module.css';
-import { FechaActuacionComponent } from '../actuaciones';
+import { FechaActuacionComponent } from '../../UltimasActuaciones/actuaciones';
 
 export default async function PageProcesosLeftllaveProceso(
   {
@@ -38,12 +38,18 @@ export default async function PageProcesosLeftllaveProceso(
 
 
         <Suspense fallback={<Loader key={Carpeta._id} />}>
-          {Carpeta.idProceso && (
-            <FechaActuacionComponent
-              key={Carpeta.idProceso}
-              carpeta={Carpeta}
-              index={1}
-            />
+          {Carpeta.idProcesos && Carpeta.idProcesos.map(
+            (
+              idProceso
+            ) => {
+              return (
+                <FechaActuacionComponent
+                  key={idProceso}
+                  idProceso={idProceso}
+                  index={1}
+                />
+              );
+            }
           )}
         </Suspense>
       </div>

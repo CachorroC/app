@@ -7,7 +7,7 @@
 export interface ConsultaActuacion {
     StatusCode: number;
     Message:    Message;
-    data?:      Data;
+    actuaciones?:      Actuacion[];
 }
 
 

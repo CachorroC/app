@@ -122,10 +122,7 @@ export async function POST(
           numero: incomingCarpeta.numero,
         },
         {
-          idProceso: incomingCarpeta.idProceso,
-        },
-        {
-          'deudor.cedula': incomingCarpeta.deudor.cedula,
+          llaveProceso: incomingCarpeta.llaveProceso,
         },
       ],
     },

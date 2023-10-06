@@ -3,7 +3,6 @@ import 'server-only';
 import { carpetasCollection } from '../connection/mongodb';
 import { sleep } from '../project/helper';
 import { Actuacion, ConsultaActuacion, Data, Message } from '../types/actuaciones';
-import { MonCarpeta } from '../types/carpetas';
 
 
 export async function fetchActuaciones(
@@ -41,9 +40,9 @@ export async function fetchActuaciones(
     );
 
     const json:ConsultaActuacion = {
-      StatusCode: request.status,
-      Message   : ( request.statusText ) as Message,
-      data      : data
+      StatusCode : request.status,
+      Message    : ( request.statusText ) as Message,
+      actuaciones: actuaciones
     };
     return json;
   } catch ( error ) {
@@ -69,75 +68,25 @@ export async function fetchActuaciones(
 export const getActuaciones = cache(
   async (
     {
-      carpeta, index
-    }: { carpeta: MonCarpeta; index: number }
+      idProceso, index
+    }: { idProceso: number; index: number }
   ) => {
 
     try {
-      const actuacionesMap = new Map<number, Actuacion[]>();
-
-      if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
-        throw new Error(
-          'no existen idProcesos en este proceso'
-        );
-      }
-
-      for ( const idProceso of carpeta.idProcesos ) {
-        const consultaActuaciones = await fetchActuaciones(
-          idProceso, index
-        );
-
-        if ( !consultaActuaciones.data ) {
-          continue;
-        }
-
-        const {
-          data
-        } = consultaActuaciones;
-
-        const {
-          actuaciones
-        } = data;
-
-        const [
-          ultimaActuacion
-        ] = actuaciones;
-
-        const incomingDate = new Date(
-          ultimaActuacion.fechaActuacion
-        )
-          .getTime();
-
-        const savedDate = carpeta.fecha
-          ?  new Date(
-            carpeta.fecha
-          )
-            .getTime()
-          : null;
-        console.log(
-          savedDate
-        );
-        console.log(
-          incomingDate
-        );
-
-        if ( !savedDate || savedDate < incomingDate ) {
-
-          await updateActuaciones(
-            actuaciones
-
-          );
-        }
-
-        actuacionesMap.set(
-          idProceso, actuaciones
-        );
-      }
-
-      const Iterablereturn = Array.from(
-        actuacionesMap.values()
+      const consultaActuaciones = await fetchActuaciones(
+        idProceso, index
       );
-      return Iterablereturn.flat();
+
+      if ( !consultaActuaciones.actuaciones || consultaActuaciones.actuaciones.length === 0 ) {
+        return null;
+      }
+
+      const {
+        actuaciones
+      } = consultaActuaciones;
+
+
+      return actuaciones;
     } catch ( error ) {
       if ( error instanceof Error ) {
         console.log(
@@ -159,7 +108,6 @@ export const updateActuaciones = cache(
         throw new Error(
           'no hay actuaciones en el array'
         );
-
       }
 
       const [
@@ -193,8 +141,6 @@ export const updateActuaciones = cache(
       );
 
       if ( !savedDate || savedDate < incomingDate ) {
-
-
         const updateCarpetawithActuaciones = await carpetasColl.updateOne(
           {
             llaveProceso: ultimaActuacion.llaveProceso,

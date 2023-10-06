@@ -46,18 +46,12 @@
   align-content: space-between;
 }
 .card .section > .section > .actuacion {
-  display: none;
+  display: inline-flex;
   font-size: 1rem;
 }
 .card .section > .section > .anotacion {
-  display: none;
+  display: inline-flex;
   width: auto;
-}
-.card .section > .section:hover > .actuacion, .card .section > .section:active > .actuacion, .card .section > .section:focus > .actuacion {
-  display: inline;
-}
-.card .section > .section:hover > .anotacion, .card .section > .section:active > .anotacion, .card .section > .section:focus > .anotacion {
-  display: inline;
 }
 .card .section > .section > .date {
   grid-area: date;

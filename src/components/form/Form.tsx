@@ -222,11 +222,11 @@ export const Form = (
             }}
           />
           <InputSection
-            name={'demanda.entregagarantiasAbogado'}
+            name={'demanda.entregaGarantiasAbogado'}
             title={'Entrega de Garantias'}
             type={'date'}
           />
-          {carpeta.demanda.entregagarantiasAbogado && ( <DateInputSection name={ 'demanda.entregagarantiasAbogado'} initialValue={carpeta.demanda.entregagarantiasAbogado} title={'fecha de entrega de las garantias al abogado'}/> )}
+          {carpeta.demanda.entregaGarantiasAbogado && ( <DateInputSection name={ 'demanda.entregaGarantiasAbogado'} initialValue={carpeta.demanda.entregaGarantiasAbogado} title={'fecha de entrega de las garantias al abogado'}/> )}
           <InputSection
             name={'demanda.etapaProcesal'}
             title={'etapa procesal'}
@@ -246,12 +246,12 @@ export const Form = (
             type={'textarea'}
           />
           <InputSection
-            name={'demanda.obligacion.1'}
+            name={'demanda.obligacion.A'}
             title={'Obligacion'}
             type={'text'}
           />
           <InputSection
-            name={'demanda.obligacion.2'}
+            name={'demanda.obligacion.B'}
             title={'Obligacion'}
             type={'text'}
           />

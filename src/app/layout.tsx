@@ -2,7 +2,7 @@ import '#@/styles/globals.css';
 import './manifest';
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import layout from '#@/styles/layout.module.css';
 import { MainProvider } from './context/main-context';
 import { inter, josefina, poiret, raleway, roboto } from '#@/styles/fonts';
@@ -15,6 +15,9 @@ import getCarpetas from '#@/lib/project/getCarpetas';
 import { CarpetasSortProvider } from './context/carpetas-sort-context';
 import { NotasSortProvider } from './context/notas-sort-context';
 import getNotas from '#@/lib/project/getNotas';
+import Header from 'components/layout/header';
+import SearchOutputList from 'components/layout/search/SearchProcesosOutput';
+import SearchOutputListSkeleton from 'components/layout/search/SearchProcesosOutputSkeleton';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -123,12 +126,10 @@ export const metadata: Metadata = {
 export default async function RootLayout(
   {
     children,
-    header,
     modal,
     right,
   }: {
   children: ReactNode;
-  header: ReactNode;
   modal: ReactNode;
   right: ReactNode;
 }
@@ -151,7 +152,11 @@ export default async function RootLayout(
                   <MainProvider>
                     <div className={ layout.container }>
 
-                      { header }
+                      <Header>
+                        <Suspense fallback={<SearchOutputListSkeleton />}>
+                          <SearchOutputList path={ '/Procesos' }  />
+                        </Suspense>
+                      </Header>
                       {modal}
                       {children}
                       <div className={layout.right}>{right}</div>
