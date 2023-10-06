@@ -45,27 +45,11 @@ export interface Proceso {
 
 // Converts JSON strings to/from your types
 export class procesosConvert {
-  public static toConsultaNumeroRadicacion(
-    json: string,
-  ): ConsultaNumeroRadicacion {
-    return JSON.parse(
-      json 
-    );
-  }
-
   public static consultaNumeroRadicacionToJson(
     value: ConsultaNumeroRadicacion,
   ): string {
     return JSON.stringify(
       value 
-    );
-  }
-
-  public static toPaginacion(
-    json: string 
-  ): Paginacion {
-    return JSON.parse(
-      json 
     );
   }
 
@@ -77,14 +61,6 @@ export class procesosConvert {
     );
   }
 
-  public static toParametros(
-    json: string 
-  ): Parametros {
-    return JSON.parse(
-      json 
-    );
-  }
-
   public static parametrosToJson(
     value: Parametros 
   ): string {
@@ -93,19 +69,43 @@ export class procesosConvert {
     );
   }
 
-  public static toProceso(
-    json: string 
-  ): Proceso {
-    return JSON.parse(
-      json 
-    );
-  }
-
   public static procesoToJson(
     value: Proceso 
   ): string {
     return JSON.stringify(
       value 
+    );
+  }
+
+  public static toConsultaNumeroRadicacion(
+    json: string,
+  ): ConsultaNumeroRadicacion {
+    return JSON.parse(
+      json 
+    );
+  }
+
+  public static toPaginacion(
+    json: string 
+  ): Paginacion {
+    return JSON.parse(
+      json 
+    );
+  }
+
+  public static toParametros(
+    json: string 
+  ): Parametros {
+    return JSON.parse(
+      json 
+    );
+  }
+
+  public static toProceso(
+    json: string 
+  ): Proceso {
+    return JSON.parse(
+      json 
     );
   }
 }

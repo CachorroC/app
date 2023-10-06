@@ -68,16 +68,48 @@ export interface Tel {
 
 // Converts JSON strings to/from your types
 export class Convert {
-  public static toIntPrueba(
-    json: string 
-  ): IntPrueba {
-    return JSON.parse(
-      json 
+  public static demandaToJson(
+    value: Demanda 
+  ): string {
+    return JSON.stringify(
+      value 
+    );
+  }
+
+  public static deudorToJson(
+    value: Deudor 
+  ): string {
+    return JSON.stringify(
+      value 
     );
   }
 
   public static intPruebaToJson(
     value: IntPrueba 
+  ): string {
+    return JSON.stringify(
+      value 
+    );
+  }
+
+  public static juzgadoToJson(
+    value: Juzgado 
+  ): string {
+    return JSON.stringify(
+      value 
+    );
+  }
+
+  public static obligacionToJson(
+    value: Obligacion 
+  ): string {
+    return JSON.stringify(
+      value 
+    );
+  }
+
+  public static telToJson(
+    value: Tel 
   ): string {
     return JSON.stringify(
       value 
@@ -92,11 +124,19 @@ export class Convert {
     );
   }
 
-  public static demandaToJson(
-    value: Demanda 
-  ): string {
-    return JSON.stringify(
-      value 
+  public static toDeudor(
+    json: string 
+  ): Deudor {
+    return JSON.parse(
+      json 
+    );
+  }
+
+  public static toIntPrueba(
+    json: string 
+  ): IntPrueba {
+    return JSON.parse(
+      json 
     );
   }
 
@@ -108,14 +148,6 @@ export class Convert {
     );
   }
 
-  public static juzgadoToJson(
-    value: Juzgado 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
-  }
-
   public static toObligacion(
     json: string 
   ): Obligacion {
@@ -124,43 +156,11 @@ export class Convert {
     );
   }
 
-  public static obligacionToJson(
-    value: Obligacion 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
-  }
-
-  public static toDeudor(
-    json: string 
-  ): Deudor {
-    return JSON.parse(
-      json 
-    );
-  }
-
-  public static deudorToJson(
-    value: Deudor 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
-  }
-
   public static toTel(
     json: string 
   ): Tel {
     return JSON.parse(
       json 
-    );
-  }
-
-  public static telToJson(
-    value: Tel 
-  ): string {
-    return JSON.stringify(
-      value 
     );
   }
 }

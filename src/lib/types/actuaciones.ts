@@ -45,11 +45,11 @@ export interface Paginacion {
 
 // Converts JSON strings to/from your types
 export class actuacionConvert {
-  public static toConsultaActuacion(
-    json: string
-  ): ConsultaActuacion {
-    return JSON.parse(
-      json
+  public static actuacioneToJson(
+    value: Actuacion
+  ): string {
+    return JSON.stringify(
+      value
     );
   }
 
@@ -61,16 +61,16 @@ export class actuacionConvert {
     );
   }
 
-  public static toData(
-    json: string
-  ): Data {
-    return JSON.parse(
-      json
+  public static dataToJson(
+    value: Data
+  ): string {
+    return JSON.stringify(
+      value
     );
   }
 
-  public static dataToJson(
-    value: Data
+  public static paginacionToJson(
+    value: Paginacion
   ): string {
     return JSON.stringify(
       value
@@ -85,11 +85,19 @@ export class actuacionConvert {
     );
   }
 
-  public static actuacioneToJson(
-    value: Actuacion
-  ): string {
-    return JSON.stringify(
-      value
+  public static toConsultaActuacion(
+    json: string
+  ): ConsultaActuacion {
+    return JSON.parse(
+      json
+    );
+  }
+
+  public static toData(
+    json: string
+  ): Data {
+    return JSON.parse(
+      json
     );
   }
 
@@ -98,14 +106,6 @@ export class actuacionConvert {
   ): Paginacion {
     return JSON.parse(
       json
-    );
-  }
-
-  public static paginacionToJson(
-    value: Paginacion
-  ): string {
-    return JSON.stringify(
-      value
     );
   }
 }

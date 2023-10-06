@@ -123,6 +123,17 @@ export type Concrete<Type> = {
 };
 
 export class BuildCarpeta implements NuevaCarpeta {
+  category: Category;
+  demanda: {
+    capitalAdeudado: number;
+    entregaGarantiasAbogado: Date;
+    obligacion: Obligacion | null;
+    tipoProceso: TipoProceso;
+    vencimientoPagare: Date[];
+  };
+  deudor: intDeudor;
+  numero: number;
+
   constructor (
     numero: number,
     deudor: intDeudor,
@@ -140,20 +151,114 @@ export class BuildCarpeta implements NuevaCarpeta {
     this.numero = numero;
     this.category = category;
   }
-  deudor: intDeudor;
-  numero: number;
-  category: Category;
-  demanda: {
-    capitalAdeudado: number;
-    entregaGarantiasAbogado: Date;
-    obligacion: Obligacion | null;
-    tipoProceso: TipoProceso;
-    vencimientoPagare: Date[];
-  };
 }
 
 // Converts JSON strings to/from your types
 export class carpetaConvert {
+  public static demandaToJson(
+    value: intDemanda
+  ): string {
+    return JSON.stringify(
+      value
+    );
+  }
+
+  public static departamentoToJson(
+    value: Departamento
+  ): string {
+    return JSON.stringify(
+      value
+    );
+  }
+
+  public static deudorToJson(
+    value: intDeudor
+  ): string {
+    return JSON.stringify(
+      value
+    );
+  }
+
+  public static intCarpetasToJson(
+    value: IntCarpeta[]
+  ): string {
+    return JSON.stringify(
+      value
+    );
+  }
+
+  public static intCarpetaToJson(
+    value: IntCarpeta
+  ): string {
+    return JSON.stringify(
+      value
+    );
+  }
+
+  public static juzgadoToJson(
+    value: intJuzgado
+  ): string {
+    return JSON.stringify(
+      value
+    );
+  }
+
+  public static telToJson(
+    value: intTel
+  ): string {
+    return JSON.stringify(
+      value
+    );
+  }
+
+  public static toDemanda(
+    json: string
+  ): intDemanda {
+    return JSON.parse(
+      json
+    );
+  }
+
+  public static toDepartamento(
+    json: string
+  ): Departamento {
+    return JSON.parse(
+      json
+    );
+  }
+
+  public static toDeudor(
+    json: string
+  ): intDeudor {
+    return JSON.parse(
+      json
+    );
+  }
+
+  public static toIntCarpeta(
+    json: string
+  ): IntCarpeta {
+    return JSON.parse(
+      json
+    );
+  }
+
+  public static toIntCarpetas(
+    json: string
+  ): IntCarpeta[] {
+    return JSON.parse(
+      json
+    );
+  }
+
+  public static toJuzgado(
+    json: string
+  ): intJuzgado {
+    return JSON.parse(
+      json
+    );
+  }
+
   public static toMonCarpeta(
     carpeta: WithId<IntCarpeta>
   ): MonCarpeta {
@@ -241,115 +346,12 @@ export class carpetaConvert {
 
     return newCarpetas;
   }
-  public static toIntCarpetas(
-    json: string
-  ): IntCarpeta[] {
-    return JSON.parse(
-      json
-    );
-  }
-
-  public static intCarpetasToJson(
-    value: IntCarpeta[]
-  ): string {
-    return JSON.stringify(
-      value
-    );
-  }
-
-  public static toIntCarpeta(
-    json: string
-  ): IntCarpeta {
-    return JSON.parse(
-      json
-    );
-  }
-
-  public static intCarpetaToJson(
-    value: IntCarpeta
-  ): string {
-    return JSON.stringify(
-      value
-    );
-  }
-
-  public static toDemanda(
-    json: string
-  ): intDemanda {
-    return JSON.parse(
-      json
-    );
-  }
-
-  public static demandaToJson(
-    value: intDemanda
-  ): string {
-    return JSON.stringify(
-      value
-    );
-  }
-
-  public static toDepartamento(
-    json: string
-  ): Departamento {
-    return JSON.parse(
-      json
-    );
-  }
-
-  public static departamentoToJson(
-    value: Departamento
-  ): string {
-    return JSON.stringify(
-      value
-    );
-  }
-
-  public static toJuzgado(
-    json: string
-  ): intJuzgado {
-    return JSON.parse(
-      json
-    );
-  }
-
-  public static juzgadoToJson(
-    value: intJuzgado
-  ): string {
-    return JSON.stringify(
-      value
-    );
-  }
-
-  public static toDeudor(
-    json: string
-  ): intDeudor {
-    return JSON.parse(
-      json
-    );
-  }
-
-  public static deudorToJson(
-    value: intDeudor
-  ): string {
-    return JSON.stringify(
-      value
-    );
-  }
 
   public static toTel(
     json: string
   ): intTel {
     return JSON.parse(
       json
-    );
-  }
-
-  public static telToJson(
-    value: intTel
-  ): string {
-    return JSON.stringify(
-      value
     );
   }
 }

@@ -19,18 +19,6 @@ export interface MonNota {
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
-  public static toMonNota(
-    json: string
-  ): MonNota {
-    return cast(
-      JSON.parse(
-        json
-      ), r(
-        'MonNota'
-      )
-    );
-  }
-
   public static monNotaToJson(
     value: MonNota
   ): string {
@@ -40,6 +28,18 @@ export class Convert {
           'MonNota'
         )
       ), null, 2
+    );
+  }
+
+  public static toMonNota(
+    json: string
+  ): MonNota {
+    return cast(
+      JSON.parse(
+        json
+      ), r(
+        'MonNota'
+      )
     );
   }
 }

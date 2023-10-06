@@ -20,23 +20,16 @@ export interface monNota extends intNota {
 }
 
 export class notasConvert {
-  public static toMonNotas(
-    rawNotas: WithId<intNota>[]
-  ): monNota[] {
-    const newNotas = rawNotas.map(
-      (
-        nota
-      ) => {
-        return this.toMonNota(
-          nota
-        );
-      }
-    );
-
-    return newNotas;
-  }
   public static monNotasToJson(
     value: monNota[]
+  ): string {
+    return JSON.stringify(
+      value
+    );
+  }
+
+  public static monNotaToJson(
+    value: monNota
   ): string {
     return JSON.stringify(
       value
@@ -53,11 +46,20 @@ export class notasConvert {
 
     return newNota;
   }
-  public static monNotaToJson(
-    value: monNota
-  ): string {
-    return JSON.stringify(
-      value
+
+  public static toMonNotas(
+    rawNotas: WithId<intNota>[]
+  ): monNota[] {
+    const newNotas = rawNotas.map(
+      (
+        nota
+      ) => {
+        return this.toMonNota(
+          nota
+        );
+      }
     );
+
+    return newNotas;
   }
 }

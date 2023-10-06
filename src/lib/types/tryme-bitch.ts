@@ -109,15 +109,27 @@ export type CodRegla = '00                              ';
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
-  public static toIntCarpeta(
-    json: string
-  ): IntCarpeta {
-    return cast(
-      JSON.parse(
-        json
-      ), r(
-        'IntCarpeta'
-      )
+  public static demandaToJson(
+    value: Demanda
+  ): string {
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'Demanda'
+        )
+      ), null, 2
+    );
+  }
+
+  public static deudorToJson(
+    value: Deudor
+  ): string {
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'Deudor'
+        )
+      ), null, 2
     );
   }
 
@@ -128,6 +140,42 @@ export class Convert {
       uncast(
         value, r(
           'IntCarpeta'
+        )
+      ), null, 2
+    );
+  }
+
+  public static juzgadoToJson(
+    value: Juzgado
+  ): string {
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'Juzgado'
+        )
+      ), null, 2
+    );
+  }
+
+  public static obligacionToJson(
+    value: Obligacion
+  ): string {
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'Obligacion'
+        )
+      ), null, 2
+    );
+  }
+
+  public static telToJson(
+    value: Tel
+  ): string {
+    return JSON.stringify(
+      uncast(
+        value, r(
+          'Tel'
         )
       ), null, 2
     );
@@ -145,15 +193,27 @@ export class Convert {
     );
   }
 
-  public static demandaToJson(
-    value: Demanda
-  ): string {
-    return JSON.stringify(
-      uncast(
-        value, r(
-          'Demanda'
-        )
-      ), null, 2
+  public static toDeudor(
+    json: string
+  ): Deudor {
+    return cast(
+      JSON.parse(
+        json
+      ), r(
+        'Deudor'
+      )
+    );
+  }
+
+  public static toIntCarpeta(
+    json: string
+  ): IntCarpeta {
+    return cast(
+      JSON.parse(
+        json
+      ), r(
+        'IntCarpeta'
+      )
     );
   }
 
@@ -169,18 +229,6 @@ export class Convert {
     );
   }
 
-  public static juzgadoToJson(
-    value: Juzgado
-  ): string {
-    return JSON.stringify(
-      uncast(
-        value, r(
-          'Juzgado'
-        )
-      ), null, 2
-    );
-  }
-
   public static toObligacion(
     json: string
   ): Obligacion {
@@ -193,42 +241,6 @@ export class Convert {
     );
   }
 
-  public static obligacionToJson(
-    value: Obligacion
-  ): string {
-    return JSON.stringify(
-      uncast(
-        value, r(
-          'Obligacion'
-        )
-      ), null, 2
-    );
-  }
-
-  public static toDeudor(
-    json: string
-  ): Deudor {
-    return cast(
-      JSON.parse(
-        json
-      ), r(
-        'Deudor'
-      )
-    );
-  }
-
-  public static deudorToJson(
-    value: Deudor
-  ): string {
-    return JSON.stringify(
-      uncast(
-        value, r(
-          'Deudor'
-        )
-      ), null, 2
-    );
-  }
-
   public static toTel(
     json: string
   ): Tel {
@@ -238,18 +250,6 @@ export class Convert {
       ), r(
         'Tel'
       )
-    );
-  }
-
-  public static telToJson(
-    value: Tel
-  ): string {
-    return JSON.stringify(
-      uncast(
-        value, r(
-          'Tel'
-        )
-      ), null, 2
     );
   }
 
