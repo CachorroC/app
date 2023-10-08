@@ -43,11 +43,11 @@ export default function manifest(): MetadataRoute.Manifest {
     shortcuts: [
       {
         name : 'Procesos',
-        url  : '/Procesos',
+        url  : '/Carpetas/UltimasActuaciones',
         icons: [
           {
             src    : '/icon.svg',
-            sizes  : '96x96 144x144 152x152 192x192 70x70 ',
+            sizes  : '96x96 144x144 152x152 192x192 70x70',
             type   : 'image/svg+xml',
             purpose: 'any',
           },
@@ -59,7 +59,7 @@ export default function manifest(): MetadataRoute.Manifest {
         icons: [
           {
             src    : '/icon13.png',
-            sizes  : '96x96',
+            sizes  : '512x512',
             type   : 'image/png',
             purpose: 'any',
           },
@@ -73,8 +73,8 @@ export default function manifest(): MetadataRoute.Manifest {
         type   : 'image/png'
       },
       {
-        src: '/icon13.png',
-
+        src    : '/icon13.png',
+        sizes  : '512x512',
         purpose: 'any',
         type   : 'image/png'
       },
@@ -99,26 +99,27 @@ export default function manifest(): MetadataRoute.Manifest {
       {
         src    : '/icon1.png',
         type   : 'image/png',
-        purpose: 'any',
+        purpose: 'monochrome',
       },
       {
-       src    : '/icon2.png',
+        src    : '/icon2.png',
         type   : 'image/png',
-        purpose: 'any',
+        purpose: 'monochrome',
       },
       {
         src    : '/icon3.png',
         type   : 'image/png',
-        purpose: 'any',
+        purpose: 'monochrome',
       },
       {
         src    : '/safari-pinned-tab.svg',
         purpose: 'any',
-        type: 'image/svg+xml'
+        type   : 'image/svg+xml'
       },
       {
         src    : 'icon13.png',
         type   : 'image/png',
+        sizes  : '512x512',
         purpose: 'maskable',
       },
       {
