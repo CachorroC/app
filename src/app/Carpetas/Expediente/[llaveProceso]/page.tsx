@@ -5,7 +5,7 @@ import { Fragment, Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { NombreComponent } from '#@/components/nombre';
 import layout from '#@/styles/layout.module.css';
-import { FechaActuacionComponent } from '../../UltimasActuaciones/actuaciones';
+import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 
 export default async function PageProcesosLeftllaveProceso(
   {

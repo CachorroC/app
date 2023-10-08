@@ -26,20 +26,22 @@ export const fixFechas = (
     )
       .toLocaleString(
         'es-CO', {
-          year   : 'numeric',
-          weekday: 'short',
-          month  : 'long',
-          day    : 'numeric',
+          timeZone: 'UTC',
+          year    : 'numeric',
+          weekday : 'short',
+          month   : 'long',
+          day     : 'numeric',
         }
       );
   }
 
   return rawDate.toLocaleString(
     'es-CO', {
-      year   : 'numeric',
-      weekday: 'short',
-      month  : 'long',
-      day    : 'numeric',
+      timeZone: 'UTC',
+      year    : 'numeric',
+      weekday : 'short',
+      month   : 'long',
+      day     : 'numeric',
     }
   );
 

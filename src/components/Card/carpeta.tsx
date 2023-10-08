@@ -53,7 +53,7 @@ export const CarpetaCard = (
               <Link
                 className={button}
                 key={idProceso}
-                href={`/Procesos/${ llaveProceso }/${ idProceso }`as Route}
+                href={`/Carpetas/Expediente/${ llaveProceso }/${ idProceso }`as Route}
               >
                 <span className={`material-symbols-outlined ${ styles.icon }`}>
               update

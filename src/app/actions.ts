@@ -3,60 +3,14 @@
 import { redirect } from 'next/navigation';
 import { revalidateTag } from 'next/cache';
 import { ZodNotaElementSchema } from '#@/lib/types/zod/nota';
-import { notasCollection } from '#@/lib/connection/mongodb';
+import {  notasCollection } from '#@/lib/connection/mongodb';
 import { ObjectId } from 'mongodb';
 import { notasConvert } from '#@/lib/types/notas';
 
-export async function createNota(
+export async function createNota (
   formData: FormData
 ) {
-  try {/*
-    const formDataMap = new Map();
-
-    for ( const [
-              key,
-              value
-    ] of formData ) {
-      if ( key === 'date' ) {
-        formDataMap.set(
-          key, new Date(
-            value.toString()
-          )
-        );
-
-        continue;
-      }
-
-      if ( key === 'done' ) {
-        const isOn = value === 'on'
-          ? true
-          : false;
-        formDataMap.set(
-          key, isOn
-        );
-
-        continue;
-      }
-      formDataMap.set(
-        key, value
-      );
-    }
-
-    const obj = Object.fromEntries(
-      formDataMap
-    );
-    console.log(
-      obj
-    );
-
-    const newNota = {
-      ...obj,
-      done: obj.done ?? false
-    };
-    console.log(
-      newNota
-    );
- */
+  try {
     const parsed = ZodNotaElementSchema.safeParse(
       {
         cod: formData.get(
@@ -84,6 +38,10 @@ export async function createNota(
       parsed
     );
 
+    console.log(
+      parsed
+    );
+
     if ( !parsed.success ) {
       throw new Error(
         'no pudimos parsear con zodla nota que ingresaste. Intentalo nuevamente'
@@ -97,14 +55,16 @@ export async function createNota(
 
     const collection = await notasCollection();
 
+
+
     const nota = await collection.insertOne(
       {
-        ...data,
+        ...data
       }
     );
 
     revalidateTag(
-      'notas'
+      'carpetas'
     );
 
     return {
@@ -126,7 +86,6 @@ export async function createNota(
     };
   }
 }
-
 
 export async function deleteNota(
   id: string

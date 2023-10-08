@@ -1,11 +1,15 @@
 'use client';
 
-import { NuevaCarpeta, NuevaCarpetaKeys } from '#@/lib/types/carpetas';
-import { FieldPath, RegisterOptions, useFormContext } from 'react-hook-form';
+import { NuevaCarpeta } from '#@/lib/types/carpetas';
+import { FieldPath,
+  RegisterOptions,
+
+  useController,
+
+  useFormContext, } from 'react-hook-form';
 import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import type { HTMLInputTypeAttribute } from 'react';
-import { useCarpetaFormContext } from '#@/app/context/carpeta-form-context';
+import { useState, type HTMLInputTypeAttribute } from 'react';
 
 export const InputSection = (
   {
@@ -14,7 +18,7 @@ export const InputSection = (
     type,
     rls,
   }: {
-  name: NuevaCarpetaKeys;
+  name: FieldPath<NuevaCarpeta>;
   title: string;
   type: HTMLInputTypeAttribute;
   rls?: Omit<
@@ -23,47 +27,61 @@ export const InputSection = (
   >;
 }
 ) => {
+  const [
+    fieldValue,
+    setFieldValue
+  ] = useState(
+    ''
+  );
+
   const {
-    register
+    control, setValue
   } = useFormContext<NuevaCarpeta>();
-
-  const {
-    nuevaCarpeta, setNuevaCarpeta
-  } = useCarpetaFormContext();
-
-  function handleChange(
-    e
-  ) {
-    setNuevaCarpeta(
-      {
-        ...nuevaCarpeta,
-        [ e.target.name ]: e.target.value
-      }
-    );
-  }
 
 
   const rules = rls ?? {
     required: true,
   };
 
+  const {
+    field
+  } = useController(
+    {
+      name,
+      control,
+      rules
+    }
+  );
   return (
-    <section className={form.section}>
+    <section className={form.sectionRow}>
       <label
         className={`${ form.label } ${ typography.titleLarge }`}
         htmlFor={name}
       >
         {title}
       </label>
-      <input name={name} value={nuevaCarpeta[ name ]} onChange={handleChange}/>
       <input
-        key={name}
-        className={form.textArea}
+        name={ field.name }
+        value={fieldValue}
         type={type}
         placeholder={title}
-        {...register(
-          name, rules
-        )}
+        className={ form.textArea }
+
+        onChange={(
+          e
+        ) => {
+          field.onChange(
+            e.target.value
+          );
+
+          setValue(
+            name, e.target.value
+          );
+          setFieldValue(
+            e.target.value
+          );
+        }}
+
       />
     </section>
   );

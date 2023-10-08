@@ -1,24 +1,31 @@
 import { WithId } from 'mongodb';
 import { Actuacion } from './actuaciones';
 
-export interface NuevaCarpeta
-{
+export interface NuevaCarpeta {
   numero: number;
-  tel: intTel;
-  primerNombre: string;
-  segundoNombre?: string;
-  primerApellido: string;
-  segundoApellido?: string;
-  cedula: number;
-  direccion?: string;
-  email?: string;
   category: Category;
-  capitalAdeudado: number;
-  entregaGarantiasAbogado: string; //? Date
-  obligacion: Obligacion;
-  tipoProceso: TipoProceso;
-  vencimientoPagare: string[]; //?Date[]
+  deudor: {
+    primerNombre: string;
+    segundoNombre?: string;
+    primerApellido: string;
+    segundoApellido?: string;
+    cedula: number;
 
+    direccion?: string;
+    email?: string;
+    tel: {
+      celular?: number;
+      fijo?: number;
+    };
+  };
+  demanda: {
+    capitalAdeudado: number;
+    entregaGarantiasAbogado: string; //? Date
+    obligacion: Obligacion;
+    tipoProceso: TipoProceso;
+    vencimientoPagare: string[]; //?Date[]
+    fechaPresentacion?: string; //?Date
+  };
 }
 
 export interface IntCarpeta {
@@ -98,6 +105,7 @@ export interface intTel {
 export type TipoProceso =
   | 'HIPOTECARIO'
   | 'PRENDARIO'
+  | 'ACUMULADO'
   | 'SINGULAR'
   | 'SINGULAR ACUMULADO CON HIPOTECARIO'
   | 'SINGULAR ACUM HIPOTECARIO'
@@ -124,14 +132,16 @@ export interface MonCarpeta extends IntCarpeta {
 
 export type CarpetaKeys = keyof MonCarpeta;
 
-export type NuevaCarpetaKeys = keyof NuevaCarpeta
+export type NuevaCarpetaKeys = keyof NuevaCarpeta;
 
 export type Concrete<Type> = {
   [Property in keyof Type]-?: Type[Property];
 };
 
-
 // Converts JSON strings to/from your types
+
+
+
 export class carpetaConvert {
   public static demandaToJson(
     value: intDemanda

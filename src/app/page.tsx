@@ -17,10 +17,10 @@ export default function Page() {
       </div><div className={ layout.left }>
         <Link
           className={ layout.link }
-          href={ '/Procesos' as Route }
+          href={ '/Carpetas/UltimasActuaciones' }
         >
           <span className="material-symbols-outlined">pace</span>
-          <h1 className={ typography.displayMedium }>{ 'Ultimos Movimientos' }</h1>
+          <h1 className={ typography.displayMedium }>{ 'Ultimas Actuaciones' }</h1>
         </Link>
         <Link
           className={ layout.link }

@@ -2,7 +2,7 @@
 import { createNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
 import { usePathname, useRouter } from 'next/navigation';
-import styles from 'components/form/form.module.scss';
+import styles from 'components/form/form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { useOnlineStatus } from '#@/lib/hooks/online-state';
 
@@ -60,9 +60,9 @@ export const NuevaNota = (
         action={ onCreate }
       >
         <h1 className={typography.displayLarge}>Nueva Nota</h1>
-        <section className={ styles.section }>
+        <section className={ styles.sectionColumn }>
           {isOnline && ( <p>isOnline</p> )}
-          <section className={styles.section}>
+          <section className={styles.sectionRow}>
             <label
               htmlFor="llaveProceso"
               className={styles.label}
@@ -76,7 +76,7 @@ export const NuevaNota = (
               defaultValue={llaveProceso}
             />
           </section>
-          <section className={styles.section}>
+          <section className={styles.sectionRow}>
             <label
               htmlFor="cod"
               className={styles.label}
@@ -103,7 +103,7 @@ export const NuevaNota = (
             />
           </section>
 
-          <section className={ styles.section }>
+          <section className={ styles.sectionRow }>
             <label htmlFor='text' className={styles.label}>{'Nota:'}</label>
             <input
               type="text"
@@ -124,7 +124,7 @@ export const NuevaNota = (
               }
             />
           </section>
-          <section className={ styles.section }>
+          <section className={ styles.sectionRow }>
             <label htmlFor='date' className={styles.label}>Fecha</label>
 
             <input

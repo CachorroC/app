@@ -101,7 +101,7 @@ export const Form = (
             }}
           />
           <InputSection
-            key={'deudor.segundoNombre'}
+            key={'segundoNombre'}
             name={'deudor.segundoNombre'}
             title={'Segundo Nombre'}
             type={'text'}
@@ -172,15 +172,7 @@ export const Form = (
           }}
           type={'number'}
         />
-        <InputSection
-          name={'llaveProceso'}
-          title={'Expediente'}
-          rls={{
-            required: true,
-            pattern : /\d{23}/g,
-          }}
-          type={'text'}
-        />
+
 
         <SelectSection
           name={'category'}
@@ -195,7 +187,7 @@ export const Form = (
         />
 
         <SelectSection
-          name={'tipoProceso'}
+          name={'demanda.tipoProceso'}
           title={'Proceso del Tipo'}
           options={[
             'SINGULAR',
@@ -204,15 +196,7 @@ export const Form = (
           ]}
         />
         <section className={form.section}>
-          <InputSection
-            name={'demanda.radicado'}
-            title={'Radicado'}
-            type={'text'}
-            rls={{
-              required: true,
-              pattern : /\d{4}\s-\s\d{5}/g,
-            }}
-          />
+
           <InputSection
             name={'demanda.capitalAdeudado'}
             title={'Capital Adeudado'}
@@ -221,30 +205,14 @@ export const Form = (
               required: true,
             }}
           />
-          <InputSection
-            name={'demanda.entregaGarantiasAbogado'}
-            title={'Entrega de Garantias'}
-            type={'date'}
-          />
+
           {carpeta.demanda.entregaGarantiasAbogado && ( <DateInputSection name={ 'demanda.entregaGarantiasAbogado'} initialValue={carpeta.demanda.entregaGarantiasAbogado} title={'fecha de entrega de las garantias al abogado'}/> )}
-          <InputSection
-            name={'demanda.etapaProcesal'}
-            title={'etapa procesal'}
-            type={'text'}
-          />
-          <InputSection
-            name={'demanda.fechaPresentacion'}
-            title={'fecha de presentacion de la demanda'}
-            type={'date'}
-          />
+
+
           {carpeta.demanda.fechaPresentacion && ( <DateInputSection name={ 'demanda.fechaPresentacion' }initialValue={
             carpeta.demanda.fechaPresentacion
           } title={'fecha de presentacion de la demanda'}/> )}
-          <InputSection
-            name={'demanda.municipio'}
-            title={'Municipio'}
-            type={'textarea'}
-          />
+
           <InputSection
             name={'demanda.obligacion.A'}
             title={'Obligacion'}

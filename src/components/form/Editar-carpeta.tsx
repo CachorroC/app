@@ -117,15 +117,7 @@ export default function EditCarpeta(
               }}
               type={'number'}
             />
-            <InputSection
-              name={'llaveProceso'}
-              title={'Expediente'}
-              rls={{
-                required: true,
-                pattern : /\d{23}/g,
-              }}
-              type={'text'}
-            />
+
 
             <SelectSection
               name={'category'}
@@ -149,15 +141,7 @@ export default function EditCarpeta(
               ]}
             />
             <section className={form.section}>
-              <InputSection
-                name={'demanda.radicado'}
-                title={'Radicado'}
-                type={'text'}
-                rls={{
-                  required: true,
-                  pattern : /\d{4}\s-\s\d{5}/g,
-                }}
-              />
+
               <InputSection
                 name={'demanda.capitalAdeudado'}
                 title={'Capital Adeudado'}
@@ -166,25 +150,10 @@ export default function EditCarpeta(
                   required: true,
                 }}
               />
-              <InputSection
-                name={'demanda.entregaGarantiasAbogado'}
-                title={'Entrega de Garantias'}
-                type={'date'}
-              />
-              <InputSection
-                name={'demanda.etapaProcesal'}
-                title={'etapa procesal'}
-                type={'text'}
-              />
 
               {carpeta.demanda.fechaPresentacion && ( <DateInputSection key={'demanda.fechaPresentacion'} name={ 'demanda.fechaPresentacion' } title={ 'fecha de presentacion de la demanda' } initialValue={
                 carpeta.demanda.fechaPresentacion
               } /> )}
-              <InputSection
-                name={'demanda.municipio'}
-                title={'Municipio'}
-                type={'textarea'}
-              />
               <InputSection
                 name={'demanda.obligacion.A'}
                 title={'Obligacion'}

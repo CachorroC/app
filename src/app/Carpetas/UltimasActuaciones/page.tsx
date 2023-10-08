@@ -1,14 +1,13 @@
 import { Card } from '../../../components/Card';
 import { Loader } from '#@/components/Loader';
 import getCarpetas from '#@/lib/project/getCarpetas';
-import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
 
+export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Procesos',
-};
+export const dynamicParams = true;
+
 
 export default async function Procesos() {
   const carpetasRaw = await getCarpetas();

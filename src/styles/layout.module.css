@@ -8,7 +8,7 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(12, 1fr);
   grid-auto-flow: row;
-  grid-template-areas: "top top top top" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "right right right right" "right right right right" "right right right right" "right right right right" "header header header header";
+  grid-template-areas: "top top top top" "right right right right" "right right right right" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "header header header header";
   font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
 }
 @media (600px < width < 1200px) {
@@ -23,7 +23,7 @@
   .container {
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(12, 1fr);
-    grid-template-areas: "header header header header header header header header header header header header" "top top top top top top top top top right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right" "left left left left left left left left left  right right right";
+    grid-template-areas: "header header header header header header header header header header header header" "top top top top top top top top right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right";
   }
 }
 

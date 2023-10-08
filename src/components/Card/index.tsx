@@ -66,7 +66,7 @@ export const Card = (
             return (
               <Link key={idProceso}
                 className={`${ styles.link } ${ isActive && styles.isActive }`}
-                href={`/Procesos/${ carpeta.llaveProceso }/${ idProceso }` as Route}
+                href={`/Carpetas/Expediente/${ carpeta.llaveProceso }/${ idProceso }` as Route}
               >
                 <span className={`${ styles.icon } material-symbols-outlined`}>
               update
@@ -92,7 +92,7 @@ export const Card = (
           </Link>
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Procesos/${ carpeta.llaveProceso }/Editar` as Route}
+            href={`/Carpetas/Expediente/${ carpeta.llaveProceso }/Editar` as Route}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               folder_shared
@@ -101,7 +101,7 @@ export const Card = (
           </Link>
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Procesos/${ carpeta.llaveProceso }` as Route}
+            href={`/Carpetas/Expediente/${ carpeta.llaveProceso }` as Route}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               badge

@@ -1,15 +1,14 @@
 'use client';
 import { NuevaCarpeta } from '#@/lib/types/carpetas';
 import {   SubmitHandler,
-  useFieldArray,
+
   useFormContext, } from 'react-hook-form';
 import form from 'components/form/form.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import { InputSection } from './InputSection';
 import { SelectSection } from './SelectSection';
 import { DateInputSection } from './DateInputSection';
-import { useCarpetaFormContext } from '#@/app/context/carpeta-form-context';
-
+import VencimientoPagareSection from './DateInputSection/vencimiento-pagare-section';
 
 
 export default function NewNuevoProceso(
@@ -21,22 +20,10 @@ export default function NewNuevoProceso(
   const {
     setValue,
     handleSubmit,
-    formState: {
-      errors,
-      dirtyFields,
-      submitCount,
-      isSubmitting,
-      isSubmitSuccessful,
-      isLoading
-    }
   } = useFormContext<NuevaCarpeta>();
   setValue(
     'numero', nextNumber
   );
-
-  const {
-    nuevaCarpeta, setNuevaCarpeta
-  } = useCarpetaFormContext();
 
   const onSubmit: SubmitHandler<NuevaCarpeta> = async (
     data
@@ -78,23 +65,39 @@ export default function NewNuevoProceso(
     <>
       <div className={form.container}>
         <form
+
           className={form.form}
           onSubmit={handleSubmit(
             onSubmit
           )}
         >
-          <section className={form.section}>
-            <section className={form.section}>
+          <section className={ form.sectionRow }>
+            <section className={ form.sectionRow }>
+
+              <InputSection name={ 'numero' } title={ 'Número' } type={ 'number' } />
+              <SelectSection
+                name={'category'}
+                title={'Grupo al que pertenece'}
+                options={[
+                  'Bancolombia',
+                  'Insolvencia',
+                  'Reintegra',
+                  'LiosJuridicos',
+                  'Terminados',
+                ]}
+              />
+
+            </section>
+            <section className={form.sectionColumn}>
               <h3 className={ typography.displaySmall }>{ 'Deudor' }</h3>
-              <InputSection name={ 'numero' } title={ 'Carpeta número' } type={ 'number' } />
-              <input type='number' name='numero' defaultValue={nextNumber} />
+
               <InputSection
                 name={'deudor.primerNombre'}
                 title={'Primer Nombre'}
                 type={'text'}
               />
               <InputSection
-                key={'deudor.segundoNombre'}
+                key={'segundoNombre'}
                 name={'deudor.segundoNombre'}
                 title={'Segundo Nombre'}
                 type={'text'}
@@ -141,30 +144,25 @@ export default function NewNuevoProceso(
                 <InputSection
                   name={'deudor.tel.celular'}
                   title={'celular'}
-                  type={'tel'}
+                  type={ 'tel' }
+                  rls={{
+                    required: false
+                  }}
                 />
                 <InputSection
                   name={'deudor.tel.fijo'}
                   title={'fijo'}
-                  type={'tel'}
+                  type={ 'tel' }
+                  rls={{
+                    required: false
+                  }}
                 />
               </section>
             </section>
 
 
-            <SelectSection
-              name={'category'}
-              title={'Grupo al que pertenece'}
-              options={[
-                'Bancolombia',
-                'Insolvencia',
-                'Reintegra',
-                'LiosJuridicos',
-                'Terminados',
-              ]}
-            />
-
-            <section className={form.section}>
+            <section className={ form.sectionColumn }>
+              <h3 className={ typography.displaySmall }>{ 'Demanda' }</h3>
               <InputSection
                 name={'demanda.capitalAdeudado'}
                 title={'Capital Adeudado'}
@@ -185,8 +183,15 @@ export default function NewNuevoProceso(
                 title={'Obligacion'}
                 type={'text'}
               />
+              <SelectSection name={ 'demanda.tipoProceso' } title={ 'Tipo de Proceso' } options={ [
+                'SINGULAR',
+                'HIPOTECARIO',
+                'PRENDARIO',
+                'ACUMULADO'
+              ] } />
 
               <VencimientoPagareSection />
+              <DateInputSection name={ 'demanda.fechaPresentacion' } title={ 'fecha de presentacion de la demanda' } />
             </section>
           </section>
           <button
@@ -196,197 +201,10 @@ export default function NewNuevoProceso(
             <sub className={typography.labelSmall}>Enviar</sub>
             <span className="material-symbols-outlined">send</span>
           </button>
-          <section className={form.section}>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    errors,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    dirtyFields,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    submitCount,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    isSubmitting,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    isSubmitSuccessful,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    isLoading,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
 
-          </section>
         </form>
       </div>
 
     </>
-  );
-}
-
-
-
-export function VencimientoPagareSection () {
-
-  const {
-    control, register, getValues, setValue
-  } = useFormContext();
-
-  const {
-    fields, append, remove, prepend
-  } = useFieldArray(
-    {
-      control,
-      name: 'demanda.vencimientoPagare'
-    }
-  );
-  return (
-    <>
-      <ul>
-        {fields.map(
-          (
-            item, index
-          ) => {
-            return (
-              <li key={item.id}>
-                <input type='date' {...register(
-                  `demanda.vencimientoPagare.${ index }`
-                )} />
-
-                <button type="button" onClick={() => {
-                  return remove(
-                    index
-                  );
-                }}>
-                Delete
-                </button>
-              </li>
-            );
-          }
-        )}
-      </ul>
-
-      <section>
-        <button
-          type="button"
-          onClick={() => {
-            append(
-              {
-                name: 'append'
-              }
-            );
-          }}
-        >
-          append
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            setValue(
-              'test', [
-                ...( getValues().test || [] ),
-                {
-                  name       : 'append',
-                  nestedArray: [
-                    {
-                      field1: 'append',
-                      field2: 'append'
-                    }
-                  ]
-                }
-              ]
-            );
-          }}
-        >
-          Append Nested
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            prepend(
-              {
-                name: 'append'
-              }
-            );
-          }}
-        >
-          prepend
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            setValue(
-              'test', [
-                {
-                  name       : 'append',
-                  nestedArray: [
-                    {
-                      field1: 'Prepend',
-                      field2: 'Prepend'
-                    }
-                  ]
-                },
-                ...( getValues().test || [] )
-              ]
-            );
-          }}
-        >
-          prepend Nested
-        </button>
-      </section>
-
-    </>
-
   );
 }

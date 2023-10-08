@@ -6,8 +6,8 @@
     "styles:tcm": "tcm src",
     "sass": "sass --no-source-map src:src && tcm src",
     "lint": "next lint --fix && next lint",
-    "prebuild": "pnpm sass && pnpm lint",
-    "devbuild": "pnpm prebuild && next build",
+    "prebuild": "bun sass && bun lint",
+    "devbuild": "bun prebuild && next build",
     "build": "next build",
     "dev": "URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com next dev",
     "start": "next start",
@@ -37,10 +37,5 @@
     "typed-scss-modules": "^7.1.4",
     "typescript": "next",
     "zod": "^3.22.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "postcss@<7.0.36": ">=7.0.36"
-    }
   }
 }

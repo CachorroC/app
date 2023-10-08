@@ -1,3 +1,10 @@
+.divider {
+  width: auto;
+  height: auto;
+  border: 5px solid var(--primary);
+  box-sizing: border-box;
+}
+
 .container {
   container-name: form;
   container-type: inline-size;
@@ -23,26 +30,33 @@
   flex-flow: row nowrap;
 }
 
-.section, .sectionColumn, .sectionRow {
+.section {
   gap: 1cqmin;
-  padding: 1cqmin;
+  padding: 2vmin;
   flex: 1;
   display: flex;
+  flex-flow: column wrap;
 }
-.sectionRow {
+.section > .section {
+  gap: 5cqmin;
+  padding: 1cqmin;
+  display: flex;
+  flex: 1;
   flex-flow: row wrap;
 }
-.sectionColumn {
+.section > .section > .section {
+  gap: 2cqmin;
+  padding: 5cqh;
+  display: flex;
+  flex: 1;
   flex-flow: column nowrap;
 }
-.section .label, .sectionRow .label, .sectionColumn .label {
+.section .label {
   font-family: var(--font-poiret);
   flex: 1;
 }
-.section .titleInput, .sectionRow .titleInput, .sectionColumn .titleInput,
-.section .title,
-.sectionRow .title,
-.sectionColumn .title {
+.section .titleInput,
+.section .title {
   flex: 2;
 }
 
@@ -67,31 +81,27 @@
   color: var(--on-secondary);
 }
 
-.textArea, .vencimientoArea,
+.textArea,
 .selectArea {
   font-family: var(--raleway);
   box-sizing: border-box;
-  background-color: var(--surface-bright);
+  background-color: var(--surface);
   color: var(--on-surface);
   flex: 2;
-  border-left: solid 2px var(--outline-variant);
-  border-radius: 0 1cqmax 1cqmax 0;
+  border-bottom: solid 3px var(--outline);
+  border-radius: 1cqmax 1cqmax 0 0;
   resize: both;
   text-align: center;
   padding: 1vmin;
 }
-.textArea:hover, .vencimientoArea:hover,
+.textArea:hover,
 .selectArea:hover {
   box-shadow: var(--dp8);
-  border-left: var(--outline-variant) solid 1cqmin;
+  border-bottom: var(--outline-variant) solid 1cqmin;
 }
-.textArea:focus, .vencimientoArea:focus,
+.textArea:focus,
 .selectArea:focus {
-  border-left: var(--primary) solid 1cqmin;
-}
-
-.vencimientoArea {
-  border-radius: 1cqmax 0 0 1cqmax;
+  border-bottom: var(--secondary) solid 1cqmin;
 }
 
 .editButton {

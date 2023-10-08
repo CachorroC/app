@@ -9,12 +9,12 @@ export const getDespachos = cache(
   async () => {
     try {
       const request = await fetch(
-        '/despachos.json' 
+        '/despachos.json'
       );
 
       if ( !request.ok ) {
         throw new Error(
-          'error en los despachos' 
+          'error en los despachos'
         );
       }
 
@@ -29,16 +29,16 @@ export const getDespachos = cache(
       }
 
       console.log(
-        ` error en la conexion network del getDespacxho  =>  ${ e }` 
+        ` error en la conexion network del getDespacxho  =>  ${ e }`
       );
 
       return [];
     }
-  } 
+  }
 );
 
 export async function newJuzgado(
-  procesos: Proceso[] 
+  procesos: Proceso[]
 ) {
   const juzgados = new Map<number, intJuzgado>();
 
@@ -46,45 +46,45 @@ export async function newJuzgado(
 
   for ( const proceso of procesos ) {
     const indexOf = procesos.indexOf(
-      proceso 
+      proceso
     );
 
     const matchedDespacho = Despachos.find(
       (
-        despacho 
+        despacho
       ) => {
         const nDesp = despacho.nombre
           .toLowerCase()
           .normalize(
-            'NFD' 
+            'NFD'
           )
           .replace(
-            /\p{Diacritic}/gu, '' 
+            /\p{Diacritic}/gu, ''
           )
           .trim();
 
         const pDesp = proceso.despacho
           .toLowerCase()
           .normalize(
-            'NFD' 
+            'NFD'
           )
           .replace(
-            /\p{Diacritic}/gu, '' 
+            /\p{Diacritic}/gu, ''
           )
           .trim();
 
         const indexOfDesp = nDesp.indexOf(
-          pDesp 
+          pDesp
         );
 
         if ( indexOfDesp >= 0 ) {
           console.log(
-            `procesos despacho is in despachos ${ indexOfDesp }` 
+            `procesos despacho is in despachos ${ indexOfDesp }`
           );
         }
 
         return nDesp === pDesp;
-      } 
+      }
     );
 
     const nameN = matchedDespacho
@@ -92,11 +92,11 @@ export async function newJuzgado(
       : proceso.despacho;
 
     const matchedId = nameN.match(
-      /\d+/g 
+      /\d+/g
     );
 
     const newId = Number(
-      matchedId?.toString() 
+      matchedId?.toString()
     );
 
     const newJuzgado: intJuzgado = {
@@ -108,17 +108,17 @@ export async function newJuzgado(
         ? `https://www.ramajudicial.gov.co${ matchedDespacho.url }`
         : `https://www.ramajudicial.gov.co${ proceso.despacho
           .replaceAll(
-            ' ', '-' 
+            ' ', '-'
           )
           .toLowerCase() }`,
     };
     juzgados.set(
-      indexOf, newJuzgado 
+      indexOf, newJuzgado
     );
   }
 
   return Array.from(
-    juzgados.values() 
+    juzgados.values()
   );
 }
 
@@ -127,31 +127,31 @@ export const procesosCollection = async () => {
 
   if ( !client ) {
     throw new Error(
-      'no hay cliente mongólico' 
+      'no hay cliente mongólico'
     );
   }
 
   const db = client.db(
-    'RyS' 
+    'RyS'
   );
 
   const carpetas = db.collection<Proceso>(
-    'Procesos' 
+    'Procesos'
   );
 
   return carpetas;
 };
 
 export async function fetchProceso(
-  llaveProceso: string, index: number 
+  llaveProceso: string, index: number
 ) {
   try {
     await sleep(
-      index 
+      index
     );
 
     const req = await fetch(
-      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=true`,
+      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Carpetas/Expediente/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=true`,
       {
         next: {
           tags: [
@@ -170,7 +170,7 @@ export async function fetchProceso(
     const json = ( await req.json() ) as ConsultaNumeroRadicacion;
 
     const {
-      procesos 
+      procesos
     } = json;
 
     return procesos;
@@ -194,13 +194,13 @@ export async function fetchProceso(
 export const getProceso = cache(
   async (
     {
-      llaveProceso, index 
-    }: { llaveProceso: string; index: number } 
+      llaveProceso, index
+    }: { llaveProceso: string; index: number }
   ) => {
     const carpColl = await carpetasCollection();
 
     const fetchP = await fetchProceso(
-      llaveProceso, index 
+      llaveProceso, index
     );
 
     if ( fetchP ) {
@@ -210,7 +210,7 @@ export const getProceso = cache(
         }
 
         const juzgados = await newJuzgado(
-          fetchP 
+          fetchP
         );
 
         const updt = await carpColl.updateOne(

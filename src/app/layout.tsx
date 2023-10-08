@@ -1,11 +1,10 @@
 import '#@/styles/globals.css';
 import './manifest';
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { ReactNode, Suspense } from 'react';
 import layout from '#@/styles/layout.module.css';
 import { MainProvider } from './context/main-context';
-import { inter, josefina, poiret, raleway, roboto } from '#@/styles/fonts';
+import { inter, josefina, jost, playDisp, raleway, roboto } from '#@/styles/fonts';
 import 'material-symbols';
 import { SearchProvider } from './context/search-context';
 import { ModalProvider } from './context/modal-context';
@@ -18,6 +17,8 @@ import getNotas from '#@/lib/project/getNotas';
 import Header from 'components/layout/header';
 import SearchOutputList from 'components/layout/search/SearchProcesosOutput';
 import SearchOutputListSkeleton from 'components/layout/search/SearchProcesosOutputSkeleton';
+import Script from 'next/script';
+
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -141,7 +142,7 @@ export default async function RootLayout(
   return (
     <html lang="es">
       <body
-        className={`${ poiret.variable } ${ raleway.variable } ${ inter.variable } ${ roboto.variable } ${ josefina.variable } [ color-scheme: light dark ]`}
+        className={`${ playDisp.variable }${ jost.variable } ${ raleway.variable } ${ inter.variable } ${ roboto.variable } ${ josefina.variable } [ color-scheme: light dark ]`}
       >
 
         <CarpetasSortProvider carpetas={ carpetas }>
@@ -162,13 +163,13 @@ export default async function RootLayout(
                       <div className={layout.right}>{right}</div>
                     </div>
 
-                    <Script src={'service-worker.js'} />
                   </MainProvider>
                 </ModalProvider>
               </SearchProvider>
             </CarpetaFormProvider>
           </NotasSortProvider>
         </CarpetasSortProvider>
+        <Script src={'/service-worker.js'}/>
       </body>
     </html>
   );

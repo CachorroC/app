@@ -1,28 +1,20 @@
-import button from 'components/Buttons/buttons.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+
+import styles from '#@/components/Card/card.module.css';
+import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div
-      style={{
-        backgroundColor: 'var(--error-container)',
-        color          : 'var(--on-error-container)',
-      }}
-    >
-      <h2 className={typography.displaySmall}>{'No hay actuaciones'}</h2>
-      <p className={typography.bodyMedium}>
-        {
-          'Por el momento no pudimos encontrar actuaciones vinculadas a este idProceso, te invitamos a corregir el error o a intentar de nuevo más tarde.'
-        }
-      </p>
+    <div className={styles.errorContainer}>
+      <h2 className={typography.displayLarge}>No encontrado</h2>
+      <p className={typography.bodyLarge}>No pudimos localizar el recurso que consultaste</p>
       <Link
-        className={button.button}
         href={'/' as Route}
+        className={styles.link}
       >
-        <span className={`material-symbols-outlined ${ button.icon }`}>home</span>
-        <p className={typography.labelMedium}>{'Inicio'}</p>
+        <span>Inicio</span>
+        <span className={`material-symbols-outlined ${ styles.icon }`}>home</span>
       </Link>
     </div>
   );

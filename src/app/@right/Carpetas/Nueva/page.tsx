@@ -1,45 +1,55 @@
 'use client';
 
-import { useCarpetaFormContext } from '#@/app/context/carpeta-form-context';
-import { useFormContext } from 'react-hook-form';
+import { OutputDateHelper } from '#@/lib/project/date-helper';
+import { NuevaCarpeta } from '#@/lib/types/carpetas';
+import { useFormContext, useWatch } from 'react-hook-form';
+import styles from './styles.module.css';
 
 export default function Page () {
   const {
-    getValues,
-    formState: {
-      dirtyFields
-    }
-  } = useFormContext();
+    getValues
+  } = useFormContext<NuevaCarpeta>();
 
-  const {
-    nuevaCarpeta
-  } = useCarpetaFormContext();
+  const nuevaCarpeta = useWatch();
 
   return (
     <>
-      <pre>{nuevaCarpeta.demanda.capitalAdeudado.toLocaleString(
-        'es-CO', {
-          currency: 'COP',
-          style: 'currency',
-          currencyDisplay: 'name'
-        }
-      )}</pre>
-      <pre>{ JSON.stringify(
-        nuevaCarpeta, null, 2
+      <div className={ styles.divider }></div>
+      <div className={ styles.divider }></div>
+      <div className={styles.divider}></div>
+      <pre>{Number(
+        nuevaCarpeta.demanda.capitalAdeudado
+      )
+        .toLocaleString(
+          'es-CO', {
+            currency       : 'COP',
+            style          : 'currency',
+            currencyDisplay: 'name'
+          }
+        ) }</pre>
+      <div className={styles.divider}></div>
+      <pre>{OutputDateHelper(
+        nuevaCarpeta.demanda.entregaGarantiasAbogado
       ) }</pre>
+      <div className={styles.divider}></div>
 
+      <pre>{JSON.stringify(
+        getValues(), null, 2
+      )}</pre>
+      <div className={styles.divider}></div>
       <button
         type="button"
         onClick={ () => {
           alert(
             JSON.stringify(
-              getValues(), null, 2
+              nuevaCarpeta, null, 2
             )
           );
         } }
       >
 
       </button>
+      <div className={styles.divider}></div>
     </>
   );
 }

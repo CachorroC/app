@@ -1,60 +1,45 @@
 'use client';
-import { IntCarpeta } from '#@/lib/types/carpetas';
+import { NuevaCarpeta } from '#@/lib/types/carpetas';
 import {   SubmitHandler,
+
   useFormContext, } from 'react-hook-form';
 import form from 'components/form/form.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import { InputSection } from './InputSection';
 import { SelectSection } from './SelectSection';
+import { DateInputSection } from './DateInputSection';
+import VencimientoPagareSection from './DateInputSection/vencimiento-pagare-section';
 
-export const NuevoProceso = (
+
+export const NuevoProceso= (
   {
-    carpeta,
-  }: {
-
-  carpeta?: IntCarpeta;
-}
+    nextNumber
+  }: {nextNumber: number}
 ) => {
 
   const {
-    reset,
+    setValue,
     handleSubmit,
-    formState: {
-      errors,
-      dirtyFields,
-      submitCount,
-      isSubmitting,
-      isSubmitSuccessful,
-      isLoading
-    }
-  } = useFormContext<IntCarpeta>();
+  } = useFormContext<NuevaCarpeta>();
+  setValue(
+    'numero', nextNumber
+  );
 
-  const onSubmit: SubmitHandler<IntCarpeta> = async (
-    data, e
+  const onSubmit: SubmitHandler<NuevaCarpeta> = async (
+    data
   ) => {
-    alert(
-      JSON.stringify(
-        e
-      )
-    );
-    alert(
-      JSON.stringify(
-        dirtyFields
-      )
-    );
     alert(
       JSON.stringify(
         data
       )
     );
 
-    const newCarpeta: IntCarpeta = {
-      ...carpeta,
-      ...data,
+    const newCarpeta: NuevaCarpeta = {
+      ...data
     };
 
     const postNewNote = await fetch(
-      `/api/Carpetas/${ data.llaveProceso }`, {
+      '/api/Carpetas/Nueva', {
         method : 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -65,9 +50,11 @@ export const NuevoProceso = (
       }
     );
 
+
+
     const nAlert = await postNewNote.json();
 
-    return alert(
+    alert(
       JSON.stringify(
         nAlert
       )
@@ -83,19 +70,33 @@ export const NuevoProceso = (
             onSubmit
           )}
         >
-          <section className={form.section}>
-            <section className={form.section}>
-              <h3 className={typography.displaySmall}>{'Deudor'}</h3>
+          <section className={ form.sectionRow }>
+            <section className={ form.sectionRow }>
+
+              <InputSection name={ 'numero' } title={ 'Número' } type={ 'number' } />
+              <SelectSection
+                name={'category'}
+                title={'Grupo al que pertenece'}
+                options={[
+                  'Bancolombia',
+                  'Insolvencia',
+                  'Reintegra',
+                  'LiosJuridicos',
+                  'Terminados',
+                ]}
+              />
+
+            </section>
+            <section className={form.sectionColumn}>
+              <h3 className={ typography.displaySmall }>{ 'Deudor' }</h3>
+
               <InputSection
                 name={'deudor.primerNombre'}
                 title={'Primer Nombre'}
                 type={'text'}
-                rls={{
-                  required: true,
-                }}
               />
               <InputSection
-                key={'deudor.segundoNombre'}
+                key={'segundoNombre'}
                 name={'deudor.segundoNombre'}
                 title={'Segundo Nombre'}
                 type={'text'}
@@ -107,9 +108,6 @@ export const NuevoProceso = (
                 name={'deudor.primerApellido'}
                 title={'Primer Apellido'}
                 type={'text'}
-                rls={{
-                  required: true,
-                }}
               />
               <InputSection
                 name={'deudor.segundoApellido'}
@@ -123,9 +121,6 @@ export const NuevoProceso = (
                 name={'deudor.cedula'}
                 title={'Cédula de Ciudadanía'}
                 type={'number'}
-                rls={{
-                  required: true,
-                }}
               />
               <InputSection
                 name={'deudor.direccion'}
@@ -148,65 +143,25 @@ export const NuevoProceso = (
                 <InputSection
                   name={'deudor.tel.celular'}
                   title={'celular'}
-                  type={'tel'}
+                  type={ 'tel' }
+                  rls={{
+                    required: false
+                  }}
                 />
                 <InputSection
                   name={'deudor.tel.fijo'}
                   title={'fijo'}
-                  type={'tel'}
+                  type={ 'tel' }
+                  rls={{
+                    required: false
+                  }}
                 />
               </section>
             </section>
 
-            <InputSection
-              name={'numero'}
-              title={'Carpeta Numero'}
-              rls={{
-                required: true,
-              }}
-              type={'number'}
-            />
-            <InputSection
-              name={'llaveProceso'}
-              title={'Expediente'}
-              rls={{
-                required: true,
-                pattern : /\d{23}/g,
-              }}
-              type={'text'}
-            />
 
-            <SelectSection
-              name={'category'}
-              title={'Grupo al que pertenece'}
-              options={[
-                'Bancolombia',
-                'Insolvencia',
-                'Reintegra',
-                'LiosJuridicos',
-                'Terminados',
-              ]}
-            />
-
-            <SelectSection
-              name={'tipoProceso'}
-              title={'Proceso del Tipo'}
-              options={[
-                'SINGULAR',
-                'HIPOTECARIO',
-                'PRENDARIO'
-              ]}
-            />
-            <section className={form.section}>
-              <InputSection
-                name={'demanda.radicado'}
-                title={'Radicado'}
-                type={'text'}
-                rls={{
-                  required: true,
-                  pattern : /\d{4}\s-\s\d{5}/g,
-                }}
-              />
+            <section className={ form.sectionColumn }>
+              <h3 className={ typography.displaySmall }>{ 'Demanda' }</h3>
               <InputSection
                 name={'demanda.capitalAdeudado'}
                 title={'Capital Adeudado'}
@@ -215,41 +170,27 @@ export const NuevoProceso = (
                   required: true,
                 }}
               />
+              <DateInputSection name={ 'demanda.entregaGarantiasAbogado' } title={ 'entrega de garantias' } />
+
               <InputSection
-                name={'demanda.entregagarantiasAbogado'}
-                title={'Entrega de Garantias'}
-                type={'date'}
-              />
-              <InputSection
-                name={'demanda.etapaProcesal'}
-                title={'etapa procesal'}
-                type={'text'}
-              />
-              <InputSection
-                name={'demanda.fechaPresentacion'}
-                title={'fecha de presentacion de la demanda'}
-                type={'date'}
-              />
-              <InputSection
-                name={'demanda.municipio'}
-                title={'Municipio'}
-                type={'textarea'}
-              />
-              <InputSection
-                name={'demanda.obligacion.1'}
+                name={'demanda.obligacion.A'}
                 title={'Obligacion'}
                 type={'text'}
               />
               <InputSection
-                name={'demanda.obligacion.2'}
+                name={'demanda.obligacion.B'}
                 title={'Obligacion'}
                 type={'text'}
               />
-              <InputSection
-                name={'demanda.vencimientoPagare'}
-                title={'Vencimiento del pagaré'}
-                type={'date'}
-              />
+              <SelectSection name={ 'demanda.tipoProceso' } title={ 'Tipo de Proceso' } options={ [
+                'SINGULAR',
+                'HIPOTECARIO',
+                'PRENDARIO',
+                'ACUMULADO'
+              ] } />
+
+              <VencimientoPagareSection />
+              <DateInputSection name={ 'demanda.fechaPresentacion' } title={ 'fecha de presentacion de la demanda' } />
             </section>
           </section>
           <button
@@ -259,102 +200,10 @@ export const NuevoProceso = (
             <sub className={typography.labelSmall}>Enviar</sub>
             <span className="material-symbols-outlined">send</span>
           </button>
-          <section className={form.section}>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    errors,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    dirtyFields,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    submitCount,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    isSubmitting,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    isSubmitSuccessful,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    isLoading,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-            <section className={form.section}>
-              <pre>
-                {JSON.stringify(
-                  {
-                    carpeta,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
-            </section>
-          </section>
+
         </form>
       </div>
-      {carpeta && (
-        <input
-          style={{
-            display  : 'block',
-            marginTop: 20,
-          }}
-          type="button"
-          onClick={() => {
-            return reset(
-              carpeta
-            );
-          }}
-          value="Reset with values"
-        />
-      )}
+
     </>
   );
 };

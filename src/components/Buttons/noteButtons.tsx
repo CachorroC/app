@@ -49,7 +49,7 @@ export function AddNoteButton(
           fullfilled
         ) => {
           alert(
-            fullfilled.status
+            fullfilled.status.toString()
           );
 
           return fullfilled;

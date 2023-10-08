@@ -157,7 +157,7 @@
   --surface-dim: var(--pal-neutral87);
   --surface-bright: var(--pal-neutral98);
   --on-nav-background: var(--pal-primary12);
-  --nav-background: var(--pal-primary94);
+  --nav-background: var(--pal-primary30);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -325,22 +325,6 @@ input {
   resize: both;
   font-family: var(--raleway);
   border: none;
-  border-bottom: solid 2px var(--outline);
-  border-radius: 1vmin;
   box-sizing: border-box;
-  background-color: var(--surface-container-highest);
-  color: var(--on-surface);
   outline: none;
-}
-input:hover {
-  box-shadow: var(--dp8);
-  border-bottom: solid 3px var(--outline-variant);
-}
-input:active {
-  background-color: var(--primary-container);
-  color: var(--on-primary-container);
-  border-bottom: solid 3px var(--primary);
-}
-input:focus {
-  border-bottom: solid 3px var(--primary-fixed);
 }

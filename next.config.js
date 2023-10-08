@@ -5,7 +5,6 @@
  **/
 const nextConfig = {
   output: 'standalone',
-
   experimental: {
     typedRoutes                     : true,
     serverActions                   : true,

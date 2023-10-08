@@ -22,7 +22,9 @@ export default async function PageCarpetaNumero(
   if ( !carpeta ) {
     return (
       <div className={ layout.left }>
-        <NuevoProceso />
+        <NuevoProceso nextNumber={ Number(
+          params.numero
+        )} />
       </div>
     );
   }

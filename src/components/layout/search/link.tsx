@@ -23,7 +23,7 @@ export const LinkCard = (
   } = useSearch();
 
   const {
-    deudor, fecha, llaveProceso, idProceso
+    deudor, fecha, llaveProceso
   } = carpeta;
 
   const Nombre = carpeta.nombre;
@@ -35,15 +35,15 @@ export const LinkCard = (
   } = useCategory();
 
   const procesosHref = carpeta.llaveProceso
-    ? carpeta.idProceso
-      ? `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProceso }`
+    ? carpeta.idProcesos
+      ? `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProcesos[ 0 ] }`
       : `${ path }/${ carpeta.llaveProceso }`
     : `/Carpetas/${ carpeta.numero }`;
 
   const isActive
     = pathname === procesosHref
-    || pathname === `${ path }/${ llaveProceso }/${ idProceso }`
-    || pathname === `${ path }/${ llaveProceso }`;
+    || pathname === `${ path }/${ llaveProceso }`
+    || pathname === `${ path }/${ carpeta._id }`;
 
   const isSearch
     = carpeta.nombre.toLowerCase()

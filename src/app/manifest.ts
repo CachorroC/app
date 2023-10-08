@@ -46,9 +46,9 @@ export default function manifest(): MetadataRoute.Manifest {
         url  : '/Procesos',
         icons: [
           {
-            src    : '/icons/android-chrome-96x96.png',
-            sizes  : '96x96',
-            type   : 'image/png',
+            src    : '/icon.svg',
+            sizes  : '96x96 144x144 152x152 192x192 70x70 ',
+            type   : 'image/svg+xml',
             purpose: 'any',
           },
         ],
@@ -58,7 +58,7 @@ export default function manifest(): MetadataRoute.Manifest {
         url  : '/Notas',
         icons: [
           {
-            src    : '/icons/android-chrome-96x96.png',
+            src    : '/icon13.png',
             sizes  : '96x96',
             type   : 'image/png',
             purpose: 'any',
@@ -97,57 +97,38 @@ export default function manifest(): MetadataRoute.Manifest {
         purpose: 'any',
       },
       {
-        src    : '/icons/mstile-270x270.png',
-        sizes  : '270x270',
+        src    : '/icon1.png',
         type   : 'image/png',
         purpose: 'any',
       },
       {
-        src    : '/icons/mstile-144x144.png',
-        sizes  : '144x144',
+       src    : '/icon2.png',
         type   : 'image/png',
         purpose: 'any',
       },
       {
-        src    : '/icons/mstile-128x128.png',
-        sizes  : '128x128',
+        src    : '/icon3.png',
         type   : 'image/png',
         purpose: 'any',
       },
       {
-        src    : '/icons/safari-pinned-tab.svg',
+        src    : '/safari-pinned-tab.svg',
         purpose: 'any',
+        type: 'image/svg+xml'
       },
       {
-        src    : '/icons/android-chrome-144x144.png',
-        sizes  : '144x144',
+        src    : 'icon13.png',
         type   : 'image/png',
         purpose: 'maskable',
       },
       {
-        src    : '/icons/apple-touch-icon-precomposed.png',
+        src    : '/apple-icon-precomposed.png',
         sizes  : '144x144',
         type   : 'image/png',
         purpose: 'monochrome',
       },
-      {
-        src    : '/icons/favicon-16x16.png',
-        sizes  : '16x16',
-        type   : 'image/png',
-        purpose: 'any',
-      },
-      {
-        src    : '/icons/favicon-32x32.png',
-        sizes  : '32x32',
-        type   : 'image/png',
-        purpose: 'any',
-      },
-      {
-        src    : '/icons/favicon-194x194.png',
-        sizes  : '194x194',
-        type   : 'image/png',
-        purpose: 'any',
-      },
+
+
       {
         src    : '/icons/android-chrome-48x48.png',
         sizes  : '48x48',
