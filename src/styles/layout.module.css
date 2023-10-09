@@ -23,7 +23,7 @@
   .container {
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(12, 1fr);
-    grid-template-areas: "header header header header header header header header header header header header" "top top top top top top top top right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right" "left left left left left left left left right right right right";
+    grid-template-areas: "header header header header header header header header header header header header" "top top top top top top top top top right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right";
   }
 }
 
@@ -186,7 +186,7 @@
   flex-flow: column nowrap;
 }
 .section .label {
-  font-family: var(--font-poiret);
+  font-family: var(--play-display);
   flex: 1;
 }
 .section .titleInput,

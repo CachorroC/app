@@ -313,7 +313,7 @@ export class carpetaConvert {
           ? this.deudor.primerApellido + ' ' + this.deudor.segundoApellido
           : this.deudor.primerApellido;
 
-        const rawName = nombres + apellidos;
+        const rawName = `${ nombres } ${ apellidos }`;
 
         return rawName;
       },

@@ -1,12 +1,12 @@
 .container {
-  --display-large-font-family-name: var(--font-poiret);
+  --display-large-font-family-name: var(--play-display);
   --display-large-font-family-style: Regular;
   --display-large-font-weight: 400px;
   --display-large-font-size: 2.5rem;
   --display-large-line-height: 64px;
   --display-large-letter-spacing: -0.25px;
   /* display - medium */
-  --display-medium-font-family-name: var(--font-poiret);
+  --display-medium-font-family-name: var(--play-display);
   --display-medium-font-family-style: Regular;
   --display-medium-font-weight: 400px;
   --display-medium-font-size: 1.6rem;
@@ -106,7 +106,7 @@
 }
 
 .displayLarge {
-  font-family: var(--font-poiret);
+  font-family: var(--play-display);
   font-style: var(--display-large-font-family-style);
   font-weight: var(--display-large-font-weight);
   font-size: var(--display-large-font-size);
@@ -128,7 +128,7 @@
 }
 
 .displaySmall {
-  font-family: var(--font-poiret);
+  font-family: var(--play-display);
   font-style: var(--display-small-font-family-style);
   font-weight: var(--display-small-font-weight);
   font-size: var(--display-small-font-size);

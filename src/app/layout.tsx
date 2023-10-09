@@ -141,8 +141,7 @@ export default async function RootLayout(
 
   return (
     <html lang="es">
-      <body
-        className={`${ playDisp.variable }${ jost.variable } ${ raleway.variable } ${ inter.variable } ${ roboto.variable } ${ josefina.variable } [ color-scheme: light dark ]`}
+      <body className={`${ playDisp.variable } ${ jost.variable } ${ raleway.variable } ${ inter.variable } ${ roboto.variable } ${ josefina.variable }  [ color-scheme: light dark ]`}
       >
 
         <CarpetasSortProvider carpetas={ carpetas }>
@@ -152,10 +151,9 @@ export default async function RootLayout(
                 <ModalProvider>
                   <MainProvider>
                     <div className={ layout.container }>
-
                       <Header>
                         <Suspense fallback={<SearchOutputListSkeleton />}>
-                          <SearchOutputList path={ '/Procesos' }  />
+                          <SearchOutputList path={ '/Procesos' }/>
                         </Suspense>
                       </Header>
                       {modal}
@@ -169,7 +167,7 @@ export default async function RootLayout(
             </CarpetaFormProvider>
           </NotasSortProvider>
         </CarpetasSortProvider>
-        <Script src={'/service-worker.js'}/>
+        <Script src={`https://${ prefix }.rsasesorjuridico.com/service-worker.js`}/>
       </body>
     </html>
   );

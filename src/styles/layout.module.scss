@@ -58,17 +58,17 @@ font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
     grid-template-rows: repeat(12, 1fr);
     grid-template-areas:
       'header header header header header header header header header header header header'
-      'top top top top top top top top right right right right'
-      'left left left left left left left left right right right right'
-      'left left left left left left left left right right right right'
-      'left left left left left left left left right right right right'
-      'left left left left left left left left right right right right'
-      'left left left left left left left left right right right right'
-      'left left left left left left left left right right right right'
-      'left left left left left left left left right right right right'
-      'left left left left left left left left right right right right'
-      'left left left left left left left left right right right right'
-      'left left left left left left left left right right right right';
+      'top top top top top top top top top right right right'
+      'left left left left left left left left left right right right'
+      'left left left left left left left left left right right right'
+      'left left left left left left left left left right right right'
+      'left left left left left left left left left right right right'
+      'left left left left left left left left left right right right'
+      'left left left left left left left left left right right right'
+      'left left left left left left left left left right right right'
+      'left left left left left left left left left right right right'
+      'left left left left left left left left left right right right'
+      'left left left left left left left left left right right right';
   }
 }
 
@@ -242,7 +242,7 @@ font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
     }
   }
   .label {
-    font-family: var(--font-poiret);
+    font-family: var(--play-display);
     flex: 1;
   }
   .titleInput,

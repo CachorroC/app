@@ -1,9 +1,7 @@
-// @ts-nocheck
-
+/// <reference lib="WebWorker" />
 const CACHE_NAME = 'offline';
 
 const OFFLINE_URL = 'offline.html';
-
 self.addEventListener(
   'install', (
     event
@@ -18,9 +16,9 @@ self.addEventListener(
             OFFLINE_URL, {
               cache: 'reload',
             }
-          ),
+          )
         );
-      } )(),
+      } )()
     );
     self.skipWaiting();
   }
@@ -34,7 +32,7 @@ self.addEventListener(
         if ( 'navigationPreload' in self.registration ) {
           await self.registration.navigationPreload.enable();
         }
-      } )(),
+      } )()
     );
     self.clients.claim();
   }
@@ -56,7 +54,6 @@ self.addEventListener(
             const networkResponse = await fetch(
               event.request
             );
-
             return networkResponse;
           } catch ( error ) {
             console.log(
@@ -70,10 +67,9 @@ self.addEventListener(
             const cachedResponse = await cache.match(
               OFFLINE_URL
             );
-
             return cachedResponse;
           }
-        } )(),
+        } )()
       );
     }
   }

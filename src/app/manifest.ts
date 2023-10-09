@@ -59,7 +59,7 @@ export default function manifest(): MetadataRoute.Manifest {
         icons: [
           {
             src    : '/icon13.png',
-            sizes  : '96x96',
+            sizes  : '512x512',
             type   : 'image/png',
             purpose: 'any',
           },
@@ -68,114 +68,50 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     icons: [
       {
-        src    : '/icon5.png',
-        purpose: 'maskable',
-        type   : 'image/png'
-      },
-      {
-        src: '/icon13.png',
-
-        purpose: 'any',
-        type   : 'image/png'
-      },
-      {
-        src    : '/icon.svg',
-        sizes  : '558x558 270x270 144x144 192x192 128x128 72x72 48x48 32x32 16x16',
-        type   : 'image/svg+xml',
-        purpose: 'maskable',
-      },
-      {
-        src    : '/icon.svg',
-        sizes  : '558x558 270x270 144x144 192x192 128x128 72x72 48x48 32x32 16x16',
-        type   : 'image/svg+xml',
-        purpose: 'monochrome',
-      },
-      {
-        src    : '/icons/mstile-558x270.png',
-        sizes  : '558x270',
-        type   : 'image/png',
-        purpose: 'any',
-      },
-      {
-        src    : '/icon1.png',
-        type   : 'image/png',
-        purpose: 'any',
-      },
-      {
-       src    : '/icon2.png',
-        type   : 'image/png',
-        purpose: 'any',
-      },
-      {
-        src    : '/icon3.png',
-        type   : 'image/png',
-        purpose: 'any',
-      },
-      {
-        src    : '/safari-pinned-tab.svg',
-        purpose: 'any',
+        src : '/favicon.svg',
         type: 'image/svg+xml'
       },
       {
-        src    : 'icon13.png',
+        src    : '/icon.svg',
+        sizes  : '72x72 128x128 144x144 192x192 512x512',
+        type   : 'image/svg+xml',
+        purpose: 'maskable',
+      },
+      {
+        src    : '/icon.svg',
+        sizes  : '72x72 128x128 144x144 192x192 512x512',
+        type   : 'image/svg+xml',
+        purpose: 'any',
+      },
+      {
+        src    : '/icon13.png',
+        sizes  : '512x512',
         type   : 'image/png',
         purpose: 'maskable',
       },
       {
-        src    : '/apple-icon-precomposed.png',
-        sizes  : '144x144',
-        type   : 'image/png',
-        purpose: 'monochrome',
-      },
-
-
-      {
-        src    : '/icons/android-chrome-48x48.png',
-        sizes  : '48x48',
-        type   : 'image/png',
-        purpose: 'maskable',
-      },
-      {
-        src    : '/icons/android-chrome-72x72.png',
-        sizes  : '72x72',
-        type   : 'image/png',
-        purpose: 'maskable',
-      },
-      {
-        src    : '/icons/android-chrome-96x96.png',
-        sizes  : '96x96',
-        type   : 'image/png',
-        purpose: 'maskable',
-      },
-      {
-        src    : '/icons/android-chrome-144x144.png',
-        sizes  : '144x144',
-        type   : 'image/png',
-        purpose: 'maskable',
-      },
-      {
-        src    : '/icons/android-chrome-192x192.png',
+        src    : '/icon10.png',
         sizes  : '192x192',
         type   : 'image/png',
         purpose: 'maskable',
       },
       {
-        src    : '/icons/android-chrome-256x256.png',
-        sizes  : '256x256',
+        src    : '/icon3.png',
+        sizes  : '144x144',
         type   : 'image/png',
-        purpose: 'maskable',
+        purpose: 'monochrome',
       },
       {
-        src    : '/icons/android-chrome-384x384.png',
-        sizes  : '384x384',
+        src    : '/icon2.png',
+        sizes  : '270x270',
         type   : 'image/png',
-        purpose: 'maskable',
+        purpose: 'monochrome',
       },
       {
-        src    : '/icons/android-chrome-512x512.png',
-        sizes  : '512x512',
+        src    : '/icon1.png',
+        sizes  : '128x128',
         type   : 'image/png',
-        purpose: 'maskable',
+        purpose: 'monochrome',
       },
     ],
   };

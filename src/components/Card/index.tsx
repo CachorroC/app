@@ -1,12 +1,12 @@
 'use client';
 
 import { MonCarpeta } from '#@/lib/types/carpetas';
-import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
+import { sectionColumn } from '../form/form.module.css';
 
 export const Card = (
   {
@@ -49,9 +49,9 @@ export const Card = (
         }`}
       >
 
-        <section className={styles.section}>
+        <section className={sectionColumn}>
           <div className={styles.title}>
-            <h4 className={typography.displaySmall}>{ carpeta.nombre}</h4>
+            <h4 className={typography.headlineSmall}>{ carpeta.nombre}</h4>
             <sub className={`${ typography.labelSmall } ${ styles.sub }`}>
               {carpeta.numero}
             </sub>
@@ -66,7 +66,7 @@ export const Card = (
             return (
               <Link key={idProceso}
                 className={`${ styles.link } ${ isActive && styles.isActive }`}
-                href={`/Carpetas/Expediente/${ carpeta.llaveProceso }/${ idProceso }` as Route}
+                href={`/Carpetas/Expediente/${ carpeta.llaveProceso }/${ idProceso }`}
               >
                 <span className={`${ styles.icon } material-symbols-outlined`}>
               update
@@ -79,29 +79,10 @@ export const Card = (
           }
         )}
         <div className={styles.links}>
+
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={href as Route}
-          >
-            <span className={`${ styles.icon } material-symbols-outlined`}>
-              file_open
-            </span>
-            <span className={styles.tooltiptext}>
-              {'Actuaciones del proceso'}
-            </span>
-          </Link>
-          <Link
-            className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Carpetas/Expediente/${ carpeta.llaveProceso }/Editar` as Route}
-          >
-            <span className={`material-symbols-outlined ${ styles.icon }`}>
-              folder_shared
-            </span>
-            <span className={styles.tooltiptext}>{'Perfil del Demandado'}</span>
-          </Link>
-          <Link
-            className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Carpetas/Expediente/${ carpeta.llaveProceso }` as Route}
+            href={`/Carpetas/id/${ carpeta._id }` }
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               badge
@@ -110,7 +91,7 @@ export const Card = (
           </Link>
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Notas/Nueva?llaveProceso=${ carpeta.llaveProceso }` as Route}
+            href={`/Notas/Nueva?llaveProceso=${ carpeta.llaveProceso }`}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               add
@@ -119,7 +100,7 @@ export const Card = (
           </Link>
           {errorLLaveProceso && (
             <Link
-              href={`/Carpetas/numero/${ carpeta.numero }` as Route}
+              href={`/Carpetas/numero/${ carpeta.numero }`}
               className={styles.link}
             >
               {'error con el numero de expediente'}

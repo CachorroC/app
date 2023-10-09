@@ -12,7 +12,7 @@
   box-sizing: border-box;
   justify-content: space-around;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   height: 100%;
   align-items: stretch;
   align-content: space-between;
@@ -30,7 +30,7 @@
   .section {
     justify-content: space-around;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     height: 100%;
     align-items: stretch;
     align-content: space-between;
@@ -57,7 +57,7 @@
       background-color: var(--surface-container-highest);
       padding: 2cqmin;
       color: var(--on-surface);
-      font-family: var(--font-poiret);
+      font-family: var(--play-display);
       border-radius: 2cqmin;
       align-self: center;
       box-sizing: border-box;

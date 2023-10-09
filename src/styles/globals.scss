@@ -3,21 +3,21 @@
 @import url(./fonts/typography.module.css);
 @import url(./theme/colors.module.css);
 :root {
-  --display-large-font-family-name: var(--font-poiret);
+  --display-large-font-family-name: var(--play-display);
   --display-large-font-family-style: Regular;
   --display-large-font-weight: 400px;
   --display-large-font-size: 57pt;
   --display-large-line-height: 64px;
   --display-large-letter-spacing: -0.25px;
   /* display - medium */
-  --display-medium-font-family-name: var(--font-poiret);
+  --display-medium-font-family-name: var(--play-display);
   --display-medium-font-family-style: Regular;
   --display-medium-font-weight: 400px;
   --display-medium-font-size: 45px;
   --display-medium-line-height: 52px;
   --display-medium-letter-spacing: 0px;
   /* display - small */
-  --display-small-font-family-name: var(--font-poiret);
+  --display-small-font-family-name: var(--play-display);
   --display-small-font-family-style: Regular;
   --display-small-font-weight: 400px;
   --display-small-font-size: 36px;

@@ -12,7 +12,8 @@ export default function InputSearchBar() {
     <input
       type="text"
       className={searchbar.input}
-      value={search}
+      value={ search }
+      name='searchBar'
       placeholder={'Buscar'}
       onChange={(
         input

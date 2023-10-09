@@ -36,7 +36,7 @@
   flex-flow: column nowrap;
 }
 .section .label, .sectionRow .label, .sectionColumn .label {
-  font-family: var(--font-poiret);
+  font-family: var(--play-display);
   flex: 1;
 }
 .section .titleInput, .sectionRow .titleInput, .sectionColumn .titleInput,
