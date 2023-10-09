@@ -1,6 +1,5 @@
 'use client';
 import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
-import styles from 'components/Card/card.module.css';
 import { Card } from '#@/components/Card';
 import { useSearch } from '#@/app/context/search-context';
 import { useCategory } from '#@/app/context/main-context';
@@ -16,7 +15,6 @@ export default function CarpetasList(
 }
 ) {
   const rows: JSX.Element[] = [];
-
 
   const carpetasReduced = useCarpetaSort();
 
@@ -47,16 +45,13 @@ export default function CarpetasList(
       if ( category === 'todos' || category === proceso.category ) {
         rows.push(
           <Card key={ proceso._id } path={ path } carpeta={ proceso } >
-            <div className={ styles.section }>
-              {ultimaActuacion && (  <ActuacionComponent incomingActuacion={ ultimaActuacion }  /> )}
-
-            </div>
+            {ultimaActuacion && (  <ActuacionComponent key={proceso._id} incomingActuacion={ ultimaActuacion }  /> )}
           </Card>
         );
       }
     }
   );
 
-  return <>
-    {rows}</>;
+  return ( <>
+    {rows}</> );
 }

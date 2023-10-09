@@ -10,7 +10,7 @@ export default async function PageCarpetaNumero(
   {
     params,
   }: {
-  params: { numero: number };
+  params: { numero: string };
 }
 ) {
   const carpeta = await getCarpetabyNumero(

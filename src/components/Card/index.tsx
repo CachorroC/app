@@ -7,6 +7,7 @@ import { ReactNode } from 'react';
 import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { sectionColumn } from '../form/form.module.css';
+import type { Route } from 'next';
 
 export const Card = (
   {
@@ -66,7 +67,9 @@ export const Card = (
             return (
               <Link key={idProceso}
                 className={`${ styles.link } ${ isActive && styles.isActive }`}
-                href={`/Carpetas/Expediente/${ carpeta.llaveProceso }/${ idProceso }`}
+                href={ {
+                  pathname: `/Carpetas/Expediente/${ carpeta.llaveProceso }/${ idProceso }`
+                }}
               >
                 <span className={`${ styles.icon } material-symbols-outlined`}>
               update
@@ -82,7 +85,7 @@ export const Card = (
 
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Carpetas/id/${ carpeta._id }` }
+            href={`/Carpetas/id/${ carpeta._id }` as Route }
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               badge
@@ -91,7 +94,7 @@ export const Card = (
           </Link>
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Notas/Nueva?llaveProceso=${ carpeta.llaveProceso }`}
+            href={`/Notas/Nueva${ carpeta.llaveProceso && `?llaveProceso=${ carpeta.llaveProceso }` }`}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               add
@@ -100,7 +103,7 @@ export const Card = (
           </Link>
           {errorLLaveProceso && (
             <Link
-              href={`/Carpetas/numero/${ carpeta.numero }`}
+              href={`/Carpetas/numero/${ carpeta.numero }` as Route}
               className={styles.link}
             >
               {'error con el numero de expediente'}
