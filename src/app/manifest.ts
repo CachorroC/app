@@ -43,11 +43,11 @@ export default function manifest(): MetadataRoute.Manifest {
     shortcuts: [
       {
         name : 'Procesos',
-        url  : '/Procesos',
+        url  : '/Carpetas/UltimasActuaciones',
         icons: [
           {
             src    : '/icon.svg',
-            sizes  : '96x96 144x144 152x152 192x192 70x70 ',
+            sizes  : '96x96 144x144 152x152 192x192 70x70',
             type   : 'image/svg+xml',
             purpose: 'any',
           },
