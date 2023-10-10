@@ -1,5 +1,9 @@
 'use client';
-import { MouseEventHandler, ReactNode, useCallback, useEffect, useRef } from 'react';
+import { MouseEventHandler,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef, } from 'react';
 import styles from '../navbar.module.css';
 import { useNavigationContext } from '#@/app/context/main-context';
 import Link from 'next/link';
@@ -7,41 +11,40 @@ import layout from '#@/styles/layout.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import type { Route } from 'next';
 
-export default function Drawer (
+export default function Drawer(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
   const {
-    isNavOpen, setIsNavOpen
+    isNavOpen, setIsNavOpen 
   } = useNavigationContext();
 
   const wrapper = useRef(
-    null
+    null 
   );
 
   const overlay = useRef(
-    null
+    null 
   );
 
   const onDismiss = useCallback(
     () => {
       setIsNavOpen(
         (
-          n
+          n 
         ) => {
           return !n;
-        }
+        } 
       );
     }, [
-
       setIsNavOpen
-    ]
+    ] 
   );
 
   const onClick: MouseEventHandler = useCallback(
     (
-      e
+      e 
     ) => {
       if ( e.target === overlay.current || e.target === wrapper.current ) {
         if ( onDismiss ) {
@@ -58,7 +61,7 @@ export default function Drawer (
 
   const onKeyDown = useCallback(
     (
-      e: KeyboardEvent
+      e: KeyboardEvent 
     ) => {
       if ( e.key === 'Escape' ) {
         onDismiss();
@@ -72,17 +75,17 @@ export default function Drawer (
   useEffect(
     () => {
       document.addEventListener(
-        'keydown', onKeyDown
+        'keydown', onKeyDown 
       );
 
       return () => {
         return document.removeEventListener(
-          'keydown', onKeyDown
+          'keydown', onKeyDown 
         );
       };
     }, [
       onKeyDown
-    ]
+    ] 
   );
 
   if ( !isNavOpen ) {
@@ -90,66 +93,72 @@ export default function Drawer (
   }
 
   return (
-    <nav className={styles.drawer } onClick={ onClick } ref={ overlay }>
-
+    <nav
+      className={styles.drawer}
+      onClick={onClick}
+      ref={overlay}
+    >
       <Link
-        className={ layout.link }
-        href={ '/Procesos' as Route }
+        className={layout.link}
+        href={'/Procesos' as Route}
       >
         <span className="material-symbols-outlined">gavel</span>
-        <h1 className={ typography.labelMedium }>{ 'Procesos' }</h1>
+        <h1 className={typography.labelMedium}>{'Procesos'}</h1>
       </Link>
       <Link
-        className={ layout.link }
-        href={ '/Notas' as Route }
+        className={layout.link}
+        href={'/Notas' as Route}
       >
         <span className="material-symbols-outlined">note</span>
-        <h1 className={ typography.labelMedium }>{ 'Notas' }</h1>
+        <h1 className={typography.labelMedium}>{'Notas'}</h1>
       </Link>
       <Link
-        className={ layout.link }
-        href={ '/Carpetas' as Route}
+        className={layout.link}
+        href={'/Carpetas' as Route}
       >
         <span className="material-symbols-outlined">folder_open</span>
-        <h1 className={ typography.labelMedium }>{ 'Carpetas' }</h1>
+        <h1 className={typography.labelMedium}>{'Carpetas'}</h1>
       </Link>
       <Link
-        className={ layout.link }
-        href={ '/Tareas' }
+        className={layout.link}
+        href={'/Tareas'}
       >
         <span className="material-symbols-outlined">api</span>
-        <h1 className={ typography.labelMedium }>{ 'Tareas' }</h1>
+        <h1 className={typography.labelMedium}>{'Tareas'}</h1>
       </Link>
       <Link
-        className={ layout.link }
-        href={ '/Notas/Nueva' as Route  }
+        className={layout.link}
+        href={'/Notas/Nueva' as Route}
       >
         <span className="material-symbols-outlined">note_add</span>
-        <h1 className={ typography.labelMedium }>{ 'Nueva Nota' }</h1>
+        <h1 className={typography.labelMedium}>{'Nueva Nota'}</h1>
       </Link>
       <Link
-        className={ layout.link }
-        href={ '/Costos' }
+        className={layout.link}
+        href={'/Costos'}
       >
         <span className="material-symbols-outlined">folder_open</span>
-        <h1 className={ typography.labelMedium }>{ 'Costos' }</h1>
+        <h1 className={typography.labelMedium}>{'Costos'}</h1>
       </Link>
       <Link
-        className={ layout.link }
-        href={ '/Contacto' as Route }
+        className={layout.link}
+        href={'/Contacto' as Route}
       >
         <span className="material-symbols-outlined">folder_open</span>
-        <h1 className={ typography.labelMedium }>{ 'Contacto' }</h1>
+        <h1 className={typography.labelMedium}>{'Contacto'}</h1>
       </Link>
       <Link
-        className={ layout.link }
-        href={ '/QuienesSomos' }
+        className={layout.link}
+        href={'/QuienesSomos'}
       >
         <span className="material-symbols-outlined">folder_open</span>
-        <h1 className={ typography.labelMedium }>{ 'Quienes Somos' }</h1>
+        <h1 className={typography.labelMedium}>{'Quienes Somos'}</h1>
       </Link>
-      <div className={styles.sidenav}     ref={wrapper}>
-        { children }
+      <div
+        className={styles.sidenav}
+        ref={wrapper}
+      >
+        {children}
       </div>
     </nav>
   );

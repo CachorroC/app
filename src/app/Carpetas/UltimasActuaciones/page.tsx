@@ -8,7 +8,6 @@ export const dynamic = 'force-dynamic';
 
 export const dynamicParams = true;
 
-
 export default async function Procesos() {
   const carpetasRaw = await getCarpetas();
 
@@ -18,7 +17,6 @@ export default async function Procesos() {
     (
       a, b
     ) => {
-
       if ( !a.fecha || a.fecha === undefined ) {
         return 1;
       }
@@ -44,40 +42,37 @@ export default async function Procesos() {
   );
 
   return (
-
     <>
-
-
-      { carpetas.map(
+      {carpetas.map(
         (
           carpeta, index
         ) => {
-
           return (
             <Card
-              path={ '/Procesos' }
-              carpeta={ carpeta }
-              key={ carpeta._id }
+              path={'/Carpetas/Expediente'}
+              carpeta={carpeta}
+              key={carpeta._id}
             >
-              <Suspense fallback={ <Loader /> }>
-                { carpeta.idProcesos && carpeta.idProcesos.map(
+              <Suspense fallback={<Loader />}>
+                {carpeta.idProcesos
+                && carpeta.idProcesos.map(
                   (
                     idProceso
                   ) => {
                     return (
                       <FechaActuacionComponent
                         idProceso={idProceso}
-                        key={ idProceso }
-                        index={ index } />
+                        key={idProceso}
+                        index={index}
+                      />
                     );
                   }
-                ) }
+                )}
               </Suspense>
             </Card>
           );
         }
-      ) }
-
+      )}
     </>
   );
 }

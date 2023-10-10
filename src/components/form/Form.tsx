@@ -2,26 +2,23 @@
 import { InputSection } from 'components/form/InputSection';
 import { SelectSection } from 'components/form/SelectSection';
 import form from 'components/form/form.module.css';
-import {   MonCarpeta } from '#@/lib/types/carpetas';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 import React, { useEffect } from 'react';
-import { SubmitHandler,
-  useFormContext, } from 'react-hook-form';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { DateInputSection } from './DateInputSection';
 
 export const Form = (
   {
-    carpeta
-  }: { carpeta: MonCarpeta }
+    carpeta 
+  }: { carpeta: MonCarpeta } 
 ) => {
   const {
-    handleSubmit,
-    reset,
-    setError,
+    handleSubmit, reset, setError 
   } = useFormContext<MonCarpeta>();
 
   const onSubmit: SubmitHandler<MonCarpeta> = async (
-    data: MonCarpeta
+    data: MonCarpeta 
   ) => {
     const newCarpeta = {
       ...carpeta,
@@ -30,7 +27,8 @@ export const Form = (
 
     const {
       // eslint-disable-next-line no-unused-vars
-      _id, ...mutated
+      _id,
+      ...mutated
     } = newCarpeta;
 
     const postCarpeta = await fetch(
@@ -40,56 +38,54 @@ export const Form = (
           'content-type': 'application/json',
         },
         body: JSON.stringify(
-          mutated
+          mutated 
         ),
-      }
+      } 
     );
     alert(
       JSON.stringify(
-        postCarpeta.status
-      )
+        postCarpeta.status 
+      ) 
     );
 
     if ( postCarpeta.status > 200 ) {
       setError(
         'root.serverError', {
           type: postCarpeta.statusText,
-        }
+        } 
       );
     }
 
     const updatedCarpeta = ( await postCarpeta.json() ) as MonCarpeta;
     alert(
       JSON.stringify(
-        updatedCarpeta
-      )
+        updatedCarpeta 
+      ) 
     );
     console.log(
-      postCarpeta.status
+      postCarpeta.status 
     );
   };
 
   useEffect(
     () => {
       reset(
-        carpeta
+        carpeta 
       );
     }, [
       reset,
       carpeta
-    ]
+    ] 
   );
 
   return (
-
     <div className={form.container}>
       <form
         className={form.form}
         onSubmit={handleSubmit(
-          onSubmit
+          onSubmit 
         )}
       >
-
         <section className={form.section}>
           <h3 className={typography.displaySmall}>{'Deudor'}</h3>
           <InputSection
@@ -173,7 +169,6 @@ export const Form = (
           type={'number'}
         />
 
-
         <SelectSection
           name={'category'}
           title={'Grupo al que pertenece'}
@@ -196,7 +191,6 @@ export const Form = (
           ]}
         />
         <section className={form.section}>
-
           <InputSection
             name={'demanda.capitalAdeudado'}
             title={'Capital Adeudado'}
@@ -206,12 +200,21 @@ export const Form = (
             }}
           />
 
-          {carpeta.demanda.entregaGarantiasAbogado && ( <DateInputSection name={ 'demanda.entregaGarantiasAbogado'} initialValue={carpeta.demanda.entregaGarantiasAbogado} title={'fecha de entrega de las garantias al abogado'}/> )}
+          {carpeta.demanda.entregaGarantiasAbogado && (
+            <DateInputSection
+              name={'demanda.entregaGarantiasAbogado'}
+              initialValue={carpeta.demanda.entregaGarantiasAbogado}
+              title={'fecha de entrega de las garantias al abogado'}
+            />
+          )}
 
-
-          {carpeta.demanda.fechaPresentacion && ( <DateInputSection name={ 'demanda.fechaPresentacion' }initialValue={
-            carpeta.demanda.fechaPresentacion
-          } title={'fecha de presentacion de la demanda'}/> )}
+          {carpeta.demanda.fechaPresentacion && (
+            <DateInputSection
+              name={'demanda.fechaPresentacion'}
+              initialValue={carpeta.demanda.fechaPresentacion}
+              title={'fecha de presentacion de la demanda'}
+            />
+          )}
 
           <InputSection
             name={'demanda.obligacion.A'}
@@ -239,6 +242,5 @@ export const Form = (
         </button>
       </form>
     </div>
-
   );
 };

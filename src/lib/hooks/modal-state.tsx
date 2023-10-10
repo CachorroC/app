@@ -1,41 +1,17 @@
 'use client';
-import { useCallback, useRef, useEffect, MouseEventHandler, ReactNode, } from 'react';
+import { useCallback,
+  useRef,
+  useEffect,
+  MouseEventHandler,
+  ReactNode, } from 'react';
 import styles from 'components/Modal/styles.module.css';
 import { useModalContext } from '#@/app/context/modal-context';
-import { buttonBackwards } from '#@/components/Buttons/buttons.module.css';
-
-
-export function ModalDialogButton () {
-  const {
-    isModalOpen, setIsModalOpen
-  } = useModalContext();
-
-  return (
-    <button className={buttonBackwards} onClick={ () => {
-      setIsModalOpen(
-        (
-          n
-        ) => {
-          return !n;
-        }
-      );
-    }}>
-      <span className='material-symbols-outlined'>{
-        isModalOpen
-          ? 'close'
-          : 'note_add'
-      }</span>
-
-    </button>
-  );
-}
 
 export default function ModalDialog(
   {
     children
-  }: { children: ReactNode;  }
+  }: { children: ReactNode }
 ) {
-
   const overlay = useRef(
     null
   );
@@ -44,12 +20,9 @@ export default function ModalDialog(
     null
   );
 
-  const
-    {
-      isModalOpen,
-      setIsModalOpen
-    }
-  = useModalContext();
+  const {
+    isModalOpen, setIsModalOpen
+  } = useModalContext();
 
   const onDismiss = useCallback(
     () => {
@@ -61,7 +34,6 @@ export default function ModalDialog(
         }
       );
     }, [
-
       setIsModalOpen
     ]
   );
@@ -114,7 +86,7 @@ export default function ModalDialog(
 
   return (
     <>
-      { isModalOpen && (
+      {isModalOpen && (
         <div
           ref={overlay}
           className={styles.open}

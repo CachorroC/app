@@ -20,9 +20,10 @@ export default async function Page(
   return (
     <Fragment key={params._id}>
       <Card
-        path={ '/Carpetas' }
-        key={ params._id }
-        carpeta={ carpeta }  >
+        path={'/Carpetas/Expediente'}
+        key={params._id}
+        carpeta={carpeta}
+      >
         <CarpetaCard
           key={params._id}
           carpeta={carpeta}

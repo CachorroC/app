@@ -7,34 +7,38 @@ import styles from 'components/Card/card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { fixFechas } from '#@/lib/project/helper';
 
-export default function ActuacionComponent (
+export default function ActuacionComponent(
   {
-    incomingActuacion
-  }: { incomingActuacion: Actuacion }
+    incomingActuacion,
+  }: {
+  incomingActuacion: Actuacion;
+} 
 ) {
   const {
-    actuacion, anotacion, idRegActuacion, consActuacion, fechaActuacion,  fechaRegistro,  cant
+    actuacion,
+    anotacion,
+    idRegActuacion,
+    consActuacion,
+    fechaActuacion,
+    fechaRegistro,
+    cant,
   } = incomingActuacion;
 
   const [
     isOpen,
     setIsOpen
   ] = useState(
-    false
+    false 
   );
   let visibleContent;
 
   if ( isOpen ) {
     visibleContent = (
       <>
-        <sub className={ styles.sub }>{
-          `${ consActuacion } de ${ cant }`
-        }</sub>
-        <sub className={ styles.sub }>{
-          `actuacion registrada el ${ fixFechas(
-            fechaRegistro
-          ) }`
-        }</sub>
+        <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
+        <sub className={styles.sub}>{`actuacion registrada el ${ fixFechas(
+          fechaRegistro,
+        ) }`}</sub>
         {`${ idRegActuacion }`}
         {actuacion && (
           <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
@@ -45,43 +49,38 @@ export default function ActuacionComponent (
           <p className={` ${ styles.anotacion } ${ typography.labelSmall }`}>
             {anotacion}
           </p>
-        ) }
-        { fechaActuacion && (
-          <sub className={styles.date}>
-            {
-              fixFechas(
-                fechaActuacion
-              )
-            }
-          </sub>
+        )}
+        {fechaActuacion && (
+          <sub className={styles.date}>{fixFechas(
+            fechaActuacion 
+          )}</sub>
         )}
       </>
     );
   } else {
     visibleContent = (
-      <sub className={styles.date}>
-        {
-          fixFechas(
-            fechaActuacion
-          )
-        }
-      </sub>
+      <sub className={styles.date}>{fixFechas(
+        fechaActuacion 
+      )}</sub>
     );
   }
 
   return (
-    <div className={ styles.section } onClick={ (
-      e
-    ) => {
-      e.stopPropagation();
-      setIsOpen(
-        (
-          n
-        ) => {
-          return !n;
-        }
-      );
-    }}>
+    <div
+      className={styles.section}
+      onClick={(
+        e 
+      ) => {
+        e.stopPropagation();
+        setIsOpen(
+          (
+            n 
+          ) => {
+            return !n;
+          } 
+        );
+      }}
+    >
       {visibleContent}
     </div>
   );

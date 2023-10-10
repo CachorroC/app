@@ -1,5 +1,5 @@
 'use client';
-import {  useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 export function usePrettyPrintedState() {
   const [
@@ -16,7 +16,7 @@ export function usePrettyPrintedState() {
             Value:
               <br />
               {JSON.stringify(
-                value, null, 2
+                value, null, 2 
               )}
             </pre>
           )}
@@ -24,7 +24,7 @@ export function usePrettyPrintedState() {
       );
     }, [
       value
-    ]
+    ] 
   );
 
   return [

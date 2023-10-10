@@ -11,62 +11,63 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <div className={layout.top}><h1 className={ typography.displayLarge }>
-        { 'R&S Asesoría Jurídica S.A.S' }
-      </h1>
-      </div><div className={ layout.left }>
+      <div className={layout.top}>
+        <h1 className={typography.displayLarge}>
+          {'R&S Asesoría Jurídica S.A.S'}
+        </h1>
+      </div>
+      <div className={layout.left}>
         <Link
-          className={ layout.link }
-          href={ '/Carpetas/UltimasActuaciones' }
+          className={layout.link}
+          href={'/Carpetas/UltimasActuaciones'}
         >
           <span className="material-symbols-outlined">pace</span>
-          <h1 className={ typography.displayMedium }>{ 'Ultimas Actuaciones' }</h1>
+          <h1 className={typography.displayMedium}>{'Ultimas Actuaciones'}</h1>
         </Link>
         <Link
-          className={ layout.link }
-          href={ '/Notas' as Route }
+          className={layout.link}
+          href={'/Notas' as Route}
         >
           <span className="material-symbols-outlined">note</span>
-          <h1 className={ typography.displayMedium }>{ 'Notas' }</h1>
+          <h1 className={typography.displayMedium}>{'Notas'}</h1>
         </Link>
         <Link
-          className={ layout.link }
-          href={ '/Carpetas' as Route}
+          className={layout.link}
+          href={'/Carpetas' as Route}
         >
           <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.displayMedium }>{ 'Carpetas' }</h1>
+          <h1 className={typography.displayMedium}>{'Carpetas'}</h1>
         </Link>
         <Link
-          className={ layout.link }
-          href={ '/Tareas' }
+          className={layout.link}
+          href={'/Tareas'}
         >
           <span className="material-symbols-outlined">api</span>
-          <h1 className={ typography.displayMedium }>{ 'Tareas' }</h1>
+          <h1 className={typography.displayMedium}>{'Tareas'}</h1>
         </Link>
 
         <Link
-          className={ layout.link }
-          href={ '/Costos' }
+          className={layout.link}
+          href={'/Costos'}
         >
           <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.displayMedium }>{ 'Costos' }</h1>
+          <h1 className={typography.displayMedium}>{'Costos'}</h1>
         </Link>
         <Link
-          className={ layout.link }
-          href={ '/Contacto' as Route }
+          className={layout.link}
+          href={'/Contacto' as Route}
         >
           <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.displayMedium }>{ 'Contacto' }</h1>
+          <h1 className={typography.displayMedium}>{'Contacto'}</h1>
         </Link>
         <Link
-          className={ layout.link }
-          href={ '/QuienesSomos' }
+          className={layout.link}
+          href={'/QuienesSomos'}
         >
           <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.displayMedium }>{ 'Quienes Somos' }</h1>
+          <h1 className={typography.displayMedium}>{'Quienes Somos'}</h1>
         </Link>
-
-
-      </div></>
+      </div>
+    </>
   );
 }

@@ -1,4 +1,3 @@
-
 import typography from '#@/styles/fonts/typography.module.scss';
 import { Actuacion } from '#@/lib/types/actuaciones';
 import Link from 'next/link';
@@ -14,35 +13,29 @@ export const FechaActuacionComponent = async (
     idProceso,
     index,
   }: {
-      idProceso: number;
+  idProceso: number;
   index: number;
-}
+} 
 ) => {
   const consultaActuaciones = await fetchActuaciones(
-    idProceso,
-    index
+    idProceso, index 
   );
 
   if ( !consultaActuaciones.actuaciones ) {
-    return (
-      <p>{consultaActuaciones.Message}</p>
-    );
+    return <p>{consultaActuaciones.Message}</p>;
   }
 
   const [
     ultimaActuacion
   ] = consultaActuaciones.actuaciones;
 
-
-  return (
-    <ActuacionComponent incomingActuacion={ ultimaActuacion} />
-  );
+  return <ActuacionComponent incomingActuacion={ultimaActuacion} />;
 };
 
 export const ActuacionCard = (
   {
-    act
-  }: { act: Actuacion }
+    act 
+  }: { act: Actuacion } 
 ) => {
   const {
     consActuacion,
@@ -56,14 +49,13 @@ export const ActuacionCard = (
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <div className={ styles.section }>
+        <div className={styles.section}>
           <h1 className={`${ typography.titleMedium } ${ styles.title }`}>
             {`${ actuacion }`}
           </h1>
           <sub
             className={`${ typography.labelSmall } ${ styles.sub }`}
           >{`${ consActuacion } de ${ cant }`}</sub>
-
         </div>
         {anotacion && <p className={typography.bodyMedium}>{`${ anotacion }`}</p>}
         {conDocumentos && (
@@ -71,18 +63,18 @@ export const ActuacionCard = (
             file_present
           </span>
         )}
-        <div className={ styles.links }>
+        <div className={styles.links}>
           <Link
             href={'/Notas/Nueva' as Route}
             className={button}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
-            note_add
+              note_add
             </span>
           </Link>
           <sup className={`${ typography.labelMedium } ${ styles.date }`}>
             {fixFechas(
-              fechaActuacion
+              fechaActuacion 
             )}
           </sup>
         </div>
@@ -96,13 +88,13 @@ export const ActuacionesList = (
     actuaciones,
   }: {
   actuaciones: Actuacion[];
-}
+} 
 ) => {
   return (
     <>
       {actuaciones.map(
         (
-          act
+          act 
         ) => {
           return (
             <ActuacionCard
@@ -110,7 +102,7 @@ export const ActuacionesList = (
               key={act.idRegActuacion}
             />
           );
-        }
+        } 
       )}
     </>
   );

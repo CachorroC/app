@@ -8,60 +8,60 @@ import { useOnlineStatus } from '#@/lib/hooks/online-state';
 
 export const NuevaNota = (
   {
-    llaveProceso, cod
-  }: { llaveProceso?: string; cod: number }
+    llaveProceso,
+    cod,
+  }: {
+  llaveProceso?: string;
+  cod: number;
+} 
 ) => {
   const isOnline = useOnlineStatus();
 
   const {
-    inputNota, setInputNota
+    inputNota, setInputNota 
   } = useNotaContext();
 
   const inputMonth = String(
-    inputNota.date.getMonth() + 1
+    inputNota.date.getMonth() + 1 
   )
     .padStart(
-      2, '0'
+      2, '0' 
     );
 
   const inputDate = String(
-    inputNota.date.getDate()
+    inputNota.date.getDate() 
   )
     .padStart(
-      2, '0'
+      2, '0' 
     );
 
-
   const pathname = usePathname();
-
 
   const router = useRouter();
 
   async function onCreate(
-    formData: FormData
+    formData: FormData 
   ) {
-
     const res = await createNota(
-      formData
+      formData 
     );
     alert(
-      res.message
+      res.message 
     );
     router.replace(
-      `/Notas/id/${ res.id }`
+      `/Notas/id/${ res.id }` 
     );
   }
-
 
   return (
     <div className={styles.container}>
       <form
-        className={ styles.form }
-        action={ onCreate }
+        className={styles.form}
+        action={onCreate}
       >
         <h1 className={typography.displayLarge}>Nueva Nota</h1>
-        <section className={ styles.sectionColumn }>
-          {isOnline && ( <p>isOnline</p> )}
+        <section className={styles.sectionColumn}>
+          {isOnline && <p>isOnline</p>}
           <section className={styles.sectionRow}>
             <label
               htmlFor="llaveProceso"
@@ -87,84 +87,91 @@ export const NuevaNota = (
               type="number"
               className={styles.textArea}
               name="cod"
-              value={ cod }
-              onChange={ (
-                e
+              value={cod}
+              onChange={(
+                e 
               ) => {
                 setInputNota(
                   {
                     ...inputNota,
                     cod: Number(
-                      e.target.value
-                    )
-                  }
+                      e.target.value 
+                    ),
+                  } 
                 );
               }}
             />
           </section>
 
-          <section className={ styles.sectionRow }>
-            <label htmlFor='text' className={styles.label}>{'Nota:'}</label>
+          <section className={styles.sectionRow}>
+            <label
+              htmlFor="text"
+              className={styles.label}
+            >
+              {'Nota:'}
+            </label>
             <input
               type="text"
               className={styles.textArea}
               name="text"
               value={inputNota.text}
-              onChange={
-                (
-                  e
-                ) => {
-                  setInputNota(
-                    {
-                      ...inputNota,
-                      text: e.target.value,
-                    }
-                  );
-                }
-              }
+              onChange={(
+                e 
+              ) => {
+                setInputNota(
+                  {
+                    ...inputNota,
+                    text: e.target.value,
+                  } 
+                );
+              }}
             />
           </section>
-          <section className={ styles.sectionRow }>
-            <label htmlFor='date' className={styles.label}>Fecha</label>
+          <section className={styles.sectionRow}>
+            <label
+              htmlFor="date"
+              className={styles.label}
+            >
+              Fecha
+            </label>
 
             <input
               type="date"
               name="date"
               className={styles.textArea}
-              value={ `${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }` }
+              value={`${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }`}
               onChange={(
-                e
+                e 
               ) => {
                 const [
                   yearStringer,
                   monthStringer,
                   dayStringer
-                ] = e.target.value.split(
-                  '-'
-                );
+                ]
+                  = e.target.value.split(
+                    '-' 
+                  );
 
                 const newYear = Number(
-                  yearStringer
+                  yearStringer 
                 );
 
-                const newMonth= Number(
-                  monthStringer
+                const newMonth = Number(
+                  monthStringer 
                 ) - 1;
 
                 const newDay = Number(
-                  dayStringer
+                  dayStringer 
                 );
                 setInputNota(
                   {
                     ...inputNota,
                     date: new Date(
-                      newYear, newMonth, newDay
-                    )
-                  }
+                      newYear, newMonth, newDay 
+                    ),
+                  } 
                 );
-
               }}
-
             />
           </section>
           <input
@@ -173,8 +180,7 @@ export const NuevaNota = (
             name="pathname"
             defaultValue={pathname}
           />
-          <section className={ styles.section }>
-
+          <section className={styles.section}>
             <label className={styles.switchBox}>
               <input
                 type="checkbox"
@@ -182,13 +188,13 @@ export const NuevaNota = (
                 name="done"
                 checked={inputNota.done}
                 onChange={(
-                  e
+                  e 
                 ) => {
                   setInputNota(
                     {
                       ...inputNota,
-                      done: e.target.checked
-                    }
+                      done: e.target.checked,
+                    } 
                   );
                 }}
               />

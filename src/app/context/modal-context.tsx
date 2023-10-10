@@ -3,7 +3,6 @@
 import React, { createContext,
   Dispatch,
   SetStateAction,
-
   useState,
   useContext, } from 'react';
 
@@ -11,19 +10,19 @@ const ModalContext = createContext<{
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 } | null>(
-  null
+  null 
 );
 
 export function ModalProvider(
   {
-    children
-  }: { children: React.ReactNode }
+    children 
+  }: { children: React.ReactNode } 
 ) {
   const [
     isModalOpen,
     setIsModalOpen
   ] = useState(
-    false
+    false 
   );
 
   return (
@@ -40,12 +39,12 @@ export function ModalProvider(
 
 export function useModalContext() {
   const context = useContext(
-    ModalContext
+    ModalContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'useModalContext must be used inside a ModalProvider'
+      'useModalContext must be used inside a ModalProvider' 
     );
   }
 

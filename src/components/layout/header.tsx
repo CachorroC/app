@@ -2,115 +2,56 @@
 
 import { ReactNode, Suspense } from 'react';
 import layout from '#@/styles/layout.module.css';
-import navbar from 'components/layout/navbar.module.css';
-import type { Route } from 'next';
-import Link from 'next/link';
-import button from '../Buttons/buttons.module.css';
-import { useRouter } from 'next/navigation';
 import InputSearchBar from './search/InputSearchBar';
 import { Loader } from '../Loader';
 import { NuevaNota } from '../Nota/client/nueva-nota';
-import ModalDialog, { ModalDialogButton } from '#@/lib/hooks/modal-state';
-import { useModalContext } from '#@/app/context/modal-context';
+import ModalDialog from '#@/lib/hooks/modal-state';
 import { useNavigationContext } from '#@/app/context/main-context';
 import Drawer from './Drawer';
+import NavButtons from '../Buttons/nav-buttons';
+import Link from 'next/link';
+import { Route } from 'next';
+import styles from '../Buttons/buttons.module.css';
 
-export default function Header (
+export default function Header(
   {
     children
-  }: {children: ReactNode}
+  }: { children: ReactNode }
 ) {
-  const router = useRouter();
   let modalSegment;
 
   const {
-    isNavOpen,
-    setIsNavOpen
-  }= useNavigationContext();
+    isNavOpen
+  } = useNavigationContext();
 
-  const
-
-    {
-      setIsModalOpen
-    }   = useModalContext();
 
   if ( isNavOpen ) {
-    modalSegment = (
-
-      <Drawer>
-
-        {children}
-
-
-      </Drawer> );
+    modalSegment = <Drawer>{children}</Drawer>;
   }
-
-
 
   return (
     <div className={ layout.header }>
-      <Link
-        href={ '/' as Route }
-        className={ navbar.buttonHome }
+      <section className={styles.segmentRow}><Link
+        href={'/' as Route}
+        className={styles.buttonHome}
       >
-        <span className={ `material-symbols-outlined ${ navbar.icon }` }>home</span>
-        <p className={ navbar.ButtonTextHelper }>inicio</p>
+        <span className={`material-symbols-outlined ${ styles.icon }`}>home</span>
+        <span className={styles.text}>inicio</span>
       </Link>
-      <Suspense fallback={ <Loader /> }>
+      <Suspense fallback={<Loader />}>
         <InputSearchBar />
       </Suspense>
+      </section>
 
-      <button
-        type="button"
-        className={ navbar.buttonBackwards }
-        onClick={ () => {
-          router.back();
-        } }
-      >
-        <span className={ `material-symbols-outlined ${ navbar.icon }` }>
-          chevron_left
-        </span>
-        <p className={ navbar.ButtonTextHelper }>atras</p>
-      </button>
-      <ModalDialogButton />
-      <ModalDialog>
-        <NuevaNota cod={ 0 } />
-      </ModalDialog>
-      <button
-        type="button"
-        className={ navbar.buttonForward }
-        onClick={ () => {
-          router.forward();
-        } }
-      >
-        <span className={ `material-symbols-outlined ${ navbar.icon }` }>
-          chevron_right
-        </span>
-        <p className={ navbar.ButtonTextHelper }>entrar</p>
-      </button><button
-        type="button"
-        className={ button.buttonDrawerMenu }
-        onClick={ () => {
-          setIsModalOpen(
-            false
-          );
-          setIsNavOpen(
-            (
-              n
-            ) => {
-              return !n;
-            }
-          );
-        } }
-      >
-        <span className={ `material-symbols-outlined ${ button.icon }` }>
-          { isNavOpen
-            ? 'close'
-            : 'menu' }
-        </span>
-      </button>
-      { modalSegment}
+
+      <Suspense fallback={<Loader />}>
+
+        <ModalDialog>
+          <NuevaNota cod={0} />
+        </ModalDialog>
+      </Suspense>
+      <NavButtons />
+      {modalSegment}
     </div>
-
   );
 }

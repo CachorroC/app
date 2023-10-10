@@ -5,7 +5,6 @@ export interface calendarData {
   dayOfWeek: number;
 }
 
-
 export const nombresDeMeses = [
   'Enero',
   'Febrero',
@@ -22,15 +21,13 @@ export const nombresDeMeses = [
 ];
 
 export function CalendarBuilder(
-  date: Date
+  date: Date 
 ) {
   const rows = new Set<calendarData>();
 
-
   console.log(
-    date
+    date 
   );
-
 
   const currentMonth = date.getMonth();
 
@@ -46,10 +43,8 @@ export function CalendarBuilder(
   )
     .getDay();
 
-
-
   const lastDateofMonth = new Date(
-    currentYear, currentMonth + 1, 0
+    currentYear, currentMonth + 1, 0 
   )
     .getDate();
 
@@ -61,12 +56,11 @@ export function CalendarBuilder(
     .getDay();
 
   const lastDateofPastMonth = new Date(
-    currentYear, currentMonth, 0
+    currentYear, currentMonth, 0 
   )
     .getDate();
 
   for ( let dayBefore = firstDayofCurrentMonth; dayBefore > 0; dayBefore-- ) {
-
     const href = `${ currentYear }/${ currentMonth }/${
       lastDateofPastMonth - dayBefore + 1
     }`;
@@ -76,50 +70,50 @@ export function CalendarBuilder(
         className: 'disabled',
         current  : false,
         dayOfWeek: new Date(
-          href
+          href 
         )
           .getDay(),
-      }
+      } 
     );
   }
 
   for ( let dayInMonth = 1; dayInMonth <= lastDateofMonth; dayInMonth++ ) {
     const isToday = today === dayInMonth;
 
-    const href = `${ currentYear }/${ currentMonth +1 }/${ dayInMonth }`;
+    const href = `${ currentYear }/${ currentMonth + 1 }/${ dayInMonth }`;
 
     rows.add(
       {
         href     : href,
         current  : true,
         dayOfWeek: new Date(
-          href
+          href 
         )
           .getDay(),
         className: isToday
           ? 'today'
           : 'innactive',
-      }
+      } 
     );
   }
 
   for ( let dayAfterMonth = lastDayofMonth; dayAfterMonth < 6; dayAfterMonth++ ) {
-    const href = `${ currentYear }/${ currentMonth +2 }/${ dayAfterMonth }`;
+    const href = `${ currentYear }/${ currentMonth + 2 }/${ dayAfterMonth }`;
 
     rows.add(
       {
         href     : href,
         current  : false,
         dayOfWeek: new Date(
-          href
+          href 
         )
           .getDay(),
         className: 'disabled',
-      }
+      } 
     );
   }
 
   return Array.from(
-    rows
+    rows 
   );
 }

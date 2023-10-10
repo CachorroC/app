@@ -4,10 +4,13 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
-import styles from './card.module.css';
+import styles, { isActive } from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { sectionColumn } from '../form/form.module.css';
 import type { Route } from 'next';
+import { useCategory } from '#@/app/context/main-context';
+import { useSearch } from '#@/app/context/search-context';
+import { fixFechas } from '#@/lib/project/helper';
+import { sectionColumn } from '../form/form.module.css';
 
 export const Card = (
   {
@@ -17,9 +20,10 @@ export const Card = (
   }: {
   path: string;
   carpeta: MonCarpeta;
-      children: ReactNode;
+  children: ReactNode;
 }
 ) => {
+  let contentIdProcesos;
 
   const llaveLength = carpeta.llaveProceso?.length;
 
@@ -29,30 +33,111 @@ export const Card = (
 
   const pathname = usePathname();
 
-  const href = carpeta.idProcesos
-    ? `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProcesos[ 0 ] }`
-    : `${ path }/${ carpeta.llaveProceso }`;
+  const {
+    llaveProceso, _id, idProcesos, nombre, numero, deudor, fecha
+  } = carpeta;
 
-  const isActive
-    = pathname === href
-    || pathname === `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProcesos
-      ? carpeta.idProcesos[ 0 ]
-      : 0 }`
-    || pathname === `${ path }/${ carpeta.llaveProceso }`;
+  const {
+    category
+  } = useCategory();
+
+  const {
+    search
+  } = useSearch();
+
+  if ( category !== 'todos' ) {
+    if ( category !== carpeta.category ) {
+      return null;
+    }
+  }
 
 
+  const isSearch
+    = nombre.toLowerCase()
+      .indexOf(
+        search.toLowerCase()
+      ) === -1;
+
+
+  if ( !idProcesos || idProcesos.length === 0 ) {
+    const isActive = pathname === `${ path }/${ llaveProceso }`;
+    contentIdProcesos = (
+      <Link
+        key={_id}
+        href={`${ path }/${ llaveProceso }` as Route}
+        className={isActive
+          ? styles.isActive
+          : styles.notActive}
+      >
+        <div className={sectionColumn}>
+          <sup className={`${ !isSearch && styles.sub }`}>
+            {`# ${ numero }`}
+          </sup>
+          <h4
+            key={deudor.cedula}
+            className={`${ typography.titleMedium } ${ styles.title }`}
+          >
+            {nombre}
+          </h4>
+
+          {fecha && (
+            <sub className={styles.date}>{fixFechas(
+              fecha.toString()
+            )}</sub>
+          )}
+        </div>
+      </Link>
+    );
+  } else {
+    contentIdProcesos = idProcesos.map(
+      (
+        idProceso
+      ) => {
+
+        const isActive = pathname === `${ path }/${ llaveProceso }/${ idProceso }`;
+        return (
+          <Link
+            key={idProceso}
+            href={`${ path }/${ llaveProceso }/${ idProceso }` as Route}
+            className={styles.link}
+          >
+            <div className={isActive
+              ? styles.isActive
+              : styles.notActive}>
+              <sup className={`${ !isSearch && styles.sub }`}>
+                {`# ${ numero }`}
+              </sup>
+              <h4
+                key={deudor.cedula}
+                className={`${ typography.titleMedium } ${ styles.title }`}
+              >
+                {nombre}
+              </h4>
+
+              {fecha && (
+                <sub className={styles.date}>
+                  {fixFechas(
+                    fecha.toString()
+                  )}
+                </sub>
+              )}
+            </div>
+          </Link>
+        );
+      }
+    );
+  }
 
   return (
-    <div className={styles.container} >
+    <div className={styles.container}>
       <div
         className={`${ styles.card } ${
           errorLLaveProceso && styles.errorContainer
         }`}
       >
-
         <section className={sectionColumn}>
           <div className={styles.title}>
-            <h4 className={typography.headlineSmall}>{ carpeta.nombre}</h4>
+            <h4 className={typography.headlineSmall}>{carpeta.nombre}</h4>
             <sub className={`${ typography.labelSmall } ${ styles.sub }`}>
               {carpeta.numero}
             </sub>
@@ -60,32 +145,11 @@ export const Card = (
           {children}
         </section>
 
-        { carpeta.idProcesos && carpeta.idProcesos.map(
-          (
-            idProceso
-          ) => {
-            return (
-              <Link key={idProceso}
-                className={`${ styles.link } ${ isActive && styles.isActive }`}
-                href={ {
-                  pathname: `/Carpetas/Expediente/${ carpeta.llaveProceso }/${ idProceso }`
-                }}
-              >
-                <span className={`${ styles.icon } material-symbols-outlined`}>
-              update
-                </span>
-                <span className={styles.tooltiptext}>
-                  {'Actuaciones del proceso'}
-                </span>
-              </Link>
-            );
-          }
-        )}
+        {contentIdProcesos}
         <div className={styles.links}>
-
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Carpetas/id/${ carpeta._id }` as Route }
+            href={`/Carpetas/id/${ _id }` as Route}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               badge
@@ -94,7 +158,13 @@ export const Card = (
           </Link>
           <Link
             className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Notas/Nueva${ carpeta.llaveProceso && `?llaveProceso=${ carpeta.llaveProceso }` }` as Route}
+            href={
+              `/Notas/Nueva${
+                llaveProceso
+                  ? `?llaveProceso=${ llaveProceso }`
+                  : ''
+              }` as Route
+            }
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
               add
@@ -103,7 +173,7 @@ export const Card = (
           </Link>
           {errorLLaveProceso && (
             <Link
-              href={`/Carpetas/numero/${ carpeta.numero }` as Route}
+              href={`/Carpetas/id/${ _id }` as Route}
               className={styles.link}
             >
               {'error con el numero de expediente'}

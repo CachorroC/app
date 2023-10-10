@@ -6,7 +6,7 @@ import { NotaComponent } from '#@/components/Nota/server';
 import { getCarpetaByllaveProceso } from '#@/lib/project/carpetas';
 import getNotas from '#@/lib/project/getNotas';
 import { getNotasByllaveProceso } from '#@/lib/project/notas';
-import {  Suspense } from 'react';
+import { Suspense } from 'react';
 
 export default async function PageProcesosRightllaveProceso(
   {
@@ -15,21 +15,20 @@ export default async function PageProcesosRightllaveProceso(
   params: {
     llaveProceso: string;
   };
-}
+} 
 ) {
   const notas = await getNotasByllaveProceso(
     {
       llaveProceso: params.llaveProceso,
-    }
+    } 
   );
 
   const rawNotas = await getNotas();
 
   const lengthRawNotas = rawNotas.length;
 
-
   const Carpeta = await getCarpetaByllaveProceso(
-    params.llaveProceso
+    params.llaveProceso 
   );
 
   return (
@@ -48,11 +47,13 @@ export default async function PageProcesosRightllaveProceso(
         </>
       )}
       <NuevaNota
-        llaveProceso={ params.llaveProceso }
-        key={ params.llaveProceso } cod={ lengthRawNotas + 1  }      />
+        llaveProceso={params.llaveProceso}
+        key={params.llaveProceso}
+        cod={lengthRawNotas + 1}
+      />
       {notas.map(
         (
-          nota
+          nota 
         ) => {
           return (
             <NotaComponent
@@ -60,7 +61,7 @@ export default async function PageProcesosRightllaveProceso(
               key={nota._id}
             />
           );
-        }
+        } 
       )}
     </>
   );

@@ -11,29 +11,28 @@ import { DateInputSection } from './DateInputSection';
 
 export default function EditCarpeta(
   {
-    carpeta
-  }: { carpeta: MonCarpeta }
+    carpeta 
+  }: { carpeta: MonCarpeta } 
 ) {
   const {
-    reset,
+    reset 
   } = useFormContext<MonCarpeta>();
 
   useEffect(
     () => {
       reset(
-        carpeta
+        carpeta 
       );
     }, [
       carpeta,
       reset
-    ]
+    ] 
   );
 
   return (
     <>
       <div className={form.container}>
-        <form
-          className={form.form}>
+        <form className={form.form}>
           <section>
             <section className={form.section}>
               <h3 className={typography.displaySmall}>{'Deudor'}</h3>
@@ -118,7 +117,6 @@ export default function EditCarpeta(
               type={'number'}
             />
 
-
             <SelectSection
               name={'category'}
               title={'Grupo al que pertenece'}
@@ -141,7 +139,6 @@ export default function EditCarpeta(
               ]}
             />
             <section className={form.section}>
-
               <InputSection
                 name={'demanda.capitalAdeudado'}
                 title={'Capital Adeudado'}
@@ -151,9 +148,14 @@ export default function EditCarpeta(
                 }}
               />
 
-              {carpeta.demanda.fechaPresentacion && ( <DateInputSection key={'demanda.fechaPresentacion'} name={ 'demanda.fechaPresentacion' } title={ 'fecha de presentacion de la demanda' } initialValue={
-                carpeta.demanda.fechaPresentacion
-              } /> )}
+              {carpeta.demanda.fechaPresentacion && (
+                <DateInputSection
+                  key={'demanda.fechaPresentacion'}
+                  name={'demanda.fechaPresentacion'}
+                  title={'fecha de presentacion de la demanda'}
+                  initialValue={carpeta.demanda.fechaPresentacion}
+                />
+              )}
               <InputSection
                 name={'demanda.obligacion.A'}
                 title={'Obligacion'}
@@ -164,7 +166,14 @@ export default function EditCarpeta(
                 title={'Obligacion'}
                 type={'text'}
               />
-              {carpeta.demanda.entregaGarantiasAbogado && (  <DateInputSection key={'demanda.entregaGarantiasAbogado'} name={ 'demanda.entregaGarantiasAbogado' } title={ 'Entrega de garantias al abogado' } initialValue={carpeta.demanda.entregaGarantiasAbogado} /> )}
+              {carpeta.demanda.entregaGarantiasAbogado && (
+                <DateInputSection
+                  key={'demanda.entregaGarantiasAbogado'}
+                  name={'demanda.entregaGarantiasAbogado'}
+                  title={'Entrega de garantias al abogado'}
+                  initialValue={carpeta.demanda.entregaGarantiasAbogado}
+                />
+              )}
             </section>
           </section>
           <button
@@ -185,7 +194,7 @@ export default function EditCarpeta(
           type="button"
           onClick={() => {
             return reset(
-              carpeta
+              carpeta 
             );
           }}
           value="Reset with values"

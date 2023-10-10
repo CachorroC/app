@@ -1,4 +1,3 @@
-
 import { getCarpetaById } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
 import EditCarpeta from '#@/components/form/Editar-carpeta';
@@ -10,10 +9,10 @@ export default async function PageCarpetaId(
     params,
   }: {
   params: { _id: string };
-}
+} 
 ) {
   const carpeta = await getCarpetaById(
-    params._id
+    params._id 
   );
 
   if ( !carpeta ) {

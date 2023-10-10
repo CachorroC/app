@@ -1,10 +1,10 @@
-.divider{
+.divider {
   width: auto;
   height: auto;
   border: 5px solid var(--primary);
   box-sizing: border-box;
-
-}.container {
+}
+.container {
   container-name: form;
   container-type: inline-size;
   grid-area: span 4 / span 6;
@@ -66,14 +66,22 @@
   background-color: var(--secondary);
   & > span {
     color: var(--on-secondary);
-    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 300,
+      'GRAD' 0,
+      'opsz' 24;
   }
   &:hover,
   &:active {
     background-color: var(--secondary);
     box-shadow: var(--dp8);
     & > span {
-      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 200, 'opsz' 48;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 600,
+        'GRAD' 200,
+        'opsz' 48;
       color: var(--on-secondary);
     }
   }
@@ -135,14 +143,22 @@
   }
   & > span {
     color: var(--on-secondary);
-    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 300,
+      'GRAD' 0,
+      'opsz' 24;
   }
   &:hover,
   &:active {
     background-color: var(--tertiary-container);
     box-shadow: var(--dp8);
     & > span {
-      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 24;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 200,
+        'opsz' 24;
       color: var(--tertiary);
     }
   }

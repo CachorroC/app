@@ -7,12 +7,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 export function CarpetaFormProvider(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
   const daterFixer = InputDateHelper(
-    new Date()
-  ) ;
+    new Date() 
+  );
 
   const defaultValues: NuevaCarpeta = {
     numero  : 0,
@@ -28,7 +28,7 @@ export function CarpetaFormProvider(
       tel            : {
         celular: 0,
         fijo   : 0,
-      }
+      },
     },
     demanda: {
       capitalAdeudado        : 1000000,
@@ -40,9 +40,9 @@ export function CarpetaFormProvider(
       ],
       obligacion: {
         A: 'primer obligacion',
-        B: 'segunda obligacion'
+        B: 'segunda obligacion',
       },
-    }
+    },
   };
 
   const methods = useForm<NuevaCarpeta>(
@@ -52,17 +52,9 @@ export function CarpetaFormProvider(
         keepDefaultValues: true,
       },
       shouldFocusError: true,
-      criteriaMode    : 'all'
-    }
+      criteriaMode    : 'all',
+    } 
   );
 
-
-
-  return (
-
-    <FormProvider { ...methods }>
-      {children}
-    </FormProvider>
-
-  );
+  return <FormProvider {...methods}>{children}</FormProvider>;
 }

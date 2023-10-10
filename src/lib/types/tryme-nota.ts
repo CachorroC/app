@@ -8,47 +8,47 @@
 // match the expected interface, even if the JSON is valid.
 
 export interface MonNota {
-    _id:           string;
-    text:          string;
-    date:          Date;
-    pathname:      string;
-    done:          boolean;
-    llaveProceso?: string;
+  _id: string;
+  text: string;
+  date: Date;
+  pathname: string;
+  done: boolean;
+  llaveProceso?: string;
 }
 
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
   public static monNotaToJson(
-    value: MonNota
+    value: MonNota 
   ): string {
     return JSON.stringify(
       uncast(
         value, r(
-          'MonNota'
-        )
-      ), null, 2
+          'MonNota' 
+        ) 
+      ), null, 2 
     );
   }
 
   public static toMonNota(
-    json: string
+    json: string 
   ): MonNota {
     return cast(
       JSON.parse(
-        json
+        json 
       ), r(
-        'MonNota'
-      )
+        'MonNota' 
+      ) 
     );
   }
 }
 
 function invalidValue(
-  typ: any, val: any, key: any, parent: any = ''
+  typ: any, val: any, key: any, parent: any = '' 
 ): never {
   const prettyTyp = prettyTypeName(
-    typ
+    typ 
   );
 
   const parentText = parent
@@ -61,56 +61,57 @@ function invalidValue(
 
   throw Error(
     `Invalid value${ keyText }${ parentText }. Expected ${ prettyTyp } but got ${ JSON.stringify(
-      val
-    ) }`
+      val,
+    ) }`,
   );
 }
 
 function prettyTypeName(
-  typ: any
+  typ: any 
 ): string {
   if ( Array.isArray(
-    typ
+    typ 
   ) ) {
     if ( typ.length === 2 && typ[ 0 ] === undefined ) {
       return `an optional ${ prettyTypeName(
-        typ[ 1 ]
+        typ[ 1 ] 
       ) }`;
     }
 
-    return `one of [${ typ.map(
-      a => {
-        return prettyTypeName(
-          a
-        );
-      }
-    )
+    return `one of [${ typ
+      .map(
+        (
+          a 
+        ) => {
+          return prettyTypeName(
+            a 
+          );
+        } 
+      )
       .join(
-        ', '
+        ', ' 
       ) }]`;
-
   } else if ( typeof typ === 'object' && typ.literal !== undefined ) {
     return typ.literal;
   }
 
   return typeof typ;
-
 }
 
 function jsonToJSProps(
-  typ: any
+  typ: any 
 ): any {
   if ( typ.jsonToJS === undefined ) {
     const map: any = {};
     typ.props.forEach(
       (
-        p: any
+        p: any 
       ) => {
         map[ p.json ] = {
           key: p.js,
-          typ: p.typ
+          typ: p.typ,
         };
-      }
+      } 
     );
     typ.jsonToJS = map;
   }
@@ -119,19 +120,19 @@ function jsonToJSProps(
 }
 
 function jsToJSONProps(
-  typ: any
+  typ: any 
 ): any {
   if ( typ.jsToJSON === undefined ) {
     const map: any = {};
     typ.props.forEach(
       (
-        p: any
+        p: any 
       ) => {
         map[ p.js ] = {
           key: p.json,
-          typ: p.typ
+          typ: p.typ,
         };
-      }
+      } 
     );
     typ.jsToJSON = map;
   }
@@ -140,22 +141,26 @@ function jsToJSONProps(
 }
 
 function transform(
-  val: any, typ: any, getProps: any, key: any = '', parent: any = ''
+  val: any,
+  typ: any,
+  getProps: any,
+  key: any = '',
+  parent: any = '',
 ): any {
   function transformPrimitive(
-    typ: string, val: any
+    typ: string, val: any 
   ): any {
     if ( typeof typ === typeof val ) {
       return val;
     }
 
     return invalidValue(
-      typ, val, key, parent
+      typ, val, key, parent 
     );
   }
 
   function transformUnion(
-    typs: any[], val: any
+    typs: any[], val: any 
   ): any {
     // val must validate against one typ in typs
     const l = typs.length;
@@ -165,77 +170,86 @@ function transform(
 
       try {
         return transform(
-          val, typ, getProps
+          val, typ, getProps 
         );
-      } catch ( _ ) { /* empty */ }
+      } catch ( _ ) {
+        /* empty */
+      }
     }
 
     return invalidValue(
-      typs, val, key, parent
+      typs, val, key, parent 
     );
   }
 
   function transformEnum(
-    cases: string[], val: any
+    cases: string[], val: any 
   ): any {
     if ( cases.indexOf(
-      val
+      val 
     ) !== -1 ) {
       return val;
     }
 
     return invalidValue(
       cases.map(
-        a => {
+        (
+          a 
+        ) => {
           return l(
-            a
+            a 
           );
-        }
-      ), val, key, parent
+        } 
+      ),
+      val,
+      key,
+      parent,
     );
   }
 
   function transformArray(
-    typ: any, val: any
+    typ: any, val: any 
   ): any {
     // val must be an array with no invalid elements
     if ( !Array.isArray(
-      val
+      val 
     ) ) {
       return invalidValue(
         l(
-          'array'
-        ), val, key, parent
+          'array' 
+        ), val, key, parent 
       );
     }
 
     return val.map(
-      el => {
+      (
+        el 
+      ) => {
         return transform(
-          el, typ, getProps
+          el, typ, getProps 
         );
-      }
+      } 
     );
   }
 
   function transformDate(
-    val: any
+    val: any 
   ): any {
     if ( val === null ) {
       return null;
     }
 
     const d = new Date(
-      val
+      val 
     );
 
     if ( isNaN(
-      d.valueOf()
+      d.valueOf() 
     ) ) {
       return invalidValue(
         l(
-          'Date'
-        ), val, key, parent
+          'Date' 
+        ), val, key, parent 
       );
     }
 
@@ -243,47 +257,53 @@ function transform(
   }
 
   function transformObject(
-    props: { [k: string]: any }, additional: any, val: any
+    props: { [k: string]: any },
+    additional: any,
+    val: any,
   ): any {
     if ( val === null || typeof val !== 'object' || Array.isArray(
-      val
+      val 
     ) ) {
       return invalidValue(
         l(
-          ref || 'object'
-        ), val, key, parent
+          ref || 'object' 
+        ), val, key, parent 
       );
     }
 
     const result: any = {};
     Object.getOwnPropertyNames(
-      props
+      props 
     )
       .forEach(
-        key => {
+        (
+          key 
+        ) => {
           const prop = props[ key ];
 
           const v = Object.prototype.hasOwnProperty.call(
-            val, key
+            val, key 
           )
             ? val[ key ]
             : undefined;
           result[ prop.key ] = transform(
-            v, prop.typ, getProps, key, ref
+            v, prop.typ, getProps, key, ref 
           );
-        }
+        } 
       );
     Object.getOwnPropertyNames(
-      val
+      val 
     )
       .forEach(
-        key => {
+        (
+          key 
+        ) => {
           if ( !Object.prototype.hasOwnProperty.call(
-            props, key
+            props, key 
           ) ) {
             result[ key ] = val[ key ];
           }
-        }
+        } 
       );
 
     return result;
@@ -299,13 +319,13 @@ function transform(
     }
 
     return invalidValue(
-      typ, val, key, parent
+      typ, val, key, parent 
     );
   }
 
   if ( typ === false ) {
     return invalidValue(
-      typ, val, key, parent
+      typ, val, key, parent 
     );
   }
 
@@ -313,145 +333,142 @@ function transform(
 
   while ( typeof typ === 'object' && typ.ref !== undefined ) {
     const {
-      ref
+      ref 
     } = typ;
     typ = typeMap[ ref ];
   }
 
   if ( Array.isArray(
-    typ
+    typ 
   ) ) {
     return transformEnum(
-      typ, val
+      typ, val 
     );
   }
 
   if ( typeof typ === 'object' ) {
     return Object.prototype.hasOwnProperty.call(
-      typ,
-      'unionMembers'
+      typ, 'unionMembers' 
     )
       ? transformUnion(
-        typ.unionMembers, val
+        typ.unionMembers, val 
       )
       : Object.prototype.hasOwnProperty.call(
-        typ,
-        'arrayItems'
+        typ, 'arrayItems' 
       )
         ? transformArray(
-          typ.arrayItems, val
+          typ.arrayItems, val 
         )
         : Object.prototype.hasOwnProperty.call(
-          typ,
-          'props'
+          typ, 'props' 
         )
           ? transformObject(
             getProps(
-              typ
-            ), typ.additional, val
+              typ 
+            ), typ.additional, val 
           )
           : invalidValue(
-            typ, val, key, parent
+            typ, val, key, parent 
           );
   }
 
   // Numbers can be parsed by Date but shouldn't be.
   if ( typ === Date && typeof val !== 'number' ) {
     return transformDate(
-      val
+      val 
     );
   }
 
   return transformPrimitive(
-    typ, val
+    typ, val 
   );
 }
 
 function cast<T>(
-  val: any, typ: any
+  val: any, typ: any 
 ): T {
   return transform(
-    val, typ, jsonToJSProps
+    val, typ, jsonToJSProps 
   );
 }
 
 function uncast<T>(
-  val: T, typ: any
+  val: T, typ: any 
 ): any {
   return transform(
-    val, typ, jsToJSONProps
+    val, typ, jsToJSONProps 
   );
 }
 
 function l(
-  typ: any
+  typ: any 
 ) {
   return {
-    literal: typ
+    literal: typ,
   };
 }
 
-
 function u(
-  ...typs: any[]
+  ...typs: any[] 
 ) {
   return {
-    unionMembers: typs
+    unionMembers: typs,
   };
 }
 
 function o(
-  props: any[], additional: any
+  props: any[], additional: any 
 ) {
   return {
     props,
-    additional
+    additional,
   };
 }
 
 function r(
-  name: string
+  name: string 
 ) {
   return {
-    ref: name
+    ref: name,
   };
 }
 
 const typeMap: any = {
-  'MonNota': o(
+  MonNota: o(
     [
       {
         json: '_id',
         js  : '_id',
-        typ : ''
+        typ : '',
       },
       {
         json: 'text',
         js  : 'text',
-        typ : ''
+        typ : '',
       },
       {
         json: 'date',
         js  : 'date',
-        typ : Date
+        typ : Date,
       },
       {
         json: 'pathname',
         js  : 'pathname',
-        typ : ''
+        typ : '',
       },
       {
         json: 'done',
         js  : 'done',
-        typ : true
+        typ : true,
       },
       {
         json: 'llaveProceso',
         js  : 'llaveProceso',
         typ : u(
-          undefined, ''
-        )
+          undefined, '' 
+        ),
       },
-    ], false
+    ],
+    false,
   ),
 };

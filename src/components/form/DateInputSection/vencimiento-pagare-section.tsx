@@ -6,19 +6,18 @@ import styles from '../form.module.css';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import { josefina } from '#@/styles/fonts';
 
-export default function VencimientoPagareSection () {
-
+export default function VencimientoPagareSection() {
   const {
-    control, register
+    control, register 
   } = useFormContext();
 
   const {
-    fields, append, remove, prepend
+    fields, append, remove, prepend 
   } = useFieldArray(
     {
       control,
-      name: 'demanda.vencimientoPagare'
-    }
+      name: 'demanda.vencimientoPagare',
+    } 
   );
   return (
     <>
@@ -26,27 +25,40 @@ export default function VencimientoPagareSection () {
       <ul>
         {fields.map(
           (
-            item, index
+            item, index 
           ) => {
             return (
-              <section className={ styles.sectionRow } key={ item.id }>
-                <label htmlFor={`demanda.vencimientoPagare.${ index }`} className={styles.label}>{`pagaré numero ${ index +1 }`}</label>
-                <input type='date' className={styles.vencimientoArea} {...register(
-                  `demanda.vencimientoPagare.${ index }`, {
-                    valueAsDate: true
-                  }
-                )} />
+              <section
+                className={styles.sectionRow}
+                key={item.id}
+              >
+                <label
+                  htmlFor={`demanda.vencimientoPagare.${ index }`}
+                  className={styles.label}
+                >{`pagaré numero ${ index + 1 }`}</label>
+                <input
+                  type="date"
+                  className={styles.vencimientoArea}
+                  {...register(
+                    `demanda.vencimientoPagare.${ index }`, {
+                      valueAsDate: true,
+                    } 
+                  )}
+                />
 
-                <button type="button" onClick={() => {
-                  return remove(
-                    index
-                  );
-                }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    return remove(
+                      index 
+                    );
+                  }}
+                >
                 Delete
                 </button>
               </section>
             );
-          }
+          } 
         )}
       </ul>
 
@@ -56,32 +68,27 @@ export default function VencimientoPagareSection () {
           onClick={() => {
             append(
               InputDateHelper(
-                new Date()
-              )
+                new Date() 
+              ) 
             );
           }}
         >
           append
         </button>
 
-
         <button
           type="button"
           onClick={() => {
             prepend(
               InputDateHelper(
-                new Date()
-              )
+                new Date() 
+              ) 
             );
           }}
         >
           prepend
         </button>
-
-
       </section>
-
     </>
-
   );
 }

@@ -15,43 +15,41 @@ export const DateInputSection = (
   }: {
   name: FieldPath<NuevaCarpeta>;
   title: string;
-      initialValue?: Date;
-
-}
+  initialValue?: Date;
+} 
 ) => {
   const dateValue = initialValue
     ? initialValue
     : new Date();
 
   console.log(
-    dateValue
+    dateValue 
   );
 
   const [
     stringDateValue,
     setStringDateValue
   ] = useState(
-    dateValue
+    dateValue 
   );
 
   const {
-    control, setValue
+    control, setValue 
   } = useFormContext();
 
   const rules = {
     required: true,
-
   };
 
   const {
-    field
+    field 
   } = useController(
     {
       name,
       defaultValue: stringDateValue,
       control,
       rules,
-    }
+    } 
   );
   return (
     <section className={form.sectionRow}>
@@ -62,45 +60,45 @@ export const DateInputSection = (
         {title}
       </label>
       <input
-
         type="date"
         name={field.name}
         className={form.textArea}
         value={InputDateHelper(
-          stringDateValue
+          stringDateValue 
         )}
         onChange={(
-          e
+          e 
         ) => {
           const [
             yearStringer,
             monthStringer,
             dayStringer
-          ] = e.target.value.split(
-            '-'
-          );
+          ]
+            = e.target.value.split(
+              '-' 
+            );
 
           const newYear = Number(
-            yearStringer
+            yearStringer 
           );
 
-          const newMonth= Number(
-            monthStringer
+          const newMonth = Number(
+            monthStringer 
           ) - 1;
 
           const newDay = Number(
-            dayStringer
+            dayStringer 
           );
           field.onChange(
-            e.target.value
+            e.target.value 
           );
           setValue(
-            name, e.target.value
+            name, e.target.value 
           );
           setStringDateValue(
             new Date(
-              newYear, newMonth, newDay
-            )
+              newYear, newMonth, newDay 
+            ) 
           );
         }}
       />

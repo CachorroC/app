@@ -3,29 +3,29 @@ import { IntCarpeta } from '#@/lib/types/carpetas';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function PUT (
-  request: NextRequest
+export async function PUT(
+  request: NextRequest 
 ) {
   const galletas = request.cookies.getAll();
 
   const {
-    searchParams, pathname
+    searchParams, pathname 
   } = request.nextUrl;
 
   console.log(
     JSON.stringify(
-      galletas
-    )
+      galletas 
+    ) 
   );
   console.log(
     JSON.stringify(
-      searchParams
-    )
+      searchParams 
+    ) 
   );
   console.log(
     JSON.stringify(
-      pathname
-    )
+      pathname 
+    ) 
   );
 
   const json = ( await request.json() ) as IntCarpeta;
@@ -33,20 +33,20 @@ export async function PUT (
   const collection = await carpetasCollection();
 
   const insertCarpeta = await collection.insertOne(
-    json
+    json 
   );
 
   if ( !insertCarpeta.acknowledged ) {
     return new NextResponse(
       null, {
         status    : 301,
-        statusText: 'No se pudo isertar la carpeta'
-      }
+        statusText: 'No se pudo isertar la carpeta',
+      } 
     );
   }
 
   return redirect(
-    `/Carpetas/id/${ insertCarpeta.insertedId }`
+    `/Carpetas/id/${ insertCarpeta.insertedId }` 
   );
   /*  return new NextResponse(
     JSON.stringify(

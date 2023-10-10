@@ -5,7 +5,7 @@ export function useOnlineStatus() {
   const isOnline = useSyncExternalStore(
     subscribe,
     getSnapshot,
-    getServerSnapshot
+    getServerSnapshot,
   );
 
   return isOnline;
@@ -19,26 +19,22 @@ function getServerSnapshot() {
   return true;
 }
 
-
 function subscribe(
-  callback: any
+  callback: any 
 ) {
-
-
   window.addEventListener(
-    'online', callback
+    'online', callback 
   );
   window.addEventListener(
-    'offline', callback
+    'offline', callback 
   );
-
 
   return () => {
     window.removeEventListener(
-      'online', callback
+      'online', callback 
     );
     window.removeEventListener(
-      'offline', callback
+      'offline', callback 
     );
   };
 }

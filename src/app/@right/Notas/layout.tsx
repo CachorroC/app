@@ -1,10 +1,12 @@
 import { NotasSortButtons } from '#@/components/Nota/client/nota-sort-buttons';
 import { ReactNode } from 'react';
 
-export default function NotasRightLayout (
+export default function NotasRightLayout(
   {
-    children
-  }: { children: ReactNode }
+    children,
+  }: {
+  children: ReactNode;
+} 
 ) {
   return (
     <>

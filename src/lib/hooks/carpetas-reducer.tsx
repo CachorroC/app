@@ -1,16 +1,16 @@
 import { MonCarpeta } from '../types/carpetas';
 
 export default function carpetasReducer(
-  carpetas: MonCarpeta[], action: { type: string; }
+  carpetas: MonCarpeta[],
+  action: { type: string },
 ) {
   switch ( action.type ) {
       case 'fecha': {
-
         return [
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             if ( !a.fecha || a.fecha === undefined ) {
               return 1;
@@ -33,18 +33,16 @@ export default function carpetasReducer(
             }
 
             return 0;
-          }
+          } 
         );
-
       }
 
       case 'numero': {
-
         return [
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.numero;
 
@@ -59,17 +57,16 @@ export default function carpetasReducer(
             }
 
             return 0;
-          }
+          } 
         );
       }
 
       case 'nombre': {
-
         return [
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.nombre;
 
@@ -84,18 +81,16 @@ export default function carpetasReducer(
             }
 
             return 0;
-          }
+          } 
         );
       }
 
       case 'primerNombre': {
-
-
         return [
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.deudor.primerNombre;
 
@@ -110,18 +105,16 @@ export default function carpetasReducer(
             }
 
             return 0;
-          }
+          } 
         );
       }
 
       case 'primerApellido': {
-
-
         return [
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.deudor.primerApellido;
 
@@ -136,13 +129,13 @@ export default function carpetasReducer(
             }
 
             return 0;
-          }
+          } 
         );
       }
 
       default: {
         throw Error(
-          'Unknown action: ' + action.type
+          'Unknown action: ' + action.type 
         );
       }
   }

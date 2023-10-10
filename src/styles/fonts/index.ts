@@ -3,7 +3,7 @@ import { Inter,
   Playfair_Display,
   Jost,
   Josefin_Sans,
-  Roboto } from 'next/font/google';
+  Roboto, } from 'next/font/google';
 
 export const playDisp = Playfair_Display(
   {
@@ -12,8 +12,8 @@ export const playDisp = Playfair_Display(
       'latin'
     ],
     preload : true,
-    variable: '--play-display'
-  }
+    variable: '--play-display',
+  } 
 );
 
 export const inter = Inter(
@@ -25,7 +25,7 @@ export const inter = Inter(
     display : 'auto',
     preload : false,
     variable: '--inter',
-  }
+  } 
 );
 
 export const josefina = Josefin_Sans(
@@ -35,7 +35,7 @@ export const josefina = Josefin_Sans(
     ],
     preload : false,
     variable: '--josefa',
-  }
+  } 
 );
 
 export const jost = Jost(
@@ -44,8 +44,8 @@ export const jost = Jost(
       'latin-ext'
     ],
     preload : true,
-    variable: '--jost'
-  }
+    variable: '--jost',
+  } 
 );
 
 export const raleway = Raleway(
@@ -55,7 +55,7 @@ export const raleway = Raleway(
     ],
     preload : false,
     variable: '--raleway',
-  }
+  } 
 );
 
 export const roboto = Roboto(
@@ -73,5 +73,5 @@ export const roboto = Roboto(
       '700',
       '900'
     ],
-  }
+  } 
 );

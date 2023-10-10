@@ -1,64 +1,68 @@
 'use client';
 import { Category, MonCarpeta } from '#@/lib/types/carpetas';
 import { IntAction } from '#@/lib/types/context-actions';
-import { Dispatch, ReactNode, createContext, useContext, useReducer } from 'react';
-
-
+import { Dispatch,
+  ReactNode,
+  createContext,
+  useContext,
+  useReducer, } from 'react';
 
 const CarpetasSortContext = createContext<MonCarpeta[] | null>(
-  null
+  null 
 );
 
 const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
-  null
+  null,
 );
 
 export function CarpetasSortProvider(
   {
-    children, carpetas
-  }: { children: ReactNode;  carpetas : MonCarpeta[]}
+    children,
+    carpetas,
+  }: {
+  children: ReactNode;
+  carpetas: MonCarpeta[];
+} 
 ) {
   const [
     carpetasReduced,
     dispatchCarpetas
-  ] =useReducer(
-    carpetasReducer, carpetas
+  ] = useReducer(
+    carpetasReducer,
+    carpetas,
   );
 
   return (
-    <CarpetasSortContext.Provider value={
-      carpetasReduced
-    }>
+    <CarpetasSortContext.Provider value={carpetasReduced}>
       <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
-        { children }
+        {children}
       </CarpetasSortDispatchContext.Provider>
     </CarpetasSortContext.Provider>
   );
 }
 
-export function useCarpetaSort () {
+export function useCarpetaSort() {
   const context = useContext(
-    CarpetasSortContext
+    CarpetasSortContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'useCarpetaSort  must be used inside a carpetasort provider r'
+      'useCarpetaSort  must be used inside a carpetasort provider r',
     );
   }
 
   return context;
 }
 
-export function useCarpetaSortDispatch () {
-
+export function useCarpetaSortDispatch() {
   const context = useContext(
-    CarpetasSortDispatchContext
+    CarpetasSortDispatchContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'useSortDispatchCarpetas must be used inside a CarpetasProvider'
+      'useSortDispatchCarpetas must be used inside a CarpetasProvider',
     );
   }
 
@@ -66,7 +70,7 @@ export function useCarpetaSortDispatch () {
 }
 
 export function carpetasReducer(
-  carpetas: MonCarpeta[], action: IntAction
+  carpetas: MonCarpeta[], action: IntAction 
 ) {
   const categoriesSorter: Category[] = [
     'todos',
@@ -75,11 +79,11 @@ export function carpetasReducer(
     'sin Especificar',
     'LiosJuridicos',
     'Insolvencia',
-    'Terminados'
+    'Terminados',
   ];
 
   const {
-    sortDirection, type
+    sortDirection, type 
   } = action;
 
   const asc = [
@@ -98,17 +102,13 @@ export function carpetasReducer(
     ? asc
     : dsc;
 
-
-
   switch ( type ) {
-
       case 'fecha': {
-
         return [
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             if ( !a.fecha || a.fecha === undefined ) {
               return sorter[ 2 ];
@@ -131,9 +131,8 @@ export function carpetasReducer(
             }
 
             return sorter[ 1 ];
-          }
+          } 
         );
-
       }
 
       case 'category': {
@@ -141,17 +140,14 @@ export function carpetasReducer(
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
-
-
-
             const x = categoriesSorter.indexOf(
-              a.category
+              a.category 
             );
 
             const y = categoriesSorter.indexOf(
-              b.category
+              b.category 
             );
 
             if ( x < y ) {
@@ -163,38 +159,36 @@ export function carpetasReducer(
             }
 
             return sorter[ 1 ];
-          }
+          } 
         );
       }
 
       case 'numero': {
-
         return [
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.numero;
 
             const y = b.numero;
 
-            const idk  = sortDirection
-              ? x-y
-              : y-x;
+            const idk = sortDirection
+              ? x - y
+              : y - x;
 
             return idk;
-          }
+          } 
         );
       }
 
       case 'nombre': {
-
         return [
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.nombre;
 
@@ -209,7 +203,7 @@ export function carpetasReducer(
             }
 
             return sorter[ 1 ];
-          }
+          } 
         );
       }
 
@@ -218,7 +212,7 @@ export function carpetasReducer(
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a[ type ];
 
@@ -241,7 +235,7 @@ export function carpetasReducer(
             }
 
             return 0;
-          }
+          } 
         );
       }
   }

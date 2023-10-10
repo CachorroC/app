@@ -21,6 +21,11 @@ declare const styles: {
   readonly 'switchBox': string;
   readonly 'inputElement': string;
   readonly 'slider': string;
+  readonly 'dropbtn': string;
+  readonly 'dropdown': string;
+  readonly 'dropdown-content': string;
+  readonly 'link': string;
+  readonly 'show': string;
 };
 export = styles;
 

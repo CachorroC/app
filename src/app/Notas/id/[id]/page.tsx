@@ -1,4 +1,3 @@
-
 import { getNotaById } from '#@/lib/project/notas';
 import { Edit } from '#@/components/Nota/Edit';
 import typography from '#@/styles/fonts/typography.module.scss';
@@ -8,12 +7,11 @@ import { notFound } from 'next/navigation';
 export default async function NuevaNotallaveProceso(
   {
     params: {
-      id
+      id 
     },
-
   }: {
   params: { id: string };
-}
+} 
 ) {
   let notaScope;
   let notaNumber;
@@ -25,12 +23,12 @@ export default async function NuevaNotallaveProceso(
   if ( id ) {
     const nota = await getNotaById(
       {
-        id: id
-      }
+        id: id,
+      } 
     );
-    notaNumber= nota?.cod;
-    notaScope = (
-      nota && <Edit
+    notaNumber = nota?.cod;
+    notaScope = nota && (
+      <Edit
         key={id}
         nota={nota}
       />
@@ -39,12 +37,12 @@ export default async function NuevaNotallaveProceso(
 
   return (
     <>
-      <div className={ layout.top }>
-        <h1 className={typography.displayLarge}>{`Nota numero: ${ notaNumber }`}</h1>
+      <div className={layout.top}>
+        <h1
+          className={typography.displayLarge}
+        >{`Nota numero: ${ notaNumber }`}</h1>
       </div>
-      <div className={ layout.left }>
-        {notaScope}
-      </div>
+      <div className={layout.left}>{notaScope}</div>
     </>
   );
 }

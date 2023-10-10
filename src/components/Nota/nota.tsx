@@ -1,5 +1,5 @@
 'use client';
-import {  editNota } from '#@/app/actions';
+import { editNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
 import { useState } from 'react';
 import styles from './note.module.css';
@@ -7,39 +7,39 @@ import { monNota } from '#@/lib/types/notas';
 
 export function Task(
   {
-    task
-  }: { task: monNota }
+    task 
+  }: { task: monNota } 
 ) {
   const [
     isEditing,
     setIsEditing
   ] = useState(
-    false
+    false 
   );
 
   const [
     message,
     setMessage
   ] = useState(
-    ''
+    '' 
   );
 
   const {
-    inputNota, setInputNota
+    inputNota, setInputNota 
   } = useNotaContext();
   let taskContent;
 
   async function onCreate(
-    formData: FormData
+    formData: FormData 
   ) {
     const res = await editNota(
-      formData
+      formData 
     );
     setMessage(
-      res.message
+      res.message 
     );
     setIsEditing(
-      false
+      false 
     );
   }
 
@@ -52,13 +52,13 @@ export function Task(
             checked={inputNota.done}
             name={'done'}
             onChange={(
-              e
+              e 
             ) => {
               setInputNota(
                 {
                   ...task,
                   done: e.target.checked,
-                }
+                } 
               );
             }}
             type="checkbox"
@@ -71,13 +71,13 @@ export function Task(
           type={'text'}
           name={'text'}
           onChange={(
-            e
+            e 
           ) => {
             setInputNota(
               {
                 ...task,
                 text: e.target.value,
-              }
+              } 
             );
           }}
         />
@@ -110,12 +110,12 @@ export function Task(
         type="button"
         onClick={() => {
           setIsEditing(
-            true
+            true 
           );
           setInputNota(
             {
               ...task,
-            }
+            } 
           );
         }}
       >

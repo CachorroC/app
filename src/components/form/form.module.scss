@@ -29,7 +29,7 @@
   display: flex;
   &Row {
     @extend .section;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
   }
   &Column {
     @extend .section;
@@ -215,4 +215,50 @@
   -webkit-transform: translateX(3cqmin);
   -ms-transform: translateX(3cqmin);
   transform: translateX(3cqmin);
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #3498db;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  &:hover, &:focus{
+background-color: #2980b9;
+  }
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  & > .link,
+  & > a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+}
+
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
 }

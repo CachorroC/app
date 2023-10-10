@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended","next/core-web-vitals"],
+  "extends": ["eslint:recommended", "next/core-web-vitals"],
   "rules": {
     "array-bracket-newline": [
       "error",
@@ -8,7 +8,7 @@
       }
     ],
     "array-bracket-spacing": ["error", "always"],
-    "array-callback-return": [ "error", { "checkForEach": true } ],
+    "array-callback-return": ["error", { "checkForEach": true }],
     "max-statements-per-line": "error",
 
     "array-element-newline": [
@@ -40,12 +40,16 @@
     ],
     "getter-return": "error",
 
-    "prefer-destructuring": [ "error", {
+    "prefer-destructuring": [
+      "error",
+      {
         "array": true,
         "object": true
-      }, {
+      },
+      {
         "enforceForRenamedProperties": false
-      } ],
+      }
+    ],
     "indent": [
       "error",
       2,
@@ -136,7 +140,16 @@
       {
         "blankLine": "always",
         "next": "*",
-        "prev": [ "block", "block-like", "for", "if", "continue", "return", "throw", "break" ]
+        "prev": [
+          "block",
+          "block-like",
+          "for",
+          "if",
+          "continue",
+          "return",
+          "throw",
+          "break"
+        ]
       }
     ],
     "quotes": ["error", "single"],

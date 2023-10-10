@@ -7,12 +7,12 @@ import { deleteNota } from '#@/app/actions';
 
 export function DeleteNoteButton(
   {
-    id
-  }: { id: string }
+    id 
+  }: { id: string } 
 ) {
   function onDelete() {
     deleteNota(
-      id
+      id 
     );
   }
 
@@ -29,8 +29,8 @@ export function DeleteNoteButton(
 
 export function AddNoteButton(
   {
-    nota
-  }: { nota: intNota }
+    nota 
+  }: { nota: intNota } 
 ) {
   async function addRequestHandler() {
     const Request = await fetch(
@@ -40,20 +40,20 @@ export function AddNoteButton(
           'content-type': 'application/json',
         },
         body: JSON.stringify(
-          nota
+          nota 
         ),
-      }
+      } 
     )
       .then(
         (
-          fullfilled
+          fullfilled 
         ) => {
           alert(
-            fullfilled.status.toString()
+            fullfilled.status.toString() 
           );
 
           return fullfilled;
-        }
+        } 
       );
 
     if ( !Request.ok ) {
@@ -63,8 +63,8 @@ export function AddNoteButton(
     const Response = await Request.json();
     alert(
       JSON.stringify(
-        Response
-      )
+        Response 
+      ) 
     );
   }
 
@@ -81,8 +81,8 @@ export function AddNoteButton(
 
 export function EditNoteButton(
   {
-    nota
-  }: { nota : monNota}
+    nota 
+  }: { nota: monNota } 
 ) {
   return (
     <Link

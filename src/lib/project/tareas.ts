@@ -9,5 +9,5 @@ export const getTareas = cache(
       .toArray();
 
     return tareas;
-  }
+  } 
 );

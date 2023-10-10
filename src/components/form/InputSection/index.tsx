@@ -3,9 +3,7 @@
 import { NuevaCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath,
   RegisterOptions,
-
   useController,
-
   useFormContext, } from 'react-hook-form';
 import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
@@ -13,11 +11,13 @@ import { useState, type HTMLInputTypeAttribute } from 'react';
 
 export const InputSection = (
   {
+    initialValue,
     name,
     title,
     type,
     rls,
   }: {
+    initialValue?: string;
   name: FieldPath<NuevaCarpeta>;
   title: string;
   type: HTMLInputTypeAttribute;
@@ -31,13 +31,12 @@ export const InputSection = (
     fieldValue,
     setFieldValue
   ] = useState(
-    ''
+    initialValue ?? ''
   );
 
   const {
     control, setValue
   } = useFormContext<NuevaCarpeta>();
-
 
   const rules = rls ?? {
     required: true,
@@ -49,7 +48,7 @@ export const InputSection = (
     {
       name,
       control,
-      rules
+      rules,
     }
   );
   return (
@@ -61,12 +60,11 @@ export const InputSection = (
         {title}
       </label>
       <input
-        name={ field.name }
+        name={field.name}
         value={fieldValue}
         type={type}
         placeholder={title}
-        className={ form.textArea }
-
+        className={form.textArea}
         onChange={(
           e
         ) => {
@@ -81,7 +79,6 @@ export const InputSection = (
             e.target.value
           );
         }}
-
       />
     </section>
   );

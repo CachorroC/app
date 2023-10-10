@@ -1,16 +1,16 @@
-
 import Modal from '#@/components/Modal';
 import { NuevaNota } from '#@/components/Nota/client/nueva-nota';
 import getNotas from '#@/lib/project/getNotas';
 
-export default async function Page (
+export default async function Page(
   {
-    searchParams
-  }: { searchParams: { [ key: string ]: string | undefined; }; }
+    searchParams,
+  }: {
+  searchParams: { [key: string]: string | undefined };
+} 
 ) {
-
   const {
-    llaveProceso
+    llaveProceso 
   } = searchParams;
 
   const notas = await getNotas();
@@ -22,9 +22,11 @@ export default async function Page (
   return (
     <>
       <Modal>
-        <NuevaNota cod={ nuevoCod } llaveProceso={ llaveProceso } />
+        <NuevaNota
+          cod={nuevoCod}
+          llaveProceso={llaveProceso}
+        />
       </Modal>
-
     </>
   );
 }

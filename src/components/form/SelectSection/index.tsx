@@ -4,6 +4,8 @@ import { IntCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath, useFormContext } from 'react-hook-form';
 import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
+import { useState } from 'react';
+import styles from '#@/components/Buttons/buttons.module.css';
 
 export const SelectSection = (
   {
@@ -16,48 +18,63 @@ export const SelectSection = (
   options: string[];
 }
 ) => {
-  const rules = {
-    required: true,
-  };
 
   const {
-    register,
-
+    setValue
   } = useFormContext<IntCarpeta>();
 
-
+  const [
+    isOptionsOpen,
+    setIsOptionsOpen
+  ] = useState(
+    false
+  );
 
   return (
-    <section className={form.section}>
-      <label
-        className={`${ form.label } ${ typography.titleLarge }`}
-        htmlFor={name}
-      >
-        {title}
-      </label>
-
-      <select
-        key={name}
-        {...register(
-          name, rules
-        )}
-        className={form.selectArea}
-      >
-        {options.map(
+    <section className={form.sectionColumn}>
+      <div onClick={(      ) => {
+        setIsOptionsOpen(
           (
-            option, index
+            o
           ) => {
-            return (
-              <option
-                value={option}
-                key={index}
-              >
-                {option}
-              </option>
-            );
+            return !o;
           }
-        )}
-      </select>
+        );
+      }} className={`${ form.sectionRow } ${ typography.titleLarge }`}
+      >
+        <span className={`material-symbols-outlined ${ styles.icon }`}>{isOptionsOpen
+          ? 'expand_more'
+          : 'expand_less'}</span>
+        <p className={styles.text}> {title}</p>
+      </div>
+
+      { isOptionsOpen && (
+        <section  className={styles.segmentColumn}>
+          {options.map(
+            (
+              option
+            ) => {
+              return (
+                <button
+                  type='button'
+                  className={styles.buttonPassiveCategory}
+                  onClick={ (
+                    e
+                  ) => {
+                    e.stopPropagation();
+                    setValue(
+                      name, option
+                    );
+                  }}
+                  key={option}
+                >
+                  {option}
+                </button>
+              );
+            }
+          )}
+        </section>
+      )}
     </section>
   );
 };

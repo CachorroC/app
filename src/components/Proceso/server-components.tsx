@@ -10,8 +10,8 @@ import { getProceso } from '#@/lib/Procesos';
 
 export const ProcesoCard = (
   {
-    proceso
-  }: { proceso: Proceso }
+    proceso 
+  }: { proceso: Proceso } 
 ) => {
   const {
     idProceso,
@@ -28,11 +28,11 @@ export const ProcesoCard = (
 
   const juzgado = despacho
     ? despacho.replace(
-      / /g, '-'
+      / /g, '-' 
     )
       .toLocaleLowerCase()
       .slice(
-        0, -1
+        0, -1 
       )
     : null;
 
@@ -44,7 +44,7 @@ export const ProcesoCard = (
       <div className={styles.card}>
         <h1 className={`${ typography.titleLarge } ${ styles.title }`}>
           {fixDemandado(
-            sujetosProcesales
+            sujetosProcesales 
           )}
         </h1>
         <Link
@@ -59,9 +59,11 @@ export const ProcesoCard = (
           {despacho}
         </p>
         {fechaUltimaActuacion && (
-          <sub className={styles.date}>{fixFechas(
-            fechaUltimaActuacion.toString()
-          )}</sub>
+          <sub className={styles.date}>
+            {fixFechas(
+              fechaUltimaActuacion.toString() 
+            )}
+          </sub>
         )}
         {juzgado && (
           <Link
@@ -73,7 +75,7 @@ export const ProcesoCard = (
           >
             <p className={typography.bodySmall}>
               {juzgado.replaceAll(
-                'á', 'a'
+                'á', 'a' 
               )}
             </p>
           </Link>
@@ -90,7 +92,7 @@ export const ProcesoComponent = async (
   }: {
   carpeta: MonCarpeta;
   index: number;
-}
+} 
 ) => {
   if ( !carpeta.llaveProceso ) {
     return null;
@@ -100,7 +102,7 @@ export const ProcesoComponent = async (
     {
       llaveProceso: carpeta.llaveProceso,
       index       : index,
-    }
+    } 
   );
 
   if ( !procesos || procesos.length === 0 ) {
@@ -111,7 +113,7 @@ export const ProcesoComponent = async (
     <Fragment key={carpeta.llaveProceso}>
       {procesos.map(
         (
-          proceso
+          proceso 
         ) => {
           return (
             <ProcesoCard
@@ -119,7 +121,7 @@ export const ProcesoComponent = async (
               proceso={proceso}
             />
           );
-        }
+        } 
       )}
     </Fragment>
   );

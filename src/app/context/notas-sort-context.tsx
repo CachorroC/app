@@ -1,64 +1,67 @@
 'use client';
 import { IntNotaAction } from '#@/lib/types/context-actions';
 import { monNota } from '#@/lib/types/notas';
-import { Dispatch, ReactNode, createContext, useContext, useReducer } from 'react';
-
-
+import { Dispatch,
+  ReactNode,
+  createContext,
+  useContext,
+  useReducer, } from 'react';
 
 const NotasSortContext = createContext<monNota[] | null>(
-  null
+  null 
 );
 
 const NotasSortDispatchContext = createContext<Dispatch<IntNotaAction> | null>(
-  null
+  null,
 );
 
 export function NotasSortProvider(
   {
-    children, notas
-  }: { children: ReactNode;  notas : monNota[]}
+    children,
+    notas,
+  }: {
+  children: ReactNode;
+  notas: monNota[];
+} 
 ) {
   const [
     notasReduced,
     dispatchNotas
-  ] =useReducer(
-    notasReducer, notas
+  ] = useReducer(
+    notasReducer, notas 
   );
 
   return (
-    <NotasSortContext.Provider value={
-      notasReduced
-    }>
+    <NotasSortContext.Provider value={notasReduced}>
       <NotasSortDispatchContext.Provider value={dispatchNotas}>
-        { children }
+        {children}
       </NotasSortDispatchContext.Provider>
     </NotasSortContext.Provider>
   );
 }
 
-export function useNotaSort () {
+export function useNotaSort() {
   const context = useContext(
-    NotasSortContext
+    NotasSortContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'useNotaSort  must be used inside a notasort provider r'
+      'useNotaSort  must be used inside a notasort provider r' 
     );
   }
 
   return context;
 }
 
-export function useNotaSortDispatch () {
-
+export function useNotaSortDispatch() {
   const context = useContext(
-    NotasSortDispatchContext
+    NotasSortDispatchContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'useSortDispatchNotas must be used inside a NotasProvider'
+      'useSortDispatchNotas must be used inside a NotasProvider' 
     );
   }
 
@@ -66,10 +69,10 @@ export function useNotaSortDispatch () {
 }
 
 export function notasReducer(
-  notas: monNota[], action: IntNotaAction
+  notas: monNota[], action: IntNotaAction 
 ) {
   const {
-    sortDirection, type
+    sortDirection, type 
   } = action;
 
   const asc = [
@@ -89,15 +92,12 @@ export function notasReducer(
     : dsc;
 
   switch ( type ) {
-
-
       case 'date': {
-
         return [
           ...notas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             if ( !a.date || a.date === undefined ) {
               return sorter[ 2 ];
@@ -120,18 +120,16 @@ export function notasReducer(
             }
 
             return sorter[ 1 ];
-          }
+          } 
         );
-
       }
 
       case 'llaveProceso': {
-
         return [
           ...notas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             if ( !a.llaveProceso || a.llaveProceso === undefined ) {
               return sorter[ 2 ];
@@ -154,39 +152,36 @@ export function notasReducer(
             }
 
             return sorter[ 1 ];
-          }
+          } 
         );
-
       }
 
       case 'cod': {
-
         return [
           ...notas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.cod;
 
             const y = b.cod;
 
-            const idk  = sortDirection
-              ? x-y
-              : y-x;
+            const idk = sortDirection
+              ? x - y
+              : y - x;
 
             return idk;
-          }
+          } 
         );
       }
 
       case 'done': {
-
         return [
           ...notas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.done;
 
@@ -201,7 +196,7 @@ export function notasReducer(
             }
 
             return sorter[ 1 ];
-          }
+          } 
         );
       }
 
@@ -210,7 +205,7 @@ export function notasReducer(
           ...notas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.text;
 
@@ -225,13 +220,13 @@ export function notasReducer(
             }
 
             return sorter[ 1 ];
-          }
+          } 
         );
       }
 
       default: {
         throw Error(
-          'Unknown action: ' + action.type
+          'Unknown action: ' + action.type 
         );
       }
   }

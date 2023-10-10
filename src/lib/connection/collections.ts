@@ -9,38 +9,37 @@ export const tareasCollection = cache(
 
     if ( !client ) {
       throw new Error(
-        'no hay cliente mongólico'
+        'no hay cliente mongólico' 
       );
     }
 
     const db = client.db(
-      'RyS'
+      'RyS' 
     );
 
     const carpetas = db.collection<intTarea>(
-      'Tareas'
+      'Tareas' 
     );
 
     return carpetas;
-  }
+  } 
 );
-
 
 export const notasCollection = async () => {
   const client = await clientPromise;
 
   if ( !client ) {
     throw new Error(
-      'no hay cliente mongólico'
+      'no hay cliente mongólico' 
     );
   }
 
   const db = client.db(
-    'RyS'
+    'RyS' 
   );
 
   const notas = db.collection<intNota>(
-    'Notas'
+    'Notas' 
   );
 
   return notas;

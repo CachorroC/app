@@ -5,10 +5,10 @@ import TaskList from '#@/components/Nota/tasks-list';
 import { CurrentRoute } from '#@/lib/client/current-route';
 import { Suspense } from 'react';
 
-export default function DatePage (
+export default function DatePage(
   {
-    params
-  }: { params: { date: string[] } }
+    params 
+  }: { params: { date: string[] } } 
 ) {
   const [
     incomingAno,
@@ -16,18 +16,19 @@ export default function DatePage (
     incomingDia
   ] = params.date;
 
-  const incomingDate =  new Date(
-    `${ incomingAno }-${ incomingMes }-${ incomingDia }`
+  const incomingDate = new Date(
+    `${ incomingAno }-${ incomingMes }-${ incomingDia }` 
   );
 
-
   return (
-    <> <Calendar date={incomingDate} />
-      <AddTask  />
+    <>
+      {' '}
+      <Calendar date={incomingDate} />
+      <AddTask />
       <Suspense fallback={<Loader />}>
         <CurrentRoute />
       </Suspense>
-      <TaskList /></>
+      <TaskList />
+    </>
   );
-
 }

@@ -48,44 +48,44 @@
   --body-large-font-family-name: var(--inter);
   --body-large-font-family-style: Regular;
   --body-large-font-weight: 400px;
-  --body-large-font-size: 16px;
+  --body-large-font-size: 22px;
   --body-large-line-height: 24px;
-  --body-large-letter-spacing: 0.50px;
+  --body-large-letter-spacing: 0.5px;
   /* body - medium */
   --body-medium-font-family-name: var(--inter);
   --body-medium-font-family-style: Regular;
   --body-medium-font-weight: 400px;
-  --body-medium-font-size: 14px;
+  --body-medium-font-size: 18px;
   --body-medium-line-height: 20px;
   --body-medium-letter-spacing: 0.25px;
   /* body - small */
   --body-small-font-family-name: var(--inter);
   --body-small-font-family-style: Regular;
   --body-small-font-weight: 400px;
-  --body-small-font-size: 12px;
+  --body-small-font-size: 16px;
   --body-small-line-height: 16px;
-  --body-small-letter-spacing: 0.40px;
+  --body-small-letter-spacing: 0.4px;
   /* label - large */
   --label-large-font-family-name: var(--josefa);
   --label-large-font-family-style: Medium;
   --label-large-font-weight: 500px;
   --label-large-font-size: 14px;
   --label-large-line-height: 20px;
-  --label-large-letter-spacing: 0.10px;
+  --label-large-letter-spacing: 0.1px;
   /* label - medium */
   --label-medium-font-family-name: var(--josefa);
   --label-medium-font-family-style: Medium;
   --label-medium-font-weight: 500px;
   --label-medium-font-size: 12px;
   --label-medium-line-height: 16px;
-  --label-medium-letter-spacing: 0.50px;
+  --label-medium-letter-spacing: 0.5px;
   /* label - small */
   --label-small-font-family-name: var(--josefa);
   --label-small-font-family-style: Medium;
   --label-small-font-weight: 500px;
   --label-small-font-size: 11px;
   --label-small-line-height: 16px;
-  --label-small-letter-spacing: 0.50px;
+  --label-small-letter-spacing: 0.5px;
   /* title - large */
   --title-large-font-family-name: var(--roboto);
   --title-large-font-family-style: Regular;
@@ -221,8 +221,8 @@
   padding: 0;
 }
 *:focus {
-  --min-font-size: 14px;
-  --max-font-size: 20px;
+  --min-font-size: 18px;
+  --max-font-size: 24px;
   --full-viewport: 100vw;
   --min-viewport: 300px;
   --min-width: 300;
@@ -260,7 +260,9 @@ body {
   background-color: var(--surface);
 }
 
-a {
+a, p, i, span {
+  font-family: var(--jost);
+  font-size: var(--body-medium-font-size);
   text-decoration: none;
 }
 

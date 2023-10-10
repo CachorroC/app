@@ -1,19 +1,18 @@
 import { Category, MonCarpeta } from './carpetas';
 import { monNota } from './notas';
 
-export interface IntAction{
-  type: ActionType
+export interface IntAction {
+  type: ActionType;
   sortDirection: boolean;
   search?: string;
-  category? : Category
-
+  category?: Category;
 }
 
 export interface IntNotaAction {
-   type: ActionNotaType;
-   sortDirection: boolean;
- }
+  type: ActionNotaType;
+  sortDirection: boolean;
+}
 
 export type ActionNotaType = keyof monNota;
 
-export type ActionType = keyof MonCarpeta
+export type ActionType = keyof MonCarpeta;

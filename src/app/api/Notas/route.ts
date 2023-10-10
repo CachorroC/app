@@ -9,75 +9,75 @@ export async function GET() {
 
   return new NextResponse(
     JSON.stringify(
-      notas
+      notas 
     ), {
       status : 200,
       headers: {
         'content-type': 'application/json',
       },
-    }
+    } 
   );
 }
 
 export async function POST(
-  request: NextRequest
+  request: NextRequest 
 ) {
   const incomingRequest = await request.json();
 
   const collection = await notasCollection();
 
   const outgoingRequest = await collection.insertOne(
-    incomingRequest
+    incomingRequest 
   );
 
   if ( !outgoingRequest ) {
     return new NextResponse(
       null, {
         status: 404,
-      }
+      } 
     );
   }
 
   return new NextResponse(
     JSON.stringify(
-      outgoingRequest
+      outgoingRequest 
     ), {
       status : 200,
       headers: {
         'content-type': 'application/json',
       },
-    }
+    } 
   );
 }
 
 export async function PUT(
-  Request: NextRequest
+  Request: NextRequest 
 ) {
   const collection = await notasCollection();
 
   const updatedNote = await Request.json();
 
   const {
-    searchParams
+    searchParams 
   } = new URL(
-    Request.url
+    Request.url 
   );
 
   const id = searchParams.get(
-    'id'
+    'id' 
   );
 
   if ( id ) {
     const query = {
       _id: new ObjectId(
-        id
+        id 
       ),
     };
 
     const result = await collection.updateOne(
       query, {
         $set: updatedNote,
-      }
+      } 
     );
 
     if ( result.acknowledged ) {
@@ -87,7 +87,7 @@ export async function PUT(
           headers: {
             'content-type': 'text/html',
           },
-        }
+        } 
       );
     }
 
@@ -109,34 +109,34 @@ export async function PUT(
   return new NextResponse(
     null, {
       status: 404,
-    }
+    } 
   );
 }
 
 export async function DELETE(
-  Request: NextRequest
+  Request: NextRequest 
 ) {
   const notas = await notasCollection();
 
   const {
-    searchParams
+    searchParams 
   } = new URL(
-    Request.url
+    Request.url 
   );
 
   const id = searchParams.get(
-    'id'
+    'id' 
   );
 
   if ( id ) {
     const query = {
       _id: new ObjectId(
-        id
+        id 
       ),
     };
 
     const Result = await notas.deleteOne(
-      query
+      query 
     );
 
     if ( Result.acknowledged ) {
@@ -150,35 +150,34 @@ export async function DELETE(
 
       return new NextResponse(
         JSON.stringify(
-          response
+          response 
         ), {
           status : 202,
           headers: {
             'content-type': 'application/json',
           },
-        }
+        } 
       );
     }
 
     if ( !Result.acknowledged ) {
       throw new Error(
-        'no pudimos eliminar esta nota, inténtalo de nuevo'
+        'no pudimos eliminar esta nota, inténtalo de nuevo' 
       );
-
     }
 
     return new NextResponse(
       JSON.stringify(
-        Result
+        Result 
       ), {
         status: 200,
-      }
+      } 
     );
   }
 
   return new NextResponse(
     null, {
-      status: 405
-    }
+      status: 405,
+    } 
   );
 }

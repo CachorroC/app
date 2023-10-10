@@ -1,100 +1,133 @@
-.buttonsRow {
-  flex: 1 1 100%;
-}
-.button,
-.active {
-  border: none;
-  box-sizing: border-box;
-  padding: .5vmin 2vmin;
-  border-radius: 2vmin;
-  flex: 1;
+.segment {
   display: flex;
-  flex-flow: column nowrap;
-  justify-items: center;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  transition: all 0.3s;
-  &Category {
-    @extend .button;
-    background-color: var(--surface-container-high);
-    & > .icon {
-      color: var(--secondary);
+  justify-content: space-evenly;
+  align-items: stretch;
+  box-sizing: border-box;
+  gap: 1cqmin;
+  &Row {
+    @extend .segment;
+    flex-flow: row nowrap;
+    .button {
+      &:nth-child(1) {
+        border-radius: 2vmin 0 0 2vmin;
+      }
+      &:nth-last-child(1) {
+        border-radius: 0 2vmin 2vmin 0;
+      }
     }
   }
-  &Forward {
-    @extend .button;
-    grid-area: forwardButton;
-    background-color: var(--primary-container);
-    & > .icon,
-    & > .text {
-      color: var(--on-primary-container);
+  &Column {
+    @extend .segment;
+    flex-flow: column nowrap;
+    .button {
+      &:nth-child(1) {
+        border-radius: 2vmin 2vmin 0 0;
+      }
+      &:nth-last-child(1) {
+        border-radius: 0 0 2vmin 2vmin;
+      }
     }
   }
-  &Backwards {
-    @extend .button;
-    background-color: var(--primary-container);
-    grid-area: backwardsButton;
-    & > .icon,
-    & > .text {
-      color: var(--on-primary-container);
+  .button {
+    border: none;
+    box-sizing: border-box;
+    padding: 0.5vmin 2vmin;
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    transition: all 0.3s;
+    &ActiveCategory {
+      @extend .button;
+      background-color: var(--secondary-container);
+      & > .icon,
+      & > .text {
+        color: var(--on-secondary-container);
+      }
     }
-  }
+    &PassiveCategory {
+      @extend .button;
+      background-color: var(--surface);
+      & > .icon,
+      & > .text {
+        color: var(--on-secondary-container);
+      }
+    }
+    &Forward {
+      @extend .button;
+      grid-area: forwardButton;
+      background-color: var(--primary-container);
+      & > .icon,
+      & > .text {
+        color: var(--on-primary-container);
+      }
+    }
+    &Backwards {
+      @extend .button;
+      background-color: var(--primary-container);
+      grid-area: backwardsButton;
+      & > .icon,
+      & > .text {
+        color: var(--on-primary-container);
+      }
+    }
 
-  &DrawerMenu {
-    @extend .button;
-    grid-area: drawerMenuButton;
-    background-color: var(--primary-fixed);
-    & > .icon,
-    & > .text {
-      color: var(--on-primary-fixed);
+    &DrawerMenu {
+      @extend .button;
+      grid-area: drawerMenuButton;
+      background-color: var(--primary-fixed);
+      & > .icon,
+      & > .text {
+        color: var(--on-primary-fixed);
+      }
     }
-  }
 
-  &Modal {
-    @extend .button;
-    grid-area: modal;
-    background-color: var(--tertiary-container);
-    & > .icon,
-    & > .text {
-      color: var(--on-tertirary-container);
+    &Modal {
+      @extend .button;
+      grid-area: modal;
+      background-color: var(--tertiary-container);
+      & > .icon,
+      & > .text {
+        color: var(--on-tertirary-container);
+      }
     }
-  }
-  &Home {
-    @extend .button;
-    grid-area: homeButton;
-    box-shadow: var(--dp2);
-    background-color: var(--primary);
-    & > .icon,
-    & > .text {
-      color: var(--on-primary);
+    &Home {
+      @extend .button;
+      box-shadow: var(--dp2);
+      background-color: var(--primary);
+      & > .icon,
+      & > .text {
+        color: var(--on-primary);
+      }
     }
-  }
-  &:link,
-  &:visited {
-    background-color: var(--surface-container);
-    color: var(--on-surface);
-    & > .icon {
-      color: var(--on-surface-variant);
+    &:link,
+    &:visited {
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+      & > .icon, &>.text {
+        color: var(--on-surface-variant);
+      }
     }
-  }
 
-  &:hover,
-  &:active {
-    background-color: var(--primary-fixed);
-    box-shadow: var(--dp6);
-    border: 2px solid var(--outline);
-    & > span {
-      font-variation-settings:
-        'FILL' 1,
-        'wght' 400,
-        'GRAD' 200,
-        'opsz' 24;
-      color: var(--on-primary-fixed);
+    &:hover,
+    &:active {
+      background-color: var(--primary-fixed);
+      box-shadow: var(--dp6);
+      border: 2px solid var(--outline);
+      & > span {
+        font-variation-settings:
+          'FILL' 1,
+          'wght' 400,
+          'GRAD' 200,
+          'opsz' 24;
+        color: var(--on-primary-fixed);
+      }
     }
   }
 }
-
 .active {
   background-color: var(--tertiary-container);
   color: var(--on-tertiary-container);

@@ -5,46 +5,46 @@ export default async function Page(
     params,
   }: {
   params: { fecha: string[] };
-}
+} 
 ) {
   const [
     ano,
     mes,
     dia
-  ]= params.fecha;
+  ] = params.fecha;
 
   const rawTareas = await getTareas();
 
   const matched = rawTareas.filter(
     (
-      tarea
+      tarea 
     ) => {
       const fecha = new Date(
         Number(
-          ano
+          ano 
         ), Number(
-          mes
+          mes 
         ), Number(
-          dia
-        )
+          dia 
+        ) 
       );
 
       return tarea.date === fecha;
-    }
+    } 
   );
 
   return (
     <>
       {matched.map(
         (
-          tarea, i
+          tarea, i 
         ) => {
           return (
             <div key={i}>
               <p>{tarea.text}</p>
             </div>
           );
-        }
+        } 
       )}
     </>
   );

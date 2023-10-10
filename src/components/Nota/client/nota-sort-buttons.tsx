@@ -7,7 +7,7 @@ import { useState } from 'react';
 import typography from '#@/styles/fonts/typography.module.scss';
 import styles from '#@/components/form/form.module.css';
 
-export function NotasSortButtons () {
+export function NotasSortButtons() {
   const keys: ActionNotaType[] = [
     'date',
     'done',
@@ -18,8 +18,6 @@ export function NotasSortButtons () {
 
   const dispatchNotas = useNotaSortDispatch();
 
-
-
   const [
     sortDirection,
     setSortDirection
@@ -27,28 +25,32 @@ export function NotasSortButtons () {
     true
   );
 
-
   return (
     <div className={styles.section}>
       <section className={styles.section}>
-        <h2 className={typography.titleMedium}>{ 'ordenar:' }</h2>
-        <span className={typography.labelMedium}> {sortDirection
-          ? 'ascendente'
-          : 'descendente' } </span>
-        <span className='material-symbols-outlined'>{sortDirection
-          ? 'arrow_upward'
-          : 'arrow_downward' }</span>
+        <h2 className={typography.titleMedium}>{'ordenar:'}</h2>
+        <span className={typography.labelMedium}>
+          {' '}
+          {sortDirection
+            ? 'ascendente'
+            : 'descendente'}{' '}
+        </span>
+        <span className="material-symbols-outlined">
+          {sortDirection
+            ? 'arrow_upward'
+            : 'arrow_downward'}
+        </span>
       </section>
 
       <section className={styles.section}>
-
-        { keys.map(
+        {keys.map(
           (
             key
           ) => {
             return (
-              <button type='button' onClick={
-                () => {
+              <button
+                type="button"
+                onClick={() => {
                   setSortDirection(
                     (
                       d
@@ -59,20 +61,19 @@ export function NotasSortButtons () {
                   dispatchNotas(
                     {
                       type         : key,
-                      sortDirection: sortDirection
+                      sortDirection: sortDirection,
                     }
                   );
-                }
-              } className={ button.buttonCategory } key={ key }>
-
-
+                }}
+                className={button.buttonPassiveCategory}
+                key={key}
+              >
                 {key}
               </button>
             );
           }
-        )
-        }
-      </section></div>
-
+        )}
+      </section>
+    </div>
   );
 }

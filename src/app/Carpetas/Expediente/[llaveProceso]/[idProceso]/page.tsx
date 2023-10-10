@@ -1,4 +1,3 @@
-
 import { getActuaciones } from '#@/lib/Actuaciones';
 import { notFound } from 'next/navigation';
 import { Fragment, Suspense } from 'react';
@@ -16,10 +15,10 @@ export default async function Page(
     llaveProceso: string;
     idProceso: string;
   };
-}
+} 
 ) {
   const carpeta = await getCarpetaByllaveProceso(
-    params.llaveProceso
+    params.llaveProceso 
   );
 
   if ( !carpeta ) {
@@ -29,10 +28,10 @@ export default async function Page(
   const actuaciones = await getActuaciones(
     {
       idProceso: Number(
-        params.idProceso
+        params.idProceso 
       ),
       index: 1,
-    }
+    } 
   );
 
   if ( !actuaciones ) {
@@ -40,14 +39,16 @@ export default async function Page(
   }
 
   return (
-    <Fragment key={ params.idProceso }>
-      <div className={ layout.top }>
+    <Fragment key={params.idProceso}>
+      <div className={layout.top}>
         <Suspense fallback={<Loader />}>
-          <NombreComponent key={params.idProceso} deudor={ carpeta.deudor } />
+          <NombreComponent
+            key={params.idProceso}
+            deudor={carpeta.deudor}
+          />
         </Suspense>
       </div>
-      <div className={ layout.left }>
-
+      <div className={layout.left}>
         <Suspense fallback={<Loader />}>
           {carpeta.ultimaActuacion && (
             <ActuacionCard
@@ -57,7 +58,7 @@ export default async function Page(
           )}
           {actuaciones.map(
             (
-              actuacion, index
+              actuacion, index 
             ) => {
               return (
                 <ActuacionCard
@@ -65,7 +66,7 @@ export default async function Page(
                   key={index}
                 />
               );
-            }
+            } 
           )}
         </Suspense>
       </div>

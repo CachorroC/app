@@ -1,8 +1,6 @@
 'use client';
 import { NuevaCarpeta } from '#@/lib/types/carpetas';
-import {   SubmitHandler,
-
-  useFormContext, } from 'react-hook-form';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
 import form from 'components/form/form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { InputSection } from './InputSection';
@@ -10,20 +8,16 @@ import { SelectSection } from './SelectSection';
 import { DateInputSection } from './DateInputSection';
 import VencimientoPagareSection from './DateInputSection/vencimiento-pagare-section';
 
-
 export default function NewNuevoProceso(
   {
-    nextNumber
-  }: {nextNumber: number}
+    nextNumber,
+  }: {
+  nextNumber: number;
+}
 ) {
-
   const {
-    setValue,
-    handleSubmit,
+    handleSubmit
   } = useFormContext<NuevaCarpeta>();
-  setValue(
-    'numero', nextNumber
-  );
 
   const onSubmit: SubmitHandler<NuevaCarpeta> = async (
     data
@@ -35,7 +29,7 @@ export default function NewNuevoProceso(
     );
 
     const newCarpeta: NuevaCarpeta = {
-      ...data
+      ...data,
     };
 
     const postNewNote = await fetch(
@@ -50,8 +44,6 @@ export default function NewNuevoProceso(
       }
     );
 
-
-
     const nAlert = await postNewNote.json();
 
     alert(
@@ -65,16 +57,20 @@ export default function NewNuevoProceso(
     <>
       <div className={form.container}>
         <form
-
           className={form.form}
           onSubmit={handleSubmit(
             onSubmit
           )}
         >
-          <section className={ form.sectionRow }>
+          <section className={form.sectionRow}>
             <section className={ form.sectionRow }>
 
-              <InputSection name={ 'numero' } title={ 'Número' } type={ 'number' } />
+              <InputSection
+                initialValue={nextNumber.toString()}
+                name={'numero'}
+                title={'Número'}
+                type={'number'}
+              />
               <SelectSection
                 name={'category'}
                 title={'Grupo al que pertenece'}
@@ -86,10 +82,9 @@ export default function NewNuevoProceso(
                   'Terminados',
                 ]}
               />
-
             </section>
             <section className={form.sectionColumn}>
-              <h3 className={ typography.displaySmall }>{ 'Deudor' }</h3>
+              <h3 className={typography.displaySmall}>{'Deudor'}</h3>
 
               <InputSection
                 name={'deudor.primerNombre'}
@@ -144,25 +139,24 @@ export default function NewNuevoProceso(
                 <InputSection
                   name={'deudor.tel.celular'}
                   title={'celular'}
-                  type={ 'tel' }
+                  type={'tel'}
                   rls={{
-                    required: false
+                    required: false,
                   }}
                 />
                 <InputSection
                   name={'deudor.tel.fijo'}
                   title={'fijo'}
-                  type={ 'tel' }
+                  type={'tel'}
                   rls={{
-                    required: false
+                    required: false,
                   }}
                 />
               </section>
             </section>
 
-
-            <section className={ form.sectionColumn }>
-              <h3 className={ typography.displaySmall }>{ 'Demanda' }</h3>
+            <section className={form.sectionColumn}>
+              <h3 className={typography.displaySmall}>{'Demanda'}</h3>
               <InputSection
                 name={'demanda.capitalAdeudado'}
                 title={'Capital Adeudado'}
@@ -171,7 +165,10 @@ export default function NewNuevoProceso(
                   required: true,
                 }}
               />
-              <DateInputSection name={ 'demanda.entregaGarantiasAbogado' } title={ 'entrega de garantias' } />
+              <DateInputSection
+                name={'demanda.entregaGarantiasAbogado'}
+                title={'entrega de garantias'}
+              />
 
               <InputSection
                 name={'demanda.obligacion.A'}
@@ -183,15 +180,22 @@ export default function NewNuevoProceso(
                 title={'Obligacion'}
                 type={'text'}
               />
-              <SelectSection name={ 'demanda.tipoProceso' } title={ 'Tipo de Proceso' } options={ [
-                'SINGULAR',
-                'HIPOTECARIO',
-                'PRENDARIO',
-                'ACUMULADO'
-              ] } />
+              <SelectSection
+                name={'demanda.tipoProceso'}
+                title={'Tipo de Proceso'}
+                options={[
+                  'SINGULAR',
+                  'HIPOTECARIO',
+                  'PRENDARIO',
+                  'ACUMULADO'
+                ]}
+              />
 
               <VencimientoPagareSection />
-              <DateInputSection name={ 'demanda.fechaPresentacion' } title={ 'fecha de presentacion de la demanda' } />
+              <DateInputSection
+                name={'demanda.fechaPresentacion'}
+                title={'fecha de presentacion de la demanda'}
+              />
             </section>
           </section>
           <button
@@ -201,10 +205,8 @@ export default function NewNuevoProceso(
             <sub className={typography.labelSmall}>Enviar</sub>
             <span className="material-symbols-outlined">send</span>
           </button>
-
         </form>
       </div>
-
     </>
   );
 }

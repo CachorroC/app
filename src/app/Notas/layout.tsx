@@ -6,30 +6,25 @@ import { button, icon, text } from '#@/components/Buttons/buttons.module.css';
 import type { Route } from 'next';
 import Link from 'next/link';
 
-export default function NotasLayoutMain (
+export default function NotasLayoutMain(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
   return (
     <>
-      <div className={ styles.top }>
+      <div className={styles.top}>
         <h1 className={typography.displayLarge}>{'Notas'}</h1>
         <NotasSortButtons />
         <Link
           className={button}
-          href={'/Notas/Nueva' as Route }
+          href={'/Notas/Nueva' as Route}
         >
           <p className={text}>{'Nueva Nota'}</p>
-          <span className={`material-symbols-outlined ${ icon }`}>
-          note_alt
-          </span>
+          <span className={`material-symbols-outlined ${ icon }`}>note_alt</span>
         </Link>
-
       </div>
-      <div className={ styles.left }>
-        {children}
-      </div>
+      <div className={styles.left}>{children}</div>
     </>
   );
 }

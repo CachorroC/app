@@ -1,4 +1,3 @@
-
 import { getNotaById } from '#@/lib/project/notas';
 import { Edit } from '#@/components/Nota/Edit';
 import typography from '#@/styles/fonts/typography.module.scss';
@@ -9,17 +8,19 @@ import { NuevaNota } from '#@/components/Nota/client/nueva-nota';
 export default async function NuevaNotallaveProceso(
   {
     params: {
-      id
-    }, searchParams
+      id 
+    },
+    searchParams,
   }: {
-  params: { id: string }; searchParams: { [ key: string ]: string | undefined; };
-}
+  params: { id: string };
+  searchParams: { [key: string]: string | undefined };
+} 
 ) {
   let notaScope;
   let notaNumber;
 
   const {
-    llaveProceso
+    llaveProceso 
   } = searchParams;
 
   const isNuevaNota = id === 'Nueva';
@@ -31,23 +32,26 @@ export default async function NuevaNotallaveProceso(
   const nuevoCod = 1 + totalNotas;
 
   if ( isNuevaNota ) {
-    notaNumber= nuevoCod;
+    notaNumber = nuevoCod;
 
     notaScope = (
-      <NuevaNota key={id} cod={ nuevoCod } llaveProceso={llaveProceso} />
+      <NuevaNota
+        key={id}
+        cod={nuevoCod}
+        llaveProceso={llaveProceso}
+      />
     );
   } else {
-
     const nota = await getNotaById(
       {
-        id: id
-      }
+        id: id,
+      } 
     );
-    notaNumber= nota
+    notaNumber = nota
       ? nota.cod
       : nuevoCod;
-    notaScope = (
-      nota && <Edit
+    notaScope = nota && (
+      <Edit
         key={id}
         nota={nota}
       />
@@ -56,12 +60,12 @@ export default async function NuevaNotallaveProceso(
 
   return (
     <>
-      <div className={ layout.top }>
-        <h1 className={typography.displayLarge}>{`Nota numero: ${ notaNumber }`}</h1>
+      <div className={layout.top}>
+        <h1
+          className={typography.displayLarge}
+        >{`Nota numero: ${ notaNumber }`}</h1>
       </div>
-      <div className={ layout.left }>
-        {notaScope}
-      </div>
+      <div className={layout.left}>{notaScope}</div>
     </>
   );
 }

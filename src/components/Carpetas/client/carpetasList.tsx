@@ -6,13 +6,10 @@ import { useCategory } from '#@/app/context/main-context';
 import { JSX } from 'react';
 import ActuacionComponent from '#@/components/Card/actuacion-component';
 
-
 export default function CarpetasList(
   {
-    path,
-  }: {
-  path: string;
-}
+    path
+  }: { path: string }
 ) {
   const rows: JSX.Element[] = [];
 
@@ -25,7 +22,6 @@ export default function CarpetasList(
   const {
     category
   } = useCategory();
-
 
   carpetasReduced.forEach(
     (
@@ -44,14 +40,22 @@ export default function CarpetasList(
 
       if ( category === 'todos' || category === proceso.category ) {
         rows.push(
-          <Card key={ proceso._id } path={ path } carpeta={ proceso } >
-            {ultimaActuacion && (  <ActuacionComponent key={proceso._id} incomingActuacion={ ultimaActuacion }  /> )}
-          </Card>
+          <Card
+            key={proceso._id}
+            path={path}
+            carpeta={proceso}
+          >
+            {ultimaActuacion && (
+              <ActuacionComponent
+                key={proceso._id}
+                incomingActuacion={ultimaActuacion}
+              />
+            )}
+          </Card>,
         );
       }
     }
   );
 
-  return ( <>
-    {rows}</> );
+  return <>{rows}</>;
 }

@@ -3,7 +3,6 @@
 import React, { createContext,
   Dispatch,
   SetStateAction,
-
   useState,
   useContext,
   ReactNode, } from 'react';
@@ -12,19 +11,19 @@ const SearchContext = createContext<{
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
 } | null>(
-  null
+  null 
 );
 
 export function SearchProvider(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
   const [
     search,
     setSearch
   ] = useState(
-    ' '
+    ' ' 
   );
 
   return (
@@ -41,12 +40,12 @@ export function SearchProvider(
 
 export function useSearch() {
   const context = useContext(
-    SearchContext
+    SearchContext 
   );
 
   if ( context === null ) {
     throw new Error(
-      'useSearch must be used inside a SearchProvider'
+      'useSearch must be used inside a SearchProvider' 
     );
   }
 

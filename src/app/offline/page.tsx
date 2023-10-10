@@ -1,4 +1,4 @@
-export default function Page () {
+export default function Page() {
   return (
     <div>
       <h1>offline</h1>

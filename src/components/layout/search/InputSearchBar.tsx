@@ -4,27 +4,26 @@ import { useSearch } from '#@/app/context/search-context';
 
 export default function InputSearchBar() {
   const {
-    search, setSearch
+    search, setSearch 
   } = useSearch();
 
   return (
-
-    <input
-      type="text"
-      className={searchbar.input}
-      value={ search }
-      name='searchBar'
-      placeholder={'Buscar'}
-      onChange={(
-        input
-      ) => {
-        input.preventDefault();
-        setSearch(
-          input.target.value
-        );
-      }}
-    />
-
-
+    <form>
+      <input
+        type="search"
+        className={searchbar.input}
+        value={search}
+        name="searchBar"
+        placeholder={'Buscar'}
+        onChange={(
+          input 
+        ) => {
+          input.preventDefault();
+          setSearch(
+            input.target.value 
+          );
+        }}
+      />
+    </form>
   );
 }

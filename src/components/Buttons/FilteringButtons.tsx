@@ -25,8 +25,8 @@ export const CategoryButton = (
       type="button"
       className={
         category === categoria
-          ? styles.activeCategory
-          : styles.buttonCategory
+          ? styles.buttonActiveCategory
+          : styles.buttonPassiveCategory
       }
     >
       <span className={`material-symbols-outlined ${ styles.icon }`}>{icon}</span>
@@ -55,20 +55,20 @@ export const CategoryFilterButton = () => {
   ];
 
   return (
-    <>
+    <section className={styles.segmentColumn}>
       {categorias.map(
         (
-          categoria, index
+          category, index
         ) => {
           return (
             <CategoryButton
-              key={categoria}
-              categoria={categoria}
+              key={category}
+              categoria={category}
               icon={icons[ index ]}
             />
           );
         }
       )}
-    </>
+    </section>
   );
 };

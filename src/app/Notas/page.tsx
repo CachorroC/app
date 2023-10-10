@@ -8,10 +8,9 @@ export default function Page() {
 
   return (
     <>
-
       {notas.map(
         (
-          nota
+          nota 
         ) => {
           return (
             <NotaComponent
@@ -19,7 +18,7 @@ export default function Page() {
               notaRaw={nota}
             />
           );
-        }
+        } 
       )}
     </>
   );

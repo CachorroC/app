@@ -1,21 +1,18 @@
 declare const styles: {
-  readonly 'buttonsRow': string;
+  readonly 'segment': string;
+  readonly 'segmentColumn': string;
+  readonly 'segmentRow': string;
   readonly 'button': string;
   readonly 'buttonHome': string;
-  readonly 'activeHome': string;
   readonly 'buttonModal': string;
-  readonly 'activeModal': string;
   readonly 'buttonDrawerMenu': string;
-  readonly 'activeDrawerMenu': string;
   readonly 'buttonBackwards': string;
-  readonly 'activeBackwards': string;
   readonly 'buttonForward': string;
-  readonly 'activeForward': string;
-  readonly 'buttonCategory': string;
-  readonly 'activeCategory': string;
-  readonly 'active': string;
+  readonly 'buttonPassiveCategory': string;
+  readonly 'buttonActiveCategory': string;
   readonly 'icon': string;
   readonly 'text': string;
+  readonly 'active': string;
 };
 export = styles;
 

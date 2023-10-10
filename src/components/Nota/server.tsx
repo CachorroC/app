@@ -9,11 +9,11 @@ import { monNota } from '#@/lib/types/notas';
 
 export const NotaComponent = (
   {
-    notaRaw
-  }: { notaRaw: monNota }
+    notaRaw 
+  }: { notaRaw: monNota } 
 ) => {
   const {
-    _id, text, date
+    _id, text, date 
   } = notaRaw;
 
   return (
@@ -26,7 +26,7 @@ export const NotaComponent = (
       >{`Nota: ${ text }`}</p>
       <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
         {date && fixFechas(
-          date.toISOString()
+          date.toISOString() 
         )}
       </sub>
       <div className={note.buttonsRow}>
