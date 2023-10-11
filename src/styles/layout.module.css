@@ -49,6 +49,7 @@
   border-radius: 2vmin;
   padding: 2vmin;
   align-content: stretch;
+  background-color: var(--surface);
   grid-area: right;
   overflow: auto;
   gap: 2vmin;
@@ -83,7 +84,7 @@
   }
 }
 
-.left {
+.left, .leftGrid, .leftColumn {
   background-color: var(--surface);
   grid-area: left;
   border-radius: 2vmin;
@@ -99,7 +100,10 @@
   */
   overflow: auto;
 }
-.left > * {
+.leftColumn {
+  flex-flow: column nowrap;
+}
+.left > *, .leftColumn > *, .leftGrid > * {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 20%;
@@ -107,7 +111,7 @@
   order: 0;
 }
 @media (width < 600px) {
-  .left {
+  .left, .leftGrid, .leftColumn {
     display: flex;
     flex-flow: column nowrap;
   }

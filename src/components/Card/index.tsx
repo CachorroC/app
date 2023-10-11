@@ -138,9 +138,10 @@ export const Card = (
         <section className={sectionColumn}>
           <div className={styles.title}>
             <h4 className={typography.headlineSmall}>{carpeta.nombre}</h4>
-            <sub className={`${ typography.labelSmall } ${ styles.sub }`}>
-              {carpeta.numero}
-            </sub>
+            <Link className={ `${ typography.labelSmall } ${ styles.link }` } href={`/Carpeta/${ numero }`}>
+              <span className={typography.labelLarge}>{`# ${ numero }`}</span>
+              <span className={`material-symbols-outlined ${ styles.icon }`}>folder</span>
+            </Link>
           </div>
           {children}
         </section>

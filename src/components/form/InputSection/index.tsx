@@ -1,42 +1,36 @@
 'use client';
 
-import { NuevaCarpeta } from '#@/lib/types/carpetas';
+import { IntCarpeta, NuevaCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath,
   RegisterOptions,
   useController,
   useFormContext, } from 'react-hook-form';
 import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { useState, type HTMLInputTypeAttribute } from 'react';
+import type { HTMLInputTypeAttribute } from 'react';
 
 export const InputSection = (
   {
-    initialValue,
+
     name,
     title,
     type,
     rls,
   }: {
-    initialValue?: string;
-  name: FieldPath<NuevaCarpeta>;
+
+  name: FieldPath<NuevaCarpeta | IntCarpeta>;
   title: string;
   type: HTMLInputTypeAttribute;
   rls?: Omit<
-    RegisterOptions<NuevaCarpeta, any>,
+    RegisterOptions<NuevaCarpeta|IntCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
 }
 ) => {
-  const [
-    fieldValue,
-    setFieldValue
-  ] = useState(
-    initialValue ?? ''
-  );
 
   const {
     control, setValue
-  } = useFormContext<NuevaCarpeta>();
+  } = useFormContext<NuevaCarpeta| IntCarpeta>();
 
   const rules = rls ?? {
     required: true,
@@ -61,7 +55,8 @@ export const InputSection = (
       </label>
       <input
         name={field.name}
-        value={fieldValue}
+        value={ field.value }
+        ref={field.ref}
         type={type}
         placeholder={title}
         className={form.textArea}
@@ -74,9 +69,6 @@ export const InputSection = (
 
           setValue(
             name, e.target.value
-          );
-          setFieldValue(
-            e.target.value
           );
         }}
       />

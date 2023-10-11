@@ -2,11 +2,12 @@
 
 import { FieldPath, useFormContext } from 'react-hook-form';
 import form from 'components/form/form.module.css';
+import layout from '#@/styles/layout.module.css';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 
 export default function Page() {
   const {
-    setFocus 
+    setFocus
   } = useFormContext<IntCarpeta>();
 
   const carpetaKeys: FieldPath<IntCarpeta>[] = [
@@ -21,10 +22,10 @@ export default function Page() {
   ];
 
   return (
-    <>
+    <div className={layout.right}>
       {carpetaKeys.map(
         (
-          carpetaKey 
+          carpetaKey
         ) => {
           return (
             <button
@@ -35,14 +36,14 @@ export default function Page() {
                 setFocus(
                   carpetaKey, {
                     shouldSelect: true,
-                  } 
+                  }
                 );
               }}
             >
               <span>{carpetaKey}</span>
             </button>
           );
-        } 
+        }
       )}
       <button
         type={'button'}
@@ -51,7 +52,7 @@ export default function Page() {
           setFocus(
             'numero', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -64,33 +65,21 @@ export default function Page() {
           setFocus(
             'category', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
         <span>{'categoria'}</span>
       </button>
+
       <button
         type={'button'}
         className={form.addButton}
         onClick={() => {
           setFocus(
-            'llaveProceso', {
+            'demanda.tipoProceso', {
               shouldSelect: true,
-            } 
-          );
-        }}
-      >
-        <span>{'expediente'}</span>
-      </button>
-      <button
-        type={'button'}
-        className={form.addButton}
-        onClick={() => {
-          setFocus(
-            'tipoProceso', {
-              shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -103,7 +92,7 @@ export default function Page() {
           setFocus(
             'deudor.primerNombre', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -116,12 +105,12 @@ export default function Page() {
           setFocus(
             'deudor.segundoNombre', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
         <span>{'segundo nombre'}</span>
       </button>
-    </>
+    </div>
   );
 }

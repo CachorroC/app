@@ -1,31 +1,87 @@
 import { carpetasCollection } from '#@/lib/connection/mongodb';
-import { IntCarpeta } from '#@/lib/types/carpetas';
+import { InputDateHelper } from '#@/lib/project/date-helper';
+import getCarpetas from '#@/lib/project/getCarpetas';
+import { IntCarpeta, NuevaCarpeta } from '#@/lib/types/carpetas';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
+export async function GET () {
+  const carpetas = await getCarpetas();
+
+  const carpsLen = carpetas.length;
+
+  const daterFixer = InputDateHelper(
+    new Date()
+  );
+
+
+  const defaultValues: NuevaCarpeta = {
+    numero  : carpsLen +1,
+    category: 'sin Especificar',
+    deudor  : {
+      primerNombre   : '',
+      segundoNombre  : '',
+      primerApellido : '',
+      segundoApellido: '',
+      cedula         : 0,
+      email          : 'correo@ejemplo.com',
+      direccion      : '',
+      tel            : {
+        celular: 0,
+        fijo   : 0,
+      },
+    },
+    demanda: {
+      capitalAdeudado        : 1000000,
+      entregaGarantiasAbogado: daterFixer,
+      tipoProceso            : 'SINGULAR',
+      fechaPresentacion      : daterFixer,
+      vencimientoPagare      : [
+        daterFixer
+      ],
+      obligacion: {
+        A: 'primer obligacion',
+        B: 'segunda obligacion',
+      },
+    },
+  };
+
+  const stringCarpeta = JSON.stringify(
+    defaultValues
+  );
+  return new NextResponse(
+    stringCarpeta, {
+      status : 200,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  );
+}
+
 export async function PUT(
-  request: NextRequest 
+  request: NextRequest
 ) {
   const galletas = request.cookies.getAll();
 
   const {
-    searchParams, pathname 
+    searchParams, pathname
   } = request.nextUrl;
 
   console.log(
     JSON.stringify(
-      galletas 
-    ) 
+      galletas
+    )
   );
   console.log(
     JSON.stringify(
-      searchParams 
-    ) 
+      searchParams
+    )
   );
   console.log(
     JSON.stringify(
-      pathname 
-    ) 
+      pathname
+    )
   );
 
   const json = ( await request.json() ) as IntCarpeta;
@@ -33,7 +89,7 @@ export async function PUT(
   const collection = await carpetasCollection();
 
   const insertCarpeta = await collection.insertOne(
-    json 
+    json
   );
 
   if ( !insertCarpeta.acknowledged ) {
@@ -41,12 +97,12 @@ export async function PUT(
       null, {
         status    : 301,
         statusText: 'No se pudo isertar la carpeta',
-      } 
+      }
     );
   }
 
   return redirect(
-    `/Carpetas/id/${ insertCarpeta.insertedId }` 
+    `/Carpetas/id/${ insertCarpeta.insertedId }`
   );
   /*  return new NextResponse(
     JSON.stringify(

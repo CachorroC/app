@@ -4,6 +4,8 @@ declare const styles: {
   readonly 'right': string;
   readonly 'top': string;
   readonly 'left': string;
+  readonly 'leftGrid': string;
+  readonly 'leftColumn': string;
   readonly 'divission': string;
   readonly 'link': string;
   readonly 'loader': string;

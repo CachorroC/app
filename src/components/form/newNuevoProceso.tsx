@@ -62,142 +62,142 @@ export default function NewNuevoProceso(
             onSubmit
           )}
         >
-          <section className={form.sectionRow}>
-            <section className={ form.sectionRow }>
 
-              <InputSection
-                initialValue={nextNumber.toString()}
-                name={'numero'}
-                title={'Número'}
-                type={'number'}
-              />
-              <SelectSection
-                name={'category'}
-                title={'Grupo al que pertenece'}
-                options={[
-                  'Bancolombia',
-                  'Insolvencia',
-                  'Reintegra',
-                  'LiosJuridicos',
-                  'Terminados',
-                ]}
-              />
-            </section>
-            <section className={form.sectionColumn}>
-              <h3 className={typography.displaySmall}>{'Deudor'}</h3>
+          <section className={ form.sectionRow }>
 
+            <InputSection
+              initialValue={nextNumber.toString()}
+              name={'numero'}
+              title={'Número'}
+              type={'number'}
+            />
+            <SelectSection
+              name={'category'}
+              title={'Grupo al que pertenece'}
+              options={[
+                'Bancolombia',
+                'Insolvencia',
+                'Reintegra',
+                'LiosJuridicos',
+                'Terminados',
+              ]}
+            />
+          </section>
+          <section className={form.sectionColumn}>
+            <h3 className={typography.displaySmall}>{'Deudor'}</h3>
+
+            <InputSection
+              name={'deudor.primerNombre'}
+              title={'Primer Nombre'}
+              type={'text'}
+            />
+            <InputSection
+              key={'segundoNombre'}
+              name={'deudor.segundoNombre'}
+              title={'Segundo Nombre'}
+              type={'text'}
+              rls={{
+                required: false,
+              }}
+            />
+            <InputSection
+              name={'deudor.primerApellido'}
+              title={'Primer Apellido'}
+              type={'text'}
+            />
+            <InputSection
+              name={'deudor.segundoApellido'}
+              title={'Segundo Apellido'}
+              type={'text'}
+              rls={{
+                required: false,
+              }}
+            />
+            <InputSection
+              name={'deudor.cedula'}
+              title={'Cédula de Ciudadanía'}
+              type={'number'}
+            />
+            <InputSection
+              name={'deudor.direccion'}
+              title={'Dirección'}
+              type={'textarea'}
+              rls={{
+                required: false,
+              }}
+            />
+            <InputSection
+              name={'deudor.email'}
+              title={'Correo Electrónico'}
+              type={'email'}
+              rls={{
+                required: false,
+                pattern : /^\S+@\S+$/i,
+              }}
+            />
+            <section className={form.section}>
               <InputSection
-                name={'deudor.primerNombre'}
-                title={'Primer Nombre'}
-                type={'text'}
-              />
-              <InputSection
-                key={'segundoNombre'}
-                name={'deudor.segundoNombre'}
-                title={'Segundo Nombre'}
-                type={'text'}
+                name={'deudor.tel.celular'}
+                title={'celular'}
+                type={'tel'}
                 rls={{
                   required: false,
                 }}
               />
               <InputSection
-                name={'deudor.primerApellido'}
-                title={'Primer Apellido'}
-                type={'text'}
-              />
-              <InputSection
-                name={'deudor.segundoApellido'}
-                title={'Segundo Apellido'}
-                type={'text'}
+                name={'deudor.tel.fijo'}
+                title={'fijo'}
+                type={'tel'}
                 rls={{
                   required: false,
                 }}
-              />
-              <InputSection
-                name={'deudor.cedula'}
-                title={'Cédula de Ciudadanía'}
-                type={'number'}
-              />
-              <InputSection
-                name={'deudor.direccion'}
-                title={'Dirección'}
-                type={'textarea'}
-                rls={{
-                  required: false,
-                }}
-              />
-              <InputSection
-                name={'deudor.email'}
-                title={'Correo Electrónico'}
-                type={'email'}
-                rls={{
-                  required: false,
-                  pattern : /^\S+@\S+$/i,
-                }}
-              />
-              <section className={form.section}>
-                <InputSection
-                  name={'deudor.tel.celular'}
-                  title={'celular'}
-                  type={'tel'}
-                  rls={{
-                    required: false,
-                  }}
-                />
-                <InputSection
-                  name={'deudor.tel.fijo'}
-                  title={'fijo'}
-                  type={'tel'}
-                  rls={{
-                    required: false,
-                  }}
-                />
-              </section>
-            </section>
-
-            <section className={form.sectionColumn}>
-              <h3 className={typography.displaySmall}>{'Demanda'}</h3>
-              <InputSection
-                name={'demanda.capitalAdeudado'}
-                title={'Capital Adeudado'}
-                type={'number'}
-                rls={{
-                  required: true,
-                }}
-              />
-              <DateInputSection
-                name={'demanda.entregaGarantiasAbogado'}
-                title={'entrega de garantias'}
-              />
-
-              <InputSection
-                name={'demanda.obligacion.A'}
-                title={'Obligacion'}
-                type={'text'}
-              />
-              <InputSection
-                name={'demanda.obligacion.B'}
-                title={'Obligacion'}
-                type={'text'}
-              />
-              <SelectSection
-                name={'demanda.tipoProceso'}
-                title={'Tipo de Proceso'}
-                options={[
-                  'SINGULAR',
-                  'HIPOTECARIO',
-                  'PRENDARIO',
-                  'ACUMULADO'
-                ]}
-              />
-
-              <VencimientoPagareSection />
-              <DateInputSection
-                name={'demanda.fechaPresentacion'}
-                title={'fecha de presentacion de la demanda'}
               />
             </section>
           </section>
+
+          <section className={form.sectionColumn}>
+            <h3 className={typography.displaySmall}>{'Demanda'}</h3>
+            <InputSection
+              name={'demanda.capitalAdeudado'}
+              title={'Capital Adeudado'}
+              type={'number'}
+              rls={{
+                required: true,
+              }}
+            />
+            <DateInputSection
+              name={'demanda.entregaGarantiasAbogado'}
+              title={'entrega de garantias'}
+            />
+
+            <InputSection
+              name={'demanda.obligacion.A'}
+              title={'Obligacion'}
+              type={'text'}
+            />
+            <InputSection
+              name={'demanda.obligacion.B'}
+              title={'Obligacion'}
+              type={'text'}
+            />
+            <SelectSection
+              name={'demanda.tipoProceso'}
+              title={'Tipo de Proceso'}
+              options={[
+                'SINGULAR',
+                'HIPOTECARIO',
+                'PRENDARIO',
+                'ACUMULADO'
+              ]}
+            />
+
+            <VencimientoPagareSection />
+            <DateInputSection
+              name={'demanda.fechaPresentacion'}
+              title={'fecha de presentacion de la demanda'}
+            />
+          </section>
+
           <button
             type="submit"
             className={form.button}

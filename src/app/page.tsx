@@ -16,7 +16,7 @@ export default function Page() {
           {'R&S Asesoría Jurídica S.A.S'}
         </h1>
       </div>
-      <div className={layout.left}>
+      <div className={layout.leftGrid}>
         <Link
           className={layout.link}
           href={'/Carpetas/UltimasActuaciones'}

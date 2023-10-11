@@ -15,10 +15,6 @@ declare const styles: {
   readonly 'tooltiptext': string;
   readonly 'updated': string;
   readonly 'error': string;
-  readonly 'isActive': string;
-  readonly 'linkIsActive': string;
-  readonly 'notActive': string;
-  readonly 'errorContainer': string;
 };
 export = styles;
 

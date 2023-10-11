@@ -48,33 +48,33 @@ export const SelectSection = (
         <p className={styles.text}> {title}</p>
       </div>
 
-      { isOptionsOpen && (
-        <section  className={styles.segmentColumn}>
-          {options.map(
-            (
-              option
-            ) => {
-              return (
-                <button
-                  type='button'
-                  className={styles.buttonPassiveCategory}
-                  onClick={ (
-                    e
-                  ) => {
-                    e.stopPropagation();
-                    setValue(
-                      name, option
-                    );
-                  }}
-                  key={option}
-                >
-                  {option}
-                </button>
-              );
-            }
-          )}
-        </section>
-      )}
+
+      <section  className={styles.segmentRow}>
+        {options.map(
+          (
+            option
+          ) => {
+            return (
+              <button
+                type='button'
+                className={styles.buttonActiveCategory}
+                onClick={ (
+                  e
+                ) => {
+                  e.stopPropagation();
+                  setValue(
+                    name, option
+                  );
+                }}
+                key={option}
+              >
+                {option}
+              </button>
+            );
+          }
+        )}
+      </section>
+
     </section>
   );
 };

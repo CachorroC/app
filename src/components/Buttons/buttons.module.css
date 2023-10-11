@@ -3,7 +3,6 @@
   justify-content: space-evenly;
   align-items: stretch;
   box-sizing: border-box;
-  gap: 1cqmin;
 }
 .segmentRow {
   flex-flow: row nowrap;
@@ -43,7 +42,7 @@
   color: var(--on-secondary-container);
 }
 .segment .buttonPassiveCategory, .segmentRow .buttonPassiveCategory, .segmentColumn .buttonPassiveCategory {
-  background-color: var(--surface);
+  background-color: var(--secondary-container);
 }
 .segment .buttonPassiveCategory > .icon, .segmentRow .buttonPassiveCategory > .icon, .segmentColumn .buttonPassiveCategory > .icon, .segment .buttonPassiveCategory > .text, .segmentRow .buttonPassiveCategory > .text, .segmentColumn .buttonPassiveCategory > .text {
   color: var(--on-secondary-container);

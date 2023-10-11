@@ -21,7 +21,7 @@ export interface NuevaCarpeta {
   demanda: {
     capitalAdeudado: number;
     entregaGarantiasAbogado: string; //? Date
-    obligacion: Obligacion;
+    obligacion: Obligacion[] | null;
     tipoProceso: TipoProceso;
     vencimientoPagare: string[]; //?Date[]
     fechaPresentacion?: string; //?Date
@@ -60,16 +60,13 @@ export interface intDemanda {
   juzgados: intJuzgado[] | null;
   mandamientoPago: Date | null;
   municipio: string | null;
-  obligacion: Obligacion | null;
+  obligacion: Obligacion[] | null;
   radicado: string | null;
   tipoProceso: TipoProceso;
   vencimientoPagare: Date[] | null;
 }
 
-export interface Obligacion {
-  A?: number | string;
-  B?: number | string;
-}
+export type Obligacion =number | string;
 
 export type Departamento =
   | 'CUNDINAMARCA'
@@ -142,152 +139,152 @@ export type Concrete<Type> = {
 
 export class carpetaConvert {
   public static demandaToJson(
-    value: intDemanda 
+    value: intDemanda
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static departamentoToJson(
-    value: Departamento 
+    value: Departamento
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static deudorToJson(
-    value: intDeudor 
+    value: intDeudor
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static intCarpetasToJson(
-    value: IntCarpeta[] 
+    value: IntCarpeta[]
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static intCarpetaToJson(
-    value: IntCarpeta 
+    value: IntCarpeta
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static juzgadoToJson(
-    value: intJuzgado 
+    value: intJuzgado
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static telToJson(
-    value: intTel 
+    value: intTel
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static toDemanda(
-    json: string 
+    json: string
   ): intDemanda {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static toDepartamento(
-    json: string 
+    json: string
   ): Departamento {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static toDeudor(
-    json: string 
+    json: string
   ): intDeudor {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static toIntCarpeta(
-    json: string 
+    json: string
   ): IntCarpeta {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static toIntCarpetas(
-    json: string 
+    json: string
   ): IntCarpeta[] {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static toJuzgado(
-    json: string 
+    json: string
   ): intJuzgado {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static toMonCarpeta(
-    carpeta: WithId<IntCarpeta> 
+    carpeta: WithId<IntCarpeta>
   ): MonCarpeta {
     const pN
       = carpeta.deudor.primerNombre.charAt(
-        0 
+        0
       )
         .toUpperCase()
       + carpeta.deudor.primerNombre.toLowerCase()
         .slice(
-          1 
+          1
         );
 
     const pA
       = carpeta.deudor.primerApellido.charAt(
-        0 
+        0
       )
         .toUpperCase()
       + carpeta.deudor.primerApellido.toLowerCase()
         .slice(
-          1 
+          1
         );
 
     const sN
       = carpeta.deudor.segundoNombre
       && carpeta.deudor.segundoNombre.charAt(
-        0 
+        0
       )
         .toUpperCase()
         + carpeta.deudor.segundoNombre.toLowerCase()
           .slice(
-            1 
+            1
           );
 
     const sA
       = carpeta.deudor.segundoApellido
       && carpeta.deudor.segundoApellido.charAt(
-        0 
+        0
       )
         .toUpperCase()
         + carpeta.deudor.segundoApellido.toLowerCase()
           .slice(
-            1 
+            1
           );
 
     return {
@@ -318,26 +315,26 @@ export class carpetaConvert {
     };
   }
   public static toMonCarpetas(
-    carpetas: WithId<IntCarpeta>[] 
+    carpetas: WithId<IntCarpeta>[]
   ): MonCarpeta[] {
     const newCarpetas = carpetas.map(
       (
-        carpeta 
+        carpeta
       ) => {
         return this.toMonCarpeta(
-          carpeta 
+          carpeta
         );
-      } 
+      }
     );
 
     return newCarpetas;
   }
 
   public static toTel(
-    json: string 
+    json: string
   ): intTel {
     return JSON.parse(
-      json 
+      json
     );
   }
 }
