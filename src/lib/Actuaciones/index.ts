@@ -1,11 +1,11 @@
-import { cache } from 'react';
 import 'server-only';
+import { cache } from 'react';
 import { carpetasCollection } from '../connection/mongodb';
-import { sleep } from '../project/helper';
+import { sleep } from 'project/helper';
 import { Actuacion,
   ConsultaActuacion,
   Data,
-  Message, } from '../types/actuaciones';
+  Message, } from 'types/actuaciones';
 import { getCarpetaByllaveProceso } from '../project/carpetas';
 
 export async function fetchActuaciones(
@@ -123,7 +123,7 @@ export const updateActuaciones = cache(
       );
 
       const incomingDate = new Date(
-        ultimaActuacion.fechaActuacion
+        ultimaActuacion.fechaRegistro
       )
         .getTime();
 

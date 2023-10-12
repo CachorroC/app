@@ -1,15 +1,16 @@
 'use client';
-import { InputSection } from 'components/form/InputSection';
-import { SelectSection } from 'components/form/SelectSection';
 import form from 'components/form/form.module.css';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import React, { useEffect } from 'react';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { DateInputSection } from './DateInputSection';
-import ObligacionesComponent from './FieldArray';
-import VencimientoPagareSection from './DateInputSection/vencimiento-pagare-section';
+import { DateInputSection } from './date-section';
+import ObligacionesComponent from './field-array-section';
+import VencimientoPagareSection from './vencimiento-pagare-section';
 import { divider } from '#@/app/Carpetas/@right/Nueva/styles.module.css';
+import { InputSection } from './input-section';
+import { SelectSection } from './select-section';
+import { NumberSection } from './number-section';
 
 export const Form = (
   {
@@ -103,6 +104,9 @@ export const Form = (
             }}
             type={'number'}
           />
+          <NumberSection name={ 'numero' } title={ 'Numero' } rls={{
+            required: true
+          }}/>
 
           <SelectSection
             name={'category'}

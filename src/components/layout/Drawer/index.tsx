@@ -168,7 +168,7 @@ export default function Drawer(
               return !n;
             }
           );
-        }} href={'/Notas/Nueva'}
+        }} href={'/Notas/Nueva' as Route}
       >
         <span className="material-symbols-outlined">note_add</span>
         <h1 className={typography.labelMedium}>{'Nueva Nota'}</h1>

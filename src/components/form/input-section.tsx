@@ -5,7 +5,7 @@ import { FieldPath,
   RegisterOptions,
   useController,
   useFormContext, } from 'react-hook-form';
-import form from '../form.module.css';
+import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import {  type HTMLInputTypeAttribute } from 'react';
 
@@ -35,7 +35,7 @@ export const InputSection = (
   } = useFormContext<NuevaCarpeta| IntCarpeta>();
 
   const rules = rls ?? {
-    required: true,
+    required: false,
   };
 
   const {

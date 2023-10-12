@@ -92,40 +92,21 @@
 }
 .textArea:focus, .vencimientoArea:focus,
 .selectArea:focus {
-  border-left: var(--primary-container) solid 0.2rem;
+  border: var(--primary) solid 0.3rem;
 }
 
 .vencimientoArea {
   border-radius: 1cqmax 0 0 1cqmax;
 }
 
-.editButton {
-  grid-area: editButton;
-}
-
-.deleteButton {
-  grid-area: deleteButton;
-}
-
-.addButton {
-  grid-area: addButton;
-}
-
-.HomeButton {
-  grid-area: HomeButton;
-}
-
-.button,
-.editButton,
-.deleteButton,
-.addButton,
-.HomeButton {
+.button {
   border: none;
   box-shadow: var(--dp5);
   border-radius: 2vmin;
   padding: 1vmin;
   flex-grow: 1;
-  background-color: var(--secondary);
+  background-color: var(--secondary-container);
+  color: var(--on-secondary);
   display: flex;
   flex-flow: column nowrap;
   justify-items: center;
@@ -133,44 +114,16 @@
   justify-content: center;
   align-content: center;
 }
-.button > .ButtonTextHelper,
-.editButton > .ButtonTextHelper,
-.deleteButton > .ButtonTextHelper,
-.addButton > .ButtonTextHelper,
-.HomeButton > .ButtonTextHelper {
-  display: none;
-  opacity: 0;
+.button > .icon, .button > .text {
+  color: var(--on-secondary-container);
   transition: all 1s;
-}
-.button > span,
-.editButton > span,
-.deleteButton > span,
-.addButton > span,
-.HomeButton > span {
-  color: var(--on-secondary);
   font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
 }
-.button:hover, .button:active,
-.editButton:hover,
-.editButton:active,
-.deleteButton:hover,
-.deleteButton:active,
-.addButton:hover,
-.addButton:active,
-.HomeButton:hover,
-.HomeButton:active {
+.button:hover, .button:active {
   background-color: var(--tertiary-container);
   box-shadow: var(--dp8);
 }
-.button:hover > span, .button:active > span,
-.editButton:hover > span,
-.editButton:active > span,
-.deleteButton:hover > span,
-.deleteButton:active > span,
-.addButton:hover > span,
-.addButton:active > span,
-.HomeButton:hover > span,
-.HomeButton:active > span {
+.button:hover > span, .button:active > span {
   font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
   color: var(--tertiary);
 }

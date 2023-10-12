@@ -1,7 +1,7 @@
 import searchbar from './searchbar.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
 import styles from 'components/Card/card.module.css';
-import { section } from '#@/components/form/form.module.css';
+import { section } from 'components/form/form.module.css';
+import typography from '#@/styles/fonts/typography.module.css';
 
 export default function LinkCardSkeleton() {
   return (

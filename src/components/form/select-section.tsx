@@ -2,7 +2,7 @@
 
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath, useFormContext } from 'react-hook-form';
-import form from '../form.module.css';
+import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { useState } from 'react';
 import styles from '#@/components/Buttons/buttons.module.css';

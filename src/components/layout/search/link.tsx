@@ -7,6 +7,7 @@ import searchbar from 'components/layout/search/searchbar.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 import { useSearch } from '#@/app/context/search-context';
+import type { Route } from 'next';
 
 export const LinkCard = (
   {
@@ -54,7 +55,7 @@ export const LinkCard = (
     content = (
       <Link
         key={carpeta._id}
-        href={`${ path }/${ numero }`}
+        href={`${ path }/${ numero }` as Route}
         className={searchbar.container}
       >
         <div className={isActive
@@ -86,7 +87,7 @@ export const LinkCard = (
         return (
           <Link
             key={idProceso}
-            href={`${ path }/${ numero }`}
+            href={`${ path }/${ numero }` as Route}
             className={searchbar.container}
           >
             <div className={isActive

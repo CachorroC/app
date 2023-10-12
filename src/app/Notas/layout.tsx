@@ -8,8 +8,8 @@ import Link from 'next/link';
 
 export default function NotasLayoutMain(
   {
-    children 
-  }: { children: ReactNode } 
+    children, right
+  }: { children: ReactNode ; right: ReactNode}
 ) {
   return (
     <>
@@ -24,7 +24,8 @@ export default function NotasLayoutMain(
           <span className={`material-symbols-outlined ${ icon }`}>note_alt</span>
         </Link>
       </div>
-      <div className={styles.left}>{children}</div>
+      <div className={ styles.left }>{ children }</div>
+      <div className={styles.right}>{right}</div>
     </>
   );
 }

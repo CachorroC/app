@@ -96,7 +96,7 @@
     border-left: var(--primary) solid .18rem;
   }
   &:focus {
-    border-left: var(--primary-container) solid .2rem;
+    border: var(--primary) solid .3rem;
   }
 }
 
@@ -105,42 +105,27 @@
   border-radius: 1cqmax 0 0 1cqmax;
 }
 
-.editButton {
-  grid-area: editButton;
-}
-.deleteButton {
-  grid-area: deleteButton;
-}
-.addButton {
-  grid-area: addButton;
-}
-.HomeButton {
-  grid-area: HomeButton;
-}
-.button,
-.editButton,
-.deleteButton,
-.addButton,
-.HomeButton {
+
+.button {
+
   border: none;
   box-shadow: var(--dp5);
   border-radius: 2vmin;
   padding: 1vmin;
   flex-grow: 1;
-  background-color: var(--secondary);
+  background-color: var(--secondary-container);
+  color: var(--on-secondary);
   display: flex;
   flex-flow: column nowrap;
   justify-items: center;
   align-items: center;
   justify-content: center;
   align-content: center;
-  & > .ButtonTextHelper {
-    display: none;
-    opacity: 0;
-    transition: all 1s;
-  }
-  & > span {
-    color: var(--on-secondary);
+
+
+  & > .icon, & > .text {
+    color: var(--on-secondary-container);
+        transition: all 1s;
     font-variation-settings:
       "FILL" 0,
       "wght" 300,

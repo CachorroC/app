@@ -1,16 +1,7 @@
-import NewNuevoProceso from '#@/components/form/newNuevoProceso';
-import getCarpetas from '#@/lib/project/getCarpetas';
+import NuevoProceso from '#@/components/form/nuevo-proceso';
 
-export default async function Page() {
-  const carpetas = await getCarpetas();
-
-  const carpetasLength = carpetas.length;
-
-  const nextNumber = carpetasLength + 1;
+export default function Page() {
   return (
-    <NewNuevoProceso
-      key={nextNumber}
-      nextNumber={nextNumber}
-    />
+    <NuevoProceso />
   );
 }

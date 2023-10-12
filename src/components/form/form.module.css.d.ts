@@ -12,12 +12,9 @@ declare const styles: {
   readonly 'textArea': string;
   readonly 'vencimientoArea': string;
   readonly 'selectArea': string;
-  readonly 'editButton': string;
-  readonly 'deleteButton': string;
-  readonly 'addButton': string;
-  readonly 'HomeButton': string;
   readonly 'button': string;
-  readonly 'ButtonTextHelper': string;
+  readonly 'icon': string;
+  readonly 'text': string;
   readonly 'switchBox': string;
   readonly 'inputElement': string;
   readonly 'slider': string;

@@ -5,32 +5,48 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { deleteNota } from '#@/app/actions';
 
+
 export function DeleteNoteButton(
   {
-    id 
-  }: { id: string } 
+    id
+  }: { id: string }
 ) {
-  function onDelete() {
-    deleteNota(
-      id 
-    );
-  }
 
   return (
-    <button
-      className={note.buttonDelete}
+
+    <><button
+      className={ note.buttonDelete }
+      onClick={ () => {
+        return deleteNota(
+          {
+            id: id
+          }
+        );
+      } }
       type="button"
-      onClick={onDelete}
     >
-      <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
-    </button>
+      <span className={ `material-symbols-outlined ${ note.icon }` }>delete</span>
+    </button><button
+      className={ note.buttonDelete }
+      onClick={ () => {
+        deleteNota(
+          {
+            id: id
+          }
+        );
+      } }
+      type="button"
+    >
+      <span className={ `material-symbols-outlined ${ note.icon }` }>delete</span>
+    </button></>
+
   );
 }
 
 export function AddNoteButton(
   {
-    nota 
-  }: { nota: intNota } 
+    nota
+  }: { nota: intNota }
 ) {
   async function addRequestHandler() {
     const Request = await fetch(
@@ -40,20 +56,20 @@ export function AddNoteButton(
           'content-type': 'application/json',
         },
         body: JSON.stringify(
-          nota 
+          nota
         ),
-      } 
+      }
     )
       .then(
         (
-          fullfilled 
+          fullfilled
         ) => {
           alert(
-            fullfilled.status.toString() 
+            fullfilled.status.toString()
           );
 
           return fullfilled;
-        } 
+        }
       );
 
     if ( !Request.ok ) {
@@ -63,8 +79,8 @@ export function AddNoteButton(
     const Response = await Request.json();
     alert(
       JSON.stringify(
-        Response 
-      ) 
+        Response
+      )
     );
   }
 
@@ -81,8 +97,8 @@ export function AddNoteButton(
 
 export function EditNoteButton(
   {
-    nota 
-  }: { nota: monNota } 
+    nota
+  }: { nota: monNota }
 ) {
   return (
     <Link

@@ -6,7 +6,7 @@ import { IntCarpeta } from '#@/lib/types/carpetas';
 
 export default function Page() {
   const {
-    setFocus 
+    setFocus
   } = useFormContext<IntCarpeta>();
 
   const carpetaKeys: FieldPath<IntCarpeta>[] = [
@@ -24,34 +24,34 @@ export default function Page() {
     <>
       {carpetaKeys.map(
         (
-          carpetaKey 
+          carpetaKey
         ) => {
           return (
             <button
               key={carpetaKey}
               type={'button'}
-              className={form.addButton}
+              className={form.button}
               onClick={() => {
                 setFocus(
                   carpetaKey, {
                     shouldSelect: true,
-                  } 
+                  }
                 );
               }}
             >
               <span>{carpetaKey}</span>
             </button>
           );
-        } 
+        }
       )}
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'numero', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -59,12 +59,12 @@ export default function Page() {
       </button>
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'category', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -72,12 +72,12 @@ export default function Page() {
       </button>
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'llaveProceso', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -85,12 +85,12 @@ export default function Page() {
       </button>
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'tipoProceso', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -98,12 +98,12 @@ export default function Page() {
       </button>
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'deudor.primerNombre', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -111,12 +111,12 @@ export default function Page() {
       </button>
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'deudor.segundoNombre', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >

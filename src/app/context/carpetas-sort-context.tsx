@@ -118,10 +118,6 @@ export function carpetasReducer(
               return sorter[ 0 ];
             }
 
-            const isAstring = typeof a.fecha === 'string';
-
-            const isBstring = typeof b.fecha === 'string';
-
 
             const x = a.fecha;
 

@@ -2,7 +2,7 @@
 
 import { NuevaCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath, useController, useFormContext } from 'react-hook-form';
-import form from '../form.module.css';
+import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import { useState } from 'react';
@@ -16,40 +16,40 @@ export const DateInputSection = (
   name: FieldPath<NuevaCarpeta>;
   title: string;
   initialValue?: Date;
-} 
+}
 ) => {
   const dateValue = initialValue
     ? initialValue
     : new Date();
 
   console.log(
-    dateValue 
+    dateValue
   );
 
   const [
     stringDateValue,
     setStringDateValue
   ] = useState(
-    dateValue 
+    dateValue
   );
 
   const {
-    control, setValue 
+    control, setValue
   } = useFormContext();
 
   const rules = {
-    required: true,
+    required: false,
   };
 
   const {
-    field 
+    field
   } = useController(
     {
       name,
       defaultValue: stringDateValue,
       control,
       rules,
-    } 
+    }
   );
   return (
     <section className={form.sectionRow}>
@@ -64,10 +64,10 @@ export const DateInputSection = (
         name={field.name}
         className={form.textArea}
         value={InputDateHelper(
-          stringDateValue 
+          stringDateValue
         )}
         onChange={(
-          e 
+          e
         ) => {
           const [
             yearStringer,
@@ -75,30 +75,30 @@ export const DateInputSection = (
             dayStringer
           ]
             = e.target.value.split(
-              '-' 
+              '-'
             );
 
           const newYear = Number(
-            yearStringer 
+            yearStringer
           );
 
           const newMonth = Number(
-            monthStringer 
+            monthStringer
           ) - 1;
 
           const newDay = Number(
-            dayStringer 
+            dayStringer
           );
           field.onChange(
-            e.target.value 
+            e.target.value
           );
           setValue(
-            name, e.target.value 
+            name, e.target.value
           );
           setStringDateValue(
             new Date(
-              newYear, newMonth, newDay 
-            ) 
+              newYear, newMonth, newDay
+            )
           );
         }}
       />

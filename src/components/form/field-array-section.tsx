@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import styles from '../form.module.css';
+import styles from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 
 let renderCount = 0;
@@ -75,43 +75,23 @@ export default function ObligacionesComponent() {
             );
           }}
         >
-          append
+          <span className={ styles.text }>agregar</span>
+          <span className={`material-symbols-outlined ${ styles.icon }`}>variables</span>
         </button>
+
+
 
         <button
           className={styles.button}
           type="button"
           onClick={() => {
-            setValue(
-              'test', [
-                ...( getValues().test || [] ),
-                {
-                  name       : 'append',
-                  nestedArray: [
-                    {
-                      field1: 'append',
-                      field2: 'append',
-                    },
-                  ],
-                },
-              ]
-            );
-          }}
-        >
-          Append Nested
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
             prepend(
-              {
-                name: 'append',
-              }
+              ''
             );
           }}
         >
-          prepend
+          <span className={ styles.text }>agregar antes</span>
+          <span className={`material-symbols-outlined ${ styles.icon }`}>variables</span>
         </button>
 
         <button

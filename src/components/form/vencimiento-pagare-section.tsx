@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react';
 import { useFormContext, useFieldArray } from 'react-hook-form';
-import styles from '../form.module.css';
+import styles from './form.module.css';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import { josefina } from '#@/styles/fonts';
 let renderCount = 0;

@@ -31,7 +31,7 @@ export default function Page() {
             <button
               key={carpetaKey}
               type={'button'}
-              className={form.addButton}
+              className={form.button}
               onClick={() => {
                 setFocus(
                   carpetaKey, {
@@ -47,7 +47,7 @@ export default function Page() {
       )}
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'numero', {
@@ -60,7 +60,7 @@ export default function Page() {
       </button>
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'category', {
@@ -74,7 +74,7 @@ export default function Page() {
 
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'demanda.tipoProceso', {
@@ -87,7 +87,7 @@ export default function Page() {
       </button>
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'deudor.primerNombre', {
@@ -100,7 +100,7 @@ export default function Page() {
       </button>
       <button
         type={'button'}
-        className={form.addButton}
+        className={form.button}
         onClick={() => {
           setFocus(
             'deudor.segundoNombre', {

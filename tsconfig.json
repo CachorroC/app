@@ -13,7 +13,8 @@
     "paths": {
       "#@/*": ["./src/*"],
       "components/*": ["./src/components/*"],
-      "types/*": ["./src/lib/types/*"]
+      "types/*": ["./src/lib/types/*"],
+      "project/*": ["./src/lib/project/*"]
     },
     "plugins": [
       {
@@ -30,8 +31,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/service-worker.ts",
-    "public/service-worker.ts",
     "public/service-worker.js"
   ],
   "exclude": ["node_modules"]

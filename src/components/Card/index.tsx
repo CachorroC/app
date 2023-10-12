@@ -66,7 +66,7 @@ export const Card = (
     contentIdProcesos = (
       <Link
         key={_id}
-        href={`${ path }/${ numero }` }
+        href={`${ path }/${ numero }` as Route}
         className={ styles.link}
       >
         <div className={sectionColumn}>
@@ -98,7 +98,7 @@ export const Card = (
         return (
           <Link
             key={idProceso}
-            href={`${ path }/${ numero }/ultimasActuaciones/${ idProceso }`}
+            href={`${ path }/${ numero }/ultimasActuaciones/${ idProceso }`as Route}
             className={styles.link}
           >
             <div className={isActive
@@ -138,7 +138,7 @@ export const Card = (
         <section className={sectionColumn}>
           <div className={styles.title}>
             <h4 className={typography.headlineSmall}>{carpeta.nombre}</h4>
-            <Link className={ `${ typography.labelSmall } ${ styles.link }` } href={`/Carpeta/${ numero }`}>
+            <Link className={ `${ typography.labelSmall } ${ styles.link }` } href={`/Carpeta/${ numero }` as Route}>
               <span className={typography.labelLarge}>{`# ${ numero }`}</span>
               <span className={`material-symbols-outlined ${ styles.icon }`}>folder</span>
             </Link>
@@ -166,7 +166,7 @@ export const Card = (
           </Link>
           {errorLLaveProceso && (
             <Link
-              href={`/Carpeta/${ numero }/Editar` }
+              href={`/Carpeta/${ numero }/Editar` as Route }
               className={styles.link}
             >
               {'error con el numero de expediente'}
