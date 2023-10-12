@@ -174,7 +174,7 @@
   color: var(--on-secondary);
 }
 
-.error {
+.errorContainer {
   background-color: var(--error-container);
   color: var(--on-error-container);
 }

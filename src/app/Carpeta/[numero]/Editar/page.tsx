@@ -1,6 +1,6 @@
+import { Form } from '#@/components/form/Form';
 import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
-import EditCarpeta from '#@/components/form/Editar-carpeta';
 
 export default async function PageCarpetaId(
   {
@@ -22,7 +22,7 @@ export default async function PageCarpetaId(
   return (
     <>
 
-      <EditCarpeta
+      <Form
         carpeta={carpeta}
         key={carpeta._id}
       />

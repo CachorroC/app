@@ -1,5 +1,4 @@
 declare const styles: {
-  readonly 'container': string;
   readonly 'displayLarge': string;
   readonly 'displayMedium': string;
   readonly 'displaySmall': string;

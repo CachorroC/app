@@ -57,10 +57,10 @@ export interface intDemanda {
   etapaProcesal: null | string;
   expediente: null | string;
   fechaPresentacion: Date | null;
+  obligacion: Obligacion[] | null;
   juzgados: intJuzgado[] | null;
   mandamientoPago: Date | null;
   municipio: string | null;
-  obligacion: Obligacion[] | null;
   radicado: string | null;
   tipoProceso: TipoProceso;
   vencimientoPagare: Date[] | null;

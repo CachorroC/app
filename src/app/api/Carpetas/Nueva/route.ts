@@ -39,10 +39,11 @@ export async function GET () {
       vencimientoPagare      : [
         daterFixer
       ],
-      obligacion: {
-        A: 'primer obligacion',
-        B: 'segunda obligacion',
-      },
+      obligacion: [
+        'primera obligacion',
+        1,
+        'tercera obligacion'
+      ]
     },
   };
 

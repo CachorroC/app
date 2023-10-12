@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 export const dynamicParams = true;
 
-export default async function Procesos() {
+export default async function Procesos () {
   const carpetasRaw = await getCarpetas();
 
   const carpetas = [
@@ -25,9 +25,9 @@ export default async function Procesos() {
         return -1;
       }
 
-      const x = a.fecha.toISOString();
+      const x = a.fecha;
 
-      const y = b.fecha.toISOString();
+      const y = b.fecha;
 
       if ( x < y ) {
         return 1;
@@ -49,7 +49,7 @@ export default async function Procesos() {
         ) => {
           return (
             <Card
-              path={'/Carpetas/Expediente'}
+              path={'/Carpeta'}
               carpeta={carpeta}
               key={carpeta._id}
             >

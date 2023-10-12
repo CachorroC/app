@@ -7,7 +7,6 @@ import searchbar from 'components/layout/search/searchbar.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 import { useSearch } from '#@/app/context/search-context';
-import type { Route } from 'next';
 
 export const LinkCard = (
   {
@@ -16,24 +15,23 @@ export const LinkCard = (
   }: {
   path: string;
   carpeta: MonCarpeta;
-} 
+}
 ) => {
   let content;
 
   const {
-    search 
+    search
   } = useSearch();
 
   const {
-    deudor, fecha, llaveProceso 
+    deudor, fecha, llaveProceso, numero, nombre
   } = carpeta;
 
-  const Nombre = carpeta.nombre;
 
   const pathname = usePathname();
 
   const {
-    category 
+    category
   } = useCategory();
 
   if ( category !== 'todos' ) {
@@ -44,37 +42,37 @@ export const LinkCard = (
 
   const isActive
     = pathname === `${ path }/${ llaveProceso }`
-    || pathname === `${ path }/${ carpeta._id }`;
+    || pathname === `${ path }/${ carpeta.numero }`;
 
   const isSearch
     = carpeta.nombre.toLowerCase()
       .indexOf(
-        search.toLowerCase() 
+        search.toLowerCase()
       ) === -1;
 
   if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
     content = (
       <Link
         key={carpeta._id}
-        href={`${ path }/${ carpeta.llaveProceso }` as Route}
+        href={`${ path }/${ numero }`}
         className={searchbar.container}
       >
         <div className={isActive
           ? searchbar.isActive
           : searchbar.notActive}>
           <sup className={`${ !isSearch && searchbar.sub }`}>
-            {carpeta.numero}
+            {`# ${ numero }`}
           </sup>
           <h4
             key={deudor.cedula}
             className={`${ typography.titleMedium } ${ searchbar.title }`}
           >
-            {Nombre}
+            {nombre}
           </h4>
 
           {fecha && (
             <sub className={searchbar.date}>{fixFechas(
-              fecha.toString() 
+              fecha.toString()
             )}</sub>
           )}
         </div>
@@ -83,12 +81,12 @@ export const LinkCard = (
   } else {
     content = carpeta.idProcesos.map(
       (
-        idProceso 
+        idProceso
       ) => {
         return (
           <Link
             key={idProceso}
-            href={`${ path }/${ carpeta.llaveProceso }/${ idProceso }` as Route}
+            href={`${ path }/${ numero }`}
             className={searchbar.container}
           >
             <div className={isActive
@@ -101,20 +99,20 @@ export const LinkCard = (
                 key={deudor.cedula}
                 className={`${ typography.titleMedium } ${ searchbar.title }`}
               >
-                {Nombre}
+                {nombre}
               </h4>
 
               {fecha && (
                 <sub className={searchbar.date}>
                   {fixFechas(
-                    fecha.toString() 
+                    fecha.toString()
                   )}
                 </sub>
               )}
             </div>
           </Link>
         );
-      } 
+      }
     );
   }
 

@@ -11,16 +11,16 @@ export default function Error(
   }: {
   error: Error & { digest?: string };
   reset: () => void;
-} 
+}
 ) {
   useEffect(
     () => {
       console.error(
-        error 
+        error
       );
     }, [
       error
-    ] 
+    ]
   );
 
   return (
@@ -29,7 +29,7 @@ export default function Error(
       <p className={typography.bodyMedium}>{error.message}</p>
       <span>{error.digest}</span>
       <button
-        className={styles.error}
+        className={styles.errorContainer}
         onClick={() => {
           return reset();
         }}

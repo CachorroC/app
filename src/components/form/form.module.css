@@ -3,12 +3,13 @@
   container-type: inline-size;
   display: flex;
   grid-area: span 1/span 4;
-  overflow: auto;
+  background-color: var(--surface-dim);
   box-sizing: border-box;
   border-radius: 2vmin;
   flex-flow: column nowrap;
 }
 .container .form {
+  overflow: auto;
   display: flex;
   width: 100%;
   height: 100%;
@@ -27,12 +28,14 @@
 
 .section, .sectionColumn, .sectionRow {
   gap: 1cqmin;
+  border-radius: 1em;
   padding: 1cqmin;
   flex: 1;
   display: flex;
 }
 .sectionRow {
   flex-flow: row nowrap;
+  border: solid 0.1rem var(--secondary);
 }
 .sectionColumn {
   flex-flow: column nowrap;
@@ -70,12 +73,13 @@
 
 .textArea, .vencimientoArea,
 .selectArea {
-  font-family: var(--raleway);
+  border: solid 0.15rem var(--outline);
+  font-family: var(--josefa);
+  font-size: 1rem;
   box-sizing: border-box;
   background-color: var(--surface-bright);
   color: var(--on-surface);
   flex: 2;
-  border-left: solid 2px var(--outline-variant);
   border-radius: 0 1cqmax 1cqmax 0;
   resize: both;
   text-align: center;
@@ -84,11 +88,11 @@
 .textArea:hover, .vencimientoArea:hover,
 .selectArea:hover {
   box-shadow: var(--dp8);
-  border-left: var(--outline-variant) solid 1cqmin;
+  border-left: var(--primary) solid 0.18rem;
 }
 .textArea:focus, .vencimientoArea:focus,
 .selectArea:focus {
-  border-left: var(--primary) solid 1cqmin;
+  border-left: var(--primary-container) solid 0.2rem;
 }
 
 .vencimientoArea {

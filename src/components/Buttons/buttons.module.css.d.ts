@@ -1,6 +1,7 @@
 declare const styles: {
   readonly 'segment': string;
   readonly 'segmentColumn': string;
+  readonly 'segmentDetached': string;
   readonly 'segmentRow': string;
   readonly 'button': string;
   readonly 'buttonHome': string;

@@ -1,9 +1,8 @@
-import { Inter,
-  Raleway,
+import { Raleway,
   Playfair_Display,
-  Jost,
   Josefin_Sans,
-  Roboto, } from 'next/font/google';
+  PT_Serif_Caption,
+  Radio_Canada, } from 'next/font/google';
 
 export const playDisp = Playfair_Display(
   {
@@ -13,19 +12,19 @@ export const playDisp = Playfair_Display(
     ],
     preload : true,
     variable: '--play-display',
-  } 
+  }
 );
 
-export const inter = Inter(
+export const ptserif = PT_Serif_Caption(
   {
     subsets: [
-      'latin-ext',
       'latin'
     ],
     display : 'auto',
     preload : false,
     variable: '--inter',
-  } 
+    weight  : '400'
+  }
 );
 
 export const josefina = Josefin_Sans(
@@ -35,17 +34,17 @@ export const josefina = Josefin_Sans(
     ],
     preload : false,
     variable: '--josefa',
-  } 
+  }
 );
 
-export const jost = Jost(
+export const radio = Radio_Canada(
   {
     subsets: [
       'latin-ext'
     ],
-    preload : true,
-    variable: '--jost',
-  } 
+    preload : false,
+    variable: '--radio',
+  }
 );
 
 export const raleway = Raleway(
@@ -53,25 +52,7 @@ export const raleway = Raleway(
     subsets: [
       'latin'
     ],
-    preload : false,
+    preload : true,
     variable: '--raleway',
-  } 
-);
-
-export const roboto = Roboto(
-  {
-    subsets: [
-      'latin'
-    ],
-    preload : false,
-    variable: '--roboto',
-    weight  : [
-      '100',
-      '300',
-      '400',
-      '500',
-      '700',
-      '900'
-    ],
-  } 
+  }
 );

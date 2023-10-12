@@ -14,7 +14,7 @@ declare const styles: {
   readonly 'icon': string;
   readonly 'tooltiptext': string;
   readonly 'updated': string;
-  readonly 'error': string;
+  readonly 'errorContainer': string;
 };
 export = styles;
 

@@ -7,7 +7,7 @@ import { FieldPath,
   useFormContext, } from 'react-hook-form';
 import form from '../form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import type { HTMLInputTypeAttribute } from 'react';
+import {  type HTMLInputTypeAttribute } from 'react';
 
 export const InputSection = (
   {
@@ -28,6 +28,8 @@ export const InputSection = (
 }
 ) => {
 
+
+
   const {
     control, setValue
   } = useFormContext<NuevaCarpeta| IntCarpeta>();
@@ -46,9 +48,9 @@ export const InputSection = (
     }
   );
   return (
-    <section className={form.sectionRow}>
+    <div className={ form.sectionRow } >
       <label
-        className={`${ form.label } ${ typography.titleLarge }`}
+        className={`${ form.label } ${ typography.titleMedium }`}
         htmlFor={name}
       >
         {title}
@@ -72,6 +74,6 @@ export const InputSection = (
           );
         }}
       />
-    </section>
+    </div>
   );
 };

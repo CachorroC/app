@@ -1,71 +1,77 @@
 import React, { Fragment } from 'react';
-import { FieldPath, useFieldArray, useFormContext } from 'react-hook-form';
-import { NuevaCarpeta, IntCarpeta } from '#@/lib/types/carpetas';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import styles from '../form.module.css';
+import typography from '#@/styles/fonts/typography.module.scss';
 
 let renderCount = 0;
 
-export default function FieldArrayComponent(
-  {
-    name,
-  }: {
-  name: FieldPath<IntCarpeta | NuevaCarpeta>;
-}
-) {
+export default function ObligacionesComponent() {
   const {
-    control, register, setValue, getValues, watch
-  } = useFormContext<IntCarpeta>();
+    control, register, setValue, getValues
+  } = useFormContext();
 
   const {
     fields, append, remove, prepend
   } = useFieldArray(
     {
       control,
-      name: 'obligacion',
+      name: 'demanda.obligacion',
     }
   );
-
 
   renderCount++;
 
   return (
     <>
-      <ul>
-        {fields.map(
-          (
-            field, index
-          ) => {
-            return (
-              <Fragment key={field.id}>
-                <input
-                  key={ field.id }
-                  {...register(
-                    `demanda.obligacion.${ index }`
-                  )}
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    return remove(
-                      index
-                    );
-                  }}
-                >
-                Delete
-                </button>
-              </Fragment>
-            );
-          }
-        )}
-      </ul>
+      <label
+        className={`${ styles.label } ${ typography.titleMedium }`}
+        htmlFor={'demanda.obligacion'}
+      >
+        {'Obligaciones del deudor'}
+      </label>
+      {fields.map(
+        (
+          field, index
+        ) => {
+          return (
+            <section
+              className={styles.sectionRow}
+              key={field.id}
+            >
+              <label
+                className={`${ styles.label } ${ typography.titleMedium }`}
+                htmlFor={`demanda.obligacion.${ index }`}
+              >{`Obligacion ${ index + 1 }`}</label>
+              <input
+                className={styles.textArea}
+                key={field.id}
+                {...register(
+                  `demanda.obligacion.${ index }`
+                )}
+              />
+              <button
+                className={styles.button}
+                type="button"
+                onClick={() => {
+                  return remove(
+                    index
+                  );
+                }}
+              >
+              Delete
+              </button>
+            </section>
+          );
+        }
+      )}
 
-      <section>
+      <section className={styles.sectionRow}>
         <button
+          className={styles.button}
           type="button"
           onClick={() => {
             append(
-              {
-                name: 'append',
-              }
+              ''
             );
           }}
         >
@@ -73,6 +79,7 @@ export default function FieldArrayComponent(
         </button>
 
         <button
+          className={styles.button}
           type="button"
           onClick={() => {
             setValue(

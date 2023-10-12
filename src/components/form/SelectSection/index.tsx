@@ -11,17 +11,19 @@ export const SelectSection = (
   {
     name,
     title,
-    options,
+    options, initialValue
   }: {
   name: FieldPath<IntCarpeta>;
   title: string;
-  options: string[];
+      options: string[];
+      initialValue?: string;
 }
 ) => {
 
   const {
     setValue
   } = useFormContext<IntCarpeta>();
+
 
   const [
     isOptionsOpen,
@@ -30,8 +32,9 @@ export const SelectSection = (
     false
   );
 
+
   return (
-    <section className={form.sectionColumn}>
+    <section className={styles.segmentColumn}>
       <div onClick={(      ) => {
         setIsOptionsOpen(
           (
@@ -40,40 +43,46 @@ export const SelectSection = (
             return !o;
           }
         );
-      }} className={`${ form.sectionRow } ${ typography.titleLarge }`}
+      }} className={`${ form.sectionColumn } `}
       >
         <span className={`material-symbols-outlined ${ styles.icon }`}>{isOptionsOpen
-          ? 'expand_more'
-          : 'expand_less'}</span>
-        <p className={styles.text}> {title}</p>
+          ? 'expand_less'
+          : 'expand_more'}</span>
+        <p className={`${ styles.text } ${ typography.titleMedium }`}> {title}</p>
       </div>
 
-
-      <section  className={styles.segmentRow}>
-        {options.map(
-          (
-            option
-          ) => {
-            return (
-              <button
-                type='button'
-                className={styles.buttonActiveCategory}
-                onClick={ (
-                  e
-                ) => {
-                  e.stopPropagation();
-                  setValue(
-                    name, option
-                  );
-                }}
-                key={option}
-              >
-                {option}
-              </button>
-            );
-          }
-        )}
-      </section>
+      {isOptionsOpen && (
+        <section  className={styles.segmentDetached}>
+          {options.map(
+            (
+              option
+            ) => {
+              return (
+                <button
+                  type='button'
+                  className={
+                    initialValue && ( option === initialValue )
+                      ? styles.buttonActiveCategory
+                      : styles.buttonPassiveCategory
+                  }
+                  onClick={
+                    (
+                      e
+                    ) => {
+                      e.stopPropagation();
+                      setValue(
+                        name, option
+                      );
+                    }
+                  }
+                  key={option}
+                >
+                  <p className={styles.text}>{option}</p>
+                </button>
+              );
+            }
+          )}
+        </section> )}
 
     </section>
   );

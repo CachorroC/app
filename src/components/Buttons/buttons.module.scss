@@ -6,6 +6,7 @@
   &Row {
     @extend .segment;
     flex-flow: row nowrap;
+
     .button {
       &:nth-child(1) {
         border-radius: 2vmin 0 0 2vmin;
@@ -15,6 +16,23 @@
       }
     }
   }
+  &Detached{
+      @extend .segment;
+      flex-flow: column nowrap;
+      position: absolute;
+      max-height: 200px;;
+      box-shadow: var(--dp6);
+      border-radius: 2vmin;
+      margin-top: 50px;
+    .button {
+      &:nth-child(1) {
+        border-radius: 2vmin 2vmin 0 0;
+      }
+      &:nth-last-child(1) {
+        border-radius: 0 0 2vmin 2vmin;
+      }
+    }
+    }
   &Column {
     @extend .segment;
     flex-flow: column nowrap;
@@ -41,10 +59,10 @@
     transition: all 0.3s;
     &ActiveCategory {
       @extend .button;
-      background-color: var(--secondary-container);
+      background-color: var(--secondary);
       & > .icon,
       & > .text {
-        color: var(--on-secondary-container);
+        color: var(--on-secondary);
       }
     }
     &PassiveCategory {
@@ -113,6 +131,7 @@
 
     &:hover,
     &:active {
+       transform: scale(1.1);
       background-color: var(--primary-fixed);
       box-shadow: var(--dp6);
       border: 2px solid var(--outline);

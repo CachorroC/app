@@ -4,16 +4,14 @@ import type { Metadata } from 'next';
 import { ReactNode, Suspense } from 'react';
 import layout from '#@/styles/layout.module.css';
 import { MainProvider } from './context/main-context';
-import { inter,
-  josefina,
-  jost,
+import { josefina,
+  radio,
   playDisp,
   raleway,
-  roboto, } from '#@/styles/fonts';
+  ptserif, } from '#@/styles/fonts';
 import 'material-symbols';
 import { SearchProvider } from './context/search-context';
 import { ModalProvider } from './context/modal-context';
-import { CarpetaFormProvider } from './context/nueva-carpeta-form-context';
 import getCarpetas from '#@/lib/project/getCarpetas';
 
 import { CarpetasSortProvider } from './context/carpetas-sort-context';
@@ -96,11 +94,9 @@ export default async function RootLayout(
   {
     children,
     modal,
-    alt,
   }: {
   children: ReactNode;
   modal: ReactNode;
-  alt: ReactNode;
 }
 ) {
   const carpetas = await getCarpetas();
@@ -110,7 +106,7 @@ export default async function RootLayout(
   return (
     <html lang="es">
       <body
-        className={`${ playDisp.variable } ${ jost.variable } ${ raleway.variable } ${ inter.variable } ${ roboto.variable } ${ josefina.variable }  [ color-scheme: light dark ]`}
+        className={`${ playDisp.variable } ${ radio.variable } ${ raleway.variable } ${ ptserif.variable } ${ josefina.variable }  [ color-scheme: light dark ]`}
       >
         <CarpetasSortProvider carpetas={carpetas}>
           <NotasSortProvider notas={notas}>
@@ -121,13 +117,12 @@ export default async function RootLayout(
                     <Suspense fallback={<Loader />}>
                       <Header>
                         <Suspense fallback={<SearchOutputListSkeleton />}>
-                          <SearchOutputList path={'/Carpetas/Expediente'} />
+                          <SearchOutputList path={'/Carpeta'} />
                         </Suspense>
                       </Header>
                     </Suspense>
                     {modal}
                     {children}
-                    {alt}
                   </div>
                 </MainProvider>
               </ModalProvider>
