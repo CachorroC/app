@@ -144,20 +144,6 @@
   }
 }
 
-@container link (width < 100px) {
-  .isActive,
-  .notActive {
-    background-color: red;
-  }
-}
-
-@container link (100px < width < 200px) {
-  .isActive,
-  .notActive {
-    background-color: orange;
-  }
-}
-
 @container link (200px < width < 300px) {
   .isActive {
     box-shadow: var(--dp12);

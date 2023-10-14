@@ -1,14 +1,19 @@
 'use client';
 
-import { FieldPath, useFormContext } from 'react-hook-form';
+import { FieldPath, useFormContext, useWatch } from 'react-hook-form';
 import form from 'components/form/form.module.css';
 import layout from '#@/styles/layout.module.css';
 import { IntCarpeta } from '#@/lib/types/carpetas';
+import { segmentColumn } from '#@/components/Buttons/buttons.module.css';
+import styles from '#@/app/Carpetas/@right/Nueva/styles.module.css';
+import { OutputDateHelper } from '#@/lib/project/date-helper';
+import { fixMoney } from '#@/lib/project/helper';
 
 export default function Page() {
   const {
-    setFocus 
+    setFocus, getValues
   } = useFormContext<IntCarpeta>();
+
 
   const carpetaKeys: FieldPath<IntCarpeta>[] = [
     'deudor.primerNombre',
@@ -21,11 +26,52 @@ export default function Page() {
     'deudor.tel.celular',
   ];
 
+  const carpeta = useWatch<IntCarpeta>();
   return (
-    <div className={layout.right}>
+    <div className={ layout.right }>
+
+      <section className={ segmentColumn }>
+        <div className={ styles.divider }></div>
+        <div className={ styles.divider }></div>
+        <div className={ styles.divider }></div>
+        <pre>
+          {carpeta.demanda?.capitalAdeudado &&  fixMoney(
+            {
+              valor: carpeta.demanda.capitalAdeudado,
+            }
+          ) }
+        </pre>
+        <div className={ styles.divider }></div>
+        <pre>{ OutputDateHelper(
+          carpeta.demanda?.entregaGarantiasAbogado
+        ) }</pre>
+        <div className={ styles.divider }></div>
+
+        <pre>{ JSON.stringify(
+          carpeta, null, 2
+        ) }</pre>
+
+        <pre>{ JSON.stringify(
+          getValues(), null, 2
+        ) }</pre>
+
+
+        <div className={ styles.divider }></div>
+        <button
+          type="button"
+          onClick={ () => {
+            alert(
+              JSON.stringify(
+                carpeta, null, 2
+              )
+            );
+          } }
+        ></button>
+        <div className={ styles.divider }></div>
+      </section>
       {carpetaKeys.map(
         (
-          carpetaKey 
+          carpetaKey
         ) => {
           return (
             <button
@@ -36,14 +82,14 @@ export default function Page() {
                 setFocus(
                   carpetaKey, {
                     shouldSelect: true,
-                  } 
+                  }
                 );
               }}
             >
               <span>{carpetaKey}</span>
             </button>
           );
-        } 
+        }
       )}
       <button
         type={'button'}
@@ -52,7 +98,7 @@ export default function Page() {
           setFocus(
             'numero', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -65,7 +111,7 @@ export default function Page() {
           setFocus(
             'category', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -79,7 +125,7 @@ export default function Page() {
           setFocus(
             'demanda.tipoProceso', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -92,7 +138,7 @@ export default function Page() {
           setFocus(
             'deudor.primerNombre', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >
@@ -105,7 +151,7 @@ export default function Page() {
           setFocus(
             'deudor.segundoNombre', {
               shouldSelect: true,
-            } 
+            }
           );
         }}
       >

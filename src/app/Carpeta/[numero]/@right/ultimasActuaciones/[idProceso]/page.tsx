@@ -7,7 +7,8 @@ import { OutputDateHelper } from '#@/lib/project/date-helper';
 type Props = {
   params: {
     numero: string;
-  idProceso: string};
+    idProceso: string
+  };
 };
 
 export default async function Page(

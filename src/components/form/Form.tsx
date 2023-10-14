@@ -15,19 +15,19 @@ import { IntCarpetaElementSchema } from '#@/lib/types/zod/carpeta';
 
 export const Form = (
   {
-    carpeta 
-  }: { carpeta: MonCarpeta } 
+    carpeta
+  }: { carpeta: MonCarpeta }
 ) => {
   const {
-    demanda, numero, category, tipoProceso 
+    demanda, numero, category, tipoProceso
   } = carpeta;
 
   const {
-    handleSubmit, reset, setError 
+    handleSubmit, reset, setError
   } = useFormContext<MonCarpeta>();
 
   const onSubmit: SubmitHandler<MonCarpeta> = async (
-    data: MonCarpeta 
+    data: MonCarpeta
   ) => {
     const newCarpeta = {
       ...carpeta,
@@ -41,18 +41,18 @@ export const Form = (
     } = newCarpeta;
 
     const parsed = IntCarpetaElementSchema.safeParse(
-      mutated 
+      mutated
     );
 
     if ( !parsed.success ) {
       alert(
         JSON.stringify(
-          parsed 
-        ) 
+          parsed
+        )
       );
 
       throw new Error(
-        'error al hacer el parse' 
+        'error al hacer el parse'
       );
     }
 
@@ -63,44 +63,44 @@ export const Form = (
           'content-type': 'application/json',
         },
         body: JSON.stringify(
-          parsed.data 
+          parsed.data
         ),
-      } 
+      }
     );
     alert(
       JSON.stringify(
-        postCarpeta.status 
-      ) 
+        postCarpeta.status
+      )
     );
 
     if ( postCarpeta.status > 200 ) {
       setError(
         'root.serverError', {
           type: postCarpeta.statusText,
-        } 
+        }
       );
     }
 
     const updatedCarpeta = ( await postCarpeta.json() ) as MonCarpeta;
     alert(
       JSON.stringify(
-        updatedCarpeta 
-      ) 
+        updatedCarpeta
+      )
     );
     console.log(
-      postCarpeta.status 
+      postCarpeta.status
     );
   };
 
   useEffect(
     () => {
       reset(
-        carpeta 
+        carpeta
       );
     }, [
       reset,
       carpeta
-    ] 
+    ]
   );
 
   return (
@@ -108,19 +108,10 @@ export const Form = (
       <form
         className={form.form}
         onSubmit={handleSubmit(
-          onSubmit 
+          onSubmit
         )}
       >
-        <section className={form.sectionRow}>
-          <NumberSection
-            name={'numero'}
-            title={'Numero'}
-            rls={{
-              required: true,
-            }}
-            type={'number'}
-          />
-
+        <section className={ form.sectionColumn }>
           <SelectSection
             name={'category'}
             title={'Grupo al que pertenece'}
@@ -144,16 +135,26 @@ export const Form = (
               'PRENDARIO'
             ]}
           />
-          <NumberSection
-            name={'deudor.cedula'}
-            title={'Cédula de Ciudadanía'}
-            type={'number'}
-            rls={{
-              required: true,
-            }}
-          />
-        </section>
-        <section className={form.sectionColumn}>
+
+          <section className={form.sectionRow}>
+            <NumberSection
+              name={'numero'}
+              title={'Numero'}
+              rls={{
+                required: true,
+              }}
+              type={'number'}
+            />
+
+            <NumberSection
+              name={'deudor.cedula'}
+              title={'Cédula de Ciudadanía'}
+              type={'number'}
+              rls={{
+                required: true,
+              }}
+            />
+          </section>
           <section className={form.sectionRow}>
             <InputSection
               name={'deudor.primerNombre'}
@@ -358,7 +359,7 @@ export const Form = (
             ? (
                 demanda.vencimientoPagare.map(
                   (
-                    fechaVencimiento, index 
+                    fechaVencimiento, index
                   ) => {
                     return (
                       <DateInputSection
@@ -368,7 +369,7 @@ export const Form = (
                         title={`Pagaré numero ${ index + 1 }`}
                       />
                     );
-                  } 
+                  }
                 )
               )
             : (

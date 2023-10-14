@@ -35,11 +35,12 @@
   &Row {
     @extend .section;
     flex-flow: row nowrap;
-    border: solid 0.1rem var(--secondary);
+    border: dotted 0.1rem var(--secondary);
   }
   &Column {
     @extend .section;
     flex-flow: column nowrap;
+       border: dashed 0.1rem var(--tertiary);
   }
   .label {
     flex: 1;

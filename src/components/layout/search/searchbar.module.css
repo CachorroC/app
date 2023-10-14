@@ -29,9 +29,7 @@
   color: var(--primary);
 }
 
-.searchBarLink,
-.isActive,
-.notActive {
+.searchBarLink, .isActive, .notActive {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -45,9 +43,7 @@
   border-radius: 2vmin;
   text-align: center;
 }
-.searchBarLink .date,
-.isActive .date,
-.notActive .date {
+.searchBarLink .date, .isActive .date, .notActive .date {
   grid-area: date;
   background-color: var(--surface);
   padding: 2cqmin;
@@ -56,9 +52,7 @@
   border-radius: 2cqmin;
   align-self: center;
 }
-.searchBarLink .sub,
-.isActive .sub,
-.notActive .sub {
+.searchBarLink .sub, .isActive .sub, .notActive .sub {
   color: var(--secondary);
 }
 
@@ -84,9 +78,7 @@
   resize: both;
   padding: 1vmin;
 }
-.input:hover,
-.input:active,
-.input:focus {
+.input:hover, .input:active, .input:focus {
   border: 2px dashed var(--tertiary);
   background-color: var(--tertiary-container);
   color: var(--on-tertiary-container);
@@ -101,11 +93,7 @@
   box-shadow: var(--dp3);
 }
 .inputForm > .icon {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 200,
-    'GRAD' 0,
-    'opsz' 24;
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
   color: var(--secondary);
 }
 .inputForm:link {
@@ -122,26 +110,10 @@
   border: 3px solid var(--outline);
 }
 .inputForm:hover > .icon {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 600,
-    'GRAD' 200,
-    'opsz' 48;
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 48;
   color: var(--secondary);
 }
 
-@container link (width < 100px) {
-  .isActive,
-  .notActive {
-    background-color: red;
-  }
-}
-@container link (100px < width < 200px) {
-  .isActive,
-  .notActive {
-    background-color: orange;
-  }
-}
 @container link (200px < width < 300px) {
   .isActive {
     box-shadow: var(--dp12);
@@ -150,3 +122,5 @@
 .title {
   flex: 1;
 }
+
+/*# sourceMappingURL=searchbar.module.css.map */

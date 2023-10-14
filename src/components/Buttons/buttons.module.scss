@@ -21,9 +21,9 @@
     flex-flow: column nowrap;
     position: absolute;
     max-height: 200px;
+    right: 2rem;
     box-shadow: var(--dp6);
     border-radius: 2vmin;
-    margin-top: 50px;
     .button {
       &:nth-child(1) {
         border-radius: 2vmin 2vmin 0 0;
@@ -123,15 +123,7 @@
         color: var(--on-primary);
       }
     }
-    &:link,
-    &:visited {
-      background-color: var(--surface-container);
-      color: var(--on-surface);
-      & > .icon,
-      & > .text {
-        color: var(--on-surface-variant);
-      }
-    }
+
 
     &:hover,
     &:active {

@@ -35,10 +35,11 @@
 }
 .sectionRow {
   flex-flow: row nowrap;
-  border: solid 0.1rem var(--secondary);
+  border: dotted 0.1rem var(--secondary);
 }
 .sectionColumn {
   flex-flow: column nowrap;
+  border: dashed 0.1rem var(--tertiary);
 }
 .section .label, .sectionRow .label, .sectionColumn .label {
   flex: 1;

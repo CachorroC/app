@@ -1,29 +1,17 @@
-import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
 import { button } from '#@/components/Buttons/buttons.module.css';
 import { icon, link } from '#@/components/Card/card.module.css';
 import { fixFechas, fixMoney } from '#@/lib/project/helper';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 import typography from '#@/styles/fonts/typography.module.scss';
 import type { Route } from 'next';
+import Link from 'next/link';
 
-export default async function Page(
+export default function InformationComponent (
   {
-    params
-  }: { params: { numero: string } }
+    carpeta
+  }: { carpeta: MonCarpeta }
 ) {
-  const carpeta = await getCarpetabyNumero(
-    Number(
-      params.numero
-    )
-  );
-
-  if ( !carpeta ) {
-    return notFound();
-  }
-
-  const { deudor, demanda,  category, tipoProceso, idProcesos
+  const { deudor, demanda,  category, tipoProceso
   } = carpeta;
 
   const {
@@ -34,40 +22,8 @@ export default async function Page(
     juzgados
   } = demanda;
 
-  let idProcesoContent;
-
-  if ( idProcesos && idProcesos.length > 0 ) {
-    idProcesoContent = idProcesos.map(
-      (
-        idProceso
-      ) => {
-        return (
-          <Link
-            key={idProceso}
-            href={`/Carpeta/${ params.numero }/ultimasActuaciones/${ idProceso }`}
-          ></Link>
-        );
-      }
-    );
-  }
-
   return (
     <>
-      {carpeta.idProcesos
-        && carpeta.idProcesos.map(
-          (
-            idProceso
-          ) => {
-            return (
-              <FechaActuacionComponent
-                key={idProceso}
-                idProceso={idProceso}
-                index={1}
-              />
-            );
-          }
-        ) }
-
       <p className={typography.bodySmall}>{category}</p>
       <p className={typography.labelSmall}>{tipoProceso}</p>
       <p className={ typography.titleSmall }>{ cedula }</p>
@@ -160,7 +116,7 @@ export default async function Page(
         </p>
       )}
 
-      {carpeta.demanda.capitalAdeudado
+        {carpeta.demanda.capitalAdeudado
             && fixMoney(
               {
                 valor: Number(
@@ -202,8 +158,6 @@ export default async function Page(
           <span className={typography.labelMedium}>{tel.fijo.toString()}</span>
         </Link>
       )}
-      { idProcesoContent }
-      <
     </>
   );
 }
