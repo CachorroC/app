@@ -2,18 +2,15 @@ import 'server-only';
 import { cache } from 'react';
 import { carpetasCollection } from '../connection/mongodb';
 import { sleep } from 'project/helper';
-import { Actuacion,
-  ConsultaActuacion,
-  Data,
-  Message, } from 'types/actuaciones';
+import { Actuacion, ConsultaActuacion, Data, Message } from 'types/actuaciones';
 import { getCarpetaByllaveProceso } from '../project/carpetas';
 
 export async function fetchActuaciones(
-  idProceso: number, index: number
+  idProceso: number, index: number 
 ) {
   try {
     await sleep(
-      index
+      index 
     );
 
     const request = await fetch(
@@ -36,11 +33,11 @@ export async function fetchActuaciones(
     const data = ( await request.json() ) as Data;
 
     const {
-      actuaciones
+      actuaciones 
     } = data;
 
     await updateActuaciones(
-      actuaciones
+      actuaciones 
     );
 
     const json: ConsultaActuacion = {
@@ -57,13 +54,13 @@ export async function fetchActuaciones(
     }
 
     console.log(
-      `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
+      `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }` 
     );
 
     return {
       StatusCode: 404,
       Message   : JSON.stringify(
-        error
+        error 
       ) as Message,
     };
   }
@@ -72,27 +69,30 @@ export async function fetchActuaciones(
 export const getActuaciones = cache(
   async (
     {
-      idProceso, index
-    }: { idProceso: number; index: number }
+      idProceso, index 
+    }: { idProceso: number; index: number } 
   ) => {
     try {
       const consultaActuaciones = await fetchActuaciones(
-        idProceso, index
+        idProceso, index 
       );
 
-      if ( !consultaActuaciones.actuaciones || consultaActuaciones.actuaciones.length === 0 ) {
+      if (
+        !consultaActuaciones.actuaciones
+        || consultaActuaciones.actuaciones.length === 0
+      ) {
         return null;
       }
 
       const {
-        actuaciones
+        actuaciones 
       } = consultaActuaciones;
 
       return actuaciones;
     } catch ( error ) {
       if ( error instanceof Error ) {
         console.log(
-          error.message
+          error.message 
         );
       }
 
@@ -103,12 +103,12 @@ export const getActuaciones = cache(
 
 export const updateActuaciones = cache(
   async (
-    actuaciones: Actuacion[]
+    actuaciones: Actuacion[] 
   ) => {
     try {
       if ( actuaciones.length === 0 ) {
         throw new Error(
-          'no hay actuaciones en el array'
+          'no hay actuaciones en el array' 
         );
       }
 
@@ -119,25 +119,25 @@ export const updateActuaciones = cache(
       const carpetasColl = await carpetasCollection();
 
       const carpeta = await getCarpetaByllaveProceso(
-        ultimaActuacion.llaveProceso
+        ultimaActuacion.llaveProceso,
       );
 
       const incomingDate = new Date(
-        ultimaActuacion.fechaRegistro
+        ultimaActuacion.fechaRegistro 
       )
         .getTime();
 
       const savedDate = carpeta?.fecha
         ? new Date(
-          carpeta.fecha
+          carpeta.fecha 
         )
           .getTime()
         : null;
       console.log(
-        `saved date: ${ savedDate }`
+        `saved date: ${ savedDate }` 
       );
       console.log(
-        `incoming date: ${ incomingDate }`
+        `incoming date: ${ incomingDate }` 
       );
 
       if ( !savedDate || savedDate < incomingDate ) {
@@ -148,7 +148,7 @@ export const updateActuaciones = cache(
           {
             $set: {
               fecha: new Date(
-                ultimaActuacion.fechaActuacion
+                ultimaActuacion.fechaActuacion 
               ),
               ultimaActuacion: ultimaActuacion,
             },
@@ -175,22 +175,22 @@ export const updateActuaciones = cache(
       }
 
       throw new Error(
-        'llego al final del actualizador '
+        'llego al final del actualizador ' 
       );
     } catch ( error ) {
       if ( error instanceof Error ) {
         console.log(
-          error.message
+          error.message 
         );
       }
 
       console.log(
         JSON.stringify(
-          error
-        )
+          error 
+        ) 
       );
     }
-  }
+  } 
 );
 
 export const deleteProcesoPrivado = async (
@@ -198,14 +198,14 @@ export const deleteProcesoPrivado = async (
     idProceso,
   }: {
   idProceso: number;
-}
+} 
 ) => {
   const collection = await carpetasCollection();
 
   const deleteOne = await collection.deleteOne(
     {
       idProceso: idProceso,
-    }
+    } 
   );
 
   if ( deleteOne.deletedCount > 0 ) {

@@ -1,6 +1,8 @@
 'use client';
 import styles from 'components/Buttons/buttons.module.css';
 import { useCategory } from '#@/app/context/main-context';
+import Link from 'next/link';
+import { Fragment } from 'react';
 
 export const CategoryButton = (
   {
@@ -9,17 +11,17 @@ export const CategoryButton = (
   }: {
   categoria: string;
   icon: string;
-}
+} 
 ) => {
   const {
-    category, setCategory
+    category, setCategory 
   } = useCategory();
 
   return (
     <button
       onClick={() => {
         setCategory(
-          categoria
+          categoria 
         );
       }}
       type="button"
@@ -58,16 +60,21 @@ export const CategoryFilterButton = () => {
     <section className={styles.segmentColumn}>
       {categorias.map(
         (
-          category, index
+          category, index 
         ) => {
           return (
-            <CategoryButton
-              key={category}
-              categoria={category}
-              icon={icons[ index ]}
-            />
+            <Fragment key={category}>
+              <CategoryButton
+                key={category}
+                categoria={category}
+                icon={icons[ index ]}
+              />
+              <Link href={`/Carpetas/${ category }`}>
+                <span className="material-symbols-outlined">{icons[ index ]}</span>
+              </Link>
+            </Fragment>
           );
-        }
+        } 
       )}
     </section>
   );

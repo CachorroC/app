@@ -11,79 +11,79 @@ export const SelectSection = (
   {
     name,
     title,
-    options, initialValue
+    options,
+    initialValue,
   }: {
   name: FieldPath<IntCarpeta>;
   title: string;
-      options: string[];
-      initialValue?: string;
-}
+  options: string[];
+  initialValue?: string;
+} 
 ) => {
-
   const {
-    setValue
+    setValue 
   } = useFormContext<IntCarpeta>();
-
 
   const [
     isOptionsOpen,
     setIsOptionsOpen
   ] = useState(
-    false
+    false 
   );
-
 
   return (
     <section className={styles.segmentColumn}>
-      <div onClick={(      ) => {
-        setIsOptionsOpen(
-          (
-            o
-          ) => {
-            return !o;
-          }
-        );
-      }} className={`${ form.sectionColumn } `}
+      <div
+        onClick={() => {
+          setIsOptionsOpen(
+            (
+              o 
+            ) => {
+              return !o;
+            } 
+          );
+        }}
+        className={`${ form.sectionColumn } `}
       >
-        <span className={`material-symbols-outlined ${ styles.icon }`}>{isOptionsOpen
-          ? 'expand_less'
-          : 'expand_more'}</span>
+        <span className={`material-symbols-outlined ${ styles.icon }`}>
+          {isOptionsOpen
+            ? 'expand_less'
+            : 'expand_more'}
+        </span>
         <p className={`${ styles.text } ${ typography.titleMedium }`}> {title}</p>
       </div>
 
       {isOptionsOpen && (
-        <section  className={styles.segmentDetached}>
+        <section className={styles.segmentDetached}>
           {options.map(
             (
-              option
+              option 
             ) => {
               return (
                 <button
-                  type='button'
+                  type="button"
                   className={
-                    initialValue && ( option === initialValue )
+                    initialValue && option === initialValue
                       ? styles.buttonActiveCategory
                       : styles.buttonPassiveCategory
                   }
-                  onClick={
-                    (
-                      e
-                    ) => {
-                      e.stopPropagation();
-                      setValue(
-                        name, option
-                      );
-                    }
-                  }
+                  onClick={(
+                    e 
+                  ) => {
+                    e.stopPropagation();
+                    setValue(
+                      name, option 
+                    );
+                  }}
                   key={option}
                 >
                   <p className={styles.text}>{option}</p>
                 </button>
               );
-            }
+            } 
           )}
-        </section> )}
-
+        </section>
+      )}
     </section>
   );
 };

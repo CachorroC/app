@@ -1,5 +1,5 @@
 export function InputDateHelper(
-  incomingDate?: string | Date | null | undefined
+  incomingDate?: string | Date | null | undefined,
 ): string {
   if ( !incomingDate || incomingDate === null || incomingDate === undefined ) {
     return 'sin especificar';
@@ -9,7 +9,7 @@ export function InputDateHelper(
 
   if ( typeof incomingDate === 'string' ) {
     daterBuilder = new Date(
-      incomingDate
+      incomingDate 
     );
   } else {
     daterBuilder = incomingDate;
@@ -18,17 +18,17 @@ export function InputDateHelper(
   const yearBuilder = daterBuilder.getFullYear();
 
   const inputMonth = String(
-    daterBuilder.getMonth() + 1
+    daterBuilder.getMonth() + 1 
   )
     .padStart(
-      2, '0'
+      2, '0' 
     );
 
   const inputDate = String(
-    daterBuilder.getDate()
+    daterBuilder.getDate() 
   )
     .padStart(
-      2, '0'
+      2, '0' 
     );
 
   return `${ yearBuilder }-${ inputMonth }-${ inputDate }`;
@@ -36,9 +36,8 @@ export function InputDateHelper(
 
 // !prints the output of the datehelper
 export function OutputDateHelper(
-  incomingDate?: string | Date | null | undefined
+  incomingDate?: string | Date | null | undefined,
 ): string {
-
   if ( !incomingDate || incomingDate === null || incomingDate === undefined ) {
     return 'sin especificar';
   }
@@ -47,7 +46,7 @@ export function OutputDateHelper(
 
   if ( typeof incomingDate === 'string' ) {
     daterBuilder = new Date(
-      incomingDate
+      incomingDate 
     );
   } else {
     daterBuilder = incomingDate;
@@ -60,6 +59,6 @@ export function OutputDateHelper(
       weekday : 'short',
       month   : 'long',
       day     : 'numeric',
-    }
+    } 
   );
 }

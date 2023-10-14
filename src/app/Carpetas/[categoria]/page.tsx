@@ -1,69 +1,50 @@
-import { Card } from '../../../components/Card';
-import { Loader } from '#@/components/Loader';
+import { Card } from '#@/components/Card';
 import getCarpetas from '#@/lib/project/getCarpetas';
 import { Suspense } from 'react';
-import { FechaActuacionComponent } from './actuaciones';
+import { FechaActuacionComponent } from '../UltimasActuaciones/actuaciones';
+import { Loader } from '#@/components/Loader';
 
-export const dynamic = 'force-dynamic';
-
-export const dynamicParams = true;
-
-export default async function Procesos() {
+export default async function Page(
+  {
+    params,
+  }: {
+  params: { categoria: string };
+} 
+) {
   const carpetasRaw = await getCarpetas();
 
-  const carpetas = [
+  const ncarps = [
     ...carpetasRaw
-  ].sort(
+  ].filter(
     (
-      a, b 
+      carpeta 
     ) => {
-      if ( !a.fecha || a.fecha === undefined ) {
-        return 1;
-      }
-
-      if ( !b.fecha || b.fecha === undefined ) {
-        return -1;
-      }
-
-      const x = a.fecha;
-
-      const y = b.fecha;
-
-      if ( x < y ) {
-        return 1;
-      }
-
-      if ( x > y ) {
-        return -1;
-      }
-
-      return 0;
+      return carpeta.category === params.categoria;
     } 
   );
 
   return (
     <>
-      {carpetas.map(
+      {ncarps.map(
         (
           carpeta, index 
         ) => {
           return (
             <Card
+              key={carpeta._id}
               path={'/Carpeta'}
               carpeta={carpeta}
-              key={carpeta._id}
             >
               <Suspense fallback={<Loader />}>
-                {carpeta.idProcesos
-                && carpeta.idProcesos.map(
+                {carpeta.idProcesos?.map(
                   (
                     idProceso 
                   ) => {
                     return (
                       <FechaActuacionComponent
                         idProceso={idProceso}
-                        key={idProceso}
                         index={index}
+                        key={idProceso}
                       />
                     );
                   } 

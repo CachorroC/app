@@ -8,7 +8,7 @@ import { Dispatch,
   useReducer, } from 'react';
 
 const CarpetasSortContext = createContext<MonCarpeta[] | null>(
-  null
+  null 
 );
 
 const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
@@ -22,7 +22,7 @@ export function CarpetasSortProvider(
   }: {
   children: ReactNode;
   carpetas: MonCarpeta[];
-}
+} 
 ) {
   const [
     carpetasReduced,
@@ -43,7 +43,7 @@ export function CarpetasSortProvider(
 
 export function useCarpetaSort() {
   const context = useContext(
-    CarpetasSortContext
+    CarpetasSortContext 
   );
 
   if ( context === null ) {
@@ -57,7 +57,7 @@ export function useCarpetaSort() {
 
 export function useCarpetaSortDispatch() {
   const context = useContext(
-    CarpetasSortDispatchContext
+    CarpetasSortDispatchContext 
   );
 
   if ( context === null ) {
@@ -70,7 +70,7 @@ export function useCarpetaSortDispatch() {
 }
 
 export function carpetasReducer(
-  carpetas: MonCarpeta[], action: IntAction
+  carpetas: MonCarpeta[], action: IntAction 
 ) {
   const categoriesSorter: Category[] = [
     'todos',
@@ -83,7 +83,7 @@ export function carpetasReducer(
   ];
 
   const {
-    sortDirection, type
+    sortDirection, type 
   } = action;
 
   const asc = [
@@ -108,7 +108,7 @@ export function carpetasReducer(
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             if ( !a.fecha || a.fecha === undefined ) {
               return sorter[ 2 ];
@@ -117,7 +117,6 @@ export function carpetasReducer(
             if ( !b.fecha || b.fecha === undefined ) {
               return sorter[ 0 ];
             }
-
 
             const x = a.fecha;
 
@@ -132,7 +131,7 @@ export function carpetasReducer(
             }
 
             return sorter[ 1 ];
-          }
+          } 
         );
       }
 
@@ -141,14 +140,14 @@ export function carpetasReducer(
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = categoriesSorter.indexOf(
-              a.category
+              a.category 
             );
 
             const y = categoriesSorter.indexOf(
-              b.category
+              b.category 
             );
 
             if ( x < y ) {
@@ -160,7 +159,7 @@ export function carpetasReducer(
             }
 
             return sorter[ 1 ];
-          }
+          } 
         );
       }
 
@@ -169,7 +168,7 @@ export function carpetasReducer(
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.numero;
 
@@ -180,7 +179,7 @@ export function carpetasReducer(
               : y - x;
 
             return idk;
-          }
+          } 
         );
       }
 
@@ -189,7 +188,7 @@ export function carpetasReducer(
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a.nombre;
 
@@ -204,7 +203,7 @@ export function carpetasReducer(
             }
 
             return sorter[ 1 ];
-          }
+          } 
         );
       }
 
@@ -213,7 +212,7 @@ export function carpetasReducer(
           ...carpetas
         ].sort(
           (
-            a, b
+            a, b 
           ) => {
             const x = a[ type ];
 
@@ -236,7 +235,7 @@ export function carpetasReducer(
             }
 
             return 0;
-          }
+          } 
         );
       }
   }

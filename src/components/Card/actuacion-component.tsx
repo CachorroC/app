@@ -13,7 +13,7 @@ export default function ActuacionComponent(
     incomingActuacion,
   }: {
   incomingActuacion: Actuacion;
-}
+} 
 ) {
   const {
     actuacion,
@@ -29,7 +29,7 @@ export default function ActuacionComponent(
     isOpen,
     setIsOpen
   ] = useState(
-    false
+    false 
   );
   let visibleContent;
 
@@ -53,7 +53,7 @@ export default function ActuacionComponent(
         )}
         {fechaActuacion && (
           <sub className={styles.date}>{fixFechas(
-            fechaActuacion
+            fechaActuacion 
           )}</sub>
         )}
       </div>
@@ -61,7 +61,7 @@ export default function ActuacionComponent(
   } else {
     visibleContent = (
       <sub className={styles.date}>{fixFechas(
-        fechaActuacion
+        fechaActuacion 
       )}</sub>
     );
   }
@@ -70,15 +70,15 @@ export default function ActuacionComponent(
     <div
       className={styles.section}
       onClick={(
-        e
+        e 
       ) => {
         e.stopPropagation();
         setIsOpen(
           (
-            n
+            n 
           ) => {
             return !n;
-          }
+          } 
         );
       }}
     >

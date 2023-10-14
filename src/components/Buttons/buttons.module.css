@@ -30,6 +30,11 @@
 .segmentColumn {
   flex-flow: column nowrap;
 }
+@media (width < 600px) {
+  .segmentColumn {
+    flex-flow: row wrap;
+  }
+}
 .segmentColumn .button:nth-child(1), .segmentColumn .buttonHome:nth-child(1), .segmentColumn .buttonModal:nth-child(1), .segmentColumn .buttonDrawerMenu:nth-child(1), .segmentColumn .buttonBackwards:nth-child(1), .segmentColumn .buttonForward:nth-child(1), .segmentColumn .buttonPassiveCategory:nth-child(1), .segmentColumn .buttonActiveCategory:nth-child(1) {
   border-radius: 2vmin 2vmin 0 0;
 }
@@ -118,3 +123,5 @@
   background-color: var(--tertiary-container);
   color: var(--on-tertiary-container);
 }
+
+/*# sourceMappingURL=buttons.module.css.map */

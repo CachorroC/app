@@ -43,7 +43,7 @@
 }
 .container .calendar .days a::before {
   position: absolute;
-  content: "";
+  content: '';
   left: 50%;
   top: 50%;
   height: 40px;

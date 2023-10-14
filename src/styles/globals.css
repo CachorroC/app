@@ -6,105 +6,105 @@
   --display-large-font-family-name: var(--play-display);
   --display-large-font-family-style: Regular;
   --display-large-font-weight: 200;
-  --display-large-font-size: 57pt;
+  --display-large-font-size: 3.5rem;
   --display-large-line-height: 64pt;
   --display-large-letter-spacing: -0.25pt;
   /* display - medium */
   --display-medium-font-family-name: var(--play-display);
   --display-medium-font-family-style: Regular;
   --display-medium-font-weight: 400;
-  --display-medium-font-size: 45pt;
+  --display-medium-font-size: 3rem;
   --display-medium-line-height: 52pt;
   --display-medium-letter-spacing: 0pt;
   /* display - small */
   --display-small-font-family-name: var(--play-display);
   --display-small-font-family-style: Regular;
   --display-small-font-weight: 200;
-  --display-small-font-size: 36pt;
+  --display-small-font-size: 2.5rem;
   --display-small-line-height: 44pt;
   --display-small-letter-spacing: 0pt;
   /* headline - large */
   --headline-large-font-family-name: var(--josefa);
   --headline-large-font-family-style: Regular;
   --headline-large-font-weight: 400;
-  --headline-large-font-size: 32pt;
+  --headline-large-font-size: 2.2rem;
   --headline-large-line-height: 40pt;
   --headline-large-letter-spacing: 0pt;
   /* headline - medium */
   --headline-medium-font-family-name: var(--josefa);
   --headline-medium-font-family-style: Regular;
   --headline-medium-font-weight: 400;
-  --headline-medium-font-size: 28pt;
+  --headline-medium-font-size: 2rem;
   --headline-medium-line-height: 36px;
   --headline-medium-letter-spacing: 0px;
   /* headline - small */
   --headline-small-font-family-name: var(--josefa);
   --headline-small-font-family-style: Regular;
   --headline-small-font-weight: 400;
-  --headline-small-font-size: 24pt;
+  --headline-small-font-size: 1.7rem;
   --headline-small-line-height: 32px;
   --headline-small-letter-spacing: 0px;
   /* body - large */
   --body-large-font-family-name: var(--raleway);
   --body-large-font-family-style: Regular;
   --body-large-font-weight: 400px;
-  --body-large-font-size: 1rem;
+  --body-large-font-size: 1.2rem;
   --body-large-line-height: 24px;
   --body-large-letter-spacing: 0.5px;
   /* body - medium */
   --body-medium-font-family-name: var(--raleway);
   --body-medium-font-family-style: Regular;
   --body-medium-font-weight: 400;
-  --body-medium-font-size: 0.9rem;
+  --body-medium-font-size: 1rem;
   --body-medium-line-height: 20px;
   --body-medium-letter-spacing: 0.25px;
   /* body - small */
   --body-small-font-family-name: var(--raleway);
   --body-small-font-family-style: Regular;
   --body-small-font-weight: 400;
-  --body-small-font-size: 12pt;
+  --body-small-font-size: 0.8rem;
   --body-small-line-height: 16pt;
   --body-small-letter-spacing: 0.4pt;
   /* label - large */
   --label-large-font-family-name: var(--radio);
   --label-large-font-family-style: Medium;
   --label-large-font-weight: 500;
-  --label-large-font-size: 14pt;
+  --label-large-font-size: 1rem;
   --label-large-line-height: 20px;
   --label-large-letter-spacing: 0.1px;
   /* label - medium */
   --label-medium-font-family-name: var(--radio);
   --label-medium-font-family-style: Medium;
   --label-medium-font-weight: 500;
-  --label-medium-font-size: 12pt;
+  --label-medium-font-size: 0.8rem;
   --label-medium-line-height: 16px;
   --label-medium-letter-spacing: 0.5px;
   /* label - small */
   --label-small-font-family-name: var(--radio);
   --label-small-font-family-style: Medium;
   --label-small-font-weight: 500;
-  --label-small-font-size: 11pt;
+  --label-small-font-size: 0.7rem;
   --label-small-line-height: 16px;
   --label-small-letter-spacing: 0.5px;
   /* title - large */
   --title-large-font-family-name: var(--ptserif);
   --title-large-font-family-style: Medium;
   --title-large-font-weight: 700;
-  --title-large-font-size: 1rem;
+  --title-large-font-size: 1.5rem;
   --title-large-line-height: 28px;
   --title-large-letter-spacing: 0px;
   /* title - medium */
   --title-medium-font-family-name: var(--ptserif);
   --title-medium-font-family-style: Medium;
   --title-medium-font-weight: 700;
-  --title-medium-font-size: 0.9rem;
+  --title-medium-font-size: 1.1rem;
   --title-medium-line-height: 24px;
   --title-medium-letter-spacing: 0.15px;
   /* title - small */
   --title-small-font-family-name: var(--ptserif);
   --title-small-font-family-style: Medium;
   --title-small-font-weight: 700;
-  --title-small-font-size: 0.8rem;
+  --title-small-font-size: 1rem;
   --title-small-line-height: 20px;
   --title-small-letter-spacing: 0.1px;
   --primary: var(--pal-primary40);
@@ -234,18 +234,7 @@
 
 :root,
 html {
-  font-size: calc(14px + 8 * (100vw - 600px) / 1320);
-}
-
-/* .material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-} */
-button:focus {
-  outline: var(--error) 5px auto;
+  font-size: calc(16px + 6 * (100vw - 600px) / 1320);
 }
 
 html,
@@ -258,12 +247,6 @@ body {
   margin: 0 auto;
   color: var(--on-surface);
   background-color: var(--surface);
-}
-
-a, p, i, span {
-  font-family: var(--jost);
-  font-size: var(--body-medium-font-size);
-  text-decoration: none;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -330,3 +313,9 @@ input {
   box-sizing: border-box;
   outline: none;
 }
+
+a {
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=globals.css.map */

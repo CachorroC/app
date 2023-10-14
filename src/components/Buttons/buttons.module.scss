@@ -16,14 +16,14 @@
       }
     }
   }
-  &Detached{
-      @extend .segment;
-      flex-flow: column nowrap;
-      position: absolute;
-      max-height: 200px;;
-      box-shadow: var(--dp6);
-      border-radius: 2vmin;
-      margin-top: 50px;
+  &Detached {
+    @extend .segment;
+    flex-flow: column nowrap;
+    position: absolute;
+    max-height: 200px;
+    box-shadow: var(--dp6);
+    border-radius: 2vmin;
+    margin-top: 50px;
     .button {
       &:nth-child(1) {
         border-radius: 2vmin 2vmin 0 0;
@@ -32,10 +32,13 @@
         border-radius: 0 0 2vmin 2vmin;
       }
     }
-    }
+  }
   &Column {
     @extend .segment;
     flex-flow: column nowrap;
+    @media (width < 600px) {
+      flex-flow: row wrap;
+    }
     .button {
       &:nth-child(1) {
         border-radius: 2vmin 2vmin 0 0;
@@ -124,14 +127,15 @@
     &:visited {
       background-color: var(--surface-container);
       color: var(--on-surface);
-      & > .icon, &>.text {
+      & > .icon,
+      & > .text {
         color: var(--on-surface-variant);
       }
     }
 
     &:hover,
     &:active {
-       transform: scale(1.1);
+      transform: scale(1.1);
       background-color: var(--primary-fixed);
       box-shadow: var(--dp6);
       border: 2px solid var(--outline);

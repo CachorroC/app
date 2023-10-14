@@ -7,12 +7,12 @@ export default async function PageCarpetaId(
     params,
   }: {
   params: { numero: string };
-}
+} 
 ) {
   const carpeta = await getCarpetabyNumero(
     Number(
-      params.numero
-    )
+      params.numero 
+    ) 
   );
 
   if ( !carpeta ) {
@@ -21,13 +21,10 @@ export default async function PageCarpetaId(
 
   return (
     <>
-
       <Form
         carpeta={carpeta}
         key={carpeta._id}
       />
-
-
     </>
   );
 }

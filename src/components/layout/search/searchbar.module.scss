@@ -80,12 +80,17 @@
 
 .input {
   background-color: var(--surface-container-lowest);
-  border: 2px solid var(--outline-variant);
+  border: none;
   color: var(--on-surface);
   grid-area: inputSearchBar;
-  border-radius: 10cqmin;
   text-align: center;
-  flex: 4 0 auto;
+  flex: 2;
+  font-family: var(--josefa);
+  font-size: 1rem;
+  box-sizing: border-box;
+  border-radius: 0 1cqmax 1cqmax 0;
+  resize: both;
+  padding: 1vmin;
 
   &:hover,
   &:active,

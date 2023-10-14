@@ -8,32 +8,32 @@ import ActuacionComponent from '#@/components/Card/actuacion-component';
 
 export default function CarpetasList(
   {
-    path
-  }: { path: string }
+    path 
+  }: { path: string } 
 ) {
   const rows: JSX.Element[] = [];
 
   const carpetasReduced = useCarpetaSort();
 
   const {
-    search
+    search 
   } = useSearch();
 
   const {
-    category
+    category 
   } = useCategory();
 
   carpetasReduced.forEach(
     (
-      proceso
+      proceso 
     ) => {
       const {
-        ultimaActuacion
+        ultimaActuacion 
       } = proceso;
 
       if ( proceso.nombre.toLowerCase()
         .indexOf(
-          search.toLowerCase()
+          search.toLowerCase() 
         ) === -1 ) {
         return;
       }
@@ -54,7 +54,7 @@ export default function CarpetasList(
           </Card>,
         );
       }
-    }
+    } 
   );
 
   return <>{rows}</>;

@@ -4,103 +4,106 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
-  request: NextRequest, context: { params: {numero: string} }
+  request: NextRequest,
+  context: { params: { numero: string } },
 ) {
   const {
-    params
-  } = context;
-
-  const {
-    numero
-  } = params;
+    numero 
+  } = context.params;
 
   try {
     const carpeta = await getCarpetabyNumero(
       Number(
-        numero
-      )
+        numero 
+      ) 
     );
 
     if ( !carpeta ) {
       throw new Error(
-        'Noexiste nionguna carpeta con este número asociado'
+        'Noexiste nionguna carpeta con este número asociado' 
       );
-
     }
 
     return new NextResponse(
       JSON.stringify(
-        carpeta
+        carpeta 
       ), {
         status : 200,
         headers: {
-          'Content-Type': 'application/json'
-        }
-      }
+          'Content-Type': 'application/json',
+        },
+      } 
     );
   } catch ( error ) {
     return new NextResponse(
       null, {
-        status: 400
-      }
+        status: 400,
+      } 
     );
   }
 }
 
 export async function PUT(
-  request: NextRequest, context: { params: {numero: string} }
+  request: NextRequest,
+  context: { params: { numero: string } },
 ) {
   const {
-    params
-  } = context;
-
-  const {
-    numero
-  } = params;
+    numero 
+  } = context.params;
 
   try {
     const incomingCarpeta = ( await request.json() ) as MonCarpeta;
 
     const collection = await carpetasCollection();
 
-
     const requestUpdate = await collection.findOneAndUpdate(
       {
         numero: Number(
-          numero
-        )
-      }, {
-        $set: incomingCarpeta
-      }, {
+          numero 
+        ),
+      },
+      {
+        $set: incomingCarpeta,
+      },
+      {
         upsert        : true,
-        returnDocument: 'after'
-      }
+        returnDocument: 'after',
+      },
     );
 
     if ( !requestUpdate ) {
       throw new Error(
-        'la actualizacion respondio null'
+        'la actualizacion respondio null' 
       );
-
     }
 
     return new NextResponse(
       JSON.stringify(
-        requestUpdate
+        requestUpdate, null, 2 
       ), {
         status : 200,
         headers: {
-          'Content-Type': 'application/json'
-        }
-      }
+          'Content-Type': 'application/json',
+        },
+      } 
     );
   } catch ( error ) {
+    if ( error instanceof Error ) {
+      return new NextResponse(
+        JSON.stringify(
+          error.message, null, 2 
+        ), {
+          status: 400,
+        } 
+      );
+    }
+
     return new NextResponse(
       JSON.stringify(
-        error
+        null 
       ), {
         status: 400,
-      }
+      } 
     );
   }
 }

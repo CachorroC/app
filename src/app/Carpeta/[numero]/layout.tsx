@@ -1,29 +1,28 @@
 import { CarpetaFormProvider } from '#@/app/context/carpeta-form-context';
 import styles from '#@/styles/layout.module.css';
-import { Metadata, ResolvingMetadata } from 'next';
 import { ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
-      top: ReactNode;
+  top: ReactNode;
   right: ReactNode;
-  params: { numero: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+  params: { numero: string };
+};
 
+/*
 export async function generateMetadata(
   {
-    params,
+    params
   }: Props,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const {
     numero
   } = params;
 
-  // fetch data
+
   const product = await fetch(
-    `https://beta.rsasesorjuridico.com/api/Carpeta/${ numero }`
+    `/api/Carpeta/${ numero }`,
   )
     .then(
       (
@@ -33,7 +32,7 @@ export async function generateMetadata(
       }
     );
 
-  // optionally access and extend (rather than replace) parent metadata
+
   const previousImages = ( await parent ).openGraph?.images || [];
 
   return {
@@ -46,20 +45,23 @@ export async function generateMetadata(
     },
   };
 }
-
-
+ */
 export default function LayoutProcesosMain(
   {
     children,
-    top, right, params
+    top,
+    right,
+    params: {
+      numero
+    },
   }: Props
 ) {
   return (
     <>
-      <CarpetaFormProvider  numero={params.numero }>
+      <CarpetaFormProvider key={numero} numero={numero}>
         <div className={styles.top}>{top}</div>
         <div className={styles.leftColumn}>{children}</div>
-        <div className={ styles.right }>{ right }</div>
+        <div className={styles.right}>{right}</div>
       </CarpetaFormProvider>
     </>
   );

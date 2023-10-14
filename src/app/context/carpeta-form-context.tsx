@@ -1,16 +1,19 @@
 'use client';
-import {  MonCarpeta } from '#@/lib/types/carpetas';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 import { ReactNode } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useCarpetaSort } from './carpetas-sort-context';
 
 export function CarpetaFormProvider(
   {
-    children, numero
-  }: { children: ReactNode;  numero : string}
+    children,
+    numero,
+  }: {
+  children: ReactNode;
+  numero: string;
+}
 ) {
-  const carpetasReduced
-   = useCarpetaSort();
+  const carpetasReduced = useCarpetaSort();
 
   const carpeta = carpetasReduced.find(
     (
@@ -22,7 +25,6 @@ export function CarpetaFormProvider(
     }
   );
 
-
   const methods = useForm<MonCarpeta>(
     {
       defaultValues: carpeta,
@@ -31,6 +33,7 @@ export function CarpetaFormProvider(
       },
       shouldFocusError: true,
       criteriaMode    : 'all',
+
     }
   );
 

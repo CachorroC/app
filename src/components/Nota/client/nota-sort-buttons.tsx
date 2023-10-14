@@ -22,7 +22,7 @@ export function NotasSortButtons() {
     sortDirection,
     setSortDirection
   ] = useState(
-    true
+    true 
   );
 
   return (
@@ -45,7 +45,7 @@ export function NotasSortButtons() {
       <section className={styles.section}>
         {keys.map(
           (
-            key
+            key 
           ) => {
             return (
               <button
@@ -53,16 +53,16 @@ export function NotasSortButtons() {
                 onClick={() => {
                   setSortDirection(
                     (
-                      d
+                      d 
                     ) => {
                       return !d;
-                    }
+                    } 
                   );
                   dispatchNotas(
                     {
                       type         : key,
                       sortDirection: sortDirection,
-                    }
+                    } 
                   );
                 }}
                 className={button.buttonPassiveCategory}
@@ -71,7 +71,7 @@ export function NotasSortButtons() {
                 {key}
               </button>
             );
-          }
+          } 
         )}
       </section>
     </div>

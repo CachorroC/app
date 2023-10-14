@@ -15,37 +15,37 @@ import styles from '../Buttons/buttons.module.css';
 
 export default function Header(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
   let modalSegment;
 
   const {
-    isNavOpen
+    isNavOpen 
   } = useNavigationContext();
-
 
   if ( isNavOpen ) {
     modalSegment = <Drawer>{children}</Drawer>;
   }
 
   return (
-    <div className={ layout.header }>
-      <section className={styles.segmentRow}><Link
-        href={'/' as Route}
-        className={styles.buttonHome}
-      >
-        <span className={`material-symbols-outlined ${ styles.icon }`}>home</span>
-        <span className={styles.text}>inicio</span>
-      </Link>
-      <Suspense fallback={<Loader />}>
-        <InputSearchBar />
-      </Suspense>
+    <div className={layout.header}>
+      <section className={styles.segmentRow}>
+        <Link
+          href={'/' as Route}
+          className={styles.buttonHome}
+        >
+          <span className={`material-symbols-outlined ${ styles.icon }`}>
+            home
+          </span>
+          <span className={styles.text}>inicio</span>
+        </Link>
+        <Suspense fallback={<Loader />}>
+          <InputSearchBar />
+        </Suspense>
       </section>
 
-
       <Suspense fallback={<Loader />}>
-
         <ModalDialog>
           <NuevaNota cod={0} />
         </ModalDialog>

@@ -12,7 +12,7 @@ export const playDisp = Playfair_Display(
     ],
     preload : true,
     variable: '--play-display',
-  }
+  } 
 );
 
 export const ptserif = PT_Serif_Caption(
@@ -23,8 +23,8 @@ export const ptserif = PT_Serif_Caption(
     display : 'auto',
     preload : false,
     variable: '--inter',
-    weight  : '400'
-  }
+    weight  : '400',
+  } 
 );
 
 export const josefina = Josefin_Sans(
@@ -34,7 +34,7 @@ export const josefina = Josefin_Sans(
     ],
     preload : false,
     variable: '--josefa',
-  }
+  } 
 );
 
 export const radio = Radio_Canada(
@@ -44,7 +44,7 @@ export const radio = Radio_Canada(
     ],
     preload : false,
     variable: '--radio',
-  }
+  } 
 );
 
 export const raleway = Raleway(
@@ -54,5 +54,5 @@ export const raleway = Raleway(
     ],
     preload : true,
     variable: '--raleway',
-  }
+  } 
 );

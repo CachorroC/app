@@ -11,7 +11,7 @@
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(12, 1fr);
   gap: 2vmin;
-  grid-template-areas: "title title title title  drawerMenuButton " ". inputSearchBar inputSearchBar inputSearchBar drawerMenuButton" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ";
+  grid-template-areas: 'title title title title  drawerMenuButton ' '. inputSearchBar inputSearchBar inputSearchBar drawerMenuButton' 'ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ';
   justify-content: space-evenly;
   align-content: flex-start;
   justify-items: stretch;
@@ -29,7 +29,7 @@
     grid-template-rows: repeat(10, 1fr);
     grid-template-columns: repeat(3, 1fr);
     width: 100vw;
-    grid-template-areas: " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " "drawerMenuButton Title homeButton" "backwardsButton  inputSearchBar forwardButton";
+    grid-template-areas: ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' 'drawerMenuButton Title homeButton' 'backwardsButton  inputSearchBar forwardButton';
   }
   .drawer .menu {
     display: flex;
@@ -61,7 +61,11 @@
   flex: 1 1 calc(50% - 2vmin);
 }
 
-.button, .buttonHome, .buttonDrawerMenu, .buttonBackwards, .buttonForward {
+.button,
+.buttonHome,
+.buttonDrawerMenu,
+.buttonBackwards,
+.buttonForward {
   border: none;
   border-radius: 2vmin;
   display: flex;
@@ -105,18 +109,44 @@
 .buttonHome > .icon {
   color: var(--on-primary);
 }
-.button > .ButtonTextHelper, .buttonForward > .ButtonTextHelper, .buttonBackwards > .ButtonTextHelper, .buttonDrawerMenu > .ButtonTextHelper, .buttonHome > .ButtonTextHelper {
+.button > .ButtonTextHelper,
+.buttonForward > .ButtonTextHelper,
+.buttonBackwards > .ButtonTextHelper,
+.buttonDrawerMenu > .ButtonTextHelper,
+.buttonHome > .ButtonTextHelper {
   display: none;
   opacity: 0;
   transition: all 1s;
 }
-.button:hover, .buttonForward:hover, .buttonBackwards:hover, .buttonDrawerMenu:hover, .buttonHome:hover, .button:active, .buttonForward:active, .buttonBackwards:active, .buttonDrawerMenu:active, .buttonHome:active {
+.button:hover,
+.buttonForward:hover,
+.buttonBackwards:hover,
+.buttonDrawerMenu:hover,
+.buttonHome:hover,
+.button:active,
+.buttonForward:active,
+.buttonBackwards:active,
+.buttonDrawerMenu:active,
+.buttonHome:active {
   background-color: var(--primary-fixed);
   box-shadow: var(--dp6);
   border: 2px solid var(--outline);
 }
-.button:hover > span, .buttonForward:hover > span, .buttonBackwards:hover > span, .buttonDrawerMenu:hover > span, .buttonHome:hover > span, .button:active > span, .buttonForward:active > span, .buttonBackwards:active > span, .buttonDrawerMenu:active > span, .buttonHome:active > span {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+.button:hover > span,
+.buttonForward:hover > span,
+.buttonBackwards:hover > span,
+.buttonDrawerMenu:hover > span,
+.buttonHome:hover > span,
+.button:active > span,
+.buttonForward:active > span,
+.buttonBackwards:active > span,
+.buttonDrawerMenu:active > span,
+.buttonHome:active > span {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 200,
+    'opsz' 24;
   color: var(--on-primary-fixed);
 }
 

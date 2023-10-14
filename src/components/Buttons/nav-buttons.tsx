@@ -5,21 +5,19 @@ import styles from './buttons.module.css';
 import { useModalContext } from '#@/app/context/modal-context';
 import { useNavigationContext } from '#@/app/context/main-context';
 
-export default function NavButtons () {
+export default function NavButtons() {
   const router = useRouter();
 
   const {
-    isModalOpen, setIsModalOpen
+    isModalOpen, setIsModalOpen 
   } = useModalContext();
 
   const {
-    isNavOpen, setIsNavOpen
+    isNavOpen, setIsNavOpen 
   } = useNavigationContext();
 
   return (
-
-    <section className={ styles.segmentRow }>
-
+    <section className={styles.segmentRow}>
       <button
         type="button"
         className={styles.buttonBackwards}
@@ -40,7 +38,7 @@ export default function NavButtons () {
         }}
       >
         <span className={`material-symbols-outlined ${ styles.icon }`}>
-            chevron_right
+          chevron_right
         </span>
         <p className={styles.text}>entrar</p>
       </button>
@@ -49,10 +47,10 @@ export default function NavButtons () {
         onClick={() => {
           setIsModalOpen(
             (
-              n
+              n 
             ) => {
               return !n;
-            }
+            } 
           );
         }}
       >
@@ -68,14 +66,14 @@ export default function NavButtons () {
         className={styles.buttonDrawerMenu}
         onClick={() => {
           setIsModalOpen(
-            false
+            false 
           );
           setIsNavOpen(
             (
-              n
+              n 
             ) => {
               return !n;
-            }
+            } 
           );
         }}
       >

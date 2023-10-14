@@ -1,13 +1,12 @@
-
 import { NombreComponent } from '#@/components/nombre';
 import { getCarpetaByllaveProceso } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.scss';
 
-export default async function Page (
+export default async function Page(
   {
-    params
-  }: { params: { slug: string[] } }
+    params 
+  }: { params: { slug: string[] } } 
 ) {
   const [
     llaveProceso,
@@ -15,7 +14,7 @@ export default async function Page (
   ] = params.slug;
 
   const carpeta = await getCarpetaByllaveProceso(
-    llaveProceso
+    llaveProceso 
   );
 
   if ( !carpeta ) {
@@ -28,7 +27,7 @@ export default async function Page (
         key={llaveProceso}
         deudor={carpeta.deudor}
       />
-      {idProceso && ( <p className={typography.bodySmall}>Ultimas Actuaciones</p> )}
+      {idProceso && <p className={typography.bodySmall}>Ultimas Actuaciones</p>}
     </>
   );
 }

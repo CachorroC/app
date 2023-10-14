@@ -13,38 +13,38 @@ import type { Route } from 'next';
 
 export default function Drawer(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
   const {
-    isNavOpen, setIsNavOpen
+    isNavOpen, setIsNavOpen 
   } = useNavigationContext();
 
   const wrapper = useRef(
-    null
+    null 
   );
 
   const overlay = useRef(
-    null
+    null 
   );
 
   const onDismiss = useCallback(
     () => {
       setIsNavOpen(
         (
-          n
+          n 
         ) => {
           return !n;
-        }
+        } 
       );
     }, [
       setIsNavOpen
-    ]
+    ] 
   );
 
   const onClick: MouseEventHandler = useCallback(
     (
-      e
+      e 
     ) => {
       if ( e.target === overlay.current || e.target === wrapper.current ) {
         if ( onDismiss ) {
@@ -61,7 +61,7 @@ export default function Drawer(
 
   const onKeyDown = useCallback(
     (
-      e: KeyboardEvent
+      e: KeyboardEvent 
     ) => {
       if ( e.key === 'Escape' ) {
         onDismiss();
@@ -75,17 +75,17 @@ export default function Drawer(
   useEffect(
     () => {
       document.addEventListener(
-        'keydown', onKeyDown
+        'keydown', onKeyDown 
       );
 
       return () => {
         return document.removeEventListener(
-          'keydown', onKeyDown
+          'keydown', onKeyDown 
         );
       };
     }, [
       onKeyDown
-    ]
+    ] 
   );
 
   if ( !isNavOpen ) {
@@ -103,12 +103,13 @@ export default function Drawer(
         onClick={() => {
           setIsNavOpen(
             (
-              n
+              n 
             ) => {
               return !n;
-            }
+            } 
           );
-        }} href={'/Procesos' as Route}
+        }}
+        href={'/Procesos' as Route}
       >
         <span className="material-symbols-outlined">gavel</span>
         <h1 className={typography.labelMedium}>{'Procesos'}</h1>
@@ -118,12 +119,13 @@ export default function Drawer(
         onClick={() => {
           setIsNavOpen(
             (
-              n
+              n 
             ) => {
               return !n;
-            }
+            } 
           );
-        }} href={'/Notas' as Route}
+        }}
+        href={'/Notas' as Route}
       >
         <span className="material-symbols-outlined">note</span>
         <h1 className={typography.labelMedium}>{'Notas'}</h1>
@@ -133,12 +135,13 @@ export default function Drawer(
         onClick={() => {
           setIsNavOpen(
             (
-              n
+              n 
             ) => {
               return !n;
-            }
+            } 
           );
-        }} href={'/Carpetas' as Route}
+        }}
+        href={'/Carpetas' as Route}
       >
         <span className="material-symbols-outlined">folder_open</span>
         <h1 className={typography.labelMedium}>{'Carpetas'}</h1>
@@ -148,12 +151,13 @@ export default function Drawer(
         onClick={() => {
           setIsNavOpen(
             (
-              n
+              n 
             ) => {
               return !n;
-            }
+            } 
           );
-        }} href={'/Notas/Tareas'}
+        }}
+        href={'/Notas/Tareas'}
       >
         <span className="material-symbols-outlined">api</span>
         <h1 className={typography.labelMedium}>{'Tareas'}</h1>
@@ -163,12 +167,13 @@ export default function Drawer(
         onClick={() => {
           setIsNavOpen(
             (
-              n
+              n 
             ) => {
               return !n;
-            }
+            } 
           );
-        }} href={'/Notas/Nueva' as Route}
+        }}
+        href={'/Notas/Nueva' as Route}
       >
         <span className="material-symbols-outlined">note_add</span>
         <h1 className={typography.labelMedium}>{'Nueva Nota'}</h1>
@@ -178,12 +183,13 @@ export default function Drawer(
         onClick={() => {
           setIsNavOpen(
             (
-              n
+              n 
             ) => {
               return !n;
-            }
+            } 
           );
-        }} href={'/Costos'}
+        }}
+        href={'/Costos'}
       >
         <span className="material-symbols-outlined">folder_open</span>
         <h1 className={typography.labelMedium}>{'Costos'}</h1>
@@ -193,12 +199,13 @@ export default function Drawer(
         onClick={() => {
           setIsNavOpen(
             (
-              n
+              n 
             ) => {
               return !n;
-            }
+            } 
           );
-        }} href={'/Contacto' as Route}
+        }}
+        href={'/Contacto' as Route}
       >
         <span className="material-symbols-outlined">folder_open</span>
         <h1 className={typography.labelMedium}>{'Contacto'}</h1>
@@ -208,12 +215,13 @@ export default function Drawer(
         onClick={() => {
           setIsNavOpen(
             (
-              n
+              n 
             ) => {
               return !n;
-            }
+            } 
           );
-        }} href={'/QuienesSomos'}
+        }}
+        href={'/QuienesSomos'}
       >
         <span className="material-symbols-outlined">folder_open</span>
         <h1 className={typography.labelMedium}>{'Quienes Somos'}</h1>

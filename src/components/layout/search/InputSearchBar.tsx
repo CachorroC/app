@@ -1,29 +1,49 @@
 'use client';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import { useSearch } from '#@/app/context/search-context';
+import { useCarpetaSort } from '../../../app/context/carpetas-sort-context';
 
 export default function InputSearchBar() {
   const {
-    search, setSearch 
+    search, setSearch
   } = useSearch();
 
+  const carpetasReduced = useCarpetaSort();
+
   return (
-    <form>
+    <>
+      <datalist id="demandados-list">
+        {carpetasReduced.map(
+          (
+            carpeta
+          ) => {
+            return (
+              <option
+                value={carpeta.nombre}
+                key={carpeta._id}
+              />
+            );
+          }
+        )}
+      </datalist>
       <input
-        type="search"
+        type={'textarea'}
+        list="demandados-list"
         className={searchbar.input}
         value={search}
-        name="searchBar"
+        name={'buscar'}
         placeholder={'Buscar'}
-        onChange={(
-          input 
-        ) => {
-          input.preventDefault();
-          setSearch(
-            input.target.value 
-          );
-        }}
+        autoComplete={'off'}
+        onChange={
+          (
+            input
+          ) => {
+            return setSearch(
+              input.target.value
+            );
+          }
+        }
       />
-    </form>
+    </>
   );
 }

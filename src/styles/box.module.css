@@ -40,9 +40,30 @@
 .flex .container .container .container .container .container .container {
   background-color: var(--secondary-container);
 }
-.container .container .container .container .container .container .container .container,
-.grid .container .container .container .container .container .container .container,
-.flex .container .container .container .container .container .container .container {
+.container
+  .container
+  .container
+  .container
+  .container
+  .container
+  .container
+  .container,
+.grid
+  .container
+  .container
+  .container
+  .container
+  .container
+  .container
+  .container,
+.flex
+  .container
+  .container
+  .container
+  .container
+  .container
+  .container
+  .container {
   background-color: var(--tertiary-container);
 }
 

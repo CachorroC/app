@@ -11,7 +11,8 @@ import { useCategory } from '#@/app/context/main-context';
 import { useSearch } from '#@/app/context/search-context';
 import { fixFechas } from '#@/lib/project/helper';
 import { sectionColumn } from '../form/form.module.css';
-import { buttonActiveCategory, buttonPassiveCategory } from '../Buttons/buttons.module.css';
+import { buttonActiveCategory,
+  buttonPassiveCategory, } from '../Buttons/buttons.module.css';
 
 export const Card = (
   {
@@ -22,7 +23,7 @@ export const Card = (
   path: string;
   carpeta: MonCarpeta;
   children: ReactNode;
-}
+} 
 ) => {
   let contentIdProcesos;
 
@@ -35,15 +36,16 @@ export const Card = (
   const pathname = usePathname();
 
   const {
-    llaveProceso, _id, idProcesos, nombre, numero, deudor, fecha
-  } = carpeta;
+    llaveProceso, _id, idProcesos, nombre, numero, deudor, fecha 
+  }
+    = carpeta;
 
   const {
-    category
+    category 
   } = useCategory();
 
   const {
-    search
+    search 
   } = useSearch();
 
   if ( category !== 'todos' ) {
@@ -52,27 +54,20 @@ export const Card = (
     }
   }
 
-
-  const isSearch
-    = nombre.toLowerCase()
-      .indexOf(
-        search.toLowerCase()
-      ) === -1;
-
+  const isSearch = nombre.toLowerCase()
+    .indexOf(
+      search.toLowerCase() 
+    ) === -1;
 
   if ( !idProcesos || idProcesos.length === 0 ) {
-
-
     contentIdProcesos = (
       <Link
         key={_id}
         href={`${ path }/${ numero }` as Route}
-        className={ styles.link}
+        className={styles.link}
       >
         <div className={sectionColumn}>
-          <sup className={`${ !isSearch && styles.sub }`}>
-            {`# ${ numero }`}
-          </sup>
+          <sup className={`${ !isSearch && styles.sub }`}>{`# ${ numero }`}</sup>
           <h4
             key={deudor.cedula}
             className={`${ typography.titleMedium } ${ styles.title }`}
@@ -82,7 +77,7 @@ export const Card = (
 
           {fecha && (
             <sub className={styles.date}>{fixFechas(
-              fecha.toString()
+              fecha.toString() 
             )}</sub>
           )}
         </div>
@@ -91,22 +86,22 @@ export const Card = (
   } else {
     contentIdProcesos = idProcesos.map(
       (
-        idProceso
+        idProceso 
       ) => {
-
-        const isActive = pathname === `${ path }/${ numero }/ultimasActuaciones/${ idProceso }`;
+        const isActive
+        = pathname === `${ path }/${ numero }/ultimasActuaciones/${ idProceso }`;
         return (
           <Link
             key={idProceso}
-            href={`${ path }/${ numero }/ultimasActuaciones/${ idProceso }`as Route}
+            href={`${ path }/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
             className={styles.link}
           >
-            <div className={isActive
-              ? buttonActiveCategory
-              : buttonPassiveCategory}>
-              <sup className={`${ !isSearch && styles.sub }`}>
-                {`# ${ numero }`}
-              </sup>
+            <div
+              className={isActive
+                ? buttonActiveCategory
+                : buttonPassiveCategory}
+            >
+              <sup className={`${ !isSearch && styles.sub }`}>{`# ${ numero }`}</sup>
               <h4
                 key={deudor.cedula}
                 className={`${ typography.titleMedium } ${ styles.title }`}
@@ -115,16 +110,14 @@ export const Card = (
               </h4>
 
               {fecha && (
-                <sub className={styles.date}>
-                  {fixFechas(
-                    fecha.toString()
-                  )}
-                </sub>
+                <sub className={styles.date}>{fixFechas(
+                  fecha.toString() 
+                )}</sub>
               )}
             </div>
           </Link>
         );
-      }
+      } 
     );
   }
 
@@ -138,9 +131,14 @@ export const Card = (
         <section className={sectionColumn}>
           <div className={styles.title}>
             <h4 className={typography.headlineSmall}>{carpeta.nombre}</h4>
-            <Link className={ `${ typography.labelSmall } ${ styles.link }` } href={`/Carpeta/${ numero }` as Route}>
+            <Link
+              className={`${ typography.labelSmall } ${ styles.link }`}
+              href={`/Carpeta/${ numero }` as Route}
+            >
               <span className={typography.labelLarge}>{`# ${ numero }`}</span>
-              <span className={`material-symbols-outlined ${ styles.icon }`}>folder</span>
+              <span className={`material-symbols-outlined ${ styles.icon }`}>
+                folder
+              </span>
             </Link>
           </div>
           {children}
@@ -148,9 +146,8 @@ export const Card = (
 
         {contentIdProcesos}
         <div className={styles.links}>
-
           <Link
-            className={styles.link }
+            className={styles.link}
             href={
               `/Notas/Nueva${
                 llaveProceso
@@ -166,7 +163,7 @@ export const Card = (
           </Link>
           {errorLLaveProceso && (
             <Link
-              href={`/Carpeta/${ numero }/Editar` as Route }
+              href={`/Carpeta/${ numero }/Editar` as Route}
               className={styles.link}
             >
               {'error con el numero de expediente'}

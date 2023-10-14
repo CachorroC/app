@@ -4,8 +4,8 @@ import { CarpetasSortButtons } from '#@/components/Carpetas/client/carpetasButto
 export default function Page() {
   return (
     <>
-      <CategoryFilterButton />
       <CarpetasSortButtons />
+      <CategoryFilterButton />
     </>
   );
 }

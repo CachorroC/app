@@ -1,7 +1,5 @@
-
 .displayLarge {
-   font-variation-settings:
-    'wght' 200;
+  font-variation-settings: 'wght' 200;
   font-family: var(--play-display);
   font-style: var(--display-large-font-family-style);
   font-size: var(--display-large-font-size);
@@ -12,8 +10,7 @@
 }
 
 .displayMedium {
-   font-variation-settings:
-    'wght' 200;
+  font-variation-settings: 'wght' 200;
   font-family: var(--play-display);
   font-style: var(--display-medium-font-family-style);
 
@@ -25,8 +22,7 @@
 }
 
 .displaySmall {
-   font-variation-settings:
-    'wght' 100;
+  font-variation-settings: 'wght' 100;
   font-family: var(--play-display);
   font-style: var(--display-small-font-family-style);
   font-size: var(--display-small-font-size);
@@ -36,7 +32,8 @@
   text-decoration: var(--display-small-text-decoration);
 }
 
-.headlineLarge {font-variation-settings: 'wght' 800;
+.headlineLarge {
+  font-variation-settings: 'wght' 800;
   font-family: var(--josefa);
   font-style: var(--headline-large-font-family-style);
   font-size: var(--headline-large-font-size);
@@ -46,7 +43,8 @@
   text-decoration: var(--headline-large-text-decoration);
 }
 
-.headlineMedium {font-variation-settings: 'wght' 600;
+.headlineMedium {
+  font-variation-settings: 'wght' 600;
   font-family: var(--josefa);
   font-style: var(--headline-medium-font-family-style);
   font-size: var(--headline-medium-font-size);
@@ -56,7 +54,8 @@
   text-decoration: var(--headline-medium-text-decoration);
 }
 
-.headlineSmall {font-variation-settings: 'wght' 400;
+.headlineSmall {
+  font-variation-settings: 'wght' 400;
   font-family: var(--josefa);
   font-style: var(--headline-small-font-family-style);
   font-size: var(--headline-small-font-size);
@@ -69,7 +68,7 @@
 .bodyLarge {
   font-family: var(--raleway);
   font-style: var(--body-large-font-family-style);
-font-variation-settings: 'wght' 400;
+  font-variation-settings: 'wght' 400;
   font-size: var(--body-large-font-size);
   letter-spacing: var(--body-large-tracking);
   line-height: var(--body-large-height);
@@ -80,7 +79,7 @@ font-variation-settings: 'wght' 400;
 .bodyMedium {
   font-family: var(--raleway);
   font-style: var(--body-medium-font-family-style);
-font-variation-settings: 'wght' 300;
+  font-variation-settings: 'wght' 300;
   font-size: var(--body-medium-font-size);
   letter-spacing: var(--body-medium-tracking);
   line-height: var(--body-medium-height);
@@ -91,7 +90,7 @@ font-variation-settings: 'wght' 300;
 .bodySmall {
   font-family: var(--raleway);
   font-style: var(--body-small-font-family-style);
-font-variation-settings: 'wght' 300;
+  font-variation-settings: 'wght' 300;
   font-size: var(--body-small-font-size);
   letter-spacing: var(--body-small-tracking);
   line-height: var(--body-small-height);

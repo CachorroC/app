@@ -1,7 +1,7 @@
 import { getActuaciones } from '#@/lib/Actuaciones';
 import { notFound } from 'next/navigation';
 import { Fragment, Suspense } from 'react';
-import {  getCarpetabyNumero } from '#@/lib/project/carpetas';
+import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { Loader } from '#@/components/Loader';
 import { ActuacionCard } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 
@@ -13,12 +13,12 @@ export default async function Page(
     numero: string;
     idProceso: string;
   };
-}
+} 
 ) {
   const carpeta = await getCarpetabyNumero(
     Number(
-      params.numero
-    )
+      params.numero 
+    ) 
   );
 
   if ( !carpeta ) {
@@ -28,10 +28,10 @@ export default async function Page(
   const actuaciones = await getActuaciones(
     {
       idProceso: Number(
-        params.idProceso
+        params.idProceso 
       ),
       index: 1,
-    }
+    } 
   );
 
   if ( !actuaciones ) {
@@ -49,7 +49,7 @@ export default async function Page(
         )}
         {actuaciones.map(
           (
-            actuacion, index
+            actuacion, index 
           ) => {
             return (
               <ActuacionCard
@@ -57,7 +57,7 @@ export default async function Page(
                 key={index}
               />
             );
-          }
+          } 
         )}
       </Suspense>
     </Fragment>

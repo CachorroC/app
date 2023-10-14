@@ -15,13 +15,8 @@ export type Category = z.infer<typeof CategorySchema>;
 export const DepartamentoSchema = z.enum(
   [
     'BOYACÁ',
-    'CNDINAMARCA',
-    'CUN DINAMARCA',
     'CUNDINAMARCA',
-    'CUNDINNAMARCA',
-    'CUNDINAMARCA ',
-    'CUNDINNAMARCA ',
-    'TOLIMA',
+    'TOLIMA'
   ] 
 );
 
@@ -30,7 +25,6 @@ export type Departamento = z.infer<typeof DepartamentoSchema>;
 export const TipoProcesoSchema = z.enum(
   [
     'ACUMULADO',
-    'HIPOTECARIA',
     'HIPOTECARIO',
     'PRENDARIO',
     'SINGULAR',

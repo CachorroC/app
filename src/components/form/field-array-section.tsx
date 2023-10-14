@@ -7,16 +7,16 @@ let renderCount = 0;
 
 export default function ObligacionesComponent() {
   const {
-    control, register, setValue, getValues
+    control, register 
   } = useFormContext();
 
   const {
-    fields, append, remove, prepend
+    fields, append, remove, prepend 
   } = useFieldArray(
     {
       control,
       name: 'demanda.obligacion',
-    }
+    } 
   );
 
   renderCount++;
@@ -31,7 +31,7 @@ export default function ObligacionesComponent() {
       </label>
       {fields.map(
         (
-          field, index
+          field, index 
         ) => {
           return (
             <section
@@ -46,7 +46,7 @@ export default function ObligacionesComponent() {
                 className={styles.textArea}
                 key={field.id}
                 {...register(
-                  `demanda.obligacion.${ index }`
+                  `demanda.obligacion.${ index }` 
                 )}
               />
               <button
@@ -54,15 +54,17 @@ export default function ObligacionesComponent() {
                 type="button"
                 onClick={() => {
                   return remove(
-                    index
+                    index 
                   );
                 }}
               >
-              Delete
+                <span className={`material-symbols-outlined ${ styles.icon }`}>
+                bookmark_remove
+                </span>
               </button>
             </section>
           );
-        }
+        } 
       )}
 
       <section className={styles.sectionRow}>
@@ -71,30 +73,32 @@ export default function ObligacionesComponent() {
           type="button"
           onClick={() => {
             append(
-              ''
+              '' 
             );
           }}
         >
-          <span className={ styles.text }>agregar</span>
-          <span className={`material-symbols-outlined ${ styles.icon }`}>variables</span>
+          <span className={styles.text}>agregar</span>
+          <span className={`material-symbols-outlined ${ styles.icon }`}>
+            variables
+          </span>
         </button>
-
-
 
         <button
           className={styles.button}
           type="button"
           onClick={() => {
             prepend(
-              ''
+              '' 
             );
           }}
         >
-          <span className={ styles.text }>agregar antes</span>
-          <span className={`material-symbols-outlined ${ styles.icon }`}>variables</span>
+          <span className={styles.text}>agregar antes</span>
+          <span className={`material-symbols-outlined ${ styles.icon }`}>
+            variables
+          </span>
         </button>
 
-        <button
+        {/* <button
           type="button"
           onClick={() => {
             setValue(
@@ -114,7 +118,7 @@ export default function ObligacionesComponent() {
           }}
         >
           prepend Nested
-        </button>
+        </button> */}
       </section>
 
       <span className="counter">Render Count: {renderCount}</span>

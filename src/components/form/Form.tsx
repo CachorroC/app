@@ -11,22 +11,23 @@ import { divider } from '#@/app/Carpetas/@right/Nueva/styles.module.css';
 import { InputSection } from './input-section';
 import { SelectSection } from './select-section';
 import { NumberSection } from './number-section';
+import { IntCarpetaElementSchema } from '#@/lib/types/zod/carpeta';
 
 export const Form = (
   {
-    carpeta
-  }: { carpeta: MonCarpeta }
+    carpeta 
+  }: { carpeta: MonCarpeta } 
 ) => {
   const {
-    demanda, numero,  category, tipoProceso
+    demanda, numero, category, tipoProceso 
   } = carpeta;
 
   const {
-    handleSubmit, reset, setError
+    handleSubmit, reset, setError 
   } = useFormContext<MonCarpeta>();
 
   const onSubmit: SubmitHandler<MonCarpeta> = async (
-    data: MonCarpeta
+    data: MonCarpeta 
   ) => {
     const newCarpeta = {
       ...carpeta,
@@ -39,6 +40,22 @@ export const Form = (
       ...mutated
     } = newCarpeta;
 
+    const parsed = IntCarpetaElementSchema.safeParse(
+      mutated 
+    );
+
+    if ( !parsed.success ) {
+      alert(
+        JSON.stringify(
+          parsed 
+        ) 
+      );
+
+      throw new Error(
+        'error al hacer el parse' 
+      );
+    }
+
     const postCarpeta = await fetch(
       `/api/Carpeta/${ numero }`, {
         method : 'PUT',
@@ -46,44 +63,44 @@ export const Form = (
           'content-type': 'application/json',
         },
         body: JSON.stringify(
-          mutated
+          parsed.data 
         ),
-      }
+      } 
     );
     alert(
       JSON.stringify(
-        postCarpeta.status
-      )
+        postCarpeta.status 
+      ) 
     );
 
     if ( postCarpeta.status > 200 ) {
       setError(
         'root.serverError', {
           type: postCarpeta.statusText,
-        }
+        } 
       );
     }
 
     const updatedCarpeta = ( await postCarpeta.json() ) as MonCarpeta;
     alert(
       JSON.stringify(
-        updatedCarpeta
-      )
+        updatedCarpeta 
+      ) 
     );
     console.log(
-      postCarpeta.status
+      postCarpeta.status 
     );
   };
 
   useEffect(
     () => {
       reset(
-        carpeta
+        carpeta 
       );
     }, [
       reset,
       carpeta
-    ]
+    ] 
   );
 
   return (
@@ -91,26 +108,22 @@ export const Form = (
       <form
         className={form.form}
         onSubmit={handleSubmit(
-          onSubmit
+          onSubmit 
         )}
       >
-        <section className={ form.sectionRow }>
-
-          <InputSection
+        <section className={form.sectionRow}>
+          <NumberSection
             name={'numero'}
-            title={'Carpeta Numero'}
+            title={'Numero'}
             rls={{
               required: true,
             }}
             type={'number'}
           />
-          <NumberSection name={ 'numero' } title={ 'Numero' } rls={{
-            required: true
-          }}/>
 
           <SelectSection
             name={'category'}
-            title={ 'Grupo al que pertenece' }
+            title={'Grupo al que pertenece'}
             initialValue={category}
             options={[
               'Bancolombia',
@@ -122,7 +135,7 @@ export const Form = (
           />
 
           <SelectSection
-            name={ 'tipoProceso' }
+            name={'tipoProceso'}
             initialValue={tipoProceso}
             title={'Proceso del Tipo'}
             options={[
@@ -131,42 +144,7 @@ export const Form = (
               'PRENDARIO'
             ]}
           />
-        </section>
-        <section className={form.sectionColumn}>
-          <InputSection
-            name={'deudor.primerNombre'}
-            title={'Primer Nombre'}
-            type={'text'}
-            rls={{
-              required: true,
-            }}
-          />
-          <InputSection
-            key={'segundoNombre'}
-            name={'deudor.segundoNombre'}
-            title={'Segundo Nombre'}
-            type={'text'}
-            rls={{
-              required: false,
-            }}
-          />
-          <InputSection
-            name={'deudor.primerApellido'}
-            title={'Primer Apellido'}
-            type={'text'}
-            rls={{
-              required: true,
-            }}
-          />
-          <InputSection
-            name={'deudor.segundoApellido'}
-            title={'Segundo Apellido'}
-            type={'text'}
-            rls={{
-              required: false,
-            }}
-          />
-          <InputSection
+          <NumberSection
             name={'deudor.cedula'}
             title={'Cédula de Ciudadanía'}
             type={'number'}
@@ -174,124 +152,167 @@ export const Form = (
               required: true,
             }}
           />
-          <InputSection
-            name={'deudor.direccion'}
-            title={'Dirección'}
-            type={'textarea'}
-            rls={{
-              required: false,
-            }}
-          />
-          <InputSection
-            name={'deudor.email'}
-            title={'Correo Electrónico'}
-            type={'email'}
-            rls={{
-              required: false,
-              pattern : /^\S+@\S+$/i,
-            }}
-          />
+        </section>
+        <section className={form.sectionColumn}>
           <section className={form.sectionRow}>
             <InputSection
+              name={'deudor.primerNombre'}
+              title={'Primer Nombre'}
+              type={'text'}
+              rls={{
+                required: true,
+              }}
+            />
+            <InputSection
+              key={'segundoNombre'}
+              name={'deudor.segundoNombre'}
+              title={'Segundo Nombre'}
+              type={'text'}
+            />
+          </section>
+          <section className={form.sectionRow}>
+            <InputSection
+              name={'deudor.primerApellido'}
+              title={'Primer Apellido'}
+              type={'text'}
+              rls={{
+                required: true,
+              }}
+            />
+            <InputSection
+              name={'deudor.segundoApellido'}
+              title={'Segundo Apellido'}
+              type={'text'}
+            />
+          </section>
+
+          <section className={form.sectionRow}>
+            <InputSection
+              name={'deudor.direccion'}
+              title={'Dirección'}
+              type={'text'}
+            />
+            <InputSection
+              name={'deudor.email'}
+              title={'Correo Electrónico'}
+              type={'email'}
+              rls={{
+                required: false,
+                pattern : /^\S+@\S+$/i,
+              }}
+            />
+          </section>
+          <section className={form.sectionRow}>
+            <NumberSection
               name={'deudor.tel.celular'}
               title={'celular'}
               type={'tel'}
             />
-            <InputSection
+            <NumberSection
               name={'deudor.tel.fijo'}
-              title={'fijo'}
+              title={'celular'}
               type={'tel'}
             />
+            s
           </section>
         </section>
         <div className={divider}></div>
         <section className={form.sectionColumn}>
-          <InputSection
+          <NumberSection
             name={'demanda.capitalAdeudado'}
-            title={'Capital Adeudado'}
+            title={'Capital en mora'}
             type={'number'}
             rls={{
               required: true,
             }}
           />
-          { demanda.departamento
+          {demanda.departamento
             ? (
-                <SelectSection name={ 'demanda.departamento' } options={[
-                  'ARAUCA',
-                  'ARMENIA',
-                  'B/QUILLA',
-                  'BOGOTÁ',
-                  'B/MANGA',
-                  'BOYACA',
-                  'CALI',
-                  'CARTAGENA',
-                  'CÚCUTA',
-                  'FLORENCIA',
-                  'IBAGUÉ',
-                  'LETICIA',
-                  'MANIZALES',
-                  'MEDELLÍN',
-                  'MITÚ',
-                  'MOCOA',
-                  'MONTERÍA',
-                  'NEIVA',
-                  'PASTO',
-                  'PEREIRA',
-                  'POPAYÁN',
-                  'P/CARREÑO',
-                  'P/INÍRIDA',
-                  'QUIBDÓ',
-                  'RIOHACHA',
-                  'SAN ANDRÉS',
-                  'S/GUAVIARE',
-                  'SANTA MARTA',
-                  'SINCELEJO',
-                  'TOLIMA',
-                  'CUNDINAMARCA',
-                  'TUNJA',
-                  'V/DUPAR',
-                  'V/VICENCIO',
-                  'YOPAL'
-                ]} title={ 'Departamento' } initialValue={demanda.departamento} />
+                <SelectSection
+                  name={'demanda.departamento'}
+                  options={[
+                    'ARAUCA',
+                    'ARMENIA',
+                    'B/QUILLA',
+                    'BOGOTÁ',
+                    'B/MANGA',
+                    'BOYACA',
+                    'CALI',
+                    'CARTAGENA',
+                    'CÚCUTA',
+                    'FLORENCIA',
+                    'IBAGUÉ',
+                    'LETICIA',
+                    'MANIZALES',
+                    'MEDELLÍN',
+                    'MITÚ',
+                    'MOCOA',
+                    'MONTERÍA',
+                    'NEIVA',
+                    'PASTO',
+                    'PEREIRA',
+                    'POPAYÁN',
+                    'P/CARREÑO',
+                    'P/INÍRIDA',
+                    'QUIBDÓ',
+                    'RIOHACHA',
+                    'SAN ANDRÉS',
+                    'S/GUAVIARE',
+                    'SANTA MARTA',
+                    'SINCELEJO',
+                    'TOLIMA',
+                    'CUNDINAMARCA',
+                    'TUNJA',
+                    'V/DUPAR',
+                    'V/VICENCIO',
+                    'YOPAL',
+                  ]}
+                  title={'Departamento'}
+                  initialValue={demanda.departamento}
+                />
               )
             : (
-                <SelectSection name={ 'demanda.departamento' } options={[
-                  'ARAUCA',
-                  'ARMENIA',
-                  'B/QUILLA',
-                  'BOGOTÁ',
-                  'B/MANGA',
-                  'BOYACA',
-                  'CALI',
-                  'CARTAGENA',
-                  'CÚCUTA',
-                  'FLORENCIA',
-                  'IBAGUÉ',
-                  'LETICIA',
-                  'MANIZALES',
-                  'MEDELLÍN',
-                  'MITÚ',
-                  'MOCOA',
-                  'MONTERÍA',
-                  'NEIVA',
-                  'PASTO',
-                  'PEREIRA',
-                  'POPAYÁN',
-                  'P/CARREÑO',
-                  'P/INÍRIDA',
-                  'QUIBDÓ',
-                  'RIOHACHA',
-                  'SAN ANDRÉS',
-                  'S/GUAVIARE',
-                  'SANTA MARTA',
-                  'SINCELEJO',
-                  'TOLIMA',
-                  'CUNDINAMARCA',
-                  'TUNJA',
-                  'V/DUPAR',
-                  'V/VICENCIO',
-                  'YOPAL'
-                ]} title={ 'Departamento' }  />
+                <SelectSection
+                  name={'demanda.departamento'}
+                  options={[
+                    'ARAUCA',
+                    'ARMENIA',
+                    'B/QUILLA',
+                    'BOGOTÁ',
+                    'B/MANGA',
+                    'BOYACA',
+                    'CALI',
+                    'CARTAGENA',
+                    'CÚCUTA',
+                    'FLORENCIA',
+                    'IBAGUÉ',
+                    'LETICIA',
+                    'MANIZALES',
+                    'MEDELLÍN',
+                    'MITÚ',
+                    'MOCOA',
+                    'MONTERÍA',
+                    'NEIVA',
+                    'PASTO',
+                    'PEREIRA',
+                    'POPAYÁN',
+                    'P/CARREÑO',
+                    'P/INÍRIDA',
+                    'QUIBDÓ',
+                    'RIOHACHA',
+                    'SAN ANDRÉS',
+                    'S/GUAVIARE',
+                    'SANTA MARTA',
+                    'SINCELEJO',
+                    'TOLIMA',
+                    'CUNDINAMARCA',
+                    'TUNJA',
+                    'V/DUPAR',
+                    'V/VICENCIO',
+                    'YOPAL',
+                  ]}
+                  title={'Departamento'}
+                />
               )}
           {demanda.entregaGarantiasAbogado
             ? (
@@ -301,11 +322,22 @@ export const Form = (
                   title={'fecha de entrega de las garantias al abogado'}
                 />
               )
-            : ( <DateInputSection
-                name={'demanda.entregaGarantiasAbogado'}
-                title={ 'fecha de entrega de las garantias al abogado' } /> ) }
-          <InputSection name={ 'demanda.etapaProcesal' } title={ 'etapaprocesal' } type={ 'text' } />
-          <InputSection name={ 'demanda.expediente' } title={ 'Expediente' } type={ 'text' } />
+            : (
+                <DateInputSection
+                  name={'demanda.entregaGarantiasAbogado'}
+                  title={'fecha de entrega de las garantias al abogado'}
+                />
+              )}
+          <InputSection
+            name={'demanda.etapaProcesal'}
+            title={'etapaprocesal'}
+            type={'text'}
+          />
+          <InputSection
+            name={'demanda.expediente'}
+            title={'Expediente'}
+            type={'text'}
+          />
           {demanda.fechaPresentacion
             ? (
                 <DateInputSection
@@ -319,26 +351,29 @@ export const Form = (
                   name={'demanda.fechaPresentacion'}
                   title={'fecha de presentacion de la demanda'}
                 />
-              ) }
+              )}
 
           <ObligacionesComponent />
           {demanda.vencimientoPagare
-            ? demanda.vencimientoPagare.map(
-              (
-                fechaVencimiento, index
-              ) => {
-                return (
-                  <DateInputSection
-                    key={index}
-                    initialValue={fechaVencimiento}
-                    name={`demanda.vencimientoPagare.${ index }`}
-                    title={`Pagaré numero ${ index + 1 }`}
-                  />
-                );
-              }
-            )
-            : <VencimientoPagareSection />}
-
+            ? (
+                demanda.vencimientoPagare.map(
+                  (
+                    fechaVencimiento, index 
+                  ) => {
+                    return (
+                      <DateInputSection
+                        key={index}
+                        initialValue={fechaVencimiento}
+                        name={`demanda.vencimientoPagare.${ index }`}
+                        title={`Pagaré numero ${ index + 1 }`}
+                      />
+                    );
+                  } 
+                )
+              )
+            : (
+                <VencimientoPagareSection />
+              )}
         </section>
 
         <button

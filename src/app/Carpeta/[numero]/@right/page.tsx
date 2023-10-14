@@ -1,44 +1,39 @@
 'use client';
 
 import styles from '#@/app/Carpetas/@right/Nueva/styles.module.css';
+import { segmentColumn } from '#@/components/Buttons/buttons.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
-import { NuevaCarpeta } from '#@/lib/types/carpetas';
+import { fixMoney } from '#@/lib/project/helper';
+import { MonCarpeta, NuevaCarpeta } from '#@/lib/types/carpetas';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 export default function Page() {
   const {
-    getValues
+    getValues 
   } = useFormContext<NuevaCarpeta>();
 
-  const nuevaCarpeta = useWatch();
+  const carpeta = useWatch<MonCarpeta>();
 
   return (
-    <>
+    <section className={segmentColumn}>
       <div className={styles.divider}></div>
       <div className={styles.divider}></div>
       <div className={styles.divider}></div>
       <pre>
-        {Number(
-          nuevaCarpeta.demanda.capitalAdeudado ?? 0
-        )
-          .toLocaleString(
-            'es-CO', {
-              currency       : 'COP',
-              style          : 'currency',
-              currencyDisplay: 'name',
-            }
-          )}
-      </pre>
-      <div className={styles.divider}></div>
-      <pre>
-        {OutputDateHelper(
-          nuevaCarpeta.demanda.entregaGarantiasAbogado
+        {fixMoney(
+          {
+            valor: carpeta.demanda.capitalAdeudado,
+          } 
         )}
       </pre>
       <div className={styles.divider}></div>
+      <pre>{OutputDateHelper(
+        carpeta.demanda.entregaGarantiasAbogado 
+      )}</pre>
+      <div className={styles.divider}></div>
 
       <pre>{JSON.stringify(
-        getValues(), null, 2
+        getValues(), null, 2 
       )}</pre>
       <div className={styles.divider}></div>
       <button
@@ -46,12 +41,12 @@ export default function Page() {
         onClick={() => {
           alert(
             JSON.stringify(
-              nuevaCarpeta, null, 2
-            )
+              carpeta, null, 2 
+            ) 
           );
         }}
       ></button>
       <div className={styles.divider}></div>
-    </>
+    </section>
   );
 }
