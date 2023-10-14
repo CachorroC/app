@@ -15,7 +15,7 @@ export default async function Procesos() {
     ...carpetasRaw
   ].sort(
     (
-      a, b 
+      a, b
     ) => {
       if ( !a.fecha || a.fecha === undefined ) {
         return 1;
@@ -38,14 +38,14 @@ export default async function Procesos() {
       }
 
       return 0;
-    } 
+    }
   );
 
   return (
     <>
       {carpetas.map(
         (
-          carpeta, index 
+          carpeta, index
         ) => {
           return (
             <Card
@@ -57,21 +57,22 @@ export default async function Procesos() {
                 {carpeta.idProcesos
                 && carpeta.idProcesos.map(
                   (
-                    idProceso 
+                    idProceso
                   ) => {
                     return (
                       <FechaActuacionComponent
+                        initialOpenState={false}
                         idProceso={idProceso}
                         key={idProceso}
                         index={index}
                       />
                     );
-                  } 
+                  }
                 )}
               </Suspense>
             </Card>
           );
-        } 
+        }
       )}
     </>
   );

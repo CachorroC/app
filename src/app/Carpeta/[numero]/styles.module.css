@@ -1,0 +1,20 @@
+.chip {
+  display: inline-flex;
+  flex-flow: row nowrap;
+  justify-items: stretch;
+  justify-content: stretch;
+  align-items: stretch;
+  padding: 2rem;
+  border-radius: 2vmin;
+  border: solid 0.2rem var(--outline);
+  font-family: var(--raleway);
+  font-style: var(--label-small-font-family-style);
+  font-weight: var(--label-small-font-weight);
+  font-size: var(--label-small-font-size);
+  letter-spacing: var(--label-small-tracking);
+  line-height: var(--label-small-height);
+  text-transform: var(--label-small-text-transform);
+  text-decoration: var(--label-small-text-decoration);
+}
+
+/*# sourceMappingURL=styles.module.css.map */

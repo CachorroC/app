@@ -1,8 +1,11 @@
-import { buttonActiveCategory, icon, segmentRow } from '#@/components/Buttons/buttons.module.css';
+import styles from '#@/components/Buttons/buttons.module.css';
 import Link from 'next/link';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
+import type { Route } from 'next';
+import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
+import { Fragment } from 'react';
 
 export default async function Page(
   {
@@ -23,18 +26,26 @@ export default async function Page(
 
   return (
     <>
-      <section className={ segmentRow }>
-        <h2 className={typography.headlineMedium}>Actuaciones</h2>
+      <section className={ styles.segmentColumn }>
+        <h2 className={typography.headlineMedium}>Ultimas Actuaciones</h2>
         { carpeta.idProcesos && (
           carpeta.idProcesos.map(
             (
               idProceso
             ) => {
               return (
-                <Link key={ idProceso } className={buttonActiveCategory} href={ `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }` }>
-                  <span className={`material-symbols-outlined ${ icon }`}>description
-                  </span>
-                </Link>
+                <section className={styles.segmentRow} key={ idProceso }>
+                  <FechaActuacionComponent
+                    initialOpenState={ true }
+                    key={ idProceso }
+                    idProceso={ idProceso }
+                    index={ 1 } />
+                  <Link key={ idProceso } className={ styles.buttonPassiveCategory} href={ `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }` as Route }>
+                    <span className={ `material-symbols-outlined ${ styles.icon }` }>description
+                    </span>
+                  </Link>
+
+                </section>
               );
             }
           )

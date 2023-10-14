@@ -3,19 +3,7 @@
   justify-content: space-evenly;
   align-items: stretch;
   box-sizing: border-box;
-  &Row {
-    @extend .segment;
-    flex-flow: row nowrap;
 
-    .button {
-      &:nth-child(1) {
-        border-radius: 2vmin 0 0 2vmin;
-      }
-      &:nth-last-child(1) {
-        border-radius: 0 2vmin 2vmin 0;
-      }
-    }
-  }
   &Detached {
     @extend .segment;
     flex-flow: column nowrap;
@@ -25,26 +13,47 @@
     box-shadow: var(--dp6);
     border-radius: 2vmin;
     .button {
-      &:nth-child(1) {
+
+      &:first-child {
         border-radius: 2vmin 2vmin 0 0;
       }
-      &:nth-last-child(1) {
+      &:last-child {
         border-radius: 0 0 2vmin 2vmin;
+      }
+        &:only-child{
+        border-radius: 2vmin;
       }
     }
   }
   &Column {
     @extend .segment;
     flex-flow: column nowrap;
-    @media (width < 600px) {
-      flex-flow: row wrap;
-    }
     .button {
-      &:nth-child(1) {
-        border-radius: 2vmin 2vmin 0 0;
-      }
-      &:nth-last-child(1) {
+
+       &:last-child {
         border-radius: 0 0 2vmin 2vmin;
+      }
+      &:first-child {
+        border-radius: 2vmin 2vmin 0 0;
+      }  &:only-child{
+        border-radius: 2vmin;
+      }
+
+    }
+  }
+  &Row {
+    @extend .segment;
+    flex-flow: row nowrap;
+    .button {
+
+      &:first-child {
+        border-radius: 2vmin 0 0 2vmin;
+      }
+      &:last-child {
+        border-radius: 0 2vmin 2vmin 0;
+      }
+        &:only-child{
+        border-radius: 2vmin;
       }
     }
   }
@@ -54,6 +63,8 @@
     padding: 0.5vmin 2vmin;
     flex: 1;
     display: flex;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
     flex-flow: column nowrap;
     justify-items: center;
     align-items: center;
@@ -124,7 +135,6 @@
       }
     }
 
-
     &:hover,
     &:active {
       transform: scale(1.1);
@@ -133,10 +143,10 @@
       border: 2px solid var(--outline);
       & > span {
         font-variation-settings:
-          'FILL' 1,
-          'wght' 400,
-          'GRAD' 200,
-          'opsz' 24;
+          "FILL" 1,
+          "wght" 400,
+          "GRAD" 200,
+          "opsz" 24;
         color: var(--on-primary-fixed);
       }
     }

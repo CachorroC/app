@@ -2,7 +2,6 @@
 import styles from 'components/Buttons/buttons.module.css';
 import { useCategory } from '#@/app/context/main-context';
 import Link from 'next/link';
-import { Fragment } from 'react';
 
 export const CategoryButton = (
   {
@@ -11,20 +10,22 @@ export const CategoryButton = (
   }: {
   categoria: string;
   icon: string;
-} 
+}
 ) => {
   const {
-    category, setCategory 
+    category, setCategory
   } = useCategory();
 
   return (
-    <button
+    <Link
+      href={`/Carpetas/${ categoria !== 'todos'
+        ? categoria
+        : '' }` }
       onClick={() => {
         setCategory(
-          categoria 
+          categoria
         );
       }}
-      type="button"
       className={
         category === categoria
           ? styles.buttonActiveCategory
@@ -33,7 +34,7 @@ export const CategoryButton = (
     >
       <span className={`material-symbols-outlined ${ styles.icon }`}>{icon}</span>
       <p className={styles.text}>{categoria}</p>
-    </button>
+    </Link>
   );
 };
 
@@ -60,21 +61,16 @@ export const CategoryFilterButton = () => {
     <section className={styles.segmentColumn}>
       {categorias.map(
         (
-          category, index 
+          category, index
         ) => {
           return (
-            <Fragment key={category}>
-              <CategoryButton
-                key={category}
-                categoria={category}
-                icon={icons[ index ]}
-              />
-              <Link href={`/Carpetas/${ category }`}>
-                <span className="material-symbols-outlined">{icons[ index ]}</span>
-              </Link>
-            </Fragment>
+            <CategoryButton
+              key={category}
+              categoria={category}
+              icon={icons[ index ]}
+            />
           );
-        } 
+        }
       )}
     </section>
   );

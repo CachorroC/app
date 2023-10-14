@@ -9,7 +9,7 @@ export default async function Page(
     params,
   }: {
   params: { categoria: string };
-} 
+}
 ) {
   const carpetasRaw = await getCarpetas();
 
@@ -17,17 +17,17 @@ export default async function Page(
     ...carpetasRaw
   ].filter(
     (
-      carpeta 
+      carpeta
     ) => {
       return carpeta.category === params.categoria;
-    } 
+    }
   );
 
   return (
     <>
       {ncarps.map(
         (
-          carpeta, index 
+          carpeta, index
         ) => {
           return (
             <Card
@@ -38,21 +38,22 @@ export default async function Page(
               <Suspense fallback={<Loader />}>
                 {carpeta.idProcesos?.map(
                   (
-                    idProceso 
+                    idProceso
                   ) => {
                     return (
                       <FechaActuacionComponent
+                        initialOpenState={false}
                         idProceso={idProceso}
                         index={index}
                         key={idProceso}
                       />
                     );
-                  } 
+                  }
                 )}
               </Suspense>
             </Card>
           );
-        } 
+        }
       )}
     </>
   );

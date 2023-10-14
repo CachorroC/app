@@ -12,13 +12,15 @@ export const FechaActuacionComponent = async (
   {
     idProceso,
     index,
+    initialOpenState
   }: {
   idProceso: number;
-  index: number;
-} 
+      index: number;
+  initialOpenState: boolean
+}
 ) => {
   const consultaActuaciones = await fetchActuaciones(
-    idProceso, index 
+    idProceso, index
   );
 
   if ( !consultaActuaciones.actuaciones ) {
@@ -29,13 +31,13 @@ export const FechaActuacionComponent = async (
     ultimaActuacion
   ] = consultaActuaciones.actuaciones;
 
-  return <ActuacionComponent incomingActuacion={ultimaActuacion} />;
+  return <ActuacionComponent initialOpenState={initialOpenState} incomingActuacion={ultimaActuacion} />;
 };
 
 export const ActuacionCard = (
   {
-    act 
-  }: { act: Actuacion } 
+    act
+  }: { act: Actuacion }
 ) => {
   const {
     consActuacion,
@@ -74,7 +76,7 @@ export const ActuacionCard = (
           </Link>
           <sup className={`${ typography.labelMedium } ${ styles.date }`}>
             {fixFechas(
-              fechaActuacion 
+              fechaActuacion
             )}
           </sup>
         </div>
@@ -88,13 +90,13 @@ export const ActuacionesList = (
     actuaciones,
   }: {
   actuaciones: Actuacion[];
-} 
+}
 ) => {
   return (
     <>
       {actuaciones.map(
         (
-          act 
+          act
         ) => {
           return (
             <ActuacionCard
@@ -102,7 +104,7 @@ export const ActuacionesList = (
               key={act.idRegActuacion}
             />
           );
-        } 
+        }
       )}
     </>
   );

@@ -12,40 +12,40 @@ const NoteContext = createContext<{
   inputNota: intNota;
   setInputNota: Dispatch<SetStateAction<intNota>>;
 } | null>(
-  null 
+  null
 );
 
 const CategoryContext = createContext<{
   category: string;
   setCategory: Dispatch<SetStateAction<string>>;
 } | null>(
-  null 
+  null
 );
 
 const ContactoContext = createContext<{
   contactoForm: ContactoForm;
   setContactoForm: Dispatch<SetStateAction<ContactoForm>>;
 } | null>(
-  null 
+  null
 );
 
 const NavigationContext = createContext<{
   isNavOpen: boolean;
   setIsNavOpen: Dispatch<SetStateAction<boolean>>;
 } | null>(
-  null 
+  null
 );
 
 export function MainProvider(
   {
-    children 
-  }: { children: ReactNode } 
+    children
+  }: { children: ReactNode }
 ) {
   const [
     category,
     setCategory
   ] = useState(
-    'todos' 
+    'todos'
   );
 
   const [
@@ -60,7 +60,7 @@ export function MainProvider(
       telefono  : 1,
       comentario: 'Este es el espacio para registrar información adicional',
       fecha     : new Date(),
-    } 
+    }
   );
 
   const [
@@ -74,16 +74,46 @@ export function MainProvider(
       llaveProceso: null,
       date        : new Date(),
       done        : false,
-    } 
+    }
   );
 
   const [
     isNavOpen,
     setIsNavOpen
   ] = useState(
-    false 
+    false
   );
+  /*
+  const pathname = usePathname();
 
+  useEffect(
+    () => {
+      const [
+        ,
+        firstRoute,
+        secondRoute
+      ] = pathname.split(
+        '/'
+      );
+
+      console.log(
+        `primera ruta: ${ firstRoute }`
+      );
+      console.log(
+        `segunda ruta: ${ secondRoute }`
+
+      );
+
+      if ( firstRoute === 'Carpetas' ) {
+        setCategory(
+          secondRoute
+        );
+      }
+    }, [
+      pathname
+    ]
+  );
+ */
   return (
     <NavigationContext.Provider
       value={{
@@ -119,7 +149,7 @@ export function MainProvider(
 
 export function useCategory() {
   const context = useContext(
-    CategoryContext 
+    CategoryContext
   );
 
   if ( context === null ) {
@@ -133,7 +163,7 @@ export function useCategory() {
 
 export function useNavigationContext() {
   const context = useContext(
-    NavigationContext 
+    NavigationContext
   );
 
   if ( context === null ) {
@@ -147,7 +177,7 @@ export function useNavigationContext() {
 
 export function useContactContext() {
   const context = useContext(
-    ContactoContext 
+    ContactoContext
   );
 
   if ( context === null ) {
@@ -161,7 +191,7 @@ export function useContactContext() {
 
 export function useNotaContext() {
   const context = useContext(
-    NoteContext 
+    NoteContext
   );
 
   if ( context === null ) {

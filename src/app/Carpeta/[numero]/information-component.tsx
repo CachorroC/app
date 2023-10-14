@@ -11,7 +11,8 @@ export default function InformationComponent (
     carpeta
   }: { carpeta: MonCarpeta }
 ) {
-  const { deudor, demanda,  category, tipoProceso
+  const {
+    deudor, demanda,  category, tipoProceso
   } = carpeta;
 
   const {
@@ -116,7 +117,7 @@ export default function InformationComponent (
         </p>
       )}
 
-        {carpeta.demanda.capitalAdeudado
+      {carpeta.demanda.capitalAdeudado
             && fixMoney(
               {
                 valor: Number(

@@ -7,7 +7,6 @@ import { ReactNode } from 'react';
 import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import type { Route } from 'next';
-import { useCategory } from '#@/app/context/main-context';
 import { useSearch } from '#@/app/context/search-context';
 import { fixFechas } from '#@/lib/project/helper';
 import { sectionColumn } from '../form/form.module.css';
@@ -23,7 +22,7 @@ export const Card = (
   path: string;
   carpeta: MonCarpeta;
   children: ReactNode;
-} 
+}
 ) => {
   let contentIdProcesos;
 
@@ -36,57 +35,29 @@ export const Card = (
   const pathname = usePathname();
 
   const {
-    llaveProceso, _id, idProcesos, nombre, numero, deudor, fecha 
+    llaveProceso, _id, idProcesos, nombre, numero, deudor, fecha
   }
     = carpeta;
 
-  const {
-    category 
-  } = useCategory();
 
   const {
-    search 
+    search
   } = useSearch();
 
-  if ( category !== 'todos' ) {
-    if ( category !== carpeta.category ) {
-      return null;
-    }
-  }
 
   const isSearch = nombre.toLowerCase()
     .indexOf(
-      search.toLowerCase() 
+      search.toLowerCase()
     ) === -1;
 
   if ( !idProcesos || idProcesos.length === 0 ) {
-    contentIdProcesos = (
-      <Link
-        key={_id}
-        href={`${ path }/${ numero }` as Route}
-        className={styles.link}
-      >
-        <div className={sectionColumn}>
-          <sup className={`${ !isSearch && styles.sub }`}>{`# ${ numero }`}</sup>
-          <h4
-            key={deudor.cedula}
-            className={`${ typography.titleMedium } ${ styles.title }`}
-          >
-            {nombre}
-          </h4>
-
-          {fecha && (
-            <sub className={styles.date}>{fixFechas(
-              fecha.toString() 
-            )}</sub>
-          )}
-        </div>
-      </Link>
+    console.log(
+      'no hay idProcesos'
     );
   } else {
     contentIdProcesos = idProcesos.map(
       (
-        idProceso 
+        idProceso
       ) => {
         const isActive
         = pathname === `${ path }/${ numero }/ultimasActuaciones/${ idProceso }`;
@@ -96,28 +67,10 @@ export const Card = (
             href={`${ path }/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
             className={styles.link}
           >
-            <div
-              className={isActive
-                ? buttonActiveCategory
-                : buttonPassiveCategory}
-            >
-              <sup className={`${ !isSearch && styles.sub }`}>{`# ${ numero }`}</sup>
-              <h4
-                key={deudor.cedula}
-                className={`${ typography.titleMedium } ${ styles.title }`}
-              >
-                {nombre}
-              </h4>
-
-              {fecha && (
-                <sub className={styles.date}>{fixFechas(
-                  fecha.toString() 
-                )}</sub>
-              )}
-            </div>
+           <span className={`material-symbols-outlined ${styles.icon}`}>inventory</span>
           </Link>
         );
-      } 
+      }
     );
   }
 
