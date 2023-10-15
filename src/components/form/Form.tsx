@@ -19,7 +19,7 @@ export const Form = (
   }: { carpeta: MonCarpeta }
 ) => {
   const {
-    demanda, numero, category, tipoProceso
+    demanda, numero, category, tipoProceso, deudor
   } = carpeta;
 
   const {
@@ -88,7 +88,7 @@ export const Form = (
       )
     );
     console.log(
-      postCarpeta.status
+      `el estatus de la operacion post en Form arrojó: ${ postCarpeta.status }`
     );
   };
 
@@ -146,14 +146,16 @@ export const Form = (
               type={'number'}
             />
 
-            <NumberSection
-              name={'deudor.cedula'}
-              title={'Cédula de Ciudadanía'}
-              type={'number'}
-              rls={{
-                required: true,
-              }}
-            />
+            { deudor.cedula && (
+              <NumberSection
+                name={'deudor.cedula'}
+                title={'Cédula de Ciudadanía'}
+                type={'number'}
+                rls={{
+                  required: true,
+                }}
+              />
+            )}
           </section>
           <section className={form.sectionRow}>
             <InputSection
@@ -211,10 +213,10 @@ export const Form = (
             />
             <NumberSection
               name={'deudor.tel.fijo'}
-              title={'celular'}
+              title={'fijo'}
               type={'tel'}
             />
-            s
+
           </section>
         </section>
         <div className={divider}></div>

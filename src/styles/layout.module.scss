@@ -223,20 +223,20 @@ $MaxSW: 480px; //maximum sma width
 }
 
 .section {
-  gap: 1cqmin;
+  gap: .5rem;
   padding: 2vmin;
   flex: 1;
   display: flex;
   flex-flow: column wrap;
   & > .section {
-    gap: 5cqmin;
-    padding: 1cqmin;
+    gap: .5rem;
+    padding: .1rem;
     display: flex;
     flex: 1;
     flex-flow: row wrap;
     & > .section {
-      gap: 2cqmin;
-      padding: 5cqh;
+      gap: .2rem;
+      padding: .3rem;
       display: flex;
       flex: 1;
       flex-flow: column nowrap;
@@ -249,5 +249,85 @@ $MaxSW: 480px; //maximum sma width
   .titleInput,
   .title {
     flex: 2;
+  }
+}
+
+
+
+.segment {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  box-sizing: border-box;
+
+  &Detached {
+    @extend .segment;
+    flex-flow: column nowrap;
+    position: absolute;
+    max-height: 200px;
+    right: 2rem;
+    box-shadow: var(--dp6);
+    border-radius: 2vmin;
+    .button {
+      &:first-child {
+        border-radius: 2vmin 2vmin 0 0;
+      }
+      &:last-child {
+        border-radius: 0 0 2vmin 2vmin;
+      }
+      &:only-child {
+        border-radius: 2vmin;
+      }
+    }
+  }
+  &Column {
+    @extend .segment;
+    flex-flow: column nowrap;
+    .button {
+      &:last-child {
+        border-radius: 0 0 2vmin 2vmin;
+      }
+      &:first-child {
+        border-radius: 2vmin 2vmin 0 0;
+      }
+      &:only-child {
+        border-radius: 2vmin;
+      }
+    }
+  }
+  &Row {
+    @extend .segment;
+    flex-flow: row nowrap;
+    .button {
+      &:first-child {
+        border-radius: 2vmin 0 0 2vmin;
+      }
+      &:last-child {
+        border-radius: 0 2vmin 2vmin 0;
+      }
+      &:only-child {
+        border-radius: 2vmin;
+      }
+    }
+  }
+
+}
+
+
+.section {
+  gap: 1vmin;
+  border-radius: 1em;
+  padding: 1vmin;
+  flex: 1;
+  display: flex;
+  &Row {
+    @extend .section;
+    flex-flow: row nowrap;
+    border: dotted 0.1rem var(--secondary);
+  }
+  &Column {
+    @extend .section;
+    flex-flow: column nowrap;
+    border: dashed 0.1rem var(--tertiary);
   }
 }

@@ -4,23 +4,17 @@ import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(
-  request: NextRequest 
+  request: NextRequest
 ) {
   const json = ( await request.json() ) as intNota;
-  console.log(
-    json 
-  );
 
   const collection = await notasCollection();
 
   const insertNewNota = await collection.insertOne(
-    json 
+    json
   );
 
   if ( insertNewNota.acknowledged ) {
-    console.log(
-      insertNewNota.insertedId 
-    );
 
     return NextResponse.json(
       {
@@ -39,27 +33,24 @@ export async function POST(
 }
 
 export async function PUT(
-  request: NextRequest 
+  request: NextRequest
 ) {
   const json = ( await request.json() ) as intNota;
-  console.log(
-    json 
-  );
 
   const {
-    searchParams 
+    searchParams
   } = new URL(
-    request.url 
+    request.url
   );
 
   const _id = searchParams.get(
-    '_id' 
+    '_id'
   );
 
   if ( _id ) {
     const query = {
       _id: new ObjectId(
-        _id 
+        _id
       ),
     };
 
@@ -79,60 +70,60 @@ export async function PUT(
     if ( update ) {
       return new NextResponse(
         JSON.stringify(
-          update 
+          update
         ), {
           status : 200,
           headers: {
             'content-type': 'application/json',
           },
-        } 
+        }
       );
     }
 
     return new NextResponse(
       null, {
         status: 404,
-      } 
+      }
     );
   }
 
   const collection = await notasCollection();
 
   const update = await collection.insertOne(
-    json 
+    json
   );
 
   if ( update.acknowledged ) {
     return new NextResponse(
       JSON.stringify(
-        update.insertedId 
+        update.insertedId
       ), {
         status : 201,
         headers: {
           'content-type': 'application/json',
         },
-      } 
+      }
     );
   }
 
   return new NextResponse(
     null, {
       status: 304,
-    } 
+    }
   );
 }
 
 export async function DELETE(
-  request: NextRequest 
+  request: NextRequest
 ) {
   const {
-    searchParams 
+    searchParams
   } = new URL(
-    request.url 
+    request.url
   );
 
   const _id = searchParams.get(
-    '_id' 
+    '_id'
   );
 
   if ( _id ) {
@@ -140,37 +131,37 @@ export async function DELETE(
 
     const query = {
       _id: new ObjectId(
-        _id 
+        _id
       ),
     };
 
     const deleteOne = await collection.deleteOne(
-      query 
+      query
     );
 
     if ( deleteOne.deletedCount > 1 ) {
       return new NextResponse(
         JSON.stringify(
-          deleteOne 
+          deleteOne
         ), {
           status : 200,
           headers: {
             'Content-Type': 'application/json',
           },
-        } 
+        }
       );
     }
 
     return new NextResponse(
       null, {
         status: 301,
-      } 
+      }
     );
   }
 
   return new NextResponse(
     null, {
       status: 304,
-    } 
+    }
   );
 }

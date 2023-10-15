@@ -29,7 +29,6 @@ export function CarpetaFormProvider(
     {
       defaultValues: carpeta,
       resetOptions : {
-        keepDefaultValues: true,
       },
       shouldFocusError: true,
       criteriaMode    : 'all',

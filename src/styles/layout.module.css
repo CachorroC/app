@@ -168,32 +168,98 @@
     transform: rotate(360deg);
   }
 }
-.section {
-  gap: 1cqmin;
+.section, .sectionColumn, .sectionRow {
+  gap: 0.5rem;
   padding: 2vmin;
   flex: 1;
   display: flex;
   flex-flow: column wrap;
 }
-.section > .section {
-  gap: 5cqmin;
-  padding: 1cqmin;
+.section > .section, .sectionColumn > .section, .section > .sectionColumn, .sectionColumn > .sectionColumn, .sectionRow > .section, .sectionRow > .sectionColumn, .section > .sectionRow, .sectionColumn > .sectionRow, .sectionRow > .sectionRow {
+  gap: 0.5rem;
+  padding: 0.1rem;
   display: flex;
   flex: 1;
   flex-flow: row wrap;
 }
-.section > .section > .section {
-  gap: 2cqmin;
-  padding: 5cqh;
+.section > .section > .section, .sectionColumn > .section > .section, .section > .sectionColumn > .section, .sectionColumn > .sectionColumn > .section, .section > .section > .sectionColumn, .sectionColumn > .section > .sectionColumn, .section > .sectionColumn > .sectionColumn, .sectionColumn > .sectionColumn > .sectionColumn, .sectionRow > .section > .section, .sectionRow > .sectionColumn > .section, .sectionRow > .section > .sectionColumn, .sectionRow > .sectionColumn > .sectionColumn, .section > .sectionRow > .section, .sectionColumn > .sectionRow > .section, .section > .sectionRow > .sectionColumn, .sectionColumn > .sectionRow > .sectionColumn, .sectionRow > .sectionRow > .section, .sectionRow > .sectionRow > .sectionColumn, .section > .section > .sectionRow, .sectionColumn > .section > .sectionRow, .section > .sectionColumn > .sectionRow, .sectionColumn > .sectionColumn > .sectionRow, .sectionRow > .section > .sectionRow, .sectionRow > .sectionColumn > .sectionRow, .section > .sectionRow > .sectionRow, .sectionColumn > .sectionRow > .sectionRow, .sectionRow > .sectionRow > .sectionRow {
+  gap: 0.2rem;
+  padding: 0.3rem;
   display: flex;
   flex: 1;
   flex-flow: column nowrap;
 }
-.section .label {
+.section .label, .sectionColumn .label, .sectionRow .label {
   font-family: var(--play-display);
   flex: 1;
 }
-.section .titleInput,
-.section .title {
+.section .titleInput, .sectionColumn .titleInput, .sectionRow .titleInput,
+.section .title,
+.sectionColumn .title,
+.sectionRow .title {
   flex: 2;
+}
+
+.segment, .segmentRow, .segmentColumn, .segmentDetached {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+.segmentDetached {
+  flex-flow: column nowrap;
+  position: absolute;
+  max-height: 200px;
+  right: 2rem;
+  box-shadow: var(--dp6);
+  border-radius: 2vmin;
+}
+.segmentDetached .button:first-child {
+  border-radius: 2vmin 2vmin 0 0;
+}
+.segmentDetached .button:last-child {
+  border-radius: 0 0 2vmin 2vmin;
+}
+.segmentDetached .button:only-child {
+  border-radius: 2vmin;
+}
+.segmentColumn {
+  flex-flow: column nowrap;
+}
+.segmentColumn .button:last-child {
+  border-radius: 0 0 2vmin 2vmin;
+}
+.segmentColumn .button:first-child {
+  border-radius: 2vmin 2vmin 0 0;
+}
+.segmentColumn .button:only-child {
+  border-radius: 2vmin;
+}
+.segmentRow {
+  flex-flow: row nowrap;
+}
+.segmentRow .button:first-child {
+  border-radius: 2vmin 0 0 2vmin;
+}
+.segmentRow .button:last-child {
+  border-radius: 0 2vmin 2vmin 0;
+}
+.segmentRow .button:only-child {
+  border-radius: 2vmin;
+}
+
+.section, .sectionColumn, .sectionRow {
+  gap: 1vmin;
+  border-radius: 1em;
+  padding: 1vmin;
+  flex: 1;
+  display: flex;
+}
+.sectionRow {
+  flex-flow: row nowrap;
+  border: dotted 0.1rem var(--secondary);
+}
+.sectionColumn {
+  flex-flow: column nowrap;
+  border: dashed 0.1rem var(--tertiary);
 }

@@ -8,6 +8,7 @@ import { FieldPath,
 import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { type HTMLInputTypeAttribute } from 'react';
+import layout from '#@/styles/layout.module.css';
 
 export const InputSection = (
   {
@@ -23,10 +24,10 @@ export const InputSection = (
     RegisterOptions<NuevaCarpeta | IntCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
-} 
+}
 ) => {
   const {
-    control 
+    control
   } = useFormContext<NuevaCarpeta | IntCarpeta>();
 
   const rules = rls ?? {
@@ -34,37 +35,36 @@ export const InputSection = (
   };
 
   const {
-    field 
+    field
   } = useController(
     {
       name,
       control,
       rules,
-    } 
+    }
   );
   return (
-    <div className={form.sectionRow}>
+    <div className={ layout.segmentRow }>
       <label
-        className={`${ form.label } ${ typography.titleMedium }`}
-        htmlFor={name}
+        className={ `${ form.label } ${ typography.titleMedium }` }
+        htmlFor={ name }
       >
-        {title}
+        { title }
       </label>
       <input
-        name={field.name}
-        value={field.value}
-        ref={field.ref}
-        type={type}
-        placeholder={title}
-        className={form.textArea}
-        onChange={(
-          e 
+        name={ field.name }
+        value={ field.value ?? ''}
+        ref={ field.ref }
+        type={ type }
+        placeholder={ title }
+        className={ form.textArea }
+        onChange={ (
+          e
         ) => {
           field.onChange(
-            e.target.value 
+            e.target.value
           );
-        }}
-      />
+        } } />
     </div>
   );
 };

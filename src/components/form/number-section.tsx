@@ -7,6 +7,7 @@ import { type FieldPath,
   useController, } from 'react-hook-form';
 import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
+import { segmentRow } from '../Buttons/buttons.module.css';
 
 export const NumberSection = (
   {
@@ -22,10 +23,10 @@ export const NumberSection = (
     RegisterOptions<NuevaCarpeta | IntCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
-} 
+}
 ) => {
   const {
-    control 
+    control
   } = useFormContext<NuevaCarpeta | IntCarpeta>();
 
   const rules = rls ?? {
@@ -33,37 +34,36 @@ export const NumberSection = (
   };
 
   const {
-    field 
+    field
   } = useController(
     {
       name,
       control,
       rules,
-    } 
+    }
   );
   return (
-    <div className={form.sectionRow}>
+    <div className={ segmentRow }>
       <label
-        className={`${ form.label } ${ typography.titleMedium }`}
-        htmlFor={field.name}
+        className={ `${ form.label } ${ typography.titleMedium }` }
+        htmlFor={ field.name }
       >
-        {title}
+        { title }
       </label>
       <input
-        name={field.name}
-        value={field.value}
-        ref={field.ref}
-        type={type}
-        placeholder={title}
-        className={form.textArea}
-        onChange={(
-          e 
+        name={ field.name }
+        value={ field.value ?? 0}
+        ref={ field.ref }
+        type={ type }
+        placeholder={ title }
+        className={ form.textArea }
+        onChange={ (
+          e
         ) => {
           field.onChange(
-            e.target.valueAsNumber 
+            e.target.valueAsNumber
           );
-        }}
-      />
+        } } />
     </div>
   );
 };

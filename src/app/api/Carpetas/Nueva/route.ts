@@ -11,7 +11,7 @@ export async function GET() {
   const carpsLen = carpetas.length;
 
   const daterFixer = InputDateHelper(
-    new Date() 
+    new Date()
   );
 
   const defaultValues: NuevaCarpeta = {
@@ -47,7 +47,7 @@ export async function GET() {
   };
 
   const stringCarpeta = JSON.stringify(
-    defaultValues 
+    defaultValues
   );
   return new NextResponse(
     stringCarpeta, {
@@ -55,41 +55,22 @@ export async function GET() {
       headers: {
         'Content-Type': 'application/json',
       },
-    } 
+    }
   );
 }
 
 export async function PUT(
-  request: NextRequest 
+  request: NextRequest
 ) {
-  const galletas = request.cookies.getAll();
 
-  const {
-    searchParams, pathname 
-  } = request.nextUrl;
 
-  console.log(
-    JSON.stringify(
-      galletas 
-    ) 
-  );
-  console.log(
-    JSON.stringify(
-      searchParams 
-    ) 
-  );
-  console.log(
-    JSON.stringify(
-      pathname 
-    ) 
-  );
 
   const json = ( await request.json() ) as IntCarpeta;
 
   const collection = await carpetasCollection();
 
   const insertCarpeta = await collection.insertOne(
-    json 
+    json
   );
 
   if ( !insertCarpeta.acknowledged ) {
@@ -97,12 +78,12 @@ export async function PUT(
       null, {
         status    : 301,
         statusText: 'No se pudo isertar la carpeta',
-      } 
+      }
     );
   }
 
   return redirect(
-    `/Carpetas/id/${ insertCarpeta.insertedId }` 
+    `/Carpetas/id/${ insertCarpeta.insertedId }`
   );
   /*  return new NextResponse(
     JSON.stringify(

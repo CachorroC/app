@@ -2,6 +2,7 @@
 import styles from 'components/Buttons/buttons.module.css';
 import { useCategory } from '#@/app/context/main-context';
 import Link from 'next/link';
+import layout from '#@/styles/layout.module.css';
 
 export const CategoryButton = (
   {
@@ -58,7 +59,7 @@ export const CategoryFilterButton = () => {
   ];
 
   return (
-    <section className={styles.segmentColumn}>
+    <section className={layout.segmentColumn}>
       {categorias.map(
         (
           category, index

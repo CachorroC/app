@@ -4,6 +4,7 @@ import { useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
 import styles from '#@/components/Buttons/buttons.module.css';
 import { ActionType } from '#@/lib/types/context-actions';
 import { useState } from 'react';
+import layout from '#@/styles/layout.module.css';
 
 export function CarpetasSortButtons() {
   const keys: ActionType[] = [
@@ -21,7 +22,7 @@ export function CarpetasSortButtons() {
     sortDirection,
     setSortDirection
   ] = useState(
-    true 
+    true
   );
 
   return (
@@ -37,10 +38,10 @@ export function CarpetasSortButtons() {
             : 'arrow_downward'}
         </span>
       </div>
-      <section className={styles.segmentColumn}>
+      <section className={layout.segmentColumn}>
         {keys.map(
           (
-            key 
+            key
           ) => {
             return (
               <button
@@ -48,16 +49,16 @@ export function CarpetasSortButtons() {
                 onClick={() => {
                   setSortDirection(
                     (
-                      d 
+                      d
                     ) => {
                       return !d;
-                    } 
+                    }
                   );
                   dispatchCarpetas(
                     {
                       type         : key,
                       sortDirection: sortDirection,
-                    } 
+                    }
                   );
                 }}
                 className={styles.buttonPassiveCategory}
@@ -66,7 +67,7 @@ export function CarpetasSortButtons() {
                 {key}
               </button>
             );
-          } 
+          }
         )}
       </section>
     </>

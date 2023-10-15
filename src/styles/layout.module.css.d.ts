@@ -11,9 +11,16 @@ declare const styles: {
   readonly 'loader': string;
   readonly 'spin': string;
   readonly 'section': string;
+  readonly 'sectionColumn': string;
+  readonly 'sectionRow': string;
   readonly 'label': string;
   readonly 'titleInput': string;
   readonly 'title': string;
+  readonly 'segment': string;
+  readonly 'segmentRow': string;
+  readonly 'segmentColumn': string;
+  readonly 'segmentDetached': string;
+  readonly 'button': string;
 };
 export = styles;
 

@@ -4,7 +4,7 @@ import { NuevaCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath, useController, useFormContext } from 'react-hook-form';
 import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { InputDateHelper } from '#@/lib/project/date-helper';
+import { InputDateHelper, OutputDateHelper } from '#@/lib/project/date-helper';
 import { useState } from 'react';
 
 export const DateInputSection = (
@@ -16,25 +16,27 @@ export const DateInputSection = (
   name: FieldPath<NuevaCarpeta>;
   title: string;
   initialValue?: Date;
-} 
+}
 ) => {
   const dateValue = initialValue
     ? initialValue
     : new Date();
 
   console.log(
-    dateValue 
+    `date-section Date value: ${ OutputDateHelper(
+      dateValue
+    ) }`
   );
 
   const [
     stringDateValue,
     setStringDateValue
   ] = useState(
-    dateValue 
+    dateValue
   );
 
   const {
-    control, setValue 
+    control, setValue
   } = useFormContext();
 
   const rules = {
@@ -42,70 +44,72 @@ export const DateInputSection = (
   };
 
   const {
-    field 
+    field, fieldState
   } = useController(
     {
       name,
       defaultValue: stringDateValue,
       control,
       rules,
-    } 
+    }
   );
   return (
-    <section className={form.sectionRow}>
+    <><section className={ form.sectionRow }>
       <label
-        className={`${ form.label } ${ typography.titleLarge }`}
-        htmlFor={name}
+        className={ `${ form.label } ${ typography.titleLarge }` }
+        htmlFor={ name }
       >
-        {title}
+        { title }
       </label>
       <input
         type="date"
-        name={field.name}
-        className={form.textArea}
-        value={InputDateHelper(
-          stringDateValue 
-        )}
-        onChange={(
-          e 
+        name={ field.name }
+        className={ form.textArea }
+        value={ InputDateHelper(
+          stringDateValue
+        ) }
+        onChange={ (
+          e
         ) => {
           console.log(
-            e.target.valueAsDate 
+            `onChange new value for date-section: ${ e.target.valueAsDate }`
           );
 
           const [
             yearStringer,
             monthStringer,
             dayStringer
-          ]
-            = e.target.value.split(
-              '-' 
-            );
+          ] = e.target.value.split(
+            '-'
+          );
 
           const newYear = Number(
-            yearStringer 
+            yearStringer
           );
 
           const newMonth = Number(
-            monthStringer 
+            monthStringer
           ) - 1;
 
           const newDay = Number(
-            dayStringer 
+            dayStringer
           );
           field.onChange(
-            e.target.value 
+            e.target.value
           );
           setValue(
-            name, e.target.value 
+            name, e.target.value
           );
           setStringDateValue(
             new Date(
-              newYear, newMonth, newDay 
-            ) 
+              newYear, newMonth, newDay
+            )
           );
-        }}
-      />
-    </section>
+        } } />
+    </section><pre>
+      { JSON.stringify(
+        fieldState, null, 2
+      ) }
+    </pre></>
   );
 };

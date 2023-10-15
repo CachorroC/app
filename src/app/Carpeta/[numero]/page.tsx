@@ -1,4 +1,4 @@
-import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
+
 import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -9,6 +9,7 @@ import type { Route } from 'next';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import styles from './styles.module.css';
 import { Fragment } from 'react';
+import layout from '#@/styles/layout.module.css';
 
 export default async function Page(
   {
@@ -47,7 +48,7 @@ export default async function Page(
         return (
           <Link
             key={idProceso}
-            href={`/Carpeta/${ params.numero }/ultimasActuaciones/${ idProceso }`}
+            href={`/Carpeta/${ params.numero }/ultimasActuaciones/${ idProceso }` as Route}
           ></Link>
         );
       }
@@ -58,13 +59,13 @@ export default async function Page(
     <>
 
 
-      <section className={button.segmentRow}>
+      <section className={layout.segmentRow}>
         <h4 className={typography.labelMedium}>Categoria:</h4>
         <p className={styles.chip}>{category}</p>
       </section>
       <p className={styles.chip}>{tipoProceso}</p>
       <p className={ styles.chip}>{ cedula }</p>
-      <section className={button.segmentColumn}>  {juzgados && juzgados.map(
+      <section className={layout.segmentColumn}>  {juzgados && juzgados.map(
         (
           despacho
         ) => {
@@ -89,7 +90,7 @@ export default async function Page(
         }
       )}
       </section>
-      <section className={button.segmentColumn}>
+      <section className={ layout.segmentColumn }>
         { tel.celular && (
           <Link
             key={tel.celular}
@@ -130,18 +131,18 @@ export default async function Page(
           </Link>
         )}
       </section>
-      <section className={ button.segmentColumn }>
+      <section className={ layout.segmentColumn }>
         <h5 className={typography.titleMedium}>Vencimiento Pagaré:</h5>
         {carpeta.demanda.vencimientoPagare && carpeta.demanda.vencimientoPagare.map(
           (
             pagare, index
           ) => {
             return (
-              <section className={button.segmentRow} key={index}>
+              <section className={layout.segmentRow} key={index}>
                 <h5 className={typography.titleSmall}>{`pagaré número ${ index +1 }`}</h5>
                 <p
                   key={index}
-                  className={`${ typography.labelSmall} ${ button.text }`}
+                  className={`${ typography.labelSmall } ${ button.text }`}
                 >
                   {fixFechas(
                     pagare
@@ -160,7 +161,7 @@ export default async function Page(
         </p>
       )}
 
-      <section className={ button.segmentColumn }>
+      <section className={ layout.segmentColumn }>
         <h5 className={typography.titleMedium}>Capital Adeudado:</h5>
         <p className={typography.bodyMedium}>   {carpeta.demanda.capitalAdeudado
             && fixMoney(

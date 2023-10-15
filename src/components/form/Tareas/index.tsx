@@ -15,16 +15,16 @@ export function NuevaTarea() {
     register,
     handleSubmit,
     formState: {
-      errors 
+      errors
     },
   } = useForm<Tarea>(
     {
       defaultValues,
-    } 
+    }
   );
 
   const onSubmit: SubmitHandler<Tarea> = async (
-    data 
+    data
   ) => {
     try {
       const postTarea = await fetch(
@@ -34,47 +34,51 @@ export function NuevaTarea() {
             'content-type': 'application/json',
           },
           body: JSON.stringify(
-            data 
+            data
           ),
-        } 
+        }
       );
 
       const tareaWithId = ( await postTarea.json() ) as Tarea;
       alert(
         JSON.stringify(
-          tareaWithId 
-        ) 
+          tareaWithId
+        )
       );
 
       return console.log(
-        tareaWithId 
+        `tarea with Id: ${ tareaWithId }`
       );
     } catch ( e ) {
       alert(
         JSON.stringify(
-          e 
-        ) 
+          e
+        )
       );
 
       return console.log(
-        e 
+        `error en onSubmit NuevaTarea. ${ JSON.stringify(
+          e, null, 2
+        ) }`
       );
     }
   };
 
   console.log(
-    errors 
+    `errores en NuevaTarea. ${ JSON.stringify(
+      errors, null, 2
+    ) }`
   );
 
   return (
     <form onSubmit={handleSubmit(
-      onSubmit 
+      onSubmit
     )}>
       <textarea
         {...register(
           'text', {
             required: true,
-          } 
+          }
         )}
       />
       <input
@@ -83,21 +87,21 @@ export function NuevaTarea() {
         {...register(
           'date', {
             required: true,
-          } 
+          }
         )}
       />
       <input
         type="checkbox"
         placeholder="done"
         {...register(
-          'done' 
+          'done'
         )}
       />
       <select
         {...register(
           'abogado', {
             required: true,
-          } 
+          }
         )}
       >
         <option value="Melissa">Melissa</option>

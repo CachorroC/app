@@ -2,13 +2,12 @@
 
 import { Actuacion } from '#@/lib/types/actuaciones';
 import { useState } from 'react';
-
 import styles from 'components/Card/card.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
-import { sectionColumn } from '../form/form.module.css';
+import layout from '#@/styles/layout.module.css';
 
-export default function ActuacionComponent(
+export function ActuacionComponent(
   {
     incomingActuacion, initialOpenState
   }: {
@@ -35,7 +34,7 @@ export default function ActuacionComponent(
 
   if ( isOpen ) {
     visibleContent = (
-      <div className={sectionColumn}>
+      <div className={layout.sectionColumn}>
         <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
         <sub className={styles.sub}>{`actuacion registrada el ${ fixFechas(
           fechaRegistro,

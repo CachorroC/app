@@ -15,8 +15,8 @@
     height: 100%;
     box-sizing: border-box;
     flex-flow: column nowrap;
-    padding: 2cqmin;
-    gap: 2cqmin;
+    padding: .2;
+    gap: .2;
     sub {
       color: var(--primary);
     }
@@ -24,30 +24,6 @@
       display: flex;
       flex-flow: row nowrap;
     }
-  }
-}
-.section {
-  gap: 1cqmin;
-  border-radius: 1em;
-  padding: 1cqmin;
-  flex: 1;
-  display: flex;
-  &Row {
-    @extend .section;
-    flex-flow: row nowrap;
-    border: dotted 0.1rem var(--secondary);
-  }
-  &Column {
-    @extend .section;
-    flex-flow: column nowrap;
-       border: dashed 0.1rem var(--tertiary);
-  }
-  .label {
-    flex: 1;
-  }
-  .titleInput,
-  .title {
-    flex: 2;
   }
 }
 .submitButton {
@@ -60,10 +36,10 @@
   & > span {
     color: var(--on-secondary);
     font-variation-settings:
-      'FILL' 0,
-      'wght' 300,
-      'GRAD' 0,
-      'opsz' 24;
+      "FILL" 0,
+      "wght" 300,
+      "GRAD" 0,
+      "opsz" 24;
   }
   &:hover,
   &:active {
@@ -71,10 +47,10 @@
     box-shadow: var(--dp8);
     & > span {
       font-variation-settings:
-        'FILL' 1,
-        'wght' 600,
-        'GRAD' 200,
-        'opsz' 48;
+        "FILL" 1,
+        "wght" 600,
+        "GRAD" 200,
+        "opsz" 48;
       color: var(--on-secondary);
     }
   }
@@ -87,7 +63,7 @@
   box-sizing: border-box;
   background-color: var(--surface-bright);
   color: var(--on-surface);
-  flex: 2;
+  flex: 1;
   border-radius: 0 1cqmax 1cqmax 0;
   resize: both;
   text-align: center;
@@ -101,6 +77,13 @@
   }
 }
 
+  .label {
+    flex: 1;
+  }
+  .titleInput,
+  .title {
+    flex: 2;
+  }
 .vencimientoArea {
   @extend .textArea;
   border-radius: 1cqmax 0 0 1cqmax;
@@ -126,10 +109,10 @@
     color: var(--on-secondary-container);
     transition: all 1s;
     font-variation-settings:
-      'FILL' 0,
-      'wght' 300,
-      'GRAD' 0,
-      'opsz' 24;
+      "FILL" 0,
+      "wght" 300,
+      "GRAD" 0,
+      "opsz" 24;
   }
   &:hover,
   &:active {
@@ -137,10 +120,10 @@
     box-shadow: var(--dp8);
     & > span {
       font-variation-settings:
-        'FILL' 1,
-        'wght' 400,
-        'GRAD' 200,
-        'opsz' 24;
+        "FILL" 1,
+        "wght" 400,
+        "GRAD" 200,
+        "opsz" 24;
       color: var(--tertiary);
     }
   }
@@ -153,7 +136,7 @@
   border: 0.1cqmin solid var(--outline-variant);
   border-radius: 50vw;
   width: 5cqmin;
-  height: 2cqmin;
+  height: .2;
 }
 
 /* Hide default HTML checkbox */
@@ -178,9 +161,9 @@
 }
 
 .slider:before {
-  border-radius: 2cqmin 2cqmin 0 0;
+  border-radius: .2 .2 0 0;
   position: absolute;
-  content: '';
+  content: "";
   height: 1.6cqmin;
   width: 1.6cqmin;
   left: 0.1cqmin;

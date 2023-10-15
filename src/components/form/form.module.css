@@ -15,8 +15,8 @@
   height: 100%;
   box-sizing: border-box;
   flex-flow: column nowrap;
-  padding: 2cqmin;
-  gap: 2cqmin;
+  padding: 0.2;
+  gap: 0.2;
 }
 .container .form sub {
   color: var(--primary);
@@ -24,31 +24,6 @@
 .container .form .buttonsRow {
   display: flex;
   flex-flow: row nowrap;
-}
-
-.section, .sectionColumn, .sectionRow {
-  gap: 1cqmin;
-  border-radius: 1em;
-  padding: 1cqmin;
-  flex: 1;
-  display: flex;
-}
-.sectionRow {
-  flex-flow: row nowrap;
-  border: dotted 0.1rem var(--secondary);
-}
-.sectionColumn {
-  flex-flow: column nowrap;
-  border: dashed 0.1rem var(--tertiary);
-}
-.section .label, .sectionRow .label, .sectionColumn .label {
-  flex: 1;
-}
-.section .titleInput, .sectionRow .titleInput, .sectionColumn .titleInput,
-.section .title,
-.sectionRow .title,
-.sectionColumn .title {
-  flex: 2;
 }
 
 .submitButton {
@@ -80,7 +55,7 @@
   box-sizing: border-box;
   background-color: var(--surface-bright);
   color: var(--on-surface);
-  flex: 2;
+  flex: 1;
   border-radius: 0 1cqmax 1cqmax 0;
   resize: both;
   text-align: center;
@@ -94,6 +69,15 @@
 .textArea:focus, .vencimientoArea:focus,
 .selectArea:focus {
   border: var(--primary) solid 0.3rem;
+}
+
+.label {
+  flex: 1;
+}
+
+.titleInput,
+.title {
+  flex: 2;
 }
 
 .vencimientoArea {
@@ -137,7 +121,7 @@
   border: 0.1cqmin solid var(--outline-variant);
   border-radius: 50vw;
   width: 5cqmin;
-  height: 2cqmin;
+  height: 0.2;
 }
 
 /* Hide default HTML checkbox */
@@ -162,7 +146,7 @@
 }
 
 .slider:before {
-  border-radius: 2cqmin 2cqmin 0 0;
+  border-radius: 0.2 0.2 0 0;
   position: absolute;
   content: "";
   height: 1.6cqmin;

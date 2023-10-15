@@ -5,7 +5,7 @@ import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
 import type { Route } from 'next';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
-import { Fragment } from 'react';
+import layout from '#@/styles/layout.module.css';
 
 export default async function Page(
   {
@@ -26,7 +26,7 @@ export default async function Page(
 
   return (
     <>
-      <section className={ styles.segmentColumn }>
+      <section className={ layout.segmentColumn }>
         <h2 className={typography.headlineMedium}>Ultimas Actuaciones</h2>
         { carpeta.idProcesos && (
           carpeta.idProcesos.map(
@@ -34,7 +34,7 @@ export default async function Page(
               idProceso
             ) => {
               return (
-                <section className={styles.segmentRow} key={ idProceso }>
+                <section className={layout.segmentRow} key={ idProceso }>
                   <FechaActuacionComponent
                     initialOpenState={ true }
                     key={ idProceso }

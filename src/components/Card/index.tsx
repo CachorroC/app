@@ -1,17 +1,10 @@
-'use client';
-
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import type { Route } from 'next';
-import { useSearch } from '#@/app/context/search-context';
-import { fixFechas } from '#@/lib/project/helper';
-import { sectionColumn } from '../form/form.module.css';
-import { buttonActiveCategory,
-  buttonPassiveCategory, } from '../Buttons/buttons.module.css';
+import layout from '#@/styles/layout.module.css';
 
 export const Card = (
   {
@@ -32,23 +25,13 @@ export const Card = (
     ? llaveLength < 23
     : true;
 
-  const pathname = usePathname();
 
   const {
-    llaveProceso, _id, idProcesos, nombre, numero, deudor, fecha
+    llaveProceso, idProcesos, nombre, numero
   }
     = carpeta;
 
 
-  const {
-    search
-  } = useSearch();
-
-
-  const isSearch = nombre.toLowerCase()
-    .indexOf(
-      search.toLowerCase()
-    ) === -1;
 
   if ( !idProcesos || idProcesos.length === 0 ) {
     console.log(
@@ -59,15 +42,13 @@ export const Card = (
       (
         idProceso
       ) => {
-        const isActive
-        = pathname === `${ path }/${ numero }/ultimasActuaciones/${ idProceso }`;
         return (
           <Link
             key={idProceso}
             href={`${ path }/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
             className={styles.link}
           >
-           <span className={`material-symbols-outlined ${styles.icon}`}>inventory</span>
+            <span className={`material-symbols-outlined ${ styles.icon }`}>inventory</span>
           </Link>
         );
       }
@@ -81,23 +62,23 @@ export const Card = (
           errorLLaveProceso && styles.errorContainer
         }`}
       >
-        <section className={sectionColumn}>
-          <div className={styles.title}>
-            <h4 className={typography.headlineSmall}>{carpeta.nombre}</h4>
-            <Link
-              className={`${ typography.labelSmall } ${ styles.link }`}
-              href={`/Carpeta/${ numero }` as Route}
-            >
-              <span className={typography.labelLarge}>{`# ${ numero }`}</span>
-              <span className={`material-symbols-outlined ${ styles.icon }`}>
-                folder
-              </span>
-            </Link>
-          </div>
-          {children}
-        </section>
+        <section className={layout.sectionRow}>
 
+          <h4 className={typography.headlineSmall}>{nombre}</h4>
+          <Link
+            className={`${ typography.labelSmall } ${ styles.link }`}
+            href={`/Carpeta/${ numero }` as Route}
+          >
+            <span className={typography.labelLarge}>{`# ${ numero }`}</span>
+            <span className={`material-symbols-outlined ${ styles.icon }`}>
+                folder
+            </span>
+          </Link>
+
+        </section>
+        {children}
         {contentIdProcesos}
+
         <div className={styles.links}>
           <Link
             className={styles.link}

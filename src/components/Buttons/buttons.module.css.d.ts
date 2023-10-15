@@ -1,7 +1,5 @@
 declare const styles: {
   readonly 'button': string;
-  readonly 'segmentDetached': string;
-  readonly 'segmentRow': string;
   readonly 'buttonHome': string;
   readonly 'buttonModal': string;
   readonly 'buttonDrawerMenu': string;
@@ -9,10 +7,9 @@ declare const styles: {
   readonly 'buttonForward': string;
   readonly 'buttonPassiveCategory': string;
   readonly 'buttonActiveCategory': string;
+  readonly 'buttonEdit': string;
   readonly 'icon': string;
   readonly 'text': string;
-  readonly 'segment': string;
-  readonly 'segmentColumn': string;
   readonly 'active': string;
 };
 export = styles;

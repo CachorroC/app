@@ -4,7 +4,7 @@ import { Card } from '#@/components/Card';
 import { useSearch } from '#@/app/context/search-context';
 import { useCategory } from '#@/app/context/main-context';
 import { JSX } from 'react';
-import ActuacionComponent from '#@/components/Card/actuacion-component';
+import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 
 export default function CarpetasList(
   {

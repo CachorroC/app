@@ -8,7 +8,7 @@ export default function manifest(): MetadataRoute.Manifest {
   const url = `https://${ prefix }.rsasesorjuridico.com`;
 
   return {
-    short_name                 : 'RyS',
+    short_name                 : 'Tulis',
     name                       : 'R&S Asesoria Juridica Especializada S.A.S',
     orientation                : 'any',
     lang                       : 'es',
@@ -19,24 +19,9 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color                : '#7aa4dd',
     prefer_related_applications: false,
     display                    : 'standalone',
-    share_target               : {
-      action : '/api',
-      method : 'get',
-      url    : 'link',
-      title  : 'name',
-      text   : 'descripcion',
-      enctype: 'application/x-www-form-urlencoded',
-      params : [
-        {
-          name    : 'idk',
-          value   : 'godKnows',
-          required: false,
-        },
-      ],
-    },
-    start_url       : url,
-    description     : 'Somos una firma legal comprometida con brindar something',
-    display_override: [
+    start_url                  : url,
+    description                : 'Somos una firma legal comprometida con brindar something',
+    display_override           : [
       'fullscreen',
       'minimal-ui'
     ],

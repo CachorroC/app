@@ -2,18 +2,21 @@ import { CalendarBuilder, nombresDeMeses } from '#@/lib/project/calendar';
 import type { Route } from 'next';
 import Link from 'next/link';
 import calendar from './calendar.module.css';
+import { OutputDateHelper } from '#@/lib/project/date-helper';
 
 export function Calendar(
   {
-    date 
-  }: { date?: Date } 
+    date
+  }: { date?: Date }
 ) {
   const today = date
     ? date
     : new Date();
 
   console.log(
-    `calndar: ${ today }` 
+    `calendarComponent date: ${ OutputDateHelper(
+      today
+    ) }`
   );
 
   const currentMonth = today.getMonth();
@@ -21,7 +24,7 @@ export function Calendar(
   const currentYear = today.getFullYear();
 
   const rows = CalendarBuilder(
-    today 
+    today
   );
 
   return (
@@ -40,10 +43,10 @@ export function Calendar(
         <div className={calendar.days}>
           {rows.map(
             (
-              row 
+              row
             ) => {
               const day = new Date(
-                row.href 
+                row.href
               )
                 .getDate();
 
@@ -66,7 +69,7 @@ export function Calendar(
                   {day}
                 </Link>
               );
-            } 
+            }
           )}
         </div>
       </div>

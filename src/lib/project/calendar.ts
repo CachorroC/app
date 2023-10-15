@@ -1,3 +1,5 @@
+import { OutputDateHelper } from './date-helper';
+
 export interface calendarData {
   href: string;
   className: string;
@@ -21,12 +23,14 @@ export const nombresDeMeses = [
 ];
 
 export function CalendarBuilder(
-  date: Date 
+  date: Date
 ) {
   const rows = new Set<calendarData>();
 
   console.log(
-    date 
+    `calendarBuilder incoming date: ${ OutputDateHelper(
+      date
+    ) }`
   );
 
   const currentMonth = date.getMonth();
@@ -44,7 +48,7 @@ export function CalendarBuilder(
     .getDay();
 
   const lastDateofMonth = new Date(
-    currentYear, currentMonth + 1, 0 
+    currentYear, currentMonth + 1, 0
   )
     .getDate();
 
@@ -56,7 +60,7 @@ export function CalendarBuilder(
     .getDay();
 
   const lastDateofPastMonth = new Date(
-    currentYear, currentMonth, 0 
+    currentYear, currentMonth, 0
   )
     .getDate();
 
@@ -70,10 +74,10 @@ export function CalendarBuilder(
         className: 'disabled',
         current  : false,
         dayOfWeek: new Date(
-          href 
+          href
         )
           .getDay(),
-      } 
+      }
     );
   }
 
@@ -87,13 +91,13 @@ export function CalendarBuilder(
         href     : href,
         current  : true,
         dayOfWeek: new Date(
-          href 
+          href
         )
           .getDay(),
         className: isToday
           ? 'today'
           : 'innactive',
-      } 
+      }
     );
   }
 
@@ -105,15 +109,15 @@ export function CalendarBuilder(
         href     : href,
         current  : false,
         dayOfWeek: new Date(
-          href 
+          href
         )
           .getDay(),
         className: 'disabled',
-      } 
+      }
     );
   }
 
   return Array.from(
-    rows 
+    rows
   );
 }

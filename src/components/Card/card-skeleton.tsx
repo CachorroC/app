@@ -1,7 +1,6 @@
 import { Loader } from '#@/components/Loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import card from 'components/Card/card.module.css';
-import { section } from '../form/form.module.css';
 
 export const CardSkeleton = () => {
   return (
@@ -10,7 +9,7 @@ export const CardSkeleton = () => {
         <h1 className={`${ typography.displayMedium } ${ card.title }`}>
           {'Nombre'}
         </h1>
-        <div className={section}>
+        <div >
           <sub className={`${ typography.labelSmall } ${ card.sub }`}>
             {'Numero'}
           </sub>

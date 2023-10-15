@@ -1,20 +1,70 @@
-import styles from '#@/components/Card/card.module.css';
-import typography from '#@/styles/fonts/typography.module.css';
+
+import { getCarpetabyNumero } from '#@/lib/project/carpetas';
+import { headers } from 'next/headers';
 import Link from 'next/link';
 
-export default function NotFound() {
+export default async function NotFound () {
+  let linker;
+
+  const mapper = new Set<string>();
+
+  const headersList = headers();
+
+  for ( const [
+    key,
+    value
+  ] of headersList ) {
+    mapper.add(
+      `${ key } : ${ value }`
+    );
+  }
+
+  const domain = headersList.get(
+    'next-url'
+  ) ?? '';
+
+  const [
+    ,
+    firstRoute,
+    secondRoute
+  ] = domain.split(
+    '/'
+  );
+
+  const arrMap= Array.from(
+    mapper
+  );
+
+  if ( firstRoute === 'Carpetas' ) {
+    const carpeta = await getCarpetabyNumero(
+      Number(
+        secondRoute
+      )
+    );
+
+    if ( carpeta ) {
+      linker = (
+        <Link href={ '/' }>
+        </Link>
+      );
+
+    }
+  }
+
   return (
-    <div className={styles.errorContainer}>
-      <h2 className={typography.displayMedium}>No encontrado</h2>
-      <p className={typography.bodyMedium}>
-        No pudimos localizar el recurso que consultaste
-      </p>
-      <Link
-        href={'/'}
-        className={styles.link}
-      >
-        <span className={ `material-symbols-outlined ${ styles.icon }` }>home</span>
-      </Link>
+    <div>
+      <h2>Not Found: { domain }</h2>
+      { arrMap.map(
+        (
+          mp, i
+        ) => {
+          return (
+            <p key={i}>{mp}</p>
+          );
+        }
+      )}
+      <p>Could not find requested resource</p>
+      {linker}
     </div>
   );
 }

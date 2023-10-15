@@ -4,7 +4,6 @@ import { FieldPath, useFormContext, useWatch } from 'react-hook-form';
 import form from 'components/form/form.module.css';
 import layout from '#@/styles/layout.module.css';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { segmentColumn } from '#@/components/Buttons/buttons.module.css';
 import styles from '#@/app/Carpetas/@right/Nueva/styles.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { fixMoney } from '#@/lib/project/helper';
@@ -30,7 +29,7 @@ export default function Page() {
   return (
     <div className={ layout.right }>
 
-      <section className={ segmentColumn }>
+      <section className={ layout.segmentColumn }>
         <div className={ styles.divider }></div>
         <div className={ styles.divider }></div>
         <div className={ styles.divider }></div>
@@ -41,6 +40,15 @@ export default function Page() {
             }
           ) }
         </pre>
+        <p>{carpeta.demanda && ( parseInt(
+          carpeta.demanda.capitalAdeudado?.toString() ?? ''
+        ) ) }</p>
+        <p>{carpeta.demanda && ( parseFloat(
+          carpeta.demanda.capitalAdeudado?.toString() ?? ''
+        ) ) }</p>
+        <p>{carpeta.demanda && ( Number(
+          carpeta.demanda.capitalAdeudado?.toString() ?? ''
+        ) )}</p>
         <div className={ styles.divider }></div>
         <pre>{ OutputDateHelper(
           carpeta.demanda?.entregaGarantiasAbogado
