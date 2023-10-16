@@ -7,37 +7,37 @@ async function getCarpetas() {
 
   if ( !client ) {
     throw new Error(
-      'no hay cliente mongólico' 
+      'no hay cliente mongólico'
     );
   }
 
   const db = client.db(
-    'RyS' 
+    'RyS'
   );
 
   const collection = db.collection<IntCarpeta>(
-    'Pruebas' 
+    'Pruebas'
   );
 
   const carpetasRaw = await collection
     .find(
-      {} 
+      {}
     )
     .sort(
       {
-        fecha: 1,
-      } 
+        numero: 1,
+      }
     )
     .allowDiskUse()
     .toArray();
 
   const carpetas = carpetaConvert.toMonCarpetas(
-    carpetasRaw 
+    carpetasRaw
   );
 
   return carpetas;
 }
 
 export default cache(
-  getCarpetas 
+  getCarpetas
 );

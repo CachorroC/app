@@ -1,14 +1,14 @@
 import searchbar from './searchbar.module.css';
 import styles from 'components/Card/card.module.css';
-import { section } from 'components/form/form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
+import layout from '#@/styles/layout.module.css';
 
 export default function LinkCardSkeleton() {
   return (
     <div className={searchbar.container}>
       <div className={searchbar.notActive}>
         <h1 className={typography.titleMedium}>Cargando</h1>
-        <div className={section}>
+        <div className={layout.segmentRow}>
           <sub className={searchbar.date}>00-00-0000</sub>
         </div>
         <div className={styles.links}>

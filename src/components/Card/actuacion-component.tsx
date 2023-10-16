@@ -6,6 +6,7 @@ import styles from 'components/Card/card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 import layout from '#@/styles/layout.module.css';
+import button from '../Buttons/buttons.module.css';
 
 export function ActuacionComponent(
   {
@@ -35,10 +36,17 @@ export function ActuacionComponent(
   if ( isOpen ) {
     visibleContent = (
       <div className={layout.sectionColumn}>
-        <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
-        <sub className={styles.sub}>{`actuacion registrada el ${ fixFechas(
-          fechaRegistro,
-        ) }`}</sub>
+        <section className={layout.segmentRow}>
+          <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
+          <sub className={styles.sub}>{`actuacion registrada el ${ fixFechas(
+            fechaRegistro,
+          ) }` }</sub>
+          {fechaActuacion && (
+            <sub className={styles.date}>{fixFechas(
+              fechaActuacion
+            )}</sub>
+          )}
+        </section>
         {`${ idRegActuacion }`}
         {actuacion && (
           <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
@@ -50,11 +58,7 @@ export function ActuacionComponent(
             {anotacion}
           </p>
         )}
-        {fechaActuacion && (
-          <sub className={styles.date}>{fixFechas(
-            fechaActuacion
-          )}</sub>
-        )}
+
       </div>
     );
   } else {
@@ -67,8 +71,9 @@ export function ActuacionComponent(
 
   return (
     <div
-      className={styles.section}
-      onClick={(
+      className={layout.sectionRow}
+    >
+      <button className={button.buttonActuacion} type='button' onClick={(
         e
       ) => {
         e.stopPropagation();
@@ -79,9 +84,13 @@ export function ActuacionComponent(
             return !n;
           }
         );
-      }}
-    >
+      } }>
+        <span className={`material-symbols-outlined ${ button.icon }`}>{isOpen
+          ? 'expand_less'
+          : 'expand_more'}</span>
+      </button>
       {visibleContent}
+
     </div>
   );
 }

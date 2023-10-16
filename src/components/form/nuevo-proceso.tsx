@@ -9,19 +9,20 @@ import { DateInputSection } from './date-section';
 import VencimientoPagareSection from './vencimiento-pagare-section';
 import ObligacionesComponent from './field-array-section';
 import { NuevaCarpetaSchema } from '#@/lib/types/zod/nuevaCarpeta';
+import layout from '#@/styles/layout.module.css';
 
 export default function NuevoProceso() {
   const {
-    handleSubmit 
+    handleSubmit
   } = useFormContext<NuevaCarpeta>();
 
   const onSubmit: SubmitHandler<NuevaCarpeta> = async (
-    data 
+    data
   ) => {
     alert(
       JSON.stringify(
-        data 
-      ) 
+        data
+      )
     );
 
     const newCarpeta: NuevaCarpeta = {
@@ -29,7 +30,7 @@ export default function NuevoProceso() {
     };
 
     const parsed = NuevaCarpetaSchema.safeParse(
-      newCarpeta 
+      newCarpeta
     );
 
     const postNewNote = await fetch(
@@ -39,17 +40,17 @@ export default function NuevoProceso() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(
-          parsed 
+          parsed
         ),
-      } 
+      }
     );
 
     const nAlert = await postNewNote.json();
 
     alert(
       JSON.stringify(
-        nAlert 
-      ) 
+        nAlert
+      )
     );
   };
 
@@ -59,10 +60,10 @@ export default function NuevoProceso() {
         <form
           className={form.form}
           onSubmit={handleSubmit(
-            onSubmit 
+            onSubmit
           )}
         >
-          <section className={form.sectionRow}>
+          <section className={layout.sectionRow}>
             <InputSection
               name={'numero'}
               title={'Número'}
@@ -80,7 +81,7 @@ export default function NuevoProceso() {
               ]}
             />
           </section>
-          <section className={form.sectionColumn}>
+          <section className={layout.sectionColumn}>
             <h3 className={typography.displaySmall}>{'Deudor'}</h3>
 
             <InputSection
@@ -132,7 +133,7 @@ export default function NuevoProceso() {
                 pattern : /^\S+@\S+$/i,
               }}
             />
-            <section className={form.section}>
+            <section className={layout.sectionRow}>
               <InputSection
                 name={'deudor.tel.celular'}
                 title={'celular'}
@@ -152,7 +153,7 @@ export default function NuevoProceso() {
             </section>
           </section>
 
-          <section className={form.sectionColumn}>
+          <section className={layout.sectionColumn}>
             <h3 className={typography.displaySmall}>{'Demanda'}</h3>
             <InputSection
               name={'demanda.capitalAdeudado'}

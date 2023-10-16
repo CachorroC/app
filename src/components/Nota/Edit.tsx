@@ -4,36 +4,37 @@ import { useNotaContext } from '#@/app/context/main-context';
 import { useState } from 'react';
 import styles from 'components/form/form.module.css';
 import { monNota } from '#@/lib/types/notas';
+import layout from '#@/styles/layout.module.css';
 
 export const Edit = (
   {
-    nota 
-  }: { nota: monNota } 
+    nota
+  }: { nota: monNota }
 ) => {
   const {
-    inputNota, setInputNota 
+    inputNota, setInputNota
   } = useNotaContext();
 
   const [
     message,
     setMessage
   ] = useState<string>(
-    '' 
+    ''
   );
 
   const dateString = inputNota.date.toISOString()
     .slice(
-      0, 10 
+      0, 10
     );
 
   async function onCreate(
-    formData: FormData 
+    formData: FormData
   ) {
     const res = await editNota(
-      formData 
+      formData
     );
     setMessage(
-      res.message 
+      res.message
     );
   }
 
@@ -43,7 +44,7 @@ export const Edit = (
         className={styles.form}
         action={onCreate}
       >
-        <section className={styles.section}>
+        <section className={layout.sectionRow}>
           <label
             className={styles.label}
             htmlFor={'id'}
@@ -57,7 +58,7 @@ export const Edit = (
             defaultValue={nota._id}
           />
         </section>
-        <section className={styles.section}>
+        <section className={layout.sectionRow}>
           <label
             className={styles.label}
             htmlFor={'llaveProceso'}
@@ -85,18 +86,18 @@ export const Edit = (
           name="text"
           value={inputNota.text}
           onChange={(
-            e 
+            e
           ) => {
             setInputNota(
               {
                 ...inputNota,
                 text: e.target.value,
-              } 
+              }
             );
           }}
         />
 
-        <section className={styles.section}>
+        <section className={layout.sectionRow}>
           <label
             className={styles.label}
             htmlFor={'date'}
@@ -109,21 +110,21 @@ export const Edit = (
             name="date"
             value={dateString}
             onChange={(
-              e 
+              e
             ) => {
               setInputNota(
                 {
                   ...inputNota,
                   date: new Date(
-                    e.target.value 
+                    e.target.value
                   ),
-                } 
+                }
               );
             }}
           />
           <p>{dateString}</p>
         </section>
-        <section className={styles.section}>
+        <section className={layout.sectionRow}>
           <label
             className={styles.label}
             htmlFor={'pathname'}
@@ -137,7 +138,7 @@ export const Edit = (
             defaultValue={inputNota.pathname}
           />
         </section>
-        <section className={styles.section}>
+        <section className={layout.sectionRow}>
           <label
             className={styles.label}
             htmlFor={'done'}
@@ -150,13 +151,13 @@ export const Edit = (
               name="done"
               checked={inputNota.done}
               onChange={(
-                e 
+                e
               ) => {
                 setInputNota(
                   {
                     ...inputNota,
                     done: e.target.checked,
-                  } 
+                  }
                 );
               }}
               type="checkbox"

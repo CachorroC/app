@@ -1,11 +1,13 @@
 'use client';
 import { ContactoForm, Grupo } from '#@/lib/types/contacto';
 import { intNota } from '#@/lib/types/notas';
+import { usePathname } from 'next/navigation';
 import { Dispatch,
   ReactNode,
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useState, } from 'react';
 
 const NoteContext = createContext<{
@@ -83,7 +85,7 @@ export function MainProvider(
   ] = useState(
     false
   );
-  /*
+
   const pathname = usePathname();
 
   useEffect(
@@ -105,15 +107,22 @@ export function MainProvider(
       );
 
       if ( firstRoute === 'Carpetas' ) {
-        setCategory(
-          secondRoute
-        );
+        if ( !secondRoute || secondRoute === 'UltimasActuaciones' ) {
+          setCategory(
+            'todos'
+          );
+        } else {
+          setCategory(
+            secondRoute
+          );
+        }
+
       }
     }, [
       pathname
     ]
   );
- */
+
   return (
     <NavigationContext.Provider
       value={{

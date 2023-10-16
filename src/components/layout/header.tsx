@@ -5,23 +5,24 @@ import layout from '#@/styles/layout.module.css';
 import InputSearchBar from './search/InputSearchBar';
 import { Loader } from '../Loader';
 import { NuevaNota } from '../Nota/client/nueva-nota';
-import ModalDialog from '#@/lib/hooks/modal-state';
+
 import { useNavigationContext } from '#@/app/context/main-context';
 import Drawer from './Drawer';
 import NavButtons from '../Buttons/nav-buttons';
 import Link from 'next/link';
 import { Route } from 'next';
 import styles from '../Buttons/buttons.module.css';
+import ModalDialog from '#@/app/hooks/modal-state';
 
 export default function Header(
   {
-    children 
-  }: { children: ReactNode } 
+    children
+  }: { children: ReactNode }
 ) {
   let modalSegment;
 
   const {
-    isNavOpen 
+    isNavOpen
   } = useNavigationContext();
 
   if ( isNavOpen ) {
@@ -30,7 +31,7 @@ export default function Header(
 
   return (
     <div className={layout.header}>
-      <section className={styles.segmentRow}>
+      <section className={layout.segmentRow}>
         <Link
           href={'/' as Route}
           className={styles.buttonHome}

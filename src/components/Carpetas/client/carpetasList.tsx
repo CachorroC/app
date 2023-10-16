@@ -47,7 +47,7 @@ export default function CarpetasList(
           >
             {ultimaActuacion && (
               <ActuacionComponent
-                initialOpenState={true}
+                initialOpenState={false}
                 key={proceso._id}
                 incomingActuacion={ultimaActuacion}
               />

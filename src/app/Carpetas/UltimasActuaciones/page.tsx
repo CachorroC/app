@@ -8,8 +8,11 @@ export const dynamic = 'force-dynamic';
 
 export const dynamicParams = true;
 
-export default async function Procesos() {
+
+export default async function Page() {
   const carpetasRaw = await getCarpetas();
+
+
 
   const carpetas = [
     ...carpetasRaw
@@ -26,8 +29,14 @@ export default async function Procesos() {
       }
 
       const x = a.fecha;
+      console.log(
+        typeof x
+      );
 
       const y = b.fecha;
+      console.log(
+        typeof y
+      );
 
       if ( x < y ) {
         return 1;

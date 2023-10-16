@@ -12,6 +12,7 @@ import { InputSection } from './input-section';
 import { SelectSection } from './select-section';
 import { NumberSection } from './number-section';
 import { IntCarpetaElementSchema } from '#@/lib/types/zod/carpeta';
+import layout from '#@/styles/layout.module.css';
 
 export const Form = (
   {
@@ -111,7 +112,7 @@ export const Form = (
           onSubmit
         )}
       >
-        <section className={ form.sectionColumn }>
+        <section className={ layout.sectionColumn }>
           <SelectSection
             name={'category'}
             title={'Grupo al que pertenece'}
@@ -136,7 +137,7 @@ export const Form = (
             ]}
           />
 
-          <section className={form.sectionRow}>
+          <section className={layout.sectionRow}>
             <NumberSection
               name={'numero'}
               title={'Numero'}
@@ -157,7 +158,7 @@ export const Form = (
               />
             )}
           </section>
-          <section className={form.sectionRow}>
+          <section className={layout.sectionRow}>
             <InputSection
               name={'deudor.primerNombre'}
               title={'Primer Nombre'}
@@ -173,7 +174,7 @@ export const Form = (
               type={'text'}
             />
           </section>
-          <section className={form.sectionRow}>
+          <section className={layout.sectionRow}>
             <InputSection
               name={'deudor.primerApellido'}
               title={'Primer Apellido'}
@@ -189,7 +190,7 @@ export const Form = (
             />
           </section>
 
-          <section className={form.sectionRow}>
+          <section className={layout.sectionRow}>
             <InputSection
               name={'deudor.direccion'}
               title={'Dirección'}
@@ -205,7 +206,7 @@ export const Form = (
               }}
             />
           </section>
-          <section className={form.sectionRow}>
+          <section className={layout.sectionRow}>
             <NumberSection
               name={'deudor.tel.celular'}
               title={'celular'}
@@ -220,7 +221,7 @@ export const Form = (
           </section>
         </section>
         <div className={divider}></div>
-        <section className={form.sectionColumn}>
+        <section className={layout.sectionColumn}>
           <NumberSection
             name={'demanda.capitalAdeudado'}
             title={'Capital en mora'}

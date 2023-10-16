@@ -48,6 +48,7 @@ export const Card = (
             href={`${ path }/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
             className={styles.link}
           >
+
             <span className={`material-symbols-outlined ${ styles.icon }`}>inventory</span>
           </Link>
         );

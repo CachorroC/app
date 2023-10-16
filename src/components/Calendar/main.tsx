@@ -13,11 +13,6 @@ export function Calendar(
     ? date
     : new Date();
 
-  console.log(
-    `calendarComponent date: ${ OutputDateHelper(
-      today
-    ) }`
-  );
 
   const currentMonth = today.getMonth();
 

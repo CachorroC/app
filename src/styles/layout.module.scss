@@ -224,7 +224,7 @@ $MaxSW: 480px; //maximum sma width
 
 .section {
   gap: .5rem;
-  padding: 2vmin;
+  padding: .2rem;
   flex: 1;
   display: flex;
   flex-flow: column wrap;
@@ -259,6 +259,8 @@ $MaxSW: 480px; //maximum sma width
   justify-content: space-evenly;
   align-items: stretch;
   box-sizing: border-box;
+    border-radius: 2vmin;
+
 
   &Detached {
     @extend .segment;
@@ -267,8 +269,8 @@ $MaxSW: 480px; //maximum sma width
     max-height: 200px;
     right: 2rem;
     box-shadow: var(--dp6);
-    border-radius: 2vmin;
-    .button {
+
+    * {
       &:first-child {
         border-radius: 2vmin 2vmin 0 0;
       }
@@ -283,7 +285,7 @@ $MaxSW: 480px; //maximum sma width
   &Column {
     @extend .segment;
     flex-flow: column nowrap;
-    .button {
+    *{
       &:last-child {
         border-radius: 0 0 2vmin 2vmin;
       }
@@ -294,11 +296,14 @@ $MaxSW: 480px; //maximum sma width
         border-radius: 2vmin;
       }
     }
+     @media (width < 600px){
+      flex-flow: row wrap;
+    }
   }
   &Row {
     @extend .segment;
     flex-flow: row nowrap;
-    .button {
+    * {
       &:first-child {
         border-radius: 2vmin 0 0 2vmin;
       }
@@ -315,9 +320,9 @@ $MaxSW: 480px; //maximum sma width
 
 
 .section {
-  gap: 1vmin;
-  border-radius: 1em;
-  padding: 1vmin;
+  gap: .5rem;
+  border-radius: 2vmin;
+  padding: .5rem;
   flex: 1;
   display: flex;
   &Row {

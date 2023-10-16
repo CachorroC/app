@@ -4,7 +4,8 @@ import { useNotaContext } from '#@/app/context/main-context';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from 'components/form/form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { useOnlineStatus } from '#@/lib/hooks/online-state';
+import layout from '#@/styles/layout.module.css';
+import { useOnlineStatus } from '#@/app/hooks/online-state';
 
 export const NuevaNota = (
   {
@@ -13,26 +14,26 @@ export const NuevaNota = (
   }: {
   llaveProceso?: string;
   cod: number;
-} 
+}
 ) => {
   const isOnline = useOnlineStatus();
 
   const {
-    inputNota, setInputNota 
+    inputNota, setInputNota
   } = useNotaContext();
 
   const inputMonth = String(
-    inputNota.date.getMonth() + 1 
+    inputNota.date.getMonth() + 1
   )
     .padStart(
-      2, '0' 
+      2, '0'
     );
 
   const inputDate = String(
-    inputNota.date.getDate() 
+    inputNota.date.getDate()
   )
     .padStart(
-      2, '0' 
+      2, '0'
     );
 
   const pathname = usePathname();
@@ -40,16 +41,16 @@ export const NuevaNota = (
   const router = useRouter();
 
   async function onCreate(
-    formData: FormData 
+    formData: FormData
   ) {
     const res = await createNota(
-      formData 
+      formData
     );
     alert(
-      res.message 
+      res.message
     );
     router.replace(
-      `/Notas/id/${ res.id }` 
+      `/Notas/id/${ res.id }`
     );
   }
 
@@ -60,9 +61,9 @@ export const NuevaNota = (
         action={onCreate}
       >
         <h1 className={typography.displayLarge}>Nueva Nota</h1>
-        <section className={styles.sectionColumn}>
+        <section className={layout.sectionColumn}>
           {isOnline && <p>isOnline</p>}
-          <section className={styles.sectionRow}>
+          <section className={layout.sectionRow}>
             <label
               htmlFor="llaveProceso"
               className={styles.label}
@@ -76,7 +77,7 @@ export const NuevaNota = (
               defaultValue={llaveProceso}
             />
           </section>
-          <section className={styles.sectionRow}>
+          <section className={layout.sectionRow}>
             <label
               htmlFor="cod"
               className={styles.label}
@@ -89,21 +90,21 @@ export const NuevaNota = (
               name="cod"
               value={cod}
               onChange={(
-                e 
+                e
               ) => {
                 setInputNota(
                   {
                     ...inputNota,
                     cod: Number(
-                      e.target.value 
+                      e.target.value
                     ),
-                  } 
+                  }
                 );
               }}
             />
           </section>
 
-          <section className={styles.sectionRow}>
+          <section className={layout.sectionRow}>
             <label
               htmlFor="text"
               className={styles.label}
@@ -116,18 +117,18 @@ export const NuevaNota = (
               name="text"
               value={inputNota.text}
               onChange={(
-                e 
+                e
               ) => {
                 setInputNota(
                   {
                     ...inputNota,
                     text: e.target.value,
-                  } 
+                  }
                 );
               }}
             />
           </section>
-          <section className={styles.sectionRow}>
+          <section className={layout.sectionRow}>
             <label
               htmlFor="date"
               className={styles.label}
@@ -141,7 +142,7 @@ export const NuevaNota = (
               className={styles.textArea}
               value={`${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }`}
               onChange={(
-                e 
+                e
               ) => {
                 const [
                   yearStringer,
@@ -149,27 +150,27 @@ export const NuevaNota = (
                   dayStringer
                 ]
                   = e.target.value.split(
-                    '-' 
+                    '-'
                   );
 
                 const newYear = Number(
-                  yearStringer 
+                  yearStringer
                 );
 
                 const newMonth = Number(
-                  monthStringer 
+                  monthStringer
                 ) - 1;
 
                 const newDay = Number(
-                  dayStringer 
+                  dayStringer
                 );
                 setInputNota(
                   {
                     ...inputNota,
                     date: new Date(
-                      newYear, newMonth, newDay 
+                      newYear, newMonth, newDay
                     ),
-                  } 
+                  }
                 );
               }}
             />
@@ -180,7 +181,7 @@ export const NuevaNota = (
             name="pathname"
             defaultValue={pathname}
           />
-          <section className={styles.section}>
+          <section className={layout.sectionColumn}>
             <label className={styles.switchBox}>
               <input
                 type="checkbox"
@@ -188,13 +189,13 @@ export const NuevaNota = (
                 name="done"
                 checked={inputNota.done}
                 onChange={(
-                  e 
+                  e
                 ) => {
                   setInputNota(
                     {
                       ...inputNota,
                       done: e.target.checked,
-                    } 
+                    }
                   );
                 }}
               />

@@ -20,7 +20,6 @@ declare const styles: {
   readonly 'segmentRow': string;
   readonly 'segmentColumn': string;
   readonly 'segmentDetached': string;
-  readonly 'button': string;
 };
 export = styles;
 

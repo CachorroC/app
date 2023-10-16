@@ -3,6 +3,8 @@ import getCarpetas from '#@/lib/project/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from '../UltimasActuaciones/actuaciones';
 import { Loader } from '#@/components/Loader';
+import { CategoryCarpetasReducer } from '#@/app/hooks/useCategoryFilterHook';
+import { Category } from '#@/lib/types/carpetas';
 
 export default async function Page(
   {
@@ -13,6 +15,12 @@ export default async function Page(
 ) {
   const carpetasRaw = await getCarpetas();
 
+  const ncarps = CategoryCarpetasReducer(
+    carpetasRaw, {
+      type: params.categoria as Category
+    }
+  );
+  /*
   const ncarps = [
     ...carpetasRaw
   ].filter(
@@ -22,7 +30,7 @@ export default async function Page(
       return carpeta.category === params.categoria;
     }
   );
-
+ */
   return (
     <>
       {ncarps.map(

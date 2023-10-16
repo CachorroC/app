@@ -4,8 +4,9 @@ import { NuevaCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath, useController, useFormContext } from 'react-hook-form';
 import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { InputDateHelper, OutputDateHelper } from '#@/lib/project/date-helper';
+import { InputDateHelper } from '#@/lib/project/date-helper';
 import { useState } from 'react';
+import layout from '#@/styles/layout.module.css';
 
 export const DateInputSection = (
   {
@@ -21,12 +22,6 @@ export const DateInputSection = (
   const dateValue = initialValue
     ? initialValue
     : new Date();
-
-  console.log(
-    `date-section Date value: ${ OutputDateHelper(
-      dateValue
-    ) }`
-  );
 
   const [
     stringDateValue,
@@ -54,7 +49,7 @@ export const DateInputSection = (
     }
   );
   return (
-    <><section className={ form.sectionRow }>
+    <><section className={ layout.segmentRow }>
       <label
         className={ `${ form.label } ${ typography.titleLarge }` }
         htmlFor={ name }

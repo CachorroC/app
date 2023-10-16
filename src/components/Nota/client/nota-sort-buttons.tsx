@@ -5,7 +5,7 @@ import button from '#@/components/Buttons/buttons.module.css';
 import { ActionNotaType } from '#@/lib/types/context-actions';
 import { useState } from 'react';
 import typography from '#@/styles/fonts/typography.module.scss';
-import styles from '#@/components/form/form.module.css';
+import layout from '#@/styles/layout.module.css';
 
 export function NotasSortButtons() {
   const keys: ActionNotaType[] = [
@@ -22,12 +22,12 @@ export function NotasSortButtons() {
     sortDirection,
     setSortDirection
   ] = useState(
-    true 
+    true
   );
 
   return (
-    <div className={styles.section}>
-      <section className={styles.section}>
+    <div className={layout.sectionColumn}>
+      <section className={ layout.sectionRow }>
         <h2 className={typography.titleMedium}>{'ordenar:'}</h2>
         <span className={typography.labelMedium}>
           {' '}
@@ -42,10 +42,10 @@ export function NotasSortButtons() {
         </span>
       </section>
 
-      <section className={styles.section}>
+      <section className={layout.sectionRow}>
         {keys.map(
           (
-            key 
+            key
           ) => {
             return (
               <button
@@ -53,16 +53,16 @@ export function NotasSortButtons() {
                 onClick={() => {
                   setSortDirection(
                     (
-                      d 
+                      d
                     ) => {
                       return !d;
-                    } 
+                    }
                   );
                   dispatchNotas(
                     {
                       type         : key,
                       sortDirection: sortDirection,
-                    } 
+                    }
                   );
                 }}
                 className={button.buttonPassiveCategory}
@@ -71,7 +71,7 @@ export function NotasSortButtons() {
                 {key}
               </button>
             );
-          } 
+          }
         )}
       </section>
     </div>

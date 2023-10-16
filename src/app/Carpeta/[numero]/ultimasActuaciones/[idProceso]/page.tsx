@@ -1,9 +1,8 @@
-import { getActuaciones } from '#@/lib/Actuaciones';
-import { notFound } from 'next/navigation';
+import {  getActuaciones } from '#@/lib/Actuaciones';
 import { Fragment, Suspense } from 'react';
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { Loader } from '#@/components/Loader';
-import { ActuacionCard } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
+import { ActuacionComponent } from '#@/components/Card/actuacion-component';
+import { notFound } from 'next/navigation';
 
 export default async function Page(
   {
@@ -13,51 +12,36 @@ export default async function Page(
     numero: string;
     idProceso: string;
   };
-} 
+}
 ) {
-  const carpeta = await getCarpetabyNumero(
-    Number(
-      params.numero 
-    ) 
-  );
 
-  if ( !carpeta ) {
-    return notFound();
-  }
 
   const actuaciones = await getActuaciones(
+
     {
-      idProceso: Number(
-        params.idProceso 
-      ),
-      index: 1,
-    } 
+      idProceso: params.idProceso,
+      index    : 1
+    }
+
   );
 
-  if ( !actuaciones ) {
+  if ( !actuaciones || actuaciones.length === 0 ) {
     return notFound();
   }
 
   return (
     <Fragment key={params.idProceso}>
       <Suspense fallback={<Loader />}>
-        {carpeta.ultimaActuacion && (
-          <ActuacionCard
-            act={carpeta.ultimaActuacion}
-            key={carpeta._id}
-          />
-        )}
+
         {actuaciones.map(
           (
-            actuacion, index 
+            actuacion, index
           ) => {
             return (
-              <ActuacionCard
-                act={actuacion}
-                key={index}
-              />
+              <ActuacionComponent
+                key={ index } incomingActuacion={actuacion } initialOpenState={ true} />
             );
-          } 
+          }
         )}
       </Suspense>
     </Fragment>

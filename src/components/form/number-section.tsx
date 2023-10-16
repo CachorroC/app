@@ -7,7 +7,7 @@ import { type FieldPath,
   useController, } from 'react-hook-form';
 import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
-import { segmentRow } from '../Buttons/buttons.module.css';
+import layout from '#@/styles/layout.module.css';
 
 export const NumberSection = (
   {
@@ -30,7 +30,8 @@ export const NumberSection = (
   } = useFormContext<NuevaCarpeta | IntCarpeta>();
 
   const rules = rls ?? {
-    required: false,
+    required      : false,
+    valuesAsNumber: true
   };
 
   const {
@@ -43,27 +44,32 @@ export const NumberSection = (
     }
   );
   return (
-    <div className={ segmentRow }>
+    <div className={layout.sectionRow}>
       <label
-        className={ `${ form.label } ${ typography.titleMedium }` }
-        htmlFor={ field.name }
+        className={`${ form.label } ${ typography.titleMedium }`}
+        htmlFor={field.name}
       >
-        { title }
+        {title}
       </label>
       <input
-        name={ field.name }
-        value={ field.value ?? 0}
-        ref={ field.ref }
-        type={ type }
-        placeholder={ title }
-        className={ form.textArea }
-        onChange={ (
+        name={field.name}
+        value={field.value}
+        ref={field.ref}
+        type={type}
+        placeholder={title}
+        className={form.textArea}
+        onChange={(
           e
         ) => {
           field.onChange(
-            e.target.valueAsNumber
+            parseInt(
+              e.target.value
+            )
           );
-        } } />
+
+
+        }}
+      />
     </div>
   );
 };

@@ -1,111 +1,100 @@
 .button {
-    border: none;
-    box-sizing: border-box;
-    padding: 0.5vmin 2vmin;
-    flex: 1;
-    display: flex;
-    background-color: var(--primary-container);
-    color: var(--on-primary-container);
-    flex-flow: column nowrap;
-    justify-items: center;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    transition: all 0.3s;
-    &Edit {
-      @extend .button;
-      background-color: var(--inverse-surface);
-      color: var(--inverse-on-surface);
-    }
-    &ActiveCategory {
-      @extend .button;
-      background-color: var(--secondary);
+  border: none;
+  box-sizing: border-box;
+  padding: 0 .2rem;
+  flex: 1;
+  display: flex;
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  flex-flow: column nowrap;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  transition: all 0.3s;
+  &Edit {
+    @extend .button;
+    background-color: var(--inverse-surface);
+    color: var(--inverse-on-surface);
+  }
+  &ActiveCategory {
+    @extend .button;
+    background-color: var(--secondary);
 
+    color: var(--on-secondary);
+    & > .icon,
+    & > .text {
       color: var(--on-secondary);
-      & > .icon,
-      & > .text {
-        color: var(--on-secondary);
-      }
-    }
-    &PassiveCategory {
-      @extend .button;
-      background-color: var(--secondary-container);
-
-      color: var(--on-secondary-container);
-      & > .icon,
-      & > .text {
-        color: var(--on-secondary-container);
-      }
-    }
-    &Forward {
-      @extend .button;
-      grid-area: forwardButton;
-      background-color: var(--primary-container);
-      color: var(--on-primary-container);
-      & > .icon,
-      & > .text {
-        color: var(--on-primary-container);
-      }
-    }
-    &Backwards {
-      @extend .button;
-      background-color: var(--primary-container);
-      color: var(--on-primary-container);
-      grid-area: backwardsButton;
-      & > .icon,
-      & > .text {
-        color: var(--on-primary-container);
-      }
-    }
-
-    &DrawerMenu {
-      @extend .button;
-      grid-area: drawerMenuButton;
-      background-color: var(--primary-fixed);
-      color: var(--on-primary-fixed);
-      & > .icon,
-      & > .text {
-        color: var(--on-primary-fixed);
-      }
-    }
-
-    &Modal {
-      @extend .button;
-      grid-area: modal;
-      background-color: var(--tertiary-container);
-      color: var(--on-tertirary-container);
-      & > .icon,
-      & > .text {
-        color: var(--on-tertirary-container);
-      }
-    }
-    &Home {
-      @extend .button;
-      box-shadow: var(--dp2);
-      background-color: var(--primary);
-      color: var(--on-primary);
-      & > .icon,
-      & > .text {
-        color: var(--on-primary);
-      }
-    }
-
-    &:hover,
-    &:active {
-      transform: scale(1.1);
-      background-color: var(--primary-fixed);
-      box-shadow: var(--dp6);
-      border: 2px solid var(--outline);
-      & > span {
-        font-variation-settings:
-          "FILL" 1,
-          "wght" 400,
-          "GRAD" 200,
-          "opsz" 24;
-        color: var(--on-primary-fixed);
-      }
     }
   }
+  &PassiveCategory {
+    @extend .button;
+    background-color: var(--secondary-container);
+
+    color: var(--on-secondary-container);
+    & > .icon,
+    & > .text {
+      color: var(--on-secondary-container);
+    }
+  }
+  &Forward {
+    @extend .button;
+    grid-area: forwardButton;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+    & > .icon,
+    & > .text {
+      color: var(--on-primary-container);
+    }
+  }
+  &Backwards {
+    @extend .button;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+    grid-area: backwardsButton;
+    & > .icon,
+    & > .text {
+      color: var(--on-primary-container);
+    }
+  }
+
+  &DrawerMenu {
+    @extend .button;
+    grid-area: drawerMenuButton;
+    background-color: var(--primary-fixed);
+    color: var(--on-primary-fixed);
+    & > .icon,
+    & > .text {
+      color: var(--on-primary-fixed);
+    }
+  }
+
+  &Modal {
+    @extend .button;
+    grid-area: modal;
+    background-color: var(--tertiary-container);
+    color: var(--on-tertirary-container);
+    & > .icon,
+    & > .text {
+      color: var(--on-tertirary-container);
+    }
+  }
+  &Home {
+    @extend .button;
+    box-shadow: var(--dp2);
+    background-color: var(--primary);
+    color: var(--on-primary);
+    & > .icon,
+    & > .text {
+      color: var(--on-primary);
+    }
+  }
+  &Actuacion{
+    @extend .button;
+    flex: 0 1 auto;
+
+  }
+}
 .active {
   background-color: var(--tertiary-container);
   color: var(--on-tertiary-container);

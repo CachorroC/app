@@ -2,10 +2,10 @@
 
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath, useFormContext } from 'react-hook-form';
-import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { useState } from 'react';
 import styles from '#@/components/Buttons/buttons.module.css';
+import layout from '#@/styles/layout.module.css';
 
 export const SelectSection = (
   {
@@ -18,32 +18,32 @@ export const SelectSection = (
   title: string;
   options: string[];
   initialValue?: string;
-} 
+}
 ) => {
   const {
-    setValue 
+    setValue
   } = useFormContext<IntCarpeta>();
 
   const [
     isOptionsOpen,
     setIsOptionsOpen
   ] = useState(
-    false 
+    false
   );
 
   return (
-    <section className={styles.segmentColumn}>
+    <section className={layout.segmentColumn}>
       <div
         onClick={() => {
           setIsOptionsOpen(
             (
-              o 
+              o
             ) => {
               return !o;
-            } 
+            }
           );
         }}
-        className={`${ form.sectionColumn } `}
+        className={layout.sectionColumn}
       >
         <span className={`material-symbols-outlined ${ styles.icon }`}>
           {isOptionsOpen
@@ -54,10 +54,10 @@ export const SelectSection = (
       </div>
 
       {isOptionsOpen && (
-        <section className={styles.segmentDetached}>
+        <section className={layout.segmentDetached}>
           {options.map(
             (
-              option 
+              option
             ) => {
               return (
                 <button
@@ -68,11 +68,11 @@ export const SelectSection = (
                       : styles.buttonPassiveCategory
                   }
                   onClick={(
-                    e 
+                    e
                   ) => {
                     e.stopPropagation();
                     setValue(
-                      name, option 
+                      name, option
                     );
                   }}
                   key={option}
@@ -80,7 +80,7 @@ export const SelectSection = (
                   <p className={styles.text}>{option}</p>
                 </button>
               );
-            } 
+            }
           )}
         </section>
       )}

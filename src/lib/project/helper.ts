@@ -193,9 +193,6 @@ export function fixMoney(
     .format(
       valor
     );
-  console.log(
-    `precio en pesos colombianos: ${ precioEnCop }`
-  );
 
   return precioEnCop;
 }

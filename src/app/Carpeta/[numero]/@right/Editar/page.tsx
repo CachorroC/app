@@ -27,7 +27,7 @@ export default function Page() {
 
   const carpeta = useWatch<IntCarpeta>();
   return (
-    <div className={ layout.right }>
+    <>
 
       <section className={ layout.segmentColumn }>
         <div className={ styles.divider }></div>
@@ -165,6 +165,6 @@ export default function Page() {
       >
         <span>{'segundo nombre'}</span>
       </button>
-    </div>
+    </>
   );
 }

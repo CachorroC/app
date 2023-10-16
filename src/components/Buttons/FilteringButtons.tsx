@@ -3,6 +3,7 @@ import styles from 'components/Buttons/buttons.module.css';
 import { useCategory } from '#@/app/context/main-context';
 import Link from 'next/link';
 import layout from '#@/styles/layout.module.css';
+import { usePathname } from 'next/navigation';
 
 export const CategoryButton = (
   {
@@ -14,21 +15,20 @@ export const CategoryButton = (
 }
 ) => {
   const {
-    category, setCategory
+    category
   } = useCategory();
+
+  const pathname = usePathname();
+
+  const isActive =  pathname === `/Carpetas/${ categoria }` || categoria === category;
 
   return (
     <Link
-      href={`/Carpetas/${ categoria !== 'todos'
-        ? categoria
-        : '' }` }
-      onClick={() => {
-        setCategory(
-          categoria
-        );
-      }}
+      href={`/Carpetas/${ categoria === 'todos'
+        ? ''
+        : categoria }` }
       className={
-        category === categoria
+        isActive
           ? styles.buttonActiveCategory
           : styles.buttonPassiveCategory
       }

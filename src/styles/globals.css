@@ -274,16 +274,16 @@ body {
 } /* Track */
 ::-webkit-scrollbar-track {
   border-radius: 1vmin;
-  background-color: var(--outline-variant);
+  background-color: var(--surface-variant);
 } /* Handle */
 ::-webkit-scrollbar-thumb {
   opacity: 0;
-  background: var(--secondary);
+  background: var(--tertiary);
   border-radius: 1vmin;
 }
 ::-webkit-scrollbar-thumb:hover {
   opactity: 1;
-  background: var(--secondary-container);
+  background: var(--tertiary-container);
 }
 
 .installButton {
@@ -314,6 +314,20 @@ input {
   outline: none;
 }
 
-a {
+a, button {
+  border: solid 0.1rem var(--outline);
+  color: var(--primary);
   text-decoration: none;
+}
+a:hover, button:hover {
+  transform: scale(1.1);
+  border: 2px solid var(--outline);
+}
+a:hover, a:active, button:hover, button:active {
+  background-color: var(--inverse-primary);
+  box-shadow: var(--dp6);
+}
+a:hover > span, a:active > span, button:hover > span, button:active > span {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+  color: var(--on-primary-fixed);
 }

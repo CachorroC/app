@@ -2,21 +2,22 @@ import React, { Fragment } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import styles from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
+import layout from '#@/styles/layout.module.css';
 
 let renderCount = 0;
 
 export default function ObligacionesComponent() {
   const {
-    control, register 
+    control, register
   } = useFormContext();
 
   const {
-    fields, append, remove, prepend 
+    fields, append, remove, prepend
   } = useFieldArray(
     {
       control,
       name: 'demanda.obligacion',
-    } 
+    }
   );
 
   renderCount++;
@@ -31,11 +32,11 @@ export default function ObligacionesComponent() {
       </label>
       {fields.map(
         (
-          field, index 
+          field, index
         ) => {
           return (
             <section
-              className={styles.sectionRow}
+              className={layout.segmentRow}
               key={field.id}
             >
               <label
@@ -46,7 +47,7 @@ export default function ObligacionesComponent() {
                 className={styles.textArea}
                 key={field.id}
                 {...register(
-                  `demanda.obligacion.${ index }` 
+                  `demanda.obligacion.${ index }`
                 )}
               />
               <button
@@ -54,7 +55,7 @@ export default function ObligacionesComponent() {
                 type="button"
                 onClick={() => {
                   return remove(
-                    index 
+                    index
                   );
                 }}
               >
@@ -64,16 +65,16 @@ export default function ObligacionesComponent() {
               </button>
             </section>
           );
-        } 
+        }
       )}
 
-      <section className={styles.sectionRow}>
+      <section className={layout.sectionRow}>
         <button
           className={styles.button}
           type="button"
           onClick={() => {
             append(
-              '' 
+              ''
             );
           }}
         >
@@ -88,7 +89,7 @@ export default function ObligacionesComponent() {
           type="button"
           onClick={() => {
             prepend(
-              '' 
+              ''
             );
           }}
         >

@@ -170,7 +170,7 @@
 }
 .section, .sectionColumn, .sectionRow {
   gap: 0.5rem;
-  padding: 2vmin;
+  padding: 0.2rem;
   flex: 1;
   display: flex;
   flex-flow: column wrap;
@@ -205,6 +205,7 @@
   justify-content: space-evenly;
   align-items: stretch;
   box-sizing: border-box;
+  border-radius: 2vmin;
 }
 .segmentDetached {
   flex-flow: column nowrap;
@@ -212,46 +213,50 @@
   max-height: 200px;
   right: 2rem;
   box-shadow: var(--dp6);
-  border-radius: 2vmin;
 }
-.segmentDetached .button:first-child {
+.segmentDetached *:first-child {
   border-radius: 2vmin 2vmin 0 0;
 }
-.segmentDetached .button:last-child {
+.segmentDetached *:last-child {
   border-radius: 0 0 2vmin 2vmin;
 }
-.segmentDetached .button:only-child {
+.segmentDetached *:only-child {
   border-radius: 2vmin;
 }
 .segmentColumn {
   flex-flow: column nowrap;
 }
-.segmentColumn .button:last-child {
+.segmentColumn *:last-child {
   border-radius: 0 0 2vmin 2vmin;
 }
-.segmentColumn .button:first-child {
+.segmentColumn *:first-child {
   border-radius: 2vmin 2vmin 0 0;
 }
-.segmentColumn .button:only-child {
+.segmentColumn *:only-child {
   border-radius: 2vmin;
+}
+@media (width < 600px) {
+  .segmentColumn {
+    flex-flow: row wrap;
+  }
 }
 .segmentRow {
   flex-flow: row nowrap;
 }
-.segmentRow .button:first-child {
+.segmentRow *:first-child {
   border-radius: 2vmin 0 0 2vmin;
 }
-.segmentRow .button:last-child {
+.segmentRow *:last-child {
   border-radius: 0 2vmin 2vmin 0;
 }
-.segmentRow .button:only-child {
+.segmentRow *:only-child {
   border-radius: 2vmin;
 }
 
 .section, .sectionColumn, .sectionRow {
-  gap: 1vmin;
-  border-radius: 1em;
-  padding: 1vmin;
+  gap: 0.5rem;
+  border-radius: 2vmin;
+  padding: 0.5rem;
   flex: 1;
   display: flex;
 }
@@ -263,3 +268,5 @@
   flex-flow: column nowrap;
   border: dashed 0.1rem var(--tertiary);
 }
+
+/*# sourceMappingURL=layout.module.css.map */

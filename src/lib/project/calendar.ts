@@ -27,11 +27,6 @@ export function CalendarBuilder(
 ) {
   const rows = new Set<calendarData>();
 
-  console.log(
-    `calendarBuilder incoming date: ${ OutputDateHelper(
-      date
-    ) }`
-  );
 
   const currentMonth = date.getMonth();
 

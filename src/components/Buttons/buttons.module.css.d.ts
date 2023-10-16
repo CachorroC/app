@@ -1,5 +1,6 @@
 declare const styles: {
   readonly 'button': string;
+  readonly 'buttonActuacion': string;
   readonly 'buttonHome': string;
   readonly 'buttonModal': string;
   readonly 'buttonDrawerMenu': string;

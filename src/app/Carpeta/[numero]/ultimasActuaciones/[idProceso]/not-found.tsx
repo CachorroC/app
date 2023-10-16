@@ -1,33 +1,22 @@
-
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
-import { headers } from 'next/headers';
+'use client';
+import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-export default async function NotFound () {
+
+export default function NotFound() {
   let linker;
 
   const mapper = new Set<string>();
 
-  const headersList = headers();
 
-  for ( const [
-    key,
-    value
-  ] of headersList ) {
-    mapper.add(
-      `${ key } : ${ value }`
-    );
-  }
-
-  const domain = headersList.get(
-    'next-url'
-  ) ?? '';
+  const pathname =usePathname();
 
   const [
     ,
     firstRoute,
-    secondRoute
-  ] = domain.split(
+    secondRoute,
+  ] = pathname.split(
     '/'
   );
 
@@ -35,11 +24,24 @@ export default async function NotFound () {
     mapper
   );
 
-  if ( firstRoute === 'Carpetas' ) {
-    const carpeta = await getCarpetabyNumero(
-      Number(
+  const carpetas = useCarpetaSort();
+
+  if ( firstRoute === 'Carpeta' ) {
+    console.log(
+      `carpeta numero ${ Number(
         secondRoute
-      )
+      ) }`
+    );
+
+
+    const carpeta = carpetas.find(
+      (
+        c
+      ) => {
+        return c.numero === Number(
+          secondRoute
+        );
+      }
     );
 
     if ( carpeta ) {
@@ -53,7 +55,7 @@ export default async function NotFound () {
 
   return (
     <div>
-      <h2>Not Found: { domain }</h2>
+      <h2>Not Found</h2>
       { arrMap.map(
         (
           mp, i

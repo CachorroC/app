@@ -17,12 +17,9 @@ export default async function Page(
       idProceso
     },
   }: Props
-) {
-  console.log(
-    `idProceso numero ${ Number(
-      idProceso
-    ) }`
-  );
+)
+{
+
 
   const actuaciones = await getActuaciones(
     {
