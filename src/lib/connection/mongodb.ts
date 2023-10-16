@@ -21,7 +21,7 @@ if ( process.env.NODE_ENV === 'development' ) {
 
   if ( !globalWithMongo._mongoClientPromise ) {
     client = new MongoClient(
-      uri, options 
+      uri, options
     );
     globalWithMongo._mongoClientPromise = client.connect();
   }
@@ -29,7 +29,7 @@ if ( process.env.NODE_ENV === 'development' ) {
   clientPromise = globalWithMongo._mongoClientPromise;
 } else {
   client = new MongoClient(
-    uri, options 
+    uri, options
   );
   clientPromise = client.connect();
 }
@@ -40,20 +40,20 @@ export const tareasCollection = cache(
 
     if ( !client ) {
       throw new Error(
-        'no hay cliente mongólico' 
+        'no hay cliente mongólico'
       );
     }
 
     const db = client.db(
-      'RyS' 
+      'RyS'
     );
 
     const carpetas = db.collection(
-      'Tareas' 
+      'Tareas'
     );
 
     return carpetas;
-  } 
+  }
 );
 
 export const carpetasCollection = cache(
@@ -62,20 +62,20 @@ export const carpetasCollection = cache(
 
     if ( !client ) {
       throw new Error(
-        'no hay cliente mongólico' 
+        'no hay cliente mongólico'
       );
     }
 
     const db = client.db(
-      'RyS' 
+      'RyS'
     );
 
     const carpetas = db.collection<IntCarpeta>(
-      'Pruebas' 
+      'Pruebas'
     );
 
     return carpetas;
-  } 
+  }
 );
 
 export const pruebasCollection = cache(
@@ -84,20 +84,20 @@ export const pruebasCollection = cache(
 
     if ( !client ) {
       throw new Error(
-        'no hay cliente mongólico' 
+        'no hay cliente mongólico'
       );
     }
 
     const db = client.db(
-      'RyS' 
+      'RyS'
     );
 
     const carpetas = db.collection<IntPrueba>(
-      'Pruebas' 
+      'PruebasNuevo'
     );
 
     return carpetas;
-  } 
+  }
 );
 
 export const notasCollection = async () => {
@@ -105,16 +105,16 @@ export const notasCollection = async () => {
 
   if ( !client ) {
     throw new Error(
-      'no hay cliente mongólico' 
+      'no hay cliente mongólico'
     );
   }
 
   const db = client.db(
-    'RyS' 
+    'RyS'
   );
 
   const notas = db.collection<intNota>(
-    'Notas' 
+    'Notas'
   );
 
   return notas;

@@ -3,7 +3,6 @@
   container-type: inline-size;
   display: flex;
   grid-area: span 1/span 4;
-  background-color: var(--surface-dim);
   box-sizing: border-box;
   border-radius: 2vmin;
   flex-flow: column nowrap;
@@ -55,7 +54,7 @@
   box-sizing: border-box;
   background-color: var(--surface-bright);
   color: var(--on-surface);
-  flex: 1;
+  flex: 2;
   border-radius: 0 1cqmax 1cqmax 0;
   resize: both;
   text-align: center;
@@ -73,6 +72,7 @@
 
 .label {
   flex: 1;
+  text-align: right;
 }
 
 .titleInput,
@@ -174,3 +174,5 @@
   -ms-transform: translateX(3cqmin);
   transform: translateX(3cqmin);
 }
+
+/*# sourceMappingURL=form.module.css.map */

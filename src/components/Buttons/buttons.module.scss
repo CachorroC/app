@@ -1,7 +1,7 @@
 .button {
   border: none;
   box-sizing: border-box;
-  padding: 0 .2rem;
+  padding:.5rem;
   flex: 1;
   display: flex;
   background-color: var(--primary-container);
@@ -40,6 +40,8 @@
   &Forward {
     @extend .button;
     grid-area: forwardButton;
+    padding-top: 0;
+    padding-bottom: 0;
     background-color: var(--primary-container);
     color: var(--on-primary-container);
     & > .icon,
@@ -51,6 +53,9 @@
     @extend .button;
     background-color: var(--primary-container);
     color: var(--on-primary-container);
+
+    padding-top: 0;
+    padding-bottom: 0;
     grid-area: backwardsButton;
     & > .icon,
     & > .text {
@@ -61,6 +66,9 @@
   &DrawerMenu {
     @extend .button;
     grid-area: drawerMenuButton;
+
+    padding-top: 0;
+    padding-bottom: 0;
     background-color: var(--primary-fixed);
     color: var(--on-primary-fixed);
     & > .icon,
@@ -72,6 +80,9 @@
   &Modal {
     @extend .button;
     grid-area: modal;
+
+    padding-top: 0;
+    padding-bottom: 0;
     background-color: var(--tertiary-container);
     color: var(--on-tertirary-container);
     & > .icon,
@@ -82,6 +93,9 @@
   &Home {
     @extend .button;
     box-shadow: var(--dp2);
+
+    padding-top: 0;
+    padding-bottom: 0;
     background-color: var(--primary);
     color: var(--on-primary);
     & > .icon,

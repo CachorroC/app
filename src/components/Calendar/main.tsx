@@ -2,7 +2,6 @@ import { CalendarBuilder, nombresDeMeses } from '#@/lib/project/calendar';
 import type { Route } from 'next';
 import Link from 'next/link';
 import calendar from './calendar.module.css';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 
 export function Calendar(
   {

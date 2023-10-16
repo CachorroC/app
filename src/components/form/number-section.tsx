@@ -44,7 +44,7 @@ export const NumberSection = (
     }
   );
   return (
-    <div className={layout.sectionRow}>
+    <div className={layout.segmentRow}>
       <label
         className={`${ form.label } ${ typography.titleMedium }`}
         htmlFor={field.name}

@@ -32,7 +32,7 @@ export const SelectSection = (
   );
 
   return (
-    <section className={layout.segmentColumn}>
+    <section className={layout.sectionColumn}>
       <div
         onClick={() => {
           setIsOptionsOpen(
@@ -43,7 +43,7 @@ export const SelectSection = (
             }
           );
         }}
-        className={layout.sectionColumn}
+        className={layout.segmentRow}
       >
         <span className={`material-symbols-outlined ${ styles.icon }`}>
           {isOptionsOpen
@@ -54,7 +54,7 @@ export const SelectSection = (
       </div>
 
       {isOptionsOpen && (
-        <section className={layout.segmentDetached}>
+        <section className={layout.segmentRow}>
           {options.map(
             (
               option

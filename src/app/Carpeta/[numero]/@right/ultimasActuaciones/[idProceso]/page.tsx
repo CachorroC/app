@@ -17,8 +17,7 @@ export default async function Page(
       idProceso
     },
   }: Props
-)
-{
+) {
 
 
   const actuaciones = await getActuaciones(

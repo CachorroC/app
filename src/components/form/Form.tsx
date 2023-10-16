@@ -113,31 +113,7 @@ export const Form = (
         )}
       >
         <section className={ layout.sectionColumn }>
-          <SelectSection
-            name={'category'}
-            title={'Grupo al que pertenece'}
-            initialValue={category}
-            options={[
-              'Bancolombia',
-              'Insolvencia',
-              'Reintegra',
-              'LiosJuridicos',
-              'Terminados',
-            ]}
-          />
-
-          <SelectSection
-            name={'tipoProceso'}
-            initialValue={tipoProceso}
-            title={'Proceso del Tipo'}
-            options={[
-              'SINGULAR',
-              'HIPOTECARIO',
-              'PRENDARIO'
-            ]}
-          />
-
-          <section className={layout.sectionRow}>
+          <section className={ layout.sectionRow }>
             <NumberSection
               name={'numero'}
               title={'Numero'}
@@ -146,7 +122,34 @@ export const Form = (
               }}
               type={'number'}
             />
+            <SelectSection
+              name={'category'}
+              title={'Grupo al que pertenece'}
+              initialValue={category}
+              options={[
+                'Bancolombia',
+                'Insolvencia',
+                'Reintegra',
+                'LiosJuridicos',
+                'Terminados',
+              ]}
+            />
 
+
+          </section>
+
+          <section className={layout.sectionRow}>
+
+            <SelectSection
+              name={'tipoProceso'}
+              initialValue={tipoProceso}
+              title={'Proceso del Tipo'}
+              options={[
+                'SINGULAR',
+                'HIPOTECARIO',
+                'PRENDARIO'
+              ]}
+            />
             { deudor.cedula && (
               <NumberSection
                 name={'deudor.cedula'}

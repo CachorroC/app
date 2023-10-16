@@ -202,15 +202,16 @@
 
 .segment, .segmentRow, .segmentColumn, .segmentDetached {
   display: flex;
-  justify-content: space-evenly;
-  align-items: stretch;
+  justify-content: space-between;
+  align-items: center;
   box-sizing: border-box;
+  flex: 1;
   border-radius: 2vmin;
+  gap: 0.2rem;
 }
 .segmentDetached {
   flex-flow: column nowrap;
   position: absolute;
-  max-height: 200px;
   right: 2rem;
   box-shadow: var(--dp6);
 }
@@ -242,6 +243,7 @@
 }
 .segmentRow {
   flex-flow: row nowrap;
+  justify-content: space-around;
 }
 .segmentRow *:first-child {
   border-radius: 2vmin 0 0 2vmin;
@@ -262,11 +264,10 @@
 }
 .sectionRow {
   flex-flow: row nowrap;
-  border: dotted 0.1rem var(--secondary);
+  border-bottom: dotted 0.1rem var(--secondary);
+  align-items: center;
+  justify-content: space-between;
 }
 .sectionColumn {
   flex-flow: column nowrap;
-  border: dashed 0.1rem var(--tertiary);
 }
-
-/*# sourceMappingURL=layout.module.css.map */
