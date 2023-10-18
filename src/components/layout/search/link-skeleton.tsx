@@ -1,9 +1,9 @@
-import searchbar from './searchbar.module.css';
+import searchbar from 'components/layout/search/searchbar.module.css';
 import styles from 'components/Card/card.module.css';
-import typography from '#@/styles/fonts/typography.module.css';
-import layout from '#@/styles/layout.module.css';
+import typography from 'styles/fonts/typography.module.css';
+import layout from 'styles/layout.module.css';
 
-export default function LinkCardSkeleton() {
+export function LinkCardSkeleton() {
   return (
     <div className={searchbar.container}>
       <div className={searchbar.notActive}>

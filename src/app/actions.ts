@@ -48,19 +48,32 @@ export async function createNota(
 
     const collection = await notasCollection();
 
-    const nota = await collection.insertOne(
+    const nota = await collection.findOneAndUpdate(
       {
-        ...data,
+        cod: data.cod
+      },
+      {
+        $set: data
+      }, {
+        upsert        : true,
+        returnDocument: 'after'
       }
     );
 
+    if ( !nota ) {
+      throw new Error(
+        'no pudimos actyualizar o insertar esa nota'
+      );
+
+    }
+
     revalidateTag(
-      'carpetas'
+      'notas'
     );
 
     return {
-      message: `success: ${ nota.insertedId }`,
-      id     : nota.insertedId.toString(),
+      message: `success: ${ nota.cod }`,
+      id     : nota._id.toString(),
     };
   } catch ( e ) {
     console.log(
@@ -179,6 +192,10 @@ export async function editNota(
       {
         upsert: true,
       },
+    );
+
+    revalidateTag(
+      'notas'
     );
 
     if ( !nota ) {

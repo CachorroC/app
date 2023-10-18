@@ -1,7 +1,7 @@
 declare const styles: {
+  readonly 'closed': string;
   readonly 'open': string;
   readonly 'wrapper': string;
-  readonly 'closed': string;
 };
 export = styles;
 

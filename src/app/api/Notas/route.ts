@@ -1,6 +1,5 @@
 import 'server-only';
 import { notasCollection } from '#@/lib/connection/mongodb';
-import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 import getNotas from '#@/lib/project/getNotas';
 import {  monNota } from '#@/lib/types/notas';
@@ -11,37 +10,6 @@ export async function GET() {
   return new NextResponse(
     JSON.stringify(
       notas
-    ), {
-      status : 200,
-      headers: {
-        'content-type': 'application/json',
-      },
-    }
-  );
-}
-
-export async function POST(
-  request: NextRequest
-) {
-  const incomingRequest = await request.json();
-
-  const collection = await notasCollection();
-
-  const outgoingRequest = await collection.insertOne(
-    incomingRequest
-  );
-
-  if ( !outgoingRequest ) {
-    return new NextResponse(
-      null, {
-        status: 404,
-      }
-    );
-  }
-
-  return new NextResponse(
-    JSON.stringify(
-      outgoingRequest
     ), {
       status : 200,
       headers: {
@@ -64,14 +32,13 @@ export async function PUT (
       _id, ...note
     } =  incomingNote;
 
-    const query = {
-      cod: incomingNote.cod
-    };
 
     const collection = await notasCollection();
 
     const updatedNote = await collection.findOneAndUpdate(
-      query,
+      {
+        cod: incomingNote.cod
+      },
       {
         $set: note,
       },
@@ -80,34 +47,27 @@ export async function PUT (
         returnDocument: 'after',
       },
     );
-    if ( !updatedNote )
-    {
-      throw
+
+    if ( !updatedNote ) {
+      throw new Error(
+        'no se actualizó la notas'
+      );
     }
-    if ( updatedNote ) {
-      const json = JSON.stringify(
+
+    const json = JSON.stringify(
+      updatedNote
+    );
+    console.log(
+      json
+    );
+    return new NextResponse(
+      JSON.stringify(
         updatedNote
-      );
-      console.log(
-        json
-      );
-      return new NextResponse(
-        JSON.stringify(
-          updatedNote
-        ), {
-          status : 200,
-          headers: {
-            'Content-Type': 'application/json'
-          }
+      ), {
+        status : 200,
+        headers: {
+          'Content-Type': 'application/json'
         }
-      );
-
-
-    }
-
-    return NextResponse.json(
-      updatedNote, {
-        status: 404,
       }
     );
 
@@ -122,7 +82,7 @@ export async function PUT (
     );
   }
 }
-
+/*
 export async function DELETE(
   Request: NextRequest
 ) {
@@ -190,4 +150,4 @@ export async function DELETE(
       status: 405,
     }
   );
-}
+} */
