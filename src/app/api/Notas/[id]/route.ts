@@ -21,7 +21,7 @@ export async function POST(
         _id: insertNewNota.insertedId,
       },
       {
-        status : 201,
+        status : 200,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -33,19 +33,12 @@ export async function POST(
 }
 
 export async function PUT(
-  request: NextRequest
+  request: NextRequest,
+  context: { params: { id: string } },
 ) {
   const json = ( await request.json() ) as intNota;
 
-  const {
-    searchParams
-  } = new URL(
-    request.url
-  );
-
-  const _id = searchParams.get(
-    '_id'
-  );
+  const _id = context.params.id;
 
   if ( _id ) {
     const query = {

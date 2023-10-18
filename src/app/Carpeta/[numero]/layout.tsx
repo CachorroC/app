@@ -1,5 +1,7 @@
 import { CarpetaFormProvider } from '#@/app/context/carpeta-form-context';
+import { getBaseUrl } from '#@/lib/project/helper';
 import styles from '#@/styles/layout.module.css';
+import { Metadata, ResolvingMetadata } from 'next';
 import { ReactNode } from 'react';
 
 type Props = {
@@ -9,7 +11,7 @@ type Props = {
   params: { numero: string };
 };
 
-/*
+
 export async function generateMetadata(
   {
     params
@@ -22,7 +24,7 @@ export async function generateMetadata(
 
 
   const product = await fetch(
-    `/api/Carpeta/${ numero }`,
+    `${ getBaseUrl() }/api/Carpeta/${ numero }`,
   )
     .then(
       (
@@ -45,7 +47,7 @@ export async function generateMetadata(
     },
   };
 }
- */
+
 export default function LayoutProcesosMain(
   {
     children,

@@ -59,7 +59,7 @@ export default async function Page(
     <>
 
 
-      <section className={layout.segmentRow}>
+      <section className={layout.segmentColumn}>
         <h4 className={typography.labelMedium}>Categoria:</h4>
         <p className={styles.chip}>{category}</p>
       </section>

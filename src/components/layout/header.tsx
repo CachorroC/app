@@ -16,8 +16,8 @@ import ModalDialog from '#@/app/hooks/modal-state';
 
 export default function Header(
   {
-    children
-  }: { children: ReactNode }
+    children, cod
+  }: { children: ReactNode; cod?: number }
 ) {
   let modalSegment;
 
@@ -48,7 +48,7 @@ export default function Header(
 
       <Suspense fallback={<Loader />}>
         <ModalDialog>
-          <NuevaNota cod={0} />
+          <NuevaNota cod={cod ?? 0} />
         </ModalDialog>
       </Suspense>
       <NavButtons />

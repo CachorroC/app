@@ -1,20 +1,17 @@
+import { EditCarpeta } from '#@/components/Buttons/carpetaButtons';
+import { Loader } from '#@/components/Loader';
 import { NombreComponent } from '#@/components/nombre';
 import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
-import typography from '#@/styles/fonts/typography.module.scss';
-import { EditCarpeta } from '#@/components/Buttons/carpetaButtons';
-import { Loader } from '#@/components/Loader';
 import { Suspense } from 'react';
+import typography from '#@/styles/fonts/typography.module.scss';
 
-type Props = {
-  params: { numero: string };
-};
-
-export default async function Page(
+export default async function CatchAll(
   {
-    params,
-  }: Props
+    params
+  }: {params:{numero: string; catchAll: string[]}}
 ) {
+
   const carpeta = await getCarpetabyNumero(
     Number(
       params.numero
@@ -27,7 +24,6 @@ export default async function Page(
 
   return (
     <>
-
       <Suspense fallback={<Loader />}>
         <NombreComponent
           key={params.numero}

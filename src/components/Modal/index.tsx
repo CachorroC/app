@@ -4,25 +4,27 @@ import { useCallback,
   useEffect,
   MouseEventHandler,
   ReactNode, } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import styles from './styles.module.css';
 import { useModalContext } from '#@/app/context/modal-context';
 
 export default function Modal(
   {
-    children 
-  }: { children: ReactNode } 
+    children
+  }: { children: ReactNode }
 ) {
+  const pathname = usePathname();
+
   const {
-    setIsModalOpen 
+    setIsModalOpen
   } = useModalContext();
 
   const overlay = useRef(
-    null 
+    null
   );
 
   const wrapper = useRef(
-    null 
+    null
   );
 
   const router = useRouter();
@@ -30,18 +32,18 @@ export default function Modal(
   const onDismiss = useCallback(
     () => {
       setIsModalOpen(
-        false 
+        false
       );
       router.back();
     }, [
       router,
       setIsModalOpen
-    ] 
+    ]
   );
 
   const onClick: MouseEventHandler = useCallback(
     (
-      e 
+      e
     ) => {
       if ( e.target === overlay.current || e.target === wrapper.current ) {
         if ( onDismiss ) {
@@ -58,7 +60,7 @@ export default function Modal(
 
   const onKeyDown = useCallback(
     (
-      e: KeyboardEvent 
+      e: KeyboardEvent
     ) => {
       if ( e.key === 'Escape' ) {
         onDismiss();
@@ -72,17 +74,18 @@ export default function Modal(
   useEffect(
     () => {
       document.addEventListener(
-        'keydown', onKeyDown 
+        'keydown', onKeyDown
       );
 
       return () => {
         return document.removeEventListener(
-          'keydown', onKeyDown 
+          'keydown', onKeyDown
         );
       };
     }, [
+      pathname,
       onKeyDown
-    ] 
+    ]
   );
 
   return (

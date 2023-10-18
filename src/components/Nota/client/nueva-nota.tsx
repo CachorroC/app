@@ -5,7 +5,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import styles from 'components/form/form.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import layout from '#@/styles/layout.module.css';
-import { useOnlineStatus } from '#@/app/hooks/online-state';
 
 export const NuevaNota = (
   {
@@ -16,7 +15,6 @@ export const NuevaNota = (
   cod: number;
 }
 ) => {
-  const isOnline = useOnlineStatus();
 
   const {
     inputNota, setInputNota
@@ -40,6 +38,7 @@ export const NuevaNota = (
 
   const router = useRouter();
 
+
   async function onCreate(
     formData: FormData
   ) {
@@ -49,10 +48,11 @@ export const NuevaNota = (
     alert(
       res.message
     );
-    router.replace(
+    router.push(
       `/Notas/id/${ res.id }`
     );
   }
+
 
   return (
     <div className={styles.container}>
@@ -62,7 +62,6 @@ export const NuevaNota = (
       >
         <h1 className={typography.displayLarge}>Nueva Nota</h1>
         <section className={layout.sectionColumn}>
-          {isOnline && <p>isOnline</p>}
           <section className={layout.sectionRow}>
             <label
               htmlFor="llaveProceso"

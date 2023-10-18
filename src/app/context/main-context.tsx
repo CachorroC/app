@@ -43,6 +43,8 @@ export function MainProvider(
     children
   }: { children: ReactNode }
 ) {
+  const pathname = usePathname();
+
   const [
     category,
     setCategory
@@ -72,7 +74,7 @@ export function MainProvider(
     {
       cod         : 0,
       text        : '',
-      pathname    : '',
+      pathname    : pathname,
       llaveProceso: null,
       date        : new Date(),
       done        : false,
@@ -86,10 +88,11 @@ export function MainProvider(
     false
   );
 
-  const pathname = usePathname();
+
 
   useEffect(
     () => {
+
       const [
         ,
         firstRoute,

@@ -3,8 +3,8 @@ import { fixFechas } from '#@/lib/project/helper';
 
 export const Name = (
   {
-    helper 
-  }: { helper?: string } 
+    helper
+  }: { helper?: string }
 ) => {
   const today = new Date();
 
@@ -19,10 +19,10 @@ export const Name = (
   ];
 
   return (
-    <h1 className={typography.titleMedium}>
+    <h1 className={typography.headlineSmall}>
       {helper?.toLocaleLowerCase()
         ?? `${ days[ today.getDay() ] }, ${ fixFechas(
-          today.toString() 
+          today.toString()
         ) }`}
     </h1>
   );

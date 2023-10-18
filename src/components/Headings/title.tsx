@@ -5,8 +5,8 @@ import { fixFechas } from '#@/lib/project/helper';
 
 export default function Title(
   {
-    helper 
-  }: { helper?: string } 
+    helper
+  }: { helper?: string }
 ) {
   const pathname = usePathname();
 
@@ -25,11 +25,11 @@ export default function Title(
   const txt = helper
     ? helper
     : days[ today.getDay() ] + ' ' + fixFechas(
-      today.toString() 
+      today.toString()
     );
 
   return (
-    <h1 className={typography.titleMedium}>
+    <h1 className={typography.titleSmall}>
       {pathname === '/'
         ? txt
         : pathname}

@@ -2,7 +2,8 @@ import { cache } from 'react';
 import clientPromise from '../connection/mongodb';
 import { IntCarpeta, carpetaConvert } from 'types/carpetas';
 
-async function getCarpetas() {
+async function getCarpetas () {
+
   const client = await clientPromise;
 
   if ( !client ) {
@@ -31,9 +32,12 @@ async function getCarpetas() {
     .allowDiskUse()
     .toArray();
 
+
+
   const carpetas = carpetaConvert.toMonCarpetas(
     carpetasRaw
   );
+
 
   return carpetas;
 }

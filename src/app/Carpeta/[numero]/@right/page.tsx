@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import type { Route } from 'next';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import layout from '#@/styles/layout.module.css';
+import { NotasList } from '#@/components/Nota/tasks-list';
 
 export default async function Page(
   {
@@ -24,8 +25,14 @@ export default async function Page(
     notFound();
   }
 
+
   return (
     <>
+      <section className={ layout.segmentColumn }>
+        <h2 className={typography.headlineMedium}>Notas</h2>
+        <NotasList />
+      </section>
+
       <section className={ layout.segmentColumn }>
         <h2 className={typography.headlineMedium}>Ultimas Actuaciones</h2>
         { carpeta.idProcesos && (

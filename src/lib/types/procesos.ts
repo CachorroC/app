@@ -4,108 +4,122 @@
 //
 //   const consultaNumeroRadicacion = Convert.toConsultaNumeroRadicacion(json);
 
+
 export interface ConsultaNumeroRadicacion {
+  StatusCode:   number;
+  Message:      Message | string;
+  procesos?: Proceso[];
+}
+
+export interface Data{
   tipoConsulta: string;
   procesos: Proceso[];
   parametros: Parametros;
   paginacion: Paginacion;
 }
 
+
+export type Message = 'OK' | 'El parametro "NumeroRadicacion" ha de contener 23 digitos.';
+
 export interface Paginacion {
-  cantidadRegistros: number;
-  registrosPagina: number;
-  cantidadPaginas: number;
-  pagina: number;
-  paginas: null;
+    cantidadRegistros: number;
+    registrosPagina:   number;
+    cantidadPaginas:   number;
+    pagina:            number;
+    paginas:           null;
 }
 
 export interface Parametros {
-  numero: string;
-  nombre: null;
-  tipoPersona: null;
-  idSujeto: null;
-  ponente: null;
-  claseProceso: null;
-  codificacionDespacho: null;
-  soloActivos: boolean;
+    numero:               string;
+    nombre:               null;
+    tipoPersona:          null;
+    idSujeto:             null;
+    ponente:              null;
+    claseProceso:         null;
+    codificacionDespacho: null;
+    soloActivos:          boolean;
 }
 
 export interface Proceso {
-  idProceso: number;
-  idConexion: number;
-  llaveProceso: string;
-  fechaProceso: Date | null;
-  fechaUltimaActuacion: Date | null;
-  despacho: string;
-  departamento: string;
-  sujetosProcesales: string;
-  esPrivado: boolean;
-  cantFilas: number;
+    idProceso:            number;
+    idConexion:           number;
+    llaveProceso:         string;
+    fechaProceso:         Date | null;
+    fechaUltimaActuacion: Date | null;
+    despacho:             string;
+    departamento:         Departamento;
+    sujetosProcesales:    string;
+    esPrivado:            boolean;
+    cantFilas:            number;
 }
 
+export type Departamento = 'BOGOTÁ' | 'CUNDINAMARCA' | 'ANTIOQUIA' | 'META';
+
+export type TipoConsulta = 'NumeroRadicacion';
+
 // Converts JSON strings to/from your types
-export class procesosConvert {
-  public static consultaNumeroRadicacionToJson(
-    value: ConsultaNumeroRadicacion,
-  ): string {
-    return JSON.stringify(
-      value 
-    );
-  }
-
-  public static paginacionToJson(
-    value: Paginacion 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
-  }
-
-  public static parametrosToJson(
-    value: Parametros 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
-  }
-
-  public static procesoToJson(
-    value: Proceso 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
-  }
-
+export class Convert {
   public static toConsultaNumeroRadicacion(
-    json: string,
+    json: string
   ): ConsultaNumeroRadicacion {
     return JSON.parse(
-      json 
+      json
+    );
+  }
+
+  public static consultaNumeroRadicacionToJson(
+    value: ConsultaNumeroRadicacion
+  ): string {
+    return JSON.stringify(
+      value
     );
   }
 
   public static toPaginacion(
-    json: string 
+    json: string
   ): Paginacion {
     return JSON.parse(
-      json 
+      json
+    );
+  }
+
+  public static paginacionToJson(
+    value: Paginacion
+  ): string {
+    return JSON.stringify(
+      value
     );
   }
 
   public static toParametros(
-    json: string 
+    json: string
   ): Parametros {
     return JSON.parse(
-      json 
+      json
+    );
+  }
+
+  public static parametrosToJson(
+    value: Parametros
+  ): string {
+    return JSON.stringify(
+      value
     );
   }
 
   public static toProceso(
-    json: string 
+    json: string
   ): Proceso {
     return JSON.parse(
-      json 
+      json
+    );
+  }
+
+  public static procesoToJson(
+    value: Proceso
+  ): string {
+    return JSON.stringify(
+      value
     );
   }
 }

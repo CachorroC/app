@@ -1,12 +1,11 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useCategory } from '#@/app/context/main-context';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
-import { useSearch } from '#@/app/context/search-context';
 import type { Route } from 'next';
 
 export const LinkCard = (
@@ -16,23 +15,25 @@ export const LinkCard = (
   }: {
   path: string;
   carpeta: MonCarpeta;
-} 
+}
 ) => {
   let content;
 
-  const {
-    search 
-  } = useSearch();
 
   const {
-    deudor, fecha, llaveProceso, numero, nombre 
+    deudor, fecha, numero, nombre
   } = carpeta;
 
-  const pathname = usePathname();
 
   const {
-    category 
+    category
   } = useCategory();
+
+  const params = useParams();
+
+  const isActive =  numero === Number(
+    params.numero
+  );
 
   if ( category !== 'todos' ) {
     if ( category !== carpeta.category ) {
@@ -40,77 +41,65 @@ export const LinkCard = (
     }
   }
 
-  const isActive
-    = pathname === `${ path }/${ llaveProceso }`
-    || pathname === `${ path }/${ carpeta.numero }`;
-
-  const isSearch
-    = carpeta.nombre.toLowerCase()
-      .indexOf(
-        search.toLowerCase() 
-      ) === -1;
+  const stringifiedFecha = fixFechas(
+    fecha
+  );
 
   if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
     content = (
       <Link
         key={carpeta._id}
         href={`${ path }/${ numero }` as Route}
-        className={searchbar.container}
+        className={isActive
+          ? searchbar.linkIsActive
+          : searchbar.linkNotActive}
       >
-        <div className={isActive
-          ? searchbar.isActive
-          : searchbar.notActive}>
-          <sup className={`${ !isSearch && searchbar.sub }`}>{`# ${ numero }`}</sup>
-          <h4
-            key={deudor.cedula}
-            className={`${ typography.titleMedium } ${ searchbar.title }`}
-          >
-            {nombre}
-          </h4>
+        <sup className={searchbar.sub }>{`# ${ numero }`}</sup>
+        <h4
+          key={deudor.cedula}
+          className={`${ typography.titleMedium } ${ searchbar.title }`}
+        >
+          {nombre}
+        </h4>
 
-          {fecha && (
-            <sub className={searchbar.date}>{fixFechas(
-              fecha.toString() 
-            )}</sub>
-          )}
-        </div>
+        {fecha && (
+          <sub className={searchbar.date}>{stringifiedFecha}</sub>
+        )}
       </Link>
     );
   } else {
     content = carpeta.idProcesos.map(
       (
-        idProceso 
+        idProceso
       ) => {
         return (
           <Link
             key={idProceso}
             href={`${ path }/${ numero }` as Route}
-            className={searchbar.container}
+            className={isActive
+              ? searchbar.linkIsActive
+              : searchbar.linkNotActive}
           >
-            <div className={isActive
-              ? searchbar.isActive
-              : searchbar.notActive}>
-              <sup className={`${ !isSearch && searchbar.sub }`}>
-                {carpeta.numero}
-              </sup>
-              <h4
-                key={deudor.cedula}
-                className={`${ typography.titleMedium } ${ searchbar.title }`}
-              >
-                {nombre}
-              </h4>
 
-              {fecha && (
-                <sub className={searchbar.date}>
-                  {fixFechas(
-                    fecha.toString() 
-                  )}
-                </sub>
-              )}
-            </div>
+            <sup className={searchbar.sub }>
+              {`# ${ numero }`}
+            </sup>
+            <h4
+              key={deudor.cedula}
+              className={`${ typography.titleMedium } ${ searchbar.title }`}
+            >
+              {nombre}
+            </h4>
+
+            {fecha && (
+              <sub className={searchbar.date}>
+                {stringifiedFecha}
+              </sub>
+            )}
+
           </Link>
         );
-      } 
+      }
     );
   }
 

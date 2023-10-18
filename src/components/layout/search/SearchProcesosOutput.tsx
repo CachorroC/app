@@ -5,30 +5,26 @@ import { useCategory } from '#@/app/context/main-context';
 import { JSX } from 'react';
 import { LinkCard } from './link';
 
-export default function SearchOutputList(
-  {
-    path 
-  }: { path: string } 
-) {
+export default function SearchOutputList() {
   const rows: JSX.Element[] = [];
 
   const carpetasReduced = useCarpetaSort();
 
   const {
-    search 
+    search
   } = useSearch();
 
   const {
-    category 
+    category
   } = useCategory();
 
   carpetasReduced.forEach(
     (
-      proceso 
+      proceso
     ) => {
       if ( proceso.nombre.toLowerCase()
         .indexOf(
-          search.toLowerCase() 
+          search.toLowerCase()
         ) === -1 ) {
         return;
       }
@@ -36,13 +32,13 @@ export default function SearchOutputList(
       if ( category === 'todos' || category === proceso.category ) {
         rows.push(
           <LinkCard
-            path={path}
+            path={`/Carpeta/${ proceso.numero }`}
             carpeta={proceso}
             key={proceso._id}
           />,
         );
       }
-    } 
+    }
   );
 
   return <> {rows}</>;

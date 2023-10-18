@@ -9,7 +9,7 @@
     "prebuild": "bun sass && bun lint",
     "devbuild": "bun prebuild && next build",
     "build": "next build",
-    "dev": "URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com next dev",
+    "dev": "URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com PREFIX=beta next dev",
     "start": "next start",
     "db:migrate": "prisma migrate dev --name init --create-only && prisma generate",
     "db:push": "prisma db push",

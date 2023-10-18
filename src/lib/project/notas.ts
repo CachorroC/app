@@ -6,8 +6,8 @@ import { notasConvert } from '../types/notas';
 export const getNotasByllaveProceso = cache(
   async (
     {
-      llaveProceso 
-    }: { llaveProceso: string } 
+      llaveProceso
+    }: { llaveProceso: string }
   ) => {
     const collection = await notasCollection();
 
@@ -15,12 +15,12 @@ export const getNotasByllaveProceso = cache(
       .find(
         {
           llaveProceso: llaveProceso,
-        } 
+        }
       )
       .toArray();
 
     const notas = notasConvert.toMonNotas(
-      rawNotas 
+      rawNotas
     );
 
     return notas;
@@ -30,8 +30,8 @@ export const getNotasByllaveProceso = cache(
 export const getNotaById = cache(
   async (
     {
-      id 
-    }: { id: string } 
+      id
+    }: { id: string }
   ) => {
     if ( id === 'Nueva' ) {
       return null;
@@ -42,9 +42,9 @@ export const getNotaById = cache(
     const rawNota = await collection.findOne(
       {
         _id: new ObjectId(
-          id 
+          id
         ),
-      } 
+      }
     );
 
     if ( rawNota === null ) {
@@ -52,9 +52,32 @@ export const getNotaById = cache(
     }
 
     const nota = notasConvert.toMonNota(
-      rawNota 
+      rawNota
     );
 
     return nota;
-  } 
+  }
+);
+
+export const getNotasByPathname = cache(
+  async (
+    {
+      path
+    }:{ path : string}
+  ) => {
+    const collection = await notasCollection();
+
+    const rawNotas = await collection.find(
+      {
+        pathname: path,
+      }
+    )
+      .toArray();
+
+    const notas = notasConvert.toMonNotas(
+      rawNotas
+    );
+
+    return notas;
+  }
 );

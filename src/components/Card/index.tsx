@@ -65,7 +65,7 @@ export const Card = (
       >
         <section className={layout.sectionRow}>
 
-          <h4 className={typography.headlineSmall}>{nombre}</h4>
+          <h4 className={typography.titleMedium}>{nombre}</h4>
           <Link
             className={`${ typography.labelSmall } ${ styles.link }`}
             href={`/Carpeta/${ numero }` as Route}

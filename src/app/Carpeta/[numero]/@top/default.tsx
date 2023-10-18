@@ -3,6 +3,8 @@ import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.scss';
 import { EditCarpeta } from '#@/components/Buttons/carpetaButtons';
+import { Suspense } from 'react';
+import { Loader } from '#@/components/Loader';
 
 type Props = {
   params: { numero: string };
@@ -25,14 +27,18 @@ export default async function Page(
 
   return (
     <>
-      <NombreComponent
-        key={params.numero}
-        deudor={carpeta.deudor}
-      />
+      <Suspense fallback={<Loader />}>
+        <NombreComponent
+          key={params.numero}
+          deudor={carpeta.deudor}
+        />
+      </Suspense>
       <span className={ typography.titleMedium }>{ `# ${ params.numero }` }</span>
-      <EditCarpeta numero={ Number(
-        params.numero
-      ) } />
+      <Suspense fallback={<Loader/>}>
+        <EditCarpeta numero={ Number(
+          params.numero
+        ) } />
+      </Suspense>
     </>
   );
 }
