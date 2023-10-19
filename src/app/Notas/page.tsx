@@ -1,28 +1,23 @@
 
-import { NotaComponent } from '#@/components/Nota/server';
+import { notasCollection } from '#@/lib/connection/mongodb';
+import { notasConvert } from '#@/lib/types/notas';
+import { NotaComponent } from 'components/Nota/server';
 
-async function getData() {
-  const res = await fetch(
-    '/api/Notas', {
-      next: {
-        tags: [
-          'notas'
-        ]
-      }
-    }
+async function getData () {
+  const collection = await notasCollection();
+
+  const notasRaw = await collection.find()
+    .toArray();
+
+  const notas = notasConvert.toMonNotas(
+    notasRaw
   );
 
-  if ( !res.ok ) {
-    throw new Error(
-      'Failed to fetch data'
-    );
-  }
-
-  return res.json();
+  return notas;
 }
 
 export default async function Page() {
-  const notas = ( await getData() ) as monNota[];
+  const notas = await getData();
 
   return (  <>
     {notas.map(

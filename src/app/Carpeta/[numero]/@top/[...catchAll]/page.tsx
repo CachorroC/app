@@ -5,6 +5,7 @@ import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import typography from '#@/styles/fonts/typography.module.scss';
+import { CopyButtons } from '#@/components/Buttons/copy-buttons';
 
 export default async function CatchAll(
   {
@@ -36,6 +37,7 @@ export default async function CatchAll(
           params.numero
         ) } />
       </Suspense>
+      <CopyButtons carpeta={ carpeta } />
     </>
   );
 }

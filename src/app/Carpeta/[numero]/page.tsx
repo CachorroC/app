@@ -8,8 +8,10 @@ import typography from '#@/styles/fonts/typography.module.scss';
 import type { Route } from 'next';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import styles from './styles.module.css';
-import { Fragment } from 'react';
+import { Fragment, Suspense } from 'react';
 import layout from '#@/styles/layout.module.css';
+import { Loader } from '#@/components/Loader';
+import { ProcesosComponent } from '#@/components/Proceso/server-components';
 
 export default async function Page(
   {
@@ -57,8 +59,6 @@ export default async function Page(
 
   return (
     <>
-
-
       <section className={layout.segmentColumn}>
         <h4 className={typography.labelMedium}>Categoria:</h4>
         <p className={styles.chip}>{category}</p>
@@ -174,7 +174,9 @@ export default async function Page(
       </section>
 
       { idProcesoContent }
-
+      <Suspense fallback={<Loader />}>
+        { carpeta.llaveProceso && ( <ProcesosComponent llaveProceso={carpeta.llaveProceso} index={0} /> )}
+      </Suspense>
     </>
   );
 }

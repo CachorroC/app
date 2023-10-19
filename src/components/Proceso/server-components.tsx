@@ -1,5 +1,4 @@
-import { MonCarpeta } from 'types/carpetas';
-import { Fragment } from 'react';
+
 import styles from './procesos.module.css';
 import typography from '#@/styles/fonts/typography.module.scss';
 import Link from 'next/link';
@@ -85,33 +84,24 @@ export const ProcesoCard = (
   );
 };
 
-export const ProcesosComponent = async (
+export async function ProcesosComponent(
   {
-    carpeta,
-    index,
-  }: {
-  carpeta: MonCarpeta;
-  index: number;
-}
-) => {
-  if ( !carpeta.llaveProceso ) {
-    return null;
-  }
+    llaveProceso, index
+  }: {llaveProceso: string; index: number} 
+) {
+
 
   const procesos = await getProceso(
-    {
-      llaveProceso: carpeta.llaveProceso,
-      index       : index,
-    }
+    llaveProceso, index 
   );
 
-  if ( !procesos ||!procesos.procesos ||  procesos.procesos.length === 0 ) {
+  if ( !procesos || procesos.length === 0 ) {
     return null;
   }
 
   return (
-    <Fragment key={carpeta.llaveProceso}>
-      {procesos.procesos.map(
+    <>
+      {procesos.map(
         (
           proceso
         ) => {
@@ -123,6 +113,6 @@ export const ProcesosComponent = async (
           );
         }
       )}
-    </Fragment>
+    </>
   );
-};
+}

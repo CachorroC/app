@@ -1,4 +1,4 @@
-.button, .buttonActuacion, .buttonHome, .buttonModal, .buttonDrawerMenu, .buttonBackwards, .buttonForward, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
+.button, .buttonChip, .buttonActuacion, .buttonHome, .buttonModal, .buttonDrawerMenu, .buttonBackwards, .buttonForward, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
   border: none;
   box-sizing: border-box;
   padding: 0.5rem;
@@ -82,6 +82,10 @@
   color: var(--on-primary);
 }
 .buttonActuacion {
+  flex: 0 1 auto;
+}
+.buttonChip {
+  height: minmax(32px, 48px);
   flex: 0 1 auto;
 }
 

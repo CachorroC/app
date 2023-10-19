@@ -1,11 +1,22 @@
 import 'server-only';
 import { notasCollection } from '#@/lib/connection/mongodb';
 import { NextRequest, NextResponse } from 'next/server';
-import getNotas from '#@/lib/project/getNotas';
-import {  monNota } from '#@/lib/types/notas';
+import {  monNota, notasConvert } from '#@/lib/types/notas';
 
-export async function GET() {
-  const notas = await getNotas();
+export async function GET () {
+  const collection = await notasCollection();
+
+  const notasRaw = await collection.find()
+    .sort(
+      {
+        cod: 1
+      }
+    )
+    .toArray();
+
+  const notas = notasConvert.toMonNotas(
+    notasRaw
+  );
 
   return new NextResponse(
     JSON.stringify(

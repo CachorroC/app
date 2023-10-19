@@ -17,7 +17,7 @@ async function getCarpetas () {
   );
 
   const collection = db.collection<IntCarpeta>(
-    'Pruebas'
+    'Carpetas'
   );
 
   const carpetasRaw = await collection

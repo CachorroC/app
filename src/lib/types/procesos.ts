@@ -8,12 +8,12 @@
 export interface ConsultaNumeroRadicacion {
   StatusCode:   number;
   Message:      Message | string;
-  procesos?: Proceso[];
+  procesos?: intProceso[];
 }
 
 export interface Data{
   tipoConsulta: string;
-  procesos: Proceso[];
+  procesos: intProceso[];
   parametros: Parametros;
   paginacion: Paginacion;
 }
@@ -40,7 +40,7 @@ export interface Parametros {
     soloActivos:          boolean;
 }
 
-export interface Proceso {
+export interface intProceso {
     idProceso:            number;
     idConexion:           number;
     llaveProceso:         string;
@@ -109,14 +109,14 @@ export class Convert {
 
   public static toProceso(
     json: string
-  ): Proceso {
+  ): intProceso {
     return JSON.parse(
       json
     );
   }
 
   public static procesoToJson(
-    value: Proceso
+    value: intProceso
   ): string {
     return JSON.stringify(
       value

@@ -7,7 +7,7 @@
 export interface ConsultaActuacion {
   StatusCode: number;
   Message: Message;
-  actuaciones?: Actuacion[];
+  actuaciones?: intActuacion[];
 }
 
 export type Message =
@@ -16,11 +16,11 @@ export type Message =
   | 'No se pueden ver actuaciones de un proceso privado';
 
 export interface Data {
-  actuaciones: Actuacion[];
+  actuaciones: intActuacion[];
   paginacion: Paginacion;
 }
 
-export interface Actuacion {
+export interface intActuacion {
   idRegActuacion: number;
   llaveProceso: string;
   consActuacion: number;
@@ -48,66 +48,66 @@ export interface Paginacion {
 // Converts JSON strings to/from your types
 export class actuacionConvert {
   public static actuacioneToJson(
-    value: Actuacion 
+    value: intActuacion
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static consultaActuacionToJson(
-    value: ConsultaActuacion 
+    value: ConsultaActuacion
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static dataToJson(
-    value: Data 
+    value: Data
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static paginacionToJson(
-    value: Paginacion 
+    value: Paginacion
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static toActuacione(
-    json: string 
-  ): Actuacion {
+    json: string
+  ): intActuacion {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static toConsultaActuacion(
-    json: string 
+    json: string
   ): ConsultaActuacion {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static toData(
-    json: string 
+    json: string
   ): Data {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static toPaginacion(
-    json: string 
+    json: string
   ): Paginacion {
     return JSON.parse(
-      json 
+      json
     );
   }
 }

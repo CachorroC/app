@@ -1,6 +1,6 @@
 'use client';
 
-import { Actuacion } from '#@/lib/types/actuaciones';
+import { intActuacion } from '#@/lib/types/actuaciones';
 import { useState } from 'react';
 import styles from 'components/Card/card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
@@ -12,7 +12,7 @@ export function ActuacionComponent(
   {
     incomingActuacion, initialOpenState
   }: {
-  incomingActuacion: Actuacion; initialOpenState: boolean
+  incomingActuacion: intActuacion; initialOpenState: boolean
 }
 ) {
   const {

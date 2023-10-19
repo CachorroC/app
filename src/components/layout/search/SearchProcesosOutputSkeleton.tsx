@@ -1,4 +1,4 @@
-import LinkCardSkeleton from './link-skeleton';
+import { LinkCardSkeleton } from './link-skeleton';
 
 export default function SearchOutputListSkeleton() {
   return (

@@ -4,6 +4,7 @@ declare const styles: {
   readonly 'buttonActiveCategory': string;
   readonly 'buttonActuacion': string;
   readonly 'buttonBackwards': string;
+  readonly 'buttonChip': string;
   readonly 'buttonDrawerMenu': string;
   readonly 'buttonEdit': string;
   readonly 'buttonForward': string;

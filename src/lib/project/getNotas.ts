@@ -1,20 +1,35 @@
 import { cache } from 'react';
-import { notasCollection } from '../connection/mongodb';
-import { notasConvert } from '../types/notas';
+import { monNota } from '../types/notas';
 
-async function getNotas() {
-  const collection = await notasCollection();
+async function getNotas () {
+  try {
 
-  const rawNotas = await collection.find()
-    .toArray();
+    const request = await fetch(
+      '/api/Notas', {
+        next: {
+          tags: [
+            'notas'
+          ]
+        }
+      }
+    );
 
-  const notas = notasConvert.toMonNotas(
-    rawNotas 
-  );
+    if ( !request.ok ) {
+      throw new Error(
+        'no pudimos acceder a las notas a través del api, vuelve a intentarlo'
+      );
 
-  return notas;
+    }
+
+    const notas = ( await request.json() ) as monNota[];
+
+
+    return notas;
+  } catch ( error ) {
+    return [];
+  }
 }
 
 export default cache(
-  getNotas 
+  getNotas
 );

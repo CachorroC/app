@@ -2,7 +2,7 @@ import 'server-only';
 import { cache } from 'react';
 import { carpetasCollection } from '../connection/mongodb';
 import { sleep } from 'project/helper';
-import { Actuacion, ConsultaActuacion, Data, Message } from 'types/actuaciones';
+import { intActuacion, ConsultaActuacion, Data, Message } from 'types/actuaciones';
 import { getCarpetaByllaveProceso } from '../project/carpetas';
 
 export async function fetchActuaciones(
@@ -115,7 +115,7 @@ export const getActuaciones = cache(
 );
 
 export async function updateActuaciones (
-  actuaciones: Actuacion[], idProceso: number
+  actuaciones: intActuacion[], idProceso: number
 ) {
   try {
     if ( actuaciones.length === 0 ) {

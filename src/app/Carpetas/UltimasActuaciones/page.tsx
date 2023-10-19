@@ -1,8 +1,9 @@
-import { Card } from '../../../components/Card';
+import { Card } from 'components/Card';
 import { Loader } from '#@/components/Loader';
 import getCarpetas from '#@/lib/project/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
+import {  ProcesosComponent } from '#@/components/Proceso/server-components';
 
 export const dynamic = 'force-dynamic';
 
@@ -70,15 +71,16 @@ export default async function Page() {
                   ) => {
                     return (
                       <FechaActuacionComponent
-                        initialOpenState={false}
-                        idProceso={idProceso}
-                        key={idProceso}
-                        index={index}
-                      />
+                        initialOpenState={ false }
+                        idProceso={ idProceso }
+                        key={ idProceso }
+                        index={ index } />
                     );
                   }
                 )}
               </Suspense>
+
+
             </Card>
           );
         }

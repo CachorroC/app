@@ -59,7 +59,7 @@ export const CategoryFilterButton = () => {
   ];
 
   return (
-    <section className={layout.segmentColumn}>
+    <section className={layout.sectionColumn}>
       {categorias.map(
         (
           category, index

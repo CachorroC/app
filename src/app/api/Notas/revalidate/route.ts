@@ -8,7 +8,7 @@ export async function GET(
     'tag'
   );
   revalidateTag(
-    tag
+    tag ?? 'notas'
   );
   return Response.json(
     {

@@ -1,5 +1,5 @@
 
-import { fetchActuaciones } from '#@/lib/Actuaciones';
+import { getActuaciones } from '#@/lib/Actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
@@ -15,17 +15,20 @@ export async function FechaActuacionComponent(
   initialOpenState: boolean
 }
 ) {
-  const consultaActuaciones = await fetchActuaciones(
-    idProceso, index
+  const consultaActuaciones = await getActuaciones(
+    {
+      idProceso: idProceso,
+      index    : index
+    }
   );
 
-  if ( !consultaActuaciones.actuaciones ) {
-    return <p>{consultaActuaciones.Message}</p>;
+  if ( !consultaActuaciones ) {
+    return null;
   }
 
   const [
     ultimaActuacion
-  ] = consultaActuaciones.actuaciones;
+  ] = consultaActuaciones;
 
   return (
     <Suspense fallback={<Loader />}>

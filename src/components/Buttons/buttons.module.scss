@@ -108,6 +108,12 @@
     flex: 0 1 auto;
 
   }
+  &Chip{
+    @extend .button;
+    height: minmax(32px, 48px);
+    flex: 0 1 auto;
+
+  }
 }
 .active {
   background-color: var(--tertiary-container);
