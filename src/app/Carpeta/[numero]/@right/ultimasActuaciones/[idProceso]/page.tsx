@@ -1,6 +1,6 @@
 
 import { notFound } from 'next/navigation';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import { getActuaciones } from '#@/lib/Actuaciones';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 

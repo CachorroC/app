@@ -6,8 +6,8 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { InputSection } from './input-section';
 import { SelectSection } from './select-section';
 import { DateInputSection } from './date-section';
-import VencimientoPagareSection from './vencimiento-pagare-section';
-import ObligacionesComponent from './field-array-section';
+import { VencimientoPagareSection } from './vencimiento-pagare-section';
+import { ObligacionesComponent } from './field-array-section';
 import { NuevaCarpetaSchema } from '#@/lib/types/zod/nuevaCarpeta';
 import layout from '#@/styles/layout.module.css';
 

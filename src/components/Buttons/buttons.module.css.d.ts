@@ -11,7 +11,11 @@ declare const styles: {
   readonly 'buttonHome': string;
   readonly 'buttonModal': string;
   readonly 'buttonPassiveCategory': string;
+  readonly 'fadein': string;
+  readonly 'fadeout': string;
   readonly 'icon': string;
+  readonly 'show': string;
+  readonly 'snackbar': string;
   readonly 'text': string;
 };
 export = styles;

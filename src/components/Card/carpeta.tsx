@@ -4,25 +4,25 @@ import { Route } from 'next';
 import Link from 'next/link';
 import { NombreComponent } from '../nombre';
 import styles from './card.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import card from 'components/Card/card.module.css';
 import { button } from '../Buttons/buttons.module.css';
 
 export const CarpetaCard = (
   {
-    carpeta 
-  }: { carpeta: MonCarpeta } 
+    carpeta
+  }: { carpeta: MonCarpeta }
 ) => {
   const {
-    llaveProceso, idProcesos, deudor, demanda, _id 
+    llaveProceso, idProcesos, deudor, demanda, _id
   } = carpeta;
 
   const {
-    tel, email 
+    tel, email
   } = deudor;
 
   const {
-    juzgados 
+    juzgados
   } = demanda;
 
   return (
@@ -43,7 +43,7 @@ export const CarpetaCard = (
         {idProcesos
           && idProcesos.map(
             (
-              idProceso 
+              idProceso
             ) => {
               return (
                 <Link
@@ -59,12 +59,12 @@ export const CarpetaCard = (
                   <span className={styles.tooltiptext}>Ultimas Actiaciones</span>
                 </Link>
               );
-            } 
+            }
           )}
         {juzgados
           && juzgados.map(
             (
-              despacho 
+              despacho
             ) => {
               return (
                 <Link
@@ -84,7 +84,7 @@ export const CarpetaCard = (
                   </p>
                 </Link>
               );
-            } 
+            }
           )}
         {tel.celular && (
           <Link
@@ -115,7 +115,7 @@ export const CarpetaCard = (
         {carpeta.demanda.vencimientoPagare
           && carpeta.demanda.vencimientoPagare.map(
             (
-              pagare, index 
+              pagare, index
             ) => {
               return (
                 <p
@@ -123,11 +123,11 @@ export const CarpetaCard = (
                   className={typography.labelMedium}
                 >
                   {fixFechas(
-                    pagare 
+                    pagare
                   )}
                 </p>
               );
-            } 
+            }
           )}
         {email && (
           <Link
@@ -145,7 +145,7 @@ export const CarpetaCard = (
         {carpeta.demanda.entregaGarantiasAbogado && (
           <p className={typography.labelSmall}>
             {fixFechas(
-              carpeta.demanda.entregaGarantiasAbogado 
+              carpeta.demanda.entregaGarantiasAbogado
             )}
           </p>
         )}
@@ -154,9 +154,9 @@ export const CarpetaCard = (
             && fixMoney(
               {
                 valor: Number(
-                  carpeta.demanda.capitalAdeudado 
+                  carpeta.demanda.capitalAdeudado
                 ),
-              } 
+              }
             )}
         </div>
       </div>

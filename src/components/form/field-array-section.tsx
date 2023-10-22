@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import styles from './form.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 
 let renderCount = 0;
 
-export default function ObligacionesComponent() {
+export  function ObligacionesComponent() {
   const {
     control, register
   } = useFormContext();

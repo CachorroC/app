@@ -1,27 +1,22 @@
 import { getNotaById } from '#@/lib/project/notas';
 import { Edit } from '#@/components/Nota/Edit';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 import getNotas from '#@/lib/project/getNotas';
 import { NuevaNota } from '#@/components/Nota/client/nueva-nota';
+import { NuevaNotaFormProvider } from '#@/app/context/nueva-nota-form-context';
 
 export default async function NuevaNotallaveProceso(
   {
     params: {
-      id 
+      id
     },
-    searchParams,
   }: {
   params: { id: string };
-  searchParams: { [key: string]: string | undefined };
-} 
+}
 ) {
   let notaScope;
   let notaNumber;
-
-  const {
-    llaveProceso 
-  } = searchParams;
 
   const isNuevaNota = id === 'Nueva';
 
@@ -35,17 +30,13 @@ export default async function NuevaNotallaveProceso(
     notaNumber = nuevoCod;
 
     notaScope = (
-      <NuevaNota
-        key={id}
-        cod={nuevoCod}
-        llaveProceso={llaveProceso}
-      />
+      <NuevaNota key={id}/>
     );
   } else {
     const nota = await getNotaById(
       {
         id: id,
-      } 
+      }
     );
     notaNumber = nota
       ? nota.cod
@@ -60,12 +51,14 @@ export default async function NuevaNotallaveProceso(
 
   return (
     <>
-      <div className={layout.top}>
-        <h1
-          className={typography.displayLarge}
-        >{`Nota numero: ${ notaNumber }`}</h1>
-      </div>
-      <div className={layout.left}>{notaScope}</div>
+      <NuevaNotaFormProvider>
+        <div className={layout.top}>
+          <h1
+            className={typography.displayLarge}
+          >{`Nota numero: ${ notaNumber }`}</h1>
+        </div>
+        <div className={ layout.left }>{ notaScope }</div>
+      </NuevaNotaFormProvider>
     </>
   );
 }

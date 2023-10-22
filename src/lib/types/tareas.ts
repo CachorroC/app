@@ -4,79 +4,117 @@
 //
 //   const tarea = Convert.toTarea(json);
 
-import { ObjectId } from 'mongodb';
+import { WithId } from 'mongodb';
 
 export type Abogado = 'Melissa' | 'Carmen' | 'Fernando' | 'Camilo';
 
 export interface Tarea {
-  id: string;
-  date: Date;
-  abogado: Abogado;
+  id: number;
+  dueDate: Date | null;
+  creationDate: Date;
+  abogado?: Abogado;
+
   text: string;
   done: boolean;
 }
 
-export interface intTarea {
-  id: string;
-  date: Date;
-  abogado: Abogado;
+export interface intTarea
+{
+  id: number;
+  dueDate: Date | null;
+  creationDate: Date;
+  abogado?: Abogado;
+    carpetaNumero?: number;
   text: string;
   done: boolean;
+
+}
+
+export interface monTarea extends intTarea
+{
+    _id: string;
+
 }
 
 export class BuildTarea implements intTarea {
-  abogado: Abogado;
-  date: Date;
+  abogado?: Abogado;
+  dueDate: Date | null;
+  creationDate: Date;
   done: boolean;
-  id: string;
+  id: number;
   text: string;
+  carpetaNumero?: number;
 
   constructor(
+    id: number,
     {
-      _id,
       date,
       abogado,
       done,
       text,
+      dueDate,
+      numeroCarpeta
     }: {
-    _id: ObjectId;
-    date: string;
+
+        date: string | Date;
     abogado: string;
     done: boolean;
-    text: string;
-  } 
+        text: string;
+        dueDate?: string | Date | null;
+        numeroCarpeta?: number;
+
+  }
   ) {
-    ( this.id = _id.toString() ),
-    ( this.date = new Date(
-      date 
-    ) ),
-    ( this.abogado = abogado as Abogado ),
-    ( this.text = text ),
-    ( this.done = done );
+    this.id = id++;
+    this.creationDate = new Date(
+      date
+    );
+    this.carpetaNumero = numeroCarpeta;
+    this.abogado = abogado as Abogado;
+    this.text = text;
+    this.done = done;
+
+    if ( dueDate ) {
+      this.dueDate = new Date(
+        dueDate
+      );
+    } else {
+      this.dueDate = null;
+    }
   }
 }
 
 // Converts JSON strings to/from your types
 export class tareaConvert {
   public static tareaToJson(
-    value: intTarea 
+    value: intTarea
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static toTarea(
-    json: string 
+    json: string
   ) {
     const nT = JSON.parse(
-      json 
+      json
     );
 
     const tarea = new BuildTarea(
-      nT 
+      0,
+      nT
     );
 
     return tarea;
+  }
+  public static toMonTarea (
+    tarea: WithId<intTarea>
+  ): monTarea {
+    const outPutTarea: monTarea = {
+      ...tarea,
+      _id: tarea._id.toString()
+    };
+    return outPutTarea;
   }
 }

@@ -12,6 +12,9 @@ export default async function NotFound() {
     <div>
       <h2>Not Found: {domain}</h2>
       <p>Could not find requested resource</p>
+      {JSON.stringify(
+        headersList, null, 2
+      )}
     </div>
   );
 }

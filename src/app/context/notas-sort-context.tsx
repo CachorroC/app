@@ -8,7 +8,7 @@ import { Dispatch,
   useReducer, } from 'react';
 
 const NotasSortContext = createContext<monNota[] | null>(
-  null 
+  null
 );
 
 const NotasSortDispatchContext = createContext<Dispatch<IntNotaAction> | null>(
@@ -22,13 +22,13 @@ export function NotasSortProvider(
   }: {
   children: ReactNode;
   notas: monNota[];
-} 
+}
 ) {
   const [
     notasReduced,
     dispatchNotas
   ] = useReducer(
-    notasReducer, notas 
+    notasReducer, notas
   );
 
   return (
@@ -42,12 +42,12 @@ export function NotasSortProvider(
 
 export function useNotaSort() {
   const context = useContext(
-    NotasSortContext 
+    NotasSortContext
   );
 
   if ( context === null ) {
     throw new Error(
-      'useNotaSort  must be used inside a notasort provider r' 
+      'useNotaSort  must be used inside a notasort provider r'
     );
   }
 
@@ -56,12 +56,12 @@ export function useNotaSort() {
 
 export function useNotaSortDispatch() {
   const context = useContext(
-    NotasSortDispatchContext 
+    NotasSortDispatchContext
   );
 
   if ( context === null ) {
     throw new Error(
-      'useSortDispatchNotas must be used inside a NotasProvider' 
+      'useSortDispatchNotas must be used inside a NotasProvider'
     );
   }
 
@@ -69,10 +69,10 @@ export function useNotaSortDispatch() {
 }
 
 export function notasReducer(
-  notas: monNota[], action: IntNotaAction 
+  notas: monNota[], action: IntNotaAction
 ) {
   const {
-    sortDirection, type 
+    sortDirection, type
   } = action;
 
   const asc = [
@@ -97,7 +97,7 @@ export function notasReducer(
           ...notas
         ].sort(
           (
-            a, b 
+            a, b
           ) => {
             if ( !a.date || a.date === undefined ) {
               return sorter[ 2 ];
@@ -107,41 +107,9 @@ export function notasReducer(
               return sorter[ 0 ];
             }
 
-            const x = a.date.toISOString();
+            const x = a.date;
 
-            const y = b.date.toISOString();
-
-            if ( x < y ) {
-              return sorter[ 2 ];
-            }
-
-            if ( x > y ) {
-              return sorter[ 0 ];
-            }
-
-            return sorter[ 1 ];
-          } 
-        );
-      }
-
-      case 'llaveProceso': {
-        return [
-          ...notas
-        ].sort(
-          (
-            a, b 
-          ) => {
-            if ( !a.llaveProceso || a.llaveProceso === undefined ) {
-              return sorter[ 2 ];
-            }
-
-            if ( !b.llaveProceso || b.llaveProceso === undefined ) {
-              return sorter[ 0 ];
-            }
-
-            const x = a.date.toISOString();
-
-            const y = b.date.toISOString();
+            const y = b.date;
 
             if ( x < y ) {
               return sorter[ 2 ];
@@ -152,7 +120,7 @@ export function notasReducer(
             }
 
             return sorter[ 1 ];
-          } 
+          }
         );
       }
 
@@ -161,7 +129,7 @@ export function notasReducer(
           ...notas
         ].sort(
           (
-            a, b 
+            a, b
           ) => {
             const x = a.cod;
 
@@ -172,20 +140,20 @@ export function notasReducer(
               : y - x;
 
             return idk;
-          } 
+          }
         );
       }
 
-      case 'done': {
+      case 'pathname': {
         return [
           ...notas
         ].sort(
           (
-            a, b 
+            a, b
           ) => {
-            const x = a.done;
+            const x = a.pathname;
 
-            const y = b.done;
+            const y = b.pathname;
 
             if ( x < y ) {
               return sorter[ 2 ];
@@ -196,16 +164,19 @@ export function notasReducer(
             }
 
             return sorter[ 1 ];
-          } 
+
+          }
         );
       }
+
+
 
       case 'text': {
         return [
           ...notas
         ].sort(
           (
-            a, b 
+            a, b
           ) => {
             const x = a.text;
 
@@ -220,14 +191,51 @@ export function notasReducer(
             }
 
             return sorter[ 1 ];
-          } 
+          }
         );
       }
 
       default: {
-        throw Error(
-          'Unknown action: ' + action.type 
+        return [
+          ...notas
+        ].sort(
+          (
+            a, b
+          ) => {
+            const x = a[ type ];
+
+            const y = b[ type ];
+
+            if ( !x ) {
+              return sorter[ 2 ];
+            }
+
+            if ( !y ) {
+              return sorter[ 0 ];
+            }
+
+            const stringifyX = String(
+              x
+            );
+
+            const stringifyY = String(
+              y
+            );
+
+
+            if ( stringifyX < stringifyY ) {
+              return sorter[ 2 ];
+            }
+
+            if ( stringifyX > stringifyY ) {
+              return sorter[ 0 ];
+            }
+
+            return sorter[ 1 ];
+          }
         );
+
+
       }
   }
 }

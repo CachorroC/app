@@ -23,7 +23,7 @@ export const nombresDeMeses = [
 ];
 
 export function CalendarBuilder(
-  date: Date
+  date: Date,
 ) {
   const rows = new Set<calendarData>();
 
@@ -91,7 +91,7 @@ export function CalendarBuilder(
           .getDay(),
         className: isToday
           ? 'today'
-          : 'innactive',
+          : 'inactive',
       }
     );
   }

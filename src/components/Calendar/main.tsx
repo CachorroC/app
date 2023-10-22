@@ -5,8 +5,8 @@ import calendar from './calendar.module.css';
 
 export function Calendar(
   {
-    date
-  }: { date?: Date }
+    date,
+  }: { date?: Date;  }
 ) {
   const today = date
     ? date

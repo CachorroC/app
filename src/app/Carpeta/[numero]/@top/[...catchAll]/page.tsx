@@ -1,10 +1,9 @@
 import { EditCarpeta } from '#@/components/Buttons/carpetaButtons';
 import { Loader } from '#@/components/Loader';
-import { NombreComponent } from '#@/components/nombre';
 import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import { CopyButtons } from '#@/components/Buttons/copy-buttons';
 
 export default async function CatchAll(
@@ -25,12 +24,7 @@ export default async function CatchAll(
 
   return (
     <>
-      <Suspense fallback={<Loader />}>
-        <NombreComponent
-          key={params.numero}
-          deudor={carpeta.deudor}
-        />
-      </Suspense>
+
       <span className={ typography.titleMedium }>{ `# ${ params.numero }` }</span>
       <Suspense fallback={<Loader/>}>
         <EditCarpeta numero={ Number(

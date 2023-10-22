@@ -3,16 +3,71 @@
 import { useCopyToClipboard } from '#@/app/hooks/useCopyToClipboard';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import styles from './buttons.module.css';
+import typography from '#@/styles/fonts/typography.module.css';
+import layout from '#@/styles/layout.module.css';
+import { useEffect, useState } from 'react';
 
-export const copyButton = (
+export const CopyButton = (
   {
-    copyTxt
-  }: { copyTxt: string }
+    copyTxt, name
+  }: { copyTxt: string; name: string; }
 ) => {
-  return (
-    <button type='button' className={styles.buttonChip}>
 
-    </button>
+  const [
+    value,
+    copy
+  ] = useCopyToClipboard();
+
+  const [
+    isSnackbarOpen,
+    setIsSnackbarOpen
+  ] = useState(
+    false
+  );
+
+  useEffect(
+    () => {
+
+
+      const timer = setTimeout(
+        () => {
+          setIsSnackbarOpen(
+            false
+          );
+        }, 5000
+      );
+
+      if ( isSnackbarOpen ) {
+        timer;
+      }
+
+      return () => {
+        return clearTimeout(
+          timer
+        );
+      };
+    }, [
+      isSnackbarOpen
+    ]
+  );
+  return (
+    <div className={layout.segmentColumn}>
+      <p className={ typography.labelLarge }>{ name }</p>
+      <p className={ typography.labelMedium }>{ value }</p><button type='button' onClick={ () => {
+        copy(
+          copyTxt
+        );
+        setIsSnackbarOpen(
+          true
+        );
+      } } className={ styles.buttonChip }>
+        <span className={ `material-symbols-outlined ${ styles.icon }` }>file_copy</span>
+        <span className={styles.text}>copiar</span>
+      </button>
+      { value &&( isSnackbarOpen && (
+        <div className={ `${ styles.snackbar } ${ isSnackbarOpen && styles.show }` }>{ value} </div>
+      ) )}
+    </div>
   );
 };
 
@@ -21,39 +76,18 @@ export function CopyButtons(
     carpeta
   }: {carpeta: MonCarpeta}
 ) {
-  const [
-    value,
-    copy
-  ] = useCopyToClipboard();
   return (
     <>
 
-      {carpeta.llaveProceso && ( <button onClick={() => {
-        return copy(
-          carpeta.llaveProceso ?? ''
-        );
-      }}>
-        <span className='material-symbols-outlined'>file_copy</span>
-        <span className={styles.text}>Copiar el numero de expediente</span>
-      </button> )}
-      <button onClick={() => {
-        return copy(
-          carpeta.demanda.radicado ?? ''
-        );
-      }}>
-        <span className='material-symbols-outlined'>file_copy</span>
-        <span className={styles.text}>Numero de radicado</span>
-      </button>
-      <button onClick={() => {
-        return copy(
-          carpeta.deudor.cedula?.toString() ?? ''
-        );
-      }}>
-        <span className='material-symbols-outlined'>file_copy</span>
-        <span className={styles.text}>Numero de cedula</span>
-      </button>
-
-      <p>Copied value: {value ?? 'Nothing is copied yet!'}</p>
+      { carpeta.llaveProceso && (
+        <CopyButton copyTxt={ carpeta.llaveProceso} name='expediente' />
+      )}
+      { carpeta.demanda.radicado && (
+        <CopyButton copyTxt={ carpeta.demanda.radicado} name='radicado' />
+      )}
+      { carpeta.cc && (
+        <CopyButton copyTxt={ carpeta.cc.toString()}  name='cedula'/>
+      )}
     </>
   );
 }

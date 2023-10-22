@@ -16,6 +16,7 @@ declare const styles: {
   readonly 'segmentColumn': string;
   readonly 'segmentDetached': string;
   readonly 'segmentRow': string;
+  readonly 'segmentRowWrap': string;
   readonly 'spin': string;
   readonly 'title': string;
   readonly 'titleInput': string;

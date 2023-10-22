@@ -2,7 +2,7 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import styles from './card.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import layout from '#@/styles/layout.module.css';
 

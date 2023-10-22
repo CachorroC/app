@@ -1,5 +1,5 @@
 import { pruebasCollection } from '#@/lib/connection/mongodb';
-import { IntPrueba } from '#@/lib/types/prueba';
+import { IntCarpeta } from '#@/lib/types/carpetas';
 import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 import 'server-only';
@@ -111,7 +111,7 @@ export async function GET(
 export async function POST(
   request: NextRequest
 ) {
-  const incomingCarpeta = ( await request.json() ) as IntPrueba;
+  const incomingCarpeta = ( await request.json() ) as IntCarpeta;
 
   const collection = await pruebasCollection();
 
@@ -179,7 +179,7 @@ export async function PUT(
       ),
     };
 
-    const updatedCarpeta = ( await request.json() ) as IntPrueba;
+    const updatedCarpeta = ( await request.json() ) as IntCarpeta;
 
     const result = await collection.updateOne(
       query, {

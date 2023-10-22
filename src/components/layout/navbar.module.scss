@@ -1,6 +1,6 @@
 .drawer {
   position: fixed;
-  width: 30vw;
+  width: 50vw;
   height: 100vh;
   top: 0;
   left: 0;
@@ -45,7 +45,7 @@
   display: flex;
   flex-flow: row wrap;
   grid-area: ProcesosLayoutList;
-  gap: 2vmin;
+  gap: .5rem;
   box-sizing: border-box;
   padding: 2vmin;
   box-shadow: var(--dp2);

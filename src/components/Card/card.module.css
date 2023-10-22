@@ -2,8 +2,8 @@
   container-name: card;
   container-type: inline-size;
   box-sizing: border-box;
+  width: 100%;
   border-radius: 2vmin;
-  flex: 1;
   display: inline-block;
   background-color: var(--surface-container-low);
   box-shadow: var(--dp1);

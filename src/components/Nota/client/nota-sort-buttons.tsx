@@ -4,7 +4,7 @@ import { useNotaSortDispatch } from '#@/app/context/notas-sort-context';
 import button from '#@/components/Buttons/buttons.module.css';
 import { ActionNotaType } from '#@/lib/types/context-actions';
 import { useState } from 'react';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 
 export function NotasSortButtons() {

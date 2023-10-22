@@ -1,7 +1,7 @@
-import { NombreComponent } from '#@/components/nombre';
+
 import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import { EditCarpeta } from '#@/components/Buttons/carpetaButtons';
 import { Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
@@ -28,12 +28,7 @@ export default async function Page(
 
   return (
     <>
-      <Suspense fallback={<Loader />}>
-        <NombreComponent
-          key={params.numero}
-          deudor={carpeta.deudor}
-        />
-      </Suspense>
+
       <span className={ typography.titleMedium }>{ `# ${ params.numero }` }</span>
       <Suspense fallback={<Loader/>}>
         <EditCarpeta numero={ Number(

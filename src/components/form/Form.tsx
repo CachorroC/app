@@ -1,18 +1,18 @@
 'use client';
-import form from 'components/form/form.module.css';
+
 import { MonCarpeta } from '#@/lib/types/carpetas';
-import React, { useEffect } from 'react';
-import { SubmitHandler, useFormContext } from 'react-hook-form';
-import typography from '#@/styles/fonts/typography.module.scss';
-import { DateInputSection } from './date-section';
-import ObligacionesComponent from './field-array-section';
-import VencimientoPagareSection from './vencimiento-pagare-section';
-import { divider } from '#@/app/Carpetas/@right/Nueva/styles.module.css';
-import { InputSection } from './input-section';
-import { SelectSection } from './select-section';
-import { NumberSection } from './number-section';
 import { IntCarpetaElementSchema } from '#@/lib/types/zod/carpeta';
+import { useFormContext, SubmitHandler } from 'react-hook-form';
+import form from 'components/form/form.module.css';
 import layout from '#@/styles/layout.module.css';
+import { divider } from '#@/app/Carpetas/@right/Nueva/styles.module.css';
+import { DateInputSection } from './date-section';
+import { ObligacionesComponent } from './field-array-section';
+import { InputSection } from './input-section';
+import { NumberSection } from './number-section';
+import { SelectSection } from './select-section';
+import { VencimientoPagareSection } from './vencimiento-pagare-section';
+import typography from '#@/styles/fonts/typography.module.css';
 
 export const Form = (
   {
@@ -24,7 +24,7 @@ export const Form = (
   } = carpeta;
 
   const {
-    handleSubmit, reset, setError
+    handleSubmit,  setError
   } = useFormContext<MonCarpeta>();
 
   const onSubmit: SubmitHandler<MonCarpeta> = async (
@@ -70,7 +70,7 @@ export const Form = (
     );
     alert(
       JSON.stringify(
-        postCarpeta.status
+        postCarpeta.status, null, 2
       )
     );
 
@@ -85,24 +85,13 @@ export const Form = (
     const updatedCarpeta = ( await postCarpeta.json() ) as MonCarpeta;
     alert(
       JSON.stringify(
-        updatedCarpeta
+        updatedCarpeta, null, 2
       )
     );
     console.log(
       `el estatus de la operacion post en Form arrojó: ${ postCarpeta.status }`
     );
   };
-
-  useEffect(
-    () => {
-      reset(
-        carpeta
-      );
-    }, [
-      reset,
-      carpeta
-    ]
-  );
 
   return (
     <div className={form.container}>
@@ -147,6 +136,7 @@ export const Form = (
               options={[
                 'SINGULAR',
                 'HIPOTECARIO',
+                'ACUMULADO',
                 'PRENDARIO'
               ]}
             />
@@ -170,12 +160,14 @@ export const Form = (
                 required: true,
               }}
             />
-            <InputSection
-              key={'segundoNombre'}
-              name={'deudor.segundoNombre'}
-              title={'Segundo Nombre'}
-              type={'text'}
-            />
+            { deudor.segundoNombre && (
+              <InputSection
+                key={'segundoNombre'}
+                name={'deudor.segundoNombre'}
+                title={'Segundo Nombre'}
+                type={'text'}
+              />
+            )}
           </section>
           <section className={layout.sectionRow}>
             <InputSection
@@ -186,11 +178,13 @@ export const Form = (
                 required: true,
               }}
             />
-            <InputSection
-              name={'deudor.segundoApellido'}
-              title={'Segundo Apellido'}
-              type={'text'}
-            />
+            { deudor.segundoApellido && (
+              <InputSection
+                name={'deudor.segundoApellido'}
+                title={'Segundo Apellido'}
+                type={'text'}
+              />
+            )}
           </section>
 
           <section className={layout.sectionRow}>
@@ -284,7 +278,7 @@ export const Form = (
                   options={[
                     'ARAUCA',
                     'ARMENIA',
-                    'B/QUILLA',
+                    'ATLANTICO',
                     'BOGOTÁ',
                     'B/MANGA',
                     'BOYACA',
@@ -370,7 +364,6 @@ export const Form = (
                     return (
                       <DateInputSection
                         key={index}
-                        initialValue={fechaVencimiento}
                         name={`demanda.vencimientoPagare.${ index }`}
                         title={`Pagaré numero ${ index + 1 }`}
                       />

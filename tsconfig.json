@@ -5,16 +5,29 @@
     "incremental": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "WebWorker"
+    ],
     "module": "esnext",
     "moduleResolution": "bundler",
     "noImplicitAny": true,
     "noEmit": true,
     "paths": {
-      "#@/*": ["./src/*"],
-      "components/*": ["./src/components/*"],
-      "types/*": ["./src/lib/types/*"],
-      "project/*": ["./src/lib/project/*"]
+      "#@/*": [
+        "./src/*"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ],
+      "types/*": [
+        "./src/lib/types/*"
+      ],
+      "project/*": [
+        "./src/lib/project/*"
+      ]
     },
     "plugins": [
       {
@@ -33,5 +46,7 @@
     ".next/types/**/*.ts",
     "public/service-worker.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

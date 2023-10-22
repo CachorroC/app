@@ -1,8 +1,12 @@
 import { CarpetaFormProvider } from '#@/app/context/carpeta-form-context';
+import { Loader } from '#@/components/Loader';
+import { NombreComponent } from '#@/components/nombre';
+import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { getBaseUrl } from '#@/lib/project/helper';
 import styles from '#@/styles/layout.module.css';
-import { Metadata, ResolvingMetadata } from 'next';
-import { ReactNode } from 'react';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { ReactNode, Suspense } from 'react';
 
 type Props = {
   children: ReactNode;
@@ -16,7 +20,6 @@ export async function generateMetadata(
   {
     params
   }: Props,
-  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const {
     numero
@@ -34,21 +37,18 @@ export async function generateMetadata(
       }
     );
 
-
-  const previousImages = ( await parent ).openGraph?.images || [];
-
   return {
-    title    : product.nombre,
-    openGraph: {
-      images: [
-        '/some-specific-page-image.jpg',
-        ...previousImages
-      ],
-    },
+    title   : product.nombre,
+    keywords: [
+      product.deudor.primerNomnbre,
+      product.tipoProceso,
+      product.category,
+      product.deudor.primerApellido
+    ]
   };
 }
 
-export default function LayoutProcesosMain(
+export default async function LayoutCarpetaMain(
   {
     children,
     top,
@@ -58,12 +58,32 @@ export default function LayoutProcesosMain(
     },
   }: Props
 ) {
+  const carpeta = await getCarpetabyNumero(
+    Number(
+      numero
+    )
+  );
+
+  if ( !carpeta ) {
+    return notFound();
+  }
+
   return (
     <>
-      <CarpetaFormProvider key={numero} numero={numero}>
-        <div className={styles.top}>{top}</div>
+      <CarpetaFormProvider key={numero} carpeta={carpeta}>
+        <div className={ styles.top }>
+          <Suspense fallback={<Loader />}>
+            <NombreComponent
+              key={numero}
+              deudor={carpeta.deudor}
+            />
+          </Suspense>
+          { top }
+        </div>
         <div className={styles.leftColumn}>{children}</div>
-        <div className={styles.right}>{right}</div>
+        <div className={ styles.right }>
+          {right}
+        </div>
       </CarpetaFormProvider>
     </>
   );

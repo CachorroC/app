@@ -6,7 +6,7 @@ import { FieldPath,
   useController,
   useFormContext, } from 'react-hook-form';
 import form from './form.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import { type HTMLInputTypeAttribute } from 'react';
 import layout from '#@/styles/layout.module.css';
 

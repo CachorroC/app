@@ -3,7 +3,6 @@ import { Loader } from '#@/components/Loader';
 import getCarpetas from '#@/lib/project/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
-import {  ProcesosComponent } from '#@/components/Proceso/server-components';
 
 export const dynamic = 'force-dynamic';
 

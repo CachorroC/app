@@ -1,17 +1,17 @@
 import { getNotaById } from '#@/lib/project/notas';
 import { Edit } from '#@/components/Nota/Edit';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 import { notFound } from 'next/navigation';
 
 export default async function NuevaNotallaveProceso(
   {
     params: {
-      id 
+      id
     },
   }: {
   params: { id: string };
-} 
+}
 ) {
   let notaScope;
   let notaNumber;
@@ -24,7 +24,7 @@ export default async function NuevaNotallaveProceso(
     const nota = await getNotaById(
       {
         id: id,
-      } 
+      }
     );
     notaNumber = nota?.cod;
     notaScope = nota && (

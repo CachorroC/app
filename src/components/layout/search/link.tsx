@@ -1,22 +1,22 @@
 'use client';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useCategory } from '#@/app/context/main-context';
+import {  useNavigationContext } from '#@/app/context/main-context';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
-import { fixFechas } from '#@/lib/project/helper';
 import type { Route } from 'next';
+import { OutputDateHelper } from '#@/lib/project/date-helper';
 
-export const LinkCard = (
+export function  LinkCard<T extends string>(
   {
     path,
     carpeta,
   }: {
-  path: string;
+  path: Route<T>| URL;
   carpeta: MonCarpeta;
 }
-) => {
+)  {
   let content;
 
 
@@ -24,10 +24,10 @@ export const LinkCard = (
     deudor, fecha, numero, nombre
   } = carpeta;
 
-
   const {
-    category
-  } = useCategory();
+    setIsNavOpen
+  } = useNavigationContext();
+
 
   const params = useParams();
 
@@ -35,21 +35,23 @@ export const LinkCard = (
     params.numero
   );
 
-  if ( category !== 'todos' ) {
-    if ( category !== carpeta.category ) {
-      return null;
-    }
+  function handleClickNavigation () {
+    setIsNavOpen(
+      false
+    );
   }
 
-  const stringifiedFecha = fixFechas(
+
+  const stringifiedFecha = OutputDateHelper(
     fecha
   );
 
   if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
     content = (
       <Link
-        key={carpeta._id}
-        href={`${ path }/${ numero }` as Route}
+        key={ carpeta._id }
+        onClick={handleClickNavigation}
+        href={path}
         className={isActive
           ? searchbar.linkIsActive
           : searchbar.linkNotActive}
@@ -74,8 +76,9 @@ export const LinkCard = (
       ) => {
         return (
           <Link
+            onClick={handleClickNavigation}
             key={idProceso}
-            href={`${ path }/${ numero }` as Route}
+            href={`${ path }/ultimasActuaciones/${ idProceso }` }
             className={isActive
               ? searchbar.linkIsActive
               : searchbar.linkNotActive}
@@ -104,4 +107,4 @@ export const LinkCard = (
   }
 
   return <>{content}</>;
-};
+}

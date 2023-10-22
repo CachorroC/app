@@ -20,7 +20,6 @@ model Nota {
   id           Int      @id @unique @default(autoincrement())
   done         Boolean
   pathname     String
-  llaveProceso String?
   date         DateTime
 }
 

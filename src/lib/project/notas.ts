@@ -3,29 +3,6 @@ import { notasCollection } from '../connection/mongodb';
 import { ObjectId } from 'mongodb';
 import { notasConvert } from '../types/notas';
 
-export const getNotasByllaveProceso = cache(
-  async (
-    {
-      llaveProceso
-    }: { llaveProceso: string }
-  ) => {
-    const collection = await notasCollection();
-
-    const rawNotas = await collection
-      .find(
-        {
-          llaveProceso: llaveProceso,
-        }
-      )
-      .toArray();
-
-    const notas = notasConvert.toMonNotas(
-      rawNotas
-    );
-
-    return notas;
-  },
-);
 
 export const getNotaById = cache(
   async (
@@ -72,6 +49,11 @@ export const getNotasByPathname = cache(
         pathname: path,
       }
     )
+      .sort(
+        {
+          cod: 1
+        }
+      )
       .toArray();
 
     const notas = notasConvert.toMonNotas(

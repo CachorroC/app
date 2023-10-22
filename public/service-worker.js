@@ -36,7 +36,7 @@ self.addEventListener(
     );
     self.clients.claim();
   }
-);
+);/*
 self.addEventListener(
   'fetch', (
     event
@@ -74,3 +74,4 @@ self.addEventListener(
     }
   }
 );
+ */

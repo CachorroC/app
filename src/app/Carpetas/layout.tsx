@@ -11,13 +11,13 @@ export default function LayoutProcesosMain(
   children: ReactNode;
   top: ReactNode;
   right: ReactNode;
-} 
+}
 ) {
   return (
     <>
       <NuevaCarpetaFormProvider>
         <div className={styles.top}>{top}</div>
-        <div className={styles.leftColumn}>{children}</div>
+        <div className={styles.leftGrid}>{children}</div>
         <div className={styles.right}>{right}</div>
       </NuevaCarpetaFormProvider>
     </>

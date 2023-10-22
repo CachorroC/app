@@ -1,24 +1,35 @@
 'use client';
-import { createNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import styles from 'components/form/form.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
+import { SubmitHandler,  useFormContext } from 'react-hook-form';
+import { intNota, monNota } from '#@/lib/types/notas';
+import { useEffect } from 'react';
+import { ZodNotaElementSchema } from '#@/lib/types/zod/nota';
 
-export const NuevaNota = (
-  {
-    llaveProceso,
-    cod,
-  }: {
-  llaveProceso?: string;
-  cod: number;
-}
-) => {
+export const NuevaNota = () => {
+  const params = useParams();
 
   const {
     inputNota, setInputNota
   } = useNotaContext();
+
+  const pathname = usePathname();
+
+  const router = useRouter();
+
+  const {
+    register,
+    reset,
+    setValue, setError,
+    handleSubmit
+  } = useFormContext<intNota>( );
+
+  const {
+    numero
+  } = params;
 
   const inputMonth = String(
     inputNota.date.getMonth() + 1
@@ -34,11 +45,7 @@ export const NuevaNota = (
       2, '0'
     );
 
-  const pathname = usePathname();
-
-  const router = useRouter();
-
-
+  /*
   async function onCreate(
     formData: FormData
   ) {
@@ -52,57 +59,135 @@ export const NuevaNota = (
       `/Notas/id/${ res.id }`
     );
   }
+ */
+  const onSubmit: SubmitHandler<intNota> = async(
+    formNota
+  ) => {
+    try {
+
+      const parsedNota = ZodNotaElementSchema.safeParse(
+        formNota
+      );
+
+      if ( !parsedNota.success ) {
+        throw new Error(
+          'no pudimos parsear con zodla nota que ingresaste. Intentalo nuevamente',
+        );
+      }
+
+      const {
+        data
+      } = parsedNota;
+
+      const request = await fetch(
+        '/api/Notas', {
+          method : 'PUT',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(
+            data
+          )
+        }
+      );
+      alert(
+        JSON.stringify(
+          request.status, null, 2
+        )
+      );
+
+      if ( request.status > 200 ) {
+        setError(
+          'root.serverError', {
+            type: request.statusText,
+          }
+        );
+      }
+
+      const updatedNota = ( await request.json() ) as monNota;
+
+
+      alert(
+        JSON.stringify(
+          updatedNota, null, 2
+        )
+      );
+      router.push(
+        `/Notas/id/${ updatedNota._id }`
+      );
+    } catch ( error ) {
+      alert(
+        JSON.stringify(
+          error, null, 2
+        )
+      );
+
+    }
+  };
+
+  useEffect(
+    () => {
+      reset(
+        {
+          pathname     : pathname,
+          carpetaNumero: Number(
+            numero
+          )
+        }
+      );
+
+    }, [
+      numero,
+      pathname,
+      reset,
+    ]
+  );
 
 
   return (
+
     <div className={styles.container}>
       <form
         className={styles.form}
-        action={onCreate}
+        onSubmit={handleSubmit(
+          onSubmit
+        )}
       >
         <h1 className={typography.displayLarge}>Nueva Nota</h1>
-        <section className={layout.sectionColumn}>
-          <section className={layout.sectionRow}>
-            <label
-              htmlFor="llaveProceso"
-              className={styles.label}
-            >
-              {'Expediente'}
-            </label>
-            <input
-              type="text"
-              className={styles.textArea}
-              name="llaveProceso"
-              defaultValue={llaveProceso}
-            />
-          </section>
-          <section className={layout.sectionRow}>
-            <label
-              htmlFor="cod"
-              className={styles.label}
-            >
-              {'Numero'}
-            </label>
-            <input
-              type="number"
-              className={styles.textArea}
-              name="cod"
-              value={cod}
-              onChange={(
-                e
-              ) => {
-                setInputNota(
-                  {
-                    ...inputNota,
-                    cod: Number(
-                      e.target.value
-                    ),
+        <section className={ layout.sectionColumn }>
+          <section className={layout.segmentRow}>
+            <section className={layout.sectionRow}>
+              <label
+                htmlFor="carpetaNumero"
+                className={styles.label}
+              >
+                {'carpeta asociada'}
+              </label>
+              <input
+                type="number"
+                className={styles.textArea}
+                name='carpetaNumero'
+                defaultValue={numero}
+              />
+            </section>
+            <section className={layout.sectionRow}>
+              <label
+                htmlFor="cod"
+                className={styles.label}
+              >
+                {'Numero'}
+              </label>
+              <input
+                type="number"
+                className={ styles.textArea }
+                {...register(
+                  'cod', {
+                    required: true
                   }
-                );
-              }}
-            />
+                )}
+              />
+            </section>
           </section>
-
           <section className={layout.sectionRow}>
             <label
               htmlFor="text"
@@ -112,19 +197,12 @@ export const NuevaNota = (
             </label>
             <input
               type="text"
-              className={styles.textArea}
-              name="text"
-              value={inputNota.text}
-              onChange={(
-                e
-              ) => {
-                setInputNota(
-                  {
-                    ...inputNota,
-                    text: e.target.value,
-                  }
-                );
-              }}
+              className={ styles.textArea }
+              {...register(
+                'text', {
+                  required: true
+                }
+              )}
             />
           </section>
           <section className={layout.sectionRow}>
@@ -171,40 +249,22 @@ export const NuevaNota = (
                     ),
                   }
                 );
+                setValue(
+                  'date', new Date(
+                    newYear, newMonth, newDay
+                  ),
+                );
               }}
             />
           </section>
-          <input
-            type="text"
-            className={styles.textArea}
-            name="pathname"
-            defaultValue={pathname}
-          />
-          <section className={layout.sectionColumn}>
-            <label className={styles.switchBox}>
-              <input
-                type="checkbox"
-                className={styles.inputElement}
-                name="done"
-                checked={inputNota.done}
-                onChange={(
-                  e
-                ) => {
-                  setInputNota(
-                    {
-                      ...inputNota,
-                      done: e.target.checked,
-                    }
-                  );
-                }}
-              />
-              <span className={styles.slider}></span>
-            </label>
-          </section>
 
-          <button type="submit">Add</button>
+
+          <section className={layout.segmentRow}>
+            <button type="submit">Add</button>
+          </section>
         </section>
       </form>
     </div>
+
   );
 };

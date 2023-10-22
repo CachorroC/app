@@ -1,32 +1,18 @@
+import { NuevaNotaFormProvider } from '#@/app/context/nueva-nota-form-context';
+import { Loader } from '#@/components/Loader';
 import Modal from '#@/components/Modal';
 import { NuevaNota } from '#@/components/Nota/client/nueva-nota';
-import getNotas from '#@/lib/project/getNotas';
+import { Suspense } from 'react';
 
-export default async function Page(
-  {
-    searchParams,
-  }: {
-  searchParams: { [key: string]: string | undefined };
-} 
-) {
-  const {
-    llaveProceso 
-  } = searchParams;
-
-  const notas = await getNotas();
-
-  const totalNotas = notas.length;
-
-  const nuevoCod = 1 + totalNotas;
+export default function Page() {
 
   return (
-    <>
-      <Modal>
-        <NuevaNota
-          cod={nuevoCod}
-          llaveProceso={llaveProceso}
-        />
-      </Modal>
-    </>
+    <Modal>
+      <Suspense fallback={<Loader />}>
+        <NuevaNotaFormProvider>
+          <NuevaNota />
+        </NuevaNotaFormProvider>
+      </Suspense>
+    </Modal>
   );
 }

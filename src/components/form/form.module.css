@@ -52,7 +52,7 @@
   font-family: var(--josefa);
   font-size: 1rem;
   box-sizing: border-box;
-  background-color: var(--surface-bright);
+  background-color: var(--surface-container-highest);
   color: var(--on-surface);
   flex: 2;
   border-radius: 0 1cqmax 1cqmax 0;

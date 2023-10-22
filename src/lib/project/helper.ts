@@ -136,17 +136,22 @@ export const trimmer = (
 export const fixDemandado = (
   sujetosProcesales: string
 ): string => {
-  const mySubString = 'Demandado';
-
   const count = sujetosProcesales.split(
-    mySubString
-  ).length - 1;
+    '|'
+  );
 
-  if ( count === 1 ) {
-    return trimmer(
-      sujetosProcesales
+  for ( const stringerCount of count ) {
+    const hasDemandante = stringerCount.includes(
+      'Demandante'
     );
+
+    if ( hasDemandante ) {
+      continue;
+    }
+
+    return stringerCount;
   }
+
 
   return sujetosProcesales;
 };

@@ -2,7 +2,7 @@ import { button } from '#@/components/Buttons/buttons.module.css';
 import { icon, link } from '#@/components/Card/card.module.css';
 import { fixFechas, fixMoney } from '#@/lib/project/helper';
 import { MonCarpeta } from '#@/lib/types/carpetas';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import Link from 'next/link';
 

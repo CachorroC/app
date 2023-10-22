@@ -1,6 +1,7 @@
 import { WithId } from 'mongodb';
 import { intActuacion } from './actuaciones';
 import { intProceso } from './procesos';
+import { Despachos } from '../Procesos/despachos';
 
 export interface NuevaCarpeta {
   numero: number;
@@ -29,8 +30,8 @@ export interface NuevaCarpeta {
   };
 }
 
-export interface IntCarpeta {
-    _id:              string;
+export interface IntCarpeta
+{
     llaveProceso:     null | string;
     category:         Category;
     numero:           number;
@@ -106,9 +107,9 @@ export interface intTel {
 }
 
 export interface intCodeudor {
-    cedula?:    number | string;
-    nombre?:    number | string;
-    direccion?: number | string;
+    cedula:     number | string;
+    nombre:     string;
+    direccion?: string;
     telefono?:  number | string;
 }
 
@@ -302,13 +303,12 @@ export class carpetaConvert {
             1
           );
 
-    return {
+    const outputCarpeta: MonCarpeta = {
       ...carpeta,
       _id         : carpeta._id.toString(),
-      llaveProceso: carpeta.llaveProceso
-        ? carpeta.llaveProceso
-        : null,
-      deudor: {
+      cc          : carpeta.deudor.cedula,
+      llaveProceso: carpeta.llaveProceso ?? carpeta.demanda.expediente,
+      deudor      : {
         ...carpeta.deudor,
         primerNombre   : pN,
         primerApellido : pA,
@@ -330,7 +330,9 @@ export class carpetaConvert {
 
         return rawName;
       },
+
     };
+    return outputCarpeta;
   }
   public static toMonCarpetas(
     carpetas: WithId<IntCarpeta>[]
@@ -381,12 +383,12 @@ export const mockCarpeta: IntCarpeta = {
     email          : '',
   },
   demanda: {
-    departamento           : null,
+    departamento           : 'CUNDINAMARCA',
     capitalAdeudado        : 0,
     entregaGarantiasAbogado: new Date(),
     etapaProcesal          : null,
     fechaPresentacion      : null,
-    municipio              : null,
+    municipio              : 'Bogota',
     tipoProceso            : 'SINGULAR',
     obligacion             : [
       0
@@ -401,3 +403,90 @@ export const mockCarpeta: IntCarpeta = {
   },
   cc: null,
 };
+
+function incomingStringFixer (
+  stringValue: string
+) {
+  return stringValue.toLowerCase()
+    .normalize(
+      'NFD'
+    )
+    .replace(
+      /\p{Diacritic}/gu, ''
+    )
+    .trim();
+}
+
+export class DespachoJudicial implements intJuzgado {
+  constructor(
+    proceso: intProceso
+  ) {
+    const matchedDespacho = Despachos.find(
+      (
+        dependenciaJudiail
+      ) => {
+        const {
+          nombre
+        } = dependenciaJudiail;
+
+        const {
+          despacho
+        } = proceso;
+
+        const nombreDependenciaJudicial = incomingStringFixer(
+          nombre
+        );
+
+        const nombreDespachoProceso = incomingStringFixer(
+          despacho
+        );
+
+        const indexOfDesp = nombreDependenciaJudicial.indexOf(
+          nombreDespachoProceso
+        );
+        console.log(
+          indexOfDesp
+        );
+
+        if ( indexOfDesp >= 0 ) {
+          console.log(
+            `procesos despacho is in despachos ${
+              indexOfDesp + 1
+            }`
+          );
+        }
+
+        return nombreDependenciaJudicial === nombreDespachoProceso;
+      }
+    );
+
+    if ( matchedDespacho ) {
+      const {
+        nombre, url
+      } = matchedDespacho;
+
+      const stringId = nombre.match(
+        /\d+/g
+      );
+      this.tipo = nombre;
+      this.id = stringId
+        ? Number(
+          stringId.toString()
+        )
+        : 0;
+      this.url = `https://www.ramajudicial.gov.co${ url }`;
+    } else {
+      this.tipo = proceso.despacho,
+      this.url = `https://www.ramajudicial.gov.co/web/${ proceso.despacho
+        .replaceAll(
+          ' ', '-'
+        )
+        .toLowerCase() }`;
+      this.id = 0;
+    }
+
+  }
+  id: number;
+  tipo: string;
+  url: string;
+}

@@ -16,42 +16,41 @@ export default async function Page(
     )
   );
 
-  if ( !carpeta ) {
+  if ( !carpeta || !carpeta.llaveProceso ) {
     return notFound();
   }
 
   const consultaProcesos = await getProceso(
-    {
-      llaveProceso: carpeta.llaveProceso ?? ' ',
-      index       : Number(
-        params.numero
-      ),
-    }
+    carpeta.llaveProceso, Number(
+      params.numero
+    )
   );
+
+  if ( !consultaProcesos ) {
+    return notFound();
+  }
 
   return (
     <>
-      {consultaProcesos?.Message}
-      {consultaProcesos?.procesos
-        && consultaProcesos.procesos.map(
-          (
-            proceso
-          ) => {
-            return (
-              <Fragment key={proceso.idProceso}>
-                <ProcesoCard
-                  key={proceso.idProceso}
-                  proceso={proceso}
-                />
-                <FechaActuacionComponent
-                  idProceso={proceso.idProceso}
-                  index={carpeta.numero}
-                  initialOpenState={true}
-                />
-              </Fragment>
-            );
-          }
-        )}
+      {consultaProcesos.map(
+        (
+          proceso
+        ) => {
+          return (
+            <Fragment key={proceso.idProceso}>
+              <ProcesoCard
+                key={proceso.idProceso}
+                proceso={proceso}
+              />
+              <FechaActuacionComponent
+                idProceso={proceso.idProceso}
+                index={carpeta.numero}
+                initialOpenState={true}
+              />
+            </Fragment>
+          );
+        }
+      )}
     </>
   );
 }

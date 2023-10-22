@@ -17,6 +17,13 @@ const NoteContext = createContext<{
   null
 );
 
+const SnackbarContext = createContext<{
+  isSnackbarOpen: boolean;
+  setIsSnackbarOpen: Dispatch<SetStateAction<boolean>>;
+} | null>(
+  null
+);
+
 const CategoryContext = createContext<{
   category: string;
   setCategory: Dispatch<SetStateAction<string>>;
@@ -68,16 +75,21 @@ export function MainProvider(
   );
 
   const [
+    isSnackbarOpen,
+    setIsSnackbarOpen
+  ] = useState(
+    false
+  );
+
+  const [
     inputNota,
     setInputNota
   ] = useState<intNota>(
     {
-      cod         : 0,
-      text        : '',
-      pathname    : pathname,
-      llaveProceso: null,
-      date        : new Date(),
-      done        : false,
+      cod     : 0,
+      text    : '',
+      pathname: pathname,
+      date    : new Date(),
     }
   );
 
@@ -127,35 +139,40 @@ export function MainProvider(
   );
 
   return (
-    <NavigationContext.Provider
-      value={{
-        isNavOpen,
-        setIsNavOpen,
-      }}
-    >
-      <NoteContext.Provider
+    <SnackbarContext.Provider value={{
+      isSnackbarOpen,
+      setIsSnackbarOpen
+    }}>
+      <NavigationContext.Provider
         value={{
-          inputNota,
-          setInputNota,
+          isNavOpen,
+          setIsNavOpen,
         }}
       >
-        <CategoryContext.Provider
+        <NoteContext.Provider
           value={{
-            category,
-            setCategory,
+            inputNota,
+            setInputNota,
           }}
         >
-          <ContactoContext.Provider
+          <CategoryContext.Provider
             value={{
-              contactoForm,
-              setContactoForm,
+              category,
+              setCategory,
             }}
           >
-            {children}
-          </ContactoContext.Provider>
-        </CategoryContext.Provider>
-      </NoteContext.Provider>
-    </NavigationContext.Provider>
+            <ContactoContext.Provider
+              value={{
+                contactoForm,
+                setContactoForm,
+              }}
+            >
+              {children}
+            </ContactoContext.Provider>
+          </CategoryContext.Provider>
+        </NoteContext.Provider>
+      </NavigationContext.Provider>
+    </SnackbarContext.Provider>
   );
 }
 
@@ -168,6 +185,21 @@ export function useCategory() {
     throw new Error(
       'el contexto para la categoria solo debe ser aplicado dentro de un hijo del contexto',
     );
+  }
+
+  return context;
+}
+
+export function useSnackbarContext () {
+  const context = useContext(
+    SnackbarContext
+  );
+
+  if ( context === null ) {
+    throw new Error(
+      'el snackbar context debe ser utilizado dentro de un snackbar context provider '
+    );
+
   }
 
   return context;

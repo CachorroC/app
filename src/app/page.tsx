@@ -3,6 +3,7 @@ import Link from 'next/link';
 import typography from '#@/styles/fonts/typography.module.css';
 import { Metadata } from 'next';
 import type { Route } from 'next';
+import { Calendar } from '#@/components/Calendar/main';
 
 export const metadata: Metadata = {
   title: 'Procesos',
@@ -67,6 +68,9 @@ export default function Page() {
           <span className="material-symbols-outlined">folder_open</span>
           <h1 className={typography.headlineMedium}>{'Quienes Somos'}</h1>
         </Link>
+      </div>
+      <div className={ layout.right }>
+        <Calendar />
       </div>
     </>
   );

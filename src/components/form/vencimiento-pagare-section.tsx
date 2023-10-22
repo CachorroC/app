@@ -6,7 +6,7 @@ import { josefina } from '#@/styles/fonts';
 import layout from '#@/styles/layout.module.css';
 let renderCount = 0;
 
-export default function VencimientoPagareSection() {
+export function VencimientoPagareSection() {
   const {
     control, register
   } = useFormContext();

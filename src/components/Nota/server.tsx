@@ -2,18 +2,18 @@ import { fixFechas } from '#@/lib/project/helper';
 import { Suspense } from 'react';
 import { ButtonSkeleton } from 'components/Buttons/ButtonSkeleton';
 import note from './note.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import { EditNoteButton,
   DeleteNoteButton, } from 'components/Buttons/noteButtons';
 import { monNota } from '#@/lib/types/notas';
 
 export const NotaComponent = (
   {
-    notaRaw 
-  }: { notaRaw: monNota } 
+    notaRaw
+  }: { notaRaw: monNota }
 ) => {
   const {
-    _id, text, date 
+    _id, text, date
   } = notaRaw;
 
   return (
@@ -26,7 +26,7 @@ export const NotaComponent = (
       >{`Nota: ${ text }`}</p>
       <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
         {date && fixFechas(
-          date.toISOString() 
+          date
         )}
       </sub>
       <div className={note.buttonsRow}>

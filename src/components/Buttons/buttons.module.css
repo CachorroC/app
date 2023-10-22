@@ -6,30 +6,37 @@
   display: flex;
   background-color: var(--primary-container);
   color: var(--on-primary-container);
-  flex-flow: column nowrap;
-  justify-items: center;
+  flex-flow: row nowrap;
+  justify-items: stretch;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   align-content: center;
   transition: all 0.3s;
 }
 .buttonEdit {
-  background-color: var(--inverse-surface);
-  color: var(--inverse-on-surface);
-}
-.buttonActiveCategory {
-  background-color: var(--secondary);
-  color: var(--on-secondary);
-}
-.buttonActiveCategory > .icon, .buttonActiveCategory > .text {
-  color: var(--on-secondary);
-}
-.buttonPassiveCategory {
   background-color: var(--secondary-container);
   color: var(--on-secondary-container);
 }
-.buttonPassiveCategory > .icon, .buttonPassiveCategory > .text {
+.buttonActiveCategory {
+  flex-flow: column nowrap;
+  flex: 2;
+  background-color: var(--secondary-container);
   color: var(--on-secondary-container);
+}
+.buttonActiveCategory > .icon, .buttonActiveCategory > .text {
+  color: var(--on-secondary-container);
+}
+.buttonPassiveCategory {
+  flex: 1;
+  flex-flow: column nowrap;
+  background-color: var(--surface-container-high);
+  color: var(--secondary);
+}
+.buttonPassiveCategory > .icon {
+  color: var(--secondary);
+}
+.buttonPassiveCategory > .text {
+  color: var(--on-surface);
 }
 .buttonForward {
   grid-area: forwardButton;
@@ -55,11 +62,11 @@
   grid-area: drawerMenuButton;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--primary-fixed);
-  color: var(--on-primary-fixed);
+  background-color: var(--secondary);
+  color: var(--on-secondary);
 }
 .buttonDrawerMenu > .icon, .buttonDrawerMenu > .text {
-  color: var(--on-primary-fixed);
+  color: var(--on-secondary);
 }
 .buttonModal {
   grid-area: modal;
@@ -92,4 +99,66 @@
 .active {
   background-color: var(--tertiary-container);
   color: var(--on-tertiary-container);
+}
+
+.snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: var(--inverse-surface);
+  color: var(--inverse-on-surface);
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+.snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }

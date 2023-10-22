@@ -13,11 +13,12 @@ import Link from 'next/link';
 import { Route } from 'next';
 import styles from '../Buttons/buttons.module.css';
 import ModalDialog from '#@/app/hooks/modal-state';
+import { NuevaNotaFormProvider } from '#@/app/context/nueva-nota-form-context';
 
 export default function Header(
   {
-    children, cod
-  }: { children: ReactNode; cod?: number }
+    children,
+  }: { children: ReactNode }
 ) {
   let modalSegment;
 
@@ -48,11 +49,19 @@ export default function Header(
 
       <Suspense fallback={<Loader />}>
         <ModalDialog>
-          <NuevaNota cod={cod ?? 0} />
+          <Suspense fallback={<Loader />}>
+            <NuevaNotaFormProvider>
+              <NuevaNota />
+            </NuevaNotaFormProvider>
+          </Suspense>
         </ModalDialog>
       </Suspense>
-      <NavButtons />
-      {modalSegment}
+      <Suspense fallback={<Loader />}>
+        <NavButtons />
+      </Suspense>
+      <Suspense fallback={<Loader/>}>
+        {modalSegment}
+      </Suspense>
     </div>
   );
 }

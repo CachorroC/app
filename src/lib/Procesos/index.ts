@@ -3,13 +3,13 @@ import  { carpetasCollection } from '#@/lib/connection/mongodb';
 import { sleep } from '#@/lib/project/helper';
 import { intJuzgado } from 'types/carpetas';
 import { Despacho } from 'types/despachos';
-import { Proceso, ConsultaNumeroRadicacion, Data, Message } from 'types/procesos';
+import { intProceso, ConsultaNumeroRadicacion, Data, Message } from 'types/procesos';
 
 export const getDespachos = cache(
   async () => {
     try {
       const request = await fetch(
-        '/despachos.json'
+        'https://app.rsasesorjuridico.com/despachos.json'
       );
 
       if ( !request.ok ) {
@@ -38,7 +38,7 @@ export const getDespachos = cache(
 );
 
 export async function newJuzgado(
-  proceso: Proceso
+  proceso: intProceso
 ) {
 
   const Despachos = await getDespachos();
@@ -74,7 +74,7 @@ export async function newJuzgado(
 
       if ( indexOfDesp >= 0 ) {
         console.log(
-          `procesos despacho is in despachos ${ indexOfDesp }`
+          `procesos despacho is in despachos ${ indexOfDesp +1 }`
         );
       }
 
@@ -101,10 +101,9 @@ export async function newJuzgado(
       : proceso.despacho,
     url: matchedDespacho
       ? `https://www.ramajudicial.gov.co${ matchedDespacho.url }`
-      : `https://www.ramajudicial.gov.co${ proceso.despacho
-        .replaceAll(
-          ' ', '-'
-        )
+      : `https://www.ramajudicial.gov.co${ proceso.despacho.replaceAll(
+        ' ', '-'
+      )
         .toLowerCase() }`,
   };
 
