@@ -111,7 +111,7 @@ export default async function RootLayout(
                 <MainProvider>
                   <div className={layout.container}>
                     <Suspense fallback={<Loader />}>
-                      <Header cod={notas.length +1}>
+                      <Header>
                         <Suspense fallback={<SearchOutputListSkeleton />}>
                           <SearchOutputList />
                         </Suspense>
