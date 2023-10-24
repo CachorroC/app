@@ -444,9 +444,7 @@ export class DespachoJudicial implements intJuzgado {
         const indexOfDesp = nombreDependenciaJudicial.indexOf(
           nombreDespachoProceso
         );
-        console.log(
-          indexOfDesp
-        );
+
 
         if ( indexOfDesp >= 0 ) {
           console.log(

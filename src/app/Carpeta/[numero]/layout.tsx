@@ -4,7 +4,8 @@ import { NombreComponent } from '#@/components/nombre';
 import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { getBaseUrl } from '#@/lib/project/helper';
 import styles from '#@/styles/layout.module.css';
-import { Metadata } from 'next';
+import { Metadata, Route } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 
@@ -72,11 +73,14 @@ export default async function LayoutCarpetaMain(
     <>
       <CarpetaFormProvider key={numero} carpeta={carpeta}>
         <div className={ styles.top }>
-          <Suspense fallback={<Loader />}>
-            <NombreComponent
-              key={numero}
-              deudor={carpeta.deudor}
-            />
+          <Suspense fallback={ <Loader /> }>
+            <Link href={ `/Carpeta/${ numero }` as Route}>
+              <NombreComponent
+                key={numero}
+                deudor={carpeta.deudor}
+              />
+            </Link>
+
           </Suspense>
           { top }
         </div>

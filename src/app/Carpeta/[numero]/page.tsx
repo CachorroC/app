@@ -13,6 +13,8 @@ import layout from '#@/styles/layout.module.css';
 import { Loader } from '#@/components/Loader';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
+import { InputSection } from '#@/components/form/input-section';
+import { CopyButton } from '#@/components/Buttons/copy-buttons';
 
 export default async function Page(
   {
@@ -66,17 +68,26 @@ export default async function Page(
       <Snackbar text={ 'Una pruebita del snackbar' } /> */}
     <section className={layout.sectionRow}>
       <section className={ layout.segmentColumn }>
-        <h4 className={typography.titleSmall}>Categoria:</h4>
+
+        <h4 className={ typography.titleSmall }>Categoria:</h4>
+
         <p className={styles.chip}>{category}</p>
       </section>
       <section className={ layout.segmentColumn }>
         <h4 className={typography.titleSmall}>Tipo Proceso:</h4>
         <p className={ styles.chip }>{ tipoProceso }</p>
       </section>
-      <section className={ layout.segmentColumn }>
-        <h4 className={typography.titleSmall}>Cédula de ciudadania:</h4>
-        <p className={ styles.chip }>{ cedula }</p>
-      </section>
+      { cedula && (
+        <section className={ layout.segmentColumn }>
+          <section className={layout.segmentRow}>
+            <h4 className={ typography.titleSmall }>Cédula de ciudadania:</h4>
+            <CopyButton copyTxt={String(
+              cedula
+            ) } name={ 'Cédula' } />
+          </section>
+          <p className={ styles.chip }>{ cedula }</p>
+        </section>
+      )}
     </section>
     <section className={layout.segmentRow}>  {juzgados && juzgados.map(
       (
@@ -172,7 +183,10 @@ export default async function Page(
           carpeta.demanda.entregaGarantiasAbogado
         )}
       </p>
-    )}
+    ) }
+    <Suspense fallback={<Loader />}>
+      <InputSection key={ params.numero } name={ 'llaveProceso' } title={ 'Numero de expediente' } type={ 'text' } />
+    </Suspense>
 
     <section className={ layout.segmentColumn }>
       <h5 className={typography.titleMedium}>Capital Adeudado:</h5>
@@ -188,13 +202,13 @@ export default async function Page(
 
     { idProcesoContent }
     <Suspense fallback={<Loader />}>
-      { carpeta.llaveProceso && ( <ProcesosComponent llaveProceso={carpeta.llaveProceso} index={0} /> )}
+      { carpeta.llaveProceso && ( <ProcesosComponent llaveProceso={carpeta.llaveProceso} index={1} /> )}
     </Suspense>
     <Suspense fallback={<Loader />}>
       { carpeta.idProcesos && (
         carpeta.idProcesos.map(
           (
-            idProceso
+            idProceso, index
           ) => {
             return (
               <section className={layout.segmentColumn} key={ idProceso }>
@@ -203,7 +217,7 @@ export default async function Page(
                   initialOpenState={ true }
                   key={ idProceso }
                   idProceso={ idProceso }
-                  index={ carpeta.numero } />
+                  index={ index} />
 
                 <Link key={ idProceso } className={ button.buttonPassiveCategory} href={ `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }` as Route }>
                   <span className={ `material-symbols-outlined ${ button.icon }` }>description

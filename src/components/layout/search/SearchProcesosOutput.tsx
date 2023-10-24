@@ -4,6 +4,7 @@ import { useSearch } from '#@/app/context/search-context';
 import { useCategory } from '#@/app/context/main-context';
 import { JSX } from 'react';
 import { LinkCard } from './link';
+import { Route } from 'next';
 
 export default function SearchOutputList() {
   const rows: JSX.Element[] = [];
@@ -32,7 +33,9 @@ export default function SearchOutputList() {
       if ( category === 'todos' || category === proceso.category ) {
         rows.push(
           <LinkCard
-            path={`/Carpeta/${ proceso.numero }`}
+            path={`/Carpeta/${
+              proceso.numero
+            }` as Route}
             carpeta={proceso}
             key={proceso._id}
           />,

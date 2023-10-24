@@ -4,10 +4,10 @@ import React from 'react';
 import { DefaultValues, SubmitHandler, useForm } from 'react-hook-form';
 
 const defaultValues: DefaultValues<Tarea> = {
-  date   : new Date(),
-  text   : '',
-  done   : false,
-  abogado: 'Camilo',
+  creationDate: new Date(),
+  text        : '',
+  done        : false,
+  abogado     : 'Camilo',
 };
 
 export function NuevaTarea() {
@@ -85,8 +85,9 @@ export function NuevaTarea() {
         type="date"
         placeholder="fecha"
         {...register(
-          'date', {
-            required: true,
+          'dueDate', {
+            required   : true,
+            valueAsDate: true
           }
         )}
       />

@@ -133,10 +133,6 @@ export const getCarpetabyNumero = cache(
     const carpeta = await collection.findOne(
       {
         numero: numero,
-      }, {
-        sort: {
-          fecha: 1
-        }
       }
     );
 

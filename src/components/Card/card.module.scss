@@ -16,16 +16,16 @@
   height: 100%;
   align-items: stretch;
   align-content: space-between;
-  padding: 5cqmin;
-  gap: 5cqmin;
+  padding: .5rem;
+  gap: .5rem;
   border-radius: 2vmin;
   text-align: center;
   .content {
     text-align: center;
     box-sizing: border-box;
-    padding: 2cqmin;
+    padding: .2rem;
     display: flex;
-    border-radius: 2cqmin;
+    border-radius: 2vmin;
   }
   .section {
     justify-content: space-around;
@@ -54,10 +54,10 @@
       & > .date {
         grid-area: date;
         background-color: var(--surface-container-highest);
-        padding: 2cqmin;
+        padding: .5rem;
         color: var(--on-surface);
         font-family: var(--play-display);
-        border-radius: 2cqmin;
+        border-radius: 2vmin;
         align-self: center;
         box-sizing: border-box;
         text-align: center;
@@ -102,11 +102,7 @@
     margin: 0;
     grid-area: icon;
     color: var(--secondary);
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 300,
-      'GRAD' 0,
-      'opsz' 24;
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
   }
   &:hover {
     box-shadow: var(--dp8);
@@ -117,11 +113,7 @@
     }
     .icon {
       color: var(--tertiary);
-      font-variation-settings:
-        'FILL' 1,
-        'wght' 500,
-        'GRAD' 200,
-        'opsz' 48;
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 200, 'opsz' 48;
     }
   }
   &:focus {
@@ -145,12 +137,12 @@
     background-color: var(--inverse-surface);
     color: var(--inverse-on-surface);
     text-align: center;
-    border-radius: 1cqmin;
-    padding: 1cqmin;
+    border-radius: 2vmin;
+    padding: 1rem;
     box-sizing: border-box;
     position: absolute;
     bottom: 0;
-    right: 100px;
+    right: 0;
     opacity: 0;
     transition: all 0.5s;
     &::after {
@@ -168,11 +160,7 @@
     margin: 0;
     grid-area: icon;
     color: var(--on-tertiary-container);
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 300,
-      'GRAD' 0,
-      'opsz' 24;
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
     font-size: 1.5rem;
   }
   &:hover,

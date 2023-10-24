@@ -104,7 +104,7 @@ export function Task(
       <form action={onCreate} onSubmit={handleSubmit(
         onSubmit
       )}>
-        <label className={styles.switchBox}>
+        {/*  <label className={styles.switchBox}>
           <input
             className={styles.inputElement}
             checked={inputNota.done}
@@ -126,7 +126,7 @@ export function Task(
           />
           <span className={styles.slider}></span>
         </label>
-
+ */}
         <input
           value={inputNota.text}
           type={'text'}
@@ -151,14 +151,14 @@ export function Task(
   } else {
     taskContent = (
       <>
-        <label className={styles.switchBox}>
+        {/*  <label className={styles.switchBox}>
           <input
             className={styles.inputElement}
             defaultChecked={task.done}
             type="checkbox"
           />
           <span className={styles.slider}></span>
-        </label>
+        </label> */}
 
         {task.text}
       </>

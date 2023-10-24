@@ -10,9 +10,8 @@ import layout from '#@/styles/layout.module.css';
 export function NotasSortButtons() {
   const keys: ActionNotaType[] = [
     'date',
-    'done',
     'text',
-    'llaveProceso',
+    'carpetaNumero',
     'cod',
   ];
 

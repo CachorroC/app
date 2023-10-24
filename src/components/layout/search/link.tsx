@@ -8,8 +8,9 @@ import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 
-export function  LinkCard<T extends string>(
+export function  LinkCard<T extends string = string>(
   {
+
     path,
     carpeta,
   }: {
@@ -51,7 +52,7 @@ export function  LinkCard<T extends string>(
       <Link
         key={ carpeta._id }
         onClick={handleClickNavigation}
-        href={path}
+        href={path as Route}
         className={isActive
           ? searchbar.linkIsActive
           : searchbar.linkNotActive}
@@ -78,7 +79,7 @@ export function  LinkCard<T extends string>(
           <Link
             onClick={handleClickNavigation}
             key={idProceso}
-            href={`${ path }/ultimasActuaciones/${ idProceso }` }
+            href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` }
             className={isActive
               ? searchbar.linkIsActive
               : searchbar.linkNotActive}

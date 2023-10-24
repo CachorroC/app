@@ -3,18 +3,52 @@ import { Loader } from '#@/components/Loader';
 import getCarpetas from '#@/lib/project/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
+import { ActionName, carpetasSorter } from '#@/lib/project/sortert';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 
 export const dynamic = 'force-dynamic';
 
 export const dynamicParams = true;
 
 
-export default async function Page() {
+export default async function Page(
+  {
+    searchParams
+  }:{  searchParams: { [key: string]: string | string[] | undefined }}
+) {
   const carpetasRaw = await getCarpetas();
+  let carpetas : MonCarpeta[];
 
+  const {
+    sort
+  } = searchParams;
 
+  if ( sort ) {
+    if ( Array.isArray(
+      sort
+    ) ) {
+      const [
+        firstSorter,
+        secondSorter,
+        thirdSorter,
+        ...restSorters
+      ] = sort;
 
-  const carpetas = [
+      carpetas = carpetasSorter(
+        carpetasRaw, {
+          type         : 'sort',
+          name         : firstSorter as ActionName,
+          sortDirection: false
+        }
+      );
+    }
+
+    console.log(
+      sort
+    );
+  }
+  /*
+  carpetas = [
     ...carpetasRaw
   ].sort(
     (
@@ -29,14 +63,9 @@ export default async function Page() {
       }
 
       const x = a.fecha;
-      console.log(
-        typeof x
-      );
 
       const y = b.fecha;
-      console.log(
-        typeof y
-      );
+
 
       if ( x < y ) {
         return 1;
@@ -48,10 +77,11 @@ export default async function Page() {
 
       return 0;
     }
-  );
+  ); */
 
   return (
-    <>
+    <><Suspense fallback={<Loader />}>
+
       {carpetas.map(
         (
           carpeta, index
@@ -84,6 +114,7 @@ export default async function Page() {
           );
         }
       )}
+    </Suspense>
     </>
   );
 }

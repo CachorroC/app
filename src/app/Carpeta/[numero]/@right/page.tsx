@@ -6,7 +6,6 @@ import { NotasList } from '#@/components/Nota/tasks-list';
 import { Fragment, Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
-import { InputSection } from '#@/components/form/input-section';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
@@ -18,6 +17,11 @@ export default async function Page(
     }
   }: {params: {numero: string}}
 ) {
+
+  console.time(
+    'filter array'
+  );
+
   const carpeta = await getCarpetabyNumero(
     Number(
       numero
@@ -128,6 +132,10 @@ export default async function Page(
     }
   );
 
+  console.timeEnd(
+    'filter array'
+  );
+
   return (
     <>
 
@@ -137,9 +145,7 @@ export default async function Page(
 
       { llaveProceso && (
         <Fragment key={ llaveProceso }>
-          <Suspense fallback={<Loader />}>
-            <InputSection key={ numero } name={ 'llaveProceso' } title={ 'Numero de expediente' } type={ 'text' } />
-          </Suspense>
+
           <Suspense fallback={<Loader />}>
             <CopyButton key={ numero } name={ 'numero de expediente' } copyTxt={ llaveProceso } />
           </Suspense>
@@ -153,23 +159,27 @@ export default async function Page(
 
 
 
-      { fechasMaper.map(
-        (
-          fechaMap
-        ) => {
-          return (
-            <div key={ fechaMap.name } className={ layout.segmentRow }>
-              <h5 className={typography.titleSmall}>{fechaMap.name}</h5>
-              <p className={typography.bodySmall}> {OutputDateHelper(
-                fechaMap.date
-              )}</p>
-            </div>
-          );
-        }
-      )}
+      <section className={layout.sectionColumn}>
+        <Suspense fallback={<Loader />}>
+          { fechasMaper.map(
+            (
+              fechaMap
+            ) => {
+              return (
+                <div key={ fechaMap.name } className={ layout.segmentRow }>
+                  <h5 className={ typography.titleMedium }>{fechaMap.name}</h5>
+                  <p className={typography.labelMedium}> {OutputDateHelper(
+                    fechaMap.date
+                  )}</p>
+                </div>
+              );
+            }
+          )}
+        </Suspense>
+      </section>
 
       <Suspense fallback={<ProcesosCardSkeleton />}>
-        { llaveProceso && ( <ProcesosComponent key={ llaveProceso}llaveProceso={llaveProceso} index={ carpeta.numero } /> )}
+        { llaveProceso && ( <ProcesosComponent key={ llaveProceso}llaveProceso={llaveProceso} index={ 1 } /> )}
       </Suspense>
 
     </>

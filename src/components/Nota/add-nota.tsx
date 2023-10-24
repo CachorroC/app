@@ -4,7 +4,7 @@ import { useNotaContext } from '#@/app/context/main-context';
 
 export default function AddTask() {
   const {
-    inputNota, setInputNota 
+    inputNota, setInputNota
   } = useNotaContext();
 
   return (
@@ -15,17 +15,17 @@ export default function AddTask() {
         type="text"
         name="text"
         onChange={(
-          e 
+          e
         ) => {
           return setInputNota(
             (
-              nn 
+              nn
             ) => {
               return {
                 ...nn,
                 text: e.target.value,
               };
-            } 
+            }
           );
         }}
       />
@@ -34,34 +34,34 @@ export default function AddTask() {
           placeholder={'fecha de entrega'}
           type={'date'}
           onChange={(
-            e 
+            e
           ) => {
             return setInputNota(
               {
                 ...inputNota,
                 date: new Date(
-                  e.target.value 
+                  e.target.value
                 ),
-              } 
+              }
             );
           }}
           value={inputNota.date.toString()}
         />
       )}
-      <input
+      {/*  <input
         type="checkbox"
         checked={inputNota.done ?? false}
         onChange={(
-          e 
+          e
         ) => {
           return setInputNota(
             {
               ...inputNota,
               done: e.target.checked,
-            } 
+            }
           );
         }}
-      />
+      /> */}
       <button type="submit">Add</button>
     </form>
   );

@@ -7,6 +7,7 @@ import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import card from 'components/Card/card.module.css';
 import { button } from '../Buttons/buttons.module.css';
+import layout from '#@/styles/layout.module.css';
 
 export const CarpetaCard = (
   {
@@ -14,7 +15,7 @@ export const CarpetaCard = (
   }: { carpeta: MonCarpeta }
 ) => {
   const {
-    llaveProceso, idProcesos, deudor, demanda, _id
+    idProcesos, deudor, demanda, _id, numero
   } = carpeta;
 
   const {
@@ -39,8 +40,9 @@ export const CarpetaCard = (
         <p className={typography.bodySmall}>{carpeta.category}</p>
         <p className={typography.labelSmall}>{carpeta.tipoProceso}</p>
         <p className={typography.titleSmall}>{carpeta.deudor.cedula}</p>
+        <section className={layout.segmentRow}>
 
-        {idProcesos
+          {idProcesos
           && idProcesos.map(
             (
               idProceso
@@ -50,7 +52,7 @@ export const CarpetaCard = (
                   className={button}
                   key={idProceso}
                   href={
-                  `/Carpetas/Expediente/${ llaveProceso }/${ idProceso }` as Route
+                    `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`
                   }
                 >
                   <span className={`material-symbols-outlined ${ styles.icon }`}>
@@ -61,6 +63,7 @@ export const CarpetaCard = (
               );
             }
           )}
+        </section>
         {juzgados
           && juzgados.map(
             (
@@ -71,7 +74,9 @@ export const CarpetaCard = (
                   key={despacho.url}
                   target={'_blank'}
                   className={card.link}
-                  href={despacho.url as Route}
+                  href={new URL(
+                    despacho.url
+                  )}
                 >
                   <span className={`material-symbols-outlined ${ card.icon }`}>
                   enable

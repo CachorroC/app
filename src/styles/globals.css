@@ -315,13 +315,12 @@ input {
 }
 
 a, button {
-  border: solid 0.1rem var(--outline);
-  color: var(--primary);
+  border: none;
   text-decoration: none;
 }
 a:hover, button:hover {
   transform: scale(1.1);
-  border: 2px solid var(--outline);
+  border: 0.1rem solid var(--primary-fixed);
 }
 a:hover, a:active, button:hover, button:active {
   background-color: var(--inverse-primary);

@@ -46,11 +46,13 @@ export async function fetchActuaciones(
     }
 
     console.log(
-      `parsed idProceso: ${ idP }
-      with a type of ${ typeof idP }`
+      `parsed idProceso: ${ idP } with a type of ${ typeof idP }`
     );
     await updateActuaciones(
-      actuaciones, idP
+      {
+        actuaciones: actuaciones,
+        idProceso  : idP
+      }
     );
 
     const json: ConsultaActuacion = {
@@ -109,108 +111,118 @@ export const getActuaciones = cache(
         );
       }
 
-      return null;
+      return [];
     }
   },
 );
 
-export async function updateActuaciones (
-  actuaciones: intActuacion[], idProceso: number
-) {
-  try {
-    if ( actuaciones.length === 0 ) {
-      throw new Error(
-        'no hay actuaciones en el array'
+export const  updateActuaciones = cache(
+  async (
+    {
+      actuaciones, idProceso
+    }:
+  {actuaciones: intActuacion[], idProceso: number}
+  ) => {
+    try {
+      if ( actuaciones.length === 0 ) {
+        throw new Error(
+          'no hay actuaciones en el array updateActuaciones'
+        );
+      }
+
+      const [
+        ultimaActuacion
+      ] = actuaciones;
+
+
+
+      const carpeta = await getCarpetaByllaveProceso(
+        ultimaActuacion.llaveProceso,
       );
-    }
 
-    const [
-      ultimaActuacion
-    ] = actuaciones;
-
-
-
-    const carpeta = await getCarpetaByllaveProceso(
-      ultimaActuacion.llaveProceso,
-    );
-
-    const incomingDate = new Date(
-      ultimaActuacion.fechaRegistro
-    )
-      .getTime();
-
-    const savedDate = carpeta?.fecha
-      ? new Date(
-        carpeta.fecha
+      const incomingDate = new Date(
+        ultimaActuacion.fechaRegistro
       )
-        .getTime()
-      : null;
+        .getTime();
 
-    if ( savedDate === incomingDate ) {
-      return;
-    }
+      const savedDate = carpeta?.fecha
+        ? new Date(
+          carpeta.fecha
+        )
+          .getTime()
+        : null;
 
-    if ( !savedDate || savedDate < incomingDate ) {
       const carpetasColl = await carpetasCollection();
 
-      const updateCarpetawithActuaciones = await carpetasColl.updateOne(
-        {
-          $or: [
-            {
-              llaveProceso: carpeta
-                ? carpeta.llaveProceso
-                : ultimaActuacion.llaveProceso
-            },
-            {
-              idProcesos: idProceso
-
-            }
-          ]
-        },
-        {
-          $set: {
-            fecha: new Date(
-              ultimaActuacion.fechaActuacion
-            ),
-            ultimaActuacion: ultimaActuacion,
-          },
-        },
-        {
-          upsert: false,
-        },
-      );
-
-      if ( !updateCarpetawithActuaciones ) {
+      if ( savedDate === incomingDate ) {
         return;
       }
 
-      if (
-        updateCarpetawithActuaciones.modifiedCount > 0
-        || updateCarpetawithActuaciones.upsertedCount > 0
-      ) {
-        console.log(
-          `se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas y se insertaron ${ updateCarpetawithActuaciones.upsertedCount } carpetas: ${ updateCarpetawithActuaciones.matchedCount }`
+      if ( !savedDate || savedDate < incomingDate ) {
+
+        const updateCarpetawithActuaciones = await carpetasColl.updateOne(
+          {
+            $or: [
+              {
+                llaveProceso: carpeta
+                  ? carpeta.llaveProceso
+                  : ultimaActuacion.llaveProceso
+              },
+              {
+                idProcesos: idProceso
+
+              }
+            ]
+          },
+          {
+            $set: {
+              fecha: new Date(
+                ultimaActuacion.fechaRegistro
+              ),
+              ultimaActuacion: ultimaActuacion,
+            },
+          },
+          {
+            upsert: false,
+          },
         );
 
-      }
-    }
+        if ( !updateCarpetawithActuaciones ) {
+          return;
+        }
 
-    return;
-  } catch ( error ) {
-    if ( error instanceof Error ) {
+        if (
+          updateCarpetawithActuaciones.modifiedCount > 0
+        || updateCarpetawithActuaciones.upsertedCount > 0
+        ) {
+          console.log(
+            `Actuaciones:
+          - se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas
+           - se insertaron ${ updateCarpetawithActuaciones.upsertedCount }
+           - para un total de carpetas: ${ updateCarpetawithActuaciones.matchedCount }`
+          );
+
+        }
+      }
+
+      return;
+    } catch ( error ) {
+      if ( error instanceof Error ) {
+        console.log(
+          JSON.stringify(
+            error, null, 2
+          )
+        );
+      }
+
       console.log(
-        error.message
+        JSON.stringify(
+          error, null, 2
+        )
       );
     }
-
-    console.log(
-      JSON.stringify(
-        error
-      )
-    );
   }
-}
-
+);
 
 export const deleteProcesoPrivado = async (
   {

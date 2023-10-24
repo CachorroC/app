@@ -37,10 +37,11 @@ export function NavLink<T extends string> (
             n
           ) => {
             return !n;
+
           }
         );
       }}
-      href={hrefLabel}
+      href={hrefLabel as Route}
     >
       <span className={`material-symbols-outlined ${ buttonStyles.icon }`}>{iconLabel}</span>
       <h1 className={`${ typography.labelMedium } ${ buttonStyles.text }`}>{textLabel}</h1>
@@ -143,17 +144,16 @@ export default function Drawer(
         <section className={ layout.segmentRowWrap }>
           <NavLink iconLabel={ 'home' } textLabel={ 'Inicio' } hrefLabel={ '/' } />
           <NavLink iconLabel={ 'gavel'} textLabel={ 'ultimas actuaciones'} hrefLabel={ '/Carpetas/UltimasActuaciones' } />
-          <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel={ '/Notas' } />
-          <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel={ '/Carpetas' }  />
+          <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel={ '/Notas' as Route } />
+          <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel={ '/Carpetas' as Route }  />
 
 
-          <NavLink iconLabel={ 'api' } textLabel={ 'Tareas' } hrefLabel={ '/Notas/Tareas' } />
 
 
 
           <NavLink iconLabel={ 'contact_support' } textLabel={ 'Contáctenos' } hrefLabel={ '/Contacto' } />
           <NavLink iconLabel={ 'accessibility_new' } textLabel={ 'Quienes Somos' } hrefLabel={ '/QuienesSomos' } />
-          <NavLink iconLabel={ 'note_add' } textLabel={ 'Nueva Nota' } hrefLabel={ '/Notas/Nueva' } />
+          <NavLink iconLabel={ 'note_add' } textLabel={ 'Nueva Nota' } hrefLabel={ '/Notas/Nueva' as Route } />
           <NavLink iconLabel={ '' } textLabel={ 'Nueva carpeta' } hrefLabel={ '/Carpetas/Nueva' } />
         </section>
       </section>

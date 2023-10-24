@@ -68,15 +68,6 @@ export async function newJuzgado(
         )
         .trim();
 
-      const indexOfDesp = nDesp.indexOf(
-        pDesp
-      );
-
-      if ( indexOfDesp >= 0 ) {
-        console.log(
-          `procesos despacho is in despachos ${ indexOfDesp +1 }`
-        );
-      }
 
       return nDesp === pDesp;
     }
@@ -118,13 +109,15 @@ export async function fetchProceso(
 ) {
   try {
     const req = await fetch(
-      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`,
+      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`, {
+        cache: 'force-cache'
+      }
 
     );
 
     if ( !req.ok ) {
-      const json = ( await req.json() ) as ConsultaNumeroRadicacion;
-      return json;
+      const jsonError = ( await req.json() ) as ConsultaNumeroRadicacion;
+      return jsonError;
     }
 
     const json = ( await req.json() ) as Data;
@@ -163,75 +156,160 @@ export async function fetchProceso(
 
 export async function getProceso(
   llaveProceso: string, index?: number
-)   {
-  await sleep(
-    index ?? 1000
-  );
+) {
+  try {
 
+    await sleep(
+      index ?? 1000
+    );
 
-  const fetchP = await fetchProceso(
-    llaveProceso
-  );
+    const fetchP = await fetchProceso(
+      llaveProceso
+    );
 
-  const {
-    procesos
-  } = fetchP;
-
-  if ( !procesos || procesos.length === 0 ) {
-    return null;
-  }
-
-  const carpColl = await carpetasCollection();
-
-
-
-  for ( const proceso of procesos ) {
     const {
-      idProceso, departamento, llaveProceso, sujetosProcesales, esPrivado, despacho
-    } = proceso;
+      procesos
+    } = fetchP;
 
-    if ( esPrivado ) {
-      continue;
-    }
-
-    const juzgado = await newJuzgado(
-      proceso
-    );
-
-    const updt = await carpColl.updateOne(
-      {
-        llaveProceso: llaveProceso,
-      },
-      {
-        $addToSet: {
-          idProcesos        : idProceso,
-          procesos          : proceso,
-          'demanda.juzgados': juzgado
-
-        },
-        $set: {
-          'demanda.departamento'     : departamento,
-          'demanda.expediente'       : llaveProceso,
-          'demanda.sujetosProcesales': sujetosProcesales,
-          'demanda.despacho'         : despacho
-        },
-      },
-      {
-        upsert: false,
-      },
-    );
-
-    if ( updt.modifiedCount > 0 || updt.upsertedCount > 0 ) {
-      console.log(
-        ` se actualizaron ${ updt.modifiedCount } procesos y se insertaron ${ updt.upsertedCount } procesosn nuevos  `,
+    if ( !procesos || procesos.length === 0 ) {
+      throw new Error(
+        `${ !procesos
+          ? 'no hay procesos'
+          : `el length de procesos es: ${ procesos.length }` }`
       );
+
+    }
+
+    const carpColl = await carpetasCollection();
+
+
+
+    for ( const proceso of procesos ) {
+      const {
+        idProceso, departamento, llaveProceso, sujetosProcesales, esPrivado, despacho
+      } = proceso;
+
+      if ( esPrivado ) {
+        continue;
+      }
+
+      const juzgado = await newJuzgado(
+        proceso
+      );
+
+      const updt = await carpColl.updateOne(
+        {
+          llaveProceso: llaveProceso,
+        },
+        {
+          $addToSet: {
+            idProcesos        : idProceso,
+            procesos          : proceso,
+            'demanda.juzgados': juzgado
+
+          },
+          $set: {
+            'demanda.departamento'     : departamento,
+            'demanda.expediente'       : llaveProceso,
+            'demanda.sujetosProcesales': sujetosProcesales,
+            'demanda.despacho'         : despacho
+          },
+        },
+        {
+          upsert: false,
+        },
+      );
+
+      if ( updt.modifiedCount > 0 || updt.upsertedCount > 0 ) {
+        console.log(
+          `Procesos:
+          - se actualizaron ${ updt.modifiedCount } procesos
+          - se insertaron ${ updt.upsertedCount } procesosn nuevos;
+          - matchedCount : ${ updt.matchedCount }`,
+        );
+        continue;
+      }
+
       continue;
     }
 
-    continue;
+    return procesos;
+
+
+  } catch ( error ) {
+    console.log(
+      JSON.stringify(
+        error, null, 2
+      )
+    );
+    return [];
   }
-
-  return procesos;
-
-
 }
+
+
+export const updateProcesos = cache(
+  async (
+    procesos: intProceso[]  
+  ) => {
+    try {
+      if ( procesos.length === 0 ) {
+        throw new Error(
+          'no hay procesos en el array updateProcesos'
+        );
+      }
+
+      const carpetasColl = await carpetasCollection();
+
+      for ( const proceso of procesos ) {
+        if ( proceso.esPrivado ) {
+          console.log(
+            'el proceso es privado'
+          );
+          continue;
+        }
+
+        const juzgado = await newJuzgado(
+          proceso
+        );
+
+        const updateProceso = await carpetasColl.updateMany(
+          {
+            llaveProceso: proceso.llaveProceso
+          }, {
+            $addToSet: {
+              idProcesos        : proceso.idProceso,
+              'demanda.procesos': proceso,
+              'demanda.juzgados': juzgado
+            },
+            $set: {
+              'demanda.departamento'     : proceso.departamento,
+              'demanda.expediente'       : proceso.llaveProceso,
+              'demanda.sujetosProcesales': proceso.sujetosProcesales,
+              'demanda.despacho'         : proceso.despacho
+            },
+          }
+        );
+
+        if ( updateProceso.matchedCount > 0 ) {
+          console.log(
+            `Procesos:
+          - se actualizaron ${ updateProceso.modifiedCount } procesos
+          - se insertaron ${ updateProceso.upsertedCount } procesosn nuevos;
+          - matchedCount : ${ updateProceso.matchedCount }`
+          );
+        }
+
+        continue;
+      }
+
+      return;
+    } catch ( error ) {
+      console.log(
+        JSON.stringify(
+          error, null, 2
+        )
+      );
+    }
+
+  }
+);

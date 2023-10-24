@@ -9,8 +9,8 @@ export default async function Page(
     params,
   }: {
   params: {
-    numero: string;
-    idProceso: string;
+    numero: number;
+    idProceso: number;
   };
 }
 ) {

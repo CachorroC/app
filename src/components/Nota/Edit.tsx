@@ -67,10 +67,10 @@ export const Edit = (
           </label>
           <input
             className={styles.textArea}
-            type="text"
+            type="number"
             name="llaveProceso"
-            defaultValue={inputNota.llaveProceso
-              ? inputNota.llaveProceso
+            defaultValue={inputNota.carpetaNumero
+              ? inputNota.carpetaNumero
               : ''}
           />
         </section>
@@ -145,11 +145,11 @@ export const Edit = (
           >
             {'¿Revisada?'}
           </label>
-          <label className={styles.switchBox}>
+          {/*  <label className={styles.switchBox}>
             <input
               className={styles.inputElement}
               name="done"
-              checked={inputNota.done}
+              checked={inputNota.pathname}
               onChange={(
                 e
               ) => {
@@ -163,7 +163,7 @@ export const Edit = (
               type="checkbox"
             />
             <span className={styles.slider}></span>
-          </label>
+          </label> */}
         </section>
         <button type="submit">Add</button>
         <p>{message}</p>

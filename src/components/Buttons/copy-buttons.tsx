@@ -6,6 +6,7 @@ import styles from './buttons.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 import { useEffect, useState } from 'react';
+import cardStyles from '../Card/card.module.css';
 
 export const CopyButton = (
   {
@@ -51,18 +52,22 @@ export const CopyButton = (
     ]
   );
   return (
-    <div className={layout.segmentColumn}>
-      <p className={ typography.labelLarge }>{ name }</p>
-      <p className={ typography.labelMedium }>{ value }</p><button type='button' onClick={ () => {
+    <div className={ layout.segmentRow }>
+      <div className={ layout.sectionColumn }>
+
+        <p className={ typography.labelLarge }>{ name }</p>
+        <p className={ typography.labelMedium }>{ value }</p>
+      </div>
+      <button type='button' onClick={ () => {
         copy(
           copyTxt
         );
         setIsSnackbarOpen(
           true
         );
-      } } className={ styles.buttonChip }>
+      } } className={ cardStyles.link }>
         <span className={ `material-symbols-outlined ${ styles.icon }` }>file_copy</span>
-        <span className={styles.text}>copiar</span>
+        <span className={cardStyles.tooltiptext}>copiar</span>
       </button>
       { value &&( isSnackbarOpen && (
         <div className={ `${ styles.snackbar } ${ isSnackbarOpen && styles.show }` }>{ value} </div>

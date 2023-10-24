@@ -116,8 +116,10 @@
   }
   &Chip {
     @extend .button;
-    height: minmax(32px, 48px);
+    height: minmax(2rem, 3rem);
     flex: 0 1 auto;
+    box-sizing: border-box;
+
   }
 }
 .active {

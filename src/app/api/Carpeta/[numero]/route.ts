@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { numero: string } },
+  context: { params: { numero: number } },
 ) {
   const {
     numero
@@ -45,7 +45,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  context: { params: { numero: string } },
+  context: { params: { numero: number } },
 ) {
   const {
     numero
