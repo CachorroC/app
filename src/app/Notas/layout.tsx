@@ -30,7 +30,7 @@ export default function NotasLayoutMain(
             <span className={`material-symbols-outlined ${ icon }`}>note_alt</span>
           </Link>
         </div>
-        <div className={styles.left}>{children}</div>
+        <div className={styles.leftGrid}>{children}</div>
         <div className={ styles.right }>{ right }</div>
       </NuevaNotaFormProvider>
     </>

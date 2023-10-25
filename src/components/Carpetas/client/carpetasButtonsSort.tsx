@@ -6,7 +6,8 @@ import { ActionType } from '#@/lib/types/context-actions';
 import { useState } from 'react';
 import layout from '#@/styles/layout.module.css';
 
-export function CarpetasSortButtons() {
+export function CarpetasSortButtons () {
+
   const keys: ActionType[] = [
     'fecha',
     'nombre',
@@ -60,6 +61,7 @@ export function CarpetasSortButtons() {
                       sortDirection: sortDirection,
                     }
                   );
+
                 }}
                 className={styles.buttonPassiveCategory}
                 key={key}
@@ -70,6 +72,7 @@ export function CarpetasSortButtons() {
           }
         )}
       </section>
+
     </>
   );
 }

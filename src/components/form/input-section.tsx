@@ -7,8 +7,9 @@ import { FieldPath,
   useFormContext, } from 'react-hook-form';
 import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
-import { type HTMLInputTypeAttribute } from 'react';
+import { useState, type HTMLInputTypeAttribute } from 'react';
 import layout from '#@/styles/layout.module.css';
+import styles from './form.module.css';
 
 export const InputSection = (
   {
@@ -27,15 +28,37 @@ export const InputSection = (
 }
 ) => {
   const {
-    control
+    control, getValues
   } = useFormContext<NuevaCarpeta | IntCarpeta>();
 
   const rules = rls ?? {
     required: false,
   };
 
+  const propValues = getValues(
+    name
+  );
+
+  let isInCarpeta;
+
+  if ( !propValues || propValues === null || propValues === undefined ) {
+    isInCarpeta = false;
+    console.log(
+      propValues
+    );
+  } else {
+    isInCarpeta = true;
+  }
+
+  const [
+    hasProperty,
+    setHasProperty
+  ] = useState(
+    isInCarpeta
+  );
+
   const {
-    field
+    field, fieldState
   } = useController(
     {
       name,
@@ -51,20 +74,46 @@ export const InputSection = (
       >
         { title }
       </label>
-      <input
-        name={ field.name }
-        value={ field.value ?? ''}
-        ref={ field.ref }
-        type={ type }
-        placeholder={ title }
-        className={ form.textArea }
-        onChange={ (
-          e
-        ) => {
-          field.onChange(
-            e.target.value
-          );
-        } } />
+      <div>
+        <label className={styles.switchBox}>
+          <input
+            className={styles.inputElement}
+            checked={hasProperty}
+            type="checkbox"
+            onChange={ (
+              e
+            ) => {
+              setHasProperty(
+                e.target.checked
+              );
+            }}
+          />
+          <span className={styles.slider}></span>
+        </label>
+      </div>
+      { hasProperty && (
+
+        <input
+          name={ field.name }
+          value={ field.value ?? '' }
+          ref={ field.ref }
+          type={ type }
+          placeholder={ title }
+          className={ form.textArea }
+          onChange={ (
+            e
+          ) => {
+            field.onChange(
+              e.target.value
+            );
+          } } />
+
+      ) }
+      {
+        JSON.stringify(
+          fieldState, null, 2
+        )
+      }
     </div>
   );
 };

@@ -13,6 +13,7 @@ import { NumberSection } from './number-section';
 import { SelectSection } from './select-section';
 import { VencimientoPagareSection } from './vencimiento-pagare-section';
 import typography from '#@/styles/fonts/typography.module.css';
+import { CheckboxHasProperty } from './checkboxHasProperty';
 
 export const Form = (
   {
@@ -126,6 +127,7 @@ export const Form = (
 
 
           </section>
+
 
           <section className={layout.sectionRow}>
 
@@ -375,7 +377,11 @@ export const Form = (
                 <VencimientoPagareSection />
               )}
         </section>
+        <section className={layout.segmentRow}>
 
+          <CheckboxHasProperty keyOfCarpeta={ 'cc' } carpeta={ carpeta } />
+          <CheckboxHasProperty keyOfCarpeta={ 'llaveProceso' } carpeta={ carpeta} />
+        </section>
         <button
           type="submit"
           className={form.button}

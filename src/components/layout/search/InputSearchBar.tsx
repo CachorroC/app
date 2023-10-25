@@ -32,12 +32,26 @@ export default function InputSearchBar() {
         className={searchbar.input}
         value={search}
         name={'buscar'}
-        placeholder={'Buscar'}
-        autoComplete={'off'}
+        placeholder={ 'Buscar' }
+        onKeyDown={ (
+          e
+        ) => {
+          console.log(
+            e.key
+          );
+
+          if ( e.key === 'Enter' ) {
+
+            console.log(
+              e.key
+            );
+          }
+        }}
         onChange={
           (
             input
           ) => {
+            input.preventDefault();
             return setSearch(
               input.target.value
             );
