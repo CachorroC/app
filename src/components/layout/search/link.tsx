@@ -79,7 +79,7 @@ export function  LinkCard<T extends string = string>(
           <Link
             onClick={handleClickNavigation}
             key={idProceso}
-            href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` }
+            href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
             className={isActive
               ? searchbar.linkIsActive
               : searchbar.linkNotActive}

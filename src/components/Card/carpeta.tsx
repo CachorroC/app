@@ -52,7 +52,7 @@ export const CarpetaCard = (
                   className={button}
                   key={idProceso}
                   href={
-                    `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`
+                    `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
                   }
                 >
                   <span className={`material-symbols-outlined ${ styles.icon }`}>

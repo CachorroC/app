@@ -120,8 +120,8 @@
   box-sizing: border-box;
   border: 0.1cqmin solid var(--outline-variant);
   border-radius: 50vw;
-  width: 5cqmin;
-  height: 0.2;
+  width: 1rem;
+  height: 0.5rem;
 }
 
 /* Hide default HTML checkbox */
