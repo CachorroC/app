@@ -1,67 +1,39 @@
 'use client';
 import { intNota } from '#@/lib/types/notas';
-import { useParams, usePathname } from 'next/navigation';
-import {  ReactNode, useEffect } from 'react';
+import {  ReactNode } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useNotaSort } from './notas-sort-context';
 
 export function NuevaNotaFormProvider (
   {
     children
   }: { children: ReactNode }
 ) {
-  const params = useParams();
+  const notasTotal = useNotaSort();
 
-  const {
-    numero
-  } = params;
+  const newNumber = notasTotal.length + 1;
 
-  const pathname = usePathname();
+  const newNota: intNota = {
+    cod          : newNumber,
+    text         : 'Nueva Nota',
+    pathname     : '/',
+    date         : new Date(),
+    carpetaNumero: 0
+  };
 
   const nuevaNotaMethods = useForm<intNota>(
     {
-      defaultValues: async () => {
-        const response = await fetch(
-          '/api/Notas/Nueva'
-        );
-        return await response.json();
-      },
-      resetOptions: {
-        keepDefaultValues: true,
-      },
+      defaultValues   : newNota,
       shouldFocusError: true,
       criteriaMode    : 'all',
     }
   );
 
-  const {
-    setValue,
-  } = nuevaNotaMethods;
 
-
-  useEffect(
-    () => {
-      setValue(
-        'pathname', pathname
-      );
-
-      if ( numero ) {
-        setValue(
-          'carpetaNumero', Number(
-            numero
-          )
-        );
-      }
-
-
-    }, [
-      numero,
-      pathname,
-      setValue
-    ]
-  );
 
   return (
-    <FormProvider {...nuevaNotaMethods}>
+    <FormProvider { ...nuevaNotaMethods }>
+
       { children }
     </FormProvider>
   );

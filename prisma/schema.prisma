@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Carpeta {
+  numero       Int     @id @default(autoincrement())
+  nombre       String?
+  llaveProceso String?
+  notas        Nota[]
+}
+
 model Tarea {
   text    String
   id      Int      @id @unique @default(autoincrement())
@@ -16,11 +23,12 @@ model Tarea {
 }
 
 model Nota {
-  text         String
-  id           Int      @id @unique @default(autoincrement())
-  done         Boolean
-  pathname     String
-  date         DateTime
+  text          String
+  id            Int      @id @unique @default(autoincrement())
+  pathname      String
+  date          DateTime
+  carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
+  carpetaNumero Int?
 }
 
 enum Abogado {
@@ -28,4 +36,20 @@ enum Abogado {
   Camilo
   Fernando
   Carmen
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  posts Post[]
+}
+
+model Post {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean @default(false)
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  Int
 }

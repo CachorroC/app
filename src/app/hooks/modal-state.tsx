@@ -5,42 +5,44 @@ import { useCallback,
   MouseEventHandler,
   ReactNode, } from 'react';
 import styles from 'components/Modal/styles.module.css';
-import { useModalContext } from '#@/app/context/modal-context';
+import { buttonActiveCategory } from '#@/components/Buttons/buttons.module.css';
+import { useModalContext } from '../context/modal-context';
 
 export default function ModalDialog(
   {
-    children 
-  }: { children: ReactNode } 
+    children
+  }: { children: ReactNode }
 ) {
   const overlay = useRef(
-    null 
+    null
   );
 
   const wrapper = useRef(
-    null 
+    null
   );
 
   const {
-    isModalOpen, setIsModalOpen 
+    isModalOpen,
+    setIsModalOpen
   } = useModalContext();
 
   const onDismiss = useCallback(
     () => {
       setIsModalOpen(
         (
-          n 
+          n
         ) => {
           return !n;
-        } 
+        }
       );
     }, [
       setIsModalOpen
-    ] 
+    ]
   );
 
   const onClick: MouseEventHandler = useCallback(
     (
-      e 
+      e
     ) => {
       if ( e.target === overlay.current || e.target === wrapper.current ) {
         if ( onDismiss ) {
@@ -57,7 +59,7 @@ export default function ModalDialog(
 
   const onKeyDown = useCallback(
     (
-      e: KeyboardEvent 
+      e: KeyboardEvent
     ) => {
       if ( e.key === 'Escape' ) {
         onDismiss();
@@ -71,17 +73,17 @@ export default function ModalDialog(
   useEffect(
     () => {
       document.addEventListener(
-        'keydown', onKeyDown 
+        'keydown', onKeyDown
       );
 
       return () => {
         return document.removeEventListener(
-          'keydown', onKeyDown 
+          'keydown', onKeyDown
         );
       };
     }, [
       onKeyDown
-    ] 
+    ]
   );
 
   return (
@@ -99,7 +101,21 @@ export default function ModalDialog(
             {children}
           </div>
         </div>
-      )}
+      ) }
+      <button type='button' onClick={ () => {
+        setIsModalOpen(
+          (
+            n
+          ) => {
+            return !n;
+          }
+        );
+      } } className={ buttonActiveCategory }>
+        <span className='material-symbols-outlined'>{isModalOpen
+          ? 'note_add'
+          : 'close'}</span>
+
+      </button>
     </>
   );
 }

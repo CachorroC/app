@@ -54,14 +54,12 @@ export default async function LayoutCarpetaMain(
     children,
     top,
     right,
-    params: {
-      numero
-    },
+    params,
   }: Props
 ) {
   const carpeta = await getCarpetabyNumero(
     Number(
-      numero
+      params.numero
     )
   );
 
@@ -71,12 +69,12 @@ export default async function LayoutCarpetaMain(
 
   return (
     <>
-      <CarpetaFormProvider key={numero} carpeta={carpeta}>
+      <CarpetaFormProvider key={params.numero} carpeta={carpeta}>
         <div className={ styles.top }>
           <Suspense fallback={ <Loader /> }>
-            <Link href={ `/Carpeta/${ numero }` as Route}>
+            <Link href={ `/Carpeta/${ params.numero }` as Route}>
               <NombreComponent
-                key={numero}
+                key={params.numero}
                 deudor={carpeta.deudor}
               />
             </Link>
@@ -86,8 +84,11 @@ export default async function LayoutCarpetaMain(
         </div>
         <div className={styles.leftColumn}>{children}</div>
         <div className={ styles.right }>
+
+
           {right}
         </div>
+
       </CarpetaFormProvider>
     </>
   );

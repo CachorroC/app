@@ -1,31 +1,54 @@
 'use client';
-import { useNotaContext } from '#@/app/context/main-context';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import styles from 'components/form/form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
-import { SubmitHandler,  useFormContext } from 'react-hook-form';
-import { intNota, monNota } from '#@/lib/types/notas';
-import { useEffect } from 'react';
+import {  SubmitHandler,  useForm } from 'react-hook-form';
+import {  useEffect, useState } from 'react';
 import { ZodNotaElementSchema } from '#@/lib/types/zod/nota';
+import { NotasWatcher } from '#@/app/Carpeta/[numero]/notaswatcher';
+import { useNotaSort } from '#@/app/context/notas-sort-context';
+import { Nota } from '@prisma/client';
 
 export const NuevaNota = () => {
+
+  const notasTotal = useNotaSort();
+
+  const newCod = notasTotal.length + 1;
+
+  const newNota: Nota = {
+    id           : newCod,
+    text         : 'Nueva Nota',
+    pathname     : '/',
+    date         : new Date(),
+    carpetaNumero: 0
+  };
+
   const params = useParams();
 
-  const {
-    inputNota, setInputNota
-  } = useNotaContext();
-
-  const pathname = usePathname();
 
   const router = useRouter();
 
   const {
     register,
-    reset,
-    setValue, setError,
+    reset, getValues,
+    setValue, setError, control,
     handleSubmit
-  } = useFormContext<intNota>( );
+  } = useForm<Nota>(
+    {
+      defaultValues   : newNota,
+      shouldFocusError: true,
+      criteriaMode    : 'all',
+    }
+  );
+
+
+  const [
+    inputNota,
+    setInputNota
+  ] = useState(
+    getValues()
+  );
 
   const {
     numero
@@ -60,7 +83,7 @@ export const NuevaNota = () => {
     );
   }
  */
-  const onSubmit: SubmitHandler<intNota> = async(
+  const onSubmit: SubmitHandler<Nota> = async(
     formNota
   ) => {
     try {
@@ -80,8 +103,8 @@ export const NuevaNota = () => {
       } = parsedNota;
 
       const request = await fetch(
-        '/api/Notas', {
-          method : 'PUT',
+        '/api/Notas/Nueva', {
+          method : 'POST',
           headers: {
             'content-type': 'application/json'
           },
@@ -104,7 +127,7 @@ export const NuevaNota = () => {
         );
       }
 
-      const updatedNota = ( await request.json() ) as monNota;
+      const updatedNota = await request.json();
 
 
       alert(
@@ -113,7 +136,7 @@ export const NuevaNota = () => {
         )
       );
       router.push(
-        `/Notas/id/${ updatedNota._id }`
+        `/Notas/id/${ updatedNota.id }`
       );
     } catch ( error ) {
       alert(
@@ -124,6 +147,8 @@ export const NuevaNota = () => {
 
     }
   };
+
+  const pathname = usePathname();
 
   useEffect(
     () => {
@@ -165,29 +190,31 @@ export const NuevaNota = () => {
               </label>
               <input
                 type="number"
-                className={styles.textArea}
-                name='carpetaNumero'
-                defaultValue={numero}
+                className={ styles.textArea }
+                {...register(
+                  'carpetaNumero'
+                )}
               />
             </section>
             <section className={layout.sectionRow}>
               <label
-                htmlFor="cod"
+                htmlFor="id"
                 className={styles.label}
               >
-                {'Numero'}
+                {'Nota numero'}
               </label>
               <input
                 type="number"
                 className={ styles.textArea }
                 {...register(
-                  'cod', {
+                  'id', {
                     required: true
                   }
                 )}
               />
             </section>
           </section>
+
           <section className={layout.sectionRow}>
             <label
               htmlFor="text"
@@ -215,7 +242,7 @@ export const NuevaNota = () => {
 
             <input
               type="date"
-              name="date"
+              name="dueDate"
               className={styles.textArea}
               value={`${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }`}
               onChange={(
@@ -264,6 +291,9 @@ export const NuevaNota = () => {
           </section>
         </section>
       </form>
+
+      <NotasWatcher control={control} />
+
     </div>
 
   );

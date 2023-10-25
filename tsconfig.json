@@ -9,7 +9,7 @@
       "dom",
       "dom.iterable",
       "esnext",
-      "WebWorker"
+      "webworker"
     ],
     "module": "esnext",
     "moduleResolution": "bundler",

@@ -10,7 +10,8 @@ const nextConfig = {
     serverActions                   : true,
     serverComponentsExternalPackages: [
       'mongodb',
-      'eslint'
+      'eslint',
+      'prisma'
     ],
   },
 };

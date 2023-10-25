@@ -13,7 +13,6 @@ import Link from 'next/link';
 import { Route } from 'next';
 import styles from '../Buttons/buttons.module.css';
 import ModalDialog from '#@/app/hooks/modal-state';
-import { NuevaNotaFormProvider } from '#@/app/context/nueva-nota-form-context';
 
 export default function Header(
   {
@@ -50,9 +49,7 @@ export default function Header(
       <Suspense fallback={<Loader />}>
         <ModalDialog>
           <Suspense fallback={<Loader />}>
-            <NuevaNotaFormProvider>
-              <NuevaNota />
-            </NuevaNotaFormProvider>
+            <NuevaNota />
           </Suspense>
         </ModalDialog>
       </Suspense>

@@ -30,6 +30,54 @@ export async function GET () {
   );
 }
 
+export async function POST (
+  request: NextRequest
+) {
+  try {
+
+
+    const incomingNote = ( await request.json() ) as monNota;
+
+    const {
+      // eslint-disable-next-line no-unused-vars
+      _id, ...note
+    } =  incomingNote;
+
+
+    const collection = await notasCollection();
+
+    const updatedNote = await collection.insertOne(
+      note
+    );
+
+    if ( !updatedNote ) {
+      throw new Error(
+        'no se actualizó la notas'
+      );
+    }
+
+    const json = JSON.stringify(
+      updatedNote
+    );
+    console.log(
+      json
+    );
+    return NextResponse.json(
+      updatedNote
+    );
+
+  } catch ( error ) {
+    console.log(
+      error
+    );
+    return NextResponse.json(
+      error, {
+        status: 300
+      }
+    );
+  }
+}
+
 export async function PUT (
   request: NextRequest
 ) {
