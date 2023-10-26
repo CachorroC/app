@@ -2,3 +2,5 @@
 @import url(./theme/colors.module.css);
 @import url(./theme/theme.light.css) (prefers-color-scheme: light);
 @import url(./theme/theme.dark.css) (prefers-color-scheme: dark);
+
+/*# sourceMappingURL=theme.css.map */

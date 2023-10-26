@@ -1,13 +1,13 @@
 declare const styles: {
-  readonly 'container': string;
-  readonly 'calendar': string;
-  readonly 'weeks': string;
-  readonly 'days': string;
-  readonly 'today': string;
-  readonly 'inactive': string;
-  readonly 'disabled': string;
   readonly 'active': string;
+  readonly 'calendar': string;
+  readonly 'container': string;
+  readonly 'days': string;
   readonly 'dias': string;
+  readonly 'disabled': string;
+  readonly 'inactive': string;
+  readonly 'today': string;
+  readonly 'weeks': string;
 };
 export = styles;
 

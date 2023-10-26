@@ -1,22 +1,22 @@
 declare const styles: {
+  readonly 'active': string;
   readonly 'button': string;
-  readonly 'buttonChip': string;
+  readonly 'buttonActiveCategory': string;
   readonly 'buttonActuacion': string;
+  readonly 'buttonBackwards': string;
+  readonly 'buttonChip': string;
+  readonly 'buttonDrawerMenu': string;
+  readonly 'buttonEdit': string;
+  readonly 'buttonForward': string;
   readonly 'buttonHome': string;
   readonly 'buttonModal': string;
-  readonly 'buttonDrawerMenu': string;
-  readonly 'buttonBackwards': string;
-  readonly 'buttonForward': string;
   readonly 'buttonPassiveCategory': string;
-  readonly 'buttonActiveCategory': string;
-  readonly 'buttonEdit': string;
-  readonly 'icon': string;
-  readonly 'text': string;
-  readonly 'active': string;
-  readonly 'snackbar': string;
-  readonly 'show': string;
   readonly 'fadein': string;
   readonly 'fadeout': string;
+  readonly 'icon': string;
+  readonly 'show': string;
+  readonly 'snackbar': string;
+  readonly 'text': string;
 };
 export = styles;
 

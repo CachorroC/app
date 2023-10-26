@@ -6,7 +6,7 @@ import styles from './form.module.css';
 export const ParseTextarea = (
   {
     value = [], onChange
-  }
+  }: {value: any[], onChange: any}
 ) => {
   const [
     text,
