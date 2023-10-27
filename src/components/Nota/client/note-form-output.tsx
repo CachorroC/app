@@ -12,7 +12,7 @@ export default function NoteFormOutput() {
 
   return (
     <div className={styles.container}>
-      <sub className={styles.sup}>{inputNota.cod}</sub>
+      <sub className={styles.sup}>{inputNota.id}</sub>
       {inputNota.carpetaNumero && (
         <span>{`llaveProceso: ${ inputNota.carpetaNumero }`}</span>
       )}

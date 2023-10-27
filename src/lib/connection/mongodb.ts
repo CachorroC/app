@@ -3,8 +3,8 @@ import 'server-only';
 import { MongoClient } from 'mongodb';
 import { cache } from 'react';
 import { IntCarpeta } from 'types/carpetas';
-import { intNota } from 'types/notas';
 import { intTarea } from '../types/tareas';
+import { Nota } from '@prisma/client';
 
 const uri
   = process.env.MONGODB_URI
@@ -113,7 +113,7 @@ export const notasCollection = async () => {
     'RyS'
   );
 
-  const notas = db.collection<intNota>(
+  const notas = db.collection<Nota>(
     'Notas'
   );
 

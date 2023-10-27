@@ -1,35 +1,24 @@
 import { cache } from 'react';
 import { notasCollection } from '../connection/mongodb';
-import { ObjectId } from 'mongodb';
 import { notasConvert } from '../types/notas';
+import { prisma } from '#@/lib/connection/prisma';
 
 
 export const getNotaById = cache(
   async (
     {
       id
-    }: { id: string }
+    }: { id: number}
   ) => {
-    if ( id === 'Nueva' ) {
-      return null;
-    }
 
-    const collection = await notasCollection();
-
-    const rawNota = await collection.findOne(
+    const nota = await prisma.nota.findFirst(
       {
-        _id: new ObjectId(
-          id
-        ),
+        where: {
+          id: Number(
+            id
+          ),
+        }
       }
-    );
-
-    if ( rawNota === null ) {
-      return rawNota;
-    }
-
-    const nota = notasConvert.toMonNota(
-      rawNota
     );
 
     return nota;

@@ -8,48 +8,129 @@ datasource db {
 }
 
 model Carpeta {
-  numero       Int     @id @default(autoincrement())
-  nombre       String?
+  numero       Int
   llaveProceso String?
+  nombre       String?
+  category     String?
+  cc           Int?
+  idProcesos   Int[]
+  id           Int     @id @unique @default(autoincrement())
   notas        Nota[]
-}
-
-model Tarea {
-  text    String
-  id      Int      @id @unique @default(autoincrement())
-  done    Boolean
-  date    DateTime
-  abogado Abogado
 }
 
 model Nota {
   text          String
-  id            Int      @id @unique @default(autoincrement())
-  pathname      String
+  id            Int       @id @unique @default(autoincrement())
   date          DateTime
-  carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
+  pathname      String?
   carpetaNumero Int?
+  carpeta       Carpeta?  @relation(fields: [carpetaNumero], references: [id])
 }
 
-enum Abogado {
-  Melissa
-  Camilo
-  Fernando
-  Carmen
+model Actuacion {
+  idRegActuacion Int
+  idProceso      BigInt    @id
+  llaveProceso   String
+  consActuacion  Int
+  fechaActuacion DateTime
+  actuacion      String
+  anotacion      String?
+  fechaInicial   DateTime?
+  fechaRegistro  DateTime
+  fechaFinal     DateTime?
+  codRegla       String
+  conDocumentos  Boolean
+  can            Int
+  Proceso        Proceso   @relation(fields: [idProceso], references: [idProceso])
+}
+
+model Demanda {
+  departamento            Departamento
+  capitalAdeudado         BigInt
+  entregaGarantiasAbogado DateTime
+  etapaProcesal           String
+  fechaPresentacion       DateTime
+  municipio               String
+  obligacion              String[]
+  radicado                String       @unique
+  vencimientoPagare       DateTime
+  expediente              String       @id
+  Juzgado                 Juzgado[]
+  Proceso                 Proceso[]
+}
+
+model Deudor {
+  cedula          BigInt    @id @unique
+  primerNombre    String
+  segundoNombre   String?
+  primerApellido  String
+  segundoApellido String?
+  email           String?
+  direccion       String?
+  Telefono        Telefono?
+}
+
+model Juzgado {
+  id                Int
+  tipo              String    @id
+  url               String
+  demandaExpediente String?
+  Demanda           Demanda?  @relation(fields: [demandaExpediente], references: [expediente])
+  Proceso           Proceso[]
+}
+
+model Proceso {
+  idProceso            BigInt       @id
+  idConexion           Int
+  llaveProceso         String
+  fechaProceso         DateTime
+  fechaUltimaActuacion DateTime
+  despacho             String
+  departamento         Departamento
+  sujetosProcesales    String
+  esPrivado            Boolean
+  cantFilas            Int
+  Actuacion            Actuacion?
+  Juzgado              Juzgado      @relation(fields: [despacho], references: [tipo])
+  Demanda              Demanda[]
+}
+
+model Telefono {
+  fijo    Int
+  celular Int
+  cedula  BigInt @id
+  Deudor  Deudor @relation(fields: [cedula], references: [cedula])
 }
 
 model User {
   id    Int     @id @default(autoincrement())
-  email String  @unique
+  email String
   name  String?
-  posts Post[]
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+enum Category {
+  Terminados
+  LiosJuridicos
+  Bancolombia
+  Reintegra
+  Insolvencia
+}
+
+enum Departamento {
+  BOGOTA
+  CUNDINAMARCA
+  META
+  ANTIOQUIA
+  ATLANTICO
+}
+
+enum TipoProceso {
+  HIPOTECARIO
+  PRENDARIO
+  SINGULAR
+  ACUMULADO
+  PRENDARO
+  HIPOTECARIA
+  HIPOTECARO
+  SOACHA
 }

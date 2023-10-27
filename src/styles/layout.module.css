@@ -154,7 +154,7 @@
 }
 
 .loader {
-  border: 10px solid var(--surface-container);
+  border: 10px solid var(--surface-container-high);
   /* Light grey */
   border-top: 10px solid var(--secondary);
   /* Blue */

@@ -16,7 +16,7 @@ export function TaskList() {
           return (
             <Task
               task={task}
-              key={task._id}
+              key={task.id}
             />
           );
         }
@@ -47,7 +47,7 @@ export function NotasList() {
         ) => {
           return (
             <Task
-              key={nota._id}
+              key={nota.id}
               task={nota}
             />
           );

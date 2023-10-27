@@ -12,7 +12,9 @@ export default async function Page (
 ) {
   const nota = await getNotaById(
     {
-      id: params.id
+      id: Number(
+        params.id
+      )
     }
   );
 

@@ -13,7 +13,9 @@ export default async function NuevaNotallaveProceso(
 ) {
   const nota = await getNotaById(
     {
-      id: params.id,
+      id: Number(
+        params.id 
+      )
     }
   );
 
@@ -26,7 +28,7 @@ export default async function NuevaNotallaveProceso(
       <div className={layout.top}>
         <h1
           className={typography.displayLarge}
-        >{`Nota numero: ${ nota.cod }`}</h1>
+        >{`Nota numero: ${ nota.id }`}</h1>
       </div>
       <div className={layout.left}>
         <Edit

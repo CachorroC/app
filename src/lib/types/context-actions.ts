@@ -1,3 +1,4 @@
+import { Nota } from '@prisma/client';
 import { Category, MonCarpeta } from './carpetas';
 import { monNota } from './notas';
 
@@ -9,10 +10,18 @@ export interface IntAction {
 }
 
 export interface IntNotaAction {
+  type: ActionMonNotaType;
+  sortDirection: boolean;
+}
+
+export interface NotaAction
+{
   type: ActionNotaType;
   sortDirection: boolean;
 }
 
-export type ActionNotaType = keyof monNota;
+export type ActionMonNotaType = keyof monNota;
+
+export type ActionNotaType = keyof Nota;
 
 export type ActionType = keyof MonCarpeta;

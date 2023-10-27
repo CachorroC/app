@@ -1,8 +1,9 @@
 import 'server-only';
 import { notasCollection } from '#@/lib/connection/mongodb';
 import { NextRequest, NextResponse } from 'next/server';
-import {  monNota, notasConvert } from '#@/lib/types/notas';
-
+import { prisma } from '#@/lib/connection/prisma';
+import { Nota } from '@prisma/client';
+/*
 export async function GET () {
   const collection = await notasCollection();
 
@@ -29,6 +30,14 @@ export async function GET () {
     }
   );
 }
+*/
+
+export async function GET () {
+  const notas = await prisma.nota.findMany();
+  return NextResponse.json(
+    notas
+  );
+}
 
 export async function POST (
   request: NextRequest
@@ -36,18 +45,15 @@ export async function POST (
   try {
 
 
-    const incomingNote = ( await request.json() ) as monNota;
+    const incomingNote = ( await request.json() ) as Nota;
 
-    const {
-      // eslint-disable-next-line no-unused-vars
-      _id, ...note
-    } =  incomingNote;
+
 
 
     const collection = await notasCollection();
 
     const updatedNote = await collection.insertOne(
-      note
+      incomingNote
     );
 
     if ( !updatedNote ) {
@@ -84,22 +90,19 @@ export async function PUT (
   try {
 
 
-    const incomingNote = ( await request.json() ) as monNota;
+    const incomingNote = ( await request.json() ) as Nota;
 
-    const {
-      // eslint-disable-next-line no-unused-vars
-      _id, ...note
-    } =  incomingNote;
+
 
 
     const collection = await notasCollection();
 
     const updatedNote = await collection.findOneAndUpdate(
       {
-        cod: incomingNote.cod
+        id: incomingNote.id
       },
       {
-        $set: note,
+        $set: incomingNote,
       },
       {
         upsert        : true,

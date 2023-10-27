@@ -1,37 +1,37 @@
 'use client';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import styles from 'components/form/form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 import {  SubmitHandler,  useForm } from 'react-hook-form';
 import {  useEffect, useState } from 'react';
-import { ZodNotaElementSchema } from '#@/lib/types/zod/nota';
 import { NotasWatcher } from '#@/app/Carpeta/[numero]/notaswatcher';
-import { useNotaSort } from '#@/app/context/notas-sort-context';
 import { Nota } from '@prisma/client';
 
-export const NuevaNota = () => {
+export const NuevaNota = (
+  {
+    id
+  }: {id?: number}
+) => {
 
-  const notasTotal = useNotaSort();
 
-  const newCod = notasTotal.length + 1;
-
-  const newNota: Nota = {
-    id           : newCod,
+  const newNota:Nota = {
     text         : 'Nueva Nota',
     pathname     : '/',
     date         : new Date(),
-    carpetaNumero: 0
+    carpetaNumero: 0,
+    id           : id
+      ? id
+      : 0,
   };
 
   const params = useParams();
 
 
-  const router = useRouter();
 
   const {
     register,
-    reset, getValues,
+    reset, getValues, setFocus,
     setValue, setError, control,
     handleSubmit
   } = useForm<Nota>(
@@ -88,19 +88,6 @@ export const NuevaNota = () => {
   ) => {
     try {
 
-      const parsedNota = ZodNotaElementSchema.safeParse(
-        formNota
-      );
-
-      if ( !parsedNota.success ) {
-        throw new Error(
-          'no pudimos parsear con zodla nota que ingresaste. Intentalo nuevamente',
-        );
-      }
-
-      const {
-        data
-      } = parsedNota;
 
       const request = await fetch(
         '/api/Notas/Nueva', {
@@ -109,7 +96,10 @@ export const NuevaNota = () => {
             'content-type': 'application/json'
           },
           body: JSON.stringify(
-            data
+            {
+              ...inputNota,
+              ...formNota
+            }
           )
         }
       );
@@ -135,9 +125,7 @@ export const NuevaNota = () => {
           updatedNota, null, 2
         )
       );
-      router.push(
-        `/Notas/id/${ updatedNota.id }`
-      );
+
     } catch ( error ) {
       alert(
         JSON.stringify(
@@ -152,6 +140,7 @@ export const NuevaNota = () => {
 
   useEffect(
     () => {
+
       reset(
         {
           pathname     : pathname,
@@ -160,8 +149,11 @@ export const NuevaNota = () => {
           )
         }
       );
-
+      setFocus(
+        'text'
+      );
     }, [
+      setFocus,
       numero,
       pathname,
       reset,
@@ -198,21 +190,58 @@ export const NuevaNota = () => {
             </section>
             <section className={layout.sectionRow}>
               <label
-                htmlFor="id"
+                htmlFor="date"
                 className={styles.label}
               >
-                {'Nota numero'}
+              Fecha
               </label>
+
               <input
-                type="number"
-                className={ styles.textArea }
-                {...register(
-                  'id', {
-                    required: true
-                  }
-                )}
+                type="date"
+                name="dte"
+                className={styles.textArea}
+                value={`${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }`}
+                onChange={(
+                  e
+                ) => {
+                  const [
+                    yearStringer,
+                    monthStringer,
+                    dayStringer
+                  ]
+                  = e.target.value.split(
+                    '-'
+                  );
+
+                  const newYear = Number(
+                    yearStringer
+                  );
+
+                  const newMonth = Number(
+                    monthStringer
+                  ) - 1;
+
+                  const newDay = Number(
+                    dayStringer
+                  );
+                  setInputNota(
+                    {
+                      ...inputNota,
+                      date: new Date(
+                        newYear, newMonth, newDay
+                      ),
+                    }
+                  );
+                  setValue(
+                    'date', new Date(
+                      newYear, newMonth, newDay
+                    ),
+                  );
+                }}
               />
             </section>
+
+
           </section>
 
           <section className={layout.sectionRow}>
@@ -232,59 +261,6 @@ export const NuevaNota = () => {
               )}
             />
           </section>
-          <section className={layout.sectionRow}>
-            <label
-              htmlFor="date"
-              className={styles.label}
-            >
-              Fecha
-            </label>
-
-            <input
-              type="date"
-              name="dueDate"
-              className={styles.textArea}
-              value={`${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }`}
-              onChange={(
-                e
-              ) => {
-                const [
-                  yearStringer,
-                  monthStringer,
-                  dayStringer
-                ]
-                  = e.target.value.split(
-                    '-'
-                  );
-
-                const newYear = Number(
-                  yearStringer
-                );
-
-                const newMonth = Number(
-                  monthStringer
-                ) - 1;
-
-                const newDay = Number(
-                  dayStringer
-                );
-                setInputNota(
-                  {
-                    ...inputNota,
-                    date: new Date(
-                      newYear, newMonth, newDay
-                    ),
-                  }
-                );
-                setValue(
-                  'date', new Date(
-                    newYear, newMonth, newDay
-                  ),
-                );
-              }}
-            />
-          </section>
-
 
           <section className={layout.segmentRow}>
             <button type="submit">Add</button>

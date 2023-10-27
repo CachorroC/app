@@ -1,6 +1,6 @@
 'use client';
 import { ContactoForm, Grupo } from '#@/lib/types/contacto';
-import { intNota } from '#@/lib/types/notas';
+import { Nota } from '@prisma/client';
 import { usePathname } from 'next/navigation';
 import { Dispatch,
   ReactNode,
@@ -11,8 +11,8 @@ import { Dispatch,
   useState, } from 'react';
 
 const NoteContext = createContext<{
-  inputNota: intNota;
-  setInputNota: Dispatch<SetStateAction<intNota>>;
+  inputNota: Nota;
+  setInputNota: Dispatch<SetStateAction<Nota>>;
 } | null>(
   null
 );
@@ -84,12 +84,13 @@ export function MainProvider(
   const [
     inputNota,
     setInputNota
-  ] = useState<intNota>(
+  ] = useState<Nota>(
     {
-      cod     : 0,
-      text    : '',
-      pathname: pathname,
-      date    : new Date(),
+      id           : 0,
+      text         : '',
+      pathname     : pathname,
+      date         : new Date(),
+      carpetaNumero: null
     }
   );
 

@@ -21,6 +21,7 @@ RUN pnpm add typescript-plugin-css-modules prisma
 COPY . .
 COPY src ./src
 COPY public ./public
+COPY prisma ./prisma
 COPY next.config.js .
 COPY tsconfig.json .
 RUN npx prisma generate

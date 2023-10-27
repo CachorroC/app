@@ -131,9 +131,19 @@ export const  updateActuaciones = cache(
       }
 
       const [
-        ultimaActuacion
+        ultimaActuacion,
+        penUltimaActuacion
       ] = actuaciones;
 
+      let ultimaAct;
+
+      if ( ultimaActuacion.actuacion.indexOf(
+        'Fijacion estado' 
+      ) ) {
+        ultimaAct = penUltimaActuacion;
+      } else {
+        ultimaAct = ultimaActuacion;
+      }
 
 
       const carpeta = await getCarpetaByllaveProceso(
@@ -179,7 +189,7 @@ export const  updateActuaciones = cache(
               fecha: new Date(
                 ultimaActuacion.fechaRegistro
               ),
-              ultimaActuacion: ultimaActuacion,
+              ultimaActuacion: ultimaAct,
             },
           },
           {

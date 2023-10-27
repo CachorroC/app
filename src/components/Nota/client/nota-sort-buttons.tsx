@@ -12,7 +12,7 @@ export function NotasSortButtons() {
     'date',
     'text',
     'carpetaNumero',
-    'cod',
+    'id',
   ];
 
   const dispatchNotas = useNotaSortDispatch();

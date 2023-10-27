@@ -1,19 +1,21 @@
 'use client';
 import { editNota } from '#@/app/actions';
-import { useNotaContext } from '#@/app/context/main-context';
 import { useState } from 'react';
 import styles from 'components/form/form.module.css';
-import { monNota } from '#@/lib/types/notas';
 import layout from '#@/styles/layout.module.css';
+import { Nota } from '@prisma/client';
 
 export const Edit = (
   {
     nota
-  }: { nota: monNota }
+  }: { nota: Nota }
 ) => {
-  const {
-    inputNota, setInputNota
-  } = useNotaContext();
+  const [
+    inputNota,
+    setInputNota
+  ] = useState(
+    nota
+  );
 
   const [
     message,
@@ -55,7 +57,7 @@ export const Edit = (
             className={styles.textArea}
             type="text"
             name="id"
-            defaultValue={nota._id}
+            defaultValue={nota.id}
           />
         </section>
         <section className={layout.sectionRow}>
@@ -123,20 +125,6 @@ export const Edit = (
             }}
           />
           <p>{dateString}</p>
-        </section>
-        <section className={layout.sectionRow}>
-          <label
-            className={styles.label}
-            htmlFor={'pathname'}
-          >
-            {'Ruta'}
-          </label>
-          <input
-            type="text"
-            className={styles.textArea}
-            name="pathname"
-            defaultValue={inputNota.pathname}
-          />
         </section>
         <section className={layout.sectionRow}>
           <label

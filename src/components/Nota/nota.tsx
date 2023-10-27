@@ -3,13 +3,13 @@ import { editNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
 import { useEffect, useState } from 'react';
 import styles from './note.module.css';
-import { monNota } from '#@/lib/types/notas';
 import { type SubmitHandler,  useForm } from 'react-hook-form';
+import { Nota } from '@prisma/client';
 
 export function Task(
   {
     task
-  }: { task: monNota }
+  }: { task: Nota }
 ) {
   const [
     isEditing,
@@ -31,7 +31,7 @@ export function Task(
 
   const {
     register, handleSubmit, setError, reset
-  } = useForm<monNota>(
+  } = useForm<Nota>(
     {
       defaultValues: task
     }
@@ -39,7 +39,7 @@ export function Task(
 
   let taskContent;
 
-  const onSubmit: SubmitHandler<monNota> = async (
+  const onSubmit: SubmitHandler<Nota> = async (
     inputNota
   ) => {
     const notaToSubmit = {
@@ -73,7 +73,7 @@ export function Task(
       );
     }
 
-    const updatedCarpeta = ( await postNota.json() ) as monNota;
+    const updatedCarpeta = ( await postNota.json() ) as Nota;
     alert(
       JSON.stringify(
         updatedCarpeta
@@ -177,7 +177,7 @@ export function Task(
   );
   return (
     <div className={styles.taskContainer}>
-      <sub>{task._id}</sub>
+      <sub>{task.id}</sub>
       {taskContent}
       <p>{message}</p>
       <button

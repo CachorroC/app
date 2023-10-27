@@ -1,17 +1,17 @@
 'use client';
-import { IntNotaAction } from '#@/lib/types/context-actions';
-import { monNota } from '#@/lib/types/notas';
+import { NotaAction } from '#@/lib/types/context-actions';
+import { Nota } from '@prisma/client';
 import { Dispatch,
   ReactNode,
   createContext,
   useContext,
   useReducer, } from 'react';
 
-const NotasSortContext = createContext<monNota[] | null>(
+const NotasSortContext = createContext<Nota[] | null>(
   null
 );
 
-const NotasSortDispatchContext = createContext<Dispatch<IntNotaAction> | null>(
+const NotasSortDispatchContext = createContext<Dispatch<NotaAction> | null>(
   null,
 );
 
@@ -21,7 +21,7 @@ export function NotasSortProvider(
     notas,
   }: {
   children: ReactNode;
-  notas: monNota[];
+  notas: Nota[];
 }
 ) {
   const [
@@ -69,7 +69,7 @@ export function useNotaSortDispatch() {
 }
 
 export function notasReducer(
-  notas: monNota[], action: IntNotaAction
+  notas: Nota[], action: NotaAction
 ) {
   const {
     sortDirection, type
@@ -124,16 +124,16 @@ export function notasReducer(
         );
       }
 
-      case 'cod': {
+      case 'id': {
         return [
           ...notas
         ].sort(
           (
             a, b
           ) => {
-            const x = a.cod;
+            const x = a.id;
 
-            const y = b.cod;
+            const y = b.id;
 
             const idk = sortDirection
               ? x - y
@@ -154,6 +154,14 @@ export function notasReducer(
             const x = a.pathname;
 
             const y = b.pathname;
+
+            if ( !x || x === null ) {
+              return sorter[ 2 ];
+            }
+
+            if ( !y || y === null ) {
+              return sorter[ 0 ];
+            }
 
             if ( x < y ) {
               return sorter[ 2 ];

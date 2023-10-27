@@ -12,8 +12,8 @@ export async function createNota(
   try {
     const parsed = ZodNotaElementSchema.safeParse(
       {
-        cod: formData.get(
-          'cod'
+        id: formData.get(
+          'id'
         ),
         text: formData.get(
           'text'
@@ -47,7 +47,7 @@ export async function createNota(
 
     const nota = await collection.findOneAndUpdate(
       {
-        cod: data.cod
+        id: data.id
       },
       {
         $set: data
@@ -69,7 +69,7 @@ export async function createNota(
     );
 
     return {
-      message: `success: ${ nota.cod }`,
+      message: `success: ${ nota.id }`,
       id     : nota._id.toString(),
     };
   } catch ( e ) {
@@ -91,7 +91,7 @@ export async function createNota(
 export async function deleteNota(
   {
     id
-  }: { id: string }
+  }: { id: number}
 ) {
   try {
     const collection = await notasCollection();
@@ -141,8 +141,8 @@ export async function editNota(
   try {
     const parsed = ZodNotaElementSchema.safeParse(
       {
-        cod: formData.get(
-          'cod'
+        id: formData.get(
+          'id'
         ),
         text: formData.get(
           'text'
@@ -181,7 +181,7 @@ export async function editNota(
 
     const nota = await collection.findOneAndUpdate(
       {
-        cod: data.cod,
+        id: data.id,
       },
       {
         $set: data,

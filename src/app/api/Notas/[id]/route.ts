@@ -1,12 +1,13 @@
+
 import { notasCollection } from '#@/lib/connection/mongodb';
-import { intNota } from '#@/lib/types/notas';
+import { Nota } from '@prisma/client';
 import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(
   request: NextRequest
 ) {
-  const json = ( await request.json() ) as intNota;
+  const json = ( await request.json() ) as Nota;
 
   const collection = await notasCollection();
 
@@ -36,7 +37,7 @@ export async function PUT(
   request: NextRequest,
   context: { params: { id: string } },
 ) {
-  const json = ( await request.json() ) as intNota;
+  const json = ( await request.json() ) as Nota;
 
   const _id = context.params.id;
 

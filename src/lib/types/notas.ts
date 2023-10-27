@@ -1,3 +1,4 @@
+import { Nota } from '@prisma/client';
 import { WithId } from 'mongodb';
 // To parse this data:
 //
@@ -14,27 +15,33 @@ export interface intNota
   date: Date;
 }
 
-export interface monNota extends intNota {
+export interface monNota extends Nota {
   _id: string;
 }
 
-export class Nota implements intNota {
-  cod: number;
+
+export class NewNota implements Nota {
+  id: number;
   text: string;
   pathname: string;
   date: Date;
-  carpetaNumero?: number;
+  carpetaNumero: number | null;
   constructor (
     nota: string,
     path: string,
     notasSize: number,
-    numeroCarpeta? : number
+    numeroCarpeta?: number,
+    date? : Date
   ) {
-    this.cod = notasSize++;
+    this.id = notasSize++;
     this.text = nota;
     this.pathname = path;
-    this.date = new Date();
-    this.carpetaNumero = numeroCarpeta;
+    this.date = date
+      ? date
+      :  new Date();
+    this.carpetaNumero = numeroCarpeta
+      ? numeroCarpeta
+      : null;
 
   }
 
@@ -58,7 +65,7 @@ export class notasConvert {
   }
 
   public static toMonNota(
-    nota: WithId<intNota>
+    nota: WithId<Nota>
   ): monNota {
     const newNota = {
       ...nota,
@@ -69,7 +76,7 @@ export class notasConvert {
   }
 
   public static toMonNotas(
-    rawNotas: WithId<intNota>[]
+    rawNotas: WithId<Nota>[]
   ): monNota[] {
     const newNotas = rawNotas.map(
       (

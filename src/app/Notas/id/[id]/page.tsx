@@ -16,17 +16,19 @@ export default async function NuevaNotallaveProceso(
   let notaScope;
   let notaNumber;
 
-  if ( id === 'Nueva' ) {
+  if ( id === '0' ) {
     notFound();
   }
 
   if ( id ) {
     const nota = await getNotaById(
       {
-        id: id,
+        id: Number(
+          id
+        ),
       }
     );
-    notaNumber = nota?.cod;
+    notaNumber = nota?.id;
     notaScope = nota && (
       <Edit
         key={id}

@@ -1,14 +1,6 @@
 version: '3.4'
 
 services:
-  adminer:
-    image: adminer
-    restart: always
-    hostname: adminer
-    networks:
-      - internal
-    ports:
-      - 8080:8080
 
   postgres:
     image: postgres

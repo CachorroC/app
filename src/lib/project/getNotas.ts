@@ -1,19 +1,16 @@
 import { cache } from 'react';
-import {  notasConvert } from '../types/notas';
-import { notasCollection } from '../connection/mongodb';
+import { prisma } from '#@/lib/connection/prisma';
+
+export const dynamic = 'force-dynamic';
+
+export const dynamicParams = true;
 
 async function getNotas () {
   try {
-    const collection = await notasCollection();
 
-    const notasRaw = await collection.find()
-      .toArray();
+    const prismaNotas = await prisma.nota.findMany();
 
-    const notas = notasConvert.toMonNotas(
-      notasRaw
-    );
-
-    return notas;
+    return prismaNotas;
   } catch ( error ) {
     return [];
   }
