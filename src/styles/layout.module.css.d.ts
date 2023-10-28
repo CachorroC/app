@@ -6,6 +6,7 @@ declare const styles: {
   readonly 'left': string;
   readonly 'leftColumn': string;
   readonly 'leftGrid': string;
+  readonly 'leftGutter': string;
   readonly 'link': string;
   readonly 'loader': string;
   readonly 'right': string;
@@ -17,6 +18,7 @@ declare const styles: {
   readonly 'segmentDetached': string;
   readonly 'segmentRow': string;
   readonly 'segmentRowWrap': string;
+  readonly 'sidenav': string;
   readonly 'spin': string;
   readonly 'title': string;
   readonly 'titleInput': string;

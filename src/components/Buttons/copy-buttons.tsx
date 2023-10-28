@@ -67,7 +67,7 @@ export const CopyButton = (
         );
       } } className={ cardStyles.link }>
         <span className={ `material-symbols-outlined ${ styles.icon }` }>file_copy</span>
-        <span className={cardStyles.tooltiptext}>copiar</span>
+        <span className={cardStyles.tooltiptext}>{ value }</span>
       </button>
       { value &&( isSnackbarOpen && (
         <div className={ `${ styles.snackbar } ${ isSnackbarOpen && styles.show }` }>{ value} </div>
@@ -85,13 +85,13 @@ export function CopyButtons(
     <>
 
       { carpeta.llaveProceso && (
-        <CopyButton copyTxt={ carpeta.llaveProceso} name='expediente' />
+        <CopyButton copyTxt={ carpeta.llaveProceso} name={`expediente ${ carpeta.llaveProceso }`} />
       )}
       { carpeta.demanda.radicado && (
-        <CopyButton copyTxt={ carpeta.demanda.radicado} name='radicado' />
+        <CopyButton copyTxt={ carpeta.demanda.radicado} name={`radicado ${ carpeta.demanda.radicado }`} />
       )}
       { carpeta.cc && (
-        <CopyButton copyTxt={ carpeta.cc.toString()}  name='cedula'/>
+        <CopyButton copyTxt={ carpeta.cc.toString()}  name={`cedula ${ carpeta.cc }`}/>
       )}
     </>
   );

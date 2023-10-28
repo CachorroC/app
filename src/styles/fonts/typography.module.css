@@ -98,6 +98,8 @@
 }
 
 .labelLarge {
+  word-wrap: break-word;
+  word-break: break-all;
   font-family: var(--raleway);
   font-style: var(--label-large-font-family-style);
   font-weight: var(--label-large-font-weight);
@@ -110,6 +112,8 @@
 
 .labelMedium {
   font-family: var(--raleway);
+  word-wrap: break-word;
+  word-break: break-all;
   font-style: var(--label-medium-font-family-style);
   font-weight: var(--label-medium-font-weight);
   font-size: var(--label-medium-font-size);

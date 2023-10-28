@@ -41,7 +41,7 @@ export default function Page() {
         </Link>
         <Link
           className={layout.link}
-          href={'/Notas/Tareas'}
+          href={'/Tareas' as Route}
         >
           <span className="material-symbols-outlined">api</span>
           <h1 className={typography.headlineMedium}>{'Tareas'}</h1>

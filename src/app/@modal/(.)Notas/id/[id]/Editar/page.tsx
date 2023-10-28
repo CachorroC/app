@@ -1,20 +1,20 @@
-
-
 import Modal from '#@/components/Modal';
 import { Edit } from '#@/components/Nota/Edit';
-import { getNotaById } from '#@/lib/project/notas';
+import { prisma } from '#@/lib/connection/prisma';
 import { notFound } from 'next/navigation';
 
 export default async function Page (
   {
     params
-  }: {params: {id: string}}
+  }: { params: { id: string } }
 ) {
-  const nota = await getNotaById(
+  const nota = await prisma.nota.findFirst(
     {
-      id: Number(
-        params.id
-      )
+      where: {
+        id: Number(
+          params.id
+        )
+      }
     }
   );
 
@@ -24,7 +24,10 @@ export default async function Page (
 
   return (
     <Modal>
-      <Edit nota={ nota } />
+      <Edit
+        key={params.id}
+        nota={nota}
+      />
     </Modal>
   );
 }

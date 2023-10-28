@@ -150,14 +150,11 @@ export async function editNota(
         date: formData.get(
           'date'
         ),
-        done: formData.get(
-          'done'
-        ),
         pathname: formData.get(
           'pathname'
         ),
-        llaveProceso: formData.get(
-          'llaveProceso'
+        carpetaNumero: formData.get(
+          'carpetaNumero'
         ),
       }
     );

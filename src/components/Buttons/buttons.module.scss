@@ -46,7 +46,6 @@
   }
   &Forward {
     @extend .button;
-    grid-area: forwardButton;
     padding-top: 0;
     padding-bottom: 0;
     background-color: var(--primary-container);
@@ -63,7 +62,6 @@
 
     padding-top: 0;
     padding-bottom: 0;
-    grid-area: backwardsButton;
     & > .icon,
     & > .text {
       color: var(--on-primary-container);
@@ -72,7 +70,6 @@
 
   &DrawerMenu {
     @extend .button;
-    grid-area: drawerMenuButton;
 
     padding-top: 0;
     padding-bottom: 0;
@@ -86,8 +83,6 @@
 
   &Modal {
     @extend .button;
-    grid-area: modal;
-
     padding-top: 0;
     padding-bottom: 0;
     background-color: var(--tertiary-container);

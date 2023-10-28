@@ -5,7 +5,6 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { EditCarpeta } from '#@/components/Buttons/carpetaButtons';
 import { Loader } from '#@/components/Loader';
 import { Suspense } from 'react';
-import { CopyButtons } from '#@/components/Buttons/copy-buttons';
 
 type Props = {
   params: { numero: string };
@@ -34,7 +33,7 @@ export default async function Page(
           params.numero
         ) } />
       </Suspense>
-      <CopyButtons carpeta={ carpeta} />
+
     </>
   );
 }

@@ -18,7 +18,7 @@ export default function NavButtons() {
   } = useNavigationContext();
 
   return (
-    <section className={layout.segmentRow}>
+    <>
       <button
         type="button"
         className={styles.buttonBackwards}
@@ -84,6 +84,6 @@ export default function NavButtons() {
             : 'menu'}
         </span>
       </button>
-    </section>
+    </>
   );
 }

@@ -1,5 +1,4 @@
 import { CalendarBuilder, nombresDeMeses } from '#@/lib/project/calendar';
-import type { Route } from 'next';
 import Link from 'next/link';
 import calendar from './calendar.module.css';
 
@@ -49,7 +48,7 @@ export function Calendar(
               return (
                 <Link
                   key={row.href}
-                  href={`/Notas/Fecha/${ row.href }` as Route}
+                  href={`/Tareas/${ row.href }` }
                   className={
                     row.current
                       ? setToday

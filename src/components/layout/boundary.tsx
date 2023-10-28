@@ -7,8 +7,9 @@ export const LabelBoundary = (
 ) => {
   return (
     <div style={ {
-      backgroundColor: `var(--${ color })`,
-      color          : `var(--on-${ color })`
+      backgroundColor: `var(--${ color }-container)`,
+      padding        : '1rem',
+      color          : `var(--on-${ color }-container)`
     }}>{
         children
       }</div>

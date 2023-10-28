@@ -28,40 +28,40 @@ export function CalendarBuilder(
   const rows = new Set<calendarData>();
 
 
-  const currentMonth = date.getMonth();
+  const incomingMonth = date.getMonth();
 
-  const currentYear = date.getFullYear();
+  const incomingYear = date.getFullYear();
 
   const today = new Date()
     .getDate();
 
-  const firstDayofCurrentMonth = new Date(
-    currentYear,
-    currentMonth,
+  const firstWeekDayofIncomingMonth = new Date(
+    incomingYear,
+    incomingMonth,
     1,
   )
     .getDay();
 
-  const lastDateofMonth = new Date(
-    currentYear, currentMonth + 1, 0
+  const lastDateofIncomingMonth = new Date(
+    incomingYear, incomingMonth + 1, 0
   )
     .getDate();
 
-  const lastDayofMonth = new Date(
-    currentYear,
-    currentMonth,
-    lastDateofMonth,
+  const lastWeekDayofIncomingMonth = new Date(
+    incomingYear,
+    incomingMonth,
+    lastDateofIncomingMonth,
   )
     .getDay();
 
-  const lastDateofPastMonth = new Date(
-    currentYear, currentMonth, 0
+  const lastDateofIncomingPastMonth = new Date(
+    incomingYear, incomingMonth, 0
   )
     .getDate();
 
-  for ( let dayBefore = firstDayofCurrentMonth; dayBefore > 0; dayBefore-- ) {
-    const href = `${ currentYear }/${ currentMonth }/${
-      lastDateofPastMonth - dayBefore + 1
+  for ( let dayBefore = firstWeekDayofIncomingMonth; dayBefore > 0; dayBefore-- ) {
+    const href = `${ incomingYear }/${ incomingMonth }/${
+      lastDateofIncomingPastMonth - dayBefore + 1
     }`;
     rows.add(
       {
@@ -76,10 +76,12 @@ export function CalendarBuilder(
     );
   }
 
-  for ( let dayInMonth = 1; dayInMonth <= lastDateofMonth; dayInMonth++ ) {
+  for ( let dayInMonth = 1; dayInMonth <= lastDateofIncomingMonth; dayInMonth++ ) {
     const isToday = today === dayInMonth;
 
-    const href = `${ currentYear }/${ currentMonth + 1 }/${ dayInMonth }`;
+    const href = `${ incomingYear }/${ incomingMonth === 12
+      ? 0
+      : incomingMonth + 1 }/${ dayInMonth }`;
 
     rows.add(
       {
@@ -96,8 +98,10 @@ export function CalendarBuilder(
     );
   }
 
-  for ( let dayAfterMonth = lastDayofMonth; dayAfterMonth < 6; dayAfterMonth++ ) {
-    const href = `${ currentYear }/${ currentMonth + 2 }/${ dayAfterMonth }`;
+  for ( let dayAfterMonth = lastWeekDayofIncomingMonth; dayAfterMonth < 6; dayAfterMonth++ ) {
+    const href = `${ incomingYear }/${ incomingMonth === 11
+      ? 0
+      : incomingMonth + 2 }/${ dayAfterMonth }`;
 
     rows.add(
       {

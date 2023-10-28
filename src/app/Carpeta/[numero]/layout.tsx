@@ -8,6 +8,7 @@ import { Metadata, Route } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
+import { NotasList } from './notas-list';
 
 type Props = {
   children: ReactNode;
@@ -85,8 +86,10 @@ export default async function LayoutCarpetaMain(
         <div className={styles.leftColumn}>{children}</div>
         <div className={ styles.right }>
 
-
           {right}
+          <NotasList carpetaNumero={Number(
+            params.numero
+          )} key={params.numero}/>
         </div>
 
       </CarpetaFormProvider>

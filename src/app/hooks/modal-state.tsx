@@ -5,7 +5,6 @@ import { useCallback,
   MouseEventHandler,
   ReactNode, } from 'react';
 import styles from 'components/Modal/styles.module.css';
-import { buttonActiveCategory } from '#@/components/Buttons/buttons.module.css';
 import { useModalContext } from '../context/modal-context';
 
 export default function ModalDialog(
@@ -102,20 +101,6 @@ export default function ModalDialog(
           </div>
         </div>
       ) }
-      <button type='button' onClick={ () => {
-        setIsModalOpen(
-          (
-            n
-          ) => {
-            return !n;
-          }
-        );
-      } } className={ buttonActiveCategory }>
-        <span className='material-symbols-outlined'>{isModalOpen
-          ? 'note_add'
-          : 'close'}</span>
-
-      </button>
     </>
   );
 }

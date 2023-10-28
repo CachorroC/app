@@ -16,14 +16,14 @@
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(12, 1fr);
     grid-auto-flow: row;
-    grid-template-areas: "header header header header header header header header" "top top top top top top right right" "left left left left left left  right right " "left left left left left left  right right " "left left left left left left  right right " "left left left left left left  right right " "left left left left left left  right right " "left left left left left left  right right " "left left left left left left  right right " "left left left left left left  right right " "left left left left left left  right right " "left left left left left left  right right ";
+    grid-template-areas: "sidebar header header header header header header header" "sidebar top top top top top right right" "sidebar left left left left left  right right " "sidebar left left left left left  right right " "sidebar left left left left left  right right " "sidebar left left left left left  right right " "sidebar left left left left left  right right " "sidebar left left left left left  right right " "sidebar left left left left left  right right " "sidebar left left left left left  right right " "sidebar left left left left left  right right " "sidebar left left left left left  right right ";
   }
 }
 @media (1200px < width) {
   .container {
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(12, 1fr);
-    grid-template-areas: "header header header header header header header header header header header header" "top top top top top top top top top right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right" "left left left left left left left left left right right right";
+    grid-template-rows: repeat(8, minmax(100px, auto));
+    grid-template-areas: "sidebar sidebar top top top top top top top right right right" "sidebar sidebar left left left left left left left right right right" "sidebar sidebar left left left left left left left right right right" "sidebar sidebar left left left left left left left right right right" "sidebar sidebar left left left left left left left right right right" "sidebar sidebar left left left left left left left right right right" "sidebar sidebar left left left left left left left right right right" "sidebar sidebar left left left left left left left right right right";
   }
 }
 
@@ -88,7 +88,7 @@
   }
 }
 
-.left, .leftGrid, .leftColumn {
+.left, .leftGrid, .leftColumn, .leftGutter {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
@@ -99,6 +99,24 @@
   padding: 2vmin;
   gap: 2vmin;
   overflow: auto;
+}
+.leftGutter {
+  background-color: var(--nav-background);
+  grid-column: 1/3;
+  grid-row: 1/9;
+  gap: 1vh;
+  padding: 1vh;
+  grid-template-rows: subgrid;
+  grid-template-columns: 1fr;
+}
+.leftGutter *:last-child {
+  border-radius: 0 0 2vmin 2vmin;
+}
+.leftGutter *:first-child {
+  border-radius: 2vmin 2vmin 0 0;
+}
+.leftGutter *:only-child {
+  border-radius: 2vmin;
 }
 .leftColumn {
   flex-flow: column wrap;
@@ -114,7 +132,7 @@
   grid-auto-rows: 1fr;
   grid-auto-flow: dense;
 }
-.left > *, .leftColumn > *, .leftGrid > * {
+.left > *, .leftGutter > *, .leftColumn > *, .leftGrid > * {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 20%;
@@ -122,7 +140,7 @@
   order: 0;
 }
 @media (width < 600px) {
-  .left, .leftGrid, .leftColumn {
+  .left, .leftGrid, .leftColumn, .leftGutter {
     display: flex;
     flex-flow: column nowrap;
   }

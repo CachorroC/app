@@ -16,15 +16,35 @@ model Carpeta {
   idProcesos   Int[]
   id           Int     @id @unique @default(autoincrement())
   notas        Nota[]
+  tareas       Tarea[]
 }
 
 model Nota {
   text          String
-  id            Int       @id @unique @default(autoincrement())
+  id            Int      @id @unique @default(autoincrement())
   date          DateTime
   pathname      String?
   carpetaNumero Int?
-  carpeta       Carpeta?  @relation(fields: [carpetaNumero], references: [id])
+  carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [id])
+}
+
+model Tarea {
+  id           Int        @id @unique @default(autoincrement())
+  creationDate DateTime   @default(now())
+  dueDate      DateTime?
+  Carpeta      Carpeta?   @relation(fields: [carpetaId], references: [id])
+  carpetaId    Int?
+  text         String
+  isComplete   Boolean
+  subTareas     SubTarea[]
+}
+
+model SubTarea {
+  text       String    @id
+  date       DateTime?
+  isComplete Boolean
+  Tarea      Tarea?    @relation(fields: [tareaId], references: [id])
+  tareaId    Int?
 }
 
 model Actuacion {

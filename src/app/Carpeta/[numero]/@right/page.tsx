@@ -3,10 +3,10 @@ import { getCarpetabyNumero } from '#@/lib/project/carpetas';
 import { notFound } from 'next/navigation';
 import layout from '#@/styles/layout.module.css';
 import { NotasList } from '#@/components/Nota/tasks-list';
-import { Fragment, Suspense } from 'react';
+import {  Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
-import { CopyButton } from '#@/components/Buttons/copy-buttons';
+import {  CopyButtons } from '#@/components/Buttons/copy-buttons';
 import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 
@@ -143,14 +143,14 @@ export default async function Page(
         gridArea: '1 / 1 / 2 / 4'
       }} className={ typography.headlineMedium }>{`Carpeta número ${ numero }`}</h2>
 
-      { llaveProceso && (
-        <Fragment key={ llaveProceso }>
 
-          <Suspense fallback={<Loader />}>
-            <CopyButton key={ numero } name={ 'numero de expediente' } copyTxt={ llaveProceso } />
-          </Suspense>
-        </Fragment>
-      )}
+
+      <div className={ layout.sectionColumn }>
+        <h5 className={typography.titleSmall}>Datos del Proceso para copiar</h5>
+        <Suspense fallback={<Loader />}>
+          <CopyButtons carpeta={ carpeta} />
+        </Suspense>
+      </div>
 
 
       <Suspense fallback={<Loader />}>

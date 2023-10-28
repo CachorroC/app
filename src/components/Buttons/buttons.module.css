@@ -39,7 +39,6 @@
   color: var(--on-surface);
 }
 .buttonForward {
-  grid-area: forwardButton;
   padding-top: 0;
   padding-bottom: 0;
   background-color: var(--primary-container);
@@ -53,13 +52,11 @@
   color: var(--on-primary-container);
   padding-top: 0;
   padding-bottom: 0;
-  grid-area: backwardsButton;
 }
 .buttonBackwards > .icon, .buttonBackwards > .text {
   color: var(--on-primary-container);
 }
 .buttonDrawerMenu {
-  grid-area: drawerMenuButton;
   padding-top: 0;
   padding-bottom: 0;
   background-color: var(--secondary);
@@ -69,7 +66,6 @@
   color: var(--on-secondary);
 }
 .buttonModal {
-  grid-area: modal;
   padding-top: 0;
   padding-bottom: 0;
   background-color: var(--tertiary-container);

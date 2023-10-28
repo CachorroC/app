@@ -30,21 +30,21 @@ export default function Header(
   }
 
   return (
-    <div className={layout.header}>
-      <section className={layout.segmentRow}>
-        <Link
-          href={'/' as Route}
-          className={styles.buttonHome}
-        >
-          <span className={`material-symbols-outlined ${ styles.icon }`}>
+    <div className={layout.leftGutter}>
+
+      <Link
+        href={'/' as Route}
+        className={styles.buttonHome}
+      >
+        <span className={`material-symbols-outlined ${ styles.icon }`}>
             home
-          </span>
-          <span className={styles.text}>inicio</span>
-        </Link>
-        <Suspense fallback={<Loader />}>
-          <InputSearchBar />
-        </Suspense>
-      </section>
+        </span>
+        <span className={styles.text}>inicio</span>
+      </Link>
+      <Suspense fallback={<Loader />}>
+        <InputSearchBar />
+      </Suspense>
+
 
       <Suspense fallback={<Loader />}>
         <ModalDialog>
