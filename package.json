@@ -16,7 +16,10 @@
     "json-to-prisma": "json-to-prisma-schema-convertor convert --inputPath='./prisma/schema.json' --outputPath='./prisma/new/schema.prisma'"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@material/web": "^1.0.1",
+    "@mui/material": "^5.14.15",
     "@prisma/client": "^5.5.2",
     "@types/bcrypt": "^5.0.1",
     "@types/node": "20.8.6",

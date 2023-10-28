@@ -10,6 +10,7 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { useState, type HTMLInputTypeAttribute } from 'react';
 import layout from '#@/styles/layout.module.css';
 import styles from './form.module.css';
+import { TextField } from '@mui/material';
 
 export const InputSection = (
   {
@@ -74,6 +75,18 @@ export const InputSection = (
       >
         { title }
       </label>
+      <TextField
+        id="outlined-controlled"
+        label="Controlled"
+        value={name}
+        onChange={(
+          event: React.ChangeEvent<HTMLInputElement>
+        ) => {
+          setName(
+            event.target.value
+          );
+        }}
+      />
       <div>
         <label className={styles.switchBox}>
           <input

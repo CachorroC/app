@@ -51,17 +51,17 @@ $MaxSW: 480px; //maximum sma width
   }
 
   @media (1200px < width) {
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(8, minmax(100px, auto));
     grid-template-areas:
-      'header top  top top top top top top top right right right'
-      'header left left left left left left left left right right right'
-      'header left left left left left left left left right right right'
-      'header left left left left left left left left right right right'
-      'header left left left left left left left left right right right'
-      'header left left left left left left left left right right right'
-      'header left left left left left left left left right right right'
-      'header left left left left left left left left right right right';
+      'header top  top top top top top right right right'
+      'header left left left left  left left right right right'
+      'header left left left left  left left right right right'
+      'header left left left left  left left right right right'
+      'header left left left left  left left right right right'
+      'header left left left left  left left right right right'
+      'header left left left left  left left right right right'
+      'header left left left left  left left right right right';
   }
 }
 

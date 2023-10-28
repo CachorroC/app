@@ -64,13 +64,12 @@
   color: var(--on-surface);
   grid-area: inputSearchBar;
   text-align: center;
-  flex: 2;
   font-family: var(--josefa);
-  font-size: 1rem;
+  font-size: 0.8rem;
   box-sizing: border-box;
-  border-radius: 0 2vmin 2vmin 0;
+  border-radius: 0.5rem;
   resize: both;
-  padding: 1vmin;
+  padding: 0;
 }
 .input:hover, .input:active, .input:focus {
   border: 2px dashed var(--tertiary);
