@@ -6,7 +6,7 @@ import { JSX } from 'react';
 import { LinkCard } from './link';
 import { Route } from 'next';
 
-export default function SearchOutputList() {
+export function SearchOutputList() {
   const rows: JSX.Element[] = [];
 
   const carpetasReduced = useCarpetaSort();

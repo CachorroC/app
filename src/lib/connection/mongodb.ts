@@ -3,8 +3,8 @@ import 'server-only';
 import { MongoClient } from 'mongodb';
 import { cache } from 'react';
 import { IntCarpeta } from 'types/carpetas';
-import { intTarea } from '../types/tareas';
 import { Nota } from '@prisma/client';
+import { Tarea } from '../types/tareas';
 
 const uri
   = process.env.MONGODB_URI
@@ -48,7 +48,7 @@ export const tareasCollection = cache(
       'RyS'
     );
 
-    const carpetas = db.collection<intTarea>(
+    const carpetas = db.collection<Tarea>(
       'Tareas'
     );
 

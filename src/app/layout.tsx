@@ -1,23 +1,22 @@
-import '#@/styles/globals.css';
 import './manifest';
-import type { Metadata } from 'next';
-import { ReactNode, Suspense } from 'react';
+import '#@/styles/globals.css';
+import 'material-symbols';
 import layout from '#@/styles/layout.module.css';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import Script from 'next/script';
+import { Header } from 'components/layout/header';
+import { SearchOutputList } from 'components/layout/search/SearchProcesosOutput';
+import { SearchOutputListSkeleton } from 'components/layout/search/SearchProcesosOutputSkeleton';
+import { ReactNode, Suspense } from 'react';
 import { MainProvider } from './context/main-context';
 import { josefina, radio, playDisp, raleway, ptserif } from '#@/styles/fonts';
-import 'material-symbols';
 import { SearchProvider } from './context/search-context';
 import { ModalProvider } from './context/modal-context';
-import getCarpetas from '#@/lib/project/getCarpetas';
-
 import { CarpetasSortProvider } from './context/carpetas-sort-context';
 import { NotasSortProvider } from './context/notas-sort-context';
-import getNotas from '#@/lib/project/getNotas';
-import Header from 'components/layout/header';
-import SearchOutputList from 'components/layout/search/SearchProcesosOutput';
-import SearchOutputListSkeleton from 'components/layout/search/SearchProcesosOutputSkeleton';
-import Script from 'next/script';
+import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { Loader } from '#@/components/Loader';
+import type { Metadata, Viewport } from 'next';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -34,7 +33,6 @@ export const metadata: Metadata = {
   generator      : 'R&S Asesoría Jurídica',
   applicationName: 'R&S Asesoría Jurídica',
   referrer       : 'origin-when-cross-origin',
-  colorScheme    : 'light dark',
   keywords       : [
     'Next.js',
     'React',
@@ -49,16 +47,7 @@ export const metadata: Metadata = {
       url : hostname,
     },
   ],
-  themeColor: [
-    {
-      media: '(prefers-color-scheme: light)',
-      color: '#bb152c',
-    },
-    {
-      media: '(prefers-color-scheme: dark)',
-      color: '#ab2a64',
-    },
-  ],
+
   creator        : 'Cachorro Cami',
   publisher      : 'CachorroC',
   alternates     : {},
@@ -84,6 +73,23 @@ export const metadata: Metadata = {
       should_fallback: true,
     },
   },
+};
+
+export const viewport: Viewport = {
+  width       : 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  colorScheme : 'light dark',
+  themeColor  : [
+    {
+      media: '(prefers-color-scheme: light)',
+      color: '#311B92',
+    },
+    {
+      media: '(prefers-color-scheme: dark)',
+      color: '#ab2a64',
+    },
+  ],
 };
 
 export default async function RootLayout(

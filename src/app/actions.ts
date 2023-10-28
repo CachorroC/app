@@ -4,7 +4,9 @@ import { revalidateTag } from 'next/cache';
 import { ZodNotaElementSchema } from '#@/lib/types/zod/nota';
 import { notasCollection } from '#@/lib/connection/mongodb';
 import { DeleteResult, ObjectId } from 'mongodb';
-import { notasConvert } from '#@/lib/types/notas';
+import { NotaEditorAction, notasConvert } from '#@/lib/types/notas';
+
+
 
 export async function createNota(
   formData: FormData
@@ -135,8 +137,8 @@ export async function deleteNota(
   }
 }
 
-export async function editNota(
-  formData: FormData
+export async function editNota (
+  initialFormState: NotaEditorAction,   formData: FormData
 ) {
   try {
     const parsed = ZodNotaElementSchema.safeParse(
@@ -188,9 +190,6 @@ export async function editNota(
       },
     );
 
-    revalidateTag(
-      'notas'
-    );
 
     if ( !nota ) {
       throw new Error(
@@ -202,10 +201,12 @@ export async function editNota(
       nota
     );
 
-    return {
+    const notaActionReturn: NotaEditorAction = {
       message: `success: ${ notaSerialized._id }`,
       data   : notaSerialized,
+      error  : false
     };
+    return notaActionReturn;
   } catch ( errorSubmitNota ) {
     console.log(
       `se ha producido un error en editNota: ${ JSON.stringify(
@@ -214,15 +215,19 @@ export async function editNota(
     );
 
     if ( errorSubmitNota instanceof Error ) {
-      return {
+      const notaActionReturn: NotaEditorAction= {
         message: errorSubmitNota.message,
         data   : null,
+        error  : true
       };
+      return notaActionReturn;
     }
 
-    return {
+    const notaActionReturn: NotaEditorAction = {
       message: `error: ${ errorSubmitNota }`,
       data   : null,
+      error  : true
     };
+    return notaActionReturn;
   }
 }

@@ -1,5 +1,5 @@
 
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
+import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { notFound } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.css';
 import { EditCarpeta } from '#@/components/Buttons/carpetaButtons';

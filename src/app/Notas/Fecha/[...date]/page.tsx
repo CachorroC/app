@@ -8,7 +8,7 @@ export default async function DatePage(
     params,
   }: {
   params: { date: string[] };
-} 
+}
 ) {
   const [
     incomingAno,
@@ -17,7 +17,7 @@ export default async function DatePage(
   ] = params.date;
 
   const incomingDate = new Date(
-    `${ incomingAno }-${ incomingMes }-${ incomingDia }` 
+    `${ incomingAno }-${ incomingMes }-${ incomingDia }`
   );
 
   const collection = await notasCollection();
@@ -28,7 +28,7 @@ export default async function DatePage(
         date: {
           $gte: incomingDate,
         },
-      } 
+      }
     )
     .toArray();
 
@@ -37,7 +37,7 @@ export default async function DatePage(
   }
 
   const notas = notasConvert.toMonNotas(
-    rawNotas 
+    rawNotas
   );
 
   return (
@@ -48,19 +48,19 @@ export default async function DatePage(
           weekday: 'short',
           month  : 'long',
           day    : 'numeric',
-        } 
+        }
       )}
       {notas.map(
         (
-          nota 
+          nota
         ) => {
           return (
             <NotaComponent
-              key={nota._id}
+              key={nota.id}
               notaRaw={nota}
             />
           );
-        } 
+        }
       )}
     </>
   );

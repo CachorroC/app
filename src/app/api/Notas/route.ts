@@ -1,8 +1,8 @@
 import 'server-only';
 import { notasCollection } from '#@/lib/connection/mongodb';
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '#@/lib/connection/prisma';
 import { Nota } from '@prisma/client';
+import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 /*
 export async function GET () {
   const collection = await notasCollection();
@@ -32,11 +32,41 @@ export async function GET () {
 }
 */
 
-export async function GET () {
-  const notas = await prisma.nota.findMany();
-  return NextResponse.json(
-    notas
-  );
+export async function GET (
+  request: NextRequest
+) {
+  try {
+
+    let notas;
+
+    const {
+      searchParams
+    } = new URL(
+      request.url
+    );
+
+    const carpetaNumero = searchParams.get(
+      'carpetaNumero'
+    );
+
+    if ( carpetaNumero ) {
+      notas = await getNotas(
+        Number(
+          carpetaNumero
+        )
+      );
+    } else {
+      notas = await getNotas();
+    }
+
+    return NextResponse.json(
+      notas
+    );
+  } catch ( error ) {
+    return NextResponse.json(
+      null
+    );
+  }
 }
 
 export async function POST (

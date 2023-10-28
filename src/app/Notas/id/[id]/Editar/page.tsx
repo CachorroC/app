@@ -1,4 +1,4 @@
-import { getNotaById } from '#@/lib/project/notas';
+import { getNotaById } from '#@/lib/project/utils/Notas/notas';
 import { notFound } from 'next/navigation';
 import { Edit } from '#@/components/Nota/Edit';
 import typography from '#@/styles/fonts/typography.module.css';
@@ -14,7 +14,7 @@ export default async function NuevaNotallaveProceso(
   const nota = await getNotaById(
     {
       id: Number(
-        params.id 
+        params.id
       )
     }
   );

@@ -1,6 +1,6 @@
 import { cache } from 'react';
-import { notasCollection } from '../connection/mongodb';
-import { notasConvert } from '../types/notas';
+import { notasCollection } from '../../../connection/mongodb';
+import { notasConvert } from '../../../types/notas';
 import { prisma } from '#@/lib/connection/prisma';
 
 

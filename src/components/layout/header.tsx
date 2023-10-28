@@ -14,7 +14,7 @@ import { Route } from 'next';
 import styles from '../Buttons/buttons.module.css';
 import ModalDialog from '#@/app/hooks/modal-state';
 
-export default function Header(
+export function Header(
   {
     children,
   }: { children: ReactNode }

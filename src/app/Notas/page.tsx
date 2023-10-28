@@ -4,7 +4,7 @@ import { notasConvert } from '#@/lib/types/notas';
 import { NotaComponent } from 'components/Nota/server';
 import { Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
-import getNotas from '#@/lib/project/getNotas';
+import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 
 export async function MonNotas () {
   const collection = await notasCollection();
@@ -24,7 +24,7 @@ export async function MonNotas () {
       ) => {
         return (
           <NotaComponent
-            key={nota._id}
+            key={nota.id}
             notaRaw={nota}
           />
         );

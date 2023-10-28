@@ -1,5 +1,5 @@
 'use client';
-import { editNota } from '#@/app/actions';
+import { createNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
 import { useEffect, useState } from 'react';
 import styles from './note.module.css';
@@ -11,6 +11,7 @@ export function Task(
     task
   }: { task: Nota }
 ) {
+
   const [
     isEditing,
     setIsEditing
@@ -88,7 +89,7 @@ export function Task(
   async function onCreate(
     formData: FormData
   ) {
-    const res = await editNota(
+    const res = await createNota(
       formData
     );
     setMessage(

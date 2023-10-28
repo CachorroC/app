@@ -4,6 +4,9 @@ import { useState } from 'react';
 import styles from 'components/form/form.module.css';
 import layout from '#@/styles/layout.module.css';
 import { Nota } from '@prisma/client';
+import { useFormState } from 'react-dom';
+import cardStyles from '../Card/card.module.css';
+
 
 export const Edit = (
   {
@@ -11,37 +14,37 @@ export const Edit = (
   }: { nota: Nota }
 ) => {
   const [
+    formState,
+    onCreate
+  ] = useFormState(
+    editNota, {
+      message: 'sin enviar',
+      data   : nota,
+      error  : false
+    }
+  );
+
+
+
+  const [
     inputNota,
     setInputNota
   ] = useState(
-    nota
+    formState.data ?? nota
   );
 
-  const [
-    message,
-    setMessage
-  ] = useState<string>(
-    ''
-  );
+
+
 
   const dateString = inputNota.date.toISOString()
     .slice(
       0, 10
     );
 
-  async function onCreate(
-    formData: FormData
-  ) {
-    const res = await editNota(
-      formData
-    );
-    setMessage(
-      res.message
-    );
-  }
+
 
   return (
-    <div className={styles.container}>
+    <div className={`${ styles.container } ${ formState.error && cardStyles.errorContainer }`}>
       <form
         className={styles.form}
         action={onCreate}
@@ -154,7 +157,7 @@ export const Edit = (
           </label> */}
         </section>
         <button type="submit">Add</button>
-        <p>{message}</p>
+        <p>{formState.message}</p>
       </form>
     </div>
   );

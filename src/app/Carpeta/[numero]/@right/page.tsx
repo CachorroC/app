@@ -1,5 +1,5 @@
 import typography from '#@/styles/fonts/typography.module.css';
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
+import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { notFound } from 'next/navigation';
 import layout from '#@/styles/layout.module.css';
 import { NotasList } from '#@/components/Nota/tasks-list';

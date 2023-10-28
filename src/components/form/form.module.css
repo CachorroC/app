@@ -48,26 +48,32 @@
 
 .textArea, .vencimientoArea,
 .selectArea {
-  border: solid 0.15rem var(--outline);
-  font-family: var(--josefa);
-  font-size: 1rem;
-  box-sizing: border-box;
   background-color: var(--surface-container-highest);
-  color: var(--on-surface);
-  flex: 2;
-  border-radius: 0 1cqmax 1cqmax 0;
-  resize: both;
+  color: var(--on-surface-variant);
+  border: none;
+  text-decoration: none;
+  border-bottom: solid 0.1rem var(--on-surface-variant);
+  border-top-left-radius: 0.1rem;
+  border-top-right-radius: 0.1rem;
+  grid-area: inputSearchBar;
   text-align: center;
-  padding: 1vmin;
+  font-family: var(--josefa);
+  font-size: 0.8rem;
+  box-sizing: border-box;
+  resize: both;
+  padding: 0.16rem;
 }
 .textArea:hover, .vencimientoArea:hover,
 .selectArea:hover {
   box-shadow: var(--dp8);
-  border-left: var(--primary) solid 0.18rem;
+  color: var(--on-surface);
+  border-bottom: dashed 0.1rem var(--primary-fixed-dim);
 }
-.textArea:focus, .vencimientoArea:focus,
+.textArea:active, .vencimientoArea:active, .textArea:focus, .vencimientoArea:focus,
+.selectArea:active,
 .selectArea:focus {
-  border: var(--primary) solid 0.3rem;
+  color: var(--on-surface);
+  border-bottom: solid 0.2rem var(--primary);
 }
 
 .label {
@@ -81,7 +87,7 @@
 }
 
 .vencimientoArea {
-  border-radius: 1cqmax 0 0 1cqmax;
+  border-radius: 0.1rem 0 0 0.1rem;
 }
 
 .button {
@@ -118,7 +124,7 @@
   position: relative;
   display: inline-block;
   box-sizing: border-box;
-  border: 0.1cqmin solid var(--outline-variant);
+  border: 0.01rem solid var(--outline-variant);
   border-radius: 50vw;
   width: 1rem;
   height: 0.5rem;
@@ -149,10 +155,10 @@
   border-radius: 0.2 0.2 0 0;
   position: absolute;
   content: "";
-  height: 1.6cqmin;
-  width: 1.6cqmin;
-  left: 0.1cqmin;
-  bottom: 0.1cqmin;
+  height: 0.2rem;
+  width: 0.2rem;
+  left: 0.1rem;
+  bottom: 0.01rem;
   background-color: var(--outline);
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -170,9 +176,9 @@
 }
 
 .inputElement:checked + .slider:before {
-  -webkit-transform: translateX(3cqmin);
-  -ms-transform: translateX(3cqmin);
-  transform: translateX(3cqmin);
+  -webkit-transform: translateX(0.3rem);
+  -ms-transform: translateX(0.3rem);
+  transform: translateX(0.3rem);
 }
 
 /*# sourceMappingURL=form.module.css.map */

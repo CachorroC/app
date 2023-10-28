@@ -1,7 +1,7 @@
 import { CarpetaFormProvider } from '#@/app/context/carpeta-form-context';
 import { Loader } from '#@/components/Loader';
 import { NombreComponent } from '#@/components/nombre';
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
+import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { getBaseUrl } from '#@/lib/project/helper';
 import styles from '#@/styles/layout.module.css';
 import { Metadata, Route } from 'next';

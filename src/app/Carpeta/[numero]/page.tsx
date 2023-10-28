@@ -1,5 +1,5 @@
 
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
+import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import button from '#@/components/Buttons/buttons.module.css';

@@ -1,5 +1,5 @@
 
-import { getNotaById } from '#@/lib/project/notas';
+import { getNotaById } from '#@/lib/project/utils/Notas/notas';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 

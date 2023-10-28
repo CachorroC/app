@@ -14,7 +14,7 @@ export function NuevaNotaFormProvider (
   const newNumber = notasTotal.length + 1;
 
   const newNota: intNota = {
-    cod          : newNumber,
+    id           : newNumber,
     text         : 'Nueva Nota',
     pathname     : '/',
     date         : new Date(),

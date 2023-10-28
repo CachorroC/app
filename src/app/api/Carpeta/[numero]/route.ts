@@ -1,5 +1,5 @@
 import { carpetasCollection } from '#@/lib/connection/mongodb';
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
+import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { NextRequest, NextResponse } from 'next/server';
 

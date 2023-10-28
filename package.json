@@ -18,34 +18,25 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@material/web": "^1.0.1",
     "@mui/material": "^5.14.15",
     "@prisma/client": "^5.5.2",
-    "@types/bcrypt": "^5.0.1",
-    "@types/node": "20.8.6",
-    "@types/react": "^18.2.28",
+    "@types/node": "20.8.9",
+    "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.13",
-    "bcrypt": "^5.1.1",
     "eslint": "8.52.0",
-    "eslint-config-next": "13.5.5",
-    "material-symbols": "^0.13.1",
+    "eslint-config-next": "14.0.0",
+    "material-symbols": "^0.13.2",
     "mongodb": "^6.2.0",
-    "next": "latest",
+    "next": "14.0.0",
     "prisma": "^5.5.2",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "canary",
+    "react-dom": "canary",
     "react-hook-form": "^7.47.0",
     "sass": "^1.69.5",
     "server-only": "^0.0.1",
     "typed-css-modules": "^0.8.0",
-    "typed-scss-modules": "^7.1.4",
     "typescript": "next",
     "zod": "^3.22.4"
-  },
-  "pnpm": {
-    "overrides": {
-      "postcss@<7.0.36": ">=7.0.36",
-      "postcss@<8.4.31": ">=8.4.31"
-    }
   }
+
 }

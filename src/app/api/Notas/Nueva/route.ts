@@ -12,7 +12,7 @@ export async function GET () {
   let notasSize = await collection.countDocuments();
 
   const newNota = new NewNota(
-    'nueva nota', '/', notasSize,
+    'nueva nota',  notasSize, '/'
   );
   return NextResponse.json(
     newNota

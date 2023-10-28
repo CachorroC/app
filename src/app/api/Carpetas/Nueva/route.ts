@@ -1,6 +1,6 @@
 import { carpetasCollection } from '#@/lib/connection/mongodb';
 import { InputDateHelper } from '#@/lib/project/date-helper';
-import getCarpetas from '#@/lib/project/getCarpetas';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { IntCarpeta, NuevaCarpeta } from '#@/lib/types/carpetas';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';

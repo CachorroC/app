@@ -1,5 +1,5 @@
 
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
+import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 

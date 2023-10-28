@@ -1,18 +1,18 @@
 import { CarpetaCard } from '#@/components/Card/carpeta';
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
+import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { Route } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 export default async function Page(
   {
-    params 
-  }: { params: { numero: string } } 
+    params
+  }: { params: { numero: string } }
 ) {
   const carpeta = await getCarpetabyNumero(
     Number(
-      params.numero 
-    ) 
+      params.numero
+    )
   );
 
   if ( !carpeta ) {

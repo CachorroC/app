@@ -1,4 +1,4 @@
-import { getNotaById } from '#@/lib/project/notas';
+import { getNotaById } from '#@/lib/project/utils/Notas/notas';
 import { Edit } from '#@/components/Nota/Edit';
 import { notFound } from 'next/navigation';
 

@@ -198,7 +198,6 @@
   flex: 1;
   gap: 0.5rem;
   justify-content: space-evenly;
-  background-color: var(--surface-container-highest);
   align-items: stretch;
   align-content: stretch;
   padding: 0.5rem;
@@ -210,20 +209,6 @@
 }
 .sectionColumn {
   gap: 1.5rem;
-  flex-flow: column nowrap;
-}
-.section > .section, .sectionRow > .section, .sectionColumn > .section, .section > .sectionRow, .sectionRow > .sectionRow, .sectionColumn > .sectionRow, .section > .sectionColumn, .sectionRow > .sectionColumn, .sectionColumn > .sectionColumn {
-  gap: 0.5rem;
-  padding: 0.1rem;
-  display: flex;
-  flex: 1;
-  flex-flow: row wrap;
-}
-.section > .section > .section, .sectionRow > .section > .section, .sectionColumn > .section > .section, .section > .sectionRow > .section, .sectionRow > .sectionRow > .section, .sectionColumn > .sectionRow > .section, .section > .sectionColumn > .section, .sectionRow > .sectionColumn > .section, .sectionColumn > .sectionColumn > .section, .section > .section > .sectionRow, .sectionRow > .section > .sectionRow, .sectionColumn > .section > .sectionRow, .section > .sectionRow > .sectionRow, .sectionRow > .sectionRow > .sectionRow, .sectionColumn > .sectionRow > .sectionRow, .section > .sectionColumn > .sectionRow, .sectionRow > .sectionColumn > .sectionRow, .sectionColumn > .sectionColumn > .sectionRow, .section > .section > .sectionColumn, .sectionRow > .section > .sectionColumn, .sectionColumn > .section > .sectionColumn, .section > .sectionRow > .sectionColumn, .sectionRow > .sectionRow > .sectionColumn, .sectionColumn > .sectionRow > .sectionColumn, .section > .sectionColumn > .sectionColumn, .sectionRow > .sectionColumn > .sectionColumn, .sectionColumn > .sectionColumn > .sectionColumn {
-  gap: 0.2rem;
-  padding: 0.3rem;
-  display: flex;
-  flex: 1;
   flex-flow: column nowrap;
 }
 .section .label, .sectionRow .label, .sectionColumn .label {
@@ -243,6 +228,7 @@
   border: solid 1rem var(--oultine);
   align-items: stretch;
   box-sizing: border-box;
+  padding: 0.2rem;
   flex: 1;
   border-radius: 2vmin;
   gap: 0;

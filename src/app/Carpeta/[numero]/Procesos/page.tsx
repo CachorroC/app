@@ -1,7 +1,7 @@
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { ProcesoCard } from '#@/components/Proceso/server-components';
 import { getProceso } from '#@/lib/Procesos';
-import { getCarpetabyNumero } from '#@/lib/project/carpetas';
+import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { notFound } from 'next/navigation';
 import { Fragment } from 'react';
 

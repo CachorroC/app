@@ -243,11 +243,9 @@ $MaxSW: 480px; //maximum sma width
   flex: 1;
   gap: 0.5rem;
   justify-content: space-evenly;
-  background-color: var(--surface-container-highest);
   align-items: stretch;
   align-content: stretch;
-
-  padding: 0.5rem;
+  padding: .5rem;
   &Row {
     @extend .section;
     flex-flow: row nowrap;
@@ -258,20 +256,6 @@ $MaxSW: 480px; //maximum sma width
     @extend .section;
     gap: 1.5rem;
     flex-flow: column nowrap;
-  }
-  & > .section {
-    gap: 0.5rem;
-    padding: 0.1rem;
-    display: flex;
-    flex: 1;
-    flex-flow: row wrap;
-    & > .section {
-      gap: 0.2rem;
-      padding: 0.3rem;
-      display: flex;
-      flex: 1;
-      flex-flow: column nowrap;
-    }
   }
   .label {
     font-family: var(--play-display);
@@ -289,6 +273,7 @@ $MaxSW: 480px; //maximum sma width
   border: solid 1rem var(--oultine);
   align-items: stretch;
   box-sizing: border-box;
+  padding: 0.2rem;
   flex: 1;
   border-radius: 2vmin;
   gap: 0;

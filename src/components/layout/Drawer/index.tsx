@@ -146,12 +146,7 @@ export default function Drawer(
           <NavLink iconLabel={ 'gavel'} textLabel={ 'ultimas actuaciones'} hrefLabel={ '/Carpetas/UltimasActuaciones' } />
           <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel={ '/Notas' as Route } />
           <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel={ '/Carpetas' as Route }  />
-
-
-
-
-
-          <NavLink iconLabel={ 'contact_support' } textLabel={ 'Contáctenos' } hrefLabel={ '/Contacto' } />
+          <NavLink iconLabel={ 'contact_support' } textLabel={ 'Contáctenos' } hrefLabel={ '/Contacto' as Route} />
           <NavLink iconLabel={ 'accessibility_new' } textLabel={ 'Quienes Somos' } hrefLabel={ '/QuienesSomos' } />
           <NavLink iconLabel={ 'note_add' } textLabel={ 'Nueva Nota' } hrefLabel={ '/Notas/Nueva' as Route } />
           <NavLink iconLabel={ '' } textLabel={ 'Nueva carpeta' } hrefLabel={ '/Carpetas/Nueva' } />

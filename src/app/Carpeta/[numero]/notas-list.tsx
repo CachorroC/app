@@ -1,5 +1,5 @@
 
-import { prisma } from '#@/lib/connection/prisma';
+import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { Route } from 'next';
 import Link from 'next/link';
 
@@ -8,20 +8,9 @@ export async function NotasLinkList (
     carpetaNumero
   }: { carpetaNumero?: number }
 ) {
-  let notas;
-
-  if ( carpetaNumero ) {
-    notas = await prisma.nota.findMany(
-      {
-        where: {
-          carpetaNumero: carpetaNumero
-        }
-      }
-    );
-  } else {
-    notas = await prisma.nota.findMany();
-  }
-
+  const notas = await getNotas(
+    carpetaNumero
+  );
   return (
     <>
       {notas.map(

@@ -1,6 +1,6 @@
 import { Card } from 'components/Card';
 import { Loader } from '#@/components/Loader';
-import getCarpetas from '#@/lib/project/getCarpetas';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
 import { ActionName,  carpetasSorter } from '#@/lib/project/sortert';

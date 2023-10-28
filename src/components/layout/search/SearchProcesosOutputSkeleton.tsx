@@ -1,6 +1,6 @@
 import { LinkCardSkeleton } from './link-skeleton';
 
-export default function SearchOutputListSkeleton() {
+export function SearchOutputListSkeleton() {
   return (
     <>
       <LinkCardSkeleton key="0" />

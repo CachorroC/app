@@ -3,7 +3,7 @@ import { cache } from 'react';
 import { carpetasCollection } from '../connection/mongodb';
 import { sleep } from 'project/helper';
 import { intActuacion, ConsultaActuacion, Data, Message } from 'types/actuaciones';
-import { getCarpetaByllaveProceso } from '../project/carpetas';
+import { getCarpetaByllaveProceso } from '../project/utils/Carpetas/carpetas';
 
 export async function fetchActuaciones(
   idProceso: number | string, index: number
@@ -138,7 +138,7 @@ export const  updateActuaciones = cache(
       let ultimaAct;
 
       if ( ultimaActuacion.actuacion.indexOf(
-        'Fijacion estado' 
+        'Fijacion estado'
       ) ) {
         ultimaAct = penUltimaActuacion;
       } else {
