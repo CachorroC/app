@@ -1,14 +1,8 @@
 'use client';
 import { Tarea } from '#@/lib/types/tareas';
 import React from 'react';
-import { DefaultValues, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-const defaultValues: DefaultValues<Tarea> = {
-  creationDate: new Date(),
-  text        : '',
-  done        : false,
-  abogado     : 'Camilo',
-};
 
 export function NuevaTarea() {
   const {
@@ -19,7 +13,20 @@ export function NuevaTarea() {
     },
   } = useForm<Tarea>(
     {
-      defaultValues,
+      defaultValues: {
+        text        : 'Nueva Tarea',
+        id          : 0,
+        creationDate: new Date(),
+        dueDate     : new Date(),
+        isComplete  : false,
+        subTareas   : [
+          {
+            text      : 'sub tarea',
+            isComplete: false,
+            date      : new Date()
+          }
+        ]
+      },
     }
   );
 
@@ -93,23 +100,13 @@ export function NuevaTarea() {
       />
       <input
         type="checkbox"
-        placeholder="done"
+        placeholder="fecha de entrega // fecha final"
         {...register(
-          'done'
-        )}
-      />
-      <select
-        {...register(
-          'abogado', {
-            required: true,
+          'dueDate', {
+            valueAsDate: true
           }
         )}
-      >
-        <option value="Melissa">Melissa</option>
-        <option value="Carmen">Carmen</option>
-        <option value="Fernando">Fernando</option>
-        <option value="Camilo">Camilo</option>
-      </select>
+      />
 
       <input type="submit" />
     </form>

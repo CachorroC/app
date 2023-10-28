@@ -17,69 +17,82 @@ $MaxSW: 480px; //maximum sma width
   grid-template-rows: repeat(12, 1fr);
   grid-auto-flow: row;
   grid-template-areas:
-    "top top top top"
-    "right right right right"
-    "right right right right"
-    "left left left left"
-    "left left left left"
-    "left left left left"
-    "left left left left"
-    "left left left left"
-    "left left left left"
-    "left left left left"
-    "left left left left"
-    "header header header header";
-  font-variation-settings:
-    "FILL" 1,
-    "wght" 700,
-    "GRAD" 0,
-    "opsz" 48;
+    'top top top top'
+    'right right right right'
+    'right right right right'
+    'left left left left'
+    'left left left left'
+    'left left left left'
+    'left left left left'
+    'left left left left'
+    'left left left left'
+    'left left left left'
+    'left left left left'
+    'header header header header';
+  font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
 
   @media (600px < width < 1200px) {
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(12, 1fr);
     grid-auto-flow: row;
     grid-template-areas:
-      "sidebar header header header header header header header"
-      "sidebar top top top top top right right"
-      "sidebar left left left left left  right right "
-      "sidebar left left left left left  right right "
-      "sidebar left left left left left  right right "
-      "sidebar left left left left left  right right "
-      "sidebar left left left left left  right right "
-      "sidebar left left left left left  right right "
-      "sidebar left left left left left  right right "
-      "sidebar left left left left left  right right "
-      "sidebar left left left left left  right right "
-      "sidebar left left left left left  right right ";
+      'sidebar header header header header header header header'
+      'sidebar top top top top top right right'
+      'sidebar left left left left left  right right '
+      'sidebar left left left left left  right right '
+      'sidebar left left left left left  right right '
+      'sidebar left left left left left  right right '
+      'sidebar left left left left left  right right '
+      'sidebar left left left left left  right right '
+      'sidebar left left left left left  right right '
+      'sidebar left left left left left  right right '
+      'sidebar left left left left left  right right '
+      'sidebar left left left left left  right right ';
   }
 
   @media (1200px < width) {
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(8, minmax(100px, auto));
     grid-template-areas:
-      "sidebar sidebar top top top top top top top right right right"
-      "sidebar sidebar left left left left left left left right right right"
-      "sidebar sidebar left left left left left left left right right right"
-      "sidebar sidebar left left left left left left left right right right"
-      "sidebar sidebar left left left left left left left right right right"
-      "sidebar sidebar left left left left left left left right right right"
-      "sidebar sidebar left left left left left left left right right right"
-      "sidebar sidebar left left left left left left left right right right";
+      'header top  top top top top top top top right right right'
+      'header left left left left left left left left right right right'
+      'header left left left left left left left left right right right'
+      'header left left left left left left left left right right right'
+      'header left left left left left left left left right right right'
+      'header left left left left left left left left right right right'
+      'header left left left left left left left left right right right'
+      'header left left left left left left left left right right right';
   }
 }
 
 .header {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: stretch;
-  grid-area: header;
+  display: grid;
   border-radius: 0 0 2vmin 2vmin;
-  gap: 1vmin;
-  padding: 1vmin;
   box-shadow: var(--dp6);
   background-color: var(--nav-background);
+  grid-column: 1 / 2;
+    grid-row: 1 / 9;
+    gap: 1vh;
+    padding: 1vh;
+    grid-template-rows: subgrid;
+    grid-template-columns: subgrid;
+    * {
+      &:last-child {
+        border-radius: 0 0 2vmin 2vmin;
+      }
+      &:first-child {
+        border-radius: 2vmin 2vmin 0 0;
+      }
+      &:only-child {
+        border-radius: 2vmin;
+      }
+    }
+    .nav{
+      &Buttons{
+        grid-column: 1 / 2;
+        grid-row: 2 / 8;
+      }
+    }
 }
 .right {
   flex-wrap: nowrap;
@@ -138,27 +151,7 @@ $MaxSW: 480px; //maximum sma width
   padding: 2vmin;
   gap: 2vmin;
   overflow: auto;
-  &Gutter{
-    @extend .left;
-    background-color: var(--nav-background);
-    grid-column: 1 / 3;
-    grid-row: 1 / 9;
-    gap: 1vh;
-    padding: 1vh;
-    grid-template-rows: subgrid;
-     grid-template-columns: 1fr;
-      * {
-      &:last-child {
-        border-radius: 0 0 2vmin 2vmin;
-      }
-      &:first-child {
-        border-radius: 2vmin 2vmin 0 0;
-      }
-      &:only-child {
-        border-radius: 2vmin;
-      }
-    }
-  }
+
   &Column {
     @extend .left;
     flex-flow: column wrap;
@@ -208,11 +201,7 @@ $MaxSW: 480px; //maximum sma width
   &:hover,
   &:active {
     & > span {
-      font-variation-settings:
-        "FILL" 1,
-        "wght" 600,
-        "GRAD" 200,
-        "opsz" 40;
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 200, 'opsz' 40;
     }
 
     background-color: var(--inverse-surface);
@@ -297,15 +286,14 @@ $MaxSW: 480px; //maximum sma width
 .segment {
   display: flex;
   justify-content: space-between;
-  border:  solid 1rem var(--oultine);
+  border: solid 1rem var(--oultine);
   align-items: stretch;
   box-sizing: border-box;
   flex: 1;
   border-radius: 2vmin;
   gap: 0;
   & > * {
-
-  border:  solid .1rem var(--outline);
+    border: solid 0.1rem var(--outline);
   }
 
   &Detached {
@@ -331,7 +319,7 @@ $MaxSW: 480px; //maximum sma width
     @extend .segment;
     flex-flow: column nowrap;
 
-  box-shadow: var(--dp6);
+    box-shadow: var(--dp6);
     * {
       &:last-child {
         border-radius: 0 0 2vmin 2vmin;

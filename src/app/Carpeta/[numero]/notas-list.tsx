@@ -3,7 +3,7 @@ import { prisma } from '#@/lib/connection/prisma';
 import { Route } from 'next';
 import Link from 'next/link';
 
-export async function NotasList (
+export async function NotasLinkList (
   {
     carpetaNumero
   }: { carpetaNumero?: number }
@@ -22,19 +22,20 @@ export async function NotasList (
     notas = await prisma.nota.findMany();
   }
 
-  return ( <>
-    {notas.map(
-      (
-        nota
-      ) => {
-        return (
-          <Link key={ nota.id } href={ `/Notas/id/${ nota.id }/Editar`as Route } style={{
-            padding: '.5rem'
-          }}>
-            <sub>{ nota.text }</sub>
-          </Link>
-        );
-      }
-    )}
-  </> );
+  return (
+    <>
+      {notas.map(
+        (
+          nota
+        ) => {
+          return (
+            <Link key={ nota.id } href={ `/Notas/id/${ nota.id }/Editar`as Route } style={{
+              padding: '.5rem'
+            }}>
+              <sub>{ nota.text }</sub>
+            </Link>
+          );
+        }
+      )}
+    </> );
 }

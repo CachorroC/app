@@ -36,13 +36,12 @@
     background-color: var(--surface-container-high);
 
     color: var(--secondary);
-    & > .icon,
-   {
+    & > .icon {
       color: var(--secondary);
     }
-     & > .text {
-      color: var(--on-surface)
-     }
+    & > .text {
+      color: var(--on-surface);
+    }
   }
   &Forward {
     @extend .button;
@@ -114,7 +113,6 @@
     height: minmax(2rem, 3rem);
     flex: 0 1 auto;
     box-sizing: border-box;
-
   }
 }
 .active {
@@ -138,12 +136,8 @@
   font-size: 17px;
   &.show {
     visibility: visible;
-    -webkit-animation:
-      fadein 0.5s,
-      fadeout 0.5s 2.5s;
-    animation:
-      fadein 0.5s,
-      fadeout 0.5s 2.5s;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
   }
 }
 

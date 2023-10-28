@@ -30,7 +30,7 @@ export default function Header(
   }
 
   return (
-    <div className={layout.leftGutter}>
+    <div className={layout.header}>
 
       <Link
         href={'/' as Route}
