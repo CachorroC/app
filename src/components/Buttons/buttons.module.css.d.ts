@@ -3,13 +3,8 @@ declare const styles: {
   readonly 'button': string;
   readonly 'buttonActiveCategory': string;
   readonly 'buttonActuacion': string;
-  readonly 'buttonBackwards': string;
   readonly 'buttonChip': string;
-  readonly 'buttonDrawerMenu': string;
   readonly 'buttonEdit': string;
-  readonly 'buttonForward': string;
-  readonly 'buttonHome': string;
-  readonly 'buttonModal': string;
   readonly 'buttonPassiveCategory': string;
   readonly 'fadein': string;
   readonly 'fadeout': string;

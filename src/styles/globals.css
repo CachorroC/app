@@ -6,7 +6,7 @@
   --display-large-font-family-name: var(--play-display);
   --display-large-font-family-style: Regular;
   --display-large-font-weight: 200;
-  --display-large-font-size: 3.5rem;
+  --display-large-font-size: clamp(22px, 2rem, 3rem);
   --display-large-line-height: 64pt;
   --display-large-letter-spacing: -0.25pt;
   /* display - medium */
@@ -220,21 +220,11 @@
   margin: 0;
   padding: 0;
 }
-*:focus {
-  --min-font-size: 18px;
-  --max-font-size: 24px;
-  --full-viewport: 100vw;
-  --min-viewport: 300px;
-  --min-width: 300;
-  --max-viewport: 1920px;
-  border: 2px dashed var(--outline-variant);
-  background-color: var(--surface-variant);
-  color: var(--on-surface-variant);
-}
 
 :root,
 html {
-  font-size: calc(16px + 6 * (100vw - 600px) / 1320);
+  box-sizing: border-box;
+  font-size: calc(16px + 6 * (100vw - 320px) / 1600);
 }
 
 html,
@@ -320,6 +310,31 @@ a:hover, a:active, button:hover, button:active {
 a:hover > span, a:active > span, button:hover > span, button:active > span {
   font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
   color: var(--on-primary-fixed);
+}
+
+input {
+  background-color: var(--surface-container-highest);
+  color: var(--on-surface-variant);
+  border: none;
+  text-decoration: none;
+  border-bottom: solid 0.1rem var(--on-surface-variant);
+  border-top-left-radius: 0.1rem;
+  border-top-right-radius: 0.1rem;
+  text-align: center;
+  font-family: var(--josefa);
+  font-size: 0.8rem;
+  box-sizing: border-box;
+  resize: both;
+  padding: 0.16rem;
+}
+input:hover {
+  box-shadow: var(--dp8);
+  color: var(--on-surface);
+  border-bottom: dashed 0.1rem var(--primary-fixed-dim);
+}
+input:active, input:focus {
+  color: var(--on-surface);
+  border-bottom: solid 0.2rem var(--primary);
 }
 
 /*# sourceMappingURL=globals.css.map */

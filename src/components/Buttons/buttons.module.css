@@ -1,4 +1,4 @@
-.button, .buttonChip, .buttonActuacion, .buttonHome, .buttonModal, .buttonDrawerMenu, .buttonBackwards, .buttonForward, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
+.button, .buttonChip, .buttonActuacion, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
   border: none;
   box-sizing: border-box;
   padding: 0.5rem;
@@ -37,52 +37,6 @@
 }
 .buttonPassiveCategory > .text {
   color: var(--on-surface);
-}
-.buttonForward {
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--primary-container);
-  color: var(--on-primary-container);
-}
-.buttonForward > .icon, .buttonForward > .text {
-  color: var(--on-primary-container);
-}
-.buttonBackwards {
-  background-color: var(--primary-container);
-  color: var(--on-primary-container);
-  padding-top: 0;
-  padding-bottom: 0;
-}
-.buttonBackwards > .icon, .buttonBackwards > .text {
-  color: var(--on-primary-container);
-}
-.buttonDrawerMenu {
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--secondary);
-  color: var(--on-secondary);
-}
-.buttonDrawerMenu > .icon, .buttonDrawerMenu > .text {
-  color: var(--on-secondary);
-}
-.buttonModal {
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--tertiary-container);
-  color: var(--on-tertirary-container);
-}
-.buttonModal > .icon, .buttonModal > .text {
-  color: var(--on-tertirary-container);
-}
-.buttonHome {
-  box-shadow: var(--dp2);
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--primary);
-  color: var(--on-primary);
-}
-.buttonHome > .icon, .buttonHome > .text {
-  color: var(--on-primary);
 }
 .buttonActuacion {
   flex: 0 1 auto;

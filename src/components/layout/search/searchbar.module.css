@@ -58,7 +58,7 @@
   display: flex;
 }
 
-.input {
+.input, .inputContainer {
   background-color: var(--surface-container-highest);
   color: var(--on-surface-variant);
   border: none;
@@ -74,7 +74,15 @@
   resize: both;
   padding: 0;
 }
-.input:hover, .input:active, .input:focus {
+.input > .icon, .inputContainer > .icon {
+  color: var(--on-surface-variant);
+}
+.inputContainer {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.input:hover, .inputContainer:hover, .input:active, .inputContainer:active, .input:focus, .inputContainer:focus {
   border: 2px dashed var(--tertiary);
   background-color: var(--tertiary-container);
   color: var(--on-tertiary-container);

@@ -43,67 +43,7 @@
       color: var(--on-surface);
     }
   }
-  &Forward {
-    @extend .button;
-    padding-top: 0;
-    padding-bottom: 0;
-    background-color: var(--primary-container);
-    color: var(--on-primary-container);
-    & > .icon,
-    & > .text {
-      color: var(--on-primary-container);
-    }
-  }
-  &Backwards {
-    @extend .button;
-    background-color: var(--primary-container);
-    color: var(--on-primary-container);
 
-    padding-top: 0;
-    padding-bottom: 0;
-    & > .icon,
-    & > .text {
-      color: var(--on-primary-container);
-    }
-  }
-
-  &DrawerMenu {
-    @extend .button;
-
-    padding-top: 0;
-    padding-bottom: 0;
-    background-color: var(--secondary);
-    color: var(--on-secondary);
-    & > .icon,
-    & > .text {
-      color: var(--on-secondary);
-    }
-  }
-
-  &Modal {
-    @extend .button;
-    padding-top: 0;
-    padding-bottom: 0;
-    background-color: var(--tertiary-container);
-    color: var(--on-tertirary-container);
-    & > .icon,
-    & > .text {
-      color: var(--on-tertirary-container);
-    }
-  }
-  &Home {
-    @extend .button;
-    box-shadow: var(--dp2);
-
-    padding-top: 0;
-    padding-bottom: 0;
-    background-color: var(--primary);
-    color: var(--on-primary);
-    & > .icon,
-    & > .text {
-      color: var(--on-primary);
-    }
-  }
   &Actuacion {
     @extend .button;
     flex: 0 1 auto;

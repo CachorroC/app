@@ -11,7 +11,7 @@ export default function InputSearchBar() {
   const carpetasReduced = useCarpetaSort();
 
   return (
-    <>
+    <div className={searchbar.inputContainer}>
       <datalist id="demandados-list">
         {carpetasReduced.map(
           (
@@ -26,11 +26,15 @@ export default function InputSearchBar() {
           }
         )}
       </datalist>
+      <label htmlFor={'buscar'}>
+        <span className='material-symbols-outlined'>search</span>
+      </label>
       <input
         type={'textarea'}
         list="demandados-list"
         className={searchbar.input}
-        value={search}
+        value={ search }
+        id={'buscar'}
         name={'buscar'}
         placeholder={ 'Buscar' }
         onKeyDown={ (
@@ -58,6 +62,7 @@ export default function InputSearchBar() {
           }
         }
       />
-    </>
+
+    </div>
   );
 }

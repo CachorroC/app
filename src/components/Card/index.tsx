@@ -5,6 +5,7 @@ import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import layout from '#@/styles/layout.module.css';
+import { AddNoteButton } from '../Buttons/noteButtons';
 
 export const Card = (
   {
@@ -67,11 +68,11 @@ export const Card = (
 
           <h4 className={typography.titleMedium}>{nombre}</h4>
           <Link
-            className={`${ typography.labelSmall } ${ styles.link }`}
+            className={ layout.button }
             href={`/Carpeta/${ numero }` as Route}
           >
-            <span className={typography.labelLarge}>{`# ${ numero }`}</span>
-            <span className={`material-symbols-outlined ${ styles.icon }`}>
+            <span className={`${typography.labelLarge} ${layout.text}`}>{ numero }</span>
+            <span className={`material-symbols-outlined ${ layout.icon }`}>
                 folder
             </span>
           </Link>
@@ -81,21 +82,7 @@ export const Card = (
         {contentIdProcesos}
 
         <div className={styles.links}>
-          <Link
-            className={styles.link}
-            href={
-              `/Notas/Nueva${
-                llaveProceso
-                  ? `?llaveProceso=${ llaveProceso }`
-                  : ''
-              }` as Route
-            }
-          >
-            <span className={`material-symbols-outlined ${ styles.icon }`}>
-              add
-            </span>
-            <span className={styles.tooltiptext}>{' Agregar nota'}</span>
-          </Link>
+
           {errorLLaveProceso && (
             <Link
               href={`/Carpeta/${ numero }/Editar` as Route}

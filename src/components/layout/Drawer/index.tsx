@@ -10,7 +10,6 @@ import Link from 'next/link';
 import layout from '#@/styles/layout.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
-import buttonStyles from '#@/components/Buttons/buttons.module.css';
 import { usePathname } from 'next/navigation';
 
 export function NavLink<T extends string> (
@@ -29,8 +28,8 @@ export function NavLink<T extends string> (
   return (
     <Link
       className={isActive
-        ? buttonStyles.buttonActiveCategory
-        : buttonStyles.buttonPassiveCategory}
+        ? layout.buttonActiveCategory
+        : layout.buttonPassiveCategory}
       onClick={() => {
         setIsNavOpen(
           (
@@ -43,8 +42,8 @@ export function NavLink<T extends string> (
       }}
       href={hrefLabel as Route}
     >
-      <span className={`material-symbols-outlined ${ buttonStyles.icon }`}>{iconLabel}</span>
-      <h1 className={`${ typography.labelMedium } ${ buttonStyles.text }`}>{textLabel}</h1>
+      <span className={`material-symbols-outlined ${ layout.icon }`}>{iconLabel}</span>
+      <h1 className={`${ typography.labelMedium } ${ layout.text }`}>{textLabel}</h1>
     </Link>
   );
 }

@@ -2,6 +2,7 @@ declare const styles: {
   readonly 'date': string;
   readonly 'icon': string;
   readonly 'input': string;
+  readonly 'inputContainer': string;
   readonly 'inputForm': string;
   readonly 'isActive': string;
   readonly 'link': string;

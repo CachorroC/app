@@ -29,7 +29,7 @@ export default async function Page(
   return (
     <>
 
-      <span className={ typography.titleMedium }>{ `# ${ params.numero }` }</span>
+      <span className={ typography.displayLarge }>{ `# ${ params.numero }` }</span>
       <Suspense fallback={<Loader/>}>
         <EditCarpeta numero={ Number(
           params.numero

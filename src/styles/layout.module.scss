@@ -7,9 +7,11 @@ $MinSW: 320px; // minimum small width
 $MaxSW: 480px; //maximum sma width
 
 .container {
+  transition: all 0.5s;
   display: grid;
-  gap: 2vmin;
   width: 100%;
+  gap: 1rem;
+  padding: 0.5rem;
   height: 100svh;
   box-sizing: border-box;
   background-color: var(--surface-container);
@@ -17,82 +19,98 @@ $MaxSW: 480px; //maximum sma width
   grid-template-rows: repeat(12, 1fr);
   grid-auto-flow: row;
   grid-template-areas:
-    'top top top top'
-    'right right right right'
-    'right right right right'
-    'left left left left'
-    'left left left left'
-    'left left left left'
-    'left left left left'
-    'left left left left'
-    'left left left left'
-    'left left left left'
-    'left left left left'
-    'header header header header';
-  font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
+    "top top top top"
+    "right right right right"
+    "right right right right"
+    "left left left left"
+    "left left left left"
+    "left left left left"
+    "left left left left"
+    "left left left left"
+    "left left left left"
+    "left left left left"
+    "left left left left"
+    "header header header header";
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 700,
+    "GRAD" 0,
+    "opsz" 48;
 
   @media (600px < width < 1200px) {
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(12, 1fr);
     grid-auto-flow: row;
     grid-template-areas:
-      'sidebar header header header header header header header'
-      'sidebar top top top top top right right'
-      'sidebar left left left left left  right right '
-      'sidebar left left left left left  right right '
-      'sidebar left left left left left  right right '
-      'sidebar left left left left left  right right '
-      'sidebar left left left left left  right right '
-      'sidebar left left left left left  right right '
-      'sidebar left left left left left  right right '
-      'sidebar left left left left left  right right '
-      'sidebar left left left left left  right right '
-      'sidebar left left left left left  right right ';
+      "sidebar header header header header header header header"
+      "sidebar top top top top top right right"
+      "sidebar left left left left left  right right "
+      "sidebar left left left left left  right right "
+      "sidebar left left left left left  right right "
+      "sidebar left left left left left  right right "
+      "sidebar left left left left left  right right "
+      "sidebar left left left left left  right right "
+      "sidebar left left left left left  right right "
+      "sidebar left left left left left  right right "
+      "sidebar left left left left left  right right "
+      "sidebar left left left left left  right right ";
   }
 
   @media (1200px < width) {
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(8, minmax(100px, auto));
+    grid-template-columns: repeat(10, minmax(8vw, 1fr));
+    grid-template-rows: repeat(10, minmax(8vh, 1fr));
     grid-template-areas:
-      'header top  top top top top top right right right'
-      'header left left left left  left left right right right'
-      'header left left left left  left left right right right'
-      'header left left left left  left left right right right'
-      'header left left left left  left left right right right'
-      'header left left left left  left left right right right'
-      'header left left left left  left left right right right'
-      'header left left left left  left left right right right';
+      "header top top top top top top top right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right";
   }
 }
 
 .header {
   display: grid;
-  border-radius: 0 0 2vmin 2vmin;
-  box-shadow: var(--dp6);
-  background-color: var(--nav-background);
+  transition: 300ms;
+  align-content: space-evenly;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
   grid-column: 1 / 2;
-    grid-row: 1 / 9;
-    gap: 1vh;
-    padding: 1vh;
-    grid-template-rows: subgrid;
-    grid-template-columns: subgrid;
-    * {
-      &:last-child {
-        border-radius: 0 0 2vmin 2vmin;
-      }
-      &:first-child {
-        border-radius: 2vmin 2vmin 0 0;
-      }
-      &:only-child {
-        border-radius: 2vmin;
-      }
+  grid-row: 1 / 9;
+  background-color: var(--surface-container);
+  grid-area: header;
+  gap: inherit;
+  padding: 1rem 0;
+  grid-template-rows: subgrid;
+  grid-template-columns: subgrid;
+  & > * {
+    padding: 0.5rem;
+  }
+  * {
+    &:last-child {
+      border-radius: 0.5rem 0 0 0.5rem;
     }
-    .nav{
-      &Buttons{
-        grid-column: 1 / 2;
-        grid-row: 2 / 8;
-      }
+    &:first-child {
+      border-radius: 0 0.5rem 0.5rem 0;
     }
+    &:only-child {
+      border-radius: 0.5rem;
+    }
+  }
+  .nav {
+    &Buttons {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-template-columns: subgrid;
+      grid-column: 1 / 2;
+      grid-row: 1 / 8;
+    }
+  }
 }
 .right {
   flex-wrap: nowrap;
@@ -100,10 +118,8 @@ $MaxSW: 480px; //maximum sma width
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-  width: 100%;
-  height: 100%;
   border-radius: 2vmin;
-  padding: 2vmin;
+  padding: 0.5rem;
   align-content: stretch;
   background-color: var(--surface);
   grid-area: right;
@@ -164,9 +180,7 @@ $MaxSW: 480px; //maximum sma width
     display: grid;
     width: 100%;
     height: 100%;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 1fr;
-    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
   & > * {
     flex-grow: 1;
@@ -201,7 +215,11 @@ $MaxSW: 480px; //maximum sma width
   &:hover,
   &:active {
     & > span {
-      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 200, 'opsz' 40;
+      font-variation-settings:
+        "FILL" 1,
+        "wght" 600,
+        "GRAD" 200,
+        "opsz" 40;
     }
 
     background-color: var(--inverse-surface);
@@ -245,7 +263,7 @@ $MaxSW: 480px; //maximum sma width
   justify-content: space-evenly;
   align-items: stretch;
   align-content: stretch;
-  padding: .5rem;
+  padding: 0.5rem;
   &Row {
     @extend .section;
     flex-flow: row nowrap;
@@ -355,5 +373,137 @@ $MaxSW: 480px; //maximum sma width
         border-radius: 2vmin;
       }
     }
+  }
+}
+
+.button {
+  border: none;
+  box-sizing: border-box;
+
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  flex-flow: column nowrap;
+  justify-items: stretch;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
+  transition: all 0.3s;
+
+  & > .icon {
+    font-size: 1.1rem;
+  }
+  & > .text {
+    font-family: var(--raleway);
+    word-wrap: break-word;
+    word-break: break-all;
+    font-style: var(--label-medium-font-family-style);
+    font-weight: var(--label-medium-font-weight);
+    font-size: var(--label-medium-font-size);
+    letter-spacing: var(--label-medium-tracking);
+    line-height: var(--label-medium-height);
+    text-transform: var(--label-medium-text-transform);
+    text-decoration: var(--label-medium-text-decoration);
+  }
+  @media (600px < width < 1200px) {
+    flex-flow: row nowrap;
+  }
+  &Edit {
+    @extend .button;
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+  }
+  &ActiveCategory {
+    @extend .button;
+    flex-flow: column nowrap;
+    flex: 2;
+    background-color: var(--secondary-container);
+
+    color: var(--on-secondary-container);
+    & > .icon,
+    & > .text {
+      color: var(--on-secondary-container);
+    }
+  }
+  &PassiveCategory {
+    @extend .button;
+    flex: 1;
+    flex-flow: column nowrap;
+    background-color: var(--surface-container-high);
+
+    color: var(--secondary);
+    & > .icon {
+      color: var(--secondary);
+    }
+    & > .text {
+      color: var(--on-surface);
+    }
+  }
+  &Forward {
+    @extend .button;
+
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+    & > .icon,
+    & > .text {
+      color: var(--on-primary-container);
+    }
+  }
+  &Backwards {
+    @extend .button;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+
+    & > .icon,
+    & > .text {
+      color: var(--on-primary-container);
+    }
+  }
+
+  &DrawerMenu {
+    @extend .button;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--primary-fixed);
+    & > .icon,
+    & > .text {
+      color: var(--primary-fixed);
+    }
+  }
+
+  &Modal {
+    @extend .button;
+
+    background-color: var(--surface-container-high);
+    color: var(--on-surface);
+    & > .icon,
+    & > .text {
+      color: var(--on-tertirary-container);
+    }
+  }
+  &Home {
+    @extend .button;
+    box-shadow: var(--dp2);
+
+    background-color: var(--primary);
+    color: var(--on-primary);
+    & > .icon,
+    & > .text {
+      color: var(--on-primary);
+    }
+  }
+  &Actuacion {
+    @extend .button;
+    flex: 0 1 auto;
+  }
+  &Chip {
+    @extend .button;
+    height: minmax(2rem, 3rem);
+    flex: 0 1 auto;
+    box-sizing: border-box;
   }
 }

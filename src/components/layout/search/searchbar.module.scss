@@ -70,6 +70,15 @@ background-color: var(--surface-container-highest);
   box-sizing: border-box;
   resize: both;
   padding: 0;
+  & > .icon{
+    color: var(--on-surface-variant);
+  }
+  &Container{
+    @extend .input;
+      display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+  }
 
   &:hover,
   &:active,
@@ -79,6 +88,7 @@ background-color: var(--surface-container-highest);
     color: var(--on-tertiary-container);
     box-shadow: var(--dp4);
   }
+
 }
 
 .inputForm {

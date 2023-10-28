@@ -9,9 +9,6 @@ import { NuevaNota } from '../Nota/client/nueva-nota';
 import { useNavigationContext } from '#@/app/context/main-context';
 import Drawer from './Drawer';
 import NavButtons from '../Buttons/nav-buttons';
-import Link from 'next/link';
-import { Route } from 'next';
-import styles from '../Buttons/buttons.module.css';
 import ModalDialog from '#@/app/hooks/modal-state';
 
 export function Header(
@@ -32,15 +29,7 @@ export function Header(
   return (
     <div className={layout.header}>
 
-      <Link
-        href={'/' as Route}
-        className={styles.buttonHome}
-      >
-        <span className={`material-symbols-outlined ${ styles.icon }`}>
-            home
-        </span>
-        <span className={styles.text}>inicio</span>
-      </Link>
+
       <Suspense fallback={<Loader />}>
         <InputSearchBar />
       </Suspense>

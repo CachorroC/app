@@ -98,8 +98,6 @@
 }
 
 .labelLarge {
-  word-wrap: break-word;
-  word-break: break-all;
   font-family: var(--raleway);
   font-style: var(--label-large-font-family-style);
   font-weight: var(--label-large-font-weight);

@@ -1,9 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import styles from './buttons.module.css';
 import { useModalContext } from '#@/app/context/modal-context';
 import { useNavigationContext } from '#@/app/context/main-context';
+import { Route } from 'next';
+import Link from 'next/link';
+import styles from '#@/styles/layout.module.css';
+import { NavLink } from '../layout/Drawer';
 import layout from '#@/styles/layout.module.css';
 
 export default function NavButtons() {
@@ -18,8 +21,11 @@ export default function NavButtons() {
   } = useNavigationContext();
 
   return (
-    <nav className={layout.navButtons}>
-      <button
+    <>
+    <NavLink iconLabel={ 'home' } textLabel={ 'Inicio' } hrefLabel={ '/' } />
+
+      <section className={ layout.segmentRow }>
+        <button
         type="button"
         className={styles.buttonBackwards}
         onClick={() => {
@@ -43,6 +49,7 @@ export default function NavButtons() {
         </span>
         <p className={styles.text}>entrar</p>
       </button>
+      </section>
       <button
         className={styles.buttonModal}
         onClick={() => {
@@ -84,6 +91,10 @@ export default function NavButtons() {
             : 'menu'}
         </span>
       </button>
-    </nav>
+      <NavLink iconLabel={ 'gavel' } textLabel={ `ultimas
+      actuaciones`} hrefLabel={ '/Carpetas/UltimasActuaciones' } />
+      <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel={ '/Notas' as Route } />
+      <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel={ '/Carpetas' as Route }  />
+    </>
   );
 }

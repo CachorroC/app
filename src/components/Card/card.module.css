@@ -99,6 +99,8 @@
 
 .link {
   background-color: var(--secondary-container);
+  display: flex;
+  flex-flow: row nowrap;
   flex: 1;
   grid-area: link;
   border-radius: 10cqmin;
