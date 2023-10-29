@@ -23,7 +23,7 @@
 }
 @media (1200px < width) {
   .container {
-    grid-template-columns: repeat(10, minmax(8vw, 1fr));
+    grid-template-columns: 5rem repeat(9, minmax(8vw, 1fr));
     grid-template-rows: repeat(10, minmax(8vh, 1fr));
     grid-template-areas: "header top top top top top top top right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right";
   }
@@ -155,7 +155,7 @@
   background-color: var(--oultine);
 }
 
-.link {
+.link, .linkActive {
   background-color: var(--surface-container-highest);
   color: var(--on-surface);
   display: flex;
@@ -166,11 +166,11 @@
   border-radius: 2vmin;
   box-shadow: var(--dp2);
 }
-.link:hover, .link:active {
+.link:hover, .linkActive:hover, .link:active, .linkActive:active {
   background-color: var(--inverse-surface);
   color: var(--inverse-on-surface);
 }
-.link:hover > span, .link:active > span {
+.link:hover > span, .linkActive:hover > span, .link:active > span, .linkActive:active > span {
   font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 40;
 }
 
@@ -308,6 +308,22 @@
   border-radius: 2vmin;
 }
 
+.link, .linkActive {
+  border: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  border-radius: 1rem;
+  height: 3.5rem;
+  display: flex;
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  flex-flow: column nowrap;
+  justify-items: stretch;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
+  transition: all 0.3s;
+}
 .button, .buttonChip, .buttonActuacion, .buttonHome, .buttonModal, .buttonDrawerMenu, .buttonBackwards, .buttonForward, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
   border: none;
   box-sizing: border-box;
@@ -351,10 +367,12 @@
   flex-flow: column nowrap;
   flex: 2;
   background-color: var(--secondary-container);
+}
+.buttonActiveCategory > .icon {
   color: var(--on-secondary-container);
 }
-.buttonActiveCategory > .icon, .buttonActiveCategory > .text {
-  color: var(--on-secondary-container);
+.buttonActiveCategory > .text {
+  color: var(--on-surface);
 }
 .buttonPassiveCategory {
   flex: 1;

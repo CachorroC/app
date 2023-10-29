@@ -6,16 +6,16 @@ settings:
 
 dependencies:
   '@prisma/client':
-    specifier: ^5.5.2
+    specifier: 5.5.2
     version: 5.5.2(prisma@5.5.2)
   '@types/node':
     specifier: 20.8.9
     version: 20.8.9
   '@types/react':
-    specifier: ^18.2.33
+    specifier: ^18.2.14
     version: 18.2.33
   '@types/react-dom':
-    specifier: ^18.2.13
+    specifier: ^18.2.14
     version: 18.2.14
   eslint:
     specifier: 8.52.0
@@ -33,7 +33,7 @@ dependencies:
     specifier: 14.0.0
     version: 14.0.0(react-dom@18.3.0-canary-8039e6d0b-20231026)(react@18.3.0-canary-8039e6d0b-20231026)(sass@1.69.5)
   prisma:
-    specifier: ^5.5.2
+    specifier: 5.5.2
     version: 5.5.2
   react:
     specifier: canary

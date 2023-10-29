@@ -19,6 +19,7 @@ declare const styles: {
   readonly 'leftColumn': string;
   readonly 'leftGrid': string;
   readonly 'link': string;
+  readonly 'linkActive': string;
   readonly 'loader': string;
   readonly 'navButtons': string;
   readonly 'right': string;

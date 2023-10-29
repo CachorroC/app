@@ -3,14 +3,13 @@
 import { useRouter } from 'next/navigation';
 import { useModalContext } from '#@/app/context/modal-context';
 import { useNavigationContext } from '#@/app/context/main-context';
-import { Route } from 'next';
-import Link from 'next/link';
 import styles from '#@/styles/layout.module.css';
 import { NavLink } from '../layout/Drawer';
 import layout from '#@/styles/layout.module.css';
 
 export default function NavButtons() {
   const router = useRouter();
+
 
   const {
     isModalOpen, setIsModalOpen
@@ -22,33 +21,31 @@ export default function NavButtons() {
 
   return (
     <>
-    <NavLink iconLabel={ 'home' } textLabel={ 'Inicio' } hrefLabel={ '/' } />
-
       <section className={ layout.segmentRow }>
         <button
-        type="button"
-        className={styles.buttonBackwards}
-        onClick={() => {
-          router.back();
-        }}
-      >
-        <span className={`material-symbols-outlined ${ styles.icon }`}>
+          type="button"
+          className={styles.buttonBackwards}
+          onClick={() => {
+            router.back();
+          }}
+        >
+          <span className={`material-symbols-outlined ${ styles.icon }`}>
           chevron_left
-        </span>
-        <p className={styles.text}>atras</p>
-      </button>
-      <button
-        type="button"
-        className={styles.buttonForward}
-        onClick={() => {
-          router.forward();
-        }}
-      >
-        <span className={`material-symbols-outlined ${ styles.icon }`}>
+          </span>
+          <p className={styles.text}>atras</p>
+        </button>
+        <button
+          type="button"
+          className={styles.buttonForward}
+          onClick={() => {
+            router.forward();
+          }}
+        >
+          <span className={`material-symbols-outlined ${ styles.icon }`}>
           chevron_right
-        </span>
-        <p className={styles.text}>entrar</p>
-      </button>
+          </span>
+          <p className={styles.text}>entrar</p>
+        </button>
       </section>
       <button
         className={styles.buttonModal}
@@ -91,10 +88,11 @@ export default function NavButtons() {
             : 'menu'}
         </span>
       </button>
+      <NavLink iconLabel={ 'home' } textLabel={ 'Inicio' } hrefLabel={ '/' } />
       <NavLink iconLabel={ 'gavel' } textLabel={ `ultimas
       actuaciones`} hrefLabel={ '/Carpetas/UltimasActuaciones' } />
-      <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel={ '/Notas' as Route } />
-      <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel={ '/Carpetas' as Route }  />
+      <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel='/Notas' />
+      <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel={ '/Carpetas'  }  />
     </>
   );
 }

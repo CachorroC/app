@@ -326,6 +326,7 @@ input {
   box-sizing: border-box;
   resize: both;
   padding: 0.16rem;
+  accent-color: var(--secondary);
 }
 input:hover {
   box-shadow: var(--dp8);

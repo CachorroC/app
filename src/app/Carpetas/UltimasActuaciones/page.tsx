@@ -5,7 +5,6 @@ import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
 import { ActionName,  carpetasSorter } from '#@/lib/project/sortert';
 
-export const dynamic = 'force-dynamic';
 
 export const dynamicParams = true;
 
@@ -16,31 +15,25 @@ export default async function Page(
   }:{  searchParams: { [key: string]: string | undefined }}
 ) {
   const carpetasRaw = await getCarpetas();
-  let carpetas;
+
 
   const {
     filter, sort
   } = searchParams;
 
-  if ( filter ) {
-    carpetas = carpetasSorter(
-      carpetasRaw, {
-        type         : 'filter',
-        name         : filter as ActionName,
-        sortDirection: sort === 'asc'
-          ? false
-          : true
-      }
-    );
-  } else {
-    carpetas = carpetasSorter(
-      carpetasRaw, {
-        type         : 'filter',
-        name         : 'fecha',
-        sortDirection: true
-      }
-    );
-  }
+
+  const carpetas = carpetasSorter(
+    carpetasRaw, {
+      type: 'filter',
+      name: filter
+        ? filter as ActionName
+        : 'fecha',
+      sortDirection: !sort || sort === 'asc'
+        ? false
+        : true
+    }
+  );
+
 
 
 

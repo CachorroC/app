@@ -5,7 +5,6 @@ import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import layout from '#@/styles/layout.module.css';
-import { AddNoteButton } from '../Buttons/noteButtons';
 
 export const Card = (
   {
@@ -28,7 +27,7 @@ export const Card = (
 
 
   const {
-    llaveProceso, idProcesos, nombre, numero
+    idProcesos, nombre, numero
   }
     = carpeta;
 
@@ -71,7 +70,7 @@ export const Card = (
             className={ layout.button }
             href={`/Carpeta/${ numero }` as Route}
           >
-            <span className={`${typography.labelLarge} ${layout.text}`}>{ numero }</span>
+            <span className={`${ typography.labelLarge } ${ layout.text }`}>{ numero }</span>
             <span className={`material-symbols-outlined ${ layout.icon }`}>
                 folder
             </span>

@@ -35,8 +35,9 @@ const options = [
 export default function Page(
   {
     searchParams
-  }: {searchParams:any}
+  }:{  searchParams?: { [key: string]: string }}
 ) {
+  let content;
 
 
 
@@ -59,21 +60,8 @@ export default function Page(
     true
   );
 
-
-  return (
-    <>
-      <div>
-        <h1>{'ordenar:'}</h1>
-        <span> {sortDirection
-          ? 'ascendente'
-          : 'descendente'} </span>
-        <span className="material-symbols-outlined">
-          {sortDirection
-            ? 'arrow_upward'
-            : 'arrow_downward'}
-        </span>
-
-      </div>
+  if ( !searchParams ) {
+    content = (
       <section className={layout.segmentColumn}>
         {keys.map(
           (
@@ -96,13 +84,16 @@ export default function Page(
                 className={ styles.buttonPassiveCategory }
                 key={ key } href={ `/Carpetas/UltimasActuaciones?filter=${ key }&sort=${ sortDirection
                   ? 'asc'
-                  : 'desc' }`}  replace={true}>
+                  : 'desc' }`}>
                 {key}
               </Link>
             );
           }
         )}
       </section>
+    );
+  } else {
+    content = (
       <section className={layout.sectionColumn}>
         {options.map(
           (
@@ -147,6 +138,25 @@ export default function Page(
           }
         )}
       </section>
+
+    );
+  }
+
+  return (
+    <>
+
+      <h1>{'ordenar:'}</h1>
+      <span> {sortDirection
+        ? 'ascendente'
+        : 'descendente'} </span>
+      <span className="material-symbols-outlined">
+        {sortDirection
+          ? 'arrow_upward'
+          : 'arrow_downward'}
+      </span>
+
+      {content}
+
 
     </>
   );

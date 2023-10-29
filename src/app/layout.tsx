@@ -95,10 +95,8 @@ export const viewport: Viewport = {
 export default async function RootLayout(
   {
     children,
-    modal,
   }: {
   children: ReactNode;
-  modal: ReactNode;
 }
 ) {
   const carpetas = await getCarpetas();
@@ -123,7 +121,6 @@ export default async function RootLayout(
                         </Suspense>
                       </Header>
                     </Suspense>
-                    {modal}
                     {children}
                   </div>
                 </MainProvider>

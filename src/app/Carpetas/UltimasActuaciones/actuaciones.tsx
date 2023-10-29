@@ -1,8 +1,72 @@
 
-import { getActuaciones } from '#@/lib/Actuaciones';
+import {  updateActuaciones } from '#@/lib/Actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
-import { Suspense } from 'react';
-import { Loader } from '#@/components/Loader';
+import { sleep } from '#@/lib/project/helper';
+import { ConsultaActuacion, Data, Message } from '#@/lib/types/actuaciones';
+
+async function getData(
+  idProceso: number, index: number
+) {
+  try {
+    await sleep(
+      index
+    );
+
+    const request = await fetch(
+      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
+      {
+        next: {
+          revalidate: 86400,
+        },
+      },
+    );
+
+    if ( !request.ok ) {
+      const json = ( await request.json() ) as ConsultaActuacion;
+      return json;
+    }
+
+    const data = ( await request.json() ) as Data;
+
+    const {
+      actuaciones
+    } = data;
+
+    console.log(
+      `parsed idProceso: ${ idProceso } with a type of ${ typeof idProceso }`
+    );
+    await updateActuaciones(
+
+      actuaciones, idProceso
+
+    );
+
+    const json: ConsultaActuacion = {
+      StatusCode : request.status,
+      Message    : request.statusText as Message,
+      actuaciones: actuaciones,
+    };
+    return json;
+  } catch ( error ) {
+    if ( error instanceof Error ) {
+      console.log(
+        `${ idProceso }: error en la fetchActuaciones => ${ error.name } : ${ error.message }`,
+      );
+    }
+
+    console.log(
+      `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
+    );
+
+    return {
+      StatusCode: 404,
+      Message   : JSON.stringify(
+        error
+      ) as Message,
+    };
+  }
+}
+
 
 export async function FechaActuacionComponent(
   {
@@ -15,24 +79,18 @@ export async function FechaActuacionComponent(
   initialOpenState: boolean
 }
 ) {
-  const consultaActuaciones = await getActuaciones(
-    {
-      idProceso: idProceso,
-      index    : index
-    }
+  const consultaActuaciones = await getData(
+    idProceso, index
   );
 
-  if ( !consultaActuaciones ) {
+  if ( !consultaActuaciones.actuaciones ) {
     return null;
   }
 
   const [
     ultimaActuacion
-  ] = consultaActuaciones;
+  ] = consultaActuaciones.actuaciones;
 
-  return (
-    <Suspense fallback={<Loader />}>
-      <ActuacionComponent initialOpenState={initialOpenState} incomingActuacion={ultimaActuacion} />
-    </Suspense>
+  return ( <ActuacionComponent key={ultimaActuacion.idRegActuacion} initialOpenState={ initialOpenState } incomingActuacion={ ultimaActuacion } />
   );
 }

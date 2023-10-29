@@ -19,28 +19,28 @@ export default function Page() {
       </div>
       <div className={layout.leftGrid}>
         <Link
-          className={layout.link}
+          className={layout.button}
           href={'/Carpetas/UltimasActuaciones'}
         >
           <span className="material-symbols-outlined">pace</span>
           <h1 className={typography.headlineMedium}>{'Ultimas Actuaciones'}</h1>
         </Link>
         <Link
-          className={layout.link}
+          className={layout.button}
           href={'/Notas' as Route}
         >
           <span className="material-symbols-outlined">note</span>
           <h1 className={typography.headlineMedium}>{'Notas'}</h1>
         </Link>
         <Link
-          className={layout.link}
+          className={layout.button}
           href={'/Carpetas' as Route}
         >
           <span className="material-symbols-outlined">folder_open</span>
           <h1 className={typography.headlineMedium}>{'Carpetas'}</h1>
         </Link>
         <Link
-          className={layout.link}
+          className={layout.button}
           href={'/Tareas' as Route}
         >
           <span className="material-symbols-outlined">api</span>
@@ -48,21 +48,21 @@ export default function Page() {
         </Link>
 
         <Link
-          className={layout.link}
+          className={layout.button}
           href={'/Costos'}
         >
           <span className="material-symbols-outlined">folder_open</span>
           <h1 className={typography.headlineMedium}>{'Costos'}</h1>
         </Link>
         <Link
-          className={layout.link}
+          className={layout.button}
           href={'/Contacto' as Route}
         >
           <span className="material-symbols-outlined">folder_open</span>
           <h1 className={typography.headlineMedium}>{'Contacto'}</h1>
         </Link>
         <Link
-          className={layout.link}
+          className={layout.button}
           href={'/QuienesSomos'}
         >
           <span className="material-symbols-outlined">folder_open</span>

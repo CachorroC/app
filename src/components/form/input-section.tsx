@@ -7,11 +7,11 @@ import { FieldPath,
   useFormContext, } from 'react-hook-form';
 import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
-import { useState, type HTMLInputTypeAttribute } from 'react';
+import { useState, type HTMLInputTypeAttribute, useId } from 'react';
 import layout from '#@/styles/layout.module.css';
 import styles from './form.module.css';
 
-export const InputSection = (
+export function InputSection(
   {
     name,
     title,
@@ -26,7 +26,7 @@ export const InputSection = (
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
 }
-) => {
+) {
   const {
     control, getValues
   } = useFormContext<NuevaCarpeta | IntCarpeta>();
@@ -40,6 +40,8 @@ export const InputSection = (
   );
 
   let isInCarpeta;
+
+  const id = useId();
 
   if ( !propValues || propValues === null || propValues === undefined ) {
     isInCarpeta = false;
@@ -67,55 +69,49 @@ export const InputSection = (
     }
   );
   return (
-
-    <div className={ layout.sectionRow }>
-      <label
-        className={ `${ form.label } ${ typography.titleMedium }` }
-        htmlFor={ name }
-      >
-        { title }
+    <div className={layout.sectionRow}>
+      <label className={styles.switchBox}>
+        <input
+          className={styles.inputElement}
+          name={`${ name }.hasProperty`}
+          checked={hasProperty}
+          type="checkbox"
+          onChange={(
+            e
+          ) => {
+            setHasProperty(
+              e.target.checked
+            );
+          }}
+        />
+        <span className={styles.slider}></span>
       </label>
-      <div>
-        <label className={styles.switchBox}>
+      { hasProperty && (
+        <label
+          className={ `${ form.label } ${ typography.titleMedium }` }
+          htmlFor={ id + field.name }
+        >
+          { title }
           <input
-            className={styles.inputElement}
-            checked={hasProperty}
-            type="checkbox"
+            name={ field.name }
+            id={id + field.name}
+            value={ field.value ?? '' }
+            ref={ field.ref }
+            type={ type }
+            placeholder={ title }
+            className={ form.textArea }
             onChange={ (
               e
             ) => {
-              setHasProperty(
-                e.target.checked
+              field.onChange(
+                e.target.value
               );
-            }}
-          />
-          <span className={styles.slider}></span>
+            } } />
         </label>
-      </div>
-      { hasProperty && (
-
-        <input
-          name={ field.name }
-          value={ field.value ?? '' }
-          ref={ field.ref }
-          type={ type }
-          placeholder={ title }
-          className={ form.textArea }
-          onChange={ (
-            e
-          ) => {
-            field.onChange(
-              e.target.value
-            );
-          } } />
-
-      ) }
-      {
-        JSON.stringify(
-          fieldState, null, 2
-        )
-      }
+      )}
+      <pre> {JSON.stringify(
+        fieldState, null, 2
+      )}</pre>
     </div>
-
   );
-};
+}

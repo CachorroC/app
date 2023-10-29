@@ -6,7 +6,7 @@ import { intActuacion, ConsultaActuacion, Data, Message } from 'types/actuacione
 import { getCarpetaByllaveProceso } from '../project/utils/Carpetas/carpetas';
 
 export async function fetchActuaciones(
-  idProceso: number | string, index: number
+  idProceso: number, index: number
 ) {
   try {
     await sleep(
@@ -17,10 +17,7 @@ export async function fetchActuaciones(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
       {
         next: {
-          revalidate: 32400,
-          tags      : [
-            'actuaciones'
-          ],
+          revalidate: 86400,
         },
       },
     );
@@ -35,24 +32,10 @@ export async function fetchActuaciones(
     const {
       actuaciones
     } = data;
-    let idP;
 
-    if ( typeof idProceso === 'string' ) {
-      idP = parseInt(
-        idProceso
-      );
-    } else {
-      idP = idProceso;
-    }
-
-    console.log(
-      `parsed idProceso: ${ idP } with a type of ${ typeof idP }`
-    );
     await updateActuaciones(
-      {
-        actuaciones: actuaciones,
-        idProceso  : idP
-      }
+
+      actuaciones, idProceso
     );
 
     const json: ConsultaActuacion = {
@@ -85,7 +68,7 @@ export const getActuaciones = cache(
   async (
     {
       idProceso, index
-    }: { idProceso: number| string; index: number }
+    }: { idProceso: number; index: number }
   ) => {
     try {
       const consultaActuaciones = await fetchActuaciones(
@@ -116,123 +99,118 @@ export const getActuaciones = cache(
   },
 );
 
-export const  updateActuaciones = cache(
-  async (
-    {
-      actuaciones, idProceso
-    }:
-  {actuaciones: intActuacion[], idProceso: number}
-  ) => {
-    try {
-      if ( actuaciones.length === 0 ) {
-        throw new Error(
-          'no hay actuaciones en el array updateActuaciones'
-        );
-      }
+export async function  updateActuaciones(
+  actuaciones: intActuacion[], idProceso: number
+) {
+  try {
+    if ( actuaciones.length === 0 ) {
+      throw new Error(
+        'no hay actuaciones en el array updateActuaciones'
+      );
+    }
 
-      const [
-        ultimaActuacion,
-        penUltimaActuacion
-      ] = actuaciones;
+    const [
+      ultimaActuacion,
+      penUltimaActuacion
+    ] = actuaciones;
 
-      let ultimaAct;
+    let ultimaAct;
 
-      if ( ultimaActuacion.actuacion.indexOf(
-        'Fijacion estado'
-      ) ) {
-        ultimaAct = penUltimaActuacion;
-      } else {
-        ultimaAct = ultimaActuacion;
-      }
+    if ( ultimaActuacion.actuacion.indexOf(
+      'Fijacion estado'
+    ) ) {
+      ultimaAct = penUltimaActuacion;
+    } else {
+      ultimaAct = ultimaActuacion;
+    }
 
 
-      const carpeta = await getCarpetaByllaveProceso(
-        ultimaActuacion.llaveProceso,
+    const carpeta = await getCarpetaByllaveProceso(
+      ultimaActuacion.llaveProceso,
+    );
+
+    const incomingDate = new Date(
+      ultimaActuacion.fechaRegistro
+    )
+      .getTime();
+
+    const savedDate = carpeta?.fecha
+      ? new Date(
+        carpeta.fecha
+      )
+        .getTime()
+      : null;
+
+    const carpetasColl = await carpetasCollection();
+
+    if ( savedDate === incomingDate ) {
+      return;
+    }
+
+    if ( !savedDate || savedDate < incomingDate ) {
+
+      const updateCarpetawithActuaciones = await carpetasColl.updateOne(
+        {
+          $or: [
+            {
+              llaveProceso: carpeta
+                ? carpeta.llaveProceso
+                : ultimaActuacion.llaveProceso
+            },
+            {
+              idProcesos: idProceso
+
+            }
+          ]
+        },
+        {
+          $set: {
+            fecha: new Date(
+              ultimaActuacion.fechaRegistro
+            ),
+            ultimaActuacion: ultimaAct,
+          },
+        },
+        {
+          upsert: false,
+        },
       );
 
-      const incomingDate = new Date(
-        ultimaActuacion.fechaRegistro
-      )
-        .getTime();
-
-      const savedDate = carpeta?.fecha
-        ? new Date(
-          carpeta.fecha
-        )
-          .getTime()
-        : null;
-
-      const carpetasColl = await carpetasCollection();
-
-      if ( savedDate === incomingDate ) {
+      if ( !updateCarpetawithActuaciones ) {
         return;
       }
 
-      if ( !savedDate || savedDate < incomingDate ) {
-
-        const updateCarpetawithActuaciones = await carpetasColl.updateOne(
-          {
-            $or: [
-              {
-                llaveProceso: carpeta
-                  ? carpeta.llaveProceso
-                  : ultimaActuacion.llaveProceso
-              },
-              {
-                idProcesos: idProceso
-
-              }
-            ]
-          },
-          {
-            $set: {
-              fecha: new Date(
-                ultimaActuacion.fechaRegistro
-              ),
-              ultimaActuacion: ultimaAct,
-            },
-          },
-          {
-            upsert: false,
-          },
-        );
-
-        if ( !updateCarpetawithActuaciones ) {
-          return;
-        }
-
-        if (
-          updateCarpetawithActuaciones.modifiedCount > 0
+      if (
+        updateCarpetawithActuaciones.modifiedCount > 0
         || updateCarpetawithActuaciones.upsertedCount > 0
-        ) {
-          console.log(
-            `Actuaciones:
+      ) {
+        console.log(
+          `Actuaciones:
           - se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas
            - se insertaron ${ updateCarpetawithActuaciones.upsertedCount }
            - para un total de carpetas: ${ updateCarpetawithActuaciones.matchedCount }`
-          );
-
-        }
-      }
-
-      return;
-    } catch ( error ) {
-      if ( error instanceof Error ) {
-        console.log(
-          JSON.stringify(
-            error, null, 2
-          )
         );
-      }
 
+      }
+    }
+
+    return;
+  } catch ( error ) {
+    if ( error instanceof Error ) {
       console.log(
         JSON.stringify(
           error, null, 2
         )
       );
     }
+
+    console.log(
+      JSON.stringify(
+        error, null, 2
+      )
+    );
   }
-);
+}
 
 export const deleteProcesoPrivado = async (
   {
