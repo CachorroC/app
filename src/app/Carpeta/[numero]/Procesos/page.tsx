@@ -21,9 +21,12 @@ export default async function Page(
   }
 
   const consultaProcesos = await getProceso(
-    carpeta.llaveProceso, Number(
-      params.numero
-    )
+    {
+      llaveProceso: carpeta.llaveProceso,
+      index       : Number(
+        params.numero
+      )
+    }
   );
 
   if ( !consultaProcesos ) {

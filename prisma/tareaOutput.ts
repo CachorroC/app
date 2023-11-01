@@ -93,7 +93,7 @@ function TareaOutput () {
 }
 
 console.log(
-  TareaOutput()
+  `el output de las tareas en prisma tareaOutput es ${ TareaOutput() }`
 );
 
 fs.writeFile(

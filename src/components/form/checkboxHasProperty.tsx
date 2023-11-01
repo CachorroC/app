@@ -16,7 +16,7 @@ export function CheckboxHasProperty(
   if ( !propertieValue || propertieValue === null || propertieValue === undefined ) {
     isInCarpeta = false;
     console.log(
-      propertieValue 
+      `propertie value is ${ propertieValue }`
     );
   } else {
     isInCarpeta = true;

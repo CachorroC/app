@@ -3,42 +3,16 @@ import { Loader } from '#@/components/Loader';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
-import { ActionName,  carpetasSorter } from '#@/lib/project/sortert';
 
+export const dynamic = 'force-dynamic';
 
 export const dynamicParams = true;
 
-
-export default async function Page(
-  {
-    searchParams
-  }:{  searchParams: { [key: string]: string | undefined }}
-) {
+export default async function Page() {
   const carpetasRaw = await getCarpetas();
 
 
-  const {
-    filter, sort
-  } = searchParams;
-
-
-  const carpetas = carpetasSorter(
-    carpetasRaw, {
-      type: 'filter',
-      name: filter
-        ? filter as ActionName
-        : 'fecha',
-      sortDirection: !sort || sort === 'asc'
-        ? false
-        : true
-    }
-  );
-
-
-
-
-  /*
-  carpetas = [
+  const carpetas = [
     ...carpetasRaw
   ].sort(
     (
@@ -67,7 +41,7 @@ export default async function Page(
 
       return 0;
     }
-  ); */
+  );
 
   return (
     <><Suspense fallback={ <Loader /> }>

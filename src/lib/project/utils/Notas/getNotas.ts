@@ -24,9 +24,9 @@ export const getNotas = cache(
       return notas;
     } catch ( error ) {
       console.log(
-        JSON.stringify(
+        `error en getNotas ${ JSON.stringify(
           error, null, 2
-        )
+        ) }`
       );
       return [];
     }

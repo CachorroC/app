@@ -1,6 +1,6 @@
 import { cache } from 'react';
 import  { carpetasCollection } from '#@/lib/connection/mongodb';
-import { sleep } from '#@/lib/project/helper';
+import { sleep } from 'project/helper';
 import { intJuzgado } from 'types/carpetas';
 import { Despacho } from 'types/despachos';
 import { intProceso, ConsultaNumeroRadicacion, Data, Message } from 'types/procesos';
@@ -105,13 +105,15 @@ export async function newJuzgado(
 
 
 export async function fetchProceso(
-  llaveProceso: string
+  llaveProceso: string, index: number
 ) {
   try {
+    await sleep(
+      index
+    );
+
     const req = await fetch(
-      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`, {
-        cache: 'force-cache'
-      }
+      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`
 
     );
 
@@ -122,10 +124,18 @@ export async function fetchProceso(
 
     const json = ( await req.json() ) as Data;
 
+    const {
+      procesos
+    } = json;
+
+    await updateProcesos(
+      procesos
+    );
+
     const responseReturn: ConsultaNumeroRadicacion = {
       StatusCode: req.status,
       Message   : req.statusText as Message,
-      procesos  : json.procesos
+      procesos  : procesos
     };
 
     return responseReturn;
@@ -135,10 +145,6 @@ export async function fetchProceso(
         `Expediente: ${ llaveProceso }: error en la conexion network del fetchProceso ${ e.name } : ${ e.message }`,
       );
 
-      return {
-        StatusCode: 404,
-        Message   : `${ e.name }: ${ e.message }`
-      };
     }
 
     console.log(
@@ -148,65 +154,95 @@ export async function fetchProceso(
     return {
       StatusCode: 404,
       Message   : JSON.stringify(
-        e, null, 2
-      )
+        e
+      ) as Message
     };
   }
 }
 
-export async function getProceso(
-  llaveProceso: string, index?: number
-) {
-  try {
-
-    await sleep(
-      index ?? 1000
-    );
-
-    const fetchP = await fetchProceso(
-      llaveProceso
-    );
-
-    const {
-      procesos
-    } = fetchP;
-
-    if ( !procesos || procesos.length === 0 ) {
-      throw new Error(
-        `${ !procesos
-          ? 'no hay procesos'
-          : `el length de procesos es: ${ procesos.length }` }`
+export const getProceso = cache(
+  async(
+    {
+      llaveProceso, index
+    }:
+  {  llaveProceso: string, index: number}
+  ) => {
+    try {
+      const fetchP = await fetchProceso(
+        llaveProceso, index
       );
 
+
+      if ( !fetchP.procesos || fetchP.procesos.length === 0 ) {
+        return null;
+      }
+
+      const {
+        procesos
+      } = fetchP;
+
+      return procesos;
+
+
+    } catch ( error ) {
+      console.log(
+        `error en getProcesos ${ JSON.stringify(
+          error, null, 2
+        )
+        }`
+      );
+      return null;
     }
+  }
+);
 
-    const carpColl = await carpetasCollection();
 
+export async function updateProcesos(
+  procesos: intProceso[]
+) {
+  try {
+    if ( procesos.length === 0 ) {
+      throw new Error(
+        'no hay procesos en el array updateProcesos'
+      );
+    }
 
 
     for ( const proceso of procesos ) {
       const {
-        idProceso, departamento, llaveProceso, sujetosProcesales, esPrivado, despacho
+        llaveProceso, idProceso, esPrivado, departamento, sujetosProcesales, despacho
       } = proceso;
 
       if ( esPrivado ) {
+        console.log(
+          'el proceso es privado'
+        );
         continue;
       }
+
+
+      const carpetasColl = await carpetasCollection();
 
       const juzgado = await newJuzgado(
         proceso
       );
 
-      const updt = await carpColl.updateOne(
+      const updateProceso = await carpetasColl.updateOne(
         {
-          llaveProceso: llaveProceso,
-        },
-        {
+          $or: [
+            {
+              llaveProceso: llaveProceso
+            },
+            {
+              idProcesos: idProceso
+
+            }
+          ]
+        }, {
           $addToSet: {
             idProcesos        : idProceso,
             procesos          : proceso,
             'demanda.juzgados': juzgado
-
           },
           $set: {
             'demanda.departamento'     : departamento,
@@ -214,18 +250,17 @@ export async function getProceso(
             'demanda.sujetosProcesales': sujetosProcesales,
             'demanda.despacho'         : despacho
           },
-        },
-        {
-          upsert: false,
-        },
+        }, {
+          upsert: false
+        }
       );
 
-      if ( updt.modifiedCount > 0 || updt.upsertedCount > 0 ) {
+      if ( updateProceso.modifiedCount > 0 || updateProceso.matchedCount > 0 ) {
         console.log(
           `Procesos:
-          - se actualizaron ${ updt.modifiedCount } procesos
-          - se insertaron ${ updt.upsertedCount } procesosn nuevos;
-          - matchedCount : ${ updt.matchedCount }`,
+          - se actualizaron ${ updateProceso.modifiedCount } procesos
+          - se insertaron ${ updateProceso.upsertedCount } procesosn nuevos;
+          - matchedCount : ${ updateProceso.matchedCount }`
         );
         continue;
       }
@@ -233,83 +268,13 @@ export async function getProceso(
       continue;
     }
 
-    return procesos;
-
-
+    return;
   } catch ( error ) {
     console.log(
-      JSON.stringify(
+      `error en updateProcesos ${    JSON.stringify(
         error, null, 2
-      )
+      ) }`
     );
-    return [];
   }
+
 }
-
-
-export const updateProcesos = cache(
-  async (
-    procesos: intProceso[]  
-  ) => {
-    try {
-      if ( procesos.length === 0 ) {
-        throw new Error(
-          'no hay procesos en el array updateProcesos'
-        );
-      }
-
-      const carpetasColl = await carpetasCollection();
-
-      for ( const proceso of procesos ) {
-        if ( proceso.esPrivado ) {
-          console.log(
-            'el proceso es privado'
-          );
-          continue;
-        }
-
-        const juzgado = await newJuzgado(
-          proceso
-        );
-
-        const updateProceso = await carpetasColl.updateMany(
-          {
-            llaveProceso: proceso.llaveProceso
-          }, {
-            $addToSet: {
-              idProcesos        : proceso.idProceso,
-              'demanda.procesos': proceso,
-              'demanda.juzgados': juzgado
-            },
-            $set: {
-              'demanda.departamento'     : proceso.departamento,
-              'demanda.expediente'       : proceso.llaveProceso,
-              'demanda.sujetosProcesales': proceso.sujetosProcesales,
-              'demanda.despacho'         : proceso.despacho
-            },
-          }
-        );
-
-        if ( updateProceso.matchedCount > 0 ) {
-          console.log(
-            `Procesos:
-          - se actualizaron ${ updateProceso.modifiedCount } procesos
-          - se insertaron ${ updateProceso.upsertedCount } procesosn nuevos;
-          - matchedCount : ${ updateProceso.matchedCount }`
-          );
-        }
-
-        continue;
-      }
-
-      return;
-    } catch ( error ) {
-      console.log(
-        JSON.stringify(
-          error, null, 2
-        )
-      );
-    }
-
-  }
-);

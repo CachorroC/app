@@ -24,9 +24,7 @@ export const CategoryButton = (
 
   return (
     <Link
-      href={`/Carpetas/${ categoria === 'todos'
-        ? ''
-        : categoria }` }
+      href={`/Carpetas/Categorias/${ categoria }` }
       className={
         isActive
           ? styles.buttonActiveCategory

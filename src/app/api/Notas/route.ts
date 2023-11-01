@@ -93,10 +93,10 @@ export async function POST (
     }
 
     const json = JSON.stringify(
-      updatedNote
+      updatedNote, null, 2
     );
     console.log(
-      json
+      `POST en api/Notas es ${ json }`
     );
     return NextResponse.json(
       updatedNote
@@ -104,7 +104,9 @@ export async function POST (
 
   } catch ( error ) {
     console.log(
-      error
+      `POST en api/Notas arrojó un error ${ JSON.stringify(
+        error, null, 2
+      ) }`
     );
     return NextResponse.json(
       error, {
@@ -147,10 +149,10 @@ export async function PUT (
     }
 
     const json = JSON.stringify(
-      updatedNote
+      updatedNote, null, 2
     );
     console.log(
-      json
+      `PUT en api/Notas es ${ json }`
     );
     return new NextResponse(
       JSON.stringify(
@@ -165,7 +167,9 @@ export async function PUT (
 
   } catch ( error ) {
     console.log(
-      error
+      `PUT en api/Notas arrojó un error ${ JSON.stringify(
+        error, null, 2
+      ) }`
     );
     return NextResponse.json(
       error, {

@@ -30,12 +30,12 @@ export function NuevaTarea (
 
   const onSubmit: SubmitHandler<Tarea> = data => {
     return console.log(
-      data
+      `SubmitHandler de Tareas NuevaTarea ${ data }`
     );
   };
 
   console.log(
-    errors
+    `errores de useForm en Nueva Tarea ${ errors }`
   );
 
   return (

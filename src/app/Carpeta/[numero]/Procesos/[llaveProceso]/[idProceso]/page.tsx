@@ -4,10 +4,9 @@ import { Loader } from '#@/components/Loader';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
-import { sleep } from '#@/lib/project/helper';
 
 export async function generateStaticParams () {
-  const maperProducts = new Map<number, { numero: string;  idProceso: string}>();
+  const maperProducts = new Map<number, { numero: string;  llaveProceso: string; idProceso: string}>();
 
   const products = await getCarpetas();
 
@@ -15,7 +14,7 @@ export async function generateStaticParams () {
 
     if ( carpeta.idProcesos.length === 0 ) {
       maperProducts.set(
-        carpeta.numero, {
+        carpeta.numero,
           numero   : carpeta.numero.toString(),
           idProceso: 'sinProcesos'
         }

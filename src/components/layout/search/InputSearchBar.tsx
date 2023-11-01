@@ -41,13 +41,13 @@ export default function InputSearchBar() {
           e
         ) => {
           console.log(
-            e.key
+            `pressed key ${ e.key }`
           );
 
           if ( e.key === 'Enter' ) {
 
             console.log(
-              e.key
+              `the pressed key was Enter ${ e.key }`
             );
           }
         }}

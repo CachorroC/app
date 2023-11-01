@@ -78,30 +78,16 @@ $MaxSW: 480px; //maximum sma width
   transition: 300ms;
   align-content: space-evenly;
   justify-content: center;
-  align-items: center;
-  justify-items: center;
+  align-items: stretch;
+  justify-items: stretch;
   grid-column: 1 / 2;
   grid-row: 1 / 9;
-  background-color: var(--surface-container);
   grid-area: header;
   gap: inherit;
-  padding: 1rem 0;
+  padding: 0 0.7rem;
   grid-template-rows: subgrid;
   grid-template-columns: subgrid;
-  & > * {
-    padding: 0.5rem;
-  }
-  * {
-    &:last-child {
-      border-radius: 0.5rem 0 0 0.5rem;
-    }
-    &:first-child {
-      border-radius: 0 0.5rem 0.5rem 0;
-    }
-    &:only-child {
-      border-radius: 0.5rem;
-    }
-  }
+
   .nav {
     &Buttons {
       display: grid;
@@ -202,28 +188,85 @@ $MaxSW: 480px; //maximum sma width
 }
 
 .link {
-  background-color: var(--surface-container-highest);
-  color: var(--on-surface);
+  border: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  border-radius: 1rem;
+  text-align: center;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-evenly;
-  align-content: stretch;
+  justify-items: stretch;
   align-items: center;
-  border-radius: 2vmin;
-  box-shadow: var(--dp2);
+  justify-content: space-evenly;
+  position: relative;
+  align-content: center;
+  transition: all 0.3s;
+  color: var(--on-surface-variant);
+  & > .icon {
+    text-align: center;
+  }
+  & > .text {
+    opacity: 0;
+    font-size: 0.7rem;
+    font-variation-settings: "wght" 500;
+    font-style: var(--label-medium-font-family-style);
+    font-weight: var(--label-medium-font-weight);
+    letter-spacing: var(--label-medium-tracking);
+    line-height: var(--label-medium-height);
+    text-transform: var(--label-medium-text-transform);
+    text-decoration: var(--label-medium-text-decoration);
+  }
 
+  &Active {
+    @extend .link;
+    align-items: stretch;
+    &> .text{
+      opacity: 1;
+    }
+    & > .icon {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      width: 3.5rem;
+      border-radius: 1rem;
+      padding: 0.2rem 0;
+      box-sizing: border-box;
+    }
+  }
   &:hover,
+  &:focus,
   &:active {
-    & > span {
+    & > .text {
+      opacity: 1;
+    }
+    & > .icon {
       font-variation-settings:
         "FILL" 1,
         "wght" 600,
         "GRAD" 200,
         "opsz" 40;
     }
-
-    background-color: var(--inverse-surface);
-    color: var(--inverse-on-surface);
+    &::after {
+      content: "";
+      width: 100%;
+      display: block;
+      border-radius: 1rem;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      background-color: var(--on-primary-container);
+    }
+  }
+  &:hover {
+    &::after {
+      opacity: 0.08;
+    }
+  }
+  &:focus,
+  &:active {
+    &::after {
+      opacity: 0.1;
+    }
   }
 }
 .loader {
@@ -288,16 +331,12 @@ $MaxSW: 480px; //maximum sma width
 .segment {
   display: flex;
   justify-content: space-between;
-  border: solid 1rem var(--oultine);
   align-items: stretch;
   box-sizing: border-box;
   padding: 0.2rem;
   flex: 1;
   border-radius: 2vmin;
   gap: 0;
-  & > * {
-    border: solid 0.1rem var(--outline);
-  }
 
   &Detached {
     @extend .segment;
@@ -373,25 +412,6 @@ $MaxSW: 480px; //maximum sma width
         border-radius: 2vmin;
       }
     }
-  }
-}
-.link {
-  border: none;
-  box-sizing: border-box;
-  text-decoration: none;
-  border-radius: 1rem;
-  height: 3.5rem;
-  display: flex;
-  background-color: var(--primary-container);
-  color: var(--on-primary-container);
-  flex-flow: column nowrap;
-  justify-items: stretch;
-  align-items: center;
-  justify-content: space-around;
-  align-content: center;
-  transition: all 0.3s;
-  &Active {
-    @extend .link;
   }
 }
 
@@ -487,21 +507,20 @@ $MaxSW: 480px; //maximum sma width
     grid-row: 1 / 2;
 
     background-color: rgba(0, 0, 0, 0);
-    color: var(--primary-fixed);
+
     & > .icon,
     & > .text {
-      color: var(--primary-fixed);
+      color: var(--on-surface-variant);
     }
   }
 
   &Modal {
     @extend .button;
-
-    background-color: var(--surface-container-high);
-    color: var(--on-surface);
+    grid-row: 2 / 3;
+    background-color: var(--primary-container);
     & > .icon,
     & > .text {
-      color: var(--on-tertirary-container);
+      color: var(--on-primary-container);
     }
   }
   &Home {

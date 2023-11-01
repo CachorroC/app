@@ -57,12 +57,14 @@ export const metadata: Metadata = {
     telephone: false,
   },
   appleWebApp: {
-    title         : 'Apple Web App',
-    statusBarStyle: 'black-translucent',
+
+    capable       : true,
+    title         : 'R y S',
+    statusBarStyle: 'black',
     startupImage  : [
-      '/icons/mstile-310x310.png',
+      'src/app/logo.svg',
       {
-        url  : '/icons/android-chrome-512x512.png',
+        url  : '/logo.svg',
         media: '(device-width: 768px) and (device-height: 1024px)',
       },
     ],
@@ -72,6 +74,7 @@ export const metadata: Metadata = {
       url            : '/',
       should_fallback: true,
     },
+
   },
 };
 

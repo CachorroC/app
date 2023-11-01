@@ -2,13 +2,42 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { notFound } from 'next/navigation';
 import layout from '#@/styles/layout.module.css';
-import { NotasList } from '#@/components/Nota/tasks-list';
 import { Fragment, Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
+import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
+import { Task } from '#@/components/Nota/nota';
+import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
+
+async function NotasList (
+  {
+    carpetaNumero
+  }: {carpetaNumero: number}
+) {
+  const notas = await getNotas(
+    carpetaNumero
+  );
+  return (
+    <>
+      { notas.map(
+        (
+          nota
+        ) => {
+          return (
+            <Task
+              key={ nota.id }
+              task={ nota }
+            />
+          );
+        }
+      ) }
+
+    </>
+  );
+}
 
 export default async function Page(
   {
@@ -17,10 +46,6 @@ export default async function Page(
     }
   }: {params: {numero: string}}
 ) {
-
-  console.time(
-    'filter array'
-  );
 
   const carpeta = await getCarpetabyNumero(
     Number(
@@ -103,6 +128,7 @@ export default async function Page(
         )
       }
     );
+    continue;
   }
 
   const allFechasArray = Array.from(
@@ -132,10 +158,6 @@ export default async function Page(
     }
   );
 
-  console.timeEnd(
-    'filter array'
-  );
-
   return (
     <>
 
@@ -153,8 +175,10 @@ export default async function Page(
       )}
 
 
-      <Suspense fallback={<Loader />}>
-        <NotasList />
+      <Suspense fallback={<SearchOutputListSkeleton />}>
+        <NotasList carpetaNumero={ Number(
+          numero
+        )} />
       </Suspense>
 
 

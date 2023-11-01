@@ -1,15 +1,11 @@
 import layout from '#@/styles/layout.module.css';
 import Link from 'next/link';
 import typography from '#@/styles/fonts/typography.module.css';
-import { Metadata } from 'next';
 import type { Route } from 'next';
 import { Calendar } from '#@/components/Calendar/main';
 
-export const metadata: Metadata = {
-  title: 'Procesos',
-};
 
-export default function Page() {
+export default function Page () {
   return (
     <>
       <div className={layout.top}>

@@ -83,7 +83,7 @@ export async function PUT(
   }
 
   return redirect(
-    `/Carpetas/id/${ insertCarpeta.insertedId }`
+    `/Carpeta/${ json.numero }`
   );
   /*  return new NextResponse(
     JSON.stringify(

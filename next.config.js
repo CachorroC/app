@@ -7,6 +7,7 @@ const nextConfig = {
   output      : 'standalone',
   experimental: {
     typedRoutes                     : true,
+    caseSensitiveRoutes             : true,
     serverComponentsExternalPackages: [
       'mongodb',
       'eslint',

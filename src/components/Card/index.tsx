@@ -67,7 +67,7 @@ export const Card = (
 
           <h4 className={typography.titleMedium}>{nombre}</h4>
           <Link
-            className={ layout.button }
+            className={ styles.link }
             href={`/Carpeta/${ numero }` as Route}
           >
             <span className={`${ typography.labelLarge } ${ layout.text }`}>{ numero }</span>

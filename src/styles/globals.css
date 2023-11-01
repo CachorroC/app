@@ -295,21 +295,47 @@ body {
   font-size: 1.5rem;
 }
 
-a, button {
+a,
+button {
   border: none;
+  box-sizing: border-box;
   text-decoration: none;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease-out;
 }
-a:hover, button:hover {
-  transform: scale(1.1);
-  border: 0.1rem solid var(--primary-fixed);
+a > span,
+button > span {
+  text-align: center;
 }
-a:hover, a:active, button:hover, button:active {
-  background-color: var(--inverse-primary);
-  box-shadow: var(--dp6);
+a:hover > span, a:focus > span, a:active > span,
+button:hover > span,
+button:focus > span,
+button:active > span {
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 40;
 }
-a:hover > span, a:active > span, button:hover > span, button:active > span {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
-  color: var(--on-primary-fixed);
+a:hover::after, a:focus::after, a:active::after,
+button:hover::after,
+button:focus::after,
+button:active::after {
+  content: "";
+  width: 100%;
+  display: block;
+  border-radius: 1rem;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: var(--on-background);
+}
+a:hover::after,
+button:hover::after {
+  opacity: 0.08;
+}
+a:focus::after, a:active::after,
+button:focus::after,
+button:active::after {
+  opacity: 0.1;
 }
 
 input {

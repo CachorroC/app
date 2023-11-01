@@ -5,7 +5,7 @@ export function useServiceWorker() {
     counter,
     setCounter
   ] = useState(
-    0 
+    0
   );
 
   const sw = navigator.serviceWorker;
@@ -14,13 +14,13 @@ export function useServiceWorker() {
     () => {
       const decrement = () => {
         setCounter(
-          counter - 1 
+          counter - 1
         );
       };
 
       const increment = () => {
         setCounter(
-          counter + 1 
+          counter + 1
         );
       };
 
@@ -28,49 +28,49 @@ export function useServiceWorker() {
         window.addEventListener(
           'load', () => {
             sw.register(
-              './serviceworker.js' 
+              './serviceworker.js'
             )
               .then(
                 () => {
                   return sw.ready;
-                } 
+                }
               )
               .then(
                 () => {
                   sw.addEventListener(
                     'message', (
                       {
-                        data 
-                      } 
+                        data
+                      }
                     ) => {
                       if ( data?.state !== undefined ) {
                         increment();
                       }
 
                       decrement();
-                    } 
+                    }
                   );
-                } 
+                }
               );
-          } 
+          }
         );
       }
 
       return () => {
         sw.removeEventListener(
           'message', (
-            e 
+            e
           ) => {
             console.log(
-              e 
+              `useServiceWorker sw removeEventListener ${ e }`
             );
-          } 
+          }
         );
       };
     }, [
       counter,
       setCounter,
       sw
-    ] 
+    ]
   );
 }

@@ -12,6 +12,8 @@ import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import { usePathname } from 'next/navigation';
 
+// NOTE esta
+
 export function NavLink<T extends string>(
   {
     iconLabel, textLabel, hrefLabel
@@ -32,15 +34,10 @@ export function NavLink<T extends string>(
         : layout.link}
       onClick={() => {
         setIsNavOpen(
-          (
-            n
-          ) => {
-            return !n;
-
-          }
+          false
         );
       }}
-      href={hrefLabel}
+      href={hrefLabel as Route}
     >
       <span className={`material-symbols-outlined ${ layout.icon }`}>{iconLabel}</span>
       <h1 className={`${ typography.labelMedium } ${ layout.text }`}>{textLabel}</h1>
@@ -141,12 +138,12 @@ export default function Drawer(
       } } className={ layout.segmentColumn }>
 
         <section className={ layout.segmentRowWrap }>
-          <NavLink iconLabel={ 'home' } textLabel={ 'Inicio' } hrefLabel={ '/' } />
-          <NavLink iconLabel={ 'gavel'} textLabel={ 'ultimas actuaciones'} hrefLabel={ '/Carpetas/UltimasActuaciones' } />
-          <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel={ '/Notas'  } />
-          <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel={ '/Carpetas' }  />
-          <NavLink iconLabel={ 'accessibility_new' } textLabel={ 'Quienes Somos' } hrefLabel={ '/QuienesSomos' } />
-          <NavLink iconLabel={ 'folder_add' } textLabel={ 'Nueva carpeta' } hrefLabel={ '/Carpetas/Nueva' } />
+          <NavLink iconLabel={ 'home' } textLabel={ 'Inicio' } hrefLabel='/' />
+          <NavLink iconLabel={ 'gavel'} textLabel={ 'ultimas actuaciones'} hrefLabel= '/Carpetas/UltimasActuaciones'  />
+          <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel='/Notas'  />
+          <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel= '/Carpetas'   />
+          <NavLink iconLabel={ 'accessibility_new' } textLabel={ 'Quienes Somos' } hrefLabel= '/QuienesSomos'  />
+          <NavLink iconLabel={ 'folder_add' } textLabel={ 'Nueva carpeta' } hrefLabel= '/Carpetas/Nueva'  />
         </section>
       </section>
       <div

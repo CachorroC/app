@@ -109,9 +109,10 @@
 }
 
 .labelMedium {
+  font-variation-settings: "wght" 400;
   font-family: var(--raleway);
   word-wrap: break-word;
-  word-break: break-all;
+  word-break: keep-all;
   font-style: var(--label-medium-font-family-style);
   font-weight: var(--label-medium-font-weight);
   font-size: var(--label-medium-font-size);

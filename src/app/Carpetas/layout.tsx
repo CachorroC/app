@@ -1,6 +1,12 @@
 import styles from '#@/styles/layout.module.css';
 import { ReactNode } from 'react';
 import { NuevaCarpetaFormProvider } from '../context/nueva-carpeta-form-context';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Carpetas',
+
+};
 
 export default function LayoutProcesosMain(
   {

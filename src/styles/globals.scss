@@ -223,7 +223,7 @@
 :root,
 html {
   box-sizing: border-box;
-   font-size: calc(16px + (22 - 16) * ((100vw - 320px) / (1920 - 320)));
+  font-size: calc(16px + (22 - 16) * ((100vw - 320px) / (1920 - 320)));
 }
 
 html,
@@ -286,36 +286,60 @@ body {
 }
 .material-symbols-outlined {
   font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48;
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 48;
   font-size: 1.5rem;
 }
 
-a, button {
-border: none;
+a,
+button {
+  border: none;
+  box-sizing: border-box;
   text-decoration: none;
-  &:hover {
-    transform: scale(1.1);
-    border: .1rem solid var(--primary-fixed);
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease-out;
+  & > span {
+    text-align: center;
   }
   &:hover,
+  &:focus,
   &:active {
-    background-color: var(--inverse-primary);
-    box-shadow: var(--dp6);
     & > span {
       font-variation-settings:
         "FILL" 1,
-        "wght" 400,
+        "wght" 600,
         "GRAD" 200,
-        "opsz" 24;
-      color: var(--on-primary-fixed);
+        "opsz" 40;
+    }
+    &::after {
+      content: "";
+      width: 100%;
+      display: block;
+      border-radius: 1rem;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      background-color: var(--on-background);
+    }
+  }
+  &:hover {
+    &::after {
+      opacity: 0.08;
+    }
+  }
+  &:focus,
+  &:active {
+    &::after {
+      opacity: 0.1;
     }
   }
 }
 
-input{
+input {
   background-color: var(--surface-container-highest);
   color: var(--on-surface-variant);
   border: none;

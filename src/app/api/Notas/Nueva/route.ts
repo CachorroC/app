@@ -57,9 +57,9 @@ export async function POST (
       }
     );
     console.log(
-      JSON.stringify(
+      `POST en api/Notas/Nueva es ${  JSON.stringify(
         inserterPrisma, null, 2
-      )
+      ) }`
     );
 
 
@@ -71,7 +71,7 @@ export async function POST (
 
   } catch ( error ) {
     console.log(
-      error
+      `POST en api/Notas/Nueva arrojó un error ${ error }`
     );
     return NextResponse.json(
       error as Error, {
@@ -105,9 +105,9 @@ export async function PUT (
       }
     );
     console.log(
-      JSON.stringify(
+      `PUT en api/Notas/Nueva es ${  JSON.stringify(
         inserterPrisma, null, 2
-      )
+      ) }`
     );
 
 
@@ -119,7 +119,7 @@ export async function PUT (
 
   } catch ( error ) {
     console.log(
-      error
+      `PUT en api/Notas/Nueva arrojó un error ${ error }`
     );
     return NextResponse.json(
       error as Error, {

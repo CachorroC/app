@@ -98,8 +98,10 @@
 .link {
   background-color: var(--secondary-container);
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   flex: 1;
+  align-items: center;
+  justify-content: center;
   .icon {
     margin: 0;
     grid-area: icon;

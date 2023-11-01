@@ -41,18 +41,20 @@ export function NotasList() {
   );
   return (
     <>
-      {notas.map(
-        (
-          nota
-        ) => {
-          return (
-            <Task
-              key={nota.id}
-              task={nota}
-            />
-          );
-        }
-      ) }
+      {
+        notas.map(
+          (
+            nota
+          ) => {
+            return (
+              <Task
+                key={ nota.id }
+                task={ nota }
+              />
+            );
+          }
+        )
+      }
 
     </>
   );

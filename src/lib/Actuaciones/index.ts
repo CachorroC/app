@@ -3,7 +3,7 @@ import { cache } from 'react';
 import { carpetasCollection } from '../connection/mongodb';
 import { sleep } from 'project/helper';
 import { intActuacion, ConsultaActuacion, Data, Message } from 'types/actuaciones';
-import { getCarpetaByllaveProceso } from '../project/utils/Carpetas/carpetas';
+import { getCarpetaByllaveProceso } from 'project/utils/Carpetas/carpetas';
 
 export async function fetchActuaciones(
   idProceso: number, index: number
@@ -88,13 +88,15 @@ export const getActuaciones = cache(
 
       return actuaciones;
     } catch ( error ) {
-      if ( error instanceof Error ) {
-        console.log(
-          error.message
-        );
-      }
 
-      return [];
+      console.log(
+        `error in getActuaciones ${ JSON.stringify(
+          error, null, 2
+        ) }`
+      );
+
+
+      return null;
     }
   },
 );
@@ -196,18 +198,11 @@ export async function  updateActuaciones(
 
     return;
   } catch ( error ) {
-    if ( error instanceof Error ) {
-      console.log(
-        JSON.stringify(
-          error, null, 2
-        )
-      );
-    }
 
     console.log(
-      JSON.stringify(
+      `ocurrio un error en updateActuaciones ${  JSON.stringify(
         error, null, 2
-      )
+      ) }`
     );
   }
 }

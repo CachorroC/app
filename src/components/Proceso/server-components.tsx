@@ -92,7 +92,10 @@ export async function ProcesosComponent(
 
 
   const procesos = await getProceso(
-    llaveProceso, index
+    {
+      llaveProceso: llaveProceso,
+      index       : index
+    }
   );
 
   if ( !procesos || procesos.length === 0 ) {
