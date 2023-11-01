@@ -4,52 +4,17 @@ import { MouseEventHandler,
   useCallback,
   useEffect,
   useRef, } from 'react';
-import styles from '../navbar.module.css';
 import { useNavigationContext } from '#@/app/context/main-context';
-import Link from 'next/link';
 import layout from '#@/styles/layout.module.css';
-import typography from '#@/styles/fonts/typography.module.css';
-import type { Route } from 'next';
-import { usePathname } from 'next/navigation';
+import { NavLink } from './NavLink';
+import styles from './navbar.module.css';
 
-// NOTE esta
 
-export function NavLink<T extends string>(
-  {
-    iconLabel, textLabel, hrefLabel
-  }: { iconLabel: string; textLabel: string;  hrefLabel: Route<T> | URL}
-) {
-
-  const {
-    setIsNavOpen
-  } = useNavigationContext();
-
-  const pathname = usePathname();
-
-  const isActive = pathname === hrefLabel;
-  return (
-    <Link
-      className={isActive
-        ? layout.linkActive
-        : layout.link}
-      onClick={() => {
-        setIsNavOpen(
-          false
-        );
-      }}
-      href={hrefLabel as Route}
-    >
-      <span className={`material-symbols-outlined ${ layout.icon }`}>{iconLabel}</span>
-      <h1 className={`${ typography.labelMedium } ${ layout.text }`}>{textLabel}</h1>
-    </Link>
-  );
-}
-
-export default function Drawer(
+export const Drawer = (
   {
     children
   }: { children: ReactNode }
-) {
+) => {
   const {
     isNavOpen, setIsNavOpen
   } = useNavigationContext();
@@ -154,4 +119,4 @@ export default function Drawer(
       </div>
     </nav>
   );
-}
+};

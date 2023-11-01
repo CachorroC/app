@@ -8,7 +8,7 @@ import styles from '#@/styles/layout.module.css';
 import { NavLink } from '../layout/Drawer';
 import layout from '#@/styles/layout.module.css';
 
-// NOTE aca va otro
+// TODO: arreglar lo de la navegacion
 export default function NavButtons() {
 
 

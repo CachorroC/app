@@ -4,9 +4,6 @@ import 'material-symbols';
 import layout from '#@/styles/layout.module.css';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import Script from 'next/script';
-import { Header } from 'components/layout/header';
-import { SearchOutputList } from 'components/layout/search/SearchProcesosOutput';
-import { SearchOutputListSkeleton } from 'components/layout/search/SearchProcesosOutputSkeleton';
 import { ReactNode, Suspense } from 'react';
 import { MainProvider } from './context/main-context';
 import { josefina, radio, playDisp, raleway, ptserif } from '#@/styles/fonts';
@@ -17,6 +14,7 @@ import { NotasSortProvider } from './context/notas-sort-context';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { Loader } from '#@/components/Loader';
 import type { Metadata, Viewport } from 'next';
+import { Header } from '#@/components/layout/Header';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -118,11 +116,7 @@ export default async function RootLayout(
                 <MainProvider>
                   <div className={layout.container}>
                     <Suspense fallback={<Loader />}>
-                      <Header>
-                        <Suspense fallback={<SearchOutputListSkeleton />}>
-                          <SearchOutputList />
-                        </Suspense>
-                      </Header>
+                      <Header/>
                     </Suspense>
                     {children}
                   </div>

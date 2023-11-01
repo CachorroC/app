@@ -14,9 +14,10 @@ export async function generateStaticParams () {
 
     if ( carpeta.idProcesos.length === 0 ) {
       maperProducts.set(
-        carpeta.numero,
-          numero   : carpeta.numero.toString(),
-          idProceso: 'sinProcesos'
+        carpeta.numero, {
+          numero      : carpeta.numero.toString(),
+          idProceso   : 'sinProcesos',
+          llaveProceso: carpeta.llaveProceso ?? 'noKey'
         }
       );
       continue;
@@ -25,8 +26,9 @@ export async function generateStaticParams () {
     for ( const idProceso of carpeta.idProcesos ) {
       maperProducts.set(
         idProceso, {
-          numero   : carpeta.numero.toString(),
-          idProceso: idProceso.toString()
+          numero      : carpeta.numero.toString(),
+          idProceso   : idProceso.toString(),
+          llaveProceso: carpeta.llaveProceso ?? 'noKey'
         }
       );
     }
@@ -44,6 +46,7 @@ export default async function Page(
   }: {
   params: {
     numero: string;
+      llaveProceso: string;
     idProceso: string;
   };
 }

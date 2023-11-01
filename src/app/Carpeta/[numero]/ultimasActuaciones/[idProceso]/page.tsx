@@ -4,7 +4,6 @@ import { Loader } from '#@/components/Loader';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
-import { sleep } from '#@/lib/project/helper';
 
 export async function generateStaticParams () {
   const maperProducts = new Map<number, { numero: string;  idProceso: string}>();

@@ -157,7 +157,7 @@
   --surface-dim: var(--pal-neutral87);
   --surface-bright: var(--pal-neutral98);
   --on-nav-background: var(--pal-primary12);
-  --nav-background: var(--pal-primary30);
+  --nav-background: var(--pal-primary50);
 }
 
 @media (prefers-color-scheme: dark) {

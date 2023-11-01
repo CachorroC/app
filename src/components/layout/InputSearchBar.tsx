@@ -1,9 +1,9 @@
 'use client';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import { useSearch } from '#@/app/context/search-context';
-import { useCarpetaSort } from '../../../app/context/carpetas-sort-context';
+import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
 
-export default function InputSearchBar() {
+export const InputSearchBar= () => {
   const {
     search, setSearch
   } = useSearch();
@@ -65,4 +65,4 @@ export default function InputSearchBar() {
 
     </div>
   );
-}
+};

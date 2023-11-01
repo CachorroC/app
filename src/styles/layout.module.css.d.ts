@@ -21,7 +21,10 @@ declare const styles: {
   readonly 'link': string;
   readonly 'linkActive': string;
   readonly 'loader': string;
-  readonly 'navButtons': string;
+  readonly 'nav': string;
+  readonly 'navBar': string;
+  readonly 'navDrawer': string;
+  readonly 'navRail': string;
   readonly 'right': string;
   readonly 'section': string;
   readonly 'sectionColumn': string;
