@@ -1,5 +1,5 @@
-import { carpetasCollection,  } from '#@/lib/connection/mongodb';
 
+import { carpetasCollection } from '#@/lib/connection/collections';
 import { NextResponse } from 'next/server';
 
 

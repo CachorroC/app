@@ -1,8 +1,9 @@
-import { notasCollection } from '#@/lib/connection/mongodb';
+
 import {  NextRequest, NextResponse } from 'next/server';
 import { prisma } from '#@/lib/connection/prisma';
 import { NewNota } from '#@/lib/types/notas';
 import { Nota, Prisma } from '@prisma/client';
+import { notasCollection } from '#@/lib/connection/collections';
 
 
 export async function GET () {

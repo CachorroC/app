@@ -1,4 +1,5 @@
-import { pruebasCollection } from '#@/lib/connection/mongodb';
+
+import { pruebasCollection } from '#@/lib/connection/collections';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
