@@ -50,7 +50,7 @@ export interface intProceso {
     departamento:         Departamento;
     sujetosProcesales:    string;
     esPrivado:            boolean;
-    cantFilas:            number;
+  cantFilas: number;
 }
 
 export type Departamento = 'BOGOTÁ' | 'CUNDINAMARCA' | 'ANTIOQUIA' | 'META';

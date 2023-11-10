@@ -2,14 +2,46 @@
 
 import { useRouter } from 'next/navigation';
 import { useModalContext } from '#@/app/context/modal-context';
-
 import { useNavigationContext } from '#@/app/context/main-context';
 import styles from '#@/styles/layout.module.css';
-import { NavLink } from '../layout/Drawer';
 import layout from '#@/styles/layout.module.css';
+import { NavLink } from '../layout/NavLink';
 
 // TODO: arreglar lo de la navegacion
-export default function NavButtons() {
+
+export const DrawerMenuButton = () => {
+  const {
+    isNavOpen, setIsNavOpen
+  } = useNavigationContext();
+  return (
+    <button
+      type="button"
+      className={styles.buttonDrawerMenu}
+      onClick={
+        () => {
+          setIsNavOpen(
+            (
+              n
+            ) => {
+              return !n;
+            }
+          );
+        }
+      }
+    >
+      <span className={`material-symbols-outlined ${ styles.icon }`}>
+        {isNavOpen
+          ? 'close'
+          : 'menu'}
+      </span>
+      <span className={styles.text}>{isNavOpen
+        ? 'Cerrar'
+        : 'Menu'}</span>
+    </button>
+  );
+};
+
+export default function NavButtons () {
 
 
   const {

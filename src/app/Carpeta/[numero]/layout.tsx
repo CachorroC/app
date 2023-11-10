@@ -2,13 +2,13 @@ import { CarpetaFormProvider } from '#@/app/context/carpeta-form-context';
 import { Loader } from '#@/components/Loader';
 import { NombreComponent } from '#@/components/nombre';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
-import { getBaseUrl } from '#@/lib/project/helper';
 import styles from '#@/styles/layout.module.css';
 import { Metadata, Route } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { NotasLinkList } from './notas-list';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 
 type Props = {
   children: ReactNode;
@@ -17,7 +17,25 @@ type Props = {
   params: { numero: string };
 };
 
+//SECTION Generate segments for [numero]
+export async function generateStaticParams () {
+  const carpetas = await getCarpetas();
 
+  return carpetas.map(
+    (
+      product
+    ) => {
+      return {
+        numero: String(
+          product.numero
+        ),
+      };
+    }
+  );
+}
+
+
+//SECTION Generate metadata for [numero]
 export async function generateMetadata(
   {
     params
@@ -28,21 +46,22 @@ export async function generateMetadata(
   } = params;
 
 
-  const product = await fetch(
-    `${ getBaseUrl() }/api/Carpeta/${ numero }`,
-  )
-    .then(
-      (
-        res
-      ) => {
-        return res.json();
-      }
-    );
+  const product = await getCarpetabyNumero(
+    Number(
+      numero
+    )
+  );
+
+  if ( !product ) {
+    return {
+      title: 'sin carpeta'
+    };
+  }
 
   return {
     title   : product.nombre,
     keywords: [
-      product.deudor.primerNomnbre,
+      product.deudor.primerNombre,
       product.tipoProceso,
       product.category,
       product.deudor.primerApellido

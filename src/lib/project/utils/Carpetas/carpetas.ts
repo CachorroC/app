@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { cache } from 'react';
-import clientPromise, { carpetasCollection, pruebasCollection } from '#@/lib/connection/mongodb';
+import clientPromise from '#@/lib/connection/mongodb';
 import { IntCarpeta, carpetaConvert } from 'types/carpetas';
 
 export const getCarpetasByllaveProceso = cache(
@@ -20,7 +20,7 @@ export const getCarpetasByllaveProceso = cache(
     );
 
     const collection = db.collection<IntCarpeta>(
-      'Pruebas'
+      'Carpetas'
     );
 
     const carpetasRaw = await collection
@@ -53,7 +53,22 @@ export const getCarpetaByllaveProceso = cache(
   async (
     llaveProceso: string
   ) => {
-    const collection = await carpetasCollection();
+
+    const client = await clientPromise;
+
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico'
+      );
+    }
+
+    const db = client.db(
+      'RyS'
+    );
+
+    const collection = db.collection<IntCarpeta>(
+      'Carpetas'
+    );
 
     const carpetaRaw = await collection.findOne(
       {
@@ -101,7 +116,7 @@ export const getCarpetaById = cache(
     );
 
     const collection = db.collection<IntCarpeta>(
-      'Pruebas'
+      'Carpetas'
     );
 
     const Carpeta = await collection.findOne(
@@ -128,7 +143,22 @@ export const getCarpetabyNumero = cache(
   async (
     numero: number
   ) => {
-    const collection = await pruebasCollection();
+
+    const client = await clientPromise;
+
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico'
+      );
+    }
+
+    const db = client.db(
+      'RyS'
+    );
+
+    const collection = db.collection<IntCarpeta>(
+      'Carpetas'
+    );
 
     const carpeta = await collection.findOne(
       {
@@ -152,7 +182,22 @@ export const getCarpetaByidProceso = cache(
   async (
     idProceso: number
   ) => {
-    const collection = await carpetasCollection();
+
+    const client = await clientPromise;
+
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico'
+      );
+    }
+
+    const db = client.db(
+      'RyS'
+    );
+
+    const collection = db.collection<IntCarpeta>(
+      'Carpetas'
+    );
 
     const carpeta = await collection.findOne(
       {

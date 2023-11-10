@@ -1,44 +1,80 @@
-import {  getActuaciones } from '#@/lib/Actuaciones';
-import { Fragment, Suspense } from 'react';
-import { Loader } from '#@/components/Loader';
+import {  fetchActuaciones } from '#@/lib/Actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
-import { notFound } from 'next/navigation';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 
 export async function generateStaticParams () {
-  const maperProducts = new Map<number, { numero: string;  llaveProceso: string; idProceso: string}>();
+  const mapperCarpetas = new Set<{ numero: string; llaveProceso: string;  idProceso: string}>();
 
   const products = await getCarpetas();
 
-  for ( const carpeta of products ) {
+  const noKey = 'noKey';
 
-    if ( carpeta.idProcesos.length === 0 ) {
-      maperProducts.set(
-        carpeta.numero, {
-          numero      : carpeta.numero.toString(),
-          idProceso   : 'sinProcesos',
-          llaveProceso: carpeta.llaveProceso ?? 'noKey'
+  for ( const carpeta of products ) {
+    const {
+      llaveProceso, idProcesos, numero
+    } = carpeta;
+
+    if ( !llaveProceso ) {
+      mapperCarpetas.add(
+        {
+          numero: String(
+            numero
+          ),
+          llaveProceso: noKey,
+          idProceso   : noKey,
+        }
+      );
+      continue;
+    } else if ( !idProcesos || idProcesos.length === 0 ) {
+      mapperCarpetas.add(
+        {
+          numero: String(
+            numero
+          ),
+          llaveProceso: llaveProceso,
+          idProceso   : noKey,
+        }
+      );
+      continue;
+    } else if ( idProcesos.length === 1 ) {
+      mapperCarpetas.add(
+        {
+          numero: String(
+            numero
+          ),
+          llaveProceso: llaveProceso,
+          idProceso   : String(
+            idProcesos[ 0 ]
+          ),
         }
       );
       continue;
     }
 
-    for ( const idProceso of carpeta.idProcesos ) {
-      maperProducts.set(
-        idProceso, {
-          numero      : carpeta.numero.toString(),
-          idProceso   : idProceso.toString(),
-          llaveProceso: carpeta.llaveProceso ?? 'noKey'
-        }
-      );
-    }
+    idProcesos.forEach(
+      (
+        idProceso
+      ) => {
+        mapperCarpetas.add(
+          {
+            numero: String(
+              numero
+            ),
+            llaveProceso: llaveProceso,
+            idProceso   : String(
+              idProceso
+            ),
+          }
+        );
+      }
+    );
+    continue;
   }
 
   return Array.from(
-    maperProducts.values()
+    mapperCarpetas
   );
 }
-
 
 export default async function Page(
   {
@@ -47,42 +83,36 @@ export default async function Page(
   params: {
     numero: string;
       llaveProceso: string;
-    idProceso: string;
+    idProceso: number;
   };
 }
 ) {
 
 
-  const actuaciones = await getActuaciones(
-
-    {
-      idProceso: Number(
-        params.idProceso
-      ),
-      index: 1
-    }
+  const consultaActuaciones = await fetchActuaciones(
+    params.idProceso,
+    Number(
+      params.numero
+    )
 
   );
 
-  if ( !actuaciones || actuaciones.length === 0 ) {
-    return notFound();
-  }
 
   return (
-    <Fragment key={params.idProceso}>
-      <Suspense fallback={<Loader />}>
 
-        {actuaciones.map(
-          (
-            actuacion, index
-          ) => {
-            return (
-              <ActuacionComponent
-                key={ index } incomingActuacion={actuacion } initialOpenState={ true} />
-            );
-          }
-        )}
-      </Suspense>
-    </Fragment>
+    <>
+      <h1>{consultaActuaciones.Message}</h1>
+      {consultaActuaciones.actuaciones && consultaActuaciones.actuaciones.map(
+        (
+          actuacion, index
+        ) => {
+          return (
+            <ActuacionComponent
+              key={ index } incomingActuacion={actuacion } initialOpenState={ true} />
+          );
+        }
+      )}
+
+    </>
   );
 }

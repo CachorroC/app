@@ -1,4 +1,5 @@
-import { carpetasCollection } from '#@/lib/connection/mongodb';
+
+import clientPromise from '#@/lib/connection/mongodb';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { IntCarpeta, NuevaCarpeta } from '#@/lib/types/carpetas';
@@ -16,7 +17,7 @@ export async function GET() {
 
   const defaultValues: NuevaCarpeta = {
     numero  : carpsLen + 1,
-    category: 'sin Especificar',
+    category: 'sinEspecificar',
     deudor  : {
       primerNombre   : '',
       segundoNombre  : '',
@@ -67,7 +68,21 @@ export async function PUT(
 
   const json = ( await request.json() ) as IntCarpeta;
 
-  const collection = await carpetasCollection();
+  const client = await clientPromise;
+
+  if ( !client ) {
+    throw new Error(
+      'no hay cliente mongólico'
+    );
+  }
+
+  const db = client.db(
+    'RyS'
+  );
+
+  const collection = db.collection<IntCarpeta>(
+    'Carpetas'
+  );
 
   const insertCarpeta = await collection.insertOne(
     json

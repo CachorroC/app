@@ -34,7 +34,6 @@ export async function fetchActuaciones(
     } = data;
 
     await updateActuaciones(
-
       actuaciones, idProceso
     );
 
@@ -116,17 +115,6 @@ export async function  updateActuaciones(
       penUltimaActuacion
     ] = actuaciones;
 
-    let ultimaAct;
-
-    if ( ultimaActuacion.actuacion.indexOf(
-      'Fijacion estado'
-    ) ) {
-      ultimaAct = penUltimaActuacion;
-    } else {
-      ultimaAct = ultimaActuacion;
-    }
-
-
     const carpeta = await getCarpetaByllaveProceso(
       ultimaActuacion.llaveProceso,
     );
@@ -170,7 +158,9 @@ export async function  updateActuaciones(
             fecha: new Date(
               ultimaActuacion.fechaRegistro
             ),
-            ultimaActuacion: ultimaAct,
+            ultimaActuacion: ultimaActuacion.actuacion === 'Fijacion estado'
+              ? penUltimaActuacion
+              : ultimaActuacion,
           },
         },
         {
@@ -198,12 +188,12 @@ export async function  updateActuaciones(
 
     return;
   } catch ( error ) {
-
     console.log(
       `ocurrio un error en updateActuaciones ${  JSON.stringify(
         error, null, 2
       ) }`
     );
+    return;
   }
 }
 

@@ -40,7 +40,7 @@ export default function Page(
 
   return (
     <>
-      <CarpetasList path={ '/Carpetas' } />
+      <CarpetasList />
     </>
   );
 }

@@ -2,9 +2,9 @@
 
 import { revalidateTag } from 'next/cache';
 import { ZodNotaElementSchema } from '#@/lib/types/zod/nota';
-import { notasCollection } from '#@/lib/connection/mongodb';
 import { DeleteResult, ObjectId } from 'mongodb';
-import { NotaEditorAction, notasConvert } from '#@/lib/types/notas';
+import { NotaEditorAction, intNota, notasConvert } from '#@/lib/types/notas';
+import clientPromise from '#@/lib/connection/mongodb';
 
 
 
@@ -45,7 +45,22 @@ export async function createNota(
       data
     } = parsed;
 
-    const collection = await notasCollection();
+
+    const client = await clientPromise;
+
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico'
+      );
+    }
+
+    const db = client.db(
+      'RyS'
+    );
+
+    const collection = db.collection<intNota>(
+      'Notas'
+    );
 
     const nota = await collection.findOneAndUpdate(
       {
@@ -96,7 +111,22 @@ export async function deleteNota(
   }: { id: number}
 ) {
   try {
-    const collection = await notasCollection();
+
+    const client = await clientPromise;
+
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico'
+      );
+    }
+
+    const db = client.db(
+      'RyS'
+    );
+
+    const collection = db.collection<intNota>(
+      'Notas'
+    );
 
     const deleter = await collection.deleteOne(
       {
@@ -176,7 +206,22 @@ export async function editNota (
       data
     } = parsed;
 
-    const collection = await notasCollection();
+
+    const client = await clientPromise;
+
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico'
+      );
+    }
+
+    const db = client.db(
+      'RyS'
+    );
+
+    const collection = db.collection<intNota>(
+      'Notas'
+    );
 
     const nota = await collection.findOneAndUpdate(
       {

@@ -15,10 +15,10 @@ export interface NotaEditorAction
 
 export interface intNota
 {
-  carpetaNumero?: number;
+  carpetaNumero?: number | null;
   id: number;
   text: string;
-  pathname?: string ;
+  pathname?: string | null;
   date: Date;
 }
 
@@ -110,7 +110,7 @@ export class notasConvert {
   }
 
   public static toMonNota(
-    nota: WithId<Nota | intNota>
+    nota: WithId<intNota>
   ): monNota {
     const newNota = {
       ...nota,
@@ -127,7 +127,7 @@ export class notasConvert {
   }
 
   public static toMonNotas(
-    rawNotas: WithId<Nota>[]
+    rawNotas: WithId<intNota>[]
   ): monNota[] {
     const newNotas = rawNotas.map(
       (

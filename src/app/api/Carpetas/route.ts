@@ -1,5 +1,5 @@
-import { carpetasCollection } from '#@/lib/connection/mongodb';
-import { carpetaConvert } from '#@/lib/types/carpetas';
+import { carpetasCollection,  } from '#@/lib/connection/mongodb';
+
 import { NextResponse } from 'next/server';
 
 
@@ -13,8 +13,15 @@ export async function GET () {
     )
       .toArray();
 
-    const carpetas = carpetaConvert.toMonCarpetas(
-      carpetasRaw
+    const carpetas = carpetasRaw.map(
+      (
+        rawCarpeta
+      ) => {
+        return {
+          ...rawCarpeta,
+          _id: rawCarpeta._id.toString()
+        };
+      }
     );
 
     return NextResponse.json(

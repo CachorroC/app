@@ -1,6 +1,6 @@
 import { NotaComponent } from '#@/components/Nota/server';
-import { notasCollection } from '#@/lib/connection/mongodb';
-import { notasConvert } from '#@/lib/types/notas';
+import clientPromise from '#@/lib/connection/mongodb';
+import { intNota, notasConvert } from '#@/lib/types/notas';
 import { notFound } from 'next/navigation';
 
 export default async function DatePage(
@@ -20,7 +20,21 @@ export default async function DatePage(
     `${ incomingAno }-${ incomingMes }-${ incomingDia }`
   );
 
-  const collection = await notasCollection();
+  const client = await clientPromise;
+
+  if ( !client ) {
+    throw new Error(
+      'no hay cliente mongólico'
+    );
+  }
+
+  const db = client.db(
+    'RyS'
+  );
+
+  const collection = db.collection<intNota>(
+    'Notas'
+  );
 
   const rawNotas = await collection
     .find(

@@ -110,7 +110,7 @@ export function carpetasReducer(
     'todos',
     'Bancolombia',
     'Reintegra',
-    'sin Especificar',
+    'sinEspecificar',
     'LiosJuridicos',
     'Insolvencia',
     'Terminados',

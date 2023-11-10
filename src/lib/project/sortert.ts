@@ -21,7 +21,7 @@ export function carpetasSorter(
     'todos',
     'Bancolombia',
     'Reintegra',
-    'sin Especificar',
+    'sinEspecificar',
     'LiosJuridicos',
     'Insolvencia',
     'Terminados',

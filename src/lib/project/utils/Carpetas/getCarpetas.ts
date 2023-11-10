@@ -1,30 +1,41 @@
-import { pruebasCollection } from '#@/lib/connection/mongodb';
-import { carpetaConvert } from '#@/lib/types/carpetas';
-import { cache } from 'react';
 
-export const getCarpetas = cache(
-  async() => {
-    const collection = await pruebasCollection();
+import clientPromise from '#@/lib/connection/mongodb';
+import { IntCarpeta, MonCarpeta } from '#@/lib/types/carpetas';
 
-    const carpetasRaw = await collection
-      .find(
-        {}
-      )
-      .sort(
-        {
-          fecha: 1,
-        }
-      )
-      .allowDiskUse()
-      .toArray();
+export async function getCarpetas() {
 
+  const client = await clientPromise;
 
-
-    const carpetas = carpetaConvert.toMonCarpetas(
-      carpetasRaw
+  if ( !client ) {
+    throw new Error(
+      'no hay cliente mongólico'
     );
-
-
-    return carpetas;
   }
-);
+
+  const db = client.db(
+    'RyS'
+  );
+
+  const collection = db.collection<IntCarpeta>(
+    'Carpetas'
+  );
+
+  const carpetasRaw = await collection
+    .find(
+      {}
+    )
+    .toArray();
+
+
+  return carpetasRaw.map(
+    (
+      carpeta
+    ) => {
+      return ( {
+        ...carpeta,
+        _id   : carpeta._id.toString(),
+        nombre: `${ carpeta.deudor.primerNombre } ${ carpeta.deudor.segundoNombre } ${ carpeta.deudor.primerApellido } ${ carpeta.deudor.segundoApellido }`
+      } ) as MonCarpeta;
+    }
+  );
+}

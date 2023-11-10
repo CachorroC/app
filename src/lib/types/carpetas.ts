@@ -3,7 +3,8 @@ import { intActuacion } from './actuaciones';
 import { intProceso } from './procesos';
 import { Despachos } from '../Procesos/despachos';
 
-export interface NuevaCarpeta {
+export interface NuevaCarpeta
+{
   numero: number;
   category: Category;
   deudor: {
@@ -32,19 +33,25 @@ export interface NuevaCarpeta {
 
 export interface IntCarpeta
 {
-    llaveProceso:     null | string;
-    category:         Category;
-    numero:           number;
-    tipoProceso:      TipoProceso;
-    deudor:           intDeudor;
-    cc:               number | null;
-    idProcesos:       number[];
-    demanda:          intDemanda;
-    fecha?:           Date;
-    ultimaActuacion?: intActuacion;
-    procesos?:        intProceso[];
-    codeudor?:        intCodeudor;
+  numero: number;
+  category: Category;
+  cc: number | null;
+  codeudor: intCodeudor | null;
+  demanda: intDemanda;
+  deudor: intDeudor;
+  idProcesos: number[] | null;
+  llaveProceso: null | string;
+  tipoProceso: TipoProceso;
+  fecha?: Date;
+  procesos?: intProceso[];
+  ultimaActuacion?: intActuacion;
 }
+
+export type Departamento = 'CUNDINAMARCA' | 'BOGOTÁ' | 'TOLIMA' | 'CUN DINAMARCA' | 'CUNDINNAMARCA' | 'BOYACÁ' | 'CNDINAMARCA' | 'ANTIOQUIA' | 'META';
+
+export type TipoProceso = 'SINGULAR' | 'HIPOTECARIO' | 'PRENDARIO' | 'SINGULAR ACUMULADO CON HIPOTECARIO' | 'SINGULAR ACUM HIPOTECARIO' | 'PRENDARO' | 'HMM PISO 1' | 'HIPOTECARIA' | 'HIPOTECARO' | 'SINGULAR ACUMULADO CON HIPOTECARIO CAJA SOCIAL' | 'SOACHA';
+
+
 
 export type Category =
   | 'Terminados'
@@ -52,10 +59,11 @@ export type Category =
   | 'Bancolombia'
   | 'Reintegra'
   | 'Insolvencia'
-  | 'sin Especificar'
+  | 'sinEspecificar'
   | 'todos';
 
-export interface intDemanda {
+export interface intDemanda
+{
   capitalAdeudado: number | null;
   entregaGarantiasAbogado: Date | null;
   etapaProcesal: null | string;
@@ -64,83 +72,63 @@ export interface intDemanda {
   juzgados: intJuzgado[] | null;
   municipio: string;
   tipoProceso: TipoProceso;
-    mandamientoPago:         Date | null;
-    obligacion:              Array<number | string>;
-    radicado:                null | string;
-    vencimientoPagare:       Array<Date | null>;
-    departamento:            Departamento;
-    despacho?:               string;
-    sujetosProcesales?:      string;
+  mandamientoPago: Date | null;
+  obligacion: Array<number | string>;
+  radicado: null | string;
+  vencimientoPagare: Array<Date | null>;
+  departamento: Departamento;
+  despacho?: string;
+  sujetosProcesales?: string;
 }
 
 export type Obligacion = number | string;
 
-export type Departamento =
-  | 'CUNDINAMARCA'
-  | 'TOLIMA'
-  | 'BOYACÁ'
-  | 'depto'
-  | 'VAUPES'
-  | 'CASANARE'
-  | 'CESAR';
 
-export interface intJuzgado {
+
+export interface intJuzgado
+{
   id: number;
   tipo: string;
   url: string;
 }
 
-export interface intDeudor {
+export interface intDeudor
+{
   tel: intTel;
   primerNombre: string;
   segundoNombre: string | null;
   primerApellido: string;
-  segundoApellido: string | null;
   cedula: number | null;
   direccion: string | null;
   email: string | null;
+
+  segundoApellido: string[] | null | string;
 }
 
-export interface intTel {
+export interface intTel
+{
   fijo: number | null;
   celular: number | null;
 }
 
-export interface intCodeudor {
-    cedula:     number | string;
-    nombre:     string;
-    direccion?: string;
-    telefono?:  number | string;
+export interface intCodeudor
+{
+  cedula?: number | string;
+  direccion?: number | string;
+  nombre?: number | string;
+  telefono?: number | string;
 }
 
-export type TipoProceso =
-  | 'HIPOTECARIO'
-  | 'PRENDARIO'
-  | 'ACUMULADO'
-  | 'SINGULAR'
-  | 'SINGULAR ACUMULADO CON HIPOTECARIO'
-  | 'SINGULAR ACUM HIPOTECARIO'
-  | '11001400308320170071700'
-  | '25473418900120170092400'
-  | 'PRENDARO'
-  | ' HIPOTECARIO'
-  | 'HMM PISO 1'
-  | '  SINGULAR'
-  | 'HIPOTECARIA'
-  | 'HIPOTECARO'
-  | 'SINGULAR ACUMULADO CON HIPOTECARIO CAJA SOCIAL'
-  | 'SOACHA'
-  | 'HIPOTECARIO ';
+
 
 export type CodRegla = '00                              ';
 
 export interface MonCarpeta extends IntCarpeta
 {
-  llaveProceso: string | null;
   fecha?: Date;
   ultimaActuacion?: intActuacion;
-  _id: string;
   nombre: string;
+  _id: string;
 }
 
 export type CarpetaKeys = keyof MonCarpeta;
@@ -148,13 +136,13 @@ export type CarpetaKeys = keyof MonCarpeta;
 export type NuevaCarpetaKeys = keyof NuevaCarpeta;
 
 export type Concrete<Type> = {
-  [Property in keyof Type]-?: Type[Property];
+  [ Property in keyof Type ]-?: Type[ Property ];
 };
 
-// Converts JSON strings to/from your types
+//? Converts JSON strings to/from your types
 
 export class carpetaConvert {
-  public static demandaToJson(
+  public static demandaToJson (
     value: intDemanda
   ): string {
     return JSON.stringify(
@@ -162,7 +150,7 @@ export class carpetaConvert {
     );
   }
 
-  public static departamentoToJson(
+  public static departamentoToJson (
     value: Departamento
   ): string {
     return JSON.stringify(
@@ -170,7 +158,7 @@ export class carpetaConvert {
     );
   }
 
-  public static deudorToJson(
+  public static deudorToJson (
     value: intDeudor
   ): string {
     return JSON.stringify(
@@ -178,7 +166,7 @@ export class carpetaConvert {
     );
   }
 
-  public static intCarpetasToJson(
+  public static intCarpetasToJson (
     value: IntCarpeta[]
   ): string {
     return JSON.stringify(
@@ -186,7 +174,7 @@ export class carpetaConvert {
     );
   }
 
-  public static intCarpetaToJson(
+  public static intCarpetaToJson (
     value: IntCarpeta
   ): string {
     return JSON.stringify(
@@ -194,7 +182,7 @@ export class carpetaConvert {
     );
   }
 
-  public static juzgadoToJson(
+  public static juzgadoToJson (
     value: intJuzgado
   ): string {
     return JSON.stringify(
@@ -202,7 +190,7 @@ export class carpetaConvert {
     );
   }
 
-  public static telToJson(
+  public static telToJson (
     value: intTel
   ): string {
     return JSON.stringify(
@@ -210,7 +198,7 @@ export class carpetaConvert {
     );
   }
 
-  public static toDemanda(
+  public static toDemanda (
     json: string
   ): intDemanda {
     return JSON.parse(
@@ -218,7 +206,7 @@ export class carpetaConvert {
     );
   }
 
-  public static toDepartamento(
+  public static toDepartamento (
     json: string
   ): Departamento {
     return JSON.parse(
@@ -226,7 +214,7 @@ export class carpetaConvert {
     );
   }
 
-  public static toDeudor(
+  public static toDeudor (
     json: string
   ): intDeudor {
     return JSON.parse(
@@ -234,7 +222,7 @@ export class carpetaConvert {
     );
   }
 
-  public static toIntCarpeta(
+  public static toIntCarpeta (
     json: string
   ): IntCarpeta {
     return JSON.parse(
@@ -242,7 +230,7 @@ export class carpetaConvert {
     );
   }
 
-  public static toIntCarpetas(
+  public static toIntCarpetas (
     json: string
   ): IntCarpeta[] {
     return JSON.parse(
@@ -250,7 +238,7 @@ export class carpetaConvert {
     );
   }
 
-  public static toJuzgado(
+  public static toJuzgado (
     json: string
   ): intJuzgado {
     return JSON.parse(
@@ -258,83 +246,16 @@ export class carpetaConvert {
     );
   }
 
-  public static toMonCarpeta(
+  public static toMonCarpeta (
     carpeta: WithId<IntCarpeta>
   ): MonCarpeta {
-    const pN
-      = carpeta.deudor.primerNombre.charAt(
-        0
-      )
-        .toUpperCase()
-      + carpeta.deudor.primerNombre.toLowerCase()
-        .slice(
-          1
-        );
-
-    const pA
-      = carpeta.deudor.primerApellido.charAt(
-        0
-      )
-        .toUpperCase()
-      + carpeta.deudor.primerApellido.toLowerCase()
-        .slice(
-          1
-        );
-
-    const sN
-      = carpeta.deudor.segundoNombre
-      && carpeta.deudor.segundoNombre.charAt(
-        0
-      )
-        .toUpperCase()
-        + carpeta.deudor.segundoNombre.toLowerCase()
-          .slice(
-            1
-          );
-
-    const sA
-      = carpeta.deudor.segundoApellido
-      && carpeta.deudor.segundoApellido.charAt(
-        0
-      )
-        .toUpperCase()
-        + carpeta.deudor.segundoApellido.toLowerCase()
-          .slice(
-            1
-          );
-
-    const outputCarpeta: MonCarpeta = {
+    return {
       ...carpeta,
-      _id         : carpeta._id.toString(),
-      cc          : carpeta.deudor.cedula,
-      llaveProceso: carpeta.llaveProceso ?? carpeta.demanda.expediente,
-      deudor      : {
-        ...carpeta.deudor,
-        primerNombre   : pN,
-        primerApellido : pA,
-        segundoNombre  : sN,
-        segundoApellido: sA,
-      },
-      get nombre() {
-        const nombres
-          = this.deudor.primerNombre
-          + ( this.deudor.segundoNombre
-            ? ' ' + this.deudor.segundoNombre
-            : ' ' );
-
-        const apellidos = this.deudor.segundoApellido
-          ? this.deudor.primerApellido + ' ' + this.deudor.segundoApellido
-          : this.deudor.primerApellido;
-
-        const rawName = `${ nombres } ${ apellidos }`;
-
-        return rawName;
-      },
-
+      _id   : carpeta._id.toString(),
+      nombre: `${ carpeta.deudor.primerNombre } ${ carpeta.deudor.segundoNombre } ${ carpeta.deudor.primerApellido } ${ carpeta.deudor.segundoApellido }`
     };
-    return outputCarpeta;
   }
-  public static toMonCarpetas(
+  public static toMonCarpetas (
     carpetas: WithId<IntCarpeta>[]
   ): MonCarpeta[] {
     const newCarpetas = carpetas.map(
@@ -350,7 +271,7 @@ export class carpetaConvert {
     return newCarpetas;
   }
 
-  public static toTel(
+  public static toTel (
     json: string
   ): intTel {
     return JSON.parse(
@@ -401,7 +322,8 @@ export const mockCarpeta: IntCarpeta = {
     juzgados       : null,
     mandamientoPago: null,
   },
-  cc: null,
+  cc      : null,
+  codeudor: null
 };
 
 function incomingStringFixer (
@@ -418,7 +340,7 @@ function incomingStringFixer (
 }
 
 export class DespachoJudicial implements intJuzgado {
-  constructor(
+  constructor (
     proceso: intProceso
   ) {
     const matchedDespacho = Despachos.find(
@@ -448,8 +370,7 @@ export class DespachoJudicial implements intJuzgado {
 
         if ( indexOfDesp >= 0 ) {
           console.log(
-            `procesos despacho is in despachos ${
-              indexOfDesp + 1
+            `procesos despacho is in despachos ${ indexOfDesp + 1
             }`
           );
         }

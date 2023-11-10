@@ -6,11 +6,7 @@ import { useCategory } from '#@/app/context/main-context';
 import { JSX } from 'react';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 
-export default function CarpetasList(
-  {
-    path
-  }: { path: string }
-) {
+export default function CarpetasList() {
   const rows: JSX.Element[] = [];
 
   const carpetasReduced = useCarpetaSort();
@@ -43,7 +39,7 @@ export default function CarpetasList(
         rows.push(
           <Card
             key={proceso._id}
-            path={path}
+
             carpeta={proceso}
           >
             {ultimaActuacion && (

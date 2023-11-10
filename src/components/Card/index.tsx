@@ -8,11 +8,10 @@ import layout from '#@/styles/layout.module.css';
 
 export const Card = (
   {
-    path,
     carpeta,
     children,
   }: {
-  path: string;
+
   carpeta: MonCarpeta;
   children: ReactNode;
 }
@@ -27,7 +26,7 @@ export const Card = (
 
 
   const {
-    idProcesos, nombre, numero
+    idProcesos, nombre, numero, llaveProceso
   }
     = carpeta;
 
@@ -45,7 +44,11 @@ export const Card = (
         return (
           <Link
             key={idProceso}
-            href={`${ path }/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
+            href={`/Carpeta/${ String(
+              numero
+            ) }/Procesos/${ llaveProceso ?? 'noKey' }/${ String(
+              idProceso
+            ) }`}
             className={styles.link}
           >
 

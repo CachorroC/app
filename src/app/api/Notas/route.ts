@@ -1,8 +1,8 @@
 import 'server-only';
-import { notasCollection } from '#@/lib/connection/mongodb';
 import { NextRequest, NextResponse } from 'next/server';
-import { Nota } from '@prisma/client';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
+import clientPromise from '#@/lib/connection/mongodb';
+import { intNota } from '#@/lib/types/notas';
 /*
 export async function GET () {
   const collection = await notasCollection();
@@ -75,12 +75,26 @@ export async function POST (
   try {
 
 
-    const incomingNote = ( await request.json() ) as Nota;
+    const incomingNote = ( await request.json() ) as intNota;
 
 
 
 
-    const collection = await notasCollection();
+    const client = await clientPromise;
+
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico'
+      );
+    }
+
+    const db = client.db(
+      'RyS'
+    );
+
+    const collection = db.collection<intNota>(
+      'Notas'
+    );
 
     const updatedNote = await collection.insertOne(
       incomingNote
@@ -122,12 +136,26 @@ export async function PUT (
   try {
 
 
-    const incomingNote = ( await request.json() ) as Nota;
+    const incomingNote = ( await request.json() ) as intNota;
 
 
 
 
-    const collection = await notasCollection();
+    const client = await clientPromise;
+
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico'
+      );
+    }
+
+    const db = client.db(
+      'RyS'
+    );
+
+    const collection = db.collection<intNota>(
+      'Notas'
+    );
 
     const updatedNote = await collection.findOneAndUpdate(
       {

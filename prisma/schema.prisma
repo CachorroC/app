@@ -8,14 +8,18 @@ datasource db {
 }
 
 model Carpeta {
-  numero       Int
-  llaveProceso String?
-  nombre       String?
-  category     String?
-  cc           Int?
+  numero       Int         @id
+  llaveProceso String?     @unique
+  nombre       String
+  category     Category    @default(SinEspecificar)
   idProcesos   Int[]
-  id           Int     @id @unique @default(autoincrement())
+  demandaId    Int?
+  deudorCedula String?
+  Actuacion    Actuacion[]
+  Demanda      Demanda?    @relation(fields: [demandaId], references: [id])
+  Deudor       Deudor?     @relation(fields: [deudorCedula], references: [cedula])
   notas        Nota[]
+  Proceso      Proceso[]
   tareas       Tarea[]
 }
 
@@ -23,109 +27,104 @@ model Nota {
   text          String
   id            Int      @id @unique @default(autoincrement())
   date          DateTime
+  createdAt     DateTime @default(now())
   pathname      String?
   carpetaNumero Int?
-  carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [id])
+  carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
 }
 
 model Tarea {
   id           Int        @id @unique @default(autoincrement())
-  creationDate DateTime   @default(now())
-  dueDate      DateTime?
-  Carpeta      Carpeta?   @relation(fields: [carpetaId], references: [id])
+  creationDate DateTime   @default(now()) @db.Date
+  dueDate      DateTime?  @db.Date
   carpetaId    Int?
   text         String
   isComplete   Boolean
-  subTareas     SubTarea[]
+  subTareas    SubTarea[]
+  Carpeta      Carpeta?   @relation(fields: [carpetaId], references: [numero])
 }
 
 model SubTarea {
   text       String    @id
   date       DateTime?
   isComplete Boolean
-  Tarea      Tarea?    @relation(fields: [tareaId], references: [id])
   tareaId    Int?
+  Tarea      Tarea?    @relation(fields: [tareaId], references: [id])
 }
 
 model Actuacion {
-  idRegActuacion Int
-  idProceso      BigInt    @id
-  llaveProceso   String
-  consActuacion  Int
-  fechaActuacion DateTime
-  actuacion      String
-  anotacion      String?
-  fechaInicial   DateTime?
-  fechaRegistro  DateTime
-  fechaFinal     DateTime?
-  codRegla       String
-  conDocumentos  Boolean
-  can            Int
-  Proceso        Proceso   @relation(fields: [idProceso], references: [idProceso])
+  createdAt        DateTime  @default(now())
+  idRegActuacion   Int       @id @db.Oid
+  llaveProceso     String
+  consActuacion    Int
+  fechaActuacion   DateTime  @db.Date
+  actuacion        String
+  anotacion        String?
+  fechaInicial     DateTime? @db.Date
+  fechaRegistro    DateTime  @db.Date
+  fechaFinal       DateTime? @db.Date
+  codRegla         String
+  conDocumentos    Boolean
+  cant             Int
+  carpetaId        Int?
+  procesoIdProceso Int?
+  Carpeta          Carpeta?  @relation(fields: [carpetaId], references: [numero])
+  Proceso          Proceso?  @relation(fields: [procesoIdProceso], references: [idProceso])
 }
 
 model Demanda {
-  departamento            Departamento
-  capitalAdeudado         BigInt
-  entregaGarantiasAbogado DateTime
-  etapaProcesal           String
-  fechaPresentacion       DateTime
-  municipio               String
+  id                      Int         @id @default(autoincrement())
+  departamento            String?
+  capitalAdeudado         Decimal?    @db.Money
+  entregaGarantiasAbogado DateTime    @default(now()) @db.Date
+  tipoProceso             TipoProceso @default(SINGULAR)
+  mandamientoPago         DateTime?   @db.Date
+  etapaProcesal           String?
+  fechaPresentacion       DateTime?   @db.Date
+  municipio               String?
   obligacion              String[]
-  radicado                String       @unique
-  vencimientoPagare       DateTime
-  expediente              String       @id
+  radicado                String?
+  vencimientoPagare       DateTime[]  @db.Date
+  expediente              String?     @unique
+  Carpeta                 Carpeta[]
   Juzgado                 Juzgado[]
-  Proceso                 Proceso[]
+}
+
+model Juzgado {
+  id      Int
+  tipo    String    @id @unique
+  url     String
+  Demanda Demanda[]
+  Proceso Proceso[]
+}
+
+model Proceso {
+  idProceso            Int         @id
+  idConexion           Int
+  llaveProceso         String
+  fechaProceso         String?
+  fechaUltimaActuacion String?
+  despacho             String
+  departamento         String
+  sujetosProcesales    String
+  esPrivado            Boolean
+  cantFilas            Int
+  Actuacion            Actuacion[]
+  Carpeta              Carpeta     @relation(fields: [llaveProceso], references: [llaveProceso])
+  Juzgado              Juzgado[]
 }
 
 model Deudor {
-  cedula          BigInt    @id @unique
+  cedula          String    @id
   primerNombre    String
   segundoNombre   String?
   primerApellido  String
   segundoApellido String?
-  email           String?
   direccion       String?
-  Telefono        Telefono?
-}
-
-model Juzgado {
-  id                Int
-  tipo              String    @id
-  url               String
-  demandaExpediente String?
-  Demanda           Demanda?  @relation(fields: [demandaExpediente], references: [expediente])
-  Proceso           Proceso[]
-}
-
-model Proceso {
-  idProceso            BigInt       @id
-  idConexion           Int
-  llaveProceso         String
-  fechaProceso         DateTime
-  fechaUltimaActuacion DateTime
-  despacho             String
-  departamento         Departamento
-  sujetosProcesales    String
-  esPrivado            Boolean
-  cantFilas            Int
-  Actuacion            Actuacion?
-  Juzgado              Juzgado      @relation(fields: [despacho], references: [tipo])
-  Demanda              Demanda[]
-}
-
-model Telefono {
-  fijo    Int
-  celular Int
-  cedula  BigInt @id
-  Deudor  Deudor @relation(fields: [cedula], references: [cedula])
-}
-
-model User {
-  id    Int     @id @default(autoincrement())
-  email String
-  name  String?
+  email           String?
+  telCelular      Int?
+  telFijo         Int?
+  Carpeta         Carpeta[]
 }
 
 enum Category {
@@ -134,6 +133,8 @@ enum Category {
   Bancolombia
   Reintegra
   Insolvencia
+  SinEspecificar
+  todos
 }
 
 enum Departamento {
@@ -149,8 +150,4 @@ enum TipoProceso {
   PRENDARIO
   SINGULAR
   ACUMULADO
-  PRENDARO
-  HIPOTECARIA
-  HIPOTECARO
-  SOACHA
 }

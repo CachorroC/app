@@ -1,4 +1,6 @@
-import { carpetasCollection } from '#@/lib/connection/mongodb';
+
+import clientPromise from '#@/lib/connection/mongodb';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
@@ -13,12 +15,7 @@ export async function GET(
     Request.url
   );
 
-  const collection = await carpetasCollection();
-
-  const carpetas = await collection.find(
-    {}
-  )
-    .toArray();
+  const carpetas = await getCarpetas();
 
   const llaveProceso = searchParams.get(
     'llaveProceso'
@@ -112,7 +109,21 @@ export async function POST(
 ) {
   const incomingCarpeta = ( await request.json() ) as IntCarpeta;
 
-  const collection = await carpetasCollection();
+  const client = await clientPromise;
+
+  if ( !client ) {
+    throw new Error(
+      'no hay cliente mongólico'
+    );
+  }
+
+  const db = client.db(
+    'RyS'
+  );
+
+  const collection = db.collection<IntCarpeta>(
+    'Carpetas'
+  );
 
   const updateOne = await collection.findOneAndUpdate(
     {
@@ -160,7 +171,21 @@ export async function PUT(
     '_id'
   );
 
-  const collection = await carpetasCollection();
+  const client = await clientPromise;
+
+  if ( !client ) {
+    throw new Error(
+      'no hay cliente mongólico'
+    );
+  }
+
+  const db = client.db(
+    'RyS'
+  );
+
+  const collection = db.collection<IntCarpeta>(
+    'Carpetas'
+  );
 
   try {
     if ( !id ) {

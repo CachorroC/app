@@ -1,9 +1,9 @@
 import { cache } from 'react';
-import  { carpetasCollection } from '#@/lib/connection/mongodb';
 import { sleep } from 'project/helper';
-import { intJuzgado } from 'types/carpetas';
+import { IntCarpeta, intJuzgado } from 'types/carpetas';
 import { Despacho } from 'types/despachos';
 import { intProceso, ConsultaNumeroRadicacion, Data, Message } from 'types/procesos';
+import clientPromise from '../connection/mongodb';
 
 export const getDespachos = cache(
   async () => {
@@ -221,13 +221,27 @@ export async function updateProcesos(
       }
 
 
-      const carpetasColl = await carpetasCollection();
+      const client = await clientPromise;
+
+      if ( !client ) {
+        throw new Error(
+          'no hay cliente mongólico'
+        );
+      }
+
+      const db = client.db(
+        'RyS'
+      );
+
+      const collection = db.collection<IntCarpeta>(
+        'Carpetas'
+      );
 
       const juzgado = await newJuzgado(
         proceso
       );
 
-      const updateProceso = await carpetasColl.updateOne(
+      const updateProceso = await collection.updateOne(
         {
           $or: [
             {

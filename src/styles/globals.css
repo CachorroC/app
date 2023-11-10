@@ -224,7 +224,7 @@
 :root,
 html {
   box-sizing: border-box;
-  font-size: calc(16px + 6 * (100vw - 320px) / 1600);
+  font-size: calc(14px + 2 * (100vw - 320px) / 1600);
 }
 
 html,

@@ -52,7 +52,7 @@ export default async function Page() {
         ) => {
           return (
             <Card
-              path={'/Carpeta'}
+
               carpeta={carpeta}
               key={carpeta._id}
             >

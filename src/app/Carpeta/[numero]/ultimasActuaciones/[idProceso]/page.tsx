@@ -3,40 +3,6 @@ import { Fragment, Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
-
-export async function generateStaticParams () {
-  const maperProducts = new Map<number, { numero: string;  idProceso: string}>();
-
-  const products = await getCarpetas();
-
-  for ( const carpeta of products ) {
-
-    if ( carpeta.idProcesos.length === 0 ) {
-      maperProducts.set(
-        carpeta.numero, {
-          numero   : carpeta.numero.toString(),
-          idProceso: 'sinProcesos'
-        }
-      );
-      continue;
-    }
-
-    for ( const idProceso of carpeta.idProcesos ) {
-      maperProducts.set(
-        idProceso, {
-          numero   : carpeta.numero.toString(),
-          idProceso: idProceso.toString()
-        }
-      );
-    }
-  }
-
-  return Array.from(
-    maperProducts.values()
-  );
-}
-
 
 export default async function Page(
   {
