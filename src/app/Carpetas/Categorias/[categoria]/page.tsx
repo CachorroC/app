@@ -34,7 +34,7 @@ export default function Page(
       );
 
       return () => {
-      };
+      };c XMLSerializer
     }, [
       params.categoria,
       setCategory
