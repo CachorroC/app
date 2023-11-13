@@ -1,6 +1,6 @@
 'use client';
 
-import { Tarea } from '#@/lib/types/tareas';
+import { IntTarea } from '#@/lib/types/tareas';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 
@@ -13,7 +13,7 @@ export function NuevaTarea (
     register, handleSubmit, formState: {
       errors
     }
-  } = useForm<Tarea>(
+  } = useForm<IntTarea>(
     {
       defaultValues: {
         id          : 0,
@@ -28,7 +28,7 @@ export function NuevaTarea (
     }
   );
 
-  const onSubmit: SubmitHandler<Tarea> = data => {
+  const onSubmit: SubmitHandler<IntTarea> = data => {
     return console.log(
       `SubmitHandler de Tareas NuevaTarea ${ data }`
     );

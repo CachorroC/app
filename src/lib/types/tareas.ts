@@ -4,7 +4,7 @@
 //
 //   const tarea = Convert.toTarea(json);
 
-export interface Tarea
+export interface IntTarea
 {
   id: number;
   creationDate: Date;
@@ -25,34 +25,34 @@ export interface SubTarea
 // Converts JSON strings to/from your types
 export class tareaConvert {
   public static toTarea (
-    json: string 
-  ): Tarea {
+    json: string
+  ): IntTarea {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static tareaToJson (
-    value: Tarea 
+    value: IntTarea
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 
   public static toSubTarea (
-    json: string 
+    json: string
   ): SubTarea {
     return JSON.parse(
-      json 
+      json
     );
   }
 
   public static subTareaToJson (
-    value: SubTarea 
+    value: SubTarea
   ): string {
     return JSON.stringify(
-      value 
+      value
     );
   }
 }

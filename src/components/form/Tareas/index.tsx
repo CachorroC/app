@@ -1,5 +1,5 @@
 'use client';
-import { Tarea } from '#@/lib/types/tareas';
+import { IntTarea } from '#@/lib/types/tareas';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -11,7 +11,7 @@ export function NuevaTarea() {
     formState: {
       errors
     },
-  } = useForm<Tarea>(
+  } = useForm<IntTarea>(
     {
       defaultValues: {
         text        : 'Nueva Tarea',
@@ -30,7 +30,7 @@ export function NuevaTarea() {
     }
   );
 
-  const onSubmit: SubmitHandler<Tarea> = async (
+  const onSubmit: SubmitHandler<IntTarea> = async (
     data
   ) => {
     try {
@@ -46,7 +46,7 @@ export function NuevaTarea() {
         }
       );
 
-      const tareaWithId = ( await postTarea.json() ) as Tarea;
+      const tareaWithId = ( await postTarea.json() ) as IntTarea;
       alert(
         JSON.stringify(
           tareaWithId

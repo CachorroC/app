@@ -8,10 +8,24 @@ export const InputSearchBar= () => {
     search, setSearch
   } = useSearch();
 
+  function searchQuery(
+    formData: FormData
+  ) {
+    const query = formData.get(
+      'buscar'
+    );
+    alert(
+      `You searched for '${ query }'`
+    );
+  }
+
   const carpetasReduced = useCarpetaSort();
 
   return (
-    <div className={searchbar.inputContainer}>
+    <form
+      action={searchQuery}
+      className={searchbar.inputContainer}
+    >
       <datalist id="demandados-list">
         {carpetasReduced.map(
           (
@@ -26,43 +40,41 @@ export const InputSearchBar= () => {
           }
         )}
       </datalist>
-      <label htmlFor={'buscar'}>
-        <span className='material-symbols-outlined'>search</span>
-      </label>
-      <input
-        type={'textarea'}
-        list="demandados-list"
-        className={searchbar.input}
-        value={ search }
-        id={'buscar'}
-        name={'buscar'}
-        placeholder={ 'Buscar' }
-        onKeyDown={ (
-          e
-        ) => {
-          console.log(
-            `pressed key ${ e.key }`
-          );
-
-          if ( e.key === 'Enter' ) {
-
+      <label>
+        <input
+          type={'textarea'}
+          list="demandados-list"
+          className={searchbar.input}
+          value={search}
+          name={'buscar'}
+          placeholder={'Buscar'}
+          onKeyDown={(
+            e
+          ) => {
             console.log(
-              `the pressed key was Enter ${ e.key }`
+              `pressed key ${ e.key }`
             );
-          }
-        }}
-        onChange={
-          (
+
+            if ( e.key === 'Enter' ) {
+              console.log(
+                `the pressed key was Enter ${ e.key }`
+              );
+            }
+          }}
+          onChange={(
             input
           ) => {
             input.preventDefault();
             return setSearch(
               input.target.value
             );
-          }
-        }
-      />
-
-    </div>
+          }}
+        />
+      </label>
+      <button type="submit">
+        <span>Buscar</span>
+        <span className="material-symbols-outlined">search</span>
+      </button>
+    </form>
   );
 };

@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Nota" ALTER COLUMN "date" DROP NOT NULL;

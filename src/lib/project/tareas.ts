@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { tareasCollection } from '../connection/mongodb';
+import { tareasCollection } from '../connection/collections';
 
 export const getTareas = cache(
   async () => {

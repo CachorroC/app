@@ -1,3 +1,4 @@
+import { Tarea } from '@prisma/client';
 import { IntCarpeta } from '../types/carpetas';
 import { intNota } from '../types/notas';
 import clientPromise from './mongodb';
@@ -40,6 +41,27 @@ export async function pruebasCollection () {
   );
 
   return carpetas;
+}
+
+export async function tareasCollection() {
+
+  const client = await clientPromise;
+
+  if ( !client ) {
+    throw new Error(
+      'no hay cliente mongólico'
+    );
+  }
+
+  const db = client.db(
+    'RyS'
+  );
+
+  const notas = db.collection<Tarea>(
+    'Tareas'
+  );
+
+  return notas;
 }
 
 export async function notasCollection() {

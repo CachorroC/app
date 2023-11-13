@@ -86,11 +86,13 @@ export function MainProvider(
     setInputNota
   ] = useState<Nota>(
     {
+
       id           : 0,
       text         : '',
       pathname     : pathname,
       date         : new Date(),
-      carpetaNumero: null
+      carpetaNumero: null,
+      createdAt    : new Date()
     }
   );
 

@@ -26,7 +26,7 @@ export const Card = (
 
 
   const {
-    idProcesos, nombre, numero, llaveProceso
+    idProcesos, nombre, numero,
   }
     = carpeta;
 
@@ -46,7 +46,7 @@ export const Card = (
             key={idProceso}
             href={`/Carpeta/${ String(
               numero
-            ) }/Procesos/${ llaveProceso ?? 'noKey' }/${ String(
+            ) }/ultimasActuaciones/${ String(
               idProceso
             ) }`}
             className={styles.link}

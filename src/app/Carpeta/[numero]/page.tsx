@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import button from '#@/components/Buttons/buttons.module.css';
 import { fixFechas, fixMoney } from '#@/lib/project/helper';
 import typography from '#@/styles/fonts/typography.module.css';
-import type { Route } from 'next';
+import type { Metadata, Route } from 'next';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import styles from './styles.module.css';
 import { Fragment, Suspense } from 'react';
@@ -16,7 +16,43 @@ import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actu
 import { InputSection } from '#@/components/form/input-section';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 
-export default async function Page(
+
+
+//SECTION Generate metadata for [numero]
+export async function generateMetadata(
+  {
+    params
+  }:{params: { numero: string }}
+): Promise<Metadata> {
+  const {
+    numero
+  } = params;
+
+
+  const product = await getCarpetabyNumero(
+    Number(
+      numero
+    )
+  );
+
+  if ( !product ) {
+    return {
+      title: 'sin carpeta'
+    };
+  }
+
+  return {
+    title   : product.nombre,
+    keywords: [
+      product.deudor.primerNombre,
+      product.tipoProceso,
+      product.category,
+      product.deudor.primerApellido
+    ]
+  };
+}
+
+export default async function Page (
   {
     params
   }: { params: { numero: string } }

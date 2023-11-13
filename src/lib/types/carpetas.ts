@@ -252,13 +252,13 @@ export class carpetaConvert {
     return {
       ...carpeta,
       _id   : carpeta._id.toString(),
-      nombre: `${ carpeta.deudor.primerNombre } ${ carpeta.deudor.segundoNombre } ${ carpeta.deudor.primerApellido } ${ carpeta.deudor.segundoApellido }`
+      nombre: `${ carpeta.deudor.primerNombre } ${ carpeta.deudor.segundoNombre } ${ carpeta.deudor.primerApellido } ${ carpeta.deudor.segundoApellido }`,
     };
   }
   public static toMonCarpetas (
     carpetas: WithId<IntCarpeta>[]
   ): MonCarpeta[] {
-    const newCarpetas = carpetas.map(
+    return carpetas.map(
       (
         carpeta
       ) => {
@@ -268,7 +268,7 @@ export class carpetaConvert {
       }
     );
 
-    return newCarpetas;
+
   }
 
   public static toTel (

@@ -95,7 +95,7 @@ export const Header = () => {
   } else if ( isDesktop ) {
     visibleContent = (
       <>
-        <InputSearchBar />
+
         <ModalDialog>
           <NuevaNota />
         </ModalDialog>

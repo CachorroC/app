@@ -1,24 +1,56 @@
 'use client';
-import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
+import { carpetasReducer,  } from '#@/app/context/carpetas-sort-context';
 import { Card } from '#@/components/Card';
 import { useSearch } from '#@/app/context/search-context';
-import { useCategory } from '#@/app/context/main-context';
-import { JSX } from 'react';
+import { JSX, useReducer, useState } from 'react';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
+import {  Category, MonCarpeta } from '#@/lib/types/carpetas';
 
-export default function CarpetasList() {
+export function CarpetasList(
+  {
+    carpetas, getHeader,
+    renderContent,
+  }: {
+  carpetas: MonCarpeta[];
+}
+) {
   const rows: JSX.Element[] = [];
 
-  const carpetasReduced = useCarpetaSort();
+  const [
+    selectedId,
+    setSelectedId
+  ] = useState(
+    carpetas[ 0 ].numero
+  );
 
+  const categories = [
+    'Terminados',
+    'LiosJuridicos',
+    'Bancolombia',
+    'Reintegra',
+    'Insolvencia',
+    'sinEspecificar',
+    'todos',
+  ];
+
+  const [
+    carpetasReduced,
+    dispatchCarpetas
+  ] = useReducer(
+    carpetasReducer,
+    carpetas
+  );
 
   const {
     search
   } = useSearch();
 
-  const {
-    category
-  } = useCategory();
+  const [
+    category,
+    setCategory
+  ] = useState(
+    'todos'
+  );
 
   carpetasReduced.forEach(
     (
@@ -39,7 +71,6 @@ export default function CarpetasList() {
         rows.push(
           <Card
             key={proceso._id}
-
             carpeta={proceso}
           >
             {ultimaActuacion && (
@@ -49,11 +80,71 @@ export default function CarpetasList() {
                 incomingActuacion={ultimaActuacion}
               />
             )}
-          </Card>,
+          </Card>
         );
       }
     }
   );
 
-  return <>{rows}</>;
+  return (
+    <>
+      {carpetas.map(
+        (
+          tabId
+        ) => {
+          return (
+            <button
+              key={tabId._id}
+              onClick={() => {
+                return setSelectedId(
+                  tabId.numero
+                );
+              }}
+            >
+              {getHeader(
+                tabId
+              )}
+            </button>
+          );
+        }
+      )}
+      {categories.map(
+        (
+          tabId
+        ) => {
+          return (
+            <button
+              key={tabId}
+              onClick={() => {
+                setCategory(
+                  tabId
+                );
+                return dispatchCarpetas(
+                  {
+                    type         : 'fecha',
+                    sortDirection: true,
+                    category     : category as Category,
+                  }
+                );
+              }}
+            >
+              {getHeader(
+                tabId
+              )}
+            </button>
+          );
+        }
+      )}
+      <hr />
+      <div key={selectedId}>
+        <h3>{getHeader(
+          selectedId
+        )}</h3>
+        {renderContent(
+          selectedId
+        )}
+      </div>
+      {rows}
+    </>
+  );
 }

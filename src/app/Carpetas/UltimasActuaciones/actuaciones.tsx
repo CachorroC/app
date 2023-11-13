@@ -1,9 +1,8 @@
 
-import {  updateActuaciones } from '#@/lib/Actuaciones';
+import {  fetchActuaciones } from '#@/lib/Actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
-import { sleep } from '#@/lib/project/helper';
-import { ConsultaActuacion, Data, Message } from '#@/lib/types/actuaciones';
 
+/*
 async function getData(
   idProceso: number, index: number
 ) {
@@ -67,7 +66,7 @@ async function getData(
   }
 }
 
-
+ */
 export async function FechaActuacionComponent(
   {
     idProceso,
@@ -79,7 +78,7 @@ export async function FechaActuacionComponent(
   initialOpenState: boolean
 }
 ) {
-  const consultaActuaciones = await getData(
+  const consultaActuaciones = await fetchActuaciones(
     idProceso, index
   );
 

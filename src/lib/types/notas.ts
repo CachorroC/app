@@ -53,8 +53,10 @@ export class NewNota implements Nota {
     this.carpetaNumero = numeroCarpeta
       ? numeroCarpeta
       : null;
+    this.createdAt= new Date();
 
   }
+  createdAt: Date;
 
 }
 
@@ -87,8 +89,10 @@ export class NewMonNota implements monNota {
     this.carpetaNumero = numeroCarpeta
       ? numeroCarpeta
       : null;
+    this.createdAt = new Date();
 
   }
+  createdAt: Date;
 
 }
 
@@ -114,6 +118,7 @@ export class notasConvert {
   ): monNota {
     const newNota = {
       ...nota,
+      createdAt    : new Date(),
       _id          : nota._id.toString(),
       carpetaNumero: nota.carpetaNumero
         ? nota.carpetaNumero

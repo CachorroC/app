@@ -1,6 +1,6 @@
 .displayLarge {
-  font-variation-settings: "wght" 200;
-  font-family: var(--play-display);
+  font-variation-settings: "wght" 800;
+  font-family: var(--josefa);
   font-style: var(--display-large-font-family-style);
   font-size: var(--display-large-font-size);
   letter-spacing: var(--display-large-tracking);

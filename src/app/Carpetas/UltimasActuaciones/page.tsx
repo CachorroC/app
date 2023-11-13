@@ -3,6 +3,7 @@ import { Loader } from '#@/components/Loader';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
+import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,21 +45,24 @@ export default async function Page() {
   );
 
   return (
-    <><Suspense fallback={ <Loader /> }>
+    <><Suspense fallback={ <SearchOutputListSkeleton /> }>
 
       {carpetas.map(
         (
           carpeta, index
         ) => {
+          const {
+            idProcesos, _id
+          } = carpeta;
           return (
             <Card
 
               carpeta={carpeta}
-              key={carpeta._id}
+              key={_id}
             >
               <Suspense fallback={<Loader />}>
-                {carpeta.idProcesos
-                && carpeta.idProcesos.map(
+                {idProcesos
+                && idProcesos.map(
                   (
                     idProceso
                   ) => {

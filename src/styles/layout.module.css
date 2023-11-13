@@ -27,7 +27,7 @@
 @media (1200px < width) {
   .container {
     padding: 0;
-    grid-template-columns: repeat(10, minmax(8vw, 1fr));
+    grid-template-columns: 5rem repeat(9, minmax(8vw, 1fr));
     grid-template-rows: repeat(10, minmax(8vh, 1fr));
     grid-template-areas: "header header top top top top top top right right" "header header left left left left left left right right" "header header left left left left left left right right" "header header left left left left left left right right" "header header left left left left left left right right" "header header left left left left left left right right" "header header left left left left left left right right" "header header left left left left left left right right" "header header left left left left left left right right" "header header left left left left left left right right";
   }

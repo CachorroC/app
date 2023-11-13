@@ -13,8 +13,6 @@ export const NuevaNota = (
     id
   }: {id?: number}
 ) => {
-
-
   const newNota:Nota = {
     text         : 'Nueva Nota',
     pathname     : '/',
@@ -23,6 +21,7 @@ export const NuevaNota = (
     id           : id
       ? id
       : 0,
+    createdAt: new Date()
   };
 
   const params = useParams();

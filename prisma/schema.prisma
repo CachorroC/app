@@ -8,19 +8,20 @@ datasource db {
 }
 
 model Carpeta {
-  numero       Int         @id
-  llaveProceso String?     @unique
-  nombre       String
-  category     Category    @default(SinEspecificar)
-  idProcesos   Int[]
-  demandaId    Int?
-  deudorCedula String?
-  Actuacion    Actuacion[]
-  Demanda      Demanda?    @relation(fields: [demandaId], references: [id])
-  Deudor       Deudor?     @relation(fields: [deudorCedula], references: [cedula])
-  notas        Nota[]
-  Proceso      Proceso[]
-  tareas       Tarea[]
+  id              Int        @id @default(autoincrement())
+  numero          Int        @unique
+  llaveProceso    String?
+  nombre          String
+  idProcesos      Int[]
+  category        Category
+  fecha           DateTime?  @db.Date
+  ultimaActuacion Actuacion?
+  Demanda         Demanda?
+  Deudor          Deudor?
+  notas           Nota[]
+  Proceso         Proceso[]
+  tareas          Tarea[]
+  Juzgado         Juzgado[]  @relation("CarpetaToJuzgado")
 }
 
 model Nota {
@@ -41,7 +42,7 @@ model Tarea {
   text         String
   isComplete   Boolean
   subTareas    SubTarea[]
-  Carpeta      Carpeta?   @relation(fields: [carpetaId], references: [numero])
+  Carpeta      Carpeta?   @relation(fields: [carpetaId], references: [id])
 }
 
 model SubTarea {
@@ -66,9 +67,9 @@ model Actuacion {
   codRegla         String
   conDocumentos    Boolean
   cant             Int
-  carpetaId        Int?
+  carpetaNumero    Int?      @unique
   procesoIdProceso Int?
-  Carpeta          Carpeta?  @relation(fields: [carpetaId], references: [numero])
+  Carpeta          Carpeta?  @relation(fields: [carpetaNumero], references: [numero])
   Proceso          Proceso?  @relation(fields: [procesoIdProceso], references: [idProceso])
 }
 
@@ -76,7 +77,7 @@ model Demanda {
   id                      Int         @id @default(autoincrement())
   departamento            String?
   capitalAdeudado         Decimal?    @db.Money
-  entregaGarantiasAbogado DateTime    @default(now()) @db.Date
+  entregaGarantiasAbogado DateTime?   @db.Date
   tipoProceso             TipoProceso @default(SINGULAR)
   mandamientoPago         DateTime?   @db.Date
   etapaProcesal           String?
@@ -85,46 +86,51 @@ model Demanda {
   obligacion              String[]
   radicado                String?
   vencimientoPagare       DateTime[]  @db.Date
-  expediente              String?     @unique
-  Carpeta                 Carpeta[]
-  Juzgado                 Juzgado[]
+  expediente              String?
+  carpetaNumero           Int         @unique
+  Carpeta                 Carpeta     @relation(fields: [carpetaNumero], references: [numero])
+  Juzgado                 Juzgado[]   @relation("DemandaToJuzgado")
 }
 
 model Juzgado {
   id      Int
   tipo    String    @id @unique
   url     String
-  Demanda Demanda[]
-  Proceso Proceso[]
+  Carpeta Carpeta[] @relation("CarpetaToJuzgado")
+  Demanda Demanda[] @relation("DemandaToJuzgado")
+  Proceso Proceso[] @relation("JuzgadoToProceso")
 }
 
 model Proceso {
   idProceso            Int         @id
   idConexion           Int
   llaveProceso         String
-  fechaProceso         String?
-  fechaUltimaActuacion String?
+  fechaProceso         DateTime?   @db.Date
+  fechaUltimaActuacion DateTime?   @db.Date
   despacho             String
   departamento         String
   sujetosProcesales    String
   esPrivado            Boolean
   cantFilas            Int
+  carpetaNumero        Int
   Actuacion            Actuacion[]
-  Carpeta              Carpeta     @relation(fields: [llaveProceso], references: [llaveProceso])
-  Juzgado              Juzgado[]
+  Carpeta              Carpeta     @relation(fields: [carpetaNumero], references: [numero])
+  Juzgado              Juzgado[]   @relation("JuzgadoToProceso")
 }
 
 model Deudor {
-  cedula          String    @id
+  id              Int     @id @default(autoincrement())
+  cedula          String
   primerNombre    String
-  segundoNombre   String?
   primerApellido  String
+  segundoNombre   String?
   segundoApellido String?
   direccion       String?
   email           String?
-  telCelular      Int?
-  telFijo         Int?
-  Carpeta         Carpeta[]
+  telCelular      BigInt?
+  telFijo         BigInt?
+  carpetaNumero   Int     @unique
+  Carpeta         Carpeta @relation(fields: [carpetaNumero], references: [numero])
 }
 
 enum Category {

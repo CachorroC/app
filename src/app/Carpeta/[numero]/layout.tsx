@@ -3,7 +3,7 @@ import { Loader } from '#@/components/Loader';
 import { NombreComponent } from '#@/components/nombre';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import styles from '#@/styles/layout.module.css';
-import { Metadata, Route } from 'next';
+import {  Route } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
@@ -34,40 +34,6 @@ export async function generateStaticParams () {
   );
 }
 
-
-//SECTION Generate metadata for [numero]
-export async function generateMetadata(
-  {
-    params
-  }: Props,
-): Promise<Metadata> {
-  const {
-    numero
-  } = params;
-
-
-  const product = await getCarpetabyNumero(
-    Number(
-      numero
-    )
-  );
-
-  if ( !product ) {
-    return {
-      title: 'sin carpeta'
-    };
-  }
-
-  return {
-    title   : product.nombre,
-    keywords: [
-      product.deudor.primerNombre,
-      product.tipoProceso,
-      product.category,
-      product.deudor.primerApellido
-    ]
-  };
-}
 
 export default async function LayoutCarpetaMain(
   {

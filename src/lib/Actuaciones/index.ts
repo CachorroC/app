@@ -4,6 +4,7 @@ import { sleep } from 'project/helper';
 import { intActuacion, ConsultaActuacion, Data, Message } from 'types/actuaciones';
 import { getCarpetaByllaveProceso } from 'project/utils/Carpetas/carpetas';
 import { carpetasCollection } from '../connection/collections';
+import { prisma } from '../connection/prisma';
 
 export async function fetchActuaciones(
   idProceso: number, index: number
@@ -119,6 +120,13 @@ export async function  updateActuaciones(
       ultimaActuacion.llaveProceso,
     );
 
+    if ( !carpeta ) {
+      throw new Error(
+        'no hay carpeta por actualizar'
+      );
+
+    }
+
     const incomingDate = new Date(
       ultimaActuacion.fechaRegistro
     )
@@ -156,7 +164,7 @@ export async function  updateActuaciones(
         {
           $set: {
             fecha: new Date(
-              ultimaActuacion.fechaRegistro
+              ultimaActuacion.actuacion
             ),
             ultimaActuacion: ultimaActuacion.actuacion === 'Fijacion estado'
               ? penUltimaActuacion
@@ -166,6 +174,36 @@ export async function  updateActuaciones(
         {
           upsert: false,
         },
+      );
+
+      const updateCarpetaWithActuacionesToPrisma = prisma.carpeta.update(
+        {
+          where: {
+            numero: carpeta.numero
+          },
+          data: {
+            fecha: new Date(
+              ultimaActuacion.actuacion
+            )
+          }
+        }
+      );
+
+      console.log(
+        updateCarpetaWithActuacionesToPrisma
+      );
+
+      const updateActuacionesInPrisma = prisma.actuacion.create(
+        {
+
+          data: {
+            ...ultimaActuacion,
+            carpetaNumero: carpeta.numero
+          }
+        }
+      );
+      console.log(
+        updateActuacionesInPrisma
       );
 
       if ( !updateCarpetawithActuaciones ) {

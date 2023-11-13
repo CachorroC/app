@@ -1,6 +1,6 @@
 'use client';
 import { useCategory } from '#@/app/context/main-context';
-import CarpetasList from '#@/components/Carpetas/client/carpetasList';
+import { CarpetasList } from '#@/components/Carpetas/client/carpetasList';
 import { useEffect } from 'react';
 
 export default function Page(
@@ -40,7 +40,7 @@ export default function Page(
 
   return (
     <>
-      <CarpetasList />
+      <CarpetasList/>
     </>
   );
 }
