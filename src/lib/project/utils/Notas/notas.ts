@@ -1,54 +1,23 @@
 import { cache } from 'react';
-import { notasConvert } from '../../../types/notas';
-import { prisma } from '#@/lib/connection/prisma';
-import { notasCollection } from '#@/lib/connection/collections';
+import { fetchNotaById, fetchNotasByPathname } from './fetcher';
 
 
 export const getNotaById = cache(
   async (
-    {
-      id
-    }: { id: number}
+    id: number
   ) => {
-
-    const nota = await prisma.nota.findFirst(
-      {
-        where: {
-          id: Number(
-            id
-          ),
-        }
-      }
+    return await fetchNotaById(
+      id
     );
-
-    return nota;
   }
 );
 
 export const getNotasByPathname = cache(
   async (
-    {
-      path
-    }:{ path : string}
+    path : string
   ) => {
-    const collection = await notasCollection();
-
-    const rawNotas = await collection.find(
-      {
-        pathname: path,
-      }
-    )
-      .sort(
-        {
-          cod: 1
-        }
-      )
-      .toArray();
-
-    const notas = notasConvert.toMonNotas(
-      rawNotas
+    return await fetchNotasByPathname(
+      path
     );
-
-    return notas;
   }
 );

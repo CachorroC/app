@@ -1,7 +1,7 @@
 
 import { notFound } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.css';
-import { getActuaciones } from '#@/lib/Actuaciones';
+import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 
 type Props = {

@@ -1,4 +1,5 @@
 'use client';
+import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
 import { useCategory } from '#@/app/context/main-context';
 import { CarpetasList } from '#@/components/Carpetas/client/carpetasList';
 import { useEffect } from 'react';
@@ -10,6 +11,8 @@ export default function Page(
   params: { categoria: string };
 }
 ) {
+  const carpetas = useCarpetaSort();
+
   const {
     setCategory
   } = useCategory();
@@ -40,7 +43,7 @@ export default function Page(
 
   return (
     <>
-      <CarpetasList/>
+      <CarpetasList carpetas={carpetas}/>
     </>
   );
 }

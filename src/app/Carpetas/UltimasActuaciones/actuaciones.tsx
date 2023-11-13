@@ -1,5 +1,5 @@
 
-import {  fetchActuaciones } from '#@/lib/Actuaciones';
+import {  fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 
 /*

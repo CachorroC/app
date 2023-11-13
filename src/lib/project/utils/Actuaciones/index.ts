@@ -3,8 +3,8 @@ import { cache } from 'react';
 import { sleep } from 'project/helper';
 import { intActuacion, ConsultaActuacion, Data, Message } from 'types/actuaciones';
 import { getCarpetaByllaveProceso } from 'project/utils/Carpetas/carpetas';
-import { carpetasCollection } from '../connection/collections';
-import { prisma } from '../connection/prisma';
+import { carpetasCollection } from '../../../connection/collections';
+import { prisma } from '../../../connection/prisma';
 
 export async function fetchActuaciones(
   idProceso: number, index: number

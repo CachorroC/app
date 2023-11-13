@@ -1,4 +1,4 @@
-import {  getActuaciones } from '#@/lib/Actuaciones';
+import {  getActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { Fragment, Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';

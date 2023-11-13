@@ -80,6 +80,7 @@ export async function fetcherCarpetaByidProceso (
   return Carpeta;
 }
 
+
 export async function fetchCarpetasByllaveProceso (
   llaveProceso: string
 ) {
