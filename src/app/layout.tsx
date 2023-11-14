@@ -2,16 +2,12 @@ import './manifest';
 import '#@/styles/globals.css';
 import 'material-symbols';
 import layout from '#@/styles/layout.module.css';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import Script from 'next/script';
 import { ReactNode, Suspense } from 'react';
 import { MainProvider } from './context/main-context';
 import { josefina, radio, playDisp, raleway, ptserif } from '#@/styles/fonts';
 import { SearchProvider } from './context/search-context';
 import { ModalProvider } from './context/modal-context';
-import { CarpetasSortProvider } from './context/carpetas-sort-context';
-import { NotasSortProvider } from './context/notas-sort-context';
-import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { Loader } from '#@/components/Loader';
 import type { Metadata, Viewport } from 'next';
 import { Header } from '#@/components/layout/Header';
@@ -93,38 +89,30 @@ export const viewport: Viewport = {
   ],
 };
 
-export default async function RootLayout(
+export default function RootLayout(
   {
     children,
   }: {
   children: ReactNode;
 }
 ) {
-  const carpetas = await getCarpetas();
-
-  const notas = await getNotas();
-
   return (
     <html lang="es">
       <body
         className={`${ playDisp.variable } ${ radio.variable } ${ raleway.variable } ${ ptserif.variable } ${ josefina.variable }  [ color-scheme: light dark ]`}
       >
-        <CarpetasSortProvider initialCarpetas={carpetas}>
-          <NotasSortProvider notas={notas}>
-            <SearchProvider>
-              <ModalProvider>
-                <MainProvider>
-                  <div className={layout.container}>
-                    <Suspense fallback={<Loader />}>
-                      <Header/>
-                    </Suspense>
-                    {children}
-                  </div>
-                </MainProvider>
-              </ModalProvider>
-            </SearchProvider>
-          </NotasSortProvider>
-        </CarpetasSortProvider>
+        <SearchProvider>
+          <ModalProvider>
+            <MainProvider>
+              <div className={layout.container}>
+                <Suspense fallback={<Loader />}>
+                  <Header/>
+                </Suspense>
+                {children}
+              </div>
+            </MainProvider>
+          </ModalProvider>
+        </SearchProvider>
         <Script
           src={`https://${ prefix }.rsasesorjuridico.com/service-worker.js`}
         />

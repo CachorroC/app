@@ -1,6 +1,5 @@
 
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
-import { Route } from 'next';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 
@@ -45,7 +44,7 @@ export default async function NotFound () {
 
     if ( carpeta ) {
       linker = (
-        <Link href={ `Carpeta/${ carpeta.numero }` as Route}>
+        <Link href={ `/Carpeta/${ carpeta.numero }`}>
         </Link>
       );
 

@@ -188,7 +188,7 @@ export function fixMoney(
     valor
   }: { valor: number | bigint }
 ) {
-  const precioEnCop = new Intl.NumberFormat(
+  return new Intl.NumberFormat(
     'es-CO', {
       style          : 'currency',
       currency       : 'COP',
@@ -198,6 +198,4 @@ export function fixMoney(
     .format(
       valor
     );
-
-  return precioEnCop;
 }

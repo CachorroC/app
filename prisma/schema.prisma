@@ -76,7 +76,7 @@ model Actuacion {
 model Demanda {
   id                      Int         @id @default(autoincrement())
   departamento            String?
-  capitalAdeudado         Decimal?    @db.Money
+  capitalAdeudado         Decimal    @db.Money @default(1000000)
   entregaGarantiasAbogado DateTime?   @db.Date
   tipoProceso             TipoProceso @default(SINGULAR)
   mandamientoPago         DateTime?   @db.Date
