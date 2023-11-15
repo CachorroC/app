@@ -13,7 +13,7 @@ model Carpeta {
   llaveProceso    String?
   nombre          String
   idProcesos      Int[]
-  category        Category
+  category        Category   @default(SinEspecificar)
   fecha           DateTime?  @db.Date
   ultimaActuacion Actuacion?
   Demanda         Demanda?
@@ -42,7 +42,7 @@ model Tarea {
   text         String
   isComplete   Boolean
   subTareas    SubTarea[]
-  Carpeta      Carpeta?   @relation(fields: [carpetaId], references: [id])
+  Carpeta      Carpeta?   @relation(fields: [carpetaId], references: [numero])
 }
 
 model SubTarea {
@@ -76,7 +76,7 @@ model Actuacion {
 model Demanda {
   id                      Int         @id @default(autoincrement())
   departamento            String?
-  capitalAdeudado         Decimal     @default(1000000) @db.Money
+  capitalAdeudado         Decimal?    @db.Money
   entregaGarantiasAbogado DateTime?   @db.Date
   tipoProceso             TipoProceso @default(SINGULAR)
   mandamientoPago         DateTime?   @db.Date
@@ -94,7 +94,7 @@ model Demanda {
 
 model Juzgado {
   id      Int
-  tipo    String    @id @unique
+  tipo    String    @id
   url     String
   Carpeta Carpeta[] @relation("CarpetaToJuzgado")
   Demanda Demanda[] @relation("DemandaToJuzgado")
@@ -120,7 +120,7 @@ model Proceso {
 
 model Deudor {
   id              Int     @id @default(autoincrement())
-  cedula          String
+  cedula          String?
   primerNombre    String
   primerApellido  String
   segundoNombre   String?
@@ -128,7 +128,6 @@ model Deudor {
   direccion       String?
   email           String?
   telCelular      BigInt?
-  tel             Json?
   telFijo         BigInt?
   carpetaNumero   Int     @unique
   Carpeta         Carpeta @relation(fields: [carpetaNumero], references: [numero])
@@ -157,49 +156,4 @@ enum TipoProceso {
   PRENDARIO
   SINGULAR
   ACUMULADO
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
 }
