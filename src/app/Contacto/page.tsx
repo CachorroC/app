@@ -4,8 +4,8 @@ import form from 'components/form/form.module.css';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import checkbox from 'components/form/checkbox/styles.module.css';
-import { useContactContext } from '../../context/main-context';
 import layout from '#@/styles/layout.module.css';
+import { useContactContext } from '../context/main-context';
 
 export default function Page() {
   const {

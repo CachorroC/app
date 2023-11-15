@@ -1,5 +1,5 @@
 'use client';
-import { Suspense } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { useMediaQuery } from '#@/app/hooks/useMediaQuery';
 import { useNavigationContext } from '#@/app/context/main-context';
 import layout from '#@/styles/layout.module.css';
@@ -8,11 +8,14 @@ import NavButtons, { DrawerMenuButton, } from '#@/components/Buttons/nav-buttons
 import { NuevaNota } from '#@/components/Nota/client/nueva-nota';
 import { InputSearchBar } from './InputSearchBar';
 import { SearchOutputListSkeleton } from './search/SearchProcesosOutputSkeleton';
-import { SearchOutputList } from './search/SearchProcesosOutput';
 import { Drawer } from './Drawer';
 import { NavLink } from './NavLink';
 
-export const Header = () => {
+export const Header = (
+  {
+    children
+  } :{children: ReactNode}
+) => {
   let visibleContent;
   let nonVisibleContent;
 
@@ -69,9 +72,6 @@ export const Header = () => {
         <ModalDialog>
           <NuevaNota />
         </ModalDialog>
-        <Suspense fallback={<SearchOutputListSkeleton />}>
-          <SearchOutputList />
-        </Suspense>
       </>
     );
   } else if ( isTablet ) {
@@ -83,30 +83,18 @@ export const Header = () => {
         </ModalDialog>
       </>
     );
-    nonVisibleContent = (
-      <>
-        <InputSearchBar />
+    nonVisibleContent = <InputSearchBar />;
 
-        <Suspense fallback={<SearchOutputListSkeleton />}>
-          <SearchOutputList />
-        </Suspense>
-      </>
-    );
   } else if ( isDesktop ) {
     visibleContent = (
       <>
-
         <ModalDialog>
           <NuevaNota />
         </ModalDialog>
         <NavButtons />
       </>
     );
-    nonVisibleContent = (
-      <Suspense fallback={<SearchOutputListSkeleton />}>
-        <SearchOutputList />
-      </Suspense>
-    );
+    nonVisibleContent = null;
   } else {
     visibleContent = null;
     nonVisibleContent = null;
@@ -139,7 +127,14 @@ export const Header = () => {
         hrefLabel="/Carpetas/UltimasActuaciones"
       />
       {visibleContent}
-      {isNavOpen && <Drawer>{nonVisibleContent}</Drawer>}
+      {isNavOpen && (
+        <Drawer>
+          {nonVisibleContent}
+          <Suspense fallback={<SearchOutputListSkeleton />}>
+            {children}
+          </Suspense>
+        </Drawer>
+      )}
     </div>
   );
 };

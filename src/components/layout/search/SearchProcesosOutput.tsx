@@ -1,15 +1,17 @@
 'use client';
-import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
 import { useSearch } from '#@/app/context/search-context';
 import { useCategory } from '#@/app/context/main-context';
 import { JSX } from 'react';
 import { LinkCard } from './link';
 import { Route } from 'next';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 
-export function SearchOutputList() {
+export function SearchOutputList(
+  {
+    carpetas
+  }: {carpetas: MonCarpeta[]}
+) {
   const rows: JSX.Element[] = [];
-
-  const carpetasReduced = useCarpetaSort();
 
   const {
     search
@@ -19,7 +21,7 @@ export function SearchOutputList() {
     category
   } = useCategory();
 
-  carpetasReduced.forEach(
+  carpetas.forEach(
     (
       proceso
     ) => {
