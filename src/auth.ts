@@ -1,5 +1,5 @@
+import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth, { NextAuthConfig } from 'next-auth';
-import AzureAD from 'next-auth/providers/azure-ad';
 
 // import Apple from "next-auth/providers/apple"
 // import Atlassian from "next-auth/providers/atlassian"
@@ -23,7 +23,8 @@ import AzureAD from 'next-auth/providers/azure-ad';
 // import Foursquare from "next-auth/providers/foursquare"
 // import Freshbooks from "next-auth/providers/freshbooks"
 // import Fusionauth from "next-auth/providers/fusionauth"
-import GitHub from 'next-auth/providers/github';
+import { prisma } from './lib/connection/prisma';
+import AzureAD from 'next-auth/providers/azure-ad';
 // import Gitlab from "next-auth/providers/gitlab"
 // import Google from "next-auth/providers/google"
 // import Hubspot from "next-auth/providers/hubspot"
@@ -66,15 +67,26 @@ import GitHub from 'next-auth/providers/github';
 
 
 export const config: NextAuthConfig = {
+  adapter: PrismaAdapter(
+    prisma
+  ),
   theme: {
     logo: 'https://app.rsasesorjuridico.com/logo.svg',
   },
   providers: [
+
+
     // Apple,
     // Atlassian,
     // Auth0,
     // Authentik,
-    AzureAD,
+    AzureAD(
+      {
+        clientId    : process.env.AZURE_AD_CLIENT_ID,
+        clientSecret: process.env.AZURE_AD_CLIENT_SECRET,
+        tenantId    : process.env.AZURE_AD_TENANT_ID,
+      }
+    ),
     // AzureB2C,
     // Battlenet,
     // Box,
@@ -92,7 +104,7 @@ export const config: NextAuthConfig = {
     // Foursquare,
     // Freshbooks,
     // Fusionauth,
-    GitHub,
+    //GitHub,
     // Gitlab,
     // Google,
     // Hubspot,

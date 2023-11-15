@@ -20,8 +20,8 @@
     "@auth/prisma-adapter": "^1.0.6",
     "@prisma/client": "5.5.2",
     "@types/node": "20.8.10",
-    "@types/react": "^18.2.34",
-    "@types/react-dom": "^18.2.14",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
     "eslint": "8.52.0",
     "eslint-config-next": "14.0.1",
     "material-symbols": "^0.13.2",
@@ -32,10 +32,10 @@
     "react": "canary",
     "react-currency-input-field": "^3.6.12",
     "react-dom": "canary",
-    "react-hook-form": "^7.47.0",
+    "react-hook-form": "^7.48.2",
     "sass": "^1.69.5",
     "server-only": "^0.0.1",
-    "typed-css-modules": "^0.8.0",
+    "typed-css-modules": "^0.8.1",
     "typescript": "next",
     "zod": "^3.22.4"
   }

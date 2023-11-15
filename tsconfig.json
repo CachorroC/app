@@ -27,6 +27,8 @@
       ],
       "project/*": [
         "./src/lib/project/*"
+      ], "auth": [
+        "./src/auth"
       ]
     },
     "plugins": [

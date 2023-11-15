@@ -1,5 +1,6 @@
 import { handlers } from 'auth';
 
+
 export const {
-  GET, POST 
+  GET, POST
 } = handlers;
