@@ -1,11 +1,11 @@
 
-import { carpetasCollection } from '#@/lib/connection/collections';
+import { prisma } from '#@/lib/connection/prisma';
 import { NextResponse } from 'next/server';
 
 
 export async function GET () {
   try {
-
+    /*
     const collection = await carpetasCollection();
 
     const carpetasRaw = await collection.find(
@@ -23,7 +23,18 @@ export async function GET () {
         };
       }
     );
-
+ */
+    const carpetas = await prisma.carpeta.findMany(
+      {
+        include: {
+          Proceso        : true,
+          ultimaActuacion: true,
+          Demanda        : true,
+          Deudor         : true,
+          tareas         : true
+        }
+      }
+    );
     return NextResponse.json(
       carpetas
     );

@@ -127,8 +127,8 @@ model Deudor {
   segundoApellido String?
   direccion       String?
   email           String?
-  telCelular      BigInt?
-  telFijo         BigInt?
+  telCelular      String?
+  telFijo         String?
   carpetaNumero   Int     @unique
   Carpeta         Carpeta @relation(fields: [carpetaNumero], references: [numero])
 }
