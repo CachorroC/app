@@ -8,8 +8,7 @@ import {  Category, MonCarpeta } from '#@/lib/types/carpetas';
 
 export function CarpetasList(
   {
-    carpetas, getHeader,
-    renderContent,
+    carpetas
   }: {
   carpetas: MonCarpeta[];
 }
@@ -101,9 +100,7 @@ export function CarpetasList(
                 );
               }}
             >
-              {getHeader(
-                tabId
-              )}
+              {}
             </button>
           );
         }
@@ -128,21 +125,15 @@ export function CarpetasList(
                 );
               }}
             >
-              {getHeader(
-                tabId
-              )}
+
             </button>
           );
         }
       )}
       <hr />
       <div key={selectedId}>
-        <h3>{getHeader(
-          selectedId
-        )}</h3>
-        {renderContent(
-          selectedId
-        )}
+        <h3>{}</h3>
+        {}
       </div>
       {rows}
     </>
