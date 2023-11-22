@@ -10,79 +10,79 @@ export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 
 export default async function Page() {
-  const carpetasRaw = await getCarpetas();
+      const carpetasRaw = await getCarpetas();
 
 
-  const carpetas = [
-    ...carpetasRaw
-  ].sort(
-    (
-      a, b
-    ) => {
-      if ( !a.fecha || a.fecha === undefined ) {
-        return 1;
-      }
-
-      if ( !b.fecha || b.fecha === undefined ) {
-        return -1;
-      }
-
-      const x = a.fecha;
-
-      const y = b.fecha;
-
-
-      if ( x < y ) {
-        return 1;
-      }
-
-      if ( x > y ) {
-        return -1;
-      }
-
-      return 0;
-    }
-  );
-
-  return (
-    <><Suspense fallback={ <SearchOutputListSkeleton /> }>
-
-      {carpetas.map(
+      const carpetas = [
+        ...carpetasRaw
+      ].sort(
         (
-          carpeta, index
+          a, b
         ) => {
-          const {
-            idProcesos, _id
-          } = carpeta;
-          return (
-            <Card
+                  if ( !a.fecha || a.fecha === undefined ) {
+                    return 1;
+                  }
 
-              carpeta={carpeta}
-              key={_id}
-            >
-              <Suspense fallback={<Loader />}>
-                {idProcesos
+                  if ( !b.fecha || b.fecha === undefined ) {
+                    return -1;
+                  }
+
+                  const x = a.fecha;
+
+                  const y = b.fecha;
+
+
+                  if ( x < y ) {
+                    return 1;
+                  }
+
+                  if ( x > y ) {
+                    return -1;
+                  }
+
+                  return 0;
+        }
+      );
+
+      return (
+        <><Suspense fallback={ <SearchOutputListSkeleton /> }>
+
+          {carpetas.map(
+            (
+              carpeta, index
+            ) => {
+                      const {
+                        idProcesos, _id
+                      } = carpeta;
+                      return (
+                        <Card
+
+                          carpeta={carpeta}
+                          key={_id}
+                        >
+                          <Suspense fallback={<Loader />}>
+                            {idProcesos
                 && idProcesos.map(
                   (
                     idProceso
                   ) => {
-                    return (
-                      <FechaActuacionComponent
-                        initialOpenState={ false }
-                        idProceso={ idProceso }
-                        key={ idProceso }
-                        index={ index } />
-                    );
+                            return (
+                              <FechaActuacionComponent
+                                initialOpenState={ false }
+                                idProceso={ idProceso }
+                                key={ idProceso }
+                                index={ index } />
+                            );
                   }
                 )}
-              </Suspense>
+                          </Suspense>
 
 
-            </Card>
-          );
-        }
-      )}
-    </Suspense>
-    </>
-  );
+                        </Card>
+                      );
+            }
+          )}
+        </Suspense>
+        </>
+      );
 }

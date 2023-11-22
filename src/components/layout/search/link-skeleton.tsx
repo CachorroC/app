@@ -4,31 +4,31 @@ import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 
 export function LinkCardSkeleton() {
-  return (
+      return (
 
-    <div className={searchbar.notActive}>
-      <h1 className={typography.titleMedium}>Cargando</h1>
-      <div className={layout.segmentRow}>
-        <sub className={searchbar.date}>00-00-0000</sub>
-      </div>
-      <div className={styles.links}>
-        <p className={styles.link}>
-          <span className={`material-symbols-outlined ${ searchbar.icon }`}>
+        <div className={searchbar.notActive}>
+          <h1 className={typography.titleMedium}>Cargando</h1>
+          <div className={layout.segmentRow}>
+            <sub className={searchbar.date}>00-00-0000</sub>
+          </div>
+          <div className={styles.links}>
+            <p className={styles.link}>
+              <span className={`material-symbols-outlined ${ searchbar.icon }`}>
               badge
-          </span>
-        </p>
-        <p className={styles.link}>
-          <span className={`material-symbols-outlined ${ searchbar.icon }`}>
+              </span>
+            </p>
+            <p className={styles.link}>
+              <span className={`material-symbols-outlined ${ searchbar.icon }`}>
               add
-          </span>
-        </p>
-        <p className={styles.link}>
-          <span className={`material-symbols-outlined ${ searchbar.icon }`}>
+              </span>
+            </p>
+            <p className={styles.link}>
+              <span className={`material-symbols-outlined ${ searchbar.icon }`}>
               file_open
-          </span>
-        </p>
-      </div>
-    </div>
+              </span>
+            </p>
+          </div>
+        </div>
 
-  );
+      );
 }

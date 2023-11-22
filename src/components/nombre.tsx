@@ -6,22 +6,22 @@ export function NombreComponent(
     deudor
   }: { deudor: intDeudor }
 ) {
-  const nombres = deudor.segundoNombre
-    ? deudor.primerNombre + ' ' + deudor.segundoNombre
-    : deudor.primerNombre;
+      const nombres = deudor.segundoNombre
+        ? deudor.primerNombre + ' ' + deudor.segundoNombre
+        : deudor.primerNombre;
 
-  const apellidos = deudor.segundoApellido
-    ? deudor.primerApellido + ' ' + deudor.segundoApellido
-    : deudor.primerApellido;
+      const apellidos = deudor.segundoApellido
+        ? deudor.primerApellido + ' ' + deudor.segundoApellido
+        : deudor.primerApellido;
 
-  const rawName = nombres + ' ' + apellidos;
+      const rawName = nombres + ' ' + apellidos;
 
-  return (
-    <h4
-      key={deudor.cedula}
-      className={typography.displayLarge}
-    >
-      {rawName}
-    </h4>
-  );
+      return (
+        <h4
+          key={deudor.cedula}
+          className={typography.displayLarge}
+        >
+          {rawName}
+        </h4>
+      );
 }

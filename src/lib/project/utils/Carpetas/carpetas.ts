@@ -5,9 +5,9 @@ export const getCarpetasByllaveProceso = cache(
   async(
     llaveProceso: string
   ) => {
-    return await fetchCarpetasByllaveProceso(
-      llaveProceso
-    );
+            return await fetchCarpetasByllaveProceso(
+              llaveProceso
+            );
   }
 );
 
@@ -15,9 +15,9 @@ export const getCarpetaByllaveProceso = cache(
   async (
     llaveProceso: string
   ) => {
-    return await fetchCarpetaByllaveProceso(
-      llaveProceso
-    );
+            return await fetchCarpetaByllaveProceso(
+              llaveProceso
+            );
   }
 );
 
@@ -25,9 +25,9 @@ export const getCarpetabyNumero = cache(
   async (
     numero: number
   ) => {
-    return await fetchCarpetaByNumero(
-      numero
-    );
+            return await fetchCarpetaByNumero(
+              numero
+            );
   }
 );
 
@@ -35,8 +35,8 @@ export const getCarpetaByidProceso = cache(
   async (
     idProceso: number
   ) => {
-    return fetcherCarpetaByidProceso(
-      idProceso
-    );
+            return fetcherCarpetaByidProceso(
+              idProceso
+            );
   }
 );

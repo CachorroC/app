@@ -73,23 +73,23 @@ export async function FechaActuacionComponent(
     index,
     initialOpenState
   }: {
-  idProceso: number;
-      index: number;
-  initialOpenState: boolean
-}
-) {
-  const consultaActuaciones = await fetchActuaciones(
-    idProceso, index
-  );
-
-  if ( !consultaActuaciones.actuaciones ) {
-    return null;
+    idProceso: number;
+    index: number;
+    initialOpenState: boolean
   }
+) {
+      const consultaActuaciones = await fetchActuaciones(
+        idProceso, index
+      );
 
-  const [
-    ultimaActuacion
-  ] = consultaActuaciones.actuaciones;
+      if ( !consultaActuaciones.actuaciones ) {
+        return null;
+      }
 
-  return ( <ActuacionComponent key={ultimaActuacion.idRegActuacion} initialOpenState={ initialOpenState } incomingActuacion={ ultimaActuacion } />
-  );
+      const [
+        ultimaActuacion
+      ] = consultaActuaciones.actuaciones;
+
+      return ( <ActuacionComponent key={ultimaActuacion.idRegActuacion} initialOpenState={ initialOpenState } incomingActuacion={ ultimaActuacion } />
+      );
 }

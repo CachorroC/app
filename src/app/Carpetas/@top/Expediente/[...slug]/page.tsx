@@ -8,26 +8,26 @@ export default async function Page(
     params
   }: { params: { slug: string[] } }
 ) {
-  const [
-    llaveProceso,
-    idProceso
-  ] = params.slug;
+      const [
+        llaveProceso,
+        idProceso
+      ] = params.slug;
 
-  const carpeta = await getCarpetaByllaveProceso(
-    llaveProceso
-  );
+      const carpeta = await getCarpetaByllaveProceso(
+        llaveProceso
+      );
 
-  if ( !carpeta ) {
-    return notFound();
-  }
+      if ( !carpeta ) {
+        return notFound();
+      }
 
-  return (
-    <>
-      <NombreComponent
-        key={llaveProceso}
-        deudor={carpeta.deudor}
-      />
-      {idProceso && <p className={typography.bodySmall}>Ultimas Actuaciones</p>}
-    </>
-  );
+      return (
+        <>
+          <NombreComponent
+            key={llaveProceso}
+            deudor={carpeta.deudor}
+          />
+          {idProceso && <p className={typography.bodySmall}>Ultimas Actuaciones</p>}
+        </>
+      );
 }

@@ -12,85 +12,85 @@ export function ActuacionComponent(
   {
     incomingActuacion, initialOpenState
   }: {
-  incomingActuacion: intActuacion; initialOpenState: boolean
-}
-) {
-  const {
-    actuacion,
-    anotacion,
-    idRegActuacion,
-    consActuacion,
-    fechaActuacion,
-    fechaRegistro,
-    cant,
-  } = incomingActuacion;
-
-  const [
-    isOpen,
-    setIsOpen
-  ] = useState(
-    initialOpenState
-  );
-  let visibleContent;
-
-  if ( isOpen ) {
-    visibleContent = (
-      <div className={layout.sectionColumn}>
-        <section className={layout.segmentRow}>
-          <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
-          <sub className={styles.sub}>{`actuacion registrada el ${ fixFechas(
-            fechaRegistro,
-          ) }` }</sub>
-          {fechaActuacion && (
-            <sub className={styles.date}>{fixFechas(
-              fechaActuacion
-            )}</sub>
-          )}
-        </section>
-        {`${ idRegActuacion }`}
-        {actuacion && (
-          <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
-            {actuacion}
-          </h5>
-        )}
-        {anotacion && (
-          <p className={` ${ styles.anotacion } ${ typography.labelSmall }`}>
-            {anotacion}
-          </p>
-        )}
-
-      </div>
-    );
-  } else {
-    visibleContent = (
-      <sub className={styles.date}>{fixFechas(
-        fechaActuacion
-      )}</sub>
-    );
+    incomingActuacion: intActuacion; initialOpenState: boolean
   }
+) {
+      const {
+        actuacion,
+        anotacion,
+        idRegActuacion,
+        consActuacion,
+        fechaActuacion,
+        fechaRegistro,
+        cant,
+      } = incomingActuacion;
 
-  return (
-    <div
-      className={layout.sectionRow}
-    >
-      <button className={button.buttonActuacion} type='button' onClick={(
-        e
-      ) => {
-        e.stopPropagation();
-        setIsOpen(
-          (
-            n
-          ) => {
-            return !n;
-          }
+      const [
+        isOpen,
+        setIsOpen
+      ] = useState(
+        initialOpenState
+      );
+      let visibleContent;
+
+      if ( isOpen ) {
+        visibleContent = (
+          <div className={layout.sectionColumn}>
+            <section className={layout.segmentRow}>
+              <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
+              <sub className={styles.sub}>{`actuacion registrada el ${ fixFechas(
+                fechaRegistro,
+              ) }` }</sub>
+              {fechaActuacion && (
+                <sub className={styles.date}>{fixFechas(
+                  fechaActuacion
+                )}</sub>
+              )}
+            </section>
+            {`${ idRegActuacion }`}
+            {actuacion && (
+              <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
+                {actuacion}
+              </h5>
+            )}
+            {anotacion && (
+              <p className={` ${ styles.anotacion } ${ typography.labelSmall }`}>
+                {anotacion}
+              </p>
+            )}
+
+          </div>
         );
-      } }>
-        <span className={`material-symbols-outlined ${ button.icon }`}>{isOpen
-          ? 'expand_less'
-          : 'expand_more'}</span>
-      </button>
-      {visibleContent}
+      } else {
+        visibleContent = (
+          <sub className={styles.date}>{fixFechas(
+            fechaActuacion
+          )}</sub>
+        );
+      }
 
-    </div>
-  );
+      return (
+        <div
+          className={layout.sectionRow}
+        >
+          <button className={button.buttonActuacion} type='button' onClick={(
+            e
+          ) => {
+                    e.stopPropagation();
+                    setIsOpen(
+                      (
+                        n
+                      ) => {
+                                return !n;
+                      }
+                    );
+          } }>
+            <span className={`material-symbols-outlined ${ button.icon }`}>{isOpen
+              ? 'expand_less'
+              : 'expand_more'}</span>
+          </button>
+          {visibleContent}
+
+        </div>
+      );
 }

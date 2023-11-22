@@ -35,176 +35,176 @@ export async function GET () {
 export async function GET (
   request: NextRequest
 ) {
-  try {
+      try {
 
-    let notas;
+        let notas;
 
-    const {
-      searchParams
-    } = new URL(
-      request.url
-    );
+        const {
+          searchParams
+        } = new URL(
+          request.url
+        );
 
-    const carpetaNumero = searchParams.get(
-      'carpetaNumero'
-    );
+        const carpetaNumero = searchParams.get(
+          'carpetaNumero'
+        );
 
-    if ( carpetaNumero ) {
-      notas = await getNotas(
-        Number(
-          carpetaNumero
-        )
-      );
-    } else {
-      notas = await getNotas();
-    }
+        if ( carpetaNumero ) {
+          notas = await getNotas(
+            Number(
+              carpetaNumero
+            )
+          );
+        } else {
+          notas = await getNotas();
+        }
 
-    return NextResponse.json(
-      notas
-    );
-  } catch ( error ) {
-    return NextResponse.json(
-      null
-    );
-  }
+        return NextResponse.json(
+          notas
+        );
+      } catch ( error ) {
+        return NextResponse.json(
+          null
+        );
+      }
 }
 
 export async function POST (
   request: NextRequest
 ) {
-  try {
+      try {
 
 
-    const incomingNote = ( await request.json() ) as intNota;
+        const incomingNote = ( await request.json() ) as intNota;
 
 
 
 
-    const client = await clientPromise;
+        const client = await clientPromise;
 
-    if ( !client ) {
-      throw new Error(
-        'no hay cliente mongólico'
-      );
-    }
+        if ( !client ) {
+          throw new Error(
+            'no hay cliente mongólico'
+          );
+        }
 
-    const db = client.db(
-      'RyS'
-    );
+        const db = client.db(
+          'RyS'
+        );
 
-    const collection = db.collection<intNota>(
-      'Notas'
-    );
+        const collection = db.collection<intNota>(
+          'Notas'
+        );
 
-    const updatedNote = await collection.insertOne(
-      incomingNote
-    );
+        const updatedNote = await collection.insertOne(
+          incomingNote
+        );
 
-    if ( !updatedNote ) {
-      throw new Error(
-        'no se actualizó la notas'
-      );
-    }
+        if ( !updatedNote ) {
+          throw new Error(
+            'no se actualizó la notas'
+          );
+        }
 
-    const json = JSON.stringify(
-      updatedNote, null, 2
-    );
-    console.log(
-      `POST en api/Notas es ${ json }`
-    );
-    return NextResponse.json(
-      updatedNote
-    );
+        const json = JSON.stringify(
+          updatedNote, null, 2
+        );
+        console.log(
+          `POST en api/Notas es ${ json }`
+        );
+        return NextResponse.json(
+          updatedNote
+        );
 
-  } catch ( error ) {
-    console.log(
-      `POST en api/Notas arrojó un error ${ JSON.stringify(
-        error, null, 2
-      ) }`
-    );
-    return NextResponse.json(
-      error, {
-        status: 300
+      } catch ( error ) {
+        console.log(
+          `POST en api/Notas arrojó un error ${ JSON.stringify(
+            error, null, 2
+          ) }`
+        );
+        return NextResponse.json(
+          error, {
+            status: 300
+          }
+        );
       }
-    );
-  }
 }
 
 export async function PUT (
   request: NextRequest
 ) {
-  try {
+      try {
 
 
-    const incomingNote = ( await request.json() ) as intNota;
+        const incomingNote = ( await request.json() ) as intNota;
 
 
 
 
-    const client = await clientPromise;
+        const client = await clientPromise;
 
-    if ( !client ) {
-      throw new Error(
-        'no hay cliente mongólico'
-      );
-    }
-
-    const db = client.db(
-      'RyS'
-    );
-
-    const collection = db.collection<intNota>(
-      'Notas'
-    );
-
-    const updatedNote = await collection.findOneAndUpdate(
-      {
-        id: incomingNote.id
-      },
-      {
-        $set: incomingNote,
-      },
-      {
-        upsert        : true,
-        returnDocument: 'after',
-      },
-    );
-
-    if ( !updatedNote ) {
-      throw new Error(
-        'no se actualizó la notas'
-      );
-    }
-
-    const json = JSON.stringify(
-      updatedNote, null, 2
-    );
-    console.log(
-      `PUT en api/Notas es ${ json }`
-    );
-    return new NextResponse(
-      JSON.stringify(
-        updatedNote
-      ), {
-        status : 200,
-        headers: {
-          'Content-Type': 'application/json'
+        if ( !client ) {
+          throw new Error(
+            'no hay cliente mongólico'
+          );
         }
-      }
-    );
 
-  } catch ( error ) {
-    console.log(
-      `PUT en api/Notas arrojó un error ${ JSON.stringify(
-        error, null, 2
-      ) }`
-    );
-    return NextResponse.json(
-      error, {
-        status: 300
+        const db = client.db(
+          'RyS'
+        );
+
+        const collection = db.collection<intNota>(
+          'Notas'
+        );
+
+        const updatedNote = await collection.findOneAndUpdate(
+          {
+            id: incomingNote.id
+          },
+          {
+            $set: incomingNote,
+          },
+          {
+            upsert        : true,
+            returnDocument: 'after',
+          },
+        );
+
+        if ( !updatedNote ) {
+          throw new Error(
+            'no se actualizó la notas'
+          );
+        }
+
+        const json = JSON.stringify(
+          updatedNote, null, 2
+        );
+        console.log(
+          `PUT en api/Notas es ${ json }`
+        );
+        return new NextResponse(
+          JSON.stringify(
+            updatedNote
+          ), {
+            status : 200,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+
+      } catch ( error ) {
+        console.log(
+          `PUT en api/Notas arrojó un error ${ JSON.stringify(
+            error, null, 2
+          ) }`
+        );
+        return NextResponse.json(
+          error, {
+            status: 300
+          }
+        );
       }
-    );
-  }
 }
 /*
 export async function DELETE(

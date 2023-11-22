@@ -6,24 +6,24 @@ export const Name = (
     helper
   }: { helper?: string }
 ) => {
-  const today = new Date();
+          const today = new Date();
 
-  const days = [
-    'mimingo',
-    'Lunes',
-    'Martes',
-    'Miercoles',
-    'Jueves',
-    'Viernes',
-    'Sabado',
-  ];
+          const days = [
+            'mimingo',
+            'Lunes',
+            'Martes',
+            'Miercoles',
+            'Jueves',
+            'Viernes',
+            'Sabado',
+          ];
 
-  return (
-    <h1 className={typography.headlineSmall}>
-      {helper?.toLocaleLowerCase()
+          return (
+            <h1 className={typography.headlineSmall}>
+              {helper?.toLocaleLowerCase()
         ?? `${ days[ today.getDay() ] }, ${ fixFechas(
           today.toString()
         ) }`}
-    </h1>
-  );
+            </h1>
+          );
 };

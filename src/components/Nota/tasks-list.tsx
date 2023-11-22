@@ -5,57 +5,57 @@ import { Task } from './nota';
 import styles from 'components/Nota/note.module.css';
 
 export function TaskList() {
-  const notas = useNotaSort();
+      const notas = useNotaSort();
 
-  return (
-    <div className={styles.taskList}>
-      {notas.map(
-        (
-          task
-        ) => {
-          return (
-            <Task
-              task={task}
-              key={task.id}
-            />
-          );
-        }
-      )}
-    </div>
-  );
+      return (
+        <div className={styles.taskList}>
+          {notas.map(
+            (
+              task
+            ) => {
+                      return (
+                        <Task
+                          task={task}
+                          key={task.id}
+                        />
+                      );
+            }
+          )}
+        </div>
+      );
 }
 
 export function NotasList() {
-  const rawNotas = useNotaSort();
+      const rawNotas = useNotaSort();
 
-  const pathname = usePathname();
+      const pathname = usePathname();
 
-  const notas = [
-    ...rawNotas
-  ].filter(
-    (
-      nota
-    ) => {
-      return nota.pathname === pathname;
-    }
-  );
-  return (
-    <>
-      {
-        notas.map(
-          (
-            nota
-          ) => {
-            return (
-              <Task
-                key={ nota.id }
-                task={ nota }
-              />
-            );
+      const notas = [
+        ...rawNotas
+      ].filter(
+        (
+          nota
+        ) => {
+                  return nota.pathname === pathname;
+        }
+      );
+      return (
+        <>
+          {
+            notas.map(
+              (
+                nota
+              ) => {
+                        return (
+                          <Task
+                            key={ nota.id }
+                            task={ nota }
+                          />
+                        );
+              }
+            )
           }
-        )
-      }
 
-    </>
-  );
+        </>
+      );
 }

@@ -8,19 +8,19 @@ export default function Layout (
   }: { params: { ano: string};  children: ReactNode}
 ) {
 
-  const segmentDate = new Date(
-    params.ano
-  );
+      const segmentDate = new Date(
+        params.ano
+      );
 
-  return (
+      return (
 
-    <>
-      <LabelBoundary color={ 'primary' }>
-        <h1>{ params.ano }</h1>
-        <CalendarContextProvider date={ segmentDate}>
-          {children}
-        </CalendarContextProvider>
-      </LabelBoundary>
-    </>
-  );
+        <>
+          <LabelBoundary color={ 'primary' }>
+            <h1>{ params.ano }</h1>
+            <CalendarContextProvider date={ segmentDate}>
+              {children}
+            </CalendarContextProvider>
+          </LabelBoundary>
+        </>
+      );
 }

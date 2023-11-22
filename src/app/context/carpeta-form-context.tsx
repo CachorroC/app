@@ -8,19 +8,19 @@ export function CarpetaFormProvider(
     children,
     carpeta
   }: {
-  children: ReactNode;
-carpeta: IntCarpeta
-}
+    children: ReactNode;
+    carpeta: IntCarpeta
+  }
 ) {
 
-  const methods = useForm<IntCarpeta>(
-    {
-      defaultValues   : carpeta,
-      shouldFocusError: true,
-      criteriaMode    : 'firstError',
+      const methods = useForm<IntCarpeta>(
+        {
+          defaultValues   : carpeta,
+          shouldFocusError: true,
+          criteriaMode    : 'firstError',
 
-    }
-  );
+        }
+      );
 
-  return <FormProvider {...methods}>{children}</FormProvider>;
+      return <FormProvider {...methods}>{children}</FormProvider>;
 }

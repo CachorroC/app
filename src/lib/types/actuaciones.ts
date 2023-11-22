@@ -50,64 +50,64 @@ export class actuacionConvert {
   public static actuacioneToJson(
     value: intActuacion
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static consultaActuacionToJson(
     value: ConsultaActuacion
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static dataToJson(
     value: Data
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static paginacionToJson(
     value: Paginacion
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static toActuacione(
     json: string
   ): intActuacion {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static toConsultaActuacion(
     json: string
   ): ConsultaActuacion {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static toData(
     json: string
   ): Data {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static toPaginacion(
     json: string
   ): Paginacion {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 }

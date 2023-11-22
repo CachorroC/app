@@ -9,28 +9,28 @@ export default function Layout (
   }: { params: { ano: string; mes: string; dia: string };  children: ReactNode}
 ) {
 
-  const segmentDate = new Date(
-    Number(
-      params.ano
-    ), Number(
-      params.mes
-    ) - 1, Number(
-      params.dia
-    )
-  );
+      const segmentDate = new Date(
+        Number(
+          params.ano
+        ), Number(
+          params.mes
+        ) - 1, Number(
+          params.dia
+        )
+      );
 
-  const dateOutput = OutputDateHelper(
-    segmentDate
-  );
-  return (
+      const dateOutput = OutputDateHelper(
+        segmentDate
+      );
+      return (
 
-    <>
-      <LabelBoundary color={ 'tertiary' }>
-        <h1>{dateOutput }</h1>
-        <CalendarContextProvider date={ segmentDate}>
-          {children}
-        </CalendarContextProvider>
-      </LabelBoundary>
-    </>
-  );
+        <>
+          <LabelBoundary color={ 'tertiary' }>
+            <h1>{dateOutput }</h1>
+            <CalendarContextProvider date={ segmentDate}>
+              {children}
+            </CalendarContextProvider>
+          </LabelBoundary>
+        </>
+      );
 }

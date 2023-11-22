@@ -14,80 +14,50 @@ export function  LinkCard<T extends string = string>(
     path,
     carpeta,
   }: {
-  path: Route<T>| URL;
-  carpeta: MonCarpeta;
-}
-)  {
-  let content;
-
-
-  const {
-    deudor, fecha, numero, nombre
-  } = carpeta;
-
-  const {
-    setIsNavOpen
-  } = useNavigationContext();
-
-
-  const params = useParams();
-
-  const isActive =  numero === Number(
-    params.numero
-  );
-
-  function handleClickNavigation () {
-    setIsNavOpen(
-      false
-    );
+    path: Route<T>| URL;
+    carpeta: MonCarpeta;
   }
+)  {
+      let content;
 
 
-  const stringifiedFecha = OutputDateHelper(
-    fecha
-  );
+      const {
+        deudor, fecha, numero, nombre
+      } = carpeta;
 
-  if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
-    content = (
-      <Link
-        key={ carpeta._id }
-        onClick={handleClickNavigation}
-        href={path as Route}
-        className={isActive
-          ? searchbar.linkIsActive
-          : searchbar.linkNotActive}
-      >
-        <sup className={searchbar.sub }>{`# ${ numero }`}</sup>
-        <h4
-          key={deudor.cedula}
-          className={`${ typography.titleMedium } ${ searchbar.title }`}
-        >
-          {nombre}
-        </h4>
+      const {
+        setIsNavOpen
+      } = useNavigationContext();
 
-        {fecha && (
-          <sub className={searchbar.date}>{stringifiedFecha}</sub>
-        )}
-      </Link>
-    );
-  } else {
-    content = carpeta.idProcesos.map(
-      (
-        idProceso
-      ) => {
-        return (
+
+      const params = useParams();
+
+      const isActive =  numero === Number(
+        params.numero
+      );
+
+      function handleClickNavigation () {
+            setIsNavOpen(
+              false
+            );
+      }
+
+
+      const stringifiedFecha = OutputDateHelper(
+        fecha
+      );
+
+      if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
+        content = (
           <Link
+            key={ carpeta._id }
             onClick={handleClickNavigation}
-            key={idProceso}
-            href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
+            href={path as Route}
             className={isActive
               ? searchbar.linkIsActive
               : searchbar.linkNotActive}
           >
-
-            <sup className={searchbar.sub }>
-              {`# ${ numero }`}
-            </sup>
+            <sup className={searchbar.sub }>{`# ${ numero }`}</sup>
             <h4
               key={deudor.cedula}
               className={`${ typography.titleMedium } ${ searchbar.title }`}
@@ -96,16 +66,46 @@ export function  LinkCard<T extends string = string>(
             </h4>
 
             {fecha && (
-              <sub className={searchbar.date}>
-                {stringifiedFecha}
-              </sub>
+              <sub className={searchbar.date}>{stringifiedFecha}</sub>
             )}
-
           </Link>
         );
-      }
-    );
-  }
+      } else {
+        content = carpeta.idProcesos.map(
+          (
+            idProceso
+          ) => {
+                    return (
+                      <Link
+                        onClick={handleClickNavigation}
+                        key={idProceso}
+                        href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
+                        className={isActive
+                          ? searchbar.linkIsActive
+                          : searchbar.linkNotActive}
+                      >
 
-  return <>{content}</>;
+                        <sup className={searchbar.sub }>
+                          {`# ${ numero }`}
+                        </sup>
+                        <h4
+                          key={deudor.cedula}
+                          className={`${ typography.titleMedium } ${ searchbar.title }`}
+                        >
+                          {nombre}
+                        </h4>
+
+                        {fecha && (
+                          <sub className={searchbar.date}>
+                            {stringifiedFecha}
+                          </sub>
+                        )}
+
+                      </Link>
+                    );
+          }
+        );
+      }
+
+      return <>{content}</>;
 }

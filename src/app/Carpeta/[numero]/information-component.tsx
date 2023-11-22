@@ -11,113 +11,113 @@ export default function InformationComponent (
     carpeta
   }: { carpeta: MonCarpeta }
 ) {
-  const {
-    deudor, demanda,  category, tipoProceso
-  } = carpeta;
+      const {
+        deudor, demanda,  category, tipoProceso
+      } = carpeta;
 
-  const {
-    tel, email, cedula
-  } = deudor;
+      const {
+        tel, email, cedula
+      } = deudor;
 
-  const {
-    juzgados
-  } = demanda;
+      const {
+        juzgados
+      } = demanda;
 
-  return (
-    <>
-      <p className={typography.bodySmall}>{category}</p>
-      <p className={typography.labelSmall}>{tipoProceso}</p>
-      <p className={ typography.titleSmall }>{ cedula }</p>
-      {juzgados
+      return (
+        <>
+          <p className={typography.bodySmall}>{category}</p>
+          <p className={typography.labelSmall}>{tipoProceso}</p>
+          <p className={ typography.titleSmall }>{ cedula }</p>
+          {juzgados
           && juzgados.map(
             (
               despacho
             ) => {
-              return (
-                <Link
-                  key={despacho.url}
-                  target={'_blank'}
-                  className={link}
-                  href={despacho.url as Route}
-                >
-                  <span className={`material-symbols-outlined ${ icon }`}>
+                      return (
+                        <Link
+                          key={despacho.url}
+                          target={'_blank'}
+                          className={link}
+                          href={despacho.url as Route}
+                        >
+                          <span className={`material-symbols-outlined ${ icon }`}>
                   enable
-                  </span>
-                  <sub className={typography.displaySmall}>
-                    {`${ despacho.id }`}
-                  </sub>
-                  <p className={typography.labelSmall}>
-                    {`Juzgado de origen: ${ despacho.tipo }`}
-                  </p>
-                </Link>
-              );
+                          </span>
+                          <sub className={typography.displaySmall}>
+                            {`${ despacho.id }`}
+                          </sub>
+                          <p className={typography.labelSmall}>
+                            {`Juzgado de origen: ${ despacho.tipo }`}
+                          </p>
+                        </Link>
+                      );
             }
           )}
-      {tel.celular && (
-        <Link
-          key={tel.celular}
-          target={'_blank'}
-          className={link}
-          href={`tel:${ tel.celular }`}
-        >
-          <span className={`material-symbols-outlined ${ icon }`}>
+          {tel.celular && (
+            <Link
+              key={tel.celular}
+              target={'_blank'}
+              className={link}
+              href={`tel:${ tel.celular }`}
+            >
+              <span className={`material-symbols-outlined ${ icon }`}>
               phone_iphone
-          </span>
-          <span className={typography.labelSmall}>{tel.celular.toString()}</span>
-        </Link>
-      )}
-      {tel.fijo && (
-        <Link
-          key={tel.fijo}
-          target={'_blank'}
-          className={link}
-          href={`tel:${ tel.fijo }`}
-        >
-          <span className={`material-symbols-outlined ${ icon }`}>
+              </span>
+              <span className={typography.labelSmall}>{tel.celular.toString()}</span>
+            </Link>
+          )}
+          {tel.fijo && (
+            <Link
+              key={tel.fijo}
+              target={'_blank'}
+              className={link}
+              href={`tel:${ tel.fijo }`}
+            >
+              <span className={`material-symbols-outlined ${ icon }`}>
               call
-          </span>
-          <span className={typography.labelSmall}>{tel.fijo.toString()}</span>
-        </Link>
-      )}
-      {carpeta.demanda.vencimientoPagare
+              </span>
+              <span className={typography.labelSmall}>{tel.fijo.toString()}</span>
+            </Link>
+          )}
+          {carpeta.demanda.vencimientoPagare
           && carpeta.demanda.vencimientoPagare.map(
             (
               pagare, index
             ) => {
-              return (
-                <p
-                  key={index}
-                  className={typography.labelMedium}
-                >
-                  {fixFechas(
-                    pagare
-                  )}
-                </p>
-              );
+                      return (
+                        <p
+                          key={index}
+                          className={typography.labelMedium}
+                        >
+                          {fixFechas(
+                            pagare
+                          )}
+                        </p>
+                      );
             }
           )}
-      {email && (
-        <Link
-          className={button}
-          target={'_blank'}
-          href={`mailto:${ email }`}
-        >
-          <span className={`material-symbols-outlined ${ icon }`}>
+          {email && (
+            <Link
+              className={button}
+              target={'_blank'}
+              href={`mailto:${ email }`}
+            >
+              <span className={`material-symbols-outlined ${ icon }`}>
               forward_to_inbox
-          </span>
-          <span className={typography.labelSmall}>Email</span>
-        </Link>
-      )}
-
-      {carpeta.demanda.entregaGarantiasAbogado && (
-        <p className={typography.labelSmall}>
-          {fixFechas(
-            carpeta.demanda.entregaGarantiasAbogado
+              </span>
+              <span className={typography.labelSmall}>Email</span>
+            </Link>
           )}
-        </p>
-      )}
 
-      {carpeta.demanda.capitalAdeudado
+          {carpeta.demanda.entregaGarantiasAbogado && (
+            <p className={typography.labelSmall}>
+              {fixFechas(
+                carpeta.demanda.entregaGarantiasAbogado
+              )}
+            </p>
+          )}
+
+          {carpeta.demanda.capitalAdeudado
             && fixMoney(
               {
                 valor: Number(
@@ -126,39 +126,39 @@ export default function InformationComponent (
               }
             )}
 
-      {email && (
-        <Link
-          className={link}
-          href={email as Route}
-          target={'_blank'}
-        >
-          <span className={`material-symbols-outlined ${ icon }`}>mail</span>
-          <span className={typography.labelMedium}>{'Correo Electrónico'}</span>
-        </Link>
-      )}
-      {tel.celular && (
-        <Link
-          key={tel.celular}
-          className={link}
-          target={'_blank'}
-          href={`tel:${ tel.celular }`}
-        >
-          <span className={`material-symbols-outlined ${ icon }`}>
+          {email && (
+            <Link
+              className={link}
+              href={email as Route}
+              target={'_blank'}
+            >
+              <span className={`material-symbols-outlined ${ icon }`}>mail</span>
+              <span className={typography.labelMedium}>{'Correo Electrónico'}</span>
+            </Link>
+          )}
+          {tel.celular && (
+            <Link
+              key={tel.celular}
+              className={link}
+              target={'_blank'}
+              href={`tel:${ tel.celular }`}
+            >
+              <span className={`material-symbols-outlined ${ icon }`}>
             phone_iphone
-          </span>
-          <span className={typography.labelMedium}>{tel.celular.toString()}</span>
-        </Link>
-      )}
-      {tel.fijo && (
-        <Link
-          key={tel.fijo}
-          className={link}
-          href={`tel:${ tel.fijo }`}
-        >
-          <span className={`material-symbols-outlined ${ icon }`}>call</span>
-          <span className={typography.labelMedium}>{tel.fijo.toString()}</span>
-        </Link>
-      )}
-    </>
-  );
+              </span>
+              <span className={typography.labelMedium}>{tel.celular.toString()}</span>
+            </Link>
+          )}
+          {tel.fijo && (
+            <Link
+              key={tel.fijo}
+              className={link}
+              href={`tel:${ tel.fijo }`}
+            >
+              <span className={`material-symbols-outlined ${ icon }`}>call</span>
+              <span className={typography.labelMedium}>{tel.fijo.toString()}</span>
+            </Link>
+          )}
+        </>
+      );
 }

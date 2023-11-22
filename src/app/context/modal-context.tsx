@@ -18,35 +18,35 @@ export function ModalProvider(
     children
   }: { children: React.ReactNode }
 ) {
-  const [
-    isModalOpen,
-    setIsModalOpen
-  ] = useState(
-    false
-  );
-
-  return (
-    <ModalContext.Provider
-      value={{
+      const [
         isModalOpen,
-        setIsModalOpen,
-      }}
-    >
-      {children}
-    </ModalContext.Provider>
-  );
+        setIsModalOpen
+      ] = useState(
+        false
+      );
+
+      return (
+        <ModalContext.Provider
+          value={{
+            isModalOpen,
+            setIsModalOpen,
+          }}
+        >
+          {children}
+        </ModalContext.Provider>
+      );
 }
 
 export function useModalContext() {
-  const context = useContext(
-    ModalContext
-  );
+      const context = useContext(
+        ModalContext
+      );
 
-  if ( context === null ) {
-    throw new Error(
-      'useModalContext must be used inside a ModalProvider'
-    );
-  }
+      if ( context === null ) {
+        throw new Error(
+          'useModalContext must be used inside a ModalProvider'
+        );
+      }
 
-  return context;
+      return context;
 }

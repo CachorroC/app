@@ -14,97 +14,97 @@ export const DateInputSection = (
     title,
     initialValue,
   }: {
-  name: FieldPath<NuevaCarpeta>;
-  title: string;
-  initialValue?: Date;
-}
+    name: FieldPath<NuevaCarpeta>;
+    title: string;
+    initialValue?: Date;
+  }
 ) => {
-  const dateValue = initialValue
-    ? initialValue
-    : new Date();
-
-  const [
-    stringDateValue,
-    setStringDateValue
-  ] = useState(
-    dateValue
-  );
-
-  const {
-    control, setValue
-  } = useFormContext();
-
-  const rules = {
-    required: false,
-  };
-
-  const {
-    field, fieldState
-  } = useController(
-    {
-      name,
-      defaultValue: stringDateValue,
-      control,
-      rules,
-    }
-  );
-  return (
-    <><section className={ layout.segmentRow }>
-      <label
-        className={ `${ form.label } ${ typography.titleLarge }` }
-        htmlFor={ name }
-      >
-        { title }
-      </label>
-      <input
-        type="date"
-        name={ field.name }
-        className={ form.textArea }
-        value={ InputDateHelper(
-          stringDateValue
-        ) }
-        onChange={ (
-          e
-        ) => {
-          console.log(
-            `onChange new value for date-section: ${ e.target.valueAsDate }`
-          );
+          const dateValue = initialValue
+            ? initialValue
+            : new Date();
 
           const [
-            yearStringer,
-            monthStringer,
-            dayStringer
-          ] = e.target.value.split(
-            '-'
+            stringDateValue,
+            setStringDateValue
+          ] = useState(
+            dateValue
           );
 
-          const newYear = Number(
-            yearStringer
-          );
+          const {
+            control, setValue
+          } = useFormContext();
 
-          const newMonth = Number(
-            monthStringer
-          ) - 1;
+          const rules = {
+            required: false,
+          };
 
-          const newDay = Number(
-            dayStringer
+          const {
+            field, fieldState
+          } = useController(
+            {
+              name,
+              defaultValue: stringDateValue,
+              control,
+              rules,
+            }
           );
-          field.onChange(
-            e.target.value
+          return (
+            <><section className={ layout.segmentRow }>
+              <label
+                className={ `${ form.label } ${ typography.titleLarge }` }
+                htmlFor={ name }
+              >
+                { title }
+              </label>
+              <input
+                type="date"
+                name={ field.name }
+                className={ form.textArea }
+                value={ InputDateHelper(
+                  stringDateValue
+                ) }
+                onChange={ (
+                  e
+                ) => {
+                          console.log(
+                            `onChange new value for date-section: ${ e.target.valueAsDate }`
+                          );
+
+                          const [
+                            yearStringer,
+                            monthStringer,
+                            dayStringer
+                          ] = e.target.value.split(
+                            '-'
+                          );
+
+                          const newYear = Number(
+                            yearStringer
+                          );
+
+                          const newMonth = Number(
+                            monthStringer
+                          ) - 1;
+
+                          const newDay = Number(
+                            dayStringer
+                          );
+                          field.onChange(
+                            e.target.value
+                          );
+                          setValue(
+                            name, e.target.value
+                          );
+                          setStringDateValue(
+                            new Date(
+                              newYear, newMonth, newDay
+                            )
+                          );
+                } } />
+            </section><pre>
+              { JSON.stringify(
+                fieldState, null, 2
+              ) }
+            </pre></>
           );
-          setValue(
-            name, e.target.value
-          );
-          setStringDateValue(
-            new Date(
-              newYear, newMonth, newDay
-            )
-          );
-        } } />
-    </section><pre>
-      { JSON.stringify(
-        fieldState, null, 2
-      ) }
-    </pre></>
-  );
 };

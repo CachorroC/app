@@ -2,33 +2,33 @@
 import { useMemo, useState } from 'react';
 
 export function usePrettyPrintedState() {
-  const [
-    value,
-    setValue
-  ] = useState();
+      const [
+        value,
+        setValue
+      ] = useState();
 
-  const resultValue = useMemo(
-    () => {
-      return (
-        <>
-          {value && (
-            <pre>
+      const resultValue = useMemo(
+        () => {
+                  return (
+                    <>
+                      {value && (
+                        <pre>
             Value:
-              <br />
-              {JSON.stringify(
-                value, null, 2 
-              )}
-            </pre>
-          )}
-        </>
+                          <br />
+                          {JSON.stringify(
+                            value, null, 2 
+                          )}
+                        </pre>
+                      )}
+                    </>
+                  );
+        }, [
+          value
+        ] 
       );
-    }, [
-      value
-    ] 
-  );
 
-  return [
-    resultValue,
-    setValue
-  ];
+      return [
+        resultValue,
+        setValue
+      ];
 }

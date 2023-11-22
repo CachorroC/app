@@ -145,128 +145,128 @@ export class carpetaConvert {
   public static demandaToJson (
     value: intDemanda
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static departamentoToJson (
     value: Departamento
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static deudorToJson (
     value: intDeudor
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static intCarpetasToJson (
     value: IntCarpeta[]
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static intCarpetaToJson (
     value: IntCarpeta
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static juzgadoToJson (
     value: intJuzgado
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static telToJson (
     value: intTel
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static toDemanda (
     json: string
   ): intDemanda {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static toDepartamento (
     json: string
   ): Departamento {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static toDeudor (
     json: string
   ): intDeudor {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static toIntCarpeta (
     json: string
   ): IntCarpeta {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static toIntCarpetas (
     json: string
   ): IntCarpeta[] {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static toJuzgado (
     json: string
   ): intJuzgado {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static toMonCarpeta (
     carpeta: WithId<IntCarpeta>
   ): MonCarpeta {
-    return {
-      ...carpeta,
-      _id   : carpeta._id.toString(),
-      nombre: `${ carpeta.deudor.primerNombre } ${ carpeta.deudor.segundoNombre } ${ carpeta.deudor.primerApellido } ${ carpeta.deudor.segundoApellido }`,
-    };
+            return {
+              ...carpeta,
+              _id   : carpeta._id.toString(),
+              nombre: `${ carpeta.deudor.primerNombre } ${ carpeta.deudor.segundoNombre } ${ carpeta.deudor.primerApellido } ${ carpeta.deudor.segundoApellido }`,
+            };
   }
   public static toMonCarpetas (
     carpetas: WithId<IntCarpeta>[]
   ): MonCarpeta[] {
-    return carpetas.map(
-      (
-        carpeta
-      ) => {
-        return this.toMonCarpeta(
-          carpeta
-        );
-      }
-    );
+            return carpetas.map(
+              (
+                carpeta
+              ) => {
+                        return this.toMonCarpeta(
+                          carpeta
+                        );
+              }
+            );
 
 
   }
@@ -274,9 +274,9 @@ export class carpetaConvert {
   public static toTel (
     json: string
   ): intTel {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 }
 
@@ -329,80 +329,80 @@ export const mockCarpeta: IntCarpeta = {
 function incomingStringFixer (
   stringValue: string
 ) {
-  return stringValue.toLowerCase()
-    .normalize(
-      'NFD'
-    )
-    .replace(
-      /\p{Diacritic}/gu, ''
-    )
-    .trim();
+      return stringValue.toLowerCase()
+            .normalize(
+              'NFD'
+            )
+            .replace(
+              /\p{Diacritic}/gu, ''
+            )
+            .trim();
 }
 
 export class DespachoJudicial implements intJuzgado {
   constructor (
     proceso: intProceso
   ) {
-    const matchedDespacho = Despachos.find(
-      (
-        dependenciaJudiail
-      ) => {
-        const {
-          nombre
-        } = dependenciaJudiail;
+            const matchedDespacho = Despachos.find(
+              (
+                dependenciaJudiail
+              ) => {
+                        const {
+                          nombre
+                        } = dependenciaJudiail;
 
-        const {
-          despacho
-        } = proceso;
+                        const {
+                          despacho
+                        } = proceso;
 
-        const nombreDependenciaJudicial = incomingStringFixer(
-          nombre
-        );
+                        const nombreDependenciaJudicial = incomingStringFixer(
+                          nombre
+                        );
 
-        const nombreDespachoProceso = incomingStringFixer(
-          despacho
-        );
+                        const nombreDespachoProceso = incomingStringFixer(
+                          despacho
+                        );
 
-        const indexOfDesp = nombreDependenciaJudicial.indexOf(
-          nombreDespachoProceso
-        );
+                        const indexOfDesp = nombreDependenciaJudicial.indexOf(
+                          nombreDespachoProceso
+                        );
 
 
-        if ( indexOfDesp >= 0 ) {
-          console.log(
-            `procesos despacho is in despachos ${ indexOfDesp + 1
-            }`
-          );
-        }
+                        if ( indexOfDesp >= 0 ) {
+                          console.log(
+                            `procesos despacho is in despachos ${ indexOfDesp + 1
+                            }`
+                          );
+                        }
 
-        return nombreDependenciaJudicial === nombreDespachoProceso;
-      }
-    );
+                        return nombreDependenciaJudicial === nombreDespachoProceso;
+              }
+            );
 
-    if ( matchedDespacho ) {
-      const {
-        nombre, url
-      } = matchedDespacho;
+            if ( matchedDespacho ) {
+              const {
+                nombre, url
+              } = matchedDespacho;
 
-      const stringId = nombre.match(
-        /\d+/g
-      );
-      this.tipo = nombre;
-      this.id = stringId
-        ? Number(
-          stringId.toString()
-        )
-        : 0;
-      this.url = `https://www.ramajudicial.gov.co${ url }`;
-    } else {
-      this.tipo = proceso.despacho,
-      this.url = `https://www.ramajudicial.gov.co/web/${ proceso.despacho
-        .replaceAll(
-          ' ', '-'
-        )
-        .toLowerCase() }`;
-      this.id = 0;
-    }
+              const stringId = nombre.match(
+                /\d+/g
+              );
+              this.tipo = nombre;
+              this.id = stringId
+                ? Number(
+                  stringId.toString()
+                )
+                : 0;
+              this.url = `https://www.ramajudicial.gov.co${ url }`;
+            } else {
+              this.tipo = proceso.despacho,
+              this.url = `https://www.ramajudicial.gov.co/web/${ proceso.despacho
+                    .replaceAll(
+                      ' ', '-'
+                    )
+                    .toLowerCase() }`;
+              this.id = 0;
+            }
 
   }
   id: number;

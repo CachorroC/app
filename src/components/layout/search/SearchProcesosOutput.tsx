@@ -11,40 +11,40 @@ export function SearchOutputList(
     carpetas
   }: {carpetas: MonCarpeta[]}
 ) {
-  const rows: JSX.Element[] = [];
+      const rows: JSX.Element[] = [];
 
-  const {
-    search
-  } = useSearch();
+      const {
+        search
+      } = useSearch();
 
-  const {
-    category
-  } = useCategory();
+      const {
+        category
+      } = useCategory();
 
-  carpetas.forEach(
-    (
-      proceso
-    ) => {
-      if ( proceso.nombre.toLowerCase()
-        .indexOf(
-          search.toLowerCase()
-        ) === -1 ) {
-        return;
-      }
+      carpetas.forEach(
+        (
+          proceso
+        ) => {
+                  if ( proceso.nombre.toLowerCase()
+                        .indexOf(
+                          search.toLowerCase()
+                        ) === -1 ) {
+                    return;
+                  }
 
-      if ( category === 'todos' || category === proceso.category ) {
-        rows.push(
-          <LinkCard
-            path={`/Carpeta/${
-              proceso.numero
-            }` as Route}
-            carpeta={proceso}
-            key={proceso._id}
-          />,
-        );
-      }
-    }
-  );
+                  if ( category === 'todos' || category === proceso.category ) {
+                    rows.push(
+                      <LinkCard
+                        path={`/Carpeta/${
+                          proceso.numero
+                        }` as Route}
+                        carpeta={proceso}
+                        key={proceso._id}
+                      />,
+                    );
+                  }
+        }
+      );
 
-  return <> {rows}</>;
+      return <> {rows}</>;
 }

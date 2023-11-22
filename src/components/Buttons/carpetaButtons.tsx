@@ -8,14 +8,14 @@ export function EditCarpeta (
     numero
   }: { numero: number }
 ) {
-  return (
-    <>
-      <Link className={ styles.buttonEdit } href={ `/Carpeta/${ numero }/Editar` as Route }>
-        <span className='material-symbols-outlined'>edit</span>
-      </Link>
-      <Link href={ '/Notas/Nueva' as Route}>
-        <span className='material-symbols-outlined'>note_add</span>
-      </Link>
-    </>
-  );
+      return (
+        <>
+          <Link className={ styles.buttonEdit } href={ `/Carpeta/${ numero }/Editar` as Route }>
+            <span className='material-symbols-outlined'>edit</span>
+          </Link>
+          <Link href={ '/Notas/Nueva' as Route}>
+            <span className='material-symbols-outlined'>note_add</span>
+          </Link>
+        </>
+      );
 }

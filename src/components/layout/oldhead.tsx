@@ -16,39 +16,39 @@ export function HeaderOld(
     children,
   }: { children: ReactNode }
 ) {
-  let modalSegment;
+      let modalSegment;
 
-  const {
-    isNavOpen
-  } = useNavigationContext();
+      const {
+        isNavOpen
+      } = useNavigationContext();
 
-  if ( isNavOpen ) {
-    modalSegment = <Drawer>{children}</Drawer>;
-  }
+      if ( isNavOpen ) {
+        modalSegment = <Drawer>{children}</Drawer>;
+      }
 
-  return (
-    <div className={layout.header}>
-
-
-      <Suspense fallback={<Loader />}>
-        <InputSearchBar />
-      </Suspense>
+      return (
+        <div className={layout.header}>
 
 
-      <Suspense fallback={<Loader />}>
-        <ModalDialog>
           <Suspense fallback={<Loader />}>
-            <NuevaNota />
+            <InputSearchBar />
           </Suspense>
-        </ModalDialog>
-      </Suspense>
-      <Suspense fallback={<Loader />}>
-        <NavButtons />
-      </Suspense>
-      <NavBar />
-      <Suspense fallback={<Loader/>}>
-        {modalSegment}
-      </Suspense>
-    </div>
-  );
+
+
+          <Suspense fallback={<Loader />}>
+            <ModalDialog>
+              <Suspense fallback={<Loader />}>
+                <NuevaNota />
+              </Suspense>
+            </ModalDialog>
+          </Suspense>
+          <Suspense fallback={<Loader />}>
+            <NavButtons />
+          </Suspense>
+          <NavBar />
+          <Suspense fallback={<Loader/>}>
+            {modalSegment}
+          </Suspense>
+        </div>
+      );
 }

@@ -24,16 +24,16 @@ export class Convert {
   public static contactoFormToJson(
     value: ContactoForm 
   ): string {
-    return JSON.stringify(
-      value 
-    );
+            return JSON.stringify(
+              value 
+            );
   }
 
   public static toContactoForm(
     json: string 
   ): ContactoForm {
-    return JSON.parse(
-      json 
-    );
+            return JSON.parse(
+              json 
+            );
   }
 }

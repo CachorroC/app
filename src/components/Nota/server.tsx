@@ -12,37 +12,37 @@ export const NotaComponent = (
     notaRaw
   }: { notaRaw: Nota }
 ) => {
-  const {
-    id, text, date
-  } = notaRaw;
+          const {
+            id, title, date
+          } = notaRaw;
 
-  return (
-    <div className={ note.container }>
-      <section>
-        <sup className={typography.labelSmall}>{id}</sup>
-      </section>
-      <p
-        className={`${ typography.bodySmall } ${ note.textArea }`}
-      >{`Nota: ${ text }`}</p>
-      <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
-        {date && fixFechas(
-          date
-        )}
-      </sub>
-      <div className={note.buttonsRow}>
-        <Suspense fallback={<ButtonSkeleton />}>
-          <EditNoteButton
-            key={id}
-            nota={notaRaw}
-          />
-        </Suspense>
-        <Suspense fallback={<ButtonSkeleton />}>
-          <DeleteNoteButton
-            key={id}
-            id={id}
-          />
-        </Suspense>
-      </div>
-    </div>
-  );
+          return (
+            <div className={ note.container }>
+              <section>
+                <sup className={typography.labelSmall}>{id}</sup>
+              </section>
+              <p
+                className={`${ typography.bodySmall } ${ note.textArea }`}
+              >{`Nota: ${ title }`}</p>
+              <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
+                {date && fixFechas(
+                  date
+                )}
+              </sub>
+              <div className={note.buttonsRow}>
+                <Suspense fallback={<ButtonSkeleton />}>
+                  <EditNoteButton
+                    key={id}
+                    nota={notaRaw}
+                  />
+                </Suspense>
+                <Suspense fallback={<ButtonSkeleton />}>
+                  <DeleteNoteButton
+                    key={id}
+                    id={id}
+                  />
+                </Suspense>
+              </div>
+            </div>
+          );
 };

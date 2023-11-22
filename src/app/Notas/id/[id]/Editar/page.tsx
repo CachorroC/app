@@ -6,36 +6,34 @@ import layout from '#@/styles/layout.module.css';
 
 export default async function NuevaNotallaveProceso(
   {
-    params,
+    params: {
+      id
+    },
   }: {
-  params: { id: string };
-}
-) {
-  const nota = await getNotaById(
-    {
-      id: Number(
-        params.id
-      )
-    }
-  );
-
-  if ( !nota ) {
-    return notFound();
+    params: { id: number };
   }
+) {
+      const nota = await getNotaById(
+        id
+      );
 
-  return (
-    <>
-      <div className={layout.top}>
-        <h1
-          className={typography.displayLarge}
-        >{`Nota numero: ${ nota.id }`}</h1>
-      </div>
-      <div className={layout.left}>
-        <Edit
-          key={params.id}
-          nota={nota}
-        />
-      </div>
-    </>
-  );
+      if ( !nota ) {
+        return notFound();
+      }
+
+      return (
+        <>
+          <div className={layout.top}>
+            <h1
+              className={typography.displayLarge}
+            >{`Nota numero: ${ nota.id }`}</h1>
+          </div>
+          <div className={layout.left}>
+            <Edit
+              key={id}
+              nota={nota}
+            />
+          </div>
+        </>
+      );
 }

@@ -7,26 +7,26 @@ export default async function Page (
     params
   }: {params: {numero: string}}
 ) {
-  const carpeta = await getCarpetabyNumero(
-    Number(
-      params.numero
-    )
-  );
+      const carpeta = await getCarpetabyNumero(
+        Number(
+          params.numero
+        )
+      );
 
-  if ( !carpeta ) {
-    return notFound();
-  }
+      if ( !carpeta ) {
+        return notFound();
+      }
 
-  return (
-    <>
-      <CurrencyInput
-        allowDecimals={ false }
-        suffix={'pesos colombianos'}
-        intlConfig={{
-          locale  : 'es-CO',
-          currency: 'COP'
-        }}
-      />
-    </>
-  );
+      return (
+        <>
+          <CurrencyInput
+            allowDecimals={ false }
+            suffix={'pesos colombianos'}
+            intlConfig={{
+              locale  : 'es-CO',
+              currency: 'COP'
+            }}
+          />
+        </>
+      );
 }

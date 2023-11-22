@@ -20,36 +20,36 @@ export default async function Page(
 ) {
 
 
-  const actuaciones = await getActuaciones(
-    {
-      idProceso: Number(
-        idProceso
-      ),
-      index: 1
-    }
-  );
-
-  if ( !actuaciones ) {
-    return notFound();
-  }
-
-  return (
-    <>
-      <span className={ typography.titleMedium }>{ `${ actuaciones.length } actuaciones:` }</span>
-      { actuaciones.map(
-        (
-          actuacion
-        ) => {
-          return (
-            <li key={ actuacion.idRegActuacion }>
-              { `actuacion numero ${ actuacion.consActuacion }de ${ actuacion.cant }` }
-              {OutputDateHelper(
-                actuacion.fechaRegistro
-              )}
-            </li>
-          );
+      const actuaciones = await getActuaciones(
+        {
+          idProceso: Number(
+            idProceso
+          ),
+          index: 1
         }
-      )}
-    </>
-  );
+      );
+
+      if ( !actuaciones ) {
+        return notFound();
+      }
+
+      return (
+        <>
+          <span className={ typography.titleMedium }>{ `${ actuaciones.length } actuaciones:` }</span>
+          { actuaciones.map(
+            (
+              actuacion
+            ) => {
+                      return (
+                        <li key={ actuacion.idRegActuacion }>
+                          { `actuacion numero ${ actuacion.consActuacion }de ${ actuacion.cant }` }
+                          {OutputDateHelper(
+                            actuacion.fechaRegistro
+                          )}
+                        </li>
+                      );
+            }
+          )}
+        </>
+      );
 }

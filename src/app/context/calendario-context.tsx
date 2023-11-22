@@ -26,36 +26,36 @@ export function CalendarContextProvider(
     children: ReactNode; date:Date }
 ) {
 
-  const [
-    calendarState,
-    setCalendarState
-  ] = useState(
-    {
-      ano: date.getFullYear(),
-      mes: date.getMonth(),
-      dia: date.getDate()
-    }
-  );
-  return (
-    <CalendarContext.Provider
-      value={{
+      const [
         calendarState,
-        setCalendarState,
-      }}
-    >
-      {children}
-    </CalendarContext.Provider>
-  );
+        setCalendarState
+      ] = useState(
+        {
+          ano: date.getFullYear(),
+          mes: date.getMonth(),
+          dia: date.getDate()
+        }
+      );
+      return (
+        <CalendarContext.Provider
+          value={{
+            calendarState,
+            setCalendarState,
+          }}
+        >
+          {children}
+        </CalendarContext.Provider>
+      );
 }
 
 export function useCalendarContext() {
-  const context = useContext(
-    CalendarContext
-  );
+      const context = useContext(
+        CalendarContext
+      );
 
-  if ( context === null ) {
-    throw new Error(
-      'el calendar context debe ser utilizado dentro de un calendar context.provider'
-    );
-  }
+      if ( context === null ) {
+        throw new Error(
+          'el calendar context debe ser utilizado dentro de un calendar context.provider'
+        );
+      }
 }

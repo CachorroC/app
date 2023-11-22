@@ -69,16 +69,16 @@ export class despachosConvert {
   public static despachoToJson(
     value: Despacho[] 
   ): string {
-    return JSON.stringify(
-      value 
-    );
+            return JSON.stringify(
+              value 
+            );
   }
 
   public static toDespacho(
     json: string 
   ): Despacho[] {
-    return JSON.parse(
-      json 
-    );
+            return JSON.parse(
+              json 
+            );
   }
 }

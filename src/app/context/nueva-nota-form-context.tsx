@@ -9,33 +9,33 @@ export function NuevaNotaFormProvider (
     children
   }: { children: ReactNode }
 ) {
-  const notasTotal = useNotaSort();
+      const notasTotal = useNotaSort();
 
-  const newNumber = notasTotal.length + 1;
+      const newNumber = notasTotal.length + 1;
 
-  const newNota: intNota = {
-    id           : newNumber,
-    text         : 'Nueva Nota',
-    pathname     : '/',
-    date         : new Date(),
-    carpetaNumero: 0
-  };
+      const newNota: intNota = {
+        id           : newNumber,
+        text         : 'Nueva Nota',
+        pathname     : '/',
+        date         : new Date(),
+        carpetaNumero: 0
+      };
 
-  const nuevaNotaMethods = useForm<intNota>(
-    {
-      defaultValues   : newNota,
-      shouldFocusError: true,
-      criteriaMode    : 'all',
-    }
-  );
+      const nuevaNotaMethods = useForm<intNota>(
+        {
+          defaultValues   : newNota,
+          shouldFocusError: true,
+          criteriaMode    : 'all',
+        }
+      );
 
 
 
-  return (
-    <FormProvider { ...nuevaNotaMethods }>
+      return (
+        <FormProvider { ...nuevaNotaMethods }>
 
-      { children }
-    </FormProvider>
-  );
+          { children }
+        </FormProvider>
+      );
 
 }

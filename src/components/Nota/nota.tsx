@@ -12,100 +12,100 @@ export function Task(
   }: { task: Nota }
 ) {
 
-  const [
-    isEditing,
-    setIsEditing
-  ] = useState(
-    false
-  );
+      const [
+        isEditing,
+        setIsEditing
+      ] = useState(
+        false
+      );
 
-  const [
-    message,
-    setMessage
-  ] = useState(
-    ''
-  );
+      const [
+        message,
+        setMessage
+      ] = useState(
+        ''
+      );
 
-  const {
-    inputNota, setInputNota
-  } = useNotaContext();
+      const {
+        inputNota, setInputNota
+      } = useNotaContext();
 
-  const {
-    register, handleSubmit, setError, reset
-  } = useForm<Nota>(
-    {
-      defaultValues: task
-    }
-  );
-
-  let taskContent;
-
-  const onSubmit: SubmitHandler<Nota> = async (
-    inputNota
-  ) => {
-    const notaToSubmit = {
-      ...task,
-      ...inputNota
-    };
-
-    const postNota = await fetch(
-      '/api/Notas', {
-        method : 'PUT',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(
-          notaToSubmit
-        )
-      }
-    );
-
-    alert(
-      JSON.stringify(
-        postNota.status
-      )
-    );
-
-    if ( postNota.status > 200 ) {
-      setError(
-        'root.serverError', {
-          type: postNota.statusText,
+      const {
+        register, handleSubmit, setError, reset
+      } = useForm<Nota>(
+        {
+          defaultValues: task
         }
       );
-    }
 
-    const updatedCarpeta = ( await postNota.json() ) as Nota;
-    alert(
-      JSON.stringify(
-        updatedCarpeta
-      )
-    );
-    console.log(
-      `el estatus de la operacion post en Form arrojó: ${ postNota.status }`
-    );
+      let taskContent;
 
-  };
+      const onSubmit: SubmitHandler<Nota> = async (
+        inputNota
+      ) => {
+                const notaToSubmit = {
+                  ...task,
+                  ...inputNota
+                };
 
-  async function onCreate(
-    formData: FormData
-  ) {
-    const res = await createNota(
-      formData
-    );
-    setMessage(
-      res.message
-    );
-    setIsEditing(
-      false
-    );
-  }
+                const postNota = await fetch(
+                  '/api/Notas', {
+                    method : 'PUT',
+                    headers: {
+                      'content-type': 'application/json',
+                    },
+                    body: JSON.stringify(
+                      notaToSubmit
+                    )
+                  }
+                );
 
-  if ( isEditing ) {
-    taskContent = (
-      <form action={onCreate} onSubmit={handleSubmit(
-        onSubmit
-      )}>
-        {/*  <label className={styles.switchBox}>
+                alert(
+                  JSON.stringify(
+                    postNota.status
+                  )
+                );
+
+                if ( postNota.status > 200 ) {
+                  setError(
+                    'root.serverError', {
+                      type: postNota.statusText,
+                    }
+                  );
+                }
+
+                const updatedCarpeta = ( await postNota.json() ) as Nota;
+                alert(
+                  JSON.stringify(
+                    updatedCarpeta
+                  )
+                );
+                console.log(
+                  `el estatus de la operacion post en Form arrojó: ${ postNota.status }`
+                );
+
+      };
+
+      async function onCreate(
+        formData: FormData
+      ) {
+            const res = await createNota(
+              formData
+            );
+            setMessage(
+              res.message
+            );
+            setIsEditing(
+              false
+            );
+      }
+
+      if ( isEditing ) {
+        taskContent = (
+          <form action={onCreate} onSubmit={handleSubmit(
+            onSubmit
+          )}>
+            {/*  <label className={styles.switchBox}>
           <input
             className={styles.inputElement}
             checked={inputNota.done}
@@ -128,31 +128,31 @@ export function Task(
           <span className={styles.slider}></span>
         </label>
  */}
-        <input
-          value={inputNota.text}
-          type={'text'}
-          { ...register(
-            'text', {
-              onChange: (
-                e
-              ) => {
-                setInputNota(
-                  {
-                    ...task,
-                    text: e.target.value,
+            <input
+              value={inputNota.title}
+              type={'text'}
+              { ...register(
+                'title', {
+                  onChange: (
+                    e
+                  ) => {
+                            setInputNota(
+                              {
+                                ...task,
+                                title: e.target.value,
+                              }
+                            );
                   }
-                );
-              }
-            }
-          )}
-        />
-        <button type="submit">Save</button>
-      </form>
-    );
-  } else {
-    taskContent = (
-      <>
-        {/*  <label className={styles.switchBox}>
+                }
+              )}
+            />
+            <button type="submit">Save</button>
+          </form>
+        );
+      } else {
+        taskContent = (
+          <>
+            {/*  <label className={styles.switchBox}>
           <input
             className={styles.inputElement}
             defaultChecked={task.done}
@@ -161,41 +161,41 @@ export function Task(
           <span className={styles.slider}></span>
         </label> */}
 
-        {task.text}
-      </>
-    );
-  }
+            {task.title}
+          </>
+        );
+      }
 
-  useEffect(
-    () => {
-      reset(
-        task
+      useEffect(
+        () => {
+                  reset(
+                    task
+                  );
+        }, [
+          reset,
+          task
+        ]
       );
-    }, [
-      reset,
-      task
-    ]
-  );
-  return (
-    <div className={styles.taskContainer}>
-      <sub>{task.id}</sub>
-      {taskContent}
-      <p>{message}</p>
-      <button
-        type="button"
-        onClick={() => {
-          setIsEditing(
-            true
-          );
-          setInputNota(
-            {
-              ...task,
-            }
-          );
-        }}
-      >
+      return (
+        <div className={styles.taskContainer}>
+          <sub>{task.id}</sub>
+          {taskContent}
+          <p>{message}</p>
+          <button
+            type="button"
+            onClick={() => {
+                      setIsEditing(
+                        true
+                      );
+                      setInputNota(
+                        {
+                          ...task,
+                        }
+                      );
+            }}
+          >
         Edit
-      </button>
-    </div>
-  );
+          </button>
+        </div>
+      );
 }

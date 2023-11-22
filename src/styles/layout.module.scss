@@ -58,16 +58,16 @@ $MaxSW: 480px; //maximum sma width
     grid-template-columns: 5rem repeat(9, minmax(8vw, 1fr));
     grid-template-rows: repeat(10, minmax(8vh, 1fr));
     grid-template-areas:
-      'header header top top top top top top right right'
-      'header header left left left left left left right right'
-      'header header left left left left left left right right'
-      'header header left left left left left left right right'
-      'header header left left left left left left right right'
-      'header header left left left left left left right right'
-      'header header left left left left left left right right'
-      'header header left left left left left left right right'
-      'header header left left left left left left right right'
-      'header header left left left left left left right right';
+      'header top top top top top top top right right'
+      'header left left left left left left left right right'
+      'header left left left left left left left right right'
+      'header left left left left left left left right right'
+      'header left left left left left left left right right'
+      'header left left left left left left left right right'
+      'header left left left left left left left right right'
+      'header left left left left left left left right right'
+      'header left left left left left left left right right'
+      'header left left left left left left left right right';
   }
 }
 
@@ -99,6 +99,7 @@ justify-content: space-evenly;
   @media (1200px < width) {
     display: flex;
     flex-flow: column nowrap;
+    justify-content: space-evenly;
   }
 }
 

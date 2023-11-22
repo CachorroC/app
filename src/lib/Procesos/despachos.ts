@@ -37251,26 +37251,26 @@ export const Despachos = [
 export function transformDespacho(
   juzgado: intJuzgado
 ) {
-  const matchedDespacho = Despachos.filter(
-    (
-      despacho
-    ) => {
-      return (
-        despacho.nombre.trim()
+      const matchedDespacho = Despachos.filter(
+        (
+          despacho
+        ) => {
+                  return (
+                    despacho.nombre.trim()
         === juzgado.tipo.trim()
+                  );
+        }
       );
-    }
-  );
 
-  if ( matchedDespacho.length > 0 ) {
-    const newJuzgado: intJuzgado = {
-      id  : juzgado.id,
-      tipo: juzgado.tipo,
-      url : `https://www.ramajudicial.gov.co${ matchedDespacho[ 0 ].url }`
-    };
+      if ( matchedDespacho.length > 0 ) {
+        const newJuzgado: intJuzgado = {
+          id  : juzgado.id,
+          tipo: juzgado.tipo,
+          url : `https://www.ramajudicial.gov.co${ matchedDespacho[ 0 ].url }`
+        };
 
-    return newJuzgado;
-  }
+        return newJuzgado;
+      }
 
-  return juzgado;
+      return juzgado;
 }

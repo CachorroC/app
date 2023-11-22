@@ -6,30 +6,30 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 
 export default function NoteFormOutput() {
-  const {
-    inputNota
-  } = useNotaContext();
+      const {
+        inputNota
+      } = useNotaContext();
 
-  return (
-    <div className={styles.container}>
-      <sub className={styles.sup}>{inputNota.id}</sub>
-      {inputNota.carpetaNumero && (
-        <span>{`llaveProceso: ${ inputNota.carpetaNumero }`}</span>
-      )}
-      <section className={styles.section}>
-        <p className={`${ typography.bodyLarge } ${ styles.textArea }`}>
-          {inputNota.text}
-        </p>
-        <p className={`${ typography.bodyMedium } ${ styles.textArea }`}>
-          {' '}
-          {inputNota.date && fixFechas(
-            inputNota.date.toString()
+      return (
+        <div className={styles.container}>
+          <sub className={styles.sup}>{inputNota.id}</sub>
+          {inputNota.carpetaNumero && (
+            <span>{`llaveProceso: ${ inputNota.carpetaNumero }`}</span>
           )}
-        </p>
-      </section>
-      <span>{inputNota.pathname}</span>
-
-
-    </div>
-  );
+          <section className={styles.section}>
+            <p className={typography.displayMedium}>{inputNota.title}</p>
+            <p className={typography.bodyMedium}>{inputNota.title}</p>
+            {
+              inputNota.date && (
+                <p className={ typography.labelSmall }>
+                  { fixFechas(
+                    inputNota.date.toString()
+                  ) }
+                </p>
+              )
+            }
+          </section>
+          <span>{inputNota.pathname}</span>
+        </div>
+      );
 }

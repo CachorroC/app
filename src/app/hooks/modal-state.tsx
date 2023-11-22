@@ -12,95 +12,95 @@ export default function ModalDialog(
     children
   }: { children: ReactNode }
 ) {
-  const overlay = useRef(
-    null
-  );
+      const overlay = useRef(
+        null
+      );
 
-  const wrapper = useRef(
-    null
-  );
+      const wrapper = useRef(
+        null
+      );
 
-  const {
-    isModalOpen,
-    setIsModalOpen
-  } = useModalContext();
+      const {
+        isModalOpen,
+        setIsModalOpen
+      } = useModalContext();
 
-  const onDismiss = useCallback(
-    () => {
-      setIsModalOpen(
+      const onDismiss = useCallback(
+        () => {
+                  setIsModalOpen(
+                    (
+                      n
+                    ) => {
+                              return !n;
+                    }
+                  );
+        }, [
+          setIsModalOpen
+        ]
+      );
+
+      const onClick: MouseEventHandler = useCallback(
         (
-          n
+          e
         ) => {
-          return !n;
-        }
-      );
-    }, [
-      setIsModalOpen
-    ]
-  );
-
-  const onClick: MouseEventHandler = useCallback(
-    (
-      e
-    ) => {
-      if ( e.target === overlay.current || e.target === wrapper.current ) {
-        if ( onDismiss ) {
-          onDismiss();
-        }
-      }
-    },
-    [
-      onDismiss,
-      overlay,
-      wrapper
-    ],
-  );
-
-  const onKeyDown = useCallback(
-    (
-      e: KeyboardEvent
-    ) => {
-      if ( e.key === 'Escape' ) {
-        onDismiss();
-      }
-    },
-    [
-      onDismiss
-    ],
-  );
-
-  useEffect(
-    () => {
-      document.addEventListener(
-        'keydown', onKeyDown
+                  if ( e.target === overlay.current || e.target === wrapper.current ) {
+                    if ( onDismiss ) {
+                      onDismiss();
+                    }
+                  }
+        },
+        [
+          onDismiss,
+          overlay,
+          wrapper
+        ],
       );
 
-      return () => {
-        return document.removeEventListener(
-          'keydown', onKeyDown
-        );
-      };
-    }, [
-      onKeyDown
-    ]
-  );
+      const onKeyDown = useCallback(
+        (
+          e: KeyboardEvent
+        ) => {
+                  if ( e.key === 'Escape' ) {
+                    onDismiss();
+                  }
+        },
+        [
+          onDismiss
+        ],
+      );
 
-  return (
-    <>
-      {isModalOpen && (
-        <div
-          ref={overlay}
-          className={styles.open}
-          onClick={onClick}
-        >
-          <div
-            ref={wrapper}
-            className={styles.wrapper}
-          >
-            {children}
-          </div>
-        </div>
-      ) }
-    </>
-  );
+      useEffect(
+        () => {
+                  document.addEventListener(
+                    'keydown', onKeyDown
+                  );
+
+                  return () => {
+                            return document.removeEventListener(
+                              'keydown', onKeyDown
+                            );
+                  };
+        }, [
+          onKeyDown
+        ]
+      );
+
+      return (
+        <>
+          {isModalOpen && (
+            <div
+              ref={overlay}
+              className={styles.open}
+              onClick={onClick}
+            >
+              <div
+                ref={wrapper}
+                className={styles.wrapper}
+              >
+                {children}
+              </div>
+            </div>
+          ) }
+        </>
+      );
 }

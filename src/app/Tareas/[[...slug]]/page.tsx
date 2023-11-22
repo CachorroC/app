@@ -6,38 +6,38 @@ export default async function Page(
   {
     params,
   }: {
-  params: { slug?: string[] };
+    params: { slug?: string[] };
   }
 ) {
-  let content;
+      let content;
 
-  if ( params.slug ) {
-    const [
-      ano,
-      mes,
-      dia
-    ] = params.slug;
-    content = <Calendar date={ new Date(
-      Number(
-        ano
-      ), Number(
-        mes
-      ) - 1, Number(
-        dia
-      )
-    )
-    } />;
-  } else  {
-    content = <Calendar />;
-  }
+      if ( params.slug ) {
+        const [
+          ano,
+          mes,
+          dia
+        ] = params.slug;
+        content = <Calendar date={ new Date(
+          Number(
+            ano
+          ), Number(
+            mes
+          ) - 1, Number(
+            dia
+          )
+        )
+        } />;
+      } else  {
+        content = <Calendar />;
+      }
 
-  return (
-    <div className={
-      layout.sectionColumn
-    }>
-      <NuevaTarea />
-      {content}
+      return (
+        <div className={
+          layout.sectionColumn
+        }>
+          <NuevaTarea />
+          {content}
 
-    </div>
-  );
+        </div>
+      );
 }

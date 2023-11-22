@@ -8,41 +8,61 @@ datasource db {
 }
 
 model Carpeta {
-  id              Int        @id @default(autoincrement())
-  numero          Int        @unique
+  numero          Int        @id @unique
   llaveProceso    String?
   nombre          String
   idProcesos      Int[]
   category        Category   @default(SinEspecificar)
   fecha           DateTime?  @db.Date
+  revisado        Boolean    @default(false)
+  updatedAt       DateTime   @updatedAt
   ultimaActuacion Actuacion?
-  Demanda         Demanda?
-  Deudor          Deudor?
+  demanda         Demanda?
+  deudor          Deudor?
   notas           Nota[]
-  Proceso         Proceso[]
+  procesos        Proceso[]
   tareas          Tarea[]
-  Juzgado         Juzgado[]  @relation("CarpetaToJuzgado")
+  juzgados        Juzgado[]  @relation("CarpetaToJuzgado")
+}
+
+model Deudor {
+  id              Int     @id @default(autoincrement())
+  cedula          String?
+  primerNombre    String
+  primerApellido  String
+  segundoNombre   String?
+  segundoApellido String?
+  direccion       String?
+  email           String?
+  telCelular      String?
+  telFijo         String?
+  carpetaNumero   Int     @unique
+  carpeta         Carpeta @relation(fields: [carpetaNumero], references: [numero])
 }
 
 model Nota {
-  text          String
-  id            Int      @id @unique @default(autoincrement())
-  date          DateTime
+  id            Int      @id @default(autoincrement())
   createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  title         String
+  content       String?
+  date          DateTime
   pathname      String?
   carpetaNumero Int?
   carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
 }
 
 model Tarea {
-  id           Int        @id @unique @default(autoincrement())
-  creationDate DateTime   @default(now()) @db.Date
-  dueDate      DateTime?  @db.Date
-  carpetaId    Int?
-  text         String
-  isComplete   Boolean
-  subTareas    SubTarea[]
-  Carpeta      Carpeta?   @relation(fields: [carpetaId], references: [numero])
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  title     String
+  content   String?
+  dueDate   DateTime?  @db.Date
+  carpetaId Int?
+  complete  Boolean
+  subTareas SubTarea[]
+  Carpeta   Carpeta?   @relation(fields: [carpetaId], references: [numero])
 }
 
 model SubTarea {
@@ -83,22 +103,23 @@ model Demanda {
   etapaProcesal           String?
   fechaPresentacion       DateTime?   @db.Date
   municipio               String?
+  despacho                String?
   obligacion              String[]
   radicado                String?
   vencimientoPagare       DateTime[]  @db.Date
   expediente              String?
   carpetaNumero           Int         @unique
-  Carpeta                 Carpeta     @relation(fields: [carpetaNumero], references: [numero])
-  Juzgado                 Juzgado[]   @relation("DemandaToJuzgado")
+  carpeta                 Carpeta     @relation(fields: [carpetaNumero], references: [numero])
+  juzgados                Juzgado[]   @relation("DemandaToJuzgado")
 }
 
 model Juzgado {
-  id      Int
-  tipo    String    @id
-  url     String
-  Carpeta Carpeta[] @relation("CarpetaToJuzgado")
-  Demanda Demanda[] @relation("DemandaToJuzgado")
-  Proceso Proceso[] @relation("JuzgadoToProceso")
+  id       Int
+  tipo     String    @id
+  url      String
+  carpetas Carpeta[] @relation("CarpetaToJuzgado")
+  demanda  Demanda[] @relation("DemandaToJuzgado")
+  Proceso  Proceso[]
 }
 
 model Proceso {
@@ -113,24 +134,9 @@ model Proceso {
   esPrivado            Boolean
   cantFilas            Int
   carpetaNumero        Int
-  Actuacion            Actuacion[]
+  actuaciones          Actuacion[]
   Carpeta              Carpeta     @relation(fields: [carpetaNumero], references: [numero])
-  Juzgado              Juzgado[]   @relation("JuzgadoToProceso")
-}
-
-model Deudor {
-  id              Int     @id @default(autoincrement())
-  cedula          String?
-  primerNombre    String
-  primerApellido  String
-  segundoNombre   String?
-  segundoApellido String?
-  direccion       String?
-  email           String?
-  telCelular      String?
-  telFijo         String?
-  carpetaNumero   Int     @unique
-  Carpeta         Carpeta @relation(fields: [carpetaNumero], references: [numero])
+  Juzgado              Juzgado     @relation(fields: [despacho], references: [tipo])
 }
 
 enum Category {

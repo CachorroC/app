@@ -10,55 +10,55 @@ export function NuevaCarpetaFormProvider(
   {
     children,
   }: {
-  children: ReactNode;
-}
+    children: ReactNode;
+  }
 ) {
-  const carpetasReduced = useCarpetaSort();
+      const carpetasReduced = useCarpetaSort();
 
-  const carpsLen = carpetasReduced.length;
+      const carpsLen = carpetasReduced.length;
 
-  const daterFixer = InputDateHelper(
-    new Date()
-  );
+      const daterFixer = InputDateHelper(
+        new Date()
+      );
 
-  const methods = useForm<NuevaCarpeta>(
-    {
-      defaultValues: {
-        numero  : carpsLen + 1,
-        category: 'sinEspecificar',
-        deudor  : {
-          primerNombre   : '',
-          segundoNombre  : '',
-          primerApellido : '',
-          segundoApellido: '',
-          cedula         : 0,
-          email          : 'correo@ejemplo.com',
-          direccion      : '',
-          tel            : {
-            celular: 0,
-            fijo   : 0,
+      const methods = useForm<NuevaCarpeta>(
+        {
+          defaultValues: {
+            numero  : carpsLen + 1,
+            category: 'sinEspecificar',
+            deudor  : {
+              primerNombre   : '',
+              segundoNombre  : '',
+              primerApellido : '',
+              segundoApellido: '',
+              cedula         : 0,
+              email          : 'correo@ejemplo.com',
+              direccion      : '',
+              tel            : {
+                celular: 0,
+                fijo   : 0,
+              },
+            },
+            demanda: {
+              capitalAdeudado        : 1000000,
+              entregaGarantiasAbogado: daterFixer,
+              tipoProceso            : 'SINGULAR',
+              fechaPresentacion      : daterFixer,
+              vencimientoPagare      : [
+                daterFixer
+              ],
+              obligacion: [
+                'sus obligaciones'
+              ],
+            },
           },
-        },
-        demanda: {
-          capitalAdeudado        : 1000000,
-          entregaGarantiasAbogado: daterFixer,
-          tipoProceso            : 'SINGULAR',
-          fechaPresentacion      : daterFixer,
-          vencimientoPagare      : [
-            daterFixer
-          ],
-          obligacion: [
-            'sus obligaciones'
-          ],
-        },
-      },
-      resetOptions: {
-        keepDefaultValues: true,
-      },
-      shouldFocusError: true,
-      criteriaMode    : 'all',
-    }
-  );
+          resetOptions: {
+            keepDefaultValues: true,
+          },
+          shouldFocusError: true,
+          criteriaMode    : 'all',
+        }
+      );
 
-  return <FormProvider {...methods}>{children}</FormProvider>;
+      return <FormProvider {...methods}>{children}</FormProvider>;
 }

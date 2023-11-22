@@ -1,0 +1,37 @@
+import { NextResponse } from 'next/server';
+
+export function middleware (
+  request: NextRequest
+) {
+      // Clone the request headers and set a new header `x-hello-from-middleware1`
+      const requestHeaders = new Headers(
+        request.headers
+      );
+      requestHeaders.set(
+        'CF-Access-Client-Secret', process.env.clientSecret ?? ''
+      );
+      requestHeaders.set(
+        'CF-Access-Client-Id', process.env.clientId ?? ''
+      );
+
+      // You can also set request headers in NextResponse.rewrite
+      const response = NextResponse.next(
+        {
+          request: {
+            // New request headers
+            headers: requestHeaders,
+          },
+        }
+      );
+      response.headers.set(
+        'CF-Access-Client-Secret', 'cd9f43a4ea535037f9a1d03fc82e2477020438e462bb076d7926c53ebbadeaf8'
+      );
+      response.headers.set(
+        'CF-Access-Client-Id', 'dac874230dcfcd71de02b41f5e78083c.access'
+      );
+      // Set a new response header `x-hello-from-middleware2`
+      response.headers.set(
+        'x-hello-from-middleware2', 'hello'
+      );
+      return response;
+}

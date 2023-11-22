@@ -89,96 +89,96 @@ export class Convert {
   public static demandaToJson(
     value: Demanda 
   ): string {
-    return JSON.stringify(
-      value 
-    );
+            return JSON.stringify(
+              value 
+            );
   }
 
   public static deudorToJson(
     value: Deudor 
   ): string {
-    return JSON.stringify(
-      value 
-    );
+            return JSON.stringify(
+              value 
+            );
   }
 
   public static intPruebaToJson(
     value: IntPrueba 
   ): string {
-    return JSON.stringify(
-      value 
-    );
+            return JSON.stringify(
+              value 
+            );
   }
 
   public static juzgadoToJson(
     value: Juzgado 
   ): string {
-    return JSON.stringify(
-      value 
-    );
+            return JSON.stringify(
+              value 
+            );
   }
 
   public static obligacionToJson(
     value: Obligacion 
   ): string {
-    return JSON.stringify(
-      value 
-    );
+            return JSON.stringify(
+              value 
+            );
   }
 
   public static telToJson(
     value: Tel 
   ): string {
-    return JSON.stringify(
-      value 
-    );
+            return JSON.stringify(
+              value 
+            );
   }
 
   public static toDemanda(
     json: string 
   ): Demanda {
-    return JSON.parse(
-      json 
-    );
+            return JSON.parse(
+              json 
+            );
   }
 
   public static toDeudor(
     json: string 
   ): Deudor {
-    return JSON.parse(
-      json 
-    );
+            return JSON.parse(
+              json 
+            );
   }
 
   public static toIntPrueba(
     json: string 
   ): IntPrueba {
-    return JSON.parse(
-      json 
-    );
+            return JSON.parse(
+              json 
+            );
   }
 
   public static toJuzgado(
     json: string 
   ): Juzgado {
-    return JSON.parse(
-      json 
-    );
+            return JSON.parse(
+              json 
+            );
   }
 
   public static toObligacion(
     json: string 
   ): Obligacion {
-    return JSON.parse(
-      json 
-    );
+            return JSON.parse(
+              json 
+            );
   }
 
   public static toTel(
     json: string 
   ): Tel {
-    return JSON.parse(
-      json 
-    );
+            return JSON.parse(
+              json 
+            );
   }
 }

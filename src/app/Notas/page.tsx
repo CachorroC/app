@@ -7,33 +7,33 @@ import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 
 
 export default function Page () {
-  return (
-    <>
+      return (
+        <>
 
-      <Suspense fallback={<Loader/>}>
-        <PrismaNotas />
-      </Suspense>
-    </>
-  );
+          <Suspense fallback={<Loader/>}>
+            <PrismaNotas />
+          </Suspense>
+        </>
+      );
 }
 
 
 async function PrismaNotas() {
 
-  const notas = await getNotas();
+      const notas = await getNotas();
 
-  return (  <>
-    {notas.map(
-      (
-        nota
-      ) => {
-        return (
-          <NotaComponent
-            key={nota.id}
-            notaRaw={nota}
-          />
-        );
-      }
-    )}
-  </> );
+      return (  <>
+        {notas.map(
+          (
+            nota
+          ) => {
+                    return (
+                      <NotaComponent
+                        key={nota.id}
+                        notaRaw={nota}
+                      />
+                    );
+          }
+        )}
+      </> );
 }

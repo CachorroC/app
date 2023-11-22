@@ -48,7 +48,7 @@ export type TipoProceso = z.infer<typeof TipoProcesoSchema>;
 export const TelSchema = z.object(
   {
     'fijo': z.coerce.number()
-      .nullable(),
+          .nullable(),
     'celular': z.union(
       [
         z.coerce.number(),

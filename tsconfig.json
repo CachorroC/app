@@ -47,7 +47,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "public/service-worker.js"
-  ],
+, "src/old.middle.ts.old"  ],
   "exclude": [
     "node_modules"
   ]

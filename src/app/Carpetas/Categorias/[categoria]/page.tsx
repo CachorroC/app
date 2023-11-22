@@ -8,15 +8,15 @@ export default function Page(
   {
     params,
   }: {
-  params: { categoria: string };
-}
+    params: { categoria: string };
+  }
 ) {
-  const carpetas = useCarpetaSort();
+      const carpetas = useCarpetaSort();
 
-  const {
-    setCategory
-  } = useCategory();
-  /*
+      const {
+        setCategory
+      } = useCategory();
+      /*
   const ncarps = [
     ...carpetasRaw
   ].filter(
@@ -27,23 +27,23 @@ export default function Page(
     }
   );
  */
-  useEffect(
-    () => {
-      setCategory(
-        params.categoria
+      useEffect(
+        () => {
+                  setCategory(
+                    params.categoria
+                  );
+
+                  return () => {
+                  };
+        }, [
+          params.categoria,
+          setCategory
+        ]
       );
 
-      return () => {
-      };
-    }, [
-      params.categoria,
-      setCategory
-    ]
-  );
-
-  return (
-    <>
-      <CarpetasList carpetas={carpetas}/>
-    </>
-  );
+      return (
+        <>
+          <CarpetasList carpetas={carpetas}/>
+        </>
+      );
 }

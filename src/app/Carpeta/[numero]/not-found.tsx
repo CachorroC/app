@@ -4,69 +4,69 @@ import { headers } from 'next/headers';
 import Link from 'next/link';
 
 export default async function NotFound () {
-  let linker;
+      let linker;
 
-  const mapper = new Set<string>();
+      const mapper = new Set<string>();
 
-  const headersList = headers();
+      const headersList = headers();
 
-  for ( const [
-    key,
-    value
-  ] of headersList ) {
-    mapper.add(
-      `${ key } : ${ value }`
-    );
-  }
+      for ( const [
+        key,
+        value
+      ] of headersList ) {
+        mapper.add(
+          `${ key } : ${ value }`
+        );
+      }
 
-  const domain = headersList.get(
-    'next-url'
-  ) ?? '';
+      const domain = headersList.get(
+        'next-url'
+      ) ?? '';
 
-  const [
-    ,
-    firstRoute,
-    secondRoute
-  ] = domain.split(
-    '/'
-  );
-
-  const arrMap= Array.from(
-    mapper
-  );
-
-  if ( firstRoute === 'Carpetas' ) {
-    const carpeta = await getCarpetabyNumero(
-      Number(
+      const [
+        ,
+        firstRoute,
         secondRoute
-      )
-    );
-
-    if ( carpeta ) {
-      linker = (
-        <Link href={ `/Carpeta/${ carpeta.numero }`}>
-        </Link>
+      ] = domain.split(
+        '/'
       );
 
-    } else {
-      linker = null;
-    }
-  }
+      const arrMap= Array.from(
+        mapper
+      );
 
-  return (
-    <div>
-      <h2>Not Found: { domain }</h2>
-      { arrMap.map(
-        (
-          mp, i
-        ) => {
-          return (
-            <p key={i}>{mp}</p>
+      if ( firstRoute === 'Carpetas' ) {
+        const carpeta = await getCarpetabyNumero(
+          Number(
+            secondRoute
+          )
+        );
+
+        if ( carpeta ) {
+          linker = (
+            <Link href={ `/Carpeta/${ carpeta.numero }`}>
+            </Link>
           );
+
+        } else {
+          linker = null;
         }
-      )}
-      <p>Could not find requested resource</p>
-      {linker}
-    </div>
-  );
+      }
+
+      return (
+        <div>
+          <h2>Not Found: { domain }</h2>
+          { arrMap.map(
+            (
+              mp, i
+            ) => {
+                      return (
+                        <p key={i}>{mp}</p>
+                      );
+            }
+          )}
+          <p>Could not find requested resource</p>
+          {linker}
+        </div>
+      );
 }

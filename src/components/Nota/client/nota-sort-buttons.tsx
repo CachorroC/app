@@ -8,71 +8,72 @@ import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 
 export function NotasSortButtons() {
-  const keys: ActionNotaType[] = [
-    'date',
-    'text',
-    'carpetaNumero',
-    'id',
-  ];
+      const keys: ActionNotaType[] = [
+        'date',
+        'title',
+        'content',
+        'carpetaNumero',
+        'id',
+      ];
 
-  const dispatchNotas = useNotaSortDispatch();
+      const dispatchNotas = useNotaSortDispatch();
 
-  const [
-    sortDirection,
-    setSortDirection
-  ] = useState(
-    true
-  );
+      const [
+        sortDirection,
+        setSortDirection
+      ] = useState(
+        true
+      );
 
-  return (
-    <div className={layout.sectionColumn}>
-      <section className={ layout.sectionRow }>
-        <h2 className={typography.titleMedium}>{'ordenar:'}</h2>
-        <span className={typography.labelMedium}>
-          {' '}
-          {sortDirection
-            ? 'ascendente'
-            : 'descendente'}{' '}
-        </span>
-        <span className="material-symbols-outlined">
-          {sortDirection
-            ? 'arrow_upward'
-            : 'arrow_downward'}
-        </span>
-      </section>
+      return (
+        <div className={layout.sectionColumn}>
+          <section className={ layout.sectionRow }>
+            <h2 className={typography.titleMedium}>{'ordenar:'}</h2>
+            <span className={typography.labelMedium}>
+              {' '}
+              {sortDirection
+                ? 'ascendente'
+                : 'descendente'}{' '}
+            </span>
+            <span className="material-symbols-outlined">
+              {sortDirection
+                ? 'arrow_upward'
+                : 'arrow_downward'}
+            </span>
+          </section>
 
-      <section className={layout.sectionRow}>
-        {keys.map(
-          (
-            key
-          ) => {
-            return (
-              <button
-                type="button"
-                onClick={() => {
-                  setSortDirection(
-                    (
-                      d
-                    ) => {
-                      return !d;
-                    }
-                  );
-                  dispatchNotas(
-                    {
-                      type         : key,
-                      sortDirection: sortDirection,
-                    }
-                  );
-                }}
-                className={button.buttonPassiveCategory}
-                key={key}
-              >
-                {key}
-              </button>
-            );
-          }
-        )}
-      </section>
-    </div>
-  );
+          <section className={layout.sectionRow}>
+            {keys.map(
+              (
+                key
+              ) => {
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => {
+                                      setSortDirection(
+                                        (
+                                          d
+                                        ) => {
+                                                  return !d;
+                                        }
+                                      );
+                                      dispatchNotas(
+                                        {
+                                          type         : key,
+                                          sortDirection: sortDirection,
+                                        }
+                                      );
+                            }}
+                            className={button.buttonPassiveCategory}
+                            key={key}
+                          >
+                            {key}
+                          </button>
+                        );
+              }
+            )}
+          </section>
+        </div>
+      );
 }

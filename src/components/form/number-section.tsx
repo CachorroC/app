@@ -16,60 +16,60 @@ export const NumberSection = (
     type,
     rls,
   }: {
-  name: FieldPath<NuevaCarpeta | IntCarpeta>;
-  title: string;
-  type: 'number' | 'tel';
-  rls?: Omit<
+    name: FieldPath<NuevaCarpeta | IntCarpeta>;
+    title: string;
+    type: 'number' | 'tel';
+    rls?: Omit<
     RegisterOptions<NuevaCarpeta | IntCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
-}
+    >;
+  }
 ) => {
-  const {
-    control
-  } = useFormContext<NuevaCarpeta | IntCarpeta>();
+          const {
+            control
+          } = useFormContext<NuevaCarpeta | IntCarpeta>();
 
-  const rules = rls ?? {
-    required      : false,
-    valuesAsNumber: true
-  };
+          const rules = rls ?? {
+            required      : false,
+            valuesAsNumber: true
+          };
 
-  const {
-    field
-  } = useController(
-    {
-      name,
-      control,
-      rules,
-    }
-  );
-  return (
-    <div className={layout.segmentRow}>
-      <label
-        className={`${ form.label } ${ typography.titleMedium }`}
-        htmlFor={field.name}
-      >
-        {title}
-      </label>
-      <input
-        name={field.name}
-        value={field.value}
-        ref={field.ref}
-        type={type}
-        placeholder={title}
-        className={form.textArea}
-        onChange={(
-          e
-        ) => {
-          field.onChange(
-            parseInt(
-              e.target.value
-            )
+          const {
+            field
+          } = useController(
+            {
+              name,
+              control,
+              rules,
+            }
           );
+          return (
+            <div className={layout.segmentRow}>
+              <label
+                className={`${ form.label } ${ typography.titleMedium }`}
+                htmlFor={field.name}
+              >
+                {title}
+              </label>
+              <input
+                name={field.name}
+                value={field.value}
+                ref={field.ref}
+                type={type}
+                placeholder={title}
+                className={form.textArea}
+                onChange={(
+                  e
+                ) => {
+                          field.onChange(
+                            parseInt(
+                              e.target.value
+                            )
+                          );
 
 
-        }}
-      />
-    </div>
-  );
+                }}
+              />
+            </div>
+          );
 };

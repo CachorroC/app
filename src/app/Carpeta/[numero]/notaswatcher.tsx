@@ -9,26 +9,26 @@ export function NotasWatcher (
     control
   }: {control: Control<Nota, any>}
 ) {
-  const params = useParams();
+      const params = useParams();
 
-  const segments = useSelectedLayoutSegments();
+      const segments = useSelectedLayoutSegments();
 
 
 
-  const results = useWatch(
-    {
-      control
-    }
-  );
-  return (
-    <pre>
-      {JSON.stringify(
+      const results = useWatch(
         {
-          ...results,
-          params  : params,
-          segments: segments,
-        }, null, 2
-      )}
-    </pre>
-  );
+          control
+        }
+      );
+      return (
+        <pre>
+          {JSON.stringify(
+            {
+              ...results,
+              params  : params,
+              segments: segments,
+            }, null, 2
+          )}
+        </pre>
+      );
 }

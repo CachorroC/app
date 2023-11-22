@@ -8,31 +8,30 @@ export default async function NuevaNotallaveProceso(
       id
     },
   }: {
-  params: { id: string };
-}
+    params: { id: string };
+  }
 ) {
 
 
-  const nota = await getNotaById(
-    {
-      id: Number(
-        id
-      ),
-    }
-  );
+      const nota = await getNotaById(
+        Number(
+          id
+        ),
 
-  if ( !nota ) {
-    return notFound();
-  }
+      );
 
-  return (
-    <>
+      if ( !nota ) {
+        return notFound();
+      }
 
-      <Edit
-        key={id}
-        nota={nota}
-      />
+      return (
+        <>
 
-    </>
-  );
+          <Edit
+            key={id}
+            nota={nota}
+          />
+
+        </>
+      );
 }

@@ -4,8 +4,8 @@ import { NextResponse } from 'next/server';
 
 
 export async function GET () {
-  try {
-    /*
+      try {
+        /*
     const collection = await carpetasCollection();
 
     const carpetasRaw = await collection.find(
@@ -24,26 +24,26 @@ export async function GET () {
       }
     );
  */
-    const carpetas = await prisma.carpeta.findMany(
-      {
-        include: {
-          Proceso        : true,
-          ultimaActuacion: true,
-          Demanda        : true,
-          Deudor         : true,
-          tareas         : true
-        }
+        const carpetas = await prisma.carpeta.findMany(
+          {
+            include: {
+              Proceso        : true,
+              ultimaActuacion: true,
+              Demanda        : true,
+              Deudor         : true,
+              tareas         : true
+            }
+          }
+        );
+        return NextResponse.json(
+          carpetas
+        );
+      } catch ( error ) {
+        console.log(
+          `error en Api/Carpetas: ${ error }`
+        );
+        return NextResponse.json(
+          []
+        );
       }
-    );
-    return NextResponse.json(
-      carpetas
-    );
-  } catch ( error ) {
-    console.log(
-      `error en Api/Carpetas: ${ error }`
-    );
-    return NextResponse.json(
-      []
-    );
-  }
 }

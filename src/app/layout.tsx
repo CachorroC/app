@@ -10,7 +10,9 @@ import { SearchProvider } from './context/search-context';
 import { ModalProvider } from './context/modal-context';
 import { Loader } from '#@/components/Loader';
 import type { Metadata, Viewport } from 'next';
-import { Header } from '#@/components/layout/Header';
+import { NavBar } from '#@/components/layout/NavBar';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import { CarpetasSortProvider } from './context/carpetas-sort-context';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -80,43 +82,46 @@ export const viewport: Viewport = {
   themeColor  : [
     {
       media: '(prefers-color-scheme: light)',
-      color: '#311B92',
+      color: '#5C6BC0',
     },
     {
       media: '(prefers-color-scheme: dark)',
-      color: '#ab2a64',
+      color: '#1A237E',
     },
   ],
 };
 
-export default function RootLayout(
+export default async function RootLayout(
   {
     children,
   }: {
-  children: ReactNode;
-}
+    children: ReactNode;
+  }
 ) {
-  return (
-    <html lang="es">
-      <body
-        className={`${ playDisp.variable } ${ radio.variable } ${ raleway.variable } ${ ptserif.variable } ${ josefina.variable }  [ color-scheme: light dark ]`}
-      >
-        <SearchProvider>
-          <ModalProvider>
-            <MainProvider>
-              <div className={layout.container}>
-                <Suspense fallback={<Loader />}>
-                  <Header/>
-                </Suspense>
-                {children}
-              </div>
-            </MainProvider>
-          </ModalProvider>
-        </SearchProvider>
-        <Script
-          src={`https://${ prefix }.rsasesorjuridico.com/service-worker.js`}
-        />
-      </body>
-    </html>
-  );
+      const carpetas = await getCarpetas();
+      return (
+        <html lang="es">
+          <body
+            className={`${ playDisp.variable } ${ radio.variable } ${ raleway.variable } ${ ptserif.variable } ${ josefina.variable }  [ color-scheme: light dark ]`}
+          >
+            <CarpetasSortProvider initialCarpetas={carpetas}>
+              <SearchProvider>
+                <ModalProvider>
+                  <MainProvider>
+                    <div className={layout.container}>
+                      <Suspense fallback={<Loader />}>
+                        <NavBar />
+                      </Suspense>
+                      {children}
+                    </div>
+                  </MainProvider>
+                </ModalProvider>
+              </SearchProvider>
+            </CarpetasSortProvider>
+            <Script
+              src={`https://${ prefix }.rsasesorjuridico.com/service-worker.js`}
+            />
+          </body>
+        </html>
+      );
 }

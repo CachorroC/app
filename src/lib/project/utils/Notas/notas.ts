@@ -6,9 +6,9 @@ export const getNotaById = cache(
   async (
     id: number
   ) => {
-    return await fetchNotaById(
-      id
-    );
+            return await fetchNotaById(
+              id
+            );
   }
 );
 
@@ -16,8 +16,8 @@ export const getNotasByPathname = cache(
   async (
     path : string
   ) => {
-    return await fetchNotasByPathname(
-      path
-    );
+            return await fetchNotasByPathname(
+              path
+            );
   }
 );

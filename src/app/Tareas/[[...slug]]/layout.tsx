@@ -7,38 +7,38 @@ export default function Layout (
     params, children, right,
   }: {params: {slug?: string[]}, children: ReactNode; right:ReactNode; }
 ) {
-  let title;
+      let title;
 
-  if ( params.slug ) {
-    const [
-      ano,
-      mes,
-      dia
-    ] = params.slug;
-    title = OutputDateHelper(
-      new Date(
-        Number(
-          ano
-        ), Number(
-          mes
-        ) - 1, Number(
+      if ( params.slug ) {
+        const [
+          ano,
+          mes,
           dia
-        )
-      )
-    );
-  } else {
-    title = 'Tareas';
-  }
+        ] = params.slug;
+        title = OutputDateHelper(
+          new Date(
+            Number(
+              ano
+            ), Number(
+              mes
+            ) - 1, Number(
+              dia
+            )
+          )
+        );
+      } else {
+        title = 'Tareas';
+      }
 
-  return (
-    <>
-      <div className={ layout.top }>{ title }</div>
-      <div className={ layout.left }>
-        {children}
-      </div>
-      <div className={ layout.right }>
-        {right}
-      </div>
-    </>
-  );
+      return (
+        <>
+          <div className={ layout.top }>{ title }</div>
+          <div className={ layout.left }>
+            {children}
+          </div>
+          <div className={ layout.right }>
+            {right}
+          </div>
+        </>
+      );
 }

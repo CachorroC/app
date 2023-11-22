@@ -10,36 +10,36 @@ export function DeleteNoteButton(
     id
   }: { id: number }
 ) {
-  return (
-    <>
-      <button
-        className={note.buttonDelete}
-        onClick={() => {
-          return deleteNota(
-            {
-              id: id,
-            }
-          );
-        }}
-        type="button"
-      >
-        <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
-      </button>
-      <button
-        className={note.buttonDelete}
-        onClick={() => {
-          deleteNota(
-            {
-              id: id,
-            }
-          );
-        }}
-        type="button"
-      >
-        <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
-      </button>
-    </>
-  );
+      return (
+        <>
+          <button
+            className={note.buttonDelete}
+            onClick={() => {
+                      return deleteNota(
+                        {
+                          id: id,
+                        }
+                      );
+            }}
+            type="button"
+          >
+            <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
+          </button>
+          <button
+            className={note.buttonDelete}
+            onClick={() => {
+                      deleteNota(
+                        {
+                          id: id,
+                        }
+                      );
+            }}
+            type="button"
+          >
+            <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
+          </button>
+        </>
+      );
 }
 
 export function AddNoteButton(
@@ -47,51 +47,51 @@ export function AddNoteButton(
     nota
   }: { nota: Nota }
 ) {
-  async function addRequestHandler() {
-    const Request = await fetch(
-      'api/Notas', {
-        method : 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(
-          nota
-        ),
+      async function addRequestHandler() {
+            const Request = await fetch(
+              'api/Notas', {
+                method : 'POST',
+                headers: {
+                  'content-type': 'application/json',
+                },
+                body: JSON.stringify(
+                  nota
+                ),
+              }
+            )
+                  .then(
+                    (
+                      fullfilled
+                    ) => {
+                              alert(
+                                fullfilled.status.toString()
+                              );
+
+                              return fullfilled;
+                    }
+                  );
+
+            if ( !Request.ok ) {
+              return;
+            }
+
+            const Response = await Request.json();
+            alert(
+              JSON.stringify(
+                Response
+              )
+            );
       }
-    )
-      .then(
-        (
-          fullfilled
-        ) => {
-          alert(
-            fullfilled.status.toString()
-          );
 
-          return fullfilled;
-        }
+      return (
+        <button
+          className={note.buttonAdd}
+          type="button"
+          onClick={addRequestHandler}
+        >
+          <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
+        </button>
       );
-
-    if ( !Request.ok ) {
-      return;
-    }
-
-    const Response = await Request.json();
-    alert(
-      JSON.stringify(
-        Response
-      )
-    );
-  }
-
-  return (
-    <button
-      className={note.buttonAdd}
-      type="button"
-      onClick={addRequestHandler}
-    >
-      <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
-    </button>
-  );
 }
 
 export function EditNoteButton(
@@ -99,12 +99,12 @@ export function EditNoteButton(
     nota
   }: { nota: Nota }
 ) {
-  return (
-    <Link
-      className={note.buttonEdit}
-      href={`/Notas/id/${ nota.id }/Editar` as Route}
-    >
-      <span className={`material-symbols-outlined ${ note.icon }`}>edit</span>
-    </Link>
-  );
+      return (
+        <Link
+          className={note.buttonEdit}
+          href={`/Notas/id/${ nota.id }/Editar` as Route}
+        >
+          <span className={`material-symbols-outlined ${ note.icon }`}>edit</span>
+        </Link>
+      );
 }

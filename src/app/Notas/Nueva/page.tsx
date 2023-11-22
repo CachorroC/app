@@ -9,18 +9,18 @@ export default async function Page () {
 
 
 
-  return (
-    <>
-      <NuevaNotaFormProvider>
-        <div className={layout.top}>
-          <h1
-            className={typography.displayLarge}
-          >Nueva Nota</h1>
-        </div>
-        <div className={ layout.left }>
-          <NuevaNota />
-        </div>
-      </NuevaNotaFormProvider>
-    </>
-  );
+      return (
+        <>
+          <NuevaNotaFormProvider>
+            <div className={layout.top}>
+              <h1
+                className={typography.displayLarge}
+              >Nueva Nota</h1>
+            </div>
+            <div className={ layout.left }>
+              <NuevaNota />
+            </div>
+          </NuevaNotaFormProvider>
+        </>
+      );
 }

@@ -19,35 +19,35 @@ export function SearchProvider(
     children
   }: { children: ReactNode }
 ) {
-  const [
-    search,
-    setSearch
-  ] = useState(
-    ' '
-  );
-
-  return (
-    <SearchContext.Provider
-      value={{
+      const [
         search,
-        setSearch,
-      }}
-    >
-      {children}
-    </SearchContext.Provider>
-  );
+        setSearch
+      ] = useState(
+        ' '
+      );
+
+      return (
+        <SearchContext.Provider
+          value={{
+            search,
+            setSearch,
+          }}
+        >
+          {children}
+        </SearchContext.Provider>
+      );
 }
 
 export function useSearch() {
-  const context = useContext(
-    SearchContext
-  );
+      const context = useContext(
+        SearchContext
+      );
 
-  if ( context === null ) {
-    throw new Error(
-      'useSearch must be used inside a SearchProvider'
-    );
-  }
+      if ( context === null ) {
+        throw new Error(
+          'useSearch must be used inside a SearchProvider'
+        );
+      }
 
-  return context;
+      return context;
 }

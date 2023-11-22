@@ -10,132 +10,132 @@ export function CarpetasList(
   {
     carpetas
   }: {
-  carpetas: MonCarpeta[];
-}
+    carpetas: MonCarpeta[];
+  }
 ) {
-  const rows: JSX.Element[] = [];
+      const rows: JSX.Element[] = [];
 
-  const [
-    selectedId,
-    setSelectedId
-  ] = useState(
-    carpetas[ 0 ].numero
-  );
+      const [
+        selectedId,
+        setSelectedId
+      ] = useState(
+        carpetas[ 0 ].numero
+      );
 
-  const categories = [
-    'Terminados',
-    'LiosJuridicos',
-    'Bancolombia',
-    'Reintegra',
-    'Insolvencia',
-    'sinEspecificar',
-    'todos',
-  ];
+      const categories = [
+        'Terminados',
+        'LiosJuridicos',
+        'Bancolombia',
+        'Reintegra',
+        'Insolvencia',
+        'sinEspecificar',
+        'todos',
+      ];
 
-  const [
-    carpetasReduced,
-    dispatchCarpetas
-  ] = useReducer(
-    carpetasReducer,
-    carpetas
-  );
+      const [
+        carpetasReduced,
+        dispatchCarpetas
+      ] = useReducer(
+        carpetasReducer,
+        carpetas
+      );
 
-  const {
-    search
-  } = useSearch();
-
-  const [
-    category,
-    setCategory
-  ] = useState(
-    'todos'
-  );
-
-  carpetasReduced.forEach(
-    (
-      proceso
-    ) => {
       const {
-        ultimaActuacion
-      } = proceso;
+        search
+      } = useSearch();
 
-      if ( proceso.nombre.toLowerCase()
-        .indexOf(
-          search.toLowerCase()
-        ) === -1 ) {
-        return;
-      }
+      const [
+        category,
+        setCategory
+      ] = useState(
+        'todos'
+      );
 
-      if ( category === 'todos' || category === proceso.category ) {
-        rows.push(
-          <Card
-            key={proceso._id}
-            carpeta={proceso}
-          >
-            {ultimaActuacion && (
-              <ActuacionComponent
-                initialOpenState={false}
-                key={proceso._id}
-                incomingActuacion={ultimaActuacion}
-              />
-            )}
-          </Card>
-        );
-      }
-    }
-  );
-
-  return (
-    <>
-      {carpetas.map(
+      carpetasReduced.forEach(
         (
-          tabId
+          proceso
         ) => {
-          return (
-            <button
-              key={tabId._id}
-              onClick={() => {
-                return setSelectedId(
-                  tabId.numero
-                );
-              }}
-            >
-              {}
-            </button>
-          );
-        }
-      )}
-      {categories.map(
-        (
-          tabId
-        ) => {
-          return (
-            <button
-              key={tabId}
-              onClick={() => {
-                setCategory(
-                  tabId
-                );
-                return dispatchCarpetas(
-                  {
-                    type         : 'fecha',
-                    sortDirection: true,
-                    category     : category as Category,
+                  const {
+                    ultimaActuacion
+                  } = proceso;
+
+                  if ( proceso.nombre.toLowerCase()
+                        .indexOf(
+                          search.toLowerCase()
+                        ) === -1 ) {
+                    return;
                   }
-                );
-              }}
-            >
 
-            </button>
-          );
+                  if ( category === 'todos' || category === proceso.category ) {
+                    rows.push(
+                      <Card
+                        key={proceso._id}
+                        carpeta={proceso}
+                      >
+                        {ultimaActuacion && (
+                          <ActuacionComponent
+                            initialOpenState={false}
+                            key={proceso._id}
+                            incomingActuacion={ultimaActuacion}
+                          />
+                        )}
+                      </Card>
+                    );
+                  }
         }
-      )}
-      <hr />
-      <div key={selectedId}>
-        <h3>{}</h3>
-        {}
-      </div>
-      {rows}
-    </>
-  );
+      );
+
+      return (
+        <>
+          {carpetas.map(
+            (
+              tabId
+            ) => {
+                      return (
+                        <button
+                          key={tabId._id}
+                          onClick={() => {
+                                    return setSelectedId(
+                                      tabId.numero
+                                    );
+                          }}
+                        >
+                          {}
+                        </button>
+                      );
+            }
+          )}
+          {categories.map(
+            (
+              tabId
+            ) => {
+                      return (
+                        <button
+                          key={tabId}
+                          onClick={() => {
+                                    setCategory(
+                                      tabId
+                                    );
+                                    return dispatchCarpetas(
+                                      {
+                                        type         : 'fecha',
+                                        sortDirection: true,
+                                        category     : category as Category,
+                                      }
+                                    );
+                          }}
+                        >
+
+                        </button>
+                      );
+            }
+          )}
+          <hr />
+          <div key={selectedId}>
+            <h3>{}</h3>
+            {}
+          </div>
+          {rows}
+        </>
+      );
 }

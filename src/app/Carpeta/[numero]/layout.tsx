@@ -19,19 +19,19 @@ type Props = {
 
 //SECTION Generate segments for [numero]
 export async function generateStaticParams () {
-  const carpetas = await getCarpetas();
+      const carpetas = await getCarpetas();
 
-  return carpetas.map(
-    (
-      product
-    ) => {
-      return {
-        numero: String(
-          product.numero
-        ),
-      };
-    }
-  );
+      return carpetas.map(
+        (
+          product
+        ) => {
+                  return {
+                    numero: String(
+                      product.numero
+                    ),
+                  };
+        }
+      );
 }
 
 
@@ -43,41 +43,41 @@ export default async function LayoutCarpetaMain(
     params,
   }: Props
 ) {
-  const carpeta = await getCarpetabyNumero(
-    Number(
-      params.numero
-    )
-  );
+      const carpeta = await getCarpetabyNumero(
+        Number(
+          params.numero
+        )
+      );
 
-  if ( !carpeta ) {
-    return notFound();
-  }
+      if ( !carpeta ) {
+        return notFound();
+      }
 
-  return (
-    <>
-      <CarpetaFormProvider key={params.numero} carpeta={carpeta}>
-        <div className={ styles.top }>
-          <Suspense fallback={ <Loader /> }>
-            <Link href={ `/Carpeta/${ params.numero }` as Route}>
-              <NombreComponent
-                key={params.numero}
-                deudor={carpeta.deudor}
-              />
-            </Link>
+      return (
+        <>
+          <CarpetaFormProvider key={params.numero} carpeta={carpeta}>
+            <div className={ styles.top }>
+              <Suspense fallback={ <Loader /> }>
+                <Link href={ `/Carpeta/${ params.numero }` as Route}>
+                  <NombreComponent
+                    key={params.numero}
+                    deudor={carpeta.deudor}
+                  />
+                </Link>
 
-          </Suspense>
-          { top }
-        </div>
-        <div className={styles.leftColumn}>{children}</div>
-        <div className={ styles.right }>
+              </Suspense>
+              { top }
+            </div>
+            <div className={styles.leftColumn}>{children}</div>
+            <div className={ styles.right }>
 
-          {right}
-          <NotasLinkList carpetaNumero={Number(
-            params.numero
-          )} key={params.numero}/>
-        </div>
+              {right}
+              <NotasLinkList carpetaNumero={Number(
+                params.numero
+              )} key={params.numero}/>
+            </div>
 
-      </CarpetaFormProvider>
-    </>
-  );
+          </CarpetaFormProvider>
+        </>
+      );
 }

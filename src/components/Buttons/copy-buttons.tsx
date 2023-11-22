@@ -14,66 +14,66 @@ export const CopyButton = (
   }: { copyTxt: string; name: string; }
 ) => {
 
-  const [
-    value,
-    copy
-  ] = useCopyToClipboard();
+          const [
+            value,
+            copy
+          ] = useCopyToClipboard();
 
-  const [
-    isSnackbarOpen,
-    setIsSnackbarOpen
-  ] = useState(
-    false
-  );
-
-  useEffect(
-    () => {
-
-
-      const timer = setTimeout(
-        () => {
-          setIsSnackbarOpen(
+          const [
+            isSnackbarOpen,
+            setIsSnackbarOpen
+          ] = useState(
             false
           );
-        }, 5000
-      );
 
-      if ( isSnackbarOpen ) {
-        timer;
-      }
+          useEffect(
+            () => {
 
-      return () => {
-        return clearTimeout(
-          timer
-        );
-      };
-    }, [
-      isSnackbarOpen
-    ]
-  );
-  return (
-    <div className={ layout.segmentRow }>
-      <div className={ layout.sectionColumn }>
 
-        <p className={ typography.labelLarge }>{ name }</p>
-        <p className={ typography.labelMedium }>{ value }</p>
-      </div>
-      <button type='button' onClick={ () => {
-        copy(
-          copyTxt
-        );
-        setIsSnackbarOpen(
-          true
-        );
-      } } className={ cardStyles.link }>
-        <span className={ `material-symbols-outlined ${ styles.icon }` }>file_copy</span>
-        <span className={cardStyles.tooltiptext}>{ value }</span>
-      </button>
-      { value &&( isSnackbarOpen && (
-        <div className={ `${ styles.snackbar } ${ isSnackbarOpen && styles.show }` }>{ value} </div>
-      ) )}
-    </div>
-  );
+                      const timer = setTimeout(
+                        () => {
+                                  setIsSnackbarOpen(
+                                    false
+                                  );
+                        }, 5000
+                      );
+
+                      if ( isSnackbarOpen ) {
+                        timer;
+                      }
+
+                      return () => {
+                                return clearTimeout(
+                                  timer
+                                );
+                      };
+            }, [
+              isSnackbarOpen
+            ]
+          );
+          return (
+            <div className={ layout.segmentRow }>
+              <div className={ layout.sectionColumn }>
+
+                <p className={ typography.labelLarge }>{ name }</p>
+                <p className={ typography.labelMedium }>{ value }</p>
+              </div>
+              <button type='button' onClick={ () => {
+                        copy(
+                          copyTxt
+                        );
+                        setIsSnackbarOpen(
+                          true
+                        );
+              } } className={ cardStyles.link }>
+                <span className={ `material-symbols-outlined ${ styles.icon }` }>file_copy</span>
+                <span className={cardStyles.tooltiptext}>{ value }</span>
+              </button>
+              { value &&( isSnackbarOpen && (
+                <div className={ `${ styles.snackbar } ${ isSnackbarOpen && styles.show }` }>{ value} </div>
+              ) )}
+            </div>
+          );
 };
 
 export function CopyButtons(
@@ -81,18 +81,18 @@ export function CopyButtons(
     carpeta
   }: {carpeta: MonCarpeta}
 ) {
-  return (
-    <>
+      return (
+        <>
 
-      { carpeta.llaveProceso && (
-        <CopyButton copyTxt={ carpeta.llaveProceso} name={`expediente ${ carpeta.llaveProceso }`} />
-      )}
-      { carpeta.demanda.radicado && (
-        <CopyButton copyTxt={ carpeta.demanda.radicado} name={`radicado ${ carpeta.demanda.radicado }`} />
-      )}
-      { carpeta.cc && (
-        <CopyButton copyTxt={ carpeta.cc.toString()}  name={`cedula ${ carpeta.cc }`}/>
-      )}
-    </>
-  );
+          { carpeta.llaveProceso && (
+            <CopyButton copyTxt={ carpeta.llaveProceso} name={`expediente ${ carpeta.llaveProceso }`} />
+          )}
+          { carpeta.demanda.radicado && (
+            <CopyButton copyTxt={ carpeta.demanda.radicado} name={`radicado ${ carpeta.demanda.radicado }`} />
+          )}
+          { carpeta.cc && (
+            <CopyButton copyTxt={ carpeta.cc.toString()}  name={`cedula ${ carpeta.cc }`}/>
+          )}
+        </>
+      );
 }

@@ -8,71 +8,71 @@ import layout from '#@/styles/layout.module.css';
 
 export function CarpetasSortButtons () {
 
-  const keys: ActionType[] = [
-    'fecha',
-    'nombre',
-    'numero',
-    'category',
-    'tipoProceso',
-    'cc',
-  ];
+      const keys: ActionType[] = [
+        'fecha',
+        'nombre',
+        'numero',
+        'category',
+        'tipoProceso',
+        'cc',
+      ];
 
-  const dispatchCarpetas = useCarpetaSortDispatch();
+      const dispatchCarpetas = useCarpetaSortDispatch();
 
-  const [
-    sortDirection,
-    setSortDirection
-  ] = useState(
-    true
-  );
+      const [
+        sortDirection,
+        setSortDirection
+      ] = useState(
+        true
+      );
 
-  return (
-    <>
-      <div>
-        <h1>{'ordenar:'}</h1>
-        <span> {sortDirection
-          ? 'ascendente'
-          : 'descendente'} </span>
-        <span className="material-symbols-outlined">
-          {sortDirection
-            ? 'arrow_upward'
-            : 'arrow_downward'}
-        </span>
-      </div>
-      <section className={layout.segmentColumn}>
-        {keys.map(
-          (
-            key
-          ) => {
-            return (
-              <button
-                type="button"
-                onClick={() => {
-                  setSortDirection(
-                    (
-                      d
-                    ) => {
-                      return !d;
-                    }
-                  );
-                  dispatchCarpetas(
-                    {
-                      type         : key,
-                      sortDirection: sortDirection,
-                    }
-                  );
+      return (
+        <>
+          <div>
+            <h1>{'ordenar:'}</h1>
+            <span> {sortDirection
+              ? 'ascendente'
+              : 'descendente'} </span>
+            <span className="material-symbols-outlined">
+              {sortDirection
+                ? 'arrow_upward'
+                : 'arrow_downward'}
+            </span>
+          </div>
+          <section className={layout.segmentColumn}>
+            {keys.map(
+              (
+                key
+              ) => {
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => {
+                                      setSortDirection(
+                                        (
+                                          d
+                                        ) => {
+                                                  return !d;
+                                        }
+                                      );
+                                      dispatchCarpetas(
+                                        {
+                                          type         : key,
+                                          sortDirection: sortDirection,
+                                        }
+                                      );
 
-                }}
-                className={styles.buttonPassiveCategory}
-                key={key}
-              >
-                {key}
-              </button>
-            );
-          }
-        )}
-      </section>
+                            }}
+                            className={styles.buttonPassiveCategory}
+                            key={key}
+                          >
+                            {key}
+                          </button>
+                        );
+              }
+            )}
+          </section>
 
-    </>
-  );
+        </>
+      );
 }

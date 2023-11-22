@@ -8,31 +8,31 @@ export default function Title(
     helper
   }: { helper?: string }
 ) {
-  const pathname = usePathname();
+      const pathname = usePathname();
 
-  const today = new Date();
+      const today = new Date();
 
-  const days = [
-    'mimingo',
-    'Lunes',
-    'Martes',
-    'Miercoles',
-    'Jueves',
-    'Viernes',
-    'Sabado',
-  ];
+      const days = [
+        'mimingo',
+        'Lunes',
+        'Martes',
+        'Miercoles',
+        'Jueves',
+        'Viernes',
+        'Sabado',
+      ];
 
-  const txt = helper
-    ? helper
-    : days[ today.getDay() ] + ' ' + fixFechas(
-      today.toString()
-    );
+      const txt = helper
+        ? helper
+        : days[ today.getDay() ] + ' ' + fixFechas(
+          today.toString()
+        );
 
-  return (
-    <h1 className={typography.titleSmall}>
-      {pathname === '/'
-        ? txt
-        : pathname}
-    </h1>
-  );
+      return (
+        <h1 className={typography.titleSmall}>
+          {pathname === '/'
+            ? txt
+            : pathname}
+        </h1>
+      );
 }

@@ -27,32 +27,32 @@ export class tareaConvert {
   public static toTarea (
     json: string
   ): IntTarea {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static tareaToJson (
     value: IntTarea
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 
   public static toSubTarea (
     json: string
   ): SubTarea {
-    return JSON.parse(
-      json
-    );
+            return JSON.parse(
+              json
+            );
   }
 
   public static subTareaToJson (
     value: SubTarea
   ): string {
-    return JSON.stringify(
-      value
-    );
+            return JSON.stringify(
+              value
+            );
   }
 }

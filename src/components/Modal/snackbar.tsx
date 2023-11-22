@@ -8,43 +8,43 @@ export function Snackbar (
     text
   }:{text: string}
 ) {
-  const {
-    isSnackbarOpen, setIsSnackbarOpen
-  } = useSnackbarContext();
+      const {
+        isSnackbarOpen, setIsSnackbarOpen
+      } = useSnackbarContext();
 
-  useEffect(
-    () => {
-
-
-      const timer = setTimeout(
+      useEffect(
         () => {
-          setIsSnackbarOpen(
-            false
-          );
-        }, 1000
+
+
+                  const timer = setTimeout(
+                    () => {
+                              setIsSnackbarOpen(
+                                false
+                              );
+                    }, 1000
+                  );
+
+                  if ( isSnackbarOpen ) {
+                    timer;
+                  }
+
+                  return () => {
+                            return clearTimeout(
+                              timer
+                            );
+                  };
+        }, [
+          isSnackbarOpen,
+          setIsSnackbarOpen
+        ]
       );
 
-      if ( isSnackbarOpen ) {
-        timer;
-      }
+      return (
+        <>
 
-      return () => {
-        return clearTimeout(
-          timer
-        );
-      };
-    }, [
-      isSnackbarOpen,
-      setIsSnackbarOpen
-    ]
-  );
-
-  return (
-    <>
-
-      { isSnackbarOpen && (
-        <div className={ `${ styles.snackbar } ${ isSnackbarOpen && styles.show }` }>{ text }</div>
-      )}
-    </>
-  );
+          { isSnackbarOpen && (
+            <div className={ `${ styles.snackbar } ${ isSnackbarOpen && styles.show }` }>{ text }</div>
+          )}
+        </>
+      );
 }

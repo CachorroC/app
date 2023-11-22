@@ -1,81 +1,82 @@
 import { NotaComponent } from '#@/components/Nota/server';
 import clientPromise from '#@/lib/connection/mongodb';
-import { intNota, notasConvert } from '#@/lib/types/notas';
+import { notasConvert } from '#@/lib/types/notas';
+import { Nota } from '@prisma/client';
 import { notFound } from 'next/navigation';
 
 export default async function DatePage(
   {
     params,
   }: {
-  params: { date: string[] };
-}
+    params: { date: string[] };
+  }
 ) {
-  const [
-    incomingAno,
-    incomingMes,
-    incomingDia
-  ] = params.date;
+      const [
+        incomingAno,
+        incomingMes,
+        incomingDia
+      ] = params.date;
 
-  const incomingDate = new Date(
-    `${ incomingAno }-${ incomingMes }-${ incomingDia }`
-  );
+      const incomingDate = new Date(
+        `${ incomingAno }-${ incomingMes }-${ incomingDia }`
+      );
 
-  const client = await clientPromise;
+      const client = await clientPromise;
 
-  if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico'
-    );
-  }
-
-  const db = client.db(
-    'RyS'
-  );
-
-  const collection = db.collection<intNota>(
-    'Notas'
-  );
-
-  const rawNotas = await collection
-    .find(
-      {
-        date: {
-          $gte: incomingDate,
-        },
+      if ( !client ) {
+        throw new Error(
+          'no hay cliente mongólico'
+        );
       }
-    )
-    .toArray();
 
-  if ( rawNotas.length === 0 ) {
-    return notFound();
-  }
+      const db = client.db(
+        'RyS'
+      );
 
-  const notas = notasConvert.toMonNotas(
-    rawNotas
-  );
+      const collection = db.collection<Nota>(
+        'Notas'
+      );
 
-  return (
-    <>
-      {incomingDate.toLocaleString(
-        'es-CO', {
-          year   : 'numeric',
-          weekday: 'short',
-          month  : 'long',
-          day    : 'numeric',
-        }
-      )}
-      {notas.map(
-        (
-          nota
-        ) => {
-          return (
-            <NotaComponent
-              key={nota.id}
-              notaRaw={nota}
-            />
-          );
-        }
-      )}
-    </>
-  );
+      const rawNotas = await collection
+            .find(
+              {
+                date: {
+                  $gte: incomingDate,
+                },
+              }
+            )
+            .toArray();
+
+      if ( rawNotas.length === 0 ) {
+        return notFound();
+      }
+
+      const notas = notasConvert.toMonNotas(
+        rawNotas
+      );
+
+      return (
+        <>
+          {incomingDate.toLocaleString(
+            'es-CO', {
+              year   : 'numeric',
+              weekday: 'short',
+              month  : 'long',
+              day    : 'numeric',
+            }
+          )}
+          {notas.map(
+            (
+              nota
+            ) => {
+                      return (
+                        <NotaComponent
+                          key={nota.id}
+                          notaRaw={nota}
+                        />
+                      );
+            }
+          )}
+        </>
+      );
 }

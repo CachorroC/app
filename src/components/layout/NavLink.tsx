@@ -11,28 +11,28 @@ export function NavLink<T extends string>(
     hrefLabel, iconLabel, textLabel
   }:{ iconLabel: string; textLabel: string;  hrefLabel: Route<T> | URL}
 ) {
-  const {
-    setIsNavOpen
-  } = useNavigationContext();
+      const {
+        setIsNavOpen
+      } = useNavigationContext();
 
-  const pathname = usePathname();
+      const pathname = usePathname();
 
-  const isActive = pathname === hrefLabel;
-  return (
-    <Link key={hrefLabel.toString()} className={
-      isActive
-        ? styles.linkActive
-        : styles.link
-    } onClick={
-      () => {
-        setIsNavOpen(
-          false
-        );
-      }
-    } href={hrefLabel as Route}
-    >
-      <span className={`material-symbols-outlined ${ styles.icon }`}>{iconLabel}</span>
-      <h1 className={ styles.text}>{textLabel}</h1>
-    </Link>
-  );
+      const isActive = pathname === hrefLabel;
+      return (
+        <Link key={hrefLabel.toString()} className={
+          isActive
+            ? styles.linkActive
+            : styles.link
+        } onClick={
+          () => {
+                    setIsNavOpen(
+                      false
+                    );
+          }
+        } href={hrefLabel as Route}
+        >
+          <span className={`material-symbols-outlined ${ styles.icon }`}>{iconLabel}</span>
+          <h1 className={ styles.text}>{textLabel}</h1>
+        </Link>
+      );
 }

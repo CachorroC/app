@@ -7,14 +7,14 @@ export default function NuevaNotallaveProceso(
       id
     },
   }: {
-  params: { id: string };
-}
+    params: { id: string };
+  }
 ) {
 
-  return <h1
-    className={typography.displayLarge}
-  >
-    { `Nota numero: ${ id }` }
-  </h1>;
+      return <h1
+        className={typography.displayLarge}
+      >
+        { `Nota numero: ${ id }` }
+      </h1>;
 
 }
