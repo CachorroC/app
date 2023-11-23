@@ -1,6 +1,6 @@
 
 import { NextResponse } from 'next/server';
-import { getProceso } from '#@/lib/Procesos';
+import { getProceso } from '#@/lib/project/utils/Procesos';
 
 export async function GET(
   request: Request,

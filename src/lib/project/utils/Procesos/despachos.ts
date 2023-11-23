@@ -1,4 +1,4 @@
-import { intJuzgado } from '../types/carpetas';
+import { intJuzgado } from '../../../types/carpetas';
 
 
 export const Despachos = [

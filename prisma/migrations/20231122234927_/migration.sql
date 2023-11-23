@@ -9,29 +9,31 @@ CREATE TYPE "TipoProceso" AS ENUM ('HIPOTECARIO', 'PRENDARIO', 'SINGULAR', 'ACUM
 
 -- CreateTable
 CREATE TABLE "Carpeta" (
-    "id" SERIAL NOT NULL,
     "numero" INTEGER NOT NULL,
     "llaveProceso" TEXT,
     "nombre" TEXT NOT NULL,
     "idProcesos" INTEGER[],
-    "category" "Category" NOT NULL,
+    "category" "Category" NOT NULL DEFAULT 'SinEspecificar',
     "fecha" DATE,
+    "revisado" BOOLEAN NOT NULL DEFAULT false,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "terminado" BOOLEAN NOT NULL DEFAULT false,
 
-    CONSTRAINT "Carpeta_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Carpeta_pkey" PRIMARY KEY ("numero")
 );
 
 -- CreateTable
 CREATE TABLE "Deudor" (
     "id" SERIAL NOT NULL,
-    "cedula" TEXT NOT NULL,
+    "cedula" TEXT,
     "primerNombre" TEXT NOT NULL,
     "primerApellido" TEXT NOT NULL,
     "segundoNombre" TEXT,
     "segundoApellido" TEXT,
     "direccion" TEXT,
     "email" TEXT,
-    "telCelular" BIGINT,
-    "telFijo" BIGINT,
+    "telCelular" TEXT,
+    "telFijo" TEXT,
     "carpetaNumero" INTEGER NOT NULL,
 
     CONSTRAINT "Deudor_pkey" PRIMARY KEY ("id")
@@ -39,12 +41,14 @@ CREATE TABLE "Deudor" (
 
 -- CreateTable
 CREATE TABLE "Nota" (
-    "text" TEXT NOT NULL,
     "id" SERIAL NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "pathname" TEXT,
     "carpetaNumero" INTEGER,
+    "content" TEXT,
+    "title" TEXT NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Nota_pkey" PRIMARY KEY ("id")
 );
@@ -52,11 +56,13 @@ CREATE TABLE "Nota" (
 -- CreateTable
 CREATE TABLE "Tarea" (
     "id" SERIAL NOT NULL,
-    "creationDate" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "dueDate" DATE,
     "carpetaId" INTEGER,
-    "text" TEXT NOT NULL,
-    "isComplete" BOOLEAN NOT NULL,
+    "complete" BOOLEAN NOT NULL,
+    "content" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "title" TEXT NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Tarea_pkey" PRIMARY KEY ("id")
 );
@@ -108,6 +114,7 @@ CREATE TABLE "Demanda" (
     "vencimientoPagare" DATE[],
     "expediente" TEXT,
     "carpetaNumero" INTEGER NOT NULL,
+    "despacho" TEXT,
 
     CONSTRAINT "Demanda_pkey" PRIMARY KEY ("id")
 );
@@ -150,12 +157,6 @@ CREATE TABLE "_DemandaToJuzgado" (
     "B" TEXT NOT NULL
 );
 
--- CreateTable
-CREATE TABLE "_JuzgadoToProceso" (
-    "A" TEXT NOT NULL,
-    "B" INTEGER NOT NULL
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "Carpeta_numero_key" ON "Carpeta"("numero");
 
@@ -163,19 +164,10 @@ CREATE UNIQUE INDEX "Carpeta_numero_key" ON "Carpeta"("numero");
 CREATE UNIQUE INDEX "Deudor_carpetaNumero_key" ON "Deudor"("carpetaNumero");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Nota_id_key" ON "Nota"("id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Tarea_id_key" ON "Tarea"("id");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Actuacion_carpetaNumero_key" ON "Actuacion"("carpetaNumero");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Demanda_carpetaNumero_key" ON "Demanda"("carpetaNumero");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Juzgado_tipo_key" ON "Juzgado"("tipo");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_CarpetaToJuzgado_AB_unique" ON "_CarpetaToJuzgado"("A", "B");
@@ -189,12 +181,6 @@ CREATE UNIQUE INDEX "_DemandaToJuzgado_AB_unique" ON "_DemandaToJuzgado"("A", "B
 -- CreateIndex
 CREATE INDEX "_DemandaToJuzgado_B_index" ON "_DemandaToJuzgado"("B");
 
--- CreateIndex
-CREATE UNIQUE INDEX "_JuzgadoToProceso_AB_unique" ON "_JuzgadoToProceso"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_JuzgadoToProceso_B_index" ON "_JuzgadoToProceso"("B");
-
 -- AddForeignKey
 ALTER TABLE "Deudor" ADD CONSTRAINT "Deudor_carpetaNumero_fkey" FOREIGN KEY ("carpetaNumero") REFERENCES "Carpeta"("numero") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -202,7 +188,7 @@ ALTER TABLE "Deudor" ADD CONSTRAINT "Deudor_carpetaNumero_fkey" FOREIGN KEY ("ca
 ALTER TABLE "Nota" ADD CONSTRAINT "Nota_carpetaNumero_fkey" FOREIGN KEY ("carpetaNumero") REFERENCES "Carpeta"("numero") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Tarea" ADD CONSTRAINT "Tarea_carpetaId_fkey" FOREIGN KEY ("carpetaId") REFERENCES "Carpeta"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Tarea" ADD CONSTRAINT "Tarea_carpetaId_fkey" FOREIGN KEY ("carpetaId") REFERENCES "Carpeta"("numero") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "SubTarea" ADD CONSTRAINT "SubTarea_tareaId_fkey" FOREIGN KEY ("tareaId") REFERENCES "Tarea"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -220,7 +206,10 @@ ALTER TABLE "Demanda" ADD CONSTRAINT "Demanda_carpetaNumero_fkey" FOREIGN KEY ("
 ALTER TABLE "Proceso" ADD CONSTRAINT "Proceso_carpetaNumero_fkey" FOREIGN KEY ("carpetaNumero") REFERENCES "Carpeta"("numero") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_CarpetaToJuzgado" ADD CONSTRAINT "_CarpetaToJuzgado_A_fkey" FOREIGN KEY ("A") REFERENCES "Carpeta"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Proceso" ADD CONSTRAINT "Proceso_despacho_fkey" FOREIGN KEY ("despacho") REFERENCES "Juzgado"("tipo") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_CarpetaToJuzgado" ADD CONSTRAINT "_CarpetaToJuzgado_A_fkey" FOREIGN KEY ("A") REFERENCES "Carpeta"("numero") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_CarpetaToJuzgado" ADD CONSTRAINT "_CarpetaToJuzgado_B_fkey" FOREIGN KEY ("B") REFERENCES "Juzgado"("tipo") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -230,9 +219,3 @@ ALTER TABLE "_DemandaToJuzgado" ADD CONSTRAINT "_DemandaToJuzgado_A_fkey" FOREIG
 
 -- AddForeignKey
 ALTER TABLE "_DemandaToJuzgado" ADD CONSTRAINT "_DemandaToJuzgado_B_fkey" FOREIGN KEY ("B") REFERENCES "Juzgado"("tipo") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_JuzgadoToProceso" ADD CONSTRAINT "_JuzgadoToProceso_A_fkey" FOREIGN KEY ("A") REFERENCES "Juzgado"("tipo") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_JuzgadoToProceso" ADD CONSTRAINT "_JuzgadoToProceso_B_fkey" FOREIGN KEY ("B") REFERENCES "Proceso"("idProceso") ON DELETE CASCADE ON UPDATE CASCADE;

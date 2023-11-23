@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { NotasLinkList } from './notas-list';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import { prisma } from '#@/lib/connection/prisma';
 
 type Props = {
   children: ReactNode;
@@ -53,9 +54,22 @@ export default async function LayoutCarpetaMain(
         return notFound();
       }
 
+      const updated = await prisma.carpeta.update(
+        {
+          where: {
+            numero: Number(
+              params.numero
+            )
+          },
+          data: {
+            revisado: true
+          }
+        }
+      );
       return (
         <>
-          <CarpetaFormProvider key={params.numero} carpeta={carpeta}>
+          <CarpetaFormProvider key={ params.numero } carpeta={ carpeta }>
+            {updated.nombre}
             <div className={ styles.top }>
               <Suspense fallback={ <Loader /> }>
                 <Link href={ `/Carpeta/${ params.numero }` as Route}>

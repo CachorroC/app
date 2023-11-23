@@ -1,7 +1,7 @@
 import { WithId } from 'mongodb';
 import { intActuacion } from './actuaciones';
 import { intProceso } from './procesos';
-import { Despachos } from '../Procesos/despachos';
+import { Despachos } from '../project/utils/Procesos/despachos';
 
 export interface NuevaCarpeta
 {
@@ -46,6 +46,8 @@ export interface IntCarpeta
   procesos?: intProceso[];
   ultimaActuacion?: intActuacion;
 }
+
+export type IntCarpetaWithActuacion = Required<IntCarpeta>;
 
 export type Departamento = 'CUNDINAMARCA' | 'BOGOTÁ' | 'TOLIMA' | 'CUN DINAMARCA' | 'CUNDINNAMARCA' | 'BOYACÁ' | 'CNDINAMARCA' | 'ANTIOQUIA' | 'META';
 

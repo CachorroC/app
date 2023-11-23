@@ -16,6 +16,7 @@ model Carpeta {
   fecha           DateTime?  @db.Date
   revisado        Boolean    @default(false)
   updatedAt       DateTime   @updatedAt
+  terminado       Boolean    @default(false)
   ultimaActuacion Actuacion?
   demanda         Demanda?
   deudor          Deudor?
@@ -42,25 +43,25 @@ model Deudor {
 
 model Nota {
   id            Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  title         String
-  content       String?
   date          DateTime
+  createdAt     DateTime @default(now())
   pathname      String?
   carpetaNumero Int?
+  content       String?
+  title         String
+  updatedAt     DateTime @updatedAt
   carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
 }
 
 model Tarea {
   id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  title     String
-  content   String?
   dueDate   DateTime?  @db.Date
   carpetaId Int?
   complete  Boolean
+  content   String?
+  createdAt DateTime   @default(now())
+  title     String
+  updatedAt DateTime   @updatedAt
   subTareas SubTarea[]
   Carpeta   Carpeta?   @relation(fields: [carpetaId], references: [numero])
 }
@@ -103,12 +104,12 @@ model Demanda {
   etapaProcesal           String?
   fechaPresentacion       DateTime?   @db.Date
   municipio               String?
-  despacho                String?
   obligacion              String[]
   radicado                String?
   vencimientoPagare       DateTime[]  @db.Date
   expediente              String?
   carpetaNumero           Int         @unique
+  despacho                String?
   carpeta                 Carpeta     @relation(fields: [carpetaNumero], references: [numero])
   juzgados                Juzgado[]   @relation("DemandaToJuzgado")
 }
@@ -117,9 +118,9 @@ model Juzgado {
   id       Int
   tipo     String    @id
   url      String
+  Proceso  Proceso[]
   carpetas Carpeta[] @relation("CarpetaToJuzgado")
   demanda  Demanda[] @relation("DemandaToJuzgado")
-  Proceso  Proceso[]
 }
 
 model Proceso {

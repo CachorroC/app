@@ -3,13 +3,18 @@ import { sleep } from 'project/helper';
 import { IntCarpeta, intJuzgado } from 'types/carpetas';
 import { Despacho } from 'types/despachos';
 import { intProceso, ConsultaNumeroRadicacion, Data, Message } from 'types/procesos';
-import clientPromise from '../connection/mongodb';
+import clientPromise from '../../../connection/mongodb';
 
 export const getDespachos = cache(
   async () => {
             try {
               const request = await fetch(
-                'https://app.rsasesorjuridico.com/despachos.json'
+                'https://app.rsasesorjuridico.com/despachos.json', {
+                  headers: {
+                    'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
+                    'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`
+                  }
+                }
               );
 
               if ( !request.ok ) {

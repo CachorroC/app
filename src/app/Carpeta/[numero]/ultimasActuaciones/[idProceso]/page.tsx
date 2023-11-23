@@ -3,8 +3,7 @@ import { Fragment, Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
-import { ConsultaActuacion } from '#@/lib/types/actuaciones';
-
+import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones/fetcher';
 //SECTION Generate segments for [numero]
 /* export async function generateStaticParams () {
       const carpetas =( await fetch(

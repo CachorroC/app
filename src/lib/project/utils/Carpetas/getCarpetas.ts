@@ -45,8 +45,8 @@ export async function getCarpetas (): Promise<Carpeta[]> {
       const res =  await fetch(
         'https://api.rsasesorjuridico.com/api/Carpetas', {
           headers: {
-            'CF-Access-Client-Id'    : 'dac874230dcfcd71de02b41f5e78083c.access',
-            'CF-Access-Client-Secret': process.env.
+            'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
+            'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`
           }
         }
       );

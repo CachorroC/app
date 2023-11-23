@@ -5,7 +5,7 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { intProceso } from 'types/procesos';
 import { fixDemandado, fixFechas } from '#@/lib/project/helper';
-import { getProceso } from '#@/lib/Procesos';
+import { getProceso } from '#@/lib/project/utils/Procesos';
 import { DespachoJudicial } from '#@/lib/types/carpetas';
 
 export const ProcesoCard = (

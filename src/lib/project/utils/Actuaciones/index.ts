@@ -13,6 +13,7 @@ export async function fetchActuaciones(
         await sleep(
           index
         );
+
         const request = await fetch(
           `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
           {
