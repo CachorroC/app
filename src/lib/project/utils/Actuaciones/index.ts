@@ -211,7 +211,9 @@ export async function  updateActuaciones(
                       anotacion: ultimaActuacion.anotacion
                         ? ultimaActuacion.anotacion
                         : null,
-                      isUltimaAct: (ultimaActuacion.cant === ultimaActuacion.consActuacion) ? true : false
+                      isUltimaAct: ( ultimaActuacion.cant === ultimaActuacion.consActuacion )
+                        ? true
+                        : false
 
                     }
                   }
@@ -301,6 +303,9 @@ export async function createActuacionInPrisma (
                   actuacion.fechaInicial
                 )
                 : null,
+              isUltimaAct: ( actuacion.cant === actuacion.consActuacion )
+                ? true
+                : false
 
             }
           }
@@ -318,8 +323,7 @@ export async function createActuacionInPrisma (
         );
         return {
           ok   : false,
-          error: error ?
-
+          error: error
         };
       }
 }
