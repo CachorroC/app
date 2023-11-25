@@ -4,7 +4,7 @@ import { sleep } from 'project/helper';
 import { intActuacion, ConsultaActuacion, Data, Message } from 'types/actuaciones';
 import { getCarpetaByllaveProceso } from 'project/utils/Carpetas/carpetas';
 import { carpetasCollection } from '../../../connection/collections';
-import { prisma } from '../../../connection/prisma';
+import { prisma } from '#@/lib/connection/prisma';
 
 export async function fetchActuaciones(
   idProceso: number, index: number
@@ -124,7 +124,6 @@ export async function  updateActuaciones(
           throw new Error(
             'no hay carpeta por actualizar'
           );
-
         }
 
         const incomingDate = new Date(
@@ -184,7 +183,39 @@ export async function  updateActuaciones(
               data: {
                 fecha: new Date(
                   ultimaActuacion.actuacion
-                )
+                ),
+                revisado       : false,
+                ultimaActuacion: {
+                  connectOrCreate: {
+                    where: {
+                      idRegActuacion: ultimaActuacion.idRegActuacion
+                    },
+                    create: {
+                      ...ultimaActuacion,
+                      fechaActuacion: new Date(
+                        ultimaActuacion.fechaActuacion
+                      ),
+                      fechaRegistro: new Date(
+                        ultimaActuacion.fechaRegistro
+                      ),
+                      fechaInicial: ultimaActuacion.fechaInicial
+                        ? new Date(
+                          ultimaActuacion.fechaInicial
+                        )
+                        : null,
+                      fechaFinal: ultimaActuacion.fechaFinal
+                        ? new Date(
+                          ultimaActuacion.fechaFinal
+                        )
+                        : null,
+                      anotacion: ultimaActuacion.anotacion
+                        ? ultimaActuacion.anotacion
+                        : null,
+                      isUltimaAct: (ultimaActuacion.cant === ultimaActuacion.consActuacion) ? true : false
+
+                    }
+                  }
+                }
               }
             }
           );
@@ -193,18 +224,6 @@ export async function  updateActuaciones(
             updateCarpetaWithActuacionesToPrisma
           );
 
-          const updateActuacionesInPrisma = await prisma.actuacion.create(
-            {
-
-              data: {
-                ...ultimaActuacion,
-                carpetaNumero: carpeta.numero
-              }
-            }
-          );
-          console.log(
-            updateActuacionesInPrisma
-          );
 
           if ( !updateCarpetawithActuaciones ) {
             return;
@@ -216,9 +235,9 @@ export async function  updateActuaciones(
           ) {
             console.log(
               `Actuaciones:
-          - se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas
-           - se insertaron ${ updateCarpetawithActuaciones.upsertedCount }
-           - para un total de carpetas: ${ updateCarpetawithActuaciones.matchedCount }`
+            - se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas
+            - se insertaron ${ updateCarpetawithActuaciones.upsertedCount }
+            - para un total de carpetas: ${ updateCarpetawithActuaciones.matchedCount }`
             );
 
           }
@@ -256,3 +275,51 @@ export const deleteProcesoPrivado = async (
 
           return false;
 };
+
+
+export async function createActuacionInPrisma (
+  actuacion: intActuacion
+) {
+      try {
+        const inserterInPrisma = await prisma.actuacion.create(
+          {
+            data: {
+              ...actuacion,
+              fechaActuacion: new Date(
+                actuacion.fechaActuacion
+              ),
+              fechaRegistro: new Date(
+                actuacion.fechaRegistro
+              ),
+              fechaFinal: actuacion.fechaFinal
+                ? new Date(
+                  actuacion.fechaFinal
+                )
+                : null,
+              fechaInicial: actuacion.fechaInicial
+                ? new Date(
+                  actuacion.fechaInicial
+                )
+                : null,
+
+            }
+          }
+        );
+
+        return {
+          ok  : true,
+          data: inserterInPrisma
+        };
+      } catch ( error ) {
+        console.log(
+          JSON.stringify(
+            error, null, 2
+          )
+        );
+        return {
+          ok   : false,
+          error: error ?
+
+        };
+      }
+}

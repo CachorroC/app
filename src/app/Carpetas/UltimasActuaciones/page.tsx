@@ -4,6 +4,7 @@ import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
 import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
+import { carpetasCollection } from '#@/lib/connection/collections';
 
 export const dynamic = 'force-dynamic';
 
@@ -52,13 +53,13 @@ export default async function Page() {
               carpeta, index
             ) => {
                       const {
-                        idProcesos, _id
+                        idProcesos,
                       } = carpeta;
                       return (
                         <Card
 
                           carpeta={carpeta}
-                          key={_id}
+                          key={id}
                         >
                           <Suspense fallback={<Loader />}>
                             {idProcesos
@@ -74,14 +75,14 @@ export default async function Page() {
                                 index={ index } />
                             );
                   }
-                )}
+                              )
+                            }
                           </Suspense>
-
-
                         </Card>
                       );
             }
-          )}
+          )
+          }
         </Suspense>
         </>
       );

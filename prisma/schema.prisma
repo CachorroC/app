@@ -8,8 +8,8 @@ datasource db {
 }
 
 model Carpeta {
-  numero          Int        @id @unique
-  llaveProceso    String?
+  numero          Int        @id
+  llaveProceso    String?    @unique
   nombre          String
   idProcesos      Int[]
   category        Category   @default(SinEspecificar)
@@ -17,7 +17,8 @@ model Carpeta {
   revisado        Boolean    @default(false)
   updatedAt       DateTime   @updatedAt
   terminado       Boolean    @default(false)
-  ultimaActuacion Actuacion?
+  idRegUltimaAct  Int?
+  ultimaActuacion Actuacion? @relation(fields: [idRegUltimaAct], references: [idRegActuacion])
   demanda         Demanda?
   deudor          Deudor?
   notas           Nota[]
@@ -54,20 +55,21 @@ model Nota {
 }
 
 model Tarea {
-  id        Int        @id @default(autoincrement())
-  dueDate   DateTime?  @db.Date
-  carpetaId Int?
-  complete  Boolean
-  content   String?
-  createdAt DateTime   @default(now())
-  title     String
-  updatedAt DateTime   @updatedAt
-  subTareas SubTarea[]
-  Carpeta   Carpeta?   @relation(fields: [carpetaId], references: [numero])
+  id            Int        @id @default(autoincrement())
+  dueDate       DateTime?  @db.Date
+  carpetaNumero Int?
+  complete      Boolean
+  content       String?
+  createdAt     DateTime   @default(now())
+  title         String
+  updatedAt     DateTime   @updatedAt
+  subTareas     SubTarea[]
+  Carpeta       Carpeta?   @relation(fields: [carpetaNumero], references: [numero])
 }
 
 model SubTarea {
-  text       String    @id
+  id         Int       @id @default(autoincrement())
+  text       String
   date       DateTime?
   isComplete Boolean
   tareaId    Int?
@@ -75,23 +77,24 @@ model SubTarea {
 }
 
 model Actuacion {
-  createdAt        DateTime  @default(now())
-  idRegActuacion   Int       @id @db.Oid
-  llaveProceso     String
-  consActuacion    Int
-  fechaActuacion   DateTime  @db.Date
-  actuacion        String
-  anotacion        String?
-  fechaInicial     DateTime? @db.Date
-  fechaRegistro    DateTime  @db.Date
-  fechaFinal       DateTime? @db.Date
-  codRegla         String
-  conDocumentos    Boolean
-  cant             Int
-  carpetaNumero    Int?      @unique
-  procesoIdProceso Int?
-  Carpeta          Carpeta?  @relation(fields: [carpetaNumero], references: [numero])
-  Proceso          Proceso?  @relation(fields: [procesoIdProceso], references: [idProceso])
+  isUltimaAct    Boolean
+  createdAt      DateTime  @default(now())
+  idRegActuacion Int       @id
+  llaveProceso   String
+  consActuacion  Int
+  fechaActuacion DateTime  @db.Date
+  actuacion      String
+  anotacion      String?
+  fechaInicial   DateTime? @db.Date
+  fechaRegistro  DateTime  @db.Date
+  fechaFinal     DateTime? @db.Date
+  codRegla       String
+  conDocumentos  Boolean
+  cant           Int
+  idProceso      Int?
+  carpetaNumero  Int?
+  Proceso        Proceso?  @relation(fields: [idProceso], references: [idProceso])
+  Carpeta        Carpeta[]
 }
 
 model Demanda {
@@ -124,7 +127,8 @@ model Juzgado {
 }
 
 model Proceso {
-  idProceso            Int         @id
+  id                   Int         @id @default(autoincrement())
+  idProceso            Int         @unique
   idConexion           Int
   llaveProceso         String
   fechaProceso         DateTime?   @db.Date
@@ -134,10 +138,9 @@ model Proceso {
   sujetosProcesales    String
   esPrivado            Boolean
   cantFilas            Int
-  carpetaNumero        Int
   actuaciones          Actuacion[]
-  Carpeta              Carpeta     @relation(fields: [carpetaNumero], references: [numero])
   Juzgado              Juzgado     @relation(fields: [despacho], references: [tipo])
+  Carpeta              Carpeta     @relation(fields: [llaveProceso], references: [llaveProceso])
 }
 
 enum Category {
