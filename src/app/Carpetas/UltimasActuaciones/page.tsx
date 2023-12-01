@@ -1,18 +1,12 @@
-import { Card } from 'components/Card';
+import {  PrismaCard } from 'components/Card';
 import { Loader } from '#@/components/Loader';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
 import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
-import { carpetasCollection } from '#@/lib/connection/collections';
-
-export const dynamic = 'force-dynamic';
-
-export const dynamicParams = true;
 
 export default async function Page() {
       const carpetasRaw = await getCarpetas();
-
 
       const carpetas = [
         ...carpetasRaw
@@ -46,23 +40,24 @@ export default async function Page() {
       );
 
       return (
-        <><Suspense fallback={ <SearchOutputListSkeleton /> }>
+        <>
+          <Suspense fallback={ <SearchOutputListSkeleton /> }>
 
-          {carpetas.map(
-            (
-              carpeta, index
-            ) => {
-                      const {
-                        idProcesos,
-                      } = carpeta;
-                      return (
-                        <Card
+            {carpetas.map(
+              (
+                carpeta, index
+              ) => {
+                        const {
+                          idProcesos, numero                        
+                        } = carpeta;
+                        return (
+                          <PrismaCard
 
-                          carpeta={carpeta}
-                          key={id}
-                        >
-                          <Suspense fallback={<Loader />}>
-                            {idProcesos
+                            carpeta={carpeta }
+                            key={numero}
+                          >
+                            <Suspense fallback={<Loader />}>
+                              {idProcesos
                 && idProcesos.map(
                   (
                     idProceso
@@ -75,15 +70,15 @@ export default async function Page() {
                                 index={ index } />
                             );
                   }
-                              )
-                            }
-                          </Suspense>
-                        </Card>
-                      );
+                )
+                              }
+                            </Suspense>
+                          </PrismaCard>
+                        );
+              }
+            )
             }
-          )
-          }
-        </Suspense>
+          </Suspense>
         </>
       );
 }

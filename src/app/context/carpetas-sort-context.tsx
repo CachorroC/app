@@ -1,6 +1,7 @@
 'use client';
-import { Category, MonCarpeta } from '#@/lib/types/carpetas';
+import { Category } from '#@/lib/types/carpetas';
 import { IntAction } from '#@/lib/types/context-actions';
+import { PrismaCarpeta } from '#@/lib/types/prisma/carpetas';
 import { Dispatch,
   ReactNode,
   SetStateAction,
@@ -10,7 +11,7 @@ import { Dispatch,
   useState, } from 'react';
 
 
-const CarpetasSortContext = createContext<MonCarpeta[] | null>(
+const CarpetasSortContext = createContext<PrismaCarpeta[] | null>(
   null
 );
 
@@ -18,7 +19,7 @@ const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
   null,
 );
 
-const CarpetasContext = createContext<{ currentCarpetas: MonCarpeta[]; setCurrentCarpetas: Dispatch<SetStateAction<MonCarpeta[]>> }| null>(
+const CarpetasContext = createContext<{ currentCarpetas: PrismaCarpeta[]; setCurrentCarpetas: Dispatch<SetStateAction<PrismaCarpeta[]>> }| null>(
   null
 );
 
@@ -28,7 +29,7 @@ export function CarpetasSortProvider(
     initialCarpetas,
   }: {
     children: ReactNode;
-    initialCarpetas: MonCarpeta[];
+    initialCarpetas: PrismaCarpeta[];
   }
 ) {
       const [
@@ -104,7 +105,7 @@ export function useCarpetaSortDispatch() {
 }
 
 export function carpetasReducer(
-  carpetas: MonCarpeta[], action: IntAction
+  carpetas: PrismaCarpeta[], action: IntAction
 ) {
       const categoriesSorter: Category[] = [
         'todos',

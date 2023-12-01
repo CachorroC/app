@@ -1,4 +1,4 @@
-import { Form } from '#@/components/form/Form';
+import {  PrismaForm } from '#@/components/form/Form';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { notFound } from 'next/navigation';
 
@@ -21,9 +21,9 @@ export default async function PageCarpetaId(
 
       return (
         <>
-          <Form
+          <PrismaForm
             carpeta={carpeta}
-            key={carpeta._id}
+            key={carpeta.id}
           />
         </>
       );

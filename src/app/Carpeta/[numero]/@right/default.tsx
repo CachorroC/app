@@ -61,9 +61,14 @@ export default async function Page(
         llaveProceso, demanda, fecha
       } = carpeta;
 
+      if ( !demanda ) {
+        return null;
+      }
+
       const {
         vencimientoPagare, entregaGarantiasAbogado, fechaPresentacion, mandamientoPago
       } = demanda;
+
 
       const allFechas = new Set<{name: string, date: Date}>();
 

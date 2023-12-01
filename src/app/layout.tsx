@@ -11,8 +11,6 @@ import { ModalProvider } from './context/modal-context';
 import { Loader } from '#@/components/Loader';
 import type { Metadata, Viewport } from 'next';
 import { NavBar } from '#@/components/layout/NavBar';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
-import { CarpetasSortProvider } from './context/carpetas-sort-context';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -91,36 +89,36 @@ export const viewport: Viewport = {
   ],
 };
 
-export default async function RootLayout(
+export default function RootLayout(
   {
     children,
   }: {
     children: ReactNode;
   }
 ) {
-      const carpetas = await getCarpetas();
       return (
         <html lang="es">
           <body
             className={`${ playDisp.variable } ${ radio.variable } ${ raleway.variable } ${ ptserif.variable } ${ josefina.variable }  [ color-scheme: light dark ]`}
           >
-            <CarpetasSortProvider initialCarpetas={carpetas}>
-              <SearchProvider>
-                <ModalProvider>
-                  <MainProvider>
-                    <div className={layout.container}>
-                      <Suspense fallback={<Loader />}>
-                        <NavBar />
-                      </Suspense>
-                      {children}
-                    </div>
-                  </MainProvider>
-                </ModalProvider>
-              </SearchProvider>
-            </CarpetasSortProvider>
+
+            <SearchProvider>
+              <ModalProvider>
+                <MainProvider>
+                  <div className={layout.container}>
+                    <Suspense fallback={<Loader />}>
+                      <NavBar />
+                    </Suspense>
+                    {children}
+                  </div>
+                </MainProvider>
+              </ModalProvider>
+            </SearchProvider>
+
             <Script
-              src={`https://${ prefix }.rsasesorjuridico.com/service-worker.js`}
+              src={`https://${ prefix }.rsasesorjuridico.com/installService-worker.js`}
             />
+
           </body>
         </html>
       );

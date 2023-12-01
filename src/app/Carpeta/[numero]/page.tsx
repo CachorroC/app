@@ -15,6 +15,7 @@ import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { InputSection } from '#@/components/form/input-section';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
+import { prisma } from '#@/lib/connection/prisma';
 
 
 
@@ -44,10 +45,8 @@ export async function generateMetadata(
       return {
         title   : product.nombre,
         keywords: [
-          product.deudor.primerNombre,
-          product.tipoProceso,
           product.category,
-          product.deudor.primerApellido
+          product.nombre
         ]
       };
 }
@@ -68,12 +67,18 @@ export default async function Page (
       }
 
       const {
-        deudor, demanda,  category, tipoProceso, idProcesos
+        deudor, demanda,  category, idProcesos, tipoProceso, numero
       } = carpeta;
 
       const {
-        tel, email, cedula
-      } = deudor;
+        telFijo, telCelular, email, cedula
+      } = deudor ?? await prisma.deudor.findFirstOrThrow(
+        {
+          where: {
+            carpetaNumero: numero
+          }
+        }
+      );
 
       const {
         juzgados
@@ -151,30 +156,30 @@ export default async function Page (
         )}
         </section>
         <section className={ layout.segmentRow}>
-          { tel.celular && (
+          { telCelular && (
             <Link
-              key={tel.celular}
+              key={telCelular}
               target={'_blank'}
               className={button.buttonActiveCategory}
-              href={`tel:${ tel.celular }`}
+              href={`tel:${ telCelular }`}
             >
               <span className={`material-symbols-outlined ${ button.icon }`}>
               phone_iphone
               </span>
-              <span className={`${ typography.labelSmall } ${ button.text }`}>{tel.celular.toString()}</span>
+              <span className={`${ typography.labelSmall } ${ button.text }`}>{telCelular.toString()}</span>
             </Link>
           )}
-          {tel.fijo && (
+          {telFijo && (
             <Link
-              key={tel.fijo}
+              key={telFijo}
               target={'_blank'}
               className={button.buttonActiveCategory}
-              href={`tel:${ tel.fijo }`}
+              href={`tel:${ telFijo }`}
             >
               <span className={`material-symbols-outlined ${ button.icon }`}>
               call
               </span>
-              <span className={`${ typography.labelSmall } ${ button.text }`}>{tel.fijo.toString()}</span>
+              <span className={`${ typography.labelSmall } ${ button.text }`}>{telFijo}</span>
             </Link>
           )}
 
@@ -193,7 +198,7 @@ export default async function Page (
         </section>
         <section className={ layout.segmentRow }>
           <h5 className={typography.titleMedium}>Vencimiento Pagaré:</h5>
-          {carpeta.demanda.vencimientoPagare && carpeta.demanda.vencimientoPagare.map(
+          {carpeta.demanda?.vencimientoPagare && carpeta.demanda.vencimientoPagare.map(
             (
               pagare, index
             ) => {
@@ -213,7 +218,7 @@ export default async function Page (
             }
           )}
         </section>
-        {carpeta.demanda.entregaGarantiasAbogado && (
+        {carpeta.demanda?.entregaGarantiasAbogado && (
           <p className={`${ typography.labelSmall } ${ button.text }`}>
             {OutputDateHelper(
               carpeta.demanda.entregaGarantiasAbogado
@@ -226,7 +231,7 @@ export default async function Page (
 
         <section className={ layout.segmentColumn }>
           <h5 className={typography.titleMedium}>Capital Adeudado:</h5>
-          <p className={typography.bodyMedium}>   {carpeta.demanda.capitalAdeudado
+          <p className={typography.bodyMedium}>   {carpeta.demanda?.capitalAdeudado
             && fixMoney(
               {
                 valor: Number(

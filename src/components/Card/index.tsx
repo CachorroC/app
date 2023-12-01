@@ -5,6 +5,7 @@ import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import layout from '#@/styles/layout.module.css';
+import { PrismaCarpeta } from '#@/lib/types/prisma/carpetas';
 
 export const Card = (
   {
@@ -24,13 +25,10 @@ export const Card = (
             ? llaveLength < 23
             : true;
 
-
           const {
             idProcesos, nombre, numero,
           }
-    = carpeta;
-
-
+            = carpeta;
 
           if ( !idProcesos || idProcesos.length === 0 ) {
             console.log(
@@ -85,6 +83,108 @@ export const Card = (
 
                 <div className={styles.links}>
 
+                  {errorLLaveProceso && (
+                    <Link
+                      href={`/Carpeta/${ numero }/Editar` as Route}
+                      className={styles.link}
+                    >
+                      {'error con el numero de expediente'}
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+};
+
+
+
+export const PrismaCard = (
+  {
+    carpeta,
+    children,
+  }: {
+    carpeta: PrismaCarpeta;
+    children: ReactNode;
+  }
+) => {
+          let contentIdProcesos;
+
+          const llaveLength = carpeta.llaveProceso?.length;
+
+          const errorLLaveProceso = llaveLength
+            ? llaveLength < 23
+            : true;
+
+          const {
+            idProcesos, nombre, numero
+          } = carpeta;
+
+          if ( !idProcesos || idProcesos.length === 0 ) {
+            console.log(
+              'no hay idProcesos'
+            );
+          } else {
+            contentIdProcesos = idProcesos.map(
+              (
+                idProceso
+              ) => {
+                        return (
+                          <Link
+                            key={idProceso}
+                            href={`/Carpeta/${ String(
+                              numero
+                            ) }/ultimasActuaciones/${ String(
+                              idProceso
+                            ) }`}
+                            className={styles.link}
+                          >
+                            <span className={`material-symbols-outlined ${ styles.icon }`}>
+            inventory
+                            </span>
+                          </Link>
+                        );
+              }
+            );
+          }
+
+          return (
+            <div className={styles.container}>
+              <div
+                className={`${ styles.card } ${
+                  errorLLaveProceso && styles.errorContainer
+                }`}
+              >
+                <section className={layout.sectionRow}>
+                  <h4 className={typography.titleMedium}>{nombre}</h4>
+                  <Link href={ `https://api.rsasesorjuridico.com/api/Carpeta/${ numero }/${ carpeta.llaveProceso }/${ carpeta.idProcesos[ 0 ] }` }>
+                    <span className={`${ typography.labelLarge } ${ layout.text }`}>
+                      {numero}
+                    </span>
+                    <span
+                      className={`material-symbols-outlined ${ layout.icon }`}
+                    >
+                      api
+                    </span>
+                  </Link>
+                  <Link
+                    className={styles.link}
+                    href={`/Carpeta/${ numero }` as Route}
+                  >
+                    <span className={`${ typography.labelLarge } ${ layout.text }`}>
+                      {numero}
+                    </span>
+                    <span
+                      className={`material-symbols-outlined ${ layout.icon }`}
+                    >
+                      folder
+                    </span>
+                  </Link>
+                </section>
+                {children}
+                {contentIdProcesos}
+
+                <div className={styles.links}>
                   {errorLLaveProceso && (
                     <Link
                       href={`/Carpeta/${ numero }/Editar` as Route}

@@ -1,13 +1,14 @@
 'use client';
 import { useState } from 'react';
-import { KeyOfCarpeta, MonCarpeta } from '../../lib/types/carpetas';
+import { KeyOfPrismaCarpeta, } from 'types/carpetas';
 import styles from './form.module.css';
 import { useFormContext } from 'react-hook-form';
+import { PrismaCarpeta } from 'types/prisma/carpetas';
 
 export function CheckboxHasProperty(
   {
     keyOfCarpeta, carpeta
-  }: { keyOfCarpeta: KeyOfCarpeta; carpeta: MonCarpeta }
+  }: { keyOfCarpeta: KeyOfPrismaCarpeta; carpeta: PrismaCarpeta }
 ) {
       let isInCarpeta;
 
@@ -31,7 +32,7 @@ export function CheckboxHasProperty(
 
       const {
         register
-      } = useFormContext<MonCarpeta>();
+      } = useFormContext<PrismaCarpeta>();
       return (
         <>
           <label className={styles.switchBox}>

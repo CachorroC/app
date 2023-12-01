@@ -44,6 +44,22 @@ export default async function LayoutCarpetaMain(
     params,
   }: Props
 ) {
+      const prismaUpdater = await prisma.carpeta.update(
+        {
+          where: {
+            numero: Number(
+              params.numero
+            )
+          },
+          data: {
+            revisado: true
+          }
+        }
+      );
+      console.log(
+        prismaUpdater
+      );
+
       const carpeta = await getCarpetabyNumero(
         Number(
           params.numero

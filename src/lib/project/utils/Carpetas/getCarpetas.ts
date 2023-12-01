@@ -39,9 +39,9 @@ export async function getCarpetas() {
 }
  */
 
-import { Carpeta } from '@prisma/client';
+import { PrismaCarpeta } from '#@/lib/types/prisma/carpetas';
 
-export async function getCarpetas (): Promise<Carpeta[]> {
+export async function getCarpetas (): Promise<PrismaCarpeta[]> {
       const res =  await fetch(
         'https://api.rsasesorjuridico.com/api/Carpetas', {
           headers: {

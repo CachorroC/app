@@ -2,6 +2,7 @@ import { WithId } from 'mongodb';
 import { intActuacion } from './actuaciones';
 import { intProceso } from './procesos';
 import { Despachos } from '../project/utils/Procesos/despachos';
+import { PrismaCarpeta } from './prisma/carpetas';
 
 export interface NuevaCarpeta
 {
@@ -61,7 +62,7 @@ export type Category =
   | 'Bancolombia'
   | 'Reintegra'
   | 'Insolvencia'
-  | 'sinEspecificar'
+  | 'SinEspecificar'
   | 'todos';
 
 export interface intDemanda
@@ -283,6 +284,8 @@ export class carpetaConvert {
 }
 
 export type KeyOfCarpeta = keyof IntCarpeta;
+
+export type KeyOfPrismaCarpeta = keyof PrismaCarpeta;
 
 export const mockCarpeta: IntCarpeta = {
   idProcesos: [

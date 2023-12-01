@@ -1,76 +1,62 @@
-/// <reference lib="WebWorker" />
-const CACHE_NAME = 'offline';
+const CACHE_NAME = 'temperature-converter-v1';
 
-const OFFLINE_URL = 'offline.html';
+// Use the install event to pre-cache all initial resources.
 self.addEventListener(
-  'install', (
-    event
-  ) => {
+  'install', event => {
             event.waitUntil(
               ( async () => {
                         const cache = await caches.open(
                           CACHE_NAME
                         );
-                        await cache.add(
-                          new Request(
-                            OFFLINE_URL, {
-                              cache: 'reload',
-                            }
-                          ),
+                        cache.addAll(
+                          [
+                            '/',
+                            '/offline.html',
+                            '/despachos.json'
+                          ]
                         );
-              } )(),
+              } )()
             );
-            self.skipWaiting();
   }
 );
+
 self.addEventListener(
-  'activate', (
-    event
-  ) => {
-            event.waitUntil(
+  'fetch', event => {
+            event.respondWith(
               ( async () => {
-                        if ( 'navigationPreload' in self.registration ) {
-                          await self.registration.navigationPreload.enable();
+                        const cache = await caches.open(
+                          CACHE_NAME
+                        );
+
+                        // Get the resource from the cache.
+                        const cachedResponse = await cache.match(
+                          event.request
+                        );
+
+                        if ( cachedResponse ) {
+                          return cachedResponse;
                         }
-              } )(),
+
+                        try {
+                          // If the resource was not in the cache, try the network.
+                          const fetchResponse = await fetch(
+                            event.request
+                          );
+
+                          // Save the resource in the cache and return it.
+                          cache.put(
+                            event.request, fetchResponse.clone()
+                          );
+                          return fetchResponse;
+                        } catch ( e ) {
+                          // The network failed.
+                          console.log(
+                            `service worker error: network failed ${ e }`
+                          );
+                          return Response.error();
+                        }
+
+              } )()
             );
-            self.clients.claim();
-  }
-);
-self.addEventListener(
-  'fetch', (
-    event
-  ) => {
-            if ( event.request.mode === 'navigate' ) {
-              event.respondWith(
-                ( async () => {
-                          try {
-                            const preloadResponse = await event.preloadResponse;
-
-                            if ( preloadResponse ) {
-                              return preloadResponse;
-                            }
-
-                            const networkResponse = await fetch(
-                              event.request
-                            );
-                            return networkResponse;
-                          } catch ( error ) {
-                            console.log(
-                              'Service Worker: Fetch failed; returning offline page instead.', error
-                            );
-
-                            const cache = await caches.open(
-                              CACHE_NAME
-                            );
-
-                            const cachedResponse = await cache.match(
-                              OFFLINE_URL
-                            );
-                            return cachedResponse;
-                          }
-                } )(),
-              );
-            }
   }
 );

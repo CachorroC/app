@@ -1,41 +1,30 @@
 import clientPromise from '#@/lib/connection/mongodb';
+import { prisma } from '#@/lib/connection/prisma';
 import { IntCarpeta, carpetaConvert } from '#@/lib/types/carpetas';
 
 export async function fetchCarpetaByNumero(
   numero: number
 ) {
-
-      const client = await clientPromise;
-
-      if ( !client ) {
-        throw new Error(
-          'no hay cliente mongólico'
-        );
-      }
-
-      const db = client.db(
-        'RyS'
-      );
-
-      const collection = db.collection<IntCarpeta>(
-        'Carpetas'
-      );
-
-      const carpeta = await collection.findOne(
+      return prisma.carpeta.findFirst(
         {
-          numero: numero,
+          where: {
+            numero: numero
+          },
+          include: {
+            demanda        : true,
+            deudor         : true,
+            ultimaActuacion: true,
+            procesos       : true,
+            notas          : true,
+            juzgados       : true,
+            tareas         : {
+              include: {
+                subTareas: true
+              }
+            },
+          }
         }
       );
-
-      if ( !carpeta ) {
-        return null;
-      }
-
-      const Carpeta = carpetaConvert.toMonCarpeta(
-        carpeta
-      );
-
-      return Carpeta;
 }
 
 export async function fetcherCarpetaByidProceso (
@@ -84,92 +73,49 @@ export async function fetcherCarpetaByidProceso (
 export async function fetchCarpetasByllaveProceso (
   llaveProceso: string
 ) {
-      const client = await clientPromise;
-
-      if ( !client ) {
-        throw new Error(
-          'no hay cliente mongólico'
-        );
-      }
-
-      const db = client.db(
-        'RyS'
-      );
-
-      const collection = db.collection<IntCarpeta>(
-        'Carpetas'
-      );
-
-      const carpetasRaw = await collection
-            .find(
-              {
-                llaveProceso: llaveProceso,
+      return prisma.carpeta.findMany(
+        {
+          where: {
+            llaveProceso: llaveProceso
+          },
+          include: {
+            demanda        : true,
+            deudor         : true,
+            ultimaActuacion: true,
+            procesos       : true,
+            notas          : true,
+            juzgados       : true,
+            tareas         : {
+              include: {
+                subTareas: true
               }
-            )
-            .sort(
-              {
-                fecha: 1,
-              }
-            )
-            .allowDiskUse()
-            .toArray();
-
-      if ( !carpetasRaw ) {
-        return null;
-      }
-
-      const carpetas = carpetaConvert.toMonCarpetas(
-        carpetasRaw
+            },
+          }
+        }
       );
-
-      return carpetas;
 }
 
 export async function fetchCarpetaByllaveProceso (
   llaveProceso: string
 ) {
-
-
-      const client = await clientPromise;
-
-      if ( !client ) {
-        throw new Error(
-          'no hay cliente mongólico'
-        );
-      }
-
-      const db = client.db(
-        'RyS'
-      );
-
-      const collection = db.collection<IntCarpeta>(
-        'Carpetas'
-      );
-
-      const carpetaRaw = await collection.findOne(
+      return prisma.carpeta.findFirst(
         {
-          $or: [
-            {
-              llaveProceso: llaveProceso
-            },
-            {
-              'demanda.expediente': llaveProceso
-            }
-          ]
-        }, {
-          sort: {
-            fecha: 1,
+          where: {
+            llaveProceso: llaveProceso
           },
-        },
+          include: {
+            demanda        : true,
+            deudor         : true,
+            ultimaActuacion: true,
+            procesos       : true,
+            notas          : true,
+            juzgados       : true,
+            tareas         : {
+              include: {
+                subTareas: true
+              }
+            },
+          }
+        }
       );
-
-      if ( !carpetaRaw ) {
-        return null;
-      }
-
-      const carpeta = carpetaConvert.toMonCarpeta(
-        carpetaRaw
-      );
-
-      return carpeta;
 }

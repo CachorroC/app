@@ -21,7 +21,6 @@ export function ActuacionComponent(
         idRegActuacion,
         consActuacion,
         fechaActuacion,
-        fechaRegistro,
         cant,
       } = incomingActuacion;
 
@@ -39,7 +38,7 @@ export function ActuacionComponent(
             <section className={layout.segmentRow}>
               <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
               <sub className={styles.sub}>{`actuacion registrada el ${ fixFechas(
-                fechaRegistro,
+                fechaActuacion,
               ) }` }</sub>
               {fechaActuacion && (
                 <sub className={styles.date}>{fixFechas(

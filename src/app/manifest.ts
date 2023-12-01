@@ -9,7 +9,7 @@ export default function manifest(): MetadataRoute.Manifest {
 
       return {
         short_name                 : 'Tulis',
-        name                       : 'R&S Asesoria Juridica Especializada S.A.S',
+        name                       : 'R & S Asesoria Juridica Especializada S.A.S',
         orientation                : 'any',
         lang                       : 'es',
         dir                        : 'ltr',
@@ -18,12 +18,14 @@ export default function manifest(): MetadataRoute.Manifest {
         background_color           : '#202b3a',
         theme_color                : '#7aa4dd',
         prefer_related_applications: false,
-        display                    : 'standalone',
+        display                    : 'fullscreen',
         start_url                  : url,
         description                : 'Somos una firma legal comprometida con brindar something',
         display_override           : [
           'fullscreen',
-          'minimal-ui'
+          'standalone',
+          'window-controls-overlay',
+
         ],
         shortcuts: [
           {
@@ -51,6 +53,12 @@ export default function manifest(): MetadataRoute.Manifest {
             ],
           },
         ],
+        serviceworker: {
+          scope           : '/',
+          src             : '/service-worker.js',
+          update_via_cache: 'all'
+
+        },
         icons: [
           {
             src    : '/icon.svg',

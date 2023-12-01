@@ -1,10 +1,11 @@
 'use client';
 import { carpetasReducer,  } from '#@/app/context/carpetas-sort-context';
-import { Card } from '#@/components/Card';
+import { Card, PrismaCard } from '#@/components/Card';
 import { useSearch } from '#@/app/context/search-context';
 import { JSX, useReducer, useState } from 'react';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import {  Category, MonCarpeta } from '#@/lib/types/carpetas';
+import { PrismaCarpeta } from '#@/lib/types/prisma/carpetas';
 
 export function CarpetasList(
   {
@@ -135,6 +136,72 @@ export function CarpetasList(
             <h3>{}</h3>
             {}
           </div>
+          {rows}
+        </>
+      );
+}
+
+
+export function NewCarpetasList(
+  {
+    carpetas
+  }: { carpetas: PrismaCarpeta[] }
+) {
+      const rows: JSX.Element[] = [];
+
+
+      const categories = [
+        'Terminados',
+        'LiosJuridicos',
+        'Bancolombia',
+        'Reintegra',
+        'Insolvencia',
+        'sinEspecificar',
+        'todos',
+      ];
+
+
+      const {
+        search
+      } = useSearch();
+
+
+      carpetas.forEach(
+        (
+          proceso
+        ) => {
+                  const {
+                    ultimaActuacion
+                  } = proceso;
+
+                  if ( proceso.nombre.toLowerCase()
+                        .indexOf(
+                          search.toLowerCase()
+                        ) === -1 ) {
+                    return;
+                  }
+
+                  if ( category === 'todos' || category === proceso.category ) {
+                    rows.push(
+                      <PrismaCard
+                        key={proceso.id}
+                        carpeta={proceso}
+                      >
+                        {ultimaActuacion && (
+                          <ActuacionComponent
+                            initialOpenState={false}
+                            key={proceso.id}
+                            incomingActuacion={ultimaActuacion}
+                          />
+                        )}
+                      </PrismaCard>
+                    );
+                  }
+        }
+      );
+
+      return (
+        <>
           {rows}
         </>
       );

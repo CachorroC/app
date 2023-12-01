@@ -1,7 +1,7 @@
 'use client';
 import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
 import { useCategory } from '#@/app/context/main-context';
-import { CarpetasList } from '#@/components/Carpetas/client/carpetasList';
+import { NewCarpetasList } from '#@/components/Carpetas/client/carpetasList';
 import { useEffect } from 'react';
 
 export default function Page(
@@ -43,7 +43,7 @@ export default function Page(
 
       return (
         <>
-          <CarpetasList carpetas={carpetas}/>
+          <NewCarpetasList carpetas={carpetas}/>
         </>
       );
 }
