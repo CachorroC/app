@@ -1,7 +1,6 @@
 'use client';
-import { Category } from '#@/lib/types/carpetas';
+import { Category, MonCarpeta } from '#@/lib/types/carpetas';
 import { IntAction } from '#@/lib/types/context-actions';
-import { PrismaCarpeta } from '#@/lib/types/prisma/carpetas';
 import { Dispatch,
   ReactNode,
   SetStateAction,
@@ -11,7 +10,7 @@ import { Dispatch,
   useState, } from 'react';
 
 
-const CarpetasSortContext = createContext<PrismaCarpeta[] | null>(
+const CarpetasSortContext = createContext<MonCarpeta[] | null>(
   null
 );
 
@@ -19,7 +18,7 @@ const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
   null,
 );
 
-const CarpetasContext = createContext<{ currentCarpetas: PrismaCarpeta[]; setCurrentCarpetas: Dispatch<SetStateAction<PrismaCarpeta[]>> }| null>(
+const CarpetasContext = createContext<{ currentCarpetas: MonCarpeta[]; setCurrentCarpetas: Dispatch<SetStateAction<MonCarpeta[]>> }| null>(
   null
 );
 
@@ -29,7 +28,7 @@ export function CarpetasSortProvider(
     initialCarpetas,
   }: {
     children: ReactNode;
-    initialCarpetas: PrismaCarpeta[];
+    initialCarpetas: MonCarpeta[];
   }
 ) {
       const [
@@ -105,13 +104,13 @@ export function useCarpetaSortDispatch() {
 }
 
 export function carpetasReducer(
-  carpetas: PrismaCarpeta[], action: IntAction
+  carpetas: MonCarpeta[], action: IntAction
 ) {
       const categoriesSorter: Category[] = [
         'todos',
         'Bancolombia',
         'Reintegra',
-        'sinEspecificar',
+        'SinEspecificar',
         'LiosJuridicos',
         'Insolvencia',
         'Terminados',

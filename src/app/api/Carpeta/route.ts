@@ -2,7 +2,6 @@
 import clientPromise from '#@/lib/connection/mongodb';
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 
 //? aqui van las peticiones a todas las carpetas y colleccion carpetas
@@ -195,7 +194,7 @@ export async function PUT(
         }
 
         const query = {
-          _id: new ObjectId(
+          numero: Number(
             id
           ),
         };

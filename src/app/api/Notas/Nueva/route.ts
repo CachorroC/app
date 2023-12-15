@@ -9,24 +9,20 @@ export async function POST (
       try {
         const incomingNote =  ( await request.json() ) as Nota;
 
-        const {
-          // eslint-disable-next-line no-unused-vars
-          id, carpetaNumero, ...note
-        } = incomingNote;
         let nota: Prisma.NotaCreateInput;
 
         if ( incomingNote.carpetaNumero ) {
           nota = {
-            ...note,
+            ...incomingNote,
             carpeta: {
               connect: {
-                id: incomingNote.carpetaNumero
+                numero: incomingNote.carpetaNumero
               },
             },
           };
         } else {
           nota = {
-            ...note
+            ...incomingNote
           };
         }
 

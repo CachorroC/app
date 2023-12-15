@@ -1,7 +1,6 @@
 import { Nota } from '@prisma/client';
-import { Category,  } from './carpetas';
+import { Category, MonCarpeta,  } from './carpetas';
 import { monNota } from './notas';
-import { PrismaCarpeta } from './prisma/carpetas';
 
 export interface IntAction {
   type: ActionType;
@@ -25,4 +24,4 @@ export type ActionMonNotaType = keyof monNota;
 
 export type ActionNotaType = keyof Nota;
 
-export type ActionType = keyof PrismaCarpeta;
+export type ActionType = keyof MonCarpeta;

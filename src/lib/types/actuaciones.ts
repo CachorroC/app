@@ -54,6 +54,15 @@ export interface Paginacion {
 
 // Converts JSON strings to/from your types
 export class actuacionConvert {
+  public static inToOut (
+    value: intActuacion, idProceso:number
+  ): outActuacion {
+            return {
+              ...value,
+              isUltimaAct: value.cant === value.consActuacion,
+              idProceso  : idProceso
+            };
+  }
   public static actuacioneToJson(
     value: intActuacion
   ): string {

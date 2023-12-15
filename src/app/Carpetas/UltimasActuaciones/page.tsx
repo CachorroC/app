@@ -1,4 +1,4 @@
-import {  PrismaCard } from 'components/Card';
+import {  Card } from 'components/Card';
 import { Loader } from '#@/components/Loader';
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Suspense } from 'react';
@@ -51,7 +51,7 @@ export default async function Page() {
                           idProcesos, numero
                         } = carpeta;
                         return (
-                          <PrismaCard
+                          <Card
 
                             carpeta={carpeta }
                             key={numero}
@@ -73,7 +73,7 @@ export default async function Page() {
                 )
                               }
                             </Suspense>
-                          </PrismaCard>
+                          </Card>
                         );
               }
             )

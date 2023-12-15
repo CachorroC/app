@@ -68,7 +68,7 @@ export default async function Page (
       }
 
       const {
-        deudor, demanda,  category, tipoProceso, idProcesos, procesos
+        deudor,  category, tipoProceso, idProcesos, procesos
       } = carpeta;
 
       const {

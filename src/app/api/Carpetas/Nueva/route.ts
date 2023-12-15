@@ -17,7 +17,7 @@ export async function GET() {
 
       const defaultValues: NuevaCarpeta = {
         numero  : carpsLen + 1,
-        category: 'sinEspecificar',
+        category: 'SinEspecificar',
         deudor  : {
           primerNombre   : '',
           segundoNombre  : '',

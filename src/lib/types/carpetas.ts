@@ -151,7 +151,7 @@ export interface NuevaCarpeta
   demanda: {
     capitalAdeudado: number;
     entregaGarantiasAbogado: string; //? Date
-    obligacion: string[] | null;
+    obligacion: (  number | string )[] | null;
     tipoProceso: TipoProceso;
     vencimientoPagare: string[]; //?Date[]
     fechaPresentacion?: string; //?Date
@@ -220,7 +220,7 @@ export interface Codeudor {
 }
 
 export interface Demanda {
-  obligacion:              string[];
+  obligacion:              ( string| number )[];
   llaveProceso:            string;
   notificacion:            Notificacion | null;
   medidasCautelares:       MedidasCautelares | null;
@@ -620,7 +620,7 @@ export const mockCarpeta: IntCarpeta = {
     municipio  : 'Bogota',
     tipoProceso: 'SINGULAR',
     obligacion : [
-      '0'
+      '0',
     ],
     radicado         : null,
     vencimientoPagare: [

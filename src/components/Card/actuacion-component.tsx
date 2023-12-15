@@ -5,13 +5,13 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 import layout from '#@/styles/layout.module.css';
 import button from '../Buttons/buttons.module.css';
-import { PrismaUltimaActuacion } from '#@/lib/types/prisma/carpetas';
+import { outActuacion } from '#@/lib/types/actuaciones';
 
 export function ActuacionComponent(
   {
     incomingActuacion, initialOpenState
   }: {
-    incomingActuacion: PrismaUltimaActuacion; initialOpenState: boolean
+    incomingActuacion: outActuacion; initialOpenState: boolean
   }
 ) {
       const {

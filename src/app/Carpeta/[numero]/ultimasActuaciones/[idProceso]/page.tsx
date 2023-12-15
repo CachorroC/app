@@ -4,6 +4,7 @@ import { Loader } from '#@/components/Loader';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
 import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones/fetcher';
+import { outActuacion } from '#@/lib/types/actuaciones';
 //SECTION Generate segments for [numero]
 /* export async function generateStaticParams () {
       const carpetas =( await fetch(
@@ -93,9 +94,16 @@ export default async function Page (
               (
                 actuacion, index
               ) => {
+                        const newActuacion: outActuacion = {
+                          ...actuacion,
+                          isUltimaAct: actuacion.cant === actuacion.consActuacion,
+                          idProceso  : Number(
+                            params.idProceso
+                          )
+                        };
                         return (
                           <ActuacionComponent
-                            key={ index } incomingActuacion={actuacion } initialOpenState={ true} />
+                            key={ index } incomingActuacion={newActuacion } initialOpenState={ true} />
                         );
               }
             )}
