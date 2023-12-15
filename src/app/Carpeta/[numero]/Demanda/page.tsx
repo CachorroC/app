@@ -1,24 +1,30 @@
-import { prisma } from '#@/lib/connection/prisma';
+import { carpetasCollection } from '#@/lib/connection/collections';
 import { notFound } from 'next/navigation';
 
-export default async function DemandaPage (
+export default async function DemandaPage(
   {
-    params
-  }: { params: { numero: string } }
+    params,
+  }: {
+    params: { numero: string };
+  }
 ) {
-      const demanda = await prisma.demanda.findFirst(
+      const collection = await carpetasCollection();
+
+      const carpeta = await collection.findOne(
         {
-          where: {
-            carpetaNumero: Number(
-              params.numero
-            )
-          }
+          numero: Number(
+            params.numero
+          )
         }
       );
 
-      if ( !demanda ) {
+      if ( !carpeta ) {
         notFound();
       }
+
+      const {
+        demanda
+      } = carpeta;
 
       const {
         capitalAdeudado
@@ -33,13 +39,13 @@ export default async function DemandaPage (
       )
             .format(
               capitalAdeudado
-                ? capitalAdeudado.toNumber()
+                ? capitalAdeudado
                 : 1000000
             );
       return (
         <div>
-          <h1>{ demanda.expediente }</h1>
-          <p>{ capitalAdeudado && moneyFixed}</p>
+          <h1>{demanda.llaveProceso}</h1>
+          <p>{capitalAdeudado && moneyFixed}</p>
         </div>
       );
 }

@@ -4,43 +4,74 @@
 //
 //   const prismaCarpeta = Convert.toPrismaCarpeta(json);
 
-import { Category } from '../carpetas';
+import { Decimal } from '@prisma/client/runtime/library';
+import { Category, intNotificacion } from '../carpetas';
+import { Juzgado } from '@prisma/client';
 
 export interface PrismaCarpeta
 {
-  numero: number;
-  llaveProceso: null | string;
-  nombre: string;
-  idProcesos: number[];
   category: Category;
-  fecha: Date | null;
-  demanda: PrismaDemanda ;
+  codeudor: Codeudor | null;
+  demandas: PrismaDemanda[];
   deudor: PrismaDeudor;
-  ultimaActuacion: PrismaUltimaActuacion | null;
+  fecha: Date | null;
+  idProcesos: number[];
+  idRegUltimaAct: number | null;
   juzgados: PrismaJuzgado[];
-  procesos: PrismaProceso[];
+  llaveProceso: string;
+  nombre: string;
   notas: PrismaNota[];
+  notificacion: intNotificacion | null;
+  numero: number;
+  revisado: boolean;
   tareas: PrismaTarea[];
+
+  terminado: boolean;
+  tipoProceso: TipoProceso;
+  updatedAt: Date;
+  ultimaActuacion: PrismaUltimaActuacion | null;
 }
+
+export interface Codeudor {
+  cedula: string | null;
+  nombre: string | null;
+  id: number;
+  carpetaNumero: number;
+  direccion: string | null;
+  telefono: string | null;
+}
+
 
 export interface PrismaDemanda
 {
-  id: number;
-  departamento: Departamento;
-  capitalAdeudado: string;
+  cantFilas: number | null;
+  capitalAdeudado: Decimal  | null;
+  carpetaNumero: number;
+  departamento: string | null;
+  despacho: string | null;
   entregaGarantiasAbogado: Date | null;
-  tipoProceso: TipoProceso;
-  mandamientoPago: Date | null;
+  esPrivado: boolean | null;
   etapaProcesal: null | string;
-  fechaPresentacion: Date | null;
-  municipio: string;
+  fechaPresentacion: Date[];
+  fechaProceso: Date | null;
+  fechaUltimaActuacion: Date | null;
+  idConexion: number | null;
+  id: number;
+  idProceso: number;
+  llaveProceso: string | null;
+  mandamientoPago: Date | null;
+  municipio: string | null;
   obligacion: string[];
   radicado: null | string;
+  sujetosProcesales: string | null;
+  juzgado: Juzgado | null;
+  tipoProceso: string;
   vencimientoPagare: Date[];
-  expediente: null | string;
-  carpetaNumero: number;
-  despacho: null;
+
 }
+
+export type DemandaDepartamento = 'CUNDINAMARCA' | 'CUNDINNAMARCA' | 'TOLIMA' | 'CUN DINAMARCA' | 'BOYACÁ' | 'CUNDINAMRCA' | 'CNDINAMARCA' | 'ATLANTICO';
+
 
 export type Departamento = 'BOGOTÁ' | 'CUNDINAMARCA' | 'TOLIMA' | 'CUN DINAMARCA' | 'CUNDINNAMARCA' | 'BOYACÁ' | 'CNDINAMARCA' | 'ANTIOQUIA';
 
@@ -49,7 +80,7 @@ export type TipoProceso = 'HIPOTECARIO' | 'PRENDARIO' | 'SINGULAR' | 'ACUMULADO'
 export interface PrismaDeudor
 {
   id: number;
-  cedula: string;
+  cedula: string | null;
   primerNombre: string;
   primerApellido: string;
   segundoNombre: null | string;
@@ -74,34 +105,40 @@ export interface PrismaNota
   date: Date;
   createdAt: Date;
   pathname: null | string;
-  carpetaNumero: number;
-  content: string;
+  carpetaNumero: number|null;
+  content: string | null;
   title: string;
   updatedAt: Date;
 }
 
 export interface PrismaProceso
 {
+
+  id: number;
   idProceso: number;
   idConexion: number;
   llaveProceso: string;
-  fechaProceso: Date;
+  fechaProceso: Date | null;
   fechaUltimaActuacion: Date | null;
   despacho: string;
-  departamento: Departamento;
+  departamento: string;
   sujetosProcesales: string;
+  carpetaNumero: number;
   esPrivado: boolean;
   cantFilas: number;
-  carpetaNumero: number;
+  demandaId: null;
 }
+
+export type ProcesoDepartamento = 'BOGOTÁ' | 'CUNDINAMARCA' | 'ANTIOQUIA' | 'META';
+
 
 export interface PrismaTarea
 {
   id: number;
-  dueDate: null;
-  carpetaId: number;
+  dueDate: Date | null;
+  carpetaNumero: number | null;
   complete: boolean;
-  content: string;
+  content: string | null;
   createdAt: Date;
   title: string;
   updatedAt: Date;
@@ -110,14 +147,18 @@ export interface PrismaTarea
 
 export interface PrismaSubPrismaTarea
 {
+  id: number;
   text: string;
-  date: Date;
+  date: Date | null;
   isComplete: boolean;
-  tareaId: number;
+  tareaId: number | null;
 }
 
 export interface PrismaUltimaActuacion
 {
+  id: number;
+  carpetaNumero: number| null;
+  isUltimaAct: boolean;
   createdAt: Date;
   idRegActuacion: number;
   llaveProceso: string;
@@ -128,11 +169,10 @@ export interface PrismaUltimaActuacion
   fechaInicial: Date | null;
   fechaRegistro: Date;
   fechaFinal: Date | null;
-  codRegla: CodRegla;
+  codRegla: string;
   conDocumentos: boolean;
   cant: number;
-  carpetaNumero: number;
-  procesoIdProceso: null;
+  idProceso: number;
 }
 
 export type CodRegla = '00                              ';

@@ -11,7 +11,7 @@ export default function manifest(): MetadataRoute.Manifest {
         short_name                 : 'Tulis',
         name                       : 'R & S Asesoria Juridica Especializada S.A.S',
         orientation                : 'any',
-        lang                       : 'es',
+        lang                       : 'es-CO',
         dir                        : 'ltr',
         scope                      : '/',
         id                         : '/',

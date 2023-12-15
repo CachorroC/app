@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { NuevaCarpetaFormProvider } from '../context/nueva-carpeta-form-context';
 import { Metadata } from 'next';
 import { CarpetasSortProvider } from '../context/carpetas-sort-context';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 
 export const metadata: Metadata = {
   title: 'Carpetas',

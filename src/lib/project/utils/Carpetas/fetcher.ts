@@ -1,3 +1,4 @@
+import { carpetasCollection } from '#@/lib/connection/collections';
 import clientPromise from '#@/lib/connection/mongodb';
 import { prisma } from '#@/lib/connection/prisma';
 import { IntCarpeta, carpetaConvert } from '#@/lib/types/carpetas';
@@ -5,26 +6,44 @@ import { IntCarpeta, carpetaConvert } from '#@/lib/types/carpetas';
 export async function fetchCarpetaByNumero(
   numero: number
 ) {
-      return prisma.carpeta.findFirst(
+      const carpeta = await prisma.carpeta.findFirst(
         {
           where: {
             numero: numero
           },
           include: {
-            demanda        : true,
-            deudor         : true,
             ultimaActuacion: true,
-            procesos       : true,
             notas          : true,
-            juzgados       : true,
-            tareas         : {
+            procesos       : {
+              include: {
+                juzgado: true
+              }
+            },
+            tareas: {
               include: {
                 subTareas: true
               }
-            },
+            }
           }
         }
       );
+
+      const collection = await carpetasCollection();
+
+      const Moncarpeta = await collection.findOne(
+        {
+          numero: numero
+        }
+      );
+
+      if ( Moncarpeta ) {
+        return {
+          ...Moncarpeta,
+          ...carpeta
+        };
+      }
+
+      return null;
 }
 
 export async function fetcherCarpetaByidProceso (
@@ -73,49 +92,92 @@ export async function fetcherCarpetaByidProceso (
 export async function fetchCarpetasByllaveProceso (
   llaveProceso: string
 ) {
-      return prisma.carpeta.findMany(
+      const prismaCarpetas = await prisma.carpeta.findMany(
         {
           where: {
             llaveProceso: llaveProceso
           },
           include: {
-            demanda        : true,
-            deudor         : true,
             ultimaActuacion: true,
-            procesos       : true,
             notas          : true,
-            juzgados       : true,
-            tareas         : {
+            procesos       : {
+              include: {
+                juzgado: true
+              }
+            },
+            tareas: {
               include: {
                 subTareas: true
               }
-            },
+            }
           }
         }
       );
+
+      const collection = await carpetasCollection();
+
+      const mongoCarpetas = await collection.find()
+            .toArray();
+
+      const mergedArray = mongoCarpetas.map(
+        (
+          item
+        ) => {
+                  const matchedObject = prismaCarpetas.find(
+                    (
+                      obj
+                    ) => {
+                              return obj.numero === item.numero;
+                    }
+                  );
+                  return {
+                    ...item,
+                    ...matchedObject
+                  };
+        }
+      );
+      return mergedArray;
 }
 
 export async function fetchCarpetaByllaveProceso (
   llaveProceso: string
 ) {
-      return prisma.carpeta.findFirst(
+      const prismaCarpeta = await prisma.carpeta.findFirst(
         {
           where: {
             llaveProceso: llaveProceso
           },
           include: {
-            demanda        : true,
-            deudor         : true,
             ultimaActuacion: true,
-            procesos       : true,
             notas          : true,
-            juzgados       : true,
-            tareas         : {
+            procesos       : {
+              include: {
+                juzgado: true
+              }
+            },
+            tareas: {
               include: {
                 subTareas: true
               }
-            },
+            }
           }
         }
       );
+
+      const collection = await carpetasCollection();
+
+      const Moncarpeta = await collection.findOne(
+        {
+          llaveProceso: llaveProceso
+        }
+      );
+
+      if ( Moncarpeta ) {
+        return {
+          ...Moncarpeta,
+          ...prismaCarpeta
+        };
+      }
+
+      return null;
 }

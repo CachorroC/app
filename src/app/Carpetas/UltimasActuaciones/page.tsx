@@ -1,6 +1,6 @@
 import {  PrismaCard } from 'components/Card';
 import { Loader } from '#@/components/Loader';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
 import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
@@ -48,7 +48,7 @@ export default async function Page() {
                 carpeta, index
               ) => {
                         const {
-                          idProcesos, numero                        
+                          idProcesos, numero
                         } = carpeta;
                         return (
                           <PrismaCard

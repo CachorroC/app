@@ -26,6 +26,14 @@ export default function Page() {
       ];
 
       const carpeta = useWatch<IntCarpeta>();
+
+      if ( !carpeta.demanda ) {
+        return null;
+      }
+
+      const {
+        demanda
+      } = carpeta;
       return (
         <>
 
@@ -34,24 +42,24 @@ export default function Page() {
             <div className={ styles.divider }></div>
             <div className={ styles.divider }></div>
             <pre>
-              {carpeta.demanda?.capitalAdeudado &&  fixMoney(
+              {demanda.capitalAdeudado &&  fixMoney(
                 {
-                  valor: carpeta.demanda.capitalAdeudado,
+                  valor: demanda.capitalAdeudado,
                 }
               ) }
             </pre>
-            <p>{carpeta.demanda && ( parseInt(
-              carpeta.demanda.capitalAdeudado?.toString() ?? ''
+            <p>{demanda && ( parseInt(
+              demanda.capitalAdeudado?.toString() ?? ''
             ) ) }</p>
-            <p>{carpeta.demanda && ( parseFloat(
-              carpeta.demanda.capitalAdeudado?.toString() ?? ''
+            <p>{demanda && ( parseFloat(
+              demanda.capitalAdeudado?.toString() ?? ''
             ) ) }</p>
-            <p>{carpeta.demanda && ( Number(
-              carpeta.demanda.capitalAdeudado?.toString() ?? ''
+            <p>{demanda && ( Number(
+              demanda.capitalAdeudado?.toString() ?? ''
             ) )}</p>
             <div className={ styles.divider }></div>
             <pre>{ OutputDateHelper(
-              carpeta.demanda?.entregaGarantiasAbogado
+              demanda?.entregaGarantiasAbogado
             ) }</pre>
             <div className={ styles.divider }></div>
 
@@ -131,7 +139,7 @@ export default function Page() {
             className={form.button}
             onClick={() => {
                       setFocus(
-                        'demanda.tipoProceso', {
+                        'tipoProceso', {
                           shouldSelect: true,
                         }
                       );
@@ -142,13 +150,14 @@ export default function Page() {
           <button
             type={'button'}
             className={form.button}
-            onClick={() => {
-                      setFocus(
-                        'deudor.primerNombre', {
-                          shouldSelect: true,
-                        }
-                      );
-            }}
+            onClick={
+              () => {
+                        setFocus(
+                          'deudor.primerNombre', {
+                            shouldSelect: true,
+                          }
+                        );
+              }}
           >
             <span>{'nombre'}</span>
           </button>

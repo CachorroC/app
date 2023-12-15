@@ -1,4 +1,4 @@
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { NextRequest, NextResponse } from 'next/server';
 import * as fs from 'fs/promises';
 import clientPromise from '#@/lib/connection/mongodb';

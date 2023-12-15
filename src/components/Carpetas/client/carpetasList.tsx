@@ -1,8 +1,8 @@
 'use client';
-import { carpetasReducer,  } from '#@/app/context/carpetas-sort-context';
-import { Card, PrismaCard } from '#@/components/Card';
+import { useCarpetaSort, useCarpetaSortDispatch,  } from '#@/app/context/carpetas-sort-context';
+import {  PrismaCard } from '#@/components/Card';
 import { useSearch } from '#@/app/context/search-context';
-import { JSX, useReducer, useState } from 'react';
+import { JSX, useState } from 'react';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import {  Category, MonCarpeta } from '#@/lib/types/carpetas';
 import { PrismaCarpeta } from '#@/lib/types/prisma/carpetas';
@@ -33,13 +33,9 @@ export function CarpetasList(
         'todos',
       ];
 
-      const [
-        carpetasReduced,
-        dispatchCarpetas
-      ] = useReducer(
-        carpetasReducer,
-        carpetas
-      );
+      const carpetasReduced = useCarpetaSort();
+
+      const dispatchCarpetas = useCarpetaSortDispatch();
 
       const {
         search
@@ -69,18 +65,18 @@ export function CarpetasList(
 
                   if ( category === 'todos' || category === proceso.category ) {
                     rows.push(
-                      <Card
-                        key={proceso._id}
+                      <PrismaCard
+                        key={proceso.numero}
                         carpeta={proceso}
                       >
                         {ultimaActuacion && (
                           <ActuacionComponent
                             initialOpenState={false}
-                            key={proceso._id}
+                            key={ultimaActuacion.idProceso}
                             incomingActuacion={ultimaActuacion}
                           />
                         )}
-                      </Card>
+                      </PrismaCard>
                     );
                   }
         }
@@ -147,6 +143,8 @@ export function NewCarpetasList(
     carpetas
   }: { carpetas: PrismaCarpeta[] }
 ) {
+      const dispatchCarpetas = useCarpetaSortDispatch();
+
       const rows: JSX.Element[] = [];
 
 
@@ -171,7 +169,7 @@ export function NewCarpetasList(
           proceso
         ) => {
                   const {
-                    ultimaActuacion
+                    ultimaActuacion, category, numero
                   } = proceso;
 
                   if ( proceso.nombre.toLowerCase()
@@ -184,13 +182,13 @@ export function NewCarpetasList(
                   if ( category === 'todos' || category === proceso.category ) {
                     rows.push(
                       <PrismaCard
-                        key={proceso.id}
+                        key={numero}
                         carpeta={proceso}
                       >
                         {ultimaActuacion && (
                           <ActuacionComponent
                             initialOpenState={false}
-                            key={proceso.id}
+                            key={ultimaActuacion.idProceso}
                             incomingActuacion={ultimaActuacion}
                           />
                         )}
@@ -202,6 +200,31 @@ export function NewCarpetasList(
 
       return (
         <>
+          {
+            categories.map(
+              (
+                category
+              ) => {
+
+                        return (
+                          <button
+                            key={category}
+                            onClick={() => {
+                                      return dispatchCarpetas(
+                                        {
+                                          type         : 'fecha',
+                                          sortDirection: true,
+                                          category     : category as Category,
+                                        }
+                                      );
+                            }}
+                          >
+                            <span>{category}</span>
+                          </button>
+                        );
+              }
+            )
+          }
           {rows}
         </>
       );

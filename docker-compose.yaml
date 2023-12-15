@@ -61,3 +61,6 @@ networks:
   internal:
     external: true
     name: internal
+  external:
+    external: true
+    name: external

@@ -12,47 +12,46 @@ export default function InformationComponent (
   }: { carpeta: MonCarpeta }
 ) {
       const {
-        deudor, demanda,  category, tipoProceso
+        deudor, demanda,  category, tipoProceso, procesos
       } = carpeta;
 
       const {
         tel, email, cedula
       } = deudor;
 
-      const {
-        juzgados
-      } = demanda;
+
+
+      const [
+        {
+          juzgado
+        }
+      ] = procesos;
 
       return (
         <>
           <p className={typography.bodySmall}>{category}</p>
           <p className={typography.labelSmall}>{tipoProceso}</p>
           <p className={ typography.titleSmall }>{ cedula }</p>
-          {juzgados
-          && juzgados.map(
-            (
-              despacho
-            ) => {
-                      return (
-                        <Link
-                          key={despacho.url}
-                          target={'_blank'}
-                          className={link}
-                          href={despacho.url as Route}
-                        >
-                          <span className={`material-symbols-outlined ${ icon }`}>
-                  enable
-                          </span>
-                          <sub className={typography.displaySmall}>
-                            {`${ despacho.id }`}
-                          </sub>
-                          <p className={typography.labelSmall}>
-                            {`Juzgado de origen: ${ despacho.tipo }`}
-                          </p>
-                        </Link>
-                      );
-            }
-          )}
+          {juzgado
+          && (
+            <Link
+              key={juzgado.url}
+              target={'_blank'}
+              className={link}
+              href={juzgado.url as Route}
+            >
+              <span className={`material-symbols-outlined ${ icon }`}>
+                  gavel
+              </span>
+              <sub className={typography.displaySmall}>
+                {`${ juzgado.id }`}
+              </sub>
+              <p className={typography.labelSmall}>
+                {`Juzgado de origen: ${ juzgado.tipo }`}
+              </p>
+            </Link>
+          )
+          }
           {tel.celular && (
             <Link
               key={tel.celular}
@@ -79,8 +78,8 @@ export default function InformationComponent (
               <span className={typography.labelSmall}>{tel.fijo.toString()}</span>
             </Link>
           )}
-          {carpeta.demanda.vencimientoPagare
-          && carpeta.demanda.vencimientoPagare.map(
+          {demanda.vencimientoPagare
+          && demanda.vencimientoPagare.map(
             (
               pagare, index
             ) => {
@@ -109,19 +108,19 @@ export default function InformationComponent (
             </Link>
           )}
 
-          {carpeta.demanda.entregaGarantiasAbogado && (
+          {demanda.entregaGarantiasAbogado && (
             <p className={typography.labelSmall}>
               {fixFechas(
-                carpeta.demanda.entregaGarantiasAbogado
+                demanda.entregaGarantiasAbogado
               )}
             </p>
           )}
 
-          {carpeta.demanda.capitalAdeudado
+          {demanda.capitalAdeudado
             && fixMoney(
               {
                 valor: Number(
-                  carpeta.demanda.capitalAdeudado
+                  demanda.capitalAdeudado
                 ),
               }
             )}

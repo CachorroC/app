@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { NotasLinkList } from './notas-list';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { prisma } from '#@/lib/connection/prisma';
 
 type Props = {
@@ -89,10 +89,10 @@ export default async function LayoutCarpetaMain(
             <div className={ styles.top }>
               <Suspense fallback={ <Loader /> }>
                 <Link href={ `/Carpeta/${ params.numero }` as Route}>
-                  <NombreComponent
+                  {carpeta.deudor && ( <NombreComponent
                     key={params.numero}
                     deudor={carpeta.deudor}
-                  />
+                  /> )}
                 </Link>
 
               </Suspense>

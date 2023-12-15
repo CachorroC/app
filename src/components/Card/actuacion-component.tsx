@@ -1,18 +1,17 @@
 'use client';
-
-import { intActuacion } from '#@/lib/types/actuaciones';
 import { useState } from 'react';
 import styles from 'components/Card/card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 import layout from '#@/styles/layout.module.css';
 import button from '../Buttons/buttons.module.css';
+import { PrismaUltimaActuacion } from '#@/lib/types/prisma/carpetas';
 
 export function ActuacionComponent(
   {
     incomingActuacion, initialOpenState
   }: {
-    incomingActuacion: intActuacion; initialOpenState: boolean
+    incomingActuacion: PrismaUltimaActuacion; initialOpenState: boolean
   }
 ) {
       const {

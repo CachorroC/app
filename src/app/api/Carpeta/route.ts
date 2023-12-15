@@ -1,6 +1,6 @@
 
 import clientPromise from '#@/lib/connection/mongodb';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';

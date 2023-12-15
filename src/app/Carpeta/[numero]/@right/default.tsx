@@ -61,13 +61,12 @@ export default async function Page(
         llaveProceso, demanda, fecha
       } = carpeta;
 
-      if ( !demanda ) {
-        return null;
-      }
 
-      const {
-        vencimientoPagare, entregaGarantiasAbogado, fechaPresentacion, mandamientoPago
-      } = demanda;
+      const
+        {
+          vencimientoPagare, entregaGarantiasAbogado, fechaPresentacion, mandamientoPago
+        }
+       = demanda;
 
 
       const allFechas = new Set<{name: string, date: Date}>();
@@ -95,12 +94,19 @@ export default async function Page(
       }
 
       if ( fechaPresentacion !== null ) {
-        allFechas.add(
-          {
-            name: 'fechaPresentacion',
-            date: new Date(
-              fechaPresentacion
-            )
+        fechaPresentacion.forEach(
+          (
+            fechaP
+          ) => {
+
+                    allFechas.add(
+                      {
+                        name: 'fechaPresentacion',
+                        date: new Date(
+                          fechaP
+                        )
+                      }
+                    );
           }
         );
       }

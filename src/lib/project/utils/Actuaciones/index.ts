@@ -1,10 +1,11 @@
 import 'server-only';
 import { cache } from 'react';
 import { sleep } from 'project/helper';
-import { intActuacion, ConsultaActuacion, Data, Message } from 'types/actuaciones';
+import { intActuacion, ConsultaActuacion,  Message } from 'types/actuaciones';
 import { getCarpetaByllaveProceso } from 'project/utils/Carpetas/carpetas';
 import { carpetasCollection } from '../../../connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
+import { Data } from '#@/lib/types/procesos';
 
 export async function fetchActuaciones(
   idProceso: number, index: number
@@ -24,11 +25,11 @@ export async function fetchActuaciones(
         );
 
         if ( !request.ok ) {
-          const json = ( await request.json() ) as ConsultaActuacion;
+          const json = ( await request.json() ) as Data;
           return json;
         }
 
-        const data = ( await request.json() ) as Data;
+        const data = ( await request.json() ) as ConsultaActuacion;
 
         const {
           actuaciones
@@ -38,7 +39,7 @@ export async function fetchActuaciones(
           actuaciones, idProceso
         );
 
-        const json: ConsultaActuacion = {
+        const json: Data = {
           StatusCode : request.status,
           Message    : request.statusText as Message,
           actuaciones: actuaciones,

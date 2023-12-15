@@ -39,8 +39,11 @@ export async function getCarpetas() {
 }
  */
 
-import { PrismaCarpeta } from '#@/lib/types/prisma/carpetas';
-
+/*
+import { PrismaCarpeta } from '#@/lib/types/prisma/carpetas'; */
+import { cache } from 'react';
+import { fetchCarpetas } from './fetchCarpetas';
+/*
 export async function getCarpetas (): Promise<PrismaCarpeta[]> {
       const res =  await fetch(
         'https://api.rsasesorjuridico.com/api/Carpetas', {
@@ -65,3 +68,10 @@ export async function getCarpetas (): Promise<PrismaCarpeta[]> {
 
       return res.json();
 }
+
+ */
+
+
+export default cache(
+  fetchCarpetas
+);
