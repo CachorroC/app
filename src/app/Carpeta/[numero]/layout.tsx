@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { NotasLinkList } from './notas-list';
-import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { prisma } from '#@/lib/connection/prisma';
 
 type Props = {
@@ -17,23 +16,6 @@ type Props = {
   right: ReactNode;
   params: { numero: string };
 };
-
-//SECTION Generate segments for [numero]
-export async function generateStaticParams () {
-      const carpetas = await getCarpetas();
-
-      return carpetas.map(
-        (
-          product
-        ) => {
-                  return {
-                    numero: String(
-                      product.numero
-                    ),
-                  };
-        }
-      );
-}
 
 
 export default async function LayoutCarpetaMain(

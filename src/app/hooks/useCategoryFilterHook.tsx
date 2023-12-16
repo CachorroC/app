@@ -10,7 +10,7 @@ export function CategoryCarpetasReducer (
 
       switch ( type ) {
           case 'Bancolombia': {
-            const temporryCarpetasMap = new Map<string, MonCarpeta>();
+            const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
             for ( const carpeta of carpetas ) {
               const {
@@ -32,7 +32,7 @@ export function CategoryCarpetasReducer (
           }
 
           case 'LiosJuridicos': {
-            const temporryCarpetasMap = new Map<string, MonCarpeta>();
+            const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
             for ( const carpeta of carpetas ) {
               const {
@@ -54,7 +54,7 @@ export function CategoryCarpetasReducer (
           }
 
           case 'Insolvencia': {
-            const temporryCarpetasMap = new Map<string, MonCarpeta>();
+            const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
             for ( const carpeta of carpetas ) {
               const {
@@ -76,7 +76,7 @@ export function CategoryCarpetasReducer (
           }
 
           case 'Reintegra': {
-            const temporryCarpetasMap = new Map<string, MonCarpeta>();
+            const temporryCarpetasMap = new Map<number, MonCarpeta>();
             carpetas.forEach(
               (
                 carpeta
@@ -99,7 +99,7 @@ export function CategoryCarpetasReducer (
           }
 
           case 'Terminados': {
-            const temporryCarpetasMap = new Map<string, MonCarpeta>();
+            const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
             for ( const carpeta of carpetas ) {
               const {

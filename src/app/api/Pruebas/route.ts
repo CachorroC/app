@@ -1,7 +1,6 @@
 
-import { pruebasCollection } from '#@/lib/connection/collections';
+import { carpetasCollection } from '#@/lib/connection/collections';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 import 'server-only';
 
@@ -15,7 +14,7 @@ export async function GET(
         Request.url
       );
 
-      const collection = await pruebasCollection();
+      const collection = await carpetasCollection();
 
       const carpetas = await collection.find(
         {}
@@ -114,7 +113,7 @@ export async function POST(
 ) {
       const incomingCarpeta = ( await request.json() ) as IntCarpeta;
 
-      const collection = await pruebasCollection();
+      const collection = await carpetasCollection();
 
       const updateOne = await collection.findOneAndUpdate(
         {
@@ -165,7 +164,7 @@ export async function PUT(
         '_id'
       );
 
-      const collection = await pruebasCollection();
+      const collection = await carpetasCollection();
 
       try {
         if ( !id ) {
@@ -175,7 +174,7 @@ export async function PUT(
         }
 
         const query = {
-          _id: new ObjectId(
+          numero: Number(
             id
           ),
         };

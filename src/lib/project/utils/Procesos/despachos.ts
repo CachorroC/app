@@ -1,4 +1,4 @@
-import { intJuzgado } from '../../../types/carpetas';
+import { Juzgado } from '../../../types/carpetas';
 
 
 export const Despachos = [
@@ -37249,7 +37249,7 @@ export const Despachos = [
 ];
 
 export function transformDespacho(
-  juzgado: intJuzgado
+  juzgado: Juzgado
 ) {
       const matchedDespacho = Despachos.filter(
         (
@@ -37263,7 +37263,7 @@ export function transformDespacho(
       );
 
       if ( matchedDespacho.length > 0 ) {
-        const newJuzgado: intJuzgado = {
+        const newJuzgado: Juzgado = {
           id  : juzgado.id,
           tipo: juzgado.tipo,
           url : `https://www.ramajudicial.gov.co${ matchedDespacho[ 0 ].url }`

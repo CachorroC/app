@@ -250,7 +250,8 @@ export default async function Page (
                               initialOpenState={ true }
                               key={ idProceso }
                               idProceso={ idProceso }
-                              index={ index} />
+                              index={index}
+                            />
 
                             <Link key={ idProceso } className={ button.buttonPassiveCategory} href={ `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }` as Route }>
                               <span className={ `material-symbols-outlined ${ button.icon }` }>description

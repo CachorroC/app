@@ -2,7 +2,6 @@
 import {  fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { unstable_noStore as noStore } from 'next/cache';
-import { outActuacion } from '#@/lib/types/actuaciones';
 
 /*
 async function getData(
@@ -86,20 +85,15 @@ export async function FechaActuacionComponent(
         idProceso, index
       );
 
-      if ( !consultaActuaciones.actuaciones ) {
+      if ( !consultaActuaciones ) {
         return null;
       }
 
       const [
         ultimaActuacion
-      ] = consultaActuaciones.actuaciones;
+      ] = consultaActuaciones;
 
-      const newActuacion : outActuacion = {
-        ...ultimaActuacion,
-        isUltimaAct: ultimaActuacion.cant === ultimaActuacion.consActuacion,
-        idProceso  : idProceso
-      };
 
-      return ( <ActuacionComponent key={ultimaActuacion.idRegActuacion} initialOpenState={ initialOpenState } incomingActuacion={ newActuacion } />
+      return ( <ActuacionComponent key={ultimaActuacion.idRegActuacion} initialOpenState={ initialOpenState } incomingActuacion={ ultimaActuacion } />
       );
 }

@@ -154,7 +154,7 @@ export interface NuevaCarpeta
     obligacion: (  number | string )[] | null;
     tipoProceso: TipoProceso;
     vencimientoPagare: string[]; //?Date[]
-    fechaPresentacion?: string; //?Date
+    fechaPresentacion?: string[]; //?Date[]
   };
 }
 // To parse this data:

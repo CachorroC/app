@@ -1,11 +1,10 @@
 'use client';
 import { useCarpetaSort, useCarpetaSortDispatch,  } from '#@/app/context/carpetas-sort-context';
-import {  PrismaCard } from '#@/components/Card';
+import {  Card } from '#@/components/Card';
 import { useSearch } from '#@/app/context/search-context';
 import { JSX, useState } from 'react';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import {  Category, MonCarpeta } from '#@/lib/types/carpetas';
-import { PrismaCarpeta } from '#@/lib/types/prisma/carpetas';
 
 export function CarpetasList(
   {
@@ -65,7 +64,7 @@ export function CarpetasList(
 
                   if ( category === 'todos' || category === proceso.category ) {
                     rows.push(
-                      <PrismaCard
+                      <Card
                         key={proceso.numero}
                         carpeta={proceso}
                       >
@@ -76,7 +75,7 @@ export function CarpetasList(
                             incomingActuacion={ultimaActuacion}
                           />
                         )}
-                      </PrismaCard>
+                      </Card>
                     );
                   }
         }
@@ -132,99 +131,6 @@ export function CarpetasList(
             <h3>{}</h3>
             {}
           </div>
-          {rows}
-        </>
-      );
-}
-
-
-export function NewCarpetasList(
-  {
-    carpetas
-  }: { carpetas: PrismaCarpeta[] }
-) {
-      const dispatchCarpetas = useCarpetaSortDispatch();
-
-      const rows: JSX.Element[] = [];
-
-
-      const categories = [
-        'Terminados',
-        'LiosJuridicos',
-        'Bancolombia',
-        'Reintegra',
-        'Insolvencia',
-        'sinEspecificar',
-        'todos',
-      ];
-
-
-      const {
-        search
-      } = useSearch();
-
-
-      carpetas.forEach(
-        (
-          proceso
-        ) => {
-                  const {
-                    ultimaActuacion, category, numero
-                  } = proceso;
-
-                  if ( proceso.nombre.toLowerCase()
-                        .indexOf(
-                          search.toLowerCase()
-                        ) === -1 ) {
-                    return;
-                  }
-
-                  if ( category === 'todos' || category === proceso.category ) {
-                    rows.push(
-                      <PrismaCard
-                        key={numero}
-                        carpeta={proceso}
-                      >
-                        {ultimaActuacion && (
-                          <ActuacionComponent
-                            initialOpenState={false}
-                            key={ultimaActuacion.idProceso}
-                            incomingActuacion={ultimaActuacion}
-                          />
-                        )}
-                      </PrismaCard>
-                    );
-                  }
-        }
-      );
-
-      return (
-        <>
-          {
-            categories.map(
-              (
-                category
-              ) => {
-
-                        return (
-                          <button
-                            key={category}
-                            onClick={() => {
-                                      return dispatchCarpetas(
-                                        {
-                                          type         : 'fecha',
-                                          sortDirection: true,
-                                          category     : category as Category,
-                                        }
-                                      );
-                            }}
-                          >
-                            <span>{category}</span>
-                          </button>
-                        );
-              }
-            )
-          }
           {rows}
         </>
       );

@@ -7,28 +7,24 @@ import typography from '#@/styles/fonts/typography.module.css';
 import card from 'components/Card/card.module.css';
 import { button } from '../Buttons/buttons.module.css';
 import layout from '#@/styles/layout.module.css';
-import { PrismaCarpeta } from '#@/lib/types/prisma/carpetas';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 
 export const CarpetaCard = (
   {
     carpeta
-  }: { carpeta: PrismaCarpeta}
+  }: { carpeta: MonCarpeta }
 ) => {
           const {
-            idProcesos, deudor, demandas, numero
+            idProcesos, deudor, demanda, numero, procesos
           } = carpeta;
 
           const {
-            telCelular, telFijo, email
+            tel, email
           } = deudor;
 
-          const [
-            demanda
-          ] = demandas;
-
           const {
-            juzgado
-          } = demanda;
+            fijo, celular
+          } = tel;
 
           return (
             <div
@@ -36,84 +32,91 @@ export const CarpetaCard = (
               key={numero}
             >
               <div className={styles.card}>
-                {deudor && ( <NombreComponent
-                  key={numero}
-                  deudor={deudor}
-                /> )}
+                {deudor && (
+                  <NombreComponent
+                    key={numero}
+                    deudor={deudor}
+                  />
+                )}
                 <sub className={card.sub}>{carpeta.numero}</sub>
                 <p className={typography.bodySmall}>{carpeta.category}</p>
                 <p className={typography.labelSmall}>{carpeta.tipoProceso}</p>
                 <p className={typography.titleSmall}>{deudor?.cedula}</p>
                 <section className={layout.segmentRow}>
-
                   {idProcesos
-          && idProcesos.map(
-            (
-              idProceso
-            ) => {
-                      return (
-                        <Link
-                          className={button}
-                          key={idProceso}
-                          href={
-                            `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
-                          }
-                        >
-                          <span className={`material-symbols-outlined ${ styles.icon }`}>
-                  update
-                          </span>
-                          <span className={styles.tooltiptext}>Ultimas Actiaciones</span>
-                        </Link>
-                      );
-            }
-          )}
+            && idProcesos.map(
+              (
+                idProceso
+              ) => {
+                        return (
+                          <Link
+                            className={button}
+                            key={idProceso}
+                            href={
+                              `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
+                            }
+                          >
+                            <span className={`material-symbols-outlined ${ styles.icon }`}>
+                    update
+                            </span>
+                            <span className={styles.tooltiptext}>
+                    Ultimas Actiaciones
+                            </span>
+                          </Link>
+                        );
+              }
+            )}
                 </section>
-                {juzgado
-          && (
-            <Link
-              key={juzgado.url}
-              target={'_blank'}
-              className={card.link}
-              href={new URL(
-                juzgado.url
-              )}
-            >
-              <span className={`material-symbols-outlined ${ card.icon }`}>
-                  enable
-              </span>
-              <sub className={typography.displaySmall}>
-                {`${ juzgado.id }`}
-              </sub>
-              <p className={typography.labelSmall}>
-                {`Juzgado de origen: ${ juzgado.tipo }`}
-              </p>
-            </Link>
-          )
-                }
-                {telCelular && (
+                {procesos.map(
+                  (
+                    {
+                      juzgado
+                    }
+                  ) => {
+                            return (
+                              <Link
+                                key={juzgado.url}
+                                target={'_blank'}
+                                className={card.link}
+                                href={new URL(
+                                  juzgado.url
+                                )}
+                              >
+                                <span className={`material-symbols-outlined ${ card.icon }`}>
+                enable
+                                </span>
+                                <sub className={typography.displaySmall}>{`${ juzgado.id }`}</sub>
+                                <p className={typography.labelSmall}>
+                                  {`Juzgado de origen: ${ juzgado.tipo }`}
+                                </p>
+                              </Link>
+                            );
+                  }
+                )}
+                {celular && (
                   <Link
-                    key={telCelular}
+                    key={celular}
                     target={'_blank'}
                     className={card.link}
-                    href={`tel:${ telCelular }`}
+                    href={`tel:${ celular }`}
                   >
                     <span className={`material-symbols-outlined ${ styles.icon }`}>
               phone_iphone
                     </span>
-                    <span className={styles.tooltiptext}>{telCelular}</span>
+                    <span className={styles.tooltiptext}>{celular}</span>
                   </Link>
                 )}
-                {telFijo && (
+                {fijo && (
                   <Link
-                    key={telFijo}
+                    key={fijo}
                     target={'_blank'}
                     className={card.link}
-                    href={`tel:${ telFijo }`}
+                    href={`tel:${ fijo }`}
                   >
                     <span className={`material-symbols-outlined ${ styles.icon }`}>
               call
                     </span>
-                    <span className={styles.tooltiptext}>{telFijo.toString()}</span>
+                    <span className={styles.tooltiptext}>{fijo.toString()}</span>
                   </Link>
                 )}
                 {demanda.vencimientoPagare
@@ -174,27 +177,27 @@ export const CarpetaCard = (
                   <span className={card.tooltiptext}>{'Correo Electrónico'}</span>
                 </Link>
               )}
-              {telCelular && (
+              {celular && (
                 <Link
-                  key={telCelular}
+                  key={celular}
                   className={card.link}
                   target={'_blank'}
-                  href={`tel:${ telCelular }`}
+                  href={`tel:${ celular }`}
                 >
                   <span className={`material-symbols-outlined ${ card.icon }`}>
             phone_iphone
                   </span>
-                  <span className={card.tooltiptext}>{telCelular}</span>
+                  <span className={card.tooltiptext}>{celular}</span>
                 </Link>
               )}
-              {telFijo && (
+              {fijo && (
                 <Link
-                  key={telFijo}
+                  key={fijo}
                   className={card.link}
-                  href={`tel:${ telFijo }`}
+                  href={`tel:${ fijo }`}
                 >
                   <span className={`material-symbols-outlined ${ card.icon }`}>call</span>
-                  <span className={card.tooltiptext}>{telFijo.toString()}</span>
+                  <span className={card.tooltiptext}>{fijo.toString()}</span>
                 </Link>
               )}
             </div>

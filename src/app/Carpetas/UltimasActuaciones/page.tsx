@@ -64,10 +64,10 @@ export default async function Page() {
                   ) => {
                             return (
                               <FechaActuacionComponent
+                                index={index}
                                 initialOpenState={ false }
                                 idProceso={ idProceso }
-                                key={ idProceso }
-                                index={ index } />
+                                key={ idProceso } />
                             );
                   }
                 )

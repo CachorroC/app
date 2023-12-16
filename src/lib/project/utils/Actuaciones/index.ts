@@ -1,14 +1,14 @@
 import 'server-only';
 import { cache } from 'react';
-import { sleep } from 'project/helper';
-import { intActuacion, ConsultaActuacion,  Message } from 'types/actuaciones';
+import { intActuacion, ConsultaActuacion,  outActuacion } from 'types/actuaciones';
 import { getCarpetaByllaveProceso } from 'project/utils/Carpetas/carpetas';
 import { carpetasCollection } from '../../../connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
-import { Data } from '#@/lib/types/procesos';
+import { sleep } from '../../helper';
+
 
 export async function fetchActuaciones(
-  idProceso: number, index: number
+  idProceso: number, index:number
 ) {
       try {
         await sleep(
@@ -25,26 +25,41 @@ export async function fetchActuaciones(
         );
 
         if ( !request.ok ) {
-          const json = ( await request.json() ) as Data;
-          return json;
+          throw new Error(
+            `${ idProceso }: ${ request.status } ${ request.statusText }${ request }`
+          );
         }
 
-        const data = ( await request.json() ) as ConsultaActuacion;
+        const json = ( await request.json() ) as ConsultaActuacion;
 
         const {
           actuaciones
-        } = data;
+        } = json;
 
-        await NewUpdateActuaciones(
-          actuaciones, idProceso
+        NewUpdateActuaciones(
+          actuaciones.map(
+            (
+              actuacion
+            ) => {
+                      return {
+                        ...actuacion,
+                        isUltimaAct: actuacion.cant === actuacion.consActuacion,
+                        idProceso  : idProceso
+                      };
+            }
+          ), idProceso
         );
-
-        const json: Data = {
-          StatusCode : request.status,
-          Message    : request.statusText as Message,
-          actuaciones: actuaciones,
-        };
-        return json;
+        return actuaciones.map(
+          (
+            actuacion
+          ) => {
+                    return {
+                      ...actuacion,
+                      isUltimaAct: actuacion.cant === actuacion.consActuacion,
+                      idProceso  : idProceso
+                    };
+          }
+        );
       } catch ( error ) {
         if ( error instanceof Error ) {
           console.log(
@@ -56,12 +71,7 @@ export async function fetchActuaciones(
           `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
         );
 
-        return {
-          StatusCode: 404,
-          Message   : JSON.stringify(
-            error
-          ) as Message,
-        };
+        return null;
       }
 }
 
@@ -72,20 +82,17 @@ export const getActuaciones = cache(
     }: { idProceso: number; index: number }
   ) => {
             try {
-              const consultaActuaciones = await fetchActuaciones(
+              const actuaciones = await fetchActuaciones(
                 idProceso, index
               );
 
               if (
-                !consultaActuaciones.actuaciones
-        || consultaActuaciones.actuaciones.length === 0
+                !actuaciones
+        || actuaciones.length === 0
               ) {
                 return null;
               }
 
-              const {
-                actuaciones
-              } = consultaActuaciones;
 
               return actuaciones;
             } catch ( error ) {
@@ -113,8 +120,7 @@ export async function  updateActuaciones(
         }
 
         const [
-          ultimaActuacion,
-          penUltimaActuacion
+          ultimaActuacion
         ] = actuaciones;
 
         const carpeta = await getCarpetaByllaveProceso(
@@ -163,9 +169,12 @@ export async function  updateActuaciones(
                 fecha: new Date(
                   ultimaActuacion.fechaActuacion
                 ),
-                ultimaActuacion: ultimaActuacion.actuacion === 'Fijacion estado'
-                  ? penUltimaActuacion
-                  : ultimaActuacion,
+                idRegUltimaAct : ultimaActuacion.idRegActuacion,
+                ultimaActuacion: {
+                  ...ultimaActuacion,
+                  isUltimaAct: ultimaActuacion.cant === ultimaActuacion.consActuacion,
+                  idProceso  : idProceso
+                },
               },
             },
             {
@@ -212,6 +221,7 @@ export async function  updateActuaciones(
                       isUltimaAct: ( ultimaActuacion.cant === ultimaActuacion.consActuacion )
                         ? true
                         : false,
+                      idProceso: idProceso
                     }
                   }
                 }
@@ -255,7 +265,7 @@ export async function  updateActuaciones(
 
 
 export async function NewUpdateActuaciones (
-  actuaciones: intActuacion[], idProceso: number
+  actuaciones: outActuacion[], idProceso: number
 ) {
       try {
         if ( actuaciones.length === 0 ) {
@@ -265,8 +275,7 @@ export async function NewUpdateActuaciones (
         }
 
         const [
-          ultimaActuacion,
-          penUltimaActuacion
+          ultimaActuacion
         ] = actuaciones;
 
         const carpeta = await prisma.carpeta.findFirst(
@@ -285,54 +294,6 @@ export async function NewUpdateActuaciones (
           );
         }
 
-        try {
-          for ( const actuacion of actuaciones ) {
-            await prisma.actuacion.upsert(
-              {
-                where: {
-                  idRegActuacion: actuacion.idRegActuacion
-                },
-                create: {
-                  ...actuacion,
-                  fechaActuacion: new Date(
-                    actuacion.fechaActuacion
-                  ),
-                  fechaRegistro: new Date(
-                    actuacion.fechaRegistro
-                  ),
-                  fechaInicial: actuacion.fechaInicial
-                    ? new Date(
-                      actuacion.fechaInicial
-                    )
-                    : null,
-                  fechaFinal: actuacion.fechaFinal
-                    ? new Date(
-                      actuacion.fechaFinal
-                    )
-                    : null,
-                  isUltimaAct: actuacion.cant === actuacion.consActuacion
-                    ? true
-                    : false,
-                  idProceso: idProceso,
-
-                },
-                update: {
-                  idProceso  : idProceso,
-                  isUltimaAct: actuacion.cant === actuacion.consActuacion
-                    ? true
-                    : false,
-                }
-
-
-              }
-            );
-          }
-
-        } catch ( createError ) {
-          console.log(
-            createError
-          );
-        }
 
         const incomingDate = new Date(
           ultimaActuacion.fechaActuacion
@@ -343,12 +304,6 @@ export async function NewUpdateActuaciones (
         const incomingMonth = incomingDate.getMonth();
 
         const incomingDay = incomingDate.getDate();
-        console.log(
-          `${ carpeta.numero } => la nueva fecha de la actuacion es: ${ new Date(
-            incomingYear, incomingMonth, incomingDay
-          ) } y el timezone offset es  ${ incomingDate.getTimezoneOffset() }
-          raw: ${ ultimaActuacion.fechaActuacion }`
-        );
 
         const savedDate = carpeta.fecha
           ? new Date(
@@ -357,16 +312,6 @@ export async function NewUpdateActuaciones (
 
           : null;
 
-        const savedYear = savedDate?.getFullYear();
-
-        const savedMonth = savedDate?.getMonth();
-
-        const savedDay = savedDate?.getDate();
-        console.log(
-          `${ carpeta.numero } => la fecha guardada en el servidor de LINK -  actuacion es: ${ new Date(
-            savedYear ?? 0, savedMonth ?? 0, savedDay
-          ) }`
-        );
 
         const carpetasColl = await carpetasCollection();
 
@@ -376,9 +321,7 @@ export async function NewUpdateActuaciones (
             {
               $or: [
                 {
-                  llaveProceso: carpeta
-                    ? carpeta.llaveProceso
-                    : ultimaActuacion.llaveProceso
+                  llaveProceso: ultimaActuacion.llaveProceso
                 },
                 {
                   idProcesos: idProceso
@@ -387,14 +330,21 @@ export async function NewUpdateActuaciones (
               ]
             },
             {
+              $addToSet: {
+                actuaciones: ultimaActuacion
+              },
               $set: {
                 fecha: new Date(
                   ultimaActuacion.fechaActuacion
-                )
+                ),
+                revisado      : false,
+                idRegUltimaAct: ultimaActuacion.idRegActuacion
                 ,
-                ultimaActuacion: ultimaActuacion.actuacion === 'Fijacion estado'
-                  ? penUltimaActuacion
-                  : ultimaActuacion,
+                ultimaActuacion: {
+                  ...ultimaActuacion,
+                  isUltimaAct: ultimaActuacion.cant === ultimaActuacion.consActuacion,
+                  idProceso  : idProceso
+                },
               },
             },
             {
@@ -472,6 +422,56 @@ export async function NewUpdateActuaciones (
           }
         }
 
+
+        try {
+          for ( const actuacion of actuaciones ) {
+            await prisma.actuacion.upsert(
+              {
+                where: {
+                  idRegActuacion: actuacion.idRegActuacion
+                },
+                create: {
+                  ...actuacion,
+                  fechaActuacion: new Date(
+                    actuacion.fechaActuacion
+                  ),
+                  fechaRegistro: new Date(
+                    actuacion.fechaRegistro
+                  ),
+                  fechaInicial: actuacion.fechaInicial
+                    ? new Date(
+                      actuacion.fechaInicial
+                    )
+                    : null,
+                  fechaFinal: actuacion.fechaFinal
+                    ? new Date(
+                      actuacion.fechaFinal
+                    )
+                    : null,
+                  isUltimaAct: actuacion.cant === actuacion.consActuacion
+                    ? true
+                    : false,
+                  idProceso: idProceso,
+
+                },
+                update: {
+                  idProceso  : idProceso,
+                  isUltimaAct: actuacion.cant === actuacion.consActuacion
+                    ? true
+                    : false,
+                }
+
+
+              }
+            );
+          }
+
+        } catch ( createError ) {
+          console.log(
+            createError
+          );
+        }
+
         return;
       } catch ( error ) {
         console.log(
@@ -504,53 +504,3 @@ export const deleteProcesoPrivado = async (
 
           return false;
 };
-
-
-export async function createActuacionInPrisma (
-  actuacion: intActuacion
-) {
-      try {
-        const inserterInPrisma = await prisma.actuacion.create(
-          {
-            data: {
-              ...actuacion,
-              fechaActuacion: new Date(
-                actuacion.fechaActuacion
-              ),
-              fechaRegistro: new Date(
-                actuacion.fechaRegistro
-              ),
-              fechaFinal: actuacion.fechaFinal
-                ? new Date(
-                  actuacion.fechaFinal
-                )
-                : null,
-              fechaInicial: actuacion.fechaInicial
-                ? new Date(
-                  actuacion.fechaInicial
-                )
-                : null,
-              isUltimaAct: ( actuacion.cant === actuacion.consActuacion )
-                ? true
-                : false
-
-            }
-          }
-        );
-
-        return {
-          ok  : true,
-          data: inserterInPrisma
-        };
-      } catch ( error ) {
-        console.log(
-          JSON.stringify(
-            error, null, 2
-          )
-        );
-        return {
-          ok   : false,
-          error: error
-        };
-      }
-}

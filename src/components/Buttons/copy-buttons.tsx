@@ -90,9 +90,7 @@ export function CopyButtons(
           { carpeta.demanda.radicado && (
             <CopyButton copyTxt={ carpeta.demanda.radicado} name={`radicado ${ carpeta.demanda.radicado }`} />
           )}
-          { carpeta.cc && (
-            <CopyButton copyTxt={ carpeta.cc.toString()}  name={`cedula ${ carpeta.cc }`}/>
-          )}
+
         </>
       );
 }

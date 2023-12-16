@@ -1,9 +1,10 @@
 import { cache } from 'react';
 import { sleep } from 'project/helper';
-import { IntCarpeta, intJuzgado } from 'types/carpetas';
 import { Despacho } from 'types/despachos';
 import { intProceso, ConsultaNumeroRadicacion, Data, Message } from 'types/procesos';
-import clientPromise from '../../../connection/mongodb';
+import { NewJuzgado } from '#@/lib/models/demanda';
+import { carpetasCollection } from '#@/lib/connection/collections';
+import { prisma } from '#@/lib/connection/prisma';
 
 export const getDespachos = cache(
   async () => {
@@ -42,73 +43,6 @@ export const getDespachos = cache(
   }
 );
 
-export async function newJuzgado(
-  proceso: intProceso
-) {
-
-      const Despachos = await getDespachos();
-
-
-      const matchedDespacho = Despachos.find(
-        (
-          despacho
-        ) => {
-                  const nDesp = despacho.nombre
-                        .toLowerCase()
-                        .normalize(
-                          'NFD'
-                        )
-                        .replace(
-                          /\p{Diacritic}/gu, ''
-                        )
-                        .trim();
-
-                  const pDesp = proceso.despacho
-                        .toLowerCase()
-                        .normalize(
-                          'NFD'
-                        )
-                        .replace(
-                          /\p{Diacritic}/gu, ''
-                        )
-                        .trim();
-
-
-                  return nDesp === pDesp;
-        }
-      );
-
-      const nameN = matchedDespacho
-        ? matchedDespacho.nombre
-        : proceso.despacho;
-
-      const matchedId = nameN.match(
-        /\d+/g
-      );
-
-      const newId = Number(
-        matchedId?.toString()
-      );
-
-      const newJuzgado: intJuzgado = {
-        id  : newId ?? 0,
-        tipo: matchedDespacho
-          ? matchedDespacho.nombre
-          : proceso.despacho,
-        url: matchedDespacho
-          ? `https://www.ramajudicial.gov.co${ matchedDespacho.url }`
-          : `https://www.ramajudicial.gov.co${ proceso.despacho.replaceAll(
-            ' ', '-'
-          )
-                .toLowerCase() }`,
-      };
-
-      return newJuzgado;
-
-}
-
-
-
 export async function fetchProceso(
   llaveProceso: string, index: number
 ) {
@@ -123,21 +57,21 @@ export async function fetchProceso(
         );
 
         if ( !req.ok ) {
-          const jsonError = ( await req.json() ) as ConsultaNumeroRadicacion;
+          const jsonError = ( await req.json() ) as Data;
           return jsonError;
         }
 
-        const json = ( await req.json() ) as Data;
+        const json = ( await req.json() ) as ConsultaNumeroRadicacion;
 
         const {
           procesos
         } = json;
 
-        await updateProcesos(
+        updateProcesos(
           procesos
         );
 
-        const responseReturn: ConsultaNumeroRadicacion = {
+        const responseReturn: Data = {
           StatusCode: req.status,
           Message   : req.statusText as Message,
           procesos  : procesos
@@ -212,11 +146,14 @@ export async function updateProcesos(
           );
         }
 
+        const collection = await carpetasCollection();
 
         for ( const proceso of procesos ) {
           const {
             llaveProceso, idProceso, esPrivado, departamento, sujetosProcesales, despacho
           } = proceso;
+
+
 
           if ( esPrivado ) {
             console.log(
@@ -225,26 +162,12 @@ export async function updateProcesos(
             continue;
           }
 
-
-          const client = await clientPromise;
-
-          if ( !client ) {
-            throw new Error(
-              'no hay cliente mongólico'
-            );
-          }
-
-          const db = client.db(
-            'RyS'
-          );
-
-          const collection = db.collection<IntCarpeta>(
-            'Carpetas'
-          );
-
-          const juzgado = await newJuzgado(
-            proceso
-          );
+          const newProceso = {
+            ...proceso,
+            juzgado: new NewJuzgado(
+              proceso
+            )
+          };
 
           const updateProceso = await collection.updateOne(
             {
@@ -259,9 +182,8 @@ export async function updateProcesos(
               ]
             }, {
               $addToSet: {
-                idProcesos        : idProceso,
-                procesos          : proceso,
-                'demanda.juzgados': juzgado
+                idProcesos: idProceso,
+                procesos  : newProceso,
               },
               $set: {
                 'demanda.departamento'     : departamento,
@@ -272,6 +194,46 @@ export async function updateProcesos(
             }, {
               upsert: false
             }
+          );
+
+          const carpeta = await prisma.carpeta.findFirstOrThrow(
+            {
+              where: {
+                llaveProceso: llaveProceso
+              }
+            }
+          );
+
+          const updateProcesoInPrisma = await prisma.carpeta.update(
+            {
+              where: {
+                numero: carpeta.numero
+              },
+              data: {
+                procesos: {
+                  connectOrCreate: {
+                    where: {
+                      idProceso: newProceso.idProceso
+                    },
+                    create: {
+                      ...proceso,
+                      juzgado: {
+                        connectOrCreate: {
+                          where: {
+                            tipo: newProceso.juzgado.tipo
+                          },
+                          create: newProceso.juzgado
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          );
+
+          console.log(
+            `update proceso in prisma: ${ updateProcesoInPrisma }`
           );
 
           if ( updateProceso.modifiedCount > 0 || updateProceso.matchedCount > 0 ) {

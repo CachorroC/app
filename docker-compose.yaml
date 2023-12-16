@@ -1,16 +1,24 @@
 version: '3.4'
 
 services:
-
   postgres:
     image: postgres
     container_name: postgres
     hostname: postgres
     restart: always
     networks:
-      - internal
+      internal:
+        ipv4_address: 172.18.0.10
+        aliases:
+          - database
+          - postgres
+      app_net:
+        ipv4_address: 172.20.0.10
+    dns_search:
+      - rsasesorjuridico.com
+      - suarez-ramirez
     ports:
-      - 5432:5432
+      - '5432:5432'
     expose:
       - 5432
     env_file:
@@ -34,11 +42,11 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    env_file: .env
+    env_file: .env.production
     dns:
       - 1.1.1.1
       - 172.64.36.1
-      - 172.18.0.1
+      - 172.18.53.53
     dns_search:
       - rsasesorjuridico.com
       - rysasesorjuridico.com
@@ -47,11 +55,11 @@ services:
       PORT: 3000
       MONGODB_URI: mongodb+srv://cachorro_cami:Tengo1amo@cluster0.ffbyjzl.mongodb.net/?retryWrites=true&w=majority
       NODE_ENV: production
-      DATABASE_URL: postgresql://postgres:Tengo1amo@postgres:5432/RyS?schema=public
     expose:
       - 3000
     networks:
       - internal
+      - app_net
 
 volumes:
   database:
@@ -61,6 +69,8 @@ networks:
   internal:
     external: true
     name: internal
-  external:
-    external: true
-    name: external
+  app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: '172.20.0.0/16'

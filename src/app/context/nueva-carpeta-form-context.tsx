@@ -25,7 +25,7 @@ export function NuevaCarpetaFormProvider(
         {
           defaultValues: {
             numero  : carpsLen + 1,
-            category: 'sinEspecificar',
+            category: 'SinEspecificar',
             deudor  : {
               primerNombre   : '',
               segundoNombre  : '',
@@ -43,8 +43,10 @@ export function NuevaCarpetaFormProvider(
               capitalAdeudado        : 1000000,
               entregaGarantiasAbogado: daterFixer,
               tipoProceso            : 'SINGULAR',
-              fechaPresentacion      : daterFixer,
-              vencimientoPagare      : [
+              fechaPresentacion      : [
+                daterFixer 
+              ],
+              vencimientoPagare: [
                 daterFixer
               ],
               obligacion: [

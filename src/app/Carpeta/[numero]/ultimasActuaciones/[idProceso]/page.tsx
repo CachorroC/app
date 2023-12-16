@@ -3,7 +3,7 @@ import { Fragment, Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
-import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones/fetcher';
+import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { outActuacion } from '#@/lib/types/actuaciones';
 //SECTION Generate segments for [numero]
 /* export async function generateStaticParams () {
@@ -73,14 +73,13 @@ export default async function Page (
   }
 ) {
 
-      const {
-        actuaciones
-      } =  await fetchActuaciones(
+      const  actuaciones
+       =  await fetchActuaciones(
 
-        Number(
-          params.idProceso
-        )
-      ) ;
+         Number(
+           params.idProceso
+         ), 1
+       ) ;
 
       if ( !actuaciones || actuaciones.length === 0 ) {
         return notFound();

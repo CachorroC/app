@@ -14,7 +14,6 @@ export function CarpetasSortButtons () {
         'numero',
         'category',
         'tipoProceso',
-        'cc',
       ];
 
       const dispatchCarpetas = useCarpetaSortDispatch();
