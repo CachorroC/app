@@ -67,8 +67,14 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # Environment variables must be redefined at run time
+ARG PREFIX
+ENV PREFIX=${PREFIX}
+ARG PORT
+ENV PORT=${PORT}
 ARG MONGODB_URI
 ENV MONGODB_URI=${MONGODB_URI}
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
 ARG NEXT_PUBLIC_MONGODB_URI
 ENV NEXT_PUBLIC_MONGODB_URI=${NEXT_PUBLIC_MONGODB_URI}
 
