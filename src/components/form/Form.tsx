@@ -59,7 +59,7 @@ export const Form = (
                     }
 
                     const postCarpeta = await fetch(
-                      `https://api.rsasesorjuridico.com/api/Carpeta/${ numero }`, {
+                      `https://app.rsasesorjuridico.com/api/Carpeta/${ numero }`, {
                         method : 'PUT',
                         headers: {
                           'content-type': 'application/json',

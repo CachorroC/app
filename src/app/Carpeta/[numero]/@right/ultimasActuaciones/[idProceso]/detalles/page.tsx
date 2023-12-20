@@ -18,15 +18,11 @@ export default async function Page(
     },
   }: Props
 ) {
-
-
       const actuaciones = await getActuaciones(
-        {
-          idProceso: Number(
-            idProceso
-          ),
-          index: 1
-        }
+
+        Number(
+          idProceso
+        )
       );
 
       if ( !actuaciones ) {

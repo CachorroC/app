@@ -1,10 +1,7 @@
 
-import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { headers } from 'next/headers';
-import Link from 'next/link';
 
 export default async function NotFound () {
-      let linker;
 
       const mapper = new Set<string>();
 
@@ -23,33 +20,10 @@ export default async function NotFound () {
         'next-url'
       ) ?? '';
 
-      const [
-        ,
-        firstRoute,
-        secondRoute
-      ] = domain.split(
-        '/'
-      );
-
       const arrMap= Array.from(
         mapper
       );
 
-      if ( firstRoute === 'Carpetas' ) {
-        const carpeta = await getCarpetabyNumero(
-          Number(
-            secondRoute
-          )
-        );
-
-        if ( carpeta ) {
-          linker = (
-            <Link href={ '/' }>
-            </Link>
-          );
-
-        }
-      }
 
       return (
         <div>
@@ -64,7 +38,6 @@ export default async function NotFound () {
             }
           )}
           <p>Could not find requested resource</p>
-          {linker}
         </div>
       );
 }

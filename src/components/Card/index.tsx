@@ -70,7 +70,7 @@ export const Card = (
                     className={ styles.link }
                     href={`/Carpeta/${ numero }` as Route}
                   >
-                    <span className={`${ typography.labelLarge } ${ layout.text }`}>{ numero }</span>
+                    <span className={`${ typography.labelLarge } ${ layout.text }`}>{ numero.toString() }</span>
                     <span className={`material-symbols-outlined ${ layout.icon }`}>
                 folder
                     </span>

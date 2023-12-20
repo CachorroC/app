@@ -10,7 +10,8 @@ self.addEventListener(
                         );
                         cache.addAll(
                           [
-                            '/',
+                            '/Contacto',
+                            '/api',
                             '/offline.html',
                             '/despachos.json'
                           ]

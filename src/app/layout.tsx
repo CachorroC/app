@@ -11,6 +11,8 @@ import { ModalProvider } from './context/modal-context';
 import { Loader } from '#@/components/Loader';
 import type { Metadata, Viewport } from 'next';
 import { NavBar } from '#@/components/layout/NavBar';
+import { NavigationContextProvider } from './context/navigation-context';
+import { CategoryContextProvider } from './context/category-context';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -101,20 +103,22 @@ export default function RootLayout(
           <body
             className={`${ playDisp.variable } ${ radio.variable } ${ raleway.variable } ${ ptserif.variable } ${ josefina.variable }  [ color-scheme: light dark ]`}
           >
-
-            <SearchProvider>
-              <ModalProvider>
-                <MainProvider>
-                  <div className={layout.container}>
-                    <Suspense fallback={<Loader />}>
-                      <NavBar />
-                    </Suspense>
-                    {children}
-                  </div>
-                </MainProvider>
-              </ModalProvider>
-            </SearchProvider>
-
+            <CategoryContextProvider>
+              <NavigationContextProvider>
+                <SearchProvider>
+                  <ModalProvider>
+                    <MainProvider>
+                      <div className={layout.container}>
+                        <Suspense fallback={<Loader />}>
+                          <NavBar />
+                        </Suspense>
+                        {children}
+                      </div>
+                    </MainProvider>
+                  </ModalProvider>
+                </SearchProvider>
+              </NavigationContextProvider>
+            </CategoryContextProvider>
             <Script
               src={`https://${ prefix }.rsasesorjuridico.com/installService-worker.js`}
             />

@@ -214,7 +214,7 @@ export default async function Page(
           </section>
 
           <Suspense fallback={<ProcesosCardSkeleton />}>
-            { llaveProceso && ( <ProcesosComponent key={ llaveProceso}llaveProceso={llaveProceso} index={ 1 } /> )}
+            { llaveProceso && ( <ProcesosComponent key={ llaveProceso}llaveProceso={llaveProceso}  /> )}
           </Suspense>
 
         </>

@@ -4,20 +4,12 @@
  * @type {import('next').NextConfig}
  **/
 const nextConfig = {
-  i18n: {
-    locales: [
-      'es',
-      'es-CO'
-    ],
-    defaultLocale: 'es-CO',
-  },
   output      : 'standalone',
   experimental: {
     typedRoutes                     : true,
     caseSensitiveRoutes             : true,
     serverComponentsExternalPackages: [
       'mongodb',
-      'eslint',
       'prisma'
     ],
   },

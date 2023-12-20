@@ -2,28 +2,21 @@ import { Suspense } from 'react';
 import { CarpetasList } from '../Carpetas/client/carpetasList';
 import { Header } from './Header';
 import { SearchOutputListSkeleton } from './search/SearchProcesosOutputSkeleton';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
+import styles from '#@/styles/layout.module.css';
+import { Loader } from '../Loader';
 
 export async function NavBar () {
-      const carpetas = await fetch(
-        'https://api.rsasesorjuridico.com/api/Carpetas', {
-          headers: {
-            'CF-Access-Client-Id'    : 'dac874230dcfcd71de02b41f5e78083c.access',
-            'CF-Access-Client-Secret': 'cd9f43a4ea535037f9a1d03fc82e2477020438e462bb076d7926c53ebbadeaf8'
-          }
-        }
-      )
-            .then(
-              (
-                res
-              ) => {
-                        return res.json();
-              }
-            );
+      const carpetas = await getCarpetas();
       return (
-        <Header>
-          <Suspense fallback={<SearchOutputListSkeleton />}>
-            <CarpetasList carpetas={carpetas } />
+        <div className={ styles.header }>
+          <Suspense fallback={<Loader />}>
+            <Header>
+              <Suspense fallback={<SearchOutputListSkeleton />}>
+                <CarpetasList carpetas={carpetas } />
+              </Suspense>
+            </Header>
           </Suspense>
-        </Header>
+        </div>
       );
 }

@@ -4,10 +4,10 @@ import { MouseEventHandler,
   useCallback,
   useEffect,
   useRef, } from 'react';
-import { useNavigationContext } from '#@/app/context/main-context';
 import layout from '#@/styles/layout.module.css';
 import { NavLink } from './NavLink';
 import styles from './navbar.module.css';
+import { useNavigationContext } from '#@/app/context/navigation-context';
 
 
 export const Drawer = (

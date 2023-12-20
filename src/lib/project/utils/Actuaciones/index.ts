@@ -8,25 +8,28 @@ import { sleep } from '../../helper';
 
 
 export async function fetchActuaciones(
-  idProceso: number, index:number
+  idProceso: number, index: number
 ) {
+
+      await sleep(
+        index
+      );
+
       try {
-        await sleep(
-          index
-        );
+
 
         const request = await fetch(
           `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
           {
-            next: {
-              revalidate: 86400,
-            },
+            cache: 'no-store'
           },
         );
 
         if ( !request.ok ) {
           throw new Error(
-            `${ idProceso }: ${ request.status } ${ request.statusText }${ request }`
+            `${ idProceso }: ${ request.status } ${ request.statusText }${ JSON.stringify(
+              request, null, 2
+            ) }`
           );
         }
 
@@ -36,20 +39,7 @@ export async function fetchActuaciones(
           actuaciones
         } = json;
 
-        NewUpdateActuaciones(
-          actuaciones.map(
-            (
-              actuacion
-            ) => {
-                      return {
-                        ...actuacion,
-                        isUltimaAct: actuacion.cant === actuacion.consActuacion,
-                        idProceso  : idProceso
-                      };
-            }
-          ), idProceso
-        );
-        return actuaciones.map(
+        const outActuaciones= actuaciones.map(
           (
             actuacion
           ) => {
@@ -60,6 +50,11 @@ export async function fetchActuaciones(
                     };
           }
         );
+        NewUpdateActuaciones(
+          outActuaciones
+          , idProceso
+        );
+        return outActuaciones;
       } catch ( error ) {
         if ( error instanceof Error ) {
           console.log(
@@ -77,13 +72,34 @@ export async function fetchActuaciones(
 
 export const getActuaciones = cache(
   async (
-    {
-      idProceso, index
-    }: { idProceso: number; index: number }
+    idProceso: number
   ) => {
+            const collection = await carpetasCollection();
+
             try {
+
+              const carpeta = await collection.findOne(
+                {
+                  idProcesos: idProceso,
+                }
+              );
+
+              if ( !carpeta ) {
+                throw new Error(
+                  'no hay ninguna carpeta con este idProceso, error matching in mongo carpeta'
+                );
+
+              }
+
+              const {
+                numero
+              } = carpeta;
+              await sleep(
+                numero
+              );
+
               const actuaciones = await fetchActuaciones(
-                idProceso, index
+                idProceso, numero
               );
 
               if (

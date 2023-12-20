@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
-import { useNavigationContext } from '#@/app/context/main-context';
 import { usePathname } from 'next/navigation';
 import { Route } from 'next';
 import Link from 'next/link';
 import styles from '#@/styles/layout.module.css';
+import { useNavigationContext } from '#@/app/context/navigation-context';
 
 export function NavLink<T extends string>(
   {

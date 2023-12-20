@@ -4,6 +4,7 @@ import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Suspense } from 'react';
 import { FechaActuacionComponent } from './actuaciones';
 import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
+import FechaActuacionLoader from '#@/components/Card/actuacion-loader';
 
 export default async function Page() {
       const carpetasRaw = await getCarpetas();
@@ -14,11 +15,11 @@ export default async function Page() {
         (
           a, b
         ) => {
-                  if ( !a.fecha || a.fecha === undefined ) {
+                  if ( !a.fecha || a.fecha.toString() === 'Invalid Date' ) {
                     return 1;
                   }
 
-                  if ( !b.fecha || b.fecha === undefined ) {
+                  if ( !b.fecha || b.fecha.toString() === 'Invalid Date' ) {
                     return -1;
                   }
 
@@ -39,45 +40,48 @@ export default async function Page() {
         }
       );
 
+
       return (
         <>
           <Suspense fallback={ <SearchOutputListSkeleton /> }>
-
-            {carpetas.map(
+            { carpetas.map(
               (
-                carpeta, index
+                carpeta
               ) => {
                         const {
-                          idProcesos, numero
+                          numero, idProcesos
                         } = carpeta;
                         return (
+
                           <Card
 
                             carpeta={carpeta }
                             key={numero}
                           >
                             <Suspense fallback={<Loader />}>
-                              {idProcesos
-                && idProcesos.map(
-                  (
-                    idProceso
-                  ) => {
-                            return (
-                              <FechaActuacionComponent
-                                index={index}
-                                initialOpenState={ false }
-                                idProceso={ idProceso }
-                                key={ idProceso } />
-                            );
-                  }
-                )
+                              { idProcesos.map(
+                                (T
+                                  idProceso
+                                ) => {
+                                          return (
+                                            <Suspense key={ idProceso } fallback={<FechaActuacionLoader />}>
+
+                                              <FechaActuacionComponent
+                                                index={numero}
+                                                initialOpenState={ false }
+                                                idProceso={ idProceso }
+                                                key={ idProceso }
+                                              />
+                                            </Suspense>
+                                          );
+                                }
+                              )
                               }
                             </Suspense>
                           </Card>
                         );
               }
-            )
-            }
+            )}
           </Suspense>
         </>
       );

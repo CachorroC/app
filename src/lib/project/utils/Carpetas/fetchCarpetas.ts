@@ -1,20 +1,25 @@
-import { carpetasCollection } from '#@/lib/connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
-import { MonCarpeta } from '#@/lib/types/carpetas';
 
 export async function fetchCarpetas () {
-      const collection = await carpetasCollection();
-
-      const prismaCarpetas = await prisma.carpeta.findMany(
+      const rawCarpetas =  await prisma.carpeta.findMany(
         {
           include: {
             ultimaActuacion: true,
+            deudor         : true,
+            codeudor       : true,
             notas          : true,
-            procesos       : {
+            demanda        : {
+              include: {
+                notificacion     : true,
+                medidasCautelares: true
+              }
+            },
+            procesos: {
               include: {
                 juzgado: true
               }
             },
+
             tareas: {
               include: {
                 subTareas: true
@@ -24,26 +29,31 @@ export async function fetchCarpetas () {
         }
       );
 
-      const mongoCarpetas = await collection.find()
-            .toArray();
-
-      const mergedArray:MonCarpeta[] = mongoCarpetas.map(
+      return rawCarpetas.map(
         (
-          item
+          carpeta
         ) => {
-                  const matchedObject = prismaCarpetas.find(
-                    (
-                      obj
-                    ) => {
-                              return obj.numero === item.numero;
-                    }
-                  );
+                  const {
+                    demanda
+                  } = carpeta;
+                  let newDemanda;
+
+                  if ( demanda ) {
+                    newDemanda = {
+                      ...demanda,
+                      capitalAdeudado: demanda.capitalAdeudado
+                        ? demanda.capitalAdeudado.toString()
+                        : null
+                    };
+                  } else {
+                    newDemanda = null;
+                  }
+
                   return {
-                    ...item,
-                    ...matchedObject
+                    ...carpeta,
+                    demanda: newDemanda
                   };
         }
       );
-      return mergedArray ;
 
 }

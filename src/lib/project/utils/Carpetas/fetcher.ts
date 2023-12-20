@@ -68,7 +68,7 @@ export async function fetcherCarpetaByidProceso (
 
       const carpeta = await collection.findOne(
         {
-          idProceso: idProceso,
+          idProcesos: idProceso,
         },
         {
           sort: {

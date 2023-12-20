@@ -17,6 +17,36 @@
             "todos"
           ]
         },
+        "demanda": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Demanda"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deudor": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Deudor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "codeudor": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Codeudor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "fecha": {
           "type": [
             "string",
@@ -78,6 +108,310 @@
         "updatedAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "Deudor": {
+      "type": "object",
+      "properties": {
+        "carpeta": {
+          "$ref": "#/definitions/Carpeta"
+        },
+        "cedula": {
+          "type": "string"
+        },
+        "direccion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "primerApellido": {
+          "type": "string"
+        },
+        "primerNombre": {
+          "type": "string"
+        },
+        "segundoApellido": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "segundoNombre": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "telCelular": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "telFijo": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Codeudor": {
+      "type": "object",
+      "properties": {
+        "carpeta": {
+          "$ref": "#/definitions/Carpeta"
+        },
+        "cedula": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "direccion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "nombre": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "telefono": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Demanda": {
+      "type": "object",
+      "properties": {
+        "capitalAdeudado": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "carpeta": {
+          "$ref": "#/definitions/Carpeta"
+        },
+        "departamento": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "despacho": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "entregaGarantiasAbogado": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "etapaProcesal": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "llaveProceso": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fechaPresentacion": {
+          "type": "array",
+          "format": "date-time",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer"
+        },
+        "mandamientoPago": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "tipoProceso": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "medidasCautelares": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/MedidasCautelares"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "notificacion": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Notificacion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "municipio": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "obligacion": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "radicado": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vencimientoPagare": {
+          "type": "array",
+          "format": "date-time",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Notificacion": {
+      "type": "object",
+      "properties": {
+        "demanda": {
+          "$ref": "#/definitions/Demanda"
+        },
+        "autoNotificado": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "certimail": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "fisico": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "notifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Notifier"
+          }
+        }
+      }
+    },
+    "MedidasCautelares": {
+      "type": "object",
+      "properties": {
+        "demanda": {
+          "$ref": "#/definitions/Demanda"
+        },
+        "fechaOrdenaMedida": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "medidaSolicitada": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Notifier": {
+      "type": "object",
+      "properties": {
+        "fechaAporta": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "fechaRecibido": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "notificacion": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Notificacion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resultado": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "tipo": {
+          "type": "string"
         }
       }
     },
@@ -228,12 +562,6 @@
         "cant": {
           "type": "integer"
         },
-        "carpetas": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Carpeta"
-          }
-        },
         "carpetaNumero": {
           "type": [
             "integer",
@@ -296,6 +624,12 @@
               "type": "null"
             }
           ]
+        },
+        "Carpeta": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Carpeta"
+          }
         }
       }
     },
@@ -382,6 +716,24 @@
   "properties": {
     "carpeta": {
       "$ref": "#/definitions/Carpeta"
+    },
+    "deudor": {
+      "$ref": "#/definitions/Deudor"
+    },
+    "codeudor": {
+      "$ref": "#/definitions/Codeudor"
+    },
+    "demanda": {
+      "$ref": "#/definitions/Demanda"
+    },
+    "notificacion": {
+      "$ref": "#/definitions/Notificacion"
+    },
+    "medidasCautelares": {
+      "$ref": "#/definitions/MedidasCautelares"
+    },
+    "notifier": {
+      "$ref": "#/definitions/Notifier"
     },
     "nota": {
       "$ref": "#/definitions/Nota"

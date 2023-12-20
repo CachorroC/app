@@ -13,10 +13,7 @@ export async function GET(
         } = context.params;
 
         const procesos = await getProceso(
-          {
-            llaveProceso: llaveProceso,
-            index       : 1,
-          }
+          llaveProceso
         );
 
         if ( !procesos ) {

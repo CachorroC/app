@@ -1,12 +1,14 @@
 'use client';
 import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
-import { useCategory } from '#@/app/context/main-context';
+import { useCategory } from '#@/app/context/category-context';
 import { CarpetasList, } from '#@/components/Carpetas/client/carpetasList';
 import { useEffect } from 'react';
 
 export default function Page(
   {
-    params,
+    params: {
+      categoria
+    },
   }: {
     params: { categoria: string };
   }
@@ -14,7 +16,7 @@ export default function Page(
       const carpetas = useCarpetaSort();
 
       const {
-        setCategory
+        setCurrentCategory
       } = useCategory();
       /*
   const ncarps = [
@@ -29,15 +31,15 @@ export default function Page(
  */
       useEffect(
         () => {
-                  setCategory(
-                    params.categoria
+                  setCurrentCategory(
+                    categoria
                   );
 
                   return () => {
                   };
         }, [
-          params.categoria,
-          setCategory
+          categoria,
+          setCurrentCategory
         ]
       );
 

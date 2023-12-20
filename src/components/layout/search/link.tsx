@@ -1,12 +1,12 @@
 'use client';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import {  useNavigationContext } from '#@/app/context/main-context';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
+import { useNavigationContext } from '#@/app/context/navigation-context';
 
 export function  LinkCard<T extends string = string>(
   {
@@ -50,7 +50,7 @@ export function  LinkCard<T extends string = string>(
       if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
         content = (
           <Link
-            key={ carpeta._id }
+            key={ carpeta.numero }
             onClick={handleClickNavigation}
             href={path as Route}
             className={isActive

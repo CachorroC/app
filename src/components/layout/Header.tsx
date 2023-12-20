@@ -1,14 +1,10 @@
 'use client';
 import { ReactNode } from 'react';
-import { useMediaQuery } from '#@/app/hooks/useMediaQuery';
-import { useNavigationContext } from '#@/app/context/main-context';
-import layout from '#@/styles/layout.module.css';
-import ModalDialog from '#@/app/hooks/modal-state';
 import { DrawerMenuButton, } from '#@/components/Buttons/nav-buttons';
-import { NuevaNota } from '#@/components/Nota/client/nueva-nota';
 import { InputSearchBar } from './InputSearchBar';
 import { Drawer } from './Drawer';
 import { NavLink } from './NavLink';
+import { useNavigationContext } from '#@/app/context/navigation-context';
 
 export const Header = (
   {
@@ -20,21 +16,10 @@ export const Header = (
             isNavOpen
           } = useNavigationContext();
 
-          const isMobile = useMediaQuery(
-            '(max-width: 600px)'
-          );
-
-          const isTablet = useMediaQuery(
-            '(min-width: 600px)and (max-width: 840px)'
-          );
-
-          const isDesktop = useMediaQuery(
-            '(min-width: 840px)'
-          );
 
 
           return (
-            <div className={layout.header}>
+            <>
               <NavLink
                 key={'home'}
                 iconLabel={'home'}
@@ -59,26 +44,15 @@ export const Header = (
                 key={'actuaciones'}
                 hrefLabel="/Carpetas/UltimasActuaciones"
               />
-              {isDesktop && (
-                <ModalDialog>
-                  <NuevaNota />
-                </ModalDialog>
-              )}
+
               {isNavOpen && (
                 <Drawer>
                   <InputSearchBar />
                   {children}
                 </Drawer>
               )}
-              {isTablet && (
-                <>
-                  <DrawerMenuButton />
-                  <ModalDialog>
-                    <NuevaNota />
-                  </ModalDialog>
-                </>
-              )}
-              {isMobile && <DrawerMenuButton />}
-            </div>
+
+              <DrawerMenuButton />
+            </>
           );
 };

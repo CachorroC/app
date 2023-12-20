@@ -1,7 +1,6 @@
 import layout from '#@/styles/layout.module.css';
 import Link from 'next/link';
 import typography from '#@/styles/fonts/typography.module.css';
-import type { Route } from 'next';
 import { Calendar } from '#@/components/Calendar/main';
 
 
@@ -23,25 +22,19 @@ export default function Page () {
             </Link>
             <Link
               className={layout.button}
-              href={'/Notas' as Route}
+              href={'/Notas'}
             >
               <span className="material-symbols-outlined">note</span>
               <h1 className={typography.headlineMedium}>{'Notas'}</h1>
             </Link>
             <Link
               className={layout.button}
-              href={'/Carpetas' as Route}
+              href={'/Carpetas' }
             >
               <span className="material-symbols-outlined">folder_open</span>
               <h1 className={typography.headlineMedium}>{'Carpetas'}</h1>
             </Link>
-            <Link
-              className={layout.button}
-              href={'/Tareas' as Route}
-            >
-              <span className="material-symbols-outlined">api</span>
-              <h1 className={typography.headlineMedium}>{'Tareas'}</h1>
-            </Link>
+
 
             <Link
               className={layout.button}
@@ -52,7 +45,7 @@ export default function Page () {
             </Link>
             <Link
               className={layout.button}
-              href={'/Contacto' as Route}
+              href={'/Contacto'}
             >
               <span className="material-symbols-outlined">folder_open</span>
               <h1 className={typography.headlineMedium}>{'Contacto'}</h1>

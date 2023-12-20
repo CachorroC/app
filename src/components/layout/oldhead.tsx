@@ -5,11 +5,11 @@ import layout from '#@/styles/layout.module.css';
 import { InputSearchBar } from './InputSearchBar';
 import { Loader } from '../Loader';
 import { NuevaNota } from '../Nota/client/nueva-nota';
-import { useNavigationContext } from '#@/app/context/main-context';
 import { Drawer } from './Drawer';
 import NavButtons from '../Buttons/nav-buttons';
 import ModalDialog from '#@/app/hooks/modal-state';
 import { NavBar } from './NavBar';
+import { useNavigationContext } from '#@/app/context/navigation-context';
 
 export function HeaderOld(
   {

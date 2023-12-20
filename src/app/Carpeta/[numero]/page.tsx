@@ -235,7 +235,7 @@ export default async function Page (
 
         { idProcesoContent }
         <Suspense fallback={<Loader />}>
-          { carpeta.llaveProceso && ( <ProcesosComponent llaveProceso={carpeta.llaveProceso} index={1} /> )}
+          { carpeta.llaveProceso && ( <ProcesosComponent llaveProceso={carpeta.llaveProceso} /> )}
         </Suspense>
         <Suspense fallback={<Loader />}>
           { carpeta.idProcesos && (

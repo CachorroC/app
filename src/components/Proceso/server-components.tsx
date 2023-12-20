@@ -3,15 +3,14 @@ import styles from './procesos.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import Link from 'next/link';
 import type { Route } from 'next';
-import { intProceso } from 'types/procesos';
+import {  outProceso } from 'types/procesos';
 import { fixDemandado, fixFechas } from '#@/lib/project/helper';
 import { getProceso } from '#@/lib/project/utils/Procesos';
-import { DespachoJudicial } from '#@/lib/types/carpetas';
 
 export const ProcesoCard = (
   {
     proceso
-  }: { proceso: intProceso }
+  }: { proceso: outProceso }
 ) => {
           const {
             idProceso,
@@ -20,15 +19,12 @@ export const ProcesoCard = (
             despacho,
             esPrivado,
             fechaUltimaActuacion,
+            juzgado
           } = proceso;
 
           if ( esPrivado ) {
             return null;
           }
-
-          const juzgado = new DespachoJudicial(
-            proceso
-          );
 
           const sujetosReplacer = sujetosProcesales.replaceAll(
             '|', ','
@@ -73,10 +69,10 @@ export const ProcesoCard = (
                     className={styles.button}
                     href={juzgado.url as Route} target={'_blank'}
                   >
-                    <sub className={typography.labelLarge}>{juzgado.id}</sub>
-                    <p className={typography.bodySmall}>
+                    <span className={typography.labelLarge}>{juzgado.id.toString()}</span>
+                    <span className={typography.bodySmall}>
                       {juzgado.tipo}
-                    </p>
+                    </span>
                   </Link>
                 )}
               </div>
@@ -86,16 +82,13 @@ export const ProcesoCard = (
 
 export async function ProcesosComponent(
   {
-    llaveProceso, index
-  }: {llaveProceso: string; index: number}
+    llaveProceso
+  }: { llaveProceso: string }
 ) {
 
 
       const procesos = await getProceso(
-        {
-          llaveProceso: llaveProceso,
-          index       : index
-        }
+        llaveProceso
       );
 
       if ( !procesos || procesos.length === 0 ) {

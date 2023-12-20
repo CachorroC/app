@@ -165,7 +165,7 @@ export interface NuevaCarpeta
 
 export interface IntCarpeta {
   _id:             number;
-  actuaciones:     outActuacion[];
+  actuaciones?:     outActuacion[];
   category:        Category;
   codeudor:        Codeudor | null;
   demanda:         Demanda;

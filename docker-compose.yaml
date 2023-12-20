@@ -1,5 +1,4 @@
 version: '3.4'
-
 services:
   postgres:
     image: postgres
@@ -7,21 +6,9 @@ services:
     hostname: postgres
     restart: always
     networks:
-      internal:
-        ipv4_address: 172.18.0.10
-        aliases:
-          - database
-          - postgres
-      app_net:
-        ipv4_address: 172.20.0.10
-        aliases:
-          - database
-          - postgres
-    dns_search:
-      - rsasesorjuridico.com
-      - suarez-ramirez
+      - internal
     ports:
-      - '5432:5432'
+      - 5432:5432
     expose:
       - 5432
     env_file:
@@ -55,9 +42,10 @@ services:
       - 3000
     networks:
       - internal
-      - app_net
   adminer:
     image: adminer
+    container_name: adminer
+    hostname: adminer
     restart: always
     expose:
       - 8080
@@ -67,13 +55,8 @@ services:
 volumes:
   database:
     external: true
-
+    name: database
 networks:
   internal:
     external: true
     name: internal
-  app_net:
-    ipam:
-      driver: default
-      config:
-        - subnet: '172.20.0.0/16'

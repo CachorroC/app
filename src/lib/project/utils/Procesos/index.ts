@@ -1,10 +1,11 @@
 import { cache } from 'react';
 import { sleep } from 'project/helper';
 import { Despacho } from 'types/despachos';
-import { intProceso, ConsultaNumeroRadicacion, Data, Message } from 'types/procesos';
+import { ConsultaNumeroRadicacion, intProceso } from 'types/procesos';
 import { NewJuzgado } from '#@/lib/models/demanda';
 import { carpetasCollection } from '#@/lib/connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
+import { DespachoJudicial } from '#@/lib/types/carpetas';
 
 export const getDespachos = cache(
   async () => {
@@ -46,6 +47,7 @@ export const getDespachos = cache(
 export async function fetchProceso(
   llaveProceso: string, index: number
 ) {
+
       try {
         await sleep(
           index
@@ -57,70 +59,77 @@ export async function fetchProceso(
         );
 
         if ( !req.ok ) {
-          const jsonError = ( await req.json() ) as Data;
-          return jsonError;
-        }
-
-        const json = ( await req.json() ) as ConsultaNumeroRadicacion;
-
-        const {
-          procesos
-        } = json;
-
-        updateProcesos(
-          procesos
-        );
-
-        const responseReturn: Data = {
-          StatusCode: req.status,
-          Message   : req.statusText as Message,
-          procesos  : procesos
-        };
-
-        return responseReturn;
-      } catch ( e ) {
-        if ( e instanceof Error ) {
-          console.log(
-            `Expediente: ${ llaveProceso }: error en la conexion network del fetchProceso ${ e.name } : ${ e.message }`,
+          throw new Error(
+            'request not ok'
           );
 
         }
 
+        const response = ( await req.json() ) as ConsultaNumeroRadicacion;
+        return response;
+      } catch ( error ) {
         console.log(
-          `Expediente: ${ llaveProceso }: : error en la conexion network del fetchProceso  =>  ${ e }`,
+          error
         );
-
-        return {
-          StatusCode: 404,
-          Message   : JSON.stringify(
-            e
-          ) as Message
-        };
+        return null;
       }
+
 }
 
 export const getProceso = cache(
   async(
-    {
-      llaveProceso, index
-    }:
-    {  llaveProceso: string, index: number}
+    llaveProceso: string
   ) => {
             try {
-              const fetchP = await fetchProceso(
-                llaveProceso, index
+
+              const collection = await carpetasCollection();
+
+              const carpeta = await collection.findOne(
+                {
+                  llaveProceso: llaveProceso
+                }
+              );
+
+              const fetchProcesoByNumero = await fetchProceso(
+                llaveProceso, carpeta
+                  ? carpeta.numero
+                  : 0
               );
 
 
-              if ( !fetchP.procesos || fetchP.procesos.length === 0 ) {
-                return null;
+              if ( !fetchProcesoByNumero || fetchProcesoByNumero.procesos.length === 0 ) {
+                throw new Error(
+                  `no hay procesos existentes con esta llaveProceso: ${ llaveProceso }`
+                );
+
               }
 
               const {
                 procesos
-              } = fetchP;
+              } = fetchProcesoByNumero;
 
-              return procesos;
+              return procesos.map(
+                (
+                  proceso
+                ) => {
+                          return {
+                            ...proceso,
+                            fechaProceso: proceso.fechaProceso
+                              ? new Date(
+                                proceso.fechaProceso
+                              )
+                              : null,
+                            fechaUltimaActuacion: proceso.fechaUltimaActuacion
+                              ? new Date(
+                                proceso.fechaUltimaActuacion
+                              )
+                              : null,
+                            juzgado: new DespachoJudicial(
+                              proceso
+                            )
+                          };
+                }
+              );
 
 
             } catch ( error ) {

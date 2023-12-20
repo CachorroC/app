@@ -2,7 +2,7 @@
 import { useCarpetaSort, useCarpetaSortDispatch,  } from '#@/app/context/carpetas-sort-context';
 import {  Card } from '#@/components/Card';
 import { useSearch } from '#@/app/context/search-context';
-import { JSX, useState } from 'react';
+import {  JSX, useState } from 'react';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import {  Category, MonCarpeta } from '#@/lib/types/carpetas';
 

@@ -1,10 +1,10 @@
 'use client';
 import { useSearch } from '#@/app/context/search-context';
-import { useCategory } from '#@/app/context/main-context';
 import { JSX } from 'react';
 import { LinkCard } from './link';
 import { Route } from 'next';
 import { MonCarpeta } from '#@/lib/types/carpetas';
+import { useCategory } from '#@/app/context/category-context';
 
 export function SearchOutputList(
   {
@@ -18,7 +18,7 @@ export function SearchOutputList(
       } = useSearch();
 
       const {
-        category
+        currentCategory
       } = useCategory();
 
       carpetas.forEach(
@@ -32,7 +32,7 @@ export function SearchOutputList(
                     return;
                   }
 
-                  if ( category === 'todos' || category === proceso.category ) {
+                  if ( currentCategory === 'todos' || currentCategory === proceso.category ) {
                     rows.push(
                       <LinkCard
                         path={`/Carpeta/${

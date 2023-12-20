@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { useModalContext } from '#@/app/context/modal-context';
-import { useNavigationContext } from '#@/app/context/main-context';
 import styles from '#@/styles/layout.module.css';
 import layout from '#@/styles/layout.module.css';
 import { NavLink } from '../layout/NavLink';
+import { useNavigationContext } from '#@/app/context/navigation-context';
 
 // TODO: arreglar lo de la navegacion
 

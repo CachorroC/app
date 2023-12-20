@@ -46,11 +46,6 @@ export function ActuacionComponent(
               )}
             </section>
             {`${ idRegActuacion }`}
-            {actuacion && (
-              <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
-                {actuacion}
-              </h5>
-            )}
             {anotacion && (
               <p className={` ${ styles.anotacion } ${ typography.labelSmall }`}>
                 {anotacion}
@@ -60,11 +55,7 @@ export function ActuacionComponent(
           </div>
         );
       } else {
-        visibleContent = (
-          <sub className={styles.date}>{fixFechas(
-            fechaActuacion
-          )}</sub>
-        );
+        visibleContent = null;
       }
 
       return (
@@ -87,6 +78,9 @@ export function ActuacionComponent(
               ? 'expand_less'
               : 'expand_more'}</span>
           </button>
+          <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
+            {actuacion}
+          </h5>
           {visibleContent}
 
         </div>

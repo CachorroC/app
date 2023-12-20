@@ -38,28 +38,27 @@ export function Calendar(
                 (
                   row
                 ) => {
-                          const day = new Date(
-                            row.href
-                          )
-                                .getDate();
+                          const {
+                            date, href, current, className
+                          } = row;
 
-                          const setToday = day === today.getDate();
+                          const setToday = date === today.getDate();
 
                           return (
                             <Link
-                              key={row.href}
-                              href={`/Tareas/${ row.href }` }
+                              key={href}
+                              href={`/Tareas/${ href }` }
                               className={
-                                row.current
+                                current
                                   ? setToday
                                     ? calendar.active
-                                    : row.className === 'today'
+                                    : className === 'today'
                                       ? calendar.today
                                       : calendar.inactive
                                   : calendar.disabled
                               }
                             >
-                              {day}
+                              {date.toString()}
                             </Link>
                           );
                 }

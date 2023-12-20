@@ -7,7 +7,6 @@ import { Dispatch,
   SetStateAction,
   createContext,
   useContext,
-  useEffect,
   useState, } from 'react';
 
 const NoteContext = createContext<{
@@ -24,13 +23,6 @@ const SnackbarContext = createContext<{
   null
 );
 
-const CategoryContext = createContext<{
-  category: string;
-  setCategory: Dispatch<SetStateAction<string>>;
-} | null>(
-  null
-);
-
 const ContactoContext = createContext<{
   contactoForm: ContactoForm;
   setContactoForm: Dispatch<SetStateAction<ContactoForm>>;
@@ -38,26 +30,14 @@ const ContactoContext = createContext<{
   null
 );
 
-const NavigationContext = createContext<{
-  isNavOpen: boolean;
-  setIsNavOpen: Dispatch<SetStateAction<boolean>>;
-} | null>(
-  null
-);
 
 export function MainProvider(
   {
     children
   }: { children: ReactNode }
 ) {
-      const pathname = usePathname();
 
-      const [
-        category,
-        setCategory
-      ] = useState(
-        'todos'
-      );
+
 
       const [
         contactoForm,
@@ -81,6 +61,8 @@ export function MainProvider(
         false
       );
 
+      const pathname = usePathname();
+
       const [
         inputNota,
         setInputNota
@@ -98,102 +80,34 @@ export function MainProvider(
         }
       );
 
-      const [
-        isNavOpen,
-        setIsNavOpen
-      ] = useState(
-        false
-      );
 
-
-
-      useEffect(
-        () => {
-
-                  const [
-                    ,
-                    firstRoute,
-                    secondRoute
-                  ] = pathname.split(
-                    '/'
-                  );
-
-                  console.log(
-                    `primera ruta: ${ firstRoute }`
-                  );
-                  console.log(
-                    `segunda ruta: ${ secondRoute }`
-
-                  );
-
-                  if ( firstRoute === 'Carpetas' ) {
-                    if ( !secondRoute || secondRoute === 'UltimasActuaciones' ) {
-                      setCategory(
-                        'todos'
-                      );
-                    } else {
-                      setCategory(
-                        secondRoute
-                      );
-                    }
-
-                  }
-        }, [
-          pathname
-        ]
-      );
 
       return (
         <SnackbarContext.Provider value={{
           isSnackbarOpen,
           setIsSnackbarOpen
         }}>
-          <NavigationContext.Provider
+
+          <NoteContext.Provider
             value={{
-              isNavOpen,
-              setIsNavOpen,
+              inputNota,
+              setInputNota,
             }}
           >
-            <NoteContext.Provider
+            <ContactoContext.Provider
               value={{
-                inputNota,
-                setInputNota,
+                contactoForm,
+                setContactoForm,
               }}
             >
-              <CategoryContext.Provider
-                value={{
-                  category,
-                  setCategory,
-                }}
-              >
-                <ContactoContext.Provider
-                  value={{
-                    contactoForm,
-                    setContactoForm,
-                  }}
-                >
-                  {children}
-                </ContactoContext.Provider>
-              </CategoryContext.Provider>
-            </NoteContext.Provider>
-          </NavigationContext.Provider>
+              {children}
+            </ContactoContext.Provider>
+          </NoteContext.Provider>
         </SnackbarContext.Provider>
       );
 }
 
-export function useCategory() {
-      const context = useContext(
-        CategoryContext
-      );
 
-      if ( context === null ) {
-        throw new Error(
-          'el contexto para la categoria solo debe ser aplicado dentro de un hijo del contexto',
-        );
-      }
-
-      return context;
-}
 
 export function useSnackbarContext () {
       const context = useContext(
@@ -210,19 +124,6 @@ export function useSnackbarContext () {
       return context;
 }
 
-export function useNavigationContext() {
-      const context = useContext(
-        NavigationContext
-      );
-
-      if ( context === null ) {
-        throw new Error(
-          'Navigation Context has to be used within a Navigationprovider',
-        );
-      }
-
-      return context;
-}
 
 export function useContactContext() {
       const context = useContext(
