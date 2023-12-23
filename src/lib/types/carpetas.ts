@@ -8,6 +8,7 @@ import { Despachos } from '../project/utils/Procesos/despachos';
 import { outActuacion } from './actuaciones';
 import { outProceso } from './procesos';
 import { WithId } from 'mongodb';
+import { intProceso } from 'types/procesos';
 
 export interface IntCarpeta {
   category:        Category;
@@ -460,7 +461,7 @@ function incomingStringFixer (
 
 export class DespachoJudicial implements Juzgado {
   constructor (
-    proceso: outProceso
+    proceso: intProceso
   ) {
             const matchedDespacho = Despachos.find(
               (
