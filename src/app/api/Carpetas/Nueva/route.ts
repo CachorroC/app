@@ -2,7 +2,8 @@
 import clientPromise from '#@/lib/connection/mongodb';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import getCarpetas  from '#@/lib/project/utils/Carpetas/getCarpetas';
-import { IntCarpeta, NuevaCarpeta } from '#@/lib/types/carpetas';
+import { IntCarpeta } from '#@/lib/types/carpetas';
+import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -36,7 +37,7 @@ export async function GET() {
           entregaGarantiasAbogado: daterFixer,
           tipoProceso            : 'SINGULAR',
           fechaPresentacion      : [
-            daterFixer 
+            daterFixer
           ],
           vencimientoPagare: [
             daterFixer

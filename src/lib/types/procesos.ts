@@ -65,7 +65,6 @@ export interface outProceso extends intProceso
   fechaUltimaActuacion: Date | null;
   juzgado: Juzgado;
 
-
 }
 
 export type Departamento = 'BOGOTÁ' | 'CUNDINAMARCA' | 'ANTIOQUIA' | 'META';

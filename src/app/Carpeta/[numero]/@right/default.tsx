@@ -11,6 +11,7 @@ import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { Task } from '#@/components/Nota/nota';
 import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
+import InformationComponent from '../information-component';
 
 async function NotasList (
   {
@@ -62,11 +63,8 @@ export default async function Page(
       } = carpeta;
 
 
-      const
-        {
-          vencimientoPagare, entregaGarantiasAbogado, fechaPresentacion, mandamientoPago
-        }
-       = demanda;
+
+
 
 
       const allFechas = new Set<{name: string, date: Date}>();
@@ -82,64 +80,73 @@ export default async function Page(
         );
       }
 
-      if ( entregaGarantiasAbogado !== null ) {
-        allFechas.add(
+      if ( demanda ) {
+        const
           {
-            name: 'entregaGarantiasAbogado',
-            date: new Date(
-              entregaGarantiasAbogado
-            )
+            vencimientoPagare, entregaGarantiasAbogado, fechaPresentacion, mandamientoPago
           }
-        );
-      }
+            = demanda;
 
-      if ( fechaPresentacion !== null ) {
-        fechaPresentacion.forEach(
-          (
-            fechaP
-          ) => {
+        if ( entregaGarantiasAbogado !== null ) {
+          allFechas.add(
+            {
+              name: 'entregaGarantiasAbogado',
+              date: new Date(
+                entregaGarantiasAbogado
+              )
+            }
+          );
+        }
 
-                    allFechas.add(
-                      {
-                        name: 'fechaPresentacion',
-                        date: new Date(
-                          fechaP
-                        )
-                      }
-                    );
+        if ( fechaPresentacion !== null ) {
+          fechaPresentacion.forEach(
+            (
+              fechaP
+            ) => {
+
+                      allFechas.add(
+                        {
+                          name: 'fechaPresentacion',
+                          date: new Date(
+                            fechaP
+                          )
+                        }
+                      );
+            }
+          );
+        }
+
+        if ( mandamientoPago !== null ) {
+          allFechas.add(
+            {
+              name: 'mandamientoPago',
+              date: new Date(
+                mandamientoPago
+              )
+            }
+          );
+        }
+
+        for ( const vencimiento of vencimientoPagare ) {
+          const indexOfVencimiento = vencimientoPagare.indexOf(
+            vencimiento
+          );
+
+          if ( vencimiento === null ) {
+            continue;
           }
-        );
-      }
 
-      if ( mandamientoPago !== null ) {
-        allFechas.add(
-          {
-            name: 'mandamientoPago',
-            date: new Date(
-              mandamientoPago
-            )
-          }
-        );
-      }
-
-      for ( const vencimiento of vencimientoPagare ) {
-        const indexOfVencimiento = vencimientoPagare.indexOf(
-          vencimiento
-        );
-
-        if ( vencimiento === null ) {
+          allFechas.add(
+            {
+              name: `vencimientoPagare.${ indexOfVencimiento }`,
+              date: new Date(
+                vencimiento
+              )
+            }
+          );
           continue;
         }
 
-        allFechas.add(
-          {
-            name: `vencimientoPagare.${ indexOfVencimiento }`,
-            date: new Date(
-              vencimiento
-            )
-          }
-        );
-        continue;
       }
 
       const allFechasArray = Array.from(
@@ -174,7 +181,9 @@ export default async function Page(
 
           <h2 style={{
             gridArea: '1 / 1 / 2 / 4'
-          }} className={ typography.headlineMedium }>{`Carpeta número ${ numero }`}</h2>
+          } } className={ typography.headlineMedium }>{ `Carpeta número ${ numero }` }</h2>
+
+          <InformationComponent carpeta={ carpeta} />
 
           { llaveProceso && (
             <Fragment key={ llaveProceso }>

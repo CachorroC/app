@@ -15,12 +15,6 @@ export default function InformationComponent (
         deudor, demanda,  category, tipoProceso, procesos
       } = carpeta;
 
-      const {
-        tel, email, cedula
-      } = deudor;
-
-
-
       const [
         {
           juzgado
@@ -31,7 +25,7 @@ export default function InformationComponent (
         <>
           <p className={typography.bodySmall}>{category}</p>
           <p className={typography.labelSmall}>{tipoProceso}</p>
-          <p className={ typography.titleSmall }>{ cedula }</p>
+          <p className={ typography.titleSmall }>{ deudor?.cedula }</p>
           {juzgado
           && (
             <Link
@@ -52,33 +46,33 @@ export default function InformationComponent (
             </Link>
           )
           }
-          {tel.celular && (
+          {deudor?.telCelular && (
             <Link
-              key={tel.celular}
+              key={deudor.telCelular}
               target={'_blank'}
               className={link}
-              href={`tel:${ tel.celular }`}
+              href={`tel:${ deudor.telCelular }`}
             >
               <span className={`material-symbols-outlined ${ icon }`}>
               phone_iphone
               </span>
-              <span className={typography.labelSmall}>{tel.celular.toString()}</span>
+              <span className={typography.labelSmall}>{deudor.telCelular}</span>
             </Link>
           )}
-          {tel.fijo && (
+          {deudor?.telFijo && (
             <Link
-              key={tel.fijo}
+              key={deudor.telFijo}
               target={'_blank'}
               className={link}
-              href={`tel:${ tel.fijo }`}
+              href={`tel:${ deudor.telFijo }`}
             >
               <span className={`material-symbols-outlined ${ icon }`}>
               call
               </span>
-              <span className={typography.labelSmall}>{tel.fijo.toString()}</span>
+              <span className={typography.labelSmall}>{deudor.telFijo}</span>
             </Link>
           )}
-          {demanda.vencimientoPagare
+          {demanda?.vencimientoPagare
           && demanda.vencimientoPagare.map(
             (
               pagare, index
@@ -95,11 +89,11 @@ export default function InformationComponent (
                       );
             }
           )}
-          {email && (
+          {deudor?.email && (
             <Link
               className={button}
               target={'_blank'}
-              href={`mailto:${ email }`}
+              href={`mailto:${ deudor.email }`}
             >
               <span className={`material-symbols-outlined ${ icon }`}>
               forward_to_inbox
@@ -108,7 +102,7 @@ export default function InformationComponent (
             </Link>
           )}
 
-          {demanda.entregaGarantiasAbogado && (
+          {demanda?.entregaGarantiasAbogado && (
             <p className={typography.labelSmall}>
               {fixFechas(
                 demanda.entregaGarantiasAbogado
@@ -116,7 +110,7 @@ export default function InformationComponent (
             </p>
           )}
 
-          {demanda.capitalAdeudado
+          {demanda?.capitalAdeudado
             && fixMoney(
               {
                 valor: Number(
@@ -125,37 +119,37 @@ export default function InformationComponent (
               }
             )}
 
-          {email && (
+          {deudor?.email && (
             <Link
               className={link}
-              href={email as Route}
+              href={deudor.email as Route}
               target={'_blank'}
             >
               <span className={`material-symbols-outlined ${ icon }`}>mail</span>
               <span className={typography.labelMedium}>{'Correo Electrónico'}</span>
             </Link>
           )}
-          {tel.celular && (
+          {deudor?.telCelular && (
             <Link
-              key={tel.celular}
+              key={deudor.telCelular}
               className={link}
               target={'_blank'}
-              href={`tel:${ tel.celular }`}
+              href={`tel:${ deudor.telCelular }`}
             >
               <span className={`material-symbols-outlined ${ icon }`}>
             phone_iphone
               </span>
-              <span className={typography.labelMedium}>{tel.celular.toString()}</span>
+              <span className={typography.labelMedium}>{deudor.telCelular}</span>
             </Link>
           )}
-          {tel.fijo && (
+          {deudor?.telFijo && (
             <Link
-              key={tel.fijo}
+              key={deudor.telFijo}
               className={link}
-              href={`tel:${ tel.fijo }`}
+              href={`tel:${ deudor.telFijo }`}
             >
               <span className={`material-symbols-outlined ${ icon }`}>call</span>
-              <span className={typography.labelMedium}>{tel.fijo.toString()}</span>
+              <span className={typography.labelMedium}>{deudor.telFijo}</span>
             </Link>
           )}
         </>

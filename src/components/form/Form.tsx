@@ -36,14 +36,8 @@ export const Form = (
                       ...data,
                     };
 
-                    const {
-                      // eslint-disable-next-line no-unused-vars
-                      _id,
-                      ...mutated
-                    } = newCarpeta;
-
                     const parsed = IntCarpetaElementSchema.safeParse(
-                      mutated
+                      newCarpeta
                     );
 
                     if ( !parsed.success ) {
@@ -142,7 +136,7 @@ export const Form = (
                         'PRENDARIO'
                       ]}
                     />
-                    { deudor.cedula && (
+                    { deudor?.cedula && (
                       <NumberSection
                         name={'deudor.cedula'}
                         title={'Cédula de Ciudadanía'}
@@ -162,7 +156,7 @@ export const Form = (
                         required: true,
                       }}
                     />
-                    { deudor.segundoNombre && (
+                    { deudor?.segundoNombre && (
                       <InputSection
                         key={'segundoNombre'}
                         name={'deudor.segundoNombre'}
@@ -180,7 +174,7 @@ export const Form = (
                         required: true,
                       }}
                     />
-                    { deudor.segundoApellido && (
+                    { deudor?.segundoApellido && (
                       <InputSection
                         name={'deudor.segundoApellido'}
                         title={'Segundo Apellido'}
@@ -229,7 +223,7 @@ export const Form = (
                       required: true,
                     }}
                   />
-                  {demanda.departamento
+                  {demanda?.departamento
                     ? (
                         <SelectSection
                           name={'demanda.departamento'}
@@ -317,7 +311,7 @@ export const Form = (
                           title={'Departamento'}
                         />
                       )}
-                  {demanda.entregaGarantiasAbogado
+                  {demanda?.entregaGarantiasAbogado
                     ? (
                         <DateInputSection
                           name={'demanda.entregaGarantiasAbogado'}
@@ -337,11 +331,11 @@ export const Form = (
                     type={'text'}
                   />
                   <InputSection
-                    name={'demanda.expediente'}
+                    name={'demanda.llaveProceso'}
                     title={'Expediente'}
                     type={'text'}
                   />
-                  {demanda.fechaPresentacion
+                  {demanda?.fechaPresentacion
                     ? demanda.fechaPresentacion.map(
                       (
                         fehcaP, index
@@ -365,7 +359,7 @@ export const Form = (
                       )}
 
                   <ObligacionesComponent />
-                  {demanda.vencimientoPagare
+                  {demanda?.vencimientoPagare
                     ? (
                         demanda.vencimientoPagare.map(
                           (

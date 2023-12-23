@@ -22,7 +22,7 @@ export function  LinkCard<T extends string = string>(
 
 
       const {
-        deudor, fecha, numero, nombre
+        fecha, numero, nombre
       } = carpeta;
 
       const {
@@ -59,7 +59,7 @@ export function  LinkCard<T extends string = string>(
           >
             <sup className={searchbar.sub }>{`# ${ numero }`}</sup>
             <h4
-              key={deudor.cedula}
+              key={carpeta._id}
               className={`${ typography.titleMedium } ${ searchbar.title }`}
             >
               {nombre}
@@ -89,7 +89,7 @@ export function  LinkCard<T extends string = string>(
                           {`# ${ numero }`}
                         </sup>
                         <h4
-                          key={deudor.cedula}
+                          key={idProceso}
                           className={`${ typography.titleMedium } ${ searchbar.title }`}
                         >
                           {nombre}

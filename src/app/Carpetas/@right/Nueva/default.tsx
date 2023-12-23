@@ -1,13 +1,13 @@
 'use client';
 
 import { OutputDateHelper } from '#@/lib/project/date-helper';
-import { NuevaCarpeta } from '#@/lib/types/carpetas';
 import { useFormContext, useWatch } from 'react-hook-form';
 import styles from './styles.module.css';
+import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 
 export default function Page() {
       const {
-        getValues 
+        getValues
       } = useFormContext<NuevaCarpeta>();
 
       const nuevaCarpeta = useWatch();
@@ -19,7 +19,7 @@ export default function Page() {
           <div className={styles.divider}></div>
           <pre>
             {Number(
-              nuevaCarpeta.demanda.capitalAdeudado ?? 0 
+              nuevaCarpeta.demanda.capitalAdeudado ?? 0
             )
                   .toLocaleString(
                     'es-CO',
@@ -33,13 +33,13 @@ export default function Page() {
           <div className={styles.divider}></div>
           <pre>
             {OutputDateHelper(
-              nuevaCarpeta.demanda.entregaGarantiasAbogado 
+              nuevaCarpeta.demanda.entregaGarantiasAbogado
             )}
           </pre>
           <div className={styles.divider}></div>
 
           <pre>{JSON.stringify(
-            getValues(), null, 2 
+            getValues(), null, 2
           )}</pre>
           <div className={styles.divider}></div>
           <button
@@ -47,8 +47,8 @@ export default function Page() {
             onClick={() => {
                       alert(
                         JSON.stringify(
-                          nuevaCarpeta, null, 2 
-                        ) 
+                          nuevaCarpeta, null, 2
+                        )
                       );
             }}
           ></button>

@@ -21,8 +21,8 @@ export default function Page() {
         'deudor.segundoApellido',
         'deudor.cedula',
         'deudor.direccion',
-        'deudor.tel.fijo',
-        'deudor.tel.celular',
+        'deudor.telFijo',
+        'deudor.telCelular',
       ];
 
       const carpeta = useWatch<IntCarpeta>();
@@ -44,7 +44,9 @@ export default function Page() {
             <pre>
               {demanda.capitalAdeudado &&  fixMoney(
                 {
-                  valor: demanda.capitalAdeudado,
+                  valor: Number(
+                    demanda.capitalAdeudado 
+                  ),
                 }
               ) }
             </pre>

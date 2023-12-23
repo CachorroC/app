@@ -1,10 +1,10 @@
 'use client';
 
 import { InputDateHelper } from '#@/lib/project/date-helper';
-import { NuevaCarpeta } from '#@/lib/types/carpetas';
 import { ReactNode } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useCarpetaSort } from './carpetas-sort-context';
+import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 
 export function NuevaCarpetaFormProvider(
   {
@@ -44,7 +44,7 @@ export function NuevaCarpetaFormProvider(
               entregaGarantiasAbogado: daterFixer,
               tipoProceso            : 'SINGULAR',
               fechaPresentacion      : [
-                daterFixer 
+                daterFixer
               ],
               vencimientoPagare: [
                 daterFixer

@@ -1,6 +1,6 @@
 'use client';
 
-import { IntCarpeta, NuevaCarpeta } from '#@/lib/types/carpetas';
+import { IntCarpeta, } from '#@/lib/types/carpetas';
 import { FieldPath,
   RegisterOptions,
   useController,
@@ -10,6 +10,7 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { useState, type HTMLInputTypeAttribute, useId } from 'react';
 import layout from '#@/styles/layout.module.css';
 import styles from './form.module.css';
+import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 
 export function InputSection(
   {

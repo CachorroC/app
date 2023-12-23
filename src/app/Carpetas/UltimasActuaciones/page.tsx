@@ -54,13 +54,12 @@ export default async function Page() {
                         return (
 
                           <Card
-
                             carpeta={carpeta }
                             key={numero}
                           >
                             <Suspense fallback={<Loader />}>
                               { idProcesos.map(
-                                (T
+                                (
                                   idProceso
                                 ) => {
                                           return (

@@ -44,10 +44,11 @@ export async function generateMetadata(
       return {
         title   : product.nombre,
         keywords: [
-          product.deudor.primerNombre,
+          product.nombre,
+          product.tipoProceso,
+          product.numero.toString(),
           product.tipoProceso,
           product.category,
-          product.deudor.primerApellido
         ]
       };
 }
@@ -68,12 +69,9 @@ export default async function Page (
       }
 
       const {
-        deudor,  category, tipoProceso, idProcesos, procesos
+        deudor, demanda,  category, tipoProceso, idProcesos, procesos
       } = carpeta;
 
-      const {
-        tel, email, cedula
-      } = deudor;
 
       let idProcesoContent;
 
@@ -109,15 +107,15 @@ export default async function Page (
             <h4 className={typography.titleSmall}>Tipo Proceso:</h4>
             <p className={ styles.chip }>{ tipoProceso }</p>
           </section>
-          { cedula && (
+          { deudor?.cedula && (
             <section className={ layout.segmentColumn }>
               <section className={layout.segmentRow}>
                 <h4 className={ typography.titleSmall }>Cédula de ciudadania:</h4>
                 <CopyButton copyTxt={String(
-                  cedula
+                  deudor.cedula
                 ) } name={ 'Cédula' } />
               </section>
-              <p className={ styles.chip }>{ cedula }</p>
+              <p className={ styles.chip }>{ deudor.cedula }</p>
             </section>
           )}
         </section>
@@ -148,38 +146,38 @@ export default async function Page (
         )}
         </section>
         <section className={ layout.segmentRow}>
-          { tel.celular && (
+          {deudor?.telCelular && (
             <Link
-              key={tel.celular}
+              key={deudor.telCelular}
               target={'_blank'}
               className={button.buttonActiveCategory}
-              href={`tel:${ tel.celular }`}
+              href={`tel:${ deudor.telCelular }`}
             >
               <span className={`material-symbols-outlined ${ button.icon }`}>
               phone_iphone
               </span>
-              <span className={`${ typography.labelSmall } ${ button.text }`}>{tel.celular.toString()}</span>
+              <span className={typography.labelSmall}>{deudor.telCelular}</span>
             </Link>
           )}
-          {tel.fijo && (
+          {deudor?.telFijo && (
             <Link
-              key={tel.fijo}
+              key={deudor.telFijo}
               target={'_blank'}
               className={button.buttonActiveCategory}
-              href={`tel:${ tel.fijo }`}
+              href={`tel:${ deudor.telFijo }`}
             >
               <span className={`material-symbols-outlined ${ button.icon }`}>
               call
               </span>
-              <span className={`${ typography.labelSmall } ${ button.text }`}>{tel.fijo.toString()}</span>
+              <span className={typography.labelSmall}>{deudor.telFijo}</span>
             </Link>
           )}
 
-          {email && (
+          {deudor?.email && (
             <Link
               className={button.buttonActiveCategory}
               target={'_blank'}
-              href={`mailto:${ email }`}
+              href={`mailto:${ deudor.email }`}
             >
               <span className={`material-symbols-outlined ${ button.icon }`}>
               forward_to_inbox
@@ -190,7 +188,7 @@ export default async function Page (
         </section>
         <section className={ layout.segmentRow }>
           <h5 className={typography.titleMedium}>Vencimiento Pagaré:</h5>
-          {carpeta.demanda.vencimientoPagare && carpeta.demanda.vencimientoPagare.map(
+          {demanda?.vencimientoPagare && demanda.vencimientoPagare.map(
             (
               pagare, index
             ) => {
@@ -210,10 +208,10 @@ export default async function Page (
             }
           )}
         </section>
-        {carpeta.demanda.entregaGarantiasAbogado && (
+        {demanda?.entregaGarantiasAbogado && (
           <p className={`${ typography.labelSmall } ${ button.text }`}>
             {OutputDateHelper(
-              carpeta.demanda.entregaGarantiasAbogado
+              demanda.entregaGarantiasAbogado
             )}
           </p>
         ) }
@@ -223,11 +221,11 @@ export default async function Page (
 
         <section className={ layout.segmentColumn }>
           <h5 className={typography.titleMedium}>Capital Adeudado:</h5>
-          <p className={typography.bodyMedium}>   {carpeta.demanda.capitalAdeudado
+          <p className={typography.bodyMedium}>   {demanda?.capitalAdeudado
             && fixMoney(
               {
                 valor: Number(
-                  carpeta.demanda.capitalAdeudado
+                  demanda.capitalAdeudado
                 ),
               }
             )}</p>

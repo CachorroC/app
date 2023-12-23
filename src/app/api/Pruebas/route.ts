@@ -125,7 +125,7 @@ export async function POST(
               idProcesos: incomingCarpeta.idProcesos,
             },
             {
-              'deudor.cedula': incomingCarpeta.deudor.cedula,
+              'deudor.cedula': incomingCarpeta.deudor?.cedula,
             },
           ],
         },

@@ -86,8 +86,11 @@ export function CopyButtons(
 
           { carpeta.llaveProceso && (
             <CopyButton copyTxt={ carpeta.llaveProceso} name={`expediente ${ carpeta.llaveProceso }`} />
+          ) }
+          { carpeta.deudor?.cedula && (
+            <CopyButton copyTxt={ carpeta.deudor.cedula} name={`cédula de ciudadanía número${ carpeta.deudor.cedula }`} />
           )}
-          { carpeta.demanda.radicado && (
+          { carpeta.demanda?.radicado && (
             <CopyButton copyTxt={ carpeta.demanda.radicado} name={`radicado ${ carpeta.demanda.radicado }`} />
           )}
 

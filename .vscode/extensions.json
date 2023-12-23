@@ -1,5 +1,3 @@
 {
-  "recommendations": [
-    "prisma.prisma"
-  ]
+  "recommendations": ["prisma.prisma", "ms-vscode.vscode-typescript-next"]
 }

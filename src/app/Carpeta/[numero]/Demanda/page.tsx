@@ -1,4 +1,5 @@
-import { carpetasCollection } from '#@/lib/connection/collections';
+
+import { prisma } from '#@/lib/connection/prisma';
 import { notFound } from 'next/navigation';
 
 export default async function DemandaPage(
@@ -8,13 +9,29 @@ export default async function DemandaPage(
     params: { numero: string };
   }
 ) {
-      const collection = await carpetasCollection();
-
-      const carpeta = await collection.findOne(
+      const carpeta = await prisma.carpeta.findUnique(
         {
-          numero: Number(
-            params.numero
-          )
+          where: {
+            numero: Number(
+              params.numero
+            )
+          },
+          include: {
+            deudor         : true,
+            codeudor       : true,
+            ultimaActuacion: true,
+            procesos       : {
+              include: {
+                juzgado: true
+              }
+            },
+            demanda: {
+              include: {
+                medidasCautelares: true,
+                notificacion     : true,
+              }
+            }
+          }
         }
       );
 
@@ -23,8 +40,12 @@ export default async function DemandaPage(
       }
 
       const {
-        demanda
+        demanda, llaveProceso
       } = carpeta;
+
+      if ( !demanda ) {
+        return notFound();
+      }
 
       const {
         capitalAdeudado
@@ -39,12 +60,14 @@ export default async function DemandaPage(
       )
             .format(
               capitalAdeudado
-                ? capitalAdeudado
+                ? Number(
+                  capitalAdeudado.toString()
+                )
                 : 1000000
             );
       return (
         <div>
-          <h1>{demanda.llaveProceso}</h1>
+          <h1>{llaveProceso}</h1>
           <p>{capitalAdeudado && moneyFixed}</p>
         </div>
       );

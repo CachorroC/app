@@ -1,6 +1,6 @@
 'use client';
 
-import { IntCarpeta, NuevaCarpeta } from '#@/lib/types/carpetas';
+import { IntCarpeta,  } from '#@/lib/types/carpetas';
 import { type FieldPath,
   RegisterOptions,
   useFormContext,
@@ -8,6 +8,7 @@ import { type FieldPath,
 import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
+import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 
 export const NumberSection = (
   {

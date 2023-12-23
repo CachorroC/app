@@ -1,59 +1,30 @@
-import { prisma } from '#@/lib/connection/prisma';
+import { MonCarpeta } from '#@/lib/types/carpetas';
+
 
 export async function fetchCarpetas () {
-      const rawCarpetas =  await prisma.carpeta.findMany(
-        {
-          include: {
-            ultimaActuacion: true,
-            deudor         : true,
-            codeudor       : true,
-            notas          : true,
-            demanda        : {
-              include: {
-                notificacion     : true,
-                medidasCautelares: true
-              }
-            },
-            procesos: {
-              include: {
-                juzgado: true
-              }
-            },
-
-            tareas: {
-              include: {
-                subTareas: true
-              }
+      try {
+        const request = await fetch(
+          'https://api.rsasesorjuridico.com/api/Carpetas', {
+            headers: {
+              'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
+              'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`
             }
           }
+        );
+
+        if ( !request.ok ) {
+          throw new Error(
+            `error at the fetch request ${ request.statusText } ${ request.status }`
+          );
+
         }
-      );
 
-      return rawCarpetas.map(
-        (
-          carpeta
-        ) => {
-                  const {
-                    demanda
-                  } = carpeta;
-                  let newDemanda;
-
-                  if ( demanda ) {
-                    newDemanda = {
-                      ...demanda,
-                      capitalAdeudado: demanda.capitalAdeudado
-                        ? demanda.capitalAdeudado.toString()
-                        : null
-                    };
-                  } else {
-                    newDemanda = null;
-                  }
-
-                  return {
-                    ...carpeta,
-                    demanda: newDemanda
-                  };
-        }
-      );
+        return request.json() as Promise<MonCarpeta[]>;
+      } catch ( error ) {
+        console.log(
+          error
+        );
+        return [];
+      }
 
 }

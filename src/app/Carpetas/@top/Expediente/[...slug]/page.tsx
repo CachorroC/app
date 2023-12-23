@@ -21,12 +21,15 @@ export default async function Page(
         return notFound();
       }
 
+      const {
+        deudor
+      } = carpeta;
       return (
         <>
-          <NombreComponent
+          {deudor && ( <NombreComponent
             key={llaveProceso}
-            deudor={carpeta.deudor}
-          />
+            deudor={deudor}
+          /> )}
           {idProceso && <p className={typography.bodySmall}>Ultimas Actuaciones</p>}
         </>
       );

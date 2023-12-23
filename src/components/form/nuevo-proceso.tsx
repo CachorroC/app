@@ -1,5 +1,4 @@
 'use client';
-import { NuevaCarpeta } from '#@/lib/types/carpetas';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import form from 'components/form/form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
@@ -10,6 +9,7 @@ import { VencimientoPagareSection } from './vencimiento-pagare-section';
 import { ObligacionesComponent } from './field-array-section';
 import { NuevaCarpetaSchema } from '#@/lib/types/zod/nuevaCarpeta';
 import layout from '#@/styles/layout.module.css';
+import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 
 export default function NuevoProceso() {
       const {
