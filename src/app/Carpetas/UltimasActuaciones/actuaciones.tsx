@@ -1,7 +1,6 @@
 
 import {  fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
-import { unstable_noStore as noStore } from 'next/cache';
 
 /*
 async function getData(
@@ -79,8 +78,6 @@ export async function FechaActuacionComponent(
     initialOpenState: boolean
   }
 ) {
-      noStore();
-
       const consultaActuaciones = await fetchActuaciones(
         idProceso, index
       );

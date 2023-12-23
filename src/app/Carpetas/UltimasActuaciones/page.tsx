@@ -46,7 +46,7 @@ export default async function Page() {
           <Suspense fallback={ <SearchOutputListSkeleton /> }>
             { carpetas.map(
               (
-                carpeta
+                carpeta, index
               ) => {
                         const {
                           numero, idProcesos
@@ -66,7 +66,7 @@ export default async function Page() {
                                             <Suspense key={ idProceso } fallback={<FechaActuacionLoader />}>
 
                                               <FechaActuacionComponent
-                                                index={numero}
+                                                index={index}
                                                 initialOpenState={ false }
                                                 idProceso={ idProceso }
                                                 key={ idProceso }
