@@ -6,7 +6,14 @@
   border-radius: 2vmin;
   display: inline-block;
   background-color: var(--surface-container-low);
-  box-shadow: var(--dp1);
+  box-shadow: var(--dp4);
+}
+.container::after {
+  background-color: var(--on-surface);
+  opacity: 0.08;
+}
+.container:hover::after {
+  opacity: 0.8;
 }
 
 .card {

@@ -8,6 +8,7 @@ import layout from '#@/styles/layout.module.css';
 import { NavLink } from './NavLink';
 import styles from './navbar.module.css';
 import { useNavigationContext } from '#@/app/context/navigation-context';
+import { Route } from 'next';
 
 
 export const Drawer = (
@@ -104,7 +105,7 @@ export const Drawer = (
 
                 <section className={ layout.segmentRowWrap }>
                   <NavLink iconLabel={ 'home' } textLabel={ 'Inicio' } hrefLabel='/' />
-                  <NavLink iconLabel={ 'gavel'} textLabel={ 'ultimas actuaciones'} hrefLabel= '/Carpetas/UltimasActuaciones'  />
+                  <NavLink iconLabel={ 'gavel'} textLabel={ 'ultimas actuaciones'} hrefLabel= {'/Carpetas/UltimasActuaciones' as Route} />
                   <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel='/Notas'  />
                   <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel= '/Carpetas'   />
                   <NavLink iconLabel={ 'accessibility_new' } textLabel={ 'Quienes Somos' } hrefLabel= '/QuienesSomos'  />

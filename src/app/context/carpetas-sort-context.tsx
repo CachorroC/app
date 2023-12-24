@@ -3,11 +3,10 @@ import { Category, MonCarpeta } from '#@/lib/types/carpetas';
 import { IntAction } from '#@/lib/types/context-actions';
 import { Dispatch,
   ReactNode,
-  SetStateAction,
+
   createContext,
   useContext,
-  useReducer,
-  useState, } from 'react';
+  useReducer, } from 'react';
 
 
 const CarpetasSortContext = createContext<MonCarpeta[] | null>(
@@ -16,10 +15,6 @@ const CarpetasSortContext = createContext<MonCarpeta[] | null>(
 
 const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
   null,
-);
-
-const CarpetasContext = createContext<{ currentCarpetas: MonCarpeta[]; setCurrentCarpetas: Dispatch<SetStateAction<MonCarpeta[]>> }| null>(
-  null
 );
 
 export function CarpetasSortProvider(
@@ -31,12 +26,6 @@ export function CarpetasSortProvider(
     initialCarpetas: MonCarpeta[];
   }
 ) {
-      const [
-        currentCarpetas,
-        setCurrentCarpetas
-      ]= useState(
-        initialCarpetas
-      );
 
       const [
         carpetasReduced,
@@ -47,32 +36,12 @@ export function CarpetasSortProvider(
       );
 
       return (
-        <CarpetasContext.Provider value={{
-          currentCarpetas,
-          setCurrentCarpetas
-        }}>
-          <CarpetasSortContext.Provider value={carpetasReduced}>
-            <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
-              {children}
-            </CarpetasSortDispatchContext.Provider>
-          </CarpetasSortContext.Provider>
-        </CarpetasContext.Provider>
+        <CarpetasSortContext.Provider value={carpetasReduced}>
+          <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
+            {children}
+          </CarpetasSortDispatchContext.Provider>
+        </CarpetasSortContext.Provider>
       );
-}
-
-export function useCarpetasContext () {
-      const context = useContext(
-        CarpetasContext
-      );
-
-      if ( context === null ) {
-        throw new Error(
-          'useCarpetasContext must be used inside a CarpetasProvider'
-        );
-
-      }
-
-      return context;
 }
 
 export function useCarpetaSort() {

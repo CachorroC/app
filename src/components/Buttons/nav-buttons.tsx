@@ -6,6 +6,7 @@ import styles from '#@/styles/layout.module.css';
 import layout from '#@/styles/layout.module.css';
 import { NavLink } from '../layout/NavLink';
 import { useNavigationContext } from '#@/app/context/navigation-context';
+import { Route } from 'next';
 
 // TODO: arreglar lo de la navegacion
 
@@ -93,7 +94,7 @@ export default function NavButtons () {
           </button>
           <NavLink iconLabel={ 'home' } textLabel={ 'Inicio' } hrefLabel='/' />
           <NavLink iconLabel={ 'gavel' } textLabel={ `ultimas
-      actuaciones`} hrefLabel= '/Carpetas/UltimasActuaciones' />
+      actuaciones`} hrefLabel= {'/Carpetas/UltimasActuaciones' as Route }/>
           <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel='/Notas' />
           <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel='/Carpetas'   />
         </>

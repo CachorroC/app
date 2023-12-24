@@ -2,6 +2,7 @@ import layout from '#@/styles/layout.module.css';
 import Link from 'next/link';
 import typography from '#@/styles/fonts/typography.module.css';
 import { Calendar } from '#@/components/Calendar/main';
+import { Route } from 'next';
 
 
 export default function Page () {
@@ -15,7 +16,7 @@ export default function Page () {
           <div className={layout.leftGrid}>
             <Link
               className={layout.button}
-              href={'/Carpetas/UltimasActuaciones'}
+              href={'/Carpetas/UltimasActuaciones' as Route}
             >
               <span className="material-symbols-outlined">pace</span>
               <h1 className={typography.headlineMedium}>{'Ultimas Actuaciones'}</h1>
