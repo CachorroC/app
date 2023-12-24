@@ -5,7 +5,6 @@ import { InputSearchBar } from './InputSearchBar';
 import { Drawer } from './Drawer';
 import { NavLink } from './NavLink';
 import { useNavigationContext } from '#@/app/context/navigation-context';
-import { Route } from 'next';
 
 export const Header = (
   {
@@ -43,7 +42,7 @@ export const Header = (
                 iconLabel={'gavel'}
                 textLabel={'Reciente'}
                 key={'actuaciones'}
-                hrefLabel={'/Carpetas/UltimasActuaciones' as Route}
+                hrefLabel={'/Carpetas/UltimasActuaciones' }
               />
 
               {isNavOpen && (
