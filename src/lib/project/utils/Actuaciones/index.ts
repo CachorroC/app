@@ -5,6 +5,7 @@ import { getCarpetaByllaveProceso } from 'project/utils/Carpetas/carpetas';
 import { carpetasCollection } from '../../../connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
 import { sleep } from '../../helper';
+import { updateUltimaActuacionInPrisma } from './updater';
 
 
 export async function fetchActuaciones(
@@ -50,9 +51,12 @@ export async function fetchActuaciones(
                     };
           }
         );
-        NewUpdateActuaciones(
-          outActuaciones
-          , idProceso
+
+        const [
+          ultimaActuacion
+        ] = outActuaciones;
+        updateUltimaActuacionInPrisma(
+          ultimaActuacion
         );
         return outActuaciones;
       } catch ( error ) {
@@ -498,25 +502,3 @@ export async function NewUpdateActuaciones (
         return;
       }
 }
-
-export const deleteProcesoPrivado = async (
-  {
-    idProceso,
-  }: {
-    idProceso: number;
-  }
-) => {
-          const collection = await carpetasCollection();
-
-          const deleteOne = await collection.deleteOne(
-            {
-              idProceso: idProceso,
-            }
-          );
-
-          if ( deleteOne.deletedCount > 0 ) {
-            return true;
-          }
-
-          return false;
-};
