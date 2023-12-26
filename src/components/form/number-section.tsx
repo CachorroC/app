@@ -1,6 +1,6 @@
 'use client';
 
-import { IntCarpeta,  } from '#@/lib/types/carpetas';
+import { IntCarpeta } from '#@/lib/types/carpetas';
 import { type FieldPath,
   RegisterOptions,
   useFormContext,
@@ -24,25 +24,25 @@ export const NumberSection = (
     RegisterOptions<NuevaCarpeta | IntCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
     >;
-  }
+  } 
 ) => {
           const {
-            control
+            control 
           } = useFormContext<NuevaCarpeta | IntCarpeta>();
 
           const rules = rls ?? {
             required      : false,
-            valuesAsNumber: true
+            valuesAsNumber: true,
           };
 
           const {
-            field
+            field 
           } = useController(
             {
               name,
               control,
               rules,
-            }
+            } 
           );
           return (
             <div className={layout.segmentRow}>
@@ -60,15 +60,13 @@ export const NumberSection = (
                 placeholder={title}
                 className={form.textArea}
                 onChange={(
-                  e
+                  e 
                 ) => {
                           field.onChange(
                             parseInt(
-                              e.target.value
-                            )
+                              e.target.value 
+                            ) 
                           );
-
-
                 }}
               />
             </div>

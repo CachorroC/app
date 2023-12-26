@@ -3,62 +3,61 @@ import { IntCarpeta } from '../types/carpetas';
 import { intNota } from '../types/notas';
 import clientPromise from './mongodb';
 
-export async function carpetasCollection () {
+export async function carpetasCollection() {
       const client = await clientPromise;
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const carpetas = db.collection<IntCarpeta>(
-        'Carpetas'
+        'Carpetas' 
       );
 
       return carpetas;
 }
 
-export async function pruebasCollection () {
+export async function pruebasCollection() {
       const client = await clientPromise;
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const carpetas = db.collection<IntCarpeta>(
-        'Activas'
+        'Activas' 
       );
 
       return carpetas;
 }
 
 export async function tareasCollection() {
-
       const client = await clientPromise;
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const notas = db.collection<Tarea>(
-        'Tareas'
+        'Tareas' 
       );
 
       return notas;
@@ -69,16 +68,16 @@ export async function notasCollection() {
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const notas = db.collection<intNota>(
-        'Notas'
+        'Notas' 
       );
 
       return notas;

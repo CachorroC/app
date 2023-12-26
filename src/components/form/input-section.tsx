@@ -1,6 +1,6 @@
 'use client';
 
-import { IntCarpeta, } from '#@/lib/types/carpetas';
+import { IntCarpeta } from '#@/lib/types/carpetas';
 import { FieldPath,
   RegisterOptions,
   useController,
@@ -26,10 +26,10 @@ export function InputSection(
     RegisterOptions<NuevaCarpeta | IntCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
     >;
-  }
+  } 
 ) {
       const {
-        control, getValues
+        control, getValues 
       } = useFormContext<NuevaCarpeta | IntCarpeta>();
 
       const rules = rls ?? {
@@ -37,7 +37,7 @@ export function InputSection(
       };
 
       const propValues = getValues(
-        name
+        name 
       );
 
       let isInCarpeta;
@@ -47,7 +47,7 @@ export function InputSection(
       if ( !propValues || propValues === null || propValues === undefined ) {
         isInCarpeta = false;
         console.log(
-          `prop values is ${ propValues }`
+          `prop values is ${ propValues }` 
         );
       } else {
         isInCarpeta = true;
@@ -55,19 +55,19 @@ export function InputSection(
 
       const [
         hasProperty,
-        setHasProperty
+        setHasProperty 
       ] = useState(
-        isInCarpeta
+        isInCarpeta 
       );
 
       const {
-        field, fieldState
+        field, fieldState 
       } = useController(
         {
           name,
           control,
           rules,
-        }
+        } 
       );
       return (
         <div className={layout.sectionRow}>
@@ -78,40 +78,41 @@ export function InputSection(
               checked={hasProperty}
               type="checkbox"
               onChange={(
-                e
+                e 
               ) => {
                         setHasProperty(
-                          e.target.checked
+                          e.target.checked 
                         );
               }}
             />
             <span className={styles.slider}></span>
           </label>
-          { hasProperty && (
+          {hasProperty && (
             <label
-              className={ `${ form.label } ${ typography.titleMedium }` }
-              htmlFor={ id + field.name }
+              className={`${ form.label } ${ typography.titleMedium }`}
+              htmlFor={id + field.name}
             >
-              { title }
+              {title}
               <input
-                name={ field.name }
+                name={field.name}
                 id={id + field.name}
-                value={ field.value ?? '' }
-                ref={ field.ref }
-                type={ type }
-                placeholder={ title }
-                className={ form.textArea }
-                onChange={ (
-                  e
+                value={field.value ?? ''}
+                ref={field.ref}
+                type={type}
+                placeholder={title}
+                className={form.textArea}
+                onChange={(
+                  e 
                 ) => {
                           field.onChange(
-                            e.target.value
+                            e.target.value 
                           );
-                } } />
+                }}
+              />
             </label>
           )}
           <pre> {JSON.stringify(
-            fieldState, null, 2
+            fieldState, null, 2 
           )}</pre>
         </div>
       );

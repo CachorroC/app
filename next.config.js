@@ -10,10 +10,10 @@ const nextConfig = {
     caseSensitiveRoutes             : true,
     serverComponentsExternalPackages: [
       'mongodb',
-      'prisma'
+      'prisma' 
     ],
   },
-  async headers () {
+  async headers() {
             return [
               {
                 source : '/:path*',
@@ -23,8 +23,9 @@ const nextConfig = {
                     value: 'dac874230dcfcd71de02b41f5e78083c.access',
                   },
                   {
-                    key  : 'CF-Access-Client-Secret',
-                    value: 'cd9f43a4ea535037f9a1d03fc82e2477020438e462bb076d7926c53ebbadeaf8',
+                    key: 'CF-Access-Client-Secret',
+                    value:
+              'cd9f43a4ea535037f9a1d03fc82e2477020438e462bb076d7926c53ebbadeaf8',
                   },
                 ],
               },

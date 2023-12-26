@@ -3,17 +3,17 @@ import { useParams, usePathname } from 'next/navigation';
 import styles from 'components/form/form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
-import {  SubmitHandler,  useForm } from 'react-hook-form';
-import {  useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 import { NotasWatcher } from '#@/app/Carpeta/[numero]/notaswatcher';
 import { Nota } from '@prisma/client';
 
 export const NuevaNota = (
   {
-    id
-  }: {id?: number}
+    id 
+  }: { id?: number } 
 ) => {
-          const newNota:Nota = {
+          const newNota: Nota = {
             title        : 'Nueva Nota',
             content      : 'contenido de una nueva nota',
             pathname     : '/',
@@ -24,50 +24,50 @@ export const NuevaNota = (
             id           : id
               ? id
               : 0,
-
           };
 
           const params = useParams();
 
-
-
           const {
             register,
-            reset, getValues, setFocus,
-            setValue, setError, control,
-            handleSubmit
+            reset,
+            getValues,
+            setFocus,
+            setValue,
+            setError,
+            control,
+            handleSubmit,
           } = useForm<Nota>(
             {
               defaultValues   : newNota,
               shouldFocusError: true,
               criteriaMode    : 'all',
-            }
+            } 
           );
-
 
           const [
             inputNota,
-            setInputNota
+            setInputNota 
           ] = useState(
-            getValues()
+            getValues() 
           );
 
           const {
-            numero
+            numero 
           } = params;
 
           const inputMonth = String(
-            inputNota.date.getMonth() + 1
+            inputNota.date.getMonth() + 1 
           )
                 .padStart(
-                  2, '0'
+                  2, '0' 
                 );
 
           const inputDate = String(
-            inputNota.date.getDate()
+            inputNota.date.getDate() 
           )
                 .padStart(
-                  2, '0'
+                  2, '0' 
                 );
 
           /*
@@ -85,56 +85,51 @@ export const NuevaNota = (
     );
   }
  */
-          const onSubmit: SubmitHandler<Nota> = async(
-            formNota
+          const onSubmit: SubmitHandler<Nota> = async (
+            formNota 
           ) => {
                     try {
-
-
                       const request = await fetch(
                         '/api/Notas/Nueva', {
                           method : 'POST',
                           headers: {
-                            'content-type': 'application/json'
+                            'content-type': 'application/json',
                           },
                           body: JSON.stringify(
                             {
                               ...inputNota,
-                              ...formNota
-                            }
-                          )
-                        }
+                              ...formNota,
+                            } 
+                          ),
+                        } 
                       );
                       alert(
                         JSON.stringify(
-                          request.status, null, 2
-                        )
+                          request.status, null, 2 
+                        ) 
                       );
 
                       if ( request.status > 200 ) {
                         setError(
                           'root.serverError', {
                             type: request.statusText,
-                          }
+                          } 
                         );
                       }
 
                       const updatedNota = await request.json();
 
-
                       alert(
                         JSON.stringify(
-                          updatedNota, null, 2
-                        )
+                          updatedNota, null, 2 
+                        ) 
                       );
-
                     } catch ( error ) {
                       alert(
                         JSON.stringify(
-                          error, null, 2
-                        )
+                          error, null, 2 
+                        ) 
                       );
-
                     }
           };
 
@@ -142,38 +137,35 @@ export const NuevaNota = (
 
           useEffect(
             () => {
-
                       reset(
                         {
                           pathname     : pathname,
                           carpetaNumero: Number(
-                            numero
-                          )
-                        }
+                            numero 
+                          ),
+                        } 
                       );
                       setFocus(
-                        'title'
+                        'title' 
                       );
             }, [
               numero,
               pathname,
               reset,
-              setFocus
-            ]
+              setFocus 
+            ] 
           );
 
-
           return (
-
             <div className={styles.container}>
               <form
                 className={styles.form}
                 onSubmit={handleSubmit(
-                  onSubmit
+                  onSubmit 
                 )}
               >
                 <h1 className={typography.displayLarge}>Nueva Nota</h1>
-                <section className={ layout.sectionColumn }>
+                <section className={layout.sectionColumn}>
                   <section className={layout.segmentRow}>
                     <section className={layout.sectionRow}>
                       <label
@@ -184,9 +176,9 @@ export const NuevaNota = (
                       </label>
                       <input
                         type="number"
-                        className={ styles.textArea }
+                        className={styles.textArea}
                         {...register(
-                          'carpetaNumero'
+                          'carpetaNumero' 
                         )}
                       />
                     </section>
@@ -195,7 +187,7 @@ export const NuevaNota = (
                         htmlFor="date"
                         className={styles.label}
                       >
-              Fecha
+                Fecha
                       </label>
 
                       <input
@@ -204,46 +196,44 @@ export const NuevaNota = (
                         className={styles.textArea}
                         value={`${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }`}
                         onChange={(
-                          e
+                          e 
                         ) => {
                                   const [
                                     yearStringer,
                                     monthStringer,
-                                    dayStringer
+                                    dayStringer 
                                   ]
-                  = e.target.value.split(
-                    '-'
-                  );
+                    = e.target.value.split(
+                      '-' 
+                    );
 
                                   const newYear = Number(
-                                    yearStringer
+                                    yearStringer 
                                   );
 
                                   const newMonth = Number(
-                                    monthStringer
+                                    monthStringer 
                                   ) - 1;
 
                                   const newDay = Number(
-                                    dayStringer
+                                    dayStringer 
                                   );
                                   setInputNota(
                                     {
                                       ...inputNota,
                                       date: new Date(
-                                        newYear, newMonth, newDay
+                                        newYear, newMonth, newDay 
                                       ),
-                                    }
+                                    } 
                                   );
                                   setValue(
                                     'date', new Date(
-                                      newYear, newMonth, newDay
-                                    ),
+                                      newYear, newMonth, newDay 
+                                    ) 
                                   );
                         }}
                       />
                     </section>
-
-
                   </section>
 
                   <section className={layout.sectionRow}>
@@ -255,11 +245,11 @@ export const NuevaNota = (
                     </label>
                     <input
                       type="text"
-                      className={ styles.textArea }
+                      className={styles.textArea}
                       {...register(
                         'title', {
-                          required: true
-                        }
+                          required: true,
+                        } 
                       )}
                     />
                   </section>
@@ -271,8 +261,6 @@ export const NuevaNota = (
               </form>
 
               <NotasWatcher control={control} />
-
             </div>
-
           );
 };

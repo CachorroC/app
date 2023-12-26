@@ -4,66 +4,74 @@ import { prisma } from '#@/lib/connection/prisma';
 import { IntCarpeta, carpetaConvert } from '#@/lib/types/carpetas';
 
 export async function fetchCarpetaByNumero(
-  numero: number
+  numero: number 
 ) {
       const carpeta = await prisma.carpeta.findFirst(
         {
           where: {
-            numero: numero
+            numero: numero,
           },
           include: {
             ultimaActuacion: true,
             notas          : true,
-            procesos       : {
+            deudor         : true,
+            codeudor       : true,
+            demanda        : {
               include: {
-                juzgado: true
-              }
+                medidasCautelares: true,
+                notificacion     : {
+                  include: {
+                    notifiers: true,
+                  },
+                },
+              },
+            },
+            procesos: {
+              include: {
+                juzgado: true,
+              },
             },
             tareas: {
               include: {
-                subTareas: true
-              }
-            }
-          }
-        }
+                subTareas: true,
+              },
+            },
+          },
+        } 
       );
 
-      const collection = await carpetasCollection();
-
-      const Moncarpeta = await collection.findOne(
-        {
-          numero: numero
-        }
-      );
-
-      if ( Moncarpeta ) {
+      if ( carpeta ) {
         return {
-          ...Moncarpeta,
-          ...carpeta
+          ...carpeta,
+          demanda: {
+            ...carpeta.demanda,
+            medidasCautelares: carpeta.demanda?.medidasCautelares
+              ? carpeta.demanda.medidasCautelares.toString()
+              : null,
+          },
         };
       }
 
       return null;
 }
 
-export async function fetcherCarpetaByidProceso (
-  idProceso: number
+export async function fetcherCarpetaByidProceso(
+  idProceso: number 
 ) {
-
       const client = await clientPromise;
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const collection = db.collection<IntCarpeta>(
-        'Carpetas'
+        'Carpetas' 
       );
 
       const carpeta = await collection.findOne(
@@ -82,36 +90,35 @@ export async function fetcherCarpetaByidProceso (
       }
 
       const Carpeta = carpetaConvert.toMonCarpeta(
-        carpeta
+        carpeta 
       );
 
       return Carpeta;
 }
 
-
-export async function fetchCarpetasByllaveProceso (
-  llaveProceso: string
+export async function fetchCarpetasByllaveProceso(
+  llaveProceso: string 
 ) {
       const prismaCarpetas = await prisma.carpeta.findMany(
         {
           where: {
-            llaveProceso: llaveProceso
+            llaveProceso: llaveProceso,
           },
           include: {
             ultimaActuacion: true,
             notas          : true,
             procesos       : {
               include: {
-                juzgado: true
-              }
+                juzgado: true,
+              },
             },
             tareas: {
               include: {
-                subTareas: true
-              }
-            }
-          }
-        }
+                subTareas: true,
+              },
+            },
+          },
+        } 
       );
 
       const collection = await carpetasCollection();
@@ -121,61 +128,61 @@ export async function fetchCarpetasByllaveProceso (
 
       const mergedArray = mongoCarpetas.map(
         (
-          item
+          item 
         ) => {
                   const matchedObject = prismaCarpetas.find(
                     (
-                      obj
+                      obj 
                     ) => {
                               return obj.numero === item.numero;
-                    }
+                    } 
                   );
                   return {
                     ...item,
-                    ...matchedObject
+                    ...matchedObject,
                   };
-        }
+        } 
       );
       return mergedArray;
 }
 
-export async function fetchCarpetaByllaveProceso (
-  llaveProceso: string
+export async function fetchCarpetaByllaveProceso(
+  llaveProceso: string 
 ) {
       const prismaCarpeta = await prisma.carpeta.findFirst(
         {
           where: {
-            llaveProceso: llaveProceso
+            llaveProceso: llaveProceso,
           },
           include: {
             ultimaActuacion: true,
             notas          : true,
             procesos       : {
               include: {
-                juzgado: true
-              }
+                juzgado: true,
+              },
             },
             tareas: {
               include: {
-                subTareas: true
-              }
-            }
-          }
-        }
+                subTareas: true,
+              },
+            },
+          },
+        } 
       );
 
       const collection = await carpetasCollection();
 
       const Moncarpeta = await collection.findOne(
         {
-          llaveProceso: llaveProceso
-        }
+          llaveProceso: llaveProceso,
+        } 
       );
 
       if ( Moncarpeta ) {
         return {
           ...Moncarpeta,
-          ...prismaCarpeta
+          ...prismaCarpeta,
         };
       }
 

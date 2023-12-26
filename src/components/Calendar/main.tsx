@@ -4,20 +4,19 @@ import calendar from './calendar.module.css';
 
 export function Calendar(
   {
-    date,
-  }: { date?: Date;  }
+    date 
+  }: { date?: Date } 
 ) {
       const today = date
         ? date
         : new Date();
-
 
       const currentMonth = today.getMonth();
 
       const currentYear = today.getFullYear();
 
       const rows = CalendarBuilder(
-        today
+        today 
       );
 
       return (
@@ -36,10 +35,10 @@ export function Calendar(
             <div className={calendar.days}>
               {rows.map(
                 (
-                  row
+                  row 
                 ) => {
                           const {
-                            date, href, current, className
+                            date, href, current, className 
                           } = row;
 
                           const setToday = date === today.getDate();
@@ -47,7 +46,7 @@ export function Calendar(
                           return (
                             <Link
                               key={href}
-                              href={`/Tareas/${ href }` }
+                              href={`/Tareas/${ href }`}
                               className={
                                 current
                                   ? setToday
@@ -61,7 +60,7 @@ export function Calendar(
                               {date.toString()}
                             </Link>
                           );
-                }
+                } 
               )}
             </div>
           </div>

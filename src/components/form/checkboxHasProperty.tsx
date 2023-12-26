@@ -6,17 +6,25 @@ import { KeyOfCarpeta, MonCarpeta } from '#@/lib/types/carpetas';
 
 export function CheckboxHasProperty(
   {
-    keyOfCarpeta, carpeta
-  }: { keyOfCarpeta: KeyOfCarpeta; carpeta: MonCarpeta }
+    keyOfCarpeta,
+    carpeta,
+  }: {
+    keyOfCarpeta: KeyOfCarpeta;
+    carpeta: MonCarpeta;
+  } 
 ) {
       let isInCarpeta;
 
       const propertieValue = carpeta[ keyOfCarpeta ];
 
-      if ( !propertieValue || propertieValue === null || propertieValue === undefined ) {
+      if (
+        !propertieValue
+    || propertieValue === null
+    || propertieValue === undefined
+      ) {
         isInCarpeta = false;
         console.log(
-          `propertie value is ${ propertieValue }`
+          `propertie value is ${ propertieValue }` 
         );
       } else {
         isInCarpeta = true;
@@ -24,13 +32,13 @@ export function CheckboxHasProperty(
 
       const [
         hasProperty,
-        setHasProperty
+        setHasProperty 
       ] = useState(
-        isInCarpeta
+        isInCarpeta 
       );
 
       const {
-        register
+        register 
       } = useFormContext<MonCarpeta>();
       return (
         <>
@@ -39,26 +47,22 @@ export function CheckboxHasProperty(
               className={styles.inputElement}
               checked={hasProperty}
               type="checkbox"
-              onChange={ (
-                e
+              onChange={(
+                e 
               ) => {
                         setHasProperty(
-                          e.target.checked
+                          e.target.checked 
                         );
               }}
             />
             <span className={styles.slider}></span>
           </label>
-          { hasProperty && (
-            <input {...register(
-              keyOfCarpeta
-            )} />
-          ) }
+          {hasProperty && <input {...register(
+            keyOfCarpeta 
+          )} />}
           {JSON.stringify(
-            propertieValue, null, 2
+            propertieValue, null, 2 
           )}
         </>
-
       );
-
 }

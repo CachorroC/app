@@ -6,46 +6,42 @@ import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import Link from 'next/link';
 
-export default function InformationComponent (
+export default function InformationComponent(
   {
-    carpeta
-  }: { carpeta: MonCarpeta }
+    carpeta,
+  }: {
+    carpeta: MonCarpeta;
+  } 
 ) {
       const {
-        deudor, demanda,  category, tipoProceso, procesos
+        deudor, demanda, category, tipoProceso, procesos 
       } = carpeta;
 
       const [
         {
-          juzgado
-        }
+          juzgado 
+        } 
       ] = procesos;
 
       return (
         <>
           <p className={typography.bodySmall}>{category}</p>
           <p className={typography.labelSmall}>{tipoProceso}</p>
-          <p className={ typography.titleSmall }>{ deudor?.cedula }</p>
-          {juzgado
-          && (
+          <p className={typography.titleSmall}>{deudor?.cedula}</p>
+          {juzgado && (
             <Link
               key={juzgado.url}
               target={'_blank'}
               className={link}
               href={juzgado.url as Route}
             >
-              <span className={`material-symbols-outlined ${ icon }`}>
-                  gavel
-              </span>
-              <sub className={typography.displaySmall}>
-                {`${ juzgado.id }`}
-              </sub>
+              <span className={`material-symbols-outlined ${ icon }`}>gavel</span>
+              <sub className={typography.displaySmall}>{`${ juzgado.id }`}</sub>
               <p className={typography.labelSmall}>
                 {`Juzgado de origen: ${ juzgado.tipo }`}
               </p>
             </Link>
-          )
-          }
+          )}
           {deudor?.telCelular && (
             <Link
               key={deudor.telCelular}
@@ -54,7 +50,7 @@ export default function InformationComponent (
               href={`tel:${ deudor.telCelular }`}
             >
               <span className={`material-symbols-outlined ${ icon }`}>
-              phone_iphone
+            phone_iphone
               </span>
               <span className={typography.labelSmall}>{deudor.telCelular}</span>
             </Link>
@@ -66,29 +62,27 @@ export default function InformationComponent (
               className={link}
               href={`tel:${ deudor.telFijo }`}
             >
-              <span className={`material-symbols-outlined ${ icon }`}>
-              call
-              </span>
+              <span className={`material-symbols-outlined ${ icon }`}>call</span>
               <span className={typography.labelSmall}>{deudor.telFijo}</span>
             </Link>
           )}
           {demanda?.vencimientoPagare
-          && demanda.vencimientoPagare.map(
-            (
-              pagare, index
-            ) => {
-                      return (
-                        <p
-                          key={index}
-                          className={typography.labelMedium}
-                        >
-                          {fixFechas(
-                            pagare
-                          )}
-                        </p>
-                      );
-            }
-          )}
+        && demanda.vencimientoPagare.map(
+          (
+            pagare, index 
+          ) => {
+                    return (
+                      <p
+                        key={index}
+                        className={typography.labelMedium}
+                      >
+                        {fixFechas(
+                          pagare 
+                        )}
+                      </p>
+                    );
+          } 
+        )}
           {deudor?.email && (
             <Link
               className={button}
@@ -96,7 +90,7 @@ export default function InformationComponent (
               href={`mailto:${ deudor.email }`}
             >
               <span className={`material-symbols-outlined ${ icon }`}>
-              forward_to_inbox
+            forward_to_inbox
               </span>
               <span className={typography.labelSmall}>Email</span>
             </Link>
@@ -105,19 +99,19 @@ export default function InformationComponent (
           {demanda?.entregaGarantiasAbogado && (
             <p className={typography.labelSmall}>
               {fixFechas(
-                demanda.entregaGarantiasAbogado
+                demanda.entregaGarantiasAbogado 
               )}
             </p>
           )}
 
           {demanda?.capitalAdeudado
-            && fixMoney(
-              {
-                valor: Number(
-                  demanda.capitalAdeudado
-                ),
-              }
-            )}
+        && fixMoney(
+          {
+            valor: Number(
+              demanda.capitalAdeudado 
+            ),
+          } 
+        )}
 
           {deudor?.email && (
             <Link

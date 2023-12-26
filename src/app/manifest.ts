@@ -24,8 +24,7 @@ export default function manifest(): MetadataRoute.Manifest {
         display_override           : [
           'fullscreen',
           'standalone',
-          'window-controls-overlay',
-
+          'window-controls-overlay' 
         ],
         shortcuts: [
           {
@@ -56,8 +55,7 @@ export default function manifest(): MetadataRoute.Manifest {
         serviceworker: {
           scope           : '/',
           src             : '/service-worker.js',
-          update_via_cache: 'all'
-
+          update_via_cache: 'all',
         },
         icons: [
           {
@@ -84,9 +82,6 @@ export default function manifest(): MetadataRoute.Manifest {
             type   : 'image/png',
             purpose: 'maskable',
           },
-
-
-
         ],
       };
 }

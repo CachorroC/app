@@ -12,23 +12,21 @@ import { Route } from 'next';
 
 export const DrawerMenuButton = () => {
           const {
-            isNavOpen, setIsNavOpen
+            isNavOpen, setIsNavOpen 
           } = useNavigationContext();
           return (
             <button
               type="button"
               className={styles.buttonDrawerMenu}
-              onClick={
-                () => {
-                          setIsNavOpen(
-                            (
-                              n
-                            ) => {
-                                      return !n;
-                            }
-                          );
-                }
-              }
+              onClick={() => {
+                        setIsNavOpen(
+                          (
+                            n 
+                          ) => {
+                                    return !n;
+                          } 
+                        );
+              }}
             >
               <span className={`material-symbols-outlined ${ styles.icon }`}>
                 {isNavOpen
@@ -42,15 +40,13 @@ export const DrawerMenuButton = () => {
           );
 };
 
-export default function NavButtons () {
-
-
+export default function NavButtons() {
       const {
-        isModalOpen, setIsModalOpen
+        isModalOpen, setIsModalOpen 
       } = useModalContext();
 
       const {
-        isNavOpen, setIsNavOpen
+        isNavOpen, setIsNavOpen 
       } = useNavigationContext();
 
       return (
@@ -60,10 +56,10 @@ export default function NavButtons () {
             onClick={() => {
                       setIsModalOpen(
                         (
-                          n
+                          n 
                         ) => {
                                   return !n;
-                        }
+                        } 
                       );
             }}
           >
@@ -79,10 +75,10 @@ export default function NavButtons () {
             className={styles.buttonDrawerMenu}
             onClick={() => {
                       setIsModalOpen(
-                        false
+                        false 
                       );
                       setIsNavOpen(
-                        !isNavOpen
+                        !isNavOpen 
                       );
             }}
           >
@@ -92,21 +88,35 @@ export default function NavButtons () {
                 : 'menu'}
             </span>
           </button>
-          <NavLink iconLabel={ 'home' } textLabel={ 'Inicio' } hrefLabel='/' />
-          <NavLink iconLabel={ 'gavel' } textLabel={ `ultimas
-      actuaciones`} hrefLabel= {'/Carpetas/UltimasActuaciones' as Route }/>
-          <NavLink iconLabel={ 'note' } textLabel={ 'Notas' } hrefLabel='/Notas' />
-          <NavLink iconLabel={ 'folder_open' } textLabel={ 'Carpetas' } hrefLabel='/Carpetas'   />
+          <NavLink
+            iconLabel={'home'}
+            textLabel={'Inicio'}
+            hrefLabel="/"
+          />
+          <NavLink
+            iconLabel={'gavel'}
+            textLabel={`ultimas
+      actuaciones`}
+            hrefLabel={'/Carpetas/UltimasActuaciones' as Route}
+          />
+          <NavLink
+            iconLabel={'note'}
+            textLabel={'Notas'}
+            hrefLabel="/Notas"
+          />
+          <NavLink
+            iconLabel={'folder_open'}
+            textLabel={'Carpetas'}
+            hrefLabel="/Carpetas"
+          />
         </>
       );
 }
 
-
-export function ForwardBackwardNavButtons () {
+export function ForwardBackwardNavButtons() {
       const router = useRouter();
       return (
-
-        <section className={ layout.segmentRow }>
+        <section className={layout.segmentRow}>
           <button
             type="button"
             className={styles.buttonBackwards}

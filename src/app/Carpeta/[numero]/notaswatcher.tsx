@@ -2,23 +2,21 @@
 
 import { Nota } from '@prisma/client';
 import { useParams, useSelectedLayoutSegments } from 'next/navigation';
-import { Control,  useWatch } from 'react-hook-form';
+import { Control, useWatch } from 'react-hook-form';
 
-export function NotasWatcher (
+export function NotasWatcher(
   {
-    control
-  }: {control: Control<Nota, any>}
+    control 
+  }: { control: Control<Nota, any> } 
 ) {
       const params = useParams();
 
       const segments = useSelectedLayoutSegments();
 
-
-
       const results = useWatch(
         {
-          control
-        }
+          control,
+        } 
       );
       return (
         <pre>
@@ -27,7 +25,9 @@ export function NotasWatcher (
               ...results,
               params  : params,
               segments: segments,
-            }, null, 2
+            },
+            null,
+            2,
           )}
         </pre>
       );

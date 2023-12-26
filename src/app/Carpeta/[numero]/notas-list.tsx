@@ -1,30 +1,36 @@
-
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { Route } from 'next';
 import Link from 'next/link';
 
-export async function NotasLinkList (
+export async function NotasLinkList(
   {
-    carpetaNumero
-  }: { carpetaNumero?: number }
+    carpetaNumero,
+  }: {
+    carpetaNumero?: number;
+  } 
 ) {
       const notas = await getNotas(
-        carpetaNumero
+        carpetaNumero 
       );
       return (
         <>
           {notas.map(
             (
-              nota
+              nota 
             ) => {
                       return (
-                        <Link key={ nota.id } href={ `/Notas/id/${ nota.id }/Editar`as Route } style={{
-                          padding: '.5rem'
-                        }}>
-                          <sub>{ nota.title }</sub>
+                        <Link
+                          key={nota.id}
+                          href={`/Notas/id/${ nota.id }/Editar` as Route}
+                          style={{
+                            padding: '.5rem',
+                          }}
+                        >
+                          <sub>{nota.title}</sub>
                         </Link>
                       );
-            }
+            } 
           )}
-        </> );
+        </>
+      );
 }

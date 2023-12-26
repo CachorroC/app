@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server';
 import { getProceso } from '#@/lib/project/utils/Procesos';
 
@@ -7,31 +6,29 @@ export async function GET(
   context: { params: { llaveProceso: string; idProceso: number } },
 ) {
       try {
-
         const {
-          llaveProceso
+          llaveProceso 
         } = context.params;
 
         const procesos = await getProceso(
-          llaveProceso
+          llaveProceso 
         );
 
         if ( !procesos ) {
           throw new Error(
-            'no hay procesos para este numero de expediente '
+            'no hay procesos para este numero de expediente ' 
           );
-
         }
 
         return NextResponse.json(
-          procesos
+          procesos 
         );
       } catch ( e ) {
         console.log(
-          e
+          e 
         );
         return NextResponse.json(
-          []
+          [] 
         );
       }
 }

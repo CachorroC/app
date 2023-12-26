@@ -8,7 +8,7 @@ export const playDisp = Playfair_Display(
   {
     subsets: [
       'latin-ext',
-      'latin'
+      'latin' 
     ],
     preload : true,
     variable: '--play-display',
@@ -18,7 +18,7 @@ export const playDisp = Playfair_Display(
 export const ptserif = PT_Serif_Caption(
   {
     subsets: [
-      'latin'
+      'latin' 
     ],
     display : 'auto',
     preload : false,
@@ -30,7 +30,7 @@ export const ptserif = PT_Serif_Caption(
 export const josefina = Josefin_Sans(
   {
     subsets: [
-      'latin'
+      'latin' 
     ],
     preload : false,
     variable: '--josefa',
@@ -40,7 +40,7 @@ export const josefina = Josefin_Sans(
 export const radio = Radio_Canada(
   {
     subsets: [
-      'latin-ext'
+      'latin-ext' 
     ],
     preload : false,
     variable: '--radio',
@@ -50,7 +50,7 @@ export const radio = Radio_Canada(
 export const raleway = Raleway(
   {
     subsets: [
-      'latin'
+      'latin' 
     ],
     preload : true,
     variable: '--raleway',

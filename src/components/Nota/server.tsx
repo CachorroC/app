@@ -9,15 +9,15 @@ import { Nota } from '@prisma/client';
 
 export const NotaComponent = (
   {
-    notaRaw
-  }: { notaRaw: Nota }
+    notaRaw 
+  }: { notaRaw: Nota } 
 ) => {
           const {
-            id, title, date
+            id, title, date 
           } = notaRaw;
 
           return (
-            <div className={ note.container }>
+            <div className={note.container}>
               <section>
                 <sup className={typography.labelSmall}>{id}</sup>
               </section>
@@ -26,7 +26,7 @@ export const NotaComponent = (
               >{`Nota: ${ title }`}</p>
               <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
                 {date && fixFechas(
-                  date
+                  date 
                 )}
               </sub>
               <div className={note.buttonsRow}>

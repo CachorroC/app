@@ -1,23 +1,27 @@
 import { despachosList } from '../data/despachos';
-import { Demanda, DemandaDepartamento, Juzgado, MedidasCautelares, Notificacion,  TipoProceso } from '../types/carpetas';
+import { Demanda,
+  DemandaDepartamento,
+  Juzgado,
+  MedidasCautelares,
+  Notificacion,
+  TipoProceso, } from '../types/carpetas';
 import { intProceso } from '../types/procesos';
 import { CarpetaRaw } from '../types/raw-carpeta';
 import { fechaPresentacionBuilder, fixSingleFecha } from './idk';
 import { ClassMedidasCautelares } from './medidasCautelares';
 import { ClassNotificacion } from './notificacion';
 
-
 const Despachos = despachosList();
 
-export function tipoProcesoBuilder (
-  tipoProceso?: string
+export function tipoProcesoBuilder(
+  tipoProceso?: string 
 ): TipoProceso {
       if ( !tipoProceso ) {
         return 'SINGULAR';
       }
 
       const tipoProcesoMatchAcumulado = tipoProceso.match(
-        /[Aa][Cc][Uu][Mm]...../g
+        /[Aa][Cc][Uu][Mm]...../g 
       );
 
       const isAcumulado = tipoProcesoMatchAcumulado !== null;
@@ -29,13 +33,13 @@ export function tipoProcesoBuilder (
       const isHipotecario = tipoProcesoMatchHipotecario !== null;
 
       const tipoProcesoMatchPrendario = tipoProceso.match(
-        /[Pp][Rr][Ee][Nn]...../g
+        /[Pp][Rr][Ee][Nn]...../g 
       );
 
       const isPrendario = tipoProcesoMatchPrendario !== null;
 
       const tipoProcesoMatchSingular = tipoProceso.match(
-        /[Ss][Ii][Nn][Gg]...../g
+        /[Ss][Ii][Nn][Gg]...../g 
       );
 
       const isSingular = tipoProcesoMatchSingular !== null;
@@ -53,8 +57,8 @@ export function tipoProcesoBuilder (
       return 'SINGULAR';
 }
 
-function vencimientoPagareFixer (
-  rawVencimientoPagare?: string | number
+function vencimientoPagareFixer(
+  rawVencimientoPagare?: string | number 
 ) {
       if ( !rawVencimientoPagare ) {
         return [];
@@ -62,22 +66,21 @@ function vencimientoPagareFixer (
 
       const isNumber = typeof rawVencimientoPagare === 'number';
 
-
       if ( isNumber ) {
         return [
           new Date(
-            rawVencimientoPagare
-          )
+            rawVencimientoPagare 
+          ) 
         ];
       }
 
       const {
-        length: rawVencimientoPagareLength
+        length: rawVencimientoPagareLength 
       } = rawVencimientoPagare;
 
       if ( rawVencimientoPagareLength <= 12 ) {
         const fechaFixed = fixSingleFecha(
-          rawVencimientoPagare
+          rawVencimientoPagare 
         );
 
         if ( !fechaFixed || fechaFixed.toString() === 'Invalid Date' ) {
@@ -85,7 +88,7 @@ function vencimientoPagareFixer (
         }
 
         return [
-          fechaFixed
+          fechaFixed 
         ];
       }
 
@@ -95,76 +98,71 @@ function vencimientoPagareFixer (
         firstFecha,
         secondFecha,
         thirdFecha,
-        fourthFecha,
-      ] = rawVencimientoPagare.split(
-        '//'
-      );
+        fourthFecha 
+      ]
+    = rawVencimientoPagare.split(
+      '//' 
+    );
 
       if ( firstFecha && firstFecha.length <= 12 ) {
-
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          firstFecha
+          firstFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
       if ( secondFecha && secondFecha.length <= 12 ) {
-
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          secondFecha
+          secondFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
       if ( thirdFecha && thirdFecha.length <= 12 ) {
-
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          thirdFecha
+          thirdFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
-
       if ( fourthFecha && fourthFecha.length <= 12 ) {
-
-
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          fourthFecha
+          fourthFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
       return Array.from(
-        fechasSet
+        fechasSet 
       );
 }
 
-function capitalBuilder (
-  capitalAdeudado: string | number
+function capitalBuilder(
+  capitalAdeudado: string | number 
 ) {
       let moneyBuilder;
 
@@ -175,24 +173,24 @@ function capitalBuilder (
       }
 
       const copTaker = moneyBuilder.replaceAll(
-        /\sCOP/gi, ''
+        /\sCOP/gi, '' 
       );
 
       const dotTaker = copTaker.replaceAll(
-        '.', ''
+        '.', '' 
       );
 
       const commaTaker = dotTaker.replaceAll(
-        ',', ''
+        ',', '' 
       );
 
       return Number(
-        commaTaker
+        commaTaker 
       );
 }
 
-export function juzgadosByProceso (
-  procesos: intProceso[]
+export function juzgadosByProceso(
+  procesos: intProceso[] 
 ) {
       if ( procesos.length === 0 ) {
         return [];
@@ -202,59 +200,58 @@ export function juzgadosByProceso (
 
       for ( const proceso of procesos ) {
         const newJ = new NewJuzgado(
-          proceso
+          proceso 
         );
         juzgados.add(
-          newJ
+          newJ 
         );
       }
 
       return Array.from(
-        juzgados
+        juzgados 
       );
 }
 
 export class NewJuzgado implements Juzgado {
-  constructor (
-    proceso: intProceso
+  constructor(
+    proceso: intProceso 
   ) {
             const matchedDespacho = Despachos.find(
               (
-                despacho: { nombre: string; }
+                despacho: { nombre: string } 
               ) => {
                         const nDesp = despacho.nombre
                               .toLowerCase()
                               .normalize(
-                                'NFD'
+                                'NFD' 
                               )
                               .replace(
-                                /\p{Diacritic}/gu, ''
+                                /\p{Diacritic}/gu, '' 
                               )
                               .trim();
 
                         const pDesp = proceso.despacho
                               .toLowerCase()
                               .normalize(
-                                'NFD'
+                                'NFD' 
                               )
                               .replace(
-                                /\p{Diacritic}/gu, ''
+                                /\p{Diacritic}/gu, '' 
                               )
                               .trim();
 
                         const indexOfDesp = nDesp.indexOf(
-                          pDesp
+                          pDesp 
                         );
 
                         if ( indexOfDesp >= 0 ) {
                           console.log(
-                            `procesos despacho is in despachos ${ indexOfDesp + 1
-                            }`
+                            `procesos despacho is in despachos ${ indexOfDesp + 1 }` 
                           );
                         }
 
                         return nDesp === pDesp;
-              }
+              } 
             );
 
             const nameN = matchedDespacho
@@ -262,11 +259,11 @@ export class NewJuzgado implements Juzgado {
               : proceso.despacho;
 
             const matchedId = nameN.match(
-              /\d+/g
+              /\d+/g 
             );
 
             this.id = Number(
-              matchedId?.toString()
+              matchedId?.toString() 
             );
             ( this.tipo = matchedDespacho
               ? matchedDespacho.nombre
@@ -275,7 +272,7 @@ export class NewJuzgado implements Juzgado {
               ? `https://www.ramajudicial.gov.co${ matchedDespacho.url }`
               : `https://www.ramajudicial.gov.co${ proceso.despacho
                     .replaceAll(
-                      ' ', '-'
+                      ' ', '-' 
                     )
                     .toLowerCase() }` );
   }
@@ -285,8 +282,8 @@ export class NewJuzgado implements Juzgado {
 }
 
 export class ClassDemanda implements Demanda {
-  constructor (
-    carpeta: CarpetaRaw,
+  constructor(
+    carpeta: CarpetaRaw 
   ) {
             const {
               demanda: {
@@ -302,7 +299,8 @@ export class ClassDemanda implements Demanda {
                 radicado,
                 llaveProceso,
                 vencimientoPagare,
-              }, numero
+              },
+              numero,
             } = carpeta;
             this.carpetaNumero = numero;
 
@@ -310,44 +308,43 @@ export class ClassDemanda implements Demanda {
 
             if ( obligacion ) {
               const {
-                A, B
+                A, B 
               } = obligacion;
 
               if ( A ) {
                 obligacionesSet.add(
                   String(
-                    A
-                  )
+                    A 
+                  ) 
                 );
               }
 
               if ( B ) {
                 obligacionesSet.add(
                   String(
-                    B
-                  )
+                    B 
+                  ) 
                 );
               }
             }
 
             this.fechaPresentacion = fechaPresentacionBuilder(
-              fechaPresentacion
+              fechaPresentacion 
             );
-            this.notificacion =  new ClassNotificacion(
-              carpeta
+            this.notificacion = new ClassNotificacion(
+              carpeta 
             );
 
             const dateMandamientoPago = mandamientoPago
               ? new Date(
-                mandamientoPago
+                mandamientoPago 
               )
               : null;
 
             if ( !dateMandamientoPago ) {
               this.mandamientoPago = null;
             } else {
-              const isValidDate
-        = dateMandamientoPago.toString() !== 'Invalid Date';
+              const isValidDate = dateMandamientoPago.toString() !== 'Invalid Date';
 
               if ( !isValidDate ) {
                 this.mandamientoPago = null;
@@ -356,25 +353,22 @@ export class ClassDemanda implements Demanda {
               }
             }
 
-            const dateEntregaGarantiasAbogado
-      = entregaGarantiasAbogado
-        ? new Date(
-          entregaGarantiasAbogado
-        )
-        : null;
+            const dateEntregaGarantiasAbogado = entregaGarantiasAbogado
+              ? new Date(
+                entregaGarantiasAbogado 
+              )
+              : null;
 
             if ( !dateEntregaGarantiasAbogado ) {
               this.entregaGarantiasAbogado = null;
             } else {
               const isValidDate
-        = dateEntregaGarantiasAbogado.toString()
-        !== 'Invalid Date';
+        = dateEntregaGarantiasAbogado.toString() !== 'Invalid Date';
 
               if ( !isValidDate ) {
                 this.entregaGarantiasAbogado = null;
               } else {
-                this.entregaGarantiasAbogado
-          = dateEntregaGarantiasAbogado;
+                this.entregaGarantiasAbogado = dateEntregaGarantiasAbogado;
               }
             }
 
@@ -383,12 +377,12 @@ export class ClassDemanda implements Demanda {
             this.capitalAdeudado = capitalBuilder(
               capitalAdeudado
                 ? capitalAdeudado
-                : 0
+                : 0,
             )
                   .toString();
 
             this.tipoProceso = tipoProcesoBuilder(
-              tipoProceso
+              tipoProceso 
             );
             this.etapaProcesal = etapaProcesal
               ? `${ etapaProcesal }`
@@ -397,19 +391,19 @@ export class ClassDemanda implements Demanda {
               ? municipio
               : null;
             this.obligacion = Array.from(
-              obligacionesSet
+              obligacionesSet 
             );
             this.radicado = radicado
               ? `${ radicado }`
               : null;
             this.vencimientoPagare = vencimientoPagareFixer(
-              vencimientoPagare
+              vencimientoPagare 
             );
             this.departamento = departamento
-              ? departamento as DemandaDepartamento
+              ? ( departamento as DemandaDepartamento )
               : null;
             this.medidasCautelares = new ClassMedidasCautelares(
-              carpeta
+              carpeta 
             );
             this.llaveProceso = llaveProceso;
             this.despacho = null;
@@ -432,5 +426,4 @@ export class ClassDemanda implements Demanda {
   vencimientoPagare: Date[];
   notificacion: Notificacion;
   medidasCautelares: MedidasCautelares;
-
 }

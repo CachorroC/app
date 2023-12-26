@@ -7,14 +7,14 @@ import layout from '#@/styles/layout.module.css';
 export default async function NuevaNotallaveProceso(
   {
     params: {
-      id
+      id 
     },
   }: {
     params: { id: number };
-  }
+  } 
 ) {
       const nota = await getNotaById(
-        id
+        id 
       );
 
       if ( !nota ) {
@@ -24,9 +24,7 @@ export default async function NuevaNotallaveProceso(
       return (
         <>
           <div className={layout.top}>
-            <h1
-              className={typography.displayLarge}
-            >{`Nota numero: ${ nota.id }`}</h1>
+            <h1 className={typography.displayLarge}>{`Nota numero: ${ nota.id }`}</h1>
           </div>
           <div className={layout.left}>
             <Edit

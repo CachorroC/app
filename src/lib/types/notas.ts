@@ -6,15 +6,13 @@ import { WithId } from 'mongodb';
 //
 //   const intNota = Convert.toIntNota(json);
 
-export interface NotaEditorAction
-{
+export interface NotaEditorAction {
   message: string;
   data: monNota | null | Nota;
   error: boolean;
 }
 
-export interface intNota
-{
+export interface intNota {
   carpetaNumero?: number | null;
   id: number;
   text: string;
@@ -28,28 +26,32 @@ export interface monNota extends Nota {
   pathname: string | null;
 }
 
-
 export class NewNota implements Nota {
   id!: number;
   pathname: string | null;
   date: Date;
   carpetaNumero: number | null;
-  constructor (
+  constructor(
     {
-      content, title,  path, date, carpetaNumero
+      content,
+      title,
+      path,
+      date,
+      carpetaNumero,
     }: {
       title: string;
       content?: string;
       path?: string;
-      carpetaNumero?: number
-      date? : Date}
+      carpetaNumero?: number;
+      date?: Date;
+    } 
   ) {
             this.pathname = path
               ? path
               : null;
             this.date = date
               ? date
-              :  new Date();
+              : new Date();
             this.carpetaNumero = carpetaNumero
               ? carpetaNumero
               : null;
@@ -58,36 +60,32 @@ export class NewNota implements Nota {
               ? content
               : null;
             this.title = title;
-
-
   }
   content: string | null;
   title: string;
   updatedAt!: Date;
   createdAt!: Date;
-
 }
-
 
 export class notasConvert {
   public static monNotasToJson(
-    value: monNota[]
+    value: monNota[] 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static monNotaToJson(
-    value: monNota
+    value: monNota 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static toMonNota(
-    nota: WithId<Nota>
+    nota: WithId<Nota> 
   ): monNota {
             const newNota = {
               ...nota,
@@ -98,23 +96,23 @@ export class notasConvert {
                 : null,
               pathname: nota.pathname
                 ? nota.pathname
-                : null
+                : null,
             };
 
             return newNota;
   }
 
   public static toMonNotas(
-    rawNotas: WithId<Nota>[]
+    rawNotas: WithId<Nota>[] 
   ): monNota[] {
             const newNotas = rawNotas.map(
               (
-                nota
+                nota 
               ) => {
                         return this.toMonNota(
-                          nota
+                          nota 
                         );
-              }
+              } 
             );
 
             return newNotas;

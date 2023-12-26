@@ -4,8 +4,7 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { Calendar } from '#@/components/Calendar/main';
 import { Route } from 'next';
 
-
-export default function Page () {
+export default function Page() {
       return (
         <>
           <div className={layout.top}>
@@ -30,12 +29,11 @@ export default function Page () {
             </Link>
             <Link
               className={layout.button}
-              href={'/Carpetas' }
+              href={'/Carpetas'}
             >
               <span className="material-symbols-outlined">folder_open</span>
               <h1 className={typography.headlineMedium}>{'Carpetas'}</h1>
             </Link>
-
 
             <Link
               className={layout.button}
@@ -59,7 +57,7 @@ export default function Page () {
               <h1 className={typography.headlineMedium}>{'Quienes Somos'}</h1>
             </Link>
           </div>
-          <div className={ layout.right }>
+          <div className={layout.right}>
             <Calendar />
           </div>
         </>

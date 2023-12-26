@@ -5,34 +5,44 @@ import styles from './form.module.css';
 
 export const ParseTextarea = (
   {
-    value = [], onChange
-  }: {value: any[], onChange: any}
+    value = [],
+    onChange,
+  }: {
+    value: any[];
+    onChange: any;
+  } 
 ) => {
           const [
             text,
-            setText
+            setText 
           ] = useState<string>(
             value.join(
-              '\n'
-            )
+              '\n' 
+            ) 
           );
 
           const handleChange = (
-            e: ChangeEvent<HTMLTextAreaElement>
+            e: ChangeEvent<HTMLTextAreaElement> 
           ) => {
                     const {
-                      value
+                      value 
                     } = e.target;
 
                     setText(
-                      value
+                      value 
                     );
                     onChange(
                       value.split(
-                        '\n'
-                      )
+                        '\n' 
+                      ) 
                     );
           };
 
-          return <textarea className={styles.textArea} onChange={handleChange} value={text} />;
+          return (
+            <textarea
+              className={styles.textArea}
+              onChange={handleChange}
+              value={text}
+            />
+          );
 };

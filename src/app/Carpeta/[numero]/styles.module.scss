@@ -1,4 +1,4 @@
-.chip{
+.chip {
   display: inline-flex;
   flex-flow: row nowrap;
   justify-items: stretch;
@@ -6,7 +6,7 @@
   align-items: stretch;
   padding: 2rem;
   border-radius: 2vmin;
-  border: solid .2rem var(--outline);
+  border: solid 0.2rem var(--outline);
   font-family: var(--raleway);
   font-style: var(--label-small-font-family-style);
   font-weight: var(--label-small-font-weight);

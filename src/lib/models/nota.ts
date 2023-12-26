@@ -9,14 +9,24 @@ export class NewNota implements Nota {
   content: string | null;
   title: string;
   updatedAt!: Date;
-  constructor (
+  constructor(
     {
-      date, pathname, carpetaNumero, content, title
-    }: { date?: string;  pathname?: string; carpetaNumero?: number; content?: string; title: string }
+      date,
+      pathname,
+      carpetaNumero,
+      content,
+      title,
+    }: {
+      date?: string;
+      pathname?: string;
+      carpetaNumero?: number;
+      content?: string;
+      title: string;
+    } 
   ) {
-            this.date =date
-              ?  new Date(
-                date
+            this.date = date
+              ? new Date(
+                date 
               )
               : new Date();
             this.pathname = pathname

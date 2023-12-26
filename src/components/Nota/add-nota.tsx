@@ -4,16 +4,16 @@ import { useNotaContext } from '#@/app/context/main-context';
 import { useState } from 'react';
 import styles from '../form/checkbox/styles.module.css';
 
-export default function AddTask () {
+export default function AddTask() {
       const [
         hasContent,
-        setHasContent
+        setHasContent 
       ] = useState(
-        false
+        false 
       );
 
       const {
-        inputNota, setInputNota
+        inputNota, setInputNota 
       } = useNotaContext();
 
       return (

@@ -7,48 +7,40 @@ import { Nota } from '@prisma/client';
 import { useFormState } from 'react-dom';
 import cardStyles from '../Card/card.module.css';
 
-
 export const Edit = (
   {
-    nota
-  }: { nota: Nota }
+    nota 
+  }: { nota: Nota } 
 ) => {
           const [
             hasContent,
-            setHasContent
+            setHasContent 
           ] = useState(
-            false
+            false 
           );
 
           const [
             formState,
-            onCreate
+            onCreate 
           ] = useFormState(
             editNota, {
               message: 'sin enviar',
               data   : nota,
-              error  : false
-            }
+              error  : false,
+            } 
           );
-
-
 
           const [
             inputNota,
-            setInputNota
+            setInputNota 
           ] = useState(
-            formState.data ?? nota
+            formState.data ?? nota 
           );
-
-
-
 
           const dateString = inputNota.date.toISOString()
                 .slice(
-                  0, 10
+                  0, 10 
                 );
-
-
 
           return (
             <div
@@ -105,13 +97,13 @@ export const Edit = (
                     name="text"
                     value={inputNota.title}
                     onChange={(
-                      e
+                      e 
                     ) => {
                               setInputNota(
                                 {
                                   ...inputNota,
                                   title: e.target.value,
-                                }
+                                } 
                               );
                     }}
                   />
@@ -129,15 +121,15 @@ export const Edit = (
                     name="date"
                     value={dateString}
                     onChange={(
-                      e
+                      e 
                     ) => {
                               setInputNota(
                                 {
                                   ...inputNota,
                                   date: new Date(
-                                    e.target.value
+                                    e.target.value 
                                   ),
-                                }
+                                } 
                               );
                     }}
                   />
@@ -152,10 +144,10 @@ export const Edit = (
                       onChange={() => {
                                 setHasContent(
                                   (
-                                    c
+                                    c 
                                   ) => {
                                             return !c;
-                                  }
+                                  } 
                                 );
                       }}
                       type="checkbox"
@@ -164,24 +156,23 @@ export const Edit = (
                   </label>
                   {hasContent && (
                     <section className={layout.sectionRow}>
-                      <label className={styles.label} >
+                      <label className={styles.label}>
                         {'Nota:'}
                         <input
                           className={styles.textArea}
                           type="text"
                           name="content"
                           value={inputNota.title}
-                          onChange={
-                            (
-                              e
-                            ) => {
-                                      setInputNota(
-                                        {
-                                          ...inputNota,
-                                          content: e.target.value,
-                                        }
-                                      );
-                            }}
+                          onChange={(
+                            e 
+                          ) => {
+                                    setInputNota(
+                                      {
+                                        ...inputNota,
+                                        content: e.target.value,
+                                      } 
+                                    );
+                          }}
                         />
                       </label>
                     </section>

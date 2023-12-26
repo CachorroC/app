@@ -1,17 +1,17 @@
 {
-	"folders": [
-		{
-			"path": "../../../.."
-		},
-		{
-			"path": "../../../../../tester"
-		},
-		{
-			"path": "../../../../../backend"
-		}
-	],
-	"settings": {
-		"typescript.tsdk": "node_modules/typescript/lib",
-		"svg.preview.background": "editor"
-	}
+  "folders": [
+    {
+      "path": "../../../.."
+    },
+    {
+      "path": "../../../../../tester"
+    },
+    {
+      "path": "../../../../../backend"
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "svg.preview.background": "editor"
+  }
 }

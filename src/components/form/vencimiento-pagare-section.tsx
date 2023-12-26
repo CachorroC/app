@@ -8,16 +8,16 @@ let renderCount = 0;
 
 export function VencimientoPagareSection() {
       const {
-        control, register
+        control, register 
       } = useFormContext();
 
       const {
-        fields, append, remove, prepend
+        fields, append, remove, prepend 
       } = useFieldArray(
         {
           control,
           name: 'demanda.vencimientoPagare',
-        }
+        } 
       );
       renderCount++;
       return (
@@ -27,7 +27,7 @@ export function VencimientoPagareSection() {
           <ul>
             {fields.map(
               (
-                item, index
+                item, index 
               ) => {
                         return (
                           <section
@@ -44,7 +44,7 @@ export function VencimientoPagareSection() {
                               {...register(
                                 `demanda.vencimientoPagare.${ index }`, {
                                   valueAsDate: true,
-                                }
+                                } 
                               )}
                             />
 
@@ -52,7 +52,7 @@ export function VencimientoPagareSection() {
                               type="button"
                               onClick={() => {
                                         return remove(
-                                          index
+                                          index 
                                         );
                               }}
                             >
@@ -60,7 +60,7 @@ export function VencimientoPagareSection() {
                             </button>
                           </section>
                         );
-              }
+              } 
             )}
           </ul>
 
@@ -70,8 +70,8 @@ export function VencimientoPagareSection() {
               onClick={() => {
                         append(
                           InputDateHelper(
-                            new Date()
-                          )
+                            new Date() 
+                          ) 
                         );
               }}
             >
@@ -83,8 +83,8 @@ export function VencimientoPagareSection() {
               onClick={() => {
                         prepend(
                           InputDateHelper(
-                            new Date()
-                          )
+                            new Date() 
+                          ) 
                         );
               }}
             >

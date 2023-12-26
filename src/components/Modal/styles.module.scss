@@ -42,7 +42,6 @@
   opacity: 0;
 }
 
-
 .snackbar {
   visibility: hidden;
   min-width: 250px;
@@ -57,13 +56,16 @@
   left: 50%;
   bottom: 30px;
   font-size: 17px;
-
 }
 
 .snackbar.show {
   visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  -webkit-animation:
+    fadein 0.5s,
+    fadeout 0.5s 2.5s;
+  animation:
+    fadein 0.5s,
+    fadeout 0.5s 2.5s;
 }
 
 @-webkit-keyframes fadein {

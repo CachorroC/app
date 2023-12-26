@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 
 export function useMediaQuery(
-  query: string
+  query: string 
 ): boolean {
       const getMatches = (
-        query: string
+        query: string 
       ): boolean => {
                 //NOTE: Prevents SSR issues
                 if ( typeof window !== 'undefined' ) {
                   return window.matchMedia(
-                    query
+                    query 
                   ).matches;
                 }
 
@@ -18,11 +18,11 @@ export function useMediaQuery(
 
       const [
         matches,
-        setMatches
+        setMatches 
       ] = useState<boolean>(
         getMatches(
-          query
-        )
+          query 
+        ) 
       );
 
       /*   function handleChange() {
@@ -37,36 +37,34 @@ export function useMediaQuery(
         () => {
                   setMatches(
                     getMatches(
-                      query
-                    )
+                      query 
+                    ) 
                   );
-        },
-        [
-          query
-        ],
+        }, [
+          query 
+        ] 
       );
 
       useEffect(
         () => {
                   const matchMedia = window.matchMedia(
-                    query
+                    query 
                   );
                   //NOTE: Triggered at the first client-side load and if query changes
                   handleChange();
                   matchMedia.addEventListener(
-                    'change', handleChange
+                    'change', handleChange 
                   );
 
                   return () => {
                             matchMedia.removeEventListener(
-                              'change', handleChange
+                              'change', handleChange 
                             );
                   };
-
         }, [
           handleChange,
-          query
-        ]
+          query 
+        ] 
       );
 
       return matches;

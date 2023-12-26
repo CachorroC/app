@@ -9,10 +9,12 @@ import { outActuacion } from '#@/lib/types/actuaciones';
 
 export function ActuacionComponent(
   {
-    incomingActuacion, initialOpenState
+    incomingActuacion,
+    initialOpenState,
   }: {
-    incomingActuacion: outActuacion; initialOpenState: boolean
-  }
+    incomingActuacion: outActuacion;
+    initialOpenState: boolean;
+  } 
 ) {
       const {
         actuacion,
@@ -25,23 +27,23 @@ export function ActuacionComponent(
 
       const [
         isOpen,
-        setIsOpen
+        setIsOpen 
       ] = useState(
-        initialOpenState
+        initialOpenState 
       );
       let visibleContent;
 
       if ( isOpen ) {
         visibleContent = (
           <div className={layout.sectionColumn}>
+            <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
             <section className={layout.segmentRow}>
-              <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
               <sub className={styles.sub}>{`actuacion registrada el ${ fixFechas(
                 fechaActuacion,
-              ) }` }</sub>
+              ) }`}</sub>
               {fechaActuacion && (
                 <sub className={styles.date}>{fixFechas(
-                  fechaActuacion
+                  fechaActuacion 
                 )}</sub>
               )}
             </section>
@@ -51,7 +53,6 @@ export function ActuacionComponent(
                 {anotacion}
               </p>
             )}
-
           </div>
         );
       } else {
@@ -59,30 +60,33 @@ export function ActuacionComponent(
       }
 
       return (
-        <div
-          className={layout.sectionRow}
-        >
-          <button className={button.buttonActuacion} type='button' onClick={(
-            e
-          ) => {
-                    e.stopPropagation();
-                    setIsOpen(
-                      (
-                        n
-                      ) => {
-                                return !n;
-                      }
-                    );
-          } }>
-            <span className={`material-symbols-outlined ${ button.icon }`}>{isOpen
-              ? 'expand_less'
-              : 'expand_more'}</span>
+        <div className={layout.sectionRow}>
+          <button
+            className={button.buttonActuacion}
+            type="button"
+            onClick={(
+              e 
+            ) => {
+                      e.stopPropagation();
+                      setIsOpen(
+                        (
+                          n 
+                        ) => {
+                                  return !n;
+                        } 
+                      );
+            }}
+          >
+            <span className={`material-symbols-outlined ${ button.icon }`}>
+              {isOpen
+                ? 'expand_less'
+                : 'expand_more'}
+            </span>
           </button>
           <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
             {actuacion}
           </h5>
           {visibleContent}
-
         </div>
       );
 }

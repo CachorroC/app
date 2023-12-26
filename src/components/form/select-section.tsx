@@ -18,17 +18,17 @@ export const SelectSection = (
     title: string;
     options: string[];
     initialValue?: string;
-  }
+  } 
 ) => {
           const {
-            setValue
+            setValue 
           } = useFormContext<IntCarpeta>();
 
           const [
             isOptionsOpen,
-            setIsOptionsOpen
+            setIsOptionsOpen 
           ] = useState(
-            false
+            false 
           );
 
           return (
@@ -37,10 +37,10 @@ export const SelectSection = (
                 onClick={() => {
                           setIsOptionsOpen(
                             (
-                              o
+                              o 
                             ) => {
                                       return !o;
-                            }
+                            } 
                           );
                 }}
                 className={layout.segmentRow}
@@ -57,7 +57,7 @@ export const SelectSection = (
                 <section className={layout.segmentRow}>
                   {options.map(
                     (
-                      option
+                      option 
                     ) => {
                               return (
                                 <button
@@ -68,11 +68,11 @@ export const SelectSection = (
                                       : styles.buttonPassiveCategory
                                   }
                                   onClick={(
-                                    e
+                                    e 
                                   ) => {
                                             e.stopPropagation();
                                             setValue(
-                                              name, option
+                                              name, option 
                                             );
                                   }}
                                   key={option}
@@ -80,7 +80,7 @@ export const SelectSection = (
                                   <p className={styles.text}>{option}</p>
                                 </button>
                               );
-                    }
+                    } 
                   )}
                 </section>
               )}

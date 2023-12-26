@@ -5,13 +5,13 @@ import { SearchOutputListSkeleton } from './search/SearchProcesosOutputSkeleton'
 import styles from '#@/styles/layout.module.css';
 import { Loader } from '../Loader';
 
-export function NavBar () {
+export function NavBar() {
       return (
-        <div className={ styles.header }>
+        <div className={styles.header}>
           <Suspense fallback={<Loader />}>
             <Header>
               <Suspense fallback={<SearchOutputListSkeleton />}>
-                <CarpetasList/>
+                <CarpetasList />
               </Suspense>
             </Header>
           </Suspense>

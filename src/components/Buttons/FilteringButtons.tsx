@@ -11,22 +11,22 @@ export const CategoryButton = (
   }: {
     categoria: string;
     icon: string;
-  }
+  } 
 ) => {
           const {
-            currentCategory,
-            setCurrentCategory
+            currentCategory, setCurrentCategory 
           } = useCategory();
 
           const pathname = usePathname();
 
-          const isActive =  pathname === `/Carpetas/${ categoria }` || categoria === currentCategory;
+          const isActive
+    = pathname === `/Carpetas/${ categoria }` || categoria === currentCategory;
 
           return (
             <button
-              onClick={ () => {
+              onClick={() => {
                         return setCurrentCategory(
-                          categoria
+                          categoria 
                         );
               }}
               className={
@@ -64,7 +64,7 @@ export const CategoryFilterButton = () => {
             <section className={layout.sectionColumn}>
               {categorias.map(
                 (
-                  category, index
+                  category, index 
                 ) => {
                           return (
                             <CategoryButton
@@ -73,7 +73,7 @@ export const CategoryFilterButton = () => {
                               icon={icons[ index ]}
                             />
                           );
-                }
+                } 
               )}
             </section>
           );

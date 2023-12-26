@@ -12,30 +12,30 @@ import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { Task } from '#@/components/Nota/nota';
 import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
 import InformationComponent from '../information-component';
+import { fixFechas } from '#@/lib/project/helper';
 
-async function NotasList (
+async function NotasList(
   {
-    carpetaNumero
-  }: {carpetaNumero: number}
+    carpetaNumero 
+  }: { carpetaNumero: number } 
 ) {
       const notas = await getNotas(
-        carpetaNumero
+        carpetaNumero 
       );
       return (
         <>
-          { notas.map(
+          {notas.map(
             (
-              nota
+              nota 
             ) => {
                       return (
                         <Task
-                          key={ nota.id }
-                          task={ nota }
+                          key={nota.id}
+                          task={nota}
                         />
                       );
-            }
-          ) }
-
+            } 
+          )}
         </>
       );
 }
@@ -43,15 +43,16 @@ async function NotasList (
 export default async function Page(
   {
     params: {
-      numero
-    }
-  }: {params: {numero: string}}
+      numero 
+    },
+  }: {
+    params: { numero: string };
+  } 
 ) {
-
       const carpeta = await getCarpetabyNumero(
         Number(
-          numero
-        )
+          numero 
+        ) 
       );
 
       if ( !carpeta ) {
@@ -59,60 +60,63 @@ export default async function Page(
       }
 
       const {
-        llaveProceso, demanda, fecha
+        llaveProceso, demanda, fecha, updatedAt 
       } = carpeta;
 
-
-
-
-
-
-      const allFechas = new Set<{name: string, date: Date}>();
+      const allFechas = new Set<{ name: string; date: Date }>();
+      allFechas.add(
+        {
+          name: 'updatedAt',
+          date: new Date(
+            updatedAt 
+          ),
+        } 
+      );
 
       if ( fecha ) {
         allFechas.add(
           {
             name: 'fechaUltimaActualizacion',
             date: new Date(
-              fecha
-            )
-          }
+              fecha 
+            ),
+          } 
         );
       }
 
       if ( demanda ) {
-        const
-          {
-            vencimientoPagare, entregaGarantiasAbogado, fechaPresentacion, mandamientoPago
-          }
-            = demanda;
+        const {
+          vencimientoPagare,
+          entregaGarantiasAbogado,
+          fechaPresentacion,
+          mandamientoPago,
+        } = demanda;
 
         if ( entregaGarantiasAbogado !== null ) {
           allFechas.add(
             {
               name: 'entregaGarantiasAbogado',
               date: new Date(
-                entregaGarantiasAbogado
-              )
-            }
+                entregaGarantiasAbogado 
+              ),
+            } 
           );
         }
 
         if ( fechaPresentacion !== null ) {
           fechaPresentacion.forEach(
             (
-              fechaP
+              fechaP 
             ) => {
-
                       allFechas.add(
                         {
                           name: 'fechaPresentacion',
                           date: new Date(
-                            fechaP
-                          )
-                        }
+                            fechaP 
+                          ),
+                        } 
                       );
-            }
+            } 
           );
         }
 
@@ -121,15 +125,15 @@ export default async function Page(
             {
               name: 'mandamientoPago',
               date: new Date(
-                mandamientoPago
-              )
-            }
+                mandamientoPago 
+              ),
+            } 
           );
         }
 
         for ( const vencimiento of vencimientoPagare ) {
           const indexOfVencimiento = vencimientoPagare.indexOf(
-            vencimiento
+            vencimiento 
           );
 
           if ( vencimiento === null ) {
@@ -140,24 +144,23 @@ export default async function Page(
             {
               name: `vencimientoPagare.${ indexOfVencimiento }`,
               date: new Date(
-                vencimiento
-              )
-            }
+                vencimiento 
+              ),
+            } 
           );
           continue;
         }
-
       }
 
       const allFechasArray = Array.from(
-        allFechas
+        allFechas 
       );
 
       const fechasMaper = [
-        ...allFechasArray
+        ...allFechasArray 
       ].sort(
         (
-          a, b
+          a, b 
         ) => {
                   const x = a.date.getTime();
 
@@ -172,60 +175,75 @@ export default async function Page(
                   }
 
                   return 0;
-
-        }
+        } 
       );
 
       return (
         <>
+          <h2
+            style={{
+              gridArea: '1 / 1 / 2 / 4',
+            }}
+            className={typography.headlineMedium}
+          >{`Carpeta número ${ numero }`}</h2>
 
-          <h2 style={{
-            gridArea: '1 / 1 / 2 / 4'
-          } } className={ typography.headlineMedium }>{ `Carpeta número ${ numero }` }</h2>
+          {updatedAt && <h3>{`actualizado a las ${ fixFechas(
+            updatedAt 
+          ) }`}</h3>}
 
-          <InformationComponent carpeta={ carpeta} />
+          <InformationComponent carpeta={carpeta} />
 
-          { llaveProceso && (
-            <Fragment key={ llaveProceso }>
-
+          {llaveProceso && (
+            <Fragment key={llaveProceso}>
               <Suspense fallback={<Loader />}>
-                <CopyButton key={ numero } name={ 'numero de expediente' } copyTxt={ llaveProceso } />
+                <CopyButton
+                  key={numero}
+                  name={'numero de expediente'}
+                  copyTxt={llaveProceso}
+                />
               </Suspense>
             </Fragment>
           )}
 
-
           <Suspense fallback={<SearchOutputListSkeleton />}>
-            <NotasList carpetaNumero={ Number(
-              numero
+            <NotasList carpetaNumero={Number(
+              numero 
             )} />
           </Suspense>
 
-
-
           <section className={layout.sectionColumn}>
             <Suspense fallback={<Loader />}>
-              { fechasMaper.map(
+              {fechasMaper.map(
                 (
-                  fechaMap
+                  fechaMap 
                 ) => {
                           return (
-                            <div key={ fechaMap.name } className={ layout.segmentRow }>
-                              <h5 className={ typography.titleMedium }>{fechaMap.name}</h5>
-                              <p className={typography.labelMedium}> {OutputDateHelper(
-                                fechaMap.date
-                              )}</p>
+                            <div
+                              key={fechaMap.name}
+                              className={layout.segmentRow}
+                            >
+                              <h5 className={typography.titleMedium}>{fechaMap.name}</h5>
+                              <p className={typography.labelMedium}>
+                                {' '}
+                                {OutputDateHelper(
+                                  fechaMap.date 
+                                )}
+                              </p>
                             </div>
                           );
-                }
+                } 
               )}
             </Suspense>
           </section>
 
           <Suspense fallback={<ProcesosCardSkeleton />}>
-            { llaveProceso && ( <ProcesosComponent key={ llaveProceso}llaveProceso={llaveProceso}  /> )}
+            {llaveProceso && (
+              <ProcesosComponent
+                key={llaveProceso}
+                llaveProceso={llaveProceso}
+              />
+            )}
           </Suspense>
-
         </>
       );
 }

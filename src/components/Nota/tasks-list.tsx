@@ -11,7 +11,7 @@ export function TaskList() {
         <div className={styles.taskList}>
           {notas.map(
             (
-              task
+              task 
             ) => {
                       return (
                         <Task
@@ -19,7 +19,7 @@ export function TaskList() {
                           key={task.id}
                         />
                       );
-            }
+            } 
           )}
         </div>
       );
@@ -31,31 +31,28 @@ export function NotasList() {
       const pathname = usePathname();
 
       const notas = [
-        ...rawNotas
+        ...rawNotas 
       ].filter(
         (
-          nota
+          nota 
         ) => {
                   return nota.pathname === pathname;
-        }
+        } 
       );
       return (
         <>
-          {
-            notas.map(
-              (
-                nota
-              ) => {
-                        return (
-                          <Task
-                            key={ nota.id }
-                            task={ nota }
-                          />
-                        );
-              }
-            )
-          }
-
+          {notas.map(
+            (
+              nota 
+            ) => {
+                      return (
+                        <Task
+                          key={nota.id}
+                          task={nota}
+                        />
+                      );
+            } 
+          )}
         </>
       );
 }

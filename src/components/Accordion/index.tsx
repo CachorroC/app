@@ -9,7 +9,7 @@ export function Accordion(
 ) {
       const [
         isActive,
-        setIsActive
+        setIsActive 
       ] = useState(
         false 
       );

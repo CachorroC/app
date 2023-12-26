@@ -11,176 +11,195 @@ import { WithId } from 'mongodb';
 import { intProceso } from 'types/procesos';
 
 export interface IntCarpeta {
-  category:        Category;
-  fecha:           Date | null;
-  idProcesos:      number[];
-  idRegUltimaAct:  number | null;
-  llaveProceso:    string;
-  nombre:          string;
-  numero:          number;
-  revisado:        boolean;
-  terminado:       boolean;
-  tipoProceso:     TipoProceso;
-  updatedAt:       Date;
+  category: Category;
+  fecha: Date | null;
+  idProcesos: number[];
+  idRegUltimaAct: number | null;
+  llaveProceso: string;
+  nombre: string;
+  numero: number;
+  revisado: boolean;
+  terminado: boolean;
+  tipoProceso: TipoProceso;
+  updatedAt: Date;
   ultimaActuacion: outActuacion | null;
-  deudor:          Deudor | null;
-  codeudor:        Codeudor | null;
-  notas:           Nota[];
-  demanda:         Demanda | null;
-  procesos:        outProceso[];
-  tareas:          Tarea[];
-  _id:             string;
+  deudor: Deudor | null;
+  codeudor: Codeudor | null;
+  notas: Nota[];
+  demanda: Demanda | null;
+  procesos: outProceso[];
+  tareas: Tarea[];
+  _id: string;
 }
 
-export type Category = 'Terminados' | 'Reintegra' | 'Bancolombia' | 'Insolvencia' | 'LiosJuridicos' | 'todos' | 'SinEspecificar';
+export type Category =
+  | 'Terminados'
+  | 'Reintegra'
+  | 'Bancolombia'
+  | 'Insolvencia'
+  | 'LiosJuridicos'
+  | 'todos'
+  | 'SinEspecificar';
 
 export interface Codeudor {
   carpetaNumero: number | null;
-  cedula:        null | string;
-  direccion:     null | string;
-  id:            number;
-  nombre:        null | string;
-  telefono:      null | string;
+  cedula: null | string;
+  direccion: null | string;
+  id: number;
+  nombre: null | string;
+  telefono: null | string;
 }
 
 export interface Demanda {
-  capitalAdeudado:         null | string;
-  carpetaNumero?:           number;
-  departamento:            string | null;
-  despacho:                null | string;
+  capitalAdeudado: null | string;
+  carpetaNumero?: number;
+  departamento: string | null;
+  despacho: null | string;
   entregaGarantiasAbogado: Date | null;
-  etapaProcesal:           null | string;
-  llaveProceso:            string;
-  fechaPresentacion:       Date[];
-  id:                      number;
-  mandamientoPago:         Date | null;
-  tipoProceso:             TipoProceso;
-  municipio:               string | null;
-  obligacion:              string[];
-  radicado:                null | string;
-  vencimientoPagare:       Date[];
-  notificacion:            Notificacion;
-  medidasCautelares:       MedidasCautelares;
+  etapaProcesal: null | string;
+  llaveProceso: string;
+  fechaPresentacion: Date[];
+  id: number;
+  mandamientoPago: Date | null;
+  tipoProceso: TipoProceso;
+  municipio: string | null;
+  obligacion: string[];
+  radicado: null | string;
+  vencimientoPagare: Date[];
+  notificacion: Notificacion;
+  medidasCautelares: MedidasCautelares;
 }
 
-export type DemandaDepartamento = 'CUNDINAMARCA' | 'CUNDINNAMARCA' | 'TOLIMA' | 'CUN DINAMARCA' | 'BOYACÁ' | 'CUNDINAMRCA' | 'CNDINAMARCA' | 'ATLANTICO';
+export type DemandaDepartamento =
+  | 'CUNDINAMARCA'
+  | 'CUNDINNAMARCA'
+  | 'TOLIMA'
+  | 'CUN DINAMARCA'
+  | 'BOYACÁ'
+  | 'CUNDINAMRCA'
+  | 'CNDINAMARCA'
+  | 'ATLANTICO';
 
 export interface MedidasCautelares {
-  demandaId:         number;
+  demandaId: number;
   fechaOrdenaMedida: Date | null;
-  id:                number;
-  medidaSolicitada:  null | string;
+  id: number;
+  medidaSolicitada: null | string;
 }
 
 export interface Notificacion {
   autoNotificado: null | string;
-  demandaId:      number;
-  certimail:      boolean;
-  fisico:         boolean;
-  id:             number;
-  notifiers:      Notifier[];
+  demandaId: number;
+  certimail: boolean;
+  fisico: boolean;
+  id: number;
+  notifiers: Notifier[];
 }
 
 export interface Notifier {
-  fechaAporta:    Date | null;
-  fechaRecibido:  Date | null;
-  id?:             number;
+  fechaAporta: Date | null;
+  fechaRecibido: Date | null;
+  id?: number;
   notificacionId: number;
-  resultado:      boolean | null;
-  tipo:           string;
+  resultado: boolean | null;
+  tipo: string;
 }
 
-export type TipoProceso = 'SINGULAR' | 'PRENDARIO' | 'HIPOTECARIO' | 'ACUMULADO';
+export type TipoProceso =
+  | 'SINGULAR'
+  | 'PRENDARIO'
+  | 'HIPOTECARIO'
+  | 'ACUMULADO';
 
 export interface Deudor {
-  carpetaNumero:   number | null;
-  cedula:          string;
-  direccion:       null | string;
-  email:           null | string;
-  id:              number;
-  primerApellido:  string;
-  primerNombre:    string;
+  carpetaNumero: number | null;
+  cedula: string;
+  direccion: null | string;
+  email: null | string;
+  id: number;
+  primerApellido: string;
+  primerNombre: string;
   segundoApellido: null | string;
-  segundoNombre:   null | string;
-  telCelular:      null | string;
-  telFijo:         null | string;
+  segundoNombre: null | string;
+  telCelular: null | string;
+  telFijo: null | string;
 }
 
 export interface Nota {
   carpetaNumero: number | null;
-  content:       null | string;
-  createdAt:     Date;
-  date:          Date;
-  id:            number;
-  pathname:      null | string;
-  title:         string;
-  updatedAt:     Date;
+  content: null | string;
+  createdAt: Date;
+  date: Date;
+  id: number;
+  pathname: null | string;
+  title: string;
+  updatedAt: Date;
 }
 
-export type ProcesoDepartamento = 'BOGOTÁ' | 'CUNDINAMARCA' | 'ANTIOQUIA' | 'META';
+export type ProcesoDepartamento =
+  | 'BOGOTÁ'
+  | 'CUNDINAMARCA'
+  | 'ANTIOQUIA'
+  | 'META';
 
 export interface Juzgado {
-  id:   number;
+  id: number;
   tipo: string;
-  url:  string;
+  url: string;
 }
 
 export interface Tarea {
   carpetaNumero: number | null;
-  complete:      boolean;
-  content:       null | string;
-  createdAt:     Date;
-  dueDate:       Date | null;
-  id:            number;
-  title:         string;
-  updatedAt:     Date;
-  subTareas:     SubTarea[];
+  complete: boolean;
+  content: null | string;
+  createdAt: Date;
+  dueDate: Date | null;
+  id: number;
+  title: string;
+  updatedAt: Date;
+  subTareas: SubTarea[];
 }
 
 export interface SubTarea {
-  date:       Date | null;
-  id:         number;
+  date: Date | null;
+  id: number;
   isComplete: boolean;
-  tareaId:    number | null;
-  text:       string;
+  tareaId: number | null;
+  text: string;
 }
 
 export type CodRegla = '00                              ';
 
-export interface MonCarpeta extends IntCarpeta
-{
+export interface MonCarpeta extends IntCarpeta {
   _id: string;
 }
 
 // Converts JSON strings to/from your types
 export class carpetaConvert {
-
-  public static toIntCarpeta (
-    json: string
+  public static toIntCarpeta(
+    json: string 
   ): IntCarpeta {
             return JSON.parse(
-              json
+              json 
             );
   }
 
-  public static toIntCarpetas (
-    json: string
+  public static toIntCarpetas(
+    json: string 
   ): IntCarpeta[] {
             return JSON.parse(
-              json
+              json 
             );
   }
 
-
-
-  public static toMonCarpeta (
-    carpeta: WithId<IntCarpeta>
+  public static toMonCarpeta(
+    carpeta: WithId<IntCarpeta> 
   ): MonCarpeta {
             return {
               ...carpeta,
               fecha: carpeta.fecha
                 ? new Date(
-                  carpeta.fecha
+                  carpeta.fecha 
                 )
                 : null,
               idRegUltimaAct: carpeta.idRegUltimaAct
@@ -194,184 +213,179 @@ export class carpetaConvert {
                 : carpeta.nombre,
             };
   }
-  public static toMonCarpetas (
-    carpetas: WithId<IntCarpeta>[]
+  public static toMonCarpetas(
+    carpetas: WithId<IntCarpeta>[] 
   ): MonCarpeta[] {
             return carpetas.map(
               (
-                carpeta
+                carpeta 
               ) => {
                         return this.toMonCarpeta(
-                          carpeta
+                          carpeta 
                         );
-              }
+              } 
             );
-
-
   }
 
   public static toCodeudor(
-    json: string
+    json: string 
   ): Codeudor {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static codeudorToJson(
-    value: Codeudor
+    value: Codeudor 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static toDemanda(
-    json: string
+    json: string 
   ): Demanda {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static demandaToJson(
-    value: Demanda
+    value: Demanda 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static toMedidasCautelares(
-    json: string
+    json: string 
   ): MedidasCautelares {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static medidasCautelaresToJson(
-    value: MedidasCautelares
+    value: MedidasCautelares 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static toNotificacion(
-    json: string
+    json: string 
   ): Notificacion {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static notificacionToJson(
-    value: Notificacion
+    value: Notificacion 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static toNotifier(
-    json: string
+    json: string 
   ): Notifier {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static notifierToJson(
-    value: Notifier
+    value: Notifier 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static toDeudor(
-    json: string
+    json: string 
   ): Deudor {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static deudorToJson(
-    value: Deudor
+    value: Deudor 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static toNota(
-    json: string
+    json: string 
   ): Nota {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static notaToJson(
-    value: Nota
+    value: Nota 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
-
   public static toJuzgado(
-    json: string
+    json: string 
   ): Juzgado {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static juzgadoToJson(
-    value: Juzgado
+    value: Juzgado 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static toTarea(
-    json: string
+    json: string 
   ): Tarea {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static tareaToJson(
-    value: Tarea
+    value: Tarea 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static toSubTarea(
-    json: string
+    json: string 
   ): SubTarea {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static subTareaToJson(
-    value: SubTarea
+    value: SubTarea 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
-
-
 }
 
 export type KeyOfCarpeta = keyof IntCarpeta;
@@ -404,16 +418,16 @@ export const mockCarpeta: IntCarpeta = {
     despacho               : 'SinEspecificar',
     etapaProcesal          : null,
     fechaPresentacion      : [
-      new Date()
+      new Date() 
     ],
     municipio  : 'Bogota',
     tipoProceso: 'SINGULAR',
     obligacion : [
-      '0',
+      '0' 
     ],
     radicado         : null,
     vencimientoPagare: [
-      new Date()
+      new Date() 
     ],
     llaveProceso: 'SinEspecificar',
     notificacion: {
@@ -422,15 +436,15 @@ export const mockCarpeta: IntCarpeta = {
       autoNotificado: null,
       certimail     : false,
       fisico        : false,
-      notifiers     : []
+      notifiers     : [],
     },
     medidasCautelares: {
       demandaId        : 0,
       fechaOrdenaMedida: null,
       id               : 0,
-      medidaSolicitada : null
+      medidaSolicitada : null,
     },
-    mandamientoPago: null
+    mandamientoPago: null,
   },
   codeudor       : null,
   nombre         : '',
@@ -443,87 +457,85 @@ export const mockCarpeta: IntCarpeta = {
   ultimaActuacion: null,
   updatedAt      : new Date(),
   tareas         : [],
-  notas          : []
+  notas          : [],
 };
 
-function incomingStringFixer (
-  stringValue: string
+function incomingStringFixer(
+  stringValue: string 
 ) {
-      return stringValue.toLowerCase()
+      return stringValue
+            .toLowerCase()
             .normalize(
-              'NFD'
+              'NFD' 
             )
             .replace(
-              /\p{Diacritic}/gu, ''
+              /\p{Diacritic}/gu, '' 
             )
             .trim();
 }
 
 export class DespachoJudicial implements Juzgado {
-  constructor (
-    proceso: intProceso
+  constructor(
+    proceso: intProceso 
   ) {
             const matchedDespacho = Despachos.find(
               (
-                dependenciaJudiail
+                dependenciaJudiail 
               ) => {
                         const {
-                          nombre
+                          nombre 
                         } = dependenciaJudiail;
 
                         const {
-                          despacho
+                          despacho 
                         } = proceso;
 
                         const nombreDependenciaJudicial = incomingStringFixer(
-                          nombre
+                          nombre 
                         );
 
                         const nombreDespachoProceso = incomingStringFixer(
-                          despacho
+                          despacho 
                         );
 
                         const indexOfDesp = nombreDependenciaJudicial.indexOf(
-                          nombreDespachoProceso
+                          nombreDespachoProceso,
                         );
-
 
                         if ( indexOfDesp >= 0 ) {
                           console.log(
-                            `procesos despacho is in despachos ${ indexOfDesp + 1
-                            }`
+                            `procesos despacho is in despachos ${ indexOfDesp + 1 }` 
                           );
                         }
 
                         return nombreDependenciaJudicial === nombreDespachoProceso;
-              }
+              } 
             );
 
             if ( matchedDespacho ) {
               const {
-                nombre, url
+                nombre, url 
               } = matchedDespacho;
 
               const stringId = nombre.match(
-                /\d+/g
+                /\d+/g 
               );
               this.tipo = nombre;
               this.id = stringId
                 ? Number(
-                  stringId.toString()
+                  stringId.toString() 
                 )
                 : 0;
               this.url = `https://www.ramajudicial.gov.co${ url }`;
             } else {
-              this.tipo = proceso.despacho,
-              this.url = `https://www.ramajudicial.gov.co/web/${ proceso.despacho
+              ( this.tipo = proceso.despacho ),
+              ( this.url = `https://www.ramajudicial.gov.co/web/${ proceso.despacho
                     .replaceAll(
-                      ' ', '-'
+                      ' ', '-' 
                     )
-                    .toLowerCase() }`;
+                    .toLowerCase() }` );
               this.id = 0;
             }
-
   }
   id: number;
   tipo: string;

@@ -1,4 +1,4 @@
-import {  Card } from 'components/Card';
+import { Card } from 'components/Card';
 import { Loader } from '#@/components/Loader';
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Suspense } from 'react';
@@ -6,80 +6,96 @@ import { FechaActuacionComponent } from './actuaciones';
 import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
 import FechaActuacionLoader from '#@/components/Card/actuacion-loader';
 
-export default async function Page() {
+export default async function Page(
+  {
+    searchParams,
+  }: {
+    searchParams: { sort: string | undefined };
+  } 
+) {
+      const {
+        sort 
+      } = searchParams;
+
       const carpetasRaw = await getCarpetas();
 
       const carpetas = [
-        ...carpetasRaw
+        ...carpetasRaw 
       ].sort(
         (
-          a, b
+          a, b 
         ) => {
                   if ( !a.fecha || a.fecha.toString() === 'Invalid Date' ) {
-                    return 1;
+                    return sort === 'dsc'
+                      ? -1
+                      : 1;
                   }
 
                   if ( !b.fecha || b.fecha.toString() === 'Invalid Date' ) {
-                    return -1;
+                    return sort === 'dsc'
+                      ? 1
+                      : -1;
                   }
 
                   const x = a.fecha;
 
                   const y = b.fecha;
 
-
                   if ( x < y ) {
-                    return 1;
+                    return sort === 'dsc'
+                      ? -1
+                      : 1;
                   }
 
                   if ( x > y ) {
-                    return -1;
+                    return sort === 'dsc'
+                      ? 1
+                      : -1;
                   }
 
                   return 0;
-        }
+        } 
       );
-
 
       return (
         <>
-          <Suspense fallback={ <SearchOutputListSkeleton /> }>
-            { carpetas.map(
+          <Suspense fallback={<SearchOutputListSkeleton />}>
+            {carpetas.map(
               (
-                carpeta, index
+                carpeta, index 
               ) => {
                         const {
-                          numero, idProcesos
+                          numero, idProcesos 
                         } = carpeta;
                         return (
-
                           <Card
-                            carpeta={carpeta }
+                            carpeta={carpeta}
                             key={numero}
                           >
                             <Suspense fallback={<Loader />}>
-                              { idProcesos.map(
+                              {idProcesos.map(
                                 (
-                                  idProceso
+                                  idProceso 
                                 ) => {
                                           return (
-                                            <Suspense key={ idProceso } fallback={<FechaActuacionLoader />}>
-
+                                            <Suspense
+                                              key={idProceso}
+                                              fallback={<FechaActuacionLoader />}
+                                            >
                                               <FechaActuacionComponent
                                                 index={index}
-                                                initialOpenState={ false }
-                                                idProceso={ idProceso }
-                                                key={ idProceso }
+                                                initialOpenState={false}
+                                                idProceso={idProceso}
+                                                key={idProceso}
                                               />
                                             </Suspense>
                                           );
-                                }
-                              )
-                              }
+                                } 
+                              )}
                             </Suspense>
                           </Card>
                         );
-              }
+              } 
             )}
           </Suspense>
         </>

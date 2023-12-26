@@ -20,14 +20,14 @@ export function NotasSortButtons() {
 
       const [
         sortDirection,
-        setSortDirection
+        setSortDirection 
       ] = useState(
-        true
+        true 
       );
 
       return (
         <div className={layout.sectionColumn}>
-          <section className={ layout.sectionRow }>
+          <section className={layout.sectionRow}>
             <h2 className={typography.titleMedium}>{'ordenar:'}</h2>
             <span className={typography.labelMedium}>
               {' '}
@@ -45,7 +45,7 @@ export function NotasSortButtons() {
           <section className={layout.sectionRow}>
             {keys.map(
               (
-                key
+                key 
               ) => {
                         return (
                           <button
@@ -53,16 +53,16 @@ export function NotasSortButtons() {
                             onClick={() => {
                                       setSortDirection(
                                         (
-                                          d
+                                          d 
                                         ) => {
                                                   return !d;
-                                        }
+                                        } 
                                       );
                                       dispatchNotas(
                                         {
                                           type         : key,
                                           sortDirection: sortDirection,
-                                        }
+                                        } 
                                       );
                             }}
                             className={button.buttonPassiveCategory}
@@ -71,7 +71,7 @@ export function NotasSortButtons() {
                             {key}
                           </button>
                         );
-              }
+              } 
             )}
           </section>
         </div>

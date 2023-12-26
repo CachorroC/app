@@ -17,7 +17,7 @@ export const getBaseUrl = () => {
 };
 
 export const fixFechas = (
-  rawDate?: string | Date | null | undefined
+  rawDate?: string | Date | null | undefined 
 ) => {
           if ( !rawDate || rawDate === null || rawDate === undefined ) {
             return 'sin especificar';
@@ -25,7 +25,7 @@ export const fixFechas = (
 
           if ( typeof rawDate === 'string' ) {
             return new Date(
-              rawDate
+              rawDate 
             )
                   .toLocaleString(
                     'es-CO', {
@@ -34,7 +34,7 @@ export const fixFechas = (
                       weekday : 'short',
                       month   : 'long',
                       day     : 'numeric',
-                    }
+                    } 
                   );
           }
 
@@ -45,26 +45,26 @@ export const fixFechas = (
               weekday : 'short',
               month   : 'long',
               day     : 'numeric',
-            }
+            } 
           );
 };
 
 export const sleep = (
-  ms: number
+  ms: number 
 ) => {
           return new Promise(
             (
-              resolve
+              resolve 
             ) => {
                       return setTimeout(
-                        resolve, ms * 200
+                        resolve, ms * 200 
                       );
-            }
+            } 
           );
 };
 
 export const trimmer = (
-  sujetosProcesales: string
+  sujetosProcesales: string 
 ) => {
           const locateDemandado = sujetosProcesales.search(
             /(demandado|causante)+:(?:\s*?|'\s*?')/gi,
@@ -72,21 +72,21 @@ export const trimmer = (
 
           const extractDemandado = sujetosProcesales
                 .slice(
-                  locateDemandado + 10
+                  locateDemandado + 10 
                 )
                 .toLowerCase();
 
           const trimDemandado = extractDemandado.replace(
-            /^\s+|\s+$/gm, ''
+            /^\s+|\s+$/gm, '' 
           );
 
           const splitDemandado = trimDemandado.split(
-            ' '
+            ' ' 
           );
 
           const splitDemandadotoUnify = splitDemandado.map(
             (
-              nombreOapellido: string, index: number
+              nombreOapellido: string, index: number 
             ) => {
                       if ( index >= 5 ) {
                         return '';
@@ -97,50 +97,50 @@ export const trimmer = (
                       }
 
                       if ( nombreOapellido.includes(
-                        's.a.s'
+                        's.a.s' 
                       ) ) {
                         return '';
                       }
 
                       if ( nombreOapellido.includes(
-                        'sas'
+                        'sas' 
                       ) ) {
                         return '';
                       }
 
                       if ( nombreOapellido.includes(
-                        '(emplazado)'
+                        '(emplazado)' 
                       ) ) {
                         return '';
                       }
 
                       return nombreOapellido.replace(
                         /^./, (
-                          str: string
+                          str: string 
                         ) => {
                                   return str.toUpperCase();
-                        }
+                        } 
                       );
             },
           );
 
           const unifyDemandado = splitDemandadotoUnify.join(
-            ' '
+            ' ' 
           );
 
           return unifyDemandado;
 };
 
 export const fixDemandado = (
-  sujetosProcesales: string
+  sujetosProcesales: string 
 ): string => {
           const count = sujetosProcesales.split(
-            '|'
+            '|' 
           );
 
           for ( const stringerCount of count ) {
             const hasDemandante = stringerCount.includes(
-              'Demandante'
+              'Demandante' 
             );
 
             if ( hasDemandante ) {
@@ -150,32 +150,31 @@ export const fixDemandado = (
             return stringerCount;
           }
 
-
           return sujetosProcesales;
 };
 
 export const toNameString = (
   {
-    nameRaw
-  }: { nameRaw: string }
+    nameRaw 
+  }: { nameRaw: string } 
 ): string => {
           const str = nameRaw.toLowerCase();
 
           const arr = str.split(
-            ' '
+            ' ' 
           );
 
           for ( let i = 0; i < arr.length; i++ ) {
             arr[ i ] = arr[ i ].charAt(
-              0
+              0 
             )
                   .toUpperCase() + arr[ i ].slice(
-              1
+              1 
             );
           }
 
           const str2 = arr.join(
-            ' '
+            ' ' 
           );
 
           return str2;
@@ -183,17 +182,17 @@ export const toNameString = (
 
 export function fixMoney(
   {
-    valor
-  }: { valor: number | bigint }
+    valor 
+  }: { valor: number | bigint } 
 ) {
       return new Intl.NumberFormat(
         'es-CO', {
           style          : 'currency',
           currency       : 'COP',
           currencyDisplay: 'name',
-        }
+        } 
       )
             .format(
-              valor
+              valor 
             );
 }

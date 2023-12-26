@@ -7,7 +7,7 @@ export default async function Page(
     params,
   }: {
     params: { slug?: string[] };
-  }
+  } 
 ) {
       let content;
 
@@ -15,29 +15,27 @@ export default async function Page(
         const [
           ano,
           mes,
-          dia
+          dia 
         ] = params.slug;
-        content = <Calendar date={ new Date(
-          Number(
-            ano
-          ), Number(
-            mes
-          ) - 1, Number(
-            dia
-          )
-        )
-        } />;
-      } else  {
+        content = (
+          <Calendar date={new Date(
+            Number(
+              ano 
+            ), Number(
+              mes 
+            ) - 1, Number(
+              dia 
+            ) 
+          )} />
+        );
+      } else {
         content = <Calendar />;
       }
 
       return (
-        <div className={
-          layout.sectionColumn
-        }>
+        <div className={layout.sectionColumn}>
           <NuevaTarea />
           {content}
-
         </div>
       );
 }

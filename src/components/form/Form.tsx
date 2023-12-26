@@ -17,19 +17,19 @@ import { CheckboxHasProperty } from './checkboxHasProperty';
 
 export const Form = (
   {
-    carpeta
-  }: { carpeta: MonCarpeta }
+    carpeta 
+  }: { carpeta: MonCarpeta } 
 ) => {
           const {
-            demanda, numero, category, tipoProceso, deudor
+            demanda, numero, category, tipoProceso, deudor 
           } = carpeta;
 
           const {
-            handleSubmit,  setError
+            handleSubmit, setError 
           } = useFormContext<MonCarpeta>();
 
           const onSubmit: SubmitHandler<MonCarpeta> = async (
-            data: MonCarpeta
+            data: MonCarpeta 
           ) => {
                     const newCarpeta = {
                       ...carpeta,
@@ -37,54 +37,55 @@ export const Form = (
                     };
 
                     const parsed = IntCarpetaElementSchema.safeParse(
-                      newCarpeta
+                      newCarpeta 
                     );
 
                     if ( !parsed.success ) {
                       alert(
                         JSON.stringify(
-                          parsed
-                        )
+                          parsed 
+                        ) 
                       );
 
                       throw new Error(
-                        'error al hacer el parse'
+                        'error al hacer el parse' 
                       );
                     }
 
                     const postCarpeta = await fetch(
-                      `https://app.rsasesorjuridico.com/api/Carpeta/${ numero }`, {
+                      `https://app.rsasesorjuridico.com/api/Carpeta/${ numero }`,
+                      {
                         method : 'PUT',
                         headers: {
                           'content-type': 'application/json',
                         },
                         body: JSON.stringify(
-                          parsed.data
+                          parsed.data 
                         ),
-                      }
+                      },
                     );
                     alert(
                       JSON.stringify(
-                        postCarpeta.status, null, 2
-                      )
+                        postCarpeta.status, null, 2 
+                      ) 
                     );
 
                     if ( postCarpeta.status > 200 ) {
                       setError(
                         'root.serverError', {
                           type: postCarpeta.statusText,
-                        }
+                        } 
                       );
                     }
 
                     const updatedCarpeta = ( await postCarpeta.json() ) as MonCarpeta;
                     alert(
                       JSON.stringify(
-                        updatedCarpeta, null, 2
-                      )
+                        updatedCarpeta, null, 2 
+                      ) 
                     );
                     console.log(
-                      `el estatus de la operacion post en Form arrojó: ${ postCarpeta.status }`
+                      `el estatus de la operacion post en Form arrojó: ${ postCarpeta.status }`,
                     );
           };
 
@@ -93,11 +94,11 @@ export const Form = (
               <form
                 className={form.form}
                 onSubmit={handleSubmit(
-                  onSubmit
+                  onSubmit 
                 )}
               >
-                <section className={ layout.sectionColumn }>
-                  <section className={ layout.sectionRow }>
+                <section className={layout.sectionColumn}>
+                  <section className={layout.sectionRow}>
                     <NumberSection
                       name={'numero'}
                       title={'Numero'}
@@ -118,13 +119,9 @@ export const Form = (
                         'Terminados',
                       ]}
                     />
-
-
                   </section>
 
-
                   <section className={layout.sectionRow}>
-
                     <SelectSection
                       name={'tipoProceso'}
                       initialValue={tipoProceso}
@@ -133,10 +130,10 @@ export const Form = (
                         'SINGULAR',
                         'HIPOTECARIO',
                         'ACUMULADO',
-                        'PRENDARIO'
+                        'PRENDARIO' 
                       ]}
                     />
-                    { deudor?.cedula && (
+                    {deudor?.cedula && (
                       <NumberSection
                         name={'deudor.cedula'}
                         title={'Cédula de Ciudadanía'}
@@ -156,7 +153,7 @@ export const Form = (
                         required: true,
                       }}
                     />
-                    { deudor?.segundoNombre && (
+                    {deudor?.segundoNombre && (
                       <InputSection
                         key={'segundoNombre'}
                         name={'deudor.segundoNombre'}
@@ -174,7 +171,7 @@ export const Form = (
                         required: true,
                       }}
                     />
-                    { deudor?.segundoApellido && (
+                    {deudor?.segundoApellido && (
                       <InputSection
                         name={'deudor.segundoApellido'}
                         title={'Segundo Apellido'}
@@ -210,7 +207,6 @@ export const Form = (
                       title={'fijo'}
                       type={'tel'}
                     />
-
                   </section>
                 </section>
                 <div className={divider}></div>
@@ -336,23 +332,25 @@ export const Form = (
                     type={'text'}
                   />
                   {demanda?.fechaPresentacion
-                    ? demanda.fechaPresentacion.map(
-                      (
-                        fehcaP, index
-                      ) => {
-                                return (
-                                  <DateInputSection
-                                    key={fehcaP.toISOString()}
-                                    name={`demanda.fechaPresentacion.${ index }`}
-                                    initialValue={demanda.fechaPresentacion[ 0 ]}
-                                    title={'fecha de presentacion de la demanda'}
-                                  />
-                                );
-                      }
-                    )
+                    ? (
+                        demanda.fechaPresentacion.map(
+                          (
+                            fehcaP, index 
+                          ) => {
+                                    return (
+                                      <DateInputSection
+                                        key={fehcaP.toISOString()}
+                                        name={`demanda.fechaPresentacion.${ index }`}
+                                        initialValue={demanda.fechaPresentacion[ 0 ]}
+                                        title={'fecha de presentacion de la demanda'}
+                                      />
+                                    );
+                          } 
+                        )
+                      )
                     : (
                         <DateInputSection
-                          key='newFechaPresentacion'
+                          key="newFechaPresentacion"
                           name={'demanda.fechaPresentacion.0'}
                           title={'fecha de presentacion de la demanda'}
                         />
@@ -363,7 +361,7 @@ export const Form = (
                     ? (
                         demanda.vencimientoPagare.map(
                           (
-                            fechaVencimiento, index
+                            fechaVencimiento, index 
                           ) => {
                                     return (
                                       <DateInputSection
@@ -372,7 +370,7 @@ export const Form = (
                                         title={`Pagaré numero ${ index + 1 }`}
                                       />
                                     );
-                          }
+                          } 
                         )
                       )
                     : (
@@ -380,9 +378,14 @@ export const Form = (
                       )}
                 </section>
                 <section className={layout.segmentRow}>
-
-                  <CheckboxHasProperty keyOfCarpeta={ 'fecha' } carpeta={ carpeta } />
-                  <CheckboxHasProperty keyOfCarpeta={ 'llaveProceso' } carpeta={ carpeta} />
+                  <CheckboxHasProperty
+                    keyOfCarpeta={'fecha'}
+                    carpeta={carpeta}
+                  />
+                  <CheckboxHasProperty
+                    keyOfCarpeta={'llaveProceso'}
+                    carpeta={carpeta}
+                  />
                 </section>
                 <button
                   type="submit"

@@ -1,6 +1,5 @@
-
 export function fechaPresentacionBuilder(
-  rawFechaPresentacion?: string | number
+  rawFechaPresentacion?: string | number,
 ) {
       if ( !rawFechaPresentacion ) {
         return [];
@@ -11,19 +10,19 @@ export function fechaPresentacionBuilder(
       if ( isNumber ) {
         return [
           new Date(
-            rawFechaPresentacion
+            rawFechaPresentacion 
           ) 
         ];
       }
 
       const {
-        length: rawFechaPresentacionLength
-      }= rawFechaPresentacion;
+        length: rawFechaPresentacionLength 
+      } = rawFechaPresentacion;
 
       if ( rawFechaPresentacionLength <= 12 ) {
         //* Hay solamente una fecha
         const fechaFixed = fixSingleFecha(
-          rawFechaPresentacion
+          rawFechaPresentacion 
         );
 
         if ( !fechaFixed || fechaFixed.toString() === 'Invalid Date' ) {
@@ -41,37 +40,34 @@ export function fechaPresentacionBuilder(
         firstFecha,
         secondFecha,
         thirdFecha,
-        fourthFecha,
-      ] = rawFechaPresentacion.split(
-        '//'
-      );
-
-
+        fourthFecha 
+      ]
+    = rawFechaPresentacion.split(
+      '//' 
+    );
 
       if ( firstFecha && firstFecha.length <= 12 ) {
-
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          firstFecha
+          firstFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
       if ( secondFecha && secondFecha.length <= 12 ) {
-
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          secondFecha
+          secondFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
@@ -79,47 +75,44 @@ export function fechaPresentacionBuilder(
       if ( thirdFecha && thirdFecha.length <= 12 ) {
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          thirdFecha
+          thirdFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
-
       if ( fourthFecha && fourthFecha.length <= 12 ) {
-
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          fourthFecha
+          fourthFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
       return Array.from(
-        fechasSet
+        fechasSet 
       );
 }
 
 export function fixSingleFecha(
-  rawFecha: string
+  rawFecha: string 
 ) {
       const [
         rawDay,
         rawMonth,
-        rawYear
-      ] = rawFecha
-            .trim()
+        rawYear 
+      ] = rawFecha.trim()
             .split(
-              '/'
+              '/' 
             );
 
       if ( !rawYear || !rawMonth ) {
@@ -129,17 +122,17 @@ export function fixSingleFecha(
       const stringDate = new Date(
         Number(
           rawYear.padStart(
-            4, '20'
-          )
+            4, '20' 
+          ) 
         ),
         Number(
-          rawMonth
+          rawMonth 
         ) - 1,
         Number(
           rawDay.padStart(
-            2, '0'
-          )
-        )
+            2, '0' 
+          ) 
+        ),
       );
 
       if ( stringDate.toString() === 'Invalid Date' ) {

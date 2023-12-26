@@ -11,11 +11,11 @@ export interface intAction {
 
 export type ActionName = keyof MonCarpeta;
 
-export type ActionType = 'filter' | 'sort' | 'compare' | 'find'
-
+export type ActionType = 'filter' | 'sort' | 'compare' | 'find';
 
 export function carpetasSorter(
-  carpetas: MonCarpeta[], action: intAction
+  carpetas: MonCarpeta[],
+  action: intAction,
 ): MonCarpeta[] {
       const categoriesSorter: Category[] = [
         'todos',
@@ -28,33 +28,32 @@ export function carpetasSorter(
       ];
 
       const {
-        sortDirection, name
+        sortDirection, name 
       } = action;
 
       const asc = [
         -1,
         0,
-        1
+        1 
       ];
 
       const dsc = [
         1,
         0,
-        -1
+        -1 
       ];
 
       const sorter = sortDirection
         ? asc
         : dsc;
 
-
       switch ( name ) {
           case 'fecha': {
             return [
-              ...carpetas
+              ...carpetas 
             ].sort(
               (
-                a, b
+                a, b 
               ) => {
                         if ( !a.fecha || a.fecha === undefined ) {
                           return sorter[ 2 ];
@@ -77,23 +76,23 @@ export function carpetasSorter(
                         }
 
                         return sorter[ 1 ];
-              }
+              } 
             );
           }
 
           case 'category': {
             return [
-              ...carpetas
+              ...carpetas 
             ].sort(
               (
-                a, b
+                a, b 
               ) => {
                         const x = categoriesSorter.indexOf(
-                          a.category
+                          a.category 
                         );
 
                         const y = categoriesSorter.indexOf(
-                          b.category
+                          b.category 
                         );
 
                         if ( x < y ) {
@@ -105,16 +104,16 @@ export function carpetasSorter(
                         }
 
                         return sorter[ 1 ];
-              }
+              } 
             );
           }
 
           case 'numero': {
             return [
-              ...carpetas
+              ...carpetas 
             ].sort(
               (
-                a, b
+                a, b 
               ) => {
                         const x = a.numero;
 
@@ -125,16 +124,16 @@ export function carpetasSorter(
                           : y - x;
 
                         return idk;
-              }
+              } 
             );
           }
 
           case 'nombre': {
             return [
-              ...carpetas
+              ...carpetas 
             ].sort(
               (
-                a, b
+                a, b 
               ) => {
                         const x = a.nombre;
 
@@ -149,16 +148,16 @@ export function carpetasSorter(
                         }
 
                         return sorter[ 1 ];
-              }
+              } 
             );
           }
 
           default: {
             return [
-              ...carpetas
+              ...carpetas 
             ].sort(
               (
-                a, b
+                a, b 
               ) => {
                         const x = a[ name ];
 
@@ -181,7 +180,7 @@ export function carpetasSorter(
                         }
 
                         return 0;
-              }
+              } 
             );
           }
       }

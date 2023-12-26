@@ -3,7 +3,7 @@ import { Loader } from '#@/components/Loader';
 import { NombreComponent } from '#@/components/nombre';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import styles from '#@/styles/layout.module.css';
-import {  Route } from 'next';
+import { Route } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
@@ -17,78 +17,67 @@ type Props = {
   params: { numero: string };
 };
 
-
 export default async function LayoutCarpetaMain(
   {
     children,
     top,
     right,
     params,
-  }: Props
+  }: Props 
 ) {
-      const prismaUpdater = await prisma.carpeta.update(
+      await prisma.carpeta.update(
         {
           where: {
             numero: Number(
-              params.numero
-            )
+              params.numero 
+            ),
           },
           data: {
-            revisado: true
-          }
-        }
-      );
-      console.log(
-        prismaUpdater
+            revisado: true,
+          },
+        } 
       );
 
       const carpeta = await getCarpetabyNumero(
         Number(
-          params.numero
-        )
+          params.numero 
+        ) 
       );
 
       if ( !carpeta ) {
         return notFound();
       }
 
-      const updated = await prisma.carpeta.update(
-        {
-          where: {
-            numero: Number(
-              params.numero
-            )
-          },
-          data: {
-            revisado: true
-          }
-        }
-      );
       return (
         <>
-          <CarpetaFormProvider key={ params.numero } carpeta={ carpeta }>
-            {updated.nombre}
-            <div className={ styles.top }>
-              <Suspense fallback={ <Loader /> }>
-                <Link href={ `/Carpeta/${ params.numero }` as Route}>
-                  {carpeta.deudor && ( <NombreComponent
-                    key={params.numero}
-                    deudor={carpeta.deudor}
-                  /> )}
+          <CarpetaFormProvider
+            key={params.numero}
+            carpeta={carpeta}
+          >
+            {carpeta.nombre}
+            <div className={styles.top}>
+              <Suspense fallback={<Loader />}>
+                <Link href={`/Carpeta/${ params.numero }` as Route}>
+                  {carpeta.deudor && (
+                    <NombreComponent
+                      key={params.numero}
+                      deudor={carpeta.deudor}
+                    />
+                  )}
                 </Link>
-
               </Suspense>
-              { top }
+              {top}
             </div>
             <div className={styles.leftColumn}>{children}</div>
-            <div className={ styles.right }>
-
+            <div className={styles.right}>
               {right}
-              <NotasLinkList carpetaNumero={Number(
-                params.numero
-              )} key={params.numero}/>
+              <NotasLinkList
+                carpetaNumero={Number(
+                  params.numero 
+                )}
+                key={params.numero}
+              />
             </div>
-
           </CarpetaFormProvider>
         </>
       );

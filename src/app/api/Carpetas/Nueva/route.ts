@@ -1,7 +1,6 @@
-
 import clientPromise from '#@/lib/connection/mongodb';
 import { InputDateHelper } from '#@/lib/project/date-helper';
-import getCarpetas  from '#@/lib/project/utils/Carpetas/getCarpetas';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 import { redirect } from 'next/navigation';
@@ -13,7 +12,7 @@ export async function GET() {
       const carpsLen = carpetas.length;
 
       const daterFixer = InputDateHelper(
-        new Date()
+        new Date() 
       );
 
       const defaultValues: NuevaCarpeta = {
@@ -37,21 +36,21 @@ export async function GET() {
           entregaGarantiasAbogado: daterFixer,
           tipoProceso            : 'SINGULAR',
           fechaPresentacion      : [
-            daterFixer
+            daterFixer 
           ],
           vencimientoPagare: [
-            daterFixer
+            daterFixer 
           ],
           obligacion: [
             'primera obligacion',
             1,
-            'tercera obligacion'
+            'tercera obligacion' 
           ],
         },
       };
 
       const stringCarpeta = JSON.stringify(
-        defaultValues
+        defaultValues 
       );
       return new NextResponse(
         stringCarpeta, {
@@ -59,36 +58,33 @@ export async function GET() {
           headers: {
             'Content-Type': 'application/json',
           },
-        }
+        } 
       );
 }
 
 export async function PUT(
-  request: NextRequest
+  request: NextRequest 
 ) {
-
-
-
       const json = ( await request.json() ) as IntCarpeta;
 
       const client = await clientPromise;
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const collection = db.collection<IntCarpeta>(
-        'Carpetas'
+        'Carpetas' 
       );
 
       const insertCarpeta = await collection.insertOne(
-        json
+        json 
       );
 
       if ( !insertCarpeta.acknowledged ) {
@@ -96,12 +92,12 @@ export async function PUT(
           null, {
             status    : 301,
             statusText: 'No se pudo isertar la carpeta',
-          }
+          } 
         );
       }
 
       return redirect(
-        `/Carpeta/${ json.numero }`
+        `/Carpeta/${ json.numero }` 
       );
       /*  return new NextResponse(
     JSON.stringify(

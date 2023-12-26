@@ -1,42 +1,58 @@
 import { cache } from 'react';
-import { fetchCarpetaByNumero, fetchCarpetaByllaveProceso, fetchCarpetasByllaveProceso, fetcherCarpetaByidProceso } from './fetcher';
+import { fetchCarpetaByllaveProceso,
+  fetchCarpetasByllaveProceso,
+  fetcherCarpetaByidProceso, } from './fetcher';
+import { MonCarpeta } from '../../../types/carpetas';
 
 export const getCarpetasByllaveProceso = cache(
-  async(
-    llaveProceso: string
+  async (
+    llaveProceso: string 
   ) => {
             return await fetchCarpetasByllaveProceso(
-              llaveProceso
+              llaveProceso 
             );
-  }
+  } 
 );
 
 export const getCarpetaByllaveProceso = cache(
   async (
-    llaveProceso: string
+    llaveProceso: string 
   ) => {
             return await fetchCarpetaByllaveProceso(
-              llaveProceso
+              llaveProceso 
             );
-  }
+  } 
 );
 
-export const getCarpetabyNumero = cache(
-  async (
-    numero: number
-  ) => {
-            return await fetchCarpetaByNumero(
-              numero
-            );
-  }
-);
+export async function getCarpetabyNumero(
+  numero: number 
+) {
+      const res = await fetch(
+        `https://api.rsasesorjuridico.com/api/Carpeta/${ numero }`,
+        {
+          headers: {
+            'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
+            'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`,
+          },
+        },
+      );
+
+      if ( !res.ok ) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error(
+          'Failed to fetch data' 
+        );
+      }
+
+      return res.json() as Promise<MonCarpeta>;
+}
 
 export const getCarpetaByidProceso = cache(
   async (
-    idProceso: number
+    idProceso: number 
   ) => {
             return fetcherCarpetaByidProceso(
-              idProceso
+              idProceso 
             );
-  }
+  } 
 );

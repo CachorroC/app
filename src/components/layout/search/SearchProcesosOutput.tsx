@@ -8,26 +8,26 @@ import { useCategory } from '#@/app/context/category-context';
 
 export function SearchOutputList(
   {
-    carpetas
-  }: {carpetas: MonCarpeta[]}
+    carpetas 
+  }: { carpetas: MonCarpeta[] } 
 ) {
       const rows: JSX.Element[] = [];
 
       const {
-        search
+        search 
       } = useSearch();
 
       const {
-        currentCategory
+        currentCategory 
       } = useCategory();
 
       carpetas.forEach(
         (
-          proceso
+          proceso 
         ) => {
                   if ( proceso.nombre.toLowerCase()
                         .indexOf(
-                          search.toLowerCase()
+                          search.toLowerCase() 
                         ) === -1 ) {
                     return;
                   }
@@ -35,15 +35,13 @@ export function SearchOutputList(
                   if ( currentCategory === 'todos' || currentCategory === proceso.category ) {
                     rows.push(
                       <LinkCard
-                        path={`/Carpeta/${
-                          proceso.numero
-                        }` as Route}
+                        path={`/Carpeta/${ proceso.numero }` as Route}
                         carpeta={proceso}
                         key={proceso._id}
                       />,
                     );
                   }
-        }
+        } 
       );
 
       return <> {rows}</>;

@@ -1,4 +1,3 @@
-
 import { MedidasCautelares } from '../types/carpetas';
 import { CarpetaRaw } from '../types/raw-carpeta';
 
@@ -7,24 +6,21 @@ export class ClassMedidasCautelares implements MedidasCautelares {
   fechaOrdenaMedida: Date | null;
   id: number;
   medidaSolicitada: string | null;
-  constructor (
+  constructor(
     {
-      demanda, numero
-    }: CarpetaRaw
+      demanda, numero 
+    }: CarpetaRaw 
   ) {
             this.demandaId = numero;
             this.id = numero;
 
-
-
             const {
-              medidasCautelares
+              medidasCautelares 
             } = demanda;
 
             if ( medidasCautelares ) {
               const {
-                fechaOrdenaMedidas, medidaSolicitada
-
+                fechaOrdenaMedidas, medidaSolicitada 
               } = medidasCautelares;
               this.medidaSolicitada = medidaSolicitada
                 ? medidaSolicitada
@@ -45,13 +41,9 @@ export class ClassMedidasCautelares implements MedidasCautelares {
               } else {
                 this.fechaOrdenaMedida = null;
               }
-
             } else {
               this.fechaOrdenaMedida = null;
               this.medidaSolicitada = null;
             }
-
-
   }
-
 }

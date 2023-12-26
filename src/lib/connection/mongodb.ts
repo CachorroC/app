@@ -1,9 +1,8 @@
-
 import { MongoClient } from 'mongodb';
 
 if ( !process.env.MONGODB_URI ) {
   throw new Error(
-    'Invalid/Missing environment variable: "MONGODB_URI"'
+    'Invalid/Missing environment variable: "MONGODB_URI"' 
   );
 }
 
@@ -19,12 +18,12 @@ if ( process.env.NODE_ENV === 'development' ) {
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
   // eslint-disable-next-line no-undef
   let globalWithMongo = global as typeof globalThis & {
-    _mongoClientPromise?: Promise<MongoClient>
+    _mongoClientPromise?: Promise<MongoClient>;
   };
 
   if ( !globalWithMongo._mongoClientPromise ) {
     client = new MongoClient(
-      uri, options
+      uri, options 
     );
     globalWithMongo._mongoClientPromise = client.connect();
   }
@@ -33,7 +32,7 @@ if ( process.env.NODE_ENV === 'development' ) {
 } else {
   // In production mode, it's best to not use a global variable.
   client = new MongoClient(
-    uri, options
+    uri, options 
   );
   clientPromise = client.connect();
 }

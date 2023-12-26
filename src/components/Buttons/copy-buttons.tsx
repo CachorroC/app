@@ -10,32 +10,33 @@ import cardStyles from '../Card/card.module.css';
 
 export const CopyButton = (
   {
-    copyTxt, name
-  }: { copyTxt: string; name: string; }
+    copyTxt,
+    name,
+  }: {
+    copyTxt: string;
+    name: string;
+  } 
 ) => {
-
           const [
             value,
-            copy
+            copy 
           ] = useCopyToClipboard();
 
           const [
             isSnackbarOpen,
-            setIsSnackbarOpen
+            setIsSnackbarOpen 
           ] = useState(
-            false
+            false 
           );
 
           useEffect(
             () => {
-
-
                       const timer = setTimeout(
                         () => {
                                   setIsSnackbarOpen(
-                                    false
+                                    false 
                                   );
-                        }, 5000
+                        }, 5000 
                       );
 
                       if ( isSnackbarOpen ) {
@@ -44,56 +45,70 @@ export const CopyButton = (
 
                       return () => {
                                 return clearTimeout(
-                                  timer
+                                  timer 
                                 );
                       };
             }, [
-              isSnackbarOpen
-            ]
+              isSnackbarOpen 
+            ] 
           );
           return (
-            <div className={ layout.segmentRow }>
-              <div className={ layout.sectionColumn }>
-
-                <p className={ typography.labelLarge }>{ name }</p>
-                <p className={ typography.labelMedium }>{ value }</p>
+            <div className={layout.segmentRow}>
+              <div className={layout.sectionColumn}>
+                <p className={typography.labelLarge}>{name}</p>
+                <p className={typography.labelMedium}>{value}</p>
               </div>
-              <button type='button' onClick={ () => {
-                        copy(
-                          copyTxt
-                        );
-                        setIsSnackbarOpen(
-                          true
-                        );
-              } } className={ cardStyles.link }>
-                <span className={ `material-symbols-outlined ${ styles.icon }` }>file_copy</span>
-                <span className={cardStyles.tooltiptext}>{ value }</span>
+              <button
+                type="button"
+                onClick={() => {
+                          copy(
+                            copyTxt 
+                          );
+                          setIsSnackbarOpen(
+                            true 
+                          );
+                }}
+                className={cardStyles.link}
+              >
+                <span className={`material-symbols-outlined ${ styles.icon }`}>
+          file_copy
+                </span>
+                <span className={cardStyles.tooltiptext}>{value}</span>
               </button>
-              { value &&( isSnackbarOpen && (
-                <div className={ `${ styles.snackbar } ${ isSnackbarOpen && styles.show }` }>{ value} </div>
-              ) )}
+              {value && isSnackbarOpen && (
+                <div className={`${ styles.snackbar } ${ isSnackbarOpen && styles.show }`}>
+                  {value}{' '}
+                </div>
+              )}
             </div>
           );
 };
 
 export function CopyButtons(
   {
-    carpeta
-  }: {carpeta: MonCarpeta}
+    carpeta 
+  }: { carpeta: MonCarpeta } 
 ) {
       return (
         <>
-
-          { carpeta.llaveProceso && (
-            <CopyButton copyTxt={ carpeta.llaveProceso} name={`expediente ${ carpeta.llaveProceso }`} />
-          ) }
-          { carpeta.deudor?.cedula && (
-            <CopyButton copyTxt={ carpeta.deudor.cedula} name={`cédula de ciudadanía número${ carpeta.deudor.cedula }`} />
+          {carpeta.llaveProceso && (
+            <CopyButton
+              copyTxt={carpeta.llaveProceso}
+              name={`expediente ${ carpeta.llaveProceso }`}
+            />
           )}
-          { carpeta.demanda?.radicado && (
-            <CopyButton copyTxt={ carpeta.demanda.radicado} name={`radicado ${ carpeta.demanda.radicado }`} />
+          {carpeta.deudor?.cedula && (
+            <CopyButton
+              copyTxt={carpeta.deudor.cedula}
+              name={`cédula de ciudadanía número${ carpeta.deudor.cedula }`}
+            />
           )}
-
+          {carpeta.demanda?.radicado && (
+            <CopyButton
+              copyTxt={carpeta.demanda.radicado}
+              name={`radicado ${ carpeta.demanda.radicado }`}
+            />
+          )}
         </>
       );
 }

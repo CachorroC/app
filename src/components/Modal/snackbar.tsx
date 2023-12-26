@@ -1,27 +1,25 @@
 'use client';
-import { useEffect,  } from 'react';
+import { useEffect } from 'react';
 import styles from './styles.module.css';
 import { useSnackbarContext } from '#@/app/context/main-context';
 
-export function Snackbar (
+export function Snackbar(
   {
-    text
-  }:{text: string}
+    text 
+  }: { text: string } 
 ) {
       const {
-        isSnackbarOpen, setIsSnackbarOpen
+        isSnackbarOpen, setIsSnackbarOpen 
       } = useSnackbarContext();
 
       useEffect(
         () => {
-
-
                   const timer = setTimeout(
                     () => {
                               setIsSnackbarOpen(
-                                false
+                                false 
                               );
-                    }, 1000
+                    }, 1000 
                   );
 
                   if ( isSnackbarOpen ) {
@@ -30,20 +28,21 @@ export function Snackbar (
 
                   return () => {
                             return clearTimeout(
-                              timer
+                              timer 
                             );
                   };
         }, [
           isSnackbarOpen,
-          setIsSnackbarOpen
-        ]
+          setIsSnackbarOpen 
+        ] 
       );
 
       return (
         <>
-
-          { isSnackbarOpen && (
-            <div className={ `${ styles.snackbar } ${ isSnackbarOpen && styles.show }` }>{ text }</div>
+          {isSnackbarOpen && (
+            <div className={`${ styles.snackbar } ${ isSnackbarOpen && styles.show }`}>
+              {text}
+            </div>
           )}
         </>
       );

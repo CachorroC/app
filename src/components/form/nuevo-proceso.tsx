@@ -13,16 +13,16 @@ import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 
 export default function NuevoProceso() {
       const {
-        handleSubmit
+        handleSubmit 
       } = useFormContext<NuevaCarpeta>();
 
       const onSubmit: SubmitHandler<NuevaCarpeta> = async (
-        data
+        data 
       ) => {
                 alert(
                   JSON.stringify(
-                    data
-                  )
+                    data 
+                  ) 
                 );
 
                 const newCarpeta: NuevaCarpeta = {
@@ -30,7 +30,7 @@ export default function NuevoProceso() {
                 };
 
                 const parsed = NuevaCarpetaSchema.safeParse(
-                  newCarpeta
+                  newCarpeta 
                 );
 
                 const postNewNote = await fetch(
@@ -40,17 +40,17 @@ export default function NuevoProceso() {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(
-                      parsed
+                      parsed 
                     ),
-                  }
+                  } 
                 );
 
                 const nAlert = await postNewNote.json();
 
                 alert(
                   JSON.stringify(
-                    nAlert
-                  )
+                    nAlert 
+                  ) 
                 );
       };
 
@@ -60,7 +60,7 @@ export default function NuevoProceso() {
             <form
               className={form.form}
               onSubmit={handleSubmit(
-                onSubmit
+                onSubmit 
               )}
             >
               <section className={layout.sectionRow}>
@@ -175,7 +175,7 @@ export default function NuevoProceso() {
                     'SINGULAR',
                     'HIPOTECARIO',
                     'PRENDARIO',
-                    'ACUMULADO'
+                    'ACUMULADO' 
                   ]}
                 />
 

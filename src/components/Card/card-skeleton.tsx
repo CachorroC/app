@@ -9,7 +9,7 @@ export const CardSkeleton = () => {
                 <h1 className={`${ typography.displayMedium } ${ card.title }`}>
                   {'Nombre'}
                 </h1>
-                <div >
+                <div>
                   <sub className={`${ typography.labelSmall } ${ card.sub }`}>
                     {'Numero'}
                   </sub>

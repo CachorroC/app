@@ -13,35 +13,31 @@ const NoteContext = createContext<{
   inputNota: Nota;
   setInputNota: Dispatch<SetStateAction<Nota>>;
 } | null>(
-  null
+  null 
 );
 
 const SnackbarContext = createContext<{
   isSnackbarOpen: boolean;
   setIsSnackbarOpen: Dispatch<SetStateAction<boolean>>;
 } | null>(
-  null
+  null 
 );
 
 const ContactoContext = createContext<{
   contactoForm: ContactoForm;
   setContactoForm: Dispatch<SetStateAction<ContactoForm>>;
 } | null>(
-  null
+  null 
 );
-
 
 export function MainProvider(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
-
-
-
       const [
         contactoForm,
-        setContactoForm
+        setContactoForm 
       ] = useState(
         {
           nombre    : ' ',
@@ -51,24 +47,23 @@ export function MainProvider(
           telefono  : 1,
           comentario: 'Este es el espacio para registrar información adicional',
           fecha     : new Date(),
-        }
+        } 
       );
 
       const [
         isSnackbarOpen,
-        setIsSnackbarOpen
+        setIsSnackbarOpen 
       ] = useState(
-        false
+        false 
       );
 
       const pathname = usePathname();
 
       const [
         inputNota,
-        setInputNota
+        setInputNota 
       ] = useState<Nota>(
         {
-
           id           : 0,
           title        : 'Nota',
           content      : '',
@@ -76,18 +71,17 @@ export function MainProvider(
           date         : new Date(),
           carpetaNumero: null,
           createdAt    : new Date(),
-          updatedAt    : new Date()
-        }
+          updatedAt    : new Date(),
+        } 
       );
 
-
-
       return (
-        <SnackbarContext.Provider value={{
-          isSnackbarOpen,
-          setIsSnackbarOpen
-        }}>
-
+        <SnackbarContext.Provider
+          value={{
+            isSnackbarOpen,
+            setIsSnackbarOpen,
+          }}
+        >
           <NoteContext.Provider
             value={{
               inputNota,
@@ -107,27 +101,23 @@ export function MainProvider(
       );
 }
 
-
-
-export function useSnackbarContext () {
+export function useSnackbarContext() {
       const context = useContext(
-        SnackbarContext
+        SnackbarContext 
       );
 
       if ( context === null ) {
         throw new Error(
-          'el snackbar context debe ser utilizado dentro de un snackbar context provider '
+          'el snackbar context debe ser utilizado dentro de un snackbar context provider ',
         );
-
       }
 
       return context;
 }
 
-
 export function useContactContext() {
       const context = useContext(
-        ContactoContext
+        ContactoContext 
       );
 
       if ( context === null ) {
@@ -141,7 +131,7 @@ export function useContactContext() {
 
 export function useNotaContext() {
       const context = useContext(
-        NoteContext
+        NoteContext 
       );
 
       if ( context === null ) {

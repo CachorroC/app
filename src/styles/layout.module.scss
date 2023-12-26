@@ -16,7 +16,11 @@ $MaxSW: 480px; //maximum sma width
   box-sizing: border-box;
   background-color: var(--surface-container);
   grid-auto-flow: row;
-  font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 48;
   @media (width < 600px) {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(12, 1fr);
@@ -91,10 +95,10 @@ $MaxSW: 480px; //maximum sma width
     grid-template-columns: subgrid;
     background-color: var(--nav-background);
   }
-  @media(width < 600px){
+  @media (width < 600px) {
     display: flex;
     flex-flow: row nowrap;
-justify-content: space-evenly;
+    justify-content: space-evenly;
   }
   @media (1200px < width) {
     display: flex;
@@ -220,13 +224,13 @@ justify-content: space-evenly;
     line-height: var(--label-medium-height);
     text-transform: var(--label-medium-text-transform);
     text-decoration: var(--label-medium-text-decoration);
-    @media (width < 600px){
+    @media (width < 600px) {
       opacity: 1;
     }
   }
 
   &Active {
-    @extend .link;;
+    @extend .link;
     & > .text {
       opacity: 1;
     }
@@ -246,7 +250,11 @@ justify-content: space-evenly;
       opacity: 1;
     }
     & > .icon {
-      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 200, 'opsz' 40;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 600,
+        'GRAD' 200,
+        'opsz' 40;
     }
     &::after {
       content: '';

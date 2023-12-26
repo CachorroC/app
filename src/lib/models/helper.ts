@@ -1,5 +1,5 @@
-export function stringToDateArray (
-  rawDate?: string | number
+export function stringToDateArray(
+  rawDate?: string | number 
 ) {
       if ( !rawDate ) {
         return [];
@@ -10,22 +10,22 @@ export function stringToDateArray (
       if ( isNumber ) {
         return [
           new Date(
-            rawDate
-          )
+            rawDate 
+          ) 
         ];
       }
 
       const {
-        length: rawDateLength
-      }= rawDate;
+        length: rawDateLength 
+      } = rawDate;
       console.log(
-        rawDateLength
+        rawDateLength 
       );
 
       if ( rawDateLength <= 12 ) {
         //* Hay solamente una fecha
         const fechaFixed = fixSingleFecha(
-          rawDate
+          rawDate 
         );
 
         if ( !fechaFixed || fechaFixed.toString() === 'Invalid Date' ) {
@@ -33,7 +33,7 @@ export function stringToDateArray (
         }
 
         return [
-          fechaFixed
+          fechaFixed 
         ];
       }
 
@@ -43,98 +43,95 @@ export function stringToDateArray (
         firstFecha,
         secondFecha,
         thirdFecha,
-        fourthFecha,
-      ] = rawDate.split(
-        '//'
-      );
-
-
+        fourthFecha 
+      ]
+    = rawDate.split(
+      '//' 
+    );
 
       if ( firstFecha && firstFecha.length <= 12 ) {
         console.log(
-          firstFecha.length
+          firstFecha.length 
         );
 
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          firstFecha
+          firstFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
       if ( secondFecha && secondFecha.length <= 12 ) {
         console.log(
-          secondFecha.length
+          secondFecha.length 
         );
 
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          secondFecha
+          secondFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
       if ( thirdFecha && thirdFecha.length <= 12 ) {
         console.log(
-          thirdFecha.length
+          thirdFecha.length 
         );
 
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          thirdFecha
+          thirdFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
-
       if ( fourthFecha && fourthFecha.length <= 12 ) {
         console.log(
-          fourthFecha.length
+          fourthFecha.length 
         );
 
         //* Es una la primer fecha de presentacion
         const fechaFixed = fixSingleFecha(
-          fourthFecha
+          fourthFecha 
         );
 
         if ( fechaFixed ) {
           fechasSet.add(
-            fechaFixed
+            fechaFixed 
           );
         }
       }
 
       return Array.from(
-        fechasSet
+        fechasSet 
       );
 }
 
 export function fixSingleFecha(
-  rawFecha: string
+  rawFecha: string 
 ) {
       const [
         rawDay,
         rawMonth,
-        rawYear
-      ] = rawFecha
-            .trim()
+        rawYear 
+      ] = rawFecha.trim()
             .split(
-              '/'
+              '/' 
             );
 
       if ( !rawYear || !rawMonth ) {
@@ -143,36 +140,36 @@ export function fixSingleFecha(
 
       console.log(
         rawDay.padStart(
-          2, '0'
-        )
+          2, '0' 
+        ) 
       );
       console.log(
-        rawMonth
+        rawMonth 
       );
       console.log(
         `rawYear ${ rawYear } es ${ rawYear.padStart(
-          4, '20'
-        ) }`
+          4, '20' 
+        ) }` 
       );
 
       const stringDate = new Date(
         Number(
           rawYear.padStart(
-            4, '20'
-          )
+            4, '20' 
+          ) 
         ),
         Number(
-          rawMonth
+          rawMonth 
         ) - 1,
         Number(
           rawDay.padStart(
-            2, '0'
-          )
-        )
+            2, '0' 
+          ) 
+        ),
       );
 
       console.log(
-        `la nueva fecha del pagaré arrojó: ${ stringDate.toDateString() }`
+        `la nueva fecha del pagaré arrojó: ${ stringDate.toDateString() }` 
       );
 
       if ( stringDate.toString() === 'Invalid Date' ) {

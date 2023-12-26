@@ -1,13 +1,13 @@
 'use client';
 import { intNota } from '#@/lib/types/notas';
-import {  ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNotaSort } from './notas-sort-context';
 
-export function NuevaNotaFormProvider (
+export function NuevaNotaFormProvider(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
       const notasTotal = useNotaSort();
 
@@ -18,7 +18,7 @@ export function NuevaNotaFormProvider (
         text         : 'Nueva Nota',
         pathname     : '/',
         date         : new Date(),
-        carpetaNumero: 0
+        carpetaNumero: 0,
       };
 
       const nuevaNotaMethods = useForm<intNota>(
@@ -26,16 +26,8 @@ export function NuevaNotaFormProvider (
           defaultValues   : newNota,
           shouldFocusError: true,
           criteriaMode    : 'all',
-        }
+        } 
       );
 
-
-
-      return (
-        <FormProvider { ...nuevaNotaMethods }>
-
-          { children }
-        </FormProvider>
-      );
-
+      return <FormProvider {...nuevaNotaMethods}>{children}</FormProvider>;
 }

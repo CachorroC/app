@@ -6,18 +6,18 @@ import layout from '#@/styles/layout.module.css';
 
 let renderCount = 0;
 
-export  function ObligacionesComponent() {
+export function ObligacionesComponent() {
       const {
-        control, register
+        control, register 
       } = useFormContext();
 
       const {
-        fields, append, remove, prepend
+        fields, append, remove, prepend 
       } = useFieldArray(
         {
           control,
           name: 'demanda.obligacion',
-        }
+        } 
       );
 
       renderCount++;
@@ -32,7 +32,7 @@ export  function ObligacionesComponent() {
           </label>
           {fields.map(
             (
-              field, index
+              field, index 
             ) => {
                       return (
                         <section
@@ -47,7 +47,7 @@ export  function ObligacionesComponent() {
                             className={styles.textArea}
                             key={field.id}
                             {...register(
-                              `demanda.obligacion.${ index }`
+                              `demanda.obligacion.${ index }` 
                             )}
                           />
                           <button
@@ -55,7 +55,7 @@ export  function ObligacionesComponent() {
                             type="button"
                             onClick={() => {
                                       return remove(
-                                        index
+                                        index 
                                       );
                             }}
                           >
@@ -65,7 +65,7 @@ export  function ObligacionesComponent() {
                           </button>
                         </section>
                       );
-            }
+            } 
           )}
 
           <section className={layout.sectionRow}>
@@ -74,7 +74,7 @@ export  function ObligacionesComponent() {
               type="button"
               onClick={() => {
                         append(
-                          ''
+                          '' 
                         );
               }}
             >
@@ -89,7 +89,7 @@ export  function ObligacionesComponent() {
               type="button"
               onClick={() => {
                         prepend(
-                          ''
+                          '' 
                         );
               }}
             >

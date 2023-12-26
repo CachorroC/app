@@ -11,9 +11,7 @@ export interface CarpetaRaw extends TrulyCruda {
   category: Category;
 }
 
-
-export interface NuevaCarpeta
-{
+export interface NuevaCarpeta {
   numero: number;
   category: Category;
   deudor: {
@@ -48,7 +46,6 @@ export interface DeudorRaw {
   telefono?: number | string;
 }
 
-
 export interface rawCodeudor {
   cedula?: number | string;
   nombre?: number | string;
@@ -79,7 +76,6 @@ export interface DemandaRaw {
   vencimientoPagare?: number | string;
 }
 
-
 export interface rawNotificacion {
   '291'?: Theraw291;
   '292'?: Theraw292;
@@ -100,7 +96,6 @@ export interface Theraw292 {
   fechaAporta?: number | string;
   resultado?: ResultadoEnum | number;
 }
-
 
 export type ResultadoEnum =
   | ''

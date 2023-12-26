@@ -6,8 +6,7 @@ import { ActionType } from '#@/lib/types/context-actions';
 import { useState } from 'react';
 import layout from '#@/styles/layout.module.css';
 
-export function CarpetasSortButtons () {
-
+export function CarpetasSortButtons() {
       const keys: ActionType[] = [
         'fecha',
         'nombre',
@@ -20,9 +19,9 @@ export function CarpetasSortButtons () {
 
       const [
         sortDirection,
-        setSortDirection
+        setSortDirection 
       ] = useState(
-        true
+        true 
       );
 
       return (
@@ -41,7 +40,7 @@ export function CarpetasSortButtons () {
           <section className={layout.segmentColumn}>
             {keys.map(
               (
-                key
+                key 
               ) => {
                         return (
                           <button
@@ -49,18 +48,17 @@ export function CarpetasSortButtons () {
                             onClick={() => {
                                       setSortDirection(
                                         (
-                                          d
+                                          d 
                                         ) => {
                                                   return !d;
-                                        }
+                                        } 
                                       );
                                       dispatchCarpetas(
                                         {
                                           type         : key,
                                           sortDirection: sortDirection,
-                                        }
+                                        } 
                                       );
-
                             }}
                             className={styles.buttonPassiveCategory}
                             key={key}
@@ -68,10 +66,9 @@ export function CarpetasSortButtons () {
                             {key}
                           </button>
                         );
-              }
+              } 
             )}
           </section>
-
         </>
       );
 }

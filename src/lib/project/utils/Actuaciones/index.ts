@@ -1,62 +1,59 @@
 import 'server-only';
 import { cache } from 'react';
-import { intActuacion, ConsultaActuacion,  outActuacion } from 'types/actuaciones';
+import { intActuacion,
+  ConsultaActuacion,
+  outActuacion, } from 'types/actuaciones';
 import { getCarpetaByllaveProceso } from 'project/utils/Carpetas/carpetas';
 import { carpetasCollection } from '../../../connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
 import { sleep } from '../../helper';
 import { updateUltimaActuacionInPrisma } from './updater';
 
-
 export async function fetchActuaciones(
-  idProceso: number, index: number
+  idProceso: number, index: number = 1 
 ) {
-
       await sleep(
-        index
+        index 
       );
 
       try {
-
-
         const request = await fetch(
           `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
-          {
-            cache: 'no-store'
-          },
         );
 
         if ( !request.ok ) {
           throw new Error(
             `${ idProceso }: ${ request.status } ${ request.statusText }${ JSON.stringify(
-              request, null, 2
-            ) }`
+              request,
+              null,
+              2,
+            ) }`,
           );
         }
 
         const json = ( await request.json() ) as ConsultaActuacion;
 
         const {
-          actuaciones
+          actuaciones 
         } = json;
 
-        const outActuaciones= actuaciones.map(
+        const outActuaciones = actuaciones.map(
           (
-            actuacion
+            actuacion 
           ) => {
                     return {
                       ...actuacion,
                       isUltimaAct: actuacion.cant === actuacion.consActuacion,
-                      idProceso  : idProceso
+                      idProceso  : idProceso,
                     };
-          }
+          } 
         );
 
         const [
-          ultimaActuacion
+          ultimaActuacion 
         ] = outActuaciones;
         updateUltimaActuacionInPrisma(
-          ultimaActuacion
+          ultimaActuacion 
         );
         return outActuaciones;
       } catch ( error ) {
@@ -67,7 +64,7 @@ export async function fetchActuaciones(
         }
 
         console.log(
-          `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
+          `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }` 
         );
 
         return null;
@@ -76,71 +73,27 @@ export async function fetchActuaciones(
 
 export const getActuaciones = cache(
   async (
-    idProceso: number
+    idProceso: number 
   ) => {
-            const collection = await carpetasCollection();
-
-            try {
-
-              const carpeta = await collection.findOne(
-                {
-                  idProcesos: idProceso,
-                }
-              );
-
-              if ( !carpeta ) {
-                throw new Error(
-                  'no hay ninguna carpeta con este idProceso, error matching in mongo carpeta'
-                );
-
-              }
-
-              const {
-                numero
-              } = carpeta;
-              await sleep(
-                numero
-              );
-
-              const actuaciones = await fetchActuaciones(
-                idProceso, numero
-              );
-
-              if (
-                !actuaciones
-        || actuaciones.length === 0
-              ) {
-                return null;
-              }
-
-
-              return actuaciones;
-            } catch ( error ) {
-
-              console.log(
-                `error in getActuaciones ${ JSON.stringify(
-                  error, null, 2
-                ) }`
-              );
-
-
-              return null;
-            }
-  },
+            return fetchActuaciones(
+              idProceso 
+            );
+  } 
 );
 
-export async function  updateActuaciones(
-  actuaciones: intActuacion[], idProceso: number
+export async function updateActuaciones(
+  actuaciones: intActuacion[],
+  idProceso: number,
 ) {
       try {
         if ( actuaciones.length === 0 ) {
           throw new Error(
-            'no hay actuaciones en el array updateActuaciones'
+            'no hay actuaciones en el array updateActuaciones' 
           );
         }
 
         const [
-          ultimaActuacion
+          ultimaActuacion 
         ] = actuaciones;
 
         const carpeta = await getCarpetaByllaveProceso(
@@ -149,51 +102,49 @@ export async function  updateActuaciones(
 
         if ( !carpeta ) {
           throw new Error(
-            'no hay carpeta por actualizar'
+            'no hay carpeta por actualizar' 
           );
         }
 
         const incomingDate = new Date(
-          ultimaActuacion.fechaActuacion
+          ultimaActuacion.fechaActuacion 
         )
               .getTime();
 
         const savedDate = carpeta?.fecha
           ? new Date(
-            carpeta.fecha
+            carpeta.fecha 
           )
                 .getTime()
           : null;
 
         const carpetasColl = await carpetasCollection();
 
-
         if ( !savedDate || savedDate < incomingDate ) {
-
           const updateCarpetawithActuaciones = await carpetasColl.updateOne(
             {
               $or: [
                 {
                   llaveProceso: carpeta
                     ? carpeta.llaveProceso
-                    : ultimaActuacion.llaveProceso
+                    : ultimaActuacion.llaveProceso,
                 },
                 {
-                  idProcesos: idProceso
-
-                }
-              ]
+                  idProcesos: idProceso,
+                },
+              ],
             },
             {
               $set: {
                 fecha: new Date(
-                  ultimaActuacion.fechaActuacion
+                  ultimaActuacion.fechaActuacion 
                 ),
                 idRegUltimaAct : ultimaActuacion.idRegActuacion,
                 ultimaActuacion: {
                   ...ultimaActuacion,
-                  isUltimaAct: ultimaActuacion.cant === ultimaActuacion.consActuacion,
-                  idProceso  : idProceso
+                  isUltimaAct:
+                ultimaActuacion.cant === ultimaActuacion.consActuacion,
+                  idProceso: idProceso,
                 },
               },
             },
@@ -205,54 +156,54 @@ export async function  updateActuaciones(
           const updateCarpetaWithActuacionesToPrisma = await prisma.carpeta.update(
             {
               where: {
-                numero: carpeta.numero
+                numero: carpeta.numero,
               },
               data: {
                 fecha: new Date(
-                  ultimaActuacion.fechaActuacion
+                  ultimaActuacion.fechaActuacion 
                 ),
                 revisado       : false,
                 ultimaActuacion: {
                   connectOrCreate: {
                     where: {
-                      idRegActuacion: ultimaActuacion.idRegActuacion
+                      idRegActuacion: ultimaActuacion.idRegActuacion,
                     },
                     create: {
                       ...ultimaActuacion,
                       fechaActuacion: new Date(
-                        ultimaActuacion.fechaActuacion
+                        ultimaActuacion.fechaActuacion 
                       ),
                       fechaRegistro: new Date(
-                        ultimaActuacion.fechaRegistro
+                        ultimaActuacion.fechaRegistro 
                       ),
                       fechaInicial: ultimaActuacion.fechaInicial
                         ? new Date(
-                          ultimaActuacion.fechaInicial
+                          ultimaActuacion.fechaInicial 
                         )
                         : null,
                       fechaFinal: ultimaActuacion.fechaFinal
                         ? new Date(
-                          ultimaActuacion.fechaFinal
+                          ultimaActuacion.fechaFinal 
                         )
                         : null,
                       anotacion: ultimaActuacion.anotacion
                         ? ultimaActuacion.anotacion
                         : null,
-                      isUltimaAct: ( ultimaActuacion.cant === ultimaActuacion.consActuacion )
-                        ? true
-                        : false,
-                      idProceso: idProceso
-                    }
-                  }
-                }
-              }
-            }
+                      isUltimaAct:
+                  ultimaActuacion.cant === ultimaActuacion.consActuacion
+                    ? true
+                    : false,
+                      idProceso: idProceso,
+                    },
+                  },
+                },
+              },
+            } 
           );
 
           console.log(
-            updateCarpetaWithActuacionesToPrisma
+            updateCarpetaWithActuacionesToPrisma 
           );
-
 
           if ( !updateCarpetawithActuaciones ) {
             return;
@@ -266,57 +217,55 @@ export async function  updateActuaciones(
               `Actuaciones:
             - se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas
             - se insertaron ${ updateCarpetawithActuaciones.upsertedCount }
-            - para un total de carpetas: ${ updateCarpetawithActuaciones.matchedCount }`
+            - para un total de carpetas: ${ updateCarpetawithActuaciones.matchedCount }`,
             );
-
           }
         }
 
         return;
       } catch ( error ) {
         console.log(
-          `ocurrio un error en updateActuaciones ${  JSON.stringify(
-            error, null, 2
-          ) }`
+          `ocurrio un error en updateActuaciones ${ JSON.stringify(
+            error, null, 2 
+          ) }`,
         );
         return;
       }
 }
 
-
-export async function NewUpdateActuaciones (
-  actuaciones: outActuacion[], idProceso: number
+export async function NewUpdateActuaciones(
+  actuaciones: outActuacion[],
+  idProceso: number,
 ) {
       try {
         if ( actuaciones.length === 0 ) {
           throw new Error(
-            'no hay actuaciones en el array updateActuaciones'
+            'no hay actuaciones en el array updateActuaciones' 
           );
         }
 
         const [
-          ultimaActuacion
+          ultimaActuacion 
         ] = actuaciones;
 
         const carpeta = await prisma.carpeta.findFirst(
           {
             where: {
               idProcesos: {
-                has: idProceso
-              }
-            }
-          }
+                has: idProceso,
+              },
+            },
+          } 
         );
 
         if ( !carpeta ) {
           throw new Error(
-            'no hay carpeta por actualizar'
+            'no hay carpeta por actualizar' 
           );
         }
 
-
         const incomingDate = new Date(
-          ultimaActuacion.fechaActuacion
+          ultimaActuacion.fechaActuacion 
         );
 
         const incomingYear = incomingDate.getFullYear();
@@ -327,43 +276,39 @@ export async function NewUpdateActuaciones (
 
         const savedDate = carpeta.fecha
           ? new Date(
-            carpeta.fecha
+            carpeta.fecha 
           )
-
           : null;
-
 
         const carpetasColl = await carpetasCollection();
 
         if ( !savedDate || savedDate < incomingDate ) {
-
           const updateCarpetawithActuaciones = await carpetasColl.updateOne(
             {
               $or: [
                 {
-                  llaveProceso: ultimaActuacion.llaveProceso
+                  llaveProceso: ultimaActuacion.llaveProceso,
                 },
                 {
-                  idProcesos: idProceso
-
-                }
-              ]
+                  idProcesos: idProceso,
+                },
+              ],
             },
             {
               $addToSet: {
-                actuaciones: ultimaActuacion
+                actuaciones: ultimaActuacion,
               },
               $set: {
                 fecha: new Date(
-                  ultimaActuacion.fechaActuacion
+                  ultimaActuacion.fechaActuacion 
                 ),
-                revisado      : false,
-                idRegUltimaAct: ultimaActuacion.idRegActuacion
-                ,
+                revisado       : false,
+                idRegUltimaAct : ultimaActuacion.idRegActuacion,
                 ultimaActuacion: {
                   ...ultimaActuacion,
-                  isUltimaAct: ultimaActuacion.cant === ultimaActuacion.consActuacion,
-                  idProceso  : idProceso
+                  isUltimaAct:
+                ultimaActuacion.cant === ultimaActuacion.consActuacion,
+                  idProceso: idProceso,
                 },
               },
             },
@@ -375,54 +320,54 @@ export async function NewUpdateActuaciones (
           const updateCarpetaWithActuacionesToPrisma = await prisma.carpeta.update(
             {
               where: {
-                numero: carpeta.numero
+                numero: carpeta.numero,
               },
               data: {
                 fecha: new Date(
-                  incomingYear, incomingMonth, incomingDay
+                  incomingYear, incomingMonth, incomingDay 
                 ),
                 revisado       : false,
                 ultimaActuacion: {
                   connectOrCreate: {
                     where: {
-                      idRegActuacion: ultimaActuacion.idRegActuacion
+                      idRegActuacion: ultimaActuacion.idRegActuacion,
                     },
                     create: {
                       ...ultimaActuacion,
                       fechaActuacion: new Date(
-                        ultimaActuacion.fechaActuacion
+                        ultimaActuacion.fechaActuacion 
                       ),
                       fechaRegistro: new Date(
-                        ultimaActuacion.fechaRegistro
+                        ultimaActuacion.fechaRegistro 
                       ),
                       fechaInicial: ultimaActuacion.fechaInicial
                         ? new Date(
-                          ultimaActuacion.fechaInicial
+                          ultimaActuacion.fechaInicial 
                         )
                         : null,
                       fechaFinal: ultimaActuacion.fechaFinal
                         ? new Date(
-                          ultimaActuacion.fechaFinal
+                          ultimaActuacion.fechaFinal 
                         )
                         : null,
                       anotacion: ultimaActuacion.anotacion
                         ? ultimaActuacion.anotacion
                         : null,
-                      isUltimaAct: ( ultimaActuacion.cant === ultimaActuacion.consActuacion )
-                        ? true
-                        : false,
-                      idProceso: idProceso
-                    }
-                  }
-                }
-              }
-            }
+                      isUltimaAct:
+                  ultimaActuacion.cant === ultimaActuacion.consActuacion
+                    ? true
+                    : false,
+                      idProceso: idProceso,
+                    },
+                  },
+                },
+              },
+            } 
           );
 
           console.log(
-            updateCarpetaWithActuacionesToPrisma
+            updateCarpetaWithActuacionesToPrisma 
           );
-
 
           if ( !updateCarpetawithActuaciones ) {
             return;
@@ -436,59 +381,55 @@ export async function NewUpdateActuaciones (
               `Actuaciones:
             - se modificaron ${ updateCarpetawithActuaciones.modifiedCount } carpetas
             - se insertaron ${ updateCarpetawithActuaciones.upsertedCount }
-            - para un total de carpetas: ${ updateCarpetawithActuaciones.matchedCount }`
+            - para un total de carpetas: ${ updateCarpetawithActuaciones.matchedCount }`,
             );
-
           }
         }
-
 
         try {
           for ( const actuacion of actuaciones ) {
             await prisma.actuacion.upsert(
               {
                 where: {
-                  idRegActuacion: actuacion.idRegActuacion
+                  idRegActuacion: actuacion.idRegActuacion,
                 },
                 create: {
                   ...actuacion,
                   fechaActuacion: new Date(
-                    actuacion.fechaActuacion
+                    actuacion.fechaActuacion 
                   ),
                   fechaRegistro: new Date(
-                    actuacion.fechaRegistro
+                    actuacion.fechaRegistro 
                   ),
                   fechaInicial: actuacion.fechaInicial
                     ? new Date(
-                      actuacion.fechaInicial
+                      actuacion.fechaInicial 
                     )
                     : null,
                   fechaFinal: actuacion.fechaFinal
                     ? new Date(
-                      actuacion.fechaFinal
+                      actuacion.fechaFinal 
                     )
                     : null,
-                  isUltimaAct: actuacion.cant === actuacion.consActuacion
-                    ? true
-                    : false,
+                  isUltimaAct:
+              actuacion.cant === actuacion.consActuacion
+                ? true
+                : false,
                   idProceso: idProceso,
-
                 },
                 update: {
-                  idProceso  : idProceso,
-                  isUltimaAct: actuacion.cant === actuacion.consActuacion
-                    ? true
-                    : false,
-                }
-
-
-              }
+                  idProceso: idProceso,
+                  isUltimaAct:
+              actuacion.cant === actuacion.consActuacion
+                ? true
+                : false,
+                },
+              } 
             );
           }
-
         } catch ( createError ) {
           console.log(
-            createError
+            createError 
           );
         }
 
@@ -496,8 +437,8 @@ export async function NewUpdateActuaciones (
       } catch ( error ) {
         console.log(
           `ocurrio un error en updateActuaciones ${ JSON.stringify(
-            error, null, 2
-          ) }`
+            error, null, 2 
+          ) }`,
         );
         return;
       }

@@ -5,19 +5,16 @@ import { notFound } from 'next/navigation';
 export default async function NuevaNotallaveProceso(
   {
     params: {
-      id
+      id 
     },
   }: {
     params: { id: string };
-  }
+  } 
 ) {
-
-
       const nota = await getNotaById(
         Number(
-          id
-        ),
-
+          id 
+        ) 
       );
 
       if ( !nota ) {
@@ -26,12 +23,10 @@ export default async function NuevaNotallaveProceso(
 
       return (
         <>
-
           <Edit
             key={id}
             nota={nota}
           />
-
         </>
       );
 }

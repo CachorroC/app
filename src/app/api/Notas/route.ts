@@ -32,134 +32,122 @@ export async function GET () {
 }
 */
 
-export async function GET (
-  request: NextRequest
+export async function GET(
+  request: NextRequest 
 ) {
       try {
-
         let notas;
 
         const {
-          searchParams
+          searchParams 
         } = new URL(
-          request.url
+          request.url 
         );
 
         const carpetaNumero = searchParams.get(
-          'carpetaNumero'
+          'carpetaNumero' 
         );
 
         if ( carpetaNumero ) {
           notas = await getNotas(
             Number(
-              carpetaNumero
-            )
+              carpetaNumero 
+            ) 
           );
         } else {
           notas = await getNotas();
         }
 
         return NextResponse.json(
-          notas
+          notas 
         );
       } catch ( error ) {
         return NextResponse.json(
-          null
+          null 
         );
       }
 }
 
-export async function POST (
-  request: NextRequest
+export async function POST(
+  request: NextRequest 
 ) {
       try {
-
-
         const incomingNote = ( await request.json() ) as intNota;
-
-
-
 
         const client = await clientPromise;
 
         if ( !client ) {
           throw new Error(
-            'no hay cliente mongólico'
+            'no hay cliente mongólico' 
           );
         }
 
         const db = client.db(
-          'RyS'
+          'RyS' 
         );
 
         const collection = db.collection<intNota>(
-          'Notas'
+          'Notas' 
         );
 
         const updatedNote = await collection.insertOne(
-          incomingNote
+          incomingNote 
         );
 
         if ( !updatedNote ) {
           throw new Error(
-            'no se actualizó la notas'
+            'no se actualizó la notas' 
           );
         }
 
         const json = JSON.stringify(
-          updatedNote, null, 2
+          updatedNote, null, 2 
         );
         console.log(
-          `POST en api/Notas es ${ json }`
+          `POST en api/Notas es ${ json }` 
         );
         return NextResponse.json(
-          updatedNote
+          updatedNote 
         );
-
       } catch ( error ) {
         console.log(
           `POST en api/Notas arrojó un error ${ JSON.stringify(
-            error, null, 2
-          ) }`
+            error, null, 2 
+          ) }`,
         );
         return NextResponse.json(
           error, {
-            status: 300
-          }
+            status: 300,
+          } 
         );
       }
 }
 
-export async function PUT (
-  request: NextRequest
+export async function PUT(
+  request: NextRequest 
 ) {
       try {
-
-
         const incomingNote = ( await request.json() ) as intNota;
-
-
-
 
         const client = await clientPromise;
 
         if ( !client ) {
           throw new Error(
-            'no hay cliente mongólico'
+            'no hay cliente mongólico' 
           );
         }
 
         const db = client.db(
-          'RyS'
+          'RyS' 
         );
 
         const collection = db.collection<intNota>(
-          'Notas'
+          'Notas' 
         );
 
         const updatedNote = await collection.findOneAndUpdate(
           {
-            id: incomingNote.id
+            id: incomingNote.id,
           },
           {
             $set: incomingNote,
@@ -172,37 +160,36 @@ export async function PUT (
 
         if ( !updatedNote ) {
           throw new Error(
-            'no se actualizó la notas'
+            'no se actualizó la notas' 
           );
         }
 
         const json = JSON.stringify(
-          updatedNote, null, 2
+          updatedNote, null, 2 
         );
         console.log(
-          `PUT en api/Notas es ${ json }`
+          `PUT en api/Notas es ${ json }` 
         );
         return new NextResponse(
           JSON.stringify(
-            updatedNote
+            updatedNote 
           ), {
             status : 200,
             headers: {
-              'Content-Type': 'application/json'
-            }
-          }
+              'Content-Type': 'application/json',
+            },
+          } 
         );
-
       } catch ( error ) {
         console.log(
           `PUT en api/Notas arrojó un error ${ JSON.stringify(
-            error, null, 2
-          ) }`
+            error, null, 2 
+          ) }`,
         );
         return NextResponse.json(
           error, {
-            status: 300
-          }
+            status: 300,
+          } 
         );
       }
 }

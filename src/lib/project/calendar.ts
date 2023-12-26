@@ -1,5 +1,3 @@
-
-
 export interface calendarData {
   href: string;
   className: string;
@@ -26,10 +24,9 @@ export const nombresDeMeses = [
 ];
 
 export function CalendarBuilder(
-  date: Date,
+  date: Date 
 ) {
       const rows = new Set<calendarData>();
-
 
       const incomingMonth = date.getMonth();
 
@@ -46,7 +43,9 @@ export function CalendarBuilder(
             .getDay();
 
       const lastDateofIncomingMonth = new Date(
-        incomingYear, incomingMonth + 1, 0
+        incomingYear,
+        incomingMonth + 1,
+        0,
       )
             .getDate();
 
@@ -58,17 +57,20 @@ export function CalendarBuilder(
             .getDay();
 
       const lastDateofIncomingPastMonth = new Date(
-        incomingYear, incomingMonth, 0
+        incomingYear,
+        incomingMonth,
+        0,
       )
             .getDate();
 
-      for ( let dayBefore = firstWeekDayofIncomingMonth; dayBefore > 0; dayBefore-- ) {
-
+      for (
+        let dayBefore = firstWeekDayofIncomingMonth;
+        dayBefore > 0;
+        dayBefore--
+      ) {
         const date = lastDateofIncomingPastMonth - dayBefore + 1;
 
-        const href = `${ incomingYear }/${ incomingMonth }/${
-          date
-        }`;
+        const href = `${ incomingYear }/${ incomingMonth }/${ date }`;
         rows.add(
           {
             href     : href,
@@ -78,42 +80,52 @@ export function CalendarBuilder(
             className: 'disabled',
             current  : false,
             dayOfWeek: new Date(
-              href
+              href 
             )
                   .getDay(),
-          }
+          } 
         );
       }
 
-      for ( let dayInMonth = 1; dayInMonth <= lastDateofIncomingMonth; dayInMonth++ ) {
+      for (
+        let dayInMonth = 1;
+        dayInMonth <= lastDateofIncomingMonth;
+        dayInMonth++
+      ) {
         const isToday = today === dayInMonth;
 
-        const href = `${ incomingYear }/${ incomingMonth === 12
-          ? 0
-          : incomingMonth + 1 }/${ dayInMonth }`;
+        const href = `${ incomingYear }/${
+          incomingMonth === 12
+            ? 0
+            : incomingMonth + 1
+        }/${ dayInMonth }`;
 
         rows.add(
           {
             href     : href,
             year     : incomingYear,
-            month    : incomingMonth +1,
+            month    : incomingMonth + 1,
             date     : dayInMonth,
             current  : true,
             dayOfWeek: new Date(
-              href
+              href 
             )
                   .getDay(),
             className: isToday
               ? 'today'
               : 'inactive',
-          }
+          } 
         );
       }
 
-      for ( let dayAfterMonth = lastWeekDayofIncomingMonth; dayAfterMonth < 6; dayAfterMonth++ ) {
+      for (
+        let dayAfterMonth = lastWeekDayofIncomingMonth;
+        dayAfterMonth < 6;
+        dayAfterMonth++
+      ) {
         const href = `${ incomingYear }/${ incomingMonth + 2 }/${ dayAfterMonth }`;
         console.log(
-          `next month: ${ href }`
+          `next month: ${ href }` 
         );
 
         rows.add(
@@ -124,15 +136,15 @@ export function CalendarBuilder(
             date     : dayAfterMonth,
             current  : false,
             dayOfWeek: new Date(
-              href
+              href 
             )
                   .getDay(),
             className: 'disabled',
-          }
+          } 
         );
       }
 
       return Array.from(
-        rows
+        rows 
       );
 }

@@ -1,6 +1,5 @@
 import { CarpetaRaw } from '../types/raw-carpeta';
 
-
 const Carpetas: CarpetaRaw[] = [
   {
     numero  : 1,

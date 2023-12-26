@@ -1,23 +1,22 @@
 import { cache } from 'react';
 import { fetchNotaById, fetchNotasByPathname } from './fetcher';
 
-
 export const getNotaById = cache(
   async (
-    id: number
+    id: number 
   ) => {
             return await fetchNotaById(
-              id
+              id 
             );
-  }
+  } 
 );
 
 export const getNotasByPathname = cache(
   async (
-    path : string
+    path: string 
   ) => {
             return await fetchNotasByPathname(
-              path
+              path 
             );
-  }
+  } 
 );

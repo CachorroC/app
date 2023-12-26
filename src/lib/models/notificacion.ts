@@ -1,42 +1,38 @@
-
 import { fixSingleFecha } from './idk';
 import { CarpetaRaw } from '../types/raw-carpeta';
 import { Notificacion, Notifier } from '../types/carpetas';
 
 export class ClassNotificacion implements Notificacion {
-  constructor (
+  constructor(
     {
-      demanda, numero
-    }: CarpetaRaw
+      demanda, numero 
+    }: CarpetaRaw 
   ) {
             this.id = numero;
             this.demandaId = numero;
 
             const {
-              notificacion
+              notificacion 
             } = demanda;
 
             if ( !notificacion ) {
-
               this.certimail = false;
-              this.autoNotificado = null,
-              this.fisico = false;
+              ( this.autoNotificado = null ), ( this.fisico = false );
               return;
             }
 
             const {
-              fisico, certimail, autoNotificado
-            }
-      = notificacion;
+              fisico, certimail, autoNotificado 
+            } = notificacion;
             this.certimail = certimail
-              ? certimail === 'SI'
-                ? true
-                : false
+              ? ( certimail === 'SI'
+                  ? true
+                  : false )
               : false;
             this.fisico = fisico
-              ? fisico === 'SI'
-                ? true
-                : false
+              ? ( fisico === 'SI'
+                  ? true
+                  : false )
               : false;
             this.autoNotificado = autoNotificado
               ? typeof autoNotificado === 'number'
@@ -44,20 +40,18 @@ export class ClassNotificacion implements Notificacion {
                 : autoNotificado
               : null;
 
-
             const the291 = notificacion[ '291' ];
 
             if ( the291 ) {
               const {
-                fechaRecibido, resultado, fechaAporta
-              }
-        = the291;
+                fechaRecibido, resultado, fechaAporta 
+              } = the291;
 
               const newFechaRecibido = fechaRecibido
                 ? fixSingleFecha(
                   typeof fechaRecibido === 'number'
                     ? fechaRecibido.toString()
-                    : fechaRecibido
+                    : fechaRecibido,
                 )
                 : null;
 
@@ -65,7 +59,7 @@ export class ClassNotificacion implements Notificacion {
                 ? fixSingleFecha(
                   typeof fechaAporta === 'number'
                     ? fechaAporta.toString()
-                    : fechaAporta
+                    : fechaAporta,
                 )
                 : null;
 
@@ -78,10 +72,10 @@ export class ClassNotificacion implements Notificacion {
                 {
                   tipo          : '291',
                   notificacionId: numero,
-                  fechaRecibido : newFechaRecibido
-                  , fechaAporta   : newFechaAporta
-                  , resultado     : newResultado
-                }
+                  fechaRecibido : newFechaRecibido,
+                  fechaAporta   : newFechaAporta,
+                  resultado     : newResultado,
+                } 
               );
             }
 
@@ -89,13 +83,12 @@ export class ClassNotificacion implements Notificacion {
 
             if ( the292 ) {
               const {
-                fechaRecibido, resultado, fechaAporta
-              }
-        = the292;
+                fechaRecibido, resultado, fechaAporta 
+              } = the292;
 
               const newFechaRecibido = fechaRecibido
                 ? fixSingleFecha(
-                  fechaRecibido
+                  fechaRecibido 
                 )
                 : null;
 
@@ -103,7 +96,7 @@ export class ClassNotificacion implements Notificacion {
                 ? fixSingleFecha(
                   typeof fechaAporta === 'number'
                     ? fechaAporta.toString()
-                    : fechaAporta
+                    : fechaAporta,
                 )
                 : null;
 
@@ -116,14 +109,12 @@ export class ClassNotificacion implements Notificacion {
                 {
                   tipo          : '292',
                   notificacionId: numero,
-                  fechaRecibido : newFechaRecibido
-                  , fechaAporta   : newFechaAporta
-                  , resultado     : newResultado
-                }
+                  fechaRecibido : newFechaRecibido,
+                  fechaAporta   : newFechaAporta,
+                  resultado     : newResultado,
+                } 
               );
             }
-
-
   }
   autoNotificado: string | null;
   demandaId: number;

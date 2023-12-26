@@ -3,25 +3,22 @@ import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-
 export default function NotFound() {
       let linker;
 
       const mapper = new Set<string>();
 
-
-      const pathname =usePathname();
+      const pathname = usePathname();
 
       const [
-        ,
-        firstRoute,
-        secondRoute,
+        , firstRoute,
+        secondRoute 
       ] = pathname.split(
-        '/'
+        '/' 
       );
 
-      const arrMap= Array.from(
-        mapper
+      const arrMap = Array.from(
+        mapper 
       );
 
       const carpetas = useCarpetaSort();
@@ -29,41 +26,34 @@ export default function NotFound() {
       if ( firstRoute === 'Carpeta' ) {
         console.log(
           `carpeta numero ${ Number(
-            secondRoute
-          ) }`
+            secondRoute 
+          ) }` 
         );
-
 
         const carpeta = carpetas.find(
           (
-            c
+            c 
           ) => {
                     return c.numero === Number(
-                      secondRoute
+                      secondRoute 
                     );
-          }
+          } 
         );
 
         if ( carpeta ) {
-          linker = (
-            <Link href={ '/' }>
-            </Link>
-          );
-
+          linker = <Link href={'/'}></Link>;
         }
       }
 
       return (
         <div>
           <h2>Not Found</h2>
-          { arrMap.map(
+          {arrMap.map(
             (
-              mp, i
+              mp, i 
             ) => {
-                      return (
-                        <p key={i}>{mp}</p>
-                      );
-            }
+                      return <p key={i}>{mp}</p>;
+            } 
           )}
           <p>Could not find requested resource</p>
           {linker}

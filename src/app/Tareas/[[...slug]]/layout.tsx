@@ -2,10 +2,16 @@ import { ReactNode } from 'react';
 import layout from '#@/styles/layout.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 
-export default function Layout (
+export default function Layout(
   {
-    params, children, right,
-  }: {params: {slug?: string[]}, children: ReactNode; right:ReactNode; }
+    params,
+    children,
+    right,
+  }: {
+    params: { slug?: string[] };
+    children: ReactNode;
+    right: ReactNode;
+  } 
 ) {
       let title;
 
@@ -13,18 +19,18 @@ export default function Layout (
         const [
           ano,
           mes,
-          dia
+          dia 
         ] = params.slug;
         title = OutputDateHelper(
           new Date(
             Number(
-              ano
+              ano 
             ), Number(
-              mes
+              mes 
             ) - 1, Number(
-              dia
-            )
-          )
+              dia 
+            ) 
+          ),
         );
       } else {
         title = 'Tareas';
@@ -32,13 +38,9 @@ export default function Layout (
 
       return (
         <>
-          <div className={ layout.top }>{ title }</div>
-          <div className={ layout.left }>
-            {children}
-          </div>
-          <div className={ layout.right }>
-            {right}
-          </div>
+          <div className={layout.top}>{title}</div>
+          <div className={layout.left}>{children}</div>
+          <div className={layout.right}>{right}</div>
         </>
       );
 }

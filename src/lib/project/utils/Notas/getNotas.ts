@@ -3,10 +3,10 @@ import { fetchNotas } from './fetcher';
 
 export const getNotas = cache(
   async (
-    carpetaId?: number
+    carpetaId?: number 
   ) => {
             return await fetchNotas(
-              carpetaId
+              carpetaId 
             );
-  }
+  } 
 );

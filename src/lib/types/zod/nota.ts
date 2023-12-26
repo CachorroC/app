@@ -8,16 +8,16 @@ export const ZodNotaElementSchema = z.object(
     pathname: z.union(
       [
         z.null(),
-        z.coerce.string()
-      ]
+        z.coerce.string() 
+      ] 
     ),
     carpetaNumero: z.union(
       [
         z.coerce.number(),
-        z.null()
-      ]
+        z.null() 
+      ] 
     ),
-  }
+  } 
 );
 
 export type ZodNotaElement = z.infer<typeof ZodNotaElementSchema>;

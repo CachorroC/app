@@ -1,11 +1,10 @@
-
 import { headers } from 'next/headers';
 
 export default async function NotFound() {
       const headersList = headers();
 
       const domain = headersList.get(
-        'host'
+        'host' 
       );
 
       return (
@@ -13,7 +12,7 @@ export default async function NotFound() {
           <h2>Not Found: {domain}</h2>
           <p>Could not find requested resource</p>
           {JSON.stringify(
-            headersList, null, 2
+            headersList, null, 2 
           )}
         </div>
       );

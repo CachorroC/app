@@ -13,11 +13,10 @@ export default async function NotasLayoutMain(
     children: ReactNode;
     top: ReactNode;
     right: ReactNode;
-  }
+  } 
 ) {
       const notas = await getNotas();
       return (
-
         <NotasSortProvider notas={notas}>
           <NuevaNotaFormProvider>
             <div className={styles.top}>{top}</div>
@@ -25,6 +24,5 @@ export default async function NotasLayoutMain(
             <div className={styles.right}>{right}</div>
           </NuevaNotaFormProvider>
         </NotasSortProvider>
-
       );
 }

@@ -1,13 +1,12 @@
-
-import {  NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '#@/lib/connection/prisma';
 import { Nota, Prisma } from '@prisma/client';
 
-export async function POST (
-  request: NextRequest
+export async function POST(
+  request: NextRequest 
 ) {
       try {
-        const incomingNote =  ( await request.json() ) as Nota;
+        const incomingNote = ( await request.json() ) as Nota;
 
         let nota: Prisma.NotaCreateInput;
 
@@ -16,91 +15,85 @@ export async function POST (
             ...incomingNote,
             carpeta: {
               connect: {
-                numero: incomingNote.carpetaNumero
+                numero: incomingNote.carpetaNumero,
               },
             },
           };
         } else {
           nota = {
-            ...incomingNote
+            ...incomingNote,
           };
         }
 
         // Pass 'user' object into query
         const inserterPrisma = await prisma.nota.create(
           {
-            data: nota
-          }
+            data: nota,
+          } 
         );
         console.log(
-          `POST en api/Notas/Nueva es ${  JSON.stringify(
-            inserterPrisma, null, 2
-          ) }`
+          `POST en api/Notas/Nueva es ${ JSON.stringify(
+            inserterPrisma, null, 2 
+          ) }`,
         );
-
 
         return NextResponse.json(
           inserterPrisma, {
-            status: 200
-          }
+            status: 200,
+          } 
         );
-
       } catch ( error ) {
         console.log(
-          `POST en api/Notas/Nueva arrojó un error ${ error }`
+          `POST en api/Notas/Nueva arrojó un error ${ error }` 
         );
         return NextResponse.json(
           error as Error, {
-            status: 300
-          }
+            status: 300,
+          } 
         );
       }
 }
 
-export async function PUT (
-  request: NextRequest
+export async function PUT(
+  request: NextRequest 
 ) {
       try {
-
-
         const incomingNote = ( await request.json() ) as Nota;
 
         const {
-
           // eslint-disable-next-line no-unused-vars
-          id, ...note
+          id,
+          ...note
         } = incomingNote;
 
         const inserterPrisma = await prisma.nota.upsert(
           {
             where: {
-              id: incomingNote.id
+              id: incomingNote.id,
             },
             update: incomingNote,
-            create: note
-          }
+            create: note,
+          } 
         );
         console.log(
-          `PUT en api/Notas/Nueva es ${  JSON.stringify(
-            inserterPrisma, null, 2
-          ) }`
+          `PUT en api/Notas/Nueva es ${ JSON.stringify(
+            inserterPrisma, null, 2 
+          ) }`,
         );
-
 
         return NextResponse.json(
           inserterPrisma, {
-            status: 200
-          }
+            status: 200,
+          } 
         );
-
       } catch ( error ) {
         console.log(
-          `PUT en api/Notas/Nueva arrojó un error ${ error }`
+          `PUT en api/Notas/Nueva arrojó un error ${ error }` 
         );
         return NextResponse.json(
           error as Error, {
-            status: 300
-          }
+            status: 300,
+          } 
         );
       }
 }

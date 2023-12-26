@@ -3,19 +3,19 @@ import searchbar from 'components/layout/search/searchbar.module.css';
 import { useSearch } from '#@/app/context/search-context';
 import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
 
-export const InputSearchBar= () => {
+export const InputSearchBar = () => {
           const {
-            search, setSearch
+            search, setSearch 
           } = useSearch();
 
           function searchQuery(
-            formData: FormData
+            formData: FormData 
           ) {
                 const query = formData.get(
-                  'buscar'
+                  'buscar' 
                 );
                 alert(
-                  `You searched for '${ query }'`
+                  `You searched for '${ query }'` 
                 );
           }
 
@@ -29,7 +29,7 @@ export const InputSearchBar= () => {
               <datalist id="demandados-list">
                 {carpetasReduced.map(
                   (
-                    carpeta
+                    carpeta 
                   ) => {
                             return (
                               <option
@@ -37,7 +37,7 @@ export const InputSearchBar= () => {
                                 key={carpeta._id}
                               />
                             );
-                  }
+                  } 
                 )}
               </datalist>
               <label>
@@ -49,24 +49,24 @@ export const InputSearchBar= () => {
                   name={'buscar'}
                   placeholder={'Buscar'}
                   onKeyDown={(
-                    e
+                    e 
                   ) => {
                             console.log(
-                              `pressed key ${ e.key }`
+                              `pressed key ${ e.key }` 
                             );
 
                             if ( e.key === 'Enter' ) {
                               console.log(
-                                `the pressed key was Enter ${ e.key }`
+                                `the pressed key was Enter ${ e.key }` 
                               );
                             }
                   }}
                   onChange={(
-                    input
+                    input 
                   ) => {
                             input.preventDefault();
                             return setSearch(
-                              input.target.value
+                              input.target.value 
                             );
                   }}
                 />

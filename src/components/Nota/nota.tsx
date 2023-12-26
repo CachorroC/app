@@ -3,49 +3,48 @@ import { createNota } from '#@/app/actions';
 import { useNotaContext } from '#@/app/context/main-context';
 import { useEffect, useState } from 'react';
 import styles from './note.module.css';
-import { type SubmitHandler,  useForm } from 'react-hook-form';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import { Nota } from '@prisma/client';
 
 export function Task(
   {
-    task
-  }: { task: Nota }
+    task 
+  }: { task: Nota } 
 ) {
-
       const [
         isEditing,
-        setIsEditing
+        setIsEditing 
       ] = useState(
-        false
+        false 
       );
 
       const [
         message,
-        setMessage
+        setMessage 
       ] = useState(
-        ''
+        '' 
       );
 
       const {
-        inputNota, setInputNota
+        inputNota, setInputNota 
       } = useNotaContext();
 
       const {
-        register, handleSubmit, setError, reset
+        register, handleSubmit, setError, reset 
       } = useForm<Nota>(
         {
-          defaultValues: task
-        }
+          defaultValues: task,
+        } 
       );
 
       let taskContent;
 
       const onSubmit: SubmitHandler<Nota> = async (
-        inputNota
+        inputNota 
       ) => {
                 const notaToSubmit = {
                   ...task,
-                  ...inputNota
+                  ...inputNota,
                 };
 
                 const postNota = await fetch(
@@ -55,56 +54,58 @@ export function Task(
                       'content-type': 'application/json',
                     },
                     body: JSON.stringify(
-                      notaToSubmit
-                    )
-                  }
+                      notaToSubmit 
+                    ),
+                  } 
                 );
 
                 alert(
                   JSON.stringify(
-                    postNota.status
-                  )
+                    postNota.status 
+                  ) 
                 );
 
                 if ( postNota.status > 200 ) {
                   setError(
                     'root.serverError', {
                       type: postNota.statusText,
-                    }
+                    } 
                   );
                 }
 
                 const updatedCarpeta = ( await postNota.json() ) as Nota;
                 alert(
                   JSON.stringify(
-                    updatedCarpeta
-                  )
+                    updatedCarpeta 
+                  ) 
                 );
                 console.log(
-                  `el estatus de la operacion post en Form arrojó: ${ postNota.status }`
+                  `el estatus de la operacion post en Form arrojó: ${ postNota.status }`,
                 );
-
       };
 
       async function onCreate(
-        formData: FormData
+        formData: FormData 
       ) {
             const res = await createNota(
-              formData
+              formData 
             );
             setMessage(
-              res.message
+              res.message 
             );
             setIsEditing(
-              false
+              false 
             );
       }
 
       if ( isEditing ) {
         taskContent = (
-          <form action={onCreate} onSubmit={handleSubmit(
-            onSubmit
-          )}>
+          <form
+            action={onCreate}
+            onSubmit={handleSubmit(
+              onSubmit 
+            )}
+          >
             {/*  <label className={styles.switchBox}>
           <input
             className={styles.inputElement}
@@ -131,19 +132,19 @@ export function Task(
             <input
               value={inputNota.title}
               type={'text'}
-              { ...register(
+              {...register(
                 'title', {
                   onChange: (
-                    e
+                    e 
                   ) => {
                             setInputNota(
                               {
                                 ...task,
                                 title: e.target.value,
-                              }
+                              } 
                             );
-                  }
-                }
+                  },
+                } 
               )}
             />
             <button type="submit">Save</button>
@@ -169,12 +170,12 @@ export function Task(
       useEffect(
         () => {
                   reset(
-                    task
+                    task 
                   );
         }, [
           reset,
-          task
-        ]
+          task 
+        ] 
       );
       return (
         <div className={styles.taskContainer}>
@@ -185,12 +186,12 @@ export function Task(
             type="button"
             onClick={() => {
                       setIsEditing(
-                        true
+                        true 
                       );
                       setInputNota(
                         {
                           ...task,
-                        }
+                        } 
                       );
             }}
           >

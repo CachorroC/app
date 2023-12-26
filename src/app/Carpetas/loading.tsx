@@ -1,6 +1,5 @@
-
-import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
+import { Loader } from '#@/components/Loader';
 
 export default function Loading() {
-      return <SearchOutputListSkeleton />;
+      return <Loader />;
 }

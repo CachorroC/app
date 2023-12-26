@@ -11,14 +11,14 @@ export function NuevaCarpetaFormProvider(
     children,
   }: {
     children: ReactNode;
-  }
+  } 
 ) {
       const carpetasReduced = useCarpetaSort();
 
       const carpsLen = carpetasReduced.length;
 
       const daterFixer = InputDateHelper(
-        new Date()
+        new Date() 
       );
 
       const methods = useForm<NuevaCarpeta>(
@@ -44,13 +44,13 @@ export function NuevaCarpetaFormProvider(
               entregaGarantiasAbogado: daterFixer,
               tipoProceso            : 'SINGULAR',
               fechaPresentacion      : [
-                daterFixer
+                daterFixer 
               ],
               vencimientoPagare: [
-                daterFixer
+                daterFixer 
               ],
               obligacion: [
-                'sus obligaciones'
+                'sus obligaciones' 
               ],
             },
           },
@@ -59,7 +59,7 @@ export function NuevaCarpetaFormProvider(
           },
           shouldFocusError: true,
           criteriaMode    : 'all',
-        }
+        } 
       );
 
       return <FormProvider {...methods}>{children}</FormProvider>;

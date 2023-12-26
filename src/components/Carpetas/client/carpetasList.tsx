@@ -1,36 +1,34 @@
 'use client';
-import { useCarpetaSort, } from '#@/app/context/carpetas-sort-context';
-import {  Card } from '#@/components/Card';
+import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
+import { Card } from '#@/components/Card';
 import { useSearch } from '#@/app/context/search-context';
-import {  JSX, } from 'react';
+import { JSX } from 'react';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { useCategory } from '#@/app/context/category-context';
 
 export function CarpetasList() {
       const rows: JSX.Element[] = [];
 
-
       const carpetasReduced = useCarpetaSort();
 
       const {
-        search
+        search 
       } = useSearch();
 
-      const
-        {
-          currentCategory,
-        } = useCategory();
+      const {
+        currentCategory 
+      } = useCategory();
       carpetasReduced.forEach(
         (
-          proceso
+          proceso 
         ) => {
                   const {
-                    ultimaActuacion
+                    ultimaActuacion 
                   } = proceso;
 
                   if ( proceso.nombre.toLowerCase()
                         .indexOf(
-                          search.toLowerCase()
+                          search.toLowerCase() 
                         ) === -1 ) {
                     return;
                   }
@@ -48,14 +46,11 @@ export function CarpetasList() {
                             incomingActuacion={ultimaActuacion}
                           />
                         )}
-                      </Card>
+                      </Card>,
                     );
                   }
-        }
+        } 
       );
 
-      return ( <>
-        {rows}
-      </>
-      );
+      return <>{rows}</>;
 }

@@ -1,27 +1,24 @@
-
 import { carpetasCollection } from '#@/lib/connection/collections';
 import { NextResponse } from 'next/server';
 
-
-export async function GET () {
+export async function GET() {
       try {
-
         const collection = await carpetasCollection();
 
         const carpetasRaw = await collection.find(
-          {}
+          {} 
         )
               .toArray();
 
         const carpetas = carpetasRaw.map(
           (
-            rawCarpeta
+            rawCarpeta 
           ) => {
                     return {
                       ...rawCarpeta,
-                      _id: rawCarpeta._id.toString()
+                      _id: rawCarpeta._id.toString(),
                     };
-          }
+          } 
         );
 
         /* const carpetas = await prisma.carpeta.findMany(
@@ -36,14 +33,14 @@ export async function GET () {
           }
         ); */
         return NextResponse.json(
-          carpetas
+          carpetas 
         );
       } catch ( error ) {
         console.log(
-          `error en Api/Carpetas: ${ error }`
+          `error en Api/Carpetas: ${ error }` 
         );
         return NextResponse.json(
-          []
+          [] 
         );
       }
 }

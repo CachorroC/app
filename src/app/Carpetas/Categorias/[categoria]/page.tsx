@@ -1,20 +1,19 @@
 'use client';
 import { useCategory } from '#@/app/context/category-context';
-import { CarpetasList, } from '#@/components/Carpetas/client/carpetasList';
+import { CarpetasList } from '#@/components/Carpetas/client/carpetasList';
 import { useEffect } from 'react';
 
 export default function Page(
   {
     params: {
-      categoria
+      categoria 
     },
   }: {
     params: { categoria: string };
-  }
+  } 
 ) {
-
       const {
-        setCurrentCategory
+        setCurrentCategory 
       } = useCategory();
       /*
   const ncarps = [
@@ -30,20 +29,19 @@ export default function Page(
       useEffect(
         () => {
                   setCurrentCategory(
-                    categoria
+                    categoria 
                   );
 
-                  return () => {
-                  };
+                  return () => {};
         }, [
           categoria,
-          setCurrentCategory
-        ]
+          setCurrentCategory 
+        ] 
       );
 
       return (
         <>
-          <CarpetasList/>
+          <CarpetasList />
         </>
       );
 }

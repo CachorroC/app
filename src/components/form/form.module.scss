@@ -34,14 +34,22 @@
   background-color: var(--secondary);
   & > span {
     color: var(--on-secondary);
-    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 300,
+      'GRAD' 0,
+      'opsz' 24;
   }
   &:hover,
   &:active {
     background-color: var(--secondary);
     box-shadow: var(--dp8);
     & > span {
-      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 200, 'opsz' 48;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 600,
+        'GRAD' 200,
+        'opsz' 48;
       color: var(--on-secondary);
     }
   }
@@ -84,7 +92,7 @@
 }
 .vencimientoArea {
   @extend .textArea;
-  border-radius: .1rem 0 0 .1rem;
+  border-radius: 0.1rem 0 0 0.1rem;
 }
 
 .button {
@@ -106,14 +114,22 @@
   & > .text {
     color: var(--on-secondary-container);
     transition: all 1s;
-    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 300,
+      'GRAD' 0,
+      'opsz' 24;
   }
   &:hover,
   &:active {
     background-color: var(--tertiary-container);
     box-shadow: var(--dp8);
     & > span {
-      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 24;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 200,
+        'opsz' 24;
       color: var(--tertiary);
     }
   }
@@ -123,7 +139,7 @@
   position: relative;
   display: inline-block;
   box-sizing: border-box;
-  border: .01rem solid var(--outline-variant);
+  border: 0.01rem solid var(--outline-variant);
   border-radius: 50vw;
   width: 1rem;
   height: 0.5rem;
@@ -154,10 +170,10 @@
   border-radius: 0.2 0.2 0 0;
   position: absolute;
   content: '';
-  height: .2rem;
-  width: .2rem;
-  left: .1rem;
-  bottom: .01rem;
+  height: 0.2rem;
+  width: 0.2rem;
+  left: 0.1rem;
+  bottom: 0.01rem;
   background-color: var(--outline);
   -webkit-transition: 0.4s;
   transition: 0.4s;

@@ -1,23 +1,23 @@
 import { useState } from 'react';
 
-type CopiedValue = string | null
+type CopiedValue = string | null;
 // eslint-disable-next-line no-unused-vars
-type CopyFn = ( text: string ) => Promise<boolean>
+type CopyFn = ( text: string ) => Promise<boolean>;
 
 export function useCopyToClipboard(): [CopiedValue, CopyFn] {
       const [
         copiedText,
-        setCopiedText
+        setCopiedText 
       ] = useState<CopiedValue>(
-        null
+        null 
       );
 
       const copy: CopyFn = async (
-        text
+        text 
       ) => {
                 if ( !navigator?.clipboard ) {
                   console.warn(
-                    'Clipboard not supported'
+                    'Clipboard not supported' 
                   );
                   return false;
                 }
@@ -25,18 +25,18 @@ export function useCopyToClipboard(): [CopiedValue, CopyFn] {
                 // Try to save to clipboard then save it in the state if worked
                 try {
                   await navigator.clipboard.writeText(
-                    text
+                    text 
                   );
                   setCopiedText(
-                    text
+                    text 
                   );
                   return true;
                 } catch ( error ) {
                   console.warn(
-                    'Copy failed', error
+                    'Copy failed', error 
                   );
                   setCopiedText(
-                    null
+                    null 
                   );
                   return false;
                 }
@@ -44,6 +44,6 @@ export function useCopyToClipboard(): [CopiedValue, CopyFn] {
 
       return [
         copiedText,
-        copy
+        copy 
       ];
 }

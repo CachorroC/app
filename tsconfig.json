@@ -5,31 +5,17 @@
     "incremental": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "webworker"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "esnext",
     "moduleResolution": "bundler",
     "noImplicitAny": true,
     "noEmit": true,
     "paths": {
-      "#@/*": [
-        "./src/*"
-      ],
-      "components/*": [
-        "./src/components/*"
-      ],
-      "types/*": [
-        "./src/lib/types/*"
-      ],
-      "project/*": [
-        "./src/lib/project/*"
-      ], "auth": [
-        "./src/auth"
-      ]
+      "#@/*": ["./src/*"],
+      "components/*": ["./src/components/*"],
+      "types/*": ["./src/lib/types/*"],
+      "project/*": ["./src/lib/project/*"],
+      "auth": ["./src/auth"]
     },
     "plugins": [
       {
@@ -47,8 +33,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "public/service-worker.js"
-, "src/old.middle.ts.old"  ],
-  "exclude": [
-    "node_modules"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }

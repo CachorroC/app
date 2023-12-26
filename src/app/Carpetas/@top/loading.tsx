@@ -1,10 +1,5 @@
-import { Loader } from '#@/components/Loader';
+import typography from '#@/styles/fonts/typography.module.css';
 
 export default function Loading() {
-      return (
-        <>
-          <Loader />
-          <Loader />
-        </>
-      );
+      return <h4 className={typography.headlineMedium}>cargando</h4>;
 }

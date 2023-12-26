@@ -2,15 +2,15 @@ import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { notFound } from 'next/navigation';
 import CurrencyInput from 'react-currency-input-field';
 
-export default async function Page (
+export default async function Page(
   {
-    params
-  }: {params: {numero: string}}
+    params 
+  }: { params: { numero: string } } 
 ) {
       const carpeta = await getCarpetabyNumero(
         Number(
-          params.numero
-        )
+          params.numero 
+        ) 
       );
 
       if ( !carpeta ) {
@@ -20,11 +20,11 @@ export default async function Page (
       return (
         <>
           <CurrencyInput
-            allowDecimals={ false }
+            allowDecimals={false}
             suffix={'pesos colombianos'}
             intlConfig={{
               locale  : 'es-CO',
-              currency: 'COP'
+              currency: 'COP',
             }}
           />
         </>

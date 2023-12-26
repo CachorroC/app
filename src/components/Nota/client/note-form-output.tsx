@@ -7,7 +7,7 @@ import { fixFechas } from '#@/lib/project/helper';
 
 export default function NoteFormOutput() {
       const {
-        inputNota
+        inputNota 
       } = useNotaContext();
 
       return (
@@ -19,15 +19,13 @@ export default function NoteFormOutput() {
           <section className={styles.section}>
             <p className={typography.displayMedium}>{inputNota.title}</p>
             <p className={typography.bodyMedium}>{inputNota.title}</p>
-            {
-              inputNota.date && (
-                <p className={ typography.labelSmall }>
-                  { fixFechas(
-                    inputNota.date.toString()
-                  ) }
-                </p>
-              )
-            }
+            {inputNota.date && (
+              <p className={typography.labelSmall}>
+                {fixFechas(
+                  inputNota.date.toString() 
+                )}
+              </p>
+            )}
           </section>
           <span>{inputNota.pathname}</span>
         </div>

@@ -1,11 +1,10 @@
-
 import { Deudor } from '#@/lib/types/carpetas';
 import typography from '#@/styles/fonts/typography.module.css';
 
 export function NombreComponent(
   {
-    deudor
-  }: {deudor: Deudor}
+    deudor 
+  }: { deudor: Deudor } 
 ) {
       const nombres = deudor.segundoNombre
         ? deudor.primerNombre + ' ' + deudor.segundoNombre

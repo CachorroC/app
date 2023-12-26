@@ -11,10 +11,9 @@ export const Card = (
     carpeta,
     children,
   }: {
-
     carpeta: MonCarpeta;
     children: ReactNode;
-  }
+  } 
 ) => {
           let contentIdProcesos;
 
@@ -25,34 +24,34 @@ export const Card = (
             : true;
 
           const {
-            idProcesos, nombre, numero,
-          }
-            = carpeta;
+            idProcesos, nombre, numero 
+          } = carpeta;
 
           if ( !idProcesos || idProcesos.length === 0 ) {
             console.log(
-              'no hay idProcesos'
+              'no hay idProcesos' 
             );
           } else {
             contentIdProcesos = idProcesos.map(
               (
-                idProceso
+                idProceso 
               ) => {
                         return (
                           <Link
                             key={idProceso}
                             href={`/Carpeta/${ String(
-                              numero
+                              numero 
                             ) }/ultimasActuaciones/${ String(
-                              idProceso
+                              idProceso,
                             ) }`}
                             className={styles.link}
                           >
-
-                            <span className={`material-symbols-outlined ${ styles.icon }`}>inventory</span>
+                            <span className={`material-symbols-outlined ${ styles.icon }`}>
+            inventory
+                            </span>
                           </Link>
                         );
-              }
+              } 
             );
           }
 
@@ -64,24 +63,23 @@ export const Card = (
                 }`}
               >
                 <section className={layout.sectionRow}>
-
                   <h4 className={typography.titleMedium}>{nombre}</h4>
                   <Link
-                    className={ styles.link }
+                    className={styles.link}
                     href={`/Carpeta/${ numero }` as Route}
                   >
-                    <span className={`${ typography.labelLarge } ${ layout.text }`}>{ numero.toString() }</span>
+                    <span className={`${ typography.labelLarge } ${ layout.text }`}>
+                      {numero.toString()}
+                    </span>
                     <span className={`material-symbols-outlined ${ layout.icon }`}>
-                folder
+              folder
                     </span>
                   </Link>
-
                 </section>
                 {children}
-                {contentIdProcesos}
+                <div className={layout.segmentRow}>{contentIdProcesos}</div>
 
                 <div className={styles.links}>
-
                   {errorLLaveProceso && (
                     <Link
                       href={`/Carpeta/${ numero }/Editar` as Route}

@@ -1,6 +1,3 @@
-
-import { Fragment, Suspense } from 'react';
-import { Loader } from '#@/components/Loader';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
 import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
@@ -50,8 +47,7 @@ export async function generateStaticParams () {
 
  */
 
-
-export default async function Page (
+export default async function Page(
   {
     params,
   }: {
@@ -59,46 +55,44 @@ export default async function Page (
       numero: string;
       idProceso: string;
     };
-  }
+  } 
 ) {
       if ( params.idProceso === 'idProceso' ) {
         return notFound();
       }
 
-
-      const  actuaciones
-       =  await getActuaciones(
-         Number(
-           params.idProceso
-         ),
-       ) ;
+      const actuaciones = await getActuaciones(
+        Number(
+          params.idProceso 
+        ) 
+      );
 
       if ( !actuaciones || actuaciones.length === 0 ) {
         return notFound();
       }
 
       return (
-        <Fragment key={params.idProceso}>
-          <Suspense fallback={<Loader />}>
-
-            {actuaciones.map(
-              (
-                actuacion, index
-              ) => {
-                        const newActuacion: outActuacion = {
-                          ...actuacion,
-                          isUltimaAct: actuacion.cant === actuacion.consActuacion,
-                          idProceso  : Number(
-                            params.idProceso
-                          )
-                        };
-                        return (
-                          <ActuacionComponent
-                            key={ index } incomingActuacion={newActuacion } initialOpenState={ true} />
-                        );
-              }
-            )}
-          </Suspense>
-        </Fragment>
+        <>
+          {actuaciones.map(
+            (
+              actuacion, index 
+            ) => {
+                      const newActuacion: outActuacion = {
+                        ...actuacion,
+                        isUltimaAct: actuacion.cant === actuacion.consActuacion,
+                        idProceso  : Number(
+                          params.idProceso 
+                        ),
+                      };
+                      return (
+                        <ActuacionComponent
+                          key={index}
+                          incomingActuacion={newActuacion}
+                          initialOpenState={true}
+                        />
+                      );
+            } 
+          )}
+        </>
       );
 }

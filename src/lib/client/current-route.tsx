@@ -8,24 +8,24 @@ export function CurrentRoute() {
       const pathname = usePathname();
 
       const segment = useSelectedLayoutSegments(
-        'right'
+        'right' 
       );
 
       return (
         <Fragment>
           {pathname.replace(
-            '/', ' '
+            '/', ' ' 
           )}
           {segment.map(
             (
-              seg
+              seg 
             ) => {
                       return (
                         <div key={seg}>
                           <h1 className={typography.headlineMedium}>{seg}</h1>
                         </div>
                       );
-            }
+            } 
           )}
         </Fragment>
       );

@@ -11,15 +11,12 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 
 export const CarpetaCard = (
   {
-    carpeta
-  }: { carpeta: MonCarpeta }
+    carpeta 
+  }: { carpeta: MonCarpeta } 
 ) => {
           const {
-            idProcesos, deudor, demanda, numero, procesos
+            idProcesos, deudor, demanda, numero, procesos 
           } = carpeta;
-
-
-
 
           return (
             <div
@@ -41,7 +38,7 @@ export const CarpetaCard = (
                   {idProcesos
             && idProcesos.map(
               (
-                idProceso
+                idProceso 
               ) => {
                         return (
                           <Link
@@ -59,14 +56,14 @@ export const CarpetaCard = (
                             </span>
                           </Link>
                         );
-              }
+              } 
             )}
                 </section>
                 {procesos.map(
                   (
                     {
-                      juzgado
-                    }
+                      juzgado 
+                    } 
                   ) => {
                             return (
                               <Link
@@ -74,7 +71,7 @@ export const CarpetaCard = (
                                 target={'_blank'}
                                 className={card.link}
                                 href={new URL(
-                                  juzgado.url
+                                  juzgado.url 
                                 )}
                               >
                                 <span className={`material-symbols-outlined ${ card.icon }`}>
@@ -86,7 +83,7 @@ export const CarpetaCard = (
                                 </p>
                               </Link>
                             );
-                  }
+                  } 
                 )}
                 {deudor?.telCelular && (
                   <Link
@@ -117,7 +114,7 @@ export const CarpetaCard = (
                 {demanda?.vencimientoPagare
           && demanda.vencimientoPagare.map(
             (
-              pagare, index
+              pagare, index 
             ) => {
                       return (
                         <p
@@ -125,11 +122,11 @@ export const CarpetaCard = (
                           className={typography.labelMedium}
                         >
                           {fixFechas(
-                            pagare
+                            pagare 
                           )}
                         </p>
                       );
-            }
+            } 
           )}
                 {deudor?.email && (
                   <Link
@@ -140,14 +137,16 @@ export const CarpetaCard = (
                     <span className={`material-symbols-outlined ${ styles.icon }`}>
               forward_to_inbox
                     </span>
-                    <span className={styles.tooltiptext}>{`correo electrónico ${ deudor.email }`}</span>
+                    <span
+                      className={styles.tooltiptext}
+                    >{`correo electrónico ${ deudor.email }`}</span>
                   </Link>
                 )}
 
                 {demanda?.entregaGarantiasAbogado && (
                   <p className={typography.labelSmall}>
                     {fixFechas(
-                      demanda.entregaGarantiasAbogado
+                      demanda.entregaGarantiasAbogado 
                     )}
                   </p>
                 )}
@@ -156,9 +155,9 @@ export const CarpetaCard = (
             && fixMoney(
               {
                 valor: Number(
-                  demanda.capitalAdeudado
+                  demanda.capitalAdeudado 
                 ),
-              }
+              } 
             )}
                 </div>
               </div>

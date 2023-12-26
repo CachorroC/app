@@ -1,39 +1,24 @@
-
+'use client';
 import { NotaComponent } from 'components/Nota/server';
-import { Suspense } from 'react';
-import { Loader } from '#@/components/Loader';
-import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
+import { useNotaSort } from '../context/notas-sort-context';
 
+export default function PrismaNotas() {
+      const notas = useNotaSort();
 
-
-export default function Page () {
       return (
         <>
-
-          <Suspense fallback={<Loader/>}>
-            <PrismaNotas />
-          </Suspense>
+          {notas.map(
+            (
+              nota 
+            ) => {
+                      return (
+                        <NotaComponent
+                          key={nota.id}
+                          notaRaw={nota}
+                        />
+                      );
+            } 
+          )}
         </>
       );
-}
-
-
-async function PrismaNotas() {
-
-      const notas = await getNotas();
-
-      return (  <>
-        {notas.map(
-          (
-            nota
-          ) => {
-                    return (
-                      <NotaComponent
-                        key={nota.id}
-                        notaRaw={nota}
-                      />
-                    );
-          }
-        )}
-      </> );
 }

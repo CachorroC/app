@@ -6,20 +6,18 @@ import { FormProvider, useForm } from 'react-hook-form';
 export function CarpetaFormProvider(
   {
     children,
-    carpeta
+    carpeta,
   }: {
     children: ReactNode;
-    carpeta: IntCarpeta
-  }
+    carpeta: IntCarpeta;
+  } 
 ) {
-
       const methods = useForm<IntCarpeta>(
         {
           defaultValues   : carpeta,
           shouldFocusError: true,
           criteriaMode    : 'firstError',
-
-        }
+        } 
       );
 
       return <FormProvider {...methods}>{children}</FormProvider>;

@@ -209,10 +209,12 @@ export function despachosList() {
           url         : '/web/centro-de-serv-judiciales-de-villeta',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          nombre      : 'CENTRO DE SERV. JUDICIALES JUZGADO PENALES ADOLESCENTES MANIZALES',
-          url         : '/web/centro-de-serv-judiciales-juzgado-penales-adolescentes-manizales',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          nombre:
+        'CENTRO DE SERV. JUDICIALES JUZGADO PENALES ADOLESCENTES MANIZALES',
+          url: '/web/centro-de-serv-judiciales-juzgado-penales-adolescentes-manizales',
         },
         {
           agrupacion  : 'FAMILIA ORALIDAD',
@@ -241,28 +243,33 @@ export function despachosList() {
           url: '/web/centro-de-serv-judiciales-juzgado-promiscuos-municipales-san-jose-del-guaviare',
         },
         {
-          agrupacion  : '',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: '',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'CENTRO DE SERV. JUDICIALES JUZGADOS PENALES ADOLESCENTES  DE QUIBDÓ',
           url: '/web/centro-de-serv-judiciales-juzgados-penales-adolescentes-de-quibdo',
         },
         {
-          agrupacion  : '',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: '',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'CENTRO DE SERV. JUDICIALES JUZGADOS PENALES ADOLESCENTES DE ARMENIA',
           url: '/web/centro-de-serv-judiciales-juzgado-penales-adolescentes-armenia',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          nombre      : 'CENTRO DE SERV. JUDICIALES JUZGADOS PENALES ADOLESCENTES DE CALI',
-          url         : '/web/centro-de-serv-judiciales-juzgados-penales-adolescentes-de-cali',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          nombre:
+        'CENTRO DE SERV. JUDICIALES JUZGADOS PENALES ADOLESCENTES DE CALI',
+          url: '/web/centro-de-serv-judiciales-juzgados-penales-adolescentes-de-cali',
         },
         {
-          agrupacion  : '',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: '',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'CENTRO DE SERV. JUDICIALES JUZGADOS PENALES ADOLESCENTES DE PEREIRA',
           url: '/web/centro-de-serv-judiciales-juzgados-penales-adolescentes-de-pereira',
@@ -295,29 +302,33 @@ export function despachosList() {
           url: '/web/centro-de-serv-judiciales-para-juzgados-sistema-penal-acusatorio-de-neiva',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'CENTRO DE SERV. JUDICIALES PARA LOS JUZGADO PENALES PARA ADOLESCENTES POPAYAN',
           url: '/web/centro-de-serv-judiciales-para-los-juzgado-penales-para-adolescentes-popayan',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          nombre      : 'CENTRO DE SERV. JUDICIALES PENAL ADOLESCENTES BOGOTA D.C',
-          url         : '/web/centro-de-serv-judiciales-penal-adolescentes-bogota-dc',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          nombre: 'CENTRO DE SERV. JUDICIALES PENAL ADOLESCENTES BOGOTA D.C',
+          url   : '/web/centro-de-serv-judiciales-penal-adolescentes-bogota-dc',
         },
         {
-          agrupacion  : '',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          nombre      : 'CENTRO DE SERV. JUDICIALES PENAL ADOLESCENTES DE BARRANQUILLA',
-          url         : '/web/centro-de-serv-judiciales-penal-adolescentes-de-barranquilla',
+          agrupacion: '',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          nombre: 'CENTRO DE SERV. JUDICIALES PENAL ADOLESCENTES DE BARRANQUILLA',
+          url   : '/web/centro-de-serv-judiciales-penal-adolescentes-de-barranquilla',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           especialidad: 'PENAL CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          nombre      : 'CENTRO DE SERV. JUDICIALES PENAL MUNICIPAL CTROL GARANTIAS SOGAM',
-          url         : '/web/centro-de-serv-judiciales-penal-municipal-ctrol-garantias-sogam',
+          nombre:
+        'CENTRO DE SERV. JUDICIALES PENAL MUNICIPAL CTROL GARANTIAS SOGAM',
+          url: '/web/centro-de-serv-judiciales-penal-municipal-ctrol-garantias-sogam',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -1021,8 +1032,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL',
           especialidad: 'PENAL',
-          nombre      : 'DESPACHO 001 DE LA SALA PENAL DEL TRIBUNAL SUPERIOR DE VALLEDUPAR',
-          url         : '/web/despacho-001-de-la-sala-penal-del-tribunal-superior-de-valledupar',
+          nombre:
+        'DESPACHO 001 DE LA SALA PENAL DEL TRIBUNAL SUPERIOR DE VALLEDUPAR',
+          url: '/web/despacho-001-de-la-sala-penal-del-tribunal-superior-de-valledupar',
         },
         {
           agrupacion  : 'SALA ÚNICA',
@@ -3017,8 +3029,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 001 CIVIL DEL CIRCUITO DE EJECUCIÓN DE SENTENCIAS DE CALI',
-          url         : '/web/juzgado-01-de-ejecucion-civil-del-circuito-de-cali',
+          nombre:
+        'JUZGADO 001 CIVIL DEL CIRCUITO DE EJECUCIÓN DE SENTENCIAS DE CALI',
+          url: '/web/juzgado-01-de-ejecucion-civil-del-circuito-de-cali',
         },
         {
           agrupacion  : 'CIVIL',
@@ -3814,8 +3827,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 001 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-01-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 001 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-01-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -4272,8 +4286,9 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 001 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE CALI',
-          url         : '/web/juzgado-001-de-ejecucion-de-penas-y-medidas-de-seguridad-de-cali',
+          nombre:
+        'JUZGADO 001 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE CALI',
+          url: '/web/juzgado-001-de-ejecucion-de-penas-y-medidas-de-seguridad-de-cali',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
@@ -4362,8 +4377,9 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 001 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE MOCOA',
-          url         : '/web/juzgado-01-ejecucion-de-penas-y-medidas-de-seguridad-de-mocoa',
+          nombre:
+        'JUZGADO 001 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE MOCOA',
+          url: '/web/juzgado-01-ejecucion-de-penas-y-medidas-de-seguridad-de-mocoa',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
@@ -4375,8 +4391,9 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 001 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE OCAÑA',
-          url         : '/web/juzgado-001-de-ejecucion-de-penas-y-medidas-de-seguridad-de-ocana',
+          nombre:
+        'JUZGADO 001 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE OCAÑA',
+          url: '/web/juzgado-001-de-ejecucion-de-penas-y-medidas-de-seguridad-de-ocana',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
@@ -4388,8 +4405,9 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 001 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE PASTO',
-          url         : '/web/juzgado-001-de-ejecucion-de-penas-y-medidas-de-seguridad-de-pasto',
+          nombre:
+        'JUZGADO 001 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE PASTO',
+          url: '/web/juzgado-001-de-ejecucion-de-penas-y-medidas-de-seguridad-de-pasto',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
@@ -4450,8 +4468,9 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 001 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE YOPAL',
-          url         : '/web/juzgado-001-de-ejecucion-de-penas-y-medidas-de-seguridad-de-yopal',
+          nombre:
+        'JUZGADO 001 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE YOPAL',
+          url: '/web/juzgado-001-de-ejecucion-de-penas-y-medidas-de-seguridad-de-yopal',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
@@ -4745,8 +4764,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE ENVIGADO',
-          url         : '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-envigado',
+          nombre:
+        'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE ENVIGADO',
+          url: '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-envigado',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -4770,14 +4790,16 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
-          url         : '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-medellin',
+          nombre:
+        'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
+          url: '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-medellin',
         },
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MONTERÍA',
-          url         : '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-monteria',
+          nombre:
+        'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MONTERÍA',
+          url: '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-monteria',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -4788,8 +4810,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE PALMIRA',
-          url         : '/web/juzgado-01-pequenas-causas-y-competencia-multiple-de-palmira',
+          nombre:
+        'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE PALMIRA',
+          url: '/web/juzgado-01-pequenas-causas-y-competencia-multiple-de-palmira',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -4800,20 +4823,23 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE PEREIRA',
-          url         : '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-pereira',
+          nombre:
+        'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE PEREIRA',
+          url: '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-pereira',
         },
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE POPAYÁN',
-          url         : '/web/juzgado-01-de-pequenas-causas-y-competencias-multiples-de-popayan',
+          nombre:
+        'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE POPAYÁN',
+          url: '/web/juzgado-01-de-pequenas-causas-y-competencias-multiples-de-popayan',
         },
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE RIOHACHA',
-          url         : '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-riohacha',
+          nombre:
+        'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE RIOHACHA',
+          url: '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-riohacha',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -4838,8 +4864,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE SOLEDAD',
-          url         : '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-soledad',
+          nombre:
+        'JUZGADO 001 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE SOLEDAD',
+          url: '/web/juzgado-001-de-pequenas-causas-y-competencia-multiple-de-soledad',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -5178,8 +5205,9 @@ export function despachosList() {
         {
           agrupacion  : 'LABORAL',
           especialidad: 'LABORAL',
-          nombre      : 'JUZGADO 001 LABORAL DEL CIRCUITO DE ROLDANILLO - VALLE DEL CAUCA',
-          url         : '/web/juzgado-01-laboral-del-circuito-de-roldanillo',
+          nombre:
+        'JUZGADO 001 LABORAL DEL CIRCUITO DE ROLDANILLO - VALLE DEL CAUCA',
+          url: '/web/juzgado-01-laboral-del-circuito-de-roldanillo',
         },
         {
           agrupacion  : 'LABORAL',
@@ -5306,8 +5334,9 @@ export function despachosList() {
         {
           agrupacion  : 'LABORAL',
           especialidad: 'LABORAL',
-          nombre      : 'JUZGADO 001 MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE BUCARAMANGA',
-          url         : '/web/juzgado-001-municipal-de-pequenas-causas-laborales-de-bucaramanga',
+          nombre:
+        'JUZGADO 001 MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE BUCARAMANGA',
+          url: '/web/juzgado-001-municipal-de-pequenas-causas-laborales-de-bucaramanga',
         },
         {
           agrupacion  : 'LABORAL',
@@ -5414,8 +5443,9 @@ export function despachosList() {
         {
           agrupacion  : 'LABORAL',
           especialidad: 'LABORAL',
-          nombre      : 'JUZGADO 001 MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE SANTA MARTA',
-          url         : '/web/juzgado-01-de-pequenas-causas-laborales-de-santa-marta',
+          nombre:
+        'JUZGADO 001 MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE SANTA MARTA',
+          url: '/web/juzgado-01-de-pequenas-causas-laborales-de-santa-marta',
         },
         {
           agrupacion  : 'LABORAL',
@@ -5432,8 +5462,9 @@ export function despachosList() {
         {
           agrupacion  : 'LABORAL',
           especialidad: 'LABORAL',
-          nombre      : 'JUZGADO 001 MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE VALLEDUPAR',
-          url         : '/web/juzgado-001-municipal-de-pequenas-causas-laborales-de-valledupar',
+          nombre:
+        'JUZGADO 001 MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE VALLEDUPAR',
+          url: '/web/juzgado-001-municipal-de-pequenas-causas-laborales-de-valledupar',
         },
         {
           agrupacion  : 'LABORAL',
@@ -6299,8 +6330,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 001 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-001-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 001 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-001-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -6333,8 +6365,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 001 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE NEIVA',
-          url         : '/web/juzgado-001-penal-municipal-con-funcion-de-conocimiento-de-neiva',
+          nombre:
+        'JUZGADO 001 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE NEIVA',
+          url: '/web/juzgado-001-penal-municipal-con-funcion-de-conocimiento-de-neiva',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -6346,14 +6379,16 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 001 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE QUIBDÓ',
-          url         : '/web/juzgado-001-penal-municipal-con-funcion-de-conocimiento-de-quibdo',
+          nombre:
+        'JUZGADO 001 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE QUIBDÓ',
+          url: '/web/juzgado-001-penal-municipal-con-funcion-de-conocimiento-de-quibdo',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 001 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE SOACHA',
-          url         : '/web/juzgado-001-penal-municipal-con-funcion-de-conocimiento-de-soacha',
+          nombre:
+        'JUZGADO 001 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE SOACHA',
+          url: '/web/juzgado-001-penal-municipal-con-funcion-de-conocimiento-de-soacha',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -6365,8 +6400,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 001 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE TUNJA',
-          url         : '/web/juzgado-001-penal-municipal-con-funcion-de-conocimiento-de-tunja',
+          nombre:
+        'JUZGADO 001 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE TUNJA',
+          url: '/web/juzgado-001-penal-municipal-con-funcion-de-conocimiento-de-tunja',
         },
         {
           agrupacion  : 'PENAL CON FUNCION DE CONOCIMIENTO',
@@ -6642,134 +6678,153 @@ export function despachosList() {
           url: '/web/juzgado-001-penal-municipal-mixto-leyes-600-906-y-1098-de-soacha',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE ARAUCA',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-arauca',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE ARMENIA',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-armenia',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BARRANQUILLA',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-barranquilla',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BUGA',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-buga',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE MANIZALES',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-manizales',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE MEDELLÍN',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-medellin',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE MONTERÍA',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-monteria',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE NEIVA',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-neiva',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE PALMIRA',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-palmira',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE PASTO',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-pasto',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE PEREIRA',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-pereira',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE QUIBDÓ',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-quibdo',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE SAN GIL',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-san-gil',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE SANTA MARTA',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-santa-marta',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE SINCELEJO',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-sincelejo',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE SOGAMOSO',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-sogamoso',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE TUNJA',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-tunja',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE VILLAVICENCIO',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-villavicencio',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 001 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE YOPAL',
           url: '/web/juzgado-001-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-yopal',
@@ -6838,8 +6893,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO DE FAMILIA',
           especialidad: 'PROMISCUO DE FAMILIA',
-          nombre      : 'JUZGADO 001 PROMISCUO DE FAMILIA DEL CIRCUITO DE BARRANCABERMEJA',
-          url         : '/web/juzgado-001-promiscuo-de-familia-del-circuito-de-barrancabermeja',
+          nombre:
+        'JUZGADO 001 PROMISCUO DE FAMILIA DEL CIRCUITO DE BARRANCABERMEJA',
+          url: '/web/juzgado-001-promiscuo-de-familia-del-circuito-de-barrancabermeja',
         },
         {
           agrupacion  : 'PROMISCUO DE FAMILIA',
@@ -8293,8 +8349,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE ANSERMANUEVO - VALLE DEL CAUCA',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-ansermanuevo',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE ANSERMANUEVO - VALLE DEL CAUCA',
+          url: '/web/juzgado-001-promiscuo-municipal-de-ansermanuevo',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -8371,8 +8428,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE ARBOLEDAS - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-arboledas',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE ARBOLEDAS - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-arboledas',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -8631,8 +8689,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE BOCHALEMA - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-bochalema',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE BOCHALEMA - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-bochalema',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -8740,8 +8799,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE BUGALAGRANDE - VALLE DEL CAUCA',
-          url         : '/web/juzgado-01-promiscuo-municipal-de-bugalagrande',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE BUGALAGRANDE - VALLE DEL CAUCA',
+          url: '/web/juzgado-01-promiscuo-municipal-de-bugalagrande',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -9011,8 +9071,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE CARTAGENA DEL CHAIRÁ - CAQUETÁ',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-cartagena-del-chaira',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE CARTAGENA DEL CHAIRÁ - CAQUETÁ',
+          url: '/web/juzgado-001-promiscuo-municipal-de-cartagena-del-chaira',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -9132,8 +9193,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE CHINÁCOTA - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-chinacota',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE CHINÁCOTA - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-chinacota',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -9493,8 +9555,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE CUCUTILLA - NORTE DE SANTANDER',
-          url         : '/web/juzgado-01-promiscuo-municipal-de-cucutilla',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE CUCUTILLA - NORTE DE SANTANDER',
+          url: '/web/juzgado-01-promiscuo-municipal-de-cucutilla',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -9625,8 +9688,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE EL CARMEN - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-el-carmen',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE EL CARMEN - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-el-carmen',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -9843,14 +9907,16 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE EL TARRA - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-el-tarra',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE EL TARRA - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-el-tarra',
         },
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE EL ZULIA - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-el-zulia',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE EL ZULIA - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-el-zulia',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -10107,8 +10173,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE GRAMALOTE - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-gramalote',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE GRAMALOTE - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-gramalote',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -10650,8 +10717,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE LA PLAYA - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-la-playa',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE LA PLAYA - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-la-playa',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -10740,8 +10808,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE LA VICTORIA - VALLE DEL CAUCA',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-la-victoria-valle-del-cauca',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE LA VICTORIA - VALLE DEL CAUCA',
+          url: '/web/juzgado-001-promiscuo-municipal-de-la-victoria-valle-del-cauca',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -10752,8 +10821,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE LABATECA - NORTE DE SANTANDER',
-          url         : '/web/juzgado-01-promiscuo-municipal-de-labateca',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE LABATECA - NORTE DE SANTANDER',
+          url: '/web/juzgado-01-promiscuo-municipal-de-labateca',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -11256,8 +11326,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE MUTISCUA - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-mutiscua',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE MUTISCUA - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-mutiscua',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -11538,8 +11609,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE PALMAS DEL SOCORRO - SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-palmas-del-socorro',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE PALMAS DEL SOCORRO - SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-palmas-del-socorro',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -11683,8 +11755,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE PIJIÑO DEL CARMEN - MAGDALENA',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-pijino-del-carmen',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE PIJIÑO DEL CARMEN - MAGDALENA',
+          url: '/web/juzgado-001-promiscuo-municipal-de-pijino-del-carmen',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -12579,8 +12652,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE SAN JUAN NEPOMUCENO - BOLÍVAR',
-          url         : '/web/juzgado-01-promiscuo-municipal-de-san-juan-nepomuceno',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE SAN JUAN NEPOMUCENO - BOLÍVAR',
+          url: '/web/juzgado-01-promiscuo-municipal-de-san-juan-nepomuceno',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -12706,14 +12780,16 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE SAN PEDRO DE CARTAGO - NARIÑO',
-          url         : '/web/juzgado-promiscuo-municipal-san-pedro-de-cartago',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE SAN PEDRO DE CARTAGO - NARIÑO',
+          url: '/web/juzgado-promiscuo-municipal-san-pedro-de-cartago',
         },
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE SAN PEDRO DE URABÁ - ANTIOQUIA',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-san-pedro-de-uraba',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE SAN PEDRO DE URABÁ - ANTIOQUIA',
+          url: '/web/juzgado-001-promiscuo-municipal-de-san-pedro-de-uraba',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -12857,8 +12933,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE SANTA ROSA DE VITERBO - BOYACÁ',
-          url         : '/web/juzgado-01-promiscuo-municipal-de-santa-rosa-de-viterbo',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE SANTA ROSA DE VITERBO - BOYACÁ',
+          url: '/web/juzgado-01-promiscuo-municipal-de-santa-rosa-de-viterbo',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -12887,8 +12964,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE SANTIAGO - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-santiago-norte-de-santander',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE SANTIAGO - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-santiago-norte-de-santander',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -12935,8 +13013,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE SARDINATA - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-sardinata',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE SARDINATA - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-sardinata',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -13685,8 +13764,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE VALLE DE SAN JOSÉ - SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-valle-de-san-jose',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE VALLE DE SAN JOSÉ - SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-valle-de-san-jose',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -13812,8 +13892,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 001 PROMISCUO MUNICIPAL DE VILLACARO - NORTE DE SANTANDER',
-          url         : '/web/juzgado-001-promiscuo-municipal-de-villacaro',
+          nombre:
+        'JUZGADO 001 PROMISCUO MUNICIPAL DE VILLACARO - NORTE DE SANTANDER',
+          url: '/web/juzgado-001-promiscuo-municipal-de-villacaro',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -14337,8 +14418,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 002 CIVIL DEL CIRCUITO DE EJECUCIÓN DE SENTENCIAS DE CALI',
-          url         : '/web/juzgado-02-de-ejecucion-civil-del-circuito-de-cali',
+          nombre:
+        'JUZGADO 002 CIVIL DEL CIRCUITO DE EJECUCIÓN DE SENTENCIAS DE CALI',
+          url: '/web/juzgado-02-de-ejecucion-civil-del-circuito-de-cali',
         },
         {
           agrupacion  : 'CIVIL',
@@ -14858,8 +14940,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 002 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-02-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 002 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-02-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -15277,14 +15360,16 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 002 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE OCAÑA',
-          url         : '/web/juzgado-002-de-ejecucion-de-penas-y-medidas-de-seguridad-de-ocana',
+          nombre:
+        'JUZGADO 002 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE OCAÑA',
+          url: '/web/juzgado-002-de-ejecucion-de-penas-y-medidas-de-seguridad-de-ocana',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 002 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE PASTO',
-          url         : '/web/juzgado-002-de-ejecucion-de-penas-y-medidas-de-seguridad-de-pasto',
+          nombre:
+        'JUZGADO 002 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE PASTO',
+          url: '/web/juzgado-002-de-ejecucion-de-penas-y-medidas-de-seguridad-de-pasto',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
@@ -15324,8 +15409,9 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 002 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE YOPAL',
-          url         : '/web/juzgado-002-de-ejecucion-de-penas-y-medidas-de-seguridad-de-yopal',
+          nombre:
+        'JUZGADO 002 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE YOPAL',
+          url: '/web/juzgado-002-de-ejecucion-de-penas-y-medidas-de-seguridad-de-yopal',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
@@ -15583,14 +15669,16 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
-          url         : '/web/juzgado-002-de-pequenas-causas-y-competencia-multiple-de-medellin',
+          nombre:
+        'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
+          url: '/web/juzgado-002-de-pequenas-causas-y-competencia-multiple-de-medellin',
         },
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MONTERÍA',
-          url         : '/web/juzgado-002-de-pequenas-causas-y-competencia-multiple-de-monteria',
+          nombre:
+        'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MONTERÍA',
+          url: '/web/juzgado-002-de-pequenas-causas-y-competencia-multiple-de-monteria',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -15601,8 +15689,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE PALMIRA',
-          url         : '/web/juzgado-02-de-pequenas-causas-y-competencia-multiple-de-palmira',
+          nombre:
+        'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE PALMIRA',
+          url: '/web/juzgado-02-de-pequenas-causas-y-competencia-multiple-de-palmira',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -15613,8 +15702,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE PEREIRA',
-          url         : '/web/juzgado-002-de-pequenas-causas-y-competencia-multiple-de-pereira',
+          nombre:
+        'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE PEREIRA',
+          url: '/web/juzgado-002-de-pequenas-causas-y-competencia-multiple-de-pereira',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -15632,8 +15722,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE SOLEDAD',
-          url         : '/web/juzgado-002-de-pequenas-causas-y-competencia-multiple-de-soledad',
+          nombre:
+        'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE SOLEDAD',
+          url: '/web/juzgado-002-de-pequenas-causas-y-competencia-multiple-de-soledad',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -15665,8 +15756,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIAS MULTIPLE DE POPAYAN',
-          url         : '/web/juzgado-002-de-pequenas-causas-y-competencia-multiple-de-popayan',
+          nombre:
+        'JUZGADO 002 DE PEQUEÑAS CAUSAS Y COMPETENCIAS MULTIPLE DE POPAYAN',
+          url: '/web/juzgado-002-de-pequenas-causas-y-competencia-multiple-de-popayan',
         },
         {
           agrupacion  : 'LABORAL',
@@ -15913,8 +16005,9 @@ export function despachosList() {
         {
           agrupacion  : 'LABORAL',
           especialidad: 'LABORAL',
-          nombre      : 'JUZGADO 002 MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE BUCARAMANGA',
-          url         : '/web/juzgado-002-municipal-de-pequenas-causas-laborales-de-bucaramanga',
+          nombre:
+        'JUZGADO 002 MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE BUCARAMANGA',
+          url: '/web/juzgado-002-municipal-de-pequenas-causas-laborales-de-bucaramanga',
         },
         {
           agrupacion  : 'LABORAL',
@@ -16451,8 +16544,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 002 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE SOACHA',
-          url         : '/web/juzgado-002-penal-municipal-con-funcion-de-conocimiento-de-soacha',
+          nombre:
+        'JUZGADO 002 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE SOACHA',
+          url: '/web/juzgado-002-penal-municipal-con-funcion-de-conocimiento-de-soacha',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -16464,8 +16558,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 002 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE TUNJA',
-          url         : '/web/juzgado-002-penal-municipal-con-funcion-de-conocimiento-de-tunja',
+          nombre:
+        'JUZGADO 002 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE TUNJA',
+          url: '/web/juzgado-002-penal-municipal-con-funcion-de-conocimiento-de-tunja',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -16682,8 +16777,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL MIXTO(LEYES 600, 906 Y 1098)',
           especialidad: 'PENAL MIXTO(LEYES 600, 906 Y 1098)',
-          nombre      : 'JUZGADO 002 PENAL MUNICIPAL MIXTO (LEYES 600,906 Y 1098) DE CHÍA',
-          url         : '/web/juzgado-002-penal-municipal-mixto-leyes-600-906-y-1098-de-chia',
+          nombre:
+        'JUZGADO 002 PENAL MUNICIPAL MIXTO (LEYES 600,906 Y 1098) DE CHÍA',
+          url: '/web/juzgado-002-penal-municipal-mixto-leyes-600-906-y-1098-de-chia',
         },
         {
           agrupacion  : 'PENAL MIXTO(LEYES 600, 906 Y 1098)',
@@ -16693,134 +16789,153 @@ export function despachosList() {
           url: '/web/juzgado-002-penal-municipal-mixto-leyes-600-906-y-1098-de-fusagasuga',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE ARAUCA',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-arauca',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE ARMENIA',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-armenia',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BARRANQUILLA',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-barranquilla',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BOGOTÁ',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-bogota',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BUCARAMANGA',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-bucaramanga',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE MANIZALES',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-manizales',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE NEIVA',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-neiva',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE PASTO',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-pasto',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE PEREIRA',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-pereira',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE POPAYÁN',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-popayan',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE QUIBDÓ',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-quibdo',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE SAN GIL',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-san-gil',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE SANTA MARTA',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-santa-marta',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE SINCELEJO',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-sincelejo',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE SOGAMOSO',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-sogamoso',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE TUMACO',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-tumaco',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE TUNJA',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-tunja',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE VILLAVICENCIO',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-villavicencio',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 002 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE YOPAL',
           url: '/web/juzgado-002-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-yopal',
@@ -16846,8 +16961,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO DE FAMILIA',
           especialidad: 'PROMISCUO DE FAMILIA',
-          nombre      : 'JUZGADO 002 PROMISCUO DE FAMILIA DEL CIRCUITO DE BARRANCABERMEJA',
-          url         : '/web/juzgado-002-promiscuo-de-familia-del-circuito-de-barrancabermeja',
+          nombre:
+        'JUZGADO 002 PROMISCUO DE FAMILIA DEL CIRCUITO DE BARRANCABERMEJA',
+          url: '/web/juzgado-002-promiscuo-de-familia-del-circuito-de-barrancabermeja',
         },
         {
           agrupacion  : 'PROMISCUO DE FAMILIA',
@@ -18221,8 +18337,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 003 CIVIL DEL CIRCUITO DE EJECUCIÓN DE SENTENCIAS DE CALI',
-          url         : '/web/juzgado-03-de-ejecucion-civil-circuito-de-ejecucion-de-sentencias-de-cali',
+          nombre:
+        'JUZGADO 003 CIVIL DEL CIRCUITO DE EJECUCIÓN DE SENTENCIAS DE CALI',
+          url: '/web/juzgado-03-de-ejecucion-civil-circuito-de-ejecucion-de-sentencias-de-cali',
         },
         {
           agrupacion  : 'CIVIL',
@@ -18515,8 +18632,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 003 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-03-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 003 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-03-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -18824,14 +18942,16 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 003 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE NEIVA',
-          url         : '/web/juzgado-003-de-ejecucion-de-penas-y-medidas-de-seguridad-de-neiva',
+          nombre:
+        'JUZGADO 003 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE NEIVA',
+          url: '/web/juzgado-003-de-ejecucion-de-penas-y-medidas-de-seguridad-de-neiva',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 003 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE PASTO',
-          url         : '/web/juzgado-003-de-ejecucion-de-penas-y-medidas-de-seguridad-de-pasto',
+          nombre:
+        'JUZGADO 003 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE PASTO',
+          url: '/web/juzgado-003-de-ejecucion-de-penas-y-medidas-de-seguridad-de-pasto',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
@@ -19023,14 +19143,16 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 003 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
-          url         : '/web/juzgado-003-de-pequenas-causas-y-competencia-multiple-de-medellin',
+          nombre:
+        'JUZGADO 003 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
+          url: '/web/juzgado-003-de-pequenas-causas-y-competencia-multiple-de-medellin',
         },
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 003 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MONTERÍA',
-          url         : '/web/juzgado-003-de-pequenas-causas-y-competencia-multiple-de-monteria',
+          nombre:
+        'JUZGADO 003 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MONTERÍA',
+          url: '/web/juzgado-003-de-pequenas-causas-y-competencia-multiple-de-monteria',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -19047,8 +19169,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 003 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE POPAYÁN',
-          url         : '/web/juzgado-003-de-pequenas-causas-y-competencia-multiple-de-popayan',
+          nombre:
+        'JUZGADO 003 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE POPAYÁN',
+          url: '/web/juzgado-003-de-pequenas-causas-y-competencia-multiple-de-popayan',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -19066,8 +19189,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 003 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE SOLEDAD',
-          url         : '/web/juzgado-003-de-pequenas-causas-y-competencia-multiple-de-soledad',
+          nombre:
+        'JUZGADO 003 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE SOLEDAD',
+          url: '/web/juzgado-003-de-pequenas-causas-y-competencia-multiple-de-soledad',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -19238,8 +19362,9 @@ export function despachosList() {
         {
           agrupacion  : 'LABORAL',
           especialidad: 'LABORAL',
-          nombre      : 'JUZGADO 003 MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE BUCARAMANGA',
-          url         : '/web/juzgado-003-municipal-de-pequenas-causas-laborales-de-bucaramanga',
+          nombre:
+        'JUZGADO 003 MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE BUCARAMANGA',
+          url: '/web/juzgado-003-municipal-de-pequenas-causas-laborales-de-bucaramanga',
         },
         {
           agrupacion  : 'LABORAL',
@@ -19317,8 +19442,9 @@ export function despachosList() {
         {
           agrupacion  : '',
           especialidad: 'PENAL ESPECIALIZADO',
-          nombre      : 'JUZGADO 003 PENAL DE CIRCUITO ESPECIALIZADO ITINERANTE DE PEREIRA',
-          url         : '/web/juzgado-003-penal-de-circuito-especializado-itinerante-de-pereira',
+          nombre:
+        'JUZGADO 003 PENAL DE CIRCUITO ESPECIALIZADO ITINERANTE DE PEREIRA',
+          url: '/web/juzgado-003-penal-de-circuito-especializado-itinerante-de-pereira',
         },
         {
           agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONOCIMIENTO',
@@ -19525,14 +19651,16 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 003 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE SOACHA',
-          url         : '/web/juzgado-003-penal-municipal-con-funcion-de-conocimiento-de-soacha',
+          nombre:
+        'JUZGADO 003 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE SOACHA',
+          url: '/web/juzgado-003-penal-municipal-con-funcion-de-conocimiento-de-soacha',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 003 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE TUNJA',
-          url         : '/web/juzgado-003-penal-municipal-con-funcion-de-conocimiento-de-tunja',
+          nombre:
+        'JUZGADO 003 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE TUNJA',
+          url: '/web/juzgado-003-penal-municipal-con-funcion-de-conocimiento-de-tunja',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -19708,64 +19836,73 @@ export function despachosList() {
           url: '/web/juzgado-003-penal-municipal-mixto-leyes-600-906-y-1098-de-fusagasuga',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 003 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE ARMENIA',
           url: '/web/juzgado-003-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-armenia',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 003 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BARRANQUILLA',
           url: '/web/juzgado-003-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-barranquilla',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 003 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BOGOTÁ',
           url: '/web/juzgado-003-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-bogota',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 003 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE MANIZALES',
           url: '/web/juzgado-003-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-manizales',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 003 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE MONTERÍA',
           url: '/web/juzgado-003-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-monteria',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 003 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE PASTO',
           url: '/web/juzgado-003-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-pasto',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 003 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE PEREIRA',
           url: '/web/juzgado-003-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-pereira',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 003 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE POPAYÁN',
           url: '/web/juzgado-003-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-popayan',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 003 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE TUNJA',
           url: '/web/juzgado-003-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-tunja',
@@ -19773,8 +19910,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO DE FAMILIA',
           especialidad: 'PROMISCUO DE FAMILIA',
-          nombre      : 'JUZGADO 003 PROMISCUO DE FAMILIA DEL CIRCUITO DE BARRANCABERMEJA',
-          url         : '/web/juzgado-003-promiscuo-de-familia-del-circuito-de-barrancabermeja',
+          nombre:
+        'JUZGADO 003 PROMISCUO DE FAMILIA DEL CIRCUITO DE BARRANCABERMEJA',
+          url: '/web/juzgado-003-promiscuo-de-familia-del-circuito-de-barrancabermeja',
         },
         {
           agrupacion  : 'PROMISCUO DE FAMILIA',
@@ -20409,8 +20547,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 004 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-04-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 004 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-04-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -20589,8 +20728,9 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 004 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE CALI',
-          url         : '/web/juzgado-004-de-ejecucion-de-penas-y-medidas-de-seguridad-de-cali',
+          nombre:
+        'JUZGADO 004 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE CALI',
+          url: '/web/juzgado-004-de-ejecucion-de-penas-y-medidas-de-seguridad-de-cali',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
@@ -20616,8 +20756,9 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 004 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE NEIVA',
-          url         : '/web/juzgado-004-de-ejecucion-de-penas-y-medidas-de-seguridad-de-neiva',
+          nombre:
+        'JUZGADO 004 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE NEIVA',
+          url: '/web/juzgado-004-de-ejecucion-de-penas-y-medidas-de-seguridad-de-neiva',
         },
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
@@ -20752,8 +20893,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 004 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
-          url         : '/web/juzgado-004-de-pequenas-causas-y-competencia-multiple-de-medellin',
+          nombre:
+        'JUZGADO 004 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
+          url: '/web/juzgado-004-de-pequenas-causas-y-competencia-multiple-de-medellin',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -20777,8 +20919,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 004 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE SOLEDAD',
-          url         : '/web/juzgado-004-de-pequenas-causas-y-competencia-multiple-de-soledad',
+          nombre:
+        'JUZGADO 004 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE SOLEDAD',
+          url: '/web/juzgado-004-de-pequenas-causas-y-competencia-multiple-de-soledad',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -20960,8 +21103,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL ESPECIALIZADO',
           especialidad: 'PENAL ESPECIALIZADO',
-          nombre      : 'JUZGADO 004 PENAL DE CIRCUITO ESPECIALIZADO ITINERANTE DE POPAYÁN',
-          url         : '/web/juzgado-004-penal-de-circuito-especializado-itinerante-de-popayan',
+          nombre:
+        'JUZGADO 004 PENAL DE CIRCUITO ESPECIALIZADO ITINERANTE DE POPAYÁN',
+          url: '/web/juzgado-004-penal-de-circuito-especializado-itinerante-de-popayan',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -21082,14 +21226,16 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 004 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE PASTO ',
-          url         : '/web/juzgado-004-penal-municipal-con-funcion-de-conocimiento-de-pasto-',
+          nombre:
+        'JUZGADO 004 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE PASTO ',
+          url: '/web/juzgado-004-penal-municipal-con-funcion-de-conocimiento-de-pasto-',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 004 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE TUNJA',
-          url         : '/web/juzgado-004-penal-municipal-con-funcion-de-conocimiento-de-tunja',
+          nombre:
+        'JUZGADO 004 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE TUNJA',
+          url: '/web/juzgado-004-penal-municipal-con-funcion-de-conocimiento-de-tunja',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -21575,8 +21721,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 005 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-05-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 005 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-05-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -21818,14 +21965,16 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 005 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
-          url         : '/web/juzgado-005-de-pequenas-causas-y-competencia-multiple-de-medellin',
+          nombre:
+        'JUZGADO 005 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
+          url: '/web/juzgado-005-de-pequenas-causas-y-competencia-multiple-de-medellin',
         },
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 005 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MONTERÍA',
-          url         : '/web/juzgado-005-de-pequenas-causas-y-competencia-multiple-de-monteria',
+          nombre:
+        'JUZGADO 005 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MONTERÍA',
+          url: '/web/juzgado-005-de-pequenas-causas-y-competencia-multiple-de-monteria',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -21984,8 +22133,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL ESPECIALIZADO',
           especialidad: 'PENAL ESPECIALIZADO',
-          nombre      : 'JUZGADO 005 PENAL DE CIRCUITO ESPECIALIZADO ITINERANTE DE CÚCUTA ',
-          url         : '/web/juzgado-005-penal-de-circuito-especializado-itinerante-de-cucuta-',
+          nombre:
+        'JUZGADO 005 PENAL DE CIRCUITO ESPECIALIZADO ITINERANTE DE CÚCUTA ',
+          url: '/web/juzgado-005-penal-de-circuito-especializado-itinerante-de-cucuta-',
         },
         {
           agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONOCIMIENTO',
@@ -22098,8 +22248,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 005 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE PASTO ',
-          url         : '/web/juzgado-005-penal-municipal-con-funcion-de-conocimiento-de-pasto-',
+          nombre:
+        'JUZGADO 005 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE PASTO ',
+          url: '/web/juzgado-005-penal-municipal-con-funcion-de-conocimiento-de-pasto-',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONTROL DE GARANTÍAS',
@@ -22189,8 +22340,9 @@ export function despachosList() {
           url         : '/web/juzgado-005-penal-municipal-de-villavicencio',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 005 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BOGOTÁ',
           url: '/web/juzgado-005-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-bogota',
@@ -22457,8 +22609,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 006 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-06-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 006 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-06-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -22651,8 +22804,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 006 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
-          url         : '/web/juzgado-006-de-pequenas-causas-y-competencia-multiple-de-medellin',
+          nombre:
+        'JUZGADO 006 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
+          url: '/web/juzgado-006-de-pequenas-causas-y-competencia-multiple-de-medellin',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -22802,8 +22956,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 006 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-006-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 006 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-006-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -22878,8 +23033,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 006 PENAL MUNICIPAL DE NEIVA CON FUNCIÓN DE CONOCIMIENTO',
-          url         : '/web/juzgado-006-penal-municipal-de-neiva',
+          nombre:
+        'JUZGADO 006 PENAL MUNICIPAL DE NEIVA CON FUNCIÓN DE CONOCIMIENTO',
+          url: '/web/juzgado-006-penal-municipal-de-neiva',
         },
         {
           agrupacion  : 'PENAL MIXTO(LEYES 600, 906 Y 1098)',
@@ -23108,8 +23264,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 007 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-07-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 007 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-07-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -23189,8 +23346,9 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 007 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE CALI',
-          url         : '/web/juzgado-007-de-ejecucion-de-penas-y-medidas-de-seguridad-de-cali',
+          nombre:
+        'JUZGADO 007 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE CALI',
+          url: '/web/juzgado-007-de-ejecucion-de-penas-y-medidas-de-seguridad-de-cali',
         },
         {
           agrupacion  : 'FAMILIA',
@@ -23256,8 +23414,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 007 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
-          url         : '/web/juzgado-07-de-pequenas-causas-y-competencia-multiple-del-corregimiento-de-san-cristobal-de-medellin',
+          nombre:
+        'JUZGADO 007 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
+          url: '/web/juzgado-07-de-pequenas-causas-y-competencia-multiple-del-corregimiento-de-san-cristobal-de-medellin',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -23455,8 +23614,9 @@ export function despachosList() {
           url         : '/web/juzgado-007-penal-municipal-de-santa-marta',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 007 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BOGOTÁ',
           url: '/web/juzgado-007-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-bogota',
@@ -23464,14 +23624,16 @@ export function despachosList() {
         {
           agrupacion  : 'LABORAL',
           especialidad: 'LABORAL',
-          nombre      : 'JUZGADO 007 TRANSITORIO DE PEQUEÑAS CAUSAS LABORALES DE MEDELLÍN',
-          url         : '/web/juzgado-007-transitorio-de-pequenas-causas-laborales-de-medellin',
+          nombre:
+        'JUZGADO 007 TRANSITORIO DE PEQUEÑAS CAUSAS LABORALES DE MEDELLÍN',
+          url: '/web/juzgado-007-transitorio-de-pequenas-causas-laborales-de-medellin',
         },
         {
           agrupacion  : 'LABORAL',
           especialidad: 'LABORAL',
-          nombre      : 'JUZGADO 008  MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE MEDELLÍN ',
-          url         : '/web/juzgado-008-municipal-de-pequenas-causas-laborales-de-medellin-',
+          nombre:
+        'JUZGADO 008  MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE MEDELLÍN ',
+          url: '/web/juzgado-008-municipal-de-pequenas-causas-laborales-de-medellin-',
         },
         {
           agrupacion  : 'SIN SECCIÓN - ORAL',
@@ -23668,8 +23830,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 008 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-08-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 008 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-08-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -23773,8 +23936,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 008 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
-          url         : '/web/juzgado-008-de-pequenas-causas-y-competencia-multiple-de-medellin',
+          nombre:
+        'JUZGADO 008 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
+          url: '/web/juzgado-008-de-pequenas-causas-y-competencia-multiple-de-medellin',
         },
         {
           agrupacion  : 'PROMISCUO',
@@ -23956,8 +24120,9 @@ export function despachosList() {
           url         : '/web/juzgado-008-penal-municipal-de-cucuta',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 008 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BOGOTÁ',
           url: '/web/juzgado-008-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-bogota',
@@ -23965,8 +24130,9 @@ export function despachosList() {
         {
           agrupacion  : 'LABORAL',
           especialidad: 'LABORAL',
-          nombre      : 'JUZGADO 009  MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE MEDELLÍN ',
-          url         : '/web/juzgado-009-municipal-de-pequenas-causas-laborales-de-medellin-',
+          nombre:
+        'JUZGADO 009  MUNICIPAL DE PEQUEÑAS CAUSAS LABORALES DE MEDELLÍN ',
+          url: '/web/juzgado-009-municipal-de-pequenas-causas-laborales-de-medellin-',
         },
         {
           agrupacion  : 'SIN SECCIÓN - ORAL',
@@ -24157,8 +24323,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 009 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-09-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 009 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-09-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -24250,8 +24417,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 009 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
-          url         : '/web/juzgado-009-de-pequenas-causas-y-competencia-multiple-de-medellin',
+          nombre:
+        'JUZGADO 009 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
+          url: '/web/juzgado-009-de-pequenas-causas-y-competencia-multiple-de-medellin',
         },
         {
           agrupacion  : 'LABORAL',
@@ -24325,8 +24493,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 009 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-009-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 009 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-009-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -24338,8 +24507,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 009 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE NEIVA',
-          url         : '/web/juzgado-009-penal-municipal-con-funcion-de-conocimiento-de-neiva',
+          nombre:
+        'JUZGADO 009 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE NEIVA',
+          url: '/web/juzgado-009-penal-municipal-con-funcion-de-conocimiento-de-neiva',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -24389,8 +24559,9 @@ export function despachosList() {
           url         : '/web/juzgado-009-penal-municipal-de-cucuta',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 009 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BOGOTÁ',
           url: '/web/juzgado-009-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-bogota',
@@ -24548,8 +24719,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 010 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-10-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 010 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-10-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -24629,8 +24801,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 010 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
-          url         : '/web/juzgado-010-de-pequenas-causas-y-competencia-multiple-de-medellin',
+          nombre:
+        'JUZGADO 010 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE MEDELLÍN',
+          url: '/web/juzgado-010-de-pequenas-causas-y-competencia-multiple-de-medellin',
         },
         {
           agrupacion  : 'LABORAL',
@@ -24697,8 +24870,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 010 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-010-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 010 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-010-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -24755,8 +24929,9 @@ export function despachosList() {
           url         : '/web/juzgado-010-penal-municipal-de-ibague',
         },
         {
-          agrupacion  : 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
-          especialidad: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          agrupacion: 'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
+          especialidad:
+        'PENAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS',
           nombre:
         'JUZGADO 010 PENAL MUNICIPAL PARA ADOLESCENTES CON FUNCIÓN DE CONTROL DE GARANTÍAS DE BOGOTÁ',
           url: '/web/juzgado-010-penal-municipal-para-adolescentes-con-funcion-de-control-de-garantias-de-bogota',
@@ -24890,8 +25065,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 011 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-11-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 011 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-11-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -25015,8 +25191,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 011 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE CÚCUTA',
-          url         : '/web/juzgado-011-penal-municipal-con-funcion-de-conocimiento-de-cucuta',
+          nombre:
+        'JUZGADO 011 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE CÚCUTA',
+          url: '/web/juzgado-011-penal-municipal-con-funcion-de-conocimiento-de-cucuta',
         },
         {
           agrupacion  : 'JUZGADOS PENALES MUNICIPALES',
@@ -25162,8 +25339,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 012 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-12-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 012 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-12-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -25254,8 +25432,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL ESPECIALIZADO',
           especialidad: 'PENAL ESPECIALIZADO',
-          nombre      : 'JUZGADO 012 PENAL DE CIRCUITO ESPECIALIZADO ITINERANTE DE BOGOTÁ ',
-          url         : '/web/juzgado-012-penal-de-circuito-especializado-itinerante-de-bogota-',
+          nombre:
+        'JUZGADO 012 PENAL DE CIRCUITO ESPECIALIZADO ITINERANTE DE BOGOTÁ ',
+          url: '/web/juzgado-012-penal-de-circuito-especializado-itinerante-de-bogota-',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -25281,14 +25460,16 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 012 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-012-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 012 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-012-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 012 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE CÚCUTA',
-          url         : '/web/juzgado-012-penal-municipal-con-funcion-de-conocimiento-de-cucuta',
+          nombre:
+        'JUZGADO 012 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE CÚCUTA',
+          url: '/web/juzgado-012-penal-municipal-con-funcion-de-conocimiento-de-cucuta',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONTROL DE GARANTÍAS',
@@ -25423,8 +25604,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 013 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-13-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 013 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-13-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -25517,8 +25699,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 013 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE CÚCUTA',
-          url         : '/web/juzgado-013-penal-municipal-con-funcion-de-conocimiento-de-cucuta',
+          nombre:
+        'JUZGADO 013 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE CÚCUTA',
+          url: '/web/juzgado-013-penal-municipal-con-funcion-de-conocimiento-de-cucuta',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONTROL DE GARANTÍAS',
@@ -25647,8 +25830,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 014 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-14-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 014 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-14-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -25735,8 +25919,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 014 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-014-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 014 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-014-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -25865,8 +26050,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 015 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-15-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 015 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-15-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -26040,8 +26226,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 016 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-16-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 016 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-16-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -26115,8 +26302,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 016 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-016-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 016 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-016-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONTROL DE GARANTÍAS',
@@ -26202,8 +26390,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 017 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-17-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 017 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-17-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -26333,8 +26522,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 018 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-18-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 018 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-18-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -26471,8 +26661,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 019 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-19-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 019 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-19-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -26601,8 +26792,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL',
           especialidad: 'CIVIL',
-          nombre      : 'JUZGADO 020 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
-          url         : '/web/juzgado-20-de-ejecucion-civil-municipal-de-bogota',
+          nombre:
+        'JUZGADO 020 CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS DE BOGOTÁ',
+          url: '/web/juzgado-20-de-ejecucion-civil-municipal-de-bogota',
         },
         {
           agrupacion  : 'CIVIL',
@@ -26990,8 +27182,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 023 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-023-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 023 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-023-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'SECCIÓN SEGUNDA - ORAL',
@@ -27131,8 +27324,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 025 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE KENNEDY',
-          url         : '/web/juzgado-25-de-pequenas-causas-y-competencias-multiple-de-kennedy',
+          nombre:
+        'JUZGADO 025 DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE DE KENNEDY',
+          url: '/web/juzgado-25-de-pequenas-causas-y-competencias-multiple-de-kennedy',
         },
         {
           agrupacion  : 'LABORAL',
@@ -27243,8 +27437,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 026 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-026-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 026 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-026-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONTROL DE GARANTÍAS',
@@ -27336,8 +27531,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 027 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-027-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 027 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-027-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
@@ -27430,8 +27626,9 @@ export function despachosList() {
         {
           agrupacion  : '',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 028 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-028-penal-municipal-con-funcion-de-conocimiento-de-bogota-',
+          nombre:
+        'JUZGADO 028 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-028-penal-municipal-con-funcion-de-conocimiento-de-bogota-',
         },
         {
           agrupacion  : 'SECCIÓN SEGUNDA - ORAL',
@@ -27708,8 +27905,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 032 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-032-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 032 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-032-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONTROL DE GARANTÍAS',
@@ -27844,8 +28042,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 034 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-034-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 034 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-034-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'SECCIÓN TERCERA - ORAL',
@@ -28059,8 +28258,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 038 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-038-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 038 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-038-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONTROL DE GARANTÍAS',
@@ -28190,8 +28390,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
           especialidad: 'PENAL CON FUNCIÓN DE CONOCIMIENTO',
-          nombre      : 'JUZGADO 041 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
-          url         : '/web/juzgado-041-penal-municipal-con-funcion-de-conocimiento-de-bogota',
+          nombre:
+        'JUZGADO 041 PENAL MUNICIPAL CON FUNCIÓN DE CONOCIMIENTO DE BOGOTÁ',
+          url: '/web/juzgado-041-penal-municipal-con-funcion-de-conocimiento-de-bogota',
         },
         {
           agrupacion  : 'SECCIÓN CUARTA - ORAL',
@@ -28258,8 +28459,9 @@ export function despachosList() {
         {
           agrupacion  : 'PROMISCUO / COMPETENCIA MÚLTIPLE',
           especialidad: 'PROMISCUO / COMPETENCIA MÚLTIPLE',
-          nombre      : 'JUZGADO 043 DE PEQUEÑAS CAUSAS  Y COMPETENCIA MÚLTIPLE DE BOGOTÁ ',
-          url         : '/web/juzgado-043-de-pequenas-causas-y-competencia-multiple-de-bogota-',
+          nombre:
+        'JUZGADO 043 DE PEQUEÑAS CAUSAS  Y COMPETENCIA MÚLTIPLE DE BOGOTÁ ',
+          url: '/web/juzgado-043-de-pequenas-causas-y-competencia-multiple-de-bogota-',
         },
         {
           agrupacion  : 'LABORAL',
@@ -29310,8 +29512,9 @@ export function despachosList() {
         {
           agrupacion  : 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
           especialidad: 'EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD',
-          nombre      : 'JUZGADO 402 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE OCAÑA',
-          url         : '/web/juzgado-402-de-ejecucion-de-penas-y-medidas-de-seguridad-de-ocana',
+          nombre:
+        'JUZGADO 402 DE EJECUCIÓN DE PENAS Y MEDIDAS DE SEGURIDAD DE OCAÑA',
+          url: '/web/juzgado-402-de-ejecucion-de-penas-y-medidas-de-seguridad-de-ocana',
         },
         {
           agrupacion  : 'SIN SECCIÓN - ORAL',
@@ -29408,8 +29611,9 @@ export function despachosList() {
         {
           agrupacion  : 'SIN SECCIÓN - ORAL',
           especialidad: 'SIN SECCIÓN - ORAL',
-          nombre      : 'JUZGADO ADMINISTRATIVO TRANSITORIO DEL CIRCUITO JUDICIAL DE CALI',
-          url         : '/web/juzgado-administrativo-transitorio-del-circuito-judicial-de-cali',
+          nombre:
+        'JUZGADO ADMINISTRATIVO TRANSITORIO DEL CIRCUITO JUDICIAL DE CALI',
+          url: '/web/juzgado-administrativo-transitorio-del-circuito-judicial-de-cali',
         },
         {
           agrupacion  : 'CIVIL',
@@ -29440,8 +29644,9 @@ export function despachosList() {
         {
           agrupacion  : '',
           especialidad: 'OFICINA JUDICIAL',
-          nombre      : 'OFICINA DE APOYO JUDICIAL DE LOS JUZGADOS ADMINISTRATIVOS DE CALI',
-          url         : '/web/oficina-de-apoyo-judicial-de-los-juzgados-administrativos-de-cali',
+          nombre:
+        'OFICINA DE APOYO JUDICIAL DE LOS JUZGADOS ADMINISTRATIVOS DE CALI',
+          url: '/web/oficina-de-apoyo-judicial-de-los-juzgados-administrativos-de-cali',
         },
         {
           agrupacion  : 'OFICINA JUDICIAL',
@@ -29918,8 +30123,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL JUSTICIA Y PAZ',
           especialidad: 'PENAL JUSTICIA Y PAZ',
-          nombre      : 'SALA PENAL DE JUSTICIA Y PAZ DEL TRIBUNAL SUPERIOR DE BUCARAMANGA',
-          url         : '/web/sala-de-justicia-y-paz-tribunal-superior-de-bucaramanga',
+          nombre:
+        'SALA PENAL DE JUSTICIA Y PAZ DEL TRIBUNAL SUPERIOR DE BUCARAMANGA',
+          url: '/web/sala-de-justicia-y-paz-tribunal-superior-de-bucaramanga',
         },
         {
           agrupacion  : 'PENAL JUSTICIA Y PAZ',
@@ -30020,14 +30226,16 @@ export function despachosList() {
         {
           agrupacion  : '',
           especialidad: 'DISCIPLINARIA',
-          nombre      : 'SECRETARÍA COMISIÓN SECCIONAL DE DISCIPLINA JUDICIAL DE ANTIOQUIA',
-          url         : '/web/secretaria-comision-seccional-de-disciplina-judicial-de-antioquia',
+          nombre:
+        'SECRETARÍA COMISIÓN SECCIONAL DE DISCIPLINA JUDICIAL DE ANTIOQUIA',
+          url: '/web/secretaria-comision-seccional-de-disciplina-judicial-de-antioquia',
         },
         {
           agrupacion  : '',
           especialidad: 'DISCIPLINARIA',
-          nombre      : 'SECRETARÍA COMISIÓN SECCIONAL DE DISCIPLINA JUDICIAL DE ATLÁNTICO',
-          url         : '/web/secretaria-comision-seccional-de-disciplina-judicial-de-atlantico',
+          nombre:
+        'SECRETARÍA COMISIÓN SECCIONAL DE DISCIPLINA JUDICIAL DE ATLÁNTICO',
+          url: '/web/secretaria-comision-seccional-de-disciplina-judicial-de-atlantico',
         },
         {
           agrupacion  : '',
@@ -30106,8 +30314,9 @@ export function despachosList() {
         {
           agrupacion  : '',
           especialidad: 'DISCIPLINARIA',
-          nombre      : 'SECRETARÍA COMISIÓN SECCIONAL DE DISCIPLINA JUDICIAL DE MAGDALENA',
-          url         : '/web/secretaria-comision-seccional-de-disciplina-judicial-de-magdalena',
+          nombre:
+        'SECRETARÍA COMISIÓN SECCIONAL DE DISCIPLINA JUDICIAL DE MAGDALENA',
+          url: '/web/secretaria-comision-seccional-de-disciplina-judicial-de-magdalena',
         },
         {
           agrupacion  : '',
@@ -30226,8 +30435,9 @@ export function despachosList() {
         {
           agrupacion  : 'FAMILIA',
           especialidad: 'FAMILIA',
-          nombre      : 'SECRETARIA DE LA SALA DE FAMILIA DEL TRIBUNAL SUPERIOR DE BOGOTÁ',
-          url         : '/web/secretaria-de-la-sala-de-familia-del-tribunal-superior-de-bogota',
+          nombre:
+        'SECRETARIA DE LA SALA DE FAMILIA DEL TRIBUNAL SUPERIOR DE BOGOTÁ',
+          url: '/web/secretaria-de-la-sala-de-familia-del-tribunal-superior-de-bogota',
         },
         {
           agrupacion  : 'LABORAL',
@@ -30258,8 +30468,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL',
           especialidad: 'PENAL',
-          nombre      : 'SECRETARÍA DE LA SALA PENAL DEL TRIBUNAL SUPERIOR DE BARRANQUILLA',
-          url         : '/web/secretaria-de-la-sala-penal-del-tribunal-superior-de-barranquilla',
+          nombre:
+        'SECRETARÍA DE LA SALA PENAL DEL TRIBUNAL SUPERIOR DE BARRANQUILLA',
+          url: '/web/secretaria-de-la-sala-penal-del-tribunal-superior-de-barranquilla',
         },
         {
           agrupacion  : 'PENAL',
@@ -30276,8 +30487,9 @@ export function despachosList() {
         {
           agrupacion  : 'PENAL',
           especialidad: 'PENAL',
-          nombre      : 'SECRETARÍA DE LA SALA PENAL DEL TRIBUNAL SUPERIOR DE CUNDINAMARCA',
-          url         : '/web/tribunal-superior-de-cundinamarca-sala-penal',
+          nombre:
+        'SECRETARÍA DE LA SALA PENAL DEL TRIBUNAL SUPERIOR DE CUNDINAMARCA',
+          url: '/web/tribunal-superior-de-cundinamarca-sala-penal',
         },
         {
           agrupacion  : 'PENAL',
@@ -30547,8 +30759,9 @@ export function despachosList() {
         {
           agrupacion  : 'SECRETARÍA GENERAL',
           especialidad: 'SECRETARÍA GENERAL',
-          nombre      : 'SECRETARÍA GENERAL DEL TRIBUNAL SUPERIOR DE SANTA ROSA DE VITERBO',
-          url         : '/web/tribunal-superior-de-santa-rosa-de-viterbo',
+          nombre:
+        'SECRETARÍA GENERAL DEL TRIBUNAL SUPERIOR DE SANTA ROSA DE VITERBO',
+          url: '/web/tribunal-superior-de-santa-rosa-de-viterbo',
         },
         {
           agrupacion  : 'SECRETARÍA GENERAL',
@@ -30577,8 +30790,9 @@ export function despachosList() {
         {
           agrupacion  : '',
           especialidad: 'PENAL ESPECIALIZADO',
-          nombre      : 'SECRETARIA JUZGADOS PENAL DEL CIRCUITO ESPECIALIZADO DE MEDELLIN',
-          url         : '/web/secretaria-juzgados-penal-del-circuito-especializado-de-medellin',
+          nombre:
+        'SECRETARIA JUZGADOS PENAL DEL CIRCUITO ESPECIALIZADO DE MEDELLIN',
+          url: '/web/secretaria-juzgados-penal-del-circuito-especializado-de-medellin',
         },
         {
           agrupacion  : 'PENAL',
@@ -30735,8 +30949,9 @@ export function despachosList() {
         {
           agrupacion  : 'CIVIL-FAMILIA-LABORAL',
           especialidad: 'SECRETARÍA GENERAL',
-          nombre      : 'SECRETARÍA TRIBUNAL SUPERIOR DE NEIVA SALA CIVIL-FAMILIA-LABORAL',
-          url         : '/web/tribunal-superior-del-distrito-judicial-de-neiva',
+          nombre:
+        'SECRETARÍA TRIBUNAL SUPERIOR DE NEIVA SALA CIVIL-FAMILIA-LABORAL',
+          url: '/web/tribunal-superior-del-distrito-judicial-de-neiva',
         },
         {
           agrupacion  : 'SECRETARÍA GENERAL',

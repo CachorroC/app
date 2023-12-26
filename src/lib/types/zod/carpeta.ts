@@ -1,6 +1,5 @@
 import * as z from 'zod';
 
-
 export const CategorySchema = z.enum(
   [
     'Bancolombia',
@@ -8,22 +7,20 @@ export const CategorySchema = z.enum(
     'LiosJuridicos',
     'Reintegra',
     'Terminados',
-  ]
+  ] 
 );
 
 export type Category = z.infer<typeof CategorySchema>;
-
 
 export const DepartamentoSchema = z.enum(
   [
     'BOYACÁ',
     'CUNDINAMARCA',
-    'TOLIMA',
-  ]
+    'TOLIMA' 
+  ] 
 );
 
 export type Departamento = z.infer<typeof DepartamentoSchema>;
-
 
 export const TipoProcesoSchema = z.enum(
   [
@@ -40,191 +37,191 @@ export const TipoProcesoSchema = z.enum(
     'SOACHA',
     ' HIPOTECARIO',
     '  SINGULAR',
-  ]
+  ] 
 );
 
 export type TipoProceso = z.infer<typeof TipoProcesoSchema>;
 
 export const TelSchema = z.object(
   {
-    'fijo': z.coerce.number()
+    fijo: z.coerce.number()
           .nullable(),
-    'celular': z.union(
+    celular: z.union(
       [
         z.coerce.number(),
-        z.null()
-      ]
+        z.null() 
+      ] 
     ),
-  }
+  } 
 );
 
 export type Tel = z.infer<typeof TelSchema>;
 
 export const DeudorSchema = z.object(
   {
-    'tel'          : TelSchema,
-    'primerNombre' : z.coerce.string(),
-    'segundoNombre': z.union(
+    tel          : TelSchema,
+    primerNombre : z.coerce.string(),
+    segundoNombre: z.union(
       [
         z.null(),
-        z.coerce.string()
-      ]
+        z.coerce.string() 
+      ] 
     ),
-    'primerApellido' : z.coerce.string(),
-    'segundoApellido': z.union(
+    primerApellido : z.coerce.string(),
+    segundoApellido: z.union(
       [
         z.null(),
-        z.coerce.string()
-      ]
+        z.coerce.string() 
+      ] 
     ),
-    'cedula': z.union(
+    cedula: z.union(
       [
         z.coerce.number(),
-        z.null()
-      ]
+        z.null() 
+      ] 
     ),
-    'direccion': z.union(
+    direccion: z.union(
       [
         z.null(),
-        z.coerce.string()
-      ]
+        z.coerce.string() 
+      ] 
     ),
-    'email': z.union(
+    email: z.union(
       [
         z.null(),
-        z.coerce.string()
-      ]
+        z.coerce.string() 
+      ] 
     ),
-  }
+  } 
 );
 
 export type Deudor = z.infer<typeof DeudorSchema>;
 
 export const JuzgadoSchema = z.object(
   {
-    'id'  : z.coerce.number(),
-    'tipo': z.coerce.string(),
-    'url' : z.coerce.string(),
-  }
+    id  : z.coerce.number(),
+    tipo: z.coerce.string(),
+    url : z.coerce.string(),
+  } 
 );
 
 export type Juzgado = z.infer<typeof JuzgadoSchema>;
 
 export const DemandaSchema = z.object(
   {
-    'capitalAdeudado': z.union(
+    capitalAdeudado: z.union(
       [
         z.coerce.number(),
-        z.null()
-      ]
+        z.null() 
+      ] 
     ),
-    'departamento': z.union(
+    departamento: z.union(
       [
         DepartamentoSchema,
-        z.null()
-      ]
+        z.null() 
+      ] 
     ),
-    'entregaGarantiasAbogado': z.union(
+    entregaGarantiasAbogado: z.union(
       [
         z.coerce.date(),
-        z.null()
-      ]
+        z.null() 
+      ] 
     ),
-    'tipoProceso'    : TipoProcesoSchema,
-    'mandamientoPago': z.union(
+    tipoProceso    : TipoProcesoSchema,
+    mandamientoPago: z.union(
       [
         z.coerce.date(),
-        z.null()
-      ]
+        z.null() 
+      ] 
     ),
-    'etapaProcesal': z.union(
+    etapaProcesal: z.union(
       [
         z.null(),
-        z.coerce.string()
-      ]
+        z.coerce.string() 
+      ] 
     ),
-    'fechaPresentacion': z.union(
+    fechaPresentacion: z.union(
       [
         z.null(),
-        z.coerce.date()
-      ]
+        z.coerce.date() 
+      ] 
     ),
-    'municipio': z.union(
+    municipio: z.union(
       [
         z.null(),
-        z.coerce.string()
-      ]
+        z.coerce.string() 
+      ] 
     ),
-    'obligacion': z.array(
+    obligacion: z.array(
       z.union(
         [
           z.coerce.number(),
-          z.coerce.string()
-        ]
-      )
+          z.coerce.string() 
+        ] 
+      ) 
     ),
-    'radicado': z.union(
+    radicado: z.union(
       [
         z.null(),
-        z.coerce.string()
-      ]
+        z.coerce.string() 
+      ] 
     ),
-    'vencimientoPagare': z.array(
+    vencimientoPagare: z.array(
       z.union(
         [
           z.null(),
-          z.coerce.string()
-        ]
-      )
+          z.coerce.string() 
+        ] 
+      ) 
     ),
-    'expediente': z.union(
+    expediente: z.union(
       [
         z.null(),
-        z.coerce.string()
-      ]
+        z.coerce.string() 
+      ] 
     ),
-    'juzgados': z.union(
+    juzgados: z.union(
       [
         z.array(
-          JuzgadoSchema
+          JuzgadoSchema 
         ),
-        z.null()
-      ]
+        z.null() 
+      ] 
     ),
-  }
+  } 
 );
 
 export type Demanda = z.infer<typeof DemandaSchema>;
 
 export const IntCarpetaElementSchema = z.object(
   {
-    '_id'         : z.coerce.string(),
-    'llaveProceso': z.union(
+    _id         : z.coerce.string(),
+    llaveProceso: z.union(
       [
         z.null(),
-        z.coerce.string()
-      ]
+        z.coerce.string() 
+      ] 
     ),
-    'numero': z.coerce.number(),
-    'cc'    : z.union(
+    numero: z.coerce.number(),
+    cc    : z.union(
       [
         z.coerce.number(),
-        z.null()
-      ]
+        z.null() 
+      ] 
     ),
-    'idProcesos': z.union(
+    idProcesos: z.union(
       [
         z.array(
-          z.coerce.number()
+          z.coerce.number() 
         ),
-        z.null()
-      ]
+        z.null() 
+      ] 
     ),
-    'category'   : CategorySchema,
-    'tipoProceso': TipoProcesoSchema,
-    'deudor'     : DeudorSchema,
-    'demanda'    : DemandaSchema,
-  }
+    category   : CategorySchema,
+    tipoProceso: TipoProcesoSchema,
+    deudor     : DeudorSchema,
+    demanda    : DemandaSchema,
+  } 
 );
 
 export type IntCarpetaElement = z.infer<typeof IntCarpetaElementSchema>;

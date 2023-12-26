@@ -1,6 +1,6 @@
 'use client';
 import { ReactNode } from 'react';
-import { DrawerMenuButton, } from '#@/components/Buttons/nav-buttons';
+import { DrawerMenuButton } from '#@/components/Buttons/nav-buttons';
 import { InputSearchBar } from './InputSearchBar';
 import { Drawer } from './Drawer';
 import { NavLink } from './NavLink';
@@ -8,15 +8,12 @@ import { useNavigationContext } from '#@/app/context/navigation-context';
 
 export const Header = (
   {
-    children
-  } :{children: ReactNode}
+    children 
+  }: { children: ReactNode } 
 ) => {
-
           const {
-            isNavOpen
+            isNavOpen 
           } = useNavigationContext();
-
-
 
           return (
             <>
@@ -42,7 +39,7 @@ export const Header = (
                 iconLabel={'gavel'}
                 textLabel={'Reciente'}
                 key={'actuaciones'}
-                hrefLabel={'/Carpetas/UltimasActuaciones' }
+                hrefLabel={'/Carpetas/UltimasActuaciones'}
               />
 
               {isNavOpen && (

@@ -7,36 +7,34 @@ import { NotaEditorAction, intNota, notasConvert } from '#@/lib/types/notas';
 import clientPromise from '#@/lib/connection/mongodb';
 import { Nota } from '@prisma/client';
 
-
-
 export async function createNota(
-  formData: FormData
+  formData: FormData 
 ) {
       try {
         const parsed = ZodNotaElementSchema.safeParse(
           {
             id: formData.get(
-              'id'
+              'id' 
             ),
             title: formData.get(
-              'title'
+              'title' 
             ),
             content: formData.get(
-              'content'
+              'content' 
             ),
             date: formData.get(
-              'date'
+              'date' 
             ),
             pathname: formData.get(
-              'pathname'
+              'pathname' 
             ),
             carpetaNumero: formData.get(
-              'carpetaNumero'
+              'carpetaNumero' 
             ),
-          }
+          } 
         );
         console.log(
-          `createNota parsed schema: ${ parsed }`
+          `createNota parsed schema: ${ parsed }` 
         );
 
         if ( !parsed.success ) {
@@ -46,47 +44,46 @@ export async function createNota(
         }
 
         const {
-          data
+          data 
         } = parsed;
-
 
         const client = await clientPromise;
 
         if ( !client ) {
           throw new Error(
-            'no hay cliente mongólico'
+            'no hay cliente mongólico' 
           );
         }
 
         const db = client.db(
-          'RyS'
+          'RyS' 
         );
 
         const collection = db.collection<intNota>(
-          'Notas'
+          'Notas' 
         );
 
         const nota = await collection.findOneAndUpdate(
           {
-            id: data.id
+            id: data.id,
           },
           {
-            $set: data
-          }, {
+            $set: data,
+          },
+          {
             upsert        : true,
-            returnDocument: 'after'
-          }
+            returnDocument: 'after',
+          },
         );
 
         if ( !nota ) {
           throw new Error(
-            'no pudimos actyualizar o insertar esa nota'
+            'no pudimos actyualizar o insertar esa nota' 
           );
-
         }
 
         revalidateTag(
-          'notas'
+          'notas' 
         );
 
         return {
@@ -96,13 +93,13 @@ export async function createNota(
       } catch ( e ) {
         console.log(
           `there was an error at createNota: ${ JSON.stringify(
-            e
-          ) }`
+            e 
+          ) }` 
         );
 
         return {
           message: `there was an error in createNota: ${ JSON.stringify(
-            e
+            e 
           ) }`,
           id: null,
         };
@@ -111,56 +108,55 @@ export async function createNota(
 
 export async function deleteNota(
   {
-    id
-  }: { id: number}
+    id 
+  }: { id: number } 
 ) {
       try {
-
         const client = await clientPromise;
 
         if ( !client ) {
           throw new Error(
-            'no hay cliente mongólico'
+            'no hay cliente mongólico' 
           );
         }
 
         const db = client.db(
-          'RyS'
+          'RyS' 
         );
 
         const collection = db.collection<intNota>(
-          'Notas'
+          'Notas' 
         );
 
         const deleter = await collection.deleteOne(
           {
             _id: new ObjectId(
-              id
+              id 
             ),
-          }
+          } 
         );
 
         if ( !deleter.acknowledged ) {
           throw new Error(
-            'deleter not acknowledged'
+            'deleter not acknowledged' 
           );
         }
 
         console.log(
-          `deleNota: se borraron ${ deleter.deletedCount } notas`
+          `deleNota: se borraron ${ deleter.deletedCount } notas` 
         );
         return deleter;
       } catch ( error ) {
         if ( error instanceof Error ) {
           console.log(
-            `surgió una instancia de error en deleteNota: ${ error.message }`
+            `surgió una instancia de error en deleteNota: ${ error.message }`,
           );
         }
 
         console.log(
           `error deleteNota: ${ JSON.stringify(
-            error, null, 2
-          ) }`
+            error, null, 2 
+          ) }` 
         );
 
         const deleteRes: DeleteResult = {
@@ -171,60 +167,59 @@ export async function deleteNota(
       }
 }
 
-export async function editNota (
-  initialFormState: NotaEditorAction,   formData: FormData
+export async function editNota(
+  initialFormState: NotaEditorAction,
+  formData: FormData,
 ) {
       try {
         const parsed = ZodNotaElementSchema.safeParse(
           {
             id: formData.get(
-              'id'
+              'id' 
             ),
             text: formData.get(
-              'text'
+              'text' 
             ),
             date: formData.get(
-              'date'
+              'date' 
             ),
             pathname: formData.get(
-              'pathname'
+              'pathname' 
             ),
             carpetaNumero: formData.get(
-              'carpetaNumero'
+              'carpetaNumero' 
             ),
-          }
+          } 
         );
 
-
         const {
-          success
+          success 
         } = parsed;
 
         if ( !success ) {
           throw new Error(
-            `hubo un error en la consulta: ${ parsed.error }`
+            `hubo un error en la consulta: ${ parsed.error }` 
           );
         }
 
         const {
-          data
+          data 
         } = parsed;
-
 
         const client = await clientPromise;
 
         if ( !client ) {
           throw new Error(
-            'no hay cliente mongólico'
+            'no hay cliente mongólico' 
           );
         }
 
         const db = client.db(
-          'RyS'
+          'RyS' 
         );
 
         const collection = db.collection<Nota>(
-          'Notas'
+          'Notas' 
         );
 
         const nota = await collection.findOneAndUpdate(
@@ -239,35 +234,34 @@ export async function editNota (
           },
         );
 
-
         if ( !nota ) {
           throw new Error(
-            'nota not acknlowledged'
+            'nota not acknlowledged' 
           );
         }
 
         const notaSerialized = notasConvert.toMonNota(
-          nota
+          nota 
         );
 
         const notaActionReturn: NotaEditorAction = {
           message: `success: ${ notaSerialized._id }`,
           data   : notaSerialized,
-          error  : false
+          error  : false,
         };
         return notaActionReturn;
       } catch ( errorSubmitNota ) {
         console.log(
           `se ha producido un error en editNota: ${ JSON.stringify(
-            errorSubmitNota
-          ) }`
+            errorSubmitNota,
+          ) }`,
         );
 
         if ( errorSubmitNota instanceof Error ) {
-          const notaActionReturn: NotaEditorAction= {
+          const notaActionReturn: NotaEditorAction = {
             message: errorSubmitNota.message,
             data   : null,
-            error  : true
+            error  : true,
           };
           return notaActionReturn;
         }
@@ -275,7 +269,7 @@ export async function editNota (
         const notaActionReturn: NotaEditorAction = {
           message: `error: ${ errorSubmitNota }`,
           data   : null,
-          error  : true
+          error  : true,
         };
         return notaActionReturn;
       }

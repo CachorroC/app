@@ -115,7 +115,11 @@
     box-shadow: var(--dp6);
     border: 2px solid var(--outline);
     & > span {
-      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 24;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 200,
+        'opsz' 24;
       color: var(--on-primary-fixed);
     }
   }

@@ -8,17 +8,15 @@ export const getTareas = cache(
             const tareas = await collection.find()
                   .toArray();
 
-
-
             return tareas.map(
               (
-                tarea
+                tarea 
               ) => {
                         return {
                           ...tarea,
-                          _id: tarea._id.toString()
+                          _id: tarea._id.toString(),
                         };
-              }
+              } 
             );
-  }
+  } 
 );

@@ -13,13 +13,13 @@ import { useNavigationContext } from '#@/app/context/navigation-context';
 
 export function HeaderOld(
   {
-    children,
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
       let modalSegment;
 
       const {
-        isNavOpen
+        isNavOpen 
       } = useNavigationContext();
 
       if ( isNavOpen ) {
@@ -28,12 +28,9 @@ export function HeaderOld(
 
       return (
         <div className={layout.header}>
-
-
           <Suspense fallback={<Loader />}>
             <InputSearchBar />
           </Suspense>
-
 
           <Suspense fallback={<Loader />}>
             <ModalDialog>
@@ -46,9 +43,7 @@ export function HeaderOld(
             <NavButtons />
           </Suspense>
           <NavBar />
-          <Suspense fallback={<Loader/>}>
-            {modalSegment}
-          </Suspense>
+          <Suspense fallback={<Loader />}>{modalSegment}</Suspense>
         </div>
       );
 }

@@ -1,41 +1,45 @@
 'use client';
-import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
+import { Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState, } from 'react';
 
 const CategoryContext = createContext<{
   currentCategory: string;
   setCurrentCategory: Dispatch<SetStateAction<string>>;
 } | null>(
-  null
+  null 
 );
-
 
 export function CategoryContextProvider(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
-
       const [
         currentCategory,
-        setCurrentCategory
+        setCurrentCategory 
       ] = useState(
-        'todos'
+        'todos' 
       );
 
       return (
-        <CategoryContext.Provider value={ {
-          currentCategory,
-          setCurrentCategory
-        }}>
+        <CategoryContext.Provider
+          value={{
+            currentCategory,
+            setCurrentCategory,
+          }}
+        >
           {children}
         </CategoryContext.Provider>
       );
 }
 
-
 export function useCategory() {
       const context = useContext(
-        CategoryContext
+        CategoryContext 
       );
 
       if ( context === null ) {

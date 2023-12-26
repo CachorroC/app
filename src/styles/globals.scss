@@ -286,10 +286,10 @@ body {
 }
 .material-symbols-outlined {
   font-variation-settings:
-    "FILL" 0,
-    "wght" 400,
-    "GRAD" 0,
-    "opsz" 48;
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
   font-size: 1.5rem;
 }
 
@@ -309,13 +309,13 @@ button {
   &:active {
     & > span {
       font-variation-settings:
-        "FILL" 1,
-        "wght" 600,
-        "GRAD" 200,
-        "opsz" 40;
+        'FILL' 1,
+        'wght' 600,
+        'GRAD' 200,
+        'opsz' 40;
     }
     &::after {
-      content: "";
+      content: '';
       width: 100%;
       display: block;
       border-radius: 1rem;

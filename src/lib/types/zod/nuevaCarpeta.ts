@@ -16,7 +16,7 @@ export const DepartamentoSchema = z.enum(
   [
     'BOYACÁ',
     'CUNDINAMARCA',
-    'TOLIMA'
+    'TOLIMA' 
   ] 
 );
 
@@ -35,7 +35,7 @@ export type TipoProceso = z.infer<typeof TipoProcesoSchema>;
 
 export const CodReglaSchema = z.enum(
   [
-    '00                              '
+    '00                              ' 
   ] 
 );
 

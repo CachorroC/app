@@ -5,7 +5,6 @@ import layout from '#@/styles/layout.module.css';
 
 export function LinkCardSkeleton() {
       return (
-
         <div className={searchbar.notActive}>
           <h1 className={typography.titleMedium}>Cargando</h1>
           <div className={layout.segmentRow}>
@@ -14,21 +13,20 @@ export function LinkCardSkeleton() {
           <div className={styles.links}>
             <p className={styles.link}>
               <span className={`material-symbols-outlined ${ searchbar.icon }`}>
-              badge
+            badge
               </span>
             </p>
             <p className={styles.link}>
               <span className={`material-symbols-outlined ${ searchbar.icon }`}>
-              add
+            add
               </span>
             </p>
             <p className={styles.link}>
               <span className={`material-symbols-outlined ${ searchbar.icon }`}>
-              file_open
+            file_open
               </span>
             </p>
           </div>
         </div>
-
       );
 }
