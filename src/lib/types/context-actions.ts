@@ -1,12 +1,19 @@
 import { Nota } from '@prisma/client';
 import { Category, MonCarpeta } from './carpetas';
 import { monNota } from './notas';
+import { IntTask } from '#@/app/Ayudante/Navidad/TasksContext';
 
 export interface IntAction {
   type: ActionType;
   sortDirection: boolean;
   search?: string;
   category?: Category;
+}
+
+export interface IntTaskAction {
+  type: 'added' | 'changed' | 'deleted';
+  task: IntTask
+
 }
 
 export interface IntNotaAction {

@@ -21,7 +21,6 @@ const useNotification = (
           ] = useState<boolean>(
             Notification.permission === 'granted'
           );
-
           let notification = useRef<Notification | null>(
             null
           );

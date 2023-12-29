@@ -2,7 +2,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -28,6 +27,7 @@ model Carpeta {
   updatedAt       DateTime    @updatedAt
   deudor          Deudor?
   demanda         Demanda?
+  Task            Task[]
 }
 
 model Deudor {
@@ -36,7 +36,7 @@ model Deudor {
   cedula          String
   direccion       String?
   email           String?
-  id              Int     @id
+  id              Int      @id
   primerApellido  String
   primerNombre    String
   segundoApellido String?
@@ -50,15 +50,15 @@ model Codeudor {
   carpetaNumero Int?     @unique
   cedula        String?
   direccion     String?
-  id            Int     @id
+  id            Int      @id
   nombre        String?
   telefono      String?
 }
 
 model Demanda {
   capitalAdeudado         Decimal?           @db.Money
-  carpeta                 Carpeta? @relation(fields: [carpetaNumero], references: [numero])
-  carpetaNumero Int? @unique
+  carpeta                 Carpeta?           @relation(fields: [carpetaNumero], references: [numero])
+  carpetaNumero           Int?               @unique
   departamento            String?
   despacho                String?
   entregaGarantiasAbogado DateTime?          @db.Date
@@ -77,9 +77,9 @@ model Demanda {
 }
 
 model Notificacion {
-  demanda        Demanda?    @relation(fields: [demandaId], references: [id])
+  demanda        Demanda?   @relation(fields: [demandaId], references: [id])
   autoNotificado String?
-  demandaId      Int?        @unique
+  demandaId      Int?       @unique
   certimail      Boolean?
   fisico         Boolean?
   id             Int        @id
@@ -87,8 +87,8 @@ model Notificacion {
 }
 
 model MedidasCautelares {
-  demanda           Demanda?   @relation(fields: [demandaId], references: [id])
-  demandaId         Int?       @unique
+  demanda           Demanda?  @relation(fields: [demandaId], references: [id])
+  demandaId         Int?      @unique
   fechaOrdenaMedida DateTime?
   id                Int       @id
   medidaSolicitada  String?
@@ -185,6 +185,14 @@ model Proceso {
   llaveProceso         String
   sujetosProcesales    String
   actuaciones          Actuacion[]
+}
+
+model Task {
+  id            Int      @id @default(autoincrement())
+  text          String
+  done          Boolean  @default(false)
+  carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
+  carpetaNumero Int?
 }
 
 enum NotifierName {

@@ -1,7 +1,6 @@
 import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { unstable_noStore as noStore } from 'next/cache';
-import NotifierClientComponent from '#@/components/notifier-client-component';
 
 /*
 async function getData(
@@ -98,6 +97,6 @@ export async function FechaActuacionComponent(
           key={ ultimaActuacion.idRegActuacion }
           initialOpenState={ initialOpenState }
           incomingActuacion={ ultimaActuacion } />
-        <NotifierClientComponent titulo={ ultimaActuacion.actuacion } key={ ultimaActuacion.idRegActuacion } tag={ `${ ultimaActuacion.idProceso }` } contenido={ ultimaActuacion.anotacion ?? '' } /></>
+        </>
       );
 }

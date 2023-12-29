@@ -19,18 +19,20 @@ export default function manifest(): MetadataRoute.Manifest {
         theme_color                : '#7aa4dd',
         prefer_related_applications: false,
         display                    : 'fullscreen',
-        start_url                  : url,
-        description                : 'Somos una firma legal comprometida con brindar something',
-        display_override           : [
+
+        start_url       : url,
+        description     : 'Somos una firma legal comprometida con brindar something',
+        display_override: [
           'fullscreen',
           'standalone',
-          'window-controls-overlay' 
+          'window-controls-overlay'
         ],
         shortcuts: [
           {
-            name : 'Procesos',
-            url  : '/Carpetas/UltimasActuaciones',
-            icons: [
+            name       : 'Ultimas Actuaciones',
+            description: 'aquí encontrará los procesos ordenados a partir de sus últimas actuaciones, la fecha del movimiento y su relevancia',
+            url        : '/Carpetas/UltimasActuaciones',
+            icons      : [
               {
                 src    : '/icon.svg',
                 sizes  : '96x96 144x144 152x152 192x192 70x70',
@@ -44,7 +46,7 @@ export default function manifest(): MetadataRoute.Manifest {
             url  : '/Notas',
             icons: [
               {
-                src    : '/icon13.png',
+                src    : '/icon.png',
                 sizes  : '512x512',
                 type   : 'image/png',
                 purpose: 'any',
@@ -55,7 +57,7 @@ export default function manifest(): MetadataRoute.Manifest {
         serviceworker: {
           scope           : '/',
           src             : '/service-worker.js',
-          update_via_cache: 'all',
+          update_via_cache: 'import'
         },
         icons: [
           {
@@ -71,17 +73,12 @@ export default function manifest(): MetadataRoute.Manifest {
             purpose: 'any',
           },
           {
-            src    : '/icon13.png',
+            src    : '/icon.png',
             sizes  : '512x512',
             type   : 'image/png',
             purpose: 'maskable',
           },
-          {
-            src    : '/icon10.png',
-            sizes  : '192x192',
-            type   : 'image/png',
-            purpose: 'maskable',
-          },
+
         ],
       };
 }
