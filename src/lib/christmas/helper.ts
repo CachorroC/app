@@ -1,6 +1,5 @@
 import clientPromise from '#@/lib/connection/mongodb';
 import { unstable_noStore as noStore } from 'next/cache';
-import { prisma } from '../connection/prisma';
 
 export async function christmasCollection () {
       noStore();
@@ -22,31 +21,4 @@ export async function christmasCollection () {
       );
 
       return carpetas;
-}
-
-
-
-export async function insertObjectofChristmas (
-  task
-) {
-      try {
-
-
-        return await prisma.task.create(
-          {
-            data: {
-              text         : task.text,
-              done         : task.done,
-              carpetaNumero: task.carpetaNumero
-                ? task.carpetaNumero
-                : null
-            }
-          }
-        );
-      } catch ( error ) {
-        console.log(
-          error
-        );
-        return null;
-      }
 }
