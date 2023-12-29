@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { IntTask, useDispatchTasks, useTasks } from './TasksContext';
 import { DeleteTaskButton } from './task-buttons';
+import { EditTask } from './EditTask';
 
 export default function TaskList() {
       const tasksRaw = useTasks();
@@ -74,20 +75,7 @@ function Task(
           <>
 
             <td>
-              <input
-                type={'textArea'}
-                value={task.text}
-                onChange={ e => {
-                          dispatchTasks(
-                            {
-                              type: 'changed',
-                              task: {
-                                ...task,
-                                text: e.target.value
-                              }
-                            }
-                          );
-                } } />
+              <EditTask initialTask={ task } key={task.id}/>
             </td>
             <td>
               <button type={'button'} onClick={() => {
@@ -161,7 +149,7 @@ function Task(
           </td>
           {taskContent}
           <td>
-            <DeleteTaskButton id={task.id } />
+            <DeleteTaskButton key={task.id} id={task.id } />
           </td>
         </tr>
       );

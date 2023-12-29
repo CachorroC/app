@@ -7,7 +7,8 @@ export interface IntTask
   id: number;
   text: string;
   done: boolean;
-  carpetaNumero: number | null
+  carpetaNumero: number | null;
+  updatedAt: Date;
 }
 
 const TasksContext = createContext<IntTask[] | null>(
@@ -84,7 +85,8 @@ function tasksReducer(
                 id           : task.id,
                 text         : task.text,
                 done         : task.done,
-                carpetaNumero: task.carpetaNumero
+                carpetaNumero: task.carpetaNumero,
+                updatedAt    : task.updatedAt
               }
             ];
           }

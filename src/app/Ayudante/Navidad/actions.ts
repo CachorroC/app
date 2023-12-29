@@ -1,7 +1,7 @@
 'use server';
 
 import { prisma } from '#@/lib/connection/prisma';
-import { ZodTaskElementSchema } from './zod';
+import { ZodTaskElementSchema,  } from './zod';
 /*
 export async function createUser(
   currentState: {success: boolean; message: string}, formData: FormData
@@ -96,4 +96,54 @@ export async function deleteTask(
 
       return deleter;
 
+}
+
+
+
+export async function editTask (
+  formData: FormData
+) {
+
+      const objectOfFormData = Object.fromEntries(
+        formData.entries()
+      );
+
+      const validatedFields = ZodTaskElementSchema.safeParse(
+        objectOfFormData
+      );
+
+      if ( !validatedFields.success ) {
+        throw new Error(
+          `${ JSON.stringify(
+            validatedFields.error.flatten().fieldErrors, null, 2
+          ) }`
+        );
+      }
+
+      const {
+        data
+      } = validatedFields;
+
+      const inserter = await prisma.task.upsert(
+        {
+          where: {
+            text: data.text
+          },
+          create: {
+            text         : data.text,
+            done         : data.done,
+            carpetaNumero: data.carpetaNumero
+              ? data.carpetaNumero
+              : null,
+          },
+          update: {
+            done         : data.done,
+            text         : data.text,
+            carpetaNumero: data.carpetaNumero
+              ? data.carpetaNumero
+              : null,
+          }
+        }
+      );
+      return inserter;
 }

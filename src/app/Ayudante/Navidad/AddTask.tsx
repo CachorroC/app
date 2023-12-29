@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatchTasks,   } from './TasksContext';
 import { createUser } from './actions';
 
-export default function AddTask(
+export function AddTask(
   {
     carpetaNumero
   }: { carpetaNumero?: number }

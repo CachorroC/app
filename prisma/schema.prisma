@@ -189,7 +189,8 @@ model Proceso {
 
 model Task {
   id            Int      @id @default(autoincrement())
-  text          String
+  text          String   @unique
+  updatedAt     DateTime @updatedAt
   done          Boolean  @default(false)
   carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
   carpetaNumero Int?

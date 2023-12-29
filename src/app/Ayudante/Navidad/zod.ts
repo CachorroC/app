@@ -5,6 +5,7 @@ export const ZodTaskElementSchema = z.object(
   {
     'text'         : z.coerce.string(),
     'done'         : z.coerce.boolean(),
+    'updatedAt'    : z.coerce.date(),
     'carpetaNumero': z.union(
       [
         z.coerce.number(),

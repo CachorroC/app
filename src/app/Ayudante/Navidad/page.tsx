@@ -1,5 +1,5 @@
 
-import AddTask from './AddTask';
+import { AddTask } from './AddTask';
 import TaskList from './TaskList';
 import { TasksProvider } from './TasksContext';
 import layout from '#@/styles/layout.module.css';
