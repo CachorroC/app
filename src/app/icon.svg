@@ -10,33 +10,26 @@
 
 
       <style>
+
+        @media (prefers-color-scheme: light) {
         .middle {
-          fill: "#80D8FF";
+        fill: #315da8;
         }
 
         .sidepanels {
-          fill: "#0091EA";
+        fill: #684fa3;
         }
-
-        @media (prefers-color-scheme: light) {
-          .middle {
-            fill: #536DFE;
-          }
-
-          .sidepanels {
-            fill: #1A237E;
-          }
 
         }
 
         @media (prefers-color-scheme: dark) {
-          .middle {
-            fill: #7986CB;
-          }
+        .middle {
+        fill: #adc6ff;
+        }
 
-          .sidepanels {
-            fill: #8C9EFF;
-          }
+        .sidepanels {
+        fill: #d1bcff;
+        }
         }
       </style>
 
