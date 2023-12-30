@@ -18,7 +18,8 @@ export function AddTask(
           done         : false,
           carpetaNumero: carpetaNumero
             ? carpetaNumero
-            : null
+            : null,
+          updatedAt: new Date()
         }
       );
 
@@ -46,7 +47,6 @@ export function AddTask(
         <>
           <form action={ createTask}>
             { taskState.text }
-
             <input
               placeholder={ 'add task' }
               type="text"

@@ -34,10 +34,9 @@ export default function manifest(): MetadataRoute.Manifest {
             url        : '/Carpetas/UltimasActuaciones',
             icons      : [
               {
-                src    : '/icon.svg',
-                sizes  : '96x96 144x144 152x152 192x192 70x70',
-                type   : 'image/svg+xml',
-                purpose: 'any',
+                src    : '/icon1.png',
+                sizes  : '512x512',
+                purpose: 'maskable',
               },
             ],
           },
@@ -46,38 +45,83 @@ export default function manifest(): MetadataRoute.Manifest {
             url  : '/Notas',
             icons: [
               {
-                src    : '/icon.png',
+                src    : '/icon.svg',
                 sizes  : '512x512',
-                type   : 'image/png',
-                purpose: 'any',
+                purpose: 'maskable',
               },
             ],
           },
         ],
         serviceworker: {
-          scope           : '/',
-          src             : '/service-worker.js',
-          update_via_cache: 'import'
+          src: '/service-worker.js',
         },
         icons: [
           {
             src    : '/icon.svg',
-            sizes  : '72x72 128x128 144x144 192x192 512x512',
-            type   : 'image/svg+xml',
+            sizes  : '512x512',
             purpose: 'maskable',
           },
           {
             src    : '/icon.svg',
-            sizes  : '72x72 128x128 144x144 192x192 512x512',
-            type   : 'image/svg+xml',
-            purpose: 'any',
+            sizes  : '512x512',
+            purpose: 'monochrome',
           },
           {
-            src    : '/icon.png',
+            src    : '/icon2.png',
+            sizes  : '192x192',
+            type   : 'image/png',
+            purpose: 'maskable',
+          },
+          {
+            src    : '/icon1.png',
             sizes  : '512x512',
             type   : 'image/png',
             purpose: 'maskable',
           },
+          {
+            src    : '/icon2.png',
+            sizes  : '192x192',
+            type   : 'image/png',
+            purpose: 'any',
+          },
+          {
+            src    : '/icon1.png',
+            sizes  : '512x512',
+            type   : 'image/png',
+            purpose: 'any',
+          },
+          {
+            src    : '/icon3.png',
+            sizes  : '128x128',
+            type   : 'image/png',
+            purpose: 'monochrome',
+          },
+          {
+            src    : '/icon4.png',
+            sizes  : '144x144',
+            type   : 'image/png',
+            purpose: 'monochrome',
+          },
+          {
+            src    : '/icon5.png',
+            sizes  : '270x270',
+            type   : 'image/png',
+            purpose: 'monochrome',
+          },
+          {
+            src    : '/icon6.png',
+            sizes  : '558x270',
+            type   : 'image/png',
+            purpose: 'monochrome',
+          },
+          {
+            src    : '/icon7.png',
+            sizes  : '558x558',
+            type   : 'image/png',
+            purpose: 'monochrome',
+          },
+
+
 
         ],
       };

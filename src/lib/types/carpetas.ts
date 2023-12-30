@@ -29,7 +29,7 @@ export interface IntCarpeta {
   demanda: Demanda | null;
   procesos: outProceso[];
   tareas: Tarea[];
-  _id: string;
+  id: number;
 }
 
 export type Category =
@@ -171,35 +171,35 @@ export interface SubTarea {
 export type CodRegla = '00                              ';
 
 export interface MonCarpeta extends IntCarpeta {
-  _id: string;
+  id: number;
 }
 
 // Converts JSON strings to/from your types
 export class carpetaConvert {
   public static toIntCarpeta(
-    json: string 
+    json: string
   ): IntCarpeta {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static toIntCarpetas(
-    json: string 
+    json: string
   ): IntCarpeta[] {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static toMonCarpeta(
-    carpeta: WithId<IntCarpeta> 
+    carpeta: WithId<IntCarpeta>
   ): MonCarpeta {
             return {
               ...carpeta,
               fecha: carpeta.fecha
                 ? new Date(
-                  carpeta.fecha 
+                  carpeta.fecha
                 )
                 : null,
               idRegUltimaAct: carpeta.idRegUltimaAct
@@ -214,176 +214,176 @@ export class carpetaConvert {
             };
   }
   public static toMonCarpetas(
-    carpetas: WithId<IntCarpeta>[] 
+    carpetas: WithId<IntCarpeta>[]
   ): MonCarpeta[] {
             return carpetas.map(
               (
-                carpeta 
+                carpeta
               ) => {
                         return this.toMonCarpeta(
-                          carpeta 
+                          carpeta
                         );
-              } 
+              }
             );
   }
 
   public static toCodeudor(
-    json: string 
+    json: string
   ): Codeudor {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static codeudorToJson(
-    value: Codeudor 
+    value: Codeudor
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static toDemanda(
-    json: string 
+    json: string
   ): Demanda {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static demandaToJson(
-    value: Demanda 
+    value: Demanda
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static toMedidasCautelares(
-    json: string 
+    json: string
   ): MedidasCautelares {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static medidasCautelaresToJson(
-    value: MedidasCautelares 
+    value: MedidasCautelares
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static toNotificacion(
-    json: string 
+    json: string
   ): Notificacion {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static notificacionToJson(
-    value: Notificacion 
+    value: Notificacion
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static toNotifier(
-    json: string 
+    json: string
   ): Notifier {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static notifierToJson(
-    value: Notifier 
+    value: Notifier
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static toDeudor(
-    json: string 
+    json: string
   ): Deudor {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static deudorToJson(
-    value: Deudor 
+    value: Deudor
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static toNota(
-    json: string 
+    json: string
   ): Nota {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static notaToJson(
-    value: Nota 
+    value: Nota
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static toJuzgado(
-    json: string 
+    json: string
   ): Juzgado {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static juzgadoToJson(
-    value: Juzgado 
+    value: Juzgado
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static toTarea(
-    json: string 
+    json: string
   ): Tarea {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static tareaToJson(
-    value: Tarea 
+    value: Tarea
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static toSubTarea(
-    json: string 
+    json: string
   ): SubTarea {
             return JSON.parse(
-              json 
+              json
             );
   }
 
   public static subTareaToJson(
-    value: SubTarea 
+    value: SubTarea
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 }
@@ -418,16 +418,16 @@ export const mockCarpeta: IntCarpeta = {
     despacho               : 'SinEspecificar',
     etapaProcesal          : null,
     fechaPresentacion      : [
-      new Date() 
+      new Date()
     ],
     municipio  : 'Bogota',
     tipoProceso: 'SINGULAR',
     obligacion : [
-      '0' 
+      '0'
     ],
     radicado         : null,
     vencimientoPagare: [
-      new Date() 
+      new Date()
     ],
     llaveProceso: 'SinEspecificar',
     notificacion: {
@@ -448,7 +448,7 @@ export const mockCarpeta: IntCarpeta = {
   },
   codeudor       : null,
   nombre         : '',
-  _id            : 'cedula',
+  id             : 1000,
   fecha          : null,
   idRegUltimaAct : null,
   procesos       : [],
@@ -461,41 +461,41 @@ export const mockCarpeta: IntCarpeta = {
 };
 
 function incomingStringFixer(
-  stringValue: string 
+  stringValue: string
 ) {
       return stringValue
             .toLowerCase()
             .normalize(
-              'NFD' 
+              'NFD'
             )
             .replace(
-              /\p{Diacritic}/gu, '' 
+              /\p{Diacritic}/gu, ''
             )
             .trim();
 }
 
 export class DespachoJudicial implements Juzgado {
   constructor(
-    proceso: intProceso 
+    proceso: intProceso
   ) {
             const matchedDespacho = Despachos.find(
               (
-                dependenciaJudiail 
+                dependenciaJudiail
               ) => {
                         const {
-                          nombre 
+                          nombre
                         } = dependenciaJudiail;
 
                         const {
-                          despacho 
+                          despacho
                         } = proceso;
 
                         const nombreDependenciaJudicial = incomingStringFixer(
-                          nombre 
+                          nombre
                         );
 
                         const nombreDespachoProceso = incomingStringFixer(
-                          despacho 
+                          despacho
                         );
 
                         const indexOfDesp = nombreDependenciaJudicial.indexOf(
@@ -504,26 +504,26 @@ export class DespachoJudicial implements Juzgado {
 
                         if ( indexOfDesp >= 0 ) {
                           console.log(
-                            `procesos despacho is in despachos ${ indexOfDesp + 1 }` 
+                            `procesos despacho is in despachos ${ indexOfDesp + 1 }`
                           );
                         }
 
                         return nombreDependenciaJudicial === nombreDespachoProceso;
-              } 
+              }
             );
 
             if ( matchedDespacho ) {
               const {
-                nombre, url 
+                nombre, url
               } = matchedDespacho;
 
               const stringId = nombre.match(
-                /\d+/g 
+                /\d+/g
               );
               this.tipo = nombre;
               this.id = stringId
                 ? Number(
-                  stringId.toString() 
+                  stringId.toString()
                 )
                 : 0;
               this.url = `https://www.ramajudicial.gov.co${ url }`;
@@ -531,7 +531,7 @@ export class DespachoJudicial implements Juzgado {
               ( this.tipo = proceso.despacho ),
               ( this.url = `https://www.ramajudicial.gov.co/web/${ proceso.despacho
                     .replaceAll(
-                      ' ', '-' 
+                      ' ', '-'
                     )
                     .toLowerCase() }` );
               this.id = 0;

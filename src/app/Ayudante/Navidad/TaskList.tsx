@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { IntTask, useDispatchTasks, useTasks } from './TasksContext';
 import { DeleteTaskButton } from './task-buttons';
 import { EditTask } from './EditTask';
+import { inputElement, slider, switchBox } from '#@/components/form/form.module.css';
+import { OutputDateHelper } from '#@/lib/project/date-helper';
 
 export default function TaskList() {
       const tasksRaw = useTasks();
@@ -30,11 +32,12 @@ export default function TaskList() {
         <table>
           <thead>
             <tr>
-              <td>id</td>
-              <td>terminado</td>
-              <td>contenido</td>
-              <td>salvar</td>
-              <td>idk</td>
+              <th>id</th>
+              <th>terminado</th>
+              <th>contenido</th>
+              <th>salvar</th>
+              <th>idk</th>
+              <th>creada o editada</th>
             </tr>
           </thead>
           <tbody>
@@ -107,10 +110,9 @@ function Task(
 
       return (
         <tr>
-
-
           <td>
-            <input
+            {task.id}
+            {/*    <input
               name={ 'id' }
               disabled={true}
               type={'number'}
@@ -127,30 +129,38 @@ function Task(
                             }
                           }
                         );
-              } } />
+              } } /> */}
           </td>
           <td>
-            <input
-              name={'done'}
-              type="checkbox"
-              checked={task.done}
-              onChange={ e => {
-                        dispatchTasks(
-                          {
-                            type: 'changed',
-                            task: {
-                              ...task,
-                              done: e.target.checked
+
+            <label className={switchBox}>
+              <input
+                name='done'
+                className={inputElement}
+                checked={task.done}
+                onChange={ e => {
+                          dispatchTasks(
+                            {
+                              type: 'changed',
+                              task: {
+                                ...task,
+                                done: e.target.checked
+                              }
                             }
-                          }
-                        );
-              }}
-            />
+                          );
+                }}
+                type="checkbox"
+              />
+              <span className={slider}></span>
+            </label>
           </td>
           {taskContent}
           <td>
-            <DeleteTaskButton key={task.id} id={task.id } />
+            <DeleteTaskButton key={task.id} id={task.id ?? 0 } />
           </td>
+          <td>{OutputDateHelper(
+            task.updatedAt
+          )}</td>
         </tr>
       );
 }

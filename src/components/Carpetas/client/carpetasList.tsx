@@ -12,23 +12,23 @@ export function CarpetasList() {
       const carpetasReduced = useCarpetaSort();
 
       const {
-        search 
+        search
       } = useSearch();
 
       const {
-        currentCategory 
+        currentCategory
       } = useCategory();
       carpetasReduced.forEach(
         (
-          proceso 
+          proceso
         ) => {
                   const {
-                    ultimaActuacion 
+                    ultimaActuacion
                   } = proceso;
 
                   if ( proceso.nombre.toLowerCase()
                         .indexOf(
-                          search.toLowerCase() 
+                          search.toLowerCase()
                         ) === -1 ) {
                     return;
                   }
@@ -49,7 +49,7 @@ export function CarpetasList() {
                       </Card>,
                     );
                   }
-        } 
+        }
       );
 
       return <>{rows}</>;

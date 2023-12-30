@@ -8,7 +8,7 @@ export interface IntTask
   text: string;
   done: boolean;
   carpetaNumero: number | null;
-  updatedAt: Date;
+  updatedAt?: Date;
 }
 
 const TasksContext = createContext<IntTask[] | null>(

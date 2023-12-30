@@ -3,9 +3,15 @@ import * as z from 'zod';
 
 export const ZodTaskElementSchema = z.object(
   {
-    'text'         : z.coerce.string(),
-    'done'         : z.coerce.boolean(),
-    'updatedAt'    : z.coerce.date(),
+    'text'     : z.coerce.string(),
+    'done'     : z.coerce.boolean(),
+    'updatedAt': z.union(
+      [
+        z.coerce.date(),
+        z.null()
+      ]
+    )
+          .optional(),
     'carpetaNumero': z.union(
       [
         z.coerce.number(),

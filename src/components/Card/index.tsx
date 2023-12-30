@@ -13,7 +13,7 @@ export const Card = (
   }: {
     carpeta: MonCarpeta;
     children: ReactNode;
-  } 
+  }
 ) => {
           let contentIdProcesos;
 
@@ -24,26 +24,26 @@ export const Card = (
             : true;
 
           const {
-            idProcesos, nombre, numero 
+            idProcesos, nombre, numero
           } = carpeta;
 
           if ( !idProcesos || idProcesos.length === 0 ) {
             console.log(
-              'no hay idProcesos' 
+              'no hay idProcesos'
             );
           } else {
             contentIdProcesos = idProcesos.map(
               (
-                idProceso 
+                idProceso
               ) => {
                         return (
                           <Link
                             key={idProceso}
                             href={`/Carpeta/${ String(
-                              numero 
+                              numero
                             ) }/ultimasActuaciones/${ String(
                               idProceso,
-                            ) }`}
+                            ) }` as Route}
                             className={styles.link}
                           >
                             <span className={`material-symbols-outlined ${ styles.icon }`}>
@@ -51,7 +51,7 @@ export const Card = (
                             </span>
                           </Link>
                         );
-              } 
+              }
             );
           }
 

@@ -12,7 +12,7 @@ CREATE TYPE "TipoProceso" AS ENUM ('HIPOTECARIO', 'PRENDARIO', 'SINGULAR', 'ACUM
 
 -- CreateTable
 CREATE TABLE "Carpeta" (
-    "id" TEXT NOT NULL DEFAULT 'cedula',
+    "id" INTEGER NOT NULL,
     "category" "Category" NOT NULL DEFAULT 'SinEspecificar',
     "tipoProceso" "TipoProceso" NOT NULL DEFAULT 'SINGULAR',
     "fecha" TIMESTAMP(3),

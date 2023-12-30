@@ -2,57 +2,74 @@ import { cache } from 'react';
 import { fetchCarpetaByllaveProceso,
   fetchCarpetasByllaveProceso,
   fetcherCarpetaByidProceso, } from './fetcher';
-import { MonCarpeta } from '../../../types/carpetas';
+import { prisma } from '#@/lib/connection/prisma';
 
 export const getCarpetasByllaveProceso = cache(
   async (
-    llaveProceso: string 
+    llaveProceso: string
   ) => {
             return await fetchCarpetasByllaveProceso(
-              llaveProceso 
+              llaveProceso
             );
-  } 
+  }
 );
 
 export const getCarpetaByllaveProceso = cache(
   async (
-    llaveProceso: string 
+    llaveProceso: string
   ) => {
             return await fetchCarpetaByllaveProceso(
-              llaveProceso 
+              llaveProceso
             );
-  } 
+  }
 );
 
 export async function getCarpetabyNumero(
-  numero: number 
+  numero: number
 ) {
-      const res = await fetch(
-        `https://api.rsasesorjuridico.com/api/Carpeta/${ numero }`,
+      const carpeta = await prisma.carpeta.findUniqueOrThrow(
         {
-          headers: {
-            'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
-            'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`,
+          where: {
+            numero: numero
           },
-        },
+          include: {
+            ultimaActuacion: true,
+            deudor         : true,
+            codeudor       : true,
+            Task           : true,
+            notas          : true,
+            demanda        : {
+              include: {
+                medidasCautelares: true,
+                notificacion     : {
+                  include: {
+                    notifiers: true
+                  }
+                }
+              }
+            },
+            procesos: {
+              include: {
+                juzgado: true
+              }
+            },
+            tareas: {
+              include: {
+                subTareas: true
+              }
+            }
+          }
+        }
       );
-
-      if ( !res.ok ) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error(
-          'Failed to fetch data' 
-        );
-      }
-
-      return res.json() as Promise<MonCarpeta>;
+      return carpeta;
 }
 
 export const getCarpetaByidProceso = cache(
   async (
-    idProceso: number 
+    idProceso: number
   ) => {
             return fetcherCarpetaByidProceso(
-              idProceso 
+              idProceso
             );
-  } 
+  }
 );

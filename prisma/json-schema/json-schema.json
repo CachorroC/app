@@ -5,8 +5,7 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "default": "cedula"
+          "type": "integer"
         },
         "category": {
           "type": "string",
