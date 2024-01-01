@@ -5,21 +5,21 @@ export function CategoryCarpetasReducer(
   action: { type: Category },
 ) {
       const {
-        type 
+        type
       } = action;
 
       switch ( type ) {
           case 'Bancolombia': {
-            const temporryCarpetasMap = new Map<string, MonCarpeta>();
+            const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
             for ( const carpeta of carpetas ) {
               const {
-                category, _id 
+                category, id
               } = carpeta;
 
               if ( category === 'Bancolombia' ) {
                 temporryCarpetasMap.set(
-                  _id, carpeta 
+                  id, carpeta
                 );
               }
 
@@ -27,21 +27,21 @@ export function CategoryCarpetasReducer(
             }
 
             return Array.from(
-              temporryCarpetasMap.values() 
+              temporryCarpetasMap.values()
             );
           }
 
           case 'LiosJuridicos': {
-            const temporryCarpetasMap = new Map<string, MonCarpeta>();
+            const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
             for ( const carpeta of carpetas ) {
               const {
-                category, _id 
+                category, id
               } = carpeta;
 
               if ( category === 'LiosJuridicos' ) {
                 temporryCarpetasMap.set(
-                  _id, carpeta 
+                  id, carpeta
                 );
               }
 
@@ -49,21 +49,21 @@ export function CategoryCarpetasReducer(
             }
 
             return Array.from(
-              temporryCarpetasMap.values() 
+              temporryCarpetasMap.values()
             );
           }
 
           case 'Insolvencia': {
-            const temporryCarpetasMap = new Map<string, MonCarpeta>();
+            const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
             for ( const carpeta of carpetas ) {
               const {
-                category, _id 
+                category, id
               } = carpeta;
 
               if ( category === 'Insolvencia' ) {
                 temporryCarpetasMap.set(
-                  _id, carpeta 
+                  id, carpeta
                 );
               }
 
@@ -71,50 +71,50 @@ export function CategoryCarpetasReducer(
             }
 
             return Array.from(
-              temporryCarpetasMap.values() 
+              temporryCarpetasMap.values()
             );
           }
 
           case 'Reintegra': {
-            const temporryCarpetasMap = new Map<string, MonCarpeta>();
+            const temporryCarpetasMap = new Map<number, MonCarpeta>();
             carpetas.forEach(
               (
-                carpeta 
+                carpeta
               ) => {
                         const {
-                          category 
+                          category
                         } = carpeta;
 
                         if ( category === 'Reintegra' ) {
                           temporryCarpetasMap.set(
-                            carpeta._id, carpeta 
+                            carpeta.id, carpeta
                           );
                         }
-              } 
+              }
             );
 
             return Array.from(
-              temporryCarpetasMap.values() 
+              temporryCarpetasMap.values()
             );
           }
 
           case 'Terminados': {
-            const temporryCarpetasMap = new Map<string, MonCarpeta>();
+            const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
             for ( const carpeta of carpetas ) {
               const {
-                category, _id 
+                category, id
               } = carpeta;
 
               if ( category !== 'Terminados' ) {
                 temporryCarpetasMap.set(
-                  _id, carpeta 
+                  id, carpeta
                 );
               }
             }
 
             return Array.from(
-              temporryCarpetasMap.values() 
+              temporryCarpetasMap.values()
             );
           }
 

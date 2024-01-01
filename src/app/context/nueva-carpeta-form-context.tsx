@@ -3,22 +3,23 @@
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import { ReactNode } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useCarpetaSort } from './carpetas-sort-context';
 import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
+import { useCarpetaSort } from './carpetas-sort-context';
 
 export function NuevaCarpetaFormProvider(
   {
     children,
   }: {
     children: ReactNode;
-  } 
+  }
 ) {
-      const carpetasReduced = useCarpetaSort();
 
-      const carpsLen = carpetasReduced.length;
+      const carpetas = useCarpetaSort();
+
+      const carpsLen = carpetas.length;
 
       const daterFixer = InputDateHelper(
-        new Date() 
+        new Date()
       );
 
       const methods = useForm<NuevaCarpeta>(
@@ -44,13 +45,13 @@ export function NuevaCarpetaFormProvider(
               entregaGarantiasAbogado: daterFixer,
               tipoProceso            : 'SINGULAR',
               fechaPresentacion      : [
-                daterFixer 
+                daterFixer
               ],
               vencimientoPagare: [
-                daterFixer 
+                daterFixer
               ],
               obligacion: [
-                'sus obligaciones' 
+                'sus obligaciones'
               ],
             },
           },
@@ -59,7 +60,7 @@ export function NuevaCarpetaFormProvider(
           },
           shouldFocusError: true,
           criteriaMode    : 'all',
-        } 
+        }
       );
 
       return <FormProvider {...methods}>{children}</FormProvider>;

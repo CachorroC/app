@@ -127,7 +127,7 @@ export async function editTask (
       const inserter = await prisma.task.upsert(
         {
           where: {
-            text: data.text
+            id: data.id?? undefined
           },
           create: {
             text         : data.text,

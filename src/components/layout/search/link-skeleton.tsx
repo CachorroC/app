@@ -10,22 +10,8 @@ export function LinkCardSkeleton() {
           <div className={layout.segmentRow}>
             <sub className={searchbar.date}>00-00-0000</sub>
           </div>
-          <div className={styles.links}>
-            <p className={styles.link}>
-              <span className={`material-symbols-outlined ${ searchbar.icon }`}>
-            badge
-              </span>
-            </p>
-            <p className={styles.link}>
-              <span className={`material-symbols-outlined ${ searchbar.icon }`}>
-            add
-              </span>
-            </p>
-            <p className={styles.link}>
-              <span className={`material-symbols-outlined ${ searchbar.icon }`}>
-            file_open
-              </span>
-            </p>
+          <div className={ styles.links }>
+            <p>cargando</p>
           </div>
         </div>
       );

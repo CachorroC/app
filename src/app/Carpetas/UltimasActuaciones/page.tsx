@@ -1,103 +1,94 @@
-import { Card } from 'components/Card';
-import { Loader } from '#@/components/Loader';
+
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
-import { Suspense } from 'react';
-import { FechaActuacionComponent } from './actuaciones';
-import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
-import FechaActuacionLoader from '#@/components/Card/actuacion-loader';
+import {  FechaActuacionComponentAlt } from './actuaciones';
+import { CarpetaUltimaActuacionRow } from '#@/components/table/row';
+import { IntAction, carpetasReducer } from '#@/app/hooks/useCarpetasreducer';
 
 export default async function Page(
   {
     searchParams,
   }: {
-    searchParams: { sort: string | undefined };
-  } 
+    searchParams: {
+      sort: 'asc' | 'dsc' | undefined;
+      sortingKey: 'fecha' | 'numero' | 'nombre' | 'category' | 'id' | 'tipoProceso' | 'updatedAt' | undefined
+    };
+  }
 ) {
       const {
-        sort 
+        sort, sortingKey
       } = searchParams;
+
+      const action: IntAction = {
+        type: 'sort',
+        dir : sort
+          ? sort
+          : 'asc',
+        sortingKey: sortingKey
+          ? sortingKey
+          : 'fecha'
+      };
 
       const carpetasRaw = await getCarpetas();
 
-      const carpetas = [
-        ...carpetasRaw 
-      ].sort(
-        (
-          a, b 
-        ) => {
-                  if ( !a.fecha || a.fecha.toString() === 'Invalid Date' ) {
-                    return sort === 'dsc'
-                      ? -1
-                      : 1;
-                  }
-
-                  if ( !b.fecha || b.fecha.toString() === 'Invalid Date' ) {
-                    return sort === 'dsc'
-                      ? 1
-                      : -1;
-                  }
-
-                  const x = a.fecha;
-
-                  const y = b.fecha;
-
-                  if ( x < y ) {
-                    return sort === 'dsc'
-                      ? -1
-                      : 1;
-                  }
-
-                  if ( x > y ) {
-                    return sort === 'dsc'
-                      ? 1
-                      : -1;
-                  }
-
-                  return 0;
-        } 
+      const carpetas = carpetasReducer(
+        carpetasRaw, action
       );
 
       return (
-        <>
-          <Suspense fallback={<SearchOutputListSkeleton />}>
-            {carpetas.map(
+        <table>
+          <thead>
+            <tr>
+              <th>nombre</th>
+              <th>numero</th>
+              <th>revisado</th>
+              <th>tipo de proceso</th>
+              <th>terminado</th>
+              <th>fecha de la última actuacion</th>
+              <th>numero de expediente para copiar</th>
+              <th>categoria</th>
+              <th>ultima actuacion</th>
+              <th>anotacion</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {carpetas.flatMap(
               (
-                carpeta, index 
+                carpeta, index
               ) => {
                         const {
-                          numero, idProcesos 
+                          idProcesos, numero
                         } = carpeta;
-                        return (
-                          <Card
-                            carpeta={carpeta}
-                            key={numero}
-                          >
-                            <Suspense fallback={<Loader />}>
-                              {idProcesos.map(
-                                (
-                                  idProceso 
-                                ) => {
-                                          return (
-                                            <Suspense
-                                              key={idProceso}
-                                              fallback={<FechaActuacionLoader />}
-                                            >
-                                              <FechaActuacionComponent
-                                                index={index}
-                                                initialOpenState={false}
-                                                idProceso={idProceso}
-                                                key={idProceso}
-                                              />
-                                            </Suspense>
-                                          );
-                                } 
-                              )}
-                            </Suspense>
-                          </Card>
+
+                        if ( idProcesos.length === 0 ) {
+                          return (
+
+
+                            <CarpetaUltimaActuacionRow
+                              carpeta={carpeta}
+                              key={numero}
+                            >
+                              <td>sin actuacion</td>
+                            </CarpetaUltimaActuacionRow>
+
+                          );
+                        }
+
+                        return idProcesos.map(
+                          (
+                            idProceso
+                          ) => {
+                                    return (
+                                      <CarpetaUltimaActuacionRow key={ idProceso } carpeta={ carpeta }>
+                                        <FechaActuacionComponentAlt idProceso={ idProceso } index={ index } initialOpenState={ false } />
+                                      </CarpetaUltimaActuacionRow>
+                                    );
+                          }
                         );
-              } 
+              }
             )}
-          </Suspense>
-        </>
+          </tbody>
+
+        </table>
       );
 }

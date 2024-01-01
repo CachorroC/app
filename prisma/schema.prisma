@@ -189,7 +189,7 @@ model Proceso {
 
 model Task {
   id            Int      @id @default(autoincrement())
-  text          String   @unique
+  text          String
   updatedAt     DateTime @updatedAt
   done          Boolean  @default(false)
   carpetaNumero Int?

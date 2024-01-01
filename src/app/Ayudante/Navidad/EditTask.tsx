@@ -41,7 +41,18 @@ export function EditTask(
         <>
           <form action={ createTask}>
             { taskState.text }
-
+            <input name='id' type={'number'} placeholder={'ID'} value={taskState.id} onChange={ (
+              e
+            ) => {
+                      return setTaskState(
+                        {
+                          ...taskState,
+                          id: Number(
+                            e.target.value 
+                          )
+                        }
+                      );
+            }}/>
             <input
               placeholder={ taskState.text }
               type="text"

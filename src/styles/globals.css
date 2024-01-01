@@ -242,20 +242,26 @@ button {
   text-align: center;
   position: relative;
   transition: all 0.3s ease-out;
-  color: var(--on-surface);
 }
 a > span,
 button > span {
   text-align: center;
 }
-a:hover > span, a:focus > span, a:active > span,
-button:hover > span,
+a:link::after,
+button:link::after {
+  opacity: 1;
+  background-color: var(--on-primary);
+  width: 100%;
+  height: 100%;
+}
+li a:hover > span, a:focus > span, a:active > span,
+li button:hover > span,
 button:focus > span,
 button:active > span {
   font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 40;
 }
-a:hover::after, a:focus::after, a:active::after,
-button:hover::after,
+li a:hover::after, a:focus::after, a:active::after,
+li button:hover::after,
 button:focus::after,
 button:active::after {
   content: "";
@@ -337,7 +343,6 @@ tfoot th {
   z-index: 2;
   background: var(--tertiary-container);
 }
-
 thead th:first-child,
 tfoot th:first-child {
   left: 0;
@@ -349,14 +354,12 @@ tfoot {
   bottom: 0;
   z-index: 2;
 }
-
 tfoot th {
   position: sticky;
   bottom: 0;
   z-index: 2;
   background: var(--tertiary-container);
 }
-
 tfoot td:first-child {
   z-index: 3;
 }
@@ -364,6 +367,17 @@ tfoot td:first-child {
 tbody {
   overflow: scroll;
   height: 200px;
+}
+
+tr td:first-child {
+  position: -webkit-sticky;
+  position: sticky;
+  background: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+  left: 0;
+}
+tr td:first-child > a:link {
+  color: var(--on-tertiary-container);
 }
 
 /* MAKE LEFT COLUMN FIXEZ */

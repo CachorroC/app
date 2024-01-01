@@ -1,5 +1,5 @@
 import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
-import { ActuacionComponent } from '#@/components/Card/actuacion-component';
+import { ActuacionComponent, ActuacionComponentAlt } from '#@/components/Card/actuacion-component';
 import { unstable_noStore as noStore } from 'next/cache';
 
 /*
@@ -93,10 +93,44 @@ export async function FechaActuacionComponent(
       ] = consultaActuaciones;
 
       return (
-        <><ActuacionComponent
+        <ActuacionComponent
           key={ ultimaActuacion.idRegActuacion }
           initialOpenState={ initialOpenState }
           incomingActuacion={ ultimaActuacion } />
-        </>
+
+      );
+}
+
+export async function FechaActuacionComponentAlt(
+  {
+    idProceso,
+    index,
+    initialOpenState,
+  }: {
+    idProceso: number;
+    index: number;
+    initialOpenState: boolean;
+  }
+) {
+      noStore();
+
+      const consultaActuaciones = await fetchActuaciones(
+        idProceso, index
+      );
+
+      if ( !consultaActuaciones ) {
+        return null;
+      }
+
+      const [
+        ultimaActuacion
+      ] = consultaActuaciones;
+
+      return (
+        <ActuacionComponentAlt
+          key={ ultimaActuacion.idRegActuacion }
+          initialOpenState={ initialOpenState }
+          incomingActuacion={ ultimaActuacion } />
+
       );
 }

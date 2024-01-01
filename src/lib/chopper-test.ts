@@ -2,10 +2,10 @@ import { MonCarpeta } from './types/carpetas';
 
 export function carpetasChopper(
   {
-    carpetas
-  }: {carpetas: MonCarpeta[]}
+    carpetas, rangeLength = 50
+  }: {carpetas: MonCarpeta[]; rangeLength? : number }
 ) {
-      const chunkSize = 100;
+      const chunkSize = rangeLength;
 
       const chunks = [];
 

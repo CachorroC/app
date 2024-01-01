@@ -13,8 +13,6 @@ import type { Metadata, Viewport } from 'next';
 import { NavBar } from '#@/components/layout/NavBar';
 import { NavigationContextProvider } from './context/navigation-context';
 import { CategoryContextProvider } from './context/category-context';
-import { CarpetasSortProvider } from './context/carpetas-sort-context';
-import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -91,36 +89,35 @@ export const viewport: Viewport = {
   ],
 };
 
-export default async function RootLayout(
+export default function RootLayout(
   {
     children,
   }: {
     children: ReactNode;
   }
 ) {
-      const carpetas = await getCarpetas();
       return (
         <html lang="es-CO">
           <body
             className={`${ playDisp.variable } ${ radio.variable } ${ raleway.variable } ${ ptserif.variable } ${ josefina.variable }  [ color-scheme: light dark ]`}
           >
             <CategoryContextProvider>
-              <CarpetasSortProvider initialCarpetas={carpetas}>
-                <NavigationContextProvider>
-                  <SearchProvider>
-                    <ModalProvider>
-                      <MainProvider>
-                        <div className={layout.container}>
-                          <Suspense fallback={<Loader />}>
-                            <NavBar />
-                          </Suspense>
-                          {children}
-                        </div>
-                      </MainProvider>
-                    </ModalProvider>
-                  </SearchProvider>
-                </NavigationContextProvider>
-              </CarpetasSortProvider>
+
+              <NavigationContextProvider>
+                <SearchProvider>
+                  <ModalProvider>
+                    <MainProvider>
+                      <div className={layout.container}>
+                        <Suspense fallback={<Loader />}>
+                          <NavBar />
+                        </Suspense>
+                        {children}
+                      </div>
+                    </MainProvider>
+                  </ModalProvider>
+                </SearchProvider>
+              </NavigationContextProvider>
+
             </CategoryContextProvider>
             <Script
               src={`https://${ prefix }.rsasesorjuridico.com/installService-worker.js`}

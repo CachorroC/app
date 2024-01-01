@@ -2,7 +2,7 @@ import { cache } from 'react';
 import { fetchCarpetaByllaveProceso,
   fetchCarpetasByllaveProceso,
   fetcherCarpetaByidProceso, } from './fetcher';
-import { prisma } from '#@/lib/connection/prisma';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 
 export const getCarpetasByllaveProceso = cache(
   async (
@@ -27,41 +27,22 @@ export const getCarpetaByllaveProceso = cache(
 export async function getCarpetabyNumero(
   numero: number
 ) {
-      const carpeta = await prisma.carpeta.findUniqueOrThrow(
-        {
-          where: {
-            numero: numero
+      const res = await fetch(
+        `https://api.rsasesorjuridico.com/api/Carpeta/${ numero }`, {
+          headers: {
+            'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
+            'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`,
           },
-          include: {
-            ultimaActuacion: true,
-            deudor         : true,
-            codeudor       : true,
-            Task           : true,
-            notas          : true,
-            demanda        : {
-              include: {
-                medidasCautelares: true,
-                notificacion     : {
-                  include: {
-                    notifiers: true
-                  }
-                }
-              }
-            },
-            procesos: {
-              include: {
-                juzgado: true
-              }
-            },
-            tareas: {
-              include: {
-                subTareas: true
-              }
-            }
-          }
         }
       );
-      return carpeta;
+
+      if ( !res.ok ) {
+        throw new Error(
+          'Failed to fetch data'
+        );
+      }
+
+      return res.json() as Promise<MonCarpeta>;
 }
 
 export const getCarpetaByidProceso = cache(

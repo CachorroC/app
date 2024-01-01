@@ -2,14 +2,16 @@
 
 import { useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
 import styles from '#@/components/Buttons/buttons.module.css';
-import { ActionType } from '#@/lib/types/context-actions';
 import { useState } from 'react';
 import layout from '#@/styles/layout.module.css';
+import {  SortingKey } from '#@/lib/project/sortert';
 
 export function CarpetasSortButtons() {
-      const keys: ActionType[] = [
+      const keys: SortingKey[] = [
         'fecha',
         'nombre',
+        'id',
+        'updatedAt',
         'numero',
         'category',
         'tipoProceso',
@@ -19,9 +21,9 @@ export function CarpetasSortButtons() {
 
       const [
         sortDirection,
-        setSortDirection 
+        setSortDirection
       ] = useState(
-        true 
+        true
       );
 
       return (
@@ -40,24 +42,20 @@ export function CarpetasSortButtons() {
           <section className={layout.segmentColumn}>
             {keys.map(
               (
-                key 
+                key
               ) => {
                         return (
                           <button
                             type="button"
                             onClick={() => {
-                                      setSortDirection(
-                                        (
-                                          d 
-                                        ) => {
-                                                  return !d;
-                                        } 
-                                      );
-                                      dispatchCarpetas(
+                                      return dispatchCarpetas(
                                         {
-                                          type         : key,
-                                          sortDirection: sortDirection,
-                                        } 
+                                          type      : 'sort',
+                                          sortingKey: key,
+                                          dir       : sortDirection
+                                            ? 'asc'
+                                            : 'dsc',
+                                        }
                                       );
                             }}
                             className={styles.buttonPassiveCategory}
@@ -66,8 +64,23 @@ export function CarpetasSortButtons() {
                             {key}
                           </button>
                         );
-              } 
-            )}
+              }
+            ) }
+            <button type="button"
+              onClick={() => {
+                        return setSortDirection(
+                          (
+                            d,
+                          ) => {
+                                    return !d;
+                          }
+                        );
+              }}
+              className={ styles.buttonPassiveCategory }>
+              {sortDirection
+                ? 'asc'
+                : 'dsc'}
+            </button>
           </section>
         </>
       );

@@ -155,8 +155,8 @@
   border-radius: 50vw;
   position: absolute;
   content: "";
-  height: 0.9rem;
-  width: 0.9rem;
+  height: 0.8rem;
+  width: 0.8rem;
   left: 0.03rem;
   bottom: 0.02rem;
   background-color: var(--outline);

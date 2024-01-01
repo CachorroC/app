@@ -12,7 +12,7 @@ export interface IntAction {
 
 export interface IntTaskAction {
   type: 'added' | 'changed' | 'deleted';
-  task: IntTask
+  task: IntTask;
 
 }
 

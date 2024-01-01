@@ -15,32 +15,32 @@ export function LinkCard<T extends string = string>(
   }: {
     path: Route<T> | URL;
     carpeta: MonCarpeta;
-  } 
+  }
 ) {
       let content;
 
       const {
-        fecha, numero, nombre 
+        fecha, numero, nombre
       } = carpeta;
 
       const {
-        setIsNavOpen 
+        setIsNavOpen
       } = useNavigationContext();
 
       const params = useParams();
 
       const isActive = numero === Number(
-        params.numero 
+        params.numero
       );
 
       function handleClickNavigation() {
             setIsNavOpen(
-              false 
+              false
             );
       }
 
       const stringifiedFecha = OutputDateHelper(
-        fecha 
+        fecha
       );
 
       if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
@@ -55,7 +55,7 @@ export function LinkCard<T extends string = string>(
           >
             <sup className={searchbar.sub}>{`# ${ numero }`}</sup>
             <h4
-              key={carpeta._id}
+              key={carpeta.id}
               className={`${ typography.titleMedium } ${ searchbar.title }`}
             >
               {nombre}
@@ -67,7 +67,7 @@ export function LinkCard<T extends string = string>(
       } else {
         content = carpeta.idProcesos.map(
           (
-            idProceso 
+            idProceso
           ) => {
                     return (
                       <Link
@@ -91,7 +91,7 @@ export function LinkCard<T extends string = string>(
                         {fecha && <sub className={searchbar.date}>{stringifiedFecha}</sub>}
                       </Link>
                     );
-          } 
+          }
         );
       }
 

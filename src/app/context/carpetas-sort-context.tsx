@@ -1,14 +1,14 @@
 'use client';
-import { Category, MonCarpeta } from '#@/lib/types/carpetas';
-import { IntAction } from '#@/lib/types/context-actions';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 import { Dispatch,
   ReactNode,
   createContext,
   useContext,
   useReducer, } from 'react';
+import { IntAction, carpetasReducer } from '../hooks/useCarpetasreducer';
 
 const CarpetasSortContext = createContext<MonCarpeta[] | null>(
-  null 
+  null
 );
 
 const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
@@ -22,11 +22,11 @@ export function CarpetasSortProvider(
   }: {
     children: ReactNode;
     initialCarpetas: MonCarpeta[];
-  } 
+  }
 ) {
       const [
         carpetasReduced,
-        dispatchCarpetas 
+        dispatchCarpetas
       ] = useReducer(
         carpetasReducer,
         initialCarpetas,
@@ -43,7 +43,7 @@ export function CarpetasSortProvider(
 
 export function useCarpetaSort() {
       const context = useContext(
-        CarpetasSortContext 
+        CarpetasSortContext
       );
 
       if ( context === null ) {
@@ -57,7 +57,7 @@ export function useCarpetaSort() {
 
 export function useCarpetaSortDispatch() {
       const context = useContext(
-        CarpetasSortDispatchContext 
+        CarpetasSortDispatchContext
       );
 
       if ( context === null ) {
@@ -69,8 +69,8 @@ export function useCarpetaSortDispatch() {
       return context;
 }
 
-export function carpetasReducer(
-  carpetas: MonCarpeta[], action: IntAction 
+/* export function carpetasReducer(
+  carpetas: MonCarpeta[], action: IntAction
 ) {
       const categoriesSorter: Category[] = [
         'todos',
@@ -83,19 +83,19 @@ export function carpetasReducer(
       ];
 
       const {
-        sortDirection, type 
+        sortDirection, type
       } = action;
 
       const asc = [
         -1,
         0,
-        1 
+        1
       ];
 
       const dsc = [
         1,
         0,
-        -1 
+        -1
       ];
 
       const sorter = sortDirection
@@ -105,10 +105,10 @@ export function carpetasReducer(
       switch ( type ) {
           case 'fecha': {
             return [
-              ...carpetas 
+              ...carpetas
             ].sort(
               (
-                a, b 
+                a, b
               ) => {
                         if ( !a.fecha || a.fecha === undefined ) {
                           return sorter[ 2 ];
@@ -131,23 +131,23 @@ export function carpetasReducer(
                         }
 
                         return sorter[ 1 ];
-              } 
+              }
             );
           }
 
           case 'category': {
             return [
-              ...carpetas 
+              ...carpetas
             ].sort(
               (
-                a, b 
+                a, b
               ) => {
                         const x = categoriesSorter.indexOf(
-                          a.category 
+                          a.category
                         );
 
                         const y = categoriesSorter.indexOf(
-                          b.category 
+                          b.category
                         );
 
                         if ( x < y ) {
@@ -159,16 +159,16 @@ export function carpetasReducer(
                         }
 
                         return sorter[ 1 ];
-              } 
+              }
             );
           }
 
           case 'numero': {
             return [
-              ...carpetas 
+              ...carpetas
             ].sort(
               (
-                a, b 
+                a, b
               ) => {
                         const x = a.numero;
 
@@ -179,16 +179,16 @@ export function carpetasReducer(
                           : y - x;
 
                         return idk;
-              } 
+              }
             );
           }
 
           case 'nombre': {
             return [
-              ...carpetas 
+              ...carpetas
             ].sort(
               (
-                a, b 
+                a, b
               ) => {
                         const x = a.nombre;
 
@@ -203,16 +203,16 @@ export function carpetasReducer(
                         }
 
                         return sorter[ 1 ];
-              } 
+              }
             );
           }
 
           default: {
             return [
-              ...carpetas 
+              ...carpetas
             ].sort(
               (
-                a, b 
+                a, b
               ) => {
                         const x = a[ type ];
 
@@ -235,8 +235,9 @@ export function carpetasReducer(
                         }
 
                         return 0;
-              } 
+              }
             );
           }
       }
 }
+ */
