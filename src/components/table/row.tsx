@@ -11,7 +11,7 @@ export function CarpetaUltimaActuacionRow(
   }: {children: ReactNode; carpeta: MonCarpeta}
 ) {
       return (
-        <tr key={ carpeta.numero }>
+        <tr>
           <td>
             <Link href={ `/Carpeta/${ carpeta.numero }` }>
               { carpeta.nombre }
@@ -46,7 +46,7 @@ export function CarpetaUltimaActuacionRow(
           </td>
           <td>{ carpeta.category }</td>
 
-          {children}
+          <tr>{children}</tr>
 
         </tr>
       );
