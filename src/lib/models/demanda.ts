@@ -67,11 +67,9 @@ function vencimientoPagareFixer(
       const isNumber = typeof rawVencimientoPagare === 'number';
 
       if ( isNumber ) {
-        return [
-          new Date(
-            rawVencimientoPagare 
-          ) 
-        ];
+        return [ new Date(
+          rawVencimientoPagare 
+        ) ];
       }
 
       const {
@@ -87,9 +85,7 @@ function vencimientoPagareFixer(
           return [];
         }
 
-        return [
-          fechaFixed 
-        ];
+        return [ fechaFixed ];
       }
 
       const fechasSet = new Set<Date>();

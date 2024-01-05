@@ -19,9 +19,7 @@ export default function Error(
                   console.error(
                     error 
                   );
-        }, [
-          error 
-        ] 
+        }, [ error ] 
       );
 
       return (

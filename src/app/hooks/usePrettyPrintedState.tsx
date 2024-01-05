@@ -2,10 +2,7 @@
 import { useMemo, useState } from 'react';
 
 export function usePrettyPrintedState() {
-      const [
-        value,
-        setValue 
-      ] = useState();
+      const [ value, setValue ] = useState();
 
       const resultValue = useMemo(
         () => {
@@ -22,13 +19,8 @@ export function usePrettyPrintedState() {
                       )}
                     </>
                   );
-        }, [
-          value 
-        ] 
+        }, [ value ] 
       );
 
-      return [
-        resultValue,
-        setValue 
-      ];
+      return [ resultValue, setValue ];
 }

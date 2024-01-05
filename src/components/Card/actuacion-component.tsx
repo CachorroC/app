@@ -14,7 +14,7 @@ export function ActuacionComponent(
   }: {
     incomingActuacion: outActuacion;
     initialOpenState: boolean;
-  }
+  } 
 ) {
       const {
         actuacion,
@@ -25,11 +25,8 @@ export function ActuacionComponent(
         cant,
       } = incomingActuacion;
 
-      const [
-        isOpen,
-        setIsOpen
-      ] = useState(
-        initialOpenState
+      const [ isOpen, setIsOpen ] = useState(
+        initialOpenState 
       );
       let visibleContent;
 
@@ -43,7 +40,7 @@ export function ActuacionComponent(
               ) }`}</sub>
               {fechaActuacion && (
                 <sub className={styles.date}>{fixFechas(
-                  fechaActuacion
+                  fechaActuacion 
                 )}</sub>
               )}
             </section>
@@ -65,15 +62,15 @@ export function ActuacionComponent(
             className={button.buttonActuacion}
             type="button"
             onClick={(
-              e
+              e 
             ) => {
                       e.stopPropagation();
                       setIsOpen(
                         (
-                          n
+                          n 
                         ) => {
                                   return !n;
-                        }
+                        } 
                       );
             }}
           >
@@ -91,7 +88,6 @@ export function ActuacionComponent(
       );
 }
 
-
 export function ActuacionComponentAlt(
   {
     incomingActuacion,
@@ -99,7 +95,7 @@ export function ActuacionComponentAlt(
   }: {
     incomingActuacion: outActuacion;
     initialOpenState: boolean;
-  }
+  } 
 ) {
       const {
         actuacion,
@@ -110,11 +106,8 @@ export function ActuacionComponentAlt(
         cant,
       } = incomingActuacion;
 
-      const [
-        isOpen,
-        setIsOpen
-      ] = useState(
-        initialOpenState
+      const [ isOpen, setIsOpen ] = useState(
+        initialOpenState 
       );
       let visibleContent;
 
@@ -128,7 +121,7 @@ export function ActuacionComponentAlt(
               ) }`}</sub>
               {fechaActuacion && (
                 <sub className={styles.date}>{fixFechas(
-                  fechaActuacion
+                  fechaActuacion 
                 )}</sub>
               )}
             </section>
@@ -146,28 +139,30 @@ export function ActuacionComponentAlt(
 
       return (
         <tr className={layout.sectionRow}>
-          <td><button
-            className={button.buttonActuacion}
-            type="button"
-            onClick={(
-              e
-            ) => {
-                      e.stopPropagation();
-                      setIsOpen(
-                        (
-                          n
-                        ) => {
-                                  return !n;
-                        }
-                      );
-            }}
-          >
-            <span className={`material-symbols-outlined ${ button.icon }`}>
-              {isOpen
-                ? 'expand_less'
-                : 'expand_more'}
-            </span>
-          </button></td>
+          <td>
+            <button
+              className={button.buttonActuacion}
+              type="button"
+              onClick={(
+                e 
+              ) => {
+                        e.stopPropagation();
+                        setIsOpen(
+                          (
+                            n 
+                          ) => {
+                                    return !n;
+                          } 
+                        );
+              }}
+            >
+              <span className={`material-symbols-outlined ${ button.icon }`}>
+                {isOpen
+                  ? 'expand_less'
+                  : 'expand_more'}
+              </span>
+            </button>
+          </td>
           <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
             {actuacion}
           </h5>

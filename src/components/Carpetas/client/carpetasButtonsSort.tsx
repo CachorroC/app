@@ -4,7 +4,7 @@ import { useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
 import styles from '#@/components/Buttons/buttons.module.css';
 import { useState } from 'react';
 import layout from '#@/styles/layout.module.css';
-import {  SortingKey } from '#@/lib/project/sortert';
+import { SortingKey } from '#@/lib/project/sortert';
 
 export function CarpetasSortButtons() {
       const keys: SortingKey[] = [
@@ -19,11 +19,8 @@ export function CarpetasSortButtons() {
 
       const dispatchCarpetas = useCarpetaSortDispatch();
 
-      const [
-        sortDirection,
-        setSortDirection
-      ] = useState(
-        true
+      const [ sortDirection, setSortDirection ] = useState(
+        true 
       );
 
       return (
@@ -42,7 +39,7 @@ export function CarpetasSortButtons() {
           <section className={layout.segmentColumn}>
             {keys.map(
               (
-                key
+                key 
               ) => {
                         return (
                           <button
@@ -55,7 +52,7 @@ export function CarpetasSortButtons() {
                                           dir       : sortDirection
                                             ? 'asc'
                                             : 'dsc',
-                                        }
+                                        } 
                                       );
                             }}
                             className={styles.buttonPassiveCategory}
@@ -64,19 +61,21 @@ export function CarpetasSortButtons() {
                             {key}
                           </button>
                         );
-              }
-            ) }
-            <button type="button"
+              } 
+            )}
+            <button
+              type="button"
               onClick={() => {
                         return setSortDirection(
                           (
-                            d,
+                            d 
                           ) => {
                                     return !d;
-                          }
+                          } 
                         );
               }}
-              className={ styles.buttonPassiveCategory }>
+              className={styles.buttonPassiveCategory}
+            >
               {sortDirection
                 ? 'asc'
                 : 'dsc'}

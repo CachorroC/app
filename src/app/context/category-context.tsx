@@ -18,10 +18,7 @@ export function CategoryContextProvider(
     children 
   }: { children: ReactNode } 
 ) {
-      const [
-        currentCategory,
-        setCurrentCategory 
-      ] = useState(
+      const [ currentCategory, setCurrentCategory ] = useState(
         'todos' 
       );
 

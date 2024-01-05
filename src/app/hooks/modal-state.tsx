@@ -33,9 +33,7 @@ export default function ModalDialog(
                               return !n;
                     } 
                   );
-        }, [
-          setIsModalOpen 
-        ] 
+        }, [ setIsModalOpen ] 
       );
 
       const onClick: MouseEventHandler = useCallback(
@@ -63,9 +61,7 @@ export default function ModalDialog(
                     onDismiss();
                   }
         },
-        [
-          onDismiss 
-        ],
+        [ onDismiss ],
       );
 
       useEffect(
@@ -79,9 +75,7 @@ export default function ModalDialog(
                               'keydown', onKeyDown 
                             );
                   };
-        }, [
-          onKeyDown 
-        ] 
+        }, [ onKeyDown ] 
       );
 
       return (

@@ -35,13 +35,9 @@ export async function GET() {
           capitalAdeudado        : 1000000,
           entregaGarantiasAbogado: daterFixer,
           tipoProceso            : 'SINGULAR',
-          fechaPresentacion      : [
-            daterFixer 
-          ],
-          vencimientoPagare: [
-            daterFixer 
-          ],
-          obligacion: [
+          fechaPresentacion      : [ daterFixer ],
+          vencimientoPagare      : [ daterFixer ],
+          obligacion             : [
             'primera obligacion',
             1,
             'tercera obligacion' 

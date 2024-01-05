@@ -5,105 +5,105 @@ import { NextRequest, NextResponse } from 'next/server';
 
 //? aqui van las peticiones a todas las carpetas y colleccion carpetas
 export async function GET(
-  Request: NextRequest
+  Request: NextRequest 
 ) {
       const {
-        searchParams
+        searchParams 
       } = new URL(
-        Request.url
+        Request.url 
       );
 
       const carpetas = await getCarpetas();
 
       const llaveProceso = searchParams.get(
-        'llaveProceso'
+        'llaveProceso' 
       );
 
       if ( llaveProceso ) {
         const Demandados = carpetas.filter(
           (
-            carpeta
+            carpeta 
           ) => {
                     return carpeta.llaveProceso === llaveProceso;
-          }
+          } 
         );
 
         return new NextResponse(
           JSON.stringify(
-            Demandados
+            Demandados 
           ), {
             status : 200,
             headers: {
               'content-type': 'application/json',
             },
-          }
+          } 
         );
       }
 
       const idProceso = searchParams.get(
-        'idProceso'
+        'idProceso' 
       );
 
       if ( idProceso ) {
         const Demandados = carpetas.filter(
           (
-            carpeta
+            carpeta 
           ) => {
                     return carpeta.llaveProceso === llaveProceso;
-          }
+          } 
         );
 
         return new NextResponse(
           JSON.stringify(
-            Demandados
+            Demandados 
           ), {
             status : 200,
             headers: {
               'content-type': 'application/json',
             },
-          }
+          } 
         );
       }
 
       const _id = searchParams.get(
-        '_id'
+        '_id' 
       );
 
       if ( _id ) {
         const Carpeta = carpetas.filter(
           (
-            carpeta
+            carpeta 
           ) => {
                     return carpeta.id.toString() === _id;
-          }
+          } 
         );
 
         return new NextResponse(
           JSON.stringify(
-            Carpeta
+            Carpeta 
           ), {
             status : 200,
             headers: {
               'content-type': 'application/json',
             },
-          }
+          } 
         );
       }
 
       return new NextResponse(
         JSON.stringify(
-          carpetas
+          carpetas 
         ), {
           status : 200,
           headers: {
             'content-type': 'application/json',
           },
-        }
+        } 
       );
 }
 
 export async function POST(
-  request: NextRequest
+  request: NextRequest 
 ) {
       const incomingCarpeta = ( await request.json() ) as IntCarpeta;
 
@@ -111,28 +111,26 @@ export async function POST(
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const collection = db.collection<IntCarpeta>(
-        'Carpetas'
+        'Carpetas' 
       );
 
       const updateOne = await collection.findOneAndUpdate(
         {
-          $or: [
-            {
-              numero: incomingCarpeta.numero,
-            },
-            {
-              llaveProceso: incomingCarpeta.llaveProceso,
-            },
-          ],
+          $or: [ {
+            numero: incomingCarpeta.numero,
+          },
+          {
+            llaveProceso: incomingCarpeta.llaveProceso,
+          }, ],
         },
         {
           $set: incomingCarpeta,
@@ -147,42 +145,42 @@ export async function POST(
         return new NextResponse(
           null, {
             status: 404,
-          }
+          } 
         );
       }
 
       return NextResponse.json(
-        updateOne
+        updateOne 
       );
 }
 
 export async function PUT(
-  request: Request
+  request: Request 
 ) {
       const {
-        searchParams
+        searchParams 
       } = new URL(
-        request.url
+        request.url 
       );
 
       const id = searchParams.get(
-        '_id'
+        '_id' 
       );
 
       const client = await clientPromise;
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const collection = db.collection<IntCarpeta>(
-        'Carpetas'
+        'Carpetas' 
       );
 
       try {
@@ -194,7 +192,7 @@ export async function PUT(
 
         const query = {
           numero: Number(
-            id
+            id 
           ),
         };
 
@@ -203,20 +201,20 @@ export async function PUT(
         const result = await collection.updateOne(
           query, {
             $set: updatedCarpeta,
-          }
+          } 
         );
 
         if ( result ) {
           return new NextResponse(
             JSON.stringify(
-              result
+              result 
             ), {
               status    : 200,
               statusText: `Successfully updated game with id ${ id }`,
               headers   : {
                 'Content-type': 'application/json',
               },
-            }
+            } 
           );
         }
 
@@ -224,12 +222,12 @@ export async function PUT(
           null, {
             status    : 304,
             statusText: `Game with id: ${ id } not updated`,
-          }
+          } 
         );
       } catch ( error ) {
         if ( error instanceof Error ) {
           console.error(
-            `error en api/Carpetas: ${ error.message }`
+            `error en api/Carpetas: ${ error.message }` 
           );
 
           return new NextResponse(
@@ -237,7 +235,7 @@ export async function PUT(
               {
                 error  : error.name,
                 message: error.message,
-              }
+              } 
             ),
             {
               status    : 400,
@@ -249,7 +247,7 @@ export async function PUT(
         return new NextResponse(
           null, {
             status: 400,
-          }
+          } 
         );
       }
 }

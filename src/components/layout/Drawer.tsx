@@ -36,9 +36,7 @@ export const Drawer = (
                                   return !n;
                         } 
                       );
-            }, [
-              setIsNavOpen 
-            ] 
+            }, [ setIsNavOpen ] 
           );
 
           const onClick: MouseEventHandler = useCallback(
@@ -66,9 +64,7 @@ export const Drawer = (
                         onDismiss();
                       }
             },
-            [
-              onDismiss 
-            ],
+            [ onDismiss ],
           );
 
           useEffect(
@@ -82,9 +78,7 @@ export const Drawer = (
                                   'keydown', onKeyDown 
                                 );
                       };
-            }, [
-              onKeyDown 
-            ] 
+            }, [ onKeyDown ] 
           );
 
           if ( !isNavOpen ) {
@@ -97,49 +91,49 @@ export const Drawer = (
               onClick={onClick}
               ref={overlay}
             >
-              <section
-                style={{
-                  gridArea: 'span 2 / span 5',
-                }}
-                className={layout.segmentColumn}
-              >
-                <section className={layout.segmentRowWrap}>
-                  <NavLink
-                    iconLabel={'home'}
-                    textLabel={'Inicio'}
-                    hrefLabel="/"
-                  />
-                  <NavLink
-                    iconLabel={'gavel'}
-                    textLabel={'ultimas actuaciones'}
-                    hrefLabel={'/Carpetas/UltimasActuaciones' as Route}
-                  />
-                  <NavLink
-                    iconLabel={'note'}
-                    textLabel={'Notas'}
-                    hrefLabel="/Notas"
-                  />
-                  <NavLink
-                    iconLabel={'folder_open'}
-                    textLabel={'Carpetas'}
-                    hrefLabel="/Carpetas"
-                  />
-                  <NavLink
-                    iconLabel={'accessibility_new'}
-                    textLabel={'Quienes Somos'}
-                    hrefLabel="/QuienesSomos"
-                  />
-                  <NavLink
-                    iconLabel={'folder_add'}
-                    textLabel={'Nueva carpeta'}
-                    hrefLabel="/Carpetas/Nueva"
-                  />
-                </section>
-              </section>
               <div
                 className={styles.sidenav}
                 ref={wrapper}
               >
+                <section
+                  style={{
+                    gridArea: 'span 2 / span 5',
+                  }}
+                  className={layout.segmentRow}
+                >
+                  <section className={layout.segmentRowWrap}>
+                    <NavLink
+                      iconLabel={'home'}
+                      textLabel={'Inicio'}
+                      hrefLabel="/"
+                    />
+                    <NavLink
+                      iconLabel={'gavel'}
+                      textLabel={'ultimas actuaciones'}
+                      hrefLabel={'/Carpetas/UltimasActuaciones' as Route}
+                    />
+                    <NavLink
+                      iconLabel={'note'}
+                      textLabel={'Notas'}
+                      hrefLabel="/Notas"
+                    />
+                    <NavLink
+                      iconLabel={'folder_open'}
+                      textLabel={'Carpetas'}
+                      hrefLabel="/Carpetas"
+                    />
+                    <NavLink
+                      iconLabel={'accessibility_new'}
+                      textLabel={'Quienes Somos'}
+                      hrefLabel="/QuienesSomos"
+                    />
+                    <NavLink
+                      iconLabel={'folder_add'}
+                      textLabel={'Nueva carpeta'}
+                      hrefLabel="/Carpetas/Nueva"
+                    />
+                  </section>
+                </section>
                 {children}
               </div>
             </nav>

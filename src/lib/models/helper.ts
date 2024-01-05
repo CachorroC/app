@@ -8,11 +8,9 @@ export function stringToDateArray(
       const isNumber = typeof rawDate === 'number';
 
       if ( isNumber ) {
-        return [
-          new Date(
-            rawDate 
-          ) 
-        ];
+        return [ new Date(
+          rawDate 
+        ) ];
       }
 
       const {
@@ -32,9 +30,7 @@ export function stringToDateArray(
           return [];
         }
 
-        return [
-          fechaFixed 
-        ];
+        return [ fechaFixed ];
       }
 
       const fechasSet = new Set<Date>();

@@ -126,28 +126,17 @@ CREATE TABLE "Nota" (
 );
 
 -- CreateTable
-CREATE TABLE "Tarea" (
+CREATE TABLE "Task" (
     "carpetaNumero" INTEGER,
-    "complete" BOOLEAN NOT NULL DEFAULT false,
-    "content" TEXT,
+    "done" BOOLEAN NOT NULL DEFAULT false,
+    "content" TEXT[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "dueDate" DATE,
     "id" SERIAL NOT NULL,
-    "title" TEXT NOT NULL,
+    "text" TEXT NOT NULL,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Tarea_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "SubTarea" (
-    "date" TIMESTAMP(3),
-    "id" SERIAL NOT NULL,
-    "isComplete" BOOLEAN NOT NULL DEFAULT false,
-    "tareaId" INTEGER,
-    "text" TEXT NOT NULL,
-
-    CONSTRAINT "SubTarea_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -202,17 +191,6 @@ CREATE TABLE "Proceso" (
     CONSTRAINT "Proceso_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "Task" (
-    "id" SERIAL NOT NULL,
-    "text" TEXT NOT NULL,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "done" BOOLEAN NOT NULL DEFAULT false,
-    "carpetaNumero" INTEGER,
-
-    CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "Deudor_carpetaNumero_key" ON "Deudor"("carpetaNumero");
 
@@ -233,9 +211,6 @@ CREATE UNIQUE INDEX "Actuacion_idRegActuacion_key" ON "Actuacion"("idRegActuacio
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Proceso_idProceso_key" ON "Proceso"("idProceso");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Task_text_key" ON "Task"("text");
 
 -- AddForeignKey
 ALTER TABLE "Carpeta" ADD CONSTRAINT "Carpeta_idRegUltimaAct_fkey" FOREIGN KEY ("idRegUltimaAct") REFERENCES "Actuacion"("idRegActuacion") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -262,10 +237,7 @@ ALTER TABLE "Notifier" ADD CONSTRAINT "Notifier_notificacionId_fkey" FOREIGN KEY
 ALTER TABLE "Nota" ADD CONSTRAINT "Nota_carpetaNumero_fkey" FOREIGN KEY ("carpetaNumero") REFERENCES "Carpeta"("numero") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Tarea" ADD CONSTRAINT "Tarea_carpetaNumero_fkey" FOREIGN KEY ("carpetaNumero") REFERENCES "Carpeta"("numero") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "SubTarea" ADD CONSTRAINT "SubTarea_tareaId_fkey" FOREIGN KEY ("tareaId") REFERENCES "Tarea"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Task" ADD CONSTRAINT "Task_carpetaNumero_fkey" FOREIGN KEY ("carpetaNumero") REFERENCES "Carpeta"("numero") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Actuacion" ADD CONSTRAINT "Actuacion_procesoId_fkey" FOREIGN KEY ("procesoId") REFERENCES "Proceso"("idProceso") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -275,6 +247,3 @@ ALTER TABLE "Proceso" ADD CONSTRAINT "Proceso_carpetaNumero_fkey" FOREIGN KEY ("
 
 -- AddForeignKey
 ALTER TABLE "Proceso" ADD CONSTRAINT "Proceso_juzgadoTipo_fkey" FOREIGN KEY ("juzgadoTipo") REFERENCES "Juzgado"("tipo") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Task" ADD CONSTRAINT "Task_carpetaNumero_fkey" FOREIGN KEY ("carpetaNumero") REFERENCES "Carpeta"("numero") ON DELETE SET NULL ON UPDATE CASCADE;

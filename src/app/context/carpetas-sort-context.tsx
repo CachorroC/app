@@ -2,9 +2,11 @@
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { Dispatch,
   ReactNode,
+  SetStateAction,
   createContext,
   useContext,
-  useReducer, } from 'react';
+  useReducer,
+  useState, } from 'react';
 import { IntAction, carpetasReducer } from '../hooks/useCarpetasreducer';
 
 const CarpetasSortContext = createContext<MonCarpeta[] | null>(
@@ -13,6 +15,13 @@ const CarpetasSortContext = createContext<MonCarpeta[] | null>(
 
 const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
   null,
+);
+
+const CarpetasInitialcontext = createContext<{
+  stateInitialCarpetas: MonCarpeta[],
+  setStateInitialCarpetas: Dispatch<SetStateAction<MonCarpeta[]>>
+}|null>(
+  null
 );
 
 export function CarpetasSortProvider(
@@ -24,21 +33,41 @@ export function CarpetasSortProvider(
     initialCarpetas: MonCarpeta[];
   }
 ) {
-      const [
-        carpetasReduced,
-        dispatchCarpetas
-      ] = useReducer(
+      const [ stateInitialCarpetas, setStateInitialCarpetas ] = useState(
+        initialCarpetas
+      );
+
+      const [ carpetasReduced, dispatchCarpetas ] = useReducer(
         carpetasReducer,
         initialCarpetas,
       );
 
       return (
-        <CarpetasSortContext.Provider value={carpetasReduced}>
-          <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
-            {children}
-          </CarpetasSortDispatchContext.Provider>
-        </CarpetasSortContext.Provider>
+        <CarpetasInitialcontext.Provider value={{
+          stateInitialCarpetas,
+          setStateInitialCarpetas
+        }}>
+          <CarpetasSortContext.Provider value={carpetasReduced}>
+            <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
+              {children}
+            </CarpetasSortDispatchContext.Provider>
+          </CarpetasSortContext.Provider>
+        </CarpetasInitialcontext.Provider>
       );
+}
+
+export function useInitialCarpetas () {
+      const context = useContext(
+        CarpetasInitialcontext
+      );
+
+      if ( context === null ) {
+        throw new Error(
+          'useCarpetaSort  must be used inside a carpetasort provider r',
+        );
+      }
+
+      return context;
 }
 
 export function useCarpetaSort() {

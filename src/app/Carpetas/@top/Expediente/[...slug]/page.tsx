@@ -8,10 +8,7 @@ export default async function Page(
     params 
   }: { params: { slug: string[] } } 
 ) {
-      const [
-        llaveProceso,
-        idProceso 
-      ] = params.slug;
+      const [ llaveProceso, idProceso ] = params.slug;
 
       const carpeta = await getCarpetaByllaveProceso(
         llaveProceso 

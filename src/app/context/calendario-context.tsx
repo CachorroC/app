@@ -28,10 +28,7 @@ export function CalendarContextProvider(
     date: Date;
   } 
 ) {
-      const [
-        calendarState,
-        setCalendarState 
-      ] = useState(
+      const [ calendarState, setCalendarState ] = useState(
         {
           ano: date.getFullYear(),
           mes: date.getMonth(),

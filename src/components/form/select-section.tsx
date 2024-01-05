@@ -24,10 +24,7 @@ export const SelectSection = (
             setValue 
           } = useFormContext<IntCarpeta>();
 
-          const [
-            isOptionsOpen,
-            setIsOptionsOpen 
-          ] = useState(
+          const [ isOptionsOpen, setIsOptionsOpen ] = useState(
             false 
           );
 

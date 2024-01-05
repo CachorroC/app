@@ -30,10 +30,7 @@ export function CheckboxHasProperty(
         isInCarpeta = true;
       }
 
-      const [
-        hasProperty,
-        setHasProperty 
-      ] = useState(
+      const [ hasProperty, setHasProperty ] = useState(
         isInCarpeta 
       );
 

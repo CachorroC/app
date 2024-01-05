@@ -1,13 +1,18 @@
 .drawer {
-  position: fixed;
-  width: 50vw;
+  container-name: modal;
+  z-index: 5;
+  container-type: inline-size;
+  background-color: rgba(71, 91, 133, 0.493);
+  width: 100vw;
   height: 100svh;
+  backdrop-filter: blur(2px);
+  position: fixed;
   top: 0;
   left: 0;
+  flex-flow: column nowrap;
+  display: flex;
   opacity: 1;
-  transition: all 0.3s;
-  display: grid;
-  z-index: 5;
+  transition: all 1.5s ease-in-out;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(12, 1fr);
   gap: 2vmin;
@@ -16,13 +21,29 @@
   align-content: flex-start;
   justify-items: stretch;
   align-items: stretch;
-  background-color: var(--background);
   color: var(--on-background);
   box-sizing: border-box;
   grid-gap: 2vmin;
   box-shadow: var(--dp16);
   text-align: center;
-  padding: 2vmin;
+  .sidenav {
+    width: 25vw;
+    height: 100svh;
+    border-radius: 2vmin;
+    box-shadow: var(--dp20);
+
+    background-color: var(--surface-variant);
+    color: var(--on-surface-variant);
+    box-sizing: border-box;
+    padding: 2vmin;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    justify-items: stretch;
+    & > * {
+      width: 100%;
+    }
+  }
   @media screen and (width < 600px) {
     grid-template-rows: repeat(10, 1fr);
     grid-template-columns: repeat(3, 1fr);

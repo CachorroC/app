@@ -24,10 +24,7 @@ export function NotasSortProvider(
     notas: Nota[];
   } 
 ) {
-      const [
-        notasReduced,
-        dispatchNotas 
-      ] = useReducer(
+      const [ notasReduced, dispatchNotas ] = useReducer(
         notasReducer, notas 
       );
 
@@ -93,9 +90,7 @@ export function notasReducer(
 
       switch ( type ) {
           case 'date': {
-            return [
-              ...notas 
-            ].sort(
+            return [ ...notas ].sort(
               (
                 a, b 
               ) => {
@@ -125,9 +120,7 @@ export function notasReducer(
           }
 
           case 'id': {
-            return [
-              ...notas 
-            ].sort(
+            return [ ...notas ].sort(
               (
                 a, b 
               ) => {
@@ -145,9 +138,7 @@ export function notasReducer(
           }
 
           case 'pathname': {
-            return [
-              ...notas 
-            ].sort(
+            return [ ...notas ].sort(
               (
                 a, b 
               ) => {
@@ -177,9 +168,7 @@ export function notasReducer(
           }
 
           case 'title': {
-            return [
-              ...notas 
-            ].sort(
+            return [ ...notas ].sort(
               (
                 a, b 
               ) => {
@@ -201,9 +190,7 @@ export function notasReducer(
           }
 
           default: {
-            return [
-              ...notas 
-            ].sort(
+            return [ ...notas ].sort(
               (
                 a, b 
               ) => {

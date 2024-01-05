@@ -14,7 +14,7 @@ export interface NotaEditorAction {
 
 export interface intNota {
   carpetaNumero?: number | null;
-  id: number;
+  id?: number;
   text: string;
   pathname?: string | null;
   date: Date;

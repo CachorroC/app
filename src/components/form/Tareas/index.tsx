@@ -18,13 +18,11 @@ export function NuevaTarea() {
             creationDate: new Date(),
             dueDate     : new Date(),
             isComplete  : false,
-            subTareas   : [
-              {
-                text      : 'sub tarea',
-                isComplete: false,
-                date      : new Date(),
-              },
-            ],
+            subTareas   : [ {
+              text      : 'sub tarea',
+              isComplete: false,
+              date      : new Date(),
+            }, ],
           },
         } 
       );

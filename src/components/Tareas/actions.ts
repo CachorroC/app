@@ -1,7 +1,7 @@
 'use server';
 
 import { prisma } from '#@/lib/connection/prisma';
-import { ZodTaskElementSchema,  } from './zod';
+import { ZodTaskElementSchema } from './zod';
 /*
 export async function createUser(
   currentState: {success: boolean; message: string}, formData: FormData
@@ -58,7 +58,7 @@ export async function createUser(
         throw new Error(
           `${ JSON.stringify(
             validatedFields.error.flatten().fieldErrors, null, 2
-          ) }`
+          ) }`,
         );
       }
 
@@ -71,9 +71,9 @@ export async function createUser(
           data: {
             text         : data.text,
             done         : data.done,
-            carpetaNumero: data.carpetaNumero
-              ? data.carpetaNumero
-              : null,
+            content      : data.content,
+            dueDate      : data.dueDate,
+            carpetaNumero: data.carpetaNumero,
           },
         }
       );
@@ -85,7 +85,6 @@ export async function deleteTask(
     id
   }: { id: number }
 ) {
-
       const deleter = await prisma.task.delete(
         {
           where: {
@@ -95,15 +94,11 @@ export async function deleteTask(
       );
 
       return deleter;
-
 }
 
-
-
-export async function editTask (
+export async function editTask(
   formData: FormData
 ) {
-
       const objectOfFormData = Object.fromEntries(
         formData.entries()
       );
@@ -116,7 +111,7 @@ export async function editTask (
         throw new Error(
           `${ JSON.stringify(
             validatedFields.error.flatten().fieldErrors, null, 2
-          ) }`
+          ) }`,
         );
       }
 
@@ -127,22 +122,22 @@ export async function editTask (
       const inserter = await prisma.task.upsert(
         {
           where: {
-            id: data.id?? undefined
+            id: data.id ?? undefined,
           },
           create: {
             text         : data.text,
             done         : data.done,
-            carpetaNumero: data.carpetaNumero
-              ? data.carpetaNumero
-              : null,
+            content      : data.content,
+            dueDate      : data.dueDate,
+            carpetaNumero: data.carpetaNumero,
           },
           update: {
-            done         : data.done,
             text         : data.text,
-            carpetaNumero: data.carpetaNumero
-              ? data.carpetaNumero
-              : null,
-          }
+            done         : data.done,
+            content      : data.content,
+            dueDate      : data.dueDate,
+            carpetaNumero: data.carpetaNumero,
+          },
         }
       );
       return inserter;

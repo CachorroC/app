@@ -2,6 +2,8 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -26,8 +28,7 @@ model Carpeta {
   deudor          Deudor?
   notas           Nota[]
   procesos        Proceso[]
-  tareas          Tarea[]
-  Task            Task[]
+  tareas           Task[]
 }
 
 model Deudor {
@@ -116,26 +117,17 @@ model Nota {
   carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
 }
 
-model Tarea {
-  carpetaNumero Int?
-  complete      Boolean    @default(false)
-  content       String?
-  createdAt     DateTime   @default(now())
-  dueDate       DateTime?  @db.Date
-  id            Int        @id @default(autoincrement())
-  title         String
-  updatedAt     DateTime   @updatedAt
-  subTareas     SubTarea[]
-  Carpeta       Carpeta?   @relation(fields: [carpetaNumero], references: [numero])
-}
 
-model SubTarea {
-  date       DateTime?
-  id         Int       @id @default(autoincrement())
-  isComplete Boolean   @default(false)
-  tareaId    Int?
-  text       String
-  Tarea      Tarea?    @relation(fields: [tareaId], references: [id])
+model Task {
+  carpetaNumero Int?
+  done          Boolean   @default(false)
+  content     String[]
+  createdAt     DateTime  @default(now())
+  dueDate       DateTime? @db.Date
+  id            Int       @id @default(autoincrement())
+  text          String
+  updatedAt     DateTime  @updatedAt
+  Carpeta       Carpeta?  @relation(fields: [carpetaNumero], references: [numero])
 }
 
 model Actuacion {
@@ -185,15 +177,6 @@ model Proceso {
   actuaciones          Actuacion[]
   carpeta              Carpeta     @relation(fields: [carpetaNumero], references: [numero])
   juzgado              Juzgado     @relation(fields: [juzgadoTipo], references: [tipo])
-}
-
-model Task {
-  id            Int      @id @default(autoincrement())
-  text          String
-  updatedAt     DateTime @updatedAt
-  done          Boolean  @default(false)
-  carpetaNumero Int?
-  carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
 }
 
 enum NotifierName {

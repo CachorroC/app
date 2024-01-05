@@ -174,14 +174,12 @@ export async function updateProcesos(
 
           const updateProceso = await collection.updateOne(
             {
-              $or: [
-                {
-                  llaveProceso: llaveProceso,
-                },
-                {
-                  idProcesos: idProceso,
-                },
-              ],
+              $or: [ {
+                llaveProceso: llaveProceso,
+              },
+              {
+                idProcesos: idProceso,
+              }, ],
             },
             {
               $addToSet: {

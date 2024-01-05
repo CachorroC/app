@@ -215,7 +215,7 @@ $MaxSW: 480px; //maximum sma width
     text-align: center;
   }
   & > .text {
-    opacity: 0;
+    opacity: 1;
     font-size: 0.7rem;
     font-variation-settings: 'wght' 500;
     font-style: var(--label-medium-font-family-style);
@@ -225,7 +225,7 @@ $MaxSW: 480px; //maximum sma width
     text-transform: var(--label-medium-text-transform);
     text-decoration: var(--label-medium-text-decoration);
     @media (width < 600px) {
-      opacity: 1;
+      opacity: 0;
     }
   }
 

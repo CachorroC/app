@@ -179,7 +179,7 @@
   text-align: center;
 }
 .link > .text, .linkActive > .text {
-  opacity: 0;
+  opacity: 1;
   font-size: 0.7rem;
   font-variation-settings: "wght" 500;
   font-style: var(--label-medium-font-family-style);
@@ -191,7 +191,7 @@
 }
 @media (width < 600px) {
   .link > .text, .linkActive > .text {
-    opacity: 1;
+    opacity: 0;
   }
 }
 .linkActive > .text {

@@ -20,10 +20,7 @@ export function NavigationContextProvider(
     children: ReactNode;
   } 
 ) {
-      const [
-        isNavOpen,
-        setIsNavOpen 
-      ] = useState(
+      const [ isNavOpen, setIsNavOpen ] = useState(
         false 
       );
       return (

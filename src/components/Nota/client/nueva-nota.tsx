@@ -45,10 +45,7 @@ export const NuevaNota = (
             } 
           );
 
-          const [
-            inputNota,
-            setInputNota 
-          ] = useState(
+          const [ inputNota, setInputNota ] = useState(
             getValues() 
           );
 

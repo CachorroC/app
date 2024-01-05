@@ -3,20 +3,26 @@ import useNotification from '../app/hooks/useNotification';
 
 export default function NotifierClientComponent(
   {
-    titulo, contenido, tag
-  }: { titulo: string; tag?: string; contenido?: string; }
+    titulo,
+    contenido,
+    tag,
+  }: {
+    titulo: string;
+    tag?: string;
+    contenido?: string;
+  } 
 ) {
       const {
-        notify, close
+        notify, close 
       } = useNotification(
         titulo, {
           onClick: (
-            ev
+            ev 
           ) => {
                     alert(
                       JSON.stringify(
-                        ev
-                      )
+                        ev 
+                      ) 
                     );
           },
 
@@ -26,13 +32,13 @@ export default function NotifierClientComponent(
           lang              : 'es',
           tag               : tag,
           onClose           : (
-            e
+            e 
           ) => {
                     console.log(
-                      e
+                      e 
                     );
           },
-        }
+        } 
       );
 
       return (

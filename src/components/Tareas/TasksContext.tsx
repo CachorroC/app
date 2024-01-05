@@ -1,36 +1,31 @@
 'use client';
+import { IntTask } from '#@/lib/types/carpetas';
 import { IntTaskAction } from '#@/lib/types/context-actions';
-import { Dispatch, ReactNode,  createContext, useContext, useReducer,  } from 'react';
-
-export interface IntTask
-{
-  id: number;
-  text: string;
-  done: boolean;
-  carpetaNumero: number | null;
-  updatedAt?: Date;
-}
+import { Dispatch,
+  ReactNode,
+  createContext,
+  useContext,
+  useReducer, } from 'react';
 
 const TasksContext = createContext<IntTask[] | null>(
-  null
+  null 
 );
 
-
-const TasksDispatchContext = createContext<Dispatch<IntTaskAction>|null>(
-  null
+const TasksDispatchContext = createContext<Dispatch<IntTaskAction> | null>(
+  null,
 );
 
 export function TasksProvider(
   {
-    children, initialTasks
-  }: { children: ReactNode; initialTasks: IntTask[]}
+    children,
+    initialTasks,
+  }: {
+    children: ReactNode;
+    initialTasks: IntTask[];
+  } 
 ) {
-      const [
-        tasksReduced,
-        dispatchTasks
-      ] = useReducer(
-        tasksReducer,
-        initialTasks
+      const [ tasksReduced, dispatchTasks ] = useReducer(
+        tasksReducer, initialTasks 
       );
 
       return (
@@ -44,12 +39,12 @@ export function TasksProvider(
 
 export function useTasks() {
       const tasksContext = useContext(
-        TasksContext
+        TasksContext 
       );
 
       if ( !tasksContext ) {
         throw new Error(
-          'tasks context must be used within a tasks provider '
+          'tasks context must be used within a tasks provider ' 
         );
       }
 
@@ -58,12 +53,12 @@ export function useTasks() {
 
 export function useDispatchTasks() {
       const tasksContext = useContext(
-        TasksDispatchContext
+        TasksDispatchContext 
       );
 
       if ( !tasksContext ) {
         throw new Error(
-          'tasks context must be used within a tasks provider '
+          'tasks context must be used within a tasks provider ' 
         );
       }
 
@@ -71,50 +66,52 @@ export function useDispatchTasks() {
 }
 
 function tasksReducer(
-  tasks:IntTask[], action: IntTaskAction
+  tasks: IntTask[], action: IntTaskAction 
 ) {
       const {
-        type, task
+        type, task 
       } = action;
 
       switch ( type ) {
           case 'added': {
-            return [
-              ...tasks,
+            return [ ...tasks,
               {
+                ...task,
                 id           : task.id,
                 text         : task.text,
                 done         : task.done,
                 carpetaNumero: task.carpetaNumero,
-                updatedAt    : task.updatedAt
-              }
-            ];
+                updatedAt    : task.updatedAt,
+              }, ];
           }
 
           case 'changed': {
             return tasks.map(
-              t => {
+              (
+                t 
+              ) => {
                         if ( t.id === task.id ) {
                           return task;
                         }
 
                         return t;
-
-              }
+              } 
             );
           }
 
           case 'deleted': {
             return tasks.filter(
-              t => {
+              (
+                t 
+              ) => {
                         return t.id !== task.id;
-              }
+              } 
             );
           }
 
           default: {
             throw Error(
-              'Unknown action: ' + type
+              'Unknown action: ' + type 
             );
           }
       }

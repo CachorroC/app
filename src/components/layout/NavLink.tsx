@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
 import { usePathname } from 'next/navigation';
-import { Route } from 'next';
 import Link from 'next/link';
 import styles from '#@/styles/layout.module.css';
 import { useNavigationContext } from '#@/app/context/navigation-context';
+import { Route } from 'next';
 
 export function NavLink<T extends string>(
   {
@@ -35,7 +35,7 @@ export function NavLink<T extends string>(
                       false 
                     );
           }}
-          href={hrefLabel as Route}
+          href={hrefLabel}
         >
           <span className={`material-symbols-outlined ${ styles.icon }`}>
             {iconLabel}

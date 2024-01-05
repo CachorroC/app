@@ -30,9 +30,7 @@ export function NotasList() {
 
       const pathname = usePathname();
 
-      const notas = [
-        ...rawNotas 
-      ].filter(
+      const notas = [ ...rawNotas ].filter(
         (
           nota 
         ) => {

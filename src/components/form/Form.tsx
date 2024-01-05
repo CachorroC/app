@@ -99,26 +99,29 @@ export const Form = (
               >
                 <section className={layout.sectionColumn}>
                   <section className={layout.sectionRow}>
-                    <NumberSection
-                      name={'numero'}
-                      title={'Numero'}
-                      rls={{
-                        required: true,
-                      }}
-                      type={'number'}
-                    />
-                    <SelectSection
-                      name={'category'}
-                      title={'Grupo al que pertenece'}
-                      initialValue={category}
-                      options={[
-                        'Bancolombia',
-                        'Insolvencia',
-                        'Reintegra',
-                        'LiosJuridicos',
-                        'Terminados',
-                      ]}
-                    />
+                    <fieldset>
+                      <legend>Deudor</legend>
+                      <NumberSection
+                        name={'numero'}
+                        title={'Numero'}
+                        rls={{
+                          required: true,
+                        }}
+                        type={'number'}
+                      />
+                      <SelectSection
+                        name={'category'}
+                        title={'Grupo al que pertenece'}
+                        initialValue={category}
+                        options={[
+                          'Bancolombia',
+                          'Insolvencia',
+                          'Reintegra',
+                          'LiosJuridicos',
+                          'Terminados',
+                        ]}
+                      />
+                    </fieldset>
                   </section>
 
                   <section className={layout.sectionRow}>
@@ -335,13 +338,13 @@ export const Form = (
                     ? (
                         demanda.fechaPresentacion.map(
                           (
-                            fehcaP, index 
+                            fechaP, index 
                           ) => {
                                     return (
                                       <DateInputSection
-                                        key={fehcaP.toISOString()}
+                                        key={index}
                                         name={`demanda.fechaPresentacion.${ index }`}
-                                        initialValue={demanda.fechaPresentacion[ 0 ]}
+                                        initialValue={fechaP}
                                         title={'fecha de presentacion de la demanda'}
                                       />
                                     );

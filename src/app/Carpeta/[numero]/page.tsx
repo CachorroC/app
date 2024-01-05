@@ -14,6 +14,8 @@ import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { InputSection } from '#@/components/form/input-section';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
+import { DeudorFormComponent } from './deudor-form-component';
+import { Snackbar } from '#@/components/Modal/snackbar';
 
 //SECTION Generate metadata for [numero]
 export async function generateMetadata(
@@ -81,9 +83,7 @@ export default async function Page(
                     return (
                       <Link
                         key={idProceso}
-                        href={
-                          `/Carpeta/${ params.numero }/ultimasActuaciones/${ idProceso }` as Route
-                        }
+                        href={`/Carpeta/${ params.numero }/ultimasActuaciones/${ idProceso }`}
                       ></Link>
                     );
           } 
@@ -92,8 +92,7 @@ export default async function Page(
 
       return (
         <>
-          {/*
-      <Snackbar text={ 'Una pruebita del snackbar' } /> */}
+          <Snackbar text={'Una pruebita del snackbar'} />
           <section className={layout.sectionRow}>
             <section className={layout.segmentColumn}>
               <h4 className={typography.titleSmall}>Categoria:</h4>
@@ -148,6 +147,7 @@ export default async function Page(
             } 
           )}
           </section>
+          <DeudorFormComponent />
           <section className={layout.segmentRow}>
             {deudor?.telCelular && (
               <Link

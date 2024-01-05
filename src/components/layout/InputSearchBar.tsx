@@ -1,31 +1,42 @@
 'use client';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import { useSearch } from '#@/app/context/search-context';
-import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
+import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
 
 export const InputSearchBar = () => {
           const {
             search, setSearch
           } = useSearch();
 
-          function searchQuery(
+          const dispatchCarpetas = useCarpetaSortDispatch();
+
+          async function formAction(
             formData: FormData
           ) {
-                const query = formData.get(
-                  'buscar'
+                const searchQuery = formData.get(
+                  'searchQuery'
                 );
-                alert(
-                  `You searched for '${ query }'`
-                );
+
+                if ( !searchQuery ) {
+                  return dispatchCarpetas(
+                    {
+                      type : 'search',
+                      query: searchQuery.toString()
+                    }
+                  );
+                }
           }
 
           const carpetasReduced = useCarpetaSort();
 
           return (
             <form
-              action={searchQuery}
+              action={formAction}
               className={searchbar.inputContainer}
             >
+              <pre>{JSON.stringify(
+                search, null, 2
+              )}</pre>
               <datalist id="demandados-list">
                 {carpetasReduced.map(
                   (
@@ -34,7 +45,14 @@ export const InputSearchBar = () => {
                             return (
                               <option
                                 value={carpeta.nombre}
-                                key={carpeta.id}
+                                key={carpeta.numero}
+                                onChange={(
+                                  e
+                                ) => {
+                                          console.log(
+                                            e.target
+                                          );
+                                }}
                               />
                             );
                   }
@@ -46,25 +64,11 @@ export const InputSearchBar = () => {
                   list="demandados-list"
                   className={searchbar.input}
                   value={search}
-                  name={'buscar'}
+                  name={'searchQuery'}
                   placeholder={'Buscar'}
-                  onKeyDown={(
-                    e
-                  ) => {
-                            console.log(
-                              `pressed key ${ e.key }`
-                            );
-
-                            if ( e.key === 'Enter' ) {
-                              console.log(
-                                `the pressed key was Enter ${ e.key }`
-                              );
-                            }
-                  }}
                   onChange={(
                     input
                   ) => {
-                            input.preventDefault();
                             return setSearch(
                               input.target.value
                             );

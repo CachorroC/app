@@ -1,5 +1,6 @@
 import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
-import { ActuacionComponent, ActuacionComponentAlt } from '#@/components/Card/actuacion-component';
+import { ActuacionComponent,
+  ActuacionComponentAlt, } from '#@/components/Card/actuacion-component';
 import { unstable_noStore as noStore } from 'next/cache';
 
 /*
@@ -76,28 +77,26 @@ export async function FechaActuacionComponent(
     idProceso: number;
     index: number;
     initialOpenState: boolean;
-  }
+  } 
 ) {
       noStore();
 
       const consultaActuaciones = await fetchActuaciones(
-        idProceso, index
+        idProceso, index 
       );
 
       if ( !consultaActuaciones ) {
         return null;
       }
 
-      const [
-        ultimaActuacion
-      ] = consultaActuaciones;
+      const [ ultimaActuacion ] = consultaActuaciones;
 
       return (
         <ActuacionComponent
-          key={ ultimaActuacion.idRegActuacion }
-          initialOpenState={ initialOpenState }
-          incomingActuacion={ ultimaActuacion } />
-
+          key={ultimaActuacion.idRegActuacion}
+          initialOpenState={initialOpenState}
+          incomingActuacion={ultimaActuacion}
+        />
       );
 }
 
@@ -110,27 +109,25 @@ export async function FechaActuacionComponentAlt(
     idProceso: number;
     index: number;
     initialOpenState: boolean;
-  }
+  } 
 ) {
       noStore();
 
       const consultaActuaciones = await fetchActuaciones(
-        idProceso, index
+        idProceso, index 
       );
 
       if ( !consultaActuaciones ) {
         return null;
       }
 
-      const [
-        ultimaActuacion
-      ] = consultaActuaciones;
+      const [ ultimaActuacion ] = consultaActuaciones;
 
       return (
         <ActuacionComponentAlt
-          key={ ultimaActuacion.idRegActuacion }
-          initialOpenState={ initialOpenState }
-          incomingActuacion={ ultimaActuacion } />
-
+          key={ultimaActuacion.idRegActuacion}
+          initialOpenState={initialOpenState}
+          incomingActuacion={ultimaActuacion}
+        />
       );
 }

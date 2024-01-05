@@ -17,11 +17,9 @@ export default function InformationComponent(
         deudor, demanda, category, tipoProceso, procesos 
       } = carpeta;
 
-      const [
-        {
-          juzgado 
-        } 
-      ] = procesos;
+      const [ {
+        juzgado 
+      } ] = procesos;
 
       return (
         <>

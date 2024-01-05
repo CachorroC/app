@@ -19,10 +19,7 @@ export function SearchProvider(
     children 
   }: { children: ReactNode } 
 ) {
-      const [
-        search,
-        setSearch 
-      ] = useState(
+      const [ search, setSearch ] = useState(
         ' ' 
       );
 

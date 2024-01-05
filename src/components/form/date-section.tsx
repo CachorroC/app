@@ -23,10 +23,7 @@ export const DateInputSection = (
             ? initialValue
             : new Date();
 
-          const [
-            stringDateValue,
-            setStringDateValue 
-          ] = useState(
+          const [ stringDateValue, setStringDateValue ] = useState(
             dateValue 
           );
 

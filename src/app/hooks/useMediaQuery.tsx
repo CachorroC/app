@@ -16,10 +16,7 @@ export function useMediaQuery(
                 return false;
       };
 
-      const [
-        matches,
-        setMatches 
-      ] = useState<boolean>(
+      const [ matches, setMatches ] = useState<boolean>(
         getMatches(
           query 
         ) 
@@ -40,9 +37,7 @@ export function useMediaQuery(
                       query 
                     ) 
                   );
-        }, [
-          query 
-        ] 
+        }, [ query ] 
       );
 
       useEffect(
@@ -61,10 +56,7 @@ export function useMediaQuery(
                               'change', handleChange 
                             );
                   };
-        }, [
-          handleChange,
-          query 
-        ] 
+        }, [ handleChange, query ] 
       );
 
       return matches;

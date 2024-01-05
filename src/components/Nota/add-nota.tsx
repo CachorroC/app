@@ -4,16 +4,13 @@ import { useNotaContext } from '#@/app/context/main-context';
 import { useState } from 'react';
 import styles from '../form/checkbox/styles.module.css';
 
-export default function AddTask() {
-      const [
-        hasContent,
-        setHasContent 
-      ] = useState(
-        false 
+export default function AddNota() {
+      const [ hasContent, setHasContent ] = useState(
+        false
       );
 
       const {
-        inputNota, setInputNota 
+        inputNota, setInputNota
       } = useNotaContext();
 
       return (
@@ -24,17 +21,17 @@ export default function AddTask() {
             type="text"
             name="title"
             onChange={(
-              e 
+              e
             ) => {
                       return setInputNota(
                         (
-                          nn 
+                          nn
                         ) => {
                                   return {
                                     ...nn,
                                     title: e.target.value,
                                   };
-                        } 
+                        }
                       );
             }}
           />
@@ -43,15 +40,15 @@ export default function AddTask() {
             placeholder={'fecha de entrega'}
             type={'date'}
             onChange={(
-              e 
+              e
             ) => {
                       return setInputNota(
                         {
                           ...inputNota,
                           date: new Date(
-                            e.target.value 
+                            e.target.value
                           ),
-                        } 
+                        }
                       );
             }}
             value={inputNota.date.toString()}
@@ -65,10 +62,10 @@ export default function AddTask() {
               onChange={() => {
                         setHasContent(
                           (
-                            n 
+                            n
                           ) => {
                                     return !n;
-                          } 
+                          }
                         );
               }}
             />

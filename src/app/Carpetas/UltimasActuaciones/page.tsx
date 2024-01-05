@@ -1,39 +1,39 @@
-
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
-import {  FechaActuacionComponentAlt } from './actuaciones';
-import { CarpetaUltimaActuacionRow } from '#@/components/table/row';
-import { IntAction, carpetasReducer } from '#@/app/hooks/useCarpetasreducer';
+import { FechaActuacionComponentAlt } from './actuaciones';
+import { CarpetaUltimaActuacionRow } from '#@/components/Table/row';
+import { Loader } from '#@/components/Loader';
+import { Suspense } from 'react';
 
-export default async function Page(
-  {
-    searchParams,
-  }: {
-    searchParams: {
-      sort: 'asc' | 'dsc' | undefined;
-      sortingKey: 'fecha' | 'numero' | 'nombre' | 'category' | 'id' | 'tipoProceso' | 'updatedAt' | undefined
-    };
-  }
-) {
-      const {
-        sort, sortingKey
-      } = searchParams;
-
-      const action: IntAction = {
-        type: 'sort',
-        dir : sort
-          ? sort
-          : 'asc',
-        sortingKey: sortingKey
-          ? sortingKey
-          : 'fecha'
-      };
-
+export default async function Page() {
       const carpetasRaw = await getCarpetas();
 
-      const carpetas = carpetasReducer(
-        carpetasRaw, action
-      );
+      const carpetas = [ ...carpetasRaw ].sort(
+        (
+          a, b
+        ) => {
+                  if ( !a.fecha || a.fecha.toString() === 'Invalid Date' ) {
+                    return -1;
+                  }
 
+                  if ( !b.fecha || b.fecha.toString() === 'Invalid Date' ) {
+                    return 1;
+                  }
+
+                  const x = a.fecha;
+
+                  const y = b.fecha;
+
+                  if ( x < y ) {
+                    return -1;
+                  }
+
+                  if ( x > y ) {
+                    return 1;
+                  }
+
+                  return 0;
+        }
+      );
       return (
         <table>
           <thead>
@@ -51,7 +51,6 @@ export default async function Page(
             </tr>
           </thead>
           <tbody>
-
             {carpetas.flatMap(
               (
                 carpeta, index
@@ -62,15 +61,12 @@ export default async function Page(
 
                         if ( idProcesos.length === 0 ) {
                           return (
-
-
                             <CarpetaUltimaActuacionRow
                               carpeta={carpeta}
                               key={numero}
                             >
                               <td>sin actuacion</td>
                             </CarpetaUltimaActuacionRow>
-
                           );
                         }
 
@@ -79,8 +75,17 @@ export default async function Page(
                             idProceso
                           ) => {
                                     return (
-                                      <CarpetaUltimaActuacionRow key={ idProceso } carpeta={ carpeta }>
-                                        <FechaActuacionComponentAlt idProceso={ idProceso } index={ index } initialOpenState={ false } />
+                                      <CarpetaUltimaActuacionRow
+                                        key={idProceso}
+                                        carpeta={carpeta}
+                                      >
+                                        <Suspense fallback={<Loader />}>
+                                          <FechaActuacionComponentAlt
+                                            idProceso={idProceso}
+                                            index={index}
+                                            initialOpenState={false}
+                                          />
+                                        </Suspense>
                                       </CarpetaUltimaActuacionRow>
                                     );
                           }
@@ -88,7 +93,6 @@ export default async function Page(
               }
             )}
           </tbody>
-
         </table>
       );
 }

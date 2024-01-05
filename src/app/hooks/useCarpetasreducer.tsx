@@ -1,38 +1,51 @@
-
 import { MonCarpeta } from '#@/lib/types/carpetas';
 
 export type SortActionType = {
   type: 'sort';
-  dir: 'asc' | 'dsc',
-  sortingKey: 'fecha' | 'numero' | 'nombre' | 'category' | 'id' | 'tipoProceso' | 'updatedAt';
-
-}
+  dir: 'asc' | 'dsc';
+  sortingKey:
+    | 'fecha'
+    | 'numero'
+    | 'nombre'
+    | 'category'
+    | 'id'
+    | 'tipoProceso'
+    | 'updatedAt';
+};
 
 export type SearchActionType = {
-  type: 'search',
-  query: string
-}
+  type: 'search';
+  query: string;
+};
 
 export type FilterActionType = {
-  type: 'filter',
-  filteringKey: 'category' | 'terminado' | 'revisado' | 'tipoProceso'
+  type: 'filter';
+  filteringKey: 'category' | 'terminado' | 'revisado' | 'tipoProceso';
   filteringValue: string;
+};
 
-}
+export type ResetActionType = {
+  type: 'reset';
+  payload: MonCarpeta[]
+};
 
-export type IntAction = FilterActionType | SearchActionType | SortActionType;
-
+export type IntAction =
+  | FilterActionType
+  | SearchActionType
+  | SortActionType
+  | ResetActionType;
 
 export function carpetasReducer(
   carpetas: MonCarpeta[], action: IntAction
 ) {
+
+
       const {
         type
-      }= action;
+      } = action;
 
       switch ( type ) {
           case 'sort': {
-
             const asc = [
               -1,
               0,
@@ -49,9 +62,7 @@ export function carpetasReducer(
               ? asc
               : dsc;
 
-            return [
-              ...carpetas
-            ].sort(
+            return [ ...carpetas ].sort(
               (
                 a, b
               ) => {
@@ -81,30 +92,40 @@ export function carpetasReducer(
           }
 
           case 'search': {
-            return [
-              ...carpetas
-            ].filter(
-              (
-                carpeta
-              ) => {
-                        if ( carpeta.nombre.toLocaleLowerCase()
-                              .indexOf(
-                                action.query.toLocaleLowerCase()
-                              ) === -1 ) {
-                          return false;
-                        }
+            const carpetasMap = [];
 
-                        return true;
+            const searchQuery = action.query.toLocaleLowerCase();
 
+            if ( !searchQuery || searchQuery === '' ) {
+              return [ ...carpetas ];
+            }
 
+            for ( const carpeta of [ ...carpetas ] ) {
+
+              const nombreString = carpeta.nombre.toLocaleLowerCase();
+
+              const carpetaQuery = nombreString.indexOf(
+                searchQuery
+              );
+
+              if ( carpetaQuery === -1 ) {
+                continue;
               }
-            );
+
+              carpetasMap.push(
+                carpeta
+              );
+
+              console.log(
+                carpetaQuery
+              );
+            }
+
+            return carpetasMap;
           }
 
           case 'filter': {
-            return [
-              ...carpetas
-            ].filter(
+            return [ ...carpetas ].filter(
               (
                 carpeta
               ) => {
@@ -114,11 +135,13 @@ export function carpetasReducer(
                           return querier;
                         }
 
-
-                        if ( querier.toLocaleLowerCase()
-                              .indexOf(
-                                action.filteringKey.toLocaleLowerCase()
-                              ) === -1 ) {
+                        if (
+                          querier
+                                .toLocaleLowerCase()
+                                .indexOf(
+                                  action.filteringKey.toLocaleLowerCase()
+                                ) === -1
+                        ) {
                           return false;
                         }
 
@@ -127,11 +150,39 @@ export function carpetasReducer(
             );
           }
 
-          default: {
-            throw new Error(
-              `no existe el tipo de accion requerido: ${ type }`
-            );
+          case 'reset': {
+            return action.payload;
+          }
 
+          default: {
+            return [ ...carpetas ].sort(
+              (
+                a, b
+              ) => {
+                        if ( !a.fecha || a.fecha === undefined ) {
+                          return 1;
+                        }
+
+                        if ( !b.fecha || b.fecha === undefined ) {
+                          return -1;
+                        }
+
+                        const x = a.fecha;
+
+                        const y = b.fecha;
+
+                        if ( x < y ) {
+                          return 1;
+                        }
+
+                        if ( x > y ) {
+                          return -1;
+                        }
+
+                        return 0;
+              }
+
+            );
           }
       }
 }

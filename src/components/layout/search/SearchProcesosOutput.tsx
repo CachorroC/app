@@ -6,25 +6,25 @@ import { Route } from 'next';
 import { useCategory } from '#@/app/context/category-context';
 import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
 
-export function SearchOutputList () {
+export function SearchOutputList() {
       const carpetas = useCarpetaSort();
 
       const rows: JSX.Element[] = [];
 
       const {
-        search
+        search 
       } = useSearch();
 
       const {
-        currentCategory
+        currentCategory 
       } = useCategory();
       carpetas.forEach(
         (
-          proceso
+          proceso 
         ) => {
                   if ( proceso.nombre.toLowerCase()
                         .indexOf(
-                          search.toLowerCase()
+                          search.toLowerCase() 
                         ) === -1 ) {
                     return;
                   }
@@ -34,12 +34,21 @@ export function SearchOutputList () {
                       <LinkCard
                         path={`/Carpeta/${ proceso.numero }` as Route}
                         carpeta={proceso}
-                        key={proceso.id}
+                        key={proceso.numero}
                       />,
                     );
                   }
-        }
+        } 
       );
 
-      return <> {rows}</>;
+      return (
+        <table>
+          <thead>
+            <tr>
+              <td>nombre</td>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </table>
+      );
 }

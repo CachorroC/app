@@ -44,13 +44,11 @@ export default function Costos() {
       } = useForm<FormValues>(
         {
           defaultValues: {
-            cart: [
-              {
-                name    : 'test',
-                quantity: 1,
-                price   : 23000,
-              },
-            ],
+            cart: [ {
+              name    : 'test',
+              quantity: 1,
+              price   : 23000,
+            }, ],
           },
           mode: 'onBlur',
         } 

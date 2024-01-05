@@ -12,17 +12,11 @@ export const Edit = (
     nota 
   }: { nota: Nota } 
 ) => {
-          const [
-            hasContent,
-            setHasContent 
-          ] = useState(
+          const [ hasContent, setHasContent ] = useState(
             false 
           );
 
-          const [
-            formState,
-            onCreate 
-          ] = useFormState(
+          const [ formState, onCreate ] = useFormState(
             editNota, {
               message: 'sin enviar',
               data   : nota,
@@ -30,10 +24,7 @@ export const Edit = (
             } 
           );
 
-          const [
-            inputNota,
-            setInputNota 
-          ] = useState(
+          const [ inputNota, setInputNota ] = useState(
             formState.data ?? nota 
           );
 

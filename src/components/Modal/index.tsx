@@ -35,10 +35,7 @@ export default function Modal(
                     false 
                   );
                   router.back();
-        }, [
-          router,
-          setIsModalOpen 
-        ] 
+        }, [ router, setIsModalOpen ] 
       );
 
       const onClick: MouseEventHandler = useCallback(
@@ -66,9 +63,7 @@ export default function Modal(
                     onDismiss();
                   }
         },
-        [
-          onDismiss 
-        ],
+        [ onDismiss ],
       );
 
       useEffect(
@@ -82,10 +77,7 @@ export default function Modal(
                               'keydown', onKeyDown 
                             );
                   };
-        }, [
-          pathname,
-          onKeyDown 
-        ] 
+        }, [ pathname, onKeyDown ] 
       );
 
       return (

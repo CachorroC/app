@@ -33,10 +33,7 @@ export default function Page(
                   );
 
                   return () => {};
-        }, [
-          categoria,
-          setCurrentCategory 
-        ] 
+        }, [ categoria, setCurrentCategory ] 
       );
 
       return (

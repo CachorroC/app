@@ -2,8 +2,12 @@ import { MonCarpeta } from './types/carpetas';
 
 export function carpetasChopper(
   {
-    carpetas, rangeLength = 50
-  }: {carpetas: MonCarpeta[]; rangeLength? : number }
+    carpetas,
+    rangeLength = 50,
+  }: {
+    carpetas: MonCarpeta[];
+    rangeLength?: number;
+  } 
 ) {
       const chunkSize = rangeLength;
 
@@ -11,10 +15,10 @@ export function carpetasChopper(
 
       for ( let i = 0; i < carpetas.length; i += chunkSize ) {
         const chunk = carpetas.slice(
-          i, i + chunkSize
+          i, i + chunkSize 
         );
         chunks.push(
-          chunk
+          chunk 
         );
       }
 

@@ -1,6 +1,6 @@
 'use client';
 import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
-import { Card } from '#@/components/Card';
+import { Card, CardRow } from '#@/components/Card';
 import { useSearch } from '#@/app/context/search-context';
 import { JSX } from 'react';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
@@ -53,4 +53,78 @@ export function CarpetasList() {
       );
 
       return <>{rows}</>;
+}
+
+
+
+export function CarpetasTable() {
+      const rows: JSX.Element[] = [];
+
+      const carpetasReduced = useCarpetaSort();
+      /*
+      const {
+        search
+      } = useSearch();
+
+      const {
+        currentCategory
+      } = useCategory();
+
+      carpetasReduced.forEach(
+        (
+          carpeta
+        ) => {
+                  const {
+                    ultimaActuacion
+                  } = carpeta;
+
+                  if ( carpeta.nombre.toLowerCase()
+                        .indexOf(
+                          search.toLowerCase()
+                        ) === -1 ) {
+                    return;
+                  }
+
+                  if ( currentCategory === 'todos' || currentCategory === carpeta.category ) {
+                    rows.push(
+                      <CardRow
+                        key={carpeta.numero}
+                        carpeta={carpeta}
+                      >
+                        {ultimaActuacion && (
+                          <ActuacionComponent
+                            initialOpenState={false}
+                            key={ultimaActuacion.idRegActuacion}
+                            incomingActuacion={ultimaActuacion}
+                          />
+                        )}
+                      </CardRow>
+                    );
+                  }
+        }
+      ); */
+
+      return <>{ carpetasReduced.map(
+        (
+          carpeta
+        ) => {
+                  const {
+                    ultimaActuacion
+                  } = carpeta;
+                  return (
+                    <CardRow
+                      key={carpeta.numero}
+                      carpeta={carpeta}
+                    >
+                      {ultimaActuacion && (
+                        <ActuacionComponent
+                          initialOpenState={false}
+                          key={ultimaActuacion.idRegActuacion}
+                          incomingActuacion={ultimaActuacion}
+                        />
+                      )}
+                    </CardRow>
+                  );
+        }
+      )}</>;
 }

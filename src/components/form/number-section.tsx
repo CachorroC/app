@@ -9,6 +9,7 @@ import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
+import { useCarpetaFormContext } from '#@/app/context/carpeta-form-context';
 
 export const NumberSection = (
   {
@@ -24,10 +25,14 @@ export const NumberSection = (
     RegisterOptions<NuevaCarpeta | IntCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
     >;
-  } 
+  }
 ) => {
           const {
-            control 
+            stateCarpeta, setStateCarpeta
+          } = useCarpetaFormContext();
+
+          const {
+            control
           } = useFormContext<NuevaCarpeta | IntCarpeta>();
 
           const rules = rls ?? {
@@ -36,13 +41,13 @@ export const NumberSection = (
           };
 
           const {
-            field 
+            field
           } = useController(
             {
               name,
               control,
               rules,
-            } 
+            }
           );
           return (
             <div className={layout.segmentRow}>
@@ -60,12 +65,18 @@ export const NumberSection = (
                 placeholder={title}
                 className={form.textArea}
                 onChange={(
-                  e 
+                  e
                 ) => {
+                          setStateCarpeta(
+                            {
+                              ...stateCarpeta,
+                              [ name ]: e.target.value,
+                            }
+                          );
                           field.onChange(
                             parseInt(
-                              e.target.value 
-                            ) 
+                              e.target.value
+                            )
                           );
                 }}
               />

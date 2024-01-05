@@ -1,19 +1,20 @@
 'use client';
 import { useState } from 'react';
-import { IntTask, useDispatchTasks, useTasks } from './TasksContext';
+import { useDispatchTasks, useTasks } from './TasksContext';
 import { DeleteTaskButton } from './task-buttons';
 import { EditTask } from './EditTask';
-import { inputElement, slider, switchBox } from '#@/components/form/form.module.css';
+import { inputElement,
+  slider,
+  switchBox, } from '#@/components/form/form.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
+import { IntTask } from '#@/lib/types/carpetas';
 
 export default function TaskList() {
       const tasksRaw = useTasks();
 
-      const tasks = [
-        ...tasksRaw
-      ].sort(
+      const tasks = [ ...tasksRaw ].sort(
         (
-          a, b
+          a, b 
         ) => {
                   if ( a.id < b.id ) {
                     return -1;
@@ -24,9 +25,8 @@ export default function TaskList() {
                   }
 
                   return 0;
-        }
+        } 
       );
-
 
       return (
         <table>
@@ -43,15 +43,16 @@ export default function TaskList() {
           <tbody>
             {tasks.map(
               (
-                task
+                task 
               ) => {
                         return (
-
-                          <Task task={task} key={task.id}/>
-
+                          <Task
+                            task={task}
+                            key={task.id}
+                          />
                         );
-              }
-            ) }
+              } 
+            )}
           </tbody>
         </table>
       );
@@ -59,14 +60,11 @@ export default function TaskList() {
 
 function Task(
   {
-    task
-  }: {task: IntTask}
+    task 
+  }: { task: IntTask } 
 ) {
-      const [
-        isEditing,
-        setIsEditing
-      ] = useState(
-        false
+      const [ isEditing, setIsEditing ] = useState(
+        false 
       );
 
       const dispatchTasks = useDispatchTasks();
@@ -76,17 +74,22 @@ function Task(
       if ( isEditing ) {
         taskContent = (
           <>
-
             <td>
-              <EditTask initialTask={ task } key={task.id}/>
+              <EditTask
+                initialTask={task}
+                key={task.id}
+              />
             </td>
             <td>
-              <button type={'button'} onClick={() => {
-                        return setIsEditing(
-                          false
-                        );
-              }}>
-          Save
+              <button
+                type={'button'}
+                onClick={() => {
+                          return setIsEditing(
+                            false 
+                          );
+                }}
+              >
+            Save
               </button>
             </td>
           </>
@@ -94,14 +97,17 @@ function Task(
       } else {
         taskContent = (
           <>
-            <td> { task.text }</td>
+            <td> {task.text}</td>
             <td>
-              <button type={'button'} onClick={ () => {
-                        return setIsEditing(
-                          true
-                        );
-              } }>
-              Edit
+              <button
+                type={'button'}
+                onClick={() => {
+                          return setIsEditing(
+                            true 
+                          );
+                }}
+              >
+            Edit
               </button>
             </td>
           </>
@@ -132,21 +138,22 @@ function Task(
               } } /> */}
           </td>
           <td>
-
             <label className={switchBox}>
               <input
-                name='done'
+                name="done"
                 className={inputElement}
                 checked={task.done}
-                onChange={ e => {
+                onChange={(
+                  e 
+                ) => {
                           dispatchTasks(
                             {
                               type: 'changed',
                               task: {
                                 ...task,
-                                done: e.target.checked
-                              }
-                            }
+                                done: e.target.checked,
+                              },
+                            } 
                           );
                 }}
                 type="checkbox"
@@ -156,10 +163,13 @@ function Task(
           </td>
           {taskContent}
           <td>
-            <DeleteTaskButton key={task.id} id={task.id ?? 0 } />
+            <DeleteTaskButton
+              key={task.id}
+              id={task.id ?? 0}
+            />
           </td>
           <td>{OutputDateHelper(
-            task.updatedAt
+            task.updatedAt 
           )}</td>
         </tr>
       );

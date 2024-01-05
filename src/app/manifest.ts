@@ -25,33 +25,28 @@ export default function manifest(): MetadataRoute.Manifest {
         display_override: [
           'fullscreen',
           'standalone',
-          'window-controls-overlay'
+          'window-controls-overlay' 
         ],
-        shortcuts: [
-          {
-            name       : 'Ultimas Actuaciones',
-            description: 'aquí encontrará los procesos ordenados a partir de sus últimas actuaciones, la fecha del movimiento y su relevancia',
-            url        : '/Carpetas/UltimasActuaciones',
-            icons      : [
-              {
-                src    : '/icon1.png',
-                sizes  : '512x512',
-                purpose: 'maskable',
-              },
-            ],
-          },
-          {
-            name : 'Notas',
-            url  : '/Notas',
-            icons: [
-              {
-                src    : '/icon.svg',
-                sizes  : '512x512',
-                purpose: 'maskable',
-              },
-            ],
-          },
-        ],
+        shortcuts: [ {
+          name: 'Ultimas Actuaciones',
+          description:
+          'aquí encontrará los procesos ordenados a partir de sus últimas actuaciones, la fecha del movimiento y su relevancia',
+          url  : '/Carpetas/UltimasActuaciones',
+          icons: [ {
+            src    : '/icon1.png',
+            sizes  : '512x512',
+            purpose: 'maskable',
+          }, ],
+        },
+        {
+          name : 'Notas',
+          url  : '/Notas',
+          icons: [ {
+            src    : '/icon.svg',
+            sizes  : '512x512',
+            purpose: 'maskable',
+          }, ],
+        }, ],
         serviceworker: {
           src: '/service-worker.js',
         },
@@ -120,9 +115,6 @@ export default function manifest(): MetadataRoute.Manifest {
             type   : 'image/png',
             purpose: 'monochrome',
           },
-
-
-
         ],
       };
 }

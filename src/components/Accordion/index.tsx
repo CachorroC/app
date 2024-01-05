@@ -7,10 +7,7 @@ export function Accordion(
     children 
   }: { children: ReactNode } 
 ) {
-      const [
-        isActive,
-        setIsActive 
-      ] = useState(
+      const [ isActive, setIsActive ] = useState(
         false 
       );
 

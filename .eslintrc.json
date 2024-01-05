@@ -15,7 +15,7 @@
     "@stylistic/array-element-newline": [
       "error",
       {
-        "minItems": 1,
+        "minItems": 3,
         "multiline": true
       }
     ],
@@ -46,7 +46,7 @@
     "array-bracket-newline": [
       "error",
       {
-        "minItems": 1
+        "minItems": 3
       }
     ],
     "array-callback-return": [

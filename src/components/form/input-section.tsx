@@ -53,10 +53,7 @@ export function InputSection(
         isInCarpeta = true;
       }
 
-      const [
-        hasProperty,
-        setHasProperty 
-      ] = useState(
+      const [ hasProperty, setHasProperty ] = useState(
         isInCarpeta 
       );
 

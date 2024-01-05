@@ -34,9 +34,7 @@ export const TipoProcesoSchema = z.enum(
 export type TipoProceso = z.infer<typeof TipoProcesoSchema>;
 
 export const CodReglaSchema = z.enum(
-  [
-    '00                              ' 
-  ] 
+  [ '00                              ' ] 
 );
 
 export type CodRegla = z.infer<typeof CodReglaSchema>;

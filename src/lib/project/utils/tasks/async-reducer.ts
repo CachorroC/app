@@ -1,13 +1,14 @@
-import { IntTask } from '#@/app/Ayudante/Navidad/TasksContext';
+import { IntTask } from '#@/components/Tareas/TasksContext';
 import { prisma } from '#@/lib/connection/prisma';
 import { IntTaskAction } from '#@/lib/types/context-actions';
 
 export async function tasksAsyncReducer(
-  tasks:IntTask[], action: IntTaskAction
+  tasks: IntTask[],
+  action: IntTaskAction,
 ) {
       try {
         const {
-          type, task
+          type, task 
         } = action;
 
         switch ( type ) {
@@ -15,43 +16,42 @@ export async function tasksAsyncReducer(
               const newTask = await prisma.task.upsert(
                 {
                   where: {
-                    id: task.id
+                    id: task.id,
                   },
                   update: task,
-                  create: task
-                }
+                  create: task,
+                } 
               );
-              return [
-                ...tasks,
+              return [ ...tasks,
                 {
                   id           : newTask.id,
                   text         : newTask.text,
                   done         : newTask.done,
                   carpetaNumero: newTask.carpetaNumero,
-                  updatedAt    : newTask.updatedAt
-                }
-              ];
+                  updatedAt    : newTask.updatedAt,
+                }, ];
             }
 
             case 'changed': {
               const upsertTask = await prisma.task.upsert(
                 {
                   where: {
-                    id: task.id
+                    id: task.id,
                   },
                   update: task,
-                  create: task
-                }
+                  create: task,
+                } 
               );
               return tasks.map(
-                t => {
+                (
+                  t 
+                ) => {
                           if ( t.id === upsertTask.id ) {
                             return upsertTask;
                           }
 
                           return t;
-
-                }
+                } 
               );
             }
 
@@ -59,29 +59,31 @@ export async function tasksAsyncReducer(
               const deleteTask = await prisma.task.delete(
                 {
                   where: {
-                    id: task.id
-                  }
-                }
+                    id: task.id,
+                  },
+                } 
               );
               return tasks.filter(
-                t => {
+                (
+                  t 
+                ) => {
                           return t.id !== deleteTask.id;
-                }
+                } 
               );
             }
 
             default: {
               throw Error(
-                'Unknown action: ' + type
+                'Unknown action: ' + type 
               );
             }
         }
       } catch ( error ) {
         console.log(
-          `error en el tasksasyncReducer: ${ error }`
+          `error en el tasksasyncReducer: ${ error }` 
         );
         console.log(
-          error
+          error 
         );
         return tasks;
       }

@@ -3,10 +3,7 @@ import { useState } from 'react';
 export function useFormInput(
   initialValue: string 
 ) {
-      const [
-        value,
-        setValue 
-      ] = useState(
+      const [ value, setValue ] = useState(
         initialValue 
       );
 

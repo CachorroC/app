@@ -2,50 +2,62 @@ import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
 import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { outActuacion } from '#@/lib/types/actuaciones';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 
 //? Generate segments for [numero]
-/*
-export async function generateStaticParams () {
+
+export async function generateStaticParams() {
       const carpetas = await getCarpetas();
 
-      return carpetas.flatMap(
+      const flattenUp = carpetas.flatMap(
         (
-          carpeta
+          carpeta 
         ) => {
                   const {
-                    numero, idProcesos
+                    numero, idProcesos 
                   } = carpeta;
 
                   if ( !idProcesos || idProcesos.length === 0 ) {
                     return {
                       numero: String(
-                        numero
+                        numero 
                       ),
-                      idProceso: 'idProceso'
+                      idProceso: 'idProceso',
                     };
                   }
 
                   return idProcesos.map(
                     (
-                      idp
+                      idp 
                     ) => {
                               return {
                                 numero: String(
-                                  numero
+                                  numero 
                                 ),
                                 idProceso: String(
-                                  idp
+                                  idp 
                                 ),
                               };
-                    }
+                    } 
                   );
-        }
+        } 
       );
+
+      const chunkSize = 100;
+
+      const chunks = [];
+
+      for ( let i = 0; i < flattenUp.length; i += chunkSize ) {
+        const chunk = flattenUp.slice(
+          i, i + chunkSize 
+        );
+        chunks.push(
+          chunk 
+        );
+      }
+
+      return chunks[ 0 ];
 }
-
-
-
- */
 
 export default async function Page(
   {

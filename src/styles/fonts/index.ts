@@ -6,10 +6,7 @@ import { Raleway,
 
 export const playDisp = Playfair_Display(
   {
-    subsets: [
-      'latin-ext',
-      'latin' 
-    ],
+    subsets : [ 'latin-ext', 'latin' ],
     preload : true,
     variable: '--play-display',
   } 
@@ -17,9 +14,7 @@ export const playDisp = Playfair_Display(
 
 export const ptserif = PT_Serif_Caption(
   {
-    subsets: [
-      'latin' 
-    ],
+    subsets : [ 'latin' ],
     display : 'auto',
     preload : false,
     variable: '--inter',
@@ -29,9 +24,7 @@ export const ptserif = PT_Serif_Caption(
 
 export const josefina = Josefin_Sans(
   {
-    subsets: [
-      'latin' 
-    ],
+    subsets : [ 'latin' ],
     preload : false,
     variable: '--josefa',
   } 
@@ -39,9 +32,7 @@ export const josefina = Josefin_Sans(
 
 export const radio = Radio_Canada(
   {
-    subsets: [
-      'latin-ext' 
-    ],
+    subsets : [ 'latin-ext' ],
     preload : false,
     variable: '--radio',
   } 
@@ -49,9 +40,7 @@ export const radio = Radio_Canada(
 
 export const raleway = Raleway(
   {
-    subsets: [
-      'latin' 
-    ],
+    subsets : [ 'latin' ],
     preload : true,
     variable: '--raleway',
   } 

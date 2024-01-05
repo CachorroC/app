@@ -28,7 +28,7 @@ export interface IntCarpeta {
   notas: Nota[];
   demanda: Demanda | null;
   procesos: outProceso[];
-  tareas: Tarea[];
+  tareas: IntTask[];
   id: number;
 }
 
@@ -148,16 +148,16 @@ export interface Juzgado {
   url: string;
 }
 
-export interface Tarea {
+export interface IntTask
+{
+  id?:           number;
+  done?:         boolean;
+  text:          string;
+  content:       string[];
+  dueDate:       Date | null;
+  createdAt?:    Date;
+  updatedAt?:    Date;
   carpetaNumero: number | null;
-  complete: boolean;
-  content: null | string;
-  createdAt: Date;
-  dueDate: Date | null;
-  id: number;
-  title: string;
-  updatedAt: Date;
-  subTareas: SubTarea[];
 }
 
 export interface SubTarea {
@@ -357,14 +357,14 @@ export class carpetaConvert {
 
   public static toTarea(
     json: string
-  ): Tarea {
+  ): IntTask {
             return JSON.parse(
               json
             );
   }
 
   public static tareaToJson(
-    value: Tarea
+    value: IntTask
   ): string {
             return JSON.stringify(
               value
@@ -417,20 +417,14 @@ export const mockCarpeta: IntCarpeta = {
     id                     : 0,
     despacho               : 'SinEspecificar',
     etapaProcesal          : null,
-    fechaPresentacion      : [
-      new Date()
-    ],
-    municipio  : 'Bogota',
-    tipoProceso: 'SINGULAR',
-    obligacion : [
-      '0'
-    ],
-    radicado         : null,
-    vencimientoPagare: [
-      new Date()
-    ],
-    llaveProceso: 'SinEspecificar',
-    notificacion: {
+    fechaPresentacion      : [ new Date() ],
+    municipio              : 'Bogota',
+    tipoProceso            : 'SINGULAR',
+    obligacion             : [ '0' ],
+    radicado               : null,
+    vencimientoPagare      : [ new Date() ],
+    llaveProceso           : 'SinEspecificar',
+    notificacion           : {
       demandaId     : 0,
       id            : 0,
       autoNotificado: null,

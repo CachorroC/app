@@ -96,10 +96,7 @@ export class ClassDeudor implements Deudor {
                   break;
 
                 case 2:
-                  [
-                    this.primerNombre,
-                    this.primerApellido 
-                  ] = nameStringArray;
+                  [ this.primerNombre, this.primerApellido ] = nameStringArray;
 
                   this.segundoApellido = null;
                   this.segundoNombre = null;
@@ -107,9 +104,7 @@ export class ClassDeudor implements Deudor {
                   break;
 
                 case 1:
-                  [
-                    this.primerNombre 
-                  ] = nameStringArray;
+                  [ this.primerNombre ] = nameStringArray;
                   this.primerApellido = 'sinEspecificar';
                   this.segundoApellido = null;
                   this.segundoNombre = null;

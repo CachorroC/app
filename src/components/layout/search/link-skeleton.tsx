@@ -10,7 +10,7 @@ export function LinkCardSkeleton() {
           <div className={layout.segmentRow}>
             <sub className={searchbar.date}>00-00-0000</sub>
           </div>
-          <div className={ styles.links }>
+          <div className={styles.links}>
             <p>cargando</p>
           </div>
         </div>

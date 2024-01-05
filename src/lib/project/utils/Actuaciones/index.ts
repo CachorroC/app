@@ -49,9 +49,7 @@ export async function fetchActuaciones(
           } 
         );
 
-        const [
-          ultimaActuacion 
-        ] = outActuaciones;
+        const [ ultimaActuacion ] = outActuaciones;
         updateUltimaActuacionInPrisma(
           ultimaActuacion 
         );
@@ -92,9 +90,7 @@ export async function updateActuaciones(
           );
         }
 
-        const [
-          ultimaActuacion 
-        ] = actuaciones;
+        const [ ultimaActuacion ] = actuaciones;
 
         const carpeta = await getCarpetaByllaveProceso(
           ultimaActuacion.llaveProceso,
@@ -123,16 +119,14 @@ export async function updateActuaciones(
         if ( !savedDate || savedDate < incomingDate ) {
           const updateCarpetawithActuaciones = await carpetasColl.updateOne(
             {
-              $or: [
-                {
-                  llaveProceso: carpeta
-                    ? carpeta.llaveProceso
-                    : ultimaActuacion.llaveProceso,
-                },
-                {
-                  idProcesos: idProceso,
-                },
-              ],
+              $or: [ {
+                llaveProceso: carpeta
+                  ? carpeta.llaveProceso
+                  : ultimaActuacion.llaveProceso,
+              },
+              {
+                idProcesos: idProceso,
+              }, ],
             },
             {
               $set: {
@@ -244,9 +238,7 @@ export async function NewUpdateActuaciones(
           );
         }
 
-        const [
-          ultimaActuacion 
-        ] = actuaciones;
+        const [ ultimaActuacion ] = actuaciones;
 
         const carpeta = await prisma.carpeta.findFirst(
           {
@@ -285,14 +277,12 @@ export async function NewUpdateActuaciones(
         if ( !savedDate || savedDate < incomingDate ) {
           const updateCarpetawithActuaciones = await carpetasColl.updateOne(
             {
-              $or: [
-                {
-                  llaveProceso: ultimaActuacion.llaveProceso,
-                },
-                {
-                  idProcesos: idProceso,
-                },
-              ],
+              $or: [ {
+                llaveProceso: ultimaActuacion.llaveProceso,
+              },
+              {
+                idProcesos: idProceso,
+              }, ],
             },
             {
               $addToSet: {

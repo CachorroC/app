@@ -6,16 +6,10 @@ export const ZodNotaElementSchema = z.object(
     text    : z.coerce.string(),
     date    : z.coerce.date(),
     pathname: z.union(
-      [
-        z.null(),
-        z.coerce.string() 
-      ] 
+      [ z.null(), z.coerce.string() ] 
     ),
     carpetaNumero: z.union(
-      [
-        z.coerce.number(),
-        z.null() 
-      ] 
+      [ z.coerce.number(), z.null() ] 
     ),
   } 
 );

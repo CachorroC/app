@@ -1,10 +1,10 @@
 import styles from '#@/styles/layout.module.css';
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 import { NuevaCarpetaFormProvider } from '../context/nueva-carpeta-form-context';
 import { Metadata } from 'next';
 import { CarpetasSortProvider } from '../context/carpetas-sort-context';
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
-import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
+import { ResetButtonSorter } from './UltimasActuaciones/reset-button';
 
 export const metadata: Metadata = {
   title: 'Carpetas',
@@ -23,14 +23,16 @@ export default async function LayoutProcesosMain(
 ) {
       const carpetas = await getCarpetas();
       return (
-        <Suspense fallback={<SearchOutputListSkeleton />}>
-          <CarpetasSortProvider initialCarpetas={ carpetas}>
-            <NuevaCarpetaFormProvider>
-              <div className={styles.top}>{top}</div>
-              <div className={styles.leftGrid}>{children}</div>
-              <div className={styles.right}>{right}</div>
-            </NuevaCarpetaFormProvider>
-          </CarpetasSortProvider>
-        </Suspense>
+
+        <CarpetasSortProvider initialCarpetas={carpetas}>
+          <NuevaCarpetaFormProvider>
+            <div className={ styles.top }>{ top }
+              <ResetButtonSorter carpetas={ carpetas} />
+            </div>
+            <div className={styles.leftGrid}>{children}</div>
+            <div className={styles.right}>{right}</div>
+          </NuevaCarpetaFormProvider>
+        </CarpetasSortProvider>
+
       );
 }

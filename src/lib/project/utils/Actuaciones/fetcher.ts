@@ -10,9 +10,6 @@ export async function fetchActuaciones(
 
       const res = await fetch(
         `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
-        {
-          cache: 'no-store',
-        },
       );
       return res.json() as Promise<ConsultaActuacion>;
 }

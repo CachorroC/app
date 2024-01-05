@@ -2,35 +2,35 @@
 import { useDispatchTasks } from './TasksContext';
 import { deleteTask } from './actions';
 
-export function DeleteTaskButton (
+export function DeleteTaskButton(
   {
-    id
-  }: {id: number}
+    id 
+  }: { id: number } 
 ) {
       const dispatchTasks = useDispatchTasks();
 
-      async function deleter () {
+      async function deleter() {
             const deleted = await deleteTask(
               {
-                id: id
-              }
+                id: id,
+              } 
             );
 
             return dispatchTasks(
               {
                 type: 'deleted',
-                task: deleted
-              }
+                task: deleted,
+              } 
             );
       }
 
-
-
       return (
-        <button type='button' onClick={deleter}>
+        <button
+          type="button"
+          onClick={deleter}
+        >
           <span>{id}</span>
-          <span className='material-symbols-outlined'>delete_forever</span>
+          <span className="material-symbols-outlined">delete_forever</span>
         </button>
       );
-
 }

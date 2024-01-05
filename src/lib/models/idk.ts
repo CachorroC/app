@@ -8,11 +8,9 @@ export function fechaPresentacionBuilder(
       const isNumber = typeof rawFechaPresentacion === 'number';
 
       if ( isNumber ) {
-        return [
-          new Date(
-            rawFechaPresentacion 
-          ) 
-        ];
+        return [ new Date(
+          rawFechaPresentacion 
+        ) ];
       }
 
       const {
@@ -29,9 +27,7 @@ export function fechaPresentacionBuilder(
           return [];
         }
 
-        return [
-          fechaFixed 
-        ];
+        return [ fechaFixed ];
       }
 
       const fechasSet = new Set<Date>();

@@ -1,13 +1,12 @@
 'use client';
-
-import { Nota } from '@prisma/client';
+import { Nota } from '#@/lib/types/carpetas';
 import { useParams, useSelectedLayoutSegments } from 'next/navigation';
 import { Control, useWatch } from 'react-hook-form';
 
 export function NotasWatcher(
   {
-    control 
-  }: { control: Control<Nota, any> } 
+    control
+  }: { control: Control<Nota, any> }
 ) {
       const params = useParams();
 
@@ -16,7 +15,7 @@ export function NotasWatcher(
       const results = useWatch(
         {
           control,
-        } 
+        }
       );
       return (
         <pre>

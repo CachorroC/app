@@ -1,3 +1,4 @@
+import TaskList from '#@/components/Tareas/TaskList';
 import { Calendar } from '#@/components/Calendar/main';
 import layout from '#@/styles/layout.module.css';
 import { NuevaTarea } from './nueva-tarea';
@@ -33,9 +34,12 @@ export default async function Page(
       }
 
       return (
-        <div className={layout.sectionColumn}>
-          <NuevaTarea />
-          {content}
-        </div>
+        <>
+          <div className={layout.sectionColumn}>
+            <NuevaTarea />
+            {content}
+          </div>
+          <TaskList />
+        </>
       );
 }

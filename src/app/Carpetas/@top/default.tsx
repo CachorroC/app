@@ -1,4 +1,5 @@
 'use client';
+import { InputSearchBar } from '#@/components/layout/InputSearchBar';
 import typography from '#@/styles/fonts/typography.module.css';
 import { usePathname } from 'next/navigation';
 
@@ -24,6 +25,7 @@ export default function Default() {
                       );
             } 
           )}
+          <InputSearchBar />
         </>
       );
 }

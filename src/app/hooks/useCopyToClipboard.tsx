@@ -5,10 +5,7 @@ type CopiedValue = string | null;
 type CopyFn = ( text: string ) => Promise<boolean>;
 
 export function useCopyToClipboard(): [CopiedValue, CopyFn] {
-      const [
-        copiedText,
-        setCopiedText 
-      ] = useState<CopiedValue>(
+      const [ copiedText, setCopiedText ] = useState<CopiedValue>(
         null 
       );
 
@@ -42,8 +39,5 @@ export function useCopyToClipboard(): [CopiedValue, CopyFn] {
                 }
       };
 
-      return [
-        copiedText,
-        copy 
-      ];
+      return [ copiedText, copy ];
 }

@@ -15,18 +15,12 @@ export const CopyButton = (
   }: {
     copyTxt: string;
     name: string;
-  } 
+  }
 ) => {
-          const [
-            value,
-            copy 
-          ] = useCopyToClipboard();
+          const [ value, copy ] = useCopyToClipboard();
 
-          const [
-            isSnackbarOpen,
-            setIsSnackbarOpen 
-          ] = useState(
-            false 
+          const [ isSnackbarOpen, setIsSnackbarOpen ] = useState(
+            false
           );
 
           useEffect(
@@ -34,9 +28,9 @@ export const CopyButton = (
                       const timer = setTimeout(
                         () => {
                                   setIsSnackbarOpen(
-                                    false 
+                                    false
                                   );
-                        }, 5000 
+                        }, 5000
                       );
 
                       if ( isSnackbarOpen ) {
@@ -45,27 +39,24 @@ export const CopyButton = (
 
                       return () => {
                                 return clearTimeout(
-                                  timer 
+                                  timer
                                 );
                       };
-            }, [
-              isSnackbarOpen 
-            ] 
+            }, [ isSnackbarOpen ]
           );
           return (
             <div className={layout.segmentRow}>
               <div className={layout.sectionColumn}>
-                <p className={typography.labelLarge}>{name}</p>
-                <p className={typography.labelMedium}>{value}</p>
+                <p className={typography.labelMedium}>{copyTxt}</p>
               </div>
               <button
                 type="button"
                 onClick={() => {
                           copy(
-                            copyTxt 
+                            copyTxt
                           );
                           setIsSnackbarOpen(
-                            true 
+                            true
                           );
                 }}
                 className={cardStyles.link}
@@ -73,11 +64,12 @@ export const CopyButton = (
                 <span className={`material-symbols-outlined ${ styles.icon }`}>
           file_copy
                 </span>
-                <span className={cardStyles.tooltiptext}>{value}</span>
+                <span className={ cardStyles.tooltiptext }>{ value }</span>
+                <span>{`copiar ${ name }`}</span>
               </button>
               {value && isSnackbarOpen && (
                 <div className={`${ styles.snackbar } ${ isSnackbarOpen && styles.show }`}>
-                  {value}{' '}
+                  {`${ name } : ${ copyTxt } `}
                 </div>
               )}
             </div>
@@ -86,8 +78,8 @@ export const CopyButton = (
 
 export function CopyButtons(
   {
-    carpeta 
-  }: { carpeta: MonCarpeta } 
+    carpeta
+  }: { carpeta: MonCarpeta }
 ) {
       return (
         <>

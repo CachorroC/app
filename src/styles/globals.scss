@@ -384,6 +384,13 @@ tr > :first-child {
   color: var(--on-tertiary);
   left: 0;
 }
+tr > td:nth-child(2) {
+  position: -webkit-sticky;
+  position: sticky;
+  background: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+  left: 0;
+}
 /* don't do this */
 tr > :first-child {
   box-shadow: inset 0px 1px black;

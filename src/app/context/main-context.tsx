@@ -35,10 +35,7 @@ export function MainProvider(
     children 
   }: { children: ReactNode } 
 ) {
-      const [
-        contactoForm,
-        setContactoForm 
-      ] = useState(
+      const [ contactoForm, setContactoForm ] = useState(
         {
           nombre    : ' ',
           grupo     : 'otros' as Grupo,
@@ -50,19 +47,13 @@ export function MainProvider(
         } 
       );
 
-      const [
-        isSnackbarOpen,
-        setIsSnackbarOpen 
-      ] = useState(
+      const [ isSnackbarOpen, setIsSnackbarOpen ] = useState(
         false 
       );
 
       const pathname = usePathname();
 
-      const [
-        inputNota,
-        setInputNota 
-      ] = useState<Nota>(
+      const [ inputNota, setInputNota ] = useState<Nota>(
         {
           id           : 0,
           title        : 'Nota',

@@ -5,10 +5,7 @@ export default async function NotFound() {
 
       const headersList = headers();
 
-      for ( const [
-        key,
-        value 
-      ] of headersList ) {
+      for ( const [ key, value ] of headersList ) {
         mapper.add(
           `${ key } : ${ value }` 
         );

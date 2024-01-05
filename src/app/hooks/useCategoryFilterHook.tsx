@@ -5,7 +5,7 @@ export function CategoryCarpetasReducer(
   action: { type: Category },
 ) {
       const {
-        type
+        type 
       } = action;
 
       switch ( type ) {
@@ -14,12 +14,12 @@ export function CategoryCarpetasReducer(
 
             for ( const carpeta of carpetas ) {
               const {
-                category, id
+                category, id 
               } = carpeta;
 
               if ( category === 'Bancolombia' ) {
                 temporryCarpetasMap.set(
-                  id, carpeta
+                  id, carpeta 
                 );
               }
 
@@ -27,7 +27,7 @@ export function CategoryCarpetasReducer(
             }
 
             return Array.from(
-              temporryCarpetasMap.values()
+              temporryCarpetasMap.values() 
             );
           }
 
@@ -36,12 +36,12 @@ export function CategoryCarpetasReducer(
 
             for ( const carpeta of carpetas ) {
               const {
-                category, id
+                category, id 
               } = carpeta;
 
               if ( category === 'LiosJuridicos' ) {
                 temporryCarpetasMap.set(
-                  id, carpeta
+                  id, carpeta 
                 );
               }
 
@@ -49,7 +49,7 @@ export function CategoryCarpetasReducer(
             }
 
             return Array.from(
-              temporryCarpetasMap.values()
+              temporryCarpetasMap.values() 
             );
           }
 
@@ -58,12 +58,12 @@ export function CategoryCarpetasReducer(
 
             for ( const carpeta of carpetas ) {
               const {
-                category, id
+                category, id 
               } = carpeta;
 
               if ( category === 'Insolvencia' ) {
                 temporryCarpetasMap.set(
-                  id, carpeta
+                  id, carpeta 
                 );
               }
 
@@ -71,7 +71,7 @@ export function CategoryCarpetasReducer(
             }
 
             return Array.from(
-              temporryCarpetasMap.values()
+              temporryCarpetasMap.values() 
             );
           }
 
@@ -79,22 +79,22 @@ export function CategoryCarpetasReducer(
             const temporryCarpetasMap = new Map<number, MonCarpeta>();
             carpetas.forEach(
               (
-                carpeta
+                carpeta 
               ) => {
                         const {
-                          category
+                          category 
                         } = carpeta;
 
                         if ( category === 'Reintegra' ) {
                           temporryCarpetasMap.set(
-                            carpeta.id, carpeta
+                            carpeta.id, carpeta 
                           );
                         }
-              }
+              } 
             );
 
             return Array.from(
-              temporryCarpetasMap.values()
+              temporryCarpetasMap.values() 
             );
           }
 
@@ -103,18 +103,18 @@ export function CategoryCarpetasReducer(
 
             for ( const carpeta of carpetas ) {
               const {
-                category, id
+                category, id 
               } = carpeta;
 
               if ( category !== 'Terminados' ) {
                 temporryCarpetasMap.set(
-                  id, carpeta
+                  id, carpeta 
                 );
               }
             }
 
             return Array.from(
-              temporryCarpetasMap.values()
+              temporryCarpetasMap.values() 
             );
           }
 

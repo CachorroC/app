@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export function useServiceWorker() {
-      const [
-        counter,
-        setCounter 
-      ] = useState(
+      const [ counter, setCounter ] = useState(
         0 
       );
 

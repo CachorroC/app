@@ -15,85 +15,90 @@ export function LinkCard<T extends string = string>(
   }: {
     path: Route<T> | URL;
     carpeta: MonCarpeta;
-  }
+  } 
 ) {
       let content;
 
       const {
-        fecha, numero, nombre
+        fecha, numero, nombre 
       } = carpeta;
 
       const {
-        setIsNavOpen
+        setIsNavOpen 
       } = useNavigationContext();
 
       const params = useParams();
 
       const isActive = numero === Number(
-        params.numero
+        params.numero 
       );
 
       function handleClickNavigation() {
             setIsNavOpen(
-              false
+              false 
             );
       }
 
       const stringifiedFecha = OutputDateHelper(
-        fecha
+        fecha 
       );
 
       if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
         content = (
-          <Link
-            key={carpeta.numero}
-            onClick={handleClickNavigation}
-            href={path as Route}
-            className={isActive
-              ? searchbar.linkIsActive
-              : searchbar.linkNotActive}
-          >
-            <sup className={searchbar.sub}>{`# ${ numero }`}</sup>
-            <h4
-              key={carpeta.id}
-              className={`${ typography.titleMedium } ${ searchbar.title }`}
+          <td key={carpeta.numero}>
+            <Link
+              key={carpeta.numero}
+              onClick={handleClickNavigation}
+              href={path as Route}
+              className={
+                isActive
+                  ? searchbar.linkIsActive
+                  : searchbar.linkNotActive
+              }
             >
-              {nombre}
-            </h4>
+              <sup className={searchbar.sub}>{`# ${ numero }`}</sup>
+              <h4
+                key={carpeta.id}
+                className={`${ typography.titleMedium } ${ searchbar.title }`}
+              >
+                {nombre}
+              </h4>
 
-            {fecha && <sub className={searchbar.date}>{stringifiedFecha}</sub>}
-          </Link>
+              {fecha && <sub className={searchbar.date}>{stringifiedFecha}</sub>}
+            </Link>
+          </td>
         );
       } else {
         content = carpeta.idProcesos.map(
           (
-            idProceso
+            idProceso 
           ) => {
                     return (
-                      <Link
-                        onClick={handleClickNavigation}
-                        key={idProceso}
-                        href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
-                        className={
-                          isActive
-                            ? searchbar.linkIsActive
-                            : searchbar.linkNotActive
-                        }
-                      >
-                        <sup className={searchbar.sub}>{`# ${ numero }`}</sup>
-                        <h4
-                          key={idProceso}
-                          className={`${ typography.titleMedium } ${ searchbar.title }`}
+                      <td key={idProceso}>
+                        <Link
+                          onClick={handleClickNavigation}
+                          href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
+                          className={
+                            isActive
+                              ? searchbar.linkIsActive
+                              : searchbar.linkNotActive
+                          }
                         >
-                          {nombre}
-                        </h4>
+                          <sup className={searchbar.sub}>{`# ${ numero }`}</sup>
+                          <h4
+                            key={idProceso}
+                            className={`${ typography.titleMedium } ${ searchbar.title }`}
+                          >
+                            {nombre}
+                          </h4>
 
-                        {fecha && <sub className={searchbar.date}>{stringifiedFecha}</sub>}
-                      </Link>
+                          {fecha && <sub className={searchbar.date}>{stringifiedFecha}</sub>}
+                        </Link>
+                      </td>
                     );
-          }
+          } 
         );
       }
 
-      return <>{content}</>;
+      return <tr>{content}</tr>;
 }

@@ -12,10 +12,7 @@ export const ParseTextarea = (
     onChange: any;
   } 
 ) => {
-          const [
-            text,
-            setText 
-          ] = useState<string>(
+          const [ text, setText ] = useState<string>(
             value.join(
               '\n' 
             ) 

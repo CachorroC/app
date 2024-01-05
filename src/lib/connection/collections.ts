@@ -1,5 +1,4 @@
-import { Tarea } from '@prisma/client';
-import { IntCarpeta } from '../types/carpetas';
+import { IntCarpeta, IntTask } from '../types/carpetas';
 import { intNota } from '../types/notas';
 import clientPromise from './mongodb';
 
@@ -56,7 +55,7 @@ export async function tareasCollection() {
         'RyS' 
       );
 
-      const notas = db.collection<Tarea>(
+      const notas = db.collection<IntTask>(
         'Tareas' 
       );
 

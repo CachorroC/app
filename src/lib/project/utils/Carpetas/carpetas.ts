@@ -28,12 +28,13 @@ export async function getCarpetabyNumero(
   numero: number
 ) {
       const res = await fetch(
-        `https://api.rsasesorjuridico.com/api/Carpeta/${ numero }`, {
+        `https://api.rsasesorjuridico.com/api/Carpeta/${ numero }`,
+        {
           headers: {
             'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
             'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`,
           },
-        }
+        },
       );
 
       if ( !res.ok ) {

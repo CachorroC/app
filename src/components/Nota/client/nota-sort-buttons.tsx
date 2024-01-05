@@ -18,10 +18,7 @@ export function NotasSortButtons() {
 
       const dispatchNotas = useNotaSortDispatch();
 
-      const [
-        sortDirection,
-        setSortDirection 
-      ] = useState(
+      const [ sortDirection, setSortDirection ] = useState(
         true 
       );
 

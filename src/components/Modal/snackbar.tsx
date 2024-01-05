@@ -31,10 +31,7 @@ export function Snackbar(
                               timer 
                             );
                   };
-        }, [
-          isSnackbarOpen,
-          setIsSnackbarOpen 
-        ] 
+        }, [ isSnackbarOpen, setIsSnackbarOpen ] 
       );
 
       return (
