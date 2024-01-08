@@ -27,10 +27,11 @@ export default async function LayoutProcesosMain(
         <CarpetasSortProvider initialCarpetas={carpetas}>
           <NuevaCarpetaFormProvider>
             <div className={ styles.top }>{ top }
-              <ResetButtonSorter carpetas={ carpetas} />
+              <ResetButtonSorter carpetas={ carpetas } />
             </div>
-            <div className={styles.leftGrid}>{children}</div>
-            <div className={styles.right}>{right}</div>
+            <div className={styles.leftGrid}>{ children }</div>
+            <div className={ styles.right }>
+              { right }</div>
           </NuevaCarpetaFormProvider>
         </CarpetasSortProvider>
 

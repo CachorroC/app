@@ -1,21 +1,37 @@
 
-import { MonCarpeta } from '#@/lib/types/carpetas';
+import { prisma } from '#@/lib/connection/prisma';
 
 export async function fetchCarpetas () {
-      const res = await fetch(
-        'https://api.rsasesorjuridico.com/api/Carpetas', {
-          headers: {
-            'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
-            'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`,
-          },
+
+      const rawCarpetas = await prisma.carpeta.findMany(
+        {
+          include: {
+            ultimaActuacion: true,
+            deudor         : true,
+            codeudor       : true,
+            notas          : true,
+            tareas         : true,
+            demanda        : {
+              include: {
+                notificacion: {
+                  include: {
+                    notifiers: true
+                  }
+                },
+                medidasCautelares: true
+              }
+            },
+            procesos: {
+              include: {
+                juzgado: true
+              }
+            },
+          }
         }
       );
 
-      if ( !res.ok ) {
-        throw new Error(
-          'Failed to fetch data'
-        );
-      }
-
-      return res.json() as Promise<MonCarpeta[]>;
+      const returner = JSON.stringify(
+        rawCarpetas
+      );
+      return returner;
 }

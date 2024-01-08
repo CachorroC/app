@@ -1,17 +1,19 @@
 'use client';
 import styles from '#@/styles/layout.module.css';
 import { useNavigationContext } from '#@/app/context/navigation-context';
-import { DrawerMenuButton } from '../Buttons/nav-buttons';
+import { DrawerMenuButton, NewNoteButton } from '../Buttons/nav-buttons';
 import { Drawer } from './Drawer';
 import { NavLink } from './NavLink';
 
 export const NavBar = () => {
           const {
-            isNavOpen 
+            isNavOpen
           } = useNavigationContext();
 
           return (
             <div className={styles.header}>
+              <DrawerMenuButton />
+              <NewNoteButton />
               <NavLink
                 key={'home'}
                 iconLabel={'home'}
@@ -24,11 +26,7 @@ export const NavBar = () => {
                 key={'actuaciones'}
                 hrefLabel={'/Carpetas/UltimasActuaciones'}
               />
-              <NavLink
-                iconLabel={'note_add'}
-                textLabel={'agregar nota'}
-                hrefLabel={'/(.)Notas/Nueva'}
-              />
+
 
               {isNavOpen && (
                 <Drawer>
@@ -47,7 +45,6 @@ export const NavBar = () => {
                 </Drawer>
               )}
 
-              <DrawerMenuButton />
             </div>
           );
 };

@@ -17,7 +17,7 @@ export const Card = (
   }: {
     carpeta: MonCarpeta;
     children: ReactNode;
-  } 
+  }
 ) => {
           let contentIdProcesos;
 
@@ -28,7 +28,7 @@ export const Card = (
             : true;
 
           const {
-            idProcesos, nombre, numero 
+            idProcesos, nombre, numero
           } = carpeta;
 
           if ( !idProcesos || idProcesos.length === 0 ) {
@@ -36,14 +36,14 @@ export const Card = (
           } else {
             contentIdProcesos = idProcesos.map(
               (
-                idProceso 
+                idProceso
               ) => {
                         return (
                           <Link
                             key={idProceso}
                             href={
                               `/Carpeta/${ String(
-                                numero 
+                                numero
                               ) }/ultimasActuaciones/${ String(
                                 idProceso
                               ) }` as Route
@@ -55,7 +55,7 @@ export const Card = (
                             </span>
                           </Link>
                         );
-              } 
+              }
             );
           }
 
@@ -105,9 +105,8 @@ export const CardRow = (
   }: {
     carpeta: MonCarpeta;
     children: ReactNode;
-  } 
+  }
 ) => {
-          let contentIdProcesos;
 
           const llaveLength = carpeta.llaveProceso?.length;
 
@@ -116,44 +115,24 @@ export const CardRow = (
             : true;
 
           const {
-            idProcesos, numero 
+            numero, idProcesos
           } = carpeta;
 
-          if ( !idProcesos || idProcesos.length === 0 ) {
-            contentIdProcesos = <span>no hay idProcesos</span>;
+          const idProcesosLength = idProcesos.length;
+          let carpetaHref;
+
+          if ( idProcesosLength === 1 ) {
+            carpetaHref = `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }`;
           } else {
-            contentIdProcesos = idProcesos.map(
-              (
-                idProceso 
-              ) => {
-                        return (
-                          <Link
-                            key={idProceso}
-                            href={
-                              `/Carpeta/${ String(
-                                numero 
-                              ) }/ultimasActuaciones/${ String(
-                                idProceso
-                              ) }` as Route
-                            }
-                            className={styles.link}
-                          >
-                            <span className={`material-symbols-outlined ${ styles.icon }`}>
-            inventory
-                            </span>
-                            <span>{`actuaciones de ${ idProceso }`}</span>
-                          </Link>
-                        );
-              } 
-            );
+            carpetaHref = `/Carpeta/${ carpeta.numero }`;
           }
+
 
           return (
             <tr>
               <td>
                 {' '}
                 <Link
-                  className={styles.link}
                   href={`/Carpeta/${ numero }` as Route}
                 >
                   <span className={`${ typography.labelLarge } ${ layout.text }`}>
@@ -166,7 +145,7 @@ export const CardRow = (
               </td>
               <td>
                 <Link
-                  href={`/Carpeta/${ carpeta.numero }`}
+                  href={carpetaHref as Route}
                   className={typography.titleMedium}
                 >
                   {carpeta.nombre}
@@ -196,7 +175,7 @@ export const CardRow = (
               </td>
 
               <td>{OutputDateHelper(
-                carpeta.fecha 
+                carpeta.fecha
               )}</td>
               <td>
                 <CopyButton
@@ -210,15 +189,14 @@ export const CardRow = (
           && fixMoney(
             {
               valor: Number(
-                carpeta.demanda.capitalAdeudado 
+                carpeta.demanda.capitalAdeudado
               ),
-            } 
+            }
           )}
               </td>
               <td>
                 {children}
 
-                {contentIdProcesos}
 
                 {errorLLaveProceso && (
                   <Link

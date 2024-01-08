@@ -2,7 +2,7 @@
   container-name: modal;
   z-index: 5;
   container-type: inline-size;
-  background-color: rgba(71, 91, 133, 0.493);
+  background-color: rgba(16, 20, 21, 0.8);
   width: 100vw;
   height: 100svh;
   backdrop-filter: blur(2px);

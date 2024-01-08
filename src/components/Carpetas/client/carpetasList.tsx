@@ -58,7 +58,6 @@ export function CarpetasList() {
 
 
 export function CarpetasTable() {
-      const rows: JSX.Element[] = [];
 
       const carpetasReduced = useCarpetaSort();
       /*

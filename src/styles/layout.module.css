@@ -14,13 +14,15 @@
   .container {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(12, 1fr);
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    gap: 0.2rem;
     grid-template-areas: "top top top top" "right right right right" "right right right right" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "header header header header";
   }
 }
 @media (600px < width < 1200px) {
   .container {
     grid-template-columns: 5rem repeat(7, 1fr);
-    grid-template-rows: repeat(12, minmax(6vh, 1fr));
+    grid-template-rows: repeat(12, minmax(4vh, 1fr));
     grid-template-areas: "header top top top top top right right" "header top top top top top right right" "header left left left left left  right right " "header left left left left left  right right " "header left left left left left  right right " "header left left left left left  right right " "header left left left left left  right right " "header left left left left left  right right " "header left left left left left  right right " "header left left left left left  right right " "header left left left left left  right right " "header left left left left left  right right ";
   }
 }
@@ -28,7 +30,7 @@
   .container {
     padding: 0;
     grid-template-columns: 5rem repeat(9, minmax(8vw, 1fr));
-    grid-template-rows: repeat(10, minmax(8vh, 1fr));
+    grid-template-rows: repeat(10, minmax(6svh, 1fr));
     grid-template-areas: "header top top top top top top top right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right" "header left left left left left left left right right";
   }
 }
@@ -165,6 +167,7 @@
   text-decoration: none;
   border-radius: 1rem;
   text-align: center;
+  height: 3.5rem;
   display: flex;
   flex-flow: column nowrap;
   justify-items: stretch;
@@ -198,8 +201,8 @@
   opacity: 1;
 }
 .linkActive > .icon {
-  background-color: var(--primary-container);
-  color: var(--on-primary-container);
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
   width: 3.5rem;
   border-radius: 1rem;
   padding: 0.2rem 0;
@@ -211,21 +214,23 @@
 .link:hover > .icon, .linkActive:hover > .icon, .link:focus > .icon, .linkActive:focus > .icon, .link:active > .icon, .linkActive:active > .icon {
   font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 40;
 }
-.link:hover::after, .linkActive:hover::after, .link:focus::after, .linkActive:focus::after, .link:active::after, .linkActive:active::after {
+.link:hover:after, .linkActive:hover:after, .link:focus:after, .linkActive:focus:after, .link:active:after, .linkActive:active:after {
+  transition: all 0.5s;
   content: "";
-  width: 100%;
+  position: absolute;
   display: block;
-  border-radius: 1rem;
-  height: 100%;
   top: 0;
   left: 0;
-  position: absolute;
-  background-color: var(--on-primary-container);
+  border-radius: 1rem;
+  width: 100%;
+  height: 100%;
+  opacity: 0.08;
+  background-color: var(--on-secondary-container);
 }
-.link:hover::after, .linkActive:hover::after {
+.link:hover:after, .linkActive:hover:after {
   opacity: 0.08;
 }
-.link:focus::after, .linkActive:focus::after, .link:active::after, .linkActive:active::after {
+.link:focus:after, .linkActive:focus:after, .link:active:after, .linkActive:active:after {
   opacity: 0.1;
 }
 
@@ -359,12 +364,12 @@
   border-radius: 2vmin;
 }
 
-.button, .buttonChip, .buttonActuacion, .buttonHome, .buttonModal, .buttonDrawerMenu, .buttonBackwards, .buttonForward, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
+.button, .buttonChip, .buttonActuacion, .buttonHome, .buttonModal, .buttonDrawer, .buttonBackwards, .buttonForward, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
   border: none;
+  position: relative;
   box-sizing: border-box;
   border-radius: 1rem;
   padding: 1rem;
-  display: flex;
   background-color: var(--primary-container);
   color: var(--on-primary-container);
   flex-flow: column nowrap;
@@ -374,10 +379,14 @@
   align-content: center;
   transition: all 0.3s;
 }
-.button > .icon, .buttonChip > .icon, .buttonActuacion > .icon, .buttonHome > .icon, .buttonModal > .icon, .buttonDrawerMenu > .icon, .buttonBackwards > .icon, .buttonForward > .icon, .buttonPassiveCategory > .icon, .buttonActiveCategory > .icon, .buttonEdit > .icon {
+.button:after, .buttonChip:after, .buttonActuacion:after, .buttonHome:after, .buttonModal:after, .buttonDrawer:after, .buttonBackwards:after, .buttonForward:after, .buttonPassiveCategory:after, .buttonActiveCategory:after, .buttonEdit:after {
+  content: "";
+  opacity: 0;
+}
+.button > .icon, .buttonChip > .icon, .buttonActuacion > .icon, .buttonHome > .icon, .buttonModal > .icon, .buttonDrawer > .icon, .buttonBackwards > .icon, .buttonForward > .icon, .buttonPassiveCategory > .icon, .buttonActiveCategory > .icon, .buttonEdit > .icon {
   font-size: 1.1rem;
 }
-.button > .text, .buttonChip > .text, .buttonActuacion > .text, .buttonHome > .text, .buttonModal > .text, .buttonDrawerMenu > .text, .buttonBackwards > .text, .buttonForward > .text, .buttonPassiveCategory > .text, .buttonActiveCategory > .text, .buttonEdit > .text {
+.button > .text, .buttonChip > .text, .buttonActuacion > .text, .buttonHome > .text, .buttonModal > .text, .buttonDrawer > .text, .buttonBackwards > .text, .buttonForward > .text, .buttonPassiveCategory > .text, .buttonActiveCategory > .text, .buttonEdit > .text {
   font-family: var(--raleway);
   word-wrap: break-word;
   word-break: break-all;
@@ -390,7 +399,7 @@
   text-decoration: var(--label-medium-text-decoration);
 }
 @media (600px < width < 1200px) {
-  .button, .buttonChip, .buttonActuacion, .buttonHome, .buttonModal, .buttonDrawerMenu, .buttonBackwards, .buttonForward, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
+  .button, .buttonChip, .buttonActuacion, .buttonHome, .buttonModal, .buttonDrawer, .buttonBackwards, .buttonForward, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
     flex-flow: row nowrap;
   }
 }
@@ -435,18 +444,43 @@
 .buttonBackwards > .icon, .buttonBackwards > .text {
   color: var(--on-primary-container);
 }
-.buttonDrawerMenu {
+.buttonDrawerClosed {
   background-color: rgba(0, 0, 0, 0);
 }
-.buttonDrawerMenu > .icon, .buttonDrawerMenu > .text {
+.buttonDrawerClosed > .icon, .buttonDrawerClosed > .text {
+  filter: drop-shadow(var(--scrim));
   color: var(--on-surface-variant);
+}
+.buttonDrawerClosed:hover:after {
+  background-color: var(--surface-variant);
+}
+.buttonDrawerClosed:focus:after, .buttonDrawerClosed:active:after {
+  background-color: var(--surface-variant);
+}
+.buttonDrawerOpen {
+  background-color: var(--secondary);
 }
 .buttonModal {
   grid-row: 2/3;
   background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  box-shadow: var(--dp8);
 }
 .buttonModal > .icon, .buttonModal > .text {
   color: var(--on-primary-container);
+}
+.buttonModal:hover {
+  background-color: var(--surface-container);
+  box-shadow: var(--dp8);
+}
+.buttonModal:hover:after {
+  background-color: var(--on-primary);
+}
+.buttonModal:focus, .buttonModal:active {
+  box-shadow: var(--dp9);
+}
+.buttonModal:focus:after, .buttonModal:active:after {
+  background-color: var(--on-primary-container);
 }
 .buttonHome {
   box-shadow: var(--dp2);
@@ -463,6 +497,34 @@
   height: minmax(2rem, 3rem);
   flex: 0 1 auto;
   box-sizing: border-box;
+}
+.button:hover > .icon, .buttonEdit:hover > .icon, .buttonActiveCategory:hover > .icon, .buttonPassiveCategory:hover > .icon, .buttonForward:hover > .icon, .buttonBackwards:hover > .icon, .buttonDrawer:hover > .icon, .buttonModal:hover > .icon, .buttonHome:hover > .icon, .buttonActuacion:hover > .icon, .buttonChip:hover > .icon {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+  color: var(--primary-container);
+}
+.button:hover:after, .buttonEdit:hover:after, .buttonActiveCategory:hover:after, .buttonPassiveCategory:hover:after, .buttonForward:hover:after, .buttonBackwards:hover:after, .buttonDrawer:hover:after, .buttonModal:hover:after, .buttonHome:hover:after, .buttonActuacion:hover:after, .buttonChip:hover:after {
+  transition: all 0.5s;
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  border-radius: 1rem;
+  width: 100%;
+  height: 100%;
+  opacity: 0.08;
+}
+.button:focus:after, .buttonEdit:focus:after, .buttonActiveCategory:focus:after, .buttonPassiveCategory:focus:after, .buttonForward:focus:after, .buttonBackwards:focus:after, .buttonDrawer:focus:after, .buttonModal:focus:after, .buttonHome:focus:after, .buttonActuacion:focus:after, .buttonChip:focus:after, .button:active:after, .buttonEdit:active:after, .buttonActiveCategory:active:after, .buttonPassiveCategory:active:after, .buttonForward:active:after, .buttonBackwards:active:after, .buttonDrawer:active:after, .buttonModal:active:after, .buttonHome:active:after, .buttonActuacion:active:after, .buttonChip:active:after {
+  transition: all 0.5s;
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  border-radius: 1rem;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
 }
 
 /*# sourceMappingURL=layout.module.css.map */

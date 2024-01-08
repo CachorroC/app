@@ -1,4 +1,4 @@
-import { MonCarpeta } from '#@/lib/types/carpetas';
+import { Category, MonCarpeta } from '#@/lib/types/carpetas';
 
 export type SortActionType = {
   type: 'sort';
@@ -35,6 +35,7 @@ export type IntAction =
   | SortActionType
   | ResetActionType;
 
+
 export function carpetasReducer(
   carpetas: MonCarpeta[], action: IntAction
 ) {
@@ -46,6 +47,10 @@ export function carpetasReducer(
 
       switch ( type ) {
           case 'sort': {
+            const {
+              dir, sortingKey
+            } = action;
+
             const asc = [
               -1,
               0,
@@ -58,37 +63,148 @@ export function carpetasReducer(
               -1
             ];
 
-            const sorter = action.dir === 'asc'
+            const sorter = dir === 'asc'
               ? asc
               : dsc;
 
-            return [ ...carpetas ].sort(
-              (
-                a, b
-              ) => {
-                        const aSortingKey = a[ action.sortingKey ];
+            const categoriesSorter: Category[] = [
+              'todos',
+              'Bancolombia',
+              'Reintegra',
+              'SinEspecificar',
+              'LiosJuridicos',
+              'Insolvencia',
+              'Terminados',
+            ];
 
-                        const bSortingKey = b[ action.sortingKey ];
+            switch ( sortingKey ) {
+                case 'fecha': {
+                  return [ ...carpetas ].sort(
+                    (
+                      a, b
+                    ) => {
+                              if ( !a.fecha || a.fecha === undefined ) {
+                                return sorter[ 2 ];
+                              }
 
-                        if ( !aSortingKey || aSortingKey === undefined ) {
-                          return sorter[ 2 ];
-                        }
+                              if ( !b.fecha || b.fecha === undefined ) {
+                                return sorter[ 0 ];
+                              }
 
-                        if ( !bSortingKey || bSortingKey === undefined ) {
-                          return sorter[ 0 ];
-                        }
+                              const x = a.fecha;
 
-                        if ( aSortingKey < bSortingKey ) {
-                          return sorter[ 2 ];
-                        }
+                              const y = b.fecha;
 
-                        if ( aSortingKey > bSortingKey ) {
-                          return sorter[ 0 ];
-                        }
+                              if ( x < y ) {
+                                return sorter[ 2 ];
+                              }
 
-                        return 0;
-              }
-            );
+                              if ( x > y ) {
+                                return sorter[ 0 ];
+                              }
+
+                              return sorter[ 1 ];
+                    }
+                  );
+                }
+
+                case 'category': {
+                  return [ ...carpetas ].sort(
+                    (
+                      a, b
+                    ) => {
+                              const x = categoriesSorter.indexOf(
+                                a.category
+                              );
+
+                              const y = categoriesSorter.indexOf(
+                                b.category
+                              );
+
+                              if ( x < y ) {
+                                return sorter[ 2 ];
+                              }
+
+                              if ( x > y ) {
+                                return sorter[ 0 ];
+                              }
+
+                              return sorter[ 1 ];
+                    }
+                  );
+                }
+
+                case 'numero': {
+                  return [ ...carpetas ].sort(
+                    (
+                      a, b
+                    ) => {
+                              const x = a.numero;
+
+                              const y = b.numero;
+
+                              const idk = dir
+                                ? x - y
+                                : y - x;
+
+                              return idk;
+                    }
+                  );
+                }
+
+                case 'nombre': {
+                  return [ ...carpetas ].sort(
+                    (
+                      a, b
+                    ) => {
+                              const x = a.nombre;
+
+                              const y = b.nombre;
+
+                              if ( x < y ) {
+                                return sorter[ 2 ];
+                              }
+
+                              if ( x > y ) {
+                                return sorter[ 0 ];
+                              }
+
+                              return sorter[ 1 ];
+                    }
+                  );
+                }
+
+                default: {
+                  return [ ...carpetas ].sort(
+                    (
+                      a, b
+                    ) => {
+                              const aSortingKey = a[ sortingKey ];
+
+                              const bSortingKey = b[ sortingKey ];
+
+                              if ( !aSortingKey || aSortingKey === undefined ) {
+                                return sorter[ 2 ];
+                              }
+
+                              if ( !bSortingKey || bSortingKey === undefined ) {
+                                return sorter[ 0 ];
+                              }
+
+                              if ( aSortingKey < bSortingKey ) {
+                                return sorter[ 2 ];
+                              }
+
+                              if ( aSortingKey > bSortingKey ) {
+                                return sorter[ 0 ];
+                              }
+
+                              return 0;
+                    }
+                  );
+                }
+            }
+
           }
 
           case 'search': {

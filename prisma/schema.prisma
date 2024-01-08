@@ -2,8 +2,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -28,7 +26,7 @@ model Carpeta {
   deudor          Deudor?
   notas           Nota[]
   procesos        Proceso[]
-  tareas           Task[]
+  tareas          Task[]
 }
 
 model Deudor {
@@ -57,7 +55,7 @@ model Codeudor {
 }
 
 model Demanda {
-  capitalAdeudado         Decimal?           @db.Money
+  capitalAdeudado         String?
   carpetaNumero           Int?               @unique
   departamento            String?
   despacho                String?
@@ -117,11 +115,10 @@ model Nota {
   carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
 }
 
-
 model Task {
   carpetaNumero Int?
   done          Boolean   @default(false)
-  content     String[]
+  content       String[]
   createdAt     DateTime  @default(now())
   dueDate       DateTime? @db.Date
   id            Int       @id @default(autoincrement())

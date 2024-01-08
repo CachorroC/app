@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useModalContext } from '#@/app/context/modal-context';
 import styles from '#@/styles/layout.module.css';
-import layout from '#@/styles/layout.module.css';
 import { NavLink } from '../layout/NavLink';
 import { useNavigationContext } from '#@/app/context/navigation-context';
 import { Route } from 'next';
@@ -12,19 +11,21 @@ import { Route } from 'next';
 
 export const DrawerMenuButton = () => {
           const {
-            isNavOpen, setIsNavOpen 
+            isNavOpen, setIsNavOpen
           } = useNavigationContext();
           return (
             <button
               type="button"
-              className={styles.buttonDrawerMenu}
+              className={isNavOpen
+                ? styles.buttonDrawerOpen
+                : styles.buttonDrawerClosed}
               onClick={() => {
                         setIsNavOpen(
                           (
-                            n 
+                            n
                           ) => {
                                     return !n;
-                          } 
+                          }
                         );
               }}
             >
@@ -33,52 +34,54 @@ export const DrawerMenuButton = () => {
                   ? 'close'
                   : 'menu'}
               </span>
-              <span className={styles.text}>{isNavOpen
-                ? 'Cerrar'
-                : 'Menu'}</span>
+
             </button>
           );
 };
 
-export default function NavButtons() {
+export function NewNoteButton () {
       const {
-        isModalOpen, setIsModalOpen 
+        isModalOpen, setIsModalOpen
       } = useModalContext();
+      return (
+        <button
+          className={styles.buttonModal}
+          onClick={() => {
+                    setIsModalOpen(
+                      (
+                        n
+                      ) => {
+                                return !n;
+                      }
+                    );
+          }}
+        >
+          <span className={`material-symbols-outlined ${ styles.icon }`}>
+            {isModalOpen
+              ? 'close'
+              : 'note_add'}
+          </span>
+        </button>
+      );
+}
+
+export default function NavButtons() {
+
 
       const {
-        isNavOpen, setIsNavOpen 
+        isNavOpen, setIsNavOpen
       } = useNavigationContext();
 
       return (
         <>
-          <button
-            className={styles.buttonModal}
-            onClick={() => {
-                      setIsModalOpen(
-                        (
-                          n 
-                        ) => {
-                                  return !n;
-                        } 
-                      );
-            }}
-          >
-            <span className="material-symbols-outlined">
-              {isModalOpen
-                ? 'close'
-                : 'note_add'}
-            </span>
-          </button>
+
 
           <button
             type="button"
-            className={styles.buttonDrawerMenu}
+            className={styles.buttonDrawerClosed}
             onClick={() => {
-                      setIsModalOpen(
-                        false 
-                      );
                       setIsNavOpen(
-                        !isNavOpen 
+                        !isNavOpen
                       );
             }}
           >
@@ -116,7 +119,7 @@ export default function NavButtons() {
 export function ForwardBackwardNavButtons() {
       const router = useRouter();
       return (
-        <section className={layout.segmentRow}>
+        <section className={styles.segmentRow}>
           <button
             type="button"
             className={styles.buttonBackwards}

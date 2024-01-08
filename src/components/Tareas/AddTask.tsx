@@ -4,7 +4,7 @@ import { useDispatchTasks } from './TasksContext';
 import { createUser } from './actions';
 import { IntTask } from '#@/lib/types/carpetas';
 import typography from '#@/styles/fonts/typography.module.css';
-import { InputDateHelper, OutputDateHelper } from '#@/lib/project/date-helper';
+import { InputDateHelper } from '#@/lib/project/date-helper';
 import styles from './styles.module.css';
 import layout from '#@/styles/layout.module.css';
 

@@ -52,22 +52,22 @@ export interface Codeudor {
 
 export interface Demanda {
   capitalAdeudado: null | string;
-  carpetaNumero?: number;
+  carpetaNumero: number | null;
   departamento: string | null;
   despacho: null | string;
   entregaGarantiasAbogado: Date | null;
   etapaProcesal: null | string;
-  llaveProceso: string;
+  llaveProceso: string | null;
   fechaPresentacion: Date[];
   id: number;
   mandamientoPago: Date | null;
-  tipoProceso: TipoProceso;
+  tipoProceso: string;
   municipio: string | null;
   obligacion: string[];
   radicado: null | string;
   vencimientoPagare: Date[];
-  notificacion: Notificacion;
-  medidasCautelares: MedidasCautelares;
+  notificacion: Notificacion | null;
+  medidasCautelares: MedidasCautelares | null;
 }
 
 export type DemandaDepartamento =
@@ -81,7 +81,7 @@ export type DemandaDepartamento =
   | 'ATLANTICO';
 
 export interface MedidasCautelares {
-  demandaId: number;
+  demandaId: number | null;
   fechaOrdenaMedida: Date | null;
   id: number;
   medidaSolicitada: null | string;
@@ -89,9 +89,9 @@ export interface MedidasCautelares {
 
 export interface Notificacion {
   autoNotificado: null | string;
-  demandaId: number;
-  certimail: boolean;
-  fisico: boolean;
+  demandaId: number | null;
+  certimail: boolean | null;
+  fisico: boolean | null;
   id: number;
   notifiers: Notifier[];
 }
@@ -100,7 +100,7 @@ export interface Notifier {
   fechaAporta: Date | null;
   fechaRecibido: Date | null;
   id?: number;
-  notificacionId: number;
+  notificacionId: number | null;
   resultado: boolean | null;
   tipo: string;
 }

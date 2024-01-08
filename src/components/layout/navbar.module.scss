@@ -2,7 +2,7 @@
   container-name: modal;
   z-index: 5;
   container-type: inline-size;
-  background-color: rgba(71, 91, 133, 0.493);
+  background-color: rgba(16, 20, 21, 0.8);
   width: 100vw;
   height: 100svh;
   backdrop-filter: blur(2px);
@@ -136,11 +136,7 @@
     box-shadow: var(--dp6);
     border: 2px solid var(--outline);
     & > span {
-      font-variation-settings:
-        'FILL' 1,
-        'wght' 400,
-        'GRAD' 200,
-        'opsz' 24;
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 24;
       color: var(--on-primary-fixed);
     }
   }

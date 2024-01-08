@@ -17,61 +17,64 @@ $MaxSW: 480px; //maximum sma width
   background-color: var(--surface-container);
   grid-auto-flow: row;
   font-variation-settings:
-    'FILL' 1,
-    'wght' 700,
-    'GRAD' 0,
-    'opsz' 48;
+    "FILL" 1,
+    "wght" 700,
+    "GRAD" 0,
+    "opsz" 48;
+
   @media (width < 600px) {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(12, 1fr);
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    gap: 0.2rem;
     grid-template-areas:
-      'top top top top'
-      'right right right right'
-      'right right right right'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'header header header header';
+      "top top top top"
+      "right right right right"
+      "right right right right"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "header header header header";
   }
 
   @media (600px < width < 1200px) {
     grid-template-columns: 5rem repeat(7, 1fr);
-    grid-template-rows: repeat(12, minmax(6vh, 1fr));
+    grid-template-rows: repeat(12, minmax(4vh, 1fr));
     grid-template-areas:
-      'header top top top top top right right'
-      'header top top top top top right right'
-      'header left left left left left  right right '
-      'header left left left left left  right right '
-      'header left left left left left  right right '
-      'header left left left left left  right right '
-      'header left left left left left  right right '
-      'header left left left left left  right right '
-      'header left left left left left  right right '
-      'header left left left left left  right right '
-      'header left left left left left  right right '
-      'header left left left left left  right right ';
+      "header top top top top top right right"
+      "header top top top top top right right"
+      "header left left left left left  right right "
+      "header left left left left left  right right "
+      "header left left left left left  right right "
+      "header left left left left left  right right "
+      "header left left left left left  right right "
+      "header left left left left left  right right "
+      "header left left left left left  right right "
+      "header left left left left left  right right "
+      "header left left left left left  right right "
+      "header left left left left left  right right ";
   }
 
   @media (1200px < width) {
     padding: 0;
     grid-template-columns: 5rem repeat(9, minmax(8vw, 1fr));
-    grid-template-rows: repeat(10, minmax(8vh, 1fr));
+    grid-template-rows: repeat(10, minmax(6svh, 1fr));
     grid-template-areas:
-      'header top top top top top top top right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right';
+      "header top top top top top top top right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right"
+      "header left left left left left left left right right";
   }
 }
 
@@ -89,17 +92,20 @@ $MaxSW: 480px; //maximum sma width
   padding: 0 0.7rem;
   grid-template-rows: subgrid;
   grid-template-columns: subgrid;
+
   .nav {
     display: grid;
     grid-template-rows: subgrid;
     grid-template-columns: subgrid;
     background-color: var(--nav-background);
   }
+
   @media (width < 600px) {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
   }
+
   @media (1200px < width) {
     display: flex;
     flex-flow: column nowrap;
@@ -143,9 +149,11 @@ $MaxSW: 480px; //maximum sma width
   &:first-child {
     flex: 0 1 40%;
   }
+
   @media (width < 600px) {
     flex-flow: row nowrap;
   }
+
   @media (1200px<width) {
     flex-flow: row nowrap;
   }
@@ -166,10 +174,12 @@ $MaxSW: 480px; //maximum sma width
   &Column {
     @extend .left;
     flex-flow: column wrap;
+
     & > * {
       flex: 0 1 calc(50% - 4vmin);
     }
   }
+
   &Grid {
     @extend .left;
     display: grid;
@@ -177,6 +187,7 @@ $MaxSW: 480px; //maximum sma width
     height: 100%;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
+
   & > * {
     flex-grow: 1;
     flex-shrink: 1;
@@ -184,6 +195,7 @@ $MaxSW: 480px; //maximum sma width
     align-self: stretch;
     order: 0;
   }
+
   @media (width < 600px) {
     display: flex;
     flex-flow: column nowrap;
@@ -202,6 +214,7 @@ $MaxSW: 480px; //maximum sma width
   text-decoration: none;
   border-radius: 1rem;
   text-align: center;
+  height: 3.5rem;
   display: flex;
   flex-flow: column nowrap;
   justify-items: stretch;
@@ -211,19 +224,22 @@ $MaxSW: 480px; //maximum sma width
   align-content: center;
   transition: all 0.3s;
   color: var(--on-surface-variant);
+
   & > .icon {
     text-align: center;
   }
+
   & > .text {
     opacity: 1;
     font-size: 0.7rem;
-    font-variation-settings: 'wght' 500;
+    font-variation-settings: "wght" 500;
     font-style: var(--label-medium-font-family-style);
     font-weight: var(--label-medium-font-weight);
     letter-spacing: var(--label-medium-tracking);
     line-height: var(--label-medium-height);
     text-transform: var(--label-medium-text-transform);
     text-decoration: var(--label-medium-text-decoration);
+
     @media (width < 600px) {
       opacity: 0;
     }
@@ -231,55 +247,65 @@ $MaxSW: 480px; //maximum sma width
 
   &Active {
     @extend .link;
+
     & > .text {
       opacity: 1;
     }
+
     & > .icon {
-      background-color: var(--primary-container);
-      color: var(--on-primary-container);
+      background-color: var(--secondary-container);
+      color: var(--on-secondary-container);
       width: 3.5rem;
       border-radius: 1rem;
       padding: 0.2rem 0;
       box-sizing: border-box;
     }
   }
+
   &:hover,
   &:focus,
   &:active {
     & > .text {
       opacity: 1;
     }
+
     & > .icon {
       font-variation-settings:
-        'FILL' 1,
-        'wght' 600,
-        'GRAD' 200,
-        'opsz' 40;
+        "FILL" 1,
+        "wght" 600,
+        "GRAD" 200,
+        "opsz" 40;
     }
-    &::after {
-      content: '';
-      width: 100%;
+
+    &:after {
+      transition: all 0.5s;
+      content: ""; // ::before and ::after both require content
+      position: absolute;
       display: block;
-      border-radius: 1rem;
-      height: 100%;
       top: 0;
       left: 0;
-      position: absolute;
-      background-color: var(--on-primary-container);
+      border-radius: 1rem;
+      width: 100%;
+      height: 100%;
+      opacity: 0.08;
+      background-color: var(--on-secondary-container);
     }
   }
+
   &:hover {
-    &::after {
+    &:after {
       opacity: 0.08;
     }
   }
+
   &:focus,
   &:active {
-    &::after {
+    &:after {
       opacity: 0.1;
     }
   }
 }
+
 .loader {
   border: 10px solid var(--surface-container-high);
   /* Light grey */
@@ -318,21 +344,25 @@ $MaxSW: 480px; //maximum sma width
   align-items: stretch;
   align-content: stretch;
   padding: 0.5rem;
+
   &Row {
     @extend .section;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
   }
+
   &Column {
     @extend .section;
     gap: 1.5rem;
     flex-flow: column nowrap;
   }
+
   .label {
     font-family: var(--play-display);
     flex: 1;
   }
+
   .titleInput,
   .title {
     flex: 2;
@@ -360,50 +390,62 @@ $MaxSW: 480px; //maximum sma width
       &:first-child {
         border-radius: 2vmin 2vmin 0 0;
       }
+
       &:last-child {
         border-radius: 0 0 2vmin 2vmin;
       }
+
       &:only-child {
         border-radius: 2vmin;
       }
     }
   }
+
   &Column {
     @extend .segment;
     flex-flow: column nowrap;
 
     box-shadow: var(--dp6);
+
     * {
       &:last-child {
         border-radius: 0 0 2vmin 2vmin;
       }
+
       &:first-child {
         border-radius: 2vmin 2vmin 0 0;
       }
+
       &:only-child {
         border-radius: 2vmin;
       }
     }
+
     @media (width < 600px) {
       flex-flow: row wrap;
     }
   }
+
   &Row {
     @extend .segment;
     flex-flow: row nowrap;
     justify-content: space-around;
+
     * {
       &:first-child {
         border-radius: 2vmin 0 0 2vmin;
       }
+
       &:last-child {
         border-radius: 0 2vmin 2vmin 0;
       }
+
       &:only-child {
         border-radius: 2vmin;
       }
     }
   }
+
   &RowWrap {
     @extend .segment;
     display: flex;
@@ -412,13 +454,16 @@ $MaxSW: 480px; //maximum sma width
     justify-items: baseline;
     align-items: stretch;
     align-content: stretch;
+
     * {
       &:first-child {
         border-radius: 2vmin 0 0 2vmin;
       }
+
       &:last-child {
         border-radius: 0 2vmin 2vmin 0;
       }
+
       &:only-child {
         border-radius: 2vmin;
       }
@@ -428,11 +473,10 @@ $MaxSW: 480px; //maximum sma width
 
 .button {
   border: none;
+  position: relative;
   box-sizing: border-box;
-
   border-radius: 1rem;
   padding: 1rem;
-  display: flex;
   background-color: var(--primary-container);
   color: var(--on-primary-container);
   flex-flow: column nowrap;
@@ -442,9 +486,15 @@ $MaxSW: 480px; //maximum sma width
   align-content: center;
   transition: all 0.3s;
 
+  &:after {
+    content: "";
+    opacity: 0;
+  }
+
   & > .icon {
     font-size: 1.1rem;
   }
+
   & > .text {
     font-family: var(--raleway);
     word-wrap: break-word;
@@ -457,26 +507,32 @@ $MaxSW: 480px; //maximum sma width
     text-transform: var(--label-medium-text-transform);
     text-decoration: var(--label-medium-text-decoration);
   }
+
   @media (600px < width < 1200px) {
     flex-flow: row nowrap;
   }
+
   &Edit {
     @extend .button;
     background-color: var(--secondary-container);
     color: var(--on-secondary-container);
   }
+
   &ActiveCategory {
     @extend .button;
     flex-flow: column nowrap;
     flex: 2;
     background-color: var(--secondary-container);
+
     & > .icon {
       color: var(--on-secondary-container);
     }
+
     & > .text {
       color: var(--on-surface);
     }
   }
+
   &PassiveCategory {
     @extend .button;
     flex: 1;
@@ -484,23 +540,28 @@ $MaxSW: 480px; //maximum sma width
     background-color: var(--surface-container-high);
 
     color: var(--secondary);
+
     & > .icon {
       color: var(--secondary);
     }
+
     & > .text {
       color: var(--on-surface);
     }
   }
+
   &Forward {
     @extend .button;
 
     background-color: var(--primary-container);
     color: var(--on-primary-container);
+
     & > .icon,
     & > .text {
       color: var(--on-primary-container);
     }
   }
+
   &Backwards {
     @extend .button;
     background-color: var(--primary-container);
@@ -512,12 +573,34 @@ $MaxSW: 480px; //maximum sma width
     }
   }
 
-  &DrawerMenu {
+  &Drawer {
     @extend .button;
-    background-color: rgba(0, 0, 0, 0);
-    & > .icon,
-    & > .text {
-      color: var(--on-surface-variant);
+
+    &Closed {
+      background-color: rgba(0, 0, 0, 0);
+
+      & > .icon,
+      & > .text {
+        filter: drop-shadow(var(--scrim));
+        color: var(--on-surface-variant);
+      }
+
+      &:hover {
+        &:after {
+          background-color: var(--surface-variant);
+        }
+      }
+
+      &:focus,
+      &:active {
+        &:after {
+          background-color: var(--surface-variant);
+        }
+      }
+    }
+
+    &Open {
+      background-color: var(--secondary);
     }
   }
 
@@ -525,30 +608,92 @@ $MaxSW: 480px; //maximum sma width
     @extend .button;
     grid-row: 2 / 3;
     background-color: var(--primary-container);
+    color: var(--on-primary-container);
+    box-shadow: var(--dp8);
+
     & > .icon,
     & > .text {
       color: var(--on-primary-container);
     }
+
+    &:hover {
+      background-color: var(--surface-container);
+      box-shadow: var(--dp8);
+      &:after {
+        background-color: var(--on-primary);
+      }
+    }
+
+    &:focus,
+    &:active {
+      box-shadow: var(--dp9);
+      &:after {
+        background-color: var(--on-primary-container);
+      }
+    }
   }
+
   &Home {
     @extend .button;
     box-shadow: var(--dp2);
 
     background-color: var(--primary);
     color: var(--on-primary);
+
     & > .icon,
     & > .text {
       color: var(--on-primary);
     }
   }
+
   &Actuacion {
     @extend .button;
     flex: 0 1 auto;
   }
+
   &Chip {
     @extend .button;
     height: minmax(2rem, 3rem);
     flex: 0 1 auto;
     box-sizing: border-box;
+  }
+
+  &:hover {
+    & > .icon {
+      font-variation-settings:
+        "FILL" 1,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 48;
+      color: var(--primary-container);
+    }
+    &:after {
+      transition: all 0.5s;
+      content: ""; // ::before and ::after both require content
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      border-radius: 1rem;
+      width: 100%;
+      height: 100%;
+      opacity: 0.08;
+    }
+  }
+
+  &:focus,
+  &:active {
+    &:after {
+      transition: all 0.5s;
+      content: ""; // ::before and ::after both require content
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      border-radius: 1rem;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+    }
   }
 }

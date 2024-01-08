@@ -9,39 +9,40 @@ import { NavLink } from './NavLink';
 import styles from './navbar.module.css';
 import { useNavigationContext } from '#@/app/context/navigation-context';
 import { Route } from 'next';
+import { DrawerMenuButton } from '../Buttons/nav-buttons';
 
 export const Drawer = (
   {
-    children 
-  }: { children: ReactNode } 
+    children
+  }: { children: ReactNode }
 ) => {
           const {
-            isNavOpen, setIsNavOpen 
+            isNavOpen, setIsNavOpen
           } = useNavigationContext();
 
           const wrapper = useRef(
-            null 
+            null
           );
 
           const overlay = useRef(
-            null 
+            null
           );
 
           const onDismiss = useCallback(
             () => {
                       setIsNavOpen(
                         (
-                          n 
+                          n
                         ) => {
                                   return !n;
-                        } 
+                        }
                       );
-            }, [ setIsNavOpen ] 
+            }, [ setIsNavOpen ]
           );
 
           const onClick: MouseEventHandler = useCallback(
             (
-              e 
+              e
             ) => {
                       if ( e.target === overlay.current || e.target === wrapper.current ) {
                         if ( onDismiss ) {
@@ -52,13 +53,13 @@ export const Drawer = (
             [
               onDismiss,
               overlay,
-              wrapper 
+              wrapper
             ],
           );
 
           const onKeyDown = useCallback(
             (
-              e: KeyboardEvent 
+              e: KeyboardEvent
             ) => {
                       if ( e.key === 'Escape' ) {
                         onDismiss();
@@ -70,15 +71,15 @@ export const Drawer = (
           useEffect(
             () => {
                       document.addEventListener(
-                        'keydown', onKeyDown 
+                        'keydown', onKeyDown
                       );
 
                       return () => {
                                 return document.removeEventListener(
-                                  'keydown', onKeyDown 
+                                  'keydown', onKeyDown
                                 );
                       };
-            }, [ onKeyDown ] 
+            }, [ onKeyDown ]
           );
 
           if ( !isNavOpen ) {
@@ -101,6 +102,7 @@ export const Drawer = (
                   }}
                   className={layout.segmentRow}
                 >
+                  <DrawerMenuButton />
                   <section className={layout.segmentRowWrap}>
                     <NavLink
                       iconLabel={'home'}

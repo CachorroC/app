@@ -21,10 +21,18 @@ export const InputSearchBar = () => {
                   return dispatchCarpetas(
                     {
                       type : 'search',
-                      query: searchQuery.toString()
+                      query: ''
                     }
                   );
                 }
+
+                return dispatchCarpetas(
+                  {
+                    type : 'search',
+                    query: searchQuery.toString()
+                  }
+                );
+
           }
 
           const carpetasReduced = useCarpetaSort();
