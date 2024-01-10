@@ -6,14 +6,10 @@ export type Styles = {
   content: string;
   date: string;
   dummytxt: string;
-  error: string;
   errorContainer: string;
   icon: string;
-  isActive: string;
   link: string;
-  linkIsActive: string;
   links: string;
-  notActive: string;
   section: string;
   sub: string;
   title: string;
@@ -21,7 +17,7 @@ export type Styles = {
   updated: string;
 };
 
-export type ClassNames = keyof Styles;
+export type ClassesType = keyof Styles;
 
 declare const styles: Styles;
 

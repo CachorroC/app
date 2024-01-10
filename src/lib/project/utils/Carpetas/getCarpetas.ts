@@ -1,6 +1,6 @@
 import { prisma } from '#@/lib/connection/prisma';
 
-export default async function getCarpetas() {
+export default async function getCarpetas () {
 
 
       const rawCarpetas = await prisma.carpeta.findMany(

@@ -8,7 +8,7 @@ export type Styles = {
   title: string;
 };
 
-export type ClassNames = keyof Styles;
+export type ClassesType = keyof Styles;
 
 declare const styles: Styles;
 

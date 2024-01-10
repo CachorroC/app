@@ -14,7 +14,7 @@ export function ActuacionComponent(
   }: {
     incomingActuacion: outActuacion;
     initialOpenState: boolean;
-  } 
+  }
 ) {
       const {
         actuacion,
@@ -26,7 +26,7 @@ export function ActuacionComponent(
       } = incomingActuacion;
 
       const [ isOpen, setIsOpen ] = useState(
-        initialOpenState 
+        initialOpenState
       );
       let visibleContent;
 
@@ -40,7 +40,7 @@ export function ActuacionComponent(
               ) }`}</sub>
               {fechaActuacion && (
                 <sub className={styles.date}>{fixFechas(
-                  fechaActuacion 
+                  fechaActuacion
                 )}</sub>
               )}
             </section>
@@ -62,15 +62,15 @@ export function ActuacionComponent(
             className={button.buttonActuacion}
             type="button"
             onClick={(
-              e 
+              e
             ) => {
                       e.stopPropagation();
                       setIsOpen(
                         (
-                          n 
+                          n
                         ) => {
                                   return !n;
-                        } 
+                        }
                       );
             }}
           >
@@ -95,7 +95,7 @@ export function ActuacionComponentAlt(
   }: {
     incomingActuacion: outActuacion;
     initialOpenState: boolean;
-  } 
+  }
 ) {
       const {
         actuacion,
@@ -107,66 +107,54 @@ export function ActuacionComponentAlt(
       } = incomingActuacion;
 
       const [ isOpen, setIsOpen ] = useState(
-        initialOpenState 
+        initialOpenState
       );
-      let visibleContent;
 
-      if ( isOpen ) {
-        visibleContent = (
-          <>
-            <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
-            <section className={layout.segmentRow}>
-              <sub className={styles.sub}>{`actuacion registrada el ${ fixFechas(
-                fechaActuacion,
-              ) }`}</sub>
-              {fechaActuacion && (
-                <sub className={styles.date}>{fixFechas(
-                  fechaActuacion 
-                )}</sub>
-              )}
-            </section>
-            {`${ idRegActuacion }`}
-            {anotacion && (
-              <p className={` ${ styles.anotacion } ${ typography.labelSmall }`}>
-                {anotacion}
-              </p>
-            )}
-          </>
-        );
-      } else {
-        visibleContent = null;
-      }
 
       return (
-        <tr className={layout.sectionRow}>
-          <td>
-            <button
-              className={button.buttonActuacion}
-              type="button"
-              onClick={(
-                e 
-              ) => {
-                        e.stopPropagation();
-                        setIsOpen(
-                          (
-                            n 
-                          ) => {
-                                    return !n;
-                          } 
-                        );
-              }}
-            >
-              <span className={`material-symbols-outlined ${ button.icon }`}>
-                {isOpen
-                  ? 'expand_less'
-                  : 'expand_more'}
-              </span>
-            </button>
-          </td>
+        <>
+          <button
+            className={button.buttonActuacion}
+            type="button"
+            onClick={(
+              e
+            ) => {
+                      e.stopPropagation();
+                      setIsOpen(
+                        (
+                          n
+                        ) => {
+                                  return !n;
+                        }
+                      );
+            }}
+          >
+            <span className={`material-symbols-outlined ${ button.icon }`}>
+              {isOpen
+                ? 'expand_less'
+                : 'expand_more'}
+            </span>
+          </button>
           <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
             {actuacion}
           </h5>
-          {visibleContent}
-        </tr>
+          <sub className={styles.sub}>{`${ consActuacion } de ${ cant }`}</sub>
+          <section className={layout.segmentRow}>
+            <sub className={styles.sub}>{`actuacion registrada el ${ fixFechas(
+              fechaActuacion,
+            ) }`}</sub>
+            {fechaActuacion && (
+              <sub className={styles.date}>{fixFechas(
+                fechaActuacion
+              )}</sub>
+            )}
+          </section>
+          {`${ idRegActuacion }`}
+          {anotacion && (
+            <p className={` ${ styles.anotacion } ${ typography.labelSmall }`}>
+              {anotacion}
+            </p>
+          )}
+        </>
       );
 }

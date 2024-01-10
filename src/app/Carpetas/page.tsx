@@ -1,35 +1,52 @@
-'use client';
+
 import { CarpetasTable } from '#@/components/Carpetas/client/carpetasList';
-import { carpetasChopper } from '#@/lib/chopper-test';
-import Link from 'next/link';
-import { useCarpetaSort } from '../context/carpetas-sort-context';
 import { TableRowCarpetaSortingButton } from '#@/components/Carpetas/client/carpetasButtonsSort';
+import { Loader } from '#@/components/Loader';
+import { CarpetaUltimaActuacionRow } from '#@/components/Table/row';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
+import { Suspense } from 'react';
+import { FechaActuacionComponentAlt } from './UltimasActuaciones/actuaciones';
+import { carpetasReducer } from '../server/carpetasReducer';
+import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
+import { CardRow } from '#@/components/Card';
+import ActuacionLoader from '#@/components/Card/actuacion-loader';
+import typography from '#@/styles/fonts/typography.module.css';
 
-export default function Page() {
-      const carpetas = useCarpetaSort();
+export default async function Page (
+  {
+    searchParams
+  }: { searchParams: {  type?: 'sort';
+    dir?: 'asc' | 'dsc';
+    sortingKey?:
+    | 'fecha'
+    | 'numero'
+    | 'nombre'
+    | 'category'
+    | 'id'
+    | 'tipoProceso'
+    | 'updatedAt'; }}
+) {
+      const {
+        type, dir, sortingKey
+      } = searchParams;
 
-      const choped = carpetasChopper(
-        {
-          carpetas: carpetas,
-        }
+      const initialSortingType = {
+        type: type
+          ?type
+          :'sort',
+        dir: dir
+          ? dir
+          : 'dsc',
+        sortingKey: sortingKey
+          ? sortingKey
+          : 'fecha',
+      };
+
+      const rawCarpetas = await getCarpetas();
+
+      const carpetas= carpetasReducer(
+        rawCarpetas, initialSortingType
       );
-
-      const pageRows = [];
-
-      const totalPages = choped.length;
-
-      for ( let index = 0; index < totalPages; index++ ) {
-        pageRows.push(
-          <td key={index}>
-            <Link
-              href={`/Carpetas?pageSegment=${ index }`}
-
-            >
-              {index}
-            </Link>
-          </td>,
-        );
-      }
 
       return (
         <>
@@ -56,11 +73,53 @@ export default function Page() {
               </tr>
             </thead>
             <tbody>
-              <CarpetasTable />
+              <Suspense fallback={<SearchOutputListSkeleton />}>
+
+                {carpetas.flatMap(
+                  (
+                    carpeta, index
+                  ) => {
+                            const {
+                              idProcesos, numero
+                            } = carpeta;
+
+                            if ( idProcesos.length === 0 ) {
+                              return (
+                                <CardRow
+                                  carpeta={carpeta}
+                                  key={numero}
+                                >
+                                  <span className={typography.headlineSmall}>Sin Actuacion</span>
+                                </CardRow>
+                              );
+                            }
+
+                            return idProcesos.map(
+                              (
+                                idProceso
+                              ) => {
+                                        return (
+                                          <CardRow
+                                            key={idProceso}
+                                            carpeta={carpeta}
+                                          >
+                                            <Suspense fallback={<ActuacionLoader />}>
+                                              <FechaActuacionComponentAlt
+                                                idProceso={idProceso}
+                                                index={index}
+                                                initialOpenState={false}
+                                              />
+
+                                            </Suspense>
+                                          </CardRow>
+                                        );
+                              }
+                            );
+                  }
+                )}
+              </Suspense>
             </tbody>
-            <tfoot>
-              <tr>{pageRows}</tr>
-            </tfoot>
+
           </table>
 
         </>

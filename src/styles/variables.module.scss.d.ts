@@ -1,8 +1,7 @@
 export type Styles = {
-  inputElement: string;
-  round: string;
-  slider: string;
-  switchBox: string;
+  backgroundColor: string;
+  primaryColor: string;
+  secondaryColor: string;
 };
 
 export type ClassesType = keyof Styles;

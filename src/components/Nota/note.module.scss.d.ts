@@ -34,7 +34,7 @@ export type Styles = {
   titleInput: string;
 };
 
-export type ClassNames = keyof Styles;
+export type ClassesType = keyof Styles;
 
 declare const styles: Styles;
 

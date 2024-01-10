@@ -13,9 +13,6 @@ import { NavBar } from '#@/components/layout/NavBar';
 import { NavigationContextProvider } from './context/navigation-context';
 import { CategoryContextProvider } from './context/category-context';
 import { josefina } from '#@/styles/fonts';
-import { NuevaNota } from '#@/components/Nota/client/nueva-nota';
-import { NuevaNotaFormProvider } from './context/nueva-nota-form-context';
-import NewModal from '#@/components/Modal/new-modal';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'

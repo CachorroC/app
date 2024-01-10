@@ -2,28 +2,102 @@
 
 import { useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
 import styles from '#@/components/Buttons/buttons.module.css';
-import { useState } from 'react';
+import {  Fragment, useCallback, useMemo, useState } from 'react';
 import layout from '#@/styles/layout.module.css';
 import { SortActionType } from '#@/app/hooks/useCarpetasreducer';
+import { Route } from 'next';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-export function CarpetasSortButtons() {
-      const keys: (
-    | 'fecha'
-    | 'numero'
-    | 'nombre'
-    | 'category'
-    | 'id'
-    | 'tipoProceso'
-    | 'updatedAt'
-      )[] = [
-        'fecha',
-        'nombre',
-        'id',
-        'updatedAt',
-        'numero',
-        'category',
-        'tipoProceso',
-      ];
+const options = [
+  {
+    name : 'Sort',
+    value: 'dir',
+    items: [ 'asc', 'dsc' ],
+  },
+  {
+    name : 'Page',
+    value: 'sortingKey',
+    items: [
+      'fecha',
+      'numero',
+      'nombre',
+      'category',
+      'id',
+      'tipoProceso',
+      'updatedAt'
+    ],
+  },
+  {
+    name : 'Items Per Page',
+    value: 'type',
+    items: [ 'sort' ],
+  },
+];
+
+export function CarpetasSortButtons () {
+
+
+      const searchParams = useSearchParams();
+
+      const pathname = usePathname();
+
+      const router = useRouter();
+
+      const selectedOptions = useMemo<URLSearchParams>(
+        () => {
+                  // Get the initial selected options from the URL's searchParams
+                  const params = new URLSearchParams(
+                    searchParams
+                  );
+
+                  // Preselect the first value of each option if its not
+                  // included in the current searchParams
+                  options.forEach(
+                    (
+                      option
+                    ) => {
+                              if ( !searchParams.has(
+                                option.value
+                              ) ) {
+                                params.set(
+                                  option.value, option.items[ 0 ]
+                                );
+                              }
+                    }
+                  );
+
+                  return params;
+        }, [ searchParams ]
+      );
+
+
+      const updateSearchParam = useCallback(
+        (
+          name: string, value: string
+        ) => {
+                  // Merge the current searchParams with the new param set
+                  const params = new URLSearchParams(
+                    searchParams
+                  );
+                  params.set(
+                    name, value
+                  );
+
+                  const routImp = pathname + '?' + params.toString() as Route;
+
+                  // Perform a new navigation to the updated URL. The current `page.js` will
+                  // receive a new `searchParams` prop with the updated values.
+                  router.push(
+                    routImp
+                  ); // or router.replace()
+        },
+        [
+          router,
+          pathname,
+          searchParams
+        ],
+      );
+
 
       const dispatchCarpetas = useCarpetaSortDispatch();
 
@@ -34,7 +108,6 @@ export function CarpetasSortButtons() {
           sortingKey: 'fecha',
         }
       );
-
       return (
         <>
           <div>
@@ -52,40 +125,49 @@ export function CarpetasSortButtons() {
             </span>
           </div>
           <section className={layout.segmentColumn}>
-            {keys.map(
+            {options.map(
               (
-                key
+                option
               ) => {
                         return (
-                          <button
-                            type="button"
-                            onClick={() => {
-                                      setCurrentDispatcher(
-                                        (
-                                          curdispatch
-                                        ) => {
-                                                  return {
-                                                    ...curdispatch,
-                                                    sortingKey: key,
-                                                  };
-                                        }
-                                      );
-                                      return dispatchCarpetas(
-                                        {
-                                          ...currentDispatcher,
-                                          sortingKey: key,
-                                        }
-                                      );
-                            }}
-                            className={
-                              currentDispatcher.sortingKey === key
-                                ? styles.buttonActiveCategory
-                                : styles.buttonPassiveCategory
-                            }
-                            key={key}
-                          >
-                            {key}
-                          </button>
+
+                          <div key={option.name}>
+                            <div className="text-gray-400">{option.name}</div>
+
+                            <div className="mt-1 flex gap-2">
+                              {option.items.map(
+                                (
+                                  item
+                                ) => {
+                                          const isActive = selectedOptions.get(
+                                            option.value
+                                          ) === item;
+
+                                          return (
+
+                                            <button
+                                              type="button"
+                                              onClick={ () =>
+                                              {
+
+                                                        return updateSearchParam(
+                                                          option.value, item
+                                                        );
+                                              } }
+                                              className={ isActive
+                                                ? styles.buttonActiveCategory
+                                                : styles.buttonPassiveCategory }
+                                              key={ item}
+                                            >
+                                              { item}
+                                            </button>
+
+                                          );
+                                }
+                              )}
+                            </div>
+                          </div>
+
                         );
               }
             )}
@@ -119,18 +201,16 @@ export function CarpetasSortButtons() {
 
 export function TableRowCarpetaSortingButton(
   {
-    sortKey,
-  }: {
-    sortKey:
-    | 'fecha'
+    sortKey
+  }: {sortKey: | 'fecha'
     | 'numero'
     | 'nombre'
     | 'category'
     | 'id'
     | 'tipoProceso'
-    | 'updatedAt';
-  }
+    | 'updatedAt';}
 ) {
+
       const dispatchCarpetas = useCarpetaSortDispatch();
 
       const [ currentDispatcher, setCurrentDispatcher ] = useState<SortActionType>(
@@ -141,7 +221,7 @@ export function TableRowCarpetaSortingButton(
         }
       );
       return (
-        <th key={sortKey}>
+        <th>
           <button
             type="button"
             onClick={() => {

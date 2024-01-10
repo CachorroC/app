@@ -24,7 +24,7 @@ export const NavBar = () => {
                 iconLabel={'gavel'}
                 textLabel={'Reciente'}
                 key={'actuaciones'}
-                hrefLabel={'/Carpetas/UltimasActuaciones'}
+                hrefLabel={'/Carpetas?type=sort&dir=asc&sortingKey=fecha'}
               />
 
 
@@ -34,7 +34,7 @@ export const NavBar = () => {
                     iconLabel={'folder_open'}
                     key={'carpetas'}
                     textLabel={'Carpetas'}
-                    hrefLabel="/Carpetas"
+                    hrefLabel="/Carpetas?type=sort&dir=asc&sortingKey=numero"
                   />
                   <NavLink
                     key={'note'}

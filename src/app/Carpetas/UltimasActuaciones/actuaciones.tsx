@@ -2,6 +2,9 @@ import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { ActuacionComponent,
   ActuacionComponentAlt, } from '#@/components/Card/actuacion-component';
 import { unstable_noStore as noStore } from 'next/cache';
+import { Suspense } from 'react';
+import ActuacionLoader from '#@/components/Card/actuacion-loader';
+import typography from '#@/styles/fonts/typography.module.css';
 
 /*
 async function getData(
@@ -77,26 +80,30 @@ export async function FechaActuacionComponent(
     idProceso: number;
     index: number;
     initialOpenState: boolean;
-  } 
+  }
 ) {
       noStore();
 
       const consultaActuaciones = await fetchActuaciones(
-        idProceso, index 
+        idProceso, index
       );
 
       if ( !consultaActuaciones ) {
-        return null;
+        return (
+          <span className={typography.headlineSmall}>No Hay Actuaciones</span>
+        );
       }
 
       const [ ultimaActuacion ] = consultaActuaciones;
 
       return (
-        <ActuacionComponent
-          key={ultimaActuacion.idRegActuacion}
-          initialOpenState={initialOpenState}
-          incomingActuacion={ultimaActuacion}
-        />
+        <Suspense fallback={<ActuacionLoader />}>
+          <ActuacionComponent
+            key={ultimaActuacion.idRegActuacion}
+            initialOpenState={initialOpenState}
+            incomingActuacion={ultimaActuacion}
+          />
+        </Suspense>
       );
 }
 
@@ -109,25 +116,30 @@ export async function FechaActuacionComponentAlt(
     idProceso: number;
     index: number;
     initialOpenState: boolean;
-  } 
+  }
 ) {
       noStore();
 
       const consultaActuaciones = await fetchActuaciones(
-        idProceso, index 
+        idProceso, index
       );
 
       if ( !consultaActuaciones ) {
-        return null;
+        return (
+          <span className={typography.headlineSmall}>No Hay Actuaciones</span>
+
+        );
       }
 
       const [ ultimaActuacion ] = consultaActuaciones;
 
       return (
-        <ActuacionComponentAlt
-          key={ultimaActuacion.idRegActuacion}
-          initialOpenState={initialOpenState}
-          incomingActuacion={ultimaActuacion}
-        />
+        <Suspense fallback={<ActuacionLoader />}>
+          <ActuacionComponentAlt
+            key={ultimaActuacion.idRegActuacion}
+            initialOpenState={initialOpenState}
+            incomingActuacion={ultimaActuacion}
+          />
+        </Suspense>
       );
 }

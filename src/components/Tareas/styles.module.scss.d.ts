@@ -10,6 +10,7 @@ export type Styles = {
   slider: string;
   submitButton: string;
   switchBox: string;
+  tableHeader: string;
   text: string;
   textArea: string;
   title: string;

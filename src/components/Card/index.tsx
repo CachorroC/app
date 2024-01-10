@@ -195,18 +195,18 @@ export const CardRow = (
           )}
               </td>
               <td>
-                {children}
-
-
-                {errorLLaveProceso && (
-                  <Link
-                    href={`/Carpeta/${ numero }/Editar` as Route}
-                    className={styles.link}
-                  >
-                    {'error con el numero de expediente'}
-                  </Link>
-                )}
+                {errorLLaveProceso
+                  ? (
+                      <Link
+                        href={`/Carpeta/${ numero }/Editar` as Route}
+                        className={styles.link}
+                      >
+                        {'error con el numero de expediente'}
+                      </Link>
+                    )
+                  : children}
               </td>
+
             </tr>
           );
 };
