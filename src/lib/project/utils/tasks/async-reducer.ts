@@ -1,5 +1,6 @@
-import { IntTask } from '#@/components/Tareas/TasksContext';
+
 import { prisma } from '#@/lib/connection/prisma';
+import { IntTask } from '#@/lib/types/carpetas';
 import { IntTaskAction } from '#@/lib/types/context-actions';
 
 export async function tasksAsyncReducer(
@@ -8,7 +9,7 @@ export async function tasksAsyncReducer(
 ) {
       try {
         const {
-          type, task 
+          type, task
         } = action;
 
         switch ( type ) {
@@ -20,7 +21,7 @@ export async function tasksAsyncReducer(
                   },
                   update: task,
                   create: task,
-                } 
+                }
               );
               return [ ...tasks,
                 {
@@ -40,18 +41,18 @@ export async function tasksAsyncReducer(
                   },
                   update: task,
                   create: task,
-                } 
+                }
               );
               return tasks.map(
                 (
-                  t 
+                  t
                 ) => {
                           if ( t.id === upsertTask.id ) {
                             return upsertTask;
                           }
 
                           return t;
-                } 
+                }
               );
             }
 
@@ -61,29 +62,29 @@ export async function tasksAsyncReducer(
                   where: {
                     id: task.id,
                   },
-                } 
+                }
               );
               return tasks.filter(
                 (
-                  t 
+                  t
                 ) => {
                           return t.id !== deleteTask.id;
-                } 
+                }
               );
             }
 
             default: {
               throw Error(
-                'Unknown action: ' + type 
+                'Unknown action: ' + type
               );
             }
         }
       } catch ( error ) {
         console.log(
-          `error en el tasksasyncReducer: ${ error }` 
+          `error en el tasksasyncReducer: ${ error }`
         );
         console.log(
-          error 
+          error
         );
         return tasks;
       }

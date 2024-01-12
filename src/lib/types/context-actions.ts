@@ -1,7 +1,6 @@
 import { Nota } from '@prisma/client';
-import { Category, MonCarpeta } from './carpetas';
+import { Category, IntTask, MonCarpeta } from './carpetas';
 import { monNota } from './notas';
-import { IntTask } from '#@/components/Tareas/TasksContext';
 
 export interface IntAction {
   type: ActionType;
