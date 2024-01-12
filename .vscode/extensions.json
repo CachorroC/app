@@ -1,3 +1,7 @@
 {
-  "recommendations": ["prisma.prisma", "ms-vscode.vscode-typescript-next"]
+  "recommendations": [
+    "prisma.prisma",
+    "ms-vscode.vscode-typescript-next",
+    "ms-vscode.js-debug-nightly"
+  ]
 }

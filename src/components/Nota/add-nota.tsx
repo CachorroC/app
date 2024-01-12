@@ -1,5 +1,5 @@
 'use client';
-import { createNota } from '#@/app/actions';
+import { createNota } from '#@/app/actions/main';
 import { useNotaContext } from '#@/app/context/main-context';
 import { useState } from 'react';
 import styles from '../form/checkbox/styles.module.css';

@@ -2,7 +2,7 @@
 import note from 'components/Nota/note.module.css';
 import Link from 'next/link';
 import type { Route } from 'next';
-import { deleteNota } from '#@/app/actions';
+import { deleteNota } from '#@/app/actions/main';
 import { Nota } from '@prisma/client';
 
 export function DeleteNoteButton(

@@ -6,7 +6,7 @@ import { Category,
   Deudor,
   IntCarpeta,
   Nota,
-  Tarea,
+  IntTask,
   TipoProceso, } from '../types/carpetas';
 import { ConsultaNumeroRadicacion, outProceso } from '../types/procesos';
 import { CarpetaRaw } from '../types/raw-carpeta';
@@ -15,23 +15,23 @@ import { ClassDeudor } from './deudor';
 
 export class CarpetaBuilder implements IntCarpeta {
   constructor(
-    carpeta: CarpetaRaw 
+    carpeta: CarpetaRaw
   ) {
             const {
-              numero, deudor, category, codeudor, demanda 
+              numero, deudor, category, codeudor, demanda
             } = carpeta;
 
             let idBuilder;
 
             const cedulaAsNumber = Number(
-              deudor.cedula 
+              deudor.cedula
             );
 
             if ( isNaN(
-              cedulaAsNumber 
+              cedulaAsNumber
             ) ) {
               idBuilder = Number(
-                numero 
+                numero
               );
             } else {
               idBuilder = cedulaAsNumber;
@@ -50,22 +50,22 @@ export class CarpetaBuilder implements IntCarpeta {
               ? {
                   nombre: codeudor.nombre
                     ? String(
-                      codeudor.nombre 
+                      codeudor.nombre
                     )
                     : null,
                   cedula: codeudor.cedula
                     ? String(
-                      codeudor.cedula 
+                      codeudor.cedula
                     )
                     : null,
                   direccion: codeudor.direccion
                     ? String(
-                      codeudor.direccion 
+                      codeudor.direccion
                     )
                     : null,
                   telefono: codeudor.telefono
                     ? String(
-                      codeudor.telefono 
+                      codeudor.telefono
                     )
                     : null,
                   id           : this.numero,
@@ -74,14 +74,14 @@ export class CarpetaBuilder implements IntCarpeta {
               : null;
             this.tipoProceso = demanda.tipoProceso
               ? tipoProcesoBuilder(
-                demanda.tipoProceso 
+                demanda.tipoProceso
               )
               : 'SINGULAR';
             this.deudor = new ClassDeudor(
-              carpeta 
+              carpeta
             );
             this.demanda = new ClassDemanda(
-              carpeta 
+              carpeta
             );
             this.terminado = category === 'Terminados'
               ? true
@@ -109,11 +109,11 @@ export class CarpetaBuilder implements IntCarpeta {
   notas: Nota[] = [];
   demanda: Demanda | null;
   procesos: outProceso[] = [];
-  tareas: Tarea[] = [];
+  tareas: IntTask[] = [];
   actuaciones: outActuacion[] = [];
 
   set _llaveProceso(
-    expediente: string 
+    expediente: string
   ) {
             if ( expediente.length === 23 ) {
               this.llaveProceso = expediente;
@@ -124,7 +124,7 @@ export class CarpetaBuilder implements IntCarpeta {
             try {
               if ( this.llaveProceso === 'SinEspecificar' ) {
                 throw new Error(
-                  'no hay llaveProceso en esta carpeta, aborting' 
+                  'no hay llaveProceso en esta carpeta, aborting'
                 );
               }
 
@@ -138,14 +138,14 @@ export class CarpetaBuilder implements IntCarpeta {
                 const message = `Error
         Judicial.getProcesos.fetchError(${ this.numero }) =>
   ${ JSON.stringify(
-    json, null, 2 
+    json, null, 2
   ) }
   ${ json }
   ${ request.status }
   ${ request.statusText }
   `;
                 throw new Error(
-                  message 
+                  message
                 );
               }
 
@@ -153,7 +153,7 @@ export class CarpetaBuilder implements IntCarpeta {
         = ( await request.json() ) as ConsultaNumeroRadicacion;
 
               const {
-                procesos 
+                procesos
               } = consultaProcesos;
 
               for ( const proceso of procesos ) {
@@ -161,23 +161,23 @@ export class CarpetaBuilder implements IntCarpeta {
                   ...proceso,
                   fechaProceso: proceso.fechaProceso
                     ? new Date(
-                      proceso.fechaProceso 
+                      proceso.fechaProceso
                     )
                     : null,
                   fechaUltimaActuacion: proceso.fechaUltimaActuacion
                     ? new Date(
-                      proceso.fechaUltimaActuacion 
+                      proceso.fechaUltimaActuacion
                     )
                     : null,
                   juzgado: new NewJuzgado(
-                    proceso 
+                    proceso
                   ),
                 };
                 this.idProcesos.push(
-                  proceso.idProceso 
+                  proceso.idProceso
                 );
                 this.procesos.push(
-                  newProceso 
+                  newProceso
                 );
 
                 try {
@@ -245,14 +245,14 @@ export class CarpetaBuilder implements IntCarpeta {
                           },
                         },
                       },
-                    } 
+                    }
                   );
                   console.log(
-                    prismaUpdateProceso 
+                    prismaUpdateProceso
                   );
                 } catch ( e ) {
                   console.log(
-                    `error al insertar el proceso en prisma: ${ e }` 
+                    `error al insertar el proceso en prisma: ${ e }`
                   );
                 }
               }
@@ -275,21 +275,21 @@ export class CarpetaBuilder implements IntCarpeta {
                   const json = await request.json();
                   throw new Error(
                     JSON.stringify(
-                      json 
-                    ) 
+                      json
+                    )
                   );
                 }
 
                 const consultaActuaciones = ( await request.json() ) as ConsultaActuacion;
 
                 const {
-                  actuaciones 
+                  actuaciones
                 } = consultaActuaciones;
 
                 const [ ultimaActuacion ] = actuaciones;
 
                 const incomingDate = new Date(
-                  ultimaActuacion.fechaActuacion 
+                  ultimaActuacion.fechaActuacion
                 );
 
                 const incomingYear = incomingDate.getFullYear();
@@ -307,16 +307,16 @@ export class CarpetaBuilder implements IntCarpeta {
                 );
 
                 const {
-                  fecha 
+                  fecha
                 } = await prisma.carpeta.findFirstOrThrow(
                   {
                     where: {
                       numero: this.numero,
                     },
-                  } 
+                  }
                 );
                 console.log(
-                  `la fecha guardada en prisma es: ${ fecha }` 
+                  `la fecha guardada en prisma es: ${ fecha }`
                 );
                 console.log(
                   `${
@@ -333,25 +333,25 @@ export class CarpetaBuilder implements IntCarpeta {
           || fecha.toString() === 'Invalid Date'
                 ) {
                   this.fecha = new Date(
-                    ultimaActuacion.fechaActuacion 
+                    ultimaActuacion.fechaActuacion
                   );
                   this.ultimaActuacion = {
                     ...ultimaActuacion,
                     idProceso     : idProceso,
                     fechaActuacion: new Date(
-                      ultimaActuacion.fechaActuacion 
+                      ultimaActuacion.fechaActuacion
                     ),
                     fechaRegistro: new Date(
-                      ultimaActuacion.fechaRegistro 
+                      ultimaActuacion.fechaRegistro
                     ),
                     fechaFinal: ultimaActuacion.fechaFinal
                       ? new Date(
-                        ultimaActuacion.fechaFinal 
+                        ultimaActuacion.fechaFinal
                       )
                       : null,
                     fechaInicial: ultimaActuacion.fechaInicial
                       ? new Date(
-                        ultimaActuacion.fechaInicial 
+                        ultimaActuacion.fechaInicial
                       )
                       : null,
                     isUltimaAct:
@@ -372,25 +372,25 @@ export class CarpetaBuilder implements IntCarpeta {
                 : false,
                     createdAt     : new Date(),
                     fechaActuacion: new Date(
-                      actuacion.fechaActuacion 
+                      actuacion.fechaActuacion
                     ),
                     fechaRegistro: new Date(
-                      actuacion.fechaRegistro 
+                      actuacion.fechaRegistro
                     ),
                     fechaInicial: actuacion.fechaInicial
                       ? new Date(
-                        actuacion.fechaInicial 
+                        actuacion.fechaInicial
                       )
                       : null,
                     fechaFinal: actuacion.fechaFinal
                       ? new Date(
-                        actuacion.fechaFinal 
+                        actuacion.fechaFinal
                       )
                       : null,
                   };
 
                   this.actuaciones.push(
-                    newActuacion 
+                    newActuacion
                   );
 
                   try {
@@ -407,17 +407,17 @@ export class CarpetaBuilder implements IntCarpeta {
                           ...newActuacion,
                           carpetaNumero: this.numero,
                         },
-                      } 
+                      }
                     );
                   } catch ( e ) {
                     console.log(
-                      `error al insertar las actuaciones en prisma ${ e }` 
+                      `error al insertar las actuaciones en prisma ${ e }`
                     );
                   }
                 }
               } catch ( error ) {
                 console.log(
-                  error, null, 2 
+                  error, null, 2
                 );
                 continue;
               }

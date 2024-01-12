@@ -4,7 +4,7 @@ import { prisma } from '#@/lib/connection/prisma';
 import { IntCarpeta, carpetaConvert } from '#@/lib/types/carpetas';
 
 export async function fetchCarpetaByNumero(
-  numero: number 
+  numero: number
 ) {
       const carpeta = await prisma.carpeta.findFirst(
         {
@@ -16,6 +16,7 @@ export async function fetchCarpetaByNumero(
             notas          : true,
             deudor         : true,
             codeudor       : true,
+            tareas         : true,
             demanda        : {
               include: {
                 medidasCautelares: true,
@@ -31,13 +32,8 @@ export async function fetchCarpetaByNumero(
                 juzgado: true,
               },
             },
-            tareas: {
-              include: {
-                subTareas: true,
-              },
-            },
           },
-        } 
+        }
       );
 
       if ( carpeta ) {
@@ -56,22 +52,22 @@ export async function fetchCarpetaByNumero(
 }
 
 export async function fetcherCarpetaByidProceso(
-  idProceso: number 
+  idProceso: number
 ) {
       const client = await clientPromise;
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico' 
+          'no hay cliente mongólico'
         );
       }
 
       const db = client.db(
-        'RyS' 
+        'RyS'
       );
 
       const collection = db.collection<IntCarpeta>(
-        'Carpetas' 
+        'Carpetas'
       );
 
       const carpeta = await collection.findOne(
@@ -90,14 +86,14 @@ export async function fetcherCarpetaByidProceso(
       }
 
       const Carpeta = carpetaConvert.toMonCarpeta(
-        carpeta 
+        carpeta
       );
 
       return Carpeta;
 }
 
 export async function fetchCarpetasByllaveProceso(
-  llaveProceso: string 
+  llaveProceso: string
 ) {
       const prismaCarpetas = await prisma.carpeta.findMany(
         {
@@ -105,6 +101,7 @@ export async function fetchCarpetasByllaveProceso(
             llaveProceso: llaveProceso,
           },
           include: {
+            tareas         : true,
             ultimaActuacion: true,
             notas          : true,
             procesos       : {
@@ -112,13 +109,8 @@ export async function fetchCarpetasByllaveProceso(
                 juzgado: true,
               },
             },
-            tareas: {
-              include: {
-                subTareas: true,
-              },
-            },
           },
-        } 
+        }
       );
 
       const collection = await carpetasCollection();
@@ -128,26 +120,26 @@ export async function fetchCarpetasByllaveProceso(
 
       const mergedArray = mongoCarpetas.map(
         (
-          item 
+          item
         ) => {
                   const matchedObject = prismaCarpetas.find(
                     (
-                      obj 
+                      obj
                     ) => {
                               return obj.numero === item.numero;
-                    } 
+                    }
                   );
                   return {
                     ...item,
                     ...matchedObject,
                   };
-        } 
+        }
       );
       return mergedArray;
 }
 
 export async function fetchCarpetaByllaveProceso(
-  llaveProceso: string 
+  llaveProceso: string
 ) {
       const prismaCarpeta = await prisma.carpeta.findFirst(
         {
@@ -156,19 +148,15 @@ export async function fetchCarpetaByllaveProceso(
           },
           include: {
             ultimaActuacion: true,
+            tareas         : true,
             notas          : true,
             procesos       : {
               include: {
                 juzgado: true,
               },
             },
-            tareas: {
-              include: {
-                subTareas: true,
-              },
-            },
           },
-        } 
+        }
       );
 
       const collection = await carpetasCollection();
@@ -176,7 +164,7 @@ export async function fetchCarpetaByllaveProceso(
       const Moncarpeta = await collection.findOne(
         {
           llaveProceso: llaveProceso,
-        } 
+        }
       );
 
       if ( Moncarpeta ) {

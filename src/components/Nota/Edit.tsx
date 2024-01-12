@@ -1,5 +1,5 @@
 'use client';
-import { editNota } from '#@/app/actions';
+import { editNota } from '#@/app/actions/main';
 import { useState } from 'react';
 import styles from 'components/form/form.module.css';
 import layout from '#@/styles/layout.module.css';
@@ -9,11 +9,11 @@ import cardStyles from '../Card/card.module.css';
 
 export const Edit = (
   {
-    nota 
-  }: { nota: Nota } 
+    nota
+  }: { nota: Nota }
 ) => {
           const [ hasContent, setHasContent ] = useState(
-            false 
+            false
           );
 
           const [ formState, onCreate ] = useFormState(
@@ -21,16 +21,16 @@ export const Edit = (
               message: 'sin enviar',
               data   : nota,
               error  : false,
-            } 
+            }
           );
 
           const [ inputNota, setInputNota ] = useState(
-            formState.data ?? nota 
+            formState.data ?? nota
           );
 
           const dateString = inputNota.date.toISOString()
                 .slice(
-                  0, 10 
+                  0, 10
                 );
 
           return (
@@ -88,13 +88,13 @@ export const Edit = (
                     name="text"
                     value={inputNota.title}
                     onChange={(
-                      e 
+                      e
                     ) => {
                               setInputNota(
                                 {
                                   ...inputNota,
                                   title: e.target.value,
-                                } 
+                                }
                               );
                     }}
                   />
@@ -112,15 +112,15 @@ export const Edit = (
                     name="date"
                     value={dateString}
                     onChange={(
-                      e 
+                      e
                     ) => {
                               setInputNota(
                                 {
                                   ...inputNota,
                                   date: new Date(
-                                    e.target.value 
+                                    e.target.value
                                   ),
-                                } 
+                                }
                               );
                     }}
                   />
@@ -135,10 +135,10 @@ export const Edit = (
                       onChange={() => {
                                 setHasContent(
                                   (
-                                    c 
+                                    c
                                   ) => {
                                             return !c;
-                                  } 
+                                  }
                                 );
                       }}
                       type="checkbox"
@@ -155,13 +155,13 @@ export const Edit = (
                           name="content"
                           value={inputNota.title}
                           onChange={(
-                            e 
+                            e
                           ) => {
                                     setInputNota(
                                       {
                                         ...inputNota,
                                         content: e.target.value,
-                                      } 
+                                      }
                                     );
                           }}
                         />

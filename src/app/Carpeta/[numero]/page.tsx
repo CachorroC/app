@@ -23,16 +23,16 @@ export async function generateMetadata(
     params,
   }: {
     params: { numero: string };
-  } 
+  }
 ): Promise<Metadata> {
       const {
-        numero 
+        numero
       } = params;
 
       const product = await getCarpetabyNumero(
         Number(
-          numero 
-        ) 
+          numero
+        )
       );
 
       if ( !product ) {
@@ -55,13 +55,13 @@ export async function generateMetadata(
 
 export default async function Page(
   {
-    params 
-  }: { params: { numero: string } } 
+    params
+  }: { params: { numero: string } }
 ) {
       const carpeta = await getCarpetabyNumero(
         Number(
-          params.numero 
-        ) 
+          params.numero
+        )
       );
 
       if ( !carpeta ) {
@@ -69,7 +69,7 @@ export default async function Page(
       }
 
       const {
-        deudor, demanda, category, tipoProceso, idProcesos, procesos 
+        deudor, demanda, category, tipoProceso, idProcesos, procesos
       }
     = carpeta;
 
@@ -78,15 +78,15 @@ export default async function Page(
       if ( idProcesos && idProcesos.length > 0 ) {
         idProcesoContent = idProcesos.map(
           (
-            idProceso 
+            idProceso
           ) => {
                     return (
                       <Link
                         key={idProceso}
-                        href={`/Carpeta/${ params.numero }/ultimasActuaciones/${ idProceso }`}
+                        href={`/Carpeta/${ params.numero }/ultimasActuaciones/${ idProceso }` as Route}
                       ></Link>
                     );
-          } 
+          }
         );
       }
 
@@ -109,7 +109,7 @@ export default async function Page(
                   <h4 className={typography.titleSmall}>Cédula de ciudadania:</h4>
                   <CopyButton
                     copyTxt={String(
-                      deudor.cedula 
+                      deudor.cedula
                     )}
                     name={'Cédula'}
                   />
@@ -123,7 +123,7 @@ export default async function Page(
             {procesos
           && procesos.map(
             (
-              despacho 
+              despacho
             ) => {
                       return (
                         <Link
@@ -144,7 +144,7 @@ export default async function Page(
                           <span>{`${ despacho.sujetosProcesales }`}</span>
                         </Link>
                       );
-            } 
+            }
           )}
           </section>
           <DeudorFormComponent />
@@ -196,7 +196,7 @@ export default async function Page(
             {demanda?.vencimientoPagare
           && demanda.vencimientoPagare.map(
             (
-              pagare, index 
+              pagare, index
             ) => {
                       return (
                         <section
@@ -211,18 +211,18 @@ export default async function Page(
                             className={`${ typography.labelSmall } ${ button.text }`}
                           >
                             {fixFechas(
-                              pagare 
+                              pagare
                             )}
                           </p>
                         </section>
                       );
-            } 
+            }
           )}
           </section>
           {demanda?.entregaGarantiasAbogado && (
             <p className={`${ typography.labelSmall } ${ button.text }`}>
               {OutputDateHelper(
-                demanda.entregaGarantiasAbogado 
+                demanda.entregaGarantiasAbogado
               )}
             </p>
           )}
@@ -243,9 +243,9 @@ export default async function Page(
             && fixMoney(
               {
                 valor: Number(
-                  demanda.capitalAdeudado 
+                  demanda.capitalAdeudado
                 ),
-              } 
+              }
             )}
             </p>
           </section>
@@ -260,7 +260,7 @@ export default async function Page(
             {carpeta.idProcesos
           && carpeta.idProcesos.map(
             (
-              idProceso, index 
+              idProceso, index
             ) => {
                       return (
                         <section
@@ -287,7 +287,7 @@ export default async function Page(
                           </Link>
                         </section>
                       );
-            } 
+            }
           )}
           </Suspense>
         </>

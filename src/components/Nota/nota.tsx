@@ -1,5 +1,5 @@
 'use client';
-import { createNota } from '#@/app/actions';
+import { createNota } from '#@/app/actions/main';
 import { useNotaContext } from '#@/app/context/main-context';
 import { useEffect, useState } from 'react';
 import styles from './note.module.css';

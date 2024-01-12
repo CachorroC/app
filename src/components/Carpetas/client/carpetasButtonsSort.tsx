@@ -8,7 +8,13 @@ import { SortActionType } from '#@/app/hooks/useCarpetasreducer';
 import { Route } from 'next';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-const options = [
+interface optionsType {
+  name: string;
+  value: keyof SortActionType;
+  items: string[];
+}
+
+const options: optionsType[] = [
   {
     name : 'Sort',
     value: 'dir',
@@ -34,70 +40,24 @@ const options = [
   },
 ];
 
-export function CarpetasSortButtons () {
-
-
-      const searchParams = useSearchParams();
-
-      const pathname = usePathname();
-
-      const router = useRouter();
-
-      const selectedOptions = useMemo<URLSearchParams>(
-        () => {
-                  // Get the initial selected options from the URL's searchParams
-                  const params = new URLSearchParams(
-                    searchParams
-                  );
-
-                  // Preselect the first value of each option if its not
-                  // included in the current searchParams
-                  options.forEach(
-                    (
-                      option
-                    ) => {
-                              if ( !searchParams.has(
-                                option.value
-                              ) ) {
-                                params.set(
-                                  option.value, option.items[ 0 ]
-                                );
-                              }
-                    }
-                  );
-
-                  return params;
-        }, [ searchParams ]
-      );
-
-
-      const updateSearchParam = useCallback(
-        (
-          name: string, value: string
-        ) => {
-                  // Merge the current searchParams with the new param set
-                  const params = new URLSearchParams(
-                    searchParams
-                  );
-                  params.set(
-                    name, value
-                  );
-
-                  const routImp = pathname + '?' + params.toString() as Route;
-
-                  // Perform a new navigation to the updated URL. The current `page.js` will
-                  // receive a new `searchParams` prop with the updated values.
-                  router.push(
-                    routImp
-                  ); // or router.replace()
-        },
-        [
-          router,
-          pathname,
-          searchParams
-        ],
-      );
-
+export function CarpetasSortButtons() {
+      const keys: (
+    | 'fecha'
+    | 'numero'
+    | 'nombre'
+    | 'category'
+    | 'id'
+    | 'tipoProceso'
+    | 'updatedAt'
+      )[] = [
+        'fecha',
+        'nombre',
+        'id',
+        'updatedAt',
+        'numero',
+        'category',
+        'tipoProceso',
+      ];
 
       const dispatchCarpetas = useCarpetaSortDispatch();
 
@@ -108,15 +68,15 @@ export function CarpetasSortButtons () {
           sortingKey: 'fecha',
         }
       );
+
       return (
         <>
           <div>
             <h1>{'ordenar:'}</h1>
             <span>
-              {' '}
               {currentDispatcher.dir === 'asc'
                 ? 'ascendente'
-                : 'descendente'}{' '}
+                : 'descendente'}
             </span>
             <span className="material-symbols-outlined">
               {currentDispatcher.dir === 'asc'
@@ -124,50 +84,83 @@ export function CarpetasSortButtons () {
                 : 'arrow_downward'}
             </span>
           </div>
-          <section className={layout.segmentColumn}>
-            {options.map(
+          {
+            options.map(
               (
-                option
+                {
+                  name, value, items
+                }
               ) => {
                         return (
-
-                          <div key={option.name}>
-                            <div className="text-gray-400">{option.name}</div>
-
-                            <div className="mt-1 flex gap-2">
-                              {option.items.map(
+                          <section key={ value } className={ layout.sectionColumn }>
+                            <h5>{ name }</h5>
+                            <section className={ layout.sectionRow }>
+                              { items.map(
                                 (
                                   item
                                 ) => {
-                                          const isActive = selectedOptions.get(
-                                            option.value
-                                          ) === item;
-
                                           return (
+                                            <button key={ item } type='button' onClick={ (
+                                              e
+                                            ) => {
 
-                                            <button
-                                              type="button"
-                                              onClick={ () =>
-                                              {
+                                                      console.log(
+                                                        currentDispatcher[ value ]
+                                                      );
 
-                                                        return updateSearchParam(
-                                                          option.value, item
-                                                        );
-                                              } }
-                                              className={ isActive
-                                                ? styles.buttonActiveCategory
-                                                : styles.buttonPassiveCategory }
-                                              key={ item}
-                                            >
-                                              { item}
-                                            </button>
+                                              );
 
+                                                      return dispatchCarpetas(
+                                                        {
+                                                          ...currentDispatcher,
+                                                          sortingKey: item,
+                                                        }
+                                                      );
+                                            }}>{item}</button>
                                           );
                                 }
                               )}
-                            </div>
-                          </div>
-
+                            </section>
+                          </section>
+                        );
+              }
+            )
+          }
+          <section className={layout.segmentColumn}>
+            {keys.map(
+              (
+                key
+              ) => {
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => {
+                                      setCurrentDispatcher(
+                                        (
+                                          curdispatch
+                                        ) => {
+                                                  return {
+                                                    ...curdispatch,
+                                                    sortingKey: key,
+                                                  };
+                                        }
+                                      );
+                                      return dispatchCarpetas(
+                                        {
+                                          ...currentDispatcher,
+                                          sortingKey: key,
+                                        }
+                                      );
+                            }}
+                            className={
+                              currentDispatcher.sortingKey === key
+                                ? styles.buttonActiveCategory
+                                : styles.buttonPassiveCategory
+                            }
+                            key={key}
+                          >
+                            {key}
+                          </button>
                         );
               }
             )}

@@ -1,56 +1,13 @@
 
-import { CarpetasTable } from '#@/components/Carpetas/client/carpetasList';
 import { TableRowCarpetaSortingButton } from '#@/components/Carpetas/client/carpetasButtonsSort';
-import { Loader } from '#@/components/Loader';
-import { CarpetaUltimaActuacionRow } from '#@/components/Table/row';
-import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
-import { Suspense } from 'react';
-import { FechaActuacionComponentAlt } from './UltimasActuaciones/actuaciones';
-import { carpetasReducer } from '../server/carpetasReducer';
-import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
-import { CardRow } from '#@/components/Card';
-import ActuacionLoader from '#@/components/Card/actuacion-loader';
-import typography from '#@/styles/fonts/typography.module.css';
+import {  CarpetasTable } from '#@/components/Carpetas/client/carpetasList';
 
-export default async function Page (
-  {
-    searchParams
-  }: { searchParams: {  type?: 'sort';
-    dir?: 'asc' | 'dsc';
-    sortingKey?:
-    | 'fecha'
-    | 'numero'
-    | 'nombre'
-    | 'category'
-    | 'id'
-    | 'tipoProceso'
-    | 'updatedAt'; }}
-) {
-      const {
-        type, dir, sortingKey
-      } = searchParams;
+export default  function Page () {
 
-      const initialSortingType = {
-        type: type
-          ?type
-          :'sort',
-        dir: dir
-          ? dir
-          : 'dsc',
-        sortingKey: sortingKey
-          ? sortingKey
-          : 'fecha',
-      };
 
-      const rawCarpetas = await getCarpetas();
-
-      const carpetas= carpetasReducer(
-        rawCarpetas, initialSortingType
-      );
 
       return (
         <>
-
           <table
             style={{
               gridColumn: '1 / span 4',
@@ -73,53 +30,8 @@ export default async function Page (
               </tr>
             </thead>
             <tbody>
-              <Suspense fallback={<SearchOutputListSkeleton />}>
-
-                {carpetas.flatMap(
-                  (
-                    carpeta, index
-                  ) => {
-                            const {
-                              idProcesos, numero
-                            } = carpeta;
-
-                            if ( idProcesos.length === 0 ) {
-                              return (
-                                <CardRow
-                                  carpeta={carpeta}
-                                  key={numero}
-                                >
-                                  <span className={typography.headlineSmall}>Sin Actuacion</span>
-                                </CardRow>
-                              );
-                            }
-
-                            return idProcesos.map(
-                              (
-                                idProceso
-                              ) => {
-                                        return (
-                                          <CardRow
-                                            key={idProceso}
-                                            carpeta={carpeta}
-                                          >
-                                            <Suspense fallback={<ActuacionLoader />}>
-                                              <FechaActuacionComponentAlt
-                                                idProceso={idProceso}
-                                                index={index}
-                                                initialOpenState={false}
-                                              />
-
-                                            </Suspense>
-                                          </CardRow>
-                                        );
-                              }
-                            );
-                  }
-                )}
-              </Suspense>
+              <CarpetasTable />
             </tbody>
-
           </table>
 
         </>
