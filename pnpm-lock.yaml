@@ -41,6 +41,9 @@ dependencies:
   next-auth:
     specifier: beta
     version: 5.0.0-beta.4(next@14.0.4)(react@18.3.0-canary-c5b937576-20231219)
+  prettier:
+    specifier: ^3.2.1
+    version: 3.2.1
   prisma:
     specifier: 5.6.0
     version: 5.6.0
@@ -2287,6 +2290,12 @@ packages:
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  /prettier@3.2.1:
+    resolution: {integrity: sha512-qSUWshj1IobVbKc226Gw2pync27t0Kf0EdufZa9j7uBSJay1CC+B3K5lAAZoqgX3ASiKuWsk6OmzKRetXNObWg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: false
 
   /pretty-format@3.8.0:
     resolution: {integrity: sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==}

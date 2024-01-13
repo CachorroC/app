@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { NotasLinkList } from './notas-list';
-import { prisma } from '#@/lib/connection/prisma';
 
 type Props = {
   children: ReactNode;
@@ -23,25 +22,13 @@ export default async function LayoutCarpetaMain(
     top,
     right,
     params,
-  }: Props 
+  }: Props
 ) {
-      await prisma.carpeta.update(
-        {
-          where: {
-            numero: Number(
-              params.numero 
-            ),
-          },
-          data: {
-            revisado: true,
-          },
-        } 
-      );
 
       const carpeta = await getCarpetabyNumero(
         Number(
-          params.numero 
-        ) 
+          params.numero
+        )
       );
 
       if ( !carpeta ) {
@@ -73,7 +60,7 @@ export default async function LayoutCarpetaMain(
               {right}
               <NotasLinkList
                 carpetaNumero={Number(
-                  params.numero 
+                  params.numero
                 )}
                 key={params.numero}
               />
