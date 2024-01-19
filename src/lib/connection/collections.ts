@@ -83,7 +83,8 @@ export async function notasCollection() {
       return notas;
 }
 
-export async function facturasCollection() {
+export async function facturasCollection () {
+
       const client = await clientPromise;
 
       if ( !client ) {

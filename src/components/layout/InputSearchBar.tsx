@@ -54,7 +54,7 @@ export const InputSearchBar = () => {
                               <option
                                 value={carpeta.nombre}
                                 key={carpeta.numero}
-                                onChange={(
+                                onClick={(
                                   e
                                 ) => {
                                           console.log(

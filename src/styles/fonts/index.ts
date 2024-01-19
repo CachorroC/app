@@ -4,44 +4,51 @@ import { Raleway,
   PT_Serif_Caption,
   Radio_Canada, } from 'next/font/google';
 
-export const playDisp = Playfair_Display(
+const playDisp = Playfair_Display(
   {
     subsets : [ 'latin-ext', 'latin' ],
     preload : true,
     variable: '--play-display',
-  } 
+    weight  : 'variable'
+  }
 );
 
-export const ptserif = PT_Serif_Caption(
+const ptserif = PT_Serif_Caption(
   {
     subsets : [ 'latin' ],
     display : 'auto',
     preload : false,
-    variable: '--inter',
+    variable: '--ptserif',
     weight  : '400',
-  } 
+  }
 );
 
-export const josefina = Josefin_Sans(
+const josefina = Josefin_Sans(
   {
     subsets : [ 'latin' ],
     preload : false,
     variable: '--josefa',
-  } 
+    weight  : 'variable'
+  }
 );
 
-export const radio = Radio_Canada(
+const radio = Radio_Canada(
   {
     subsets : [ 'latin-ext' ],
     preload : false,
     variable: '--radio',
-  } 
+  }
 );
 
-export const raleway = Raleway(
+const raleway = Raleway(
   {
     subsets : [ 'latin' ],
     preload : true,
     variable: '--raleway',
-  } 
+  }
 );
+
+
+export {
+  playDisp, ptserif, josefina, radio, raleway
+};

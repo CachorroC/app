@@ -47,7 +47,7 @@ export const CopyButton = (
           return (
             <div className={layout.segmentRow}>
               <div className={layout.sectionColumn}>
-                <p className={typography.labelMedium}>{copyTxt}</p>
+                <p className={typography.labelMedium}>{name}</p>
               </div>
               <button
                 type="button"

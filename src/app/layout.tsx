@@ -12,7 +12,7 @@ import type { Metadata, Viewport } from 'next';
 import { NavBar } from '#@/components/layout/NavBar';
 import { NavigationContextProvider } from './context/navigation-context';
 import { CategoryContextProvider } from './context/category-context';
-import { josefina } from '#@/styles/fonts';
+import {   playDisp, ptserif, josefina, radio, raleway } from '#@/styles/fonts';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -92,16 +92,16 @@ export default function RootLayout(
       return (
         <html
           lang="es-CO"
-          className={` ${ josefina.variable }  [ color-scheme: light dark ]`}
+
         >
-          <body className={` ${ josefina.variable }  [ color-scheme: light dark ]`}>
+          <body className={`${ playDisp.variable } ${ josefina.variable } ${ raleway.variable } ${ radio.variable } ${ ptserif.variable } [ color-scheme: light dark ]`}>
             <CategoryContextProvider>
               <NavigationContextProvider>
                 <SearchProvider>
                   <ModalProvider>
                     <MainProvider>
 
-                      <div className={layout.container}>
+                      <div className={ layout.container } >
                         <Suspense fallback={<Loader />}>
                           <NavBar />
                         </Suspense>
