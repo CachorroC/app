@@ -1,11 +1,12 @@
 import 'server-only';
+
 import { cache } from 'react';
 import { ConsultaActuacion,
   outActuacion, } from 'types/actuaciones';
 import { carpetasCollection } from '../../../connection/collections';
+
 import { prisma } from '#@/lib/connection/prisma';
 import { sleep } from '../../helper';
-import { updateUltimaActuacionInPrisma } from './updater';
 
 export async function fetchActuaciones(
   idProceso: number, index: number = 1
@@ -47,10 +48,10 @@ export async function fetchActuaciones(
           }
         );
 
-        const [ ultimaActuacion ] = outActuaciones;
-        updateUltimaActuacionInPrisma(
+        /* const [ ultimaActuacion ] = outActuaciones;
+         updateUltimaActuacionInPrisma(
           ultimaActuacion
-        );
+        ); */
         return outActuaciones;
       } catch ( error ) {
         if ( error instanceof Error ) {

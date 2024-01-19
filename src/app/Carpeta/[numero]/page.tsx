@@ -77,7 +77,7 @@ export async function generateStaticParams () {
         }
       );
 
-      const chunkSize = 100;
+      const chunkSize = 20;
 
       const chunks = [];
 

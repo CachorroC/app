@@ -1,11 +1,10 @@
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
-import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
+import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { outActuacion } from '#@/lib/types/actuaciones';
 import { prisma } from '#@/lib/connection/prisma';
 
 
-export const dynamic = 'force-dynamic';
 
 export default async function Page (
   {
@@ -36,7 +35,7 @@ export default async function Page (
         }
       );
 
-      const actuaciones = await getActuaciones(
+      const actuaciones = await fetchActuaciones(
         Number(
           params.idProceso
         )
