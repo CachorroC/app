@@ -189,7 +189,7 @@ export const fixMoney = (
             'es-CO', {
               style          : 'currency',
               currency       : 'COP',
-              currencyDisplay: 'name',
+              currencyDisplay: 'symbol',
             }
           )
                 .format(

@@ -1,7 +1,7 @@
 'use client';
 import { intFactura  } from '#@/lib/types/contabilidad';
-import { ReactNode, createContext, useState, Dispatch, SetStateAction, useContext, } from 'react';
-
+import { ReactNode, createContext, useState, Dispatch, SetStateAction, useContext, useEffect, } from 'react';
+import { useFacturaSort } from './facturas-context-provider';
 
 
 const NuevaFacturaContext = createContext<{valorState: intFactura, setValorState: Dispatch<SetStateAction<intFactura>>}| null>(
@@ -13,28 +13,58 @@ export function NuevaFacturaProvider(
     children
   }: { children: ReactNode }
 ) {
+      const facturas = useFacturaSort();
+
       const [ valorState, setValorState ] = useState<intFactura>(
         {
-          valorTotal        : 0,
-          valorBase         : 0,
-          hasIva            : false,
-          hasOtroImp        : false,
-          hasImpoConsumo    : 0,
-          ciudad            : '',
-          CUFE              : '',
-          dv                : 0,
-          fecha             : new Date(),
-          id                : '',
-          nit               : 0,
-          QRCode            : '',
-          razonSocial       : '',
-          valorIva          : 0,
-          valorOtroImp      : 0,
-          concepto          : '',
-          facturaElectronica: []
-
+          valorTotal  : '0.00',
+          valorBase   : '0.00',
+          hasIva      : false,
+          hasOtroImp  : false,
+          ciudad      : '',
+          dv          : 0,
+          fecha       : new Date(),
+          id          : '',
+          nit         : 0,
+          razonSocial : '',
+          valorIva    : '',
+          valorOtroImp: '',
+          concepto    : '',
+          direccion   : ''
         }
       );
+
+      useEffect(
+        () => {
+                  if ( valorState.id !== '' ) {
+                    const idk = [ ...facturas ].find(
+                      (
+                        factura
+                      ) => {
+                                return factura.id === valorState.id;
+                      }
+                    );
+
+                    if ( idk ) {
+                      const {
+                        _id, ...restIdk
+                      } = idk;
+                      console.log(
+                        _id 
+                      );
+                      setValorState(
+                        {
+                          ...restIdk
+                        }
+                      );
+                    }
+                  }
+
+
+
+        }, [ facturas, valorState.id ]
+      );
+
 
       return (
         <NuevaFacturaContext.Provider value={{

@@ -12,9 +12,14 @@ export default function Page () {
       return (
         <table>
           <thead>
-            <th>Razon Social</th>
-            <th>total</th>
-            <th>fecha</th>
+            <tr>
+              <th>Razon Social</th>
+              <th>valor Base</th>
+              <th>valor IVA</th>
+              <th>valor otros impuestos</th>
+              <th>valor Total</th>
+              <th>fecha</th>
+            </tr>
           </thead>
           <tbody>
 
@@ -27,21 +32,37 @@ export default function Page () {
                             <td>{ factura.razonSocial }</td>
                             <td>{ fixMoney(
                               {
-                                valor: factura.valorIva
+                                valor: parseFloat(
+                                  factura.valorBase
+                                )
+                              }
+                            ) }</td>
+
+                            <td>{ fixMoney(
+                              {
+                                valor: parseFloat(
+                                  factura.valorIva
+                                )
+                              }
+                            ) }</td>
+                            <td>{ fixMoney(
+                              {
+                                valor: parseFloat(
+                                  factura.valorOtroImp
+                                )
+                              }
+                            ) }</td>
+                            <td>{ fixMoney(
+                              {
+                                valor: parseFloat(
+                                  factura.valorTotal
+                                )
                               }
                             ) }</td>
                             <td>{ OutputDateHelper(
+
                               factura.fecha
-                            ) }</td>
-                            <td>{ fixMoney(
-                              {
-                                valor: factura.valorIva
-                              }
-                            ) }</td>
-                            <td>{ fixMoney(
-                              {
-                                valor: factura.valorOtroImp
-                              }
+
                             ) }</td>
                           </tr>
                         );

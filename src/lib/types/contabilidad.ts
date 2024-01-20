@@ -1,4 +1,7 @@
-export interface rawFactura {
+
+
+export interface rawFactura{
+
   NumFac: string;
   FecFac: string;
   HorFac: string;
@@ -7,77 +10,92 @@ export interface rawFactura {
   ValFac: string;
   ValIva: string;
   ValOtroIm: string;
-  ValTolFac: string;
+  ValTolFac?: string;
+  ValFacIm?: string;
   CUFE: string;
   QRCode: string;
 }
 
 export interface intFactura
 {
-  facturaElectronica: string[];
+  facturaElectronica?: string;
   ciudad: string;
-  CUFE: string;
   dv: number;
   fecha: Date;
   hasOtroImp: boolean;
-  hasImpoConsumo: 0 | 4 | 8;
   hasIva: boolean;
   id: string;
   nit: number;
-  QRCode: string;
   razonSocial: string;
-  ubicacion?: string;
-  valorBase: number;
-  valorIcui?:        number;
-  valorImpoConsumo?: number;
-  valorIva: number;
-  valorOtroImp: number;
-  valorPropina?:     number;
+  direccion: string;
+  valorBase: string;
+  valorIva: string;
+  valorOtroImp: string;
+  valorTotal: string;
   concepto:
-    | 'Telefonia'
-    | 'CyB'
-    | 'Restaurante'
+  | 'Telefonia'
+  | 'CyB'
+  | 'Servicios Publicos'
+  | 'Restaurante o Bar'
+  | 'Parqueadero o Peaje'
     | 'Dotacion'
     | 'Arreglos'
     | 'ProcesoBancolombia'
     | 'ProcesoReintegra'
     | 'sinEspecificar' | string;
-  /**
-   * valorTotal corresponde al valor de la compra
-   */
-  valorTotal: number;
+
 }
 
 export class Factura implements intFactura {
-  constructor(
-    {
-      NumFac,
-      FecFac,
-      HorFac,
-      NitFac,
-      ValFac,
-      ValTolFac,
-      ValOtroIm,
-      ValIva,
-      CUFE,
-      QRCode,
-    }: rawFactura,
-    razonSocial: string,
-    concepto:
-      | 'Telefonia'
-      | 'CyB'
-      | 'Restaurante'
-      | 'Dotacion'
-      | 'Arreglos'
-      | 'ProcesoBancolombia'
-      | 'ProcesoReintegra'
-      | 'sinEspecificar',
-    dv = 0,
-    ciudad = 'Bogota',
+  constructor (
+    qrString: string, {
+      direccion,
+      razonSocial,
+      concepto,
+      dv,
+      ciudad
+    }: { direccion: string; razonSocial: string;  dv: number; ciudad: string; concepto: string}
   ) {
+
+            const facturaMap = new Map();
+
+            const rawKeyValues = qrString.split(
+              '\n'
+            );
+
+            for ( const rawKV of rawKeyValues ) {
+              const [ key, ...restValues ] = rawKV.split(
+                ':'
+              );
+              facturaMap.set(
+                key, restValues.join(
+                  ':'
+                )
+              );
+            }
+
+            const newState =   Object.fromEntries(
+              facturaMap
+            );
+
+            const  {
+              NumFac,
+              FecFac,
+              HorFac,
+              NitFac,
+              ValFac,
+              ValTolFac,
+              ValFacIm,
+              ValOtroIm,
+              ValIva,
+            } = newState;
+
             this.concepto = concepto;
             this.ciudad = ciudad;
-            this.id = NumFac;
+            this.direccion = direccion;
+            this.id = String(
+              NumFac
+            );
             this.fecha = new Date(
               `${ FecFac }T${ HorFac }`
             );
@@ -85,66 +103,49 @@ export class Factura implements intFactura {
               NitFac
             );
             this.dv = dv;
-            this.valorBase = parseInt(
-              ValFac
-            );
-            this.valorIva = parseInt(
-              ValIva
-            );
-            this.valorTotal = parseInt(
-              ValTolFac
-            );
-            this.valorOtroImp = parseInt(
-              ValOtroIm
-            );
-            this.CUFE = CUFE;
-            this.QRCode = QRCode;
-            this.razonSocial = razonSocial;
 
-            if ( this.valorIva === 0 ) {
+
+            this.valorTotal = ValTolFac
+              ? ValTolFac
+              : ValFacIm
+                ? ValFacIm
+                : '';
+            this.valorBase = ValFac;
+            this.valorOtroImp = ValOtroIm;
+            this.valorIva = ValIva;
+            this.razonSocial = razonSocial;
+            this.facturaElectronica = String(
+              qrString
+            );
+
+            if ( this.valorIva === '0' ) {
               this.hasIva = false;
             } else {
               this.hasIva = true;
             }
 
-            if ( this.valorOtroImp === 0 ) {
+            if ( this.valorOtroImp === '0' ) {
               this.hasOtroImp = false;
-              this.hasImpoConsumo = 0;
             } else {
               this.hasOtroImp = true;
-              this.hasImpoConsumo = 8;
             }
 
   }
-  facturaElectronica: string[] = [];
-  hasIva: boolean;
-  hasOtroImp: boolean;
-  hasImpoConsumo: 0 | 4 | 8;
-  id: string;
-  fecha: Date;
-  nit: number;
-  valorBase: number;
-  valorIva: number;
-  valorOtroImp: number;
-  CUFE: string;
-  QRCode: string;
-  dv: number;
-  razonSocial: string;
-  ubicacion?: string | undefined;
+  valorBase: string;
+  valorIva: string;
+  valorOtroImp: string;
+  valorTotal: string;
+  facturaElectronica?: string;
   ciudad: string;
-  valorIcui?:        number;
-  valorImpoConsumo?: number;
-  valorPropina?:     number;
-  concepto:
-    | 'Telefonia'
-    | 'CyB'
-    | 'Restaurante'
-    | 'Dotacion'
-    | 'Arreglos'
-    | 'ProcesoBancolombia'
-    | 'ProcesoReintegra'
-    | 'sinEspecificar';
-  valorTotal: number;
+  dv: number;
+  fecha: Date;
+  hasOtroImp: boolean;
+  hasIva: boolean;
+  id: string;
+  nit: number;
+  razonSocial: string;
+  direccion: string;
+  concepto: string;
 }
 
 export interface monFactura extends intFactura {

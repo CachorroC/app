@@ -4,11 +4,16 @@ import { useNavigationContext } from '#@/app/context/navigation-context';
 import { DrawerMenuButton, NewNoteButton } from '../Buttons/nav-buttons';
 import { Drawer } from './Drawer';
 import { NavLink } from './NavLink';
+import { Fragment, useState } from 'react';
 
 export const NavBar = () => {
           const {
             isNavOpen
           } = useNavigationContext();
+
+          const [ isContabilidadOpen, setIsContabilidadOpen ] = useState(
+            false
+          );
 
           return (
             <div className={styles.header}>
@@ -42,6 +47,27 @@ export const NavBar = () => {
                     textLabel={'Notas'}
                     hrefLabel="/Notas"
                   />
+                  <button type={ 'button' } onClick={ () => {
+                            return ( setIsContabilidadOpen(
+                              (
+                                e
+                              ) => {
+                                        return !e;
+                              }
+                            ) );
+                  }}>
+                    <span className="material-symbols-outlined">
+                      {isContabilidadOpen
+                        ? 'chevron_right'
+                        : 'chevron_left'}
+                    </span>
+                  </button>
+                  { isContabilidadOpen && (
+                    <Fragment key={ 'contabilidad' }>
+                      <NavLink iconLabel={ 'account_balance' } textLabel={ 'Contabilidad' } hrefLabel={ '/Contabilidad' } />
+                      <NavLink iconLabel={ 'add_shopping_cart' } textLabel={ 'ingresar factura' } hrefLabel={ '/Contabilidad/NuevaFactura' } />
+                    </Fragment>
+                  )}
                 </Drawer>
               )}
 

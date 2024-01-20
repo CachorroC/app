@@ -1,44 +1,38 @@
 'use client';
 
 import { InputDateHelper } from '#@/lib/project/date-helper';
-import { Factura, intFactura } from '#@/lib/types/contabilidad';
+import {  intFactura } from '#@/lib/types/contabilidad';
 import layout from '#@/styles/layout.module.css';
-import { useState } from 'react';
-import { addToContabilidad } from './actions';
+import { ChangeEvent } from 'react';
+import { addFacturaGenerator, addToContabilidad } from './actions';
 import formStyles from '#@/components/form/form.module.css';
 import { useNuevaFacturaContext } from './nueva-factura-context-provider';
 import typography from '#@/styles/fonts/typography.module.css';
 import { josefina } from '#@/styles/fonts';
+import { ParseTextarea } from './parse-text';
 
 export function IngresoComponent() {
       const conceptos = [
-        'Telefonia',
-        'CyB',
-        'Restaurante',
-        'Dotacion',
-        'Arreglos',
-        'ProcesoBancolombia',
-        'ProcesoReintegra',
-        'sinEspecificar',
+        'Telefonia'
+        , 'CyB'
+        , 'Servicios Publicos'
+        , 'Restaurante o Bar'
+        , 'Parqueadero o Peaje'
+        , 'Dotacion'
+        , 'Arreglos'
+        , 'ProcesoBancolombia'
+        , 'ProcesoReintegra'
+        , 'sinEspecificar'
       ];
 
       const {
         valorState, setValorState
       } = useNuevaFacturaContext();
 
-      const [ facturaElectronicaText, setFacturaElectronicaText ] = useState(
-        ''
-      );
 
-      const [ hasIVA, setHasIVA ] = useState(
-        false
-      );
+      async function createIngresoInDatabase () {
 
-      const [ hasICUI, setHasICUI ] = useState(
-        false
-      );
 
-      async function createIngresoInDatabase() {
             const sender = await addToContabilidad(
               valorState
             );
@@ -54,26 +48,53 @@ export function IngresoComponent() {
             }
 
             const newFactura: intFactura = {
-              valorTotal        : 0,
-              valorBase         : 0,
-              hasIva            : false,
-              hasOtroImp        : false,
-              hasImpoConsumo    : 0,
-              ciudad            : '',
-              CUFE              : '',
-              dv                : 0,
-              fecha             : new Date(),
-              id                : '',
-              nit               : 0,
-              QRCode            : '',
-              razonSocial       : '',
-              valorIva          : 0,
-              valorOtroImp      : 0,
-              concepto          : '',
-              facturaElectronica: [],
+              valorTotal  : '0.00',
+              valorBase   : '0.00',
+              hasIva      : false,
+              hasOtroImp  : false,
+              ciudad      : '',
+              dv          : 0,
+              fecha       : new Date(),
+              id          : '',
+              nit         : 0,
+              razonSocial : '',
+              valorIva    : '',
+              valorOtroImp: '',
+              concepto    : '',
+              direccion   : ''
             };
             return setValorState(
               newFactura
+            );
+      }
+
+      async function createFacturaGenerator () {
+            const creator = await addFacturaGenerator(
+              valorState
+            );
+
+            if ( creator.success ) {
+              alert(
+                creator.data
+              );
+            } else {
+              console.log(
+                `Error Factura Generator => ${ creator.data }`
+              );
+              alert(
+                `Error Factura Generator => ${ creator.data }`
+              );
+            }
+      }
+
+      function handleChange(
+        e: ChangeEvent<HTMLInputElement| HTMLSelectElement>
+      ) {
+            return setValorState(
+              {
+                ...valorState,
+                [ e.target.name ]: e.target.value
+              }
             );
       }
 
@@ -151,6 +172,24 @@ export function IngresoComponent() {
               />
             </div>
             <div className={layout.segmentRow}>
+              <label className={formStyles.label} htmlFor={'direccion'}>direccion</label>
+              <input className={formStyles.textArea}
+                name="direccion"
+                type="text"
+                value={valorState.direccion}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={layout.segmentRow}>
+              <label className={formStyles.label} htmlFor={'ciudad'}>ciudad</label>
+              <input className={formStyles.textArea}
+                name="ciudad"
+                type="text"
+                value={valorState.ciudad}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={layout.segmentRow}>
               <label className={formStyles.label} htmlFor={'dv'}>Digito de verificacion</label>
               <input className={formStyles.textArea}
                 name="dv"
@@ -176,16 +215,7 @@ export function IngresoComponent() {
               <select className={formStyles.textArea}
                 name="concepto"
                 value={valorState.concepto}
-                onChange={(
-                  e
-                ) => {
-                          return setValorState(
-                            {
-                              ...valorState,
-                              concepto: e.target.value,
-                            }
-                          );
-                }}
+                onChange={handleChange}
               >
                 {conceptos.map(
                   (
@@ -194,7 +224,7 @@ export function IngresoComponent() {
                             return (
                               <option
                                 key={concepto}
-                                value={concepto}
+                                value={ concepto }
                               >
                                 {concepto}
                               </option>
@@ -207,106 +237,33 @@ export function IngresoComponent() {
                 type="text"
                 placeholder={'otro'}
                 value={valorState.concepto}
-                onChange={(
-                  e
-                ) => {
-                          return setValorState(
-                            {
-                              ...valorState,
-                              concepto: e.target.value,
-                            }
-                          );
-                }}
+                onChange={handleChange}
               />
             </div>
           </fieldset>
           <fieldset>
             <legend className={typography.headlineMedium }>Transacciones con divisa nacional</legend>
-            <div className={layout.segmentRow}>
-              <label htmlFor={'valorTotal'}>Total</label>
-              <input
-                name="valorTotal"
-                type="number"
-                value={valorState.valorTotal === 0
-                  ? ''
-                  : valorState.valorTotal}
-                onChange={(
-                  e
-                ) => {
-                          return setValorState(
-                            {
-                              ...valorState,
-                              valorTotal: Number(
-                                e.target.value
-                              ),
-                            }
-                          );
-                }}
-              />
-            </div>
-            <h2>Impuesto al Consumo</h2>
-            <div className={layout.segmentRow}>
-              <label>
-                <input
-                  type="radio"
-                  name="impoConsumo"
-                  value="8"
-                  onClick={() => {
-                            setValorState(
-                              {
-                                ...valorState,
-                                hasImpoConsumo: 8,
-                              }
-                            );
-                  }}
-                />
-            No telefonia 8%
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="impoConsumo"
-                  value="0"
-                  onClick={() => {
-                            setValorState(
-                              {
-                                ...valorState,
-                                hasImpoConsumo: 0,
-                              }
-                            );
-                  }}
-                  defaultChecked={true}
-                />
-            No aplica impuesto al consumo
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="impoConsumo"
-                  value="4"
-                  onClick={() => {
-                            setValorState(
-                              {
-                                ...valorState,
-                                hasImpoConsumo: 4,
-                              }
-                            );
-                  }}
-                />
-            Con Telefonia 4%
-              </label>
-            </div>
+
+            <NumericValueInput inputName={ 'valorTotal' } inputLabel={ 'Valor Total' } />
+            <NumericValueInput inputName={ 'valorOtroImp' } inputLabel={ 'otros impuestos' }/>
+            <NumericValueInput inputName={ 'valorIva' } inputLabel={ 'IVA' } />
+            <NumericValueInput inputName={ 'valorBase' } inputLabel={ 'Valor Base' } />
+
             <div className={layout.segmentRow}>
               <label className={formStyles.switchBox}>
                 <input
                   className={formStyles.inputElement}
-                  checked={hasICUI}
+                  checked={ valorState.hasOtroImp }
+                  name='hasOtroImp'
                   type="checkbox"
                   onChange={(
                     e
                   ) => {
-                            return setHasICUI(
-                              e.target.checked
+                            return setValorState(
+                              {
+                                ...valorState,
+                                hasOtroImp: e.target.checked
+                              }
                             );
                   }}
                 />
@@ -317,13 +274,17 @@ export function IngresoComponent() {
               <label className={formStyles.switchBox}>
                 <input
                   className={formStyles.inputElement}
-                  checked={hasIVA}
+                  checked={valorState.hasIva}
                   type="checkbox"
+                  name='hasIva'
                   onChange={(
                     e
                   ) => {
-                            return setHasIVA(
-                              e.target.checked
+                            return setValorState(
+                              {
+                                ...valorState,
+                                hasIva: e.target.checked
+                              }
                             );
                   }}
                 />
@@ -331,59 +292,11 @@ export function IngresoComponent() {
               </label>
             </div>
           </fieldset>
-
-          <textarea
-            name="facturaElectronica"
-            placeholder="pegue en este espacio el texto que aparece con el codigo qr de la factura electronica"
-            value={facturaElectronicaText}
-            onChange={(
-              e
-            ) => {
-                      const {
-                        value
-                      } = e.target;
-
-                      const facturaMap = new Map();
-
-                      const rawKeyValues = value.split(
-                        '\n'
-                      );
-
-                      for ( const rawKV of rawKeyValues ) {
-                        const [ key, ...restValues ] = rawKV.split(
-                          ':'
-                        );
-                        facturaMap.set(
-                          key, restValues.join(
-                            ':'
-                          )
-                        );
-                      }
-
-                      const newState = Object.fromEntries(
-                        facturaMap
-                      );
-
-                      const newFactura = new Factura(
-                        newState,
-                        'sinRS',
-                        'sinEspecificar',
-                        1,
-                      );
-                      setFacturaElectronicaText(
-                        e.target.value
-                      );
-                      return setValorState(
-                        {
-                          ...valorState,
-                          ...newFactura,
-                          facturaElectronica: value.split(
-                            '\n'
-                          ),
-                        }
-                      );
-            }}
-          />
+          <button type='button' onClick={ createFacturaGenerator }>
+            <span className='material-symbols-outlined'>person_add</span>
+            <span>Crear el generador de Factura</span>
+          </button>
+          <ParseTextarea />
           <button
             type="submit"
             className={layout.buttonForward}
@@ -392,4 +305,38 @@ export function IngresoComponent() {
           </button>
         </form>
       );
+}
+
+
+
+export function NumericValueInput (
+  {
+    inputName, inputLabel
+  }: { inputName: keyof intFactura;  inputLabel: string}
+) {
+      const {
+        valorState, setValorState
+      } = useNuevaFacturaContext();
+      return (   <div className={layout.segmentRow}>
+        <label htmlFor={inputName}>{inputLabel}</label>
+        <input
+          name={inputName}
+          type="number"
+          value={String(
+            valorState[ inputName ]
+          )}
+          onChange={(
+            e
+          ) => {
+                    return setValorState(
+                      {
+                        ...valorState,
+                        [ e.target.name ]: Number(
+                          e.target.value
+                        ),
+                      }
+                    );
+          }}
+        />
+      </div> );
 }

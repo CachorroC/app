@@ -29,6 +29,21 @@ model Carpeta {
   tareas          Task[]
 }
 
+model EmisorDeFactura {
+  nit                       Int     @id
+  dv                        Int
+  razonSocial               String
+  nombreComercial           String?
+  direccion                 String?
+  correo                    String?
+  telefono                  Int?
+  actividadEconomica        String?
+  regimenFiscal             String?
+  responsabilidadTributaria String?
+  tipoContribuyente         String  @default("Juridica")
+  ciudad                    String  @default("Bogota")
+}
+
 model Deudor {
   carpetaNumero   Int?     @unique
   cedula          String

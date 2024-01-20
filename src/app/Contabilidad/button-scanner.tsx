@@ -3,7 +3,7 @@
 import {  useState } from 'react';
 import { useNuevaFacturaContext } from './nueva-factura-context-provider';
 import { QrScanner } from '@yudiel/react-qr-scanner';
-import { Factura } from '#@/lib/types/contabilidad';
+import { Factura, } from '#@/lib/types/contabilidad';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { useFacturaSort } from './facturas-context-provider';
 
@@ -34,12 +34,14 @@ export function ButtonScan () {
 qr_code_scanner
             </span>
           </button>
-          <div style={{
-            width : '250px',
-            height: '250px'
-          } }>
-            { isScannerOpen && (
+
+          { isScannerOpen && (
+            <div style={ {
+              width : '250px',
+              height: '250px'
+            } }>
               <QrScanner
+                scanDelay={0}
                 onDecode={(
                   result
                 ) => {
@@ -50,6 +52,8 @@ qr_code_scanner
                                 .replaceAll(
                                   '\n', ','
                                 ) }}`;
+
+
                           setText(
                             newText
                           );
@@ -59,31 +63,11 @@ qr_code_scanner
                             )
                           );
 
-                          const facturaMap = new Map();
-
-                          const rawKeyValues = result.split(
-                            '\n'
-                          );
-
-                          for ( const rawKV of rawKeyValues ) {
-                            const [ key, ...restValues ] = rawKV.split(
-                              ':'
-                            );
-                            facturaMap.set(
-                              key, restValues.join(
-                                ':'
-                              )
-                            );
-                          }
-
-
-                          const newState =   Object.fromEntries(
-                            facturaMap
-                          );
 
                           const newFactura = new Factura(
-                            newState, 'sin razon social',
-                            'sinEspecificar', 1
+                            result, {
+                              ...valorState
+                            }
                           );
                           return setValorState(
                             {
@@ -100,8 +84,8 @@ qr_code_scanner
                           );
                 }}
               />
-            )}
-          </div>
+            </div>
+          ) }
 
         </>
       );

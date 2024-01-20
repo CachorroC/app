@@ -3,7 +3,6 @@ import { FacturasProvider } from './facturas-context-provider';
 import { facturasCollection } from '#@/lib/connection/collections';
 import layout from '#@/styles/layout.module.css';
 import { NuevaFacturaProvider } from './nueva-factura-context-provider';
-import { NuevaFacturaOutput } from './nueva-factura-output';
 import { ParseTextarea } from './parse-text';
 import { ButtonScan, CopyButtonContabilidad } from './button-scanner';
 import typography from '#@/styles/fonts/typography.module.css';
@@ -34,15 +33,15 @@ export default async function Layout (
           <NuevaFacturaProvider>
             <div className={ layout.top }>
               <h1 className={typography.titleLarge}>Contabilidad</h1>
-              <ButtonScan />
               <CopyButtonContabilidad />
-              <NuevaFacturaOutput />
             </div>
             <div className={ layout.left }>
+
 
               { children }
 
             </div>
+            <ButtonScan />
             <div className={ layout.right }>
 
               { derecho}
