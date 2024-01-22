@@ -3,18 +3,15 @@
 import {  useState } from 'react';
 import { useNuevaFacturaContext } from './nueva-factura-context-provider';
 import { QrScanner } from '@yudiel/react-qr-scanner';
-import { Factura, } from '#@/lib/types/contabilidad';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { useFacturaSort } from './facturas-context-provider';
+import { parseFacturaElectronica } from './helper/factura-electronica-parser';
 
 export function ButtonScan () {
       const {
         valorState, setValorState
       } = useNuevaFacturaContext();
 
-      const [ text, setText ] = useState(
-        ''
-      );
 
       const [ isScannerOpen, setIsScannerOpen ] = useState(
         false
@@ -45,34 +42,15 @@ qr_code_scanner
                 onDecode={(
                   result
                 ) => {
-
-                          const newText = `{${ result.replace(
-                            /^(['"])?([a-z0-9A-Z_]+)(['"])?:(['"])?([a-z0-9A-Z_:\-./?=]+)(['"])?/gm, '"$2":"$5"'
-                          )
-                                .replaceAll(
-                                  '\n', ','
-                                ) }}`;
-
-
-                          setText(
-                            newText
-                          );
-                          console.log(
-                            JSON.parse(
-                              text
-                            )
+                          const parsedValues = parseFacturaElectronica(
+                            result
                           );
 
 
-                          const newFactura = new Factura(
-                            result, {
-                              ...valorState
-                            }
-                          );
                           return setValorState(
                             {
                               ...valorState,
-                              ...newFactura
+                              ...parsedValues
                             }
                           );
                 }}
@@ -84,6 +62,7 @@ qr_code_scanner
                           );
                 }}
               />
+
             </div>
           ) }
 

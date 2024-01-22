@@ -2,7 +2,7 @@ import { prisma } from '#@/lib/connection/prisma';
 import { Route } from 'next';
 import typography from '#@/styles/fonts/typography.module.css';
 import Link from 'next/link';
-import { inputElement, slider, switchBox } from '#@/components/form/form.module.css';
+import { inputElement, slider, switchBox } from '#@/components/Form/form.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { fixMoney } from '#@/lib/project/helper';

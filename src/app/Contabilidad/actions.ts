@@ -3,6 +3,7 @@
 import { facturasCollection } from '#@/lib/connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
 import { intFactura } from '#@/lib/types/contabilidad';
+import { JsonObject } from '@prisma/client/runtime/library';
 
 export async function addToContabilidad (
   newData: intFactura
@@ -14,7 +15,6 @@ export async function addToContabilidad (
           id: newData.id
         }
       );
-
 
 
       if ( !existentFactura ) {
@@ -53,6 +53,139 @@ export async function addToContabilidad (
 
       return false;
 
+}
+
+export async function addFactura (
+  incomingFactura: intFactura
+) {
+      const {
+        nit, facturaElectronica, ...factura
+      } = incomingFactura;
+
+      try {
+        if ( typeof facturaElectronica === 'string' ) {
+
+          const inserter =  await prisma.factura.upsert(
+            {
+              where: {
+                id: factura.id,
+              },
+              update: {
+                ...factura,
+                facturaElectronica: facturaElectronica,
+                emisorDeFactura   : {
+                  connectOrCreate: {
+                    where: {
+                      nit: nit
+                    },
+                    create: {
+                      dv         : factura.dv,
+                      nit        : nit,
+                      razonSocial: factura.razonSocial,
+                      direccion  : factura.direccion,
+                      ciudad     : factura.ciudad,
+                    }
+                  }
+                }
+              },
+              create: {
+                ...factura,
+                facturaElectronica: facturaElectronica,
+                emisorDeFactura   : {
+                  connectOrCreate: {
+                    where: {
+                      nit: nit
+                    },
+                    create: {
+                      dv         : factura.dv,
+                      nit        : nit,
+                      razonSocial: factura.razonSocial,
+                      direccion  : factura.direccion,
+                      ciudad     : factura.ciudad,
+                    }
+                  }
+                }
+              }
+            }
+          );
+
+          console.log(
+            inserter
+          );
+          return {
+            success: true,
+            data   : JSON.stringify(
+              inserter
+            )
+          };
+        }
+
+        const inserter =  await prisma.factura.upsert(
+          {
+            where: {
+              id: factura.id
+            },
+            update: {
+              ...factura,
+              secondaryFactura: facturaElectronica as unknown as JsonObject,
+              emisorDeFactura : {
+                connectOrCreate: {
+                  where: {
+                    nit: nit
+                  },
+                  create: {
+                    dv         : factura.dv,
+                    nit        : nit,
+                    razonSocial: factura.razonSocial,
+                    direccion  : factura.direccion,
+                    ciudad     : factura.ciudad,
+                  }
+                }
+              }
+            },
+            create: {
+              ...factura,
+              facturaElectronica: '',
+              secondaryFactura  : facturaElectronica as unknown as JsonObject,
+              emisorDeFactura   : {
+                connectOrCreate: {
+                  where: {
+                    nit: nit
+                  },
+                  create: {
+                    dv         : factura.dv,
+                    nit        : nit,
+                    razonSocial: factura.razonSocial,
+                    direccion  : factura.direccion,
+                    ciudad     : factura.ciudad,
+                  }
+                }
+              }
+            }
+          }
+        );
+
+        console.log(
+          inserter
+        );
+        return {
+          success: true,
+          data   : JSON.stringify(
+            inserter
+          )
+        };
+
+      } catch ( error ) {
+        console.log(
+          error
+        );
+        return {
+          success: false,
+          data   : JSON.stringify(
+            error
+          )
+        };
+      }
 }
 
 

@@ -5,7 +5,7 @@ import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import layout from '#@/styles/layout.module.css';
-import { inputElement, slider, switchBox } from '../form/form.module.css';
+import { inputElement, slider, switchBox } from '../Form/form.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { CopyButton } from '../Buttons/copy-buttons';
 import { fixMoney } from '#@/lib/project/helper';

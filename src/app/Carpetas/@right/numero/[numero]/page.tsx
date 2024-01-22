@@ -1,12 +1,12 @@
 'use client';
 
 import { FieldPath, useFormContext } from 'react-hook-form';
-import form from 'components/form/form.module.css';
+import form from 'components/Form/form.module.css';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 
 export default function Page() {
       const {
-        setFocus 
+        setFocus
       } = useFormContext<IntCarpeta>();
 
       const carpetaKeys: FieldPath<IntCarpeta>[] = [
@@ -24,7 +24,7 @@ export default function Page() {
         <>
           {carpetaKeys.map(
             (
-              carpetaKey 
+              carpetaKey
             ) => {
                       return (
                         <button
@@ -35,14 +35,14 @@ export default function Page() {
                                     setFocus(
                                       carpetaKey, {
                                         shouldSelect: true,
-                                      } 
+                                      }
                                     );
                           }}
                         >
                           <span>{carpetaKey}</span>
                         </button>
                       );
-            } 
+            }
           )}
           <button
             type={'button'}
@@ -51,7 +51,7 @@ export default function Page() {
                       setFocus(
                         'numero', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >
@@ -64,7 +64,7 @@ export default function Page() {
                       setFocus(
                         'category', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >
@@ -77,7 +77,7 @@ export default function Page() {
                       setFocus(
                         'llaveProceso', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >
@@ -90,7 +90,7 @@ export default function Page() {
                       setFocus(
                         'tipoProceso', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >
@@ -103,7 +103,7 @@ export default function Page() {
                       setFocus(
                         'deudor.primerNombre', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >
@@ -116,7 +116,7 @@ export default function Page() {
                       setFocus(
                         'deudor.segundoNombre', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >

@@ -2,7 +2,7 @@
 import { createNota } from '#@/app/actions/main';
 import { useNotaContext } from '#@/app/context/main-context';
 import { useState } from 'react';
-import styles from '../form/checkbox/styles.module.css';
+import styles from '../Form/checkbox/styles.module.css';
 
 export default function AddNota() {
       const [ hasContent, setHasContent ] = useState(

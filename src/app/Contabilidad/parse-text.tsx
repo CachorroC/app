@@ -1,7 +1,10 @@
 'use client';
 
 import { useNuevaFacturaContext } from './nueva-factura-context-provider';
-import { Factura } from '#@/lib/types/contabilidad';
+import typography from '#@/styles/fonts/typography.module.css';
+import formStyles from '#@/components/Form/form.module.css';
+import { parseFacturaElectronica } from './helper/factura-electronica-parser';
+
 
 export const ParseTextarea = () => {
 
@@ -11,10 +14,13 @@ export const ParseTextarea = () => {
           } = useNuevaFacturaContext();
 
           return (
-            <>
-              <fieldset>
-                <legend>factura electronica</legend>
-                <textarea name='facturaElectronica' placeholder='pegue en este espacio el texto que aparece con el codigo qr de la factura electronica' value={ valorState.facturaElectronica } onChange={
+
+            <fieldset className={formStyles.segmentColumn}>
+              <legend className={ typography.headlineMedium }>factura electronica</legend>
+              <div className={ formStyles.segmentRow}>
+
+                <label htmlFor={'facturaElectronica'} className={formStyles.label}>Factura Electronica</label>
+                <textarea rows={20} cols={20} name='facturaElectronica' className={formStyles.textArea} placeholder='pegue en este espacio el texto que aparece con el codigo qr de la factura electronica' value={ valorState.facturaElectronica } onChange={
                   (
                     e
                   ) => {
@@ -22,41 +28,19 @@ export const ParseTextarea = () => {
                               value
                             } = e.target;
 
-
-                            const facturaMap = new Map();
-
-                            const rawKeyValues = value.split(
-                              '\n'
+                            const parsedValues = parseFacturaElectronica(
+                              value
                             );
-
-                            for ( const rawKV of rawKeyValues ) {
-                              const [ key, ...restValues ] = rawKV.split(
-                                ':'
-                              );
-                              facturaMap.set(
-                                key, restValues.join(
-                                  ':'
-                                )
-                              );
-                            }
-
-
-
-
-                            const newFactura = new Factura(
-                              value, {
-                                ...valorState
-                              }
-                            );
-
-
-
                             return setValorState(
-                              newFactura
+                              {
+                                ...valorState,
+                                ...parsedValues
+                              }
                             );
                   }
                 }
                 />
-              </fieldset>
-            </> );
+              </div>
+            </fieldset>
+          );
 };

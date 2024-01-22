@@ -17,20 +17,24 @@ export function NuevaFacturaProvider(
 
       const [ valorState, setValorState ] = useState<intFactura>(
         {
-          valorTotal  : '0.00',
-          valorBase   : '0.00',
-          hasIva      : false,
-          hasOtroImp  : false,
-          ciudad      : '',
-          dv          : 0,
-          fecha       : new Date(),
-          id          : '',
-          nit         : 0,
-          razonSocial : '',
-          valorIva    : '',
-          valorOtroImp: '',
-          concepto    : '',
-          direccion   : ''
+          valorTotal: '0.00',
+          valorBase : '0.00',
+          hasIva    : false,
+          hasOtroImp: false,
+          ciudad    : '',
+          dv        : 0,
+          fecha     : new Date(
+            '1997-01-03'
+          ),
+          id            : '',
+          nit           : 0,
+          razonSocial   : '',
+          hasIcui       : false,
+          hasImpoConsumo: false,
+          valorIva      : '0.00',
+          valorOtroImp  : '0.00',
+          concepto      : '',
+          direccion     : ''
         }
       );
 
@@ -47,10 +51,13 @@ export function NuevaFacturaProvider(
 
                     if ( idk ) {
                       const {
-                        _id, ...restIdk
+                        _id, facturaElectronica, ...restIdk
                       } = idk;
                       console.log(
-                        _id 
+                        _id
+                      );
+                      console.log(
+                        facturaElectronica
                       );
                       setValorState(
                         {
@@ -64,8 +71,6 @@ export function NuevaFacturaProvider(
 
         }, [ facturas, valorState.id ]
       );
-
-
       return (
         <NuevaFacturaContext.Provider value={{
           valorState,

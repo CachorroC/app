@@ -3,8 +3,7 @@
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { IntCarpetaElementSchema } from '#@/lib/types/zod/carpeta';
 import { useFormContext, SubmitHandler } from 'react-hook-form';
-import form from 'components/form/form.module.css';
-import layout from '#@/styles/layout.module.css';
+import form from 'components/Form/form.module.css';
 import { divider } from '#@/app/Carpetas/@right/Nueva/styles.module.css';
 import { DateInputSection } from './date-section';
 import { ObligacionesComponent } from './field-array-section';
@@ -17,19 +16,19 @@ import { CheckboxHasProperty } from './checkboxHasProperty';
 
 export const Form = (
   {
-    carpeta 
-  }: { carpeta: MonCarpeta } 
+    carpeta
+  }: { carpeta: MonCarpeta }
 ) => {
           const {
-            demanda, numero, category, tipoProceso, deudor 
+            demanda, numero, category, tipoProceso, deudor
           } = carpeta;
 
           const {
-            handleSubmit, setError 
+            handleSubmit, setError
           } = useFormContext<MonCarpeta>();
 
           const onSubmit: SubmitHandler<MonCarpeta> = async (
-            data: MonCarpeta 
+            data: MonCarpeta
           ) => {
                     const newCarpeta = {
                       ...carpeta,
@@ -37,18 +36,18 @@ export const Form = (
                     };
 
                     const parsed = IntCarpetaElementSchema.safeParse(
-                      newCarpeta 
+                      newCarpeta
                     );
 
                     if ( !parsed.success ) {
                       alert(
                         JSON.stringify(
-                          parsed 
-                        ) 
+                          parsed
+                        )
                       );
 
                       throw new Error(
-                        'error al hacer el parse' 
+                        'error al hacer el parse'
                       );
                     }
 
@@ -60,29 +59,29 @@ export const Form = (
                           'content-type': 'application/json',
                         },
                         body: JSON.stringify(
-                          parsed.data 
+                          parsed.data
                         ),
                       },
                     );
                     alert(
                       JSON.stringify(
-                        postCarpeta.status, null, 2 
-                      ) 
+                        postCarpeta.status, null, 2
+                      )
                     );
 
                     if ( postCarpeta.status > 200 ) {
                       setError(
                         'root.serverError', {
                           type: postCarpeta.statusText,
-                        } 
+                        }
                       );
                     }
 
                     const updatedCarpeta = ( await postCarpeta.json() ) as MonCarpeta;
                     alert(
                       JSON.stringify(
-                        updatedCarpeta, null, 2 
-                      ) 
+                        updatedCarpeta, null, 2
+                      )
                     );
                     console.log(
                       `el estatus de la operacion post en Form arrojó: ${ postCarpeta.status }`,
@@ -92,13 +91,13 @@ export const Form = (
           return (
             <div className={form.container}>
               <form
-                className={form.form}
+                className={form.segmentColumn}
                 onSubmit={handleSubmit(
-                  onSubmit 
+                  onSubmit
                 )}
               >
-                <section className={layout.sectionColumn}>
-                  <section className={layout.sectionRow}>
+                <section className={form.segmentColumn}>
+                  <section className={form.segmentRow}>
                     <fieldset>
                       <legend>Deudor</legend>
                       <NumberSection
@@ -124,7 +123,7 @@ export const Form = (
                     </fieldset>
                   </section>
 
-                  <section className={layout.sectionRow}>
+                  <section className={form.segmentRow}>
                     <SelectSection
                       name={'tipoProceso'}
                       initialValue={tipoProceso}
@@ -133,7 +132,7 @@ export const Form = (
                         'SINGULAR',
                         'HIPOTECARIO',
                         'ACUMULADO',
-                        'PRENDARIO' 
+                        'PRENDARIO'
                       ]}
                     />
                     {deudor?.cedula && (
@@ -147,7 +146,7 @@ export const Form = (
                       />
                     )}
                   </section>
-                  <section className={layout.sectionRow}>
+                  <section className={form.segmentRow}>
                     <InputSection
                       name={'deudor.primerNombre'}
                       title={'Primer Nombre'}
@@ -165,7 +164,7 @@ export const Form = (
                       />
                     )}
                   </section>
-                  <section className={layout.sectionRow}>
+                  <section className={form.segmentRow}>
                     <InputSection
                       name={'deudor.primerApellido'}
                       title={'Primer Apellido'}
@@ -183,7 +182,7 @@ export const Form = (
                     )}
                   </section>
 
-                  <section className={layout.sectionRow}>
+                  <section className={form.segmentRow}>
                     <InputSection
                       name={'deudor.direccion'}
                       title={'Dirección'}
@@ -199,7 +198,7 @@ export const Form = (
                       }}
                     />
                   </section>
-                  <section className={layout.sectionRow}>
+                  <section className={form.segmentRow}>
                     <NumberSection
                       name={'deudor.tel.celular'}
                       title={'celular'}
@@ -213,7 +212,7 @@ export const Form = (
                   </section>
                 </section>
                 <div className={divider}></div>
-                <section className={layout.sectionColumn}>
+                <section className={form.segmentColumn}>
                   <NumberSection
                     name={'demanda.capitalAdeudado'}
                     title={'Capital en mora'}
@@ -338,7 +337,7 @@ export const Form = (
                     ? (
                         demanda.fechaPresentacion.map(
                           (
-                            fechaP, index 
+                            fechaP, index
                           ) => {
                                     return (
                                       <DateInputSection
@@ -348,7 +347,7 @@ export const Form = (
                                         title={'fecha de presentacion de la demanda'}
                                       />
                                     );
-                          } 
+                          }
                         )
                       )
                     : (
@@ -364,7 +363,7 @@ export const Form = (
                     ? (
                         demanda.vencimientoPagare.map(
                           (
-                            fechaVencimiento, index 
+                            fechaVencimiento, index
                           ) => {
                                     return (
                                       <DateInputSection
@@ -373,14 +372,14 @@ export const Form = (
                                         title={`Pagaré numero ${ index + 1 }`}
                                       />
                                     );
-                          } 
+                          }
                         )
                       )
                     : (
                         <VencimientoPagareSection />
                       )}
                 </section>
-                <section className={layout.segmentRow}>
+                <section className={form.segmentRow}>
                   <CheckboxHasProperty
                     keyOfCarpeta={'fecha'}
                     carpeta={carpeta}

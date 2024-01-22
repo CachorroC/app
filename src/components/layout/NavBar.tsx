@@ -17,8 +17,8 @@ export const NavBar = () => {
 
           return (
             <div className={styles.header}>
-              <DrawerMenuButton />
               <NewNoteButton />
+              <DrawerMenuButton />
               <NavLink
                 key={'home'}
                 iconLabel={'home'}

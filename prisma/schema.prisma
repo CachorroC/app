@@ -29,8 +29,31 @@ model Carpeta {
   tareas          Task[]
 }
 
+model Factura {
+  id                 String          @id
+  facturaElectronica String?
+  secondaryFactura   Json?
+  ciudad             String
+  dv                 Int
+  fecha              DateTime        @db.Date
+  razonSocial        String
+  nombreComercial    String?
+  direccion          String
+  valorBase          Decimal         @db.Money
+  hasOtroImp         Boolean         @default(false)
+  hasIva             Boolean         @default(false)
+  hasIcui            Boolean         @default(false)
+  hasImpoConsumo     Boolean         @default(false)
+  nit                Int
+  emisorDeFactura    EmisorDeFactura @relation(fields: [nit], references: [nit])
+  valorIva           Decimal         @db.Money
+  valorOtroImp       Decimal         @db.Money
+  valorTotal         Decimal         @db.Money
+  concepto           String
+}
+
 model EmisorDeFactura {
-  nit                       Int     @id
+  nit                       Int       @id
   dv                        Int
   razonSocial               String
   nombreComercial           String?
@@ -40,8 +63,9 @@ model EmisorDeFactura {
   actividadEconomica        String?
   regimenFiscal             String?
   responsabilidadTributaria String?
-  tipoContribuyente         String  @default("Juridica")
-  ciudad                    String  @default("Bogota")
+  tipoContribuyente         String    @default("Juridica")
+  ciudad                    String    @default("Bogota")
+  facturas                  Factura[]
 }
 
 model Deudor {

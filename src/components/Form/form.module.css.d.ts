@@ -1,11 +1,16 @@
 declare const styles: {
   readonly 'button': string;
-  readonly 'buttonsRow': string;
+  readonly 'buttonActive': string;
+  readonly 'buttonPassive': string;
   readonly 'container': string;
-  readonly 'form': string;
   readonly 'icon': string;
   readonly 'inputElement': string;
   readonly 'label': string;
+  readonly 'segment': string;
+  readonly 'segmentColumn': string;
+  readonly 'segmentDetached': string;
+  readonly 'segmentRow': string;
+  readonly 'segmentRowWrap': string;
   readonly 'selectArea': string;
   readonly 'slider': string;
   readonly 'submitButton': string;

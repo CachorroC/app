@@ -5,7 +5,7 @@ import { DeleteTaskButton } from './task-buttons';
 import { EditTask } from './EditTask';
 import { inputElement,
   slider,
-  switchBox, } from '#@/components/form/form.module.css';
+  switchBox, } from '#@/components/Form/form.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { IntTask } from '#@/lib/types/carpetas';
 

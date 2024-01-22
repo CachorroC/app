@@ -1,4 +1,4 @@
-import { Form } from '#@/components/form/Form';
+import { Form } from '#@/components/Form/Form';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { notFound } from 'next/navigation';
 
@@ -7,12 +7,12 @@ export default async function PageCarpetaId(
     params,
   }: {
     params: { numero: string };
-  } 
+  }
 ) {
       const carpeta = await getCarpetabyNumero(
         Number(
-          params.numero 
-        ) 
+          params.numero
+        )
       );
 
       if ( !carpeta ) {

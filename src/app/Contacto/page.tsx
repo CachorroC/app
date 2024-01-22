@@ -1,15 +1,14 @@
 'use client';
 import { ContactoForm, RawContactoFormValues } from '#@/lib/types/contacto';
-import form from 'components/form/form.module.css';
+import form from 'components/Form/form.module.css';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import checkbox from 'components/form/checkbox/styles.module.css';
-import layout from '#@/styles/layout.module.css';
+import checkbox from 'components/Form/checkbox/styles.module.css';
 import { useContactContext } from '../context/main-context';
 
 export default function Page() {
       const {
-        register, handleSubmit 
+        register, handleSubmit
       } = useForm<RawContactoFormValues>(
         {
           defaultValues: {
@@ -20,20 +19,20 @@ export default function Page() {
             telefono  : 1,
             comentario: 'Este es el espacio para registrar información adicional',
           },
-        } 
+        }
       );
 
       const {
-        contactoForm, setContactoForm 
+        contactoForm, setContactoForm
       } = useContactContext();
 
       const onSubmit: SubmitHandler<RawContactoFormValues> = async (
-        data 
+        data
       ) => {
                 const newData: ContactoForm = {
                   ...data,
                   telefono: Number(
-                    data.telefono 
+                    data.telefono
                   ),
                   fecha: new Date(),
                 };
@@ -41,7 +40,7 @@ export default function Page() {
                   {
                     ...contactoForm,
                     ...newData,
-                  } 
+                  }
                 );
 
                 try {
@@ -52,27 +51,27 @@ export default function Page() {
                         'Content-Type': 'application/json',
                       },
                       body: JSON.stringify(
-                        newData 
+                        newData
                       ),
-                    } 
+                    }
                   );
 
                   if ( !postData.ok ) {
                     throw new Error(
-                      `${ postData.status }: ${ postData.statusText }` 
+                      `${ postData.status }: ${ postData.statusText }`
                     );
                   }
 
                   const msg = await postData.json();
                   alert(
                     JSON.stringify(
-                      msg 
-                    ) 
+                      msg
+                    )
                   );
 
                   console.log(
                     `mensaje en app/Contacto/Page: ${ JSON.stringify(
-                      msg, null, 2 
+                      msg, null, 2
                     ) }`,
                   );
                 } catch ( e ) {
@@ -86,11 +85,11 @@ export default function Page() {
         <div className={form.container}>
           <form
             onSubmit={handleSubmit(
-              onSubmit 
+              onSubmit
             )}
-            className={form.form}
+            className={form.segmentColumn}
           >
-            <section className={layout.segmentRow}>
+            <section className={form.segmentRow}>
               <label
                 htmlFor={'nombre'}
                 className={form.label}
@@ -104,11 +103,11 @@ export default function Page() {
                 {...register(
                   'nombre', {
                     required: true,
-                  } 
+                  }
                 )}
               />
             </section>{' '}
-            <section className={layout.segmentRow}>
+            <section className={form.segmentRow}>
               <label
                 htmlFor={'email'}
                 className={form.label}
@@ -123,11 +122,11 @@ export default function Page() {
                   'email', {
                     required: false,
                     pattern : /^\S+@\S+$/i,
-                  } 
+                  }
                 )}
               />
             </section>
-            <section className={layout.segmentRow}>
+            <section className={form.segmentRow}>
               <label
                 htmlFor={'telefono'}
                 className={form.label}
@@ -141,31 +140,31 @@ export default function Page() {
                 {...register(
                   'telefono', {
                     required: false,
-                  } 
+                  }
                 )}
               />
             </section>
-            <section className={layout.segmentRow}>
+            <section className={form.segmentRow}>
               <label
                 htmlFor={'newsLetter'}
                 className={form.label}
               >{`¿ Desea recibir noticias e
           informacion trimestral junto
           a la respuesta de su requerimiento ?`}</label>
-              <section className={layout.segmentRow}>
+              <section className={form.segmentRow}>
                 <p className={form.label}>Sí</p>
                 <label className={checkbox.switchBox}>
                   <input
                     className={checkbox.inputElement}
                     {...register(
-                      'newsLetter' 
+                      'newsLetter'
                     )}
                     type="checkbox"
                   />
                   <span className={checkbox.slider}></span>
                 </label>
               </section>
-              <section className={layout.segmentRow}>
+              <section className={form.segmentRow}>
                 <label
                   htmlFor={'comentario'}
                   className={form.label}
@@ -178,7 +177,7 @@ export default function Page() {
                   {...register(
                     'comentario', {
                       required: true,
-                    } 
+                    }
                   )}
                 />
               </section>
@@ -188,7 +187,7 @@ export default function Page() {
               {...register(
                 'grupo', {
                   required: true,
-                } 
+                }
               )}
             >
               <option value="Abogado">Abogado</option>

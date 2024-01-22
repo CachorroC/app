@@ -12,7 +12,7 @@ import layout from '#@/styles/layout.module.css';
 import { Loader } from '#@/components/Loader';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
-import { InputSection } from '#@/components/form/input-section';
+import { InputSection } from '#@/components/Form/input-section';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { DeudorFormComponent } from './deudor-form-component';
 import { Snackbar } from '#@/components/Modal/snackbar';

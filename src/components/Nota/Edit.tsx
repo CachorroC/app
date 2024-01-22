@@ -1,7 +1,7 @@
 'use client';
 import { editNota } from '#@/app/actions/main';
 import { useState } from 'react';
-import styles from 'components/form/form.module.css';
+import styles from 'components/Form/form.module.css';
 import layout from '#@/styles/layout.module.css';
 import { Nota } from '@prisma/client';
 import { useFormState } from 'react-dom';
@@ -40,7 +40,7 @@ export const Edit = (
               }`}
             >
               <form
-                className={styles.form}
+                className={styles.container}
                 action={onCreate}
               >
                 <section className={layout.sectionRow}>
