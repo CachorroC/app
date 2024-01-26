@@ -1,39 +1,15 @@
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { FechaActuacionComponentAlt } from './actuaciones';
 import { CarpetaUltimaActuacionRow } from '#@/components/Table/row';
-import { Loader } from '#@/components/Loader';
 import { Suspense } from 'react';
+import ActuacionLoader from '#@/components/Card/actuacion-loader';
+import typography from '#@/styles/fonts/typography.module.css';
+import styles from '#@/components/Card/card.module.css';
+
 
 export default async function Page() {
-      const carpetasRaw = await getCarpetas();
+      const carpetas = await getCarpetas();
 
-      const carpetas = [ ...carpetasRaw ].sort(
-        (
-          a, b
-        ) => {
-                  if ( !a.fecha || a.fecha.toString() === 'Invalid Date' ) {
-                    return -1;
-                  }
-
-                  if ( !b.fecha || b.fecha.toString() === 'Invalid Date' ) {
-                    return 1;
-                  }
-
-                  const x = a.fecha;
-
-                  const y = b.fecha;
-
-                  if ( x < y ) {
-                    return -1;
-                  }
-
-                  if ( x > y ) {
-                    return 1;
-                  }
-
-                  return 0;
-        }
-      );
       return (
         <table>
           <thead>
@@ -65,7 +41,20 @@ export default async function Page() {
                               carpeta={carpeta}
                               key={numero}
                             >
-                              <td>sin actuacion</td>
+
+
+                              <td>
+                                <h5 className={ ` ${ styles.actuacion } ${ typography.titleSmall }` }>
+              Sin registro
+                                </h5>
+                                <sub className={ typography.labelSmall }>0 de 0</sub>
+                              </td>
+                              <td>
+                                <sub className={ typography.headlineMedium }>por favor revise que el numero de expediente esté bien o si la informacion la brinda el juzgado por otro canal</sub>
+
+                              </td>
+
+
                             </CarpetaUltimaActuacionRow>
                           );
                         }
@@ -79,11 +68,10 @@ export default async function Page() {
                                         key={idProceso}
                                         carpeta={carpeta}
                                       >
-                                        <Suspense fallback={<Loader />}>
+                                        <Suspense fallback={<ActuacionLoader />}>
                                           <FechaActuacionComponentAlt
                                             idProceso={idProceso}
                                             index={index}
-                                            initialOpenState={false}
                                           />
                                         </Suspense>
                                       </CarpetaUltimaActuacionRow>

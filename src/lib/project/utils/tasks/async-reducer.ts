@@ -1,19 +1,23 @@
 
 import { prisma } from '#@/lib/connection/prisma';
-import { IntTask } from '#@/lib/types/carpetas';
-import { IntTaskAction } from '#@/lib/types/context-actions';
+import { NotaAction } from '#@/lib/types/task-context-actions';
+import { IntTask } from '#@/lib/types/tareas';
 
 export async function tasksAsyncReducer(
   tasks: IntTask[],
-  action: IntTaskAction,
+  action: NotaAction,
 ) {
       try {
         const {
-          type, task
+          type
         } = action;
 
         switch ( type ) {
             case 'added': {
+              const {
+                task
+              } = action;
+
               const newTask = await prisma.task.upsert(
                 {
                   where: {
@@ -34,6 +38,10 @@ export async function tasksAsyncReducer(
             }
 
             case 'changed': {
+              const {
+                task
+              } = action;
+
               const upsertTask = await prisma.task.upsert(
                 {
                   where: {
@@ -57,10 +65,14 @@ export async function tasksAsyncReducer(
             }
 
             case 'deleted': {
+              const {
+                id
+              } = action;
+
               const deleteTask = await prisma.task.delete(
                 {
                   where: {
-                    id: task.id,
+                    id: id,
                   },
                 }
               );

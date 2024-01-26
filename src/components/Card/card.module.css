@@ -106,20 +106,22 @@
 
 .link {
   background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
   display: flex;
+  border: none;
   flex-flow: column nowrap;
-  flex: 1;
+  flex: 0 1 auto;
   align-items: center;
   justify-content: center;
   grid-area: link;
   border-radius: 10cqmin;
-  padding: 1cqmax;
+  padding: auto 1rem;
   position: relative;
 }
 .link .icon {
   margin: 0;
   grid-area: icon;
-  color: var(--secondary);
+  color: var(--on-secondary-container);
   font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
 }
 .link:hover {
@@ -146,8 +148,7 @@
 .link > .tooltiptext {
   visibility: hidden;
   width: auto;
-  background-color: var(--inverse-surface);
-  color: var(--inverse-on-surface);
+  color: var(--on-secondary-container);
   text-align: center;
   border-radius: 2vmin;
   padding: 1rem;
@@ -171,7 +172,7 @@
 .link > .icon {
   margin: 0;
   grid-area: icon;
-  color: var(--on-tertiary-container);
+  color: var(--on-secondary-container);
   font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
   font-size: 1.5rem;
 }

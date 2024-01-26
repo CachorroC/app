@@ -1,7 +1,7 @@
 import styles from '#@/styles/layout.module.css';
 import { ReactNode } from 'react';
-import { NuevaNotaFormProvider } from '../context/nueva-nota-form-context';
-import { NotasSortProvider } from '../context/notas-sort-context';
+import { NuevaNotaFormProvider } from '../Context/nueva-task-form-context';
+import { NotasSortProvider } from '../Context/notas-sort-context';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 
 export default async function NotasLayoutMain(
@@ -13,7 +13,7 @@ export default async function NotasLayoutMain(
     children: ReactNode;
     top: ReactNode;
     right: ReactNode;
-  } 
+  }
 ) {
       const notas = await getNotas();
       return (

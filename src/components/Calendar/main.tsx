@@ -4,8 +4,8 @@ import calendar from './calendar.module.css';
 
 export function Calendar(
   {
-    date 
-  }: { date?: Date } 
+    date
+  }: { date?: Date }
 ) {
       const today = date
         ? date
@@ -16,7 +16,7 @@ export function Calendar(
       const currentYear = today.getFullYear();
 
       const rows = CalendarBuilder(
-        today 
+        today
       );
 
       return (
@@ -35,10 +35,10 @@ export function Calendar(
             <div className={calendar.days}>
               {rows.map(
                 (
-                  row 
+                  row
                 ) => {
                           const {
-                            date, href, current, className 
+                            date, href, current, className
                           } = row;
 
                           const setToday = date === today.getDate();
@@ -50,17 +50,17 @@ export function Calendar(
                               className={
                                 current
                                   ? setToday
-                                    ? calendar.active
+                                    ? calendar.dayActive
                                     : className === 'today'
-                                      ? calendar.today
-                                      : calendar.inactive
-                                  : calendar.disabled
+                                      ? calendar.dayToday
+                                      : calendar.dayInactive
+                                  : calendar.dayDisabled
                               }
                             >
                               {date.toString()}
                             </Link>
                           );
-                } 
+                }
               )}
             </div>
           </div>

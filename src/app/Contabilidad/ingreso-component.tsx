@@ -1,16 +1,22 @@
 'use client';
 
-import { InputDateHelper } from '#@/lib/project/date-helper';
-import {  intFactura } from '#@/lib/types/contabilidad';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { addFactura, addFacturaGenerator, addToContabilidad } from './actions';
 import formStyles from '#@/components/Form/form.module.css';
 import { useNuevaFacturaContext } from './nueva-factura-context-provider';
 import typography from '#@/styles/fonts/typography.module.css';
 import { josefina } from '#@/styles/fonts';
 import { ParseTextarea } from './parse-text';
+import Nit from './nit';
+import { NumericValueInput } from './numeric-value';
+import { IntCarpeta } from '#@/lib/types/carpetas';
+import { InputDateHelper } from '#@/lib/project/date-helper';
 
-export function IngresoComponent() {
+export function IngresoComponent(
+  {
+    carpetas
+  }: {carpetas: IntCarpeta[]}
+) {
       const conceptos = [
         'Telefonia'
         , 'CyB'
@@ -24,9 +30,18 @@ export function IngresoComponent() {
         , 'sinEspecificar'
       ];
 
+
+
       const {
         valorState, setValorState
       } = useNuevaFacturaContext();
+
+
+
+
+      const [ perteneceProceso, setPerteneceProceso ] = useState(
+        false
+      );
 
 
       async function createIngresoInDatabase () {
@@ -41,48 +56,64 @@ export function IngresoComponent() {
               valorState
             );
 
-            if ( adder ) {
+            if ( adder.success ) {
               alert(
-                'se ingresó la informacion a la base de datos in prisma'
+                `se ingresó la informacion a la base de datos in prisma ${ adder.data }`
               );
             } else {
               alert(
-                'error, no se pudo ingresar la forma a la base de dato in prismas'
+                `error, no se pudo ingresar la forma a la base de dato in prismas ${ adder.data }`
               );
             }
 
-            if ( sender ) {
+            if ( sender.success ) {
               alert(
-                'se ingresó la informacion a la base de datos'
+                `se ingresó la informacion a la base de datos ${ sender.data }`
               );
             } else {
               alert(
-                'error, no se pudo ingresar la forma a la base de datos'
+                `error, no se pudo ingresar la forma a la base de datos ${ sender.data }`
               );
             }
 
-            const newFactura: intFactura = {
-              valorTotal: '0.00',
-              valorBase : '0.00',
-              hasIva    : false,
-              hasOtroImp: false,
-              ciudad    : '',
-              dv        : 0,
-              fecha     : new Date(
-                '1997-01-03'
-              ),
-              id            : '',
-              nit           : 0,
-              razonSocial   : '',
-              valorIva      : '0.00',
-              valorOtroImp  : '0.00',
-              concepto      : '',
-              direccion     : '',
-              hasIcui       : false,
-              hasImpoConsumo: false
+            if ( !adder.success || !sender.success ) {
+              return setValorState(
+                {
+                  ...valorState
+                }
+              );
+            }
+
+            const newFactura = {
+              valorTotal        : '0.00',
+              valorBase         : '0.00',
+              valorOtroImp      : '0.00',
+              valorIva          : '0.00',
+              hasIva            : false,
+              hasOtroImp        : false,
+              hasIcui           : false,
+              hasImpoConsumo    : false,
+              facturaElectronica: '',
+              secondaryFactura  : {},
+              carpetaNumero     : 0,
+              nombreComercial   : '',
+              ciudad            : '',
+              dv                : 0,
+              id                : '',
+              nit               : 0,
+              razonSocial       : '',
+              concepto          : '',
+              direccion         : '',
+              fecha             : '',
+
             };
             return setValorState(
-              newFactura
+              {
+                ...newFactura,
+                fecha: new Date(
+                  newFactura.fecha
+                )
+              }
             );
       }
 
@@ -105,16 +136,33 @@ export function IngresoComponent() {
             }
       }
 
-      function handleChange(
+      function handleStringChange(
         e: ChangeEvent<HTMLInputElement| HTMLSelectElement>
       ) {
             return setValorState(
               {
                 ...valorState,
-                [ e.target.name ]: e.target.value
+                [ e.target.name ]: String(
+                  e.target.value
+                )
               }
             );
       }
+
+      function handleNumericChange (
+        e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+      ) {
+
+            return setValorState(
+              {
+                ...valorState,
+                [ e.target.name ]: Number(
+                  e.target.value
+                )
+              }
+            );
+      }
+
 
       return (
         <form
@@ -137,9 +185,10 @@ export function IngresoComponent() {
                     type="text"
                     className={formStyles.textArea}
                     value={valorState.id}
-                    onChange={handleChange}
+                    onChange={handleStringChange}
                   />
                 </div>
+                <Nit />
                 <div className={formStyles.segmentRow}>
                   <label
                     className={formStyles.label}
@@ -152,16 +201,7 @@ export function IngresoComponent() {
                     type="text"
                     className={formStyles.textArea}
                     value={valorState.razonSocial}
-                    onChange={(
-                      e
-                    ) => {
-                              return setValorState(
-                                {
-                                  ...valorState,
-                                  razonSocial: e.target.value,
-                                }
-                              );
-                    }}
+                    onChange={handleStringChange}
                   />
                 </div>
                 <div className={formStyles.segmentRow}>
@@ -169,23 +209,14 @@ export function IngresoComponent() {
                     className={formStyles.label}
                     htmlFor={'nombreComercial'}
                   >
-            Razon Social
+        Nombre Comercial
                   </label>
                   <input
                     name="nombreComercial"
                     type="text"
                     className={formStyles.textArea}
                     value={valorState.nombreComercial}
-                    onChange={(
-                      e
-                    ) => {
-                              return setValorState(
-                                {
-                                  ...valorState,
-                                  nombreComercial: e.target.value,
-                                }
-                              );
-                    }}
+                    onChange={handleStringChange}
                   />
                 </div>
                 <div className={formStyles.segmentRow}>
@@ -194,42 +225,36 @@ export function IngresoComponent() {
                     name={'fecha'}
                     type={'date'}
                     value={InputDateHelper(
-                      valorState.fecha
+                      valorState.fecha 
                     )}
+
                     onChange={(
                       e
                     ) => {
+                              const {
+                                value
+                              } = e.target;
+
+                              const [
+                                yearStringer,
+                                monthStringer,
+                                dayStringer
+                              ]
+                    =  value.split(
+                      '-'
+                    );
                               return setValorState(
                                 {
                                   ...valorState,
                                   fecha: new Date(
-                                    e.target.value
-                                  ),
+                                    `${ yearStringer }-${ monthStringer }-${ dayStringer }`
+                                  )
                                 }
                               );
                     }}
                   />
                 </div>
-                <div className={formStyles.segmentRow}>
-                  <label className={formStyles.label} htmlFor={'nit'}>NIT</label>
-                  <input className={formStyles.textArea}
-                    name="nit"
-                    type="number"
-                    value={valorState.nit}
-                    onChange={(
-                      e
-                    ) => {
-                              return setValorState(
-                                {
-                                  ...valorState,
-                                  nit: Number(
-                                    e.target.value
-                                  ),
-                                }
-                              );
-                    }}
-                  />
-                </div>
+
               </div>
               <div className={ formStyles.segmentColumn }>
                 <div className={formStyles.segmentRow}>
@@ -238,7 +263,7 @@ export function IngresoComponent() {
                     name="direccion"
                     type="text"
                     value={valorState.direccion}
-                    onChange={handleChange}
+                    onChange={handleStringChange}
                   />
                 </div>
                 <div className={formStyles.segmentRow}>
@@ -247,7 +272,7 @@ export function IngresoComponent() {
                     name="ciudad"
                     type="text"
                     value={valorState.ciudad}
-                    onChange={handleChange}
+                    onChange={handleStringChange}
                   />
                 </div>
                 <div className={formStyles.segmentRow}>
@@ -256,18 +281,7 @@ export function IngresoComponent() {
                     name="dv"
                     type="number"
                     value={valorState.dv}
-                    onChange={(
-                      e
-                    ) => {
-                              return setValorState(
-                                {
-                                  ...valorState,
-                                  dv: Number(
-                                    e.target.value
-                                  ),
-                                }
-                              );
-                    }}
+                    onChange={handleNumericChange}
                   />
                 </div>
                 <div className={formStyles.segmentRow}>
@@ -276,7 +290,26 @@ export function IngresoComponent() {
                     <select className={formStyles.selectArea}
                       name="concepto"
                       value={valorState.concepto}
-                      onChange={handleChange}
+                      onChange={ (
+                        e
+                      ) => {
+                                const {
+                                  value
+                                } = e.target;
+
+                                if ( value === 'ProcesoBancolombia' || value === 'ProcesoReintegra' ) {
+                                  setPerteneceProceso(
+                                    true
+                                  );
+                                }
+
+                                return setValorState(
+                                  {
+                                    ...valorState,
+                                    concepto: value
+                                  }
+                                );
+                      }}
                     >
                       {conceptos.map(
                         (
@@ -302,7 +335,7 @@ export function IngresoComponent() {
                       type="text"
                       placeholder={'otro'}
                       value={valorState.concepto}
-                      onChange={handleChange}
+                      onChange={handleStringChange}
                     />
                   </div>
                 </div>
@@ -315,10 +348,10 @@ export function IngresoComponent() {
           <fieldset className={formStyles.segmentColumn}>
             <legend className={typography.headlineMedium }>Transacciones con divisa nacional</legend>
 
-            <NumericValueInput inputName={ 'valorTotal' } inputLabel={ 'Valor Total' } />
-            <NumericValueInput inputName={ 'valorOtroImp' } inputLabel={ 'otros impuestos' }/>
-            <NumericValueInput inputName={ 'valorIva' } inputLabel={ 'IVA' } />
-            <NumericValueInput inputName={ 'valorBase' } inputLabel={ 'Valor Base' } />
+            <NumericValueInput inputName={ 'valorTotal' } inputLabel={ 'Valor Total' }  />
+            <NumericValueInput inputName={ 'valorOtroImp' } inputLabel={ 'otros impuestos' } />
+            <NumericValueInput inputName={ 'valorIva' } inputLabel={ 'IVA' }  />
+            <NumericValueInput inputName={ 'valorBase' } inputLabel={ 'Valor Base' }  />
           </fieldset>
           <fieldset className={formStyles.segmentColumn}>
             <legend className={typography.headlineMedium }>tiene</legend>
@@ -345,13 +378,13 @@ export function IngresoComponent() {
               </label>
             </div>
             <div className={ formStyles.segmentRow }>
-              <label htmlFor={'hasIva'} className={formStyles.label}>iva</label>
+              <label className={formStyles.label}>iva</label>
               <label className={formStyles.switchBox}>
                 <input
                   className={formStyles.inputElement}
                   checked={valorState.hasIva}
                   type="checkbox"
-                  name='hasIva'
+                  name={'hasIva'}
                   onChange={(
                     e
                   ) => {
@@ -367,13 +400,13 @@ export function IngresoComponent() {
               </label>
             </div>
             <div className={ formStyles.segmentRow }>
-              <label htmlFor={'hasIcui'} className={formStyles.label}>Icui</label>
+              <label className={formStyles.label}>Icui</label>
               <label className={formStyles.switchBox}>
                 <input
                   className={formStyles.inputElement}
                   checked={valorState.hasIcui}
                   type="checkbox"
-                  name='hasIcui'
+                  name={'hasIcui'}
                   onChange={(
                     e
                   ) => {
@@ -387,23 +420,23 @@ export function IngresoComponent() {
                 />
                 <span className={formStyles.slider}></span>
               </label>
-            </div>  <div className={ formStyles.segmentRow }>
-              <label htmlFor={'hasImpoConsumo'} className={formStyles.label}>ImpoConsumo</label>
+            </div>
+            <div className={ formStyles.segmentRow }>
+              <label className={formStyles.label}>ImpoConsumo</label>
               <label className={formStyles.switchBox}>
                 <input
                   className={formStyles.inputElement}
                   checked={valorState.hasImpoConsumo}
                   type="checkbox"
-                  name='hasImpoConsumo'
+                  name={'hasImpoConsumo'}
                   onChange={(
                     e
                   ) => {
                             return setValorState(
                               {
                                 ...valorState,
-                                hasImpoConsumo: Boolean(
-                                  e.target.checked
-                                )
+                                hasImpoConsumo: e.target.checked
+
                               }
                             );
                   }}
@@ -411,6 +444,51 @@ export function IngresoComponent() {
                 <span className={formStyles.slider}></span>
               </label>
             </div>
+            <div className={ formStyles.segmentRow }>
+              <label className={formStyles.label}>Proceso</label>
+              <label className={formStyles.switchBox}>
+                <input
+                  className={formStyles.inputElement}
+                  checked={perteneceProceso}
+                  type="checkbox"
+                  onChange={() => {
+                            return setPerteneceProceso(
+                              !perteneceProceso
+                            );
+                  }}
+                />
+                <span className={formStyles.slider}></span>
+              </label>
+            </div>
+            {perteneceProceso && (
+              <div className={ formStyles.segmentRow }>
+                <label className={ formStyles.label } htmlFor={ 'carpetaNumero' }>Numero de proceso al que pertenece</label>
+                <select value={ valorState.carpetaNumero } onChange={ (
+                  e
+                ) => {
+                          return setValorState(
+                            {
+                              ...valorState,
+                              carpetaNumero: Number(
+                                e.target.value
+                              )
+                            }
+                          );
+                }}>
+                  { carpetas.map(
+                    (
+                      carpeta
+                    ) => {
+                              return (
+                                <option key={carpeta.numero} value={carpeta.numero}>{carpeta.nombre}</option>
+                              );
+                    }
+                  )
+                  }
+                </select>
+
+              </div>
+            )}
           </fieldset>
           <button type='button' className={formStyles.button} onClick={ createFacturaGenerator }>
             <span className={`material-symbols-outlined ${ formStyles.icon }`}>person_add</span>
@@ -426,41 +504,4 @@ export function IngresoComponent() {
           </button>
         </form>
       );
-}
-
-
-
-export function NumericValueInput (
-  {
-    inputName, inputLabel
-  }: { inputName: keyof intFactura;  inputLabel: string}
-) {
-      const {
-        valorState, setValorState
-      } = useNuevaFacturaContext();
-      return (   <div className={formStyles.segmentRow}>
-        <label htmlFor={inputName} className={formStyles.label}>{inputLabel}</label>
-        <input
-          name={ inputName }
-          className={formStyles.textArea}
-          type="number"
-          value={             String(
-            valorState[ inputName ]
-          )
-
-          }
-          onChange={(
-            e
-          ) => {
-                    return setValorState(
-                      {
-                        ...valorState,
-                        [ e.target.name ]: String(
-                          e.target.value
-                        ),
-                      }
-                    );
-          }}
-        />
-      </div> );
 }

@@ -18,7 +18,6 @@ export default  function Page () {
               <tr>
                 <TableRowCarpetaSortingButton sortKey={ 'numero' } />
                 <TableRowCarpetaSortingButton sortKey={ 'nombre' } />
-                <th>revisado</th>
                 <th>tipo proceso</th>
                 <th>terminado</th>
                 <TableRowCarpetaSortingButton sortKey={ 'fecha' } />
@@ -27,6 +26,7 @@ export default  function Page () {
                 <TableRowCarpetaSortingButton sortKey={'category'}/>
                 <th>Capital Adeudado</th>
                 <th>Actuaciones</th>
+                <th>Revisado</th>
               </tr>
             </thead>
             <tbody>

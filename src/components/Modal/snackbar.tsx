@@ -1,15 +1,15 @@
 'use client';
 import { useEffect } from 'react';
 import styles from './styles.module.css';
-import { useSnackbarContext } from '#@/app/context/main-context';
+import { useSnackbarContext } from '#@/app/Context/main-context';
 
 export function Snackbar(
   {
-    text 
-  }: { text: string } 
+    text
+  }: { text: string }
 ) {
       const {
-        isSnackbarOpen, setIsSnackbarOpen 
+        isSnackbarOpen, setIsSnackbarOpen
       } = useSnackbarContext();
 
       useEffect(
@@ -17,9 +17,9 @@ export function Snackbar(
                   const timer = setTimeout(
                     () => {
                               setIsSnackbarOpen(
-                                false 
+                                false
                               );
-                    }, 1000 
+                    }, 1000
                   );
 
                   if ( isSnackbarOpen ) {
@@ -28,10 +28,10 @@ export function Snackbar(
 
                   return () => {
                             return clearTimeout(
-                              timer 
+                              timer
                             );
                   };
-        }, [ isSnackbarOpen, setIsSnackbarOpen ] 
+        }, [ isSnackbarOpen, setIsSnackbarOpen ]
       );
 
       return (

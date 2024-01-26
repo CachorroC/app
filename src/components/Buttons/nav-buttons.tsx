@@ -1,11 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useModalContext } from '#@/app/context/modal-context';
+import { useModalContext } from '#@/app/Context/modal-context';
 import styles from '#@/styles/layout.module.css';
 import { NavLink } from '../layout/NavLink';
-import { useNavigationContext } from '#@/app/context/navigation-context';
+import { useNavigationContext } from '#@/app/Context/navigation-context';
 import { Route } from 'next';
+import { buttonDrawerMenuClosed, buttonDrawerMenuOpen } from '../layout/navbar.module.css';
 
 // TODO: arreglar lo de la navegacion
 
@@ -17,8 +18,8 @@ export const DrawerMenuButton = () => {
             <button
               type="button"
               className={isNavOpen
-                ? styles.buttonDrawerOpen
-                : styles.buttonDrawerClosed}
+                ?buttonDrawerMenuOpen
+                : buttonDrawerMenuClosed}
               onClick={() => {
                         setIsNavOpen(
                           (

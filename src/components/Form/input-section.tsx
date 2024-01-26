@@ -23,7 +23,7 @@ export function InputSection(
     title: string;
     type: HTMLInputTypeAttribute;
     rls?: Omit<
-    RegisterOptions<NuevaCarpeta | IntCarpeta, any>,
+      RegisterOptions<NuevaCarpeta | IntCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
     >;
   } 

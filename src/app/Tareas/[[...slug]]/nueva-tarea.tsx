@@ -1,20 +1,20 @@
 'use client';
 
-import { IntTarea } from '#@/lib/types/tareas';
+import { IntTask } from '#@/lib/types/tareas';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 export function NuevaTarea(
   {
-    carpetaNumero 
-  }: { carpetaNumero?: number } 
+    carpetaNumero
+  }: { carpetaNumero?: number }
 ) {
       const {
         register,
         handleSubmit,
         formState: {
-          errors 
+          errors
         },
-      } = useForm<IntTarea>(
+      } = useForm<IntTask>(
         {
           defaultValues: {
             id          : 0,
@@ -26,24 +26,24 @@ export function NuevaTarea(
             text      : 'Nueva Tarea',
             isComplete: false,
           },
-        } 
+        }
       );
 
-      const onSubmit: SubmitHandler<IntTarea> = (
-        data 
+      const onSubmit: SubmitHandler<IntTask> = (
+        data
       ) => {
                 return console.log(
-                  `SubmitHandler de Tareas NuevaTarea ${ data }` 
+                  `SubmitHandler de Tareas NuevaTarea ${ data }`
                 );
       };
 
       console.log(
-        `errores de useForm en Nueva Tarea ${ errors }` 
+        `errores de useForm en Nueva Tarea ${ errors }`
       );
 
       return (
         <form onSubmit={handleSubmit(
-          onSubmit 
+          onSubmit
         )}>
           <input
             type="text"
@@ -51,7 +51,7 @@ export function NuevaTarea(
             {...register(
               'text', {
                 required: true,
-              } 
+              }
             )}
           />
           <input
@@ -61,28 +61,28 @@ export function NuevaTarea(
               'dueDate', {
                 required   : false,
                 valueAsDate: true,
-              } 
+              }
             )}
           />
           <input
             type="checkbox"
             placeholder="isComplete"
             {...register(
-              'isComplete', {} 
+              'isComplete', {}
             )}
           />
           <input
             type="text"
             placeholder="subTarea.0.text"
             {...register(
-              'subTareas.0.text', {} 
+              'subTareas.0.text', {}
             )}
           />
           <input
             type="checkbox"
             placeholder="subTarea.0.isComplete"
             {...register(
-              'subTareas.0.isComplete', {} 
+              'subTareas.0.isComplete', {}
             )}
           />
           <input
@@ -91,7 +91,7 @@ export function NuevaTarea(
             {...register(
               'subTareas.0.date', {
                 valueAsDate: true,
-              } 
+              }
             )}
           />
 

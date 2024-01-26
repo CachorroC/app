@@ -1,4 +1,4 @@
-import { CalendarContextProvider } from '#@/app/context/calendario-context';
+import { CalendarContextProvider } from '#@/app/Context/calendario-context';
 import { Calendar } from '#@/components/Calendar/main';
 import { LabelBoundary } from '#@/components/layout/boundary';
 import { ReactNode } from 'react';
@@ -10,18 +10,18 @@ export default function Layout(
   }: {
     params: { ano: string; mes: string };
     children: ReactNode;
-  } 
+  }
 ) {
       const mes = Number(
-        params.mes 
+        params.mes
       );
 
       const segmentDate = new Date(
         Number(
-          params.ano 
+          params.ano
         ), Number(
-          params.mes 
-        ) - 1, 1 
+          params.mes
+        ) - 1, 1
       );
 
       const months = [

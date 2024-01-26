@@ -6,50 +6,37 @@ import { IntCarpeta, carpetaConvert } from '#@/lib/types/carpetas';
 export async function fetchCarpetaByNumero(
   numero: number
 ) {
-      const carpeta = await prisma.carpeta.findFirst(
+      return prisma.carpeta.findFirst(
         {
           where: {
-            numero: numero,
+            numero: numero
           },
           include: {
             ultimaActuacion: true,
-            notas          : true,
             deudor         : true,
             codeudor       : true,
+            notas          : true,
             tareas         : true,
             demanda        : {
               include: {
-                medidasCautelares: true,
-                notificacion     : {
+                notificacion: {
                   include: {
-                    notifiers: true,
-                  },
+                    notifiers: true
+                  }
                 },
-              },
+                medidasCautelares: true
+              }
             },
             procesos: {
               include: {
-                juzgado: true,
-              },
+                juzgado: true
+              }
             },
-          },
+          }
         }
-      );
-
-      if ( carpeta ) {
-        return {
-          ...carpeta,
-          demanda: {
-            ...carpeta.demanda,
-            medidasCautelares: carpeta.demanda?.medidasCautelares
-              ? carpeta.demanda.medidasCautelares.toString()
-              : null,
-          },
-        };
-      }
-
-      return null;
+      ) as Promise<IntCarpeta | null>;
 }
+
 
 export async function fetcherCarpetaByidProceso(
   idProceso: number

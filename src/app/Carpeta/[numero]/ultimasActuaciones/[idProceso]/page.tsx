@@ -2,8 +2,68 @@ import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
 import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { outActuacion } from '#@/lib/types/actuaciones';
-import { prisma } from '#@/lib/connection/prisma';
 
+export const dynamic = 'force-dynamic';
+
+export const dynamicParams = true;
+/*
+//? Generate segments for [numero]
+
+export async function generateStaticParams () {
+      const carpetas = await getCarpetas();
+
+      const flattenUp = carpetas.flatMap(
+        (
+          carpeta
+        ) => {
+                  const {
+                    numero, idProcesos
+                  } = carpeta;
+
+                  if ( idProcesos.length === 0 ) {
+                    return {
+                      numero: String(
+                        numero
+                      ),
+                      idProceso: 'idProceso'
+                    };
+                  }
+
+                  return idProcesos.map(
+                    (
+                      idProceso
+                    ) => {
+                              return {
+                                numero: String(
+                                  numero
+                                ),
+                                idProceso: String(
+                                  idProceso
+                                )
+                              };
+                    }
+                  );
+
+
+        }
+      );
+
+      const chunkSize = 20;
+
+      const chunks = [];
+
+      for ( let i = 0; i < flattenUp.length; i += chunkSize ) {
+        const chunk = flattenUp.slice(
+          i, i + chunkSize
+        );
+        chunks.push(
+          chunk
+        );
+      }
+
+      return chunks[ 0 ];
+}
+ */
 
 
 export default async function Page (
@@ -22,18 +82,7 @@ export default async function Page (
       }
 
 
-      await prisma.carpeta.update(
-        {
-          where: {
-            numero: Number(
-              params.numero
-            ),
-          },
-          data: {
-            revisado: true,
-          },
-        }
-      );
+
 
       const actuaciones = await fetchActuaciones(
         Number(

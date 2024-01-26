@@ -142,6 +142,7 @@
   font-family: var(--josefa);
   font-style: var(--title-medium-font-family-style);
   border-bottom: solid 0.2rem var(--primary);
+  padding: 0 auto 3rem auto;
   font-weight: var(--title-medium-font-weight);
   font-size: var(--title-medium-font-size);
   letter-spacing: var(--title-medium-letter-spacing);
@@ -152,7 +153,6 @@
 
 .titleSmall {
   font-family: var(--josefa);
-  border: solid 0.2rem var(--outline);
   font-style: var(--title-small-font-family-style);
   font-weight: var(--title-small-font-weight);
   font-size: var(--title-small-font-size);

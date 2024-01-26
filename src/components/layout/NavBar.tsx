@@ -1,19 +1,24 @@
 'use client';
 import styles from '#@/styles/layout.module.css';
-import { useNavigationContext } from '#@/app/context/navigation-context';
+import { useNavigationContext } from '#@/app/Context/navigation-context';
 import { DrawerMenuButton, NewNoteButton } from '../Buttons/nav-buttons';
 import { Drawer } from './Drawer';
 import { NavLink } from './NavLink';
-import { Fragment, useState } from 'react';
+import { Route } from 'next';
 
 export const NavBar = () => {
           const {
             isNavOpen
           } = useNavigationContext();
 
-          const [ isContabilidadOpen, setIsContabilidadOpen ] = useState(
-            false
-          );
+          const newYear = new Date()
+                .getFullYear();
+
+          const newMonth = new Date()
+                .getMonth();
+
+          const newDate = new Date()
+                .getDate();
 
           return (
             <div className={styles.header}>
@@ -29,45 +34,55 @@ export const NavBar = () => {
                 iconLabel={'gavel'}
                 textLabel={'Reciente'}
                 key={'actuaciones'}
-                hrefLabel={'/Carpetas?type=sort&dir=asc&sortingKey=fecha'}
+                hrefLabel={'/Carpetas/UltimasActuaciones'}
               />
+
 
 
               {isNavOpen && (
                 <Drawer>
+                  <DrawerMenuButton />
+                  <NavLink
+                    iconLabel={'home'}
+                    textLabel={'Inicio'}
+                    hrefLabel="/"
+                  />
+                  <NavLink iconLabel={ 'park' } textLabel={ 'christmas' } hrefLabel={ '/Ayudante/Navidad' } />
+                  <NavLink iconLabel={ 'forest' } textLabel={ 'Christmas Router' } hrefLabel={ '/Ayudante/Navidad/Router' } />
+                  <NavLink
+                    iconLabel={'gavel'}
+                    textLabel={'ultimas actuaciones'}
+                    hrefLabel={'/Carpetas/UltimasActuaciones' as Route}
+                  />
+
                   <NavLink
                     iconLabel={'folder_open'}
-                    key={'carpetas'}
                     textLabel={'Carpetas'}
-                    hrefLabel="/Carpetas?type=sort&dir=asc&sortingKey=numero"
+                    hrefLabel="/Carpetas"
                   />
-                  <NavLink
-                    key={'note'}
-                    iconLabel={'note'}
-                    textLabel={'Notas'}
-                    hrefLabel="/Notas"
-                  />
-                  <button type={ 'button' } onClick={ () => {
-                            return ( setIsContabilidadOpen(
-                              (
-                                e
-                              ) => {
-                                        return !e;
-                              }
-                            ) );
-                  }}>
-                    <span className="material-symbols-outlined">
-                      {isContabilidadOpen
-                        ? 'chevron_right'
-                        : 'chevron_left'}
-                    </span>
-                  </button>
-                  { isContabilidadOpen && (
-                    <Fragment key={ 'contabilidad' }>
-                      <NavLink iconLabel={ 'account_balance' } textLabel={ 'Contabilidad' } hrefLabel={ '/Contabilidad' } />
-                      <NavLink iconLabel={ 'add_shopping_cart' } textLabel={ 'ingresar factura' } hrefLabel={ '/Contabilidad/NuevaFactura' } />
-                    </Fragment>
-                  )}
+                  <NavLink iconLabel={ 'person_add' } textLabel={ 'Nueva Carpeta' } hrefLabel={ '/Carpetas/Nueva' } />
+                  <NavLink iconLabel={ 'account_balance' } textLabel={ 'Contabilidad' } hrefLabel={ '/Contabilidad' } />
+                  <NavLink iconLabel={ 'add_shopping_cart' } textLabel={ 'ingresar factura' } hrefLabel={ '/Contabilidad/NuevaFactura' as Route } />
+                  <NavLink iconLabel={ 'contact_support' } textLabel={ 'contacto' } hrefLabel={ '/Contacto' } />
+                  <NavLink iconLabel={ 'payments' } textLabel={ 'costos' } hrefLabel={ '/Costos' } />
+                  <NavLink iconLabel={ 'sticky_note_2' } textLabel={ 'Notas' } hrefLabel={ '/Notas' } />
+                  <NavLink iconLabel={ 'add_comment' } textLabel={ 'Nueva Nota' } hrefLabel={ '/Notas/Nueva' as Route } />
+                  <NavLink iconLabel={ 'badge' } textLabel={ 'Quienes Somos' } hrefLabel={ '/QuienesSomos' } />
+
+
+                  <NavLink iconLabel={ 'calendar_month' } textLabel={ 'Calendario' } hrefLabel={ `/Calendario/Fecha/${ newYear }/${ newMonth }/${ newDate }` } />
+                  <NavLink iconLabel={ '' } textLabel={ 'Bancolombia' } hrefLabel={ '/Carpetas/Categorias/Bancolombia' } />
+
+
+
+
+
+
+
+
+
+
+
                 </Drawer>
               )}
 

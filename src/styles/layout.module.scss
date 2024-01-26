@@ -43,25 +43,26 @@ $MaxSW: 480px; //maximum sma width
   }
 
   @media (600px < width < 1200px) {
-    grid-template-columns: 5rem repeat(7, 1fr);
+    grid-template-columns: 5rem repeat(8, 1fr);
     grid-template-rows: repeat(12, minmax(4vh, 1fr));
     grid-template-areas:
       "header top top top top top right right"
       "header top top top top top right right"
-      "header left left left left left  right right "
-      "header left left left left left  right right "
-      "header left left left left left  right right "
-      "header left left left left left  right right "
-      "header left left left left left  right right "
-      "header left left left left left  right right "
-      "header left left left left left  right right "
-      "header left left left left left  right right "
-      "header left left left left left  right right "
-      "header left left left left left  right right ";
+      "header left left left left left right right "
+      "header left left left left left right right "
+      "header left left left left left right right "
+      "header left left left left left right right "
+      "header left left left left left right right "
+      "header left left left left left right right "
+      "header left left left left left right right "
+      "header left left left left left right right "
+      "header left left left left left right right "
+      "header left left left left left right right ";
   }
 
   @media (1200px < width) {
     padding: 0;
+    gap: 1rem 0;
     grid-template-columns: 5rem repeat(9, minmax(8vw, 1fr));
     grid-template-rows: repeat(10, minmax(6svh, 1fr));
     grid-template-areas:
@@ -89,7 +90,7 @@ $MaxSW: 480px; //maximum sma width
   grid-row: 1 / 9;
   grid-area: header;
   gap: inherit;
-  padding: 0 0.7rem;
+  padding: 0.7rem;
   grid-template-rows: subgrid;
   grid-template-columns: subgrid;
 
@@ -110,6 +111,7 @@ $MaxSW: 480px; //maximum sma width
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
+    gap: 0.8rem;
   }
 }
 
@@ -209,12 +211,10 @@ $MaxSW: 480px; //maximum sma width
 }
 
 .link {
-  border: none;
   box-sizing: border-box;
   text-decoration: none;
   border-radius: 1rem;
   text-align: center;
-  height: 3.5rem;
   display: flex;
   flex-flow: column nowrap;
   justify-items: stretch;
@@ -239,12 +239,39 @@ $MaxSW: 480px; //maximum sma width
     line-height: var(--label-medium-height);
     text-transform: var(--label-medium-text-transform);
     text-decoration: var(--label-medium-text-decoration);
+  }
+  &Open {
+    @extend .link;
+    width: 100%;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    gap: 0.8rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    &Active {
+      @extend .linkOpen;
+      width: 100%;
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      gap: 0.8rem;
+      padding: 1rem;
+      box-sizing: border-box;
+      background-color: var(--secondary-container);
+      color: var(--on-secondary-container);
+      & > .text {
+        opacity: 1;
+        color: var(--on-secondary-container);
+      }
 
-    @media (width < 600px) {
-      opacity: 0;
+      & > .icon {
+        width: 3.5rem;
+        border-radius: 1rem;
+        padding: 0.2rem 0;
+        color: var(--on-secondary-container);
+        box-sizing: b;
+      }
     }
   }
-
   &Active {
     @extend .link;
 
@@ -472,19 +499,20 @@ $MaxSW: 480px; //maximum sma width
 }
 
 .button {
-  border: none;
   position: relative;
   box-sizing: border-box;
   border-radius: 1rem;
+  gap: 0.5rem;
   padding: 1rem;
-  background-color: var(--primary-container);
-  color: var(--on-primary-container);
   flex-flow: column nowrap;
   justify-items: stretch;
   align-items: center;
   justify-content: space-around;
   align-content: center;
   transition: all 0.3s;
+  text-decoration: none;
+  border: none;
+  outline: inherit;
 
   &:after {
     content: "";
@@ -575,8 +603,11 @@ $MaxSW: 480px; //maximum sma width
 
   &Drawer {
     @extend .button;
+    border: none;
 
     &Closed {
+      @extend .button;
+      border: none;
       background-color: rgba(0, 0, 0, 0);
 
       & > .icon,
@@ -606,10 +637,8 @@ $MaxSW: 480px; //maximum sma width
 
   &Modal {
     @extend .button;
-    grid-row: 2 / 3;
     background-color: var(--primary-container);
     color: var(--on-primary-container);
-    box-shadow: var(--dp8);
 
     & > .icon,
     & > .text {

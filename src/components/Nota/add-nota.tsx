@@ -1,36 +1,31 @@
 'use client';
 import { createNota } from '#@/app/actions/main';
-import { useNotaContext } from '#@/app/context/main-context';
-import { useState } from 'react';
-import styles from '../Form/checkbox/styles.module.css';
+import { useNuevaTaskContext } from '#@/app/Context/nueva-task-form-context';
+import { InputDateHelper } from '#@/lib/project/date-helper';
+import { DoneCheckBox } from '#@/app/Tareas/done-checkbox';
 
 export default function AddNota() {
-      const [ hasContent, setHasContent ] = useState(
-        false
-      );
 
       const {
-        inputNota, setInputNota
-      } = useNotaContext();
+        taskFormState, setTaskFormState
+      } = useNuevaTaskContext();
+
+
 
       return (
         <form action={createNota}>
           <input
             placeholder="Add task"
-            value={inputNota.title}
+            value={taskFormState.text}
             type="text"
-            name="title"
+            name="text"
             onChange={(
               e
             ) => {
-                      return setInputNota(
-                        (
-                          nn
-                        ) => {
-                                  return {
-                                    ...nn,
-                                    title: e.target.value,
-                                  };
+                      return setTaskFormState(
+                        {
+                          ...taskFormState,
+                          text: e.target.value
                         }
                       );
             }}
@@ -42,35 +37,21 @@ export default function AddNota() {
             onChange={(
               e
             ) => {
-                      return setInputNota(
+                      return setTaskFormState(
                         {
-                          ...inputNota,
-                          date: new Date(
+                          ...taskFormState,
+                          dueDate: new Date(
                             e.target.value
                           ),
                         }
                       );
             }}
-            value={inputNota.date.toString()}
+            value={InputDateHelper(
+              taskFormState.dueDate
+            )}
           />
 
-          <label className={styles.switchBox}>
-            <input
-              className={styles.inputElement}
-              type="checkbox"
-              checked={hasContent}
-              onChange={() => {
-                        setHasContent(
-                          (
-                            n
-                          ) => {
-                                    return !n;
-                          }
-                        );
-              }}
-            />
-            <span className={styles.slider}></span>
-          </label>
+          <DoneCheckBox task={ taskFormState} />
           <button type="submit">Add</button>
         </form>
       );

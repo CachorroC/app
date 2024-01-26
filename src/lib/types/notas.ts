@@ -1,91 +1,105 @@
-import { Nota } from '@prisma/client';
-import { WithId } from 'mongodb';
+
 // To parse this data:
 //
 //   import { Convert } from "./file";
 //
-//   const intNota = Convert.toIntNota(json);
+//   const IntNota = Convert.toIntNota(json);
+
+import { WithId } from 'mongodb';
 
 export interface NotaEditorAction {
   message: string;
-  data: monNota | null | Nota;
+  data: monNota | null | IntNota | NewNota;
   error: boolean;
 }
 
-export interface intNota {
-  carpetaNumero?: number | null;
-  id?: number;
+export interface NewNota
+{
+
+  carpetaNumero: number | null;
+  done: boolean;
+  content: string[];
+  dueDate: Date | null;
   text: string;
-  pathname?: string | null;
-  date: Date;
+  extraContent: string | null;
+  pathname: string | null;
 }
 
-export interface monNota extends Nota {
+export interface IntNota extends NewNota{
+  id: number;
+  updatedAt: Date;
+  createdAt: Date;
+}
+
+export interface monNota extends IntNota {
   _id: string;
   carpetaNumero: number | null;
   pathname: string | null;
 }
 
-export class NewNota implements Nota {
-  id!: number;
-  pathname: string | null;
-  date: Date;
-  carpetaNumero: number | null;
-  constructor(
-    {
-      content,
-      title,
-      path,
-      date,
-      carpetaNumero,
-    }: {
-      title: string;
-      content?: string;
-      path?: string;
-      carpetaNumero?: number;
-      date?: Date;
-    } 
-  ) {
-            this.pathname = path
-              ? path
-              : null;
-            this.date = date
-              ? date
-              : new Date();
-            this.carpetaNumero = carpetaNumero
-              ? carpetaNumero
-              : null;
-            this.createdAt = new Date();
-            this.content = content
-              ? content
-              : null;
-            this.title = title;
-  }
-  content: string | null;
-  title: string;
-  updatedAt!: Date;
-  createdAt!: Date;
+export type SortActionType = {
+  type: 'sort';
+  dir: boolean;
+  sortingKey:
+    | 'carpetaNumero'
+    | 'id'
+    | 'dueDate'
+    | 'createdAt'
+    | 'text'
+    | 'updatedAt';
+};
+
+export type UpdateActionType = {
+  type: 'changed';
+  task: IntNota;
+};
+
+export type DeleteActionType = {
+  type: 'deleted';
+  id: number;
+};
+
+export type ResetActionType = {
+  type: 'reset';
+  payload: IntNota[];
+};
+
+export type AddActiontype = {
+  type: 'added';
+  task: IntNota
+};
+
+export interface IntNotaAction {
+  type: 'added' | 'changed' | 'deleted';
+  task: IntNota;
 }
+
+export type NotaAction =
+  | AddActiontype
+  | DeleteActionType
+  | ResetActionType
+  | UpdateActionType
+  | SortActionType;
 
 export class notasConvert {
   public static monNotasToJson(
-    value: monNota[] 
+    value: monNota[]
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static monNotaToJson(
-    value: monNota 
+    value: monNota
   ): string {
             return JSON.stringify(
-              value 
+              value
             );
   }
 
   public static toMonNota(
-    nota: WithId<Nota> 
+    nota: WithId<IntNota>
   ): monNota {
             const newNota = {
               ...nota,
@@ -103,16 +117,16 @@ export class notasConvert {
   }
 
   public static toMonNotas(
-    rawNotas: WithId<Nota>[] 
+    rawNotas: WithId<IntNota>[]
   ): monNota[] {
             const newNotas = rawNotas.map(
               (
-                nota 
+                nota
               ) => {
                         return this.toMonNota(
-                          nota 
+                          nota
                         );
-              } 
+              }
             );
 
             return newNotas;

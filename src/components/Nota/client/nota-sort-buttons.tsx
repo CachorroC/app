@@ -1,17 +1,21 @@
 'use client';
 
-import { useNotaSortDispatch } from '#@/app/context/notas-sort-context';
+import { useNotaSortDispatch } from '#@/app/Context/notas-sort-context';
 import button from '#@/components/Buttons/buttons.module.css';
-import { ActionNotaType } from '#@/lib/types/context-actions';
 import { useState } from 'react';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 
 export function NotasSortButtons() {
-      const keys: ActionNotaType[] = [
-        'date',
-        'title',
-        'content',
+      const keys: (  | 'carpetaNumero'
+    | 'id'
+    | 'dueDate'
+    | 'createdAt'
+    | 'text'
+    | 'updatedAt' )[]= [
+        'dueDate',
+        'text',
+        'updatedAt',
         'carpetaNumero',
         'id',
       ];
@@ -19,7 +23,7 @@ export function NotasSortButtons() {
       const dispatchNotas = useNotaSortDispatch();
 
       const [ sortDirection, setSortDirection ] = useState(
-        true 
+        true
       );
 
       return (
@@ -42,7 +46,7 @@ export function NotasSortButtons() {
           <section className={layout.sectionRow}>
             {keys.map(
               (
-                key 
+                key
               ) => {
                         return (
                           <button
@@ -50,16 +54,17 @@ export function NotasSortButtons() {
                             onClick={() => {
                                       setSortDirection(
                                         (
-                                          d 
+                                          d
                                         ) => {
                                                   return !d;
-                                        } 
+                                        }
                                       );
                                       dispatchNotas(
                                         {
-                                          type         : key,
-                                          sortDirection: sortDirection,
-                                        } 
+                                          type      : 'sort',
+                                          dir       : sortDirection,
+                                          sortingKey: key
+                                        }
                                       );
                             }}
                             className={button.buttonPassiveCategory}
@@ -68,7 +73,7 @@ export function NotasSortButtons() {
                             {key}
                           </button>
                         );
-              } 
+              }
             )}
           </section>
         </div>

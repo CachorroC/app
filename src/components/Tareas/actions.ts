@@ -1,7 +1,6 @@
 'use server';
 
 import { prisma } from '#@/lib/connection/prisma';
-import { ZodTaskElementSchema } from './zod';
 /*
 export async function createUser(
   currentState: {success: boolean; message: string}, formData: FormData
@@ -44,12 +43,9 @@ export async function createUser(
  */
 
 export async function createUser(
-  formData: FormData
+  incomingTask: IntTask
 ) {
-      const objectOfFormData = Object.fromEntries(
-        formData.entries()
-      );
-
+      /*
       const validatedFields = ZodTaskElementSchema.safeParse(
         objectOfFormData
       );
@@ -64,16 +60,16 @@ export async function createUser(
 
       const {
         data
-      } = validatedFields;
+      } = validatedFields; */
 
       const inserter = await prisma.task.create(
         {
           data: {
-            text         : data.text,
-            done         : data.done,
-            content      : data.content,
-            dueDate      : data.dueDate,
-            carpetaNumero: data.carpetaNumero,
+            text         : incomingTask.text,
+            done         : incomingTask.done,
+            content      : incomingTask.content,
+            dueDate      : incomingTask.dueDate,
+            carpetaNumero: incomingTask.carpetaNumero,
           },
         }
       );
@@ -97,9 +93,9 @@ export async function deleteTask(
 }
 
 export async function editTask(
-  formData: FormData
+  data: IntTask
 ) {
-      const objectOfFormData = Object.fromEntries(
+      /* const objectOfFormData = Object.fromEntries(
         formData.entries()
       );
 
@@ -117,14 +113,15 @@ export async function editTask(
 
       const {
         data
-      } = validatedFields;
+      } = validatedFields; */
 
       const inserter = await prisma.task.upsert(
         {
           where: {
-            id: data.id ?? undefined,
+            id: data.id
           },
           create: {
+            ...data,
             text         : data.text,
             done         : data.done,
             content      : data.content,

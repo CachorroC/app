@@ -9,6 +9,7 @@ import { outActuacion } from './actuaciones';
 import { outProceso } from './procesos';
 import { WithId } from 'mongodb';
 import { intProceso } from 'types/procesos';
+import { IntTask } from './tareas';
 
 export interface IntCarpeta {
   category: Category;
@@ -25,7 +26,7 @@ export interface IntCarpeta {
   ultimaActuacion: outActuacion | null;
   deudor: Deudor | null;
   codeudor: Codeudor | null;
-  notas: Nota[];
+  notas: IntNota[];
   demanda: Demanda | null;
   procesos: outProceso[];
   tareas: IntTask[];
@@ -125,17 +126,6 @@ export interface Deudor {
   telFijo: null | string;
 }
 
-export interface Nota {
-  carpetaNumero: number | null;
-  content: null | string;
-  createdAt: Date;
-  date: Date;
-  id: number;
-  pathname: null | string;
-  title: string;
-  updatedAt: Date;
-}
-
 export type ProcesoDepartamento =
   | 'BOGOTÁ'
   | 'CUNDINAMARCA'
@@ -146,26 +136,6 @@ export interface Juzgado {
   id: number;
   tipo: string;
   url: string;
-}
-
-export interface IntTask
-{
-  id?:           number;
-  done?:         boolean;
-  text:          string;
-  content:       string[];
-  dueDate:       Date | null;
-  createdAt?:    Date;
-  updatedAt?:    Date;
-  carpetaNumero: number | null;
-}
-
-export interface SubTarea {
-  date: Date | null;
-  id: number;
-  isComplete: boolean;
-  tareaId: number | null;
-  text: string;
 }
 
 export type CodRegla = '00                              ';
@@ -325,14 +295,14 @@ export class carpetaConvert {
 
   public static toNota(
     json: string
-  ): Nota {
+  ): IntNota {
             return JSON.parse(
               json
             );
   }
 
   public static notaToJson(
-    value: Nota
+    value: IntNota
   ): string {
             return JSON.stringify(
               value

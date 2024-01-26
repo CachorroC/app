@@ -1,7 +1,7 @@
 'use client';
 import { ReactNode, } from 'react';
 import styles from './styles.module.css';
-import { useModalContext } from '#@/app/context/modal-context';
+import { useModalContext } from '#@/app/Context/modal-context';
 
 export default function NewModal(
   {
@@ -33,7 +33,7 @@ export default function NewModal(
               <div
                 className={styles.wrapper} onClick={
                   (
-                    e 
+                    e
                   ) => {
 
                             e.stopPropagation();

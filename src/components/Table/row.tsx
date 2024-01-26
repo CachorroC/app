@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 import { CopyButton } from '../Buttons/copy-buttons';
 import { switchBox, inputElement, slider } from '../Nota/note.module.css';
-import { useCategory } from '#@/app/context/category-context';
+import { useCategory } from '#@/app/Context/category-context';
 
 export function CarpetaUltimaActuacionRow(
   {
@@ -64,7 +64,7 @@ export function CarpetaUltimaActuacionRow(
           </td>
           <td>{carpeta.category}</td>
 
-          <tr>{children}</tr>
+          {children}
         </tr>
       );
 }

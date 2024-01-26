@@ -1,5 +1,5 @@
 'use client';
-import { IntTarea } from '#@/lib/types/tareas';
+import { IntTask } from '#@/lib/types/tareas';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -8,9 +8,9 @@ export function NuevaTarea() {
         register,
         handleSubmit,
         formState: {
-          errors 
+          errors
         },
-      } = useForm<IntTarea>(
+      } = useForm<IntTask>(
         {
           defaultValues: {
             text        : 'Nueva Tarea',
@@ -24,11 +24,11 @@ export function NuevaTarea() {
               date      : new Date(),
             }, ],
           },
-        } 
+        }
       );
 
-      const onSubmit: SubmitHandler<IntTarea> = async (
-        data 
+      const onSubmit: SubmitHandler<IntTask> = async (
+        data
       ) => {
                 try {
                   const postTarea = await fetch(
@@ -38,31 +38,31 @@ export function NuevaTarea() {
                         'content-type': 'application/json',
                       },
                       body: JSON.stringify(
-                        data 
+                        data
                       ),
-                    } 
+                    }
                   );
 
-                  const tareaWithId = ( await postTarea.json() ) as IntTarea;
+                  const tareaWithId = ( await postTarea.json() ) as IntTask;
                   alert(
                     JSON.stringify(
-                      tareaWithId 
-                    ) 
+                      tareaWithId
+                    )
                   );
 
                   return console.log(
-                    `tarea with Id: ${ tareaWithId }` 
+                    `tarea with Id: ${ tareaWithId }`
                   );
                 } catch ( e ) {
                   alert(
                     JSON.stringify(
-                      e 
-                    ) 
+                      e
+                    )
                   );
 
                   return console.log(
                     `error en onSubmit NuevaTarea. ${ JSON.stringify(
-                      e, null, 2 
+                      e, null, 2
                     ) }`,
                   );
                 }
@@ -70,19 +70,19 @@ export function NuevaTarea() {
 
       console.log(
         `errores en NuevaTarea. ${ JSON.stringify(
-          errors, null, 2 
-        ) }` 
+          errors, null, 2
+        ) }`
       );
 
       return (
         <form onSubmit={handleSubmit(
-          onSubmit 
+          onSubmit
         )}>
           <textarea
             {...register(
               'text', {
                 required: true,
-              } 
+              }
             )}
           />
           <input
@@ -92,7 +92,7 @@ export function NuevaTarea() {
               'dueDate', {
                 required   : true,
                 valueAsDate: true,
-              } 
+              }
             )}
           />
           <input
@@ -101,7 +101,7 @@ export function NuevaTarea() {
             {...register(
               'dueDate', {
                 valueAsDate: true,
-              } 
+              }
             )}
           />
 

@@ -1,11 +1,17 @@
 
 import { monFactura } from '#@/lib/types/contabilidad';
 
+
 export type SortActionType = {
   type: 'sort';
-  dir: 'asc' | 'dsc';
-  sortingKey:
-  | 'fecha';
+  dir: boolean;
+  sortingKey:'fecha'
+  | 'id'
+  | 'razonSocial'
+  | 'valorTotal'
+  | 'valorBase'
+  | 'valorIva'
+  | 'valorOtroImp'
 };
 
 export type SearchActionType = {
@@ -15,8 +21,8 @@ export type SearchActionType = {
 
 export type FilterActionType = {
   type: 'filter';
-  filteringKey: 'category' | 'terminado' | 'revisado' | 'tipoProceso';
-  filteringValue: string;
+  filteringKey: 'hasIva' | 'hasImpoConsumo' | 'hasOtroImp' | 'hasIcui';
+  filteringValue: boolean;
 };
 
 export type ResetActionType = {
@@ -58,7 +64,7 @@ export function facturasReducer (
               -1
             ];
 
-            const sorter = dir === 'asc'
+            const sorter = dir
               ? asc
               : dsc;
 
@@ -91,6 +97,85 @@ export function facturasReducer (
                               }
 
                               return sorter[ 1 ];
+                    }
+                  );
+                }
+
+                case 'valorTotal': {
+                  return [ ...facturas ].sort(
+                    (
+                      a, b
+                    ) => {
+                              const valortotalA = parseFloat(
+                                a.valorTotal
+                              );
+
+                              const valortotalB = parseFloat(
+                                b.valorTotal
+                              );
+
+                              if ( valortotalA < valortotalB ) {
+                                return sorter[ 2 ];
+                              } else if ( valortotalA > valortotalB ) {
+                                return sorter[ 0 ];
+                              }
+
+                              return 0;
+
+
+                    }
+                  );
+                }
+
+                case 'valorIva': {
+                  return [ ...facturas ].sort(
+                    (
+                      a, b
+                    ) => {
+                              const valortotalA = parseFloat(
+                                a.valorIva
+                              );
+
+                              const valortotalB = parseFloat(
+                                b.valorIva
+                              );
+
+                              if ( valortotalA < valortotalB ) {
+                                return sorter[ 2 ];
+                              } else if ( valortotalA > valortotalB ) {
+                                return sorter[ 0 ];
+                              }
+
+                              return 0;
+
+
+                    }
+                  );
+                }
+
+
+                case 'valorOtroImp': {
+                  return [ ...facturas ].sort(
+                    (
+                      a, b
+                    ) => {
+                              const valortotalA = parseFloat(
+                                a.valorOtroImp
+                              );
+
+                              const valortotalB = parseFloat(
+                                b.valorOtroImp
+                              );
+
+                              if ( valortotalA < valortotalB ) {
+                                return sorter[ 2 ];
+                              } else if ( valortotalA > valortotalB ) {
+                                return sorter[ 0 ];
+                              }
+
+                              return 0;
+
+
                     }
                   );
                 }

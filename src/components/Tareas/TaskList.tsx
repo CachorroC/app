@@ -7,7 +7,7 @@ import { inputElement,
   slider,
   switchBox, } from '#@/components/Form/form.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
-import { IntTask } from '#@/lib/types/carpetas';
+import { IntTask } from '#@/lib/types/tareas';
 
 export default function TaskList() {
       const tasksRaw = useTasks();

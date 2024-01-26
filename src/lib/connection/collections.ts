@@ -1,6 +1,7 @@
-import { IntCarpeta, IntTask } from '../types/carpetas';
+import { IntCarpeta } from '../types/carpetas';
 import { intFactura } from '../types/contabilidad';
-import { intNota } from '../types/notas';
+import { NewNota } from '../types/notas';
+import { NewTask } from '../types/tareas';
 import clientPromise from './mongodb';
 
 export async function carpetasCollection() {
@@ -56,7 +57,7 @@ export async function tareasCollection() {
         'RyS'
       );
 
-      const notas = db.collection<IntTask>(
+      const notas = db.collection<NewTask>(
         'Tareas'
       );
 
@@ -76,7 +77,7 @@ export async function notasCollection() {
         'RyS'
       );
 
-      const notas = db.collection<intNota>(
+      const notas = db.collection<NewNota>(
         'Notas'
       );
 

@@ -29,16 +29,15 @@ export default async function getCarpetas () {
           }
         }
       );
-
-      const sorted =  [ ...rawCarpetas ].sort(
+      return  [ ...rawCarpetas ].sort(
         (
           a, b
         ) => {
-                  if ( !a.fecha || a.fecha === undefined ) {
+                  if ( !a.fecha || a.fecha === undefined || a.fecha.toString() === 'Invalid Date' ) {
                     return 1;
                   }
 
-                  if ( !b.fecha || b.fecha === undefined ) {
+                  if ( !b.fecha || b.fecha === undefined || b.fecha.toString() === 'Invalid Date' ) {
                     return -1;
                   }
 
@@ -57,5 +56,4 @@ export default async function getCarpetas () {
                   return 0;
         }
       );
-      return sorted;
 }

@@ -5,8 +5,6 @@ import { Category,
   Demanda,
   Deudor,
   IntCarpeta,
-  Nota,
-  IntTask,
   TipoProceso, } from '../types/carpetas';
 import { ConsultaNumeroRadicacion, outProceso } from '../types/procesos';
 import { CarpetaRaw } from '../types/raw-carpeta';
@@ -106,7 +104,7 @@ export class CarpetaBuilder implements IntCarpeta {
   ultimaActuacion: outActuacion | null;
   deudor: Deudor | null;
   codeudor: Codeudor | null;
-  notas: Nota[] = [];
+  notas: IntNota[] = [];
   demanda: Demanda | null;
   procesos: outProceso[] = [];
   tareas: IntTask[] = [];

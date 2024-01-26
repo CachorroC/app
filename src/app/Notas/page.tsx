@@ -1,24 +1,22 @@
 'use client';
-import { NotaComponent } from 'components/Nota/server';
-import { useNotaSort } from '../context/notas-sort-context';
+import { useNotaSort, } from '../Context/notas-sort-context';
+import { Task } from '#@/components/Tareas/task';
+import layout from '#@/styles/layout.module.css';
 
 export default function PrismaNotas() {
-      const notas = useNotaSort();
+      const tasks = useNotaSort();
 
       return (
-        <>
-          {notas.map(
-            (
-              nota 
-            ) => {
+        <ul>
+          {tasks.map(
+            task => {
                       return (
-                        <NotaComponent
-                          key={nota.id}
-                          notaRaw={nota}
-                        />
+                        <li key={task.id} className={layout.sectionColumn}>
+                          <Task task={task} />
+                        </li>
                       );
-            } 
+            }
           )}
-        </>
+        </ul>
       );
 }

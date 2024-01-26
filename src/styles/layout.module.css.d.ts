@@ -22,6 +22,8 @@ declare const styles: {
   readonly 'leftGrid': string;
   readonly 'link': string;
   readonly 'linkActive': string;
+  readonly 'linkOpen': string;
+  readonly 'linkOpenActive': string;
   readonly 'loader': string;
   readonly 'nav': string;
   readonly 'right': string;

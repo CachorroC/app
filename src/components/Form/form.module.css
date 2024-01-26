@@ -25,6 +25,7 @@
 } */
 .container {
   container-name: form;
+  overflow: scroll;
   container-type: inline-size;
   width: 100%;
   height: 100%;
@@ -166,18 +167,10 @@
   color: var(--on-surface-variant);
   border-bottom: solid 0.2rem var(--on-surface);
 }
-.textArea:active:after, .vencimientoArea:active:after {
-  background-color: var(--on-surface);
-  opacity: 0.1;
-}
 .textArea:focus, .vencimientoArea:focus {
   background-color: var(--surface-container);
   color: var(--on-surface);
   border-bottom: solid 0.2rem var(--primary);
-}
-.textArea:focus:after, .vencimientoArea:focus:after {
-  background-color: var(--on-surface);
-  opacity: 0.12;
 }
 
 .selectArea {

@@ -2,7 +2,7 @@ import { Category, MonCarpeta } from '#@/lib/types/carpetas';
 
 export type SortActionType = {
   type: 'sort';
-  dir: 'asc' | 'dsc';
+  dir: boolean;
   sortingKey:
     | 'fecha'
     | 'numero'
@@ -13,9 +13,14 @@ export type SortActionType = {
     | 'updatedAt';
 };
 
+export type UpdateActionType= {
+  type: 'update';
+  payload: MonCarpeta
+}
+
 export type SearchActionType = {
   type: 'search';
-  query: string;
+  payload: string;
 };
 
 export type FilterActionType = {
@@ -33,7 +38,7 @@ export type IntAction =
   | FilterActionType
   | SearchActionType
   | SortActionType
-  | ResetActionType;
+  | ResetActionType | UpdateActionType ;
 
 
 export function carpetasReducer(
@@ -46,6 +51,20 @@ export function carpetasReducer(
       } = action;
 
       switch ( type ) {
+
+          case 'update': {
+            return carpetas.map(
+              t => {
+                        if ( t.numero === action.payload.numero ) {
+                          return action.payload;
+                        }
+
+                        return t;
+
+              }
+            );
+          }
+
           case 'sort': {
             const {
               dir, sortingKey
@@ -63,7 +82,7 @@ export function carpetasReducer(
               -1
             ];
 
-            const sorter = dir === 'asc'
+            const sorter = dir
               ? asc
               : dsc;
 
@@ -210,11 +229,8 @@ export function carpetasReducer(
           case 'search': {
             const carpetasMap = [];
 
-            const searchQuery = action.query.toLocaleLowerCase();
+            const searchQuery = action.payload.toLocaleLowerCase();
 
-            if ( !searchQuery || searchQuery === '' ) {
-              return [ ...carpetas ];
-            }
 
             for ( const carpeta of [ ...carpetas ] ) {
 

@@ -1,14 +1,14 @@
 'use client';
 
-import { useCarpetaFormContext } from '#@/app/context/carpeta-form-context';
+import { useCarpetaFormContext } from '#@/app/Context/carpeta-form-context';
 
 export function DeudorFormComponent() {
       const {
-        stateCarpeta, setStateCarpeta 
+        stateCarpeta, setStateCarpeta
       } = useCarpetaFormContext();
 
       const {
-        deudor 
+        deudor
       } = stateCarpeta;
 
       if ( !deudor ) {
@@ -25,7 +25,7 @@ export function DeudorFormComponent() {
             type="text"
             placeholder={'primer nombre'}
             onChange={(
-              e 
+              e
             ) => {
                       return setStateCarpeta(
                         {
@@ -34,7 +34,7 @@ export function DeudorFormComponent() {
                             ...deudor,
                             primerNombre: e.target.value,
                           },
-                        } 
+                        }
                       );
             }}
           />

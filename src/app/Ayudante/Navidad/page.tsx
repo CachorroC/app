@@ -6,9 +6,13 @@ import TaskList from '#@/components/Tareas/TaskList';
 
 export default async function TaskApp() {
       const tasks = await prisma.task.findMany();
+
+      const {
+        length
+      } = tasks;
       return (
         <TasksProvider initialTasks={tasks}>
-          <AddTask />
+          <AddTask id={ length + 1} />
 
           <div className={layout.left}>
             <TaskList />

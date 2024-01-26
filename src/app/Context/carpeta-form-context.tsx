@@ -12,7 +12,7 @@ const CarpetaFormContext = createContext<{
   stateCarpeta: IntCarpeta;
   setStateCarpeta: Dispatch<SetStateAction<IntCarpeta>>;
 } | null>(
-  null 
+  null
 );
 
 export function CarpetaFormProvider(
@@ -22,10 +22,12 @@ export function CarpetaFormProvider(
   }: {
     children: ReactNode;
     carpeta: IntCarpeta;
-  } 
+  }
 ) {
+
+
       const [ stateCarpeta, setStateCarpeta ] = useState(
-        carpeta 
+        carpeta
       );
 
       const methods = useForm<IntCarpeta>(
@@ -33,8 +35,9 @@ export function CarpetaFormProvider(
           defaultValues   : carpeta,
           shouldFocusError: true,
           criteriaMode    : 'firstError',
-        } 
+        }
       );
+
 
       return (
         <CarpetaFormContext.Provider
@@ -50,7 +53,7 @@ export function CarpetaFormProvider(
 
 export function useCarpetaFormContext() {
       const context = useContext(
-        CarpetaFormContext 
+        CarpetaFormContext
       );
 
       if ( context === null ) {

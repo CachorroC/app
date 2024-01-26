@@ -6,7 +6,7 @@ import { useCallback,
   ReactNode, } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './styles.module.css';
-import { useModalContext } from '#@/app/context/modal-context';
+import { useModalContext } from '#@/app/Context/modal-context';
 
 export default function Modal(
   {

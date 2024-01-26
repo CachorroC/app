@@ -24,48 +24,53 @@ model Carpeta {
   codeudor        Codeudor?
   demanda         Demanda?
   deudor          Deudor?
+  facturas        Factura[]
   notas           Nota[]
   procesos        Proceso[]
   tareas          Task[]
 }
 
 model Factura {
-  id                 String          @id
-  facturaElectronica String?
-  secondaryFactura   Json?
+  carpeta            Carpeta?        @relation(fields: [carpetaNumero], references: [numero])
+  carpetaNumero      Int?
   ciudad             String
-  dv                 Int
-  fecha              DateTime        @db.Date
-  razonSocial        String
-  nombreComercial    String?
+  concepto           String
   direccion          String
-  valorBase          Decimal         @db.Money
-  hasOtroImp         Boolean         @default(false)
-  hasIva             Boolean         @default(false)
+  QRCode             String?
+  CUFE               String?
+  dv                 Int
+  emisorDeFactura    EmisorDeFactura @relation(fields: [nit], references: [nit])
+  facturaElectronica String?
+  fecha              DateTime        @db.Date
   hasIcui            Boolean         @default(false)
   hasImpoConsumo     Boolean         @default(false)
+  hasIva             Boolean         @default(false)
+  hasOtroImp         Boolean         @default(false)
+  id                 String          @id
   nit                Int
-  emisorDeFactura    EmisorDeFactura @relation(fields: [nit], references: [nit])
-  valorIva           Decimal         @db.Money
-  valorOtroImp       Decimal         @db.Money
+  nombreComercial    String?
+  razonSocial        String
+  secondaryFactura   Json?
+  valorBase          Decimal         @db.Money
+  valorIva           Decimal?        @db.Money
+  valorOtroImp       Decimal?        @db.Money
   valorTotal         Decimal         @db.Money
-  concepto           String
 }
 
 model EmisorDeFactura {
-  nit                       Int       @id
-  dv                        Int
-  razonSocial               String
-  nombreComercial           String?
-  direccion                 String?
-  correo                    String?
-  telefono                  Int?
   actividadEconomica        String?
+  ciudad                    String    @default("Bogota")
+  correo                    String?
+  direccion                 String?
+  dv                        Int
+  facturas                  Factura[]
+  nit                       Int       @id
+  nombreComercial           String?
+  razonSocial               String
   regimenFiscal             String?
   responsabilidadTributaria String?
+  telefono                  Int?
   tipoContribuyente         String    @default("Juridica")
-  ciudad                    String    @default("Bogota")
-  facturas                  Factura[]
 }
 
 model Deudor {
@@ -143,27 +148,27 @@ model Notifier {
 }
 
 model Nota {
+  carpeta       Carpeta?  @relation(fields: [carpetaNumero], references: [numero])
   carpetaNumero Int?
-  content       String?
-  createdAt     DateTime @default(now())
-  date          DateTime
-  id            Int      @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  dueDate       DateTime? @db.Date
+  extraContent  String?
+  id            Int       @id @default(autoincrement())
   pathname      String?
-  title         String
-  updatedAt     DateTime @updatedAt
-  carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
+  text          String
+  updatedAt     DateTime  @updatedAt
 }
 
 model Task {
+  Carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
   carpetaNumero Int?
-  done          Boolean   @default(false)
   content       String[]
-  createdAt     DateTime  @default(now())
-  dueDate       DateTime? @db.Date
-  id            Int       @id @default(autoincrement())
-  text          String
-  updatedAt     DateTime  @updatedAt
-  Carpeta       Carpeta?  @relation(fields: [carpetaNumero], references: [numero])
+  createdAt     DateTime @default(now())
+  done          Boolean  @default(false)
+  dueDate       DateTime @db.Date
+  id            Int      @id @default(autoincrement())
+  text         String
+  updatedAt     DateTime @updatedAt
 }
 
 model Actuacion {

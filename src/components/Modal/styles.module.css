@@ -17,12 +17,12 @@
   transition: all 1.5s ease-in-out;
 }
 .open .wrapper {
-  width: 50vw;
+  width: 90vw;
   border-radius: 2vmin;
   box-shadow: var(--dp20);
   background-color: var(--surface-variant);
   color: var(--on-surface-variant);
-  height: 50lvh;
+  height: 90svh;
   box-sizing: border-box;
   padding: 2vmin;
   display: flex;

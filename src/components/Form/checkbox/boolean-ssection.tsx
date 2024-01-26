@@ -2,21 +2,21 @@
 
 import { ChangeEventHandler } from 'react';
 import styles from './styles.module.css';
-import { useContactContext } from '../../../app/context/main-context';
+import { useContactContext } from '../../../app/Context/main-context';
 
 export default function Checkbox() {
       const {
-        contactoForm, setContactoForm 
+        contactoForm, setContactoForm
       } = useContactContext();
 
       const handleTextareaChange: ChangeEventHandler<HTMLInputElement> = (
-        e 
+        e
       ) => {
                 setContactoForm(
                   {
                     ...contactoForm,
                     newsLetter: e.target.checked,
-                  } 
+                  }
                 );
       };
 

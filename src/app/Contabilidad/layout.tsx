@@ -1,10 +1,11 @@
 import { ReactNode } from 'react';
 import { FacturasProvider } from './facturas-context-provider';
-import { facturasCollection } from '#@/lib/connection/collections';
 import layout from '#@/styles/layout.module.css';
 import { NuevaFacturaProvider } from './nueva-factura-context-provider';
 import { ButtonScan, CopyButtonContabilidad } from './button-scanner';
 import typography from '#@/styles/fonts/typography.module.css';
+import { facturasCollection } from '#@/lib/connection/collections';
+import { prisma } from '#@/lib/connection/prisma';
 
 export default async function Layout (
   {
@@ -12,10 +13,31 @@ export default async function Layout (
   }: { children: ReactNode; derecho: ReactNode }
 ) {
 
+
       const collection = await facturasCollection();
 
-      const facturas = await collection.find()
+      const arr1 = await collection.find()
             .toArray();
+
+      const arr2 = await prisma.factura.findMany();
+
+      const facturas = arr1.map(
+        (
+          item
+        ) => {
+                  const matchedObject = arr2.find(
+                    (
+                      obj
+                    ) => {
+                              return obj.id === item.id;
+                    }
+                  );
+                  return {
+                    ...item,
+                    ...matchedObject
+                  };
+        }
+      );
       return (
         <FacturasProvider initialFacturas={
           [ ...facturas ].map(
@@ -24,7 +46,17 @@ export default async function Layout (
             ) => {
                       return {
                         ...factura,
-                        _id: factura._id.toString()
+                        _id               : factura.id,
+                        valorTotal        : factura.valorTotal.toString(),
+                        valorBase         : factura.valorBase.toString(),
+                        valorIva          : factura.valorIva?.toString()  ?? '0',
+                        valorOtroImp      : factura.valorOtroImp?.toString() ?? '0',
+                        facturaElectronica: factura.facturaElectronica ?? '',
+                        carpetaNumero     : factura.carpetaNumero ?? 0,
+                        CUFE              : factura.CUFE ?? '',
+                        QRCode            : factura.QRCode ?? '',
+                        nombreComercial   : factura.nombreComercial ?? ''
+
                       };
             }
           )

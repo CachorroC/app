@@ -1,5 +1,5 @@
 'use client';
-import { useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
+import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 
 export function ResetButtonSorter (

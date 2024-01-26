@@ -1,4 +1,4 @@
-import { RawFactura, RawFactura1, RawFactura2, } from '#@/lib/types/contabilidad';
+import { RawFactura, RawFactura1, RawFactura2, incomingRawFactura, } from '#@/lib/types/contabilidad';
 import { JsonObject } from '@prisma/client/runtime/library';
 
 export function parseFacturaElectronica (
@@ -20,11 +20,13 @@ export function parseFacturaElectronica (
         );
       }
 
-      let newFactura, responseFactura;
+      let newFactura, responseFactura: incomingRawFactura;
 
       const pruebaSiExisteNumFactura = facturaMap.get(
         'NumFac'
       );
+
+
 
       if ( !pruebaSiExisteNumFactura ) {
         newFactura =  Object.fromEntries(
@@ -32,6 +34,7 @@ export function parseFacturaElectronica (
         ) as RawFactura1;
         responseFactura = {
           facturaElectronica: qrString,
+          CUFE              : newFactura.CUFE,
           secondaryFactura  : newFactura as JsonObject,
           fecha             : new Date(
             `${ newFactura.FechaFactura }T${ newFactura.HoraFactura }`
@@ -43,7 +46,27 @@ export function parseFacturaElectronica (
           valorBase   : newFactura.ValorFactura,
           valorIva    : newFactura.ValorIVA,
           valorOtroImp: newFactura.ValorOtrosImpuestos,
-          valorTotal  : newFactura.ValorTotalFactura
+          valorTotal  : newFactura.ValorTotalFactura,
+          hasIva      : parseInt(
+            newFactura.ValorIVA
+          ) === 0
+            ? false
+            : true,
+          hasOtroImp: parseInt(
+            newFactura.ValorOtrosImpuestos
+          ) === 0
+            ? false
+            : true,
+          hasIcui: parseInt(
+            newFactura.ValorOtrosImpuestos
+          ) === 0
+            ? false
+            : true,
+          hasImpoConsumo: parseInt(
+            newFactura.ValorOtrosImpuestos
+          ) === 0
+            ? false
+            : true,
         };
       } else {
         newFactura =   Object.fromEntries(
@@ -51,16 +74,39 @@ export function parseFacturaElectronica (
         ) as RawFactura2;
         responseFactura = {
           facturaElectronica: qrString,
+          CUFE              : newFactura.CUFE,
           secondaryFactura  : newFactura as JsonObject,
           fecha             : new Date(
             `${ newFactura.FecFac }T${ newFactura.HorFac }`
           ),
-
+          QRCode: newFactura.https
+            ? `https://${ newFactura.https ?? newFactura.QRCode }`
+            : `${ newFactura.QRCode }`,
           id          : newFactura.NumFac,
           valorBase   : newFactura.ValFac,
           valorIva    : newFactura.ValIva,
           valorOtroImp: newFactura.ValOtroIm,
-          nit         : Number(
+          hasIva      : parseInt(
+            newFactura.ValIva
+          ) === 0
+            ? false
+            : true,
+          hasOtroImp: parseInt(
+            newFactura.ValOtroIm
+          ) === 0
+            ? false
+            : true,
+          hasIcui: parseInt(
+            newFactura.ValOtroIm
+          ) === 0
+            ? false
+            : true,
+          hasImpoConsumo: parseInt(
+            newFactura.ValOtroIm
+          ) === 0
+            ? false
+            : true,
+          nit: Number(
             newFactura.NitFac
           ),
           valorTotal: newFactura.ValTolFac

@@ -39,6 +39,10 @@ export default async function Layout(
       }
 
       const tasks = await prisma.task.findMany();
+
+      const {
+        length
+      } = tasks;
       return (
         <TasksProvider initialTasks={tasks}>
           <div className={layout.top}>
@@ -46,7 +50,7 @@ export default async function Layout(
           </div>
           <div className={layout.left}>{children}</div>
           <div className={ layout.right }>
-            <AddTask />
+            <AddTask id={ length +1 } />
           </div>
         </TasksProvider>
       );

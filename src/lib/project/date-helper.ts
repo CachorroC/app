@@ -2,7 +2,7 @@ export function InputDateHelper(
   incomingDate?: string | Date | null | undefined,
 ): string {
       if ( !incomingDate || incomingDate === null || incomingDate === undefined ) {
-        return 'sin especificar';
+        return '';
       }
 
       let daterBuilder;

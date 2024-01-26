@@ -1,6 +1,6 @@
 'use client';
 
-import { useCopyToClipboard } from '#@/app/hooks/useCopyToClipboard';
+import { useCopyToClipboard } from '#@/app/Hooks/useCopyToClipboard';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import styles from './buttons.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
@@ -61,11 +61,11 @@ export const CopyButton = (
                 }}
                 className={cardStyles.link}
               >
-                <span className={`material-symbols-outlined ${ styles.icon }`}>
+                <span className={`material-symbols-outlined ${ cardStyles.icon }`}>
           file_copy
                 </span>
                 <span className={ cardStyles.tooltiptext }>{ value }</span>
-                <span>{`copiar ${ name }`}</span>
+                <span className={ typography.labelSmall}>{`copiar ${ name }`}</span>
               </button>
               {value && isSnackbarOpen && (
                 <div className={`${ styles.snackbar } ${ isSnackbarOpen && styles.show }`}>

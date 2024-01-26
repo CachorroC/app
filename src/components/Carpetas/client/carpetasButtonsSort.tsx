@@ -1,10 +1,10 @@
 'use client';
 
-import { useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
+import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
 import styles from '#@/components/Buttons/buttons.module.css';
 import { useState } from 'react';
 import layout from '#@/styles/layout.module.css';
-import { SortActionType } from '#@/app/hooks/useCarpetasreducer';
+import { SortActionType } from '#@/app/Hooks/useCarpetasreducer';
 
 
 type sortingType = 'fecha'
@@ -20,31 +20,24 @@ interface optionsType {
   items: string[] | sortingType[];
 }
 
-const options: optionsType[] = [
-  {
-    name : 'Sort',
-    value: 'dir',
-    items: [ 'asc', 'dsc' ],
-  },
-  {
-    name : 'Page',
-    value: 'sortingKey',
-    items: [
-      'fecha',
-      'numero',
-      'nombre',
-      'category',
-      'id',
-      'tipoProceso',
-      'updatedAt'
-    ],
-  },
-  {
-    name : 'Items Per Page',
-    value: 'type',
-    items: [ 'sort' ],
-  },
-];
+const options: optionsType[] = [ {
+  name : 'Sort',
+  value: 'dir',
+  items: [ 'asc', 'dsc' ],
+},
+{
+  name : 'Page',
+  value: 'sortingKey',
+  items: [
+    'fecha',
+    'numero',
+    'nombre',
+    'category',
+    'id',
+    'tipoProceso',
+    'updatedAt'
+  ],
+}, ];
 
 export function CarpetasSortButtons() {
       const keys: (
@@ -70,7 +63,7 @@ export function CarpetasSortButtons() {
       const [ currentDispatcher, setCurrentDispatcher ] = useState<SortActionType>(
         {
           type      : 'sort',
-          dir       : 'asc',
+          dir       : true,
           sortingKey: 'fecha',
         }
       );
@@ -80,12 +73,12 @@ export function CarpetasSortButtons() {
           <div>
             <h1>{'ordenar:'}</h1>
             <span>
-              {currentDispatcher.dir === 'asc'
+              {currentDispatcher.dir
                 ? 'ascendente'
                 : 'descendente'}
             </span>
             <span className="material-symbols-outlined">
-              {currentDispatcher.dir === 'asc'
+              {currentDispatcher.dir
                 ? 'arrow_upward'
                 : 'arrow_downward'}
             </span>
@@ -107,12 +100,36 @@ export function CarpetasSortButtons() {
                                     item
                                   ) => {
                                             return (
-                                              <button key={ item } type='button' onClick={
+                                              <button key={ item } type='button'    className={
+                                                currentDispatcher.sortingKey === item
+                                                  ? styles.buttonActiveCategory
+                                                  : styles.buttonPassiveCategory
+                                              } onClick={
                                                 () => {
-
                                                           console.log(
                                                             currentDispatcher[ value ]
                                                           );
+
+
+                                                          if ( item === 'asc' ) {
+
+                                                            return dispatchCarpetas(
+                                                              {
+                                                                ...currentDispatcher,
+                                                                dir: true
+                                                              }
+                                                            );
+                                                          } else if ( item === 'dsc' ) {
+                                                            return dispatchCarpetas(
+                                                              {
+                                                                ...currentDispatcher,
+                                                                dir: false
+                                                              }
+                                                            );
+                                                          }
+
+
+
 
 
 
@@ -154,6 +171,7 @@ export function CarpetasSortButtons() {
                                                       return {
                                                         ...curdispatch,
                                                         sortingKey: key,
+                                                        dir       : !curdispatch.dir
                                                       };
                                             }
                                           );
@@ -187,9 +205,7 @@ export function CarpetasSortButtons() {
                           ) => {
                                     return {
                                       ...d,
-                                      dir: d.dir === 'asc'
-                                        ? 'dsc'
-                                        : 'asc',
+                                      dir: !d.dir,
                                     };
                           }
                         );
@@ -199,7 +215,9 @@ export function CarpetasSortButtons() {
               }}
               className={styles.buttonPassiveCategory}
             >
-              {currentDispatcher.dir}
+              {currentDispatcher.dir
+                ? 'asc'
+                : 'dsc'}
             </button>
           </section>
         </>
@@ -223,7 +241,7 @@ export function TableRowCarpetaSortingButton(
       const [ currentDispatcher, setCurrentDispatcher ] = useState<SortActionType>(
         {
           type      : 'sort',
-          dir       : 'dsc',
+          dir       : true,
           sortingKey: 'fecha',
         }
       );
@@ -239,6 +257,7 @@ export function TableRowCarpetaSortingButton(
                                   return {
                                     ...curdispatch,
                                     sortingKey: sortKey,
+                                    dir       : !curdispatch.dir
                                   };
                         }
                       );
@@ -246,9 +265,6 @@ export function TableRowCarpetaSortingButton(
                         {
                           ...currentDispatcher,
                           sortingKey: sortKey,
-                          dir       : currentDispatcher.dir === 'asc'
-                            ? 'dsc'
-                            : 'asc',
                         }
                       );
             }}

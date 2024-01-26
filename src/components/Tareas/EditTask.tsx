@@ -3,34 +3,31 @@ import { useState } from 'react';
 import { useDispatchTasks } from './TasksContext';
 import { editTask } from './actions';
 import { InputDateHelper } from '#@/lib/project/date-helper';
-import { IntTask } from '#@/lib/types/carpetas';
 
 export function EditTask(
   {
-    initialTask 
-  }: { initialTask: IntTask } 
+    initialTask
+  }: { initialTask: IntTask }
 ) {
       const [ taskState, setTaskState ] = useState(
-        initialTask 
+        initialTask
       );
 
       const dispatchTasks = useDispatchTasks();
 
-      async function createTask(
-        formData: FormData 
-      ) {
+      async function createTask() {
             const user = await editTask(
-              formData 
+              taskState
             );
 
             console.log(
-              user 
+              user
             );
             return dispatchTasks(
               {
                 type: 'changed',
                 task: user,
-              } 
+              }
             );
       }
 
@@ -44,15 +41,15 @@ export function EditTask(
               placeholder={'ID'}
               value={taskState.id}
               onChange={(
-                e 
+                e
               ) => {
                         return setTaskState(
                           {
                             ...taskState,
                             id: Number(
-                              e.target.value 
+                              e.target.value
                             ),
-                          } 
+                          }
                         );
               }}
             />
@@ -62,13 +59,13 @@ export function EditTask(
               name={'text'}
               value={taskState.text}
               onChange={(
-                e 
+                e
               ) => {
                         return setTaskState(
                           {
                             ...taskState,
                             text: e.target.value,
-                          } 
+                          }
                         );
               }}
             />
@@ -81,10 +78,10 @@ export function EditTask(
               type="date"
               name="updatedAt"
               value={InputDateHelper(
-                taskState.updatedAt 
+                taskState.updatedAt
               )}
               onChange={(
-                e 
+                e
               ) => {
                         console.log(
                           `onChange new value for date-section: ${ e.target.valueAsDate }`,
@@ -93,31 +90,31 @@ export function EditTask(
                         const [
                           yearStringer,
                           monthStringer,
-                          dayStringer 
+                          dayStringer
                         ]
               = e.target.value.split(
-                '-' 
+                '-'
               );
 
                         const newYear = Number(
-                          yearStringer 
+                          yearStringer
                         );
 
                         const newMonth = Number(
-                          monthStringer 
+                          monthStringer
                         ) - 1;
 
                         const newDay = Number(
-                          dayStringer 
+                          dayStringer
                         );
 
                         return setTaskState(
                           {
                             ...taskState,
                             updatedAt: new Date(
-                              newYear, newMonth, newDay 
+                              newYear, newMonth, newDay
                             ),
-                          } 
+                          }
                         );
               }}
             />
@@ -125,7 +122,7 @@ export function EditTask(
             <button type={'submit'}>Add</button>
           </form>
           <pre>{JSON.stringify(
-            taskState, null, 2 
+            taskState, null, 2
           )}</pre>
         </>
       );

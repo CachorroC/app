@@ -1,7 +1,7 @@
 'use client';
 import searchbar from 'components/layout/search/searchbar.module.css';
-import { useSearch } from '#@/app/context/search-context';
-import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/context/carpetas-sort-context';
+import { useSearch } from '#@/app/Context/search-context';
+import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
 
 export const InputSearchBar = () => {
           const {
@@ -20,16 +20,16 @@ export const InputSearchBar = () => {
                 if ( !searchQuery ) {
                   return dispatchCarpetas(
                     {
-                      type : 'search',
-                      query: ''
+                      type   : 'search',
+                      payload: ''
                     }
                   );
                 }
 
                 return dispatchCarpetas(
                   {
-                    type : 'search',
-                    query: searchQuery.toString()
+                    type   : 'search',
+                    payload: searchQuery.toString()
                   }
                 );
 

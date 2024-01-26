@@ -3,7 +3,6 @@ import { intFactura  } from '#@/lib/types/contabilidad';
 import { ReactNode, createContext, useState, Dispatch, SetStateAction, useContext, useEffect, } from 'react';
 import { useFacturaSort } from './facturas-context-provider';
 
-
 const NuevaFacturaContext = createContext<{valorState: intFactura, setValorState: Dispatch<SetStateAction<intFactura>>}| null>(
   null
 );
@@ -13,28 +12,36 @@ export function NuevaFacturaProvider(
     children
   }: { children: ReactNode }
 ) {
+      const newDater = new Date();
+
       const facturas = useFacturaSort();
+
 
       const [ valorState, setValorState ] = useState<intFactura>(
         {
-          valorTotal: '0.00',
-          valorBase : '0.00',
-          hasIva    : false,
-          hasOtroImp: false,
-          ciudad    : '',
-          dv        : 0,
-          fecha     : new Date(
-            '1997-01-03'
+          valorTotal        : '0.00',
+          valorBase         : '0.00',
+          valorOtroImp      : '0.00',
+          valorIva          : '0.00',
+          hasIva            : false,
+          hasOtroImp        : false,
+          hasIcui           : false,
+          hasImpoConsumo    : false,
+          facturaElectronica: '',
+          secondaryFactura  : {},
+          carpetaNumero     : 0,
+          nombreComercial   : '',
+          ciudad            : '',
+          dv                : 0,
+          id                : '',
+          nit               : 0,
+          razonSocial       : '',
+          concepto          : '',
+          direccion         : '',
+          fecha             : new Date(
+            newDater.getFullYear(), newDater.getMonth(), newDater.getDate()
           ),
-          id            : '',
-          nit           : 0,
-          razonSocial   : '',
-          hasIcui       : false,
-          hasImpoConsumo: false,
-          valorIva      : '0.00',
-          valorOtroImp  : '0.00',
-          concepto      : '',
-          direccion     : ''
+
         }
       );
 
@@ -59,9 +66,16 @@ export function NuevaFacturaProvider(
                       console.log(
                         facturaElectronica
                       );
+
                       setValorState(
-                        {
-                          ...restIdk
+                        (
+                          e
+                        ) => {
+
+                                  return {
+                                    ...e,
+                                    ...restIdk,
+                                  };
                         }
                       );
                     }
@@ -69,7 +83,7 @@ export function NuevaFacturaProvider(
 
 
 
-        }, [ facturas, valorState.id ]
+        }, [ facturas, valorState.id, ]
       );
       return (
         <NuevaFacturaContext.Provider value={{

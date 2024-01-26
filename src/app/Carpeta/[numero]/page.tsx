@@ -16,7 +16,6 @@ import { InputSection } from '#@/components/Form/input-section';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { DeudorFormComponent } from './deudor-form-component';
 import { Snackbar } from '#@/components/Modal/snackbar';
-import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 
 //SECTION Generate metadata for [numero]
 export async function generateMetadata (
@@ -55,43 +54,6 @@ export async function generateMetadata (
 }
 
 
-export const dynamicParams = true;
-//? Generate segments for [numero]
-
-export async function generateStaticParams () {
-      const carpetas = await getCarpetas();
-
-      const flattenUp = carpetas.map(
-        (
-          carpeta
-        ) => {
-                  const {
-                    numero
-                  } = carpeta;
-
-                  return {
-                    numero: String(
-                      numero
-                    )
-                  };
-        }
-      );
-
-      const chunkSize = 20;
-
-      const chunks = [];
-
-      for ( let i = 0; i < flattenUp.length; i += chunkSize ) {
-        const chunk = flattenUp.slice(
-          i, i + chunkSize
-        );
-        chunks.push(
-          chunk
-        );
-      }
-
-      return chunks[ 0 ];
-}
 
 
 export default async function Page (

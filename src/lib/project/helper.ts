@@ -57,7 +57,9 @@ export const sleep = (
               resolve
             ) => {
                       return setTimeout(
-                        resolve, ms * 200
+                        resolve, ms === 1
+                          ? ms
+                          :ms * 200
                       );
             }
           );

@@ -1,4 +1,4 @@
-import { Factura } from '#@/lib/types/contabilidad';
+
 import * as fs from 'fs/promises';
 
 const personList = [

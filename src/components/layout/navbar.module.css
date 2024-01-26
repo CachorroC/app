@@ -28,17 +28,17 @@
   text-align: center;
 }
 .drawer .sidenav {
-  width: 25vw;
+  width: 30rem;
   height: 100svh;
-  border-radius: 2vmin;
+  border-radius: 0 2rem 2rem 0;
   box-shadow: var(--dp20);
-  background-color: var(--surface-variant);
+  background-color: var(--surface-container-low);
   color: var(--on-surface-variant);
   box-sizing: border-box;
   padding: 2vmin;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+  justify-content: flex-start;
   justify-items: stretch;
 }
 .drawer .sidenav > * {
@@ -71,7 +71,7 @@
   grid-area: ProcesosLayoutList;
   gap: 0.5rem;
   box-sizing: border-box;
-  padding: 2vmin;
+  padding: 0 2rem;
   box-shadow: var(--dp2);
   background-color: var(--surface-container-low);
   border-radius: 2vmin;
@@ -81,7 +81,7 @@
   flex: 1 1 calc(50% - 2vmin);
 }
 
-.button, .buttonHome, .buttonDrawerMenu, .buttonBackwards, .buttonForward {
+.button, .buttonHome, .buttonDrawerMenuClosed, .buttonDrawerMenu, .buttonBackwards, .buttonForward {
   border: none;
   border-radius: 2vmin;
   display: flex;
@@ -112,8 +112,28 @@
   flex: 2 1 auto;
   grid-area: drawerMenuButton;
   background-color: var(--secondary);
+  border: none;
 }
-.buttonDrawerMenu > .icon {
+.buttonDrawerMenuClosed {
+  border: none;
+  height: 4rem;
+  width: 4rem;
+  background-color: rgba(0, 0, 0, 0);
+}
+.buttonDrawerMenuClosed > .icon, .buttonDrawerMenuClosed > .text {
+  filter: drop-shadow(var(--scrim));
+  color: var(--on-surface-variant);
+}
+.buttonDrawerMenuClosed:hover:after {
+  background-color: var(--surface-variant);
+}
+.buttonDrawerMenuClosed:focus:after, .buttonDrawerMenuClosed:active:after {
+  background-color: var(--surface-variant);
+}
+.buttonDrawerMenuOpen {
+  background-color: var(--secondary);
+}
+.buttonDrawerMenuOpen > .icon {
   color: var(--on-secondary);
 }
 .buttonHome {
@@ -125,17 +145,17 @@
 .buttonHome > .icon {
   color: var(--on-primary);
 }
-.button > .ButtonTextHelper, .buttonForward > .ButtonTextHelper, .buttonBackwards > .ButtonTextHelper, .buttonDrawerMenu > .ButtonTextHelper, .buttonHome > .ButtonTextHelper {
+.button > .ButtonTextHelper, .buttonForward > .ButtonTextHelper, .buttonBackwards > .ButtonTextHelper, .buttonDrawerMenu > .ButtonTextHelper, .buttonDrawerMenuClosed > .ButtonTextHelper, .buttonHome > .ButtonTextHelper {
   display: none;
   opacity: 0;
   transition: all 1s;
 }
-.button:hover, .buttonForward:hover, .buttonBackwards:hover, .buttonDrawerMenu:hover, .buttonHome:hover, .button:active, .buttonForward:active, .buttonBackwards:active, .buttonDrawerMenu:active, .buttonHome:active {
+.button:hover, .buttonForward:hover, .buttonBackwards:hover, .buttonDrawerMenu:hover, .buttonDrawerMenuClosed:hover, .buttonHome:hover, .button:active, .buttonForward:active, .buttonBackwards:active, .buttonDrawerMenu:active, .buttonDrawerMenuClosed:active, .buttonHome:active {
   background-color: var(--primary-fixed);
   box-shadow: var(--dp6);
   border: 2px solid var(--outline);
 }
-.button:hover > span, .buttonForward:hover > span, .buttonBackwards:hover > span, .buttonDrawerMenu:hover > span, .buttonHome:hover > span, .button:active > span, .buttonForward:active > span, .buttonBackwards:active > span, .buttonDrawerMenu:active > span, .buttonHome:active > span {
+.button:hover > span, .buttonForward:hover > span, .buttonBackwards:hover > span, .buttonDrawerMenu:hover > span, .buttonDrawerMenuClosed:hover > span, .buttonHome:hover > span, .button:active > span, .buttonForward:active > span, .buttonBackwards:active > span, .buttonDrawerMenu:active > span, .buttonDrawerMenuClosed:active > span, .buttonHome:active > span {
   font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
   color: var(--on-primary-fixed);
 }

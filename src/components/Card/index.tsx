@@ -9,6 +9,7 @@ import { inputElement, slider, switchBox } from '../Form/form.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { CopyButton } from '../Buttons/copy-buttons';
 import { fixMoney } from '#@/lib/project/helper';
+import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
 
 export const Card = (
   {
@@ -115,34 +116,65 @@ export const CardRow = (
             : true;
 
           const {
-            numero, idProcesos
+            numero, idProcesos, revisado
           } = carpeta;
 
           const idProcesosLength = idProcesos.length;
           let carpetaHref;
 
-          if ( idProcesosLength === 1 ) {
-            carpetaHref = `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }`;
+          if ( idProcesosLength > 1 ) {
+            carpetaHref = idProcesos.map(
+              (
+                idProceso, index
+              ) => {
+                        return (
+                          <Link key={ idProceso }
+                            href={`/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }`}
+                          >
+                            <span className={`${ typography.labelLarge } ${ layout.text }`}>
+                              {`#${ numero } - ${ index }`}
+                            </span>
+                            <span className={`material-symbols-outlined ${ layout.icon }`}>
+            folder
+                            </span>
+                          </Link> );
+              }
+            );
+          } else if ( idProcesosLength === 1 ) {
+            carpetaHref = (
+              <Link key={ idProcesos[ 0 ] }
+                href={`/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }`}
+              >
+                <span className={`${ typography.labelLarge } ${ layout.text }`}>
+                  {`#${ numero }`}
+                </span>
+                <span className={`material-symbols-outlined ${ layout.icon }`}>
+            folder
+                </span>
+              </Link>
+            );
           } else {
-            carpetaHref = `/Carpeta/${ carpeta.numero }`;
+            carpetaHref = (
+              <Link key={ numero }
+                href={`/Carpeta/${ numero }`}
+              >
+                <span className={`${ typography.labelLarge } ${ layout.text }`}>
+                  {`#${ numero }`}
+                </span>
+                <span className={`material-symbols-outlined ${ layout.icon }`}>
+            folder
+                </span>
+              </Link>
+            );
           }
 
 
           return (
             <tr>
               <td>
-                {' '}
-                <Link
-                  href={`/Carpeta/${ numero }` as Route}
-                >
-                  <span className={`${ typography.labelLarge } ${ layout.text }`}>
-                    {`#${ carpeta.numero }`}
-                  </span>
-                  <span className={`material-symbols-outlined ${ layout.icon }`}>
-            folder
-                  </span>
-                </Link>
+                {carpetaHref}
               </td>
+
               <td>
                 <Link
                   href={carpetaHref as Route}
@@ -151,16 +183,7 @@ export const CardRow = (
                   {carpeta.nombre}
                 </Link>
               </td>
-              <td>
-                <label className={switchBox}>
-                  <input
-                    className={inputElement}
-                    defaultChecked={carpeta.revisado}
-                    type="checkbox"
-                  />
-                  <span className={slider}></span>
-                </label>
-              </td>
+
               <td>{carpeta.tipoProceso}</td>
               <td>
                 {' '}
@@ -183,7 +206,8 @@ export const CardRow = (
                   name={'expediente'}
                 />
               </td>
-              <td>{carpeta.category}</td>
+              <td>{ carpeta.category }</td>
+
               <td>
                 {carpeta.demanda?.capitalAdeudado
           && fixMoney(
@@ -194,18 +218,20 @@ export const CardRow = (
             }
           )}
               </td>
-              <td>
-                {errorLLaveProceso
-                  ? (
-                      <Link
-                        href={`/Carpeta/${ numero }/Editar` as Route}
-                        className={styles.link}
-                      >
-                        {'error con el numero de expediente'}
-                      </Link>
-                    )
-                  : children}
-              </td>
+
+              {errorLLaveProceso
+                ? ( <td>
+                    <Link
+                      href={`/Carpeta/${ numero }/Editar` as Route}
+                      className={styles.link}
+                    >
+                      {'error con el numero de expediente'}
+                    </Link>
+                  </td>
+                  )
+                : children }
+              <RevisadoCheckBox numero={ numero } initialRevisadoState={ revisado } />
+
 
             </tr>
           );

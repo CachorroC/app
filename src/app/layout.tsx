@@ -4,14 +4,14 @@ import 'material-symbols';
 import layout from '#@/styles/layout.module.css';
 import Script from 'next/script';
 import React, { Suspense } from 'react';
-import { MainProvider } from './context/main-context';
-import { SearchProvider } from './context/search-context';
-import { ModalProvider } from './context/modal-context';
+import { MainProvider } from './Context/main-context';
+import { SearchProvider } from './Context/search-context';
+import { ModalProvider } from './Context/modal-context';
 import { Loader } from '#@/components/Loader';
 import type { Metadata, Viewport } from 'next';
 import { NavBar } from '#@/components/layout/NavBar';
-import { NavigationContextProvider } from './context/navigation-context';
-import { CategoryContextProvider } from './context/category-context';
+import { NavigationContextProvider } from './Context/navigation-context';
+import { CategoryContextProvider } from './Context/category-context';
 import {   playDisp, ptserif, josefina, radio, raleway } from '#@/styles/fonts';
 
 const prefix = process.env.NODE_ENV === 'production'

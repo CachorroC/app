@@ -1,7 +1,6 @@
 import { NotaComponent } from '#@/components/Nota/server';
 import clientPromise from '#@/lib/connection/mongodb';
-import { notasConvert } from '#@/lib/types/notas';
-import { Nota } from '@prisma/client';
+import { IntNota, notasConvert } from '#@/lib/types/notas';
 import { notFound } from 'next/navigation';
 
 export default async function DatePage(
@@ -9,32 +8,32 @@ export default async function DatePage(
     params,
   }: {
     params: { date: string[] };
-  } 
+  }
 ) {
       const [
         incomingAno,
         incomingMes,
-        incomingDia 
+        incomingDia
       ] = params.date;
 
       const incomingDate = new Date(
-        `${ incomingAno }-${ incomingMes }-${ incomingDia }` 
+        `${ incomingAno }-${ incomingMes }-${ incomingDia }`
       );
 
       const client = await clientPromise;
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico' 
+          'no hay cliente mongólico'
         );
       }
 
       const db = client.db(
-        'RyS' 
+        'RyS'
       );
 
-      const collection = db.collection<Nota>(
-        'Notas' 
+      const collection = db.collection<IntNota>(
+        'Notas'
       );
 
       const rawNotas = await collection
@@ -43,7 +42,7 @@ export default async function DatePage(
                 date: {
                   $gte: incomingDate,
                 },
-              } 
+              }
             )
             .toArray();
 
@@ -52,7 +51,7 @@ export default async function DatePage(
       }
 
       const notas = notasConvert.toMonNotas(
-        rawNotas 
+        rawNotas
       );
 
       return (
@@ -63,11 +62,11 @@ export default async function DatePage(
               weekday: 'short',
               month  : 'long',
               day    : 'numeric',
-            } 
+            }
           )}
           {notas.map(
             (
-              nota 
+              nota
             ) => {
                       return (
                         <NotaComponent
@@ -75,7 +74,7 @@ export default async function DatePage(
                           notaRaw={nota}
                         />
                       );
-            } 
+            }
           )}
         </>
       );

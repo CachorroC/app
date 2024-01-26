@@ -7,16 +7,16 @@ export async function NotasLinkList(
     carpetaNumero,
   }: {
     carpetaNumero?: number;
-  } 
+  }
 ) {
       const notas = await getNotas(
-        carpetaNumero 
+        carpetaNumero
       );
       return (
         <>
           {notas.map(
             (
-              nota 
+              nota
             ) => {
                       return (
                         <Link
@@ -26,10 +26,10 @@ export async function NotasLinkList(
                             padding: '.5rem',
                           }}
                         >
-                          <sub>{nota.title}</sub>
+                          <sub>{nota.text}</sub>
                         </Link>
                       );
-            } 
+            }
           )}
         </>
       );

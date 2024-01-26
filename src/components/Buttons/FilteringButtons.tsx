@@ -2,7 +2,7 @@
 import styles from 'components/Buttons/buttons.module.css';
 import layout from '#@/styles/layout.module.css';
 import { usePathname } from 'next/navigation';
-import { useCategory } from '#@/app/context/category-context';
+import { useCategory } from '#@/app/Context/category-context';
 
 export const CategoryButton = (
   {
@@ -11,10 +11,10 @@ export const CategoryButton = (
   }: {
     categoria: string;
     icon: string;
-  } 
+  }
 ) => {
           const {
-            currentCategory, setCurrentCategory 
+            currentCategory, setCurrentCategory
           } = useCategory();
 
           const pathname = usePathname();
@@ -26,7 +26,7 @@ export const CategoryButton = (
             <button
               onClick={() => {
                         return setCurrentCategory(
-                          categoria 
+                          categoria
                         );
               }}
               className={
@@ -64,7 +64,7 @@ export const CategoryFilterButton = () => {
             <section className={layout.sectionColumn}>
               {categorias.map(
                 (
-                  category, index 
+                  category, index
                 ) => {
                           return (
                             <CategoryButton
@@ -73,7 +73,7 @@ export const CategoryFilterButton = () => {
                               icon={icons[ index ]}
                             />
                           );
-                } 
+                }
               )}
             </section>
           );

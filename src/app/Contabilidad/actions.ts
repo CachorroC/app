@@ -26,10 +26,20 @@ export async function addToContabilidad (
         );
 
         if ( insertFactura.acknowledged ) {
-          return true;
+          return {
+            success: true,
+            data   : JSON.stringify(
+              insertFactura
+            )
+          };
         }
 
-        return false;
+        return {
+          success: false,
+          data   : JSON.stringify(
+            insertFactura
+          )
+        };
       }
 
       /* eslint-disable-next-line no-unused-vars */
@@ -48,10 +58,20 @@ export async function addToContabilidad (
       );
 
       if ( updateFactura.modifiedCount >= 1 ) {
-        return true;
+        return {
+          success: true,
+          data   : JSON.stringify(
+            updateFactura
+          )
+        };
       }
 
-      return false;
+      return {
+        success: false,
+        data   : JSON.stringify(
+          updateFactura
+        )
+      };
 
 }
 
@@ -59,111 +79,236 @@ export async function addFactura (
   incomingFactura: intFactura
 ) {
       const {
-        nit, facturaElectronica, ...factura
+        nit, facturaElectronica, carpetaNumero, ...factura
       } = incomingFactura;
 
       try {
+        let inserter;
+
         if ( typeof facturaElectronica === 'string' ) {
-
-          const inserter =  await prisma.factura.upsert(
-            {
-              where: {
-                id: factura.id,
-              },
-              update: {
-                ...factura,
-                facturaElectronica: facturaElectronica,
-                emisorDeFactura   : {
-                  connectOrCreate: {
-                    where: {
-                      nit: nit
-                    },
-                    create: {
-                      dv         : factura.dv,
-                      nit        : nit,
-                      razonSocial: factura.razonSocial,
-                      direccion  : factura.direccion,
-                      ciudad     : factura.ciudad,
+          if ( carpetaNumero ) {
+            inserter = await prisma.factura.upsert(
+              {
+                where: {
+                  id: factura.id,
+                },
+                update: {
+                  ...factura,
+                  facturaElectronica: facturaElectronica,
+                  secondaryFactura  : factura.secondaryFactura
+                    ? factura.secondaryFactura
+                    : undefined,
+                  carpeta: {
+                    connect: {
+                      numero: carpetaNumero
+                    }
+                  },
+                  emisorDeFactura: {
+                    connectOrCreate: {
+                      where: {
+                        nit: nit
+                      },
+                      create: {
+                        dv             : factura.dv,
+                        nit            : nit,
+                        razonSocial    : factura.razonSocial,
+                        nombreComercial: factura.nombreComercial,
+                        direccion      : factura.direccion,
+                        ciudad         : factura.ciudad,
+                      }
+                    }
+                  }
+                },
+                create: {
+                  ...factura,
+                  secondaryFactura: factura.secondaryFactura
+                    ? factura.secondaryFactura
+                    : undefined,
+                  facturaElectronica: facturaElectronica,
+                  carpeta           : {
+                    connect: {
+                      numero: carpetaNumero
+                    }
+                  },
+                  emisorDeFactura: {
+                    connectOrCreate: {
+                      where: {
+                        nit: nit
+                      },
+                      create: {
+                        dv             : factura.dv,
+                        nit            : nit,
+                        razonSocial    : factura.razonSocial,
+                        nombreComercial: factura.nombreComercial,
+                        direccion      : factura.direccion,
+                        ciudad         : factura.ciudad,
+                      }
                     }
                   }
                 }
-              },
-              create: {
-                ...factura,
-                facturaElectronica: facturaElectronica,
-                emisorDeFactura   : {
-                  connectOrCreate: {
-                    where: {
-                      nit: nit
-                    },
-                    create: {
-                      dv         : factura.dv,
-                      nit        : nit,
-                      razonSocial: factura.razonSocial,
-                      direccion  : factura.direccion,
-                      ciudad     : factura.ciudad,
+              }
+            );
+
+          } else {
+            inserter = await prisma.factura.upsert(
+              {
+                where: {
+                  id: factura.id,
+                },
+                update: {
+                  ...factura,
+                  facturaElectronica: facturaElectronica,
+                  secondaryFactura  : factura.secondaryFactura
+                    ? factura.secondaryFactura
+                    : undefined,
+                  emisorDeFactura: {
+                    connectOrCreate: {
+                      where: {
+                        nit: nit
+                      },
+                      create: {
+                        dv             : factura.dv,
+                        nit            : nit,
+                        razonSocial    : factura.razonSocial,
+                        nombreComercial: factura.nombreComercial,
+                        direccion      : factura.direccion,
+                        ciudad         : factura.ciudad,
+                      }
+                    }
+                  }
+                },
+                create: {
+                  ...factura,
+                  facturaElectronica: facturaElectronica,
+                  secondaryFactura  : factura.secondaryFactura
+                    ? factura.secondaryFactura
+                    : undefined,
+                  emisorDeFactura: {
+                    connectOrCreate: {
+                      where: {
+                        nit: nit
+                      },
+                      create: {
+                        dv             : factura.dv,
+                        nit            : nit,
+                        razonSocial    : factura.razonSocial,
+                        nombreComercial: factura.nombreComercial,
+                        direccion      : factura.direccion,
+                        ciudad         : factura.ciudad,
+                      }
                     }
                   }
                 }
               }
-            }
-          );
-
-          console.log(
-            inserter
-          );
-          return {
-            success: true,
-            data   : JSON.stringify(
-              inserter
-            )
-          };
-        }
-
-        const inserter =  await prisma.factura.upsert(
-          {
-            where: {
-              id: factura.id
-            },
-            update: {
-              ...factura,
-              secondaryFactura: facturaElectronica as unknown as JsonObject,
-              emisorDeFactura : {
-                connectOrCreate: {
-                  where: {
-                    nit: nit
-                  },
-                  create: {
-                    dv         : factura.dv,
-                    nit        : nit,
-                    razonSocial: factura.razonSocial,
-                    direccion  : factura.direccion,
-                    ciudad     : factura.ciudad,
-                  }
-                }
-              }
-            },
-            create: {
-              ...factura,
-              facturaElectronica: '',
-              secondaryFactura  : facturaElectronica as unknown as JsonObject,
-              emisorDeFactura   : {
-                connectOrCreate: {
-                  where: {
-                    nit: nit
-                  },
-                  create: {
-                    dv         : factura.dv,
-                    nit        : nit,
-                    razonSocial: factura.razonSocial,
-                    direccion  : factura.direccion,
-                    ciudad     : factura.ciudad,
-                  }
-                }
-              }
-            }
+            );
           }
-        );
+        } else {
+          if ( carpetaNumero ) {
+            inserter =  await prisma.factura.upsert(
+              {
+                where: {
+                  id: factura.id
+                },
+                update: {
+                  ...factura,
+                  secondaryFactura: facturaElectronica as unknown as JsonObject,
+                  carpeta         : {
+                    connect: {
+                      numero: carpetaNumero
+                    }
+                  },
+                  emisorDeFactura: {
+                    connectOrCreate: {
+                      where: {
+                        nit: nit
+                      },
+                      create: {
+                        dv         : factura.dv,
+                        nit        : nit,
+                        razonSocial: factura.razonSocial,
+                        direccion  : factura.direccion,
+                        ciudad     : factura.ciudad,
+                      }
+                    }
+                  }
+                },
+                create: {
+                  ...factura,
+                  facturaElectronica: '',
+                  secondaryFactura  : facturaElectronica as unknown as JsonObject,
+                  carpeta           : {
+                    connect: {
+                      numero: carpetaNumero
+                    }
+                  },
+                  emisorDeFactura: {
+                    connectOrCreate: {
+                      where: {
+                        nit: nit
+                      },
+                      create: {
+                        dv         : factura.dv,
+                        nit        : nit,
+                        razonSocial: factura.razonSocial,
+                        direccion  : factura.direccion,
+                        ciudad     : factura.ciudad,
+                      }
+                    }
+                  }
+                }
+              }
+            );
+
+          } else {
+            inserter =  await prisma.factura.upsert(
+              {
+                where: {
+                  id: factura.id
+                },
+                update: {
+                  ...factura,
+                  secondaryFactura: facturaElectronica as unknown as JsonObject,
+
+                  emisorDeFactura: {
+                    connectOrCreate: {
+                      where: {
+                        nit: nit
+                      },
+                      create: {
+                        dv         : factura.dv,
+                        nit        : nit,
+                        razonSocial: factura.razonSocial,
+                        direccion  : factura.direccion,
+                        ciudad     : factura.ciudad,
+                      }
+                    }
+                  }
+                },
+                create: {
+                  ...factura,
+                  facturaElectronica: '',
+                  secondaryFactura  : facturaElectronica as unknown as JsonObject,
+                  emisorDeFactura   : {
+                    connectOrCreate: {
+                      where: {
+                        nit: nit
+                      },
+                      create: {
+                        dv         : factura.dv,
+                        nit        : nit,
+                        razonSocial: factura.razonSocial,
+                        direccion  : factura.direccion,
+                        ciudad     : factura.ciudad,
+                      }
+                    }
+                  }
+                }
+              }
+            );
+
+          }
+
+        }
 
         console.log(
           inserter

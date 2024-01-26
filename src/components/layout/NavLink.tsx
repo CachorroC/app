@@ -3,7 +3,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import styles from '#@/styles/layout.module.css';
-import { useNavigationContext } from '#@/app/context/navigation-context';
+import { useNavigationContext } from '#@/app/Context/navigation-context';
 import { Route } from 'next';
 
 export function NavLink<T extends string>(
@@ -18,7 +18,7 @@ export function NavLink<T extends string>(
   }
 ) {
       const {
-        setIsNavOpen
+        isNavOpen, setIsNavOpen
       } = useNavigationContext();
 
       const pathname = usePathname();
@@ -28,8 +28,12 @@ export function NavLink<T extends string>(
         <Link
           key={hrefLabel.toString()}
           className={isActive
-            ? styles.linkActive
-            : styles.link}
+            ? isNavOpen
+              ? styles.linkOpenActive
+              : styles.linkActive
+            : isNavOpen
+              ? styles.linkOpen
+              : styles.link}
           onClick={() => {
                     setIsNavOpen(
                       false

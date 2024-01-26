@@ -1,6 +1,5 @@
 'use client';
-import { IntTask } from '#@/lib/types/carpetas';
-import { IntTaskAction } from '#@/lib/types/context-actions';
+import { IntTask, TaskAction } from '#@/lib/types/tareas';
 import { Dispatch,
   ReactNode,
   createContext,
@@ -14,7 +13,7 @@ const TasksContext = createContext<IntTask[] | null>(
   null
 );
 
-const TasksDispatchContext = createContext<Dispatch<IntTaskAction> | null>(
+const TasksDispatchContext = createContext<Dispatch<TaskAction> | null>(
   null,
 );
 
@@ -69,14 +68,17 @@ export function useDispatchTasks() {
 }
 
 function tasksReducer(
-  tasks: IntTask[], action: IntTaskAction
+  tasks: IntTask[], action: TaskAction
 ) {
       const {
-        type, task
+        type,
       } = action;
 
       switch ( type ) {
           case 'added': {
+            const {
+              task
+            } = action;
             return [ ...tasks,
               {
                 ...task,
@@ -89,6 +91,9 @@ function tasksReducer(
           }
 
           case 'changed': {
+            const {
+              task
+            } = action;
             return tasks.map(
               (
                 t
@@ -103,11 +108,14 @@ function tasksReducer(
           }
 
           case 'deleted': {
+            const {
+              id
+            } = action;
             return tasks.filter(
               (
                 t
               ) => {
-                        return t.id !== task.id;
+                        return t.id !== id;
               }
             );
           }

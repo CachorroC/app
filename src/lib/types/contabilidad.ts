@@ -1,4 +1,4 @@
-import { JsonObject } from '@prisma/client/runtime/library';
+import { JsonObject, JsonValue } from '@prisma/client/runtime/library';
 
 export interface RawFactura1
 {
@@ -35,96 +35,39 @@ export interface RawFactura2{
 export type RawFactura = RawFactura1 | RawFactura2
 
 
-export function rawFacturaBuilder (
-  qrstring: string
-): intFactura {
+export interface incomingRawFactura
+{
+  facturaElectronica: string;
+  fecha: Date;
+  hasOtroImp: boolean;
+  hasIcui: boolean;
+  hasImpoConsumo: boolean;
+  secondaryFactura: JsonObject;
+  hasIva: boolean;
+  CUFE: string;
+  QRCode?: string;
 
-      const facturaMap = new Map<keyof RawFactura, string | Date>();
-
-      const firstMatcher = qrstring.matchAll(
-        /([a-z0-9A-Z_]+)(?::|=)(['\s"])?([a-z0-9A-Z_:\-./?=]+)(['\s\n"])?/gm
-      );
-
-      for ( const matchedKeyValues of firstMatcher ) {
-        console.log(
-          matchedKeyValues
-        );
-        facturaMap.set(
-          matchedKeyValues[ 1 ], matchedKeyValues[ 3 ]
-        );
-      }
-
-      let newFactura, mF;
-
-      const pruebaSiExisteNumFactura = facturaMap.get(
-        'NumFac'
-      );
-
-      if ( !pruebaSiExisteNumFactura ) {
-        newFactura =  Object.fromEntries(
-          facturaMap
-        ) as RawFactura1;
-
-        mF = {
-          ciudad        : '',
-          dv            : 0,
-          fecha         : new Date(),
-          hasOtroImp    : false,
-          hasIcui       : false,
-          hasImpoConsumo: false,
-          hasIva        : false,
-          id            : '',
-          nit           : Number(
-            newFactura.NitFacturador
-          ),
-          razonSocial : '',
-          direccion   : '',
-          valorBase   : newFactura.ValorFactura,
-          valorIva    : newFactura.ValorIVA,
-          valorOtroImp: '',
-          valorTotal  : '',
-          concepto    : ''
-        };
-      } else {
-        newFactura =   Object.fromEntries(
-          facturaMap
-        ) as RawFactura2;
-        mF ={
-          ciudad        : '',
-          dv            : 0,
-          fecha         : new Date(),
-          hasOtroImp    : false,
-          hasIcui       : false,
-          hasImpoConsumo: false,
-          hasIva        : false,
-          id            : newFactura.NumFac,
-          nit           : Number(
-            newFactura.NitFac
-          ),
-          razonSocial : '',
-          direccion   : '',
-          valorBase   : '',
-          valorIva    : newFactura.ValIva,
-          valorOtroImp: '',
-          valorTotal  : '',
-          concepto    : ''
-        };
-      }
-
-
-      return mF;
+  id: string;
+  nit: number;
+  valorBase: string;
+  valorIva: string;
+  valorOtroImp: string;
+  valorTotal: string;
 }
 
 export interface intFactura
 {
   facturaElectronica?: string;
+  carpetaNumero?: number;
   ciudad: string;
   dv: number;
   fecha: Date;
   hasOtroImp: boolean;
+  CUFE?: string;
+  QRCode?:string
   hasIcui: boolean;
   hasImpoConsumo: boolean;
-  secondaryFactura?: JsonObject;
+  secondaryFactura?:  JsonValue;
   nombreComercial?: string;
   hasIva: boolean;
   id: string;
@@ -274,79 +217,133 @@ export class Factura implements intFactura {
   razonSocial: string;
   direccion: string;
   concepto: string;
-  static convertRawFacturaTointFactura (
-    rawFactura: RawFactura
-  ): intFactura {
-            for ( const key in rawFactura ) {
-              if ( Object.prototype.hasOwnProperty.call(
-                rawFactura, key
-              ) ) {
-                console.log(
-                  key
-                );
+  static convertRawToFactura (
+    qrString: string
+  ): incomingRawFactura {
 
-                const element = rawFactura[ key ];
-                console.log(
-                  element
-                );
-              }
+
+            const facturaMap = new Map<keyof RawFactura, string | Date>();
+
+            const firstMatcher = qrString.matchAll(
+              /([a-z0-9A-Z_]+)(?::|=)(?:['\s"])?([a-z0-9A-Z_:\-./?=]+)(['\s\n"])?/gm
+            );
+
+            for ( const matchedKeyValues of firstMatcher ) {
+              console.log(
+                matchedKeyValues
+              );
+              facturaMap.set(
+                matchedKeyValues[ 1 ], matchedKeyValues[ 2 ]
+              );
             }
 
-            const newFactura: intFactura = {
-              ciudad: '',
-              dv    : 0,
-              fecha : new Date(
-                `${
-                  rawFactura.FechaFactura
-                    ?  rawFactura.FechaFactura
-                    : rawFactura.FecFac
-                }T${ rawFactura.HoraFactura
-                  ?                   rawFactura.HoraFactura
-                  : rawFactura.HorFac
-                }`
-              ),
-              hasOtroImp    : false,
-              hasIcui       : false,
-              hasImpoConsumo: false,
-              hasIva        : false,
-              id            : String(
-                rawFactura.NroFactura
-                  ? rawFactura.NroFactura
-                  : rawFactura.NumFac
-              ),
-              nit: Number(
-                rawFactura.NitFacturador
-                  ? rawFactura.NitFacturador
-                  : rawFactura.NitFac
-              ),
-              razonSocial: '',
-              direccion  : '',
-              valorBase  : String(
-                rawFactura.ValorFactura
-                  ? rawFactura.ValorFactura
-                  : rawFactura.ValFac
-              ),
-              valorIva: String(
-                rawFactura.ValorIVA
-                  ? rawFactura.ValorIVA
-                  : rawFactura.ValIva
-              ),
-              valorOtroImp: String(
-                rawFactura.ValorOtrosImpuestos
-                  ? rawFactura.ValorOtrosImpuestos
-                  : rawFactura.ValOtroIm
-              ),
-              valorTotal: String(
-                rawFactura.ValorTotalFactura
-                  ? rawFactura.ValorTotalFactura
-                  : rawFactura.ValFacIm
-                    ? rawFactura.ValFacIm
-                    : rawFactura.ValTolFac
-              ),
-              concepto: ''
-            };
-            return newFactura;
+            let newFactura, responseFactura: incomingRawFactura;
+
+            const pruebaSiExisteNumFactura = facturaMap.get(
+              'NumFac'
+            );
+
+
+
+            if ( !pruebaSiExisteNumFactura ) {
+              newFactura =  Object.fromEntries(
+                facturaMap
+              ) as RawFactura1;
+              responseFactura = {
+                facturaElectronica: qrString,
+                CUFE              : newFactura.CUFE,
+                secondaryFactura  : newFactura as JsonObject,
+                fecha             : new Date(
+                  `${ newFactura.FechaFactura }T${ newFactura.HoraFactura }`
+                ),
+                id : newFactura.NroFactura,
+                nit: Number(
+                  newFactura.NitFacturador
+                ),
+                valorBase   : newFactura.ValorFactura,
+                valorIva    : newFactura.ValorIVA,
+                valorOtroImp: newFactura.ValorOtrosImpuestos,
+                valorTotal  : newFactura.ValorTotalFactura,
+                hasIva      : parseInt(
+                  newFactura.ValorIVA
+                ) === 0
+                  ? false
+                  : true,
+                hasOtroImp: parseInt(
+                  newFactura.ValorOtrosImpuestos
+                ) === 0
+                  ? false
+                  : true,
+                hasIcui: parseInt(
+                  newFactura.ValorOtrosImpuestos
+                ) === 0
+                  ? false
+                  : true,
+                hasImpoConsumo: parseInt(
+                  newFactura.ValorOtrosImpuestos
+                ) === 0
+                  ? false
+                  : true,
+              };
+            } else {
+              newFactura =   Object.fromEntries(
+                facturaMap
+              ) as RawFactura2;
+              responseFactura = {
+                facturaElectronica: qrString,
+                CUFE              : newFactura.CUFE,
+                secondaryFactura  : newFactura as JsonObject,
+                fecha             : new Date(
+                  `${ newFactura.FecFac }T${ newFactura.HorFac }`
+                ),
+                QRCode: newFactura.https
+                  ? `https://${ newFactura.https ?? newFactura.QRCode }`
+                  : `${ newFactura.QRCode }`,
+                id          : newFactura.NumFac,
+                valorBase   : newFactura.ValFac,
+                valorIva    : newFactura.ValIva,
+                valorOtroImp: newFactura.ValOtroIm,
+                hasIva      : parseInt(
+                  newFactura.ValIva
+                ) === 0
+                  ? false
+                  : true,
+                hasOtroImp: parseInt(
+                  newFactura.ValOtroIm
+                ) === 0
+                  ? false
+                  : true,
+                hasIcui: parseInt(
+                  newFactura.ValOtroIm
+                ) === 0
+                  ? false
+                  : true,
+                hasImpoConsumo: parseInt(
+                  newFactura.ValOtroIm
+                ) === 0
+                  ? false
+                  : true,
+                nit: Number(
+                  newFactura.NitFac
+                ),
+                valorTotal: newFactura.ValTolFac
+                  ? newFactura.ValTolFac
+                  : newFactura.ValFacIm
+                    ? newFactura.ValFacIm
+                    :`${ parseFloat(
+                      newFactura.ValFac
+                    ) + parseFloat(
+                      newFactura.ValOtroIm
+                    ) + parseFloat(
+                      newFactura.ValIva
+                    ) }`,
+              };
+            }
+
+            return responseFactura;
   }
+
+
 }
 
 export interface monFactura extends intFactura {

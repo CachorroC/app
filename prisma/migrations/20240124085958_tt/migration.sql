@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Factura" ALTER COLUMN "valorIva" DROP NOT NULL,
+ALTER COLUMN "valorOtroImp" DROP NOT NULL;

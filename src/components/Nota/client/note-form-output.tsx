@@ -1,33 +1,33 @@
 'use client';
 
-import { useNotaContext } from '#@/app/context/main-context';
 import styles from 'components/Nota/note.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
+import { useNuevaTaskContext } from '#@/app/Context/nueva-task-form-context';
 
 export default function NoteFormOutput() {
       const {
-        inputNota 
-      } = useNotaContext();
+        taskFormState,
+      } = useNuevaTaskContext();
 
       return (
         <div className={styles.container}>
-          <sub className={styles.sup}>{inputNota.id}</sub>
-          {inputNota.carpetaNumero && (
-            <span>{`llaveProceso: ${ inputNota.carpetaNumero }`}</span>
+          <sub className={styles.sup}>{taskFormState.id}</sub>
+          {taskFormState.carpetaNumero && (
+            <span>{`llaveProceso: ${ taskFormState.carpetaNumero }`}</span>
           )}
           <section className={styles.section}>
-            <p className={typography.displayMedium}>{inputNota.title}</p>
-            <p className={typography.bodyMedium}>{inputNota.title}</p>
-            {inputNota.date && (
+            <p className={typography.displayMedium}>{taskFormState.text}</p>
+            <p className={typography.bodyMedium}>{taskFormState.text}</p>
+            {taskFormState.dueDate && (
               <p className={typography.labelSmall}>
                 {fixFechas(
-                  inputNota.date.toString() 
+                  taskFormState.dueDate?.toString()
                 )}
               </p>
             )}
           </section>
-          <span>{inputNota.pathname}</span>
+
         </div>
       );
 }

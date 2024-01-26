@@ -5,7 +5,7 @@ import { Dispatch,
   createContext,
   useContext,
   useReducer, } from 'react';
-import { IntAction, carpetasReducer } from '../hooks/useCarpetasreducer';
+import { IntAction, carpetasReducer } from '../Hooks/useCarpetasreducer';
 
 const CarpetasSortContext = createContext<MonCarpeta[] | null>(
   null

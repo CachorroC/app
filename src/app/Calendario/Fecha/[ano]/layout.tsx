@@ -1,4 +1,4 @@
-import { CalendarContextProvider } from '#@/app/context/calendario-context';
+import { CalendarContextProvider } from '#@/app/Context/calendario-context';
 import { LabelBoundary } from '#@/components/layout/boundary';
 import { ReactNode } from 'react';
 
@@ -9,10 +9,10 @@ export default function Layout(
   }: {
     params: { ano: string };
     children: ReactNode;
-  } 
+  }
 ) {
       const segmentDate = new Date(
-        params.ano 
+        params.ano
       );
 
       return (

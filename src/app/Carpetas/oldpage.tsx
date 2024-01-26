@@ -103,7 +103,6 @@ export default async function Page (
                                               <FechaActuacionComponentAlt
                                                 idProceso={idProceso}
                                                 index={index}
-                                                initialOpenState={false}
                                               />
 
                                             </Suspense>

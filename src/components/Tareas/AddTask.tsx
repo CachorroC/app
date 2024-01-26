@@ -1,24 +1,24 @@
 'use client';
 import { useState } from 'react';
 import { useDispatchTasks } from './TasksContext';
-import { createUser } from './actions';
-import { IntTask } from '#@/lib/types/carpetas';
 import typography from '#@/styles/fonts/typography.module.css';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import styles from './styles.module.css';
 import layout from '#@/styles/layout.module.css';
+import { addTaskToMongo, addTaskToPrisma } from '#@/app/Tareas/actions';
+import { NewTask } from '#@/lib/types/tareas';
 
 export function AddTask(
   {
     carpetaNumero
   }: { carpetaNumero?: number }
 ) {
-      const [ taskState, setTaskState ] = useState<IntTask>(
+      const [ taskState, setTaskState ] = useState<NewTask>(
         {
           text         : '',
           done         : false,
-          content      : [ 'contenido' ],
-          dueDate      : null,
+          content      : [ '' ],
+          dueDate      : new Date(),
           carpetaNumero: carpetaNumero
             ? carpetaNumero
             : null,
@@ -27,34 +27,49 @@ export function AddTask(
 
       const dispatchTasks = useDispatchTasks();
 
-      async function createTask(
-        formData: FormData
-      ) {
-            for ( const contenido of taskState.content ) {
+      async function createTask() {
+            /*  for ( const contenido of taskState.content ) {
               formData.append(
                 'content', contenido
               );
-            }
+            } */
 
 
 
-            const user = await createUser(
-              formData
+            const taskPrisma = await addTaskToPrisma(
+              {
+                ...taskState
+              }
             );
 
-            console.log(
-              user
+            const taskMongo = await addTaskToMongo(
+              taskState
+            );
+
+            alert(
+              JSON.stringify(
+                taskPrisma, null, 2
+              )
+            );
+            alert(
+              JSON.stringify(
+                taskMongo, null, 2
+              )
             );
             setTaskState(
               {
                 ...taskState,
+                ...taskPrisma,
                 text: '',
               }
             );
             return dispatchTasks(
               {
                 type: 'added',
-                task: user,
+                task: {
+                  ...taskState,
+                  ...taskPrisma,
+                },
               }
             );
       }
@@ -142,16 +157,13 @@ export function AddTask(
                           }
                         );
               } } />
-              <input name='content[0]' type='text'  className={styles.textArea} value={taskState.content[ 0 ]} onChange={ (
+              <input name='content' type='text'  className={styles.textArea} value={taskState.content.toLocaleString() ?? ''} onChange={ (
                 e
               ) => {
                         return setTaskState(
                           {
                             ...taskState,
-                            content: [ ...taskState.content,
-                              String(
-                                e.target.value
-                              ) ]
+                            content: [ ...taskState.content, e.target.value ]
                           }
                         );
               } } />

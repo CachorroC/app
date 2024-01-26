@@ -7,19 +7,19 @@ import { Loader } from '../Loader';
 import { NuevaNota } from '../Nota/client/nueva-nota';
 import { Drawer } from './Drawer';
 import NavButtons from '../Buttons/nav-buttons';
-import ModalDialog from '#@/app/hooks/modal-state';
+import ModalDialog from '#@/app/Hooks/modal-state';
 import { NavBar } from './NavBar';
-import { useNavigationContext } from '#@/app/context/navigation-context';
+import { useNavigationContext } from '#@/app/Context/navigation-context';
 
 export function HeaderOld(
   {
-    children 
-  }: { children: ReactNode } 
+    children
+  }: { children: ReactNode }
 ) {
       let modalSegment;
 
       const {
-        isNavOpen 
+        isNavOpen
       } = useNavigationContext();
 
       if ( isNavOpen ) {

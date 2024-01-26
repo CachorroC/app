@@ -1,7 +1,7 @@
 'use client';
 import { monFactura } from '#@/lib/types/contabilidad';
 import { Dispatch, ReactNode, createContext, useContext, useReducer } from 'react';
-import { IntAction, facturasReducer } from '../hooks/useFacturasReducer';
+import { IntAction, facturasReducer } from '../Hooks/useFacturasReducer';
 
 const FacturasSortContext = createContext<monFactura[] | null>(
   null

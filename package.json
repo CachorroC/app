@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "styles:tcm": "tcm src",
-    "sass": "sass src:src && tcm src",
+    "sassbuild": " tcm src",
     "lint": "next lint --fix && next lint",
-    "prebuild": "pnpm run sass && pnpm run lint",
+    "prebuild": "pnpm run sassbuild && pnpm run lint",
     "devbuild": "pnpm run prebuild && next build",
     "build": "next build",
     "dev": "URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com PREFIX=beta next dev",
@@ -17,10 +17,10 @@
   },
   "dependencies": {
     "@auth/core": "^0.18.6",
-    "@auth/prisma-adapter": "^1.0.12",
+    "@auth/prisma-adapter": "^1.0.16",
     "@prisma/client": "5.6.0",
     "@types/node": "20.8.10",
-    "@types/react": "^18.2.45",
+    "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@yudiel/react-qr-scanner": "^1.2.6",
     "@zxing/library": "^0.20.0",
@@ -30,19 +30,19 @@
     "mongodb": "^6.3.0",
     "next": "14.0.4",
     "next-auth": "beta",
-    "prettier": "^3.2.1",
+    "prettier": "^3.2.4",
     "prisma": "5.6.0",
     "react": "canary",
-    "react-currency-input-field": "^3.6.12",
+    "react-currency-input-field": "^3.6.14",
     "react-dom": "canary",
-    "react-hook-form": "^7.49.2",
-    "sass": "^1.69.5",
+    "react-hook-form": "^7.49.3",
+    "sass": "^1.70.0",
     "server-only": "^0.0.1",
     "typed-css-modules": "^0.8.1",
     "typescript": "next",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin": "^1.5.1"
+    "@stylistic/eslint-plugin": "^1.5.4"
   }
 }

@@ -1,8 +1,8 @@
 import styles from '#@/styles/layout.module.css';
 import { ReactNode } from 'react';
-import { NuevaCarpetaFormProvider } from '../context/nueva-carpeta-form-context';
+import { NuevaCarpetaFormProvider } from '../Context/nueva-carpeta-form-context';
 import { Metadata } from 'next';
-import { CarpetasSortProvider } from '../context/carpetas-sort-context';
+import { CarpetasSortProvider } from '../Context/carpetas-sort-context';
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { ResetButtonSorter } from './UltimasActuaciones/reset-button';
 

@@ -3,8 +3,12 @@ import { NextResponse } from 'next/server';
 
 import { ConsultaActuacion } from 'types/actuaciones';
 
+export const dynamic = 'force-dynamic';
+
+export const dynamicParams = true;
+
 async function* ActuacionesAsyncgenerator(
-  idProcesos: number[] 
+  idProcesos: number[]
 ) {
       const mapActuaciones = new Map<number, Response>();
 
@@ -14,38 +18,38 @@ async function* ActuacionesAsyncgenerator(
             `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
           );
           mapActuaciones.set(
-            idProceso, res 
+            idProceso, res
           );
 
           if ( !res.ok ) {
             throw new Error(
-              `${ res.statusText } ${ res.status }` 
+              `${ res.statusText } ${ res.status }`
             );
           }
 
           const {
-            actuaciones 
+            actuaciones
           } = ( await res.json() ) as ConsultaActuacion;
           yield actuaciones.map(
             (
-              actuacion 
+              actuacion
             ) => {
                       return {
                         ...actuacion,
                         fechaActuacion: new Date(
-                          actuacion.fechaActuacion 
+                          actuacion.fechaActuacion
                         ),
                         fechaRegistro: new Date(
-                          actuacion.fechaRegistro 
+                          actuacion.fechaRegistro
                         ),
                         fechaInicial: actuacion.fechaInicial
                           ? new Date(
-                            actuacion.fechaInicial 
+                            actuacion.fechaInicial
                           )
                           : null,
                         fechaFinal: actuacion.fechaFinal
                           ? new Date(
-                            actuacion.fechaFinal 
+                            actuacion.fechaFinal
                           )
                           : null,
                         idProceso: idProceso,
@@ -54,11 +58,11 @@ async function* ActuacionesAsyncgenerator(
               ? true
               : false,
                       };
-            } 
+            }
           );
         } catch ( error ) {
           console.log(
-            error 
+            error
           );
           yield [];
         }
@@ -72,10 +76,10 @@ export async function GET() {
 
       const idProcesos = carpetas.flatMap(
         (
-          carpeta 
+          carpeta
         ) => {
                   const {
-                    idProcesos 
+                    idProcesos
                   } = carpeta;
 
                   if ( idProcesos.length === 0 ) {
@@ -83,21 +87,21 @@ export async function GET() {
                   }
 
                   return idProcesos;
-        } 
+        }
       );
 
       for await ( const consultaActuacion of ActuacionesAsyncgenerator(
-        idProcesos 
+        idProcesos
       ) ) {
         console.log(
-          consultaActuacion 
+          consultaActuacion
         );
         newCarpsFetcher.push(
-          consultaActuacion 
+          consultaActuacion
         );
       }
 
       return NextResponse.json(
-        newCarpsFetcher 
+        newCarpsFetcher
       );
 }

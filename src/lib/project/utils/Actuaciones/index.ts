@@ -1,23 +1,47 @@
-import 'server-only';
-
-import { cache } from 'react';
 import { ConsultaActuacion,
   outActuacion, } from 'types/actuaciones';
 import { carpetasCollection } from '../../../connection/collections';
 
 import { prisma } from '#@/lib/connection/prisma';
 import { sleep } from '../../helper';
+import { updateUltimaActuacionInPrisma } from './updater';
 
 export async function fetchActuaciones(
   idProceso: number, index: number = 1
 ) {
-      await sleep(
-        index
-      );
+      if ( index > 500 ) {
+        await sleep(
+          index - 500
+        );
+      } else if ( index > 400 ) {
+        await sleep(
+          index - 400
+        );
+      } else if ( index > 300 ) {
+        await sleep(
+          index - 300
+        );
+      } else if ( index > 200 ) {
+        await sleep(
+          index - 200
+        );
+      } else if ( index > 100 ) {
+        await sleep(
+          index -100
+        );
+      } else {
+        await sleep(
+          index
+        );
+      }
 
       try {
         const request = await fetch(
-          `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
+          `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, {
+            next: {
+              revalidate: 86400
+            }
+          }
         );
 
         if ( !request.ok ) {
@@ -42,23 +66,61 @@ export async function fetchActuaciones(
           ) => {
                     return {
                       ...actuacion,
-                      isUltimaAct: actuacion.cant === actuacion.consActuacion,
-                      idProceso  : idProceso,
+                      isUltimaAct   : actuacion.cant === actuacion.consActuacion,
+                      idProceso     : idProceso,
+                      fechaActuacion: new Date(
+                        actuacion.fechaActuacion
+                      ),
+                      fechaRegistro: new Date(
+                        actuacion.fechaRegistro
+                      ),
+                      fechaInicial: actuacion.fechaInicial
+                        ? new Date(
+                          actuacion.fechaInicial
+                        )
+                        : null,
+                      fechaFinal: actuacion.fechaFinal
+                        ? new Date(
+                          actuacion.fechaFinal
+                        )
+                        : null,
                     };
           }
-        );
+        )
+              .sort(
+                (
+                  a, b
+                ) => {
+                          if ( !a.fechaActuacion || a.fechaActuacion === undefined || a.fechaActuacion.toString() === 'Invalid Date' ) {
+                            return 1;
+                          }
 
-        /* const [ ultimaActuacion ] = outActuaciones;
-         updateUltimaActuacionInPrisma(
+                          if ( !b.fechaActuacion || b.fechaActuacion === undefined || b.fechaActuacion.toString() === 'Invalid Date' ) {
+                            return -1;
+                          }
+
+                          const x = a.fechaActuacion;
+
+                          const y = b.fechaActuacion;
+
+                          if ( x < y ) {
+                            return 1;
+                          }
+
+                          if ( x > y ) {
+                            return -1;
+                          }
+
+                          return 0;
+                }
+              );
+
+        const [ ultimaActuacion ] = outActuaciones;
+        updateUltimaActuacionInPrisma(
           ultimaActuacion
-        ); */
+        );
         return outActuaciones;
       } catch ( error ) {
-        if ( error instanceof Error ) {
-          console.log(
-            `${ idProceso }: error en la fetchActuaciones => ${ error.name } : ${ error.message }`,
-          );
-        }
 
         console.log(
           `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
@@ -67,17 +129,6 @@ export async function fetchActuaciones(
         return null;
       }
 }
-
-export const getActuaciones = cache(
-  async (
-    idProceso: number
-  ) => {
-            return fetchActuaciones(
-              idProceso
-            );
-  }
-);
-
 
 export async function updateActuaciones(
   actuaciones: outActuacion[],

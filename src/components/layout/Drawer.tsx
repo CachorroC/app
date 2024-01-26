@@ -4,12 +4,8 @@ import { MouseEventHandler,
   useCallback,
   useEffect,
   useRef, } from 'react';
-import layout from '#@/styles/layout.module.css';
-import { NavLink } from './NavLink';
 import styles from './navbar.module.css';
-import { useNavigationContext } from '#@/app/context/navigation-context';
-import { Route } from 'next';
-import { DrawerMenuButton } from '../Buttons/nav-buttons';
+import { useNavigationContext } from '#@/app/Context/navigation-context';
 
 export const Drawer = (
   {
@@ -96,47 +92,10 @@ export const Drawer = (
                 className={styles.sidenav}
                 ref={wrapper}
               >
-                <section
-                  style={{
-                    gridArea: 'span 2 / span 5',
-                  }}
-                  className={layout.segmentRow}
-                >
-                  <DrawerMenuButton />
-                  <section className={layout.segmentRowWrap}>
-                    <NavLink
-                      iconLabel={'home'}
-                      textLabel={'Inicio'}
-                      hrefLabel="/"
-                    />
-                    <NavLink
-                      iconLabel={'gavel'}
-                      textLabel={'ultimas actuaciones'}
-                      hrefLabel={'/Carpetas/UltimasActuaciones' as Route}
-                    />
-                    <NavLink
-                      iconLabel={'note'}
-                      textLabel={'Notas'}
-                      hrefLabel="/Notas"
-                    />
-                    <NavLink
-                      iconLabel={'folder_open'}
-                      textLabel={'Carpetas'}
-                      hrefLabel="/Carpetas"
-                    />
-                    <NavLink
-                      iconLabel={'accessibility_new'}
-                      textLabel={'Quienes Somos'}
-                      hrefLabel="/QuienesSomos"
-                    />
-                    <NavLink
-                      iconLabel={'folder_add'}
-                      textLabel={'Nueva carpeta'}
-                      hrefLabel="/Carpetas/Nueva"
-                    />
-                  </section>
-                </section>
+
                 {children}
+
+
               </div>
             </nav>
           );
