@@ -1,42 +1,39 @@
 import { JsonObject, JsonValue } from '@prisma/client/runtime/library';
 
-export interface RawFactura1
-{
+export interface RawFactura1 {
   NroFactura: string;
-  NitFacturador:       string;
-  NitAdquiriente:      string;
-  FechaFactura:        Date;
-  HoraFactura:         string;
-  ValorFactura:        string;
-  ValorIVA:            string;
+  NitFacturador: string;
+  NitAdquiriente: string;
+  FechaFactura: Date;
+  HoraFactura: string;
+  ValorFactura: string;
+  ValorIVA: string;
   ValorOtrosImpuestos: string;
-  ValorTotalFactura:   string;
+  ValorTotalFactura: string;
   CUFE: string;
-  [ x: string ]: string | Date;
+  [x: string]: string | Date;
 }
 
-export interface RawFactura2{
-  NumFac:     string;
-  FecFac:     Date;
-  HorFac:     string;
-  NitFac:     string;
-  DocAdq:     string;
-  ValFac:     string;
-  ValIva:     string;
-  ValOtroIm:  string;
+export interface RawFactura2 {
+  NumFac: string;
+  FecFac: Date;
+  HorFac: string;
+  NitFac: string;
+  DocAdq: string;
+  ValFac: string;
+  ValIva: string;
+  ValOtroIm: string;
   ValTolFac?: string;
-  CUFE:       string;
-  QRCode?:    string;
-  https?:     string;
+  CUFE: string;
+  QRCode?: string;
+  https?: string;
   ValFacIm?: string;
-  [ x: string ]: string | Date | undefined;
+  [x: string]: string | Date | undefined;
 }
 
-export type RawFactura = RawFactura1 | RawFactura2
+export type RawFactura = RawFactura1 | RawFactura2;
 
-
-export interface incomingRawFactura
-{
+export interface incomingRawFactura {
   facturaElectronica: string;
   fecha: Date;
   hasOtroImp: boolean;
@@ -55,8 +52,7 @@ export interface incomingRawFactura
   valorTotal: string;
 }
 
-export interface intFactura
-{
+export interface intFactura {
   facturaElectronica?: string;
   carpetaNumero?: number;
   ciudad: string;
@@ -64,10 +60,10 @@ export interface intFactura
   fecha: Date;
   hasOtroImp: boolean;
   CUFE?: string;
-  QRCode?:string
+  QRCode?: string;
   hasIcui: boolean;
   hasImpoConsumo: boolean;
-  secondaryFactura?:  JsonValue;
+  secondaryFactura?: JsonValue;
   nombreComercial?: string;
   hasIva: boolean;
   id: string;
@@ -79,79 +75,85 @@ export interface intFactura
   valorOtroImp: string;
   valorTotal: string;
   concepto:
-  | 'Telefonia'
-  | 'CyB'
-  | 'Servicios Publicos'
-  | 'Restaurante o Bar'
-  | 'Parqueadero o Peaje'
+    | 'Telefonia'
+    | 'CyB'
+    | 'Servicios Publicos'
+    | 'Restaurante o Bar'
+    | 'Parqueadero o Peaje'
     | 'Dotacion'
     | 'Arreglos'
     | 'ProcesoBancolombia'
     | 'ProcesoReintegra'
-    | 'sinEspecificar' | string;
-
+    | 'sinEspecificar'
+    | string;
 }
 
 export class Factura implements intFactura {
   secondaryFactura: JsonObject;
-  constructor (
-    qrString: string, {
+  constructor(
+    qrString: string,
+    {
       direccion,
       razonSocial,
       nombreComercial,
       concepto,
       dv,
-      ciudad
-    }: { direccion: string; razonSocial: string; dv: number; ciudad: string; concepto: string;  nombreComercial?: string; }
+      ciudad,
+    }: {
+      direccion: string;
+      razonSocial: string;
+      dv: number;
+      ciudad: string;
+      concepto: string;
+      nombreComercial?: string;
+    },
   ) {
-
             const facturaMap = new Map<keyof RawFactura, string | Date>();
 
             const firstMatcher = qrString.matchAll(
-              /([a-z0-9A-Z_]+)(?::|=)(?:['\s"])?([a-z0-9A-Z_:\-./?=]+)(['\s\n"])?/gm
+              /([a-z0-9A-Z_]+)(?::|=)(?:['\s"])?([a-z0-9A-Z_:\-./?=]+)(['\s\n"])?/gm,
             );
 
             for ( const matchedKeyValues of firstMatcher ) {
               console.log(
-                matchedKeyValues
+                matchedKeyValues 
               );
               facturaMap.set(
-                matchedKeyValues[ 1 ], matchedKeyValues[ 2 ]
+                matchedKeyValues[ 1 ], matchedKeyValues[ 2 ] 
               );
             }
 
             let newFactura;
 
             const pruebaSiExisteNumFactura = facturaMap.get(
-              'NumFac'
+              'NumFac' 
             );
 
             if ( !pruebaSiExisteNumFactura ) {
-              newFactura =  Object.fromEntries(
-                facturaMap
+              newFactura = Object.fromEntries(
+                facturaMap 
               ) as RawFactura1;
               this.fecha = new Date(
-                `${ newFactura.FechaFactura }T${ newFactura.HoraFactura }`
+                `${ newFactura.FechaFactura }T${ newFactura.HoraFactura }`,
               );
               this.id = newFactura.NroFactura;
               this.nit = Number(
-                newFactura.NitFacturador
+                newFactura.NitFacturador 
               );
               this.valorBase = newFactura.ValorFactura;
               this.valorIva = newFactura.ValorIVA;
               this.valorOtroImp = newFactura.ValorOtrosImpuestos;
               this.valorTotal = newFactura.ValorTotalFactura;
-
             } else {
-              newFactura =   Object.fromEntries(
-                facturaMap
+              newFactura = Object.fromEntries(
+                facturaMap 
               ) as RawFactura2;
               this.fecha = new Date(
-                `${ newFactura.FecFac }T${ newFactura.HorFac }`
+                `${ newFactura.FecFac }T${ newFactura.HorFac }` 
               );
               this.id = newFactura.NumFac;
               this.nit = Number(
-                newFactura.NitFac
+                newFactura.NitFac 
               );
               this.valorBase = newFactura.ValFac;
 
@@ -161,14 +163,17 @@ export class Factura implements intFactura {
                 ? newFactura.ValTolFac
                 : newFactura.ValFacIm
                   ? newFactura.ValFacIm
-                  :`${ parseFloat(
-                    newFactura.ValFac
-                  ) + parseFloat(
-                    newFactura.ValOtroIm
-                  ) + parseFloat(
-                    newFactura.ValIva
-                  ) }`;
-
+                  : `${
+                    parseFloat(
+                      newFactura.ValFac 
+                    )
+              + parseFloat(
+                newFactura.ValOtroIm 
+              )
+              + parseFloat(
+                newFactura.ValIva 
+              )
+                  }`;
             }
 
             this.nombreComercial = nombreComercial;
@@ -178,7 +183,7 @@ export class Factura implements intFactura {
             this.dv = dv;
             this.razonSocial = razonSocial;
             this.facturaElectronica = String(
-              qrString
+              qrString 
             );
             this.secondaryFactura = newFactura as JsonObject;
 
@@ -197,7 +202,6 @@ export class Factura implements intFactura {
               this.hasIcui = true;
               this.hasImpoConsumo = true;
             }
-
   }
   hasIcui: boolean;
   hasImpoConsumo: boolean;
@@ -217,84 +221,82 @@ export class Factura implements intFactura {
   razonSocial: string;
   direccion: string;
   concepto: string;
-  static convertRawToFactura (
-    qrString: string
+  static convertRawToFactura(
+    qrString: string 
   ): incomingRawFactura {
-
-
             const facturaMap = new Map<keyof RawFactura, string | Date>();
 
             const firstMatcher = qrString.matchAll(
-              /([a-z0-9A-Z_]+)(?::|=)(?:['\s"])?([a-z0-9A-Z_:\-./?=]+)(['\s\n"])?/gm
+              /([a-z0-9A-Z_]+)(?::|=)(?:['\s"])?([a-z0-9A-Z_:\-./?=]+)(['\s\n"])?/gm,
             );
 
             for ( const matchedKeyValues of firstMatcher ) {
               console.log(
-                matchedKeyValues
+                matchedKeyValues 
               );
               facturaMap.set(
-                matchedKeyValues[ 1 ], matchedKeyValues[ 2 ]
+                matchedKeyValues[ 1 ], matchedKeyValues[ 2 ] 
               );
             }
 
             let newFactura, responseFactura: incomingRawFactura;
 
             const pruebaSiExisteNumFactura = facturaMap.get(
-              'NumFac'
+              'NumFac' 
             );
 
-
-
             if ( !pruebaSiExisteNumFactura ) {
-              newFactura =  Object.fromEntries(
-                facturaMap
+              newFactura = Object.fromEntries(
+                facturaMap 
               ) as RawFactura1;
               responseFactura = {
                 facturaElectronica: qrString,
                 CUFE              : newFactura.CUFE,
                 secondaryFactura  : newFactura as JsonObject,
                 fecha             : new Date(
-                  `${ newFactura.FechaFactura }T${ newFactura.HoraFactura }`
+                  `${ newFactura.FechaFactura }T${ newFactura.HoraFactura }` 
                 ),
                 id : newFactura.NroFactura,
                 nit: Number(
-                  newFactura.NitFacturador
+                  newFactura.NitFacturador 
                 ),
                 valorBase   : newFactura.ValorFactura,
                 valorIva    : newFactura.ValorIVA,
                 valorOtroImp: newFactura.ValorOtrosImpuestos,
                 valorTotal  : newFactura.ValorTotalFactura,
                 hasIva      : parseInt(
-                  newFactura.ValorIVA
+                  newFactura.ValorIVA 
                 ) === 0
                   ? false
                   : true,
-                hasOtroImp: parseInt(
-                  newFactura.ValorOtrosImpuestos
-                ) === 0
-                  ? false
-                  : true,
+                hasOtroImp:
+          parseInt(
+            newFactura.ValorOtrosImpuestos 
+          ) === 0
+            ? false
+            : true,
                 hasIcui: parseInt(
-                  newFactura.ValorOtrosImpuestos
+                  newFactura.ValorOtrosImpuestos 
                 ) === 0
                   ? false
                   : true,
-                hasImpoConsumo: parseInt(
-                  newFactura.ValorOtrosImpuestos
-                ) === 0
-                  ? false
-                  : true,
+                hasImpoConsumo:
+          parseInt(
+            newFactura.ValorOtrosImpuestos 
+          ) === 0
+            ? false
+            : true,
               };
             } else {
-              newFactura =   Object.fromEntries(
-                facturaMap
+              newFactura = Object.fromEntries(
+                facturaMap 
               ) as RawFactura2;
               responseFactura = {
                 facturaElectronica: qrString,
                 CUFE              : newFactura.CUFE,
                 secondaryFactura  : newFactura as JsonObject,
                 fecha             : new Date(
-                  `${ newFactura.FecFac }T${ newFactura.HorFac }`
+                  `${ newFactura.FecFac }T${ newFactura.HorFac }` 
                 ),
                 QRCode: newFactura.https
                   ? `https://${ newFactura.https ?? newFactura.QRCode }`
@@ -304,46 +306,48 @@ export class Factura implements intFactura {
                 valorIva    : newFactura.ValIva,
                 valorOtroImp: newFactura.ValOtroIm,
                 hasIva      : parseInt(
-                  newFactura.ValIva
+                  newFactura.ValIva 
                 ) === 0
                   ? false
                   : true,
                 hasOtroImp: parseInt(
-                  newFactura.ValOtroIm
+                  newFactura.ValOtroIm 
                 ) === 0
                   ? false
                   : true,
                 hasIcui: parseInt(
-                  newFactura.ValOtroIm
+                  newFactura.ValOtroIm 
                 ) === 0
                   ? false
                   : true,
                 hasImpoConsumo: parseInt(
-                  newFactura.ValOtroIm
+                  newFactura.ValOtroIm 
                 ) === 0
                   ? false
                   : true,
                 nit: Number(
-                  newFactura.NitFac
+                  newFactura.NitFac 
                 ),
                 valorTotal: newFactura.ValTolFac
                   ? newFactura.ValTolFac
                   : newFactura.ValFacIm
                     ? newFactura.ValFacIm
-                    :`${ parseFloat(
-                      newFactura.ValFac
-                    ) + parseFloat(
-                      newFactura.ValOtroIm
-                    ) + parseFloat(
-                      newFactura.ValIva
-                    ) }`,
+                    : `${
+                      parseFloat(
+                        newFactura.ValFac 
+                      )
+                + parseFloat(
+                  newFactura.ValOtroIm 
+                )
+                + parseFloat(
+                  newFactura.ValIva 
+                )
+                    }`,
               };
             }
 
             return responseFactura;
   }
-
-
 }
 
 export interface monFactura extends intFactura {

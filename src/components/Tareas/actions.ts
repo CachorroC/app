@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '#@/lib/connection/prisma';
+import { IntTask } from '#@/lib/types/tareas';
 /*
 export async function createUser(
   currentState: {success: boolean; message: string}, formData: FormData
@@ -43,7 +44,7 @@ export async function createUser(
  */
 
 export async function createUser(
-  incomingTask: IntTask
+  incomingTask: IntTask 
 ) {
       /*
       const validatedFields = ZodTaskElementSchema.safeParse(
@@ -71,29 +72,29 @@ export async function createUser(
             dueDate      : incomingTask.dueDate,
             carpetaNumero: incomingTask.carpetaNumero,
           },
-        }
+        } 
       );
       return inserter;
 }
 
 export async function deleteTask(
   {
-    id
-  }: { id: number }
+    id 
+  }: { id: number } 
 ) {
       const deleter = await prisma.task.delete(
         {
           where: {
             id: id,
           },
-        }
+        } 
       );
 
       return deleter;
 }
 
 export async function editTask(
-  data: IntTask
+  data: IntTask 
 ) {
       /* const objectOfFormData = Object.fromEntries(
         formData.entries()
@@ -118,7 +119,7 @@ export async function editTask(
       const inserter = await prisma.task.upsert(
         {
           where: {
-            id: data.id
+            id: data.id,
           },
           create: {
             ...data,
@@ -135,7 +136,7 @@ export async function editTask(
             dueDate      : data.dueDate,
             carpetaNumero: data.carpetaNumero,
           },
-        }
+        } 
       );
       return inserter;
 }

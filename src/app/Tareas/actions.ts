@@ -4,178 +4,164 @@ import { tareasCollection } from '#@/lib/connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
 import { IntTask, NewTask } from '#@/lib/types/tareas';
 
-export async function addTaskToMongo (
-  newData: NewTask
+export async function addTaskToMongo(
+  newData: NewTask 
 ) {
       const collection = await tareasCollection();
 
       const existentTask = await collection.findOne(
         {
-          text: newData.text
-        }
+          text: newData.text,
+        } 
       );
 
-
       if ( !existentTask ) {
-
         const insertTask = await collection.insertOne(
           {
-            ...newData
-          }
+            ...newData,
+          } 
         );
 
         if ( insertTask.acknowledged ) {
           return {
             success: true,
             data   : JSON.stringify(
-              insertTask
-            )
+              insertTask 
+            ),
           };
         }
 
         return {
           success: false,
           data   : JSON.stringify(
-            insertTask
-          )
+            insertTask 
+          ),
         };
       }
 
       /* eslint-disable-next-line no-unused-vars */
 
-
       const updateTask = await collection.updateOne(
         {
-          text: newData.text
-        }, {
+          text: newData.text,
+        },
+        {
           $set: {
-            ...newData
-          }
-        }, {
-          upsert: true
-        }
+            ...newData,
+          },
+        },
+        {
+          upsert: true,
+        },
       );
 
       if ( updateTask.modifiedCount >= 1 ) {
         return {
           success: true,
           data   : JSON.stringify(
-            updateTask, null, 2
-          )
+            updateTask, null, 2 
+          ),
         };
       }
 
       return {
         success: false,
         data   : JSON.stringify(
-          updateTask, null, 2
-        )
+          updateTask, null, 2 
+        ),
       };
-
 }
 
-export async function addTaskToPrisma (
-  incomingTask: NewTask
+export async function addTaskToPrisma(
+  incomingTask: NewTask 
 ) {
-
       const {
-        carpetaNumero, ...task
+        carpetaNumero, ...task 
       } = incomingTask;
-
 
       let inserter;
 
       if ( carpetaNumero ) {
-        inserter =  await prisma.task.create(
+        inserter = await prisma.task.create(
           {
             data: {
               ...task,
-              Carpeta: {
+              carpeta: {
                 connect: {
-                  numero: carpetaNumero
-                }
+                  numero: carpetaNumero,
+                },
               },
-
-            }
-          }
+            },
+          } 
         );
-
       } else {
-        inserter =  await prisma.task.create(
+        inserter = await prisma.task.create(
           {
             data: {
               ...task,
-            }
-          }
+            },
+          } 
         );
-
       }
 
       console.log(
-        inserter
+        inserter 
       );
       return {
-        ...inserter
+        ...inserter,
       };
-
-
 }
 
-
-
 export async function updateTaskDoneState(
-  prevState: { done: boolean;  id: number}
+  prevState: {
+    done: boolean;
+    id: number;
+  } 
 ) {
-
       try {
-
         const updater = await prisma.task.update(
           {
             where: {
-              id: prevState.id
+              id: prevState.id,
             },
             data: {
-              done: prevState.done
-            }
-          }
+              done: prevState.done,
+            },
+          } 
         );
         return {
           done: updater.done,
-          id  : updater.id
+          id  : updater.id,
         };
-
       } catch ( error ) {
         console.log(
-          error
+          error 
         );
         return prevState;
       }
 }
 
 export async function updateTaskTextState(
-  prevState: IntTask
+  prevState: IntTask 
 ) {
-
       try {
-
         const updater = await prisma.task.update(
           {
             where: {
-              id: prevState.id
+              id: prevState.id,
             },
             data: {
               text   : prevState.text,
-              content: prevState.content
-            }
-          }
+              content: prevState.content,
+            },
+          } 
         );
         return {
-          ...updater
+          ...updater,
         };
-
       } catch ( error ) {
         console.log(
-          error
+          error 
         );
         return prevState;
       }

@@ -1,4 +1,3 @@
-
 // To parse this data:
 //
 //   import { Convert } from "./file";
@@ -13,19 +12,15 @@ export interface NotaEditorAction {
   error: boolean;
 }
 
-export interface NewNota
-{
-
+export interface NewNota {
   carpetaNumero: number | null;
-  done: boolean;
   content: string[];
   dueDate: Date | null;
-  text: string;
-  extraContent: string | null;
   pathname: string | null;
+  text: string;
 }
 
-export interface IntNota extends NewNota{
+export interface IntNota extends NewNota {
   id: number;
   updatedAt: Date;
   createdAt: Date;
@@ -33,8 +28,6 @@ export interface IntNota extends NewNota{
 
 export interface monNota extends IntNota {
   _id: string;
-  carpetaNumero: number | null;
-  pathname: string | null;
 }
 
 export type SortActionType = {
@@ -51,7 +44,7 @@ export type SortActionType = {
 
 export type UpdateActionType = {
   type: 'changed';
-  task: IntNota;
+  nota: IntNota;
 };
 
 export type DeleteActionType = {
@@ -66,12 +59,12 @@ export type ResetActionType = {
 
 export type AddActiontype = {
   type: 'added';
-  task: IntNota
+  nota: IntNota;
 };
 
 export interface IntNotaAction {
   type: 'added' | 'changed' | 'deleted';
-  task: IntNota;
+  nota: IntNota;
 }
 
 export type NotaAction =

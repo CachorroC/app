@@ -5,79 +5,82 @@ import { useState } from 'react';
 import { useNuevaFacturaContext } from './nueva-factura-context-provider';
 import formStyles from '#@/components/Form/form.module.css';
 
-export function NumericValueInput (
+export function NumericValueInput(
   {
-    inputName, inputLabel,
-  }: { inputName: keyof intFactura;  inputLabel: string;}
+    inputName,
+    inputLabel,
+  }: {
+    inputName: keyof intFactura;
+    inputLabel: string;
+  } 
 ) {
-
       const {
-        valorState, setValorState
+        valorState, setValorState 
       } = useNuevaFacturaContext();
 
       const [ isEditing, setIsEditing ] = useState(
-        false
+        false 
       );
 
       return (
-        <div className={ formStyles.segmentRow }>
-          <label htmlFor={ inputName } className={ formStyles.label }>{inputLabel}</label>
+        <div className={formStyles.segmentRow}>
+          <label
+            htmlFor={inputName}
+            className={formStyles.label}
+          >
+            {inputLabel}
+          </label>
           <input
-            name={ inputName }
+            name={inputName}
             className={formStyles.textArea}
             type={isEditing
               ? 'number'
               : ''}
-            value={isEditing
-              ? String(
-                valorState[ inputName ] === '0.00'
-                  ? ''
-                  : valorState[ inputName ]
-              )
-              : Number(
-                valorState[ inputName ]
-              )
-                    .toLocaleString(
-                      'es-CO', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                        minimumIntegerDigits : 1,
-                        currency             : 'COP',
-                        style                : 'currency',
-                        currencyDisplay      : 'symbol'
-                      }
-                    )}
+            value={
+              isEditing
+                ? String(
+                  valorState[ inputName ] === '0.00'
+                    ? ''
+                    : valorState[ inputName ],
+                )
+                : Number(
+                  valorState[ inputName ] 
+                )
+                      .toLocaleString(
+                        'es-CO', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                          minimumIntegerDigits : 1,
+                          currency             : 'COP',
+                          style                : 'currency',
+                          currencyDisplay      : 'symbol',
+                        } 
+                      )
+            }
             inputMode={'decimal'}
-            onFocus={() =>  {
-
+            onFocus={() => {
                       return setIsEditing(
-                        true
+                        true 
                       );
-
             }}
-            onBlur={() =>  {
-
+            onBlur={() => {
                       return setIsEditing(
-                        false
+                        false 
                       );
-
-
             }}
             onChange={(
-              e
+              e 
             ) => {
                       return setValorState(
                         {
                           ...valorState,
                           [ e.target.name ]: e.target.value === ''
                             ? '0.00'
-                            : e.target.value
-                        }
+                            : e.target.value,
+                        } 
                       );
-
-
             }}
           />
-
-        </div> );
+        </div>
+      );
 }

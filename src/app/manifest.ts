@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 
-export default function manifest (): MetadataRoute.Manifest {
+export default function manifest(): MetadataRoute.Manifest {
       const prefix = process.env.NODE_ENV === 'production'
         ? 'app'
         : 'beta';
@@ -25,12 +25,12 @@ export default function manifest (): MetadataRoute.Manifest {
         display_override: [
           'fullscreen',
           'standalone',
-          'window-controls-overlay'
+          'window-controls-overlay' 
         ],
         shortcuts: [ {
           name: 'Ultimas Actuaciones',
           description:
-        'aquí encontrará los procesos ordenados a partir de sus últimas actuaciones, la fecha del movimiento y su relevancia',
+          'aquí encontrará los procesos ordenados a partir de sus últimas actuaciones, la fecha del movimiento y su relevancia',
           url  : '/Carpetas/UltimasActuaciones',
           icons: [ {
             src    : '/icon1.png',

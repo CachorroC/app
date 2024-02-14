@@ -6,27 +6,28 @@ import styles from '#@/styles/layout.module.css';
 import { NavLink } from '../layout/NavLink';
 import { useNavigationContext } from '#@/app/Context/navigation-context';
 import { Route } from 'next';
-import { buttonDrawerMenuClosed, buttonDrawerMenuOpen } from '../layout/navbar.module.css';
+import { buttonDrawerMenuClosed,
+  buttonDrawerMenuOpen, } from '../layout/navbar.module.css';
 
 // TODO: arreglar lo de la navegacion
 
 export const DrawerMenuButton = () => {
           const {
-            isNavOpen, setIsNavOpen
+            isNavOpen, setIsNavOpen 
           } = useNavigationContext();
           return (
             <button
               type="button"
               className={isNavOpen
-                ?buttonDrawerMenuOpen
+                ? buttonDrawerMenuOpen
                 : buttonDrawerMenuClosed}
               onClick={() => {
                         setIsNavOpen(
                           (
-                            n
+                            n 
                           ) => {
                                     return !n;
-                          }
+                          } 
                         );
               }}
             >
@@ -35,14 +36,13 @@ export const DrawerMenuButton = () => {
                   ? 'close'
                   : 'menu'}
               </span>
-
             </button>
           );
 };
 
-export function NewNoteButton () {
+export function NewNoteButton() {
       const {
-        isModalOpen, setIsModalOpen
+        isModalOpen, setIsModalOpen 
       } = useModalContext();
       return (
         <button
@@ -50,10 +50,10 @@ export function NewNoteButton () {
           onClick={() => {
                     setIsModalOpen(
                       (
-                        n
+                        n 
                       ) => {
                                 return !n;
-                      }
+                      } 
                     );
           }}
         >
@@ -67,22 +67,18 @@ export function NewNoteButton () {
 }
 
 export default function NavButtons() {
-
-
       const {
-        isNavOpen, setIsNavOpen
+        isNavOpen, setIsNavOpen 
       } = useNavigationContext();
 
       return (
         <>
-
-
           <button
             type="button"
             className={styles.buttonDrawerClosed}
             onClick={() => {
                       setIsNavOpen(
-                        !isNavOpen
+                        !isNavOpen 
                       );
             }}
           >

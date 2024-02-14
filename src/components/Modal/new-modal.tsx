@@ -1,48 +1,46 @@
 'use client';
-import { ReactNode, } from 'react';
+import { ReactNode } from 'react';
 import styles from './styles.module.css';
 import { useModalContext } from '#@/app/Context/modal-context';
 
 export default function NewModal(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
-
       const {
-        isModalOpen,
-        setIsModalOpen
+        isModalOpen, setIsModalOpen 
       } = useModalContext();
 
       return (
         <>
-          { isModalOpen && (
-            <div className={ styles.open } onClick={
-              () => {
+          {isModalOpen && (
+            <div
+              className={styles.open}
+              onClick={() => {
                         if ( isModalOpen ) {
                           return setIsModalOpen(
-                            false
+                            false 
                           );
                         }
 
                         return setIsModalOpen(
-                          true
+                          true 
                         );
-              }
-            }     >
+              }}
+            >
               <div
-                className={styles.wrapper} onClick={
-                  (
-                    e
-                  ) => {
-
-                            e.stopPropagation();
-                  }
-                }
+                className={styles.wrapper}
+                onClick={(
+                  e 
+                ) => {
+                          e.stopPropagation();
+                }}
               >
                 {children}
               </div>
             </div>
-          )}</>
+          )}
+        </>
       );
 }

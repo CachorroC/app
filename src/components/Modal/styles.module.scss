@@ -11,7 +11,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   display: flex;
   opacity: 1;
   transition: all 1.5s ease-in-out;
@@ -26,7 +26,7 @@
     box-sizing: border-box;
     padding: 2vmin;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     justify-content: center;
     justify-items: stretch;
     & > * {

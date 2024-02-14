@@ -1,5 +1,4 @@
 import { cache } from 'react';
-import { sleep } from 'project/helper';
 import { Despacho } from 'types/despachos';
 import { ConsultaNumeroRadicacion, intProceso } from 'types/procesos';
 import { NewJuzgado } from '#@/lib/models/demanda';
@@ -46,13 +45,9 @@ export const getDespachos = cache(
 );
 
 export async function fetchProceso(
-  llaveProceso: string, index: number 
+  llaveProceso: string 
 ) {
       try {
-        await sleep(
-          index 
-        );
-
         const req = await fetch(
           `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`,
         );
@@ -78,19 +73,8 @@ export const getProceso = cache(
     llaveProceso: string 
   ) => {
             try {
-              const collection = await carpetasCollection();
-
-              const carpeta = await collection.findOne(
-                {
-                  llaveProceso: llaveProceso,
-                } 
-              );
-
               const fetchProcesoByNumero = await fetchProceso(
-                llaveProceso,
-                carpeta
-                  ? carpeta.numero
-                  : 0,
+                llaveProceso 
               );
 
               if ( !fetchProcesoByNumero || fetchProcesoByNumero.procesos.length === 0 ) {

@@ -1,19 +1,15 @@
-
-
-export interface NewTask
-{
+export interface NewTask {
   carpetaNumero: number | null;
   content: string[];
-  done:         boolean;
+  done: boolean;
   dueDate: Date;
-  text:          string;
+  text: string;
 }
 
-export interface IntTask extends NewTask
-{
-  id:           number;
-  createdAt:    Date;
-  updatedAt:    Date;
+export interface IntTask extends NewTask {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface SubTarea {
@@ -53,7 +49,7 @@ export type ResetActionType = {
 
 export type AddActiontype = {
   type: 'added';
-  task: IntTask
+  task: IntTask;
 };
 
 export interface IntTaskAction {
@@ -68,38 +64,37 @@ export type TaskAction =
   | UpdateActionType
   | SortActionType;
 
-
 // Converts JSON strings to/from your types
 export class tareaConvert {
   public static toTarea(
-    json: string
+    json: string 
   ): IntTask {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static tareaToJson(
-    value: IntTask
+    value: IntTask 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 
   public static toSubTarea(
-    json: string
+    json: string 
   ): SubTarea {
             return JSON.parse(
-              json
+              json 
             );
   }
 
   public static subTareaToJson(
-    value: SubTarea
+    value: SubTarea 
   ): string {
             return JSON.stringify(
-              value
+              value 
             );
   }
 }

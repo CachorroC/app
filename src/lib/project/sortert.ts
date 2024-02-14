@@ -26,7 +26,7 @@ export function carpetasSorter(
   carpetas: MonCarpeta[],
   action: intAction,
 ): MonCarpeta[] {
-      const categoriesSorter: Category[] = [
+      const categoriesSorter: string[] = [
         'todos',
         'Bancolombia',
         'Reintegra',

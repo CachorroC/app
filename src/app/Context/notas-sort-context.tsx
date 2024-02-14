@@ -7,7 +7,7 @@ import { Dispatch,
   useReducer, } from 'react';
 
 const NotasSortContext = createContext<IntNota[] | null>(
-  null
+  null 
 );
 
 const NotasSortDispatchContext = createContext<Dispatch<NotaAction> | null>(
@@ -21,10 +21,10 @@ export function NotasSortProvider(
   }: {
     children: ReactNode;
     notas: IntNota[];
-  }
+  } 
 ) {
       const [ notasReduced, dispatchNotas ] = useReducer(
-        notasReducer, notas
+        notasReducer, notas 
       );
 
       return (
@@ -38,12 +38,12 @@ export function NotasSortProvider(
 
 export function useNotaSort() {
       const context = useContext(
-        NotasSortContext
+        NotasSortContext 
       );
 
       if ( context === null ) {
         throw new Error(
-          'useNotaSort  must be used inside a notasort provider r'
+          'useNotaSort  must be used inside a notasort provider r' 
         );
       }
 
@@ -52,62 +52,66 @@ export function useNotaSort() {
 
 export function useNotaSortDispatch() {
       const context = useContext(
-        NotasSortDispatchContext
+        NotasSortDispatchContext 
       );
 
       if ( context === null ) {
         throw new Error(
-          'useSortDispatchNotas must be used inside a NotasProvider'
+          'useSortDispatchNotas must be used inside a NotasProvider' 
         );
       }
 
       return context;
 }
 
-export function notasReducer (
-  tasks: IntNota[], action: NotaAction
+export function notasReducer(
+  notas: IntNota[], action: NotaAction 
 ) {
-
-
       const {
-        type
+        type 
       } = action;
 
       switch ( type ) {
           case 'sort': {
             const {
-              dir, sortingKey
+              dir, sortingKey 
             } = action;
 
             const asc = [
               -1,
               0,
-              1
+              1 
             ];
 
             const dsc = [
               1,
               0,
-              -1
+              -1 
             ];
 
             const sorter = dir
               ? asc
               : dsc;
 
-
-
             switch ( sortingKey ) {
                 case 'updatedAt': {
-                  return [ ...tasks ].sort(
+                  return [ ...notas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
-                              if ( !a.updatedAt || a.updatedAt === undefined || a.updatedAt.toString() === 'Invalid Date' ) {
+                              if (
+                                !a.updatedAt
+              || a.updatedAt === undefined
+              || a.updatedAt.toString() === 'Invalid Date'
+                              ) {
                                 return sorter[ 2 ];
                               }
 
-                              if ( !b.updatedAt || b.updatedAt === undefined || b.updatedAt.toString() === 'Invalid Date' ) {
+                              if (
+                                !b.updatedAt
+              || b.updatedAt === undefined
+              || b.updatedAt.toString() === 'Invalid Date'
+                              ) {
                                 return sorter[ 0 ];
                               }
 
@@ -124,20 +128,28 @@ export function notasReducer (
                               }
 
                               return sorter[ 1 ];
-                    }
+                    } 
                   );
                 }
 
                 case 'createdAt': {
-                  return [ ...tasks ].sort(
+                  return [ ...notas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
-                              if ( !a.createdAt || a.createdAt === undefined || a.createdAt.toString() === 'Invalid Date' ) {
+                              if (
+                                !a.createdAt
+              || a.createdAt === undefined
+              || a.createdAt.toString() === 'Invalid Date'
+                              ) {
                                 return sorter[ 2 ];
                               }
 
-                              if ( !b.createdAt || b.createdAt === undefined || b.createdAt.toString() === 'Invalid Date' ) {
+                              if (
+                                !b.createdAt
+              || b.createdAt === undefined
+              || b.createdAt.toString() === 'Invalid Date'
+                              ) {
                                 return sorter[ 0 ];
                               }
 
@@ -154,20 +166,28 @@ export function notasReducer (
                               }
 
                               return sorter[ 1 ];
-                    }
+                    } 
                   );
                 }
 
                 case 'dueDate': {
-                  return [ ...tasks ].sort(
+                  return [ ...notas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
-                              if ( !a.dueDate || a.dueDate === undefined || a.dueDate.toString() === 'Invalid Date' ) {
+                              if (
+                                !a.dueDate
+              || a.dueDate === undefined
+              || a.dueDate.toString() === 'Invalid Date'
+                              ) {
                                 return sorter[ 2 ];
                               }
 
-                              if ( !b.dueDate || b.dueDate === undefined ||  b.dueDate.toString() === 'Invalid Date' ) {
+                              if (
+                                !b.dueDate
+              || b.dueDate === undefined
+              || b.dueDate.toString() === 'Invalid Date'
+                              ) {
                                 return sorter[ 0 ];
                               }
 
@@ -184,14 +204,14 @@ export function notasReducer (
                               }
 
                               return sorter[ 1 ];
-                    }
+                    } 
                   );
                 }
 
                 case 'id': {
-                  return [ ...tasks ].sort(
+                  return [ ...notas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               const valortotalA = a.id ?? 0;
 
@@ -204,17 +224,14 @@ export function notasReducer (
                               }
 
                               return 0;
-
-
-                    }
+                    } 
                   );
                 }
 
-
                 default: {
-                  return [ ...tasks ].sort(
+                  return [ ...notas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               const aSortingKey = a[ sortingKey ];
 
@@ -237,38 +254,40 @@ export function notasReducer (
                               }
 
                               return 0;
-                    }
+                    } 
                   );
                 }
             }
-
           }
 
           case 'added': {
-            return [ ...tasks,
+            return [ ...notas,
               {
-                ...action.task
-              } ];
+                ...action.nota,
+              }, ];
           }
 
           case 'changed': {
-            return tasks.map(
-              t => {
-                        if ( t.id === action.task.id ) {
-                          return action.task;
+            return notas.map(
+              (
+                t 
+              ) => {
+                        if ( t.id === action.nota.id ) {
+                          return action.nota;
                         }
 
                         return t;
-
-              }
+              } 
             );
           }
 
           case 'deleted': {
-            return tasks.filter(
-              t => {
+            return notas.filter(
+              (
+                t 
+              ) => {
                         return t.id !== action.id;
-              }
+              } 
             );
           }
 
@@ -277,15 +296,23 @@ export function notasReducer (
           }
 
           default: {
-            return [ ...tasks ].sort(
+            return [ ...notas ].sort(
               (
-                a, b
+                a, b 
               ) => {
-                        if ( !a.dueDate || a.dueDate === undefined ||  a.dueDate.toString() === 'Invalid Date' ) {
+                        if (
+                          !a.dueDate
+          || a.dueDate === undefined
+          || a.dueDate.toString() === 'Invalid Date'
+                        ) {
                           return 1;
                         }
 
-                        if ( !b.dueDate || b.dueDate === undefined ||  b.dueDate.toString() === 'Invalid Date' ) {
+                        if (
+                          !b.dueDate
+          || b.dueDate === undefined
+          || b.dueDate.toString() === 'Invalid Date'
+                        ) {
                           return -1;
                         }
 
@@ -302,8 +329,7 @@ export function notasReducer (
                         }
 
                         return 0;
-              }
-
+              } 
             );
           }
       }

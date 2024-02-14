@@ -14,7 +14,7 @@ export default function TaskList() {
 
       const tasks = [ ...tasksRaw ].sort(
         (
-          a, b
+          a, b 
         ) => {
                   if ( !a.id ) {
                     return -1;
@@ -33,7 +33,7 @@ export default function TaskList() {
                   }
 
                   return 0;
-        }
+        } 
       );
 
       return (
@@ -51,7 +51,7 @@ export default function TaskList() {
           <tbody>
             {tasks.map(
               (
-                task
+                task 
               ) => {
                         return (
                           <Task
@@ -59,7 +59,7 @@ export default function TaskList() {
                             key={task.id}
                           />
                         );
-              }
+              } 
             )}
           </tbody>
         </table>
@@ -68,11 +68,11 @@ export default function TaskList() {
 
 function Task(
   {
-    task
-  }: { task: IntTask }
+    task 
+  }: { task: IntTask } 
 ) {
       const [ isEditing, setIsEditing ] = useState(
-        false
+        false 
       );
 
       const dispatchTasks = useDispatchTasks();
@@ -93,7 +93,7 @@ function Task(
                 type={'button'}
                 onClick={() => {
                           return setIsEditing(
-                            false
+                            false 
                           );
                 }}
               >
@@ -111,7 +111,7 @@ function Task(
                 type={'button'}
                 onClick={() => {
                           return setIsEditing(
-                            true
+                            true 
                           );
                 }}
               >
@@ -153,7 +153,7 @@ function Task(
                 className={inputElement}
                 checked={task.done}
                 onChange={(
-                  e
+                  e 
                 ) => {
                           dispatchTasks(
                             {
@@ -162,7 +162,7 @@ function Task(
                                 ...task,
                                 done: e.target.checked,
                               },
-                            }
+                            } 
                           );
                 }}
                 type="checkbox"
@@ -178,7 +178,7 @@ function Task(
             />
           </td>
           <td>{OutputDateHelper(
-            task.updatedAt
+            task.updatedAt 
           )}</td>
         </tr>
       );

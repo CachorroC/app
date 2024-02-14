@@ -16,7 +16,10 @@
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(12, 1fr);
   gap: 2vmin;
-  grid-template-areas: "title title title title  drawerMenuButton " ". inputSearchBar inputSearchBar inputSearchBar drawerMenuButton" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList" "ProcesosLayoutList  ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ";
+  grid-template-areas:
+    'title title title title  drawerMenuButton '
+    '. inputSearchBar inputSearchBar inputSearchBar drawerMenuButton'
+    'ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList' 'ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList';
   justify-content: space-evenly;
   align-content: flex-start;
   justify-items: stretch;
@@ -47,7 +50,7 @@
     grid-template-rows: repeat(10, 1fr);
     grid-template-columns: repeat(3, 1fr);
     width: 100vw;
-    grid-template-areas: " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " " ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList " "drawerMenuButton Title homeButton" "backwardsButton  inputSearchBar forwardButton";
+    grid-template-areas: ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' ' ProcesosLayoutList ProcesosLayoutList ProcesosLayoutList ' 'drawerMenuButton Title homeButton' 'backwardsButton  inputSearchBar forwardButton';
     .menu {
       display: flex;
       flex-flow: column nowrap;
@@ -168,10 +171,10 @@
     border: 2px solid var(--outline);
     & > span {
       font-variation-settings:
-        "FILL" 1,
-        "wght" 400,
-        "GRAD" 200,
-        "opsz" 24;
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 200,
+        'opsz' 24;
       color: var(--on-primary-fixed);
     }
   }

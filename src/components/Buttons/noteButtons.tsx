@@ -7,8 +7,8 @@ import { Nota } from '@prisma/client';
 
 export function DeleteNoteButton(
   {
-    id
-  }: { id: number }
+    id 
+  }: { id: number } 
 ) {
       return (
         <>
@@ -18,7 +18,7 @@ export function DeleteNoteButton(
                       return deleteNota(
                         {
                           id: id,
-                        }
+                        } 
                       );
             }}
             type="button"
@@ -31,7 +31,7 @@ export function DeleteNoteButton(
                       deleteNota(
                         {
                           id: id,
-                        }
+                        } 
                       );
             }}
             type="button"
@@ -42,11 +42,10 @@ export function DeleteNoteButton(
       );
 }
 
-
 export function EditNoteButton(
   {
-    nota
-  }: { nota: Nota }
+    nota 
+  }: { nota: Nota } 
 ) {
       return (
         <Link

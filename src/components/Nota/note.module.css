@@ -39,7 +39,9 @@
   flex: 2 0 50%;
 }
 
-.task, .taskList, .taskContainer {
+.task,
+.taskList,
+.taskContainer {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
@@ -89,7 +91,7 @@
 .slider:before {
   border-radius: 50vw;
   position: absolute;
-  content: "";
+  content: '';
   height: 26px;
   width: 26px;
   left: 4px;
@@ -132,16 +134,29 @@
   flex: 1 0 25%;
   background-color: var(--secondary);
 }
-.submitButton > span, .submitButton > .icon {
+.submitButton > span,
+.submitButton > .icon {
   color: var(--on-secondary);
-  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 24;
 }
-.submitButton:hover, .submitButton:active {
+.submitButton:hover,
+.submitButton:active {
   background-color: var(--secondary);
   box-shadow: var(--dp8);
 }
-.submitButton:hover > span, .submitButton:hover > .icon, .submitButton:active > span, .submitButton:active > .icon {
-  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 48;
+.submitButton:hover > span,
+.submitButton:hover > .icon,
+.submitButton:active > span,
+.submitButton:active > .icon {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 600,
+    'GRAD' 200,
+    'opsz' 48;
   color: var(--on-secondary);
 }
 
@@ -171,7 +186,10 @@
   grid-area: HomeButton;
 }
 
-.button, .buttonAdd, .buttonDelete, .buttonEdit {
+.button,
+.buttonAdd,
+.buttonDelete,
+.buttonEdit {
   border: none;
   box-shadow: var(--dp5);
   border-radius: 2vmin;
@@ -193,21 +211,61 @@
 .buttonAdd {
   grid-area: addButton;
 }
-.button > .ButtonTextHelper, .buttonEdit > .ButtonTextHelper, .buttonDelete > .ButtonTextHelper, .buttonAdd > .ButtonTextHelper {
+.button > .ButtonTextHelper,
+.buttonEdit > .ButtonTextHelper,
+.buttonDelete > .ButtonTextHelper,
+.buttonAdd > .ButtonTextHelper {
   display: none;
   opacity: 0;
   transition: all 1s;
 }
-.button > span, .buttonEdit > span, .buttonDelete > span, .buttonAdd > span, .button > .icon, .buttonEdit > .icon, .buttonDelete > .icon, .buttonAdd > .icon {
+.button > span,
+.buttonEdit > span,
+.buttonDelete > span,
+.buttonAdd > span,
+.button > .icon,
+.buttonEdit > .icon,
+.buttonDelete > .icon,
+.buttonAdd > .icon {
   color: var(--on-secondary);
-  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 24;
 }
-.button:hover, .buttonEdit:hover, .buttonDelete:hover, .buttonAdd:hover, .button:active, .buttonEdit:active, .buttonDelete:active, .buttonAdd:active {
+.button:hover,
+.buttonEdit:hover,
+.buttonDelete:hover,
+.buttonAdd:hover,
+.button:active,
+.buttonEdit:active,
+.buttonDelete:active,
+.buttonAdd:active {
   background-color: var(--tertiary-container);
   box-shadow: var(--dp8);
 }
-.button:hover > span, .buttonEdit:hover > span, .buttonDelete:hover > span, .buttonAdd:hover > span, .button:hover > .icon, .buttonEdit:hover > .icon, .buttonDelete:hover > .icon, .buttonAdd:hover > .icon, .button:active > span, .buttonEdit:active > span, .buttonDelete:active > span, .buttonAdd:active > span, .button:active > .icon, .buttonEdit:active > .icon, .buttonDelete:active > .icon, .buttonAdd:active > .icon {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+.button:hover > span,
+.buttonEdit:hover > span,
+.buttonDelete:hover > span,
+.buttonAdd:hover > span,
+.button:hover > .icon,
+.buttonEdit:hover > .icon,
+.buttonDelete:hover > .icon,
+.buttonAdd:hover > .icon,
+.button:active > span,
+.buttonEdit:active > span,
+.buttonDelete:active > span,
+.buttonAdd:active > span,
+.button:active > .icon,
+.buttonEdit:active > .icon,
+.buttonDelete:active > .icon,
+.buttonAdd:active > .icon {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 200,
+    'opsz' 24;
   color: var(--tertiary);
 }
 

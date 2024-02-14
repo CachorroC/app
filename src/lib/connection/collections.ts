@@ -9,16 +9,16 @@ export async function carpetasCollection() {
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const carpetas = db.collection<IntCarpeta>(
-        'Carpetas'
+        'Carpetas' 
       );
 
       return carpetas;
@@ -29,16 +29,16 @@ export async function pruebasCollection() {
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const carpetas = db.collection<IntCarpeta>(
-        'Activas'
+        'Activas' 
       );
 
       return carpetas;
@@ -49,16 +49,16 @@ export async function tareasCollection() {
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const notas = db.collection<NewTask>(
-        'Tareas'
+        'Tareas' 
       );
 
       return notas;
@@ -69,37 +69,36 @@ export async function notasCollection() {
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'RyS'
+        'RyS' 
       );
 
       const notas = db.collection<NewNota>(
-        'Notas'
+        'Notas' 
       );
 
       return notas;
 }
 
-export async function facturasCollection () {
-
+export async function facturasCollection() {
       const client = await clientPromise;
 
       if ( !client ) {
         throw new Error(
-          'no hay cliente mongólico'
+          'no hay cliente mongólico' 
         );
       }
 
       const db = client.db(
-        'Contabilidad'
+        'Contabilidad' 
       );
 
       const facturas = db.collection<intFactura>(
-        'Facturas'
+        'Facturas' 
       );
 
       return facturas;

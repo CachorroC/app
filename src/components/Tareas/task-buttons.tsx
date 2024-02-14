@@ -4,8 +4,8 @@ import { deleteTask } from './actions';
 
 export function DeleteTaskButton(
   {
-    id
-  }: { id: number }
+    id 
+  }: { id: number } 
 ) {
       const dispatchTasks = useDispatchTasks();
 
@@ -13,14 +13,14 @@ export function DeleteTaskButton(
             const deleted = await deleteTask(
               {
                 id: id,
-              }
+              } 
             );
 
             return dispatchTasks(
               {
                 type: 'deleted',
-                id  : deleted.id
-              }
+                id  : deleted.id,
+              } 
             );
       }
 

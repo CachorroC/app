@@ -2,25 +2,23 @@
 
 import { notasCollection } from '#@/lib/connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
-import {  IntNota, NewNota } from '#@/lib/types/notas';
+import { IntNota, NewNota } from '#@/lib/types/notas';
 
-export async function addNotaToMongo (
+export async function addNotaToMongo(
   newData: NewNota
 ) {
       const collection = await notasCollection();
 
       const existentTask = await collection.findOne(
         {
-          text: newData.text
+          text: newData.text,
         }
       );
 
-
       if ( !existentTask ) {
-
         const insertTask = await collection.insertOne(
           {
-            ...newData
+            ...newData,
           }
         );
 
@@ -29,7 +27,7 @@ export async function addNotaToMongo (
             success: true,
             data   : JSON.stringify(
               insertTask
-            )
+            ),
           };
         }
 
@@ -37,20 +35,22 @@ export async function addNotaToMongo (
           success: false,
           data   : JSON.stringify(
             insertTask
-          )
+          ),
         };
       }
 
       const updateTask = await collection.updateOne(
         {
-          text: newData.text
-        }, {
+          text: newData.text,
+        },
+        {
           $set: {
-            ...newData
-          }
-        }, {
-          upsert: true
-        }
+            ...newData,
+          },
+        },
+        {
+          upsert: true,
+        },
       );
 
       if ( updateTask.modifiedCount >= 1 ) {
@@ -58,7 +58,7 @@ export async function addNotaToMongo (
           success: true,
           data   : JSON.stringify(
             updateTask, null, 2
-          )
+          ),
         };
       }
 
@@ -66,48 +66,41 @@ export async function addNotaToMongo (
         success: false,
         data   : JSON.stringify(
           updateTask, null, 2
-        )
+        ),
       };
-
 }
 
-export async function addNotaToPrisma (
+export async function addNotaToPrisma(
   incomingTask: NewNota
 ) {
-
       const {
         carpetaNumero, ...task
       } = incomingTask;
 
+      let inserter;
+
       try {
-        let inserter;
-
         if ( carpetaNumero ) {
-          inserter =  await prisma.nota.create(
+          inserter = await prisma.nota.create(
             {
-
               data: {
                 ...task,
                 carpeta: {
                   connect: {
-                    numero: carpetaNumero
-                  }
+                    numero: carpetaNumero,
+                  },
                 },
-
               },
-
             }
           );
-
         } else {
-          inserter =  await prisma.nota.create(
+          inserter = await prisma.nota.create(
             {
               data: {
                 ...task,
-              }
+              },
             }
           );
-
         }
 
         console.log(
@@ -115,12 +108,11 @@ export async function addNotaToPrisma (
         );
         return {
           success: true,
-          nextId : inserter.id +1,
+          nextId : inserter.id + 1,
           data   : JSON.stringify(
             inserter, null, 2
-          )
+          ),
         };
-
       } catch ( error ) {
         console.log(
           error
@@ -130,32 +122,32 @@ export async function addNotaToPrisma (
           nextId : 0,
           data   : JSON.stringify(
             error, null, 2
-          )
+          ),
         };
       }
 }
 
-
 export async function updateNotaTextState(
   prevState: IntNota
 ) {
-
       try {
-
         const updater = await prisma.nota.update(
           {
             where: {
-              id: prevState.id
+              id_text: {
+                text: prevState.text,
+                id  : prevState.id
+              },
+              carpetaNumero: prevState.carpetaNumero
             },
             data: {
               text: prevState.text,
-            }
+            },
           }
         );
         return {
-          ...updater
+          ...updater,
         };
-
       } catch ( error ) {
         console.log(
           error

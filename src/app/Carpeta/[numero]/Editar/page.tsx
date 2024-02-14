@@ -1,30 +1,21 @@
 import { Form } from '#@/components/Form/Form';
-import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
-import { notFound } from 'next/navigation';
+import { CarpetaForm } from '#@/components/Form/carpeta-form';
 
-export default async function PageCarpetaId(
+export default function PageCarpetaId(
   {
     params,
   }: {
     params: { numero: string };
   }
 ) {
-      const carpeta = await getCarpetabyNumero(
-        Number(
-          params.numero
-        )
-      );
-
-      if ( !carpeta ) {
-        return notFound();
-      }
-
       return (
         <>
-          <Form
-            carpeta={carpeta}
-            key={carpeta.numero}
-          />
+          <CarpetaForm>
+            <Form
+              key={params.numero}
+            />
+
+          </CarpetaForm>
         </>
       );
 }

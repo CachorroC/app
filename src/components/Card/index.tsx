@@ -5,10 +5,8 @@ import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import layout from '#@/styles/layout.module.css';
-import { inputElement, slider, switchBox } from '../Form/form.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { CopyButton } from '../Buttons/copy-buttons';
-import { fixMoney } from '#@/lib/project/helper';
 import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
 
 export const Card = (
@@ -18,7 +16,7 @@ export const Card = (
   }: {
     carpeta: MonCarpeta;
     children: ReactNode;
-  }
+  } 
 ) => {
           let contentIdProcesos;
 
@@ -29,7 +27,7 @@ export const Card = (
             : true;
 
           const {
-            idProcesos, nombre, numero
+            idProcesos, nombre, numero 
           } = carpeta;
 
           if ( !idProcesos || idProcesos.length === 0 ) {
@@ -37,16 +35,16 @@ export const Card = (
           } else {
             contentIdProcesos = idProcesos.map(
               (
-                idProceso
+                idProceso 
               ) => {
                         return (
                           <Link
                             key={idProceso}
                             href={
                               `/Carpeta/${ String(
-                                numero
+                                numero 
                               ) }/ultimasActuaciones/${ String(
-                                idProceso
+                                idProceso,
                               ) }` as Route
                             }
                             className={styles.link}
@@ -56,7 +54,7 @@ export const Card = (
                             </span>
                           </Link>
                         );
-              }
+              } 
             );
           }
 
@@ -106,9 +104,8 @@ export const CardRow = (
   }: {
     carpeta: MonCarpeta;
     children: ReactNode;
-  }
+  } 
 ) => {
-
           const llaveLength = carpeta.llaveProceso?.length;
 
           const errorLLaveProceso = llaveLength
@@ -116,7 +113,7 @@ export const CardRow = (
             : true;
 
           const {
-            numero, idProcesos, revisado
+            numero, idProcesos, revisado 
           } = carpeta;
 
           const idProcesosLength = idProcesos.length;
@@ -125,114 +122,93 @@ export const CardRow = (
           if ( idProcesosLength > 1 ) {
             carpetaHref = idProcesos.map(
               (
-                idProceso, index
+                idProceso, index 
               ) => {
                         return (
-                          <Link key={ idProceso }
-                            href={`/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }`}
+                          <Link
+                            key={idProceso}
+                            href={
+                              `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }` as Route
+                            }
                           >
                             <span className={`${ typography.labelLarge } ${ layout.text }`}>
                               {`#${ numero } - ${ index }`}
                             </span>
-                            <span className={`material-symbols-outlined ${ layout.icon }`}>
-            folder
-                            </span>
-                          </Link> );
-              }
+                          </Link>
+                        );
+              } 
             );
           } else if ( idProcesosLength === 1 ) {
             carpetaHref = (
-              <Link key={ idProcesos[ 0 ] }
-                href={`/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }`}
+              <Link
+                key={idProcesos[ 0 ]}
+                href={
+                  `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }` as Route
+                }
               >
                 <span className={`${ typography.labelLarge } ${ layout.text }`}>
                   {`#${ numero }`}
-                </span>
-                <span className={`material-symbols-outlined ${ layout.icon }`}>
-            folder
                 </span>
               </Link>
             );
           } else {
             carpetaHref = (
-              <Link key={ numero }
+              <Link
+                key={numero}
                 href={`/Carpeta/${ numero }`}
               >
                 <span className={`${ typography.labelLarge } ${ layout.text }`}>
                   {`#${ numero }`}
                 </span>
-                <span className={`material-symbols-outlined ${ layout.icon }`}>
-            folder
-                </span>
               </Link>
             );
           }
 
-
           return (
             <tr>
+              <td>{carpetaHref}</td>
               <td>
-                {carpetaHref}
+                {
+                  <Link
+                    href={`/Carpeta/${ numero }`}
+                    className={typography.titleSmall}
+                  >
+                    {carpeta.nombre.toLocaleLowerCase()}
+                  </Link>
+                }
               </td>
-
-              <td>
-                <Link
-                  href={carpetaHref as Route}
-                  className={typography.titleMedium}
-                >
-                  {carpeta.nombre}
-                </Link>
-              </td>
-
-              <td>{carpeta.tipoProceso}</td>
-              <td>
-                {' '}
-                <label className={switchBox}>
-                  <input
-                    className={inputElement}
-                    defaultChecked={carpeta.terminado}
-                    type="checkbox"
-                  />
-                  <span className={slider}></span>
-                </label>
-              </td>
-
               <td>{OutputDateHelper(
-                carpeta.fecha
+                carpeta.fecha 
               )}</td>
+
+              <td>{carpeta.category}</td>
+              {errorLLaveProceso
+                ? (
+                    <>
+                      <td>
+                        <Link
+                          href={`/Carpeta/${ numero }/Editar` as Route}
+                          className={styles.link}
+                        >
+                          {'error con el numero de expediente'}
+                        </Link>
+                      </td>
+                      <td>Sin anotaciones</td>
+                    </>
+                  )
+                : (
+                    children
+                  )}
+              <RevisadoCheckBox
+                numero={numero}
+                initialRevisadoState={revisado}
+              />
               <td>
                 <CopyButton
                   copyTxt={carpeta.llaveProceso}
                   name={'expediente'}
                 />
               </td>
-              <td>{ carpeta.category }</td>
-
-              <td>
-                {carpeta.demanda?.capitalAdeudado
-          && fixMoney(
-            {
-              valor: Number(
-                carpeta.demanda.capitalAdeudado
-              ),
-            }
-          )}
-              </td>
-
-              {errorLLaveProceso
-                ? ( <td>
-                    <Link
-                      href={`/Carpeta/${ numero }/Editar` as Route}
-                      className={styles.link}
-                    >
-                      {'error con el numero de expediente'}
-                    </Link>
-                  </td>
-                  )
-                : children }
-              <RevisadoCheckBox numero={ numero } initialRevisadoState={ revisado } />
-
-
             </tr>
           );
 };

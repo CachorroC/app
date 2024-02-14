@@ -1,17 +1,16 @@
-
 import { monFactura } from '#@/lib/types/contabilidad';
-
 
 export type SortActionType = {
   type: 'sort';
   dir: boolean;
-  sortingKey:'fecha'
-  | 'id'
-  | 'razonSocial'
-  | 'valorTotal'
-  | 'valorBase'
-  | 'valorIva'
-  | 'valorOtroImp'
+  sortingKey:
+    | 'fecha'
+    | 'id'
+    | 'razonSocial'
+    | 'valorTotal'
+    | 'valorBase'
+    | 'valorIva'
+    | 'valorOtroImp';
 };
 
 export type SearchActionType = {
@@ -27,7 +26,7 @@ export type FilterActionType = {
 
 export type ResetActionType = {
   type: 'reset';
-  payload: monFactura[]
+  payload: monFactura[];
 };
 
 export type IntAction =
@@ -36,45 +35,40 @@ export type IntAction =
   | SortActionType
   | ResetActionType;
 
-
-export function facturasReducer (
-  facturas: monFactura[], action: IntAction
+export function facturasReducer(
+  facturas: monFactura[], action: IntAction 
 ) {
-
-
       const {
-        type
+        type 
       } = action;
 
       switch ( type ) {
           case 'sort': {
             const {
-              dir, sortingKey
+              dir, sortingKey 
             } = action;
 
             const asc = [
               -1,
               0,
-              1
+              1 
             ];
 
             const dsc = [
               1,
               0,
-              -1
+              -1 
             ];
 
             const sorter = dir
               ? asc
               : dsc;
 
-
-
             switch ( sortingKey ) {
                 case 'fecha': {
                   return [ ...facturas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               if ( !a.fecha || a.fecha === undefined ) {
                                 return sorter[ 2 ];
@@ -97,21 +91,21 @@ export function facturasReducer (
                               }
 
                               return sorter[ 1 ];
-                    }
+                    } 
                   );
                 }
 
                 case 'valorTotal': {
                   return [ ...facturas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               const valortotalA = parseFloat(
-                                a.valorTotal
+                                a.valorTotal 
                               );
 
                               const valortotalB = parseFloat(
-                                b.valorTotal
+                                b.valorTotal 
                               );
 
                               if ( valortotalA < valortotalB ) {
@@ -121,23 +115,21 @@ export function facturasReducer (
                               }
 
                               return 0;
-
-
-                    }
+                    } 
                   );
                 }
 
                 case 'valorIva': {
                   return [ ...facturas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               const valortotalA = parseFloat(
-                                a.valorIva
+                                a.valorIva 
                               );
 
                               const valortotalB = parseFloat(
-                                b.valorIva
+                                b.valorIva 
                               );
 
                               if ( valortotalA < valortotalB ) {
@@ -147,24 +139,21 @@ export function facturasReducer (
                               }
 
                               return 0;
-
-
-                    }
+                    } 
                   );
                 }
-
 
                 case 'valorOtroImp': {
                   return [ ...facturas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               const valortotalA = parseFloat(
-                                a.valorOtroImp
+                                a.valorOtroImp 
                               );
 
                               const valortotalB = parseFloat(
-                                b.valorOtroImp
+                                b.valorOtroImp 
                               );
 
                               if ( valortotalA < valortotalB ) {
@@ -174,16 +163,14 @@ export function facturasReducer (
                               }
 
                               return 0;
-
-
-                    }
+                    } 
                   );
                 }
 
                 default: {
                   return [ ...facturas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               const aSortingKey = a[ sortingKey ];
 
@@ -206,11 +193,10 @@ export function facturasReducer (
                               }
 
                               return 0;
-                    }
+                    } 
                   );
                 }
             }
-
           }
 
           case 'search': {
@@ -223,11 +209,10 @@ export function facturasReducer (
             }
 
             for ( const carpeta of [ ...facturas ] ) {
-
               const nombreString = carpeta.concepto.toLocaleLowerCase();
 
               const carpetaQuery = nombreString.indexOf(
-                searchQuery
+                searchQuery 
               );
 
               if ( carpetaQuery === -1 ) {
@@ -235,11 +220,11 @@ export function facturasReducer (
               }
 
               facturasMap.push(
-                carpeta
+                carpeta 
               );
 
               console.log(
-                carpetaQuery
+                carpetaQuery 
               );
             }
 
@@ -282,7 +267,7 @@ export function facturasReducer (
           default: {
             return [ ...facturas ].sort(
               (
-                a, b
+                a, b 
               ) => {
                         if ( !a.fecha || a.fecha === undefined ) {
                           return 1;
@@ -305,8 +290,7 @@ export function facturasReducer (
                         }
 
                         return 0;
-              }
-
+              } 
             );
           }
       }

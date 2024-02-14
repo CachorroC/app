@@ -10,22 +10,22 @@ export default function Layout(
   }: {
     params: { ano: string; mes: string; dia: string };
     children: ReactNode;
-  }
+  } 
 ) {
       const segmentDate = new Date(
         Number(
-          params.ano
+          params.ano 
         ),
         Number(
-          params.mes
+          params.mes 
         ) - 1,
         Number(
-          params.dia
+          params.dia 
         ),
       );
 
       const dateOutput = OutputDateHelper(
-        segmentDate
+        segmentDate 
       );
       return (
         <>

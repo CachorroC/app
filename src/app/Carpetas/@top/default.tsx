@@ -1,4 +1,5 @@
 'use client';
+import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import { InputSearchBar } from '#@/components/layout/InputSearchBar';
 import typography from '#@/styles/fonts/typography.module.css';
 import { usePathname } from 'next/navigation';
@@ -26,6 +27,7 @@ export default function Default() {
             } 
           )}
           <InputSearchBar />
+          <ForwardBackwardNavButtons />
         </>
       );
 }

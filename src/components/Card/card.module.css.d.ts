@@ -3,6 +3,9 @@ declare const styles: {
   readonly 'anotacion': string;
   readonly 'card': string;
   readonly 'container': string;
+  readonly 'containerFilledDisabled': string;
+  readonly 'containerFilledEnabled': string;
+  readonly 'containerOutlinedEnabled': string;
   readonly 'content': string;
   readonly 'date': string;
   readonly 'dummytxt': string;

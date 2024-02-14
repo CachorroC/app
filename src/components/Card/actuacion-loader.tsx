@@ -1,20 +1,16 @@
 import styles from 'components/Card/card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
+import layout from '#@/styles/layout.module.css';
+import { Loader } from '../Loader';
 
 export default function ActuacionLoader() {
       return (
-        <>
-          <td>
-            <h5 className={ ` ${ styles.actuacion } ${ typography.titleSmall }` }>
-              Sin registro
-            </h5>
-            <sub className={ typography.labelSmall }>0 de 0</sub>
-          </td>
-          <td>
-            <sub className={ typography.headlineMedium }>por favor revise que el numero de expediente esté bien o si la informacion la brinda el juzgado por otro canal</sub>
-
-          </td>
-        </>
-
+        <div className={styles.containerFilledDisabled}>
+          <div className={layout.segmentRow}>
+            <h5 className={typography.titleSmall}>Cargando</h5>
+            <span className="material-symbols-outlined">cached</span>
+          </div>
+          <Loader />
+        </div>
       );
 }

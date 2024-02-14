@@ -1,4 +1,4 @@
-import { Category, MonCarpeta } from '#@/lib/types/carpetas';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 import 'server-only';
 
 export type SortActionType = {
@@ -27,7 +27,7 @@ export type FilterActionType = {
 
 export type ResetActionType = {
   type: 'reset';
-  payload: MonCarpeta[]
+  payload: MonCarpeta[];
 };
 
 export type IntAction =
@@ -36,40 +36,36 @@ export type IntAction =
   | SortActionType
   | ResetActionType;
 
-
-
 export function carpetasReducer(
-  carpetas: MonCarpeta[], action: IntAction
+  carpetas: MonCarpeta[], action: IntAction 
 ) {
-
-
       const {
-        type
+        type 
       } = action;
 
       switch ( type ) {
           case 'sort': {
             const {
-              dir, sortingKey
+              dir, sortingKey 
             } = action;
 
             const asc = [
               -1,
               0,
-              1
+              1 
             ];
 
             const dsc = [
               1,
               0,
-              -1
+              -1 
             ];
 
             const sorter = dir === 'asc'
               ? asc
               : dsc;
 
-            const categoriesSorter: Category[] = [
+            const categoriesSorter: string[] = [
               'todos',
               'Bancolombia',
               'Reintegra',
@@ -83,7 +79,7 @@ export function carpetasReducer(
                 case 'fecha': {
                   return [ ...carpetas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               if ( !a.fecha || a.fecha === undefined ) {
                                 return sorter[ 2 ];
@@ -106,21 +102,21 @@ export function carpetasReducer(
                               }
 
                               return sorter[ 1 ];
-                    }
+                    } 
                   );
                 }
 
                 case 'category': {
                   return [ ...carpetas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               const x = categoriesSorter.indexOf(
-                                a.category
+                                a.category 
                               );
 
                               const y = categoriesSorter.indexOf(
-                                b.category
+                                b.category 
                               );
 
                               if ( x < y ) {
@@ -132,14 +128,14 @@ export function carpetasReducer(
                               }
 
                               return sorter[ 1 ];
-                    }
+                    } 
                   );
                 }
 
                 case 'numero': {
                   return [ ...carpetas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               const x = a.numero;
 
@@ -150,14 +146,14 @@ export function carpetasReducer(
                                 : y - x;
 
                               return idk;
-                    }
+                    } 
                   );
                 }
 
                 case 'nombre': {
                   return [ ...carpetas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               const x = a.nombre;
 
@@ -172,14 +168,14 @@ export function carpetasReducer(
                               }
 
                               return sorter[ 1 ];
-                    }
+                    } 
                   );
                 }
 
                 default: {
                   return [ ...carpetas ].sort(
                     (
-                      a, b
+                      a, b 
                     ) => {
                               const aSortingKey = a[ sortingKey ];
 
@@ -202,11 +198,10 @@ export function carpetasReducer(
                               }
 
                               return 0;
-                    }
+                    } 
                   );
                 }
             }
-
           }
 
           case 'search': {
@@ -219,11 +214,10 @@ export function carpetasReducer(
             }
 
             for ( const carpeta of [ ...carpetas ] ) {
-
               const nombreString = carpeta.nombre.toLocaleLowerCase();
 
               const carpetaQuery = nombreString.indexOf(
-                searchQuery
+                searchQuery 
               );
 
               if ( carpetaQuery === -1 ) {
@@ -231,11 +225,11 @@ export function carpetasReducer(
               }
 
               carpetasMap.push(
-                carpeta
+                carpeta 
               );
 
               console.log(
-                carpetaQuery
+                carpetaQuery 
               );
             }
 
@@ -245,7 +239,7 @@ export function carpetasReducer(
           case 'filter': {
             return [ ...carpetas ].filter(
               (
-                carpeta
+                carpeta 
               ) => {
                         const querier = carpeta[ action.filteringKey ];
 
@@ -257,14 +251,14 @@ export function carpetasReducer(
                           querier
                                 .toLocaleLowerCase()
                                 .indexOf(
-                                  action.filteringKey.toLocaleLowerCase()
+                                  action.filteringKey.toLocaleLowerCase() 
                                 ) === -1
                         ) {
                           return false;
                         }
 
                         return true;
-              }
+              } 
             );
           }
 
@@ -275,7 +269,7 @@ export function carpetasReducer(
           default: {
             return [ ...carpetas ].sort(
               (
-                a, b
+                a, b 
               ) => {
                         if ( !a.fecha || a.fecha === undefined ) {
                           return 1;
@@ -298,8 +292,7 @@ export function carpetasReducer(
                         }
 
                         return 0;
-              }
-
+              } 
             );
           }
       }

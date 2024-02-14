@@ -8,7 +8,7 @@ import { Route } from 'next';
 
 export const NavBar = () => {
           const {
-            isNavOpen
+            isNavOpen 
           } = useNavigationContext();
 
           const newYear = new Date()
@@ -37,8 +37,6 @@ export const NavBar = () => {
                 hrefLabel={'/Carpetas/UltimasActuaciones'}
               />
 
-
-
               {isNavOpen && (
                 <Drawer>
                   <DrawerMenuButton />
@@ -47,8 +45,16 @@ export const NavBar = () => {
                     textLabel={'Inicio'}
                     hrefLabel="/"
                   />
-                  <NavLink iconLabel={ 'park' } textLabel={ 'christmas' } hrefLabel={ '/Ayudante/Navidad' } />
-                  <NavLink iconLabel={ 'forest' } textLabel={ 'Christmas Router' } hrefLabel={ '/Ayudante/Navidad/Router' } />
+                  <NavLink
+                    iconLabel={'park'}
+                    textLabel={'christmas'}
+                    hrefLabel={'/Ayudante/Navidad'}
+                  />
+                  <NavLink
+                    iconLabel={'forest'}
+                    textLabel={'Christmas Router'}
+                    hrefLabel={'/Ayudante/Navidad/Router'}
+                  />
                   <NavLink
                     iconLabel={'gavel'}
                     textLabel={'ultimas actuaciones'}
@@ -60,32 +66,59 @@ export const NavBar = () => {
                     textLabel={'Carpetas'}
                     hrefLabel="/Carpetas"
                   />
-                  <NavLink iconLabel={ 'person_add' } textLabel={ 'Nueva Carpeta' } hrefLabel={ '/Carpetas/Nueva' } />
-                  <NavLink iconLabel={ 'account_balance' } textLabel={ 'Contabilidad' } hrefLabel={ '/Contabilidad' } />
-                  <NavLink iconLabel={ 'add_shopping_cart' } textLabel={ 'ingresar factura' } hrefLabel={ '/Contabilidad/NuevaFactura' as Route } />
-                  <NavLink iconLabel={ 'contact_support' } textLabel={ 'contacto' } hrefLabel={ '/Contacto' } />
-                  <NavLink iconLabel={ 'payments' } textLabel={ 'costos' } hrefLabel={ '/Costos' } />
-                  <NavLink iconLabel={ 'sticky_note_2' } textLabel={ 'Notas' } hrefLabel={ '/Notas' } />
-                  <NavLink iconLabel={ 'add_comment' } textLabel={ 'Nueva Nota' } hrefLabel={ '/Notas/Nueva' as Route } />
-                  <NavLink iconLabel={ 'badge' } textLabel={ 'Quienes Somos' } hrefLabel={ '/QuienesSomos' } />
+                  <NavLink
+                    iconLabel={'person_add'}
+                    textLabel={'Nueva Carpeta'}
+                    hrefLabel={'/Carpetas/Nueva'}
+                  />
+                  <NavLink
+                    iconLabel={'account_balance'}
+                    textLabel={'Contabilidad'}
+                    hrefLabel={'/Contabilidad'}
+                  />
+                  <NavLink
+                    iconLabel={'add_shopping_cart'}
+                    textLabel={'ingresar factura'}
+                    hrefLabel={'/Contabilidad/NuevaFactura' as Route}
+                  />
+                  <NavLink
+                    iconLabel={'contact_support'}
+                    textLabel={'contacto'}
+                    hrefLabel={'/Contacto'}
+                  />
+                  <NavLink
+                    iconLabel={'payments'}
+                    textLabel={'costos'}
+                    hrefLabel={'/Costos'}
+                  />
+                  <NavLink
+                    iconLabel={'sticky_note_2'}
+                    textLabel={'Notas'}
+                    hrefLabel={'/Notas'}
+                  />
+                  <NavLink
+                    iconLabel={'add_comment'}
+                    textLabel={'Nueva Nota'}
+                    hrefLabel={'/Notas/Nueva' as Route}
+                  />
+                  <NavLink
+                    iconLabel={'badge'}
+                    textLabel={'Quienes Somos'}
+                    hrefLabel={'/QuienesSomos'}
+                  />
 
-
-                  <NavLink iconLabel={ 'calendar_month' } textLabel={ 'Calendario' } hrefLabel={ `/Calendario/Fecha/${ newYear }/${ newMonth }/${ newDate }` } />
-                  <NavLink iconLabel={ '' } textLabel={ 'Bancolombia' } hrefLabel={ '/Carpetas/Categorias/Bancolombia' } />
-
-
-
-
-
-
-
-
-
-
-
+                  <NavLink
+                    iconLabel={'calendar_month'}
+                    textLabel={'Calendario'}
+                    hrefLabel={`/Calendario/Fecha/${ newYear }/${ newMonth }/${ newDate }`}
+                  />
+                  <NavLink
+                    iconLabel={''}
+                    textLabel={'Bancolombia'}
+                    hrefLabel={'/Carpetas/Categorias/Bancolombia'}
+                  />
                 </Drawer>
               )}
-
             </div>
           );
 };

@@ -1,5 +1,5 @@
 .button {
-  border: none;
+  border: 0.2rem solid var(--outline);
   box-sizing: border-box;
   padding: 0.5rem;
   flex: 1;
@@ -12,6 +12,18 @@
   justify-content: space-around;
   align-content: center;
   transition: all 0.3s;
+  position: relative;
+  &:hover {
+    &:before {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      content: '';
+      opacity: 0;
+    }
+  }
   &Edit {
     @extend .button;
     background-color: var(--secondary-container);
@@ -22,11 +34,25 @@
     flex-flow: column nowrap;
     flex: 2;
     background-color: var(--secondary-container);
-
     color: var(--on-secondary-container);
+    border: 0.02rem solid var(--outline);
+
     & > .icon,
     & > .text {
       color: var(--on-secondary-container);
+    }
+    &:hover {
+      &:before {
+        opacity: 0.08;
+        background-color: var(--on-secondary-container);
+      }
+    }
+    &:focus,
+    &:active {
+      &:before {
+        opacity: 0.1;
+        background-color: var(--on-secondary-container);
+      }
     }
   }
   &PassiveCategory {
@@ -34,13 +60,26 @@
     flex: 1;
     flex-flow: column nowrap;
     background-color: var(--surface-container-high);
-
     color: var(--secondary);
+    border: 0.02rem solid var(--outline);
     & > .icon {
       color: var(--secondary);
     }
     & > .text {
       color: var(--on-surface);
+    }
+    &:hover {
+      &:before {
+        opacity: 0.08;
+        background-color: var(--on-secondary-container);
+      }
+    }
+    &:focus,
+    &:active {
+      &:before {
+        opacity: 0.1;
+        background-color: var(--on-secondary-container);
+      }
     }
   }
 
@@ -53,6 +92,17 @@
     height: minmax(2rem, 3rem);
     flex: 0 1 auto;
     box-sizing: border-box;
+  }
+  &:hover {
+    &:before {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      content: '';
+      top: 0;
+      left: 0;
+      opacity: 0.08;
+    }
   }
 }
 .active {

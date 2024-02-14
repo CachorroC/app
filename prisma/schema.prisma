@@ -9,18 +9,18 @@ datasource db {
 
 model Carpeta {
   id              Int
-  category        Category    @default(SinEspecificar)
-  tipoProceso     TipoProceso @default(SINGULAR)
   fecha           DateTime?
   idProcesos      Int[]
   idRegUltimaAct  Int?
   llaveProceso    String
   nombre          String
-  numero          Int         @id
-  revisado        Boolean     @default(false)
-  terminado       Boolean     @default(false)
-  updatedAt       DateTime    @updatedAt
-  ultimaActuacion Actuacion?  @relation(fields: [idRegUltimaAct], references: [idRegActuacion])
+  numero          Int        @id
+  revisado        Boolean    @default(false)
+  terminado       Boolean    @default(false)
+  updatedAt       DateTime   @updatedAt
+  category        String     @default("SinEspecificar")
+  tipoProceso     String     @default("SINGULAR")
+  ultimaActuacion Actuacion? @relation(fields: [idRegUltimaAct], references: [idRegActuacion])
   codeudor        Codeudor?
   demanda         Demanda?
   deudor          Deudor?
@@ -31,76 +31,75 @@ model Carpeta {
 }
 
 model Factura {
-  carpeta            Carpeta?        @relation(fields: [carpetaNumero], references: [numero])
-  carpetaNumero      Int?
-  ciudad             String
-  concepto           String
-  direccion          String
-  QRCode             String?
-  CUFE               String?
-  dv                 Int
-  emisorDeFactura    EmisorDeFactura @relation(fields: [nit], references: [nit])
+  id                 String          @id
   facturaElectronica String?
+  secondaryFactura   Json?
+  ciudad             String
+  dv                 Int
   fecha              DateTime        @db.Date
+  razonSocial        String
+  nombreComercial    String?
+  direccion          String
+  valorBase          Decimal         @db.Money
+  hasOtroImp         Boolean         @default(false)
+  hasIva             Boolean         @default(false)
   hasIcui            Boolean         @default(false)
   hasImpoConsumo     Boolean         @default(false)
-  hasIva             Boolean         @default(false)
-  hasOtroImp         Boolean         @default(false)
-  id                 String          @id
   nit                Int
-  nombreComercial    String?
-  razonSocial        String
-  secondaryFactura   Json?
-  valorBase          Decimal         @db.Money
   valorIva           Decimal?        @db.Money
   valorOtroImp       Decimal?        @db.Money
   valorTotal         Decimal         @db.Money
+  concepto           String
+  carpetaNumero      Int?
+  CUFE               String?
+  QRCode             String?
+  carpeta            Carpeta?        @relation(fields: [carpetaNumero], references: [numero])
+  emisorDeFactura    EmisorDeFactura @relation(fields: [nit], references: [nit])
 }
 
 model EmisorDeFactura {
-  actividadEconomica        String?
-  ciudad                    String    @default("Bogota")
-  correo                    String?
-  direccion                 String?
-  dv                        Int
-  facturas                  Factura[]
   nit                       Int       @id
-  nombreComercial           String?
+  dv                        Int
   razonSocial               String
+  nombreComercial           String?
+  direccion                 String?
+  correo                    String?
+  telefono                  Int?
+  actividadEconomica        String?
   regimenFiscal             String?
   responsabilidadTributaria String?
-  telefono                  Int?
   tipoContribuyente         String    @default("Juridica")
+  ciudad                    String    @default("Bogota")
+  facturas                  Factura[]
 }
 
 model Deudor {
-  carpetaNumero   Int?     @unique
+  carpetaNumero   Int     @unique
   cedula          String
   direccion       String?
   email           String?
-  id              Int      @id
+  id              Int     @id
   primerApellido  String
   primerNombre    String
   segundoApellido String?
   segundoNombre   String?
   telCelular      String?
   telFijo         String?
-  carpeta         Carpeta? @relation(fields: [carpetaNumero], references: [numero])
+  carpeta         Carpeta @relation(fields: [carpetaNumero], references: [numero])
 }
 
 model Codeudor {
-  carpetaNumero Int?     @unique
+  carpetaNumero Int     @unique
   cedula        String?
   direccion     String?
-  id            Int      @id
+  id            Int     @id
   nombre        String?
   telefono      String?
-  carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
+  carpeta       Carpeta @relation(fields: [carpetaNumero], references: [numero])
 }
 
 model Demanda {
-  capitalAdeudado         String?
-  carpetaNumero           Int?               @unique
+  carpetaNumero           Int                @unique
   departamento            String?
   despacho                String?
   entregaGarantiasAbogado DateTime?          @db.Date
@@ -108,67 +107,74 @@ model Demanda {
   llaveProceso            String?
   fechaPresentacion       DateTime[]         @db.Date
   id                      Int                @id
-  mandamientoPago         DateTime?          @db.Date
   tipoProceso             String
   municipio               String?
   obligacion              String[]
   radicado                String?
   vencimientoPagare       DateTime[]         @db.Date
-  carpeta                 Carpeta?           @relation(fields: [carpetaNumero], references: [numero])
+  capitalAdeudado         Decimal            @default(0) @db.Money
+  mandamientoPago         DateTime[]         @db.Date
+  avaluo                  Decimal            @default(0) @db.Money
+  liquidacion             Decimal            @default(0) @db.Money
+  carpeta                 Carpeta            @relation(fields: [carpetaNumero], references: [numero])
   medidasCautelares       MedidasCautelares?
   notificacion            Notificacion?
 }
 
 model Notificacion {
-  autoNotificado String?
-  demandaId      Int?       @unique
+  demandaId      Int        @unique
   certimail      Boolean?
   fisico         Boolean?
   id             Int        @id
-  demanda        Demanda?   @relation(fields: [demandaId], references: [id])
+  autoNotificado DateTime?  @db.Date
+  demanda        Demanda    @relation(fields: [demandaId], references: [id])
   notifiers      Notifier[]
 }
 
 model MedidasCautelares {
-  demandaId         Int?      @unique
+  demandaId         Int       @unique
   fechaOrdenaMedida DateTime?
   id                Int       @id
   medidaSolicitada  String?
-  demanda           Demanda?  @relation(fields: [demandaId], references: [id])
+  demanda           Demanda   @relation(fields: [demandaId], references: [id])
 }
 
 model Notifier {
   fechaAporta    DateTime?
   fechaRecibido  DateTime?
-  id             Int           @id @default(autoincrement())
-  notificacionId Int?
+  notificacionId Int
   resultado      Boolean?
   tipo           String
-  notificacion   Notificacion? @relation(fields: [notificacionId], references: [id])
+  carpetaNumero  Int
+  notificacion   Notificacion @relation(fields: [notificacionId], references: [id])
+
+  @@id([tipo, carpetaNumero])
 }
 
 model Nota {
-  carpeta       Carpeta?  @relation(fields: [carpetaNumero], references: [numero])
   carpetaNumero Int?
   createdAt     DateTime  @default(now())
-  dueDate       DateTime? @db.Date
-  extraContent  String?
-  id            Int       @id @default(autoincrement())
+  id            Int       @default(autoincrement())
   pathname      String?
-  text          String
   updatedAt     DateTime  @updatedAt
+  dueDate       DateTime? @db.Date
+  text          String
+  content       String[]
+  carpeta       Carpeta?  @relation(fields: [carpetaNumero], references: [numero])
+
+  @@id([id, text])
 }
 
 model Task {
-  Carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
   carpetaNumero Int?
-  content       String[]
-  createdAt     DateTime @default(now())
   done          Boolean  @default(false)
+  createdAt     DateTime @default(now())
   dueDate       DateTime @db.Date
   id            Int      @id @default(autoincrement())
-  text         String
+  text          String
   updatedAt     DateTime @updatedAt
+  content       String[]
+  carpeta       Carpeta? @relation(fields: [carpetaNumero], references: [numero])
 }
 
 model Actuacion {

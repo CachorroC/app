@@ -4,12 +4,12 @@ import { useCarpetaFormContext } from '#@/app/Context/carpeta-form-context';
 
 export function DeudorFormComponent() {
       const {
-        stateCarpeta, setStateCarpeta
+        carpetaFormState, setCarpetaFormState
       } = useCarpetaFormContext();
 
       const {
         deudor
-      } = stateCarpeta;
+      } = carpetaFormState;
 
       if ( !deudor ) {
         return null;
@@ -27,9 +27,9 @@ export function DeudorFormComponent() {
             onChange={(
               e
             ) => {
-                      return setStateCarpeta(
+                      return setCarpetaFormState(
                         {
-                          ...stateCarpeta,
+                          ...carpetaFormState,
                           deudor: {
                             ...deudor,
                             primerNombre: e.target.value,

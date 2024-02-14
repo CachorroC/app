@@ -1,4 +1,3 @@
-
 import * as fs from 'fs/promises';
 
 const personList = [
@@ -120,50 +119,27 @@ CUFE=b311e96e4f9533a94473c4a1ae359b590f488e9219a2004a593f58068237a10a1a6ef389396
 QRCode=https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=b311e96e4f9533a94473c4a1ae359b590f488e9219a2004a593f58068237a10a1a6ef389396083987599b51bf208883e`,
   'NroFactura=6311100232865 NitFacturador=800242106 NitAdquiriente=900848824 FechaFactura=2023-07-23 HoraFactura=04:44:58-05:00 ValorFactura=77142.86 ValorIVA=14657.14 ValorOtrosImpuestos=0.00 ValorTotalFactura=91800.00 CUFE=https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=6b6c8d79c3507d49dc7d66ccd1d79ccfffcdc8e5a34d9b0f0303a33630fef30c0c64575c7b985156f5f6e9581b5e0026',
   'NroFactura=6305100235429 NitFacturador=800242106 NitAdquiriente=900848824 FechaFactura=2023-05-01 HoraFactura=01:30:09-05:00 ValorFactura=94873.95 ValorIVA=18026.05 ValorOtrosImpuestos=0.00 ValorTotalFactura=112900.00 CUFE=https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=61c4efd31c194142d86cd660c6bdb3eb93191854db87364f487e147ad6155424a203564306e6a923845c10082aa334dc',
-  'NroFactura=6305100235429 NitFacturador=800242106 NitAdquiriente=900848824 FechaFactura=2023-05-01 HoraFactura=01:30:09-05:00 ValorFactura=94873.95 ValorIVA=18026.05 ValorOtrosImpuestos=0.00 ValorTotalFactura=112900.00 CUFE=https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=61c4efd31c194142d86cd660c6bdb3eb93191854db87364f487e147ad6155424a203564306e6a923845c10082aa334dc'
+  'NroFactura=6305100235429 NitFacturador=800242106 NitAdquiriente=900848824 FechaFactura=2023-05-01 HoraFactura=01:30:09-05:00 ValorFactura=94873.95 ValorIVA=18026.05 ValorOtrosImpuestos=0.00 ValorTotalFactura=112900.00 CUFE=https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=61c4efd31c194142d86cd660c6bdb3eb93191854db87364f487e147ad6155424a203564306e6a923845c10082aa334dc',
 ];
 
-const regexpNames = /([a-z0-9A-Z_]+)(?::|=)(['\s"])?([a-z0-9A-Z_:\-./?=]+)(['\s\n"])?/gm;
+const regexpNames =
+  /([a-z0-9A-Z_]+)(?::|=)(['\s"])?([a-z0-9A-Z_:\-./?=]+)(['\s\n"])?/gm;
 
+const defpersonsList = personList.map((person) => {
+  const facturaMap = new Map();
 
+  const firstMatcher = person.matchAll(regexpNames);
 
-const defpersonsList = personList.map(
-  (
-    person
-  ) => {
-
-
-
-
-            const facturaMap = new Map();
-
-            const firstMatcher = person.matchAll(
-              regexpNames
-            );
-
-            for ( const matchedKeyValues of firstMatcher ) {
-              console.log(
-                matchedKeyValues
-              );
-              facturaMap.set(
-                matchedKeyValues[ 1 ], matchedKeyValues[ 3 ]
-              );
-            }
-
-            return Object.fromEntries(
-              facturaMap
-            );
+  for (const matchedKeyValues of firstMatcher) {
+    console.log(matchedKeyValues);
+    facturaMap.set(matchedKeyValues[1], matchedKeyValues[3]);
   }
-);
 
-for ( const lsp of defpersonsList ) {
-  console.log(
-    lsp
-  );
+  return Object.fromEntries(facturaMap);
+});
+
+for (const lsp of defpersonsList) {
+  console.log(lsp);
 }
 
-fs.writeFile(
-  'facturas.json', JSON.stringify(
-    defpersonsList
-  )
-);
+fs.writeFile('facturas.json', JSON.stringify(defpersonsList));

@@ -7,23 +7,25 @@ import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 
 export function NotasSortButtons() {
-      const keys: (  | 'carpetaNumero'
+      const keys: (
+    | 'carpetaNumero'
     | 'id'
     | 'dueDate'
     | 'createdAt'
     | 'text'
-    | 'updatedAt' )[]= [
+    | 'updatedAt'
+      )[] = [
         'dueDate',
         'text',
         'updatedAt',
         'carpetaNumero',
-        'id',
+        'id' 
       ];
 
       const dispatchNotas = useNotaSortDispatch();
 
       const [ sortDirection, setSortDirection ] = useState(
-        true
+        true 
       );
 
       return (
@@ -46,7 +48,7 @@ export function NotasSortButtons() {
           <section className={layout.sectionRow}>
             {keys.map(
               (
-                key
+                key 
               ) => {
                         return (
                           <button
@@ -54,17 +56,17 @@ export function NotasSortButtons() {
                             onClick={() => {
                                       setSortDirection(
                                         (
-                                          d
+                                          d 
                                         ) => {
                                                   return !d;
-                                        }
+                                        } 
                                       );
                                       dispatchNotas(
                                         {
                                           type      : 'sort',
                                           dir       : sortDirection,
-                                          sortingKey: key
-                                        }
+                                          sortingKey: key,
+                                        } 
                                       );
                             }}
                             className={button.buttonPassiveCategory}
@@ -73,7 +75,7 @@ export function NotasSortButtons() {
                             {key}
                           </button>
                         );
-              }
+              } 
             )}
           </section>
         </div>

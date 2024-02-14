@@ -9,36 +9,36 @@ import { useModalContext } from '../Context/modal-context';
 
 export default function ModalDialog(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
       const overlay = useRef(
-        null
+        null 
       );
 
       const wrapper = useRef(
-        null
+        null 
       );
 
       const {
-        isModalOpen, setIsModalOpen
+        isModalOpen, setIsModalOpen 
       } = useModalContext();
 
       const onDismiss = useCallback(
         () => {
                   setIsModalOpen(
                     (
-                      n
+                      n 
                     ) => {
                               return !n;
-                    }
+                    } 
                   );
-        }, [ setIsModalOpen ]
+        }, [ setIsModalOpen ] 
       );
 
       const onClick: MouseEventHandler = useCallback(
         (
-          e
+          e 
         ) => {
                   if ( e.target === overlay.current || e.target === wrapper.current ) {
                     if ( onDismiss ) {
@@ -49,13 +49,13 @@ export default function ModalDialog(
         [
           onDismiss,
           overlay,
-          wrapper
+          wrapper 
         ],
       );
 
       const onKeyDown = useCallback(
         (
-          e: KeyboardEvent
+          e: KeyboardEvent 
         ) => {
                   if ( e.key === 'Escape' ) {
                     onDismiss();
@@ -67,15 +67,15 @@ export default function ModalDialog(
       useEffect(
         () => {
                   document.addEventListener(
-                    'keydown', onKeyDown
+                    'keydown', onKeyDown 
                   );
 
                   return () => {
                             return document.removeEventListener(
-                              'keydown', onKeyDown
+                              'keydown', onKeyDown 
                             );
                   };
-        }, [ onKeyDown ]
+        }, [ onKeyDown ] 
       );
 
       return (

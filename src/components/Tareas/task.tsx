@@ -3,33 +3,34 @@ import { DoneCheckBox } from '#@/app/Tareas/done-checkbox';
 import { IntTask } from '#@/lib/types/tareas';
 import { useState } from 'react';
 import { useDispatchTasks } from './TasksContext';
+import { updateTaskTextState } from '#@/app/Tareas/actions';
 
 export function Task(
   {
-    task
-  }: {task: IntTask}
+    task 
+  }: { task: IntTask } 
 ) {
       const [ isEditing, setIsEditing ] = useState(
-        false
+        false 
       );
 
       const [ taskState, setTaskState ] = useState(
         {
-          ...task
-        }
+          ...task,
+        } 
       );
 
-      const dispatch =useDispatchTasks();
+      const dispatch = useDispatchTasks();
       let taskContent;
 
-      async function editTask () {
+      async function editTask() {
             const revis = await updateTaskTextState(
-              taskState
+              taskState 
             );
             alert(
               JSON.stringify(
-                revis
-              )
+                revis 
+              ) 
             );
 
             return dispatch(
@@ -38,8 +39,8 @@ export function Task(
                 task: {
                   ...taskState,
                   ...revis,
-                }
-              }
+                },
+              } 
             );
       }
 
@@ -49,35 +50,40 @@ export function Task(
             <input
               value={taskState.text}
               onChange={(
-                e
+                e 
               ) => {
-
                         return setTaskState(
                           {
                             ...taskState,
-                            text: e.target.value
-                          }
+                            text: e.target.value,
+                          } 
                         );
-              } } />
-            <button type='button' onClick={() => {
-                      return setIsEditing(
-                        false
-                      );
-            }}>
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => {
+                        return setIsEditing(
+                          false 
+                        );
+              }}
+            >
           Save
             </button>
-
           </>
         );
       } else {
         taskContent = (
           <>
             {task.text}
-            <button type='button' onClick={() => {
-                      return setIsEditing(
-                        true
-                      );
-            }}>
+            <button
+              type="button"
+              onClick={() => {
+                        return setIsEditing(
+                          true 
+                        );
+              }}
+            >
           Edit
             </button>
           </>
@@ -86,21 +92,25 @@ export function Task(
 
       return (
         <form action={editTask}>
-          <DoneCheckBox task={ task } key={task.id}/>
+          <DoneCheckBox
+            task={task}
+            key={task.id}
+          />
           {taskContent}
-          <button type='button' onClick={() => {
-                    dispatch(
-                      {
-                        type: 'deleted',
-                        id  : task.id
-                      }
-                    );
-          }}>
+          <button
+            type="button"
+            onClick={() => {
+                      dispatch(
+                        {
+                          type: 'deleted',
+                          id  : task.id,
+                        } 
+                      );
+            }}
+          >
         Delete
           </button>
-          <button type='submit' >
-          Save
-          </button>
+          <button type="submit">Save</button>
         </form>
       );
 }

@@ -5,15 +5,15 @@ import note from './note.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { EditNoteButton,
   DeleteNoteButton, } from 'components/Buttons/noteButtons';
-import { Nota } from '@prisma/client';
+import { IntNota } from '#@/lib/types/notas';
 
 export const NotaComponent = (
   {
     notaRaw 
-  }: { notaRaw: Nota } 
+  }: { notaRaw: IntNota } 
 ) => {
           const {
-            id, title, date 
+            id, text, dueDate 
           } = notaRaw;
 
           return (
@@ -23,10 +23,10 @@ export const NotaComponent = (
               </section>
               <p
                 className={`${ typography.bodySmall } ${ note.textArea }`}
-              >{`Nota: ${ title }`}</p>
+              >{`Nota: ${ text }`}</p>
               <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
-                {date && fixFechas(
-                  date 
+                {dueDate && fixFechas(
+                  dueDate 
                 )}
               </sub>
               <div className={note.buttonsRow}>

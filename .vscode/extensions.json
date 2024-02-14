@@ -2,6 +2,7 @@
   "recommendations": [
     "prisma.prisma",
     "ms-vscode.vscode-typescript-next",
-    "ms-vscode.js-debug-nightly"
+    "ms-vscode.js-debug-nightly",
+    "dbaeumer.vscode-eslint"
   ]
 }

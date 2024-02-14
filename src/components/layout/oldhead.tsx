@@ -13,13 +13,13 @@ import { useNavigationContext } from '#@/app/Context/navigation-context';
 
 export function HeaderOld(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
       let modalSegment;
 
       const {
-        isNavOpen
+        isNavOpen 
       } = useNavigationContext();
 
       if ( isNavOpen ) {

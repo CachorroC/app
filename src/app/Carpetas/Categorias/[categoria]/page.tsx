@@ -6,14 +6,14 @@ import { useEffect } from 'react';
 export default function Page(
   {
     params: {
-      categoria
+      categoria 
     },
   }: {
     params: { categoria: string };
-  }
+  } 
 ) {
       const {
-        setCurrentCategory
+        setCurrentCategory 
       } = useCategory();
       /*
   const ncarps = [
@@ -29,11 +29,11 @@ export default function Page(
       useEffect(
         () => {
                   setCurrentCategory(
-                    categoria
+                    categoria 
                   );
 
                   return () => {};
-        }, [ categoria, setCurrentCategory ]
+        }, [ categoria, setCurrentCategory ] 
       );
 
       return (

@@ -13,23 +13,23 @@ export function CarpetasList() {
       const carpetasReduced = useCarpetaSort();
 
       const {
-        search
+        search 
       } = useSearch();
 
       const {
-        currentCategory
+        currentCategory 
       } = useCategory();
       carpetasReduced.forEach(
         (
-          proceso
+          proceso 
         ) => {
                   const {
-                    ultimaActuacion
+                    ultimaActuacion 
                   } = proceso;
 
                   if ( proceso.nombre.toLowerCase()
                         .indexOf(
-                          search.toLowerCase()
+                          search.toLowerCase() 
                         ) === -1 ) {
                     return;
                   }
@@ -42,7 +42,6 @@ export function CarpetasList() {
                       >
                         {ultimaActuacion && (
                           <ActuacionComponent
-                            initialOpenState={false}
                             key={ultimaActuacion.idProceso}
                             incomingActuacion={ultimaActuacion}
                           />
@@ -50,76 +49,67 @@ export function CarpetasList() {
                       </Card>,
                     );
                   }
-        }
+        } 
       );
 
       return <>{rows}</>;
 }
 
-
-
-export function CarpetasTable () {
+export function CarpetasTable() {
       const rows: JSX.Element[] = [];
 
       const carpetasReduced = useCarpetaSort();
 
       const {
-        search
+        search 
       } = useSearch();
-
 
       carpetasReduced.forEach(
         (
-          carpeta
+          carpeta 
         ) => {
                   const {
-                    ultimaActuacion
+                    ultimaActuacion 
                   } = carpeta;
 
                   if ( carpeta.nombre.toLowerCase()
                         .indexOf(
-                          search.toLowerCase()
+                          search.toLowerCase() 
                         ) === -1 ) {
                     return;
                   }
-
 
                   rows.push(
                     <CardRow
                       key={carpeta.numero}
                       carpeta={carpeta}
                     >
-
-                      { ultimaActuacion
+                      {ultimaActuacion
                         ? (
                             <td>
-                              <h5 className={typography.titleMedium}>
+                              <h5 className={typography.titleSmall}>
                                 {ultimaActuacion.actuacion}
                               </h5>
-
 
                               {ultimaActuacion.anotacion && (
                                 <span className={typography.labelSmall}>
                                   {ultimaActuacion.anotacion}
                                 </span>
                               )}
-                            </td> )
-                        : (
-                            <td>
-                              <h5 className={typography.headlineSmall}>
-                               Sin actuaciones
-                              </h5>
-                              <span className={typography.labelSmall}>
-                                  Esta carpeta no tiene registros en la Rama Judicial
-                              </span>
                             </td>
                           )
-                      }
-
-                    </CardRow>
+                        : (
+                            <td>
+                              <h5 className={typography.titleSmall}>Sin actuaciones</h5>
+                              <span className={typography.labelSmall}>
+              Esta carpeta no tiene registros en la Rama Judicial
+                              </span>
+                            </td>
+                          )}
+                    </CardRow>,
                   );
-        }
+        } 
       );
 
-      return <>{ rows}</>;
+      return <>{rows}</>;
 }

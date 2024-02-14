@@ -6,16 +6,8 @@ import { Route } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
-import { NotasLinkList } from './notas-list';
-import { prisma } from '#@/lib/connection/prisma';
-
-
-
-
-export const dynamicParams = true;
-//? Generate segments for [numero]
-
-
+import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
+import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 
 export default async function LayoutCarpetaMain(
   {
@@ -28,55 +20,23 @@ export default async function LayoutCarpetaMain(
     top: ReactNode;
     right: ReactNode;
     params: { numero: string };
-  }
+  } 
 ) {
-      const  carpeta = await prisma.carpeta.update(
-        {
-          where: {
-            numero: Number(
-              params.numero
-            )
-          },
-          data: {
-            revisado: true
-          },
-          include: {
-            ultimaActuacion: true,
-            deudor         : true,
-            codeudor       : true,
-            notas          : true,
-            tareas         : true,
-            demanda        : {
-              include: {
-                notificacion: {
-                  include: {
-                    notifiers: true
-                  }
-                },
-                medidasCautelares: true
-              }
-            },
-            procesos: {
-              include: {
-                juzgado: true
-              }
-            },
-          }
-        }
+      const carpeta = await getCarpetabyNumero(
+        Number(
+          params.numero 
+        ) 
       );
-
 
       if ( !carpeta ) {
         return notFound();
       }
 
       return (
-
         <CarpetaFormProvider
           key={params.numero}
           carpeta={carpeta}
         >
-          {carpeta.nombre}
           <div className={styles.top}>
             <Suspense fallback={<Loader />}>
               <Link href={`/Carpeta/${ params.numero }` as Route}>
@@ -88,19 +48,17 @@ export default async function LayoutCarpetaMain(
                 )}
               </Link>
             </Suspense>
-            {top}
+            <Suspense fallback={<Loader />}>{top}</Suspense>
+            <Suspense fallback={<Loader />}>
+              <ForwardBackwardNavButtons />
+            </Suspense>
           </div>
-          <div className={styles.leftColumn}>{children}</div>
+          <div className={styles.leftColumn}>
+            <Suspense fallback={<Loader />}>{children}</Suspense>
+          </div>
           <div className={styles.right}>
-            {right}
-            <NotasLinkList
-              carpetaNumero={Number(
-                params.numero
-              )}
-              key={params.numero}
-            />
+            <Suspense fallback={<Loader />}>{right}</Suspense>
           </div>
         </CarpetaFormProvider>
-
       );
 }

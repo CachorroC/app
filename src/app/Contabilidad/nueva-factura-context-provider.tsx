@@ -1,21 +1,29 @@
 'use client';
-import { intFactura  } from '#@/lib/types/contabilidad';
-import { ReactNode, createContext, useState, Dispatch, SetStateAction, useContext, useEffect, } from 'react';
+import { intFactura } from '#@/lib/types/contabilidad';
+import { ReactNode,
+  createContext,
+  useState,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect, } from 'react';
 import { useFacturaSort } from './facturas-context-provider';
 
-const NuevaFacturaContext = createContext<{valorState: intFactura, setValorState: Dispatch<SetStateAction<intFactura>>}| null>(
-  null
+const NuevaFacturaContext = createContext<{
+  valorState: intFactura;
+  setValorState: Dispatch<SetStateAction<intFactura>>;
+} | null>(
+  null 
 );
 
 export function NuevaFacturaProvider(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
       const newDater = new Date();
 
       const facturas = useFacturaSort();
-
 
       const [ valorState, setValorState ] = useState<intFactura>(
         {
@@ -39,10 +47,11 @@ export function NuevaFacturaProvider(
           concepto          : '',
           direccion         : '',
           fecha             : new Date(
-            newDater.getFullYear(), newDater.getMonth(), newDater.getDate()
+            newDater.getFullYear(),
+            newDater.getMonth(),
+            newDater.getDate(),
           ),
-
-        }
+        } 
       );
 
       useEffect(
@@ -50,63 +59,58 @@ export function NuevaFacturaProvider(
                   if ( valorState.id !== '' ) {
                     const idk = [ ...facturas ].find(
                       (
-                        factura
+                        factura 
                       ) => {
                                 return factura.id === valorState.id;
-                      }
+                      } 
                     );
 
                     if ( idk ) {
                       const {
-                        _id, facturaElectronica, ...restIdk
+                        _id, facturaElectronica, ...restIdk 
                       } = idk;
                       console.log(
-                        _id
+                        _id 
                       );
                       console.log(
-                        facturaElectronica
+                        facturaElectronica 
                       );
 
                       setValorState(
                         (
-                          e
+                          e 
                         ) => {
-
                                   return {
                                     ...e,
                                     ...restIdk,
                                   };
-                        }
+                        } 
                       );
                     }
                   }
-
-
-
-        }, [ facturas, valorState.id, ]
+        }, [ facturas, valorState.id ] 
       );
       return (
-        <NuevaFacturaContext.Provider value={{
-          valorState,
-          setValorState
-        }}>
+        <NuevaFacturaContext.Provider
+          value={{
+            valorState,
+            setValorState,
+          }}
+        >
           {children}
         </NuevaFacturaContext.Provider>
       );
 }
 
-
-
-export function useNuevaFacturaContext () {
+export function useNuevaFacturaContext() {
       const context = useContext(
-        NuevaFacturaContext
+        NuevaFacturaContext 
       );
 
       if ( !context ) {
         throw new Error(
-          'Nueva intFactura context must be used within a nueva factura provider'
+          'Nueva intFactura context must be used within a nueva factura provider',
         );
-
       }
 
       return context;

@@ -9,28 +9,29 @@ import { outActuacion } from './actuaciones';
 import { outProceso } from './procesos';
 import { WithId } from 'mongodb';
 import { intProceso } from 'types/procesos';
-import { IntTask } from './tareas';
+import { IntTask, SubTarea } from './tareas';
+import { IntNota } from './notas';
 
 export interface IntCarpeta {
-  category: Category;
+  category: string;
+  codeudor: Codeudor | null;
+  demanda: intDemanda | null;
+  deudor: Deudor | null;
   fecha: Date | null;
+  id: number;
   idProcesos: number[];
   idRegUltimaAct: number | null;
   llaveProceso: string;
   nombre: string;
-  numero: number;
-  revisado: boolean;
-  terminado: boolean;
-  tipoProceso: TipoProceso;
-  updatedAt: Date;
-  ultimaActuacion: outActuacion | null;
-  deudor: Deudor | null;
-  codeudor: Codeudor | null;
   notas: IntNota[];
-  demanda: Demanda | null;
+  numero: number;
   procesos: outProceso[];
+  revisado: boolean;
   tareas: IntTask[];
-  id: number;
+  terminado: boolean;
+  tipoProceso: string;
+  ultimaActuacion: outActuacion | null;
+  updatedAt: Date;
 }
 
 export type Category =
@@ -51,27 +52,29 @@ export interface Codeudor {
   telefono: null | string;
 }
 
-export interface Demanda {
-  capitalAdeudado: null | string;
+export interface intDemanda {
+  avaluo: null | number;
+  capitalAdeudado: null | number;
   carpetaNumero: number | null;
   departamento: string | null;
   despacho: null | string;
   entregaGarantiasAbogado: Date | null;
   etapaProcesal: null | string;
-  llaveProceso: string | null;
   fechaPresentacion: Date[];
   id: number;
-  mandamientoPago: Date | null;
-  tipoProceso: string;
+  liquidacion: number | null;
+  llaveProceso: string | null;
+  mandamientoPago: Date[];
+  medidasCautelares: MedidasCautelares | null;
   municipio: string | null;
+  notificacion: Notificacion | null;
   obligacion: string[];
   radicado: null | string;
+  tipoProceso: string;
   vencimientoPagare: Date[];
-  notificacion: Notificacion | null;
-  medidasCautelares: MedidasCautelares | null;
 }
 
-export type DemandaDepartamento =
+export type intDemandaDepartamento =
   | 'CUNDINAMARCA'
   | 'CUNDINNAMARCA'
   | 'TOLIMA'
@@ -89,7 +92,7 @@ export interface MedidasCautelares {
 }
 
 export interface Notificacion {
-  autoNotificado: null | string;
+  autoNotificado: null | Date;
   demandaId: number | null;
   certimail: boolean | null;
   fisico: boolean | null;
@@ -213,16 +216,16 @@ export class carpetaConvert {
             );
   }
 
-  public static toDemanda(
+  public static tointDemanda(
     json: string
-  ): Demanda {
+  ): intDemanda {
             return JSON.parse(
               json
             );
   }
 
   public static demandaToJson(
-    value: Demanda
+    value: intDemanda
   ): string {
             return JSON.stringify(
               value
@@ -381,7 +384,9 @@ export const mockCarpeta: IntCarpeta = {
   },
   demanda: {
     departamento           : 'CUNDINAMARCA',
-    capitalAdeudado        : '1000000',
+    avaluo                 : 10000,
+    liquidacion            : 10000,
+    capitalAdeudado        : 1000000,
     entregaGarantiasAbogado: new Date(),
     carpetaNumero          : 0,
     id                     : 0,
@@ -408,9 +413,16 @@ export const mockCarpeta: IntCarpeta = {
       id               : 0,
       medidaSolicitada : null,
     },
-    mandamientoPago: null,
+    mandamientoPago: [ new Date() ],
   },
-  codeudor       : null,
+  codeudor: {
+    carpetaNumero: 0,
+    cedula       : null,
+    direccion    : null,
+    id           : 0,
+    nombre       : null,
+    telefono     : null
+  },
   nombre         : '',
   id             : 1000,
   fecha          : null,

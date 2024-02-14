@@ -9,50 +9,53 @@ import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
-import { Task } from '#@/components/Tareas/task';
 import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
 import InformationComponent from '../information-component';
-import { fixFechas } from '#@/lib/project/helper';
+import { Nota } from '#@/app/Notas/nota';
+import { NotasSortProvider } from '#@/app/Context/notas-sort-context';
+import card from 'components/Card/card.module.css';
+import { NotasLinkList } from '../notas-list';
 
 async function NotasList(
   {
-    carpetaNumero
-  }: { carpetaNumero: number }
+    carpetaNumero 
+  }: { carpetaNumero: number } 
 ) {
       const notas = await getNotas(
-        carpetaNumero
+        carpetaNumero 
       );
+
       return (
-        <>
+        <NotasSortProvider notas={notas}>
           {notas.map(
             (
-              nota
+              nota 
             ) => {
                       return (
-                        <Task
+                        <Nota
+                          nota={nota}
                           key={nota.id}
-                          task={nota}
                         />
                       );
-            }
+            } 
           )}
-        </>
+        </NotasSortProvider>
       );
 }
 
 export default async function Page(
   {
     params: {
-      numero
+      numero 
     },
   }: {
     params: { numero: string };
-  }
+  } 
 ) {
       const carpeta = await getCarpetabyNumero(
         Number(
-          numero
-        )
+          numero 
+        ) 
       );
 
       if ( !carpeta ) {
@@ -60,7 +63,7 @@ export default async function Page(
       }
 
       const {
-        llaveProceso, demanda, fecha, updatedAt
+        llaveProceso, demanda, fecha, updatedAt 
       } = carpeta;
 
       const allFechas = new Set<{ name: string; date: Date }>();
@@ -68,9 +71,9 @@ export default async function Page(
         {
           name: 'updatedAt',
           date: new Date(
-            updatedAt
+            updatedAt 
           ),
-        }
+        } 
       );
 
       if ( fecha ) {
@@ -78,9 +81,9 @@ export default async function Page(
           {
             name: 'fechaUltimaActualizacion',
             date: new Date(
-              fecha
+              fecha 
             ),
-          }
+          } 
         );
       }
 
@@ -97,43 +100,47 @@ export default async function Page(
             {
               name: 'entregaGarantiasAbogado',
               date: new Date(
-                entregaGarantiasAbogado
+                entregaGarantiasAbogado 
               ),
-            }
+            } 
           );
         }
 
         if ( fechaPresentacion !== null ) {
           fechaPresentacion.forEach(
             (
-              fechaP
+              fechaP 
             ) => {
                       allFechas.add(
                         {
                           name: 'fechaPresentacion',
                           date: new Date(
-                            fechaP
+                            fechaP 
                           ),
-                        }
+                        } 
                       );
-            }
+            } 
           );
         }
 
         if ( mandamientoPago !== null ) {
-          allFechas.add(
-            {
-              name: 'mandamientoPago',
-              date: new Date(
-                mandamientoPago
-              ),
-            }
+          mandamientoPago.forEach(
+            (
+              mandamiento, index 
+            ) => {
+                      allFechas.add(
+                        {
+                          name: `mandamientoPago.${ index }`,
+                          date: new Date(),
+                        } 
+                      );
+            } 
           );
         }
 
         for ( const vencimiento of vencimientoPagare ) {
           const indexOfVencimiento = vencimientoPagare.indexOf(
-            vencimiento
+            vencimiento 
           );
 
           if ( vencimiento === null ) {
@@ -144,21 +151,21 @@ export default async function Page(
             {
               name: `vencimientoPagare.${ indexOfVencimiento }`,
               date: new Date(
-                vencimiento
+                vencimiento 
               ),
-            }
+            } 
           );
           continue;
         }
       }
 
       const allFechasArray = Array.from(
-        allFechas
+        allFechas 
       );
 
       const fechasMaper = [ ...allFechasArray ].sort(
         (
-          a, b
+          a, b 
         ) => {
                   const x = a.date.getTime();
 
@@ -173,26 +180,17 @@ export default async function Page(
                   }
 
                   return 0;
-        }
+        } 
       );
 
       return (
         <>
-          <h2
-            style={{
-              gridArea: '1 / 1 / 2 / 4',
-            }}
-            className={typography.headlineMedium}
-          >{`Carpeta número ${ numero }`}</h2>
-
-          {updatedAt && <h3>{`actualizado a las ${ fixFechas(
-            updatedAt
-          ) }`}</h3>}
-
-          <InformationComponent carpeta={carpeta} />
+          <div className={card.container}>
+            <InformationComponent carpeta={carpeta} />
+          </div>
 
           {llaveProceso && (
-            <Fragment key={llaveProceso}>
+            <div className={card.container}>
               <Suspense fallback={<Loader />}>
                 <CopyButton
                   key={numero}
@@ -200,20 +198,28 @@ export default async function Page(
                   copyTxt={llaveProceso}
                 />
               </Suspense>
-            </Fragment>
+            </div>
           )}
-
-          <Suspense fallback={<SearchOutputListSkeleton />}>
-            <NotasList carpetaNumero={Number(
-              numero
-            )} />
-          </Suspense>
-
-          <section className={layout.sectionColumn}>
+          <div className={card.container}>
+            <Suspense fallback={<SearchOutputListSkeleton />}>
+              <NotasList carpetaNumero={Number(
+                numero 
+              )} />
+            </Suspense>
+            <Suspense fallback={<Loader />}>
+              <NotasLinkList
+                carpetaNumero={Number(
+                  numero 
+                )}
+                key={numero}
+              />
+            </Suspense>
+          </div>
+          <div className={card.container}>
             <Suspense fallback={<Loader />}>
               {fechasMaper.map(
                 (
-                  fechaMap
+                  fechaMap 
                 ) => {
                           return (
                             <div
@@ -224,15 +230,15 @@ export default async function Page(
                               <p className={typography.labelMedium}>
                                 {' '}
                                 {OutputDateHelper(
-                                  fechaMap.date
+                                  fechaMap.date 
                                 )}
                               </p>
                             </div>
                           );
-                }
+                } 
               )}
             </Suspense>
-          </section>
+          </div>
 
           <Suspense fallback={<ProcesosCardSkeleton />}>
             {llaveProceso && (

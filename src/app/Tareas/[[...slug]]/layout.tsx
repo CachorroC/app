@@ -13,7 +13,7 @@ export default async function Layout(
   }: {
     params: { slug?: string[] };
     children: ReactNode;
-  }
+  } 
 ) {
       let title;
 
@@ -21,17 +21,17 @@ export default async function Layout(
         const [
           ano,
           mes,
-          dia
+          dia 
         ] = params.slug;
         title = OutputDateHelper(
           new Date(
             Number(
-              ano
+              ano 
             ), Number(
-              mes
+              mes 
             ) - 1, Number(
-              dia
-            )
+              dia 
+            ) 
           ),
         );
       } else {
@@ -40,17 +40,14 @@ export default async function Layout(
 
       const tasks = await prisma.task.findMany();
 
-      const {
-        length
-      } = tasks;
       return (
         <TasksProvider initialTasks={tasks}>
           <div className={layout.top}>
             <h2 className={typography.headlineLarge}>{title}</h2>
           </div>
           <div className={layout.left}>{children}</div>
-          <div className={ layout.right }>
-            <AddTask id={ length +1 } />
+          <div className={layout.right}>
+            <AddTask />
           </div>
         </TasksProvider>
       );

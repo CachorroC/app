@@ -14,73 +14,64 @@ import { InputDateHelper } from '#@/lib/project/date-helper';
 
 export function IngresoComponent(
   {
-    carpetas
-  }: {carpetas: IntCarpeta[]}
+    carpetas 
+  }: { carpetas: IntCarpeta[] } 
 ) {
       const conceptos = [
-        'Telefonia'
-        , 'CyB'
-        , 'Servicios Publicos'
-        , 'Restaurante o Bar'
-        , 'Parqueadero o Peaje'
-        , 'Dotacion'
-        , 'Arreglos'
-        , 'ProcesoBancolombia'
-        , 'ProcesoReintegra'
-        , 'sinEspecificar'
+        'Telefonia',
+        'CyB',
+        'Servicios Publicos',
+        'Restaurante o Bar',
+        'Parqueadero o Peaje',
+        'Dotacion',
+        'Arreglos',
+        'ProcesoBancolombia',
+        'ProcesoReintegra',
+        'sinEspecificar',
       ];
 
-
-
       const {
-        valorState, setValorState
+        valorState, setValorState 
       } = useNuevaFacturaContext();
 
-
-
-
       const [ perteneceProceso, setPerteneceProceso ] = useState(
-        false
+        false 
       );
 
-
-      async function createIngresoInDatabase () {
-
-
-
+      async function createIngresoInDatabase() {
             const sender = await addToContabilidad(
-              valorState
+              valorState 
             );
 
             const adder = await addFactura(
-              valorState
+              valorState 
             );
 
             if ( adder.success ) {
               alert(
-                `se ingresó la informacion a la base de datos in prisma ${ adder.data }`
+                `se ingresó la informacion a la base de datos in prisma ${ adder.data }`,
               );
             } else {
               alert(
-                `error, no se pudo ingresar la forma a la base de dato in prismas ${ adder.data }`
+                `error, no se pudo ingresar la forma a la base de dato in prismas ${ adder.data }`,
               );
             }
 
             if ( sender.success ) {
               alert(
-                `se ingresó la informacion a la base de datos ${ sender.data }`
+                `se ingresó la informacion a la base de datos ${ sender.data }` 
               );
             } else {
               alert(
-                `error, no se pudo ingresar la forma a la base de datos ${ sender.data }`
+                `error, no se pudo ingresar la forma a la base de datos ${ sender.data }`,
               );
             }
 
             if ( !adder.success || !sender.success ) {
               return setValorState(
                 {
-                  ...valorState
-                }
+                  ...valorState,
+                } 
               );
             }
 
@@ -105,64 +96,61 @@ export function IngresoComponent(
               concepto          : '',
               direccion         : '',
               fecha             : '',
-
             };
             return setValorState(
               {
                 ...newFactura,
                 fecha: new Date(
-                  newFactura.fecha
-                )
-              }
+                  newFactura.fecha 
+                ),
+              } 
             );
       }
 
-      async function createFacturaGenerator () {
+      async function createFacturaGenerator() {
             const creator = await addFacturaGenerator(
-              valorState
+              valorState 
             );
 
             if ( creator.success ) {
               alert(
-                creator.data
+                creator.data 
               );
             } else {
               console.log(
-                `Error Factura Generator => ${ creator.data }`
+                `Error Factura Generator => ${ creator.data }` 
               );
               alert(
-                `Error Factura Generator => ${ creator.data }`
+                `Error Factura Generator => ${ creator.data }` 
               );
             }
       }
 
       function handleStringChange(
-        e: ChangeEvent<HTMLInputElement| HTMLSelectElement>
+        e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
       ) {
             return setValorState(
               {
                 ...valorState,
                 [ e.target.name ]: String(
-                  e.target.value
-                )
-              }
+                  e.target.value 
+                ),
+              } 
             );
       }
 
-      function handleNumericChange (
-        e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+      function handleNumericChange(
+        e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
       ) {
-
             return setValorState(
               {
                 ...valorState,
                 [ e.target.name ]: Number(
-                  e.target.value
-                )
-              }
+                  e.target.value 
+                ),
+              } 
             );
       }
-
 
       return (
         <form
@@ -170,15 +158,20 @@ export function IngresoComponent(
           className={formStyles.container}
         >
           <fieldset className={formStyles.segmentColumn}>
-            <legend style={ josefina.style } className={ typography.headlineMedium }>Establecimiento</legend>
-            <div className={ formStyles.segmentRowWrap }>
-              <div className={ formStyles.segmentColumn }>
+            <legend
+              style={josefina.style}
+              className={typography.headlineMedium}
+            >
+          Establecimiento
+            </legend>
+            <div className={formStyles.segmentRowWrap}>
+              <div className={formStyles.segmentColumn}>
                 <div className={formStyles.segmentRow}>
                   <label
                     className={formStyles.label}
                     htmlFor={'id'}
                   >
-            Numero de factura
+                Numero de factura
                   </label>
                   <input
                     name="id"
@@ -194,7 +187,7 @@ export function IngresoComponent(
                     className={formStyles.label}
                     htmlFor={'razonSocial'}
                   >
-            Razon Social
+                Razon Social
                   </label>
                   <input
                     name="razonSocial"
@@ -209,7 +202,7 @@ export function IngresoComponent(
                     className={formStyles.label}
                     htmlFor={'nombreComercial'}
                   >
-        Nombre Comercial
+                Nombre Comercial
                   </label>
                   <input
                     name="nombreComercial"
@@ -220,46 +213,56 @@ export function IngresoComponent(
                   />
                 </div>
                 <div className={formStyles.segmentRow}>
-                  <label className={formStyles.label} htmlFor={'fecha'}>fecha</label>
-                  <input className={formStyles.textArea}
+                  <label
+                    className={formStyles.label}
+                    htmlFor={'fecha'}
+                  >
+                fecha
+                  </label>
+                  <input
+                    className={formStyles.textArea}
                     name={'fecha'}
                     type={'date'}
                     value={InputDateHelper(
                       valorState.fecha 
                     )}
-
                     onChange={(
-                      e
+                      e 
                     ) => {
                               const {
-                                value
+                                value 
                               } = e.target;
 
                               const [
                                 yearStringer,
                                 monthStringer,
-                                dayStringer
+                                dayStringer 
                               ]
-                    =  value.split(
-                      '-'
+                    = value.split(
+                      '-' 
                     );
                               return setValorState(
                                 {
                                   ...valorState,
                                   fecha: new Date(
-                                    `${ yearStringer }-${ monthStringer }-${ dayStringer }`
-                                  )
-                                }
+                                    `${ yearStringer }-${ monthStringer }-${ dayStringer }`,
+                                  ),
+                                } 
                               );
                     }}
                   />
                 </div>
-
               </div>
-              <div className={ formStyles.segmentColumn }>
+              <div className={formStyles.segmentColumn}>
                 <div className={formStyles.segmentRow}>
-                  <label className={formStyles.label} htmlFor={'direccion'}>direccion</label>
-                  <input className={formStyles.textArea}
+                  <label
+                    className={formStyles.label}
+                    htmlFor={'direccion'}
+                  >
+                direccion
+                  </label>
+                  <input
+                    className={formStyles.textArea}
                     name="direccion"
                     type="text"
                     value={valorState.direccion}
@@ -267,8 +270,14 @@ export function IngresoComponent(
                   />
                 </div>
                 <div className={formStyles.segmentRow}>
-                  <label className={formStyles.label} htmlFor={'ciudad'}>ciudad</label>
-                  <input className={formStyles.textArea}
+                  <label
+                    className={formStyles.label}
+                    htmlFor={'ciudad'}
+                  >
+                ciudad
+                  </label>
+                  <input
+                    className={formStyles.textArea}
                     name="ciudad"
                     type="text"
                     value={valorState.ciudad}
@@ -276,8 +285,14 @@ export function IngresoComponent(
                   />
                 </div>
                 <div className={formStyles.segmentRow}>
-                  <label className={formStyles.label} htmlFor={'dv'}>Digito de verificacion</label>
-                  <input className={formStyles.textArea}
+                  <label
+                    className={formStyles.label}
+                    htmlFor={'dv'}
+                  >
+                Digito de verificacion
+                  </label>
+                  <input
+                    className={formStyles.textArea}
                     name="dv"
                     type="number"
                     value={valorState.dv}
@@ -285,48 +300,59 @@ export function IngresoComponent(
                   />
                 </div>
                 <div className={formStyles.segmentRow}>
-                  <label className={formStyles.label} htmlFor={'concepto'}>concepto</label>
-                  <div className={ formStyles.segmentColumn}>
-                    <select className={formStyles.selectArea}
+                  <label
+                    className={formStyles.label}
+                    htmlFor={'concepto'}
+                  >
+                concepto
+                  </label>
+                  <div className={formStyles.segmentColumn}>
+                    <select
+                      className={formStyles.selectArea}
                       name="concepto"
                       value={valorState.concepto}
-                      onChange={ (
-                        e
+                      onChange={(
+                        e 
                       ) => {
                                 const {
-                                  value
+                                  value 
                                 } = e.target;
 
-                                if ( value === 'ProcesoBancolombia' || value === 'ProcesoReintegra' ) {
+                                if (
+                                  value === 'ProcesoBancolombia'
+                      || value === 'ProcesoReintegra'
+                                ) {
                                   setPerteneceProceso(
-                                    true
+                                    true 
                                   );
                                 }
 
                                 return setValorState(
                                   {
                                     ...valorState,
-                                    concepto: value
-                                  }
+                                    concepto: value,
+                                  } 
                                 );
                       }}
                     >
                       {conceptos.map(
                         (
-                          concepto
+                          concepto 
                         ) => {
                                   return (
                                     <option
-                                      className={valorState.concepto === concepto
-                                        ? formStyles.buttonActive
-                                        : formStyles.buttonPassive}
+                                      className={
+                                        valorState.concepto === concepto
+                                          ? formStyles.buttonActive
+                                          : formStyles.buttonPassive
+                                      }
                                       key={concepto}
-                                      value={ concepto }
+                                      value={concepto}
                                     >
                                       {concepto}
                                     </option>
                                   );
-                        }
+                        } 
                       )}
                     </select>
                     <input
@@ -341,43 +367,59 @@ export function IngresoComponent(
                 </div>
               </div>
             </div>
-
-
-
           </fieldset>
           <fieldset className={formStyles.segmentColumn}>
-            <legend className={typography.headlineMedium }>Transacciones con divisa nacional</legend>
+            <legend className={typography.headlineMedium}>
+          Transacciones con divisa nacional
+            </legend>
 
-            <NumericValueInput inputName={ 'valorTotal' } inputLabel={ 'Valor Total' }  />
-            <NumericValueInput inputName={ 'valorOtroImp' } inputLabel={ 'otros impuestos' } />
-            <NumericValueInput inputName={ 'valorIva' } inputLabel={ 'IVA' }  />
-            <NumericValueInput inputName={ 'valorBase' } inputLabel={ 'Valor Base' }  />
+            <NumericValueInput
+              inputName={'valorTotal'}
+              inputLabel={'Valor Total'}
+            />
+            <NumericValueInput
+              inputName={'valorOtroImp'}
+              inputLabel={'otros impuestos'}
+            />
+            <NumericValueInput
+              inputName={'valorIva'}
+              inputLabel={'IVA'}
+            />
+            <NumericValueInput
+              inputName={'valorBase'}
+              inputLabel={'Valor Base'}
+            />
           </fieldset>
           <fieldset className={formStyles.segmentColumn}>
-            <legend className={typography.headlineMedium }>tiene</legend>
-            <div className={ formStyles.segmentRow }>
-              <label htmlFor={'hasOtroImp'} className={formStyles.label}>otro impuesto</label>
+            <legend className={typography.headlineMedium}>tiene</legend>
+            <div className={formStyles.segmentRow}>
+              <label
+                htmlFor={'hasOtroImp'}
+                className={formStyles.label}
+              >
+            otro impuesto
+              </label>
               <label className={formStyles.switchBox}>
                 <input
                   className={formStyles.inputElement}
-                  checked={ valorState.hasOtroImp }
-                  name='hasOtroImp'
+                  checked={valorState.hasOtroImp}
+                  name="hasOtroImp"
                   type="checkbox"
                   onChange={(
-                    e
+                    e 
                   ) => {
                             return setValorState(
                               {
                                 ...valorState,
-                                hasOtroImp: e.target.checked
-                              }
+                                hasOtroImp: e.target.checked,
+                              } 
                             );
                   }}
                 />
                 <span className={formStyles.slider}></span>
               </label>
             </div>
-            <div className={ formStyles.segmentRow }>
+            <div className={formStyles.segmentRow}>
               <label className={formStyles.label}>iva</label>
               <label className={formStyles.switchBox}>
                 <input
@@ -386,20 +428,20 @@ export function IngresoComponent(
                   type="checkbox"
                   name={'hasIva'}
                   onChange={(
-                    e
+                    e 
                   ) => {
                             return setValorState(
                               {
                                 ...valorState,
-                                hasIva: e.target.checked
-                              }
+                                hasIva: e.target.checked,
+                              } 
                             );
                   }}
                 />
                 <span className={formStyles.slider}></span>
               </label>
             </div>
-            <div className={ formStyles.segmentRow }>
+            <div className={formStyles.segmentRow}>
               <label className={formStyles.label}>Icui</label>
               <label className={formStyles.switchBox}>
                 <input
@@ -408,20 +450,20 @@ export function IngresoComponent(
                   type="checkbox"
                   name={'hasIcui'}
                   onChange={(
-                    e
+                    e 
                   ) => {
                             return setValorState(
                               {
                                 ...valorState,
-                                hasIcui: e.target.checked
-                              }
+                                hasIcui: e.target.checked,
+                              } 
                             );
                   }}
                 />
                 <span className={formStyles.slider}></span>
               </label>
             </div>
-            <div className={ formStyles.segmentRow }>
+            <div className={formStyles.segmentRow}>
               <label className={formStyles.label}>ImpoConsumo</label>
               <label className={formStyles.switchBox}>
                 <input
@@ -430,21 +472,20 @@ export function IngresoComponent(
                   type="checkbox"
                   name={'hasImpoConsumo'}
                   onChange={(
-                    e
+                    e 
                   ) => {
                             return setValorState(
                               {
                                 ...valorState,
-                                hasImpoConsumo: e.target.checked
-
-                              }
+                                hasImpoConsumo: e.target.checked,
+                              } 
                             );
                   }}
                 />
                 <span className={formStyles.slider}></span>
               </label>
             </div>
-            <div className={ formStyles.segmentRow }>
+            <div className={formStyles.segmentRow}>
               <label className={formStyles.label}>Proceso</label>
               <label className={formStyles.switchBox}>
                 <input
@@ -453,7 +494,7 @@ export function IngresoComponent(
                   type="checkbox"
                   onChange={() => {
                             return setPerteneceProceso(
-                              !perteneceProceso
+                              !perteneceProceso 
                             );
                   }}
                 />
@@ -461,37 +502,54 @@ export function IngresoComponent(
               </label>
             </div>
             {perteneceProceso && (
-              <div className={ formStyles.segmentRow }>
-                <label className={ formStyles.label } htmlFor={ 'carpetaNumero' }>Numero de proceso al que pertenece</label>
-                <select value={ valorState.carpetaNumero } onChange={ (
-                  e
-                ) => {
-                          return setValorState(
-                            {
-                              ...valorState,
-                              carpetaNumero: Number(
-                                e.target.value
-                              )
-                            }
-                          );
-                }}>
-                  { carpetas.map(
+              <div className={formStyles.segmentRow}>
+                <label
+                  className={formStyles.label}
+                  htmlFor={'carpetaNumero'}
+                >
+              Numero de proceso al que pertenece
+                </label>
+                <select
+                  value={valorState.carpetaNumero}
+                  onChange={(
+                    e 
+                  ) => {
+                            return setValorState(
+                              {
+                                ...valorState,
+                                carpetaNumero: Number(
+                                  e.target.value 
+                                ),
+                              } 
+                            );
+                  }}
+                >
+                  {carpetas.map(
                     (
-                      carpeta
+                      carpeta 
                     ) => {
                               return (
-                                <option key={carpeta.numero} value={carpeta.numero}>{carpeta.nombre}</option>
+                                <option
+                                  key={carpeta.numero}
+                                  value={carpeta.numero}
+                                >
+                                  {carpeta.nombre}
+                                </option>
                               );
-                    }
-                  )
-                  }
+                    } 
+                  )}
                 </select>
-
               </div>
             )}
           </fieldset>
-          <button type='button' className={formStyles.button} onClick={ createFacturaGenerator }>
-            <span className={`material-symbols-outlined ${ formStyles.icon }`}>person_add</span>
+          <button
+            type="button"
+            className={formStyles.button}
+            onClick={createFacturaGenerator}
+          >
+            <span className={`material-symbols-outlined ${ formStyles.icon }`}>
+          person_add
+            </span>
             <span className={formStyles.text}>Crear el generador de Factura</span>
           </button>
           <ParseTextarea />
@@ -499,7 +557,9 @@ export function IngresoComponent(
             type="submit"
             className={formStyles.button}
           >
-            <span className={ `material-symbols-outlined ${ formStyles.icon }` }>send</span>
+            <span className={`material-symbols-outlined ${ formStyles.icon }`}>
+          send
+            </span>
             <span className={formStyles.text}>Enviar</span>
           </button>
         </form>

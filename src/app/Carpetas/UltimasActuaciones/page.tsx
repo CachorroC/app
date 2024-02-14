@@ -6,7 +6,6 @@ import ActuacionLoader from '#@/components/Card/actuacion-loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import styles from '#@/components/Card/card.module.css';
 
-
 export default async function Page() {
       const carpetas = await getCarpetas();
 
@@ -29,10 +28,10 @@ export default async function Page() {
           <tbody>
             {carpetas.flatMap(
               (
-                carpeta, index
+                carpeta, index 
               ) => {
                         const {
-                          idProcesos, numero
+                          idProcesos, numero 
                         } = carpeta;
 
                         if ( idProcesos.length === 0 ) {
@@ -41,27 +40,27 @@ export default async function Page() {
                               carpeta={carpeta}
                               key={numero}
                             >
-
-
                               <td>
-                                <h5 className={ ` ${ styles.actuacion } ${ typography.titleSmall }` }>
-              Sin registro
+                                <h5
+                                  className={` ${ styles.actuacion } ${ typography.titleSmall }`}
+                                >
+                    Sin registro
                                 </h5>
-                                <sub className={ typography.labelSmall }>0 de 0</sub>
+                                <sub className={typography.labelSmall}>0 de 0</sub>
                               </td>
                               <td>
-                                <sub className={ typography.headlineMedium }>por favor revise que el numero de expediente esté bien o si la informacion la brinda el juzgado por otro canal</sub>
-
+                                <sub className={typography.headlineMedium}>
+                    por favor revise que el numero de expediente esté bien o si
+                    la informacion la brinda el juzgado por otro canal
+                                </sub>
                               </td>
-
-
                             </CarpetaUltimaActuacionRow>
                           );
                         }
 
                         return idProcesos.map(
                           (
-                            idProceso
+                            idProceso 
                           ) => {
                                     return (
                                       <CarpetaUltimaActuacionRow
@@ -76,9 +75,9 @@ export default async function Page() {
                                         </Suspense>
                                       </CarpetaUltimaActuacionRow>
                                     );
-                          }
+                          } 
                         );
-              }
+              } 
             )}
           </tbody>
         </table>

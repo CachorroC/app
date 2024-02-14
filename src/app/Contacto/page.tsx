@@ -8,7 +8,7 @@ import { useContactContext } from '../Context/main-context';
 
 export default function Page() {
       const {
-        register, handleSubmit
+        register, handleSubmit 
       } = useForm<RawContactoFormValues>(
         {
           defaultValues: {
@@ -19,20 +19,20 @@ export default function Page() {
             telefono  : 1,
             comentario: 'Este es el espacio para registrar información adicional',
           },
-        }
+        } 
       );
 
       const {
-        contactoForm, setContactoForm
+        contactoForm, setContactoForm 
       } = useContactContext();
 
       const onSubmit: SubmitHandler<RawContactoFormValues> = async (
-        data
+        data 
       ) => {
                 const newData: ContactoForm = {
                   ...data,
                   telefono: Number(
-                    data.telefono
+                    data.telefono 
                   ),
                   fecha: new Date(),
                 };
@@ -40,7 +40,7 @@ export default function Page() {
                   {
                     ...contactoForm,
                     ...newData,
-                  }
+                  } 
                 );
 
                 try {
@@ -51,27 +51,27 @@ export default function Page() {
                         'Content-Type': 'application/json',
                       },
                       body: JSON.stringify(
-                        newData
+                        newData 
                       ),
-                    }
+                    } 
                   );
 
                   if ( !postData.ok ) {
                     throw new Error(
-                      `${ postData.status }: ${ postData.statusText }`
+                      `${ postData.status }: ${ postData.statusText }` 
                     );
                   }
 
                   const msg = await postData.json();
                   alert(
                     JSON.stringify(
-                      msg
-                    )
+                      msg 
+                    ) 
                   );
 
                   console.log(
                     `mensaje en app/Contacto/Page: ${ JSON.stringify(
-                      msg, null, 2
+                      msg, null, 2 
                     ) }`,
                   );
                 } catch ( e ) {
@@ -85,7 +85,7 @@ export default function Page() {
         <div className={form.container}>
           <form
             onSubmit={handleSubmit(
-              onSubmit
+              onSubmit 
             )}
             className={form.segmentColumn}
           >
@@ -103,7 +103,7 @@ export default function Page() {
                 {...register(
                   'nombre', {
                     required: true,
-                  }
+                  } 
                 )}
               />
             </section>{' '}
@@ -122,7 +122,7 @@ export default function Page() {
                   'email', {
                     required: false,
                     pattern : /^\S+@\S+$/i,
-                  }
+                  } 
                 )}
               />
             </section>
@@ -140,7 +140,7 @@ export default function Page() {
                 {...register(
                   'telefono', {
                     required: false,
-                  }
+                  } 
                 )}
               />
             </section>
@@ -157,7 +157,7 @@ export default function Page() {
                   <input
                     className={checkbox.inputElement}
                     {...register(
-                      'newsLetter'
+                      'newsLetter' 
                     )}
                     type="checkbox"
                   />
@@ -177,7 +177,7 @@ export default function Page() {
                   {...register(
                     'comentario', {
                       required: true,
-                    }
+                    } 
                   )}
                 />
               </section>
@@ -187,7 +187,7 @@ export default function Page() {
               {...register(
                 'grupo', {
                   required: true,
-                }
+                } 
               )}
             >
               <option value="Abogado">Abogado</option>

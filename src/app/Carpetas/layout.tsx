@@ -19,21 +19,19 @@ export default async function LayoutProcesosMain(
     children: ReactNode;
     top: ReactNode;
     right: ReactNode;
-  }
+  } 
 ) {
       const carpetas = await getCarpetas();
       return (
-
         <CarpetasSortProvider initialCarpetas={carpetas}>
           <NuevaCarpetaFormProvider>
-            <div className={ styles.top }>{ top }
-              <ResetButtonSorter carpetas={ carpetas } />
+            <div className={styles.top}>
+              {top}
+              <ResetButtonSorter carpetas={carpetas} />
             </div>
-            <div className={styles.leftGrid}>{ children }</div>
-            <div className={ styles.right }>
-              { right }</div>
+            <div className={styles.leftGrid}>{children}</div>
+            <div className={styles.right}>{right}</div>
           </NuevaCarpetaFormProvider>
         </CarpetasSortProvider>
-
       );
 }

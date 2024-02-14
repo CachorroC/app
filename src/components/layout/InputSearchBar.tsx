@@ -1,69 +1,36 @@
 'use client';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import { useSearch } from '#@/app/Context/search-context';
-import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
+import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
 
 export const InputSearchBar = () => {
           const {
-            search, setSearch
+            search, setSearch 
           } = useSearch();
-
-          const dispatchCarpetas = useCarpetaSortDispatch();
-
-          async function formAction(
-            formData: FormData
-          ) {
-                const searchQuery = formData.get(
-                  'searchQuery'
-                );
-
-                if ( !searchQuery ) {
-                  return dispatchCarpetas(
-                    {
-                      type   : 'search',
-                      payload: ''
-                    }
-                  );
-                }
-
-                return dispatchCarpetas(
-                  {
-                    type   : 'search',
-                    payload: searchQuery.toString()
-                  }
-                );
-
-          }
 
           const carpetasReduced = useCarpetaSort();
 
           return (
-            <form
-              action={formAction}
-              className={searchbar.inputContainer}
-            >
-              <pre>{JSON.stringify(
-                search, null, 2
-              )}</pre>
+            <>
               <datalist id="demandados-list">
                 {carpetasReduced.map(
                   (
-                    carpeta
+                    carpeta 
                   ) => {
                             return (
                               <option
                                 value={carpeta.nombre}
                                 key={carpeta.numero}
                                 onClick={(
-                                  e
+                                  e 
                                 ) => {
                                           console.log(
-                                            e.target
+                                            e.target 
                                           );
                                 }}
                               />
                             );
-                  }
+                  } 
                 )}
               </datalist>
               <label>
@@ -75,18 +42,14 @@ export const InputSearchBar = () => {
                   name={'searchQuery'}
                   placeholder={'Buscar'}
                   onChange={(
-                    input
+                    input 
                   ) => {
                             return setSearch(
-                              input.target.value
+                              input.target.value 
                             );
                   }}
                 />
               </label>
-              <button type="submit">
-                <span>Buscar</span>
-                <span className="material-symbols-outlined">search</span>
-              </button>
-            </form>
+            </>
           );
 };

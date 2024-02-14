@@ -12,19 +12,19 @@ export function SearchOutputList() {
       const rows: JSX.Element[] = [];
 
       const {
-        search
+        search 
       } = useSearch();
 
       const {
-        currentCategory
+        currentCategory 
       } = useCategory();
       carpetas.forEach(
         (
-          proceso
+          proceso 
         ) => {
                   if ( proceso.nombre.toLowerCase()
                         .indexOf(
-                          search.toLowerCase()
+                          search.toLowerCase() 
                         ) === -1 ) {
                     return;
                   }
@@ -38,7 +38,7 @@ export function SearchOutputList() {
                       />,
                     );
                   }
-        }
+        } 
       );
 
       return (

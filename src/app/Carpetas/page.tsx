@@ -1,39 +1,30 @@
-
 import { TableRowCarpetaSortingButton } from '#@/components/Carpetas/client/carpetasButtonsSort';
-import {  CarpetasTable } from '#@/components/Carpetas/client/carpetasList';
+import { CarpetasTable } from '#@/components/Carpetas/client/carpetasList';
 
-export default  function Page () {
-
-
-
+export default function Page() {
       return (
         <>
           <table
             style={{
-              gridColumn: '1 / span 4',
-              gridRow   : '1 / span 5',
+              width : '100%',
+              height: '100%',
             }}
           >
             <thead>
               <tr>
-                <TableRowCarpetaSortingButton sortKey={ 'numero' } />
-                <TableRowCarpetaSortingButton sortKey={ 'nombre' } />
-                <th>tipo proceso</th>
-                <th>terminado</th>
-                <TableRowCarpetaSortingButton sortKey={ 'fecha' } />
-
-                <th>expediente</th>
-                <TableRowCarpetaSortingButton sortKey={'category'}/>
-                <th>Capital Adeudado</th>
+                <TableRowCarpetaSortingButton sortKey={'numero'} />
+                <TableRowCarpetaSortingButton sortKey={'nombre'} />
+                <TableRowCarpetaSortingButton sortKey={'fecha'} />
+                <TableRowCarpetaSortingButton sortKey={'category'} />
                 <th>Actuaciones</th>
                 <th>Revisado</th>
+                <th>expediente</th>
               </tr>
             </thead>
             <tbody>
               <CarpetasTable />
             </tbody>
           </table>
-
         </>
       );
 }

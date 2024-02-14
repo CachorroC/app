@@ -2,7 +2,9 @@ import { prisma } from '#@/lib/connection/prisma';
 import { Route } from 'next';
 import typography from '#@/styles/fonts/typography.module.css';
 import Link from 'next/link';
-import { inputElement, slider, switchBox } from '#@/components/Form/form.module.css';
+import { inputElement,
+  slider,
+  switchBox, } from '#@/components/Form/form.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { fixMoney } from '#@/lib/project/helper';
@@ -21,55 +23,68 @@ export default async function PrismaCarpetas() {
               include: {
                 notificacion: {
                   include: {
-                    notifiers: true
-                  }
+                    notifiers: true,
+                  },
                 },
-                medidasCautelares: true
-              }
+                medidasCautelares: true,
+              },
             },
             procesos: {
               include: {
-                juzgado: true
-              }
+                juzgado: true,
+              },
             },
-          }
-        }
+          },
+        } 
       );
 
-      const carpetas = [ ...rawCarpetas ].sort(
-        (
-          a, b
-        ) => {
-                  if ( !a.fecha || a.fecha === undefined ) {
-                    return 1;
-                  }
+      const carpetas = rawCarpetas
+            .map(
+              (
+                mapper 
+              ) => {
+                        return {
+                          ...mapper,
+                          demanda: {
+                            ...mapper.demanda,
+                            capitalAdeudado: mapper.demanda?.capitalAdeudado.toNumber() ?? 1000,
+                          },
+                        };
+              } 
+            )
+            .sort(
+              (
+                a, b 
+              ) => {
+                        if ( !a.fecha || a.fecha === undefined ) {
+                          return 1;
+                        }
 
-                  if ( !b.fecha || b.fecha === undefined ) {
-                    return -1;
-                  }
+                        if ( !b.fecha || b.fecha === undefined ) {
+                          return -1;
+                        }
 
-                  const x = a.fecha;
+                        const x = a.fecha;
 
-                  const y = b.fecha;
+                        const y = b.fecha;
 
-                  if ( x < y ) {
-                    return 1;
-                  }
+                        if ( x < y ) {
+                          return 1;
+                        }
 
-                  if ( x > y ) {
-                    return -1;
-                  }
+                        if ( x > y ) {
+                          return -1;
+                        }
 
-                  return 0;
-        }
-      );
+                        return 0;
+              } 
+            );
       return (
-        <>{
-          carpetas.map(
+        <>
+          {carpetas.map(
             (
-              carpeta
+              carpeta 
             ) => {
-
                       const llaveLength = carpeta.llaveProceso?.length;
 
                       const errorLLaveProceso = llaveLength
@@ -77,7 +92,7 @@ export default async function PrismaCarpetas() {
                         : true;
 
                       const {
-                        numero, idProcesos
+                        numero, idProcesos 
                       } = carpeta;
 
                       const idProcesosLength = idProcesos.length;
@@ -93,15 +108,10 @@ export default async function PrismaCarpetas() {
                         <tr key={carpeta.numero}>
                           <td>
                             {' '}
-                            <Link
-                              href={`/Carpeta/${ numero }` as Route}
-                            >
-
+                            <Link href={`/Carpeta/${ numero }` as Route}>
                               {`#${ carpeta.numero }`}
 
-                              <span className='material-symbols-outlined'>
-            folder
-                              </span>
+                              <span className="material-symbols-outlined">folder</span>
                             </Link>
                           </td>
                           <td>
@@ -136,7 +146,7 @@ export default async function PrismaCarpetas() {
                           </td>
 
                           <td>{OutputDateHelper(
-                            carpeta.fecha
+                            carpeta.fecha 
                           )}</td>
                           <td>
                             <CopyButton
@@ -147,18 +157,15 @@ export default async function PrismaCarpetas() {
                           <td>{carpeta.category}</td>
                           <td>
                             {carpeta.demanda?.capitalAdeudado
-          && fixMoney(
-            {
-              valor: Number(
-                carpeta.demanda.capitalAdeudado
-              ),
-            }
-          )}
+                && fixMoney(
+                  {
+                    valor: Number(
+                      carpeta.demanda.capitalAdeudado 
+                    ),
+                  } 
+                )}
                           </td>
                           <td>
-
-
-
                             {errorLLaveProceso && (
                               <Link
                                 href={`/Carpeta/${ numero }/Editar` as Route}
@@ -168,9 +175,10 @@ export default async function PrismaCarpetas() {
                               </Link>
                             )}
                           </td>
-                        </tr> );
-            }
-          )
-        }</>
+                        </tr>
+                      );
+            } 
+          )}
+        </>
       );
 }

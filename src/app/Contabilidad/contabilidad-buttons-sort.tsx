@@ -6,8 +6,8 @@ import layout from '#@/styles/layout.module.css';
 import { useFacturaSortDispatch } from './facturas-context-provider';
 import { SortActionType } from '../Hooks/useFacturasReducer';
 
-
-type sortingType = 'fecha'
+type sortingType =
+  | 'fecha'
   | 'id'
   | 'razonSocial'
   | 'valorTotal'
@@ -30,13 +30,13 @@ const options: optionsType[] = [
     name : 'Page',
     value: 'sortingKey',
     items: [
-      'fecha'
-      , 'id'
-      , 'razonSocial'
-      , 'valorTotal'
-      , 'valorBase'
-      , 'valorIva'
-      , 'valorOtroImp'
+      'fecha',
+      'id',
+      'razonSocial',
+      'valorTotal',
+      'valorBase',
+      'valorIva',
+      'valorOtroImp',
     ],
   },
   {
@@ -48,13 +48,13 @@ const options: optionsType[] = [
 
 export function FacturasSortButtons() {
       const keys: sortingType[] = [
-        'fecha'
-        , 'id'
-        , 'razonSocial'
-        , 'valorTotal'
-        , 'valorBase'
-        , 'valorIva'
-        , 'valorOtroImp'
+        'fecha',
+        'id',
+        'razonSocial',
+        'valorTotal',
+        'valorBase',
+        'valorIva',
+        'valorOtroImp',
       ];
 
       const dispatchFacturas = useFacturaSortDispatch();
@@ -64,131 +64,120 @@ export function FacturasSortButtons() {
           type      : 'sort',
           dir       : true,
           sortingKey: 'fecha',
-        }
+        } 
       );
 
       return (
         <>
           <div>
             <h1>{'ordenar:'}</h1>
-            <span>
-              {currentDispatcher.dir
-                ? 'ascendente'
-                : 'descendente'}
-            </span>
+            <span>{currentDispatcher.dir
+              ? 'ascendente'
+              : 'descendente'}</span>
             <span className="material-symbols-outlined">
               {currentDispatcher.dir
                 ? 'arrow_upward'
                 : 'arrow_downward'}
             </span>
           </div>
-          {
-            options.map(
+          {options.map(
+            (
+              {
+                name, value, items 
+              } 
+            ) => {
+                      return (
+                        <section
+                          key={value}
+                          className={layout.sectionColumn}
+                        >
+                          <h5>{name}</h5>
+                          <section className={layout.sectionRow}>
+                            {items.map(
+                              (
+                                item 
+                              ) => {
+                                        return (
+                                          <button
+                                            key={item}
+                                            type="button"
+                                            onClick={() => {
+                                                      console.log(
+                                                        currentDispatcher[ value ] 
+                                                      );
+
+                                                      return dispatchFacturas(
+                                                        {
+                                                          ...currentDispatcher,
+                                                          sortingKey: item as sortingType,
+                                                        } 
+                                                      );
+                                            }}
+                                          >
+                                            {item}
+                                          </button>
+                                        );
+                              } 
+                            )}
+                          </section>
+                        </section>
+                      );
+            } 
+          )}
+          <section className={layout.segmentColumn}>
+            {keys.map(
               (
-                {
-                  name, value, items
-                }
+                key 
               ) => {
                         return (
-                          <section key={ value } className={ layout.sectionColumn }>
-                            <h5>{ name }</h5>
-                            <section className={ layout.sectionRow }>
-                              {
-                                items.map(
-                                  (
-                                    item
-                                  ) => {
-                                            return (
-                                              <button key={ item } type='button' onClick={
-                                                () => {
-
-                                                          console.log(
-                                                            currentDispatcher[ value ]
-                                                          );
-
-
-
-                                                          return dispatchFacturas(
-                                                            {
-                                                              ...currentDispatcher,
-                                                              sortingKey: item as sortingType,
-                                                            }
-                                                          );
-                                                }
-                                              }>
-                                                { item }
-                                              </button>
-                                            );
-                                  }
-                                )
-                              }
-                            </section>
-                          </section>
+                          <button
+                            type="button"
+                            onClick={() => {
+                                      setCurrentDispatcher(
+                                        (
+                                          curdispatch 
+                                        ) => {
+                                                  return {
+                                                    ...curdispatch,
+                                                    sortingKey: key,
+                                                    dir       : !curdispatch.dir,
+                                                  };
+                                        } 
+                                      );
+                                      return dispatchFacturas(
+                                        {
+                                          ...currentDispatcher,
+                                          sortingKey: key,
+                                        } 
+                                      );
+                            }}
+                            className={
+                              currentDispatcher.sortingKey === key
+                                ? styles.buttonActiveCategory
+                                : styles.buttonPassiveCategory
+                            }
+                            key={key}
+                          >
+                            {key}
+                          </button>
                         );
-              }
-            )
-          }
-          <section className={layout.segmentColumn}>
-            {
-              keys.map(
-                (
-                  key
-                ) => {
-                          return (
-                            <button
-                              type="button"
-                              onClick={
-                                () => {
-                                          setCurrentDispatcher(
-                                            (
-                                              curdispatch
-                                            ) => {
-                                                      return {
-                                                        ...curdispatch,
-                                                        sortingKey: key,
-                                                        dir       : !curdispatch.dir
-                                                      };
-                                            }
-                                          );
-                                          return dispatchFacturas(
-                                            {
-                                              ...currentDispatcher,
-                                              sortingKey: key,
-
-
-                                            }
-                                          );
-                                }
-                              }
-                              className={
-                                currentDispatcher.sortingKey === key
-                                  ? styles.buttonActiveCategory
-                                  : styles.buttonPassiveCategory
-                              }
-                              key={key}
-                            >
-                              {key}
-                            </button>
-                          );
-                }
-              )
-            }
+              } 
+            )}
             <button
               type="button"
               onClick={() => {
                         setCurrentDispatcher(
                           (
-                            d
+                            d 
                           ) => {
                                     return {
                                       ...d,
-                                      dir: !d.dir
-                                      ,
+                                      dir: !d.dir,
                                     };
-                          }
+                          } 
                         );
                         return dispatchFacturas(
-                          currentDispatcher
+                          currentDispatcher 
                         );
               }}
               className={styles.buttonPassiveCategory}
@@ -202,16 +191,18 @@ export function FacturasSortButtons() {
 
 export function TableRowFacturaSortingButton(
   {
-    sortKey
-  }: {sortKey: 'fecha'
-  | 'id'
-  | 'razonSocial'
-  | 'valorTotal'
-  | 'valorBase'
-  | 'valorIva'
-  | 'valorOtroImp';}
+    sortKey,
+  }: {
+    sortKey:
+    | 'fecha'
+    | 'id'
+    | 'razonSocial'
+    | 'valorTotal'
+    | 'valorBase'
+    | 'valorIva'
+    | 'valorOtroImp';
+  } 
 ) {
-
       const dispatchFacturas = useFacturaSortDispatch();
 
       const [ currentDispatcher, setCurrentDispatcher ] = useState<SortActionType>(
@@ -219,7 +210,7 @@ export function TableRowFacturaSortingButton(
           type      : 'sort',
           dir       : true,
           sortingKey: 'fecha',
-        }
+        } 
       );
       return (
         <th>
@@ -228,21 +219,21 @@ export function TableRowFacturaSortingButton(
             onClick={() => {
                       setCurrentDispatcher(
                         (
-                          curdispatch
+                          curdispatch 
                         ) => {
                                   return {
                                     ...curdispatch,
                                     sortingKey: sortKey,
-                                    dir       : !curdispatch.dir
+                                    dir       : !curdispatch.dir,
                                   };
-                        }
+                        } 
                       );
                       return dispatchFacturas(
                         {
                           ...currentDispatcher,
                           sortingKey: sortKey,
                           dir       : !currentDispatcher.dir,
-                        }
+                        } 
                       );
             }}
             className={

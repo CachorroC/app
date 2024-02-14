@@ -10,8 +10,8 @@ import { NewTask } from '#@/lib/types/tareas';
 
 export function AddTask(
   {
-    carpetaNumero
-  }: { carpetaNumero?: number }
+    carpetaNumero 
+  }: { carpetaNumero?: number } 
 ) {
       const [ taskState, setTaskState ] = useState<NewTask>(
         {
@@ -22,7 +22,7 @@ export function AddTask(
           carpetaNumero: carpetaNumero
             ? carpetaNumero
             : null,
-        }
+        } 
       );
 
       const dispatchTasks = useDispatchTasks();
@@ -34,34 +34,32 @@ export function AddTask(
               );
             } */
 
-
-
             const taskPrisma = await addTaskToPrisma(
               {
-                ...taskState
-              }
+                ...taskState,
+              } 
             );
 
             const taskMongo = await addTaskToMongo(
-              taskState
+              taskState 
             );
 
             alert(
               JSON.stringify(
-                taskPrisma, null, 2
-              )
+                taskPrisma, null, 2 
+              ) 
             );
             alert(
               JSON.stringify(
-                taskMongo, null, 2
-              )
+                taskMongo, null, 2 
+              ) 
             );
             setTaskState(
               {
                 ...taskState,
                 ...taskPrisma,
                 text: '',
-              }
+              } 
             );
             return dispatchTasks(
               {
@@ -70,108 +68,123 @@ export function AddTask(
                   ...taskState,
                   ...taskPrisma,
                 },
-              }
+              } 
             );
       }
 
       return (
         <>
-          <form action={ createTask } className={styles.container}>
+          <form
+            action={createTask}
+            className={styles.container}
+          >
             <fieldset>
               <legend>Agregar Tarea</legend>
-              <section className={ layout.sectionRow }>
+              <section className={layout.sectionRow}>
                 <label
                   className={`${ styles.label } ${ typography.titleMedium }`}
                   htmlFor={'text'}
                 >
-                tarea:
+              tarea:
                 </label>
                 <input
                   placeholder={'add task'}
                   type="text"
-                  name={ 'text' }
+                  name={'text'}
                   className={styles.textArea}
                   value={taskState.text}
                   onChange={(
-                    e
+                    e 
                   ) => {
                             return setTaskState(
                               {
                                 ...taskState,
                                 text: e.target.value,
-                              }
+                              } 
                             );
                   }}
                 />
-
               </section>
-              <section className={ layout.segmentRow }>
-
+              <section className={layout.segmentRow}>
                 <label className={styles.switchBox}>
                   <input
-                    className={ styles.inputElement }
+                    className={styles.inputElement}
                     name="done"
-                    checked={ taskState.done }
-                    onChange={ (
-                      e
+                    checked={taskState.done}
+                    onChange={(
+                      e 
                     ) => {
                               setTaskState(
                                 {
                                   ...taskState,
-                                  done: e.target.checked
-                                }
+                                  done: e.target.checked,
+                                } 
                               );
                     }}
                     type="checkbox"
                   />
                   <span className={styles.slider}></span>
                 </label>
-
               </section>
 
-              <input type='date' name='dueDate' value={  InputDateHelper(
-                taskState.dueDate
-              )
-              } onChange={ (
-                e
-              ) => {
-                        return setTaskState(
-                          {
-                            ...taskState,
-                            dueDate: new Date(
-                              e.target.value
-                            )
-
-                          }
-                        );
-              } } />
-              <input name='carpetaNumero' type='number'  className={styles.textArea} value={taskState.carpetaNumero ?? 0} onChange={ (
-                e
-              ) => {
-                        return setTaskState(
-                          {
-                            ...taskState,
-                            carpetaNumero: Number(
-                              e.target.value
-                            )
-                          }
-                        );
-              } } />
-              <input name='content' type='text'  className={styles.textArea} value={taskState.content.toLocaleString() ?? ''} onChange={ (
-                e
-              ) => {
-                        return setTaskState(
-                          {
-                            ...taskState,
-                            content: [ ...taskState.content, e.target.value ]
-                          }
-                        );
-              } } />
+              <input
+                type="date"
+                name="dueDate"
+                value={InputDateHelper(
+                  taskState.dueDate 
+                )}
+                onChange={(
+                  e 
+                ) => {
+                          return setTaskState(
+                            {
+                              ...taskState,
+                              dueDate: new Date(
+                                e.target.value 
+                              ),
+                            } 
+                          );
+                }}
+              />
+              <input
+                name="carpetaNumero"
+                type="number"
+                className={styles.textArea}
+                value={taskState.carpetaNumero ?? 0}
+                onChange={(
+                  e 
+                ) => {
+                          return setTaskState(
+                            {
+                              ...taskState,
+                              carpetaNumero: Number(
+                                e.target.value 
+                              ),
+                            } 
+                          );
+                }}
+              />
+              <input
+                name="content"
+                type="text"
+                className={styles.textArea}
+                value={taskState.content.toLocaleString() ?? ''}
+                onChange={(
+                  e 
+                ) => {
+                          return setTaskState(
+                            {
+                              ...taskState,
+                              content: [ ...taskState.content, e.target.value ],
+                            } 
+                          );
+                }}
+              />
             </fieldset>
             <button type={'submit'}>Add</button>
           </form>
           <pre>{JSON.stringify(
-            taskState, null, 2
+            taskState, null, 2 
           )}</pre>
         </>
       );

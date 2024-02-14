@@ -1,22 +1,22 @@
-export function ParseFactura (
-  rawFactura: string
+export function ParseFactura(
+  rawFactura: string 
 ) {
       const facturaMap = new Map();
 
       const rawKeyValues = rawFactura.split(
-        '\n'
+        '\n' 
       );
 
       for ( const rawKV of rawKeyValues ) {
         const [ key, value ] = rawKV.split(
-          ':'
+          ':' 
         );
         facturaMap.set(
-          key, value
+          key, value 
         );
       }
 
       return Object.fromEntries(
-        facturaMap
+        facturaMap 
       );
 }

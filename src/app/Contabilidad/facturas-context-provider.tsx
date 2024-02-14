@@ -1,46 +1,46 @@
 'use client';
 import { monFactura } from '#@/lib/types/contabilidad';
-import { Dispatch, ReactNode, createContext, useContext, useReducer } from 'react';
+import { Dispatch,
+  ReactNode,
+  createContext,
+  useContext,
+  useReducer, } from 'react';
 import { IntAction, facturasReducer } from '../Hooks/useFacturasReducer';
 
 const FacturasSortContext = createContext<monFactura[] | null>(
-  null
+  null 
 );
 
 const FacturasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
   null,
 );
 
-
-export function FacturasProvider (
-
+export function FacturasProvider(
   {
     children,
     initialFacturas,
   }: {
     children: ReactNode;
     initialFacturas: monFactura[];
-  }
+  } 
 ) {
-
       const [ facturasReduced, dispatchFacturas ] = useReducer(
         facturasReducer,
         initialFacturas,
       );
 
       return (
-        <FacturasSortContext.Provider value={ facturasReduced }>
-          <FacturasSortDispatchContext.Provider value={ dispatchFacturas }>
-            { children }
+        <FacturasSortContext.Provider value={facturasReduced}>
+          <FacturasSortDispatchContext.Provider value={dispatchFacturas}>
+            {children}
           </FacturasSortDispatchContext.Provider>
         </FacturasSortContext.Provider>
       );
 }
 
-
-export function useFacturaSort () {
+export function useFacturaSort() {
       const context = useContext(
-        FacturasSortContext
+        FacturasSortContext 
       );
 
       if ( context === null ) {
@@ -52,9 +52,9 @@ export function useFacturaSort () {
       return context;
 }
 
-export function useFacturaSortDispatch () {
+export function useFacturaSortDispatch() {
       const context = useContext(
-        FacturasSortDispatchContext
+        FacturasSortDispatchContext 
       );
 
       if ( context === null ) {

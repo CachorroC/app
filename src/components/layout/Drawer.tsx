@@ -9,36 +9,36 @@ import { useNavigationContext } from '#@/app/Context/navigation-context';
 
 export const Drawer = (
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) => {
           const {
-            isNavOpen, setIsNavOpen
+            isNavOpen, setIsNavOpen 
           } = useNavigationContext();
 
           const wrapper = useRef(
-            null
+            null 
           );
 
           const overlay = useRef(
-            null
+            null 
           );
 
           const onDismiss = useCallback(
             () => {
                       setIsNavOpen(
                         (
-                          n
+                          n 
                         ) => {
                                   return !n;
-                        }
+                        } 
                       );
-            }, [ setIsNavOpen ]
+            }, [ setIsNavOpen ] 
           );
 
           const onClick: MouseEventHandler = useCallback(
             (
-              e
+              e 
             ) => {
                       if ( e.target === overlay.current || e.target === wrapper.current ) {
                         if ( onDismiss ) {
@@ -49,13 +49,13 @@ export const Drawer = (
             [
               onDismiss,
               overlay,
-              wrapper
+              wrapper 
             ],
           );
 
           const onKeyDown = useCallback(
             (
-              e: KeyboardEvent
+              e: KeyboardEvent 
             ) => {
                       if ( e.key === 'Escape' ) {
                         onDismiss();
@@ -67,15 +67,15 @@ export const Drawer = (
           useEffect(
             () => {
                       document.addEventListener(
-                        'keydown', onKeyDown
+                        'keydown', onKeyDown 
                       );
 
                       return () => {
                                 return document.removeEventListener(
-                                  'keydown', onKeyDown
+                                  'keydown', onKeyDown 
                                 );
                       };
-            }, [ onKeyDown ]
+            }, [ onKeyDown ] 
           );
 
           if ( !isNavOpen ) {
@@ -92,10 +92,7 @@ export const Drawer = (
                 className={styles.sidenav}
                 ref={wrapper}
               >
-
                 {children}
-
-
               </div>
             </nav>
           );

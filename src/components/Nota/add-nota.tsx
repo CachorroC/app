@@ -2,15 +2,12 @@
 import { createNota } from '#@/app/actions/main';
 import { useNuevaTaskContext } from '#@/app/Context/nueva-task-form-context';
 import { InputDateHelper } from '#@/lib/project/date-helper';
-import { DoneCheckBox } from '#@/app/Tareas/done-checkbox';
+import { inputElement, slider, switchBox } from '../Form/form.module.css';
 
 export default function AddNota() {
-
       const {
-        taskFormState, setTaskFormState
+        taskFormState, setTaskFormState 
       } = useNuevaTaskContext();
-
-
 
       return (
         <form action={createNota}>
@@ -20,13 +17,13 @@ export default function AddNota() {
             type="text"
             name="text"
             onChange={(
-              e
+              e 
             ) => {
                       return setTaskFormState(
                         {
                           ...taskFormState,
-                          text: e.target.value
-                        }
+                          text: e.target.value,
+                        } 
                       );
             }}
           />
@@ -35,23 +32,41 @@ export default function AddNota() {
             placeholder={'fecha de entrega'}
             type={'date'}
             onChange={(
-              e
+              e 
             ) => {
                       return setTaskFormState(
                         {
                           ...taskFormState,
                           dueDate: new Date(
-                            e.target.value
+                            e.target.value 
                           ),
-                        }
+                        } 
                       );
             }}
             value={InputDateHelper(
-              taskFormState.dueDate
+              taskFormState.dueDate 
             )}
           />
 
-          <DoneCheckBox task={ taskFormState} />
+          <label className={switchBox}>
+            <input
+              className={inputElement}
+              type="checkbox"
+              name="done"
+              checked={taskFormState.done}
+              onChange={(
+                e 
+              ) => {
+                        return setTaskFormState(
+                          {
+                            ...taskFormState,
+                            done: e.target.checked,
+                          } 
+                        );
+              }}
+            />
+            <span className={slider}></span>
+          </label>
           <button type="submit">Add</button>
         </form>
       );

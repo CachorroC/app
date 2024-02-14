@@ -1,8 +1,7 @@
 import { prisma } from '#@/lib/connection/prisma';
+import { IntCarpeta } from '#@/lib/types/carpetas';
 
-export default async function getCarpetas () {
-
-
+export default async function getCarpetas() {
       const rawCarpetas = await prisma.carpeta.findMany(
         {
           include: {
@@ -15,45 +14,69 @@ export default async function getCarpetas () {
               include: {
                 notificacion: {
                   include: {
-                    notifiers: true
-                  }
+                    notifiers: true,
+                  },
                 },
-                medidasCautelares: true
-              }
+                medidasCautelares: true,
+              },
             },
             procesos: {
               include: {
-                juzgado: true
-              }
+                juzgado: true,
+              },
             },
-          }
-        }
+          },
+        } 
       );
-      return  [ ...rawCarpetas ].sort(
-        (
-          a, b
-        ) => {
-                  if ( !a.fecha || a.fecha === undefined || a.fecha.toString() === 'Invalid Date' ) {
-                    return 1;
-                  }
+      return rawCarpetas
+            .map(
+              (
+                carpeta 
+              ) => {
+                        return {
+                          ...carpeta,
+                          demanda: {
+                            ...carpeta.demanda,
+                            capitalAdeudado: carpeta.demanda?.capitalAdeudado.toNumber() ?? null,
+                            avaluo         : carpeta.demanda?.avaluo.toNumber() ?? null,
+                            liquidacion    : carpeta.demanda?.liquidacion.toNumber() ?? null,
+                          },
+                        } as IntCarpeta;
+              } 
+            )
+            .sort(
+              (
+                a, b 
+              ) => {
+                        if (
+                          !a.fecha
+        || a.fecha === undefined
+        || a.fecha.toString() === 'Invalid Date'
+                        ) {
+                          return 1;
+                        }
 
-                  if ( !b.fecha || b.fecha === undefined || b.fecha.toString() === 'Invalid Date' ) {
-                    return -1;
-                  }
+                        if (
+                          !b.fecha
+        || b.fecha === undefined
+        || b.fecha.toString() === 'Invalid Date'
+                        ) {
+                          return -1;
+                        }
 
-                  const x = a.fecha;
+                        const x = a.fecha;
 
-                  const y = b.fecha;
+                        const y = b.fecha;
 
-                  if ( x < y ) {
-                    return 1;
-                  }
+                        if ( x < y ) {
+                          return 1;
+                        }
 
-                  if ( x > y ) {
-                    return -1;
-                  }
+                        if ( x > y ) {
+                          return -1;
+                        }
 
-                  return 0;
-        }
-      );
+                        return 0;
+              } 
+            );
 }

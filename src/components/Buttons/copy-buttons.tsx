@@ -2,11 +2,11 @@
 
 import { useCopyToClipboard } from '#@/app/Hooks/useCopyToClipboard';
 import { MonCarpeta } from '#@/lib/types/carpetas';
-import styles from './buttons.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
-import layout from '#@/styles/layout.module.css';
 import { useEffect, useState } from 'react';
-import cardStyles from '../Card/card.module.css';
+import styles from '../Proceso/styles.module.css';
+import layout from '#@/styles/layout.module.css';
+import buttons from './buttons.module.css';
 
 export const CopyButton = (
   {
@@ -15,12 +15,12 @@ export const CopyButton = (
   }: {
     copyTxt: string;
     name: string;
-  }
+  } 
 ) => {
           const [ value, copy ] = useCopyToClipboard();
 
           const [ isSnackbarOpen, setIsSnackbarOpen ] = useState(
-            false
+            false 
           );
 
           useEffect(
@@ -28,9 +28,9 @@ export const CopyButton = (
                       const timer = setTimeout(
                         () => {
                                   setIsSnackbarOpen(
-                                    false
+                                    false 
                                   );
-                        }, 5000
+                        }, 5000 
                       );
 
                       if ( isSnackbarOpen ) {
@@ -39,36 +39,40 @@ export const CopyButton = (
 
                       return () => {
                                 return clearTimeout(
-                                  timer
+                                  timer 
                                 );
                       };
-            }, [ isSnackbarOpen ]
+            }, [ isSnackbarOpen ] 
           );
           return (
-            <div className={layout.segmentRow}>
-              <div className={layout.sectionColumn}>
-                <p className={typography.labelMedium}>{name}</p>
+            <div className={styles.container}>
+              <div className={layout.segmentRow}>
+                <span className={typography.labelSmall}>{name}</span>
+                <span className={typography.labelMedium}>{copyTxt}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                            copy(
+                              copyTxt 
+                            );
+                            setIsSnackbarOpen(
+                              true 
+                            );
+                  }}
+                  className={styles.buttonActive}
+                >
+                  <span className={`material-symbols-outlined ${ styles.icon }`}>
+            file_copy
+                  </span>
+
+                  <span className={styles.text}>copiar</span>
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                          copy(
-                            copyTxt
-                          );
-                          setIsSnackbarOpen(
-                            true
-                          );
-                }}
-                className={cardStyles.link}
-              >
-                <span className={`material-symbols-outlined ${ cardStyles.icon }`}>
-          file_copy
-                </span>
-                <span className={ cardStyles.tooltiptext }>{ value }</span>
-                <span className={ typography.labelSmall}>{`copiar ${ name }`}</span>
-              </button>
+
               {value && isSnackbarOpen && (
-                <div className={`${ styles.snackbar } ${ isSnackbarOpen && styles.show }`}>
+                <div
+                  className={`${ buttons.snackbar } ${ isSnackbarOpen && buttons.show }`}
+                >
                   {`${ name } : ${ copyTxt } `}
                 </div>
               )}
@@ -78,8 +82,8 @@ export const CopyButton = (
 
 export function CopyButtons(
   {
-    carpeta
-  }: { carpeta: MonCarpeta }
+    carpeta 
+  }: { carpeta: MonCarpeta } 
 ) {
       return (
         <>

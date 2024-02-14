@@ -35,9 +35,9 @@ export class ClassNotificacion implements Notificacion {
                   : false )
               : false;
             this.autoNotificado = autoNotificado
-              ? typeof autoNotificado === 'number'
-                ? autoNotificado.toString()
-                : autoNotificado
+              ? new Date(
+                autoNotificado 
+              )
               : null;
 
             const the291 = notificacion[ '291' ];
@@ -116,7 +116,7 @@ export class ClassNotificacion implements Notificacion {
               );
             }
   }
-  autoNotificado: string | null;
+  autoNotificado: Date | null;
   demandaId: number;
   certimail: boolean;
   fisico: boolean;

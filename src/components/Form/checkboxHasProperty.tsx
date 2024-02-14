@@ -3,19 +3,22 @@ import { useState } from 'react';
 import styles from './form.module.css';
 import { useFormContext } from 'react-hook-form';
 import { KeyOfCarpeta, MonCarpeta } from '#@/lib/types/carpetas';
+import { useCarpetaFormContext } from '../../app/Context/carpeta-form-context';
 
 export function CheckboxHasProperty(
   {
     keyOfCarpeta,
-    carpeta,
   }: {
     keyOfCarpeta: KeyOfCarpeta;
-    carpeta: MonCarpeta;
-  } 
+  }
 ) {
+
+      const {
+        carpetaFormState
+      } = useCarpetaFormContext();
       let isInCarpeta;
 
-      const propertieValue = carpeta[ keyOfCarpeta ];
+      const propertieValue = carpetaFormState[ keyOfCarpeta ];
 
       if (
         !propertieValue
@@ -24,18 +27,18 @@ export function CheckboxHasProperty(
       ) {
         isInCarpeta = false;
         console.log(
-          `propertie value is ${ propertieValue }` 
+          `propertie value is ${ propertieValue }`
         );
       } else {
         isInCarpeta = true;
       }
 
       const [ hasProperty, setHasProperty ] = useState(
-        isInCarpeta 
+        isInCarpeta
       );
 
       const {
-        register 
+        register
       } = useFormContext<MonCarpeta>();
       return (
         <>
@@ -45,20 +48,20 @@ export function CheckboxHasProperty(
               checked={hasProperty}
               type="checkbox"
               onChange={(
-                e 
+                e
               ) => {
                         setHasProperty(
-                          e.target.checked 
+                          e.target.checked
                         );
               }}
             />
             <span className={styles.slider}></span>
           </label>
           {hasProperty && <input {...register(
-            keyOfCarpeta 
+            keyOfCarpeta
           )} />}
           {JSON.stringify(
-            propertieValue, null, 2 
+            propertieValue, null, 2
           )}
         </>
       );

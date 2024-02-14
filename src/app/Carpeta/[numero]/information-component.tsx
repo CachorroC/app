@@ -1,10 +1,19 @@
-import { button } from '#@/components/Buttons/buttons.module.css';
-import { icon, link } from '#@/components/Card/card.module.css';
 import { fixFechas, fixMoney } from '#@/lib/project/helper';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import typography from '#@/styles/fonts/typography.module.css';
-import type { Route } from 'next';
 import Link from 'next/link';
+import layout from '#@/styles/layout.module.css';
+import { JuzgadoComponent } from '#@/components/Proceso/juzgado-component';
+import { Loader } from '#@/components/Loader';
+import { Suspense } from 'react';
+import { ProcesoCard } from '#@/components/Proceso/server-components';
+import { Route } from 'next';
+import button from '#@/components/Buttons/buttons.module.css';
+import ActuacionLoader from '#@/components/Card/actuacion-loader';
+import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
+import { ChipButton } from '#@/components/Chip';
+import chip from '#@/components/Chip/styles.module.css';
+import { ProcesoCardLoader } from '#@/components/Proceso/proceso-card-loader';
 
 export default function InformationComponent(
   {
@@ -14,84 +23,206 @@ export default function InformationComponent(
   } 
 ) {
       const {
-        deudor, demanda, category, tipoProceso, procesos 
+        deudor,
+        demanda,
+        category,
+        tipoProceso,
+        procesos,
+        numero,
+        fecha,
+        llaveProceso,
       } = carpeta;
-
-      const [ {
-        juzgado 
-      } ] = procesos;
 
       return (
         <>
-          <p className={typography.bodySmall}>{category}</p>
-          <p className={typography.labelSmall}>{tipoProceso}</p>
-          <p className={typography.titleSmall}>{deudor?.cedula}</p>
-          {juzgado && (
-            <Link
-              key={juzgado.url}
-              target={'_blank'}
-              className={link}
-              href={juzgado.url as Route}
-            >
-              <span className={`material-symbols-outlined ${ icon }`}>gavel</span>
-              <sub className={typography.displaySmall}>{`${ juzgado.id }`}</sub>
-              <p className={typography.labelSmall}>
-                {`Juzgado de origen: ${ juzgado.tipo }`}
-              </p>
-            </Link>
-          )}
-          {deudor?.telCelular && (
-            <Link
-              key={deudor.telCelular}
-              target={'_blank'}
-              className={link}
-              href={`tel:${ deudor.telCelular }`}
-            >
-              <span className={`material-symbols-outlined ${ icon }`}>
-            phone_iphone
-              </span>
-              <span className={typography.labelSmall}>{deudor.telCelular}</span>
-            </Link>
-          )}
-          {deudor?.telFijo && (
-            <Link
-              key={deudor.telFijo}
-              target={'_blank'}
-              className={link}
-              href={`tel:${ deudor.telFijo }`}
-            >
-              <span className={`material-symbols-outlined ${ icon }`}>call</span>
-              <span className={typography.labelSmall}>{deudor.telFijo}</span>
-            </Link>
-          )}
-          {demanda?.vencimientoPagare
-        && demanda.vencimientoPagare.map(
+          {procesos.length > 0
+        && procesos.map(
           (
-            pagare, index 
+            proceso 
           ) => {
+                    const {
+                      sujetosProcesales, idProceso 
+                    } = proceso;
+
+                    const mapperObject = new Map();
+
+                    const newSujetos = sujetosProcesales.split(
+                      '|' 
+                    );
+
+                    for ( const demandadoODemandante of newSujetos ) {
+                      const splitter = demandadoODemandante.split(
+                        ':' 
+                      );
+                      console.log(
+                        splitter 
+                      );
+
+                      const fixer = splitter.map(
+                        (
+                          value 
+                        ) => {
+                                  return value.trim();
+                        } 
+                      );
+                      mapperObject.set(
+                        fixer[ 0 ], fixer[ 1 ] 
+                      );
+                    }
+
                     return (
-                      <p
-                        key={index}
-                        className={typography.labelMedium}
+                      <Suspense
+                        fallback={<ProcesoCardLoader />}
+                        key={idProceso}
                       >
-                        {fixFechas(
-                          pagare 
-                        )}
-                      </p>
+                        <ProcesoCard
+                          key={proceso.idProceso}
+                          proceso={proceso}
+                        >
+                          <div className={layout.segmentColumn}>
+                            <Suspense fallback={<Loader />}>
+                              <JuzgadoComponent
+                                key={proceso.juzgado.url}
+                                juzgado={proceso.juzgado}
+                              />
+                            </Suspense>
+
+                            <Link
+                              key={idProceso}
+                              className={button.buttonPassiveCategory}
+                              href={
+                                `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
+                              }
+                            >
+                              <span
+                                className={`material-symbols-outlined ${ button.icon }`}
+                              >
+                      description
+                              </span>
+                              <span className={button.text}>
+                      Todas las actuaciones de este juzgado
+                              </span>
+                            </Link>
+                          </div>
+                          <Suspense fallback={<ActuacionLoader />}>
+                            <FechaActuacionComponent
+                              key={idProceso}
+                              idProceso={idProceso}
+                              index={numero}
+                            />
+                          </Suspense>
+                        </ProcesoCard>
+                      </Suspense>
                     );
           } 
         )}
-          {deudor?.email && (
-            <Link
-              className={button}
-              target={'_blank'}
-              href={`mailto:${ deudor.email }`}
-            >
-              <span className={`material-symbols-outlined ${ icon }`}>
-            forward_to_inbox
-              </span>
-              <span className={typography.labelSmall}>Email</span>
-            </Link>
+          <div className={layout.sectionColumn}>
+            <h2 className={typography.titleMedium}>{`Carpeta número ${ numero }`}</h2>
+            {fecha && (
+              <h5 className={typography.labelLarge}>{`actualizado el ${ fixFechas(
+                fecha,
+              ) }`}</h5>
+            )}
+            <div className={layout.segmentColumn}>
+              <div className={layout.segmentRowWrap}>
+                <ChipButton
+                  copyTxt={category}
+                  icon={'category'}
+                  name={'categoria'}
+                />
+                <ChipButton
+                  copyTxt={tipoProceso}
+                  icon={'checklist'}
+                  name={'tipo de proceso'}
+                />
+
+                {deudor && (
+                  <ChipButton
+                    copyTxt={deudor.cedula}
+                    icon={'how_to_reg'}
+                    name={'cedula'}
+                  />
+                )}
+                {demanda && (
+                  <ChipButton
+                    copyTxt={demanda.radicado ?? 'sin radicado'}
+                    name={'radicado'}
+                    icon={'description'}
+                  />
+                )}
+
+                {deudor?.email && (
+                  <Link
+                    className={chip.chip}
+                    href={`mailto:${ deudor.email }`}
+                    target={'_blank'}
+                  >
+                    <span className={`material-symbols-outlined ${ chip.icon }`}>
+                  mail
+                    </span>
+                    <span className={`${ typography.labelMedium } ${ chip.text }`}>
+                      {'Correo Electrónico'}
+                    </span>
+                  </Link>
+                )}
+                {deudor?.telCelular && (
+                  <Link
+                    key={deudor.telCelular}
+                    className={chip.chip}
+                    target={'_blank'}
+                    href={`tel:${ deudor.telCelular }`}
+                  >
+                    <span className={`material-symbols-outlined ${ chip.icon }`}>
+                  phone_iphone
+                    </span>
+                    <span className={`${ typography.labelMedium } ${ chip.text }`}>
+                      {deudor.telCelular}
+                    </span>
+                  </Link>
+                )}
+                {deudor?.telFijo && (
+                  <Link
+                    key={deudor.telFijo}
+                    className={chip.chip}
+                    href={`tel:${ deudor.telFijo }`}
+                  >
+                    <span className={`material-symbols-outlined ${ chip.icon }`}>
+                  call
+                    </span>
+                    <span className={`${ typography.labelMedium } ${ chip.text }`}>
+                      {deudor.telFijo}
+                    </span>
+                  </Link>
+                )}
+                <ChipButton
+                  copyTxt={llaveProceso}
+                  icon={'vpn_key'}
+                  name={'expediente'}
+                />
+              </div>
+            </div>
+          </div>
+
+          {demanda?.vencimientoPagare && (
+            <>
+              <h4 className={typography.titleSmall}>Pagarés</h4>
+              {demanda.vencimientoPagare.map(
+                (
+                  pagare, index 
+                ) => {
+                          return (
+                            <p
+                              key={index}
+                              className={typography.labelMedium}
+                            >
+                              {fixFechas(
+                                pagare 
+                              )}
+                            </p>
+                          );
+                } 
+              )}
+            </>
           )}
 
           {demanda?.entregaGarantiasAbogado && (
@@ -110,40 +241,6 @@ export default function InformationComponent(
             ),
           } 
         )}
-
-          {deudor?.email && (
-            <Link
-              className={link}
-              href={deudor.email as Route}
-              target={'_blank'}
-            >
-              <span className={`material-symbols-outlined ${ icon }`}>mail</span>
-              <span className={typography.labelMedium}>{'Correo Electrónico'}</span>
-            </Link>
-          )}
-          {deudor?.telCelular && (
-            <Link
-              key={deudor.telCelular}
-              className={link}
-              target={'_blank'}
-              href={`tel:${ deudor.telCelular }`}
-            >
-              <span className={`material-symbols-outlined ${ icon }`}>
-            phone_iphone
-              </span>
-              <span className={typography.labelMedium}>{deudor.telCelular}</span>
-            </Link>
-          )}
-          {deudor?.telFijo && (
-            <Link
-              key={deudor.telFijo}
-              className={link}
-              href={`tel:${ deudor.telFijo }`}
-            >
-              <span className={`material-symbols-outlined ${ icon }`}>call</span>
-              <span className={typography.labelMedium}>{deudor.telFijo}</span>
-            </Link>
-          )}
         </>
       );
 }

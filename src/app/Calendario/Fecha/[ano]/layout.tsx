@@ -9,10 +9,10 @@ export default function Layout(
   }: {
     params: { ano: string };
     children: ReactNode;
-  }
+  } 
 ) {
       const segmentDate = new Date(
-        params.ano
+        params.ano 
       );
 
       return (

@@ -2,71 +2,75 @@ import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
 import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { outActuacion } from '#@/lib/types/actuaciones';
-
-export const dynamic = 'force-dynamic';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 
 export const dynamicParams = true;
-/*
+
 //? Generate segments for [numero]
 
-export async function generateStaticParams () {
+export async function generateStaticParams() {
       const carpetas = await getCarpetas();
 
       const flattenUp = carpetas.flatMap(
         (
-          carpeta
+          carpeta 
         ) => {
                   const {
-                    numero, idProcesos
+                    numero, procesos 
                   } = carpeta;
 
-                  if ( idProcesos.length === 0 ) {
+                  if ( procesos.length === 0 ) {
                     return {
                       numero: String(
-                        numero
+                        numero 
                       ),
-                      idProceso: 'idProceso'
+                      idProceso: 'idProceso',
                     };
                   }
 
-                  return idProcesos.map(
+                  return procesos.map(
                     (
-                      idProceso
+                      proceso 
                     ) => {
+                              if ( proceso.esPrivado ) {
+                                return {
+                                  numero: String(
+                                    numero 
+                                  ),
+                                  idProceso: 'idProceso',
+                                };
+                              }
+
                               return {
                                 numero: String(
-                                  numero
+                                  numero 
                                 ),
                                 idProceso: String(
-                                  idProceso
-                                )
+                                  proceso.idProceso 
+                                ),
                               };
-                    }
+                    } 
                   );
-
-
-        }
+        } 
       );
 
-      const chunkSize = 20;
+      const chunkSize = 100;
 
       const chunks = [];
 
       for ( let i = 0; i < flattenUp.length; i += chunkSize ) {
         const chunk = flattenUp.slice(
-          i, i + chunkSize
+          i, i + chunkSize 
         );
         chunks.push(
-          chunk
+          chunk 
         );
       }
 
       return chunks[ 0 ];
 }
- */
 
-
-export default async function Page (
+export default async function Page(
   {
     params,
   }: {
@@ -74,20 +78,16 @@ export default async function Page (
       numero: string;
       idProceso: string;
     };
-  }
+  } 
 ) {
-
       if ( params.idProceso === 'idProceso' ) {
         return notFound();
       }
 
-
-
-
       const actuaciones = await fetchActuaciones(
         Number(
-          params.idProceso
-        )
+          params.idProceso 
+        ) 
       );
 
       if ( !actuaciones || actuaciones.length === 0 ) {
@@ -96,26 +96,25 @@ export default async function Page (
 
       return (
         <>
-          { actuaciones.map(
+          {actuaciones.map(
             (
-              actuacion, index
+              actuacion, index 
             ) => {
                       const newActuacion: outActuacion = {
                         ...actuacion,
                         isUltimaAct: actuacion.cant === actuacion.consActuacion,
                         idProceso  : Number(
-                          params.idProceso
+                          params.idProceso 
                         ),
                       };
                       return (
                         <ActuacionComponent
-                          key={ index }
-                          incomingActuacion={ newActuacion }
-                          initialOpenState={ true }
+                          key={index}
+                          incomingActuacion={newActuacion}
                         />
                       );
-            }
-          ) }
+            } 
+          )}
         </>
       );
 }

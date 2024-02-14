@@ -3,6 +3,7 @@ declare const styles: {
   readonly 'buttonActive': string;
   readonly 'buttonPassive': string;
   readonly 'container': string;
+  readonly 'decor': string;
   readonly 'icon': string;
   readonly 'inputElement': string;
   readonly 'label': string;
@@ -17,9 +18,11 @@ declare const styles: {
   readonly 'switchBox': string;
   readonly 'text': string;
   readonly 'textArea': string;
+  readonly 'thumb': string;
   readonly 'title': string;
   readonly 'titleInput': string;
   readonly 'vencimientoArea': string;
+  readonly 'visually-hidden': string;
 };
 export = styles;
 

@@ -28,7 +28,7 @@ export const NumberSection = (
   }
 ) => {
           const {
-            stateCarpeta, setStateCarpeta
+            carpetaFormState, setCarpetaFormState
           } = useCarpetaFormContext();
 
           const {
@@ -67,9 +67,9 @@ export const NumberSection = (
                 onChange={(
                   e
                 ) => {
-                          setStateCarpeta(
+                          setCarpetaFormState(
                             {
-                              ...stateCarpeta,
+                              ...carpetaFormState,
                               [ name ]: e.target.value,
                             }
                           );
@@ -83,3 +83,47 @@ export const NumberSection = (
             </div>
           );
 };
+
+
+
+
+export function NewNumberSection (
+  {
+    name, title
+  }: {name: 'id' | 'idProcesos' | 'idRegUltimaAct' | 'numero' ; title: string}
+) {
+      const {
+        carpetaFormState, setCarpetaFormState
+      } = useCarpetaFormContext();
+      return (
+        <div className={layout.sectionRow}>
+          <label
+            className={`${ form.label } ${ typography.titleMedium }`}
+            htmlFor={name}
+          >
+            {title}
+          </label>
+          <input
+            name={name}
+            value={String(
+              carpetaFormState[ name ]
+            ) ?? ''}
+            type='number'
+            placeholder={title}
+            className={form.textArea}
+            onChange={(
+              e
+            ) => {
+                      return setCarpetaFormState(
+                        {
+                          ...carpetaFormState,
+                          [ name ]: Number(
+                            e.target.value
+                          )
+                        }
+                      );
+            }}
+          />
+        </div>
+      );
+}

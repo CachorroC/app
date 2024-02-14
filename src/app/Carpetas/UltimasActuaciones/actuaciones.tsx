@@ -1,5 +1,5 @@
 import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
-import { ActuacionComponent, } from '#@/components/Card/actuacion-component';
+import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { unstable_noStore as noStore } from 'next/cache';
 import { Suspense } from 'react';
 import ActuacionLoader from '#@/components/Card/actuacion-loader';
@@ -76,22 +76,22 @@ export async function FechaActuacionComponent(
   {
     idProceso,
     index,
-    initialOpenState,
   }: {
     idProceso: number;
     index: number;
-    initialOpenState: boolean;
-  }
+  } 
 ) {
       noStore();
 
       const consultaActuaciones = await fetchActuaciones(
-        idProceso, index
+        idProceso, index 
       );
 
       if ( !consultaActuaciones ) {
         return (
-          <span className={typography.headlineSmall}>No Hay Actuaciones</span>
+          <div className={styles.containerFilledDisabled}>
+            <span className={typography.headlineSmall}>No Hay Actuaciones</span>
+          </div>
         );
       }
 
@@ -101,7 +101,6 @@ export async function FechaActuacionComponent(
         <Suspense fallback={<ActuacionLoader />}>
           <ActuacionComponent
             key={ultimaActuacion.idRegActuacion}
-            initialOpenState={initialOpenState}
             incomingActuacion={ultimaActuacion}
           />
         </Suspense>
@@ -115,54 +114,59 @@ export async function FechaActuacionComponentAlt(
   }: {
     idProceso: number;
     index: number;
-  }
+  } 
 ) {
       const consultaActuaciones = await fetchActuaciones(
-        idProceso, index
+        idProceso, index 
       );
 
       if ( !consultaActuaciones || consultaActuaciones.length === 0 ) {
         return (
           <>
             <td>
-              <h5 className={ ` ${ styles.actuacion } ${ typography.titleSmall }` }>
-              Sin registro
+              <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
+            Sin registro
               </h5>
-              <sub className={ typography.labelSmall }>0 de 0</sub>
+              <sub className={typography.labelSmall}>0 de 0</sub>
             </td>
             <td>
-              <sub className={ typography.headlineMedium }>por favor revise que el numero de expediente esté bien o si la informacion la brinda el juzgado por otro canal</sub>
-
+              <sub className={typography.headlineMedium}>
+            por favor revise que el numero de expediente esté bien o si la
+            informacion la brinda el juzgado por otro canal
+              </sub>
             </td>
           </>
-
         );
       }
 
       const [ ultimaActuacion ] = consultaActuaciones;
 
       const {
-        actuacion,  fechaActuacion, anotacion, consActuacion, cant
-      } = ultimaActuacion;
+        actuacion, fechaActuacion, anotacion, consActuacion, cant 
+      }
+    = ultimaActuacion;
 
       return (
         <>
           <td>
-            <h5 className={ ` ${ styles.actuacion } ${ typography.titleSmall }` }>
-              { actuacion }
+            <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
+              {actuacion}
             </h5>
-            <sub className={ typography.labelSmall }>{ `${ consActuacion } de ${ cant }` }</sub>
+            <sub
+              className={typography.labelSmall}
+            >{`${ consActuacion } de ${ cant }`}</sub>
           </td>
           <td>
-            <sub className={ typography.labelMedium }>{ `actuacion registrada el ${ fixFechas(
-              fechaActuacion
-            ) }` }</sub>
-            { anotacion && (
-              <p className={ ` ${ styles.anotacion } ${ typography.bodyMedium  }` }>
-                
-                { anotacion }
+            <sub
+              className={typography.labelMedium}
+            >{`actuacion registrada el ${ fixFechas(
+                fechaActuacion 
+              ) }`}</sub>
+            {anotacion && (
+              <p className={` ${ styles.anotacion } ${ typography.bodyMedium }`}>
+                {anotacion}
               </p>
-            ) }
+            )}
           </td>
         </>
       );

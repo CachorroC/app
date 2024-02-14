@@ -11,20 +11,20 @@ const SnackbarContext = createContext<{
   isSnackbarOpen: boolean;
   setIsSnackbarOpen: Dispatch<SetStateAction<boolean>>;
 } | null>(
-  null
+  null 
 );
 
 const ContactoContext = createContext<{
   contactoForm: ContactoForm;
   setContactoForm: Dispatch<SetStateAction<ContactoForm>>;
 } | null>(
-  null
+  null 
 );
 
 export function MainProvider(
   {
-    children
-  }: { children: ReactNode }
+    children 
+  }: { children: ReactNode } 
 ) {
       const [ contactoForm, setContactoForm ] = useState(
         {
@@ -35,13 +35,12 @@ export function MainProvider(
           telefono  : 1,
           comentario: 'Este es el espacio para registrar información adicional',
           fecha     : new Date(),
-        }
+        } 
       );
 
       const [ isSnackbarOpen, setIsSnackbarOpen ] = useState(
-        false
+        false 
       );
-
 
       return (
         <SnackbarContext.Provider
@@ -64,7 +63,7 @@ export function MainProvider(
 
 export function useSnackbarContext() {
       const context = useContext(
-        SnackbarContext
+        SnackbarContext 
       );
 
       if ( context === null ) {
@@ -78,7 +77,7 @@ export function useSnackbarContext() {
 
 export function useContactContext() {
       const context = useContext(
-        ContactoContext
+        ContactoContext 
       );
 
       if ( context === null ) {

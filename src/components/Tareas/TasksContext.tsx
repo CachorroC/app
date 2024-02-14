@@ -6,15 +6,12 @@ import { Dispatch,
   useContext,
   useReducer, } from 'react';
 
-
-
-
 const TasksContext = createContext<IntTask[] | null>(
-  null
+  null 
 );
 
 const TasksDispatchContext = createContext<Dispatch<TaskAction> | null>(
-  null,
+  null 
 );
 
 export function TasksProvider(
@@ -24,10 +21,10 @@ export function TasksProvider(
   }: {
     children: ReactNode;
     initialTasks: IntTask[];
-  }
+  } 
 ) {
       const [ tasksReduced, dispatchTasks ] = useReducer(
-        tasksReducer, initialTasks
+        tasksReducer, initialTasks 
       );
 
       return (
@@ -41,12 +38,12 @@ export function TasksProvider(
 
 export function useTasks() {
       const tasksContext = useContext(
-        TasksContext
+        TasksContext 
       );
 
       if ( !tasksContext ) {
         throw new Error(
-          'tasks context must be used within a tasks provider '
+          'tasks context must be used within a tasks provider ' 
         );
       }
 
@@ -55,12 +52,12 @@ export function useTasks() {
 
 export function useDispatchTasks() {
       const tasksContext = useContext(
-        TasksDispatchContext
+        TasksDispatchContext 
       );
 
       if ( !tasksContext ) {
         throw new Error(
-          'tasks context must be used within a tasks provider '
+          'tasks context must be used within a tasks provider ' 
         );
       }
 
@@ -68,16 +65,16 @@ export function useDispatchTasks() {
 }
 
 function tasksReducer(
-  tasks: IntTask[], action: TaskAction
+  tasks: IntTask[], action: TaskAction 
 ) {
       const {
-        type,
+        type 
       } = action;
 
       switch ( type ) {
           case 'added': {
             const {
-              task
+              task 
             } = action;
             return [ ...tasks,
               {
@@ -92,37 +89,37 @@ function tasksReducer(
 
           case 'changed': {
             const {
-              task
+              task 
             } = action;
             return tasks.map(
               (
-                t
+                t 
               ) => {
                         if ( t.id === task.id ) {
                           return task;
                         }
 
                         return t;
-              }
+              } 
             );
           }
 
           case 'deleted': {
             const {
-              id
+              id 
             } = action;
             return tasks.filter(
               (
-                t
+                t 
               ) => {
                         return t.id !== id;
-              }
+              } 
             );
           }
 
           default: {
             throw Error(
-              'Unknown action: ' + type
+              'Unknown action: ' + type 
             );
           }
       }

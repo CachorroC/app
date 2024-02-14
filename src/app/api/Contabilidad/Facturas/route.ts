@@ -7,7 +7,6 @@ export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 
 export async function GET() {
-
       const collection = await facturasCollection();
 
       const arr1 = await collection.find()
@@ -17,23 +16,28 @@ export async function GET() {
 
       const facturas = arr1.map(
         (
-          item
+          item 
         ) => {
                   const matchedObject = arr2.find(
                     (
-                      obj
+                      obj 
                     ) => {
                               return obj.id === item.id;
-                    }
+                    } 
                   );
                   return {
                     ...item,
-                    ...matchedObject
+                    ...matchedObject,
                   };
-        }
-      );
-      return NextResponse.json(
-        facturas
+        } 
       );
 
+      /*     fs.writeFile(
+        'public/facturas.json', JSON.stringify(
+          facturas
+        )
+      ); */
+      return NextResponse.json(
+        facturas 
+      );
 }

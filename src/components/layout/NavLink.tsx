@@ -15,10 +15,10 @@ export function NavLink<T extends string>(
     iconLabel: string;
     textLabel: string;
     hrefLabel: Route<T> | URL;
-  }
+  } 
 ) {
       const {
-        isNavOpen, setIsNavOpen
+        isNavOpen, setIsNavOpen 
       } = useNavigationContext();
 
       const pathname = usePathname();
@@ -27,16 +27,18 @@ export function NavLink<T extends string>(
       return (
         <Link
           key={hrefLabel.toString()}
-          className={isActive
-            ? isNavOpen
-              ? styles.linkOpenActive
-              : styles.linkActive
-            : isNavOpen
-              ? styles.linkOpen
-              : styles.link}
+          className={
+            isActive
+              ? isNavOpen
+                ? styles.linkOpenActive
+                : styles.linkActive
+              : isNavOpen
+                ? styles.linkOpen
+                : styles.link
+          }
           onClick={() => {
                     setIsNavOpen(
-                      false
+                      false 
                     );
           }}
           href={hrefLabel as Route}

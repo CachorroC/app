@@ -58,11 +58,7 @@ export default async function DemandaPage(
         } 
       )
             .format(
-              capitalAdeudado
-                ? Number(
-                  capitalAdeudado.toString() 
-                )
-                : 1000000 
+              capitalAdeudado.toNumber() 
             );
       return (
         <div>

@@ -13,15 +13,16 @@ import { SelectSection } from './select-section';
 import { VencimientoPagareSection } from './vencimiento-pagare-section';
 import typography from '#@/styles/fonts/typography.module.css';
 import { CheckboxHasProperty } from './checkboxHasProperty';
+import { useCarpetaFormContext } from '../../app/Context/carpeta-form-context';
 
-export const Form = (
-  {
-    carpeta
-  }: { carpeta: MonCarpeta }
-) => {
+export const Form = () => {
+          const {
+            carpetaFormState,
+          } = useCarpetaFormContext();
+
           const {
             demanda, numero, category, tipoProceso, deudor
-          } = carpeta;
+          } = carpetaFormState;
 
           const {
             handleSubmit, setError
@@ -31,7 +32,7 @@ export const Form = (
             data: MonCarpeta
           ) => {
                     const newCarpeta = {
-                      ...carpeta,
+                      ...carpetaFormState,
                       ...data,
                     };
 
@@ -382,11 +383,9 @@ export const Form = (
                 <section className={form.segmentRow}>
                   <CheckboxHasProperty
                     keyOfCarpeta={'fecha'}
-                    carpeta={carpeta}
                   />
                   <CheckboxHasProperty
                     keyOfCarpeta={'llaveProceso'}
-                    carpeta={carpeta}
                   />
                 </section>
                 <button

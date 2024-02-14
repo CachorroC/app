@@ -1,24 +1,24 @@
 'use client';
 import { useNotaSort } from '#@/app/Context/notas-sort-context';
-import { Task } from '../Tareas/task';
+import { Nota } from '#@/app/Notas/nota';
 import styles from 'components/Nota/note.module.css';
 
-export function TaskList() {
+export function NotasList() {
       const notas = useNotaSort();
 
       return (
         <div className={styles.taskList}>
           {notas.map(
             (
-              task
+              nota 
             ) => {
                       return (
-                        <Task
-                          task={task}
-                          key={task.id}
+                        <Nota
+                          nota={nota}
+                          key={nota.id}
                         />
                       );
-            }
+            } 
           )}
         </div>
       );

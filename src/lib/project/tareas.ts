@@ -1,22 +1,16 @@
 import { cache } from 'react';
-import { tareasCollection } from '../connection/collections';
+import { prisma } from '../connection/prisma';
 
 export const getTareas = cache(
   async () => {
-            const collection = await tareasCollection();
-
-            const tareas = await collection.find()
-                  .toArray();
-
-            return tareas.map(
-              (
-                tarea 
-              ) => {
-                        return {
-                          ...tarea,
-                          _id: tarea._id.toString(),
-                        };
+            const tareas = prisma.task.findMany(
+              {
+                include: {
+                  carpeta: true,
+                },
               } 
             );
+
+            return tareas;
   } 
 );

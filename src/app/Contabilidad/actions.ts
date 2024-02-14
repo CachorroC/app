@@ -5,82 +5,81 @@ import { prisma } from '#@/lib/connection/prisma';
 import { intFactura } from '#@/lib/types/contabilidad';
 import { JsonObject } from '@prisma/client/runtime/library';
 
-export async function addToContabilidad (
-  newData: intFactura
+export async function addToContabilidad(
+  newData: intFactura 
 ) {
       const collection = await facturasCollection();
 
       const existentFactura = await collection.findOne(
         {
-          id: newData.id
-        }
+          id: newData.id,
+        } 
       );
 
-
       if ( !existentFactura ) {
-
         const insertFactura = await collection.insertOne(
           {
-            ...newData
-          }
+            ...newData,
+          } 
         );
 
         if ( insertFactura.acknowledged ) {
           return {
             success: true,
             data   : JSON.stringify(
-              insertFactura
-            )
+              insertFactura 
+            ),
           };
         }
 
         return {
           success: false,
           data   : JSON.stringify(
-            insertFactura
-          )
+            insertFactura 
+          ),
         };
       }
 
       /* eslint-disable-next-line no-unused-vars */
 
-
       const updateFactura = await collection.updateOne(
         {
-          id: newData.id
-        }, {
+          id: newData.id,
+        },
+        {
           $set: {
-            ...newData
-          }
-        }, {
-          upsert: true
-        }
+            ...newData,
+          },
+        },
+        {
+          upsert: true,
+        },
       );
 
       if ( updateFactura.modifiedCount >= 1 ) {
         return {
           success: true,
           data   : JSON.stringify(
-            updateFactura
-          )
+            updateFactura 
+          ),
         };
       }
 
       return {
         success: false,
         data   : JSON.stringify(
-          updateFactura
-        )
+          updateFactura 
+        ),
       };
-
 }
 
-export async function addFactura (
-  incomingFactura: intFactura
+export async function addFactura(
+  incomingFactura: intFactura 
 ) {
       const {
-        nit, facturaElectronica, carpetaNumero, ...factura
-      } = incomingFactura;
+        nit, facturaElectronica, carpetaNumero, ...factura 
+      }
+    = incomingFactura;
 
       try {
         let inserter;
@@ -100,13 +99,13 @@ export async function addFactura (
                     : undefined,
                   carpeta: {
                     connect: {
-                      numero: carpetaNumero
-                    }
+                      numero: carpetaNumero,
+                    },
                   },
                   emisorDeFactura: {
                     connectOrCreate: {
                       where: {
-                        nit: nit
+                        nit: nit,
                       },
                       create: {
                         dv             : factura.dv,
@@ -115,9 +114,9 @@ export async function addFactura (
                         nombreComercial: factura.nombreComercial,
                         direccion      : factura.direccion,
                         ciudad         : factura.ciudad,
-                      }
-                    }
-                  }
+                      },
+                    },
+                  },
                 },
                 create: {
                   ...factura,
@@ -127,13 +126,13 @@ export async function addFactura (
                   facturaElectronica: facturaElectronica,
                   carpeta           : {
                     connect: {
-                      numero: carpetaNumero
-                    }
+                      numero: carpetaNumero,
+                    },
                   },
                   emisorDeFactura: {
                     connectOrCreate: {
                       where: {
-                        nit: nit
+                        nit: nit,
                       },
                       create: {
                         dv             : factura.dv,
@@ -142,13 +141,12 @@ export async function addFactura (
                         nombreComercial: factura.nombreComercial,
                         direccion      : factura.direccion,
                         ciudad         : factura.ciudad,
-                      }
-                    }
-                  }
-                }
-              }
+                      },
+                    },
+                  },
+                },
+              } 
             );
-
           } else {
             inserter = await prisma.factura.upsert(
               {
@@ -164,7 +162,7 @@ export async function addFactura (
                   emisorDeFactura: {
                     connectOrCreate: {
                       where: {
-                        nit: nit
+                        nit: nit,
                       },
                       create: {
                         dv             : factura.dv,
@@ -173,9 +171,9 @@ export async function addFactura (
                         nombreComercial: factura.nombreComercial,
                         direccion      : factura.direccion,
                         ciudad         : factura.ciudad,
-                      }
-                    }
-                  }
+                      },
+                    },
+                  },
                 },
                 create: {
                   ...factura,
@@ -186,7 +184,7 @@ export async function addFactura (
                   emisorDeFactura: {
                     connectOrCreate: {
                       where: {
-                        nit: nit
+                        nit: nit,
                       },
                       create: {
                         dv             : factura.dv,
@@ -195,32 +193,32 @@ export async function addFactura (
                         nombreComercial: factura.nombreComercial,
                         direccion      : factura.direccion,
                         ciudad         : factura.ciudad,
-                      }
-                    }
-                  }
-                }
-              }
+                      },
+                    },
+                  },
+                },
+              } 
             );
           }
         } else {
           if ( carpetaNumero ) {
-            inserter =  await prisma.factura.upsert(
+            inserter = await prisma.factura.upsert(
               {
                 where: {
-                  id: factura.id
+                  id: factura.id,
                 },
                 update: {
                   ...factura,
                   secondaryFactura: facturaElectronica as unknown as JsonObject,
                   carpeta         : {
                     connect: {
-                      numero: carpetaNumero
-                    }
+                      numero: carpetaNumero,
+                    },
                   },
                   emisorDeFactura: {
                     connectOrCreate: {
                       where: {
-                        nit: nit
+                        nit: nit,
                       },
                       create: {
                         dv         : factura.dv,
@@ -228,9 +226,9 @@ export async function addFactura (
                         razonSocial: factura.razonSocial,
                         direccion  : factura.direccion,
                         ciudad     : factura.ciudad,
-                      }
-                    }
-                  }
+                      },
+                    },
+                  },
                 },
                 create: {
                   ...factura,
@@ -238,13 +236,13 @@ export async function addFactura (
                   secondaryFactura  : facturaElectronica as unknown as JsonObject,
                   carpeta           : {
                     connect: {
-                      numero: carpetaNumero
-                    }
+                      numero: carpetaNumero,
+                    },
                   },
                   emisorDeFactura: {
                     connectOrCreate: {
                       where: {
-                        nit: nit
+                        nit: nit,
                       },
                       create: {
                         dv         : factura.dv,
@@ -252,18 +250,17 @@ export async function addFactura (
                         razonSocial: factura.razonSocial,
                         direccion  : factura.direccion,
                         ciudad     : factura.ciudad,
-                      }
-                    }
-                  }
-                }
-              }
+                      },
+                    },
+                  },
+                },
+              } 
             );
-
           } else {
-            inserter =  await prisma.factura.upsert(
+            inserter = await prisma.factura.upsert(
               {
                 where: {
-                  id: factura.id
+                  id: factura.id,
                 },
                 update: {
                   ...factura,
@@ -272,7 +269,7 @@ export async function addFactura (
                   emisorDeFactura: {
                     connectOrCreate: {
                       where: {
-                        nit: nit
+                        nit: nit,
                       },
                       create: {
                         dv         : factura.dv,
@@ -280,9 +277,9 @@ export async function addFactura (
                         razonSocial: factura.razonSocial,
                         direccion  : factura.direccion,
                         ciudad     : factura.ciudad,
-                      }
-                    }
-                  }
+                      },
+                    },
+                  },
                 },
                 create: {
                   ...factura,
@@ -291,7 +288,7 @@ export async function addFactura (
                   emisorDeFactura   : {
                     connectOrCreate: {
                       where: {
-                        nit: nit
+                        nit: nit,
                       },
                       create: {
                         dv         : factura.dv,
@@ -299,45 +296,40 @@ export async function addFactura (
                         razonSocial: factura.razonSocial,
                         direccion  : factura.direccion,
                         ciudad     : factura.ciudad,
-                      }
-                    }
-                  }
-                }
-              }
+                      },
+                    },
+                  },
+                },
+              } 
             );
-
           }
-
         }
 
         console.log(
-          inserter
+          inserter 
         );
         return {
           success: true,
           data   : JSON.stringify(
-            inserter
-          )
+            inserter 
+          ),
         };
-
       } catch ( error ) {
         console.log(
-          error
+          error 
         );
         return {
           success: false,
           data   : JSON.stringify(
-            error
-          )
+            error 
+          ),
         };
       }
 }
 
-
-export async function addFacturaGenerator (
-  newData: intFactura
+export async function addFacturaGenerator(
+  newData: intFactura 
 ) {
-
       try {
         const inserter = await prisma.emisorDeFactura.create(
           {
@@ -346,29 +338,28 @@ export async function addFacturaGenerator (
               dv         : newData.dv,
               razonSocial: newData.razonSocial,
               direccion  : newData.direccion,
-              ciudad     : newData.ciudad
-
-            }
-          }
+              ciudad     : newData.ciudad,
+            },
+          } 
         );
         console.log(
-          inserter
+          inserter 
         );
         return {
           success: true,
           data   : JSON.stringify(
-            inserter
-          )
+            inserter 
+          ),
         };
       } catch ( error ) {
         console.log(
-          error
+          error 
         );
         return {
           success: false,
           data   : JSON.stringify(
-            error
-          )
+            error 
+          ),
         };
       }
 }

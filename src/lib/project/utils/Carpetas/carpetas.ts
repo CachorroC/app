@@ -1,44 +1,45 @@
 import { cache } from 'react';
-import { fetchCarpetaByNumero, fetchCarpetaByllaveProceso,
+import { fetchCarpetaByNumero,
+  fetchCarpetaByllaveProceso,
   fetchCarpetasByllaveProceso,
   fetcherCarpetaByidProceso, } from './fetcher';
 
 export const getCarpetasByllaveProceso = cache(
   async (
-    llaveProceso: string
+    llaveProceso: string 
   ) => {
             return await fetchCarpetasByllaveProceso(
-              llaveProceso
+              llaveProceso 
             );
-  }
+  } 
 );
 
 export const getCarpetaByllaveProceso = cache(
   async (
-    llaveProceso: string
+    llaveProceso: string 
   ) => {
             return await fetchCarpetaByllaveProceso(
-              llaveProceso
+              llaveProceso 
             );
-  }
+  } 
 );
 
 export const getCarpetabyNumero = cache(
   async (
-    numero: number
+    numero: number 
   ) => {
             return await fetchCarpetaByNumero(
-              numero
+              numero 
             );
-  }
+  } 
 );
 
 export const getCarpetaByidProceso = cache(
   async (
-    idProceso: number
+    idProceso: number 
   ) => {
             return fetcherCarpetaByidProceso(
-              idProceso
+              idProceso 
             );
-  }
+  } 
 );

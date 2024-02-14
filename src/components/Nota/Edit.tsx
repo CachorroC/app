@@ -3,17 +3,17 @@ import { editNota } from '#@/app/actions/main';
 import { useState } from 'react';
 import styles from 'components/Form/form.module.css';
 import layout from '#@/styles/layout.module.css';
-import { Nota } from '@prisma/client';
 import { useFormState } from 'react-dom';
 import cardStyles from '../Card/card.module.css';
+import { IntNota } from '#@/lib/types/notas';
 
 export const Edit = (
   {
-    nota
-  }: { nota: Nota }
+    nota 
+  }: { nota: IntNota } 
 ) => {
           const [ hasContent, setHasContent ] = useState(
-            false
+            false 
           );
 
           const [ formState, onCreate ] = useFormState(
@@ -21,16 +21,16 @@ export const Edit = (
               message: 'sin enviar',
               data   : nota,
               error  : false,
-            }
+            } 
           );
 
           const [ inputNota, setInputNota ] = useState(
-            formState.data ?? nota
+            formState.data ?? nota 
           );
 
-          const dateString = inputNota.date.toISOString()
+          const dateString = inputNota.dueDate?.toISOString()
                 .slice(
-                  0, 10
+                  0, 10 
                 );
 
           return (
@@ -86,15 +86,15 @@ export const Edit = (
                     className={styles.textArea}
                     type="text"
                     name="text"
-                    value={inputNota.title}
+                    value={inputNota.text}
                     onChange={(
-                      e
+                      e 
                     ) => {
                               setInputNota(
                                 {
                                   ...inputNota,
-                                  title: e.target.value,
-                                }
+                                  text: e.target.value,
+                                } 
                               );
                     }}
                   />
@@ -112,15 +112,15 @@ export const Edit = (
                     name="date"
                     value={dateString}
                     onChange={(
-                      e
+                      e 
                     ) => {
                               setInputNota(
                                 {
                                   ...inputNota,
-                                  date: new Date(
-                                    e.target.value
+                                  dueDate: new Date(
+                                    e.target.value 
                                   ),
-                                }
+                                } 
                               );
                     }}
                   />
@@ -135,10 +135,10 @@ export const Edit = (
                       onChange={() => {
                                 setHasContent(
                                   (
-                                    c
+                                    c 
                                   ) => {
                                             return !c;
-                                  }
+                                  } 
                                 );
                       }}
                       type="checkbox"
@@ -153,15 +153,19 @@ export const Edit = (
                           className={styles.textArea}
                           type="text"
                           name="content"
-                          value={inputNota.title}
+                          value={inputNota.content.join(
+                            '\n' 
+                          )}
                           onChange={(
-                            e
+                            e 
                           ) => {
                                     setInputNota(
                                       {
                                         ...inputNota,
-                                        content: e.target.value,
-                                      }
+                                        content: e.target.value.split(
+                                          '\n' 
+                                        ),
+                                      } 
                                     );
                           }}
                         />

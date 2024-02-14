@@ -2,33 +2,30 @@
 
 import { prisma } from '#@/lib/connection/prisma';
 
-
 export async function updateRevisadoState(
-  prevState: { revisado: boolean;  numero: number}
+  prevState: {
+    revisado: boolean;
+    numero: number;
+  } 
 ) {
-
       try {
-
-
-
         const updater = await prisma.carpeta.update(
           {
             where: {
-              numero: prevState.numero
+              numero: prevState.numero,
             },
             data: {
-              revisado: prevState.revisado
-            }
-          }
+              revisado: prevState.revisado,
+            },
+          } 
         );
         return {
           revisado: updater.revisado,
-          numero  : updater.numero
+          numero  : updater.numero,
         };
-
       } catch ( error ) {
         console.log(
-          error
+          error 
         );
         return prevState;
       }
