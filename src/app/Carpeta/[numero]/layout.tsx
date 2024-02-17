@@ -20,12 +20,12 @@ export default async function LayoutCarpetaMain(
     top: ReactNode;
     right: ReactNode;
     params: { numero: string };
-  } 
+  }
 ) {
       const carpeta = await getCarpetabyNumero(
         Number(
-          params.numero 
-        ) 
+          params.numero
+        )
       );
 
       if ( !carpeta ) {
@@ -53,7 +53,7 @@ export default async function LayoutCarpetaMain(
               <ForwardBackwardNavButtons />
             </Suspense>
           </div>
-          <div className={styles.leftColumn}>
+          <div className={styles.left}>
             <Suspense fallback={<Loader />}>{children}</Suspense>
           </div>
           <div className={styles.right}>

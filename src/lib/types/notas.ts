@@ -21,7 +21,7 @@ export interface NewNota {
 }
 
 export interface IntNota extends NewNota {
-  id: number;
+  id: string;
   updatedAt: Date;
   createdAt: Date;
 }
@@ -49,7 +49,7 @@ export type UpdateActionType = {
 
 export type DeleteActionType = {
   type: 'deleted';
-  id: number;
+  id:string;
 };
 
 export type ResetActionType = {

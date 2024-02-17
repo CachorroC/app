@@ -2,7 +2,7 @@ import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import button from '#@/components/Buttons/buttons.module.css';
-import { fixMoney } from '#@/lib/project/helper';
+import { fixMoney, moneyOutput } from '#@/lib/project/helper';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Metadata, Route } from 'next';
 import { Suspense } from 'react';
@@ -15,6 +15,8 @@ import { DeudorFormComponent } from './deudor-form-component';
 import ActuacionLoader from '#@/components/Card/actuacion-loader';
 import { JuzgadoComponent } from '#@/components/Proceso/juzgado-component';
 import { getProceso } from '#@/lib/project/utils/Procesos';
+import styles from './styles.module.css';
+import { NotificacionComponent } from '#@/components/Notificacion/notificacion';
 
 //SECTION Generate metadata for [numero]
 
@@ -23,16 +25,16 @@ export async function generateMetadata(
     params,
   }: {
     params: { numero: string };
-  } 
+  }
 ): Promise<Metadata> {
       const {
-        numero 
+        numero
       } = params;
 
       const product = await getCarpetabyNumero(
         Number(
-          numero 
-        ) 
+          numero
+        )
       );
 
       if ( !product ) {
@@ -60,10 +62,10 @@ async function ProcesosComponent(
   }: {
     llaveProceso: string;
     numero: number;
-  } 
+  }
 ) {
       const procesos = await getProceso(
-        llaveProceso 
+        llaveProceso
       );
 
       if ( !procesos || procesos.length === 0 ) {
@@ -74,10 +76,10 @@ async function ProcesosComponent(
         <>
           {procesos.map(
             (
-              proceso, index 
+              proceso, index
             ) => {
                       const {
-                        idProceso 
+                        idProceso
                       } = proceso;
                       return (
                         <div
@@ -125,7 +127,7 @@ async function ProcesosComponent(
                           </Suspense>
                         </div>
                       );
-            } 
+            }
           )}
         </>
       );
@@ -133,13 +135,13 @@ async function ProcesosComponent(
 
 export default async function Page(
   {
-    params 
-  }: { params: { numero: string } } 
+    params
+  }: { params: { numero: string } }
 ) {
       const carpeta = await getCarpetabyNumero(
         Number(
-          params.numero 
-        ) 
+          params.numero
+        )
       );
 
       if ( !carpeta ) {
@@ -147,7 +149,7 @@ export default async function Page(
       }
 
       const {
-        demanda, idProcesos, numero, llaveProceso 
+        demanda, idProcesos, numero, llaveProceso
       } = carpeta;
 
       let idProcesoContent;
@@ -155,7 +157,7 @@ export default async function Page(
       if ( idProcesos && idProcesos.length > 0 ) {
         idProcesoContent = idProcesos.map(
           (
-            idProceso 
+            idProceso
           ) => {
                     return (
                       <Link
@@ -165,12 +167,52 @@ export default async function Page(
                         }
                       ></Link>
                     );
-          } 
+          }
         );
       }
 
       return (
         <>
+          <div className={ layout.sectionRow }>
+            {
+              carpeta.demanda?.capitalAdeudado && (
+                <div className={ styles.valueCard }>
+                  <h2 className={styles.valueCardTitle}>Capital Adeudado</h2>
+                  <h3 className={styles.valueCardValue}>{moneyOutput(
+                    carpeta.demanda.capitalAdeudado
+                  )}</h3>
+                </div>
+              ) }
+            {
+              carpeta.demanda?.avaluo && (
+                <div className={ styles.valueCard }>
+                  <h2 className={styles.valueCardTitle}>Valor del Avaluo</h2>
+                  <h3 className={styles.valueCardValue}>{
+                    moneyOutput(
+                      carpeta.demanda.avaluo
+                    )
+                  }</h3>
+                </div>
+              )
+            }
+            {
+              carpeta.demanda?.liquidacion && (
+                <div className={ styles.valueCard }>
+                  <h2 className={styles.valueCardTitle}>Valor de la liquidacion</h2>
+                  <h3 className={styles.valueCardValue}>{
+                    moneyOutput(
+                      carpeta.demanda.liquidacion
+                    )
+                  }</h3>
+                </div>
+              )
+            }
+          </div>
+          { carpeta.demanda?.notificacion && (
+            <Suspense fallback={ <Loader /> }>
+              <NotificacionComponent notificacion={ carpeta.demanda.notificacion } />
+            </Suspense>
+          )}
           <div className={layout.sectionRow}>
             <section className={layout.segmentRow}>
               <h3 className={typography.titleLarge}>Procesos</h3>
@@ -201,9 +243,9 @@ export default async function Page(
             && fixMoney(
               {
                 valor: Number(
-                  demanda.capitalAdeudado 
+                  demanda.capitalAdeudado
                 ),
-              } 
+              }
             )}
             </p>
           </section>

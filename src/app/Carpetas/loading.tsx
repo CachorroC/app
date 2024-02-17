@@ -1,5 +1,8 @@
-import { Loader } from '#@/components/Loader';
 
-export default function Loading() {
-      return <Loader />;
+import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
+
+export default function Loading () {
+      return (
+        <SearchOutputListSkeleton />
+      );
 }

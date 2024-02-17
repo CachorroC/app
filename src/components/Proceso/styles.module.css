@@ -21,9 +21,7 @@
   padding: 2cqmin;
   border-radius: 2cqmin;
 }
-.container .button,
-.container .buttonActive,
-.container .buttonInnactive {
+.container .button, .container .buttonActive, .container .buttonInnactive {
   display: flex;
   padding: 0.5rem;
   gap: 0.5rem;
@@ -35,11 +33,9 @@
   justify-items: center;
   border: none;
 }
-.container .button:after,
-.container .buttonActive:after,
-.container .buttonInnactive:after {
+.container .button:after, .container .buttonActive:after, .container .buttonInnactive:after {
   transition: all 0.5s;
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -49,9 +45,7 @@
   background-color: var(--primary);
   opacity: 0.02;
 }
-.container .button .text,
-.container .buttonActive .text,
-.container .buttonInnactive .text {
+.container .button .text, .container .buttonActive .text, .container .buttonInnactive .text {
   font-family: var(--raleway);
 }
 .container .buttonInnactive {
@@ -72,18 +66,15 @@
 .container .buttonInnactive:hover:after {
   background-color: var(--secondary);
 }
-.container .buttonInnactive:focus,
-.container .buttonInnactive:active {
+.container .buttonInnactive:focus, .container .buttonInnactive:active {
   background-color: var(--secondary-container);
 }
 .container .buttonInnactive:focus .text,
-.container .buttonInnactive:focus .icon,
-.container .buttonInnactive:active .text,
+.container .buttonInnactive:focus .icon, .container .buttonInnactive:active .text,
 .container .buttonInnactive:active .icon {
   color: var(--on-secondary-container);
 }
-.container .buttonInnactive:focus:after,
-.container .buttonInnactive:active:after {
+.container .buttonInnactive:focus:after, .container .buttonInnactive:active:after {
   background-color: var(--on-secondary-container);
 }
 .container .buttonActive {
@@ -104,61 +95,31 @@
   background-color: var(--on-primary);
   opacity: 0.8;
 }
-.container .buttonActive:focus,
-.container .buttonActive:active {
+.container .buttonActive:focus, .container .buttonActive:active {
   background-color: var(--primary-container);
 }
 .container .buttonActive:focus .text,
-.container .buttonActive:focus .icon,
-.container .buttonActive:active .text,
+.container .buttonActive:focus .icon, .container .buttonActive:active .text,
 .container .buttonActive:active .icon {
   color: var(--on-primary-container);
 }
-.container .buttonActive:focus:after,
-.container .buttonActive:active:after {
+.container .buttonActive:focus:after, .container .buttonActive:active:after {
   background-color: var(--on-primary-container);
 }
-.container .button:hover,
-.container .buttonInnactive:hover,
-.container .buttonActive:hover {
+.container .button:hover, .container .buttonInnactive:hover, .container .buttonActive:hover {
   box-shadow: var(--dp6);
 }
-.container .button:hover > .icon,
-.container .buttonInnactive:hover > .icon,
-.container .buttonActive:hover > .icon {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 600,
-    'GRAD' 200,
-    'opsz' 40;
+.container .button:hover > .icon, .container .buttonInnactive:hover > .icon, .container .buttonActive:hover > .icon {
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 40;
 }
-.container .button:focus,
-.container .buttonInnactive:focus,
-.container .buttonActive:focus,
-.container .button:active,
-.container .buttonInnactive:active,
-.container .buttonActive:active {
+.container .button:focus, .container .buttonInnactive:focus, .container .buttonActive:focus, .container .button:active, .container .buttonInnactive:active, .container .buttonActive:active {
   box-shadow: var(--dp1);
 }
-.container .button:focus:after,
-.container .buttonInnactive:focus:after,
-.container .buttonActive:focus:after,
-.container .button:active:after,
-.container .buttonInnactive:active:after,
-.container .buttonActive:active:after {
+.container .button:focus:after, .container .buttonInnactive:focus:after, .container .buttonActive:focus:after, .container .button:active:after, .container .buttonInnactive:active:after, .container .buttonActive:active:after {
   opacity: 0.1;
 }
-.container .button:focus > .icon,
-.container .buttonInnactive:focus > .icon,
-.container .buttonActive:focus > .icon,
-.container .button:active > .icon,
-.container .buttonInnactive:active > .icon,
-.container .buttonActive:active > .icon {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 600,
-    'GRAD' 200,
-    'opsz' 40;
+.container .button:focus > .icon, .container .buttonInnactive:focus > .icon, .container .buttonActive:focus > .icon, .container .button:active > .icon, .container .buttonInnactive:active > .icon, .container .buttonActive:active > .icon {
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 40;
 }
 
 /*# sourceMappingURL=styles.module.css.map */

@@ -79,12 +79,12 @@ export async function FechaActuacionComponent(
   }: {
     idProceso: number;
     index: number;
-  } 
+  }
 ) {
       noStore();
 
       const consultaActuaciones = await fetchActuaciones(
-        idProceso, index 
+        idProceso, index
       );
 
       if ( !consultaActuaciones ) {
@@ -114,10 +114,11 @@ export async function FechaActuacionComponentAlt(
   }: {
     idProceso: number;
     index: number;
-  } 
+  }
 ) {
+
       const consultaActuaciones = await fetchActuaciones(
-        idProceso, index 
+        idProceso, index
       );
 
       if ( !consultaActuaciones || consultaActuaciones.length === 0 ) {
@@ -142,7 +143,7 @@ export async function FechaActuacionComponentAlt(
       const [ ultimaActuacion ] = consultaActuaciones;
 
       const {
-        actuacion, fechaActuacion, anotacion, consActuacion, cant 
+        actuacion, fechaActuacion, anotacion, consActuacion, cant
       }
     = ultimaActuacion;
 
@@ -160,7 +161,7 @@ export async function FechaActuacionComponentAlt(
             <sub
               className={typography.labelMedium}
             >{`actuacion registrada el ${ fixFechas(
-                fechaActuacion 
+                fechaActuacion
               ) }`}</sub>
             {anotacion && (
               <p className={` ${ styles.anotacion } ${ typography.bodyMedium }`}>

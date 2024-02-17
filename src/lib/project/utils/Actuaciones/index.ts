@@ -6,31 +6,31 @@ import { sleep } from '../../helper';
 import { updateUltimaActuacionInPrisma } from './updater';
 
 export async function fetchActuaciones(
-  idProceso: number, index: number = 1 
+  idProceso: number, index: number = 1
 ) {
       if ( index > 500 ) {
         await sleep(
-          index - 500 
+          index - 500
         );
       } else if ( index > 400 ) {
         await sleep(
-          index - 400 
+          index - 400
         );
       } else if ( index > 300 ) {
         await sleep(
-          index - 300 
+          index - 300
         );
       } else if ( index > 200 ) {
         await sleep(
-          index - 200 
+          index - 200
         );
       } else if ( index > 100 ) {
         await sleep(
-          index - 100 
+          index - 100
         );
       } else {
         await sleep(
-          index 
+          index
         );
       }
 
@@ -57,48 +57,48 @@ export async function fetchActuaciones(
         const json = ( await request.json() ) as ConsultaActuacion;
 
         const {
-          actuaciones 
+          actuaciones
         } = json;
 
         const outActuaciones = actuaciones.map(
           (
-            actuacion 
+            actuacion
           ) => {
                     return {
                       ...actuacion,
                       isUltimaAct   : actuacion.cant === actuacion.consActuacion,
                       idProceso     : idProceso,
                       fechaActuacion: new Date(
-                        actuacion.fechaActuacion 
+                        actuacion.fechaActuacion
                       ),
                       fechaRegistro: new Date(
-                        actuacion.fechaRegistro 
+                        actuacion.fechaRegistro
                       ),
                       fechaInicial: actuacion.fechaInicial
                         ? new Date(
-                          actuacion.fechaInicial 
+                          actuacion.fechaInicial
                         )
                         : null,
                       fechaFinal: actuacion.fechaFinal
                         ? new Date(
-                          actuacion.fechaFinal 
+                          actuacion.fechaFinal
                         )
                         : null,
                     };
-          } 
+          }
         );
 
         const [ ultimaActuacion ] = outActuaciones;
         updateUltimaActuacionInPrisma(
-          ultimaActuacion 
+          ultimaActuacion
         );
         return outActuaciones;
       } catch ( error ) {
         console.log(
-          `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }` 
+          `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
         );
 
-        return null;
+        return [];
       }
 }
 
@@ -109,7 +109,7 @@ export async function updateActuaciones(
       try {
         if ( actuaciones.length === 0 ) {
           throw new Error(
-            'no hay actuaciones en el array updateActuaciones' 
+            'no hay actuaciones en el array updateActuaciones'
           );
         }
 
@@ -122,17 +122,17 @@ export async function updateActuaciones(
                 has: idProceso,
               },
             },
-          } 
+          }
         );
 
         if ( !carpeta ) {
           throw new Error(
-            'no hay carpeta por actualizar' 
+            'no hay carpeta por actualizar'
           );
         }
 
         const incomingDate = new Date(
-          ultimaActuacion.fechaActuacion 
+          ultimaActuacion.fechaActuacion
         );
 
         const incomingYear = incomingDate.getFullYear();
@@ -143,7 +143,7 @@ export async function updateActuaciones(
 
         const savedDate = carpeta.fecha
           ? new Date(
-            carpeta.fecha 
+            carpeta.fecha
           )
           : null;
 
@@ -165,7 +165,7 @@ export async function updateActuaciones(
               },
               $set: {
                 fecha: new Date(
-                  ultimaActuacion.fechaActuacion 
+                  ultimaActuacion.fechaActuacion
                 ),
                 revisado       : false,
                 idRegUltimaAct : ultimaActuacion.idRegActuacion,
@@ -189,7 +189,7 @@ export async function updateActuaciones(
               },
               data: {
                 fecha: new Date(
-                  incomingYear, incomingMonth, incomingDay 
+                  incomingYear, incomingMonth, incomingDay
                 ),
                 revisado       : false,
                 ultimaActuacion: {
@@ -200,19 +200,19 @@ export async function updateActuaciones(
                     create: {
                       ...ultimaActuacion,
                       fechaActuacion: new Date(
-                        ultimaActuacion.fechaActuacion 
+                        ultimaActuacion.fechaActuacion
                       ),
                       fechaRegistro: new Date(
-                        ultimaActuacion.fechaRegistro 
+                        ultimaActuacion.fechaRegistro
                       ),
                       fechaInicial: ultimaActuacion.fechaInicial
                         ? new Date(
-                          ultimaActuacion.fechaInicial 
+                          ultimaActuacion.fechaInicial
                         )
                         : null,
                       fechaFinal: ultimaActuacion.fechaFinal
                         ? new Date(
-                          ultimaActuacion.fechaFinal 
+                          ultimaActuacion.fechaFinal
                         )
                         : null,
                       anotacion: ultimaActuacion.anotacion
@@ -227,11 +227,11 @@ export async function updateActuaciones(
                   },
                 },
               },
-            } 
+            }
           );
 
           console.log(
-            updateCarpetaWithActuacionesToPrisma 
+            updateCarpetaWithActuacionesToPrisma
           );
 
           if ( !updateCarpetawithActuaciones ) {
@@ -261,19 +261,19 @@ export async function updateActuaciones(
                 create: {
                   ...actuacion,
                   fechaActuacion: new Date(
-                    actuacion.fechaActuacion 
+                    actuacion.fechaActuacion
                   ),
                   fechaRegistro: new Date(
-                    actuacion.fechaRegistro 
+                    actuacion.fechaRegistro
                   ),
                   fechaInicial: actuacion.fechaInicial
                     ? new Date(
-                      actuacion.fechaInicial 
+                      actuacion.fechaInicial
                     )
                     : null,
                   fechaFinal: actuacion.fechaFinal
                     ? new Date(
-                      actuacion.fechaFinal 
+                      actuacion.fechaFinal
                     )
                     : null,
                   isUltimaAct:
@@ -289,12 +289,12 @@ export async function updateActuaciones(
                 ? true
                 : false,
                 },
-              } 
+              }
             );
           }
         } catch ( createError ) {
           console.log(
-            createError 
+            createError
           );
         }
 
@@ -302,7 +302,7 @@ export async function updateActuaciones(
       } catch ( error ) {
         console.log(
           `ocurrio un error en updateActuaciones ${ JSON.stringify(
-            error, null, 2 
+            error, null, 2
           ) }`,
         );
         return;

@@ -1,3 +1,30 @@
+.value, .valueCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  flex: 1;
+  border-radius: var(--shape-corner-small);
+  gap: 0.5rem;
+}
+.valueCard {
+  flex-flow: column nowrap;
+  background-color: var(--surface);
+  border: 0.2rem solid var(--outline-variant);
+}
+@media (width < 600px) {
+  .valueCard {
+    flex-flow: row wrap;
+  }
+}
+.valueCardTitle {
+  color: var(--primary);
+}
+.valueCardValue {
+  color: var(--on-surface);
+}
+
 .chip {
   display: inline-flex;
   flex-flow: row nowrap;

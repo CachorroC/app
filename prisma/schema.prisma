@@ -20,6 +20,7 @@ model Carpeta {
   updatedAt       DateTime   @updatedAt
   category        String     @default("SinEspecificar")
   tipoProceso     String     @default("SINGULAR")
+  notasCount      Int?
   ultimaActuacion Actuacion? @relation(fields: [idRegUltimaAct], references: [idRegActuacion])
   codeudor        Codeudor?
   demanda         Demanda?
@@ -154,15 +155,13 @@ model Notifier {
 model Nota {
   carpetaNumero Int?
   createdAt     DateTime  @default(now())
-  id            Int       @default(autoincrement())
+  id            String    @id
   pathname      String?
   updatedAt     DateTime  @updatedAt
   dueDate       DateTime? @db.Date
   text          String
   content       String[]
   carpeta       Carpeta?  @relation(fields: [carpetaNumero], references: [numero])
-
-  @@id([id, text])
 }
 
 model Task {

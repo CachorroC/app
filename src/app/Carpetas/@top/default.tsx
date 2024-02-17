@@ -1,32 +1,13 @@
-'use client';
+
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import { InputSearchBar } from '#@/components/layout/InputSearchBar';
-import typography from '#@/styles/fonts/typography.module.css';
-import { usePathname } from 'next/navigation';
+import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 
-export default function Default() {
-      const pathname = usePathname();
-
-      const splitter = pathname.split(
-        '/' 
-      );
+export default async function Default() {
+      const carpetas = await getCarpetas();
       return (
         <>
-          {splitter.map(
-            (
-              splitted, index 
-            ) => {
-                      return (
-                        <h4
-                          key={index}
-                          className={typography.headlineMedium}
-                        >
-                          {splitted}
-                        </h4>
-                      );
-            } 
-          )}
-          <InputSearchBar />
+          <InputSearchBar carpetas={ carpetas} />
           <ForwardBackwardNavButtons />
         </>
       );

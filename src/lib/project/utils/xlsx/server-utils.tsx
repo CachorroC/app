@@ -2,15 +2,22 @@ import { RawDb } from '#@/lib/types/rawDB';
 import { JSX } from 'react';
 import { read, utils } from 'xlsx';
 
-const prefix = process.env.NODE_ENV === 'development'
-  ? 'beta'
-  : 'app';
 
-export default async function JSXLSX() {
+
+export default async function JSXLSX () {
+      const prefix = process.env.NODE_ENV === 'development'
+        ? 'beta'
+        : 'app';
+
       const rows: JSX.Element[] = [];
 
       const request = await fetch(
-        `https://${ prefix }.rsasesorjuridico.com/general.xlsx`
+        `https://${ prefix }.rsasesorjuridico.com/general.xlsx`, {
+          headers: {
+            'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
+            'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`
+          }
+        }
       );
 
       const arrBuff = await request.arrayBuffer();

@@ -13,23 +13,23 @@ export function CarpetasList() {
       const carpetasReduced = useCarpetaSort();
 
       const {
-        search 
+        search
       } = useSearch();
 
       const {
-        currentCategory 
+        currentCategory
       } = useCategory();
       carpetasReduced.forEach(
         (
-          proceso 
+          proceso
         ) => {
                   const {
-                    ultimaActuacion 
+                    ultimaActuacion
                   } = proceso;
 
                   if ( proceso.nombre.toLowerCase()
                         .indexOf(
-                          search.toLowerCase() 
+                          search.toLowerCase()
                         ) === -1 ) {
                     return;
                   }
@@ -49,67 +49,55 @@ export function CarpetasList() {
                       </Card>,
                     );
                   }
-        } 
+        }
       );
 
       return <>{rows}</>;
 }
 
 export function CarpetasTable() {
-      const rows: JSX.Element[] = [];
 
       const carpetasReduced = useCarpetaSort();
 
-      const {
-        search 
-      } = useSearch();
 
-      carpetasReduced.forEach(
+
+      return <>{carpetasReduced.map(
         (
-          carpeta 
+          carpeta
         ) => {
                   const {
-                    ultimaActuacion 
+                    ultimaActuacion
                   } = carpeta;
-
-                  if ( carpeta.nombre.toLowerCase()
-                        .indexOf(
-                          search.toLowerCase() 
-                        ) === -1 ) {
-                    return;
-                  }
-
-                  rows.push(
+                  return (
                     <CardRow
                       key={carpeta.numero}
                       carpeta={carpeta}
                     >
-                      {ultimaActuacion
+                      { ultimaActuacion
                         ? (
                             <td>
-                              <h5 className={typography.titleSmall}>
+                              <h5 className={typography.titleMedium}>
                                 {ultimaActuacion.actuacion}
                               </h5>
-
                               {ultimaActuacion.anotacion && (
                                 <span className={typography.labelSmall}>
                                   {ultimaActuacion.anotacion}
                                 </span>
                               )}
-                            </td>
-                          )
+                            </td> )
                         : (
                             <td>
-                              <h5 className={typography.titleSmall}>Sin actuaciones</h5>
+                              <h5 className={typography.headlineSmall}>
+                               Sin actuaciones
+                              </h5>
                               <span className={typography.labelSmall}>
-              Esta carpeta no tiene registros en la Rama Judicial
+                                  Esta carpeta no tiene registros en la Rama Judicial
                               </span>
                             </td>
-                          )}
-                    </CardRow>,
+                          )
+                      }
+                    </CardRow>
                   );
-        } 
-      );
-
-      return <>{rows}</>;
+        }
+      )}</>;
 }

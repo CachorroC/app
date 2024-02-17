@@ -73,18 +73,38 @@ export async function addNotaToMongo(
 export async function addNotaToPrisma(
   incomingTask: NewNota
 ) {
-      const {
-        carpetaNumero, ...task
-      } = incomingTask;
-
-      let inserter;
-
       try {
+        const {
+          carpetaNumero, ...task
+        } = incomingTask;
+        let inserter;
+        let count = 0;
+
+        if ( carpetaNumero ) {
+          const carpeta = await prisma.carpeta.findFirstOrThrow(
+            {
+              where: {
+                numero: carpetaNumero
+              }
+            }
+          );
+
+          if ( carpeta.notasCount ) {
+            count = carpeta.notasCount;
+          }
+        } else {
+          const counted = await prisma.nota.count();
+          count = counted;
+        }
+
+
+
         if ( carpetaNumero ) {
           inserter = await prisma.nota.create(
             {
               data: {
                 ...task,
+                id     : `${ carpetaNumero }-${ count++ }`,
                 carpeta: {
                   connect: {
                     numero: carpetaNumero,
@@ -97,6 +117,7 @@ export async function addNotaToPrisma(
           inserter = await prisma.nota.create(
             {
               data: {
+                id: `${ Date.now() }-${ count++ }`,
                 ...task,
               },
             }
@@ -134,11 +155,7 @@ export async function updateNotaTextState(
         const updater = await prisma.nota.update(
           {
             where: {
-              id_text: {
-                text: prevState.text,
-                id  : prevState.id
-              },
-              carpetaNumero: prevState.carpetaNumero
+              id: prevState.id
             },
             data: {
               text: prevState.text,

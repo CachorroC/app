@@ -1,10 +1,10 @@
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { FechaActuacionComponentAlt } from './actuaciones';
-import { CarpetaUltimaActuacionRow } from '#@/components/Table/row';
 import { Suspense } from 'react';
 import ActuacionLoader from '#@/components/Card/actuacion-loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import styles from '#@/components/Card/card.module.css';
+import { ClientCardRow } from '#@/components/Card/client-card';
 
 export default async function Page() {
       const carpetas = await getCarpetas();
@@ -28,15 +28,15 @@ export default async function Page() {
           <tbody>
             {carpetas.flatMap(
               (
-                carpeta, index 
+                carpeta, index
               ) => {
                         const {
-                          idProcesos, numero 
+                          idProcesos, numero
                         } = carpeta;
 
                         if ( idProcesos.length === 0 ) {
                           return (
-                            <CarpetaUltimaActuacionRow
+                            <ClientCardRow
                               carpeta={carpeta}
                               key={numero}
                             >
@@ -54,30 +54,31 @@ export default async function Page() {
                     la informacion la brinda el juzgado por otro canal
                                 </sub>
                               </td>
-                            </CarpetaUltimaActuacionRow>
+                            </ClientCardRow>
                           );
                         }
 
                         return idProcesos.map(
                           (
-                            idProceso 
+                            idProceso
                           ) => {
                                     return (
-                                      <CarpetaUltimaActuacionRow
+                                      <ClientCardRow
                                         key={idProceso}
                                         carpeta={carpeta}
                                       >
                                         <Suspense fallback={<ActuacionLoader />}>
                                           <FechaActuacionComponentAlt
                                             idProceso={idProceso}
-                                            index={index}
+                                            index={ index }
+                                            key={idProceso}
                                           />
                                         </Suspense>
-                                      </CarpetaUltimaActuacionRow>
+                                      </ClientCardRow>
                                     );
-                          } 
+                          }
                         );
-              } 
+              }
             )}
           </tbody>
         </table>

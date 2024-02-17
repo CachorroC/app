@@ -12,9 +12,10 @@ import { intProceso } from 'types/procesos';
 import { IntTask, SubTarea } from './tareas';
 import { IntNota } from './notas';
 
-export interface IntCarpeta {
+export type IntCarpeta  = {
   category: string;
   codeudor: Codeudor | null;
+  notasCount: number | null;
   demanda: intDemanda | null;
   deudor: Deudor | null;
   fecha: Date | null;
@@ -43,7 +44,7 @@ export type Category =
   | 'todos'
   | 'SinEspecificar';
 
-export interface Codeudor {
+export type Codeudor ={
   carpetaNumero: number | null;
   cedula: null | string;
   direccion: null | string;
@@ -52,7 +53,7 @@ export interface Codeudor {
   telefono: null | string;
 }
 
-export interface intDemanda {
+export type intDemanda ={
   avaluo: null | number;
   capitalAdeudado: null | number;
   carpetaNumero: number | null;
@@ -84,29 +85,29 @@ export type intDemandaDepartamento =
   | 'CNDINAMARCA'
   | 'ATLANTICO';
 
-export interface MedidasCautelares {
+export type MedidasCautelares  ={
   demandaId: number | null;
   fechaOrdenaMedida: Date | null;
   id: number;
   medidaSolicitada: null | string;
 }
 
-export interface Notificacion {
+export type Notificacion = {
   autoNotificado: null | Date;
   demandaId: number | null;
   certimail: boolean | null;
   fisico: boolean | null;
   id: number;
-  notifiers: Notifier[];
+  notifiers: Notifier[]
 }
 
-export interface Notifier {
+export type Notifier ={
   fechaAporta: Date | null;
   fechaRecibido: Date | null;
   id?: number;
   notificacionId: number | null;
   resultado: boolean | null;
-  tipo: string;
+  tipo: string
 }
 
 export type TipoProceso =
@@ -115,7 +116,7 @@ export type TipoProceso =
   | 'HIPOTECARIO'
   | 'ACUMULADO';
 
-export interface Deudor {
+export type  Deudor = {
   carpetaNumero: number | null;
   cedula: string;
   direccion: null | string;
@@ -135,7 +136,7 @@ export type ProcesoDepartamento =
   | 'ANTIOQUIA'
   | 'META';
 
-export interface Juzgado {
+export type Juzgado ={
   id: number;
   tipo: string;
   url: string;
@@ -434,6 +435,7 @@ export const mockCarpeta: IntCarpeta = {
   updatedAt      : new Date(),
   tareas         : [],
   notas          : [],
+  notasCount     : null
 };
 
 function incomingStringFixer(

@@ -1,111 +1,38 @@
-import { MonCarpeta } from '#@/lib/types/carpetas';
+'use client';
+
+import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import { useSearch } from '#@/app/Context/search-context';
+import { OutputDateHelper } from '#@/lib/project/date-helper';
+import { IntCarpeta } from '#@/lib/types/carpetas';
+import { Route } from 'next';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import { CopyButton } from '../Buttons/copy-buttons';
 import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
-import type { Route } from 'next';
 import layout from '#@/styles/layout.module.css';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
-import { CopyButton } from '../Buttons/copy-buttons';
-import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
 
-export const Card = (
+export const ClientCardRow = (
   {
     carpeta,
     children,
   }: {
-    carpeta: MonCarpeta;
+    carpeta: IntCarpeta;
     children: ReactNode;
   }
 ) => {
-          let contentIdProcesos;
-
-          const llaveLength = carpeta.llaveProceso?.length;
-
-          const errorLLaveProceso = llaveLength
-            ? llaveLength < 23
-            : true;
 
           const {
-            idProcesos, nombre, numero
-          } = carpeta;
+            search
+          } = useSearch();
 
-          if ( !idProcesos || idProcesos.length === 0 ) {
-            contentIdProcesos = <span>no hay idProcesos</span>;
-          } else {
-            contentIdProcesos = idProcesos.map(
-              (
-                idProceso
-              ) => {
-                        return (
-                          <Link
-                            key={idProceso}
-                            href={
-                              `/Carpeta/${ String(
-                                numero
-                              ) }/ultimasActuaciones/${ String(
-                                idProceso,
-                              ) }` as Route
-                            }
-                            className={styles.link}
-                          >
-                            <span className={`material-symbols-outlined ${ styles.icon }`}>
-            inventory
-                            </span>
-                          </Link>
-                        );
-              }
-            );
+          if ( search !== '' && carpeta.nombre.toLowerCase()
+                .lastIndexOf(
+                  search.toLowerCase()
+                ) === -1 ) {
+            return null;
           }
 
-          return (
-            <div className={styles.container}>
-              <div
-                className={`${ styles.card } ${
-                  errorLLaveProceso && styles.errorContainer
-                }`}
-              >
-                <section className={layout.sectionRow}>
-                  <h4 className={typography.titleMedium}>{nombre}</h4>
-                  <Link
-                    className={styles.link}
-                    href={`/Carpeta/${ numero }` as Route}
-                  >
-                    <span className={`${ typography.labelLarge } ${ layout.text }`}>
-                      {numero.toString()}
-                    </span>
-                    <span className={`material-symbols-outlined ${ layout.icon }`}>
-              folder
-                    </span>
-                  </Link>
-                </section>
-                {children}
-                <div className={layout.segmentRow}>{contentIdProcesos}</div>
-
-                <div className={styles.links}>
-                  {errorLLaveProceso && (
-                    <Link
-                      href={`/Carpeta/${ numero }/Editar` as Route}
-                      className={styles.link}
-                    >
-                      {'error con el numero de expediente'}
-                    </Link>
-                  )}
-                </div>
-              </div>
-            </div>
-          );
-};
-
-export const CardRow = (
-  {
-    carpeta,
-    children
-  }: {
-    carpeta: MonCarpeta;
-    children: ReactNode;
-  }
-) => {
           const llaveLength = carpeta.llaveProceso?.length;
 
           const errorLLaveProceso = llaveLength

@@ -4,45 +4,27 @@ import { IntNota } from '#@/lib/types/notas';
 import { useState } from 'react';
 import { useNotaSortDispatch } from '../Context/notas-sort-context';
 import { updateNotaTextState } from './actions';
+import styles from './styles.module.css';
 
 export function Nota(
   {
-    nota 
-  }: { nota: IntNota } 
+    nota
+  }: { nota: IntNota }
 ) {
       const [ isEditing, setIsEditing ] = useState(
-        false 
+        false
       );
 
       const [ notaState, setNotaState ] = useState(
         {
           ...nota,
-        } 
+        }
       );
 
       const dispatch = useNotaSortDispatch();
       let notaContent;
 
-      async function editNota() {
-            const revis = await updateNotaTextState(
-              notaState 
-            );
-            alert(
-              JSON.stringify(
-                revis 
-              ) 
-            );
 
-            return dispatch(
-              {
-                type: 'changed',
-                nota: {
-                  ...notaState,
-                  ...revis,
-                },
-              } 
-            );
-      }
 
       if ( isEditing ) {
         notaContent = (
@@ -50,21 +32,39 @@ export function Nota(
             <input
               value={notaState.text}
               onChange={(
-                e 
+                e
               ) => {
                         return setNotaState(
                           {
                             ...notaState,
                             text: e.target.value,
-                          } 
+                          }
                         );
               }}
             />
             <button
               type="button"
-              onClick={() => {
+              onClick={ async () => {
+                        const revis = await updateNotaTextState(
+                          notaState
+                        );
+                        alert(
+                          JSON.stringify(
+                            revis
+                          )
+                        );
+
+                        dispatch(
+                          {
+                            type: 'changed',
+                            nota: {
+                              ...notaState,
+                              ...revis,
+                            },
+                          }
+                        );
                         return setIsEditing(
-                          false 
+                          false
                         );
               }}
             >
@@ -75,12 +75,12 @@ export function Nota(
       } else {
         notaContent = (
           <>
-            {nota.text}
+            <p>{nota.text}</p>
             <button
               type="button"
               onClick={() => {
                         return setIsEditing(
-                          true 
+                          true
                         );
               }}
             >
@@ -91,7 +91,7 @@ export function Nota(
       }
 
       return (
-        <form action={editNota}>
+        <div className={styles.listItemContainer}>
           {notaContent}
           <button
             type="button"
@@ -100,13 +100,13 @@ export function Nota(
                         {
                           type: 'deleted',
                           id  : nota.id,
-                        } 
+                        }
                       );
             }}
           >
         Delete
           </button>
-          <button type="submit">Save</button>
-        </form>
+
+        </div>
       );
 }

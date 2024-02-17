@@ -1,39 +1,41 @@
 'use client';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import { useSearch } from '#@/app/Context/search-context';
-import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
+import { IntCarpeta } from '#@/lib/types/carpetas';
 
-export const InputSearchBar = () => {
+export const InputSearchBar = (
+  {
+    carpetas
+  }: {carpetas: IntCarpeta[]}
+) => {
           const {
-            search, setSearch 
+            search, setSearch
           } = useSearch();
-
-          const carpetasReduced = useCarpetaSort();
-
           return (
             <>
               <datalist id="demandados-list">
-                {carpetasReduced.map(
+                {carpetas.map(
                   (
-                    carpeta 
+                    carpeta
                   ) => {
                             return (
                               <option
                                 value={carpeta.nombre}
                                 key={carpeta.numero}
                                 onClick={(
-                                  e 
+                                  e
                                 ) => {
                                           console.log(
-                                            e.target 
+                                            e.target
                                           );
                                 }}
                               />
                             );
-                  } 
+                  }
                 )}
               </datalist>
               <label>
+                Buscar
                 <input
                   type={'textarea'}
                   list="demandados-list"
@@ -42,14 +44,15 @@ export const InputSearchBar = () => {
                   name={'searchQuery'}
                   placeholder={'Buscar'}
                   onChange={(
-                    input 
+                    input
                   ) => {
                             return setSearch(
-                              input.target.value 
+                              input.target.value
                             );
                   }}
                 />
               </label>
+              <pre>{search}</pre>
             </>
           );
 };

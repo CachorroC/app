@@ -13,7 +13,7 @@ export async function editDemandaInPrisma (
         medidasCautelares, notificacion, ...restDemanda
       } = incomingDemanda;
       console.log(
-        carpetaNumero 
+        carpetaNumero
       );
 
 

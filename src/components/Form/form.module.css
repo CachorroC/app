@@ -35,11 +35,7 @@
   flex-flow: column nowrap;
 }
 
-.segment,
-.segmentRowWrap,
-.segmentRow,
-.segmentColumn,
-.segmentDetached {
+.segment, .segmentRowWrap, .segmentRow, .segmentColumn, .segmentDetached {
   display: flex;
   justify-content: space-evenly;
   align-items: stretch;
@@ -106,29 +102,18 @@
 }
 .submitButton > span {
   color: var(--on-secondary);
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' 0,
-    'opsz' 24;
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
 }
-.submitButton:hover,
-.submitButton:active {
+.submitButton:hover, .submitButton:active {
   background-color: var(--secondary);
   box-shadow: var(--dp8);
 }
-.submitButton:hover > span,
-.submitButton:active > span {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 600,
-    'GRAD' 200,
-    'opsz' 48;
+.submitButton:hover > span, .submitButton:active > span {
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 48;
   color: var(--on-secondary);
 }
 
-.textArea,
-.vencimientoArea,
+.textArea, .vencimientoArea,
 .selectArea {
   flex: 2;
   border: none;
@@ -142,17 +127,12 @@
   resize: both;
   padding: 1rem;
 }
-.textArea:hover:after,
-.vencimientoArea:hover:after,
-.textArea:active:after,
-.vencimientoArea:active:after,
-.textArea:focus:after,
-.vencimientoArea:focus:after,
+.textArea:hover:after, .vencimientoArea:hover:after, .textArea:active:after, .vencimientoArea:active:after, .textArea:focus:after, .vencimientoArea:focus:after,
 .selectArea:hover:after,
 .selectArea:active:after,
 .selectArea:focus:after {
   transition: all 0.5s;
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   top: 0;
@@ -163,37 +143,31 @@
   opacity: 0.08;
 }
 
-.textArea,
-.vencimientoArea {
+.textArea, .vencimientoArea {
   background-color: var(--surface-container-highest);
   border-bottom: solid 0.1rem var(--on-surface-variant);
   color: var(--on-surface-variant);
 }
-.textArea:disabled,
-.vencimientoArea:disabled {
+.textArea:disabled, .vencimientoArea:disabled {
   background-color: var(--on-surface);
   opacity: 0.04;
   color: var(--on-surface);
 }
-.textArea:hover,
-.vencimientoArea:hover {
+.textArea:hover, .vencimientoArea:hover {
   color: var(--on-surface-variant);
   background-color: var(--surface-variant);
   border-bottom: solid 0.2rem var(--on-surface);
 }
-.textArea:hover:after,
-.vencimientoArea:hover:after {
+.textArea:hover:after, .vencimientoArea:hover:after {
   background-color: var(--on-surface);
   opacity: 0.08;
 }
-.textArea:active,
-.vencimientoArea:active {
+.textArea:active, .vencimientoArea:active {
   background-color: var(--primary-container);
   color: var(--on-surface-variant);
   border-bottom: solid 0.2rem var(--on-surface);
 }
-.textArea:focus,
-.vencimientoArea:focus {
+.textArea:focus, .vencimientoArea:focus {
   background-color: var(--surface-container);
   color: var(--on-surface);
   border-bottom: solid 0.2rem var(--primary);
@@ -203,8 +177,7 @@
   background-color: var(--secondary-container);
   color: var(--on-secondary-container);
 }
-.selectArea:active,
-.selectArea:focus {
+.selectArea:active, .selectArea:focus {
   color: var(--on-surface);
   border-left: solid 0.2rem var(--primary);
 }
@@ -213,7 +186,7 @@
   flex: 1;
   text-align: right;
   font-family: var(--josefa);
-  font-variation-settings: 'wght' 300;
+  font-variation-settings: "wght" 300;
 }
 
 .titleInput,
@@ -225,9 +198,7 @@
   border-radius: 0.1rem 0 0 0.1rem;
 }
 
-.button,
-.buttonPassive,
-.buttonActive {
+.button, .buttonPassive, .buttonActive {
   border: none;
   box-shadow: var(--dp5);
   box-sizing: border-box;
@@ -242,45 +213,20 @@
   align-content: center;
   transition: all 0.3s;
 }
-.button > .icon,
-.buttonPassive > .icon,
-.buttonActive > .icon,
-.button > .text,
-.buttonPassive > .text,
-.buttonActive > .text {
+.button > .icon, .buttonPassive > .icon, .buttonActive > .icon, .button > .text, .buttonPassive > .text, .buttonActive > .text {
   color: var(--on-secondary-container);
   transition: all 1s;
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' 0,
-    'opsz' 24;
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
 }
-.button .text,
-.buttonPassive .text,
-.buttonActive .text {
+.button .text, .buttonPassive .text, .buttonActive .text {
   font-family: var(--raleway);
 }
-.button:hover,
-.buttonPassive:hover,
-.buttonActive:hover,
-.button:active,
-.buttonPassive:active,
-.buttonActive:active {
+.button:hover, .buttonPassive:hover, .buttonActive:hover, .button:active, .buttonPassive:active, .buttonActive:active {
   background-color: var(--tertiary-container);
   box-shadow: var(--dp8);
 }
-.button:hover > span,
-.buttonPassive:hover > span,
-.buttonActive:hover > span,
-.button:active > span,
-.buttonPassive:active > span,
-.buttonActive:active > span {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 200,
-    'opsz' 24;
+.button:hover > span, .buttonPassive:hover > span, .buttonActive:hover > span, .button:active > span, .buttonPassive:active > span, .buttonActive:active > span {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
   color: var(--tertiary);
 }
 .buttonActive {
@@ -289,8 +235,7 @@
   background-color: var(--primary);
   color: var(--on-primary);
 }
-.buttonActive > .icon,
-.buttonActive > .text {
+.buttonActive > .icon, .buttonActive > .text {
   color: var(--on-secondary-container);
 }
 .buttonPassive {
@@ -299,8 +244,7 @@
   background-color: var(--primary-container);
   color: var(--on-primary-container);
 }
-.buttonPassive > .text,
-.buttonPassive > .icon {
+.buttonPassive > .text, .buttonPassive > .icon {
   color: var(--on-primary-container);
 }
 
@@ -319,13 +263,9 @@
 
 /* The switchBox - the box around the slider */
 .switchBox {
-  width: calc(
-    var(--switch-input-thumb-size) * 2 + var(--switch-input-gutter) * 4
-  );
+  width: calc(var(--switch-input-thumb-size) * 2 + var(--switch-input-gutter) * 4);
   height: calc(var(--switch-input-thumb-size) + var(--switch-input-gutter) * 3);
-  border-radius: calc(
-    var(--switch-input-thumb-size) + var(--switch-input-gutter)
-  );
+  border-radius: calc(var(--switch-input-thumb-size) + var(--switch-input-gutter));
   padding: var(--switch-input-gutter);
   box-sizing: border-box;
   background: var(--switch-input-off-bg);
@@ -344,9 +284,7 @@
   background: var(--switch-input-on-bg);
   color: var(--switch-input-on-text);
   border: none;
-  width: calc(
-    var(--switch-input-thumb-size) * 2 + var(--switch-input-gutter) * 3
-  );
+  width: calc(var(--switch-input-thumb-size) * 2 + var(--switch-input-gutter) * 3);
   height: calc(var(--switch-input-thumb-size) + var(--switch-input-gutter) * 2);
 }
 .switchBox:has(:checked) .thumb {
@@ -366,7 +304,7 @@
   user-select: none;
 }
 
-.decor[data-switch-input-state='off'] {
+.decor[data-switch-input-state=off] {
   justify-content: flex-end;
 }
 
@@ -395,9 +333,7 @@
 }
 
 .switchBox:has(:checked) .thumb {
-  inset-inline-start: calc(
-    var(--switch-input-thumb-size) + var(--switch-input-gutter) * 2
-  );
+  inset-inline-start: calc(var(--switch-input-thumb-size) + var(--switch-input-gutter) * 2);
 }
 
 /* Hide default HTML checkbox */
@@ -431,7 +367,7 @@
 .slider:before {
   border-radius: 50vw;
   position: absolute;
-  content: '';
+  content: "";
   height: 0.8rem;
   width: 0.8rem;
   left: 0.03rem;

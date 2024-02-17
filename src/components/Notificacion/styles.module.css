@@ -1,0 +1,13 @@
+.notificacionComponent {
+  background-color: var(--surface-container-highest);
+  border-radius: var(--shape-corner-medium);
+  display: flex;
+  flex-flow: row nowrap;
+}
+.notificacionComponent .box {
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+}
+
+/*# sourceMappingURL=styles.module.css.map */

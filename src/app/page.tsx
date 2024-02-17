@@ -3,7 +3,6 @@ import Link from 'next/link';
 import typography from '#@/styles/fonts/typography.module.css';
 import { Calendar } from '#@/components/Calendar/main';
 import { Route } from 'next';
-import JSXLSX from '#@/lib/project/utils/xlsx/server-utils';
 
 export default function Page() {
       return (
@@ -61,7 +60,6 @@ export default function Page() {
           <div className={layout.right}>
             <Calendar />
           </div>
-          <JSXLSX/>
         </>
       );
 }
