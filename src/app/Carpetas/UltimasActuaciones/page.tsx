@@ -5,6 +5,10 @@ import ActuacionLoader from '#@/components/Card/actuacion-loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import styles from '#@/components/Card/card.module.css';
 import { ClientCardRow } from '#@/components/Card/client-card';
+import Link from 'next/link';
+import { OutputDateHelper } from '#@/lib/project/date-helper';
+import { RevisadoCheckBox } from '../revisado-checkbox';
+import { CopyButton } from '#@/components/Buttons/copy-buttons';
 
 export default async function Page() {
       const carpetas = await getCarpetas();
@@ -15,14 +19,12 @@ export default async function Page() {
             <tr>
               <th>nombre</th>
               <th>numero</th>
-              <th>revisado</th>
-              <th>tipo de proceso</th>
-              <th>terminado</th>
               <th>fecha de la última actuacion</th>
               <th>numero de expediente para copiar</th>
               <th>categoria</th>
               <th>ultima actuacion</th>
               <th>anotacion</th>
+              <th>Revisado</th>
             </tr>
           </thead>
           <tbody>
@@ -31,7 +33,7 @@ export default async function Page() {
                 carpeta, index
               ) => {
                         const {
-                          idProcesos, numero
+                          idProcesos, numero, nombre
                         } = carpeta;
 
                         if ( idProcesos.length === 0 ) {
@@ -40,6 +42,9 @@ export default async function Page() {
                               carpeta={carpeta}
                               key={numero}
                             >
+                              <td>{ nombre }</td>
+                              <td><Link href={`/Carpeta/${ numero }`}>{ numero }</Link></td>
+
                               <td>
                                 <h5
                                   className={` ${ styles.actuacion } ${ typography.titleSmall }`}
@@ -62,15 +67,53 @@ export default async function Page() {
                           (
                             idProceso
                           ) => {
+
+                                    const {
+                                      numero, revisado, nombre
+                                    } = carpeta;
+
+
                                     return (
                                       <ClientCardRow
                                         key={idProceso}
                                         carpeta={carpeta}
                                       >
+                                        <td>{nombre}</td>
+                                        <td>
+                                          {
+                                            <Link
+                                              href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`}
+                                              className={typography.titleSmall}
+                                            >
+                                              {  numero}
+                                            </Link>
+                                          }
+                                        </td>
+                                        <td>{OutputDateHelper(
+                                          carpeta.fecha
+                                        )}</td>
+
+                                        <td>{carpeta.category}</td>
+
+
+
+
+
+
+                                        <RevisadoCheckBox
+                                          numero={numero}
+                                          initialRevisadoState={revisado}
+                                        />
+                                        <td>
+                                          <CopyButton
+                                            copyTxt={carpeta.llaveProceso}
+                                            name={'expediente'}
+                                          />
+                                        </td>
                                         <Suspense fallback={<ActuacionLoader />}>
                                           <FechaActuacionComponentAlt
                                             idProceso={idProceso}
-                                            index={ index }
+                                            index={index}
                                             key={idProceso}
                                           />
                                         </Suspense>

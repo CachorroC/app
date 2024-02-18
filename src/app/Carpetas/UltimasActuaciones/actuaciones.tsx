@@ -122,6 +122,8 @@ export async function FechaActuacionComponentAlt(
       );
 
       if ( !consultaActuaciones || consultaActuaciones.length === 0 ) {
+
+
         return (
           <>
             <td>

@@ -37,11 +37,7 @@ export async function fetchActuaciones(
       try {
         const request = await fetch(
           `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
-          {
-            next: {
-              revalidate: 86400,
-            },
-          },
+
         );
 
         if ( !request.ok ) {
