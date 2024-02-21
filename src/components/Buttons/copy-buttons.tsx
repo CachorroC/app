@@ -11,16 +11,18 @@ import buttons from './buttons.module.css';
 export const CopyButton = (
   {
     copyTxt,
+    horizontal,
     name,
   }: {
     copyTxt: string;
+    horizontal?: boolean
     name: string;
-  } 
+  }
 ) => {
           const [ value, copy ] = useCopyToClipboard();
 
           const [ isSnackbarOpen, setIsSnackbarOpen ] = useState(
-            false 
+            false
           );
 
           useEffect(
@@ -28,9 +30,9 @@ export const CopyButton = (
                       const timer = setTimeout(
                         () => {
                                   setIsSnackbarOpen(
-                                    false 
+                                    false
                                   );
-                        }, 5000 
+                        }, 5000
                       );
 
                       if ( isSnackbarOpen ) {
@@ -39,24 +41,26 @@ export const CopyButton = (
 
                       return () => {
                                 return clearTimeout(
-                                  timer 
+                                  timer
                                 );
                       };
-            }, [ isSnackbarOpen ] 
+            }, [ isSnackbarOpen ]
           );
           return (
             <div className={styles.container}>
-              <div className={layout.segmentRow}>
+              <div className={horizontal
+                ? layout.segmentRow
+                : layout.segmentColumn}>
                 <span className={typography.labelSmall}>{name}</span>
                 <span className={typography.labelMedium}>{copyTxt}</span>
                 <button
                   type="button"
                   onClick={() => {
                             copy(
-                              copyTxt 
+                              copyTxt
                             );
                             setIsSnackbarOpen(
-                              true 
+                              true
                             );
                   }}
                   className={styles.buttonActive}
@@ -82,8 +86,8 @@ export const CopyButton = (
 
 export function CopyButtons(
   {
-    carpeta 
-  }: { carpeta: MonCarpeta } 
+    carpeta
+  }: { carpeta: MonCarpeta }
 ) {
       return (
         <>

@@ -3,6 +3,7 @@ import { ConsultaNumeroRadicacion, outProceso } from '../types/procesos';
 import { NewJuzgado } from './demanda';
 
 export class Carpeta {
+
   nombre: string;
   llaveProceso: string;
   procesos: outProceso[] = [];

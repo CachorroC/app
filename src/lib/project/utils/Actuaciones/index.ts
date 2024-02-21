@@ -5,38 +5,23 @@ import { prisma } from '#@/lib/connection/prisma';
 import { sleep } from '../../helper';
 import { updateUltimaActuacionInPrisma } from './updater';
 
+process.env[ 'NODE_TLS_REJECT_UNAUTHORIZED' ] = '0';
+
 export async function fetchActuaciones(
   idProceso: number, index: number = 1
 ) {
-      if ( index > 500 ) {
-        await sleep(
-          index - 500
-        );
-      } else if ( index > 400 ) {
-        await sleep(
-          index - 400
-        );
-      } else if ( index > 300 ) {
-        await sleep(
-          index - 300
-        );
-      } else if ( index > 200 ) {
-        await sleep(
-          index - 200
-        );
-      } else if ( index > 100 ) {
-        await sleep(
-          index - 100
-        );
-      } else {
-        await sleep(
-          index
-        );
-      }
+      await sleep(
+        index
+      );
 
       try {
         const request = await fetch(
           `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
+          {
+            next: {
+              revalidate: 43200
+            }
+          }
 
         );
 

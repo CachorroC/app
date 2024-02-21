@@ -1,32 +1,47 @@
 'use client';
 import { useSearch } from '#@/app/Context/search-context';
 import { IntCarpeta } from '#@/lib/types/carpetas';
+import { Route } from 'next';
+import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 
-export const ClientCardRow = (
+export function ClientCardRow<H extends string>(
   {
     carpeta,
+    rowHref,
     children,
   }: {
     carpeta: IntCarpeta;
+    rowHref: Route<H>;
     children: ReactNode;
   }
-) => {
+) {
 
-          const {
-            search
-          } = useSearch();
+      const {
+        search
+      } = useSearch();
 
-          if ( search !== '' && carpeta.nombre.toLowerCase()
-                .search(
-                  search.toLowerCase()
-                ) === -1 ) {
-            return null;
-          }
+      const router = useRouter();
 
-          return (
-            <tr>
-              {children}
-            </tr>
-          );
-};
+      if ( search !== '' && carpeta.nombre.toLowerCase()
+            .search(
+              search.toLowerCase()
+            ) === -1 ) {
+        return null;
+      }
+
+      return (
+        <tr onClick={ (
+          e
+        ) => {
+                  e.preventDefault();
+                  return router.push(
+                    rowHref
+                  );
+        }}>
+
+          { children }
+
+        </tr>
+      );
+}

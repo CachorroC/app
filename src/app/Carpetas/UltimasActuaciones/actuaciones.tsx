@@ -126,18 +126,13 @@ export async function FechaActuacionComponentAlt(
 
         return (
           <>
-            <td>
-              <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
-            Sin registro
-              </h5>
-              <sub className={typography.labelSmall}>0 de 0</sub>
-            </td>
-            <td>
-              <sub className={typography.headlineMedium}>
-            por favor revise que el numero de expediente esté bien o si la
-            informacion la brinda el juzgado por otro canal
-              </sub>
-            </td>
+            <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
+            Sin Actuaciones
+            </h5>
+            <sub className={typography.labelSmall}>0 de 0</sub>
+            <sub className={typography.labelMedium}>
+              {`Existe el idProceso ${ idProceso } pero este no contiene actuaciones o arrojó un error`}
+            </sub>
           </>
         );
       }
@@ -151,26 +146,22 @@ export async function FechaActuacionComponentAlt(
 
       return (
         <>
-          <td>
-            <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
-              {actuacion}
-            </h5>
-            <sub
-              className={typography.labelSmall}
-            >{`${ consActuacion } de ${ cant }`}</sub>
-          </td>
-          <td>
-            <sub
-              className={typography.labelMedium}
-            >{`actuacion registrada el ${ fixFechas(
+
+          <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
+            {actuacion}
+          </h5>
+          <sub
+            className={typography.labelSmall}
+          >{`${ consActuacion } de ${ cant }`}</sub>
+
+          <sub
+            className={typography.labelMedium}
+          >{ anotacion
+              ? anotacion
+              : `actuacion registrada el ${ fixFechas(
                 fechaActuacion
               ) }`}</sub>
-            {anotacion && (
-              <p className={` ${ styles.anotacion } ${ typography.bodyMedium }`}>
-                {anotacion}
-              </p>
-            )}
-          </td>
+
         </>
       );
 }
