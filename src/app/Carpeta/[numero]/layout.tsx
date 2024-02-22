@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
+import { ExpedienteFormComponent } from './expediente-form-component';
 
 export default async function LayoutCarpetaMain(
   {
@@ -53,10 +54,12 @@ export default async function LayoutCarpetaMain(
               <ForwardBackwardNavButtons />
             </Suspense>
           </div>
-          <div className={styles.left}>
+          <div className={ styles.left }>
+
             <Suspense fallback={<Loader />}>{children}</Suspense>
           </div>
-          <div className={styles.right}>
+          <div className={ styles.right }>
+            <ExpedienteFormComponent initialLLave={ carpeta.llaveProceso } />
             <Suspense fallback={<Loader />}>{right}</Suspense>
           </div>
         </CarpetaFormProvider>

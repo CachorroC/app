@@ -122,3 +122,43 @@ export async function editDemandaInPrisma (
         };
       }
 }
+
+
+
+export async function editllaveProceso (
+  numero: number, newKey: string
+) {
+      await new Promise(
+        (
+          res
+        ) => {
+                  return setTimeout(
+                    res, 10000
+                  );
+        }
+      );
+
+      try {
+        const lookForData = await prisma.carpeta.update(
+          {
+            where: {
+              numero: numero
+            },
+            data: {
+              llaveProceso: newKey
+            }
+          }
+        );
+        return {
+          success     : true,
+          llaveProceso: lookForData.llaveProceso
+        };
+      } catch ( error ) {
+        return {
+          success     : false,
+          llaveProceso: JSON.stringify(
+            error
+          )
+        };
+      }
+}
