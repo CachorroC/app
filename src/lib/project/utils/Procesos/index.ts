@@ -1,6 +1,6 @@
 import { cache } from 'react';
 import { Despacho } from 'types/despachos';
-import { ConsultaNumeroRadicacion, intProceso } from 'types/procesos';
+import {  Message, RequestProceso, intProceso } from 'types/procesos';
 import { NewJuzgado } from '#@/lib/models/demanda';
 import { carpetasCollection } from '#@/lib/connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
@@ -21,7 +21,7 @@ export const getDespachos = cache(
 
               if ( !request.ok ) {
                 throw new Error(
-                  'error en los despachos' 
+                  'error en los despachos'
                 );
               }
 
@@ -36,97 +36,94 @@ export const getDespachos = cache(
               }
 
               console.log(
-                ` error en la conexion network del getDespacxho  =>  ${ e }` 
+                ` error en la conexion network del getDespacxho  =>  ${ e }`
               );
 
               return [];
             }
-  } 
+  }
 );
 
 export async function fetchProceso(
-  llaveProceso: string 
-) {
-      try {
-        const req = await fetch(
-          `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`,
-        );
+  llaveProceso: string
+):Promise<RequestProceso> {
 
-        if ( !req.ok ) {
-          throw new Error(
-            'request not ok' 
-          );
-        }
+      const req = await fetch(
+        `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`,
+      );
 
-        const response = ( await req.json() ) as ConsultaNumeroRadicacion;
-        return response;
-      } catch ( error ) {
-        console.log(
-          error 
-        );
-        return null;
+      if ( !req.ok ) {
+        return req.json();
       }
+
+      const response = await req.json();
+      return {
+        ConsultaProcesos: response,
+        Message         : req.statusText as Message,
+        StatusCode      : req.status
+      };
+
 }
 
 export const getProceso = cache(
   async (
-    llaveProceso: string 
+    llaveProceso: string
   ) => {
             try {
               const fetchProcesoByNumero = await fetchProceso(
-                llaveProceso 
+                llaveProceso
               );
 
-              if ( !fetchProcesoByNumero || fetchProcesoByNumero.procesos.length === 0 ) {
+              if ( !fetchProcesoByNumero.ConsultaProcesos || fetchProcesoByNumero.ConsultaProcesos.procesos.length === 0 ) {
                 throw new Error(
                   `no hay procesos existentes con esta llaveProceso: ${ llaveProceso }`,
                 );
               }
 
               const {
-                procesos 
-              } = fetchProcesoByNumero;
+                procesos
+              } = fetchProcesoByNumero.ConsultaProcesos;
 
               return procesos.map(
                 (
-                  proceso 
+                  proceso
                 ) => {
                           return {
                             ...proceso,
                             fechaProceso: proceso.fechaProceso
                               ? new Date(
-                                proceso.fechaProceso 
+                                proceso.fechaProceso
                               )
                               : null,
                             fechaUltimaActuacion: proceso.fechaUltimaActuacion
                               ? new Date(
-                                proceso.fechaUltimaActuacion 
+                                proceso.fechaUltimaActuacion
                               )
                               : null,
                             juzgado: new DespachoJudicial(
-                              proceso 
+                              proceso
                             ),
                           };
-                } 
+                }
               );
             } catch ( error ) {
               console.log(
                 `error en getProcesos ${ JSON.stringify(
-                  error, null, 2 
-                ) }` 
+                  error, null, 2
+                ) }`
               );
               return null;
             }
-  } 
+  }
 );
 
 export async function updateProcesos(
-  procesos: intProceso[] 
+  procesos: intProceso[]
 ) {
       try {
         if ( procesos.length === 0 ) {
           throw new Error(
-            'no hay procesos en el array updateProcesos' 
+            'no hay procesos en el array updateProcesos'
           );
         }
 
@@ -144,7 +141,7 @@ export async function updateProcesos(
 
           if ( esPrivado ) {
             console.log(
-              'el proceso es privado' 
+              'el proceso es privado'
             );
             continue;
           }
@@ -152,7 +149,7 @@ export async function updateProcesos(
           const newProceso = {
             ...proceso,
             juzgado: new NewJuzgado(
-              proceso 
+              proceso
             ),
           };
 
@@ -187,7 +184,7 @@ export async function updateProcesos(
               where: {
                 llaveProceso: llaveProceso,
               },
-            } 
+            }
           );
 
           const updateProcesoInPrisma = await prisma.carpeta.update(
@@ -215,11 +212,11 @@ export async function updateProcesos(
                   },
                 },
               },
-            } 
+            }
           );
 
           console.log(
-            `update proceso in prisma: ${ updateProcesoInPrisma }` 
+            `update proceso in prisma: ${ updateProcesoInPrisma }`
           );
 
           if ( updateProceso.modifiedCount > 0 || updateProceso.matchedCount > 0 ) {
@@ -239,8 +236,8 @@ export async function updateProcesos(
       } catch ( error ) {
         console.log(
           `error en updateProcesos ${ JSON.stringify(
-            error, null, 2 
-          ) }` 
+            error, null, 2
+          ) }`
         );
       }
 }

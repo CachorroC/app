@@ -1,4 +1,4 @@
-import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
+import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { unstable_noStore as noStore } from 'next/cache';
 import { Suspense } from 'react';
@@ -54,12 +54,12 @@ async function getData(
   } catch ( error ) {
     if ( error instanceof Error ) {
       console.log(
-        `${ idProceso }: error en la fetchActuaciones => ${ error.name } : ${ error.message }`,
+        `${ idProceso }: error en la getActuaciones => ${ error.name } : ${ error.message }`,
       );
     }
 
     console.log(
-      `${ idProceso }: : error en la  fetchActuaciones  =>  ${ error }`
+      `${ idProceso }: : error en la  getActuaciones  =>  ${ error }`
     );
 
     return {
@@ -83,7 +83,7 @@ export async function FechaActuacionComponent(
 ) {
       noStore();
 
-      const consultaActuaciones = await fetchActuaciones(
+      const consultaActuaciones = await getActuaciones(
         idProceso, index
       );
 
@@ -117,7 +117,7 @@ export async function FechaActuacionComponentAlt(
   }
 ) {
 
-      const consultaActuaciones = await fetchActuaciones(
+      const consultaActuaciones = await getActuaciones(
         idProceso, index
       );
 

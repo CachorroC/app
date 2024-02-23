@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import { CarpetasSortProvider } from '../Context/carpetas-sort-context';
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { ResetButtonSorter } from './UltimasActuaciones/reset-button';
+import { TableRowCarpetaSortingButton } from '#@/components/Carpetas/client/carpetasButtonsSort';
 
 export const metadata: Metadata = {
   title: 'Carpetas',
@@ -19,7 +20,7 @@ export default async function LayoutProcesosMain(
     children: ReactNode;
     top: ReactNode;
     right: ReactNode;
-  } 
+  }
 ) {
       const carpetas = await getCarpetas();
       return (
@@ -29,7 +30,24 @@ export default async function LayoutProcesosMain(
               {top}
               <ResetButtonSorter carpetas={carpetas} />
             </div>
-            <div className={styles.leftGrid}>{children}</div>
+            <div className={ styles.leftGrid }>
+              <table>
+                <thead>
+                  <tr>
+                    <TableRowCarpetaSortingButton sortKey={'numero'} />
+                    <TableRowCarpetaSortingButton sortKey={'nombre'} />
+                    <TableRowCarpetaSortingButton sortKey={'fecha'} />
+                    <TableRowCarpetaSortingButton sortKey={'category'} />
+                    <th>Actuaciones</th>
+                    <th>Revisado</th>
+                    <th>expediente</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {children}
+                </tbody>
+              </table>
+            </div>
             <div className={styles.right}>{right}</div>
           </NuevaCarpetaFormProvider>
         </CarpetasSortProvider>

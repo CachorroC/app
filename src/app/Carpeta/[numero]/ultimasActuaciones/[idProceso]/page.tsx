@@ -1,6 +1,6 @@
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
-import { fetchActuaciones } from '#@/lib/project/utils/Actuaciones';
+import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { outActuacion } from '#@/lib/types/actuaciones';
 import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
 
@@ -13,16 +13,16 @@ export async function generateStaticParams() {
 
       const flattenUp = carpetas.flatMap(
         (
-          carpeta 
+          carpeta
         ) => {
                   const {
-                    numero, procesos 
+                    numero, procesos
                   } = carpeta;
 
                   if ( procesos.length === 0 ) {
                     return {
                       numero: String(
-                        numero 
+                        numero
                       ),
                       idProceso: 'idProceso',
                     };
@@ -30,12 +30,12 @@ export async function generateStaticParams() {
 
                   return procesos.map(
                     (
-                      proceso 
+                      proceso
                     ) => {
                               if ( proceso.esPrivado ) {
                                 return {
                                   numero: String(
-                                    numero 
+                                    numero
                                   ),
                                   idProceso: 'idProceso',
                                 };
@@ -43,15 +43,15 @@ export async function generateStaticParams() {
 
                               return {
                                 numero: String(
-                                  numero 
+                                  numero
                                 ),
                                 idProceso: String(
-                                  proceso.idProceso 
+                                  proceso.idProceso
                                 ),
                               };
-                    } 
+                    }
                   );
-        } 
+        }
       );
 
       const chunkSize = 100;
@@ -60,10 +60,10 @@ export async function generateStaticParams() {
 
       for ( let i = 0; i < flattenUp.length; i += chunkSize ) {
         const chunk = flattenUp.slice(
-          i, i + chunkSize 
+          i, i + chunkSize
         );
         chunks.push(
-          chunk 
+          chunk
         );
       }
 
@@ -78,16 +78,16 @@ export default async function Page(
       numero: string;
       idProceso: string;
     };
-  } 
+  }
 ) {
       if ( params.idProceso === 'idProceso' ) {
         return notFound();
       }
 
-      const actuaciones = await fetchActuaciones(
+      const actuaciones = await getActuaciones(
         Number(
-          params.idProceso 
-        ) 
+          params.idProceso
+        )
       );
 
       if ( !actuaciones || actuaciones.length === 0 ) {
@@ -98,13 +98,13 @@ export default async function Page(
         <>
           {actuaciones.map(
             (
-              actuacion, index 
+              actuacion, index
             ) => {
                       const newActuacion: outActuacion = {
                         ...actuacion,
                         isUltimaAct: actuacion.cant === actuacion.consActuacion,
                         idProceso  : Number(
-                          params.idProceso 
+                          params.idProceso
                         ),
                       };
                       return (
@@ -113,7 +113,7 @@ export default async function Page(
                           incomingActuacion={newActuacion}
                         />
                       );
-            } 
+            }
           )}
         </>
       );

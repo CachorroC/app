@@ -1,24 +1,41 @@
+import { Message, RequestActuacion } from '#@/lib/types/actuaciones';
+
 export default async function fetchActuaciones (
   idProceso: number
-) {
-      const res = await fetch(
-        `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
-        {
-          next: {
-            revalidate: 43200
+): Promise<RequestActuacion> {
+      try {
+
+
+        const request = await fetch(
+          `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, {
+            next: {
+              revalidate: 86400
+            }
           }
+
+        );
+
+        if ( !request.ok ) {
+          return request.json();
         }
 
-      );
-      // The return value is *not* serialized
-      // You can return Date, Map, Set, etc.
-
-      if ( !res.ok ) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error(
-          'Failed to fetch data'
+        const consultaActuaciones = await request.json();
+        return {
+          ConsultaActuaciones: consultaActuaciones,
+          Message            : request.statusText as Message,
+          StatusCode         : request.status
+        };
+      } catch ( error ) {
+        console.log(
+          `${ idProceso }ERROR ===> FETCHACTUACIONES ${ JSON.stringify(
+            error, null, 2
+          ) }`
         );
+        return {
+          StatusCode: 0,
+          Message   : JSON.stringify(
+            error
+          ) as Message
+        };
       }
-
-      return res.json();
 }
