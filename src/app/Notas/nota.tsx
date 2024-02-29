@@ -1,15 +1,14 @@
 'use client';
 
 import { IntNota } from '#@/lib/types/notas';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useNotaSortDispatch } from '../Context/notas-sort-context';
 import { updateNotaTextState } from './actions';
-import styles from './styles.module.css';
 
 export function Nota(
   {
-    nota
-  }: { nota: IntNota }
+    nota, children
+  }: { nota: IntNota;  children : ReactNode}
 ) {
       const [ isEditing, setIsEditing ] = useState(
         false
@@ -42,6 +41,18 @@ export function Nota(
                         );
               }}
             />
+            <input value={ notaState.id } onChange={ (
+              e
+            ) => {
+                      return setNotaState(
+                        {
+                          ...notaState,
+                          id: notaState.carpetaNumero
+                            ? `${ notaState.carpetaNumero }-${ e.target.value }`
+                            : `NC-${ e.target.value }`
+                        }
+                      );
+            }}/>
             <button
               type="button"
               onClick={ async () => {
@@ -91,22 +102,26 @@ export function Nota(
       }
 
       return (
-        <div className={styles.listItemContainer}>
-          {notaContent}
-          <button
-            type="button"
-            onClick={() => {
-                      dispatch(
-                        {
-                          type: 'deleted',
-                          id  : nota.id,
-                        }
-                      );
-            }}
-          >
+        <tr>
+          <td>{nota.id}</td>
+          <td>{`carpeta ${ nota.carpetaNumero }`}</td>
+          <td>{ notaContent }</td>
+          {children}
+          <td>
+            <button
+              type="button"
+              onClick={() => {
+                        dispatch(
+                          {
+                            type: 'deleted',
+                            id  : nota.id,
+                          }
+                        );
+              }}
+            >
         Delete
-          </button>
+            </button></td>
 
-        </div>
+        </tr>
       );
 }

@@ -1,7 +1,7 @@
-import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { FechaActuacionComponentAlt } from './actuaciones';
 import { Suspense } from 'react';
-import ActuacionLoader from '#@/components/Card/actuacion-loader';
+import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import styles from '#@/components/Card/card.module.css';
 import { ClientCardRow } from '#@/components/Card/client-card';
@@ -9,7 +9,182 @@ import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { RevisadoCheckBox } from '../revisado-checkbox';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { Route } from 'next';
+import { MonCarpeta } from '#@/lib/types/carpetas';
 
+export type SortActionType = {
+  dir: 'asc'| 'dsc';
+  sortingKey:
+    | 'fecha'
+    | 'numero'
+    | 'nombre'
+    | 'category'
+    | 'id'
+    | 'tipoProceso'
+    | 'updatedAt';
+};
+
+function sortCarpetas (
+  carpetas: MonCarpeta[], action: SortActionType
+) {
+
+      const {
+        dir, sortingKey
+      } = action;
+
+      const asc = [
+        -1,
+        0,
+        1
+      ];
+
+      const dsc = [
+        1,
+        0,
+        -1
+      ];
+
+      const sorter = dir === 'asc'
+        ? asc
+        : dsc;
+
+      const categoriesSorter: string[] = [
+        'todos',
+        'Bancolombia',
+        'Reintegra',
+        'SinEspecificar',
+        'LiosJuridicos',
+        'Insolvencia',
+        'Terminados',
+      ];
+
+      switch ( sortingKey ) {
+          case 'fecha': {
+            return [ ...carpetas ].sort(
+              (
+                a, b
+              ) => {
+                        if ( !a.fecha || a.fecha === undefined ) {
+                          return sorter[ 2 ];
+                        }
+
+                        if ( !b.fecha || b.fecha === undefined ) {
+                          return sorter[ 0 ];
+                        }
+
+                        const x = a.fecha;
+
+                        const y = b.fecha;
+
+                        if ( x < y ) {
+                          return sorter[ 2 ];
+                        }
+
+                        if ( x > y ) {
+                          return sorter[ 0 ];
+                        }
+
+                        return sorter[ 1 ];
+              }
+            );
+          }
+
+          case 'category': {
+            return [ ...carpetas ].sort(
+              (
+                a, b
+              ) => {
+                        const x = categoriesSorter.indexOf(
+                          a.category
+                        );
+
+                        const y = categoriesSorter.indexOf(
+                          b.category
+                        );
+
+                        if ( x < y ) {
+                          return sorter[ 2 ];
+                        }
+
+                        if ( x > y ) {
+                          return sorter[ 0 ];
+                        }
+
+                        return sorter[ 1 ];
+              }
+            );
+          }
+
+          case 'numero': {
+            return [ ...carpetas ].sort(
+              (
+                a, b
+              ) => {
+                        const x = a.numero;
+
+                        const y = b.numero;
+
+                        const idk = dir
+                          ? x - y
+                          : y - x;
+
+                        return idk;
+              }
+            );
+          }
+
+          case 'nombre': {
+            return [ ...carpetas ].sort(
+              (
+                a, b
+              ) => {
+                        const x = a.nombre;
+
+                        const y = b.nombre;
+
+                        if ( x < y ) {
+                          return sorter[ 2 ];
+                        }
+
+                        if ( x > y ) {
+                          return sorter[ 0 ];
+                        }
+
+                        return sorter[ 1 ];
+              }
+            );
+          }
+
+          default: {
+            return [ ...carpetas ].sort(
+              (
+                a, b
+              ) => {
+                        const aSortingKey = a[ sortingKey ];
+
+                        const bSortingKey = b[ sortingKey ];
+
+                        if ( !aSortingKey || aSortingKey === undefined ) {
+                          return sorter[ 2 ];
+                        }
+
+                        if ( !bSortingKey || bSortingKey === undefined ) {
+                          return sorter[ 0 ];
+                        }
+
+                        if ( aSortingKey < bSortingKey ) {
+                          return sorter[ 2 ];
+                        }
+
+                        if ( aSortingKey > bSortingKey ) {
+                          return sorter[ 0 ];
+                        }
+
+                        return 0;
+              }
+            );
+          }
+      }
+}
 
 export default async function Page(
   {
@@ -17,48 +192,31 @@ export default async function Page(
   }: {
     searchParams: {
       [ key: string ]: string | string[] | undefined;
-      sort?: 'asc' | 'dsc';
+      dir?: 'asc' | 'dsc';
+      sortingKey?:  | 'fecha'
+    | 'numero'
+    | 'nombre'
+    | 'category'
+    | 'id'
+    | 'tipoProceso'
+    | 'updatedAt'
 
     }
   }
 ) {
       const rawCarpetas = await getCarpetas();
 
-      const carpetas = rawCarpetas.sort(
-        (
-          a, b
-        ) => {
-                  if (
-                    !a.fecha
-        || a.fecha === undefined
-        || a.fecha.toString() === 'Invalid Date'
-                  ) {
-                    return 1;
-                  }
-
-                  if (
-                    !b.fecha
-        || b.fecha === undefined
-        || b.fecha.toString() === 'Invalid Date'
-                  ) {
-                    return -1;
-                  }
-
-                  const x = a.fecha;
-
-                  const y = b.fecha;
-
-                  if ( x < y ) {
-                    return 1;
-                  }
-
-                  if ( x > y ) {
-                    return -1;
-                  }
-
-                  return 0;
+      const carpetas = sortCarpetas(
+        rawCarpetas, {
+          dir: searchParams.dir
+            ? searchParams.dir
+            : 'asc',
+          sortingKey: searchParams.sortingKey
+            ? searchParams.sortingKey
+            : 'fecha',
         }
       );
+
 
       return (
         <>
@@ -71,86 +229,55 @@ export default async function Page(
                         idProcesos, numero, nombre, fecha, llaveProceso, category, revisado
                       } = carpeta;
 
-                      if ( idProcesos.length === 0 ) {
-                        return (
-                          <ClientCardRow
-                            rowHref={`/Carpeta/${ numero }`}
-                            carpeta={carpeta}
-                            key={numero}
-                          >
-                            <td>{ nombre }</td>
-                            <td>{ numero }</td>
-                            <td>
-                              <CopyButton
-                                copyTxt={llaveProceso}
-                                name={'expediente'}
-                              />
-                            </td>
-                            <td>{ category }</td>
-                            <td>
-                              {OutputDateHelper(
-                                fecha
-                              )}
-                            </td>
-                            <td>
-                              <h5
-                                className={` ${ styles.actuacion } ${ typography.titleSmall }`}
-                              >
-                    Sin idProceso
-                              </h5>
-                              <sub className={typography.labelSmall}>0 de 0</sub>
-                              <sub className={typography.labelMedium}>
-                    por favor revise que el numero de expediente esté bien o si
-                    la informacion la brinda el juzgado por otro canal
-                              </sub>
-                            </td>
-                            <td>
-                              <RevisadoCheckBox
-                                numero={numero}
-                                initialRevisadoState={revisado}
-                              />
-                            </td>
-                          </ClientCardRow>
-                        );
-                      }
-
                       return idProcesos.map(
                         (
                           idProceso
                         ) => {
 
-                                  const {
-                                    numero, revisado, nombre
-                                  } = carpeta;
 
 
                                   return (
                                     <ClientCardRow
                                       key={ idProceso }
-                                      rowHref={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
+                                      rowHref={`/Carpeta/${ numero }` as Route}
                                       carpeta={carpeta}
                                     >
                                       <td>{numero}</td>
                                       <td>{nombre}</td>
                                       <td>{OutputDateHelper(
-                                        carpeta.fecha
+                                        fecha
                                       )}</td>
-                                      <td>{carpeta.category}</td>
+                                      <td>{category}</td>
 
                                       <td>
                                         <CopyButton
-                                          copyTxt={carpeta.llaveProceso}
+                                          copyTxt={llaveProceso}
                                           name={'expediente'}
                                         />
                                       </td>
                                       <td>
-                                        <Suspense fallback={<ActuacionLoader />}>
-                                          <FechaActuacionComponentAlt
-                                            idProceso={idProceso}
-                                            index={index}
-                                            key={idProceso}
-                                          />
-                                        </Suspense>
+                                        { idProcesos.length === 0
+                                          ? (
+                                              <><h5
+                                                className={ ` ${ styles.actuacion } ${ typography.titleSmall }` }
+                                              >
+                                            Sin idProceso
+                                              </h5><sub className={ typography.labelSmall }>0 de 0</sub><sub className={ typography.labelMedium }>
+                                              por favor revise que el numero de expediente esté bien o si
+                                              la informacion la brinda el juzgado por otro canal
+                                              </sub></>
+                                            )
+                                          : (
+                                              <Suspense fallback={ <ActuacionLoader /> }>
+                                                <FechaActuacionComponentAlt
+                                                  idProceso={idProceso}
+                                                  index={index}
+                                                  key={idProceso}
+                                                />
+                                              </Suspense>
+                                            )
+                                        }
+
                                       </td>
                                       <td>
                                         <RevisadoCheckBox

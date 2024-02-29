@@ -1,0 +1,51 @@
+.button, .buttonCategoryActive, .buttonCategoryPasive {
+  border: 0.07rem solid var(--outline);
+  box-sizing: border-box;
+  padding: 0.5rem;
+  flex: 1;
+  border-radius: none;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-items: stretch;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
+  transition: all 0.3s;
+  position: relative;
+}
+.button:before, .buttonCategoryActive:before, .buttonCategoryPasive:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  content: "";
+  border-radius: inherit;
+}
+.button:hover:before, .buttonCategoryActive:hover:before, .buttonCategoryPasive:hover:before {
+  opacity: 0.08;
+}
+.button:focus:before, .buttonCategoryActive:focus:before, .buttonCategoryPasive:focus:before, .button:active:before, .buttonCategoryActive:active:before, .buttonCategoryPasive:active:before {
+  opacity: 0.1;
+}
+.button:first-child, .buttonCategoryActive:first-child, .buttonCategoryPasive:first-child {
+  border-radius: var(--shape-corner-large-top);
+}
+.button:last-child, .buttonCategoryActive:last-child, .buttonCategoryPasive:last-child {
+  border-radius: var(--shape-corner-large-bottom);
+}
+.buttonCategoryPasive {
+  color: var(--on-surface);
+}
+.buttonCategoryPasive:hover:before, .buttonCategoryPasive:focus:before, .buttonCategoryPasive:active:before {
+  background-color: var(--on-surface);
+}
+.buttonCategoryActive {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+.buttonCategoryActive:hover:before, .buttonCategoryActive:focus:before, .buttonCategoryActive:active:before {
+  background-color: var(--on-secondary-container);
+}
+
+/*# sourceMappingURL=styles.module.css.map */

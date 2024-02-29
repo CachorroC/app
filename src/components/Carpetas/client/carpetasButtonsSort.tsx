@@ -1,215 +1,114 @@
 'use client';
 
 import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
-import styles from '#@/components/Buttons/buttons.module.css';
 import { useState } from 'react';
 import layout from '#@/styles/layout.module.css';
 import { SortActionType } from '#@/app/Hooks/useCarpetasreducer';
+import styles from '#@/app/Carpetas/@right/styles.module.css';
 
-type sortingType =
-  | 'fecha'
-  | 'numero'
-  | 'nombre'
-  | 'category'
-  | 'id'
-  | 'tipoProceso'
-  | 'updatedAt';
-interface optionsType {
-  name: string;
-  value: keyof SortActionType;
-  items: string[] | sortingType[];
-}
-
-const options: optionsType[] = [ {
-  name : 'Sort',
-  value: 'dir',
-  items: [ 'asc', 'dsc' ],
-},
-{
-  name : 'Page',
-  value: 'sortingKey',
-  items: [
-    'fecha',
-    'numero',
-    'nombre',
-    'category',
-    'id',
-    'tipoProceso',
-    'updatedAt',
-  ],
-}, ];
-
-export function CarpetasSortButtons() {
-      const keys: (
-    | 'fecha'
-    | 'numero'
-    | 'nombre'
-    | 'category'
-    | 'id'
-    | 'tipoProceso'
-    | 'updatedAt'
-      )[] = [
-        'fecha',
-        'nombre',
-        'id',
-        'updatedAt',
-        'numero',
-        'category',
-        'tipoProceso',
-      ];
-
+export function CarpetasSortButtons(
+  {
+    options,
+  }: {
+    options: {
+      name: string;
+      value: string;
+      items: string[];
+    }[];
+  }
+) {
       const dispatchCarpetas = useCarpetaSortDispatch();
 
       const [ currentDispatcher, setCurrentDispatcher ] = useState<SortActionType>(
         {
           type      : 'sort',
-          dir       : true,
+          dir       : 'asc',
           sortingKey: 'fecha',
-        } 
+        }
       );
 
       return (
-        <>
-          <div>
-            <h1>{'ordenar:'}</h1>
-            <span>{currentDispatcher.dir
-              ? 'ascendente'
-              : 'descendente'}</span>
-            <span className="material-symbols-outlined">
-              {currentDispatcher.dir
-                ? 'arrow_upward'
-                : 'arrow_downward'}
-            </span>
-          </div>
+
+        <div className={layout.segmentColumn}>
+          <h1>{'ordenar:'}</h1>
+          <span>{currentDispatcher.dir
+            ? 'ascendente'
+            : 'descendente'}</span>
+          <span className="material-symbols-outlined">
+            {currentDispatcher.dir
+              ? 'arrow_upward'
+              : 'arrow_downward'}
+          </span>
+
           {options.map(
             (
               {
-                name, value, items 
-              } 
+                name, value, items
+              }
             ) => {
                       return (
                         <section
                           key={value}
-                          className={layout.sectionColumn}
+                          className={layout.sectionRow}
                         >
                           <h5>{name}</h5>
-                          <section className={layout.sectionRow}>
+                          <section className={layout.sectionColumn}>
                             {items.map(
                               (
-                                item 
+                                item
                               ) => {
+                                        const isActive = currentDispatcher[ value ] === item;
                                         return (
                                           <button
                                             key={item}
                                             type="button"
                                             className={
-                                              currentDispatcher.sortingKey === item
-                                                ? styles.buttonActiveCategory
-                                                : styles.buttonPassiveCategory
+                                              isActive
+                                                ? styles.buttonCategoryActive
+                                                : styles.buttonCategoryPasive
                                             }
-                                            onClick={() => {
+                                            onClick={ () => {
                                                       console.log(
-                                                        currentDispatcher[ value ] 
+                                                        value
+                                                      );
+                                                      console.log(
+                                                        item
+                                                      );
+                                                      setCurrentDispatcher(
+                                                        (
+                                                          curdispatch
+                                                        ) => {
+
+                                                                  return {
+                                                                    ...curdispatch,
+                                                                    [ value ]: item
+                                                                  };
+                                                        }
                                                       );
 
-                                                      if ( item === 'asc' ) {
-                                                        return dispatchCarpetas(
-                                                          {
-                                                            ...currentDispatcher,
-                                                            dir: true,
-                                                          } 
-                                                        );
-                                                      } else if ( item === 'dsc' ) {
-                                                        return dispatchCarpetas(
-                                                          {
-                                                            ...currentDispatcher,
-                                                            dir: false,
-                                                          } 
-                                                        );
-                                                      }
-
+                                                      console.log(
+                                                        currentDispatcher
+                                                      );
                                                       return dispatchCarpetas(
                                                         {
                                                           ...currentDispatcher,
-                                                          sortingKey: item as sortingType,
-                                                        } 
+                                                          [ value ]: item
+                                                        }
                                                       );
                                             }}
                                           >
                                             {item}
                                           </button>
                                         );
-                              } 
+                              }
                             )}
                           </section>
                         </section>
                       );
-            } 
+            }
           )}
-          <section className={layout.sectionColumn}>
-            {keys.map(
-              (
-                key 
-              ) => {
-                        return (
-                          <button
-                            type="button"
-                            onClick={() => {
-                                      setCurrentDispatcher(
-                                        (
-                                          curdispatch 
-                                        ) => {
-                                                  return {
-                                                    ...curdispatch,
-                                                    sortingKey: key,
-                                                    dir       : !curdispatch.dir,
-                                                  };
-                                        } 
-                                      );
-                                      return dispatchCarpetas(
-                                        {
-                                          ...currentDispatcher,
-                                          sortingKey: key,
-                                        } 
-                                      );
-                            }}
-                            className={
-                              currentDispatcher.sortingKey === key
-                                ? styles.buttonActiveCategory
-                                : styles.buttonPassiveCategory
-                            }
-                            key={key}
-                          >
-                            {key}
-                          </button>
-                        );
-              } 
-            )}
-            <button
-              type="button"
-              onClick={() => {
-                        setCurrentDispatcher(
-                          (
-                            d 
-                          ) => {
-                                    return {
-                                      ...d,
-                                      dir: !d.dir,
-                                    };
-                          } 
-                        );
-                        dispatchCarpetas(
-                          currentDispatcher 
-                        );
-              }}
-              className={styles.buttonPassiveCategory}
-            >
-              {currentDispatcher.dir
-                ? 'asc'
-                : 'dsc'}
-            </button>
-          </section>
-        </>
+        </div>
+
       );
 }
 
@@ -225,16 +124,16 @@ export function TableRowCarpetaSortingButton(
     | 'id'
     | 'tipoProceso'
     | 'updatedAt';
-  } 
+  }
 ) {
       const dispatchCarpetas = useCarpetaSortDispatch();
 
       const [ currentDispatcher, setCurrentDispatcher ] = useState<SortActionType>(
         {
           type      : 'sort',
-          dir       : true,
+          dir       : 'asc',
           sortingKey: 'fecha',
-        } 
+        }
       );
       return (
         <th>
@@ -243,26 +142,28 @@ export function TableRowCarpetaSortingButton(
             onClick={() => {
                       setCurrentDispatcher(
                         (
-                          curdispatch 
+                          curdispatch
                         ) => {
                                   return {
                                     ...curdispatch,
                                     sortingKey: sortKey,
-                                    dir       : !curdispatch.dir,
+                                    dir       : curdispatch.dir === 'asc'
+                                      ? 'dsc'
+                                      : 'asc',
                                   };
-                        } 
+                        }
                       );
                       return dispatchCarpetas(
                         {
                           ...currentDispatcher,
                           sortingKey: sortKey,
-                        } 
+                        }
                       );
             }}
             className={
               currentDispatcher.sortingKey === sortKey
-                ? styles.buttonActiveCategory
-                : styles.buttonPassiveCategory
+                ? styles.buttonCategoryActive
+                : styles.buttonCategoryPasive
             }
             key={sortKey}
           >

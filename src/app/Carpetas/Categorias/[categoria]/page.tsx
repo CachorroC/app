@@ -1,44 +1,40 @@
 'use client';
 import { useCategory } from '#@/app/Context/category-context';
-import { CarpetasList } from '#@/components/Carpetas/client/carpetasList';
+import { CarpetasTable } from '#@/components/Carpetas/client/carpetasList';
+import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function Page(
   {
     params: {
-      categoria 
+      categoria
     },
   }: {
     params: { categoria: string };
-  } 
+  }
 ) {
       const {
-        setCurrentCategory 
+        setCurrentCategory
       } = useCategory();
-      /*
-  const ncarps = [
-    ...carpetasRaw
-  ].filter(
-    (
-      carpeta
-    ) => {
-      return carpeta.category === params.categoria;
-    }
-  );
- */
+
+      if ( categoria === 'todos' ) {
+        redirect(
+          '/Carpetas'
+        );
+      }
+
       useEffect(
         () => {
                   setCurrentCategory(
-                    categoria 
+                    categoria
                   );
-
                   return () => {};
-        }, [ categoria, setCurrentCategory ] 
+        }, [ categoria, setCurrentCategory ]
       );
 
       return (
         <>
-          <CarpetasList />
+          <CarpetasTable />
         </>
       );
 }

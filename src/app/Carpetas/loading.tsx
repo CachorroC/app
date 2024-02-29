@@ -1,8 +1,100 @@
+import { Loader } from '#@/components/Loader';
 
-import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
 
 export default function Loading () {
       return (
-        <SearchOutputListSkeleton />
+        <>
+          <tr>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+          </tr>
+          <tr>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+          </tr>
+          <tr>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+          </tr>
+          <tr>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+          </tr>
+          <tr>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+          </tr>
+          <tr>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+          </tr>
+          <tr>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+          </tr>
+          <tr>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+          </tr>
+          <tr>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+          </tr>
+          <tr>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+            <td><Loader/></td>
+          </tr>
+
+        </>
       );
 }

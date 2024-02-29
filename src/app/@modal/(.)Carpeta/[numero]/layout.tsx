@@ -1,5 +1,5 @@
 import { CarpetaFormProvider } from '#@/app/Context/carpeta-form-context';
-import Modal from '#@/components/Modal';
+import { Modal } from '#@/components/Modal';
 import { prisma } from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { notFound } from 'next/navigation';

@@ -1,0 +1,79 @@
+.buttons {
+  box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-items: stretch;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
+  border-radius: var(--shape-corner-full);
+  transition: all 0.3s;
+  position: relative;
+  .button {
+    border: 0.07rem solid var(--outline);
+    box-sizing: border-box;
+    padding: 0.5rem;
+    flex: 1;
+    border-radius: none;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-items: stretch;
+    align-items: center;
+    justify-content: space-around;
+    align-content: center;
+    transition: all 0.3s;
+    position: relative;
+    &:before {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      content: "";
+      border-radius: inherit;
+    }
+    &:hover {
+      &:before {
+        opacity: 0.08;
+      }
+    }
+    &:focus,
+    &:active {
+      &:before {
+        opacity: 0.1;
+      }
+    }
+    &:first-child {
+      border-radius: var(--shape-corner-large-start);
+    }
+    &:last-child {
+      border-radius: var(--shape-corner-large-end);
+    }
+    &Category {
+      &Pasive {
+        @extend .button;
+        color: var(--on-surface);
+        &:hover,
+        &:focus,
+        &:active {
+          &:before {
+            background-color: var(--on-surface);
+          }
+        }
+      }
+      &Active {
+        @extend .button;
+        background-color: var(--secondary-container);
+        color: var(--on-secondary-container);
+        &:hover,
+        &:focus,
+        &:active {
+          &:before {
+            background-color: var(--on-secondary-container);
+          }
+        }
+      }
+    }
+  }
+}

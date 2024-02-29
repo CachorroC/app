@@ -1,5 +1,4 @@
 'use client';
-
 import React, { createContext,
   Dispatch,
   SetStateAction,
@@ -10,38 +9,70 @@ const ModalContext = createContext<{
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 } | null>(
-  null 
+  null
+);
+
+
+const ModalNoteContext = createContext<{
+  isModalNoteOpen: boolean;
+  setIsModalNoteOpen: Dispatch<SetStateAction<boolean>>;
+} | null>(
+  null
 );
 
 export function ModalProvider(
   {
-    children 
-  }: { children: React.ReactNode } 
+    children
+  }: { children: React.ReactNode }
 ) {
       const [ isModalOpen, setIsModalOpen ] = useState(
-        false 
+        false
+      );
+
+      const [ isModalNoteOpen, setIsModalNoteOpen ] = useState(
+        false
       );
 
       return (
-        <ModalContext.Provider
-          value={{
-            isModalOpen,
-            setIsModalOpen,
-          }}
-        >
-          {children}
-        </ModalContext.Provider>
+        <ModalNoteContext.Provider value={{
+          isModalNoteOpen,
+          setIsModalNoteOpen
+        }}>
+          <ModalContext.Provider
+            value={{
+              isModalOpen,
+              setIsModalOpen,
+            }}
+          >
+            {children}
+          </ModalContext.Provider>
+        </ModalNoteContext.Provider>
       );
 }
 
 export function useModalContext() {
       const context = useContext(
-        ModalContext 
+        ModalContext
       );
 
       if ( context === null ) {
         throw new Error(
-          'useModalContext must be used inside a ModalProvider' 
+          'useModalContext must be used inside a ModalProvider'
+        );
+      }
+
+      return context;
+}
+
+
+export function useModalNoteContext() {
+      const context = useContext(
+        ModalNoteContext
+      );
+
+      if ( context === null ) {
+        throw new Error(
+          'useModalContext must be used inside a ModalProvider'
         );
       }
 

@@ -5,16 +5,17 @@ import layout from '#@/styles/layout.module.css';
 import { ChangeEvent } from 'react';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import { useNuevaNotaContext } from '#@/app/Notas/nueva-nota-form-context';
-import { addNotaToMongo, addNotaToPrisma } from '#@/app/Notas/actions';
+import { addNotaToMongo, addNotaToPrisma, notasCount } from '#@/app/Notas/actions';
 import { NewNota } from '#@/lib/types/notas';
 import { usePathname } from 'next/navigation';
 import { ParseContentNota } from '#@/app/Notas/parse-text-area';
+import { ParseContenidoArea } from './nota-contenido';
 
 export const NuevaNota = () => {
           const pathname = usePathname();
 
           const {
-            notaFormState, setNotaFormState 
+            notaFormState, setNotaFormState
           } = useNuevaNotaContext();
 
           function handleStringChange(
@@ -24,9 +25,9 @@ export const NuevaNota = () => {
                   {
                     ...notaFormState,
                     [ e.target.name ]: String(
-                      e.target.value 
+                      e.target.value
                     ),
-                  } 
+                  }
                 );
           }
 
@@ -37,9 +38,9 @@ export const NuevaNota = () => {
                   {
                     ...notaFormState,
                     [ e.target.name ]: Number(
-                      e.target.value 
+                      e.target.value
                     ),
-                  } 
+                  }
                 );
           }
 
@@ -47,11 +48,11 @@ export const NuevaNota = () => {
                 const newDater = new Date();
 
                 const sender = await addNotaToPrisma(
-                  notaFormState 
+                  notaFormState
                 );
 
                 const adder = await addNotaToMongo(
-                  notaFormState 
+                  notaFormState
                 );
 
                 if ( adder.success ) {
@@ -66,7 +67,7 @@ export const NuevaNota = () => {
 
                 if ( sender.success ) {
                   alert(
-                    `se ingresó la informacion a la base de datos ${ sender.data }` 
+                    `se ingresó la informacion a la base de datos ${ sender.data }`
                   );
                 } else {
                   alert(
@@ -78,7 +79,7 @@ export const NuevaNota = () => {
                   return setNotaFormState(
                     {
                       ...notaFormState,
-                    } 
+                    }
                   );
                 }
 
@@ -87,16 +88,17 @@ export const NuevaNota = () => {
                   content      : [ '' ],
                   pathname     : pathname,
                   carpetaNumero: null,
+                  id           : '',
                   dueDate      : new Date(
                     newDater.getFullYear(),
                     newDater.getMonth(),
-                    newDater.getDate(),
+                    newDater.getDate()
                   ),
                 };
                 return setNotaFormState(
                   {
                     ...newFactura,
-                  } 
+                  }
                 );
           }
 
@@ -106,7 +108,22 @@ export const NuevaNota = () => {
                 className={styles.container}
                 action={createNoteInDatabase}
               >
-                <h1 className={typography.displayLarge}>Nueva Nota</h1>
+                <h1 className={ typography.displayLarge }>Nueva Nota</h1>
+                <button type='button' onClick={ async() => {
+                          const nextId = await notasCount(
+                            notaFormState.carpetaNumero
+                          );
+                          return setNotaFormState(
+                            {
+                              ...notaFormState,
+                              id: notaFormState.carpetaNumero
+                                ? `${ notaFormState.carpetaNumero }-${ nextId }`
+                                : `NC-${ nextId }`
+                            }
+                          );
+                } }>
+                  <span>id</span>
+                </button>
                 <section className={layout.sectionColumn}>
                   <section className={layout.sectionRow}>
                     <label
@@ -136,18 +153,18 @@ export const NuevaNota = () => {
                       name="dueDate"
                       className={styles.textArea}
                       value={InputDateHelper(
-                        notaFormState.dueDate 
+                        notaFormState.dueDate
                       )}
                       onChange={(
-                        e 
+                        e
                       ) => {
                                 const [
                                   yearStringer,
                                   monthStringer,
-                                  dayStringer 
+                                  dayStringer
                                 ]
                   = e.target.value.split(
-                    '-' 
+                    '-'
                   );
 
                                 setNotaFormState(
@@ -156,7 +173,7 @@ export const NuevaNota = () => {
                                     dueDate: new Date(
                                       `${ yearStringer }-${ monthStringer }-${ dayStringer }`,
                                     ),
-                                  } 
+                                  }
                                 );
                       }}
                     />
@@ -176,12 +193,16 @@ export const NuevaNota = () => {
                       onChange={handleStringChange}
                     />
                   </section>
-                  <ParseContentNota value={notaFormState.content} />
+                  <ParseContentNota value={ notaFormState.content } />
+                  <ParseContenidoArea />
                   <section className={layout.segmentRow}>
                     <button type="submit">Add</button>P
                   </section>
                 </section>
               </form>
+              <pre>{JSON.stringify(
+                notaFormState, null, 2
+              )}</pre>
             </>
           );
 };

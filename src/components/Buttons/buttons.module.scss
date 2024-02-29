@@ -1,16 +1,15 @@
 .button {
-  border: 0.2rem solid var(--outline);
+  border: 0.07rem solid var(--outline);
   box-sizing: border-box;
   padding: 0.5rem;
   flex: 1;
   display: flex;
-  background-color: var(--primary-container);
-  color: var(--on-primary-container);
   flex-flow: row nowrap;
   justify-items: stretch;
   align-items: center;
   justify-content: space-around;
   align-content: center;
+  border-radius: var(--shape-corner-full);
   transition: all 0.3s;
   position: relative;
   &:hover {
@@ -20,7 +19,7 @@
       height: 100%;
       top: 0;
       left: 0;
-      content: '';
+      content: "";
       opacity: 0;
     }
   }
@@ -98,7 +97,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      content: '';
+      content: "";
       top: 0;
       left: 0;
       opacity: 0.08;

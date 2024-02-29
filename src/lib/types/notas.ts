@@ -18,6 +18,9 @@ export interface NewNota {
   dueDate: Date | null;
   pathname: string | null;
   text: string;
+  id: string;
+
+
 }
 
 export interface IntNota extends NewNota {

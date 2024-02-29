@@ -95,11 +95,11 @@
 
 .top {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   border-radius: var(--shape-corner-large);
   background-color: var(--surface-dim);
   color: var(--on-surface);
-  gap: 2vmin;
+  gap: 0;
   justify-content: space-between;
   align-items: stretch;
   grid-area: top;

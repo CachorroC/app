@@ -3,7 +3,7 @@ import { outProceso } from 'types/procesos';
 import { fixDemandado } from '#@/lib/project/helper';
 import { getProceso } from '#@/lib/project/utils/Procesos';
 import { ReactNode, Suspense } from 'react';
-import ActuacionLoader from '../Card/actuacion-loader';
+import { ActuacionLoader } from '../Card/actuacion-loader';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { JuzgadoComponent } from './juzgado-component';
 import { Loader } from '../Loader';
@@ -16,12 +16,12 @@ export const ProcesoCard = (
   }: {
     children: ReactNode;
     proceso: outProceso;
-  } 
+  }
 ) => {
           const mapperObject = new Map();
 
           const {
-            sujetosProcesales 
+            sujetosProcesales
           } = proceso;
 
           const matcher = sujetosProcesales.matchAll(
@@ -30,7 +30,7 @@ export const ProcesoCard = (
 
           for ( const matchedValue of matcher ) {
             mapperObject.set(
-              matchedValue[ 2 ], matchedValue[ 5 ].trim() 
+              matchedValue[ 2 ], matchedValue[ 5 ].trim()
             );
           }
 
@@ -38,7 +38,7 @@ export const ProcesoCard = (
             <div className={layout.sectionColumn}>
               <h1 className={typography.titleMedium}>
                 {fixDemandado(
-                  sujetosProcesales 
+                  sujetosProcesales
                 )}
               </h1>
               <div className={layout.segmentRow}>{children}</div>
@@ -51,10 +51,10 @@ export async function ProcesosComponent(
     llaveProceso,
   }: {
     llaveProceso: string;
-  } 
+  }
 ) {
       const procesos = await getProceso(
-        llaveProceso 
+        llaveProceso
       );
 
       if ( !procesos || procesos.length === 0 ) {
@@ -65,10 +65,10 @@ export async function ProcesosComponent(
         <>
           {procesos.map(
             (
-              proceso, index 
+              proceso, index
             ) => {
                       const {
-                        idProceso 
+                        idProceso
                       } = proceso;
                       return (
                         <ProcesoCard
@@ -87,7 +87,7 @@ export async function ProcesosComponent(
                           </Suspense>
                         </ProcesoCard>
                       );
-            } 
+            }
           )}
         </>
       );

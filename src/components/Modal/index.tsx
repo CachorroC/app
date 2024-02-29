@@ -6,25 +6,25 @@ import { useCallback,
   ReactNode, } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './styles.module.css';
-import { useModalContext } from '#@/app/Context/modal-context';
+import { useModalContext, useModalNoteContext } from '#@/app/Context/modal-context';
 
-export default function Modal(
+export function Modal(
   {
-    children 
-  }: { children: ReactNode } 
+    children
+  }: { children: ReactNode }
 ) {
       const pathname = usePathname();
 
       const {
-        setIsModalOpen 
+        setIsModalOpen
       } = useModalContext();
 
       const overlay = useRef(
-        null 
+        null
       );
 
       const wrapper = useRef(
-        null 
+        null
       );
 
       const router = useRouter();
@@ -32,15 +32,15 @@ export default function Modal(
       const onDismiss = useCallback(
         () => {
                   setIsModalOpen(
-                    false 
+                    false
                   );
                   router.back();
-        }, [ router, setIsModalOpen ] 
+        }, [ router, setIsModalOpen ]
       );
 
       const onClick: MouseEventHandler = useCallback(
         (
-          e 
+          e
         ) => {
                   if ( e.target === overlay.current || e.target === wrapper.current ) {
                     if ( onDismiss ) {
@@ -51,13 +51,13 @@ export default function Modal(
         [
           onDismiss,
           overlay,
-          wrapper 
+          wrapper
         ],
       );
 
       const onKeyDown = useCallback(
         (
-          e: KeyboardEvent 
+          e: KeyboardEvent
         ) => {
                   if ( e.key === 'Escape' ) {
                     onDismiss();
@@ -69,15 +69,15 @@ export default function Modal(
       useEffect(
         () => {
                   document.addEventListener(
-                    'keydown', onKeyDown 
+                    'keydown', onKeyDown
                   );
 
                   return () => {
                             return document.removeEventListener(
-                              'keydown', onKeyDown 
+                              'keydown', onKeyDown
                             );
                   };
-        }, [ pathname, onKeyDown ] 
+        }, [ pathname, onKeyDown ]
       );
 
       return (
@@ -93,5 +93,92 @@ export default function Modal(
             {children}
           </div>
         </div>
+      );
+}
+
+
+export function ModalNote(
+  {
+    children
+  }: { children: ReactNode }
+) {
+      const pathname = usePathname();
+
+      const {
+        isModalNoteOpen,
+        setIsModalNoteOpen
+      } = useModalNoteContext();
+
+      const overlay = useRef(
+        null
+      );
+
+      const wrapper = useRef(
+        null
+      );
+
+      const onDismiss = useCallback(
+        () => {
+                  setIsModalNoteOpen(
+                    false
+                  );
+        }, [ setIsModalNoteOpen ]
+      );
+
+      const onClick: MouseEventHandler = useCallback(
+        (
+          e
+        ) => {
+                  if ( e.target === overlay.current || e.target === wrapper.current ) {
+                    if ( onDismiss ) {
+                      onDismiss();
+                    }
+                  }
+        },
+        [
+          onDismiss,
+          overlay,
+          wrapper
+        ],
+      );
+
+      const onKeyDown = useCallback(
+        (
+          e: KeyboardEvent
+        ) => {
+                  if ( e.key === 'Escape' ) {
+                    onDismiss();
+                  }
+        },
+        [ onDismiss ],
+      );
+
+      useEffect(
+        () => {
+                  document.addEventListener(
+                    'keydown', onKeyDown
+                  );
+
+                  return () => {
+                            return document.removeEventListener(
+                              'keydown', onKeyDown
+                            );
+                  };
+        }, [ pathname, onKeyDown ]
+      );
+
+      return (
+        <>{isModalNoteOpen &&( <div
+          ref={overlay}
+          className={styles.open}
+          onClick={onClick}
+        >
+          <div
+            ref={wrapper}
+            className={styles.wrapper}
+          >
+            {children}
+          </div>
+        </div> )}</>
       );
 }

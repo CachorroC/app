@@ -2,7 +2,7 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { notFound } from 'next/navigation';
 import layout from '#@/styles/layout.module.css';
-import { Fragment, Suspense } from 'react';
+import {  Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
@@ -25,19 +25,37 @@ async function NotasList(
       );
 
       return (
-        <NotasSortProvider notas={notas}>
-          {notas.map(
-            (
-              nota
-            ) => {
-                      return (
-                        <Nota
-                          nota={nota}
-                          key={nota.id}
-                        />
-                      );
-            }
-          )}
+        <NotasSortProvider notas={ notas }>
+          <table>
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Numero</th>
+                <th>contenido</th>
+                <th>children</th>
+                <th>eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {notas.map(
+                (
+                  nota
+                ) => {
+                          return (
+                            <Nota
+                              nota={nota}
+                              key={nota.id}
+                            >
+                              <td>{OutputDateHelper(
+                                nota.dueDate
+                              )}</td>
+                            </Nota>
+                          );
+                }
+              )}
+            </tbody>
+          </table>
+
         </NotasSortProvider>
       );
 }

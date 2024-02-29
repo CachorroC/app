@@ -1,4 +1,4 @@
-import ActuacionLoader from '#@/components/Card/actuacion-loader';
+import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
 
 export default function Loading() {
       return (

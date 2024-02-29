@@ -13,13 +13,13 @@ const NuevaNotaContext = createContext<{
   notaFormState: NewNota;
   setNotaFormState: Dispatch<SetStateAction<NewNota>>;
 } | null>(
-  null 
+  null
 );
 
 export function NuevaNotaFormProvider(
   {
-    children 
-  }: { children: ReactNode } 
+    children,
+  }: { children: ReactNode }
 ) {
       const pathname = usePathname();
 
@@ -33,12 +33,13 @@ export function NuevaNotaFormProvider(
         dueDate      : new Date(
           newDater.getFullYear(),
           newDater.getMonth(),
-          newDater.getDate(),
+          newDater.getDate()
         ),
+        id: 'NC-0'
       };
 
       const [ notaFormState, setNotaFormState ] = useState<NewNota>(
-        newNota 
+        newNota
       );
 
       const nuevaNotaMethods = useForm<NewNota>(
@@ -46,7 +47,7 @@ export function NuevaNotaFormProvider(
           defaultValues   : notaFormState,
           shouldFocusError: true,
           criteriaMode    : 'all',
-        } 
+        }
       );
       return (
         <NuevaNotaContext.Provider
@@ -62,7 +63,7 @@ export function NuevaNotaFormProvider(
 
 export function useNuevaNotaContext() {
       const context = useContext(
-        NuevaNotaContext 
+        NuevaNotaContext
       );
 
       if ( !context ) {

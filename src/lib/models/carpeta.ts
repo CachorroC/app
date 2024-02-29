@@ -1,4 +1,4 @@
-import { ConsultaActuacion, outActuacion } from '../types/actuaciones';
+import { ConsultaActuacion, intActuacion } from '../types/actuaciones';
 import { ConsultaNumeroRadicacion, outProceso } from '../types/procesos';
 import { NewJuzgado } from './demanda';
 
@@ -9,8 +9,8 @@ export class Carpeta {
   procesos: outProceso[] = [];
   idProcesos: number[] = [];
   numero: number;
-  actuaciones: outActuacion[] = [];
-  ultimaActuacion: outActuacion | null = null;
+  actuaciones: intActuacion[] = [];
+  ultimaActuacion: intActuacion | null = null;
   fecha: Date | null = null;
   idRegUltimaAct: number | null = null;
   constructor (

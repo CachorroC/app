@@ -2,9 +2,8 @@ import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { notFound } from 'next/navigation';
 import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { outActuacion } from '#@/lib/types/actuaciones';
-import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 
-export const dynamicParams = true;
 
 //? Generate segments for [numero]
 

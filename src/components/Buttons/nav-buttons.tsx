@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useModalContext } from '#@/app/Context/modal-context';
+import { useModalNoteContext } from '#@/app/Context/modal-context';
 import styles from '#@/styles/layout.module.css';
 import { NavLink } from '../layout/NavLink';
 import { useNavigationContext } from '#@/app/Context/navigation-context';
@@ -13,7 +13,7 @@ import { buttonDrawerMenuClosed,
 
 export const DrawerMenuButton = () => {
           const {
-            isNavOpen, setIsNavOpen 
+            isNavOpen, setIsNavOpen
           } = useNavigationContext();
           return (
             <button
@@ -24,10 +24,10 @@ export const DrawerMenuButton = () => {
               onClick={() => {
                         setIsNavOpen(
                           (
-                            n 
+                            n
                           ) => {
                                     return !n;
-                          } 
+                          }
                         );
               }}
             >
@@ -42,23 +42,24 @@ export const DrawerMenuButton = () => {
 
 export function NewNoteButton() {
       const {
-        isModalOpen, setIsModalOpen 
-      } = useModalContext();
+        isModalNoteOpen, setIsModalNoteOpen
+      } = useModalNoteContext();
+
       return (
         <button
           className={styles.buttonModal}
           onClick={() => {
-                    setIsModalOpen(
+                    setIsModalNoteOpen(
                       (
-                        n 
+                        n
                       ) => {
                                 return !n;
-                      } 
+                      }
                     );
           }}
         >
           <span className={`material-symbols-outlined ${ styles.icon }`}>
-            {isModalOpen
+            {isModalNoteOpen
               ? 'close'
               : 'note_add'}
           </span>
@@ -68,7 +69,7 @@ export function NewNoteButton() {
 
 export default function NavButtons() {
       const {
-        isNavOpen, setIsNavOpen 
+        isNavOpen, setIsNavOpen
       } = useNavigationContext();
 
       return (
@@ -78,7 +79,7 @@ export default function NavButtons() {
             className={styles.buttonDrawerClosed}
             onClick={() => {
                       setIsNavOpen(
-                        !isNavOpen 
+                        !isNavOpen
                       );
             }}
           >

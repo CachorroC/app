@@ -1,4 +1,5 @@
 'use client';
+import { buttonActiveCategory, buttonPassiveCategory } from '#@/components/Buttons/buttons.module.css';
 import { Route } from 'next';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
@@ -99,15 +100,11 @@ export default function Client(
                                                         return updateSearchParam(
                                                           option.value, item
                                                         );
-                                              }}
-                                              className={clsx(
-                                                'rounded-lg px-3 py-1 text-sm font-medium',
-                                                {
-                                                  'bg-gray-700 text-gray-100 hover:bg-gray-500 hover:text-white':
-                          !isActive,
-                                                  'bg-vercel-blue text-white': isActive,
-                                                },
-                                              )}
+                                              } }
+                                              className={isActive
+                                                ?  buttonActiveCategory
+                                                : buttonPassiveCategory}
+
                                             >
                                               {item}
                                             </button>

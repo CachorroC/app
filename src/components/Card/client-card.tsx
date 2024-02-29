@@ -1,8 +1,8 @@
 'use client';
-import { useSearch } from '#@/app/Context/search-context';
+import { useCategory } from '#@/app/Context/category-context';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { Route } from 'next';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { ReactNode } from 'react';
 
 export function ClientCardRow<H extends string>(
@@ -17,29 +17,22 @@ export function ClientCardRow<H extends string>(
   }
 ) {
 
+
       const {
-        search
-      } = useSearch();
+        currentCategory
+      } = useCategory();
 
-      const router = useRouter();
-
-      if ( search !== '' && carpeta.nombre.toLowerCase()
-            .search(
-              search.toLowerCase()
-            ) === -1 ) {
+      if ( currentCategory !== 'todos' && currentCategory !== carpeta.category ) {
         return null;
       }
 
       return (
-        <tr onClick={ (
-          e
-        ) => {
-                  e.preventDefault();
-                  return router.push(
-                    rowHref
-                  );
-        }}>
-
+        <tr>
+          <td>
+            <Link href={ rowHref }>
+              {carpeta.numero }
+            </Link>
+          </td>
           { children }
 
         </tr>

@@ -59,7 +59,9 @@ export default async function LayoutCarpetaMain(
             <Suspense fallback={<Loader />}>{children}</Suspense>
           </div>
           <div className={ styles.right }>
-            <ExpedienteFormComponent initialLLave={ carpeta.llaveProceso } />
+            <ExpedienteFormComponent initialLLave={ carpeta.llaveProceso } numero={ Number(
+              params.numero
+            ) } />
             <Suspense fallback={<Loader />}>{right}</Suspense>
           </div>
         </CarpetaFormProvider>

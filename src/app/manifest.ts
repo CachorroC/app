@@ -18,16 +18,11 @@ export default function manifest(): MetadataRoute.Manifest {
         background_color           : '#202b3a',
         theme_color                : '#7aa4dd',
         prefer_related_applications: false,
-        display                    : 'fullscreen',
-
-        start_url       : url,
-        description     : 'Somos una firma legal comprometida con brindar something',
-        display_override: [
-          'fullscreen',
-          'standalone',
-          'window-controls-overlay' 
-        ],
-        shortcuts: [ {
+        display                    : 'standalone',
+        start_url                  : url,
+        description                : 'Somos una firma legal comprometida con brindar something',
+        display_override           : [ 'standalone', 'minimal-ui' ],
+        shortcuts                  : [ {
           name: 'Ultimas Actuaciones',
           description:
           'aquí encontrará los procesos ordenados a partir de sus últimas actuaciones, la fecha del movimiento y su relevancia',

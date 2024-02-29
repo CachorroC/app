@@ -1,8 +1,9 @@
 import { MonCarpeta } from '#@/lib/types/carpetas';
 
 export type SortActionType = {
+  [ x: string ]: string;
   type: 'sort';
-  dir: boolean;
+  dir: 'asc'|'dsc';
   sortingKey:
     | 'fecha'
     | 'numero'
@@ -42,45 +43,45 @@ export type IntAction =
   | UpdateActionType;
 
 export function carpetasReducer(
-  carpetas: MonCarpeta[], action: IntAction 
+  carpetas: MonCarpeta[], action: IntAction
 ) {
       const {
-        type 
+        type
       } = action;
 
       switch ( type ) {
           case 'update': {
             return carpetas.map(
               (
-                t 
+                t
               ) => {
                         if ( t.numero === action.payload.numero ) {
                           return action.payload;
                         }
 
                         return t;
-              } 
+              }
             );
           }
 
           case 'sort': {
             const {
-              dir, sortingKey 
+              dir, sortingKey
             } = action;
 
             const asc = [
               -1,
               0,
-              1 
+              1
             ];
 
             const dsc = [
               1,
               0,
-              -1 
+              -1
             ];
 
-            const sorter = dir
+            const sorter = dir === 'asc'
               ? asc
               : dsc;
 
@@ -98,7 +99,7 @@ export function carpetasReducer(
                 case 'fecha': {
                   return [ ...carpetas ].sort(
                     (
-                      a, b 
+                      a, b
                     ) => {
                               if ( !a.fecha || a.fecha === undefined ) {
                                 return sorter[ 2 ];
@@ -121,21 +122,21 @@ export function carpetasReducer(
                               }
 
                               return sorter[ 1 ];
-                    } 
+                    }
                   );
                 }
 
                 case 'category': {
                   return [ ...carpetas ].sort(
                     (
-                      a, b 
+                      a, b
                     ) => {
                               const x = categoriesSorter.indexOf(
-                                a.category 
+                                a.category
                               );
 
                               const y = categoriesSorter.indexOf(
-                                b.category 
+                                b.category
                               );
 
                               if ( x < y ) {
@@ -147,14 +148,14 @@ export function carpetasReducer(
                               }
 
                               return sorter[ 1 ];
-                    } 
+                    }
                   );
                 }
 
                 case 'numero': {
                   return [ ...carpetas ].sort(
                     (
-                      a, b 
+                      a, b
                     ) => {
                               const x = a.numero;
 
@@ -165,14 +166,14 @@ export function carpetasReducer(
                                 : y - x;
 
                               return idk;
-                    } 
+                    }
                   );
                 }
 
                 case 'nombre': {
                   return [ ...carpetas ].sort(
                     (
-                      a, b 
+                      a, b
                     ) => {
                               const x = a.nombre;
 
@@ -187,14 +188,14 @@ export function carpetasReducer(
                               }
 
                               return sorter[ 1 ];
-                    } 
+                    }
                   );
                 }
 
                 default: {
                   return [ ...carpetas ].sort(
                     (
-                      a, b 
+                      a, b
                     ) => {
                               const aSortingKey = a[ sortingKey ];
 
@@ -217,44 +218,53 @@ export function carpetasReducer(
                               }
 
                               return 0;
-                    } 
+                    }
                   );
                 }
             }
           }
 
           case 'search': {
-            const carpetasMap = [];
 
-            const searchQuery = action.payload.toLocaleLowerCase();
+            const searchQuery = action.payload.normalize(
+              'NFD'
+            )
+                  .trim()
+                  .toLocaleLowerCase();
 
-            for ( const carpeta of [ ...carpetas ] ) {
-              const nombreString = carpeta.nombre.toLocaleLowerCase();
+            console.log(
+              `searchQuery: ${ searchQuery }`
+            );
 
-              const carpetaQuery = nombreString.indexOf(
-                searchQuery 
-              );
+            return [ ...carpetas ].filter(
+              (
+                carpeta
+              ) => {
+                        const {
+                          nombre
+                        } = carpeta;
 
-              if ( carpetaQuery === -1 ) {
-                continue;
+                        const normalizedName = nombre.normalize(
+                          'NFD'
+                        )
+                              .trim()
+                              .toLocaleLowerCase();
+
+                        const testNormalized = normalizedName.includes(
+                          searchQuery
+                        );
+                        console.log(
+                          `testNormalized: ${ testNormalized }`
+                        );
+                        return testNormalized;
               }
-
-              carpetasMap.push(
-                carpeta 
-              );
-
-              console.log(
-                carpetaQuery 
-              );
-            }
-
-            return carpetasMap;
+            );
           }
 
           case 'filter': {
             return [ ...carpetas ].filter(
               (
-                carpeta 
+                carpeta
               ) => {
                         const querier = carpeta[ action.filteringKey ];
 
@@ -266,14 +276,14 @@ export function carpetasReducer(
                           querier
                                 .toLocaleLowerCase()
                                 .indexOf(
-                                  action.filteringKey.toLocaleLowerCase() 
+                                  action.filteringKey.toLocaleLowerCase()
                                 ) === -1
                         ) {
                           return false;
                         }
 
                         return true;
-              } 
+              }
             );
           }
 
@@ -284,7 +294,7 @@ export function carpetasReducer(
           default: {
             return [ ...carpetas ].sort(
               (
-                a, b 
+                a, b
               ) => {
                         if ( !a.fecha || a.fecha === undefined ) {
                           return 1;
@@ -307,7 +317,7 @@ export function carpetasReducer(
                         }
 
                         return 0;
-              } 
+              }
             );
           }
       }

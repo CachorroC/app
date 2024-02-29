@@ -1,4 +1,4 @@
-import getCarpetas from '#@/lib/project/utils/Carpetas/getCarpetas';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { IngresoComponent } from '../ingreso-component';
 
 export default async function Default() {
@@ -7,7 +7,7 @@ export default async function Default() {
         <IngresoComponent
           carpetas={[ ...carpetas ].sort(
             (
-              a, b 
+              a, b
             ) => {
                       const x = a.nombre;
 
@@ -22,7 +22,7 @@ export default async function Default() {
                       }
 
                       return 0;
-            } 
+            }
           )}
         />
       );

@@ -1,7 +1,7 @@
 'use client';
 
 import { use, Suspense } from 'react';
-import ActuacionLoader from '#@/components/Card/actuacion-loader';
+import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import styles from '#@/components/Card/card.module.css';
 import { fixFechas } from '#@/lib/project/helper';

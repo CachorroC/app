@@ -1,5 +1,5 @@
 import { Loader } from '#@/components/Loader';
-import Modal from '#@/components/Modal';
+import { Modal } from '#@/components/Modal';
 import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';

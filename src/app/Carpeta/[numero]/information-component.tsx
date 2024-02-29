@@ -9,7 +9,7 @@ import { Suspense } from 'react';
 import { ProcesoCard } from '#@/components/Proceso/server-components';
 import { Route } from 'next';
 import button from '#@/components/Buttons/buttons.module.css';
-import ActuacionLoader from '#@/components/Card/actuacion-loader';
+import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { ChipButton } from '#@/components/Chip';
 import chip from '#@/components/Chip/styles.module.css';
@@ -20,7 +20,7 @@ export default function InformationComponent(
     carpeta,
   }: {
     carpeta: MonCarpeta;
-  } 
+  }
 ) {
       const {
         deudor,
@@ -38,35 +38,35 @@ export default function InformationComponent(
           {procesos.length > 0
         && procesos.map(
           (
-            proceso 
+            proceso
           ) => {
                     const {
-                      sujetosProcesales, idProceso 
+                      sujetosProcesales, idProceso
                     } = proceso;
 
                     const mapperObject = new Map();
 
                     const newSujetos = sujetosProcesales.split(
-                      '|' 
+                      '|'
                     );
 
                     for ( const demandadoODemandante of newSujetos ) {
                       const splitter = demandadoODemandante.split(
-                        ':' 
+                        ':'
                       );
                       console.log(
-                        splitter 
+                        splitter
                       );
 
                       const fixer = splitter.map(
                         (
-                          value 
+                          value
                         ) => {
                                   return value.trim();
-                        } 
+                        }
                       );
                       mapperObject.set(
-                        fixer[ 0 ], fixer[ 1 ] 
+                        fixer[ 0 ], fixer[ 1 ]
                       );
                     }
 
@@ -114,7 +114,7 @@ export default function InformationComponent(
                         </ProcesoCard>
                       </Suspense>
                     );
-          } 
+          }
         )}
           <div className={layout.sectionColumn}>
             <h2 className={typography.titleMedium}>{`Carpeta número ${ numero }`}</h2>
@@ -208,7 +208,7 @@ export default function InformationComponent(
               <h4 className={typography.titleSmall}>Pagarés</h4>
               {demanda.vencimientoPagare.map(
                 (
-                  pagare, index 
+                  pagare, index
                 ) => {
                           return (
                             <p
@@ -216,11 +216,11 @@ export default function InformationComponent(
                               className={typography.labelMedium}
                             >
                               {fixFechas(
-                                pagare 
+                                pagare
                               )}
                             </p>
                           );
-                } 
+                }
               )}
             </>
           )}
@@ -228,7 +228,7 @@ export default function InformationComponent(
           {demanda?.entregaGarantiasAbogado && (
             <p className={typography.labelSmall}>
               {fixFechas(
-                demanda.entregaGarantiasAbogado 
+                demanda.entregaGarantiasAbogado
               )}
             </p>
           )}
@@ -237,9 +237,9 @@ export default function InformationComponent(
         && fixMoney(
           {
             valor: Number(
-              demanda.capitalAdeudado 
+              demanda.capitalAdeudado
             ),
-          } 
+          }
         )}
         </>
       );

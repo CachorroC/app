@@ -1,11 +1,17 @@
 'use client';
 import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
-import { Card, CardRow } from '#@/components/Card';
+import { Card, } from '#@/components/Card';
 import { useSearch } from '#@/app/Context/search-context';
 import { JSX } from 'react';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { useCategory } from '#@/app/Context/category-context';
 import typography from '#@/styles/fonts/typography.module.css';
+import { ClientCardRow } from '#@/components/Card/client-card';
+import { OutputDateHelper } from '#@/lib/project/date-helper';
+import { Route } from 'next';
+import { CopyButton } from '#@/components/Buttons/copy-buttons';
+import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import Link from 'next/link';
 
 export function CarpetasList() {
       const rows: JSX.Element[] = [];
@@ -55,49 +61,180 @@ export function CarpetasList() {
       return <>{rows}</>;
 }
 
+
 export function CarpetasTable() {
+      const carpetasReduced = useCarpetaSort();
+
+      return <>
+
+        { carpetasReduced.map(
+          (
+            carpeta
+          ) => {
+                    const {
+                      ultimaActuacion, numero, nombre, fecha, category, llaveProceso, revisado,
+                    } = carpeta;
+                    return (
+                      <ClientCardRow
+                        key={numero }
+                        rowHref={`/Carpeta/${ numero }` as Route}
+                        carpeta={carpeta}
+                      >
+                        <td>{nombre}</td>
+                        <td>{OutputDateHelper(
+                          fecha
+                        )}</td>
+                        <td>{category}</td>
+                        <td>
+                          { ultimaActuacion
+                            ? (
+                                <>
+                                  <Link className={ typography.titleMedium } href={ `/Carpeta/${ numero }/ultimasActuaciones/${ ultimaActuacion.idProceso }` as Route }>
+                                    {ultimaActuacion.actuacion}
+                                  </Link>
+                                  {ultimaActuacion.anotacion && (
+                                    <span className={typography.labelSmall}>
+                                      {ultimaActuacion.anotacion}
+                                    </span>
+                                  )}
+                                </> )
+                            : (
+                                <>
+                                  <h5 className={typography.headlineSmall} style={{
+                                    backgroundColor: 'var(--error-container)',
+                                    color          : 'var(--on-error-container)',
+                                    borderBottom   : 'solud 0.2rem var(--error)'
+                                  } }>
+                                  Sin actuaciones
+                                  </h5>
+                                  <span className={typography.labelSmall}>
+                                  Esta carpeta no tiene registros en la Rama Judicial
+                                  </span>
+                                </>
+                              )
+                          }
+                        </td>
+                        <td>
+                          <RevisadoCheckBox
+                            numero={numero}
+                            initialRevisadoState={revisado}
+                          />
+                        </td>
+                        <td>
+                          <CopyButton
+                            copyTxt={llaveProceso}
+                            name={'expediente'}
+                          />
+                        </td>
+                      </ClientCardRow>
+                    );
+          }
+        )}</>;
+}
+
+/*
+export function CarpetasTable(
+  {
+    actuacionPromises
+  }: {actuacionPromises: [number, Promise<RequestActuacion>][]}
+) {
+      const mapActuaciones = new Map(
+        actuacionPromises
+      );
 
       const carpetasReduced = useCarpetaSort();
 
+      return <>
 
+        { carpetasReduced.map(
+          (
+            carpeta
+          ) => {
+                    const {
+                      ultimaActuacion, numero, nombre, fecha, category, llaveProceso, revisado, idProcesos
+                    } = carpeta;
+                    return (
+                      <ClientCardRow
+                        key={numero }
+                        rowHref={`/Carpeta/${ numero }` as Route}
+                        carpeta={carpeta}
+                      >
+                        <td>{numero}</td>
+                        <td>{nombre}</td>
+                        <td>{OutputDateHelper(
+                          fecha
+                        )}</td>
+                        <td>{category}</td>
 
-      return <>{carpetasReduced.map(
-        (
-          carpeta
-        ) => {
-                  const {
-                    ultimaActuacion
-                  } = carpeta;
-                  return (
-                    <CardRow
-                      key={carpeta.numero}
-                      carpeta={carpeta}
-                    >
-                      { ultimaActuacion
-                        ? (
-                            <td>
-                              <h5 className={typography.titleMedium}>
-                                {ultimaActuacion.actuacion}
-                              </h5>
-                              {ultimaActuacion.anotacion && (
-                                <span className={typography.labelSmall}>
-                                  {ultimaActuacion.anotacion}
-                                </span>
-                              )}
-                            </td> )
-                        : (
-                            <td>
-                              <h5 className={typography.headlineSmall}>
-                               Sin actuaciones
-                              </h5>
-                              <span className={typography.labelSmall}>
+                        <td>
+                          <CopyButton
+                            copyTxt={llaveProceso}
+                            name={'expediente'}
+                          />
+                        </td>
+                        <td>
+                          { ultimaActuacion
+                            ? (
+                                <>
+                                  <h5 className={typography.titleMedium}>
+                                    {ultimaActuacion.actuacion}
+                                  </h5>
+                                  {ultimaActuacion.anotacion && (
+                                    <span className={typography.labelSmall}>
+                                      {ultimaActuacion.anotacion}
+                                    </span>
+                                  )}
+                                </> )
+                            : (
+                                <>
+                                  <h5 className={typography.headlineSmall} style={{
+                                    backgroundColor: 'var(--error-container)',
+                                    color          : 'var(--on-error-container)',
+                                    borderBottom   : 'solud 0.2rem var(--error)'
+                                  }}>
+                                Sin actuaciones
+                                  </h5>
+                                  <span className={typography.labelSmall}>
                                   Esta carpeta no tiene registros en la Rama Judicial
-                              </span>
-                            </td>
-                          )
-                      }
-                    </CardRow>
-                  );
-        }
-      )}</>;
+                                  </span>
+                                </>
+                              )
+                          }
+                          { idProcesos.map(
+                            (
+                              idProceso
+                            ) => {
+                                      let contentId;
+
+                                      const actuacionById = mapActuaciones.get(
+                                        idProceso
+                                      );
+
+                                      if ( actuacionById ) {
+                                        const actuacion = use(
+                                          actuacionById
+                                        );
+                                        contentId = actuacion.Message;
+                                      } else {
+                                        contentId = 'sin request';
+                                      }
+
+                                      return (
+                                        <>{contentId}</>
+                                      );
+                            }
+                          )}
+
+                        </td>
+                        <td>
+                          <RevisadoCheckBox
+                            numero={numero}
+                            initialRevisadoState={revisado}
+                          />
+                        </td>
+                      </ClientCardRow>
+                    );
+          }
+        )}</>;
 }
+ */

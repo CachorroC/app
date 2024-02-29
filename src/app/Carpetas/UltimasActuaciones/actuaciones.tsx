@@ -2,10 +2,12 @@ import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { unstable_noStore as noStore } from 'next/cache';
 import { Suspense } from 'react';
-import ActuacionLoader from '#@/components/Card/actuacion-loader';
+import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import styles from '#@/components/Card/card.module.css';
 import { fixFechas } from '#@/lib/project/helper';
+
+import layout from '#@/styles/layout.module.css';
 
 /*
 async function getData(
@@ -87,10 +89,15 @@ export async function FechaActuacionComponent(
         idProceso, index
       );
 
-      if ( !consultaActuaciones ) {
+      if ( !consultaActuaciones || consultaActuaciones.length === 0 ) {
         return (
-          <div className={styles.containerFilledDisabled}>
-            <span className={typography.headlineSmall}>No Hay Actuaciones</span>
+
+          <div className={styles.containerFilledEnabled}>
+            <div className={layout.segmentRow}>
+              <h5 className={typography.titleSmall}>No hay actuaciones</h5>
+              <p className={typography.labelSmall}>por favor revise que la llaveProceso y el idProceso estén correctos</p>
+            </div>
+            <p className={typography.bodySmall}>gracias</p>
           </div>
         );
       }
@@ -126,7 +133,10 @@ export async function FechaActuacionComponentAlt(
 
         return (
           <>
-            <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
+            <h5 style={{
+              backgroundColor: 'var(--error-container)',
+              color          : 'var(--on-error-container)'
+            }} className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
             Sin Actuaciones
             </h5>
             <sub className={typography.labelSmall}>0 de 0</sub>

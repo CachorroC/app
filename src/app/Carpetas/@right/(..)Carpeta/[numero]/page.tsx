@@ -14,13 +14,13 @@ import { ProcesoCardLoader } from '#@/components/Proceso/proceso-card-loader';
 
 export default async function Page(
   {
-    params 
-  }: { params: { numero: string } } 
+    params
+  }: { params: { numero: string } }
 ) {
       const carpeta = await getCarpetabyNumero(
         Number(
-          params.numero 
-        ) 
+          params.numero
+        )
       );
 
       if ( !carpeta ) {
@@ -28,7 +28,7 @@ export default async function Page(
       }
 
       const {
-        demanda, idProcesos 
+        demanda, idProcesos
       } = carpeta;
 
       let idProcesoContent;
@@ -36,7 +36,7 @@ export default async function Page(
       if ( idProcesos && idProcesos.length > 0 ) {
         idProcesoContent = idProcesos.map(
           (
-            idProceso 
+            idProceso
           ) => {
                     return (
                       <Link
@@ -44,9 +44,11 @@ export default async function Page(
                         href={
                           `/Carpeta/${ params.numero }/ultimasActuaciones/${ idProceso }` as Route
                         }
-                      ></Link>
+                      >
+
+                      </Link>
                     );
-          } 
+          }
         );
       }
 
@@ -55,8 +57,9 @@ export default async function Page(
           <Suspense fallback={<ProcesoCardLoader />}>
             <InformationComponent carpeta={carpeta} />
           </Suspense>
-
-          <DeudorFormComponent />
+          <Suspense fallback={<Loader />}>
+            <DeudorFormComponent />
+          </Suspense>
 
           <Suspense fallback={<Loader />}>
             <InputSection
@@ -66,23 +69,26 @@ export default async function Page(
               type={'text'}
             />
           </Suspense>
+          <Suspense fallback={<Loader />}>
 
-          <section className={layout.segmentColumn}>
-            <h5 className={typography.titleMedium}>Capital Adeudado:</h5>
-            <p className={typography.bodyMedium}>
-              {' '}
-              {demanda?.capitalAdeudado
+            <section className={layout.segmentColumn}>
+              <h5 className={typography.titleMedium}>Capital Adeudado:</h5>
+              <p className={typography.bodyMedium}>
+                {' '}
+                {demanda?.capitalAdeudado
             && fixMoney(
               {
                 valor: Number(
-                  demanda.capitalAdeudado 
+                  demanda.capitalAdeudado
                 ),
-              } 
+              }
             )}
-            </p>
-          </section>
-
-          {idProcesoContent}
+              </p>
+            </section>
+          </Suspense>
+          <Suspense fallback={<Loader />}>
+            { idProcesoContent }
+          </Suspense>
         </>
       );
 }
