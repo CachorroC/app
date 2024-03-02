@@ -1,9 +1,14 @@
 import { MonCarpeta } from '#@/lib/types/carpetas';
 
+export type CarpetasReducerState = {
+  carpetas: MonCarpeta[];
+  completeCarpetas: MonCarpeta[];
+};
+
 export type SortActionType = {
-  [ x: string ]: string;
+  [x: string]: string;
   type: 'sort';
-  dir: 'asc'|'dsc';
+  dir: 'asc' | 'dsc';
   sortingKey:
     | 'fecha'
     | 'numero'
@@ -30,9 +35,20 @@ export type FilterActionType = {
   filteringValue: string;
 };
 
+export type CategoryFilterActionType = {
+  type: 'category-filter';
+  exclude: (
+    | 'Bancolombia'
+    | 'Terminados'
+    | 'Reintegra'
+    | 'LiosJuridicos'
+    | 'Insolvencia'
+    | string
+  )[];
+};
+
 export type ResetActionType = {
   type: 'reset';
-  payload: MonCarpeta[];
 };
 
 export type IntAction =
@@ -40,18 +56,69 @@ export type IntAction =
   | SearchActionType
   | SortActionType
   | ResetActionType
-  | UpdateActionType;
+  | UpdateActionType
+  | CategoryFilterActionType;
 
 export function carpetasReducer(
-  carpetas: MonCarpeta[], action: IntAction
+  reducerState: CarpetasReducerState,
+  action: IntAction,
 ) {
       const {
         type
       } = action;
 
+      const {
+        carpetas, completeCarpetas
+      } = reducerState;
+
       switch ( type ) {
+          case 'reset': {
+            return {
+              carpetas        : completeCarpetas,
+              completeCarpetas: completeCarpetas,
+            };
+          }
+
+          case 'category-filter': {
+            const {
+              exclude
+            } = action;
+
+            if ( !exclude || exclude.length === 0 || exclude.includes(
+              'todos'
+            ) ) {
+              return {
+                carpetas        : completeCarpetas,
+                completeCarpetas: completeCarpetas,
+              };
+            }
+
+            const outgoingCarpetas = [];
+
+            for ( const carpeta of completeCarpetas ) {
+              const {
+                category
+              } = carpeta;
+
+              const indexOf = exclude.indexOf(
+                category
+              );
+
+              if ( indexOf !== -1 ) {
+                outgoingCarpetas.push(
+                  carpeta
+                );
+              }
+            }
+
+            return {
+              carpetas        : outgoingCarpetas,
+              completeCarpetas: completeCarpetas,
+            };
+          }
+
           case 'update': {
-            return carpetas.map(
+            const outGoingCarpetas = carpetas.map(
               (
                 t
               ) => {
@@ -62,6 +129,10 @@ export function carpetasReducer(
                         return t;
               }
             );
+            return {
+              carpetas        : outGoingCarpetas,
+              completeCarpetas: completeCarpetas,
+            };
           }
 
           case 'sort': {
@@ -97,7 +168,7 @@ export function carpetasReducer(
 
             switch ( sortingKey ) {
                 case 'fecha': {
-                  return [ ...carpetas ].sort(
+                  const sorted = [ ...carpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -124,10 +195,14 @@ export function carpetasReducer(
                               return sorter[ 1 ];
                     }
                   );
+                  return {
+                    carpetas        : sorted,
+                    completeCarpetas: completeCarpetas,
+                  };
                 }
 
                 case 'category': {
-                  return [ ...carpetas ].sort(
+                  const sorted = [ ...carpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -150,10 +225,14 @@ export function carpetasReducer(
                               return sorter[ 1 ];
                     }
                   );
+                  return {
+                    carpetas        : sorted,
+                    completeCarpetas: completeCarpetas,
+                  };
                 }
 
                 case 'numero': {
-                  return [ ...carpetas ].sort(
+                  const sorted = [ ...carpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -161,17 +240,21 @@ export function carpetasReducer(
 
                               const y = b.numero;
 
-                              const idk = dir
-                                ? x - y
-                                : y - x;
+                              const idk = dir === 'asc'
+                                ? y - x
+                                : x - y;
 
                               return idk;
                     }
                   );
+                  return {
+                    carpetas        : sorted,
+                    completeCarpetas: completeCarpetas,
+                  };
                 }
 
                 case 'nombre': {
-                  return [ ...carpetas ].sort(
+                  const sorted = [ ...carpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -190,10 +273,14 @@ export function carpetasReducer(
                               return sorter[ 1 ];
                     }
                   );
+                  return {
+                    carpetas        : sorted,
+                    completeCarpetas: completeCarpetas,
+                  };
                 }
 
                 default: {
-                  return [ ...carpetas ].sort(
+                  const sorted = [ ...carpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -220,15 +307,22 @@ export function carpetasReducer(
                               return 0;
                     }
                   );
+                  return {
+                    carpetas        : sorted,
+                    completeCarpetas: completeCarpetas,
+                  };
                 }
             }
           }
 
           case 'search': {
-
-            const searchQuery = action.payload.normalize(
-              'NFD'
-            )
+            const searchQuery = action.payload
+                  .normalize(
+                    'NFD'
+                  )
+                  .replace(
+                    /[\u0300-\u036f]/g, ''
+                  )
                   .trim()
                   .toLocaleLowerCase();
 
@@ -236,7 +330,7 @@ export function carpetasReducer(
               `searchQuery: ${ searchQuery }`
             );
 
-            return [ ...carpetas ].filter(
+            const sorted = [ ...completeCarpetas ].filter(
               (
                 carpeta
               ) => {
@@ -244,25 +338,29 @@ export function carpetasReducer(
                           nombre
                         } = carpeta;
 
-                        const normalizedName = nombre.normalize(
-                          'NFD'
-                        )
+                        const normalizedName = nombre
+                              .normalize(
+                                'NFD'
+                              )
+                              .replace(
+                                /[\u0300-\u036f]/g, ''
+                              )
                               .trim()
                               .toLocaleLowerCase();
 
-                        const testNormalized = normalizedName.includes(
+                        return normalizedName.includes(
                           searchQuery
                         );
-                        console.log(
-                          `testNormalized: ${ testNormalized }`
-                        );
-                        return testNormalized;
               }
             );
+            return {
+              carpetas        : sorted,
+              completeCarpetas: completeCarpetas,
+            };
           }
 
           case 'filter': {
-            return [ ...carpetas ].filter(
+            const sorted = [ ...carpetas ].filter(
               (
                 carpeta
               ) => {
@@ -285,14 +383,14 @@ export function carpetasReducer(
                         return true;
               }
             );
-          }
-
-          case 'reset': {
-            return action.payload;
+            return {
+              carpetas        : sorted,
+              completeCarpetas: completeCarpetas,
+            };
           }
 
           default: {
-            return [ ...carpetas ].sort(
+            const sorted = [ ...carpetas ].sort(
               (
                 a, b
               ) => {
@@ -319,6 +417,10 @@ export function carpetasReducer(
                         return 0;
               }
             );
+            return {
+              carpetas        : sorted,
+              completeCarpetas: completeCarpetas,
+            };
           }
       }
 }

@@ -10,8 +10,8 @@ $MaxSW: 480px; //maximum sma width
   transition: all 0.5s;
   display: grid;
   width: 100%;
-  gap: 1rem;
-  padding: 1rem 1rem 0 1rem;
+  gap: 0;
+  padding: 0;
   height: 100svh;
   box-sizing: border-box;
   background-color: var(--surface-container);
@@ -29,16 +29,16 @@ $MaxSW: 480px; //maximum sma width
     gap: 0.2rem;
     grid-template-areas:
       "top top top top"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "left left left left"
+      "left left left left"
       "right right right right"
       "right right right right"
-      "left left left left"
-      "left left left left"
-      "left left left left"
-      "left left left left"
-      "left left left left"
-      "left left left left"
-      "left left left left"
-      "left left left left"
       "header header header header";
   }
 
@@ -129,9 +129,10 @@ $MaxSW: 480px; //maximum sma width
   gap: 1rem;
   box-sizing: border-box;
   box-shadow: var(--dp2);
-
-  & > * {
-    flex: 1 0 auto;
+  @media (width < 600px) {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
   }
 }
 

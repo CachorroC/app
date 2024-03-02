@@ -1,6 +1,5 @@
 
 import { outActuacion } from '#@/lib/types/actuaciones';
-import { sleep } from '../../helper';
 import fetchActuaciones from './fetch';
 import { updateUltimaActuacionInPrisma } from './updater';
 
@@ -9,13 +8,10 @@ process.env[ 'NODE_TLS_REJECT_UNAUTHORIZED' ] = '0';
 export async function getActuaciones(
   idProceso: number, index: number = 1
 ) {
-      await sleep(
-        index
-      );
 
       try {
         const request = await fetchActuaciones(
-          idProceso
+          idProceso, index
         );
 
         if ( !request.ConsultaActuaciones ) {

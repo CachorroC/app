@@ -7,11 +7,21 @@ import { entidadesJudiciales } from '#@/lib/data/keybuilder';
 
 export function ExpedienteFormComponent(
   {
-    initialLLave, numero
+    initialLLave,
+    numero,
   }: {
-    initialLLave: string; numero: number
+    initialLLave: string;
+    numero: number;
   }
 ) {
+      const [ departamentoState, setDepartamentoState ] = useState(
+        '00'
+      );
+
+      const [ municipioState, setMunicipioState ] = useState(
+        '000'
+      );
+
 
       const [ entidadState, setEntidadState ] = useState(
         '00'
@@ -40,9 +50,10 @@ export function ExpedienteFormComponent(
         '00'
       );
 
-      async function editKey () {
+      async function editKey() {
             const editor = await editllaveProceso(
-              numero, `11001${ entidadState }${ especialidadState }${ despachoState }${ anoState }${ codigoState }${ recursoState }`
+              numero,
+              `${ departamentoState }${ municipioState }${ entidadState }${ especialidadState }${ despachoState }${ anoState }${ codigoState }${ recursoState }`,
             );
 
             if ( editor.success ) {
@@ -74,6 +85,12 @@ export function ExpedienteFormComponent(
                       codigoProceso,
                       recurso,
                     ] = matched;
+                    setDepartamentoState(
+                      deparamento
+                    );
+                    setMunicipioState(
+                      ciudad
+                    );
                     setEntidadState(
                       entidad
                     );
@@ -96,9 +113,8 @@ export function ExpedienteFormComponent(
                     console.log(
                       total
                     );
-                    console.log(
-                      deparamento + ciudad
-                    );
+
+
                     console.log(
                       matched
                     );
@@ -119,12 +135,32 @@ export function ExpedienteFormComponent(
       );
       return (
         <form action={editKey}>
-          <pre>{`11001${ entidadState }${ especialidadState }${ despachoState }${ anoState }${ codigoState }${ recursoState }`}</pre>
+          <pre>{ `${ departamentoState }${ municipioState }${ entidadState }${ especialidadState }${ despachoState }${ anoState }${ codigoState }${ recursoState }` }</pre>
+
+
 
           <div className={layout.segmentColumn}>
-            {' '}
+            <label htmlFor='departamento'>Departamento</label>
+            <input type='text' value={ departamentoState } name='departamento' onChange={ (
+              e
+            ) => {
+                      return setDepartamentoState(
+                        e.target.value
+                      );
+
+            } } />
+            <label htmlFor='municipio'>municipio</label>
+            <input type='text' value={ municipioState } name='municipio' onChange={ (
+              e
+            ) => {
+                      return setMunicipioState(
+                        e.target.value
+                      );
+
+            } } />
+            <label htmlFor='entidad'>Entidad</label>
             <input
-              type='text'
+              type="text"
               value={entidadState}
               name="entidad"
               onChange={(
@@ -135,8 +171,9 @@ export function ExpedienteFormComponent(
                         );
               }}
             />
+            <label htmlFor='especialidad'>Especialidad</label>
             <input
-              type='text'
+              type="text"
               value={especialidadState}
               name="especialidad"
               onChange={(
@@ -147,47 +184,62 @@ export function ExpedienteFormComponent(
                         );
               }}
             />
-            <select value={entidadState} onChange={(
-              e
-            ) => {
-                      return setEntidadState(
-                        e.target.value
-                      );
-            } }>
-              { entidadesJudiciales.map(
+            <label htmlFor='especialidad'>especialidad</label>
+            <select
+              value={entidadState}
+              onChange={(
+                e
+              ) => {
+                        return setEntidadState(
+                          e.target.value
+                        );
+              }}
+            >
+              {entidadesJudiciales.map(
                 (
                   entidad
                 ) => {
                           return (
-                            <option key={entidad.codigo} value={entidad.codigo}>{entidad.nombre}</option>
+                            <option
+                              key={entidad.codigo}
+                              value={entidad.codigo}
+                            >
+                              {entidad.nombre}
+                            </option>
                           );
                 }
-              ) }
-
+              )}
             </select>
-            { selectedEntidad && (
-              <select value={especialidadState} onChange={(
-                e
-              ) => {
-                        return setEspecialidadState(
-                          e.target.value
-                        );
-              } }>
-                { selectedEntidad.especialidades.map(
+            {selectedEntidad && (
+              <select
+                value={especialidadState}
+                onChange={(
+                  e
+                ) => {
+                          return setEspecialidadState(
+                            e.target.value
+                          );
+                }}
+              >
+                {selectedEntidad.especialidades.map(
                   (
                     entidad
                   ) => {
                             return (
-                              <option key={entidad.codigo} value={entidad.codigo}>{entidad.nombre}</option>
+                              <option
+                                key={entidad.codigo}
+                                value={entidad.codigo}
+                              >
+                                {entidad.nombre}
+                              </option>
                             );
                   }
-                ) }
-
+                )}
               </select>
             )}
             <input
-              type='text'
-              pattern='/(\d{2})/gm'
+              type="text"
+              pattern="/(\d{2})/gm"
               value={despachoState}
               name="despacho"
               onChange={(
@@ -199,10 +251,10 @@ export function ExpedienteFormComponent(
               }}
             />
             <input
-              type='text'
-              value={ anoState }
-              pattern='\d{4}'
-              title='año expresado en cuatro digitos'
+              type="text"
+              value={anoState}
+              pattern="\d{4}"
+              title="año expresado en cuatro digitos"
               name="ano"
               onChange={(
                 e
@@ -213,7 +265,7 @@ export function ExpedienteFormComponent(
               }}
             />
             <input
-              type='text'
+              type="text"
               value={codigoState}
               name="codigo"
               onChange={(
@@ -235,8 +287,8 @@ export function ExpedienteFormComponent(
                         );
               }}
             />
-            <button type='submit'>
-              <span className='material-symbols-outlined'>send</span>
+            <button type="submit">
+              <span className="material-symbols-outlined">send</span>
             </button>
           </div>
         </form>

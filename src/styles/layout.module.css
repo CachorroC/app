@@ -2,8 +2,8 @@
   transition: all 0.5s;
   display: grid;
   width: 100%;
-  gap: 1rem;
-  padding: 1rem 1rem 0 1rem;
+  gap: 0;
+  padding: 0;
   height: 100svh;
   box-sizing: border-box;
   background-color: var(--surface-container);
@@ -16,7 +16,7 @@
     grid-template-rows: repeat(12, 1fr);
     padding: 0.5rem 0.5rem 0 0.5rem;
     gap: 0.2rem;
-    grid-template-areas: "top top top top" "right right right right" "right right right right" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "header header header header";
+    grid-template-areas: "top top top top" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "left left left left" "right right right right" "right right right right" "header header header header";
   }
 }
 @media (600px < width < 1200px) {
@@ -89,8 +89,12 @@
   box-sizing: border-box;
   box-shadow: var(--dp2);
 }
-.right > * {
-  flex: 1 0 auto;
+@media (width < 600px) {
+  .right {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+  }
 }
 
 .top {

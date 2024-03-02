@@ -1,8 +1,7 @@
 'use client';
 
 import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
-import { useState } from 'react';
-import layout from '#@/styles/layout.module.css';
+import { Fragment, useState } from 'react';
 import { SortActionType } from '#@/app/Hooks/useCarpetasreducer';
 import styles from '#@/app/Carpetas/@right/styles.module.css';
 
@@ -29,16 +28,10 @@ export function CarpetasSortButtons(
 
       return (
 
-        <div className={layout.segmentColumn}>
+        <>
           <h1>{'ordenar:'}</h1>
-          <span>{currentDispatcher.dir
-            ? 'ascendente'
-            : 'descendente'}</span>
-          <span className="material-symbols-outlined">
-            {currentDispatcher.dir
-              ? 'arrow_upward'
-              : 'arrow_downward'}
-          </span>
+
+
 
           {options.map(
             (
@@ -47,12 +40,10 @@ export function CarpetasSortButtons(
               }
             ) => {
                       return (
-                        <section
-                          key={value}
-                          className={layout.sectionRow}
+                        <Fragment key={value}
                         >
                           <h5>{name}</h5>
-                          <section className={layout.sectionColumn}>
+                          <section className={styles.segmentedButtons}>
                             {items.map(
                               (
                                 item
@@ -97,17 +88,24 @@ export function CarpetasSortButtons(
                                                       );
                                             }}
                                           >
-                                            {item}
+                                            { item === 'asc'
+                                              ? 'Z-A'
+                                              : item === 'dsc'
+                                                ? 'A-Z'
+                                                : item === 'fecha'
+                                                  ? 'fecha de la ultima actuación'
+                                                  : item }
+
                                           </button>
                                         );
                               }
                             )}
                           </section>
-                        </section>
+                        </Fragment>
                       );
             }
           )}
-        </div>
+        </>
 
       );
 }
@@ -139,27 +137,29 @@ export function TableRowCarpetaSortingButton(
         <th>
           <button
             type="button"
-            onClick={() => {
-                      setCurrentDispatcher(
-                        (
-                          curdispatch
-                        ) => {
-                                  return {
-                                    ...curdispatch,
-                                    sortingKey: sortKey,
-                                    dir       : curdispatch.dir === 'asc'
-                                      ? 'dsc'
-                                      : 'asc',
-                                  };
-                        }
-                      );
-                      return dispatchCarpetas(
-                        {
-                          ...currentDispatcher,
-                          sortingKey: sortKey,
-                        }
-                      );
-            }}
+            onClick={
+              () => {
+                        setCurrentDispatcher(
+                          (
+                            curdispatch
+                          ) => {
+                                    return {
+                                      ...curdispatch,
+                                      sortingKey: sortKey,
+                                      dir       : curdispatch.dir === 'asc'
+                                        ? 'dsc'
+                                        : 'asc',
+                                    };
+                          }
+                        );
+                        return dispatchCarpetas(
+                          {
+                            ...currentDispatcher,
+                            sortingKey: sortKey,
+                          }
+                        );
+              }
+            }
             className={
               currentDispatcher.sortingKey === sortKey
                 ? styles.buttonCategoryActive

@@ -1,3 +1,18 @@
+.segmentedButtons {
+  display: flex;
+  flex: 1;
+  gap: 0;
+  justify-content: space-evenly;
+  align-items: stretch;
+  align-content: stretch;
+  padding: 0;
+  flex-flow: column nowrap;
+  @media (width < 600px) {
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
 .button {
   border: 0.07rem solid var(--outline);
   box-sizing: border-box;
@@ -37,6 +52,14 @@
   }
   &:last-child {
     border-radius: var(--shape-corner-large-bottom);
+  }
+  @media (width < 600px) {
+    &:first-child {
+      border-radius: var(--shape-corner-large-start);
+    }
+    &:last-child {
+      border-radius: var(--shape-corner-large-end);
+    }
   }
   &Category {
     &Pasive {

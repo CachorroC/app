@@ -21,29 +21,46 @@ export default function manifest(): MetadataRoute.Manifest {
         display                    : 'standalone',
         start_url                  : url,
         description                : 'Somos una firma legal comprometida con brindar something',
-        display_override           : [ 'standalone', 'minimal-ui' ],
-        shortcuts                  : [ {
-          name: 'Ultimas Actuaciones',
-          description:
+        display_override           : [
+          'standalone',
+          'minimal-ui',
+          'browser' 
+        ],
+        shortcuts: [
+          {
+            name: 'Ultimas Actuaciones',
+            description:
           'aquí encontrará los procesos ordenados a partir de sus últimas actuaciones, la fecha del movimiento y su relevancia',
-          url  : '/Carpetas/UltimasActuaciones',
-          icons: [ {
-            src    : '/icon1.png',
-            sizes  : '512x512',
-            purpose: 'maskable',
-          }, ],
-        },
-        {
-          name : 'Notas',
-          url  : '/Notas',
-          icons: [ {
-            src    : '/icon.svg',
-            sizes  : '512x512',
-            purpose: 'maskable',
-          }, ],
-        }, ],
+            url  : '/Carpetas/UltimasActuaciones',
+            icons: [ {
+              src    : '/icon1.png',
+              sizes  : '512x512',
+              purpose: 'any',
+            }, ],
+          },
+          {
+            name : 'Notas',
+            url  : '/Notas',
+            icons: [ {
+              src    : '/icon.svg',
+              sizes  : '512x512',
+              purpose: 'any',
+            }, ],
+          },
+          {
+            name : 'Carpetas',
+            url  : '/Carpetas',
+            icons: [ {
+              src    : '/icon7.png',
+              sizes  : '194x194',
+              purpose: 'any'
+            } ]
+          }
+        ],
         serviceworker: {
-          src: '/service-worker.js',
+          src  : '/service-worker.js',
+          scope: '/'
+
         },
         icons: [
           {

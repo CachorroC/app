@@ -11,20 +11,22 @@ export function NuevaCarpetaFormProvider(
     children,
   }: {
     children: ReactNode;
-  } 
+  }
 ) {
-      const carpetas = useCarpetaSort();
+      const {
+        completeCarpetas
+      } = useCarpetaSort();
 
-      const carpsLen = carpetas.length;
+      const carpsLen = 1 + completeCarpetas.length;
 
       const daterFixer = InputDateHelper(
-        new Date() 
+        new Date()
       );
 
       const methods = useForm<NuevaCarpeta>(
         {
           defaultValues: {
-            numero  : carpsLen + 1,
+            numero  : carpsLen,
             category: 'SinEspecificar',
             deudor  : {
               primerNombre   : '',
@@ -53,7 +55,7 @@ export function NuevaCarpetaFormProvider(
           },
           shouldFocusError: true,
           criteriaMode    : 'all',
-        } 
+        }
       );
 
       return <FormProvider {...methods}>{children}</FormProvider>;

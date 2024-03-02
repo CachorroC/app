@@ -123,6 +123,7 @@ export const NuevaNota = () => {
                           );
                 } }>
                   <span>id</span>
+
                 </button>
                 <section className={layout.sectionColumn}>
                   <section className={layout.sectionRow}>

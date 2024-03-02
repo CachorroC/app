@@ -5,10 +5,10 @@ import { Dispatch,
   createContext,
   useContext,
   useReducer, } from 'react';
-import { IntAction, carpetasReducer } from '../Hooks/useCarpetasreducer';
+import { IntAction, CarpetasReducerState, carpetasReducer } from '../Hooks/useCarpetasreducer';
 
-const CarpetasSortContext = createContext<MonCarpeta[] | null>(
-  null 
+const CarpetasSortContext = createContext<CarpetasReducerState | null>(
+  null
 );
 
 const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
@@ -22,11 +22,16 @@ export function CarpetasSortProvider(
   }: {
     children: ReactNode;
     initialCarpetas: MonCarpeta[];
-  } 
+  }
 ) {
+      const newReducer = {
+        carpetas        : [ ...initialCarpetas ],
+        completeCarpetas: [ ...initialCarpetas ],
+      };
+
       const [ carpetasReduced, dispatchCarpetas ] = useReducer(
         carpetasReducer,
-        initialCarpetas,
+        newReducer,
       );
 
       return (
@@ -40,7 +45,7 @@ export function CarpetasSortProvider(
 
 export function useCarpetaSort() {
       const context = useContext(
-        CarpetasSortContext 
+        CarpetasSortContext
       );
 
       if ( context === null ) {
@@ -54,7 +59,7 @@ export function useCarpetaSort() {
 
 export function useCarpetaSortDispatch() {
       const context = useContext(
-        CarpetasSortDispatchContext 
+        CarpetasSortDispatchContext
       );
 
       if ( context === null ) {
