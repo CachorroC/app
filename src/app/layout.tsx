@@ -3,11 +3,10 @@ import '#@/styles/globals.css';
 import 'material-symbols';
 import layout from '#@/styles/layout.module.css';
 import Script from 'next/script';
-import React, { Suspense } from 'react';
+import { ReactNode }  from 'react';
 import { MainProvider } from './Context/main-context';
 import { SearchProvider } from './Context/search-context';
 import { ModalProvider } from './Context/modal-context';
-import { Loader } from '#@/components/Loader';
 import type { Metadata, Viewport } from 'next';
 import { NavBar } from '#@/components/layout/NavBar';
 import { NavigationContextProvider } from './Context/navigation-context';
@@ -53,7 +52,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable       : true,
     title         : 'R y S',
-    statusBarStyle: 'black',
+    statusBarStyle: 'black-translucent',
     startupImage  : [ 'src/app/logo.svg',
       {
         url  : '/logo.svg',
@@ -85,10 +84,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout(
   props: {
-    children: React.ReactNode;
-    modal: React.ReactNode;
+    children: ReactNode;
+    modal: ReactNode;
   }
 ) {
+      const prefix = process.env.NODE_ENV === 'production'
+        ? 'app'
+        : 'beta';
       return (
         <html lang="es-CO">
           <body
@@ -100,9 +102,7 @@ export default function RootLayout(
                   <ModalProvider>
                     <MainProvider>
                       <div className={ layout.container }>
-                        <Suspense fallback={<Loader />}>
-                          <NavBar />
-                        </Suspense>
+                        <NavBar />
                         {props.children}
                         {props.modal}
                       </div>

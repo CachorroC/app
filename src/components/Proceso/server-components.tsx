@@ -34,6 +34,10 @@ export const ProcesoCard = (
             );
           }
 
+          const objectify = Object.fromEntries(
+            mapperObject
+          );
+
           return (
             <div className={layout.sectionColumn}>
               <h1 className={typography.titleMedium}>
@@ -41,6 +45,9 @@ export const ProcesoCard = (
                   sujetosProcesales
                 )}
               </h1>
+              <pre>{ JSON.stringify(
+                objectify
+              )}</pre>
               <div className={layout.segmentRow}>{children}</div>
             </div>
           );

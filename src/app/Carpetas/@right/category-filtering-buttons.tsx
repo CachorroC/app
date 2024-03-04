@@ -17,7 +17,6 @@ export default function CategoryFilteringButtons() {
         'LiosJuridicos',
         'Terminados',
         'Insolvencia',
-        'todos'
       ];
 
       useEffect(
@@ -27,6 +26,12 @@ export default function CategoryFilteringButtons() {
                       {
                         type   : 'category-filter',
                         exclude: selectedExcluded
+                      }
+                    );
+                  } else if ( selectedExcluded.length === 0 ) {
+                    dispatchCarpetas(
+                      {
+                        type: 'reset'
                       }
                     );
                   }
@@ -57,11 +62,7 @@ export default function CategoryFilteringButtons() {
                               ? styles.buttonCategoryActive
                               : styles.buttonCategoryPasive
                           } onClick={ () => {
-                                    if ( category === 'todos' ) {
-                                      return setSelectedExcluded(
-                                        [ category ]
-                                      );
-                                    }
+
 
                                     if ( isActive ) {
                                       return setSelectedExcluded(

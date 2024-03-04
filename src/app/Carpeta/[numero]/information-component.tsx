@@ -4,7 +4,6 @@ import typography from '#@/styles/fonts/typography.module.css';
 import Link from 'next/link';
 import layout from '#@/styles/layout.module.css';
 import { JuzgadoComponent } from '#@/components/Proceso/juzgado-component';
-import { Loader } from '#@/components/Loader';
 import { Suspense } from 'react';
 import { ProcesoCard } from '#@/components/Proceso/server-components';
 import { Route } from 'next';
@@ -13,7 +12,6 @@ import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { ChipButton } from '#@/components/Chip';
 import chip from '#@/components/Chip/styles.module.css';
-import { ProcesoCardLoader } from '#@/components/Proceso/proceso-card-loader';
 
 export default function InformationComponent(
   {
@@ -33,59 +31,55 @@ export default function InformationComponent(
         llaveProceso,
       } = carpeta;
 
-      return (
-        <>
-          {procesos.length > 0
-        && procesos.map(
-          (
-            proceso
-          ) => {
-                    const {
-                      sujetosProcesales, idProceso
-                    } = proceso;
+      let content;
 
-                    const mapperObject = new Map();
+      if ( procesos.length > 0 ) {
+        content
+    = procesos.map(
+            (
+              proceso
+            ) => {
+                      const {
+                        sujetosProcesales, idProceso
+                      } = proceso;
 
-                    const newSujetos = sujetosProcesales.split(
-                      '|'
-                    );
+                      const mapperObject = new Map();
 
-                    for ( const demandadoODemandante of newSujetos ) {
-                      const splitter = demandadoODemandante.split(
-                        ':'
-                      );
-                      console.log(
-                        splitter
+                      const newSujetos = sujetosProcesales.split(
+                        '|'
                       );
 
-                      const fixer = splitter.map(
-                        (
-                          value
-                        ) => {
-                                  return value.trim();
-                        }
-                      );
-                      mapperObject.set(
-                        fixer[ 0 ], fixer[ 1 ]
-                      );
-                    }
+                      for ( const demandadoODemandante of newSujetos ) {
+                        const splitter = demandadoODemandante.split(
+                          ':'
+                        );
+                        console.log(
+                          splitter
+                        );
 
-                    return (
-                      <Suspense
-                        fallback={<ProcesoCardLoader />}
-                        key={idProceso}
-                      >
+                        const fixer = splitter.map(
+                          (
+                            value
+                          ) => {
+                                    return value.trim();
+                          }
+                        );
+                        mapperObject.set(
+                          fixer[ 0 ], fixer[ 1 ]
+                        );
+                      }
+
+                      return (
+
                         <ProcesoCard
                           key={proceso.idProceso}
                           proceso={proceso}
                         >
                           <div className={layout.segmentColumn}>
-                            <Suspense fallback={<Loader />}>
-                              <JuzgadoComponent
-                                key={proceso.juzgado.url}
-                                juzgado={proceso.juzgado}
-                              />
-                            </Suspense>
+                            <JuzgadoComponent
+                              key={proceso.juzgado.url}
+                              juzgado={proceso.juzgado}
+                            />
 
                             <Link
                               key={idProceso}
@@ -97,10 +91,10 @@ export default function InformationComponent(
                               <span
                                 className={`material-symbols-outlined ${ button.icon }`}
                               >
-                      description
+              description
                               </span>
                               <span className={button.text}>
-                      Todas las actuaciones de este juzgado
+              Todas las actuaciones de este juzgado
                               </span>
                             </Link>
                           </div>
@@ -112,10 +106,16 @@ export default function InformationComponent(
                             />
                           </Suspense>
                         </ProcesoCard>
-                      </Suspense>
-                    );
-          }
-        )}
+                      );
+            }
+          );
+      } else {
+        content = <p>no hay procesos</p>;
+      }
+
+      return (
+        <>
+          {content}
           <div className={layout.sectionColumn}>
             <h2 className={typography.titleMedium}>{`Carpeta número ${ numero }`}</h2>
             {fecha && (

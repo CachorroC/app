@@ -3,7 +3,6 @@ import { Edit } from '#@/components/Nota/Edit';
 import { notFound } from 'next/navigation';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 
-export const dynamicParams = true;
 //? Generate segments for [numero]
 
 export async function generateStaticParams() {
@@ -11,18 +10,18 @@ export async function generateStaticParams() {
 
       const flattenUp = carpetas.map(
         (
-          carpeta 
+          carpeta
         ) => {
                   const {
-                    id 
+                    id
                   } = carpeta;
 
                   return {
                     id: String(
-                      id 
+                      id
                     ),
                   };
-        } 
+        }
       );
 
       const chunkSize = 20;
@@ -31,10 +30,10 @@ export async function generateStaticParams() {
 
       for ( let i = 0; i < flattenUp.length; i += chunkSize ) {
         const chunk = flattenUp.slice(
-          i, i + chunkSize 
+          i, i + chunkSize
         );
         chunks.push(
-          chunk 
+          chunk
         );
       }
 
@@ -44,16 +43,16 @@ export async function generateStaticParams() {
 export default async function Page(
   {
     params: {
-      id 
+      id
     },
   }: {
     params: { id: string };
-  } 
+  }
 ) {
       const nota = await getNotaById(
         Number(
-          id 
-        ) 
+          id
+        )
       );
 
       if ( !nota ) {

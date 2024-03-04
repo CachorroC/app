@@ -11,6 +11,8 @@ import { InputSection } from '#@/components/Form/input-section';
 import { DeudorFormComponent } from '#@/app/Carpeta/[numero]/deudor-form-component';
 import InformationComponent from '#@/app/Carpeta/[numero]/information-component';
 import { ProcesoCardLoader } from '#@/components/Proceso/proceso-card-loader';
+import { CarpetaFormProvider } from '#@/app/Context/carpeta-form-context';
+import { Modal } from '#@/components/Modal';
 
 export default async function Page(
   {
@@ -53,29 +55,33 @@ export default async function Page(
       }
 
       return (
-        <>
-          <Suspense fallback={<ProcesoCardLoader />}>
-            <InformationComponent carpeta={carpeta} />
-          </Suspense>
-          <Suspense fallback={<Loader />}>
-            <DeudorFormComponent />
-          </Suspense>
+        <Modal>
+          <CarpetaFormProvider
+            key={params.numero}
+            carpeta={carpeta}
+          >
+            <Suspense fallback={<ProcesoCardLoader />}>
+              <InformationComponent carpeta={carpeta} />
+            </Suspense>
+            <Suspense fallback={<Loader />}>
+              <DeudorFormComponent />
+            </Suspense>
 
-          <Suspense fallback={<Loader />}>
-            <InputSection
-              key={params.numero}
-              name={'llaveProceso'}
-              title={'Numero de expediente'}
-              type={'text'}
-            />
-          </Suspense>
-          <Suspense fallback={<Loader />}>
+            <Suspense fallback={<Loader />}>
+              <InputSection
+                key={params.numero}
+                name={'llaveProceso'}
+                title={'Numero de expediente'}
+                type={'text'}
+              />
+            </Suspense>
+            <Suspense fallback={<Loader />}>
 
-            <section className={layout.segmentColumn}>
-              <h5 className={typography.titleMedium}>Capital Adeudado:</h5>
-              <p className={typography.bodyMedium}>
-                {' '}
-                {demanda?.capitalAdeudado
+              <section className={layout.segmentColumn}>
+                <h5 className={typography.titleMedium}>Capital Adeudado:</h5>
+                <p className={typography.bodyMedium}>
+                  {' '}
+                  {demanda?.capitalAdeudado
             && fixMoney(
               {
                 valor: Number(
@@ -83,12 +89,14 @@ export default async function Page(
                 ),
               }
             )}
-              </p>
-            </section>
-          </Suspense>
-          <Suspense fallback={<Loader />}>
-            { idProcesoContent }
-          </Suspense>
-        </>
+                </p>
+              </section>
+            </Suspense>
+            <Suspense fallback={<Loader />}>
+              { idProcesoContent }
+            </Suspense>
+          </CarpetaFormProvider>
+        </Modal>
+
       );
 }

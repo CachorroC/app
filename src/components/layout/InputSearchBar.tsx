@@ -3,6 +3,7 @@ import searchbar from 'components/layout/search/searchbar.module.css';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { useState } from 'react';
 import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
+import { useRouter } from 'next/navigation';
 
 export const InputSearchBar = (
   {
@@ -13,6 +14,8 @@ export const InputSearchBar = (
           const [ newQueryState, setNewQueryState ] = useState(
             ''
           );
+
+          const router = useRouter();
 
           const dispatchCarpetas = useCarpetaSortDispatch();
           return (
@@ -26,11 +29,9 @@ export const InputSearchBar = (
                               <option
                                 value={carpeta.nombre}
                                 key={carpeta.numero}
-                                onClick={(
-                                  e
-                                ) => {
-                                          return setNewQueryState(
-                                            e.currentTarget.value
+                                onClick={() => {
+                                          return router.push(
+                                            `/Carpeta/${ carpeta.numero }`
                                           );
                                 }}
                               />

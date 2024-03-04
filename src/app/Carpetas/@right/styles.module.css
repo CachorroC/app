@@ -52,6 +52,9 @@
 .button:last-child, .buttonCategoryActive:last-child, .buttonCategoryPasive:last-child {
   border-radius: var(--shape-corner-large-bottom);
 }
+.button:only-child, .buttonCategoryActive:only-child, .buttonCategoryPasive:only-child {
+  border-radius: var(--shape-corner-large);
+}
 @media (width < 600px) {
   .button:first-child, .buttonCategoryActive:first-child, .buttonCategoryPasive:first-child {
     border-radius: var(--shape-corner-large-start);

@@ -11,7 +11,7 @@ import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { Route } from 'next';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export function CarpetasList() {
       const rows: JSX.Element[] = [];
@@ -69,6 +69,8 @@ export function CarpetasTable() {
         carpetas,
       } = useCarpetaSort();
 
+      const router = useRouter();
+
       return (
         <>
           { carpetas.map(
@@ -93,35 +95,39 @@ export function CarpetasTable() {
                             fecha
                           )}</td>
                           <td>{category}</td>
-                          <td>
-                            { ultimaActuacion
-                              ? (
-                                  <>
-                                    <Link className={ typography.titleMedium } href={ `/Carpeta/${ numero }/ultimasActuaciones/${ ultimaActuacion.idProceso }` as Route }>
-                                      {ultimaActuacion.actuacion}
-                                    </Link>
-                                    {ultimaActuacion.anotacion && (
-                                      <span className={typography.labelSmall}>
-                                        {ultimaActuacion.anotacion}
-                                      </span>
-                                    )}
-                                  </> )
-                              : (
-                                  <>
-                                    <h5 className={typography.headlineSmall} style={{
-                                      backgroundColor: 'var(--error-container)',
-                                      color          : 'var(--on-error-container)',
-                                      borderBottom   : 'solud 0.2rem var(--error)'
-                                    } }>
-                                  Sin actuaciones
-                                    </h5>
+
+                          { ultimaActuacion
+                            ? (
+                                <td onClick={ () => {
+                                          return router.push(
+                                            `/Carpeta/${ numero }/ultimasActuaciones/${ ultimaActuacion.idProceso }` as Route
+                                          );
+                                }}>
+                                  <h2 className={ typography.titleMedium }>
+                                    {ultimaActuacion.actuacion}
+                                  </h2>
+                                  {ultimaActuacion.anotacion && (
                                     <span className={typography.labelSmall}>
-                                  Esta carpeta no tiene registros en la Rama Judicial
+                                      {ultimaActuacion.anotacion}
                                     </span>
-                                  </>
-                                )
-                            }
-                          </td>
+                                  )}
+                                </td> )
+                            : (
+                                <td>
+                                  <h5 className={typography.headlineSmall} style={{
+                                    backgroundColor: 'var(--error-container)',
+                                    color          : 'var(--on-error-container)',
+                                    borderBottom   : 'solud 0.2rem var(--error)'
+                                  } }>
+                                  Sin actuaciones
+                                  </h5>
+                                  <span className={typography.labelSmall}>
+                                  Esta carpeta no tiene registros en la Rama Judicial
+                                  </span>
+                                </td>
+                              )
+                          }
+
                           <td>
                             <RevisadoCheckBox
                               numero={numero}
@@ -144,7 +150,7 @@ export function CarpetasTable() {
 
 export function CompleteCarpetasRows () {
       const {
-        completeCarpetas 
+        completeCarpetas
       } = useCarpetaSort();
       return ( <>
         { completeCarpetas.map(
@@ -160,109 +166,3 @@ export function CompleteCarpetasRows () {
         ) }
       </> );
 }
-/*
-export function CarpetasTable(
-  {
-    actuacionPromises
-  }: {actuacionPromises: [number, Promise<RequestActuacion>][]}
-) {
-      const mapActuaciones = new Map(
-        actuacionPromises
-      );
-
-      const carpetasReduced = useCarpetaSort();
-
-      return <>
-
-        { carpetasReduced.map(
-          (
-            carpeta
-          ) => {
-                    const {
-                      ultimaActuacion, numero, nombre, fecha, category, llaveProceso, revisado, idProcesos
-                    } = carpeta;
-                    return (
-                      <ClientCardRow
-                        key={numero }
-                        rowHref={`/Carpeta/${ numero }` as Route}
-                        carpeta={carpeta}
-                      >
-                        <td>{numero}</td>
-                        <td>{nombre}</td>
-                        <td>{OutputDateHelper(
-                          fecha
-                        )}</td>
-                        <td>{category}</td>
-
-                        <td>
-                          <CopyButton
-                            copyTxt={llaveProceso}
-                            name={'expediente'}
-                          />
-                        </td>
-                        <td>
-                          { ultimaActuacion
-                            ? (
-                                <>
-                                  <h5 className={typography.titleMedium}>
-                                    {ultimaActuacion.actuacion}
-                                  </h5>
-                                  {ultimaActuacion.anotacion && (
-                                    <span className={typography.labelSmall}>
-                                      {ultimaActuacion.anotacion}
-                                    </span>
-                                  )}
-                                </> )
-                            : (
-                                <>
-                                  <h5 className={typography.headlineSmall} style={{
-                                    backgroundColor: 'var(--error-container)',
-                                    color          : 'var(--on-error-container)',
-                                    borderBottom   : 'solud 0.2rem var(--error)'
-                                  }}>
-                                Sin actuaciones
-                                  </h5>
-                                  <span className={typography.labelSmall}>
-                                  Esta carpeta no tiene registros en la Rama Judicial
-                                  </span>
-                                </>
-                              )
-                          }
-                          { idProcesos.map(
-                            (
-                              idProceso
-                            ) => {
-                                      let contentId;
-
-                                      const actuacionById = mapActuaciones.get(
-                                        idProceso
-                                      );
-
-                                      if ( actuacionById ) {
-                                        const actuacion = use(
-                                          actuacionById
-                                        );
-                                        contentId = actuacion.Message;
-                                      } else {
-                                        contentId = 'sin request';
-                                      }
-
-                                      return (
-                                        <>{contentId}</>
-                                      );
-                            }
-                          )}
-
-                        </td>
-                        <td>
-                          <RevisadoCheckBox
-                            numero={numero}
-                            initialRevisadoState={revisado}
-                          />
-                        </td>
-                      </ClientCardRow>
-                    );
-          }
-        )}</>;
-}
- */

@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 import { facturasCollection } from '#@/lib/connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
 
-export const dynamic = 'force-dynamic';
-
-export const dynamicParams = true;
 
 export async function GET() {
       const collection = await facturasCollection();
@@ -16,20 +13,20 @@ export async function GET() {
 
       const facturas = arr1.map(
         (
-          item 
+          item
         ) => {
                   const matchedObject = arr2.find(
                     (
-                      obj 
+                      obj
                     ) => {
                               return obj.id === item.id;
-                    } 
+                    }
                   );
                   return {
                     ...item,
                     ...matchedObject,
                   };
-        } 
+        }
       );
 
       /*     fs.writeFile(
@@ -38,6 +35,6 @@ export async function GET() {
         )
       ); */
       return NextResponse.json(
-        facturas 
+        facturas
       );
 }

@@ -7,17 +7,25 @@ import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
 import { outActuacion } from '#@/lib/types/actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import  { ActuacionesLoader } from '#@/components/Card/actuacion-loader';
+import { CarpetaFormProvider } from '#@/app/Context/carpeta-form-context';
+import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 
 export default async function Page(
   {
     params
-  }: { params: { numero: string; idProceso:  string } }
+  }: { params: { numero: string; idProceso: string } }
 ) {
 
 
       if ( params.idProceso === 'idProceso' ) {
         return notFound();
       }
+
+      const carpeta = await getCarpetabyNumero(
+        Number(
+          params.numero
+        )
+      );
 
       const actuaciones = await getActuaciones(
         Number(
@@ -26,9 +34,11 @@ export default async function Page(
       );
 
 
-
       return (
-        <>
+        <CarpetaFormProvider
+          key={params.numero}
+          carpeta={carpeta}
+        >
           <Suspense fallback={<Loader />}>
             <DeudorFormComponent />
           </Suspense>
@@ -65,6 +75,6 @@ export default async function Page(
               )}
             </>
           </Suspense>
-        </>
+        </CarpetaFormProvider>
       );
 }

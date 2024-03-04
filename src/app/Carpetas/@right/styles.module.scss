@@ -33,7 +33,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    content: "";
+    content: '';
     border-radius: inherit;
   }
   &:hover {
@@ -52,6 +52,9 @@
   }
   &:last-child {
     border-radius: var(--shape-corner-large-bottom);
+  }
+  &:only-child {
+    border-radius: var(--shape-corner-large);
   }
   @media (width < 600px) {
     &:first-child {

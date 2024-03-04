@@ -1,13 +1,10 @@
 import styles from '#@/styles/layout.module.css';
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 import { NuevaCarpetaFormProvider } from '../Context/nueva-carpeta-form-context';
 import { Metadata } from 'next';
 import { CarpetasSortProvider } from '../Context/carpetas-sort-context';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { TableRowCarpetaSortingButton } from '#@/components/Carpetas/client/carpetasButtonsSort';
-import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
-import { InputSearchBar } from '#@/components/layout/InputSearchBar';
-import { Loader } from '#@/components/Loader';
 
 /*
 export const revalidate = 86400; // revalidate the data at most every hour
@@ -32,12 +29,7 @@ export default async function LayoutProcesosMain(
         <CarpetasSortProvider initialCarpetas={carpetas}>
           <NuevaCarpetaFormProvider>
             <div className={ styles.top }>
-              <Suspense fallback={<Loader />}>
-                <InputSearchBar carpetas={ carpetas} />
-                <ForwardBackwardNavButtons />
-              </Suspense>
               {top}
-
             </div>
             <div className={ styles.leftGrid }>
               <table>

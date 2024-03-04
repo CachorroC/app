@@ -11,7 +11,8 @@ export type SortActionType = {
   dir: 'asc' | 'dsc';
   sortingKey:
     | 'fecha'
-    | 'numero'
+  | 'numero'
+  | 'revisado'
     | 'nombre'
     | 'category'
     | 'id'
@@ -168,7 +169,7 @@ export function carpetasReducer(
 
             switch ( sortingKey ) {
                 case 'fecha': {
-                  const sorted = [ ...carpetas ].sort(
+                  const sorted = [ ...completeCarpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -202,7 +203,7 @@ export function carpetasReducer(
                 }
 
                 case 'category': {
-                  const sorted = [ ...carpetas ].sort(
+                  const sorted = [ ...completeCarpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -232,7 +233,7 @@ export function carpetasReducer(
                 }
 
                 case 'numero': {
-                  const sorted = [ ...carpetas ].sort(
+                  const sorted = [ ...completeCarpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -254,13 +255,15 @@ export function carpetasReducer(
                 }
 
                 case 'nombre': {
-                  const sorted = [ ...carpetas ].sort(
+                  const sorted = [ ...completeCarpetas ].sort(
                     (
                       a, b
                     ) => {
-                              const x = a.nombre;
+                              const x = a.nombre.trim()
+                                    .toLocaleLowerCase();
 
-                              const y = b.nombre;
+                              const y = b.nombre.trim()
+                                    .toLocaleLowerCase();
 
                               if ( x < y ) {
                                 return sorter[ 2 ];
@@ -279,8 +282,26 @@ export function carpetasReducer(
                   };
                 }
 
+                case 'revisado': {
+                  const sorted = [ ...completeCarpetas ].filter(
+                    (
+                      carpeta
+                    ) => {
+                              if ( dir === 'asc' ) {
+                                return carpeta.revisado;
+                              }
+
+                              return !carpeta.revisado;
+                    }
+                  );
+                  return {
+                    carpetas        : sorted,
+                    completeCarpetas: completeCarpetas,
+                  };
+                }
+
                 default: {
-                  const sorted = [ ...carpetas ].sort(
+                  const sorted = [ ...completeCarpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -360,7 +381,7 @@ export function carpetasReducer(
           }
 
           case 'filter': {
-            const sorted = [ ...carpetas ].filter(
+            const sorted = [ ...completeCarpetas ].filter(
               (
                 carpeta
               ) => {
@@ -390,7 +411,7 @@ export function carpetasReducer(
           }
 
           default: {
-            const sorted = [ ...carpetas ].sort(
+            const sorted = [ ...completeCarpetas ].sort(
               (
                 a, b
               ) => {

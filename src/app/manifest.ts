@@ -1,11 +1,12 @@
 import { MetadataRoute } from 'next';
 
-export default function manifest(): MetadataRoute.Manifest {
-      const prefix = process.env.NODE_ENV === 'production'
-        ? 'app'
-        : 'beta';
+const prefix = process.env.NODE_ENV === 'production'
+  ? 'app'
+  : 'beta';
 
-      const url = `https://${ prefix }.rsasesorjuridico.com`;
+const url = `https://${ prefix }.rsasesorjuridico.com`;
+
+export default function manifest(): MetadataRoute.Manifest {
 
       return {
         short_name                 : 'Tulis',
@@ -21,12 +22,8 @@ export default function manifest(): MetadataRoute.Manifest {
         display                    : 'standalone',
         start_url                  : url,
         description                : 'Somos una firma legal comprometida con brindar something',
-        display_override           : [
-          'standalone',
-          'minimal-ui',
-          'browser' 
-        ],
-        shortcuts: [
+        display_override           : [ 'standalone', 'minimal-ui', ],
+        shortcuts                  : [
           {
             name: 'Ultimas Actuaciones',
             description:
@@ -51,16 +48,15 @@ export default function manifest(): MetadataRoute.Manifest {
             name : 'Carpetas',
             url  : '/Carpetas',
             icons: [ {
-              src    : '/icon7.png',
-              sizes  : '194x194',
-              purpose: 'any'
-            } ]
-          }
+              src    : '/icon.svg',
+              sizes  : '512x512',
+              purpose: 'any',
+            }, ],
+          },
         ],
         serviceworker: {
           src  : '/service-worker.js',
-          scope: '/'
-
+          scope: '/',
         },
         icons: [
           {

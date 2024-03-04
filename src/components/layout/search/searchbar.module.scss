@@ -22,7 +22,6 @@
     border-radius: 2vmin;
     align-self: center;
   }
-
   .sub {
     color: var(--secondary);
   }
@@ -55,13 +54,12 @@
 }
 
 .input {
-  background-color: var(--surface-container-highest);
+  background-color: var(--surface-container-high);
   color: var(--on-surface-variant);
   border: none;
   text-decoration: none;
   border-bottom: solid 0.1rem var(--on-surface-variant);
-  border-top-left-radius: 0.1rem;
-  border-top-right-radius: 0.1rem;
+  border-radius: var(--corner-shape-full);
   grid-area: inputSearchBar;
   text-align: center;
   font-family: var(--josefa);

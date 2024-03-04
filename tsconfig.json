@@ -5,17 +5,31 @@
     "incremental": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "module": "esnext",
     "moduleResolution": "bundler",
     "noEmit": true,
     "noImplicitAny": true,
     "paths": {
-      "#@/*": ["./src/*"],
-      "auth": ["./src/auth"],
-      "components/*": ["./src/components/*"],
-      "project/*": ["./src/lib/project/*"],
-      "types/*": ["./src/lib/types/*"]
+      "#@/*": [
+        "./src/*"
+      ],
+      "auth": [
+        "./src/auth"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ],
+      "project/*": [
+        "./src/lib/project/*"
+      ],
+      "types/*": [
+        "./src/lib/types/*"
+      ]
     },
     "plugins": [
       {
@@ -27,7 +41,9 @@
     "strict": true,
     "target": "ESNext"
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
@@ -35,6 +51,7 @@
     ".next/types/**/*.ts",
     "public/service-worker.js",
     "src/app/Contabilidad/idkts",
-    ".vscode/idk.ts"
+    ".vscode/idk.ts",
+    "/home/cachorro_cami/Projects/com/rsasesorjuridico/app/.next/types/**/*.ts"
   ]
 }

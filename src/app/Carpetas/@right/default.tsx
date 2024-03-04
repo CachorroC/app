@@ -18,6 +18,7 @@ export default function Default () {
         value: 'sortingKey',
         items: [
           'fecha',
+          'revisado',
           'nombre',
           'id',
           'updatedAt',
@@ -28,17 +29,12 @@ export default function Default () {
       }, ];
       return (
         <>
-          <Suspense fallback={<Loader />}>
-            <CarpetasSortButtons options={ options } />
-          </Suspense>
-          <Suspense fallback={<Loader />}>
-            <ResetButtonSorter />
-          </Suspense>
-          <Suspense fallback={<Loader />}>
-            <CategoryFilteringButtons />
-          </Suspense>
+          <ResetButtonSorter />
+          <CarpetasSortButtons options={ options } />
+          <CategoryFilteringButtons />
           <Suspense fallback={ <Loader /> }>
-            <CompleteCarpetasRows /></Suspense>
+            <CompleteCarpetasRows />
+          </Suspense>
         </>
       );
 }

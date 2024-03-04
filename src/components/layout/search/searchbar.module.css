@@ -1,6 +1,4 @@
-.searchBarLink,
-.isActive,
-.notActive,
+.searchBarLink, .isActive, .notActive,
 .link,
 .searchBarLinkIsActive,
 .linkIsActive,
@@ -19,9 +17,7 @@
   border-radius: 2vmin;
   text-align: center;
 }
-.searchBarLink .date,
-.isActive .date,
-.notActive .date,
+.searchBarLink .date, .isActive .date, .notActive .date,
 .link .date,
 .searchBarLinkIsActive .date,
 .linkIsActive .date,
@@ -35,9 +31,7 @@
   border-radius: 2vmin;
   align-self: center;
 }
-.searchBarLink .sub,
-.isActive .sub,
-.notActive .sub,
+.searchBarLink .sub, .isActive .sub, .notActive .sub,
 .link .sub,
 .searchBarLinkIsActive .sub,
 .linkIsActive .sub,
@@ -64,15 +58,13 @@
   display: flex;
 }
 
-.input,
-.inputContainer {
-  background-color: var(--surface-container-highest);
+.input, .inputContainer {
+  background-color: var(--surface-container-high);
   color: var(--on-surface-variant);
   border: none;
   text-decoration: none;
   border-bottom: solid 0.1rem var(--on-surface-variant);
-  border-top-left-radius: 0.1rem;
-  border-top-right-radius: 0.1rem;
+  border-radius: var(--corner-shape-full);
   grid-area: inputSearchBar;
   text-align: center;
   font-family: var(--josefa);
@@ -81,8 +73,7 @@
   resize: both;
   padding: 0;
 }
-.input > .icon,
-.inputContainer > .icon {
+.input > .icon, .inputContainer > .icon {
   color: var(--on-surface-variant);
 }
 .inputContainer {
@@ -90,12 +81,7 @@
   width: 100%;
   margin-bottom: 15px;
 }
-.input:hover,
-.inputContainer:hover,
-.input:active,
-.inputContainer:active,
-.input:focus,
-.inputContainer:focus {
+.input:hover, .inputContainer:hover, .input:active, .inputContainer:active, .input:focus, .inputContainer:focus {
   border: 2px dashed var(--tertiary);
   background-color: var(--tertiary-container);
   color: var(--on-tertiary-container);
@@ -110,11 +96,7 @@
   box-shadow: var(--dp3);
 }
 .inputForm > .icon {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 200,
-    'GRAD' 0,
-    'opsz' 24;
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
   color: var(--secondary);
 }
 .inputForm:link {
@@ -131,11 +113,7 @@
   border: 3px solid var(--outline);
 }
 .inputForm:hover > .icon {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 600,
-    'GRAD' 200,
-    'opsz' 48;
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 48;
   color: var(--secondary);
 }
 
