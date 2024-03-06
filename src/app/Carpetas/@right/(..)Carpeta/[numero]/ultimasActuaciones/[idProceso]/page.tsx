@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
 import { InputSection } from '#@/components/Form/input-section';
 import { DeudorFormComponent } from '#@/app/Carpeta/[numero]/deudor-form-component';
-import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
+import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
 import { outActuacion } from '#@/lib/types/actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import  { ActuacionesLoader } from '#@/components/Card/actuacion-loader';

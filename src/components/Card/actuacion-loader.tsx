@@ -4,13 +4,13 @@ import { Loader } from '../Loader';
 
 export function ActuacionLoader() {
       return (
-        <>
+        <td>
           <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
         Cargando
           </h5>
           <span className="material-symbols-outlined">update</span>
           <Loader />
-        </>
+        </td>
       );
 }
 

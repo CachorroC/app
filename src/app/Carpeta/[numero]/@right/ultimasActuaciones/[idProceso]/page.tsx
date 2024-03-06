@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.css';
 import { OutputDateHelper } from '#@/lib/project/date-helper';
-import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
+import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
 
 export default async function Page(
   {

@@ -13,7 +13,7 @@ import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
 import { useRouter } from 'next/navigation';
 
-export function CarpetasList() {
+export function CarpetasList () {
       const rows: JSX.Element[] = [];
 
       const {

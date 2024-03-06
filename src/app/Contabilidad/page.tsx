@@ -29,7 +29,7 @@ export default function Page() {
           <tbody>
             {facturas.map(
               (
-                factura, index 
+                factura, index
               ) => {
                         return (
                           <tr key={factura._id}>
@@ -44,45 +44,41 @@ export default function Page() {
 
                             <td>
                               {fixMoney(
-                                {
-                                  valor: parseFloat(
-                                    factura.valorBase 
-                                  ),
-                                } 
+                                parseFloat(
+                                  factura.valorBase
+                                ),
+
                               )}
                             </td>
 
                             <td>
                               {fixMoney(
-                                {
-                                  valor: parseFloat(
-                                    factura.valorIva 
-                                  ),
-                                } 
+                                parseFloat(
+                                  factura.valorIva
+                                ),
+
                               )}
                             </td>
                             <td>
                               {fixMoney(
-                                {
-                                  valor: parseFloat(
-                                    factura.valorOtroImp 
-                                  ),
-                                } 
+                                parseFloat(
+                                  factura.valorOtroImp
+                                ),
+
                               )}
                             </td>
                             <td>
                               <strong>
                                 {fixMoney(
-                                  {
-                                    valor: parseFloat(
-                                      factura.valorTotal 
-                                    ),
-                                  } 
+                                  parseFloat(
+                                    factura.valorTotal
+                                  ),
+
                                 )}
                               </strong>
                             </td>
                             <td>{OutputDateHelper(
-                              factura.fecha 
+                              factura.fecha
                             )}</td>
                             <td>
                               <CopyButton
@@ -92,7 +88,7 @@ export default function Page() {
                             </td>
                           </tr>
                         );
-              } 
+              }
             )}
           </tbody>
         </table>

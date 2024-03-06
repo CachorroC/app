@@ -13,7 +13,7 @@ export type Message =
 
 export type RequestActuacion = {
   StatusCode:           number;
-  Message:              Message;
+  Message: string;
   ConsultaActuaciones?: ConsultaActuacion;
 }
 

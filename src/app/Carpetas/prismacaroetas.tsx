@@ -35,13 +35,13 @@ export default async function PrismaCarpetas() {
               },
             },
           },
-        } 
+        }
       );
 
       const carpetas = rawCarpetas
             .map(
               (
-                mapper 
+                mapper
               ) => {
                         return {
                           ...mapper,
@@ -50,11 +50,11 @@ export default async function PrismaCarpetas() {
                             capitalAdeudado: mapper.demanda?.capitalAdeudado.toNumber() ?? 1000,
                           },
                         };
-              } 
+              }
             )
             .sort(
               (
-                a, b 
+                a, b
               ) => {
                         if ( !a.fecha || a.fecha === undefined ) {
                           return 1;
@@ -77,13 +77,13 @@ export default async function PrismaCarpetas() {
                         }
 
                         return 0;
-              } 
+              }
             );
       return (
         <>
           {carpetas.map(
             (
-              carpeta 
+              carpeta
             ) => {
                       const llaveLength = carpeta.llaveProceso?.length;
 
@@ -92,7 +92,7 @@ export default async function PrismaCarpetas() {
                         : true;
 
                       const {
-                        numero, idProcesos 
+                        numero, idProcesos
                       } = carpeta;
 
                       const idProcesosLength = idProcesos.length;
@@ -146,7 +146,7 @@ export default async function PrismaCarpetas() {
                           </td>
 
                           <td>{OutputDateHelper(
-                            carpeta.fecha 
+                            carpeta.fecha
                           )}</td>
                           <td>
                             <CopyButton
@@ -158,11 +158,10 @@ export default async function PrismaCarpetas() {
                           <td>
                             {carpeta.demanda?.capitalAdeudado
                 && fixMoney(
-                  {
-                    valor: Number(
-                      carpeta.demanda.capitalAdeudado 
-                    ),
-                  } 
+                  Number(
+                    carpeta.demanda.capitalAdeudado
+                  ),
+
                 )}
                           </td>
                           <td>
@@ -177,7 +176,7 @@ export default async function PrismaCarpetas() {
                           </td>
                         </tr>
                       );
-            } 
+            }
           )}
         </>
       );

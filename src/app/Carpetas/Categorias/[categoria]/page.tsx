@@ -4,7 +4,7 @@ import { CarpetasTable } from '#@/components/Carpetas/client/carpetasList';
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function Page(
+export default  function Page(
   {
     params: {
       categoria

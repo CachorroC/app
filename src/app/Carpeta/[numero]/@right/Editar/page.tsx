@@ -10,7 +10,7 @@ import { fixMoney } from '#@/lib/project/helper';
 
 export default function Page() {
       const {
-        setFocus, getValues 
+        setFocus, getValues
       } = useFormContext<IntCarpeta>();
 
       const carpetaKeys: FieldPath<IntCarpeta>[] = [
@@ -31,7 +31,7 @@ export default function Page() {
       }
 
       const {
-        demanda 
+        demanda
       } = carpeta;
       return (
         <>
@@ -42,36 +42,35 @@ export default function Page() {
             <pre>
               {demanda.capitalAdeudado
             && fixMoney(
-              {
-                valor: Number(
-                  demanda.capitalAdeudado 
-                ),
-              } 
+              Number(
+                demanda.capitalAdeudado
+              ),
+
             )}
             </pre>
             <p>{demanda && parseInt(
-              demanda.capitalAdeudado?.toString() ?? '' 
+              demanda.capitalAdeudado?.toString() ?? ''
             )}</p>
             <p>
               {demanda && parseFloat(
-                demanda.capitalAdeudado?.toString() ?? '' 
+                demanda.capitalAdeudado?.toString() ?? ''
               )}
             </p>
             <p>{demanda && Number(
-              demanda.capitalAdeudado?.toString() ?? '' 
+              demanda.capitalAdeudado?.toString() ?? ''
             )}</p>
             <div className={styles.divider}></div>
             <pre>{OutputDateHelper(
-              demanda?.entregaGarantiasAbogado 
+              demanda?.entregaGarantiasAbogado
             )}</pre>
             <div className={styles.divider}></div>
 
             <pre>{JSON.stringify(
-              carpeta, null, 2 
+              carpeta, null, 2
             )}</pre>
 
             <pre>{JSON.stringify(
-              getValues(), null, 2 
+              getValues(), null, 2
             )}</pre>
 
             <div className={styles.divider}></div>
@@ -80,8 +79,8 @@ export default function Page() {
               onClick={() => {
                         alert(
                           JSON.stringify(
-                            carpeta, null, 2 
-                          ) 
+                            carpeta, null, 2
+                          )
                         );
               }}
             ></button>
@@ -89,7 +88,7 @@ export default function Page() {
           </section>
           {carpetaKeys.map(
             (
-              carpetaKey 
+              carpetaKey
             ) => {
                       return (
                         <button
@@ -100,14 +99,14 @@ export default function Page() {
                                     setFocus(
                                       carpetaKey, {
                                         shouldSelect: true,
-                                      } 
+                                      }
                                     );
                           }}
                         >
                           <span>{carpetaKey}</span>
                         </button>
                       );
-            } 
+            }
           )}
           <button
             type={'button'}
@@ -116,7 +115,7 @@ export default function Page() {
                       setFocus(
                         'numero', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >
@@ -129,7 +128,7 @@ export default function Page() {
                       setFocus(
                         'category', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >
@@ -143,7 +142,7 @@ export default function Page() {
                       setFocus(
                         'tipoProceso', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >
@@ -156,7 +155,7 @@ export default function Page() {
                       setFocus(
                         'deudor.primerNombre', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >
@@ -169,7 +168,7 @@ export default function Page() {
                       setFocus(
                         'deudor.segundoNombre', {
                           shouldSelect: true,
-                        } 
+                        }
                       );
             }}
           >

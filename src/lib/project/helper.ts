@@ -1,20 +1,3 @@
-export const getBaseUrl = () => {
-          const isDev = process.env.NODE_ENV === 'development';
-
-          const isProd = process.env.NODE_ENV === 'production';
-
-          const portToUse = process.env.PORT ?? '3000';
-
-          if ( isProd ) {
-            return 'https://app.rsasesorjuridico.com';
-          }
-
-          if ( isDev ) {
-            return 'https://beta.rsasesorjuridico.com';
-          }
-
-          return `http://localhost:${ portToUse }`;
-};
 
 export const fixFechas = (
   rawDate?: string | Date | null | undefined
@@ -57,9 +40,7 @@ export const sleep = (
               resolve
             ) => {
                       return setTimeout(
-                        resolve, ms === 1
-                          ? ms
-                          : ms * 200
+                        resolve, ms *200
                       );
             }
           );
@@ -155,37 +136,8 @@ export const fixDemandado = (
           return sujetosProcesales;
 };
 
-export const toNameString = (
-  {
-    nameRaw
-  }: { nameRaw: string }
-): string => {
-          const str = nameRaw.toLowerCase();
-
-          const arr = str.split(
-            ' '
-          );
-
-          for ( let i = 0; i < arr.length; i++ ) {
-            arr[ i ] = arr[ i ].charAt(
-              0
-            )
-                  .toUpperCase() + arr[ i ].slice(
-              1
-            );
-          }
-
-          const str2 = arr.join(
-            ' '
-          );
-
-          return str2;
-};
-
 export const fixMoney = (
-  {
-    valor
-  }: { valor: number | bigint }
+  valor: number | bigint
 ) => {
           return new Intl.NumberFormat(
             'es-CO', {
@@ -196,21 +148,5 @@ export const fixMoney = (
           )
                 .format(
                   valor
-                );
-};
-
-
-export const moneyOutput = (
-  value: number | bigint
-) => {
-          return new Intl.NumberFormat(
-            'es-CO', {
-              style          : 'currency',
-              currency       : 'COP',
-              currencyDisplay: 'symbol'
-            }
-          )
-                .format(
-                  value
                 );
 };

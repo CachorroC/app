@@ -1,4 +1,4 @@
-import { getActuaciones } from '#@/lib/project/utils/Actuaciones';
+import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import { unstable_noStore as noStore } from 'next/cache';
 import { Suspense } from 'react';

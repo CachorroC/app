@@ -235,11 +235,10 @@ export default function InformationComponent(
 
           {demanda?.capitalAdeudado
         && fixMoney(
-          {
-            valor: Number(
-              demanda.capitalAdeudado
-            ),
-          }
+          Number(
+            demanda.capitalAdeudado
+          ),
+
         )}
         </>
       );

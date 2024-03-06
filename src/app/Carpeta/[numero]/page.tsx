@@ -2,7 +2,7 @@ import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import button from '#@/components/Buttons/buttons.module.css';
-import { fixMoney, moneyOutput } from '#@/lib/project/helper';
+import { fixMoney } from '#@/lib/project/helper';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Metadata, Route } from 'next';
 import { Suspense } from 'react';
@@ -178,7 +178,7 @@ export default async function Page(
               carpeta.demanda?.capitalAdeudado && (
                 <div className={ styles.valueCard }>
                   <h2 className={styles.valueCardTitle}>Capital Adeudado</h2>
-                  <h3 className={styles.valueCardValue}>{moneyOutput(
+                  <h3 className={styles.valueCardValue}>{fixMoney(
                     carpeta.demanda.capitalAdeudado
                   )}</h3>
                 </div>
@@ -188,7 +188,7 @@ export default async function Page(
                 <div className={ styles.valueCard }>
                   <h2 className={styles.valueCardTitle}>Valor del Avaluo</h2>
                   <h3 className={styles.valueCardValue}>{
-                    moneyOutput(
+                    fixMoney(
                       carpeta.demanda.avaluo
                     )
                   }</h3>
@@ -200,7 +200,7 @@ export default async function Page(
                 <div className={ styles.valueCard }>
                   <h2 className={styles.valueCardTitle}>Valor de la liquidacion</h2>
                   <h3 className={styles.valueCardValue}>{
-                    moneyOutput(
+                    fixMoney(
                       carpeta.demanda.liquidacion
                     )
                   }</h3>
@@ -241,11 +241,10 @@ export default async function Page(
               {' '}
               {demanda?.capitalAdeudado
             && fixMoney(
-              {
-                valor: Number(
-                  demanda.capitalAdeudado
-                ),
-              }
+              Number(
+                demanda.capitalAdeudado
+              ),
+
             )}
             </p>
           </section>

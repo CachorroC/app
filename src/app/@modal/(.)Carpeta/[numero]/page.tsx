@@ -83,11 +83,10 @@ export default async function Page(
                   {' '}
                   {demanda?.capitalAdeudado
             && fixMoney(
-              {
-                valor: Number(
-                  demanda.capitalAdeudado
-                ),
-              }
+              Number(
+                demanda.capitalAdeudado
+              ),
+
             )}
                 </p>
               </section>

@@ -169,7 +169,7 @@ export function carpetasReducer(
 
             switch ( sortingKey ) {
                 case 'fecha': {
-                  const sorted = [ ...completeCarpetas ].sort(
+                  const sorted = [ ...carpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -203,7 +203,7 @@ export function carpetasReducer(
                 }
 
                 case 'category': {
-                  const sorted = [ ...completeCarpetas ].sort(
+                  const sorted = [ ...carpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -233,7 +233,7 @@ export function carpetasReducer(
                 }
 
                 case 'numero': {
-                  const sorted = [ ...completeCarpetas ].sort(
+                  const sorted = [ ...carpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -255,7 +255,7 @@ export function carpetasReducer(
                 }
 
                 case 'nombre': {
-                  const sorted = [ ...completeCarpetas ].sort(
+                  const sorted = [ ...carpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -283,7 +283,7 @@ export function carpetasReducer(
                 }
 
                 case 'revisado': {
-                  const sorted = [ ...completeCarpetas ].filter(
+                  const sorted = [ ...carpetas ].filter(
                     (
                       carpeta
                     ) => {
@@ -301,7 +301,7 @@ export function carpetasReducer(
                 }
 
                 default: {
-                  const sorted = [ ...completeCarpetas ].sort(
+                  const sorted = [ ...carpetas ].sort(
                     (
                       a, b
                     ) => {
@@ -411,7 +411,7 @@ export function carpetasReducer(
           }
 
           default: {
-            const sorted = [ ...completeCarpetas ].sort(
+            const sorted = [ ...carpetas ].sort(
               (
                 a, b
               ) => {
