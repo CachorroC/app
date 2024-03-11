@@ -4,6 +4,7 @@ import { IntCarpeta } from '#@/lib/types/carpetas';
 import { useState } from 'react';
 import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
 import { useRouter } from 'next/navigation';
+import typography from '#@/styles/fonts/typography.module.css';
 
 export const InputSearchBar = (
   {
@@ -19,7 +20,7 @@ export const InputSearchBar = (
 
           const dispatchCarpetas = useCarpetaSortDispatch();
           return (
-            <>
+            <div className={searchbar.searchContainer}>
               <datalist id="demandados-list">
                 {carpetas.map(
                   (
@@ -44,8 +45,8 @@ export const InputSearchBar = (
                 list="demandados-list"
                 name={'query'}
                 placeholder={'Buscar'}
-                value={newQueryState}
-                className={searchbar.input}
+                value={ newQueryState }
+                className={`${ typography.bodyLarge } ${ searchbar.input }`}
                 onChange={(
                   e
                 ) => {
@@ -61,7 +62,7 @@ export const InputSearchBar = (
                 }}
               />
 
-              <button type='button' onClick={ () => {
+              <button className={ searchbar.icon} type='button' onClick={ () => {
                         setNewQueryState(
                           ''
                         );
@@ -74,6 +75,6 @@ export const InputSearchBar = (
               } }>
                 <span className='material-symbols-outlined'>close</span>
               </button>
-            </>
+            </div>
           );
 };

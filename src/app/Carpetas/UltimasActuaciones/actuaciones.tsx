@@ -1,13 +1,9 @@
-import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
-import { ActuacionComponent } from '#@/components/Card/actuacion-component';
-import { unstable_noStore as noStore } from 'next/cache';
-import { Suspense } from 'react';
-import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
+
 import typography from '#@/styles/fonts/typography.module.css';
 import styles from '#@/components/Card/card.module.css';
 import { fixFechas } from '#@/lib/project/helper';
-
-import layout from '#@/styles/layout.module.css';
+import { ActuacionClientContainer } from './actuacion-client-component';
+import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-promises-generator';
 
 /*
 async function getData(
@@ -83,34 +79,19 @@ export async function FechaActuacionComponent(
     index: number;
   }
 ) {
-      noStore();
-
-      const consultaActuaciones = await getActuaciones(
-        idProceso, index
+      const promiseActs = getActuaciones(
+        {
+          numero   : index,
+          idProceso: idProceso
+        }
       );
 
-      if ( !consultaActuaciones || consultaActuaciones.length === 0 ) {
-        return (
-
-          <div className={styles.containerFilledEnabled}>
-            <div className={layout.segmentRow}>
-              <h5 className={typography.titleSmall}>No hay actuaciones</h5>
-              <p className={typography.labelSmall}>por favor revise que la llaveProceso y el idProceso estén correctos</p>
-            </div>
-            <p className={typography.bodySmall}>gracias</p>
-          </div>
-        );
-      }
-
-      const [ ultimaActuacion ] = consultaActuaciones;
-
       return (
-        <Suspense fallback={<ActuacionLoader />}>
-          <ActuacionComponent
-            key={ultimaActuacion.idRegActuacion}
-            incomingActuacion={ultimaActuacion}
-          />
-        </Suspense>
+
+        <ActuacionClientContainer
+          consultaActuacionesPromise={promiseActs}
+          key={idProceso}
+        />
       );
 }
 
@@ -124,11 +105,16 @@ export async function FechaActuacionComponentAlt(
   }
 ) {
 
-      const consultaActuaciones = await getActuaciones(
-        idProceso, index
+      const {
+        ConsultaActuaciones
+      } = await getActuaciones(
+        {
+          numero   : index,
+          idProceso: idProceso
+        }
       );
 
-      if ( !consultaActuaciones || consultaActuaciones.length === 0 ) {
+      if ( !ConsultaActuaciones || ConsultaActuaciones.actuaciones.length === 0 ) {
 
 
         return (
@@ -147,7 +133,7 @@ export async function FechaActuacionComponentAlt(
         );
       }
 
-      const [ ultimaActuacion ] = consultaActuaciones;
+      const [ ultimaActuacion ] = ConsultaActuaciones.actuaciones;
 
       const {
         actuacion, fechaActuacion, anotacion, consActuacion, cant

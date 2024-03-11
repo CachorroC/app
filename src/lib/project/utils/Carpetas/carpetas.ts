@@ -103,6 +103,21 @@ export const getCarpetabyNumero = cache(
   async (
     numero: number
   ) => {
+            const demanda = await prisma.demanda.findFirstOrThrow(
+              {
+                where: {
+                  id: numero
+                },
+                include: {
+                  notificacion: {
+                    include: {
+                      notifiers: true,
+                    },
+                  },
+                  medidasCautelares: true,
+                }
+              }
+            );
 
             const carpeta = await prisma.carpeta.findFirstOrThrow(
               {
@@ -134,12 +149,25 @@ export const getCarpetabyNumero = cache(
               }
             );
 
-            const stringified =  JSON.stringify(
-              carpeta
-            );
-            return JSON.parse(
-              stringified
-            ) as IntCarpeta;
+            const newCarp: IntCarpeta =  {
+              ...carpeta,
+              demanda: {
+                ...demanda,
+                capitalAdeudado: demanda.capitalAdeudado
+                  ? demanda.capitalAdeudado.toNumber()
+                  : null,
+                liquidacion: demanda?.liquidacion
+                  ? demanda.liquidacion.toNumber()
+                  : null,
+                avaluo: demanda?.avaluo
+                  ? demanda.avaluo.toNumber()
+                  : null,
+                departamento: demanda?.departamento
+                  ? demanda.departamento
+                  : null
+              }
+            };
+            return newCarp;
   }
 );
 

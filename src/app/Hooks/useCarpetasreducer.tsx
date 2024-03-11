@@ -63,7 +63,7 @@ export type IntAction =
 export function carpetasReducer(
   reducerState: CarpetasReducerState,
   action: IntAction,
-) {
+): CarpetasReducerState {
       const {
         type
       } = action;

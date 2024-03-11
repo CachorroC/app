@@ -58,34 +58,73 @@
   display: flex;
 }
 
-.input, .inputContainer {
+.searchContainer {
   background-color: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  height: 4rem;
+  box-sizing: border-box;
+  box-shadow: var(--elevation-3);
+  grid-area: inputSearchBar;
+  border-radius: var(--shape-corner-full);
+  padding: 0;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.searchContainer .input, .searchContainer .inputContainer {
   color: var(--on-surface-variant);
   border: none;
   text-decoration: none;
-  border-bottom: solid 0.1rem var(--on-surface-variant);
-  border-radius: var(--corner-shape-full);
-  grid-area: inputSearchBar;
   text-align: center;
   font-family: var(--josefa);
-  font-size: 0.8rem;
-  box-sizing: border-box;
-  resize: both;
-  padding: 0;
+  position: relative;
+  border-radius: var(--shape-corner-extra-large-start);
 }
-.input > .icon, .inputContainer > .icon {
-  color: var(--on-surface-variant);
+.searchContainer .input:before, .searchContainer .inputContainer:before {
+  position: absolute;
+  width: 100%;
+  border-radius: var(--shape-corner-extra-large-start);
+  height: 100%;
+  top: 0;
+  background-color: var(--on-surface);
+  left: 0;
+  content: "";
+  opacity: 0;
 }
-.inputContainer {
+.searchContainer .inputContainer {
   display: flex;
   width: 100%;
   margin-bottom: 15px;
 }
-.input:hover, .inputContainer:hover, .input:active, .inputContainer:active, .input:focus, .inputContainer:focus {
-  border: 2px dashed var(--tertiary);
-  background-color: var(--tertiary-container);
-  color: var(--on-tertiary-container);
+.searchContainer .input:hover, .searchContainer .inputContainer:hover, .searchContainer .input:active, .searchContainer .inputContainer:active, .searchContainer .input:focus, .searchContainer .inputContainer:focus {
   box-shadow: var(--dp4);
+  background-color: var(--primary-container);
+}
+.searchContainer .input:hover:before, .searchContainer .inputContainer:hover:before, .searchContainer .input:active:before, .searchContainer .inputContainer:active:before, .searchContainer .input:focus:before, .searchContainer .inputContainer:focus:before {
+  opacity: 0.08;
+}
+.searchContainer .icon {
+  color: var(--on-surface);
+  border: none;
+  position: relative;
+  padding: 0 1rem;
+  border-radius: var(--shape-corner-extra-large-end);
+}
+.searchContainer .icon:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: var(--on-surface);
+  left: 0;
+  content: "";
+  border-radius: var(--shape-corner-extra-large-end);
+  opacity: 0;
+}
+.searchContainer .icon:hover, .searchContainer .icon:active, .searchContainer .icon:focus {
+  box-shadow: var(--dp4);
+}
+.searchContainer .icon:hover:before, .searchContainer .icon:active:before, .searchContainer .icon:focus:before {
+  opacity: 0.08;
 }
 
 .inputForm {

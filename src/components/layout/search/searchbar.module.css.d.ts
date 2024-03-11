@@ -12,6 +12,7 @@ declare const styles: {
   readonly 'searchBarLink': string;
   readonly 'searchBarLinkIsActive': string;
   readonly 'searchBarLinkNotActive': string;
+  readonly 'searchContainer': string;
   readonly 'sub': string;
   readonly 'title': string;
 };

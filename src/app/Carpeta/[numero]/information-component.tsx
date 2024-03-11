@@ -1,4 +1,4 @@
-import { fixFechas, fixMoney } from '#@/lib/project/helper';
+
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import typography from '#@/styles/fonts/typography.module.css';
 import Link from 'next/link';
@@ -8,10 +8,12 @@ import { Suspense } from 'react';
 import { ProcesoCard } from '#@/components/Proceso/server-components';
 import { Route } from 'next';
 import button from '#@/components/Buttons/buttons.module.css';
-import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { ChipButton } from '#@/components/Chip';
 import chip from '#@/components/Chip/styles.module.css';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
+import MoneyFixer from '#@/lib/project/money-fixer';
+import { Loader } from '#@/components/Loader';
 
 export default function InformationComponent(
   {
@@ -40,45 +42,19 @@ export default function InformationComponent(
               proceso
             ) => {
                       const {
-                        sujetosProcesales, idProceso
+                        idProceso, juzgado
                       } = proceso;
-
-                      const mapperObject = new Map();
-
-                      const newSujetos = sujetosProcesales.split(
-                        '|'
-                      );
-
-                      for ( const demandadoODemandante of newSujetos ) {
-                        const splitter = demandadoODemandante.split(
-                          ':'
-                        );
-                        console.log(
-                          splitter
-                        );
-
-                        const fixer = splitter.map(
-                          (
-                            value
-                          ) => {
-                                    return value.trim();
-                          }
-                        );
-                        mapperObject.set(
-                          fixer[ 0 ], fixer[ 1 ]
-                        );
-                      }
 
                       return (
 
                         <ProcesoCard
-                          key={proceso.idProceso}
+                          key={idProceso}
                           proceso={proceso}
                         >
                           <div className={layout.segmentColumn}>
                             <JuzgadoComponent
-                              key={proceso.juzgado.url}
-                              juzgado={proceso.juzgado}
+                              key={juzgado.url}
+                              juzgado={juzgado}
                             />
 
                             <Link
@@ -98,7 +74,7 @@ export default function InformationComponent(
                               </span>
                             </Link>
                           </div>
-                          <Suspense fallback={<ActuacionLoader />}>
+                          <Suspense fallback={<Loader />}>
                             <FechaActuacionComponent
                               key={idProceso}
                               idProceso={idProceso}
@@ -119,9 +95,7 @@ export default function InformationComponent(
           <div className={layout.sectionColumn}>
             <h2 className={typography.titleMedium}>{`Carpeta número ${ numero }`}</h2>
             {fecha && (
-              <h5 className={typography.labelLarge}>{`actualizado el ${ fixFechas(
-                fecha,
-              ) }`}</h5>
+              <OutputDateHelper incomingDate={ fecha} className={ typography.labelLarge } />
             )}
             <div className={layout.segmentColumn}>
               <div className={layout.segmentRowWrap}>
@@ -211,14 +185,9 @@ export default function InformationComponent(
                   pagare, index
                 ) => {
                           return (
-                            <p
-                              key={index}
-                              className={typography.labelMedium}
-                            >
-                              {fixFechas(
-                                pagare
-                              )}
-                            </p>
+
+                            <OutputDateHelper incomingDate={ pagare } className={ typography.labelMedium} key={index}/>
+
                           );
                 }
               )}
@@ -226,20 +195,13 @@ export default function InformationComponent(
           )}
 
           {demanda?.entregaGarantiasAbogado && (
-            <p className={typography.labelSmall}>
-              {fixFechas(
-                demanda.entregaGarantiasAbogado
-              )}
-            </p>
+            <OutputDateHelper incomingDate={demanda.entregaGarantiasAbogado } className={ typography.labelSmall } />
           )}
 
           {demanda?.capitalAdeudado
-        && fixMoney(
-          Number(
-            demanda.capitalAdeudado
-          ),
-
-        )}
+        && <MoneyFixer valor={ Number(
+          demanda.capitalAdeudado
+        ) } className={ typography.labelSmall } />}
         </>
       );
 }

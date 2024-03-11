@@ -10,6 +10,39 @@ import  { ActuacionesLoader } from '#@/components/Card/actuacion-loader';
 import { CarpetaFormProvider } from '#@/app/Context/carpeta-form-context';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 
+async function ActuacionesList (
+  {
+    idProceso
+  }: {idProceso: number}
+) {
+      const actuaciones = await getActuaciones(
+        Number(
+          idProceso
+        )
+      );
+
+      return actuaciones.map(
+        (
+          actuacion, index
+        ) => {
+                  const newActuacion: outActuacion = {
+                    ...actuacion,
+                    isUltimaAct: actuacion.cant === actuacion.consActuacion,
+                    idProceso  : Number(
+                      idProceso
+                    ),
+                  };
+                  return (
+                    <ActuacionComponent
+                      key={index}
+                      incomingActuacion={newActuacion}
+                    />
+                  );
+        }
+      );
+
+}
+
 export default async function Page(
   {
     params
@@ -27,11 +60,7 @@ export default async function Page(
         )
       );
 
-      const actuaciones = await getActuaciones(
-        Number(
-          params.idProceso
-        )
-      );
+
 
 
       return (
@@ -53,27 +82,9 @@ export default async function Page(
           </Suspense>
 
           <Suspense fallback={<ActuacionesLoader />}>
-            <>
-              {actuaciones.map(
-                (
-                  actuacion, index
-                ) => {
-                          const newActuacion: outActuacion = {
-                            ...actuacion,
-                            isUltimaAct: actuacion.cant === actuacion.consActuacion,
-                            idProceso  : Number(
-                              params.idProceso
-                            ),
-                          };
-                          return (
-                            <ActuacionComponent
-                              key={index}
-                              incomingActuacion={newActuacion}
-                            />
-                          );
-                }
-              )}
-            </>
+            <ActuacionesList idProceso={Number(
+              params.idProceso 
+            )} />
           </Suspense>
         </CarpetaFormProvider>
       );

@@ -16,7 +16,7 @@ export type IntCarpeta  = {
   category: string;
   codeudor: Codeudor | null;
   notasCount: number | null;
-  demanda: intDemanda | null;
+  demanda: intDemanda;
   deudor: Deudor | null;
   fecha: Date | null;
   id: number;
@@ -56,7 +56,7 @@ export type Codeudor ={
 export type intDemanda ={
   avaluo: null | number;
   capitalAdeudado: null | number;
-  carpetaNumero: number | null;
+  carpetaNumero?: number;
   departamento: string | null;
   despacho: null | string;
   entregaGarantiasAbogado: Date | null;

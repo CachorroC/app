@@ -18,13 +18,7 @@ self.addEventListener(
                           cache
                         );
                         await cache.addAll(
-                          [
-                            '/general.xlsx',
-                            'offline.html',
-                            new Request(
-                              OFFLINE_URL
-                            ),
-                          ]
+                          [ '/general.xlsx', '/offline.html', ]
                         );
               } )()
             );

@@ -17,6 +17,7 @@ import { JuzgadoComponent } from '#@/components/Proceso/juzgado-component';
 import { getProceso } from '#@/lib/project/utils/Procesos';
 import styles from './styles.module.css';
 import { NotificacionComponent } from '#@/components/Notificacion/notificacion';
+import FruitPicker from '#@/components/Buttons/etapaProsesalSelector';
 
 //SECTION Generate metadata for [numero]
 
@@ -97,6 +98,9 @@ async function ProcesosComponent(
                                     key={proceso.juzgado.url}
                                     juzgado={proceso.juzgado}
                                   />
+                                </Suspense>
+                                <Suspense fallback={<Loader />}>
+                                  <FruitPicker />
                                 </Suspense>
 
                                 <Link

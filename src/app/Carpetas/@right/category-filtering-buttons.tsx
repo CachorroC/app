@@ -1,8 +1,9 @@
 'use client';
 
 import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
-import {  useEffect, useState } from 'react';
+import {   useEffect, useState } from 'react';
 import styles from './styles.module.css';
+
 
 export default function CategoryFilteringButtons() {
       const [ selectedExcluded, setSelectedExcluded ] = useState<string[]>(
@@ -18,6 +19,7 @@ export default function CategoryFilteringButtons() {
         'Terminados',
         'Insolvencia',
       ];
+
 
       useEffect(
         () => {
@@ -47,16 +49,13 @@ export default function CategoryFilteringButtons() {
               (
                 category
               ) => {
-                        const insedOf = selectedExcluded.indexOf(
+                        const isActive = selectedExcluded.includes(
                           category
                         );
 
-                        const isActive = insedOf === -1
-                          ? false
-                          : true;
+
 
                         return (
-
                           <button key={ category } type='button' className={
                             isActive
                               ? styles.buttonCategoryActive
@@ -91,6 +90,9 @@ export default function CategoryFilteringButtons() {
               }
             )
 
-          }</section>
+          }
+
+
+        </section>
       );
 }

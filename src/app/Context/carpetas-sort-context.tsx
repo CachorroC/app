@@ -24,14 +24,13 @@ export function CarpetasSortProvider(
     initialCarpetas: MonCarpeta[];
   }
 ) {
-      const newReducer = {
-        carpetas        : [ ...initialCarpetas ],
-        completeCarpetas: [ ...initialCarpetas ],
-      };
 
       const [ carpetasReduced, dispatchCarpetas ] = useReducer(
         carpetasReducer,
-        newReducer,
+        {
+          carpetas        : [ ...initialCarpetas ],
+          completeCarpetas: [ ...initialCarpetas ],
+        },
       );
 
       return (

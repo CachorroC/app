@@ -53,40 +53,80 @@
   }
 }
 
-.input {
+.searchContainer {
   background-color: var(--surface-container-high);
   color: var(--on-surface-variant);
-  border: none;
-  text-decoration: none;
-  border-bottom: solid 0.1rem var(--on-surface-variant);
-  border-radius: var(--corner-shape-full);
-  grid-area: inputSearchBar;
-  text-align: center;
-  font-family: var(--josefa);
-  font-size: 0.8rem;
+  height: 4rem;
   box-sizing: border-box;
-  resize: both;
+  box-shadow: var(--elevation-3);
+  grid-area: inputSearchBar;
+  border-radius: var(--shape-corner-full);
   padding: 0;
-  & > .icon {
+  display: flex;
+  flex-flow: row nowrap;
+  .input {
     color: var(--on-surface-variant);
-  }
-  &Container {
-    @extend .input;
-    display: flex;
-    width: 100%;
-    margin-bottom: 15px;
-  }
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    font-family: var(--josefa);
+    position: relative;
+    border-radius: var(--shape-corner-extra-large-start);
+    &:before {
+      position: absolute;
+      width: 100%;
+      border-radius: var(--shape-corner-extra-large-start);
+      height: 100%;
+      top: 0;
+      background-color: var(--on-surface);
+      left: 0;
+      content: '';
+      opacity: 0;
+    }
+    &Container {
+      @extend .input;
+      display: flex;
+      width: 100%;
+      margin-bottom: 15px;
+    }
 
-  &:hover,
-  &:active,
-  &:focus {
-    border: 2px dashed var(--tertiary);
-    background-color: var(--tertiary-container);
-    color: var(--on-tertiary-container);
-    box-shadow: var(--dp4);
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: var(--dp4);
+      background-color: var(--primary-container);
+      &:before {
+        opacity: 0.08;
+      }
+    }
+  }
+  .icon {
+    &:before {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      background-color: var(--on-surface);
+      left: 0;
+      content: '';
+      border-radius: var(--shape-corner-extra-large-end);
+      opacity: 0;
+    }
+    color: var(--on-surface);
+    border: none;
+    position: relative;
+    padding: 0 1rem;
+    border-radius: var(--shape-corner-extra-large-end);
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: var(--dp4);
+      &:before {
+        opacity: 0.08;
+      }
+    }
   }
 }
-
 .inputForm {
   padding: 0.2rem;
   box-sizing: border-box;

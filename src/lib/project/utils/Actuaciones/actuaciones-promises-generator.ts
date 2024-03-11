@@ -2,7 +2,7 @@ import {   RequestActuacion } from '#@/lib/types/actuaciones';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { sleep } from '../../helper';
 
-async function getActuaciones (
+export async function getActuaciones (
   {
     numero, idProceso,
   }: {numero: number; idProceso: number;}
@@ -12,7 +12,6 @@ async function getActuaciones (
           throw new Error(
             `no hay idProceso: ${ numero }`
           );
-
         }
 
         await sleep(

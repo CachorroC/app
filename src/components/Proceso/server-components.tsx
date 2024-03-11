@@ -30,7 +30,7 @@ export const ProcesoCard = (
 
           for ( const matchedValue of matcher ) {
             mapperObject.set(
-              matchedValue[ 2 ], matchedValue[ 5 ].trim()
+              matchedValue[ 2 ].trim(), matchedValue[ 5 ].trim()
             );
           }
 

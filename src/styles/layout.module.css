@@ -43,18 +43,14 @@
   justify-content: center;
   align-items: stretch;
   justify-items: stretch;
-  grid-column: 1/2;
-  grid-row: 1/9;
+  grid-template-rows: subgrid;
+  grid-template-columns: subgrid;
   grid-area: header;
   gap: inherit;
   padding: 0.7rem;
-  grid-template-rows: subgrid;
-  grid-template-columns: subgrid;
 }
 .header .nav {
   display: grid;
-  grid-template-rows: subgrid;
-  grid-template-columns: subgrid;
   background-color: var(--nav-background);
 }
 @media (width < 600px) {

@@ -8,8 +8,13 @@ process.env[ 'NODE_TLS_REJECT_UNAUTHORIZED' ] = '0';
 export async function getActuaciones(
   idProceso: number, index: number = 1
 ) {
-
       try {
+        if ( idProceso === 0 ) {
+          throw new Error(
+            `no hay idProceso: ${ index }`
+          );
+        }
+
         const request = await fetchActuaciones(
           idProceso, index
         );
