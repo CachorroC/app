@@ -11,7 +11,7 @@ import { Loader } from '#@/components/Loader';
 import { ProcesoCard } from '#@/components/Proceso/server-components';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { InputSection } from '#@/components/Form/input-section';
-import { DeudorFormComponent } from './deudor-form-component';
+import { DeudorFormComponent } from '../../../components/Form/deudor-form-component';
 import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
 import { JuzgadoComponent } from '#@/components/Proceso/juzgado-component';
 import { getProceso } from '#@/lib/project/utils/Procesos';

@@ -1,14 +1,14 @@
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { Loader } from '#@/components/Loader';
-import { InputSection } from '#@/components/Form/input-section';
-import { DeudorFormComponent } from '#@/app/Carpeta/[numero]/deudor-form-component';
 import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
 import { outActuacion } from '#@/lib/types/actuaciones';
 import { ActuacionComponent } from '#@/components/Card/actuacion-component';
 import  { ActuacionesLoader } from '#@/components/Card/actuacion-loader';
 import { CarpetaFormProvider } from '#@/app/Context/carpeta-form-context';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
+import { Modal } from '#@/components/Modal';
+import { NombreComponent } from '#@/components/nombre';
+import { segmentRow } from '#@/styles/layout.module.css';
 
 async function ActuacionesList (
   {
@@ -64,28 +64,38 @@ export default async function Page(
 
 
       return (
+
         <CarpetaFormProvider
           key={params.numero}
           carpeta={carpeta}
         >
-          <Suspense fallback={<Loader />}>
-            <DeudorFormComponent />
-          </Suspense>
+          <Modal>
+            <div className={segmentRow}>
+              <NombreComponent deudor={ carpeta.deudor
+                ? carpeta.deudor
+                : {
+                    carpetaNumero  : null,
+                    cedula         : '',
+                    direccion      : null,
+                    email          : null,
+                    id             : 0,
+                    primerApellido : 'Sin Nombre',
+                    primerNombre   : 'Sin Apellido',
+                    segundoApellido: null,
+                    segundoNombre  : null,
+                    telCelular     : null,
+                    telFijo        : null
+                  } } />
 
-          <Suspense fallback={<Loader />}>
-            <InputSection
-              key={params.numero}
-              name={'llaveProceso'}
-              title={'Numero de expediente'}
-              type={'text'}
-            />
-          </Suspense>
+            </div>
 
-          <Suspense fallback={<ActuacionesLoader />}>
-            <ActuacionesList idProceso={Number(
-              params.idProceso 
-            )} />
-          </Suspense>
+
+            <Suspense fallback={<ActuacionesLoader />}>
+              <ActuacionesList idProceso={Number(
+                params.idProceso
+              )} />
+            </Suspense>
+          </Modal>
         </CarpetaFormProvider>
       );
 }

@@ -8,9 +8,9 @@
   padding: 0;
   flex-flow: column nowrap;
   @media (width < 600px) {
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 }
 .button {

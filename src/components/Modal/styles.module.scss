@@ -19,7 +19,6 @@
     width: 90vw;
     border-radius: 2vmin;
     box-shadow: var(--dp20);
-
     background-color: var(--surface-variant);
     color: var(--on-surface-variant);
     height: 90svh;
@@ -27,7 +26,8 @@
     padding: 2vmin;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: flex-start;
+    overflow: scroll;
     justify-items: stretch;
     & > * {
       width: 100%;

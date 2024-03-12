@@ -10,9 +10,9 @@
 }
 @media (width < 600px) {
   .segmentedButtons {
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 }
 

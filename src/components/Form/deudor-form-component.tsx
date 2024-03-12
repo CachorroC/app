@@ -18,7 +18,6 @@ export function DeudorFormComponent() {
       return (
         <fieldset>
           <legend>Deudor</legend>
-
           <input
             name={'deudor.primerNombre'}
             value={deudor.primerNombre}

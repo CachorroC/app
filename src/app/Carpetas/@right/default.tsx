@@ -1,10 +1,6 @@
 import { CarpetasSortButtons } from '#@/components/Carpetas/client/carpetasButtonsSort';
-import { Loader } from '#@/components/Loader';
-import { Suspense } from 'react';
 import { ResetButtonSorter } from '../UltimasActuaciones/reset-button';
 import CategoryFilteringButtons from './category-filtering-buttons';
-import { CompleteCarpetasRows } from '#@/components/Carpetas/client/carpetasList';
-
 
 export default function Default () {
 
@@ -32,9 +28,6 @@ export default function Default () {
           <ResetButtonSorter />
           <CarpetasSortButtons options={ options } />
           <CategoryFilteringButtons />
-          <Suspense fallback={ <Loader /> }>
-            <CompleteCarpetasRows />
-          </Suspense>
         </>
       );
 }

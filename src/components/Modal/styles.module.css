@@ -27,7 +27,8 @@
   padding: 2vmin;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow: scroll;
   justify-items: stretch;
 }
 .open .wrapper > * {
@@ -59,12 +60,8 @@
 
 .snackbar.show {
   visibility: visible;
-  -webkit-animation:
-    fadein 0.5s,
-    fadeout 0.5s 2.5s;
-  animation:
-    fadein 0.5s,
-    fadeout 0.5s 2.5s;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
 @-webkit-keyframes fadein {

@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 import layout from '#@/styles/layout.module.css';
 import { Loader } from '#@/components/Loader';
 import { InputSection } from '#@/components/Form/input-section';
-import { DeudorFormComponent } from '#@/app/Carpeta/[numero]/deudor-form-component';
+import { DeudorFormComponent } from '#@/components/Form/deudor-form-component';
 import InformationComponent from '#@/app/Carpeta/[numero]/information-component';
 import { CarpetaFormProvider } from '#@/app/Context/carpeta-form-context';
 import { Modal } from '#@/components/Modal';

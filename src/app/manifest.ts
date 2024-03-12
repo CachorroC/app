@@ -1,16 +1,10 @@
 import { MetadataRoute } from 'next';
 
-const prefix = process.env.NODE_ENV === 'production'
-  ? 'app'
-  : 'beta';
-
-const url = `https://${ prefix }.rsasesorjuridico.com`;
-
 export default function manifest(): MetadataRoute.Manifest {
 
       return {
         short_name                 : 'Tulis',
-        name                       : 'R & S Asesoria Juridica Especializada S.A.S',
+        name                       : 'RyS Asesoria Juridica Especializada S.A.S',
         orientation                : 'any',
         lang                       : 'es-CO',
         dir                        : 'ltr',
@@ -20,7 +14,7 @@ export default function manifest(): MetadataRoute.Manifest {
         theme_color                : '#7aa4dd',
         prefer_related_applications: false,
         display                    : 'standalone',
-        start_url                  : url,
+        start_url                  : `https://${ process.env.BASE_URL }`,
         description                : 'Somos una firma legal comprometida con brindar something',
         display_override           : [ 'standalone', 'minimal-ui', ],
         shortcuts                  : [
@@ -55,8 +49,7 @@ export default function manifest(): MetadataRoute.Manifest {
           },
         ],
         serviceworker: {
-          src  : '/service-worker.js',
-          scope: '/',
+          src: '/service-worker.js',
         },
         icons: [
           {
