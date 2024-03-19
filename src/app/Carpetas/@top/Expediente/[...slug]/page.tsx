@@ -5,13 +5,13 @@ import typography from '#@/styles/fonts/typography.module.css';
 
 export default async function Page(
   {
-    params 
-  }: { params: { slug: string[] } } 
+    params
+  }: { params: { slug: string[] } }
 ) {
       const [ llaveProceso, idProceso ] = params.slug;
 
       const carpeta = await getCarpetaByllaveProceso(
-        llaveProceso 
+        llaveProceso
       );
 
       if ( !carpeta ) {
@@ -19,14 +19,17 @@ export default async function Page(
       }
 
       const {
-        deudor 
+        deudor
       } = carpeta;
       return (
         <>
           {deudor && (
             <NombreComponent
               key={llaveProceso}
-              deudor={deudor}
+              primerNombre={ deudor.primerNombre }
+              primerApellido={ deudor.primerApellido }
+              segundoApellido={ deudor.segundoApellido }
+              segundoNombre={ deudor.segundoNombre }
             />
           )}
           {idProceso && <p className={typography.bodySmall}>Ultimas Actuaciones</p>}

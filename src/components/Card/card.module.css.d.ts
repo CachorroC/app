@@ -1,5 +1,7 @@
 declare const styles: {
+  readonly 'action': string;
   readonly 'actuacion': string;
+  readonly 'actuacionContainer': string;
   readonly 'anotacion': string;
   readonly 'card': string;
   readonly 'container': string;

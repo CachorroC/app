@@ -1,12 +1,14 @@
 
 import { outActuacion } from '#@/lib/types/actuaciones';
 import fetchActuaciones from './fetch';
-import { updateUltimaActuacionInPrisma } from './updater';
+import { updateActuacionesInPrisma, } from './updater';
 
 process.env[ 'NODE_TLS_REJECT_UNAUTHORIZED' ] = '0';
 
 export async function getActuaciones(
-  idProceso: number, index: number = 1
+  {
+    idProceso, index = 1
+  }:{  idProceso: number, index: number}
 ) {
       try {
         if ( idProceso === 0 ) {
@@ -16,7 +18,10 @@ export async function getActuaciones(
         }
 
         const request = await fetchActuaciones(
-          idProceso, index
+          {
+            idProceso,
+            index
+          }
         );
 
         if ( !request.ConsultaActuaciones ) {
@@ -56,16 +61,8 @@ export async function getActuaciones(
                     } as outActuacion;
           }
         );
-
-        const  ultimaActuacion = outActuaciones.find(
-          (
-            out
-          ) => {
-                    return out.isUltimaAct;
-          }
-        );
-        updateUltimaActuacionInPrisma(
-          ultimaActuacion ?? outActuaciones[ 0 ]
+        await updateActuacionesInPrisma(
+          outActuaciones
         );
         return outActuaciones;
       } catch ( error ) {

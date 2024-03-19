@@ -191,6 +191,7 @@
   --shape-corner-large-end: 0 1rem 1rem 0;
   --shape-corner-large-start: 1rem 0 0 1rem;
   --shape-corner-small: 0.6rem;
+  --shape-corner-extra-small: 0.4rem;
   --primary: rgb(0 74 85);
   --surface-tint: rgb(0 104 119);
   --on-primary: rgb(255 255 255);
@@ -299,6 +300,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  overflow-wrap: break-word;
 }
 
 :root,

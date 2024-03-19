@@ -5,8 +5,6 @@ import { outActuacion } from '#@/lib/types/actuaciones';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 
 
-//? Generate segments for [numero]
-
 export async function generateStaticParams() {
       const carpetas = await getCarpetas();
 
@@ -84,9 +82,12 @@ export default async function Page(
       }
 
       const actuaciones = await getActuaciones(
-        Number(
-          params.idProceso
-        )
+        {
+          idProceso: Number(
+            params.idProceso
+          ),
+          index: 1
+        }
       );
 
       if ( !actuaciones || actuaciones.length === 0 ) {

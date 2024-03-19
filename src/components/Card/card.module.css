@@ -1,3 +1,26 @@
+.actuacionContainer {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  border-radius: var(--shape-corner-medium);
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  display: grid;
+  grid-auto-rows: auto;
+  background-color: var(--surface-container-highest);
+}
+.actuacionContainer:hover {
+  box-shadow: var(--elevation-1);
+}
+.actuacionContainer .action {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: stretch;
+  align-content: stretch;
+  justify-items: stretch;
+}
+
 .container, .containerOutlinedEnabled, .containerFilledDisabled, .containerFilledEnabled {
   position: relative;
   box-sizing: border-box;

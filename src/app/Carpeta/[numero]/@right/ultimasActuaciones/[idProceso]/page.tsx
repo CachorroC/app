@@ -16,9 +16,12 @@ export default async function Page(
   }
 ) {
       const actuaciones = await getActuaciones(
-        Number(
-          idProceso
-        )
+        {
+          idProceso: Number(
+            idProceso
+          ),
+          index: 1
+        }
       );
 
       if ( !actuaciones ) {

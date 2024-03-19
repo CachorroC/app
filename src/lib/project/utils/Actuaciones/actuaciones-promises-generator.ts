@@ -1,4 +1,4 @@
-import {   RequestActuacion } from '#@/lib/types/actuaciones';
+
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { sleep } from '../../helper';
 
@@ -6,7 +6,7 @@ export async function getActuaciones (
   {
     numero, idProceso,
   }: {numero: number; idProceso: number;}
-): Promise<RequestActuacion> {
+) {
       try {
         if ( idProceso === 0 ) {
           throw new Error(
@@ -25,17 +25,7 @@ export async function getActuaciones (
             }
           }
         );
-
-        if ( !request.ok ) {
-          return request.json();
-
-        }
-
-        return {
-          Message            : request.statusText,
-          StatusCode         : request.status,
-          ConsultaActuaciones: await request.json()
-        };
+        return request.json();
 
       } catch ( error ) {
         return {

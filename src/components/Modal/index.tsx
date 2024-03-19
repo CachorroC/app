@@ -3,10 +3,14 @@ import { useCallback,
   useRef,
   useEffect,
   MouseEventHandler,
-  ReactNode, } from 'react';
+  ReactNode,
+  useState, } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './styles.module.css';
 import { useModalContext, useModalNoteContext } from '#@/app/Context/modal-context';
+import { useFormState, useFormStatus } from 'react-dom';
+import { addNote } from './actions';
+import { Snackbar } from './snackbar';
 
 export function Modal(
   {
@@ -41,12 +45,25 @@ export function Modal(
         }, [ router, setIsModalOpen ]
       );
 
+      const onBackspace = useCallback(
+        () => {
+                  console.log(
+                    'on backspace'
+                  );
+                  setIsModalOpen(
+                    false
+                  );
+                  router.back();
+
+        }, [ router, setIsModalOpen ]
+      );
+
       const onEnter = useCallback(
         () => {
                   setIsModalOpen(
                     false
                   );
-                  router.refresh();
+                  router.forward();
         },
         [ router, setIsModalOpen ],
       );
@@ -85,10 +102,10 @@ export function Modal(
                   }
 
                   if ( e.key === 'Escape' || e.key === 'Backspace' ) {
-                    onDismiss();
+                    onBackspace();
                   }
         },
-        [ onDismiss, onEnter ],
+        [ onBackspace, onEnter ],
       );
 
       useEffect(
@@ -208,5 +225,70 @@ export function ModalNote(
             {children}
           </div>
         </div> )}</>
+      );
+}
+
+
+function Submit() {
+      const {
+        pending
+      } = useFormStatus();
+      return (
+        <><Snackbar text={ 'submitted' } />
+          <button disabled={ pending }>Submit</button></> );
+}
+
+
+
+export function NewNotaComponent () {
+      const [ isOpen, setIsOpen ] = useState(
+        false
+      );
+
+      const [ state, formAction ] = useFormState(
+        addNote, {
+          value    : '',
+          submitted: false,
+          success  : false
+        }
+      );
+      return (
+        <>
+          <form action={ formAction } >
+
+
+            { isOpen && (
+              <fieldset>
+                <legend>Nueva Nota</legend>
+                <input type='text' defaultValue={ state.value } name='itemID' />
+                <input type='submit' />
+              </fieldset>
+            ) }
+            <button type={ 'button' } onClick={
+              () => {
+                        return setIsOpen(
+                          (
+                            e
+                          ) => {
+                                    return !e;
+                          }
+                        );
+              }
+            }>
+              <span className='material-symbols-outlined'>{
+                isOpen
+                  ? 'close'
+                  : 'note_stack_add'
+              }</span>
+              <span>nueva nota</span>
+            </button>
+            <Submit />
+          </form>
+          {
+            state.success && (
+              <Snackbar text={ 'successfully loaded to the server' } />
+            )
+          }
+        </>
       );
 }

@@ -8,12 +8,9 @@ export const revalidate = 86400;
 
 export default function Page () {
 
-
       return (
-
         <Suspense fallback={<LefttableLoader />}>
           <CarpetasTable />
         </Suspense>
-
       );
 }

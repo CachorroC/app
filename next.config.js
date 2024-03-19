@@ -5,6 +5,7 @@
  **/
 const nextConfig = {
   output      : 'standalone',
+  crossOrigin : 'use-credentials',
   experimental: {
     typedRoutes                     : true,
     caseSensitiveRoutes             : true,
@@ -15,12 +16,12 @@ const nextConfig = {
               source : '/:path*',
               headers: [ {
                 key  : 'CF-Access-Client-Id',
-                value: 'dac874230dcfcd71de02b41f5e78083c.access',
+                value: process.env.CF_ACCESS_CLIENT_ID ?? 'noId',
               },
               {
                 key: 'CF-Access-Client-Secret',
                 value:
-              'cd9f43a4ea535037f9a1d03fc82e2477020438e462bb076d7926c53ebbadeaf8',
+              process.env.CF_ACCESS_CLIENT_SECRET ?? 'noSecret',
               }, ],
             }, ];
   },

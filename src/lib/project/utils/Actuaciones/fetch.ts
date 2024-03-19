@@ -2,12 +2,14 @@ import { Message, RequestActuacion } from '#@/lib/types/actuaciones';
 import { sleep } from '../../helper';
 
 export default async function fetchActuaciones (
-  idProceso: number, index: number
+  {
+    idProceso, index
+  }:{  idProceso: number, index: number}
 ): Promise<RequestActuacion> {
       try {
 
         await sleep(
-          index 
+          index
         );
 
         const request = await fetch(

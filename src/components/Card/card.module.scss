@@ -1,3 +1,28 @@
+.actuacion {
+  &Container {
+    position: relative;
+    box-sizing: border-box;
+    flex: 1;
+    border-radius: var(--shape-corner-medium);
+    gap: 1rem;
+    padding: 1rem 0.5rem;
+    display: grid;
+    grid-auto-rows: auto;
+    background-color: var(--surface-container-highest);
+    &:hover {
+      box-shadow: var(--elevation-1);
+    }
+
+    .action {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-around;
+      align-items: stretch;
+      align-content: stretch;
+      justify-items: stretch;
+    }
+  }
+}
 .container {
   position: relative;
   box-sizing: border-box;
@@ -7,7 +32,6 @@
   padding: 1rem 0.5rem;
   display: flex;
   flex-flow: column nowrap;
-
   &:hover {
     box-shadow: var(--elevation-1);
   }
@@ -53,7 +77,6 @@
   gap: 0.5rem;
   border-radius: var(--shape-corner-medium);
   text-align: center;
-
   .content {
     text-align: center;
     box-sizing: border-box;

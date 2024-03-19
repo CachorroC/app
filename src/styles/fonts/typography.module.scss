@@ -130,7 +130,6 @@
 .titleLarge {
   font-family: var(--play-display);
   font-variation-settings: wght 800;
-  border-bottom: solid 0.3rem var(--tertiary);
   font-style: var(--title-large-font-family-style);
   font-size: var(--title-large-font-size);
   letter-spacing: var(--title-large-letter-spacing);
@@ -142,8 +141,6 @@
 .titleMedium {
   font-family: var(--josefa);
   font-style: var(--title-medium-font-family-style);
-  border-bottom: solid 0.2rem var(--secondary);
-  padding: 0 auto 3rem auto;
   font-weight: var(--title-medium-font-weight);
   font-size: var(--title-medium-font-size);
   letter-spacing: var(--title-medium-letter-spacing);
@@ -154,7 +151,6 @@
 
 .titleSmall {
   font-family: var(--josefa);
-  border-bottom: solid 0.1rem var(--primary);
   font-style: var(--title-small-font-family-style);
   font-weight: var(--title-small-font-weight);
   font-size: var(--title-small-font-size);

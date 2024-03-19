@@ -1,9 +1,10 @@
+import typography from '#@/styles/fonts/typography.module.css';
 
 // !prints the output of the datehelper
 export default function OutputDateHelper(
   {
-    incomingDate, className
-  }:{incomingDate: string | Date | null | undefined; className: string},
+    incomingDate, className, name
+  }:{incomingDate: string | Date | null | undefined; className: string; name?: string},
 ) {
       if ( !incomingDate || incomingDate === null || incomingDate === undefined ) {
         return 'sin especificar';
@@ -29,6 +30,12 @@ export default function OutputDateHelper(
         }
       );
       return (
-        <strong className={className}>{formatedValue}</strong>
+        <>
+
+          { name &&( <p className={typography.titleSmall}>{ `${ name }: `}</p> ) }
+
+          <strong className={ className } style={{
+            textAlign: 'right'
+          }}>{ formatedValue }</strong></>
       );
 }

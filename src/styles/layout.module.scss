@@ -179,10 +179,11 @@ $MaxSW: 480px; //maximum sma width
   grid-area: left;
   border-radius: var(--shape-corner-large);
   max-width: 100vw;
-  display: grid;
   padding: 2vmin;
-  gap: 2vmin;
   overflow: auto;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
   &Column {
     @extend .left;
@@ -342,7 +343,11 @@ $MaxSW: 480px; //maximum sma width
     }
   }
 }
-
+.gridContainer {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
 .loader {
   border: 10px solid var(--surface-container-high);
   /* Light grey */
@@ -435,7 +440,7 @@ $MaxSW: 480px; //maximum sma width
   &Row {
     @extend .segment;
     flex-flow: row nowrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
 
   &RowWrap {

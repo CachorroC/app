@@ -43,8 +43,11 @@ export default async function LayoutCarpetaMain(
               <Link href={`/Carpeta/${ params.numero }` as Route}>
                 {carpeta.deudor && (
                   <NombreComponent
-                    key={params.numero}
-                    deudor={carpeta.deudor}
+                    key={ params.numero }
+                    primerNombre={ carpeta.deudor.primerNombre }
+                    primerApellido={ carpeta.deudor.primerApellido }
+                    segundoApellido={ carpeta.deudor.segundoApellido }
+                    segundoNombre={ carpeta.deudor.segundoNombre }
                   />
                 )}
               </Link>

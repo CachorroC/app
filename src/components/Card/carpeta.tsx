@@ -27,7 +27,10 @@ export const CarpetaCard = (
                 {deudor && (
                   <NombreComponent
                     key={numero}
-                    deudor={deudor}
+                    primerNombre={ deudor.primerNombre }
+                    primerApellido={ deudor.primerApellido }
+                    segundoApellido={ deudor.segundoApellido }
+                    segundoNombre={ deudor.segundoNombre }
                   />
                 )}
                 <sub className={card.sub}>{carpeta.numero}</sub>

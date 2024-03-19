@@ -3,21 +3,21 @@ import { MetadataRoute } from 'next';
 export default function manifest(): MetadataRoute.Manifest {
 
       return {
-        short_name                 : 'Tulis',
-        name                       : 'RyS Asesoria Juridica Especializada S.A.S',
-        orientation                : 'any',
-        lang                       : 'es-CO',
-        dir                        : 'ltr',
-        scope                      : '/',
-        id                         : '/',
+        name                       : 'RyS Asesoria Juridica Especializada SAS',
+        short_name                 : 'RyS',
         background_color           : '#202b3a',
         theme_color                : '#7aa4dd',
         prefer_related_applications: false,
         display                    : 'standalone',
-        start_url                  : `https://${ process.env.BASE_URL }`,
+        start_url                  : `https://${ process.env.BASE_URL ?? 'app.rsasesorjuridico.com' }`,
         description                : 'Somos una firma legal comprometida con brindar something',
-        display_override           : [ 'standalone', 'minimal-ui', ],
-        shortcuts                  : [
+        display_override           : [ 'standalone', 'minimal-ui' ],
+        screenshots                : [ {
+          src  : '/desktop.png',
+          sizes: '2520x1412',
+          type : 'image/png',
+        } ],
+        shortcuts: [
           {
             name: 'Ultimas Actuaciones',
             description:
@@ -34,7 +34,7 @@ export default function manifest(): MetadataRoute.Manifest {
             url  : '/Notas',
             icons: [ {
               src    : '/icon.svg',
-              sizes  : '512x512',
+              sizes  : '150x150',
               purpose: 'any',
             }, ],
           },
@@ -43,7 +43,7 @@ export default function manifest(): MetadataRoute.Manifest {
             url  : '/Carpetas',
             icons: [ {
               src    : '/icon.svg',
-              sizes  : '512x512',
+              sizes  : '150x150',
               purpose: 'any',
             }, ],
           },
@@ -54,12 +54,12 @@ export default function manifest(): MetadataRoute.Manifest {
         icons: [
           {
             src    : '/icon.svg',
-            sizes  : '512x512',
+            sizes  : '150x150',
             purpose: 'maskable',
           },
           {
             src    : '/icon.svg',
-            sizes  : '512x512',
+            sizes  : '150x150',
             purpose: 'monochrome',
           },
           {

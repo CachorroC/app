@@ -14,6 +14,7 @@ declare const styles: {
   readonly 'buttonPassiveCategory': string;
   readonly 'container': string;
   readonly 'divission': string;
+  readonly 'gridContainer': string;
   readonly 'header': string;
   readonly 'icon': string;
   readonly 'label': string;

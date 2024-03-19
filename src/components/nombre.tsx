@@ -1,18 +1,42 @@
-import { Deudor } from '#@/lib/types/carpetas';
+
 import typography from '#@/styles/fonts/typography.module.css';
+
+function capitalizeFirstLetter(
+  string : string
+) {
+      return string.charAt(
+        0
+      )
+            .toUpperCase() + string.slice(
+        1
+      )
+            .toLowerCase();
+}
 
 export function NombreComponent(
   {
-    deudor
-  }: { deudor: Deudor }
+    primerNombre, segundoNombre, primerApellido, segundoApellido
+  }: { primerNombre: string; primerApellido: string; segundoNombre: string | null; segundoApellido: string | null}
 ) {
-      const nombres = deudor.segundoNombre
-        ? deudor.primerNombre + ' ' + deudor.segundoNombre
-        : deudor.primerNombre;
+      const nombres = segundoNombre
+        ? capitalizeFirstLetter(
+          primerNombre
+        )+ ' ' + capitalizeFirstLetter(
+          segundoNombre
+        )
+        : capitalizeFirstLetter(
+          primerNombre
+        );
 
-      const apellidos = deudor.segundoApellido
-        ? deudor.primerApellido + ' ' + deudor.segundoApellido
-        : deudor.primerApellido;
+      const apellidos = segundoApellido
+        ? capitalizeFirstLetter(
+          primerApellido
+        ) + ' ' + capitalizeFirstLetter(
+          segundoApellido
+        )
+        : capitalizeFirstLetter(
+          primerApellido
+        );
 
       const rawName = nombres + ' ' + apellidos;
 

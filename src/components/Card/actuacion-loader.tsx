@@ -1,16 +1,18 @@
 import styles from 'components/Card/card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { Loader } from '../Loader';
+import layout from '#@/styles/layout.module.css';
 
 export function ActuacionLoader() {
       return (
-        <td>
-          <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
-        Cargando
-          </h5>
+        <div className={styles.actuacionContainer}>
+          <div className={ layout.segmentRow }>
+            <h4 className={typography.titleMedium}>Actuación:</h4>
+            <h5 className={ typography.bodyMedium }>Cargando</h5>
+          </div>
           <span className="material-symbols-outlined">update</span>
           <Loader />
-        </td>
+        </div>
       );
 }
 

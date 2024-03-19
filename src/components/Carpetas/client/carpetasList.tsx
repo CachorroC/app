@@ -1,6 +1,6 @@
 'use client';
 import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
-import {  useDeferredValue } from 'react';
+import {  Suspense, useDeferredValue, } from 'react';
 import typography from '#@/styles/fonts/typography.module.css';
 import { ClientCardRow } from '#@/components/Card/client-card';
 import  OutputDateHelper from '#@/lib/project/output-date-helper';
@@ -8,6 +8,8 @@ import { Route } from 'next';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
 import { useRouter } from 'next/navigation';
+import { Loader } from '#@/components/Loader';
+import { TableRowCarpetaSortingButton } from './carpetasButtonsSort';
 
 export function ActuacionTableComponent (
   {
@@ -67,66 +69,70 @@ export function CarpetasTable() {
 
 
       return (
-        <>
-          { deferredCarpetas.map(
-            (
-              carpeta
-            ) => {
-                      const {
-                        ultimaActuacion, numero, nombre, fecha, category, llaveProceso, revisado,
-                      } = carpeta;
-                      return (
-                        <ClientCardRow
-                          key={numero }
-                          rowHref={`/Carpeta/${ numero }` as Route}
-                          carpeta={carpeta}
-                        >
-                          <td>{nombre.trim()
-                                .toLocaleLowerCase()}</td>
-                          <td>
-                            <OutputDateHelper incomingDate={ fecha } className={typography.bodySmall } />
-                          </td>
-                          <td>{category}</td>
+        <table>
+          <thead>
+            <tr>
+              <Suspense fallback={<Loader />}>
+                <TableRowCarpetaSortingButton sortKey={ 'numero' } />
+              </Suspense>
+              <Suspense fallback={<Loader/>}>
+                <TableRowCarpetaSortingButton sortKey={ 'nombre' } />
+              </Suspense>
+              <Suspense fallback={<Loader/>}>
+                <TableRowCarpetaSortingButton sortKey={ 'fecha' } />
+              </Suspense>
+              <Suspense fallback={<Loader/>}>
+                <TableRowCarpetaSortingButton sortKey={ 'category' } />
+              </Suspense>
+              <th>Actuaciones</th>
+              <th>Revisado</th>
+              <th>expediente</th>
+            </tr>
+          </thead>
+          <tbody>
+            { deferredCarpetas.map(
+              (
+                carpeta
+              ) => {
+                        const {
+                          ultimaActuacion, numero, nombre, fecha, category, llaveProceso, revisado,
+                        } = carpeta;
+                        return (
+                          <ClientCardRow
+                            key={numero }
+                            rowHref={`/Carpeta/${ numero }` as Route}
+                            carpeta={carpeta}
+                          >
+                            <td>{nombre.trim()
+                                  .toLocaleLowerCase()}</td>
+                            <td>
+                              <OutputDateHelper incomingDate={ fecha } className={typography.bodySmall } />
+                            </td>
+                            <td>{category}</td>
 
-                          { ultimaActuacion
-                            ? <ActuacionTableComponent numero={ numero } title={ ultimaActuacion.actuacion } content={ ultimaActuacion.anotacion } idProceso={ ultimaActuacion.idProceso}/>
-                            : <ActuacionTableErrorComponent/>
-                          }
-                          <td>
-                            <RevisadoCheckBox
-                              numero={numero}
-                              initialRevisadoState={revisado}
-                            />
-                          </td>
-                          <td>
-                            <CopyButton
-                              copyTxt={llaveProceso}
-                              name={'expediente'}
-                            />
-                          </td>
-                        </ClientCardRow>
-                      );
+                            { ultimaActuacion
+                              ? <ActuacionTableComponent numero={ numero } title={ ultimaActuacion.actuacion } content={ ultimaActuacion.anotacion } idProceso={ ultimaActuacion.idProceso}/>
+                              : <ActuacionTableErrorComponent/>
+                            }
+                            <td>
+                              <RevisadoCheckBox
+                                numero={numero}
+                                initialRevisadoState={revisado}
+                              />
+                            </td>
+                            <td>
+                              <CopyButton
+                                copyTxt={llaveProceso}
+                                name={'expediente'}
+                              />
+                            </td>
+                          </ClientCardRow>
+                        );
+              }
+            )
             }
-          ) }
 
-        </> );
-}
-
-export function CompleteCarpetasRows () {
-      const {
-        completeCarpetas
-      } = useCarpetaSort();
-      return ( <>
-        { completeCarpetas.map(
-          (
-            carpeta, index
-          ) => {
-                    return (
-                      <pre key={index}>{JSON.stringify(
-                        carpeta, null, 2
-                      )}</pre>
-                    );
-          }
-        ) }
-      </> );
+          </tbody>
+        </table>
+      );
 }

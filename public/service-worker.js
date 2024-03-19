@@ -16,8 +16,8 @@ self.addEventListener(
                         console.log(
                           cache
                         );
-                        await cache.addAll(
-                          [ '/general.xlsx', '/offline.html', ]
+                        await cache.add(
+                          '/offline.html'
                         );
               } )()
             );

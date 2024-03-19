@@ -2,8 +2,8 @@
 import typography from '#@/styles/fonts/typography.module.css';
 import styles from '#@/components/Card/card.module.css';
 import { fixFechas } from '#@/lib/project/helper';
-import { ActuacionClientContainer } from './actuacion-client-component';
-import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-promises-generator';
+import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
+import { ActuacionesContainer } from '#@/components/Actuaciones/actuaciones-list';
 
 /*
 async function getData(
@@ -81,15 +81,15 @@ export async function FechaActuacionComponent(
 ) {
       const promiseActs = getActuaciones(
         {
-          numero   : index,
+          index    : index,
           idProceso: idProceso
         }
       );
 
       return (
 
-        <ActuacionClientContainer
-          consultaActuacionesPromise={promiseActs}
+        <ActuacionesContainer
+          actuacionesPromise={promiseActs}
           key={idProceso}
         />
       );
@@ -105,16 +105,14 @@ export async function FechaActuacionComponentAlt(
   }
 ) {
 
-      const {
-        ConsultaActuaciones
-      } = await getActuaciones(
+      const actuaciones = await getActuaciones(
         {
-          numero   : index,
+          index    : index,
           idProceso: idProceso
         }
       );
 
-      if ( !ConsultaActuaciones || ConsultaActuaciones.actuaciones.length === 0 ) {
+      if ( !actuaciones || actuaciones.length === 0 ) {
 
 
         return (
@@ -133,7 +131,7 @@ export async function FechaActuacionComponentAlt(
         );
       }
 
-      const [ ultimaActuacion ] = ConsultaActuaciones.actuaciones;
+      const [ ultimaActuacion ] = actuaciones;
 
       const {
         actuacion, fechaActuacion, anotacion, consActuacion, cant
