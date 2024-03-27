@@ -1,17 +1,17 @@
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { FechaActuacionComponent } from './actuaciones';
 import { Suspense } from 'react';
-import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
+import { ActuacionLoader } from '#@/components/Actuaciones/actuacion-loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import styles from '#@/components/Card/card.module.css';
 import { ClientCardRow } from '#@/components/Card/client-card';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { RevisadoCheckBox } from '../revisado-checkbox';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { Route } from 'next';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { TableRowCarpetaSortingButton } from '#@/components/Carpetas/client/carpetasButtonsSort';
 import { Loader } from '#@/components/Loader';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export type SortActionType = {
   dir: 'asc'| 'dsc';
@@ -244,7 +244,7 @@ export default async function Page(
           <tbody>
             {carpetas.flatMap(
               (
-                carpeta, index
+                carpeta,
               ) => {
                         const {
                           idProcesos, numero, nombre, fecha, llaveProceso, category, revisado
@@ -265,9 +265,9 @@ export default async function Page(
                                       >
                                         <td>{numero}</td>
                                         <td>{nombre}</td>
-                                        <td>{OutputDateHelper(
-                                          fecha
-                                        )}</td>
+                                        <td>
+                                          <OutputDateHelper incomingDate={  fecha } />
+                                        </td>
                                         <td>{category}</td>
 
                                         <td>
@@ -292,7 +292,6 @@ export default async function Page(
                                                 <Suspense fallback={ <ActuacionLoader /> }>
                                                   <FechaActuacionComponent
                                                     idProceso={idProceso}
-                                                    index={index}
                                                     key={idProceso}
                                                   />
                                                 </Suspense>

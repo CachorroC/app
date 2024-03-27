@@ -1,53 +1,63 @@
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
-import { outActuacion } from '#@/lib/types/actuaciones';
-import { ActuacionComponent } from '#@/components/Card/actuacion-component';
-import  { ActuacionesLoader } from '#@/components/Card/actuacion-loader';
+import  { ActuacionesLoader } from '#@/components/Actuaciones/actuacion-loader';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { Modal } from '#@/components/Modal';
 import { NombreComponent } from '#@/components/nombre';
 import styles from '#@/styles/layout.module.css';
+import { ActuacionesListContainer } from '#@/components/Actuaciones/actuaciones-list';
+import { Loader } from '#@/components/Loader';
+import { Metadata } from 'next';
 
-async function ActuacionesList (
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: { numero: string };
+  }
+): Promise<Metadata> {
+      const {
+        numero
+      } = params;
+
+      const product = await getCarpetabyNumero(
+        Number(
+          numero
+        )
+      );
+
+      if ( !product ) {
+        return {
+          title: 'sin carpeta',
+        };
+      }
+
+      const returnedMetadata: Metadata = {
+        title      : product.nombre,
+        description: `el proceso de ${ product.nombre }`,
+      };
+      return returnedMetadata;
+}
+
+async function ActuacionesListModalget (
   {
     idProceso
-  }: {idProceso: number}
+  }: {idProceso: number; }
 ) {
-      const actuaciones = await getActuaciones(
+      const actuacionesPromise = getActuaciones(
         {
           idProceso: Number(
             idProceso
           ),
-          index: 1
         }
       );
 
       return (
-        <div className={styles.gridContainer}>
-          {
-            actuaciones.map(
-              (
-                actuacion
-              ) => {
-                        const newActuacion: outActuacion = {
-                          ...actuacion,
-                          isUltimaAct: actuacion.cant === actuacion.consActuacion,
-                          idProceso  : Number(
-                            idProceso
-                          ),
-                        };
-                        return (
-                          <Suspense key={newActuacion.idRegActuacion}fallback={<ActuacionesLoader />}>
-                            <ActuacionComponent
-                              key={newActuacion.idRegActuacion}
-                              incomingActuacion={newActuacion}
-                            />
-                          </Suspense>
-                        );
-              }
-            ) }
-        </div> );
+        <Suspense fallback={<Loader />}>
+          <ActuacionesListContainer actuacionesPromise={  actuacionesPromise} />
+        </Suspense>
+      );
 
 }
 
@@ -85,7 +95,7 @@ export default async function Page(
 
 
           <Suspense fallback={<ActuacionesLoader />}>
-            <ActuacionesList  idProceso={Number(
+            <ActuacionesListModalget  idProceso={Number(
               params.idProceso
             )} />
           </Suspense>

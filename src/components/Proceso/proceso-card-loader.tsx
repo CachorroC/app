@@ -1,6 +1,6 @@
 import layout from '#@/styles/layout.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
-import { ActuacionLoader } from '../Card/actuacion-loader';
+import { ActuacionLoader } from '../Actuaciones/actuacion-loader';
 
 export const ProcesoCardLoader = () => {
           return (

@@ -1,7 +1,7 @@
 'use client';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { useNotaSort } from '../Context/notas-sort-context';
 import { Nota } from './nota';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 
 export default function PrismaNotas() {
       const notas = useNotaSort();
@@ -25,9 +25,9 @@ export default function PrismaNotas() {
                         return (
 
                           <Nota key={ nota.id } nota={ nota } >
-                            <td>{OutputDateHelper(
-                              nota.createdAt
-                            )}</td>
+                            <td>
+                              <OutputDateHelper incomingDate={ nota.createdAt } />
+                            </td>
                           </Nota>
 
                         );

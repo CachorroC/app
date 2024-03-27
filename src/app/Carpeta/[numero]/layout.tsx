@@ -2,13 +2,48 @@ import { CarpetaFormProvider } from '#@/app/Context/carpeta-form-context';
 import { Loader } from '#@/components/Loader';
 import { NombreComponent } from '#@/components/nombre';
 import styles from '#@/styles/layout.module.css';
-import { Route } from 'next';
+import { Metadata, Route } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import { ExpedienteFormComponent } from './expediente-form-component';
+
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: { numero: string };
+  }
+): Promise<Metadata> {
+      const {
+        numero
+      } = params;
+
+      const product = await getCarpetabyNumero(
+        Number(
+          numero
+        )
+      );
+
+      if ( !product ) {
+        return {
+          title: 'sin carpeta',
+        };
+      }
+
+      return {
+        title   : product.nombre,
+        keywords: [
+          product.nombre,
+          product.tipoProceso,
+          product.numero.toString(),
+          product.tipoProceso,
+          product.category,
+        ],
+      };
+}
 
 export default async function LayoutCarpetaMain(
   {

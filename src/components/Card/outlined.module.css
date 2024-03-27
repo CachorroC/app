@@ -1,0 +1,22 @@
+.container, .containerEnabled {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  border-radius: var(--shape-corner-medium);
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.container:hover, .containerEnabled:hover {
+  box-shadow: var(--elevation-1);
+}
+.containerEnabled {
+  background-color: var(--surface);
+  border: 0.1rem solid var(--outline-variant);
+}
+.containerEnabled:hover {
+  box-shadow: var(--elevation-1);
+}
+
+/*# sourceMappingURL=outlined.module.css.map */

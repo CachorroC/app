@@ -3,13 +3,13 @@ import { sleep } from '../../helper';
 
 export default async function fetchActuaciones (
   {
-    idProceso, index
-  }:{  idProceso: number, index: number}
+    idProceso
+  }:{  idProceso: number, }
 ): Promise<RequestActuacion> {
       try {
 
         await sleep(
-          index
+          idProceso
         );
 
         const request = await fetch(

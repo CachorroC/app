@@ -5,8 +5,8 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { useNavigationContext } from '#@/app/Context/navigation-context';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export function LinkCard<T extends string = string>(
   {
@@ -15,33 +15,30 @@ export function LinkCard<T extends string = string>(
   }: {
     path: Route<T> | URL;
     carpeta: MonCarpeta;
-  } 
+  }
 ) {
       let content;
 
       const {
-        fecha, numero, nombre 
+        fecha, numero, nombre
       } = carpeta;
 
       const {
-        setIsNavOpen 
+        setIsNavOpen
       } = useNavigationContext();
 
       const params = useParams();
 
       const isActive = numero === Number(
-        params.numero 
+        params.numero
       );
 
       function handleClickNavigation() {
             setIsNavOpen(
-              false 
+              false
             );
       }
 
-      const stringifiedFecha = OutputDateHelper(
-        fecha 
-      );
 
       if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
         content = (
@@ -64,14 +61,18 @@ export function LinkCard<T extends string = string>(
                 {nombre}
               </h4>
 
-              {fecha && <sub className={searchbar.date}>{stringifiedFecha}</sub>}
+              { fecha && (
+                <sub className={ searchbar.date }>
+                  <OutputDateHelper incomingDate={ fecha } />
+                </sub>
+              ) }
             </Link>
           </td>
         );
       } else {
         content = carpeta.idProcesos.map(
           (
-            idProceso 
+            idProceso
           ) => {
                     return (
                       <td key={idProceso}>
@@ -92,11 +93,13 @@ export function LinkCard<T extends string = string>(
                             {nombre}
                           </h4>
 
-                          {fecha && <sub className={searchbar.date}>{stringifiedFecha}</sub>}
+                          { fecha && (
+                            <sub className={ searchbar.date }>
+                              <OutputDateHelper incomingDate={ fecha } /></sub> ) }
                         </Link>
                       </td>
                     );
-          } 
+          }
         );
       }
 

@@ -8,6 +8,7 @@ import card from 'components/Card/card.module.css';
 import { button } from '../Buttons/buttons.module.css';
 import layout from '#@/styles/layout.module.css';
 import { MonCarpeta } from '#@/lib/types/carpetas';
+import { containerEnabled } from './filled.module.css';
 
 export const CarpetaCard = (
   {
@@ -20,7 +21,7 @@ export const CarpetaCard = (
 
           return (
             <div
-              className={styles.container}
+              className={containerEnabled}
               key={numero}
             >
               <div className={styles.card}>

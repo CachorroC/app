@@ -1,9 +1,6 @@
 
-import typography from '#@/styles/fonts/typography.module.css';
-import styles from '#@/components/Card/card.module.css';
-import { fixFechas } from '#@/lib/project/helper';
 import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
-import { ActuacionesContainer } from '#@/components/Actuaciones/actuaciones-list';
+import { ActuacionesSlideshowContainer } from '#@/components/Actuaciones/actuaciones-slideshow';
 
 /*
 async function getData(
@@ -73,89 +70,21 @@ async function getData(
 export async function FechaActuacionComponent(
   {
     idProceso,
-    index,
   }: {
     idProceso: number;
-    index: number;
   }
 ) {
       const promiseActs = getActuaciones(
         {
-          index    : index,
           idProceso: idProceso
         }
       );
 
       return (
 
-        <ActuacionesContainer
+        <ActuacionesSlideshowContainer
           actuacionesPromise={promiseActs}
           key={idProceso}
         />
-      );
-}
-
-export async function FechaActuacionComponentAlt(
-  {
-    idProceso,
-    index,
-  }: {
-    idProceso: number;
-    index: number;
-  }
-) {
-
-      const actuaciones = await getActuaciones(
-        {
-          index    : index,
-          idProceso: idProceso
-        }
-      );
-
-      if ( !actuaciones || actuaciones.length === 0 ) {
-
-
-        return (
-          <>
-            <h5 style={{
-              backgroundColor: 'var(--error-container)',
-              color          : 'var(--on-error-container)'
-            }} className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
-            Sin Actuaciones
-            </h5>
-            <sub className={typography.labelSmall}>0 de 0</sub>
-            <sub className={typography.labelMedium}>
-              {`Existe el idProceso ${ idProceso } pero este no contiene actuaciones o arrojó un error`}
-            </sub>
-          </>
-        );
-      }
-
-      const [ ultimaActuacion ] = actuaciones;
-
-      const {
-        actuacion, fechaActuacion, anotacion, consActuacion, cant
-      }
-    = ultimaActuacion;
-
-      return (
-        <>
-
-          <h5 className={` ${ styles.actuacion } ${ typography.titleSmall }`}>
-            {actuacion}
-          </h5>
-          <sub
-            className={typography.labelSmall}
-          >{`${ consActuacion } de ${ cant }`}</sub>
-
-          <sub
-            className={typography.labelMedium}
-          >{ anotacion
-              ? anotacion
-              : `actuacion registrada el ${ fixFechas(
-                fechaActuacion
-              ) }`}</sub>
-
-        </>
       );
 }

@@ -78,7 +78,6 @@ export default function InformationComponent(
                             <FechaActuacionComponent
                               key={idProceso}
                               idProceso={idProceso}
-                              index={numero}
                             />
                           </Suspense>
                         </ProcesoCard>
@@ -95,7 +94,7 @@ export default function InformationComponent(
           <div className={layout.sectionColumn}>
             <h2 className={typography.titleMedium}>{`Carpeta número ${ numero }`}</h2>
             {fecha && (
-              <OutputDateHelper incomingDate={ fecha} className={ typography.labelLarge } />
+              <OutputDateHelper incomingDate={ fecha}  />
             )}
             <div className={layout.segmentColumn}>
               <div className={layout.segmentRowWrap}>
@@ -185,9 +184,7 @@ export default function InformationComponent(
                   pagare, index
                 ) => {
                           return (
-
-                            <OutputDateHelper incomingDate={ pagare } className={ typography.labelMedium} key={index}/>
-
+                            <OutputDateHelper incomingDate={ pagare }  key={index}/>
                           );
                 }
               )}
@@ -195,7 +192,7 @@ export default function InformationComponent(
           )}
 
           {demanda?.entregaGarantiasAbogado && (
-            <OutputDateHelper incomingDate={demanda.entregaGarantiasAbogado } className={ typography.labelSmall } />
+            <OutputDateHelper incomingDate={demanda.entregaGarantiasAbogado }  />
           )}
 
           {demanda?.capitalAdeudado

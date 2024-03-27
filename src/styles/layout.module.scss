@@ -156,7 +156,8 @@ $MaxSW: 480px; //maximum sma width
   color: var(--on-surface);
   gap: 0;
   justify-content: space-between;
-  align-items: stretch;
+  align-items: center;
+  padding: 0 1rem;
   grid-area: top;
   &:first-child {
     flex: 0 1 40%;

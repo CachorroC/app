@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { inputElement,
   slider,
   switchBox, } from '#@/components/Form/form.module.css';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { fixMoney } from '#@/lib/project/helper';
 import styles from '#@/styles/layout.module.css';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export default async function PrismaCarpetas() {
       const rawCarpetas = await prisma.carpeta.findMany(
@@ -145,9 +145,9 @@ export default async function PrismaCarpetas() {
                             </label>
                           </td>
 
-                          <td>{OutputDateHelper(
-                            carpeta.fecha
-                          )}</td>
+                          <td>
+                            <OutputDateHelper incomingDate={ carpeta.fecha} />
+                          </td>
                           <td>
                             <CopyButton
                               copyTxt={carpeta.llaveProceso}

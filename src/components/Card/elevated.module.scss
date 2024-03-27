@@ -1,0 +1,45 @@
+.container {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  border-radius: var(--shape-corner-medium);
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+  &:before {
+    position: absolute;
+    background-color: var(--on-surface);
+    border-radius: var(--shape-corner-medium);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    content: '';
+    opacity: 0;
+  }
+  &Enabled {
+    @extend .container;
+    background-color: var(--surface-container-low);
+    box-shadow: var(--elevation-1);
+  }
+  &Disabled {
+    @extend .container;
+    background-color: var(--surface-variant);
+    box-shadow: var(--elevation-0);
+    opacity: 0.38;
+  }
+  &:hover {
+    box-shadow: var(--elevation-2);
+    &:before {
+      opacity: 0.08;
+    }
+  }
+  &:focus {
+    border: 0.3rem solid var(--secondary);
+    box-shadow: var(--elevation-1);
+    &:before {
+      opacity: 0.08;
+    }
+  }
+}

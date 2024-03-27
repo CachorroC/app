@@ -1,10 +1,10 @@
 'use client';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { unstable_noStore as noStore } from 'next/cache';
 import { useFacturaSort } from './facturas-context-provider';
 import { fixMoney } from '#@/lib/project/helper';
 import { TableRowFacturaSortingButton } from './contabilidad-buttons-sort';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export default function Page() {
       noStore();
@@ -77,9 +77,9 @@ export default function Page() {
                                 )}
                               </strong>
                             </td>
-                            <td>{OutputDateHelper(
-                              factura.fecha
-                            )}</td>
+                            <td>
+                              <OutputDateHelper incomingDate={  factura.fecha} />
+                            </td>
                             <td>
                               <CopyButton
                                 copyTxt={`${ factura.nit }-${ factura.dv }`}

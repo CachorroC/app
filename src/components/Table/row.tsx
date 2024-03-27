@@ -1,11 +1,11 @@
 'use client';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { CopyButton } from '../Buttons/copy-buttons';
 import { switchBox, inputElement, slider } from '../Nota/note.module.css';
 import { useCategory } from '#@/app/Context/category-context';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export function CarpetaUltimaActuacionRow(
   {
@@ -14,10 +14,10 @@ export function CarpetaUltimaActuacionRow(
   }: {
     children: ReactNode;
     carpeta: IntCarpeta;
-  } 
+  }
 ) {
       const {
-        currentCategory 
+        currentCategory
       } = useCategory();
 
       if ( currentCategory !== 'todos' && currentCategory !== carpeta.category ) {
@@ -53,9 +53,9 @@ export function CarpetaUltimaActuacionRow(
             </label>
           </td>
 
-          <td>{OutputDateHelper(
-            carpeta.fecha 
-          )}</td>
+          <td>
+            <OutputDateHelper incomingDate={carpeta.fecha} />
+          </td>
           <td>
             <CopyButton
               copyTxt={carpeta.llaveProceso}

@@ -7,13 +7,13 @@ import { Loader } from '#@/components/Loader';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
 import { Nota } from '#@/app/Notas/nota';
 import { NotasSortProvider } from '#@/app/Context/notas-sort-context';
-import card from 'components/Card/card.module.css';
 import { NotasLinkList } from '../notas-list';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
+import { containerEnabled } from '#@/components/Card/filled.module.css';
 
 async function NotasList(
   {
@@ -46,9 +46,9 @@ async function NotasList(
                               nota={nota}
                               key={nota.id}
                             >
-                              <td>{OutputDateHelper(
-                                nota.dueDate
-                              )}</td>
+                              <td>
+                                <OutputDateHelper incomingDate={ nota.dueDate} />
+                              </td>
                             </Nota>
                           );
                 }
@@ -204,7 +204,7 @@ export default async function Page(
         <>
 
           {llaveProceso && (
-            <div className={card.container}>
+            <div className={containerEnabled}>
               <Suspense fallback={<Loader />}>
                 <CopyButton
                   key={numero}
@@ -214,7 +214,7 @@ export default async function Page(
               </Suspense>
             </div>
           )}
-          <div className={ card.container }>
+          <div className={containerEnabled}>
             <h1>Notas</h1>
             <Suspense fallback={<SearchOutputListSkeleton />}>
               <NotasList carpetaNumero={Number(
@@ -230,7 +230,7 @@ export default async function Page(
               />
             </Suspense>
           </div>
-          <div className={card.container}>
+          <div className={containerEnabled}>
             <Suspense fallback={<Loader />}>
               {fechasMaper.map(
                 (
@@ -243,10 +243,7 @@ export default async function Page(
                             >
                               <h5 className={typography.titleMedium}>{fechaMap.name}</h5>
                               <p className={typography.labelMedium}>
-                                {' '}
-                                {OutputDateHelper(
-                                  fechaMap.date
-                                )}
+                                <OutputDateHelper incomingDate={  fechaMap.date} />
                               </p>
                             </div>
                           );

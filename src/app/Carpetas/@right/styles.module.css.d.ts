@@ -3,6 +3,8 @@ declare const styles: {
   readonly 'buttonCategoryActive': string;
   readonly 'buttonCategoryPasive': string;
   readonly 'segmentedButtons': string;
+  readonly 'segmentedButtonsColumn': string;
+  readonly 'segmentedButtonsRow': string;
 };
 export = styles;
 

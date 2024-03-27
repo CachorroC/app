@@ -1,10 +1,11 @@
 import { Loader } from '#@/components/Loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import card from 'components/Card/card.module.css';
+import { containerEnabled } from './outlined.module.css';
 
 export const CardSkeleton = () => {
           return (
-            <div className={card.container}>
+            <div className={containerEnabled}>
               <div className={card.card}>
                 <h1 className={`${ typography.displayMedium } ${ card.title }`}>
                   {'Nombre'}

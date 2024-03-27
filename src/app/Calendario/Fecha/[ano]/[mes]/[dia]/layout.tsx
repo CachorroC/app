@@ -1,6 +1,6 @@
 import { CalendarContextProvider } from '#@/app/Context/calendario-context';
 import { LabelBoundary } from '#@/components/layout/boundary';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { ReactNode } from 'react';
 
 export default function Layout(
@@ -10,27 +10,26 @@ export default function Layout(
   }: {
     params: { ano: string; mes: string; dia: string };
     children: ReactNode;
-  } 
+  }
 ) {
       const segmentDate = new Date(
         Number(
-          params.ano 
+          params.ano
         ),
         Number(
-          params.mes 
+          params.mes
         ) - 1,
         Number(
-          params.dia 
+          params.dia
         ),
       );
 
-      const dateOutput = OutputDateHelper(
-        segmentDate 
-      );
       return (
         <>
           <LabelBoundary color={'tertiary'}>
-            <h1>{dateOutput}</h1>
+            <h1>
+              <OutputDateHelper incomingDate={segmentDate } />
+            </h1>
             <CalendarContextProvider date={segmentDate}>
               {children}
             </CalendarContextProvider>

@@ -40,7 +40,7 @@ export const sleep = (
               resolve
             ) => {
                       return setTimeout(
-                        resolve, ms *200
+                        resolve, ms
                       );
             }
           );

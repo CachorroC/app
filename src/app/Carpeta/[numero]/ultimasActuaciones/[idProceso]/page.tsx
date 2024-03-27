@@ -1,4 +1,4 @@
-import { ActuacionComponent } from '#@/components/Card/actuacion-component';
+import { ActuacionComponent } from '#@/components/Actuaciones/actuacion-component';
 import { notFound } from 'next/navigation';
 import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
 import { outActuacion } from '#@/lib/types/actuaciones';
@@ -86,7 +86,6 @@ export default async function Page(
           idProceso: Number(
             params.idProceso
           ),
-          index: 1
         }
       );
 

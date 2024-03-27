@@ -1,46 +1,53 @@
-import { carpetasCollection } from '#@/lib/connection/collections';
+
+import { prisma } from '#@/lib/connection/prisma';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
       try {
-        const collection = await carpetasCollection();
-
-        const carpetasRaw = await collection.find(
-          {} 
-        )
-              .toArray();
-
-        const carpetas = carpetasRaw.map(
-          (
-            rawCarpeta 
-          ) => {
-                    return {
-                      ...rawCarpeta,
-                      _id: rawCarpeta._id.toString(),
-                    };
-          } 
-        );
-
-        /* const carpetas = await prisma.carpeta.findMany(
+        const carpetas = await prisma.carpeta.findMany(
           {
             include: {
-              Proceso        : true,
               ultimaActuacion: true,
-              Demanda        : true,
-              Deudor         : true,
-              tareas         : true
+              deudor         : true,
+              codeudor       : true,
+              notas          : true,
+              tareas         : true,
+              demanda        : {
+                include: {
+                  notificacion: {
+                    include: {
+                      notifiers: true,
+                    },
+                  },
+                  medidasCautelares: true,
+                },
+              },
+              procesos: {
+                include: {
+                  juzgado: true,
+                },
+              },
+            },
+            orderBy: {
+              fecha: {
+                sort : 'desc',
+                nulls: 'last'
+              },
             }
           }
-        ); */
+        );
+
+
+
         return NextResponse.json(
-          carpetas 
+          carpetas
         );
       } catch ( error ) {
         console.log(
-          `error en Api/Carpetas: ${ error }` 
+          `error en Api/Carpetas: ${ error }`
         );
         return NextResponse.json(
-          [] 
+          []
         );
       }
 }

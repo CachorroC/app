@@ -1,0 +1,29 @@
+.container, .containerDisabled, .containerEnabled {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  border-radius: var(--shape-corner-medium);
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.container:hover, .containerDisabled:hover, .containerEnabled:hover {
+  box-shadow: var(--elevation-1);
+}
+.containerEnabled {
+  background-color: var(--surface-container-high);
+  box-shadow: var(--elevation-0);
+}
+.containerEnabled > .containerEnabled {
+  background-color: var(--surface-container-highest);
+}
+.containerEnabled:hover {
+  box-shadow: var(--elevation-1);
+}
+.containerDisabled {
+  background-color: var(--surface-variant);
+  opacity: 0.38;
+}
+
+/*# sourceMappingURL=filled.module.css.map */

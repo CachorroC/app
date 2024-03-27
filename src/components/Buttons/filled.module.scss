@@ -1,0 +1,15 @@
+.button {
+  border-radius: var(--shape-corner-full);
+  height: 2.8rem;
+  &Enabled {
+    @extend .button;
+    &:link {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    &:visited {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+  }
+}

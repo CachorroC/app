@@ -5,9 +5,10 @@ import styles from './card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import layout from '#@/styles/layout.module.css';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { CopyButton } from '../Buttons/copy-buttons';
 import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
+import { containerEnabled } from './filled.module.css';
 
 export const Card = (
   {
@@ -59,7 +60,7 @@ export const Card = (
           }
 
           return (
-            <div className={styles.container}>
+            <div className={containerEnabled}>
               <div
                 className={`${ styles.card } ${
                   errorLLaveProceso && styles.errorContainer
@@ -177,9 +178,9 @@ export const CardRow = (
                   </Link>
                 }
               </td>
-              <td>{OutputDateHelper(
-                carpeta.fecha
-              )}</td>
+              <td>
+                <OutputDateHelper incomingDate={carpeta.fecha } />
+              </td>
 
               <td>{carpeta.category}</td>
               {errorLLaveProceso

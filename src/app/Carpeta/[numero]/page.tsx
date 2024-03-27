@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import button from '#@/components/Buttons/buttons.module.css';
 import { fixMoney } from '#@/lib/project/helper';
 import typography from '#@/styles/fonts/typography.module.css';
-import type { Metadata, Route } from 'next';
+import type {  Route } from 'next';
 import { Suspense } from 'react';
 import layout from '#@/styles/layout.module.css';
 import { Loader } from '#@/components/Loader';
@@ -12,7 +12,7 @@ import { ProcesoCard } from '#@/components/Proceso/server-components';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { InputSection } from '#@/components/Form/input-section';
 import { DeudorFormComponent } from '../../../components/Form/deudor-form-component';
-import { ActuacionLoader } from '#@/components/Card/actuacion-loader';
+import { ActuacionLoader } from '#@/components/Actuaciones/actuacion-loader';
 import { JuzgadoComponent } from '#@/components/Proceso/juzgado-component';
 import { getProceso } from '#@/lib/project/utils/Procesos';
 import styles from './styles.module.css';
@@ -21,40 +21,6 @@ import FruitPicker from '#@/components/Buttons/etapaProsesalSelector';
 
 //SECTION Generate metadata for [numero]
 
-export async function generateMetadata(
-  {
-    params,
-  }: {
-    params: { numero: string };
-  }
-): Promise<Metadata> {
-      const {
-        numero
-      } = params;
-
-      const product = await getCarpetabyNumero(
-        Number(
-          numero
-        )
-      );
-
-      if ( !product ) {
-        return {
-          title: 'sin carpeta',
-        };
-      }
-
-      return {
-        title   : product.nombre,
-        keywords: [
-          product.nombre,
-          product.tipoProceso,
-          product.numero.toString(),
-          product.tipoProceso,
-          product.category,
-        ],
-      };
-}
 
 async function ProcesosComponent(
   {
@@ -77,7 +43,7 @@ async function ProcesosComponent(
         <>
           {procesos.map(
             (
-              proceso, index
+              proceso,
             ) => {
                       const {
                         idProceso
@@ -124,7 +90,7 @@ async function ProcesosComponent(
                                 <FechaActuacionComponent
                                   key={idProceso}
                                   idProceso={idProceso}
-                                  index={index}
+
                                 />
                               </Suspense>
                             </ProcesoCard>

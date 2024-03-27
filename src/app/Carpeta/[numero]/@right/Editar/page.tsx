@@ -5,8 +5,8 @@ import form from 'components/Form/form.module.css';
 import layout from '#@/styles/layout.module.css';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import styles from '#@/app/Carpetas/@right/Nueva/styles.module.css';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { fixMoney } from '#@/lib/project/helper';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export default function Page() {
       const {
@@ -60,9 +60,9 @@ export default function Page() {
               demanda.capitalAdeudado?.toString() ?? ''
             )}</p>
             <div className={styles.divider}></div>
-            <pre>{OutputDateHelper(
-              demanda?.entregaGarantiasAbogado
-            )}</pre>
+            <pre>
+              <OutputDateHelper incomingDate={ demanda?.entregaGarantiasAbogado} />
+            </pre>
             <div className={styles.divider}></div>
 
             <pre>{JSON.stringify(

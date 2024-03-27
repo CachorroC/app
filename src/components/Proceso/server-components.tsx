@@ -3,7 +3,7 @@ import { outProceso } from 'types/procesos';
 import { fixDemandado } from '#@/lib/project/helper';
 import { getProceso } from '#@/lib/project/utils/Procesos';
 import { ReactNode, Suspense } from 'react';
-import { ActuacionLoader } from '../Card/actuacion-loader';
+import { ActuacionLoader } from '../Actuaciones/actuacion-loader';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { JuzgadoComponent } from './juzgado-component';
 import { Loader } from '../Loader';
@@ -72,7 +72,7 @@ export async function ProcesosComponent(
         <>
           {procesos.map(
             (
-              proceso, index
+              proceso
             ) => {
                       const {
                         idProceso
@@ -86,7 +86,6 @@ export async function ProcesosComponent(
                             <FechaActuacionComponent
                               key={idProceso}
                               idProceso={idProceso}
-                              index={index}
                             />
                           </Suspense>
                           <Suspense fallback={<Loader />}>

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.css';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export default async function Page(
   {
@@ -20,7 +20,7 @@ export default async function Page(
           idProceso: Number(
             idProceso
           ),
-          index: 1
+
         }
       );
 
@@ -39,10 +39,9 @@ export default async function Page(
             ) => {
                       return (
                         <li key={actuacion.idRegActuacion}>
-                          {`actuacion numero ${ actuacion.consActuacion }de ${ actuacion.cant }`}
-                          {OutputDateHelper(
-                            actuacion.fechaRegistro
-                          )}
+                          { `actuacion numero ${ actuacion.consActuacion }de ${ actuacion.cant }` }
+                          <OutputDateHelper incomingDate={ actuacion.fechaRegistro } />
+
                         </li>
                       );
             }

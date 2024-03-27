@@ -6,11 +6,48 @@
   align-items: stretch;
   align-content: stretch;
   padding: 0;
-  flex-flow: column nowrap;
   @media (width < 600px) {
     flex-flow: row wrap;
     align-items: center;
     justify-content: flex-start;
+  }
+  &Row {
+    @extend .segmentedButtons;
+    flex-flow: row nowrap;
+    .button {
+      &:first-child {
+        border-radius: var(--shape-corner-large-start);
+      }
+      &:last-child {
+        border-radius: var(--shape-corner-large-end);
+      }
+      &:only-child {
+        border-radius: var(--shape-corner-large);
+      }
+    }
+  }
+  &Column {
+    @extend .segmentedButtons;
+    flex-flow: column nowrap;
+    .button {
+      &:first-child {
+        border-radius: var(--shape-corner-large-top);
+      }
+      &:last-child {
+        border-radius: var(--shape-corner-large-bottom);
+      }
+      &:only-child {
+        border-radius: var(--shape-corner-large);
+      }
+      @media (width < 600px) {
+        &:first-child {
+          border-radius: var(--shape-corner-large-start);
+        }
+        &:last-child {
+          border-radius: var(--shape-corner-large-end);
+        }
+      }
+    }
   }
 }
 .button {
@@ -47,23 +84,7 @@
       opacity: 0.1;
     }
   }
-  &:first-child {
-    border-radius: var(--shape-corner-large-top);
-  }
-  &:last-child {
-    border-radius: var(--shape-corner-large-bottom);
-  }
-  &:only-child {
-    border-radius: var(--shape-corner-large);
-  }
-  @media (width < 600px) {
-    &:first-child {
-      border-radius: var(--shape-corner-large-start);
-    }
-    &:last-child {
-      border-radius: var(--shape-corner-large-end);
-    }
-  }
+
   &Category {
     &Pasive {
       @extend .button;

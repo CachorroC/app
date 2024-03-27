@@ -1,4 +1,4 @@
-.segmentedButtons {
+.segmentedButtons, .segmentedButtonsColumn, .segmentedButtonsRow {
   display: flex;
   flex: 1;
   gap: 0;
@@ -6,13 +6,44 @@
   align-items: stretch;
   align-content: stretch;
   padding: 0;
-  flex-flow: column nowrap;
 }
 @media (width < 600px) {
-  .segmentedButtons {
+  .segmentedButtons, .segmentedButtonsColumn, .segmentedButtonsRow {
     flex-flow: row wrap;
     align-items: center;
     justify-content: flex-start;
+  }
+}
+.segmentedButtonsRow {
+  flex-flow: row nowrap;
+}
+.segmentedButtonsRow .button:first-child, .segmentedButtonsRow .buttonCategoryActive:first-child, .segmentedButtonsRow .buttonCategoryPasive:first-child {
+  border-radius: var(--shape-corner-large-start);
+}
+.segmentedButtonsRow .button:last-child, .segmentedButtonsRow .buttonCategoryActive:last-child, .segmentedButtonsRow .buttonCategoryPasive:last-child {
+  border-radius: var(--shape-corner-large-end);
+}
+.segmentedButtonsRow .button:only-child, .segmentedButtonsRow .buttonCategoryActive:only-child, .segmentedButtonsRow .buttonCategoryPasive:only-child {
+  border-radius: var(--shape-corner-large);
+}
+.segmentedButtonsColumn {
+  flex-flow: column nowrap;
+}
+.segmentedButtonsColumn .button:first-child, .segmentedButtonsColumn .buttonCategoryActive:first-child, .segmentedButtonsColumn .buttonCategoryPasive:first-child {
+  border-radius: var(--shape-corner-large-top);
+}
+.segmentedButtonsColumn .button:last-child, .segmentedButtonsColumn .buttonCategoryActive:last-child, .segmentedButtonsColumn .buttonCategoryPasive:last-child {
+  border-radius: var(--shape-corner-large-bottom);
+}
+.segmentedButtonsColumn .button:only-child, .segmentedButtonsColumn .buttonCategoryActive:only-child, .segmentedButtonsColumn .buttonCategoryPasive:only-child {
+  border-radius: var(--shape-corner-large);
+}
+@media (width < 600px) {
+  .segmentedButtonsColumn .button:first-child, .segmentedButtonsColumn .buttonCategoryActive:first-child, .segmentedButtonsColumn .buttonCategoryPasive:first-child {
+    border-radius: var(--shape-corner-large-start);
+  }
+  .segmentedButtonsColumn .button:last-child, .segmentedButtonsColumn .buttonCategoryActive:last-child, .segmentedButtonsColumn .buttonCategoryPasive:last-child {
+    border-radius: var(--shape-corner-large-end);
   }
 }
 
@@ -45,23 +76,6 @@
 }
 .button:focus:before, .buttonCategoryActive:focus:before, .buttonCategoryPasive:focus:before, .button:active:before, .buttonCategoryActive:active:before, .buttonCategoryPasive:active:before {
   opacity: 0.1;
-}
-.button:first-child, .buttonCategoryActive:first-child, .buttonCategoryPasive:first-child {
-  border-radius: var(--shape-corner-large-top);
-}
-.button:last-child, .buttonCategoryActive:last-child, .buttonCategoryPasive:last-child {
-  border-radius: var(--shape-corner-large-bottom);
-}
-.button:only-child, .buttonCategoryActive:only-child, .buttonCategoryPasive:only-child {
-  border-radius: var(--shape-corner-large);
-}
-@media (width < 600px) {
-  .button:first-child, .buttonCategoryActive:first-child, .buttonCategoryPasive:first-child {
-    border-radius: var(--shape-corner-large-start);
-  }
-  .button:last-child, .buttonCategoryActive:last-child, .buttonCategoryPasive:last-child {
-    border-radius: var(--shape-corner-large-end);
-  }
 }
 .buttonCategoryPasive {
   color: var(--on-surface);

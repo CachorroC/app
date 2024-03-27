@@ -43,7 +43,7 @@ export function CarpetasSortButtons(
                         <Fragment key={value}
                         >
                           <h5>{name}</h5>
-                          <section className={styles.segmentedButtons}>
+                          <section className={styles.segmentedButtonsColumn}>
                             {items.map(
                               (
                                 item

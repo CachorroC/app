@@ -1,9 +1,10 @@
-import styles from 'components/Card/card.module.css';
+
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 import { outActuacion } from '#@/lib/types/actuaciones';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { NewNotaComponent } from '../Modal';
+import styles from '../Card/elevated.module.css';
 
 export function ActuacionComponent(
   {
@@ -17,22 +18,20 @@ export function ActuacionComponent(
       } = incomingActuacion;
 
       return (
-        <div className={ styles.actuacionContainer }>
+        <div className={ styles.containerEnabled}>
           <div className={ layout.segmentRow } style={{
             justifyContent: 'space-between'
           }}>
-            <sub className={typography.labelMedium}>{consActuacion}</sub>
-            <OutputDateHelper incomingDate={ fechaActuacion } className={
-              typography.labelSmall
-            }
-            />
+            <sub className={ typography.labelMedium }>{ consActuacion }</sub>
+            <h5 className={ typography.titleMedium }>{ actuacion }</h5>
+
           </div>
           <div className={ layout.segmentRow }>
-            <h4 className={typography.titleSmall}>Actuación:</h4>
-            <h5 className={ typography.titleMedium }>{ actuacion }</h5>
+            <OutputDateHelper incomingDate={ fechaActuacion }
+            />
+            { anotacion && <p className={ typography.bodyMedium }>{ anotacion }</p> }
           </div>
-          { anotacion && <p className={ typography.bodyMedium }>{ anotacion }</p> }
-          <div className={ styles.action }>
+          <div className={ layout.segmentRow }>
             <NewNotaComponent />
           </div>
         </div>

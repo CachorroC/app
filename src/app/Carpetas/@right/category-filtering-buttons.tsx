@@ -5,7 +5,11 @@ import {   useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
 
-export default function CategoryFilteringButtons() {
+export default function CategoryFilteringButtons(
+  {
+    row
+  }: {row: boolean}
+) {
       const [ selectedExcluded, setSelectedExcluded ] = useState<string[]>(
         []
       );
@@ -43,7 +47,9 @@ export default function CategoryFilteringButtons() {
       );
 
       return (
-        <section className={styles.segmentedButtons}>
+        <section className={row
+          ? styles.segmentedButtonsRow
+          : styles.segmentedButtonsColumn}>
           {
             categories.map(
               (

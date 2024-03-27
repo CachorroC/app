@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import layout from '#@/styles/layout.module.css';
-import { OutputDateHelper } from '#@/lib/project/date-helper';
 import { TasksProvider } from '#@/components/Tareas/TasksContext';
 import { prisma } from '#@/lib/connection/prisma';
 import typography from '#@/styles/fonts/typography.module.css';
 import { AddTask } from '#@/components/Tareas/AddTask';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export default async function Layout(
   {
@@ -13,7 +13,7 @@ export default async function Layout(
   }: {
     params: { slug?: string[] };
     children: ReactNode;
-  } 
+  }
 ) {
       let title;
 
@@ -21,19 +21,18 @@ export default async function Layout(
         const [
           ano,
           mes,
-          dia 
+          dia
         ] = params.slug;
-        title = OutputDateHelper(
+        title = ( <OutputDateHelper incomingDate={
           new Date(
             Number(
-              ano 
+              ano
             ), Number(
-              mes 
+              mes
             ) - 1, Number(
-              dia 
-            ) 
-          ),
-        );
+              dia
+            )
+          )} /> );
       } else {
         title = 'Tareas';
       }
