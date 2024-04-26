@@ -8,27 +8,33 @@ datasource db {
 }
 
 model Carpeta {
-  id              Int
-  fecha           DateTime?
-  idProcesos      Int[]
-  idRegUltimaAct  Int?
-  llaveProceso    String
-  nombre          String
-  numero          Int        @id
-  revisado        Boolean    @default(false)
-  terminado       Boolean    @default(false)
-  updatedAt       DateTime   @updatedAt
-  category        String     @default("SinEspecificar")
-  tipoProceso     String     @default("SINGULAR")
-  notasCount      Int?
-  ultimaActuacion Actuacion? @relation(fields: [idRegUltimaAct], references: [idRegActuacion])
-  codeudor        Codeudor?
-  demanda         Demanda?
-  deudor          Deudor?
-  facturas        Factura[]
-  notas           Nota[]
-  procesos        Proceso[]
-  tareas          Task[]
+  id                  Int
+  fecha               DateTime?
+  idProcesos          Int[]
+  idRegUltimaAct      Int?
+  llaveProceso        String
+  nombre              String
+  numero              Int        @id
+  revisado            Boolean    @default(false)
+  terminado           Boolean    @default(false)
+  updatedAt           DateTime   @updatedAt
+  category            String     @default("SinEspecificar")
+  tipoProceso         String     @default("SINGULAR")
+  notasCount          Int?
+  fechaUltimaRevision DateTime?  @db.Date
+  ciudad              String?
+  juzgadoTipo         String?
+  juzgadoCiudad       String?
+  juzgadoId           String?
+  ultimaActuacion     Actuacion? @relation(fields: [idRegUltimaAct], references: [idRegActuacion])
+  juzgado             Juzgado?   @relation(fields: [juzgadoId, juzgadoTipo, juzgadoCiudad], references: [id, tipo, ciudad])
+  codeudor            Codeudor?
+  demanda             Demanda?
+  deudor              Deudor?
+  facturas            Factura[]
+  notas               Nota[]
+  procesos            Proceso[]
+  tareas              Task[]
 }
 
 model Factura {
@@ -199,10 +205,14 @@ model Actuacion {
 }
 
 model Juzgado {
-  id       Int
-  tipo     String    @id
-  url      String
-  procesos Proceso[]
+  id      String
+  tipo    String
+  url     String
+  ciudad  String
+  Carpeta Carpeta[]
+  Proceso Proceso[]
+
+  @@id([id, tipo, ciudad])
 }
 
 model Proceso {
@@ -219,9 +229,11 @@ model Proceso {
   juzgadoTipo          String
   llaveProceso         String
   sujetosProcesales    String
+  juzgadoCiudad        String
+  juzgadoId            String
   actuaciones          Actuacion[]
   carpeta              Carpeta     @relation(fields: [carpetaNumero], references: [numero])
-  juzgado              Juzgado     @relation(fields: [juzgadoTipo], references: [tipo])
+  juzgado              Juzgado     @relation(fields: [juzgadoId, juzgadoTipo, juzgadoCiudad], references: [id, tipo, ciudad])
 }
 
 enum NotifierName {

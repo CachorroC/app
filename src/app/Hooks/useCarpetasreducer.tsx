@@ -32,7 +32,7 @@ export type SearchActionType = {
 
 export type FilterActionType = {
   type: 'filter';
-  filteringKey: 'category' | 'terminado' | 'revisado' | 'tipoProceso';
+  filteringKey: 'category' | 'terminado' | 'revisado' | 'tipoProceso' |'ciudad';
   filteringValue: string;
 };
 
@@ -201,6 +201,8 @@ export function carpetasReducer(
                     completeCarpetas: completeCarpetas,
                   };
                 }
+
+
 
                 case 'category': {
                   const sorted = [ ...carpetas ].sort(

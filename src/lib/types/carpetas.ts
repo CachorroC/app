@@ -19,6 +19,7 @@ export type IntCarpeta  = {
   demanda: intDemanda;
   deudor: Deudor | null;
   fecha: Date | null;
+  fechaUltimaRevision: Date | null;
   id: number;
   idProcesos: number[];
   idRegUltimaAct: number | null;
@@ -137,9 +138,10 @@ export type ProcesoDepartamento =
   | 'META';
 
 export type Juzgado ={
-  id: number;
+  id: string;
   tipo: string;
   url: string;
+  ciudad: string
 }
 
 export type CodRegla = '00                              ';

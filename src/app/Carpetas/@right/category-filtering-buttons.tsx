@@ -1,6 +1,6 @@
 'use client';
 
-import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
+import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
 import {   useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
@@ -16,14 +16,25 @@ export default function CategoryFilteringButtons(
 
       const dispatchCarpetas = useCarpetaSortDispatch();
 
-      const categories = [
-        'Bancolombia',
-        'Reintegra',
-        'LiosJuridicos',
-        'Terminados',
-        'Insolvencia',
-      ];
+      const {
+        completeCarpetas
+      } = useCarpetaSort();
 
+      const categoriesSet = new Set <string>();
+
+      completeCarpetas.forEach(
+        (
+          carpeta
+        ) => {
+                  categoriesSet.add(
+                    carpeta.category
+                  );
+        }
+      );
+
+      const categories = Array.from(
+        categoriesSet
+      );
 
       useEffect(
         () => {
@@ -102,3 +113,5 @@ export default function CategoryFilteringButtons(
         </section>
       );
 }
+
+5;

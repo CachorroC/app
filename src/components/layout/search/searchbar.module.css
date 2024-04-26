@@ -61,7 +61,6 @@
 .searchContainer {
   background-color: var(--surface-container-high);
   color: var(--on-surface-variant);
-  height: 4rem;
   box-sizing: border-box;
   box-shadow: var(--elevation-3);
   grid-area: inputSearchBar;

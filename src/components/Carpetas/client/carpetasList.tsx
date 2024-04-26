@@ -40,6 +40,8 @@ export function CarpetasTable() {
               <th>Actuaciones</th>
               <th>Revisado</th>
               <th>expediente</th>
+              <th>Fecha de ultima revision</th>
+              <th>ciudad</th>
             </tr>
           </thead>
           <tbody>
@@ -82,11 +84,10 @@ export function CarpetasTable() {
                                 name={'expediente'}
                               />
                             </td>
+                            <td>{ carpeta.fechaUltimaRevision?.toLocaleString() ?? 'no hay fecha ultima revision ' }</td>
+                            <td>{carpeta.demanda.municipio}</td>
                           </ClientCardRow>
                         );
-
-
-
               }
             )
             }

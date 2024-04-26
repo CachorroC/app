@@ -296,8 +296,9 @@
     --surface-container-highest: rgb(48 54 51);
   }
 }
-
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -418,4 +419,13 @@ hr {
   height: 0.02rem;
   background-color: var(--secondary);
   width: 100%;
+}
+
+button {
+  all: unset;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 }

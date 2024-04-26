@@ -445,6 +445,8 @@
   color: var(--on-surface);
 }
 .buttonForward {
+  padding: 0;
+  flex-flow: row nowrap;
   background-color: var(--primary-container);
   color: var(--on-primary-container);
 }
@@ -452,6 +454,8 @@
   color: var(--on-primary-container);
 }
 .buttonBackwards {
+  padding: 0;
+  flex-flow: row nowrap;
   background-color: var(--primary-container);
   color: var(--on-primary-container);
 }
