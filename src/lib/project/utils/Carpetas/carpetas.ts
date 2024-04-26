@@ -15,6 +15,7 @@ export const getCarpetasByllaveProceso = cache(
                 include: {
                   tareas         : true,
                   ultimaActuacion: true,
+                  juzgado        : true,
                   notas          : true,
                   procesos       : {
                     include: {
@@ -63,6 +64,7 @@ export const getCarpetaByllaveProceso = cache(
                 include: {
                   ultimaActuacion: true,
                   deudor         : true,
+                  juzgado        : true,
                   tareas         : true,
                   demanda        : {
                     include: {
@@ -128,6 +130,7 @@ export const getCarpetabyNumero = cache(
                   ultimaActuacion: true,
                   deudor         : true,
                   codeudor       : true,
+                  juzgado        : true,
                   notas          : true,
                   tareas         : true,
                   demanda        : {
@@ -186,6 +189,7 @@ export const getCarpetaByidProceso = cache(
                   ultimaActuacion: true,
                   deudor         : true,
                   codeudor       : true,
+                  juzgado        : true,
                   notas          : true,
                   tareas         : true,
                   demanda        : {

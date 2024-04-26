@@ -149,7 +149,7 @@ export async function updateProcesos(
           const newProceso = {
             ...proceso,
             juzgado: new NewJuzgado(
-              proceso
+              proceso.despacho
             ),
           };
 
@@ -203,7 +203,12 @@ export async function updateProcesos(
                       juzgado: {
                         connectOrCreate: {
                           where: {
-                            tipo: newProceso.juzgado.tipo,
+                            id_tipo_ciudad: {
+                              tipo  : newProceso.juzgado.tipo,
+                              id    : newProceso.juzgado.id,
+                              ciudad: newProceso.juzgado.ciudad
+
+                            }
                           },
                           create: newProceso.juzgado,
                         },

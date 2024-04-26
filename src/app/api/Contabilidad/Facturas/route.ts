@@ -29,11 +29,6 @@ export async function GET() {
         }
       );
 
-      /*     fs.writeFile(
-        'public/facturas.json', JSON.stringify(
-          facturas
-        )
-      ); */
       return NextResponse.json(
         facturas
       );

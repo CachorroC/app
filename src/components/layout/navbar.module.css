@@ -117,7 +117,7 @@
 .buttonDrawerMenuClosed {
   border: none;
   height: 4rem;
-  width: 4rem;
+  width: auto;
   background-color: rgba(0, 0, 0, 0);
 }
 .buttonDrawerMenuClosed > .icon, .buttonDrawerMenuClosed > .text {

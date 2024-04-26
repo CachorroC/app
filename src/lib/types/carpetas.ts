@@ -14,8 +14,8 @@ import { IntNota } from './notas';
 
 export type IntCarpeta  = {
   category: string;
+  ciudad: string | null;
   codeudor: Codeudor | null;
-  notasCount: number | null;
   demanda: intDemanda;
   deudor: Deudor | null;
   fecha: Date | null;
@@ -23,9 +23,14 @@ export type IntCarpeta  = {
   id: number;
   idProcesos: number[];
   idRegUltimaAct: number | null;
+  juzgado: Juzgado | null;
+  juzgadoCiudad: string | null;
+  juzgadoId: string | null;
+  juzgadoTipo: string | null;
   llaveProceso: string;
   nombre: string;
   notas: IntNota[];
+  notasCount: number | null;
   numero: number;
   procesos: outProceso[];
   revisado: boolean;
@@ -141,7 +146,7 @@ export type Juzgado ={
   id: string;
   tipo: string;
   url: string;
-  ciudad: string
+  ciudad: string;
 }
 
 export type CodRegla = '00                              ';
@@ -420,18 +425,20 @@ export class DespachoJudicial implements Juzgado {
 
             if ( matchedDespacho ) {
               const {
-                nombre, url
+                nombre, url, especialidad
               } = matchedDespacho;
 
               const stringId = nombre.match(
-                /\d+/g
+                /(\d+)/mi
               );
               this.tipo = nombre;
+              this.ciudad = especialidad;
               this.id = stringId
-                ? Number(
-                  stringId.toString()
-                )
-                : 0;
+                ? stringId.toString()
+                      .padStart(
+                        3, '000'
+                      )
+                : '000';
               this.url = `https://www.ramajudicial.gov.co${ url }`;
             } else {
               ( this.tipo = proceso.despacho ),
@@ -440,10 +447,12 @@ export class DespachoJudicial implements Juzgado {
                       ' ', '-'
                     )
                     .toLowerCase() }` );
-              this.id = 0;
+              this.id = '000';
+              this.ciudad = '';
             }
   }
-  id: number;
+  ciudad: string;
+  id: string;
   tipo: string;
   url: string;
 }

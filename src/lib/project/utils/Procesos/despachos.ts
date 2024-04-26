@@ -30826,21 +30826,22 @@ export const Despachos = [
 ];
 
 export function transformDespacho(
-  juzgado: Juzgado 
+  juzgado: Juzgado
 ) {
       const matchedDespacho = Despachos.filter(
         (
-          despacho 
+          despacho
         ) => {
                   return despacho.nombre.trim() === juzgado.tipo.trim();
-        } 
+        }
       );
 
       if ( matchedDespacho.length > 0 ) {
         const newJuzgado: Juzgado = {
-          id  : juzgado.id,
-          tipo: juzgado.tipo,
-          url : `https://www.ramajudicial.gov.co${ matchedDespacho[ 0 ].url }`,
+          id    : juzgado.id,
+          tipo  : juzgado.tipo,
+          ciudad: juzgado.ciudad,
+          url   : `https://www.ramajudicial.gov.co${ matchedDespacho[ 0 ].url }`,
         };
 
         return newJuzgado;

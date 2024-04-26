@@ -63,7 +63,7 @@ export class Carpeta {
                     )
                     : null,
                   juzgado: new NewJuzgado(
-                    rawProceso
+                    rawProceso.despacho
                   ),
                 };
                 this.procesos.push(

@@ -389,6 +389,10 @@ export function carpetasReducer(
               ) => {
                         const querier = carpeta[ action.filteringKey ];
 
+                        if ( !querier ) {
+                          return false;
+                        }
+
                         if ( typeof querier === 'boolean' ) {
                           return querier;
                         }

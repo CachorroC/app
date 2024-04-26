@@ -20,7 +20,7 @@ export async function GET(
       );
 
       if ( llaveProceso ) {
-        const Demandados = carpetas.filter(
+        const Demandados = [ ...carpetas ].filter(
           (
             carpeta
           ) => {
@@ -28,15 +28,8 @@ export async function GET(
           }
         );
 
-        return new NextResponse(
-          JSON.stringify(
-            Demandados
-          ), {
-            status : 200,
-            headers: {
-              'content-type': 'application/json',
-            },
-          }
+        return NextResponse.json(
+          Demandados
         );
       }
 
@@ -53,15 +46,8 @@ export async function GET(
           }
         );
 
-        return new NextResponse(
-          JSON.stringify(
-            Demandados
-          ), {
-            status : 200,
-            headers: {
-              'content-type': 'application/json',
-            },
-          }
+        return NextResponse.json(
+          Demandados
         );
       }
 
@@ -78,27 +64,13 @@ export async function GET(
           }
         );
 
-        return new NextResponse(
-          JSON.stringify(
-            Carpeta
-          ), {
-            status : 200,
-            headers: {
-              'content-type': 'application/json',
-            },
-          }
+        return NextResponse.json(
+          Carpeta
         );
       }
 
-      return new NextResponse(
-        JSON.stringify(
-          carpetas
-        ), {
-          status : 200,
-          headers: {
-            'content-type': 'application/json',
-          },
-        }
+      return NextResponse.json(
+        carpetas
       );
 }
 
@@ -142,11 +114,7 @@ export async function POST(
       );
 
       if ( !updateOne ) {
-        return new NextResponse(
-          null, {
-            status: 404,
-          }
-        );
+        return NextResponse.error();
       }
 
       return NextResponse.json(
@@ -205,43 +173,19 @@ export async function PUT(
         );
 
         if ( result ) {
-          return new NextResponse(
-            JSON.stringify(
-              result
-            ), {
-              status    : 200,
-              statusText: `Successfully updated game with id ${ id }`,
-              headers   : {
-                'Content-type': 'application/json',
-              },
-            }
+          return NextResponse.json(
+            result
           );
         }
 
-        return new NextResponse(
-          null, {
-            status    : 304,
-            statusText: `Game with id: ${ id } not updated`,
-          }
-        );
+        return NextResponse.error(        );
       } catch ( error ) {
         if ( error instanceof Error ) {
           console.error(
             `error en api/Carpetas: ${ error.message }`
           );
 
-          return new NextResponse(
-            JSON.stringify(
-              {
-                error  : error.name,
-                message: error.message,
-              }
-            ),
-            {
-              status    : 400,
-              statusText: error.message,
-            },
-          );
+          return NextResponse.error( );
         }
 
         return new NextResponse(

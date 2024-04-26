@@ -9,6 +9,7 @@ export const getCarpetas = cache(
               {
                 include: {
                   ultimaActuacion: true,
+                  juzgado        : true,
                   deudor         : true,
                   codeudor       : true,
                   notas          : true,

@@ -15,6 +15,7 @@ export async function resetCarpetas () {
             codeudor       : true,
             notas          : true,
             tareas         : true,
+            juzgado        : true,
             demanda        : {
               include: {
                 notificacion: {
