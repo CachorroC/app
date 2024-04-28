@@ -1,5 +1,5 @@
 import { ConsultaActuacion, intActuacion } from '../types/actuaciones';
-import { ConsultaNumeroRadicacion, outProceso } from '../types/procesos';
+import { ConsultaProcesos, outProceso } from '../types/procesos';
 import { NewJuzgado } from './demanda';
 
 export class Carpeta {
@@ -39,7 +39,7 @@ export class Carpeta {
               }
 
               const consultaProcesos
-        = ( await request.json() ) as ConsultaNumeroRadicacion;
+        = ( await request.json() ) as ConsultaProcesos;
 
               const {
                 procesos

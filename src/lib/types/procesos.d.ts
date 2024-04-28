@@ -9,10 +9,10 @@ import { Juzgado } from './carpetas';
 export type RequestProceso = {
   StatusCode:        number;
   Message:           Message;
-  ConsultaProcesos?: ConsultaNumeroRadicacion;
+  ConsultaProcesos?: ConsultaProcesos;
 }
 
-export type ConsultaNumeroRadicacion = {
+export type ConsultaProcesos = {
   tipoConsulta: TipoConsulta;
   procesos:     intProceso[];
   parametros:   Parametros;
@@ -28,9 +28,9 @@ export type Paginacion = {
 }
 
 export type Parametros = {
-  numero:               string;
-  nombre:               null;
-  tipoPersona:          null;
+  numero:               null | string;
+  nombre:               null | string;
+  tipoPersona:          null | string;
   idSujeto:             null;
   ponente:              null;
   claseProceso:         null;
@@ -60,9 +60,36 @@ export type intProceso  = {
   cantFilas:            number;
 }
 
+export type ProcesoDetalle = {
+  idRegProceso:        number;
+  llaveProceso:        string;
+  idConexion:          number;
+  esPrivado:           boolean;
+  fechaProceso:        Date;
+  despacho:            string;
+  ponente:             string;
+  tipoProceso:         TipoProceso;
+  claseProceso:        ClaseProceso;
+  subclaseProceso:     SubclaseProceso;
+  recurso:             Recurso | null;
+  ubicacion:           null | string;
+  contenidoRadicacion: null | string;
+  fechaConsulta:       Date;
+  ultimaActualizacion: Date;
+}
+
+export type ClaseProceso = 'EJECUTIVO' | 'Ejecutivo con Título Hipotecario' | 'Ejecutivo Singular' | 'Ejecutivo con Título Prendario' | 'Abreviado' | 'PROCESOS EJECUTIVOS HIPOTECARIOS O PRENDARIOS' | 'Despachos Comisorios' | 'Sin Tipo de Proceso' | 'Ejecutivo Mixto' | 'Solicitud entrega inmueble' | 'Sucesión' | 'SUCESIÓN' | 'EJECUTIVOS DE MENOR Y MINIMA CUANTIA' | 'DESPACHOS COMISORIOS' | 'EJECUTIVO HIPOTECARIO' | 'Tutelas' | 'EJECUTIVO SINGULAR' | 'Ordinario';
+
+export type Recurso = 'Sin Tipo de Recurso';
+
+export type SubclaseProceso = 'En general / Sin subclase' | 'Sin Subclase de Proceso' | 'Por sumas de dinero' | 'Restitución del inmueble arrendado' | 'TITULO VALOR' | 'En general' | 'SINGULARES';
+
+export type TipoProceso = 'EJECUTIVO C.G.P' | 'De Ejecución' | 'Declarativo' | 'Codigo General del Proceso' | 'Especial' | 'EjecucionTramitePosterior' | 'Especiales' | 'De Liquidación' | 'LIQUIDACIÓN C.G.P' | 'Acción de Tutela' | 'Otros Asuntos';
+
+
 export type Departamento = 'BOGOTÁ' | 'CUNDINAMARCA' | 'META' | 'HUILA' | 'ANTIOQUIA' | 'ATLÁNTICO';
 
-export type TipoConsulta = 'NumeroRadicacion';
+export type TipoConsulta = 'NumeroRadicacion' | 'NombreRazonSocial';
 
 export type outProceso ={
   fechaProceso: Date | null;
