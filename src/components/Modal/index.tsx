@@ -5,12 +5,15 @@ import { useCallback,
   MouseEventHandler,
   ReactNode,
   useState, } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter, } from 'next/navigation';
 import styles from './styles.module.css';
 import { useModalContext, useModalNoteContext } from '#@/app/Context/modal-context';
-import { useFormState, useFormStatus } from 'react-dom';
-import { addNote } from './actions';
+import { useFormState /*future useActionState*/, useFormStatus } from 'react-dom';
 import { Snackbar } from './snackbar';
+import { addNotaFormAction, } from '#@/app/Notas/actions';
+import {  NewNota } from '#@/lib/types/notas';
+import { textArea } from '../Form/form.module.css';
+import { containerEnabled } from '../Card/elevated.module.css';
 
 export function Modal(
   {
@@ -240,50 +243,87 @@ function Submit() {
 
 
 
-export function NewNotaComponent () {
+export function NewNotaComponent (
+  {
+    id,
+    idRegActuacion,
+  }: {
+    id: string;
+    idRegActuacion?: number;
+  }
+) {
+      const {
+        numero, idProceso
+      } = useParams();
+
+      const pathname = usePathname();
+
+      const [ notaState, setNotaState ] = useState<NewNota>(
+        {
+          dueDate      : new Date(),
+          id           : id,
+          text         : '',
+          carpetaNumero: Number(
+            numero
+          ),
+          pathname: pathname
+            ? pathname
+            : null,
+          content: [ ...idProceso,
+            idRegActuacion
+              ? String(
+                idRegActuacion
+              )
+              : '' ]
+        }
+      );
+
       const [ isOpen, setIsOpen ] = useState(
         false
       );
 
       const [ state, formAction ] = useFormState(
-        addNote, {
-          value    : '',
+        addNotaFormAction, {
+          value    : notaState,
           submitted: false,
           success  : false
         }
       );
       return (
         <>
-          <form action={ formAction } >
-
-
-            { isOpen && (
+          { isOpen && (
+            <form action={ formAction } className={containerEnabled}>
               <fieldset>
                 <legend>Nueva Nota</legend>
-                <input type='text' defaultValue={ state.value } name='itemID' />
-                <input type='submit' />
+                <input type='text' value={ state.value.text } name='text' className={textArea} onChange={ (
+                  e
+                ) => {
+                          return setNotaState(
+                            {
+                              ...notaState,
+                              text: e.target.value
+                            }
+                          );
+                }}/>
               </fieldset>
-            ) }
-            <button type={ 'button' } onClick={
-              () => {
-                        return setIsOpen(
-                          (
-                            e
-                          ) => {
-                                    return !e;
-                          }
-                        );
-              }
-            }>
-              <span className='material-symbols-outlined'>{
-                isOpen
-                  ? 'close'
-                  : 'note_stack_add'
-              }</span>
-              <span>nueva nota</span>
-            </button>
-            <Submit />
-          </form>
+
+              <Submit />
+            </form>
+          ) }
+          <button type='button' onClick={
+            () => {
+                      return setIsOpen(
+                        !isOpen
+                      );
+            }
+          }>
+            <span className='material-symbols-outlined'>{
+              isOpen
+                ? 'close'
+                : 'note_stack_add'
+            }</span>
+            <span>nueva nota</span>
+          </button>
           {
             state.success && (
               <Snackbar text={ 'successfully loaded to the server' } />

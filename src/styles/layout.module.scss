@@ -80,15 +80,15 @@ $MaxSW: 480px; //maximum sma width
     grid-template-rows: repeat(10, minmax(6svh, 1fr));
     grid-template-areas:
       'header top top top top top top top top top'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right'
-      'header left left left left left left left right right';
+      'header left left left left left left right right right'
+      'header left left left left left left right right right'
+      'header left left left left left left right right right'
+      'header left left left left left left right right right'
+      'header left left left left left left right right right'
+      'header left left left left left left right right right'
+      'header left left left left left left right right right'
+      'header left left left left left left right right right'
+      'header left left left left left left right right right';
   }
 }
 

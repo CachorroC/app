@@ -46,6 +46,12 @@ export class NewJuzgado implements Juzgado {
                 rawTipo
               ).tipo;
               this.ciudad = rawCiudad;
+              this.url = `https://www.ramajudicial.gov.co/web/JUZGADO-${ this.id }-${ this.tipo.replaceAll(
+                ' ', '-'
+              ) }-DE-${ this.ciudad }`.toLocaleLowerCase()
+                    .replaceAll(
+                      ' ', '-'
+                    ) ;
             } else if ( matchLongName ) {
 
               const [
@@ -69,6 +75,12 @@ export class NewJuzgado implements Juzgado {
               );
               this.tipo = rawTipo;
               this.ciudad = rawCiudad;
+              this.url = `https://www.ramajudicial.gov.co/web/JUZGADO-${ this.id }-${ this.tipo.replaceAll(
+                ' ', '-'
+              ) }-DE-${ this.ciudad }`.toLocaleLowerCase()
+                    .replaceAll(
+                      ' ', '-'
+                    ) ;
 
             }
 
@@ -126,6 +138,7 @@ export class NewJuzgado implements Juzgado {
               const outputMatchregexName = matchedDespacho.nombre.match(
                 /JUZGADO (\d+) ([A-Z\sñúóéíá]+) de ([A-Z\sñúóéíáü-]+)/mi
               );
+              this.url = `https://www.ramajudicial.gov.co${ matchedDespacho.url }`;
 
               if ( outputMatchregexName ) {
                 const [

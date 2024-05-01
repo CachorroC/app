@@ -1,6 +1,5 @@
 import typography from '#@/styles/fonts/typography.module.css';
 import { outProceso } from 'types/procesos';
-import { fixDemandado } from '#@/lib/project/helper';
 import { getProceso } from '#@/lib/project/utils/Procesos';
 import { ReactNode, Suspense } from 'react';
 import { ActuacionLoader } from '../Actuaciones/actuacion-loader';
@@ -8,6 +7,7 @@ import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actu
 import { JuzgadoComponent } from './juzgado-component';
 import { Loader } from '../Loader';
 import layout from '#@/styles/layout.module.css';
+import { containerEnabled } from '../Card/outlined.module.css';
 
 export const ProcesoCard = (
   {
@@ -34,21 +34,30 @@ export const ProcesoCard = (
             );
           }
 
-          const objectify = Object.fromEntries(
-            mapperObject
+          const objectify = Array.from(
+            mapperObject.entries()
           );
 
           return (
-            <div className={layout.sectionColumn}>
-              <h1 className={typography.titleMedium}>
-                {fixDemandado(
-                  sujetosProcesales
-                )}
-              </h1>
-              <pre>{ JSON.stringify(
-                objectify
-              )}</pre>
-              <div className={layout.segmentRow}>{children}</div>
+            <div className={containerEnabled}>
+              <div className={layout.sectionRow}>
+                { objectify.map(
+                  (
+                    object
+                  ) => {
+                            const [ key, value ] = object;
+                            return (
+                              <div className={layout.sectionRow} key={ key }>
+                                <sub style={{
+                                  color: 'var(--primary)'
+                                }} className={typography.labelSmall}>{ key }</sub>
+                                <h5 className={typography.titleMedium}>{value}</h5>
+                              </div>
+                            );
+                  }
+                ) }
+              </div>
+              <div className={layout.sectionColumn}>{children}</div>
             </div>
           );
 };

@@ -4,6 +4,8 @@ import { IntNota } from '#@/lib/types/notas';
 import { ReactNode, useState } from 'react';
 import { useNotaSortDispatch } from '../Context/notas-sort-context';
 import { updateNotaTextState } from './actions';
+import { containerEnabled } from '#@/components/Card/outlined.module.css';
+import typography from '#@/styles/fonts/typography.module.css';
 
 export function Nota(
   {
@@ -102,26 +104,25 @@ export function Nota(
       }
 
       return (
-        <tr>
-          <td>{nota.id}</td>
-          <td>{`carpeta ${ nota.carpetaNumero }`}</td>
-          <td>{ notaContent }</td>
+        <div className={containerEnabled}>
+          <sub className={typography.labelSmall}>{nota.id}</sub>
+          { notaContent }
           {children}
-          <td>
-            <button
-              type="button"
-              onClick={() => {
-                        dispatch(
-                          {
-                            type: 'deleted',
-                            id  : nota.id,
-                          }
-                        );
-              }}
-            >
-        Delete
-            </button></td>
 
-        </tr>
+          <button
+            type="button"
+            onClick={() => {
+                      dispatch(
+                        {
+                          type: 'deleted',
+                          id  : nota.id,
+                        }
+                      );
+            }}
+          >
+        Delete
+          </button>
+
+        </div>
       );
 }

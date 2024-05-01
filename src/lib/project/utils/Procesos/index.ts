@@ -1,10 +1,9 @@
 import { cache } from 'react';
 import { Despacho } from 'types/despachos';
-import {  Message, RequestProceso, intProceso } from 'types/procesos';
+import {  Message, RequestProceso, intProceso, intProcesoDetalle } from 'types/procesos';
 import { NewJuzgado } from '#@/lib/models/demanda';
 import { carpetasCollection } from '#@/lib/connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
-import { DespachoJudicial } from '#@/lib/types/carpetas';
 
 export const getDespachos = cache(
   async () => {
@@ -44,7 +43,48 @@ export const getDespachos = cache(
   }
 );
 
-export async function fetchProceso(
+export const fetchDetalleProceso = cache(
+  async (
+    {
+      idProceso
+    }: { idProceso: number }
+  ) => {
+            try {
+
+              const fetchDetails = await fetch(
+                `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Detalle/${ idProceso }`
+              );
+
+              if ( !fetchDetails.ok ) {
+                throw new Error(
+                  fetchDetails.statusText
+                );
+
+              }
+
+              const parsedDetails = await fetchDetails.json() as intProcesoDetalle;
+              return {
+                ...parsedDetails,
+                fechaProceso: new Date(
+                  parsedDetails.fechaProceso
+                ),
+                fechaConsulta: new Date(
+                  parsedDetails.fechaConsulta
+                ),
+                juzgado: new NewJuzgado(
+                  parsedDetails.despacho
+                )
+              };
+            } catch ( error ) {
+              console.log(
+                error
+              );
+              return null;
+            }
+  }
+);
+
+export async function fetchProceso (
   llaveProceso: string
 ):Promise<RequestProceso> {
 
@@ -100,8 +140,8 @@ export const getProceso = cache(
                                 proceso.fechaUltimaActuacion
                               )
                               : null,
-                            juzgado: new DespachoJudicial(
-                              proceso
+                            juzgado: new NewJuzgado(
+                              proceso.despacho
                             ),
                           };
                 }

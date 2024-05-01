@@ -32,7 +32,7 @@ export function ActuacionComponent(
             { anotacion && <p className={ typography.bodyMedium }>{ anotacion }</p> }
           </div>
           <div className={ layout.segmentRow }>
-            <NewNotaComponent />
+            <NewNotaComponent  id={ '' }  />
           </div>
         </div>
       );

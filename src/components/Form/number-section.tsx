@@ -59,7 +59,9 @@ export const NumberSection = (
               </label>
               <input
                 name={field.name}
-                value={field.value}
+                value={String(
+                  field.value
+                )??undefined}
                 ref={field.ref}
                 type={type}
                 placeholder={title}

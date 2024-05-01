@@ -60,7 +60,7 @@ export type intProceso  = {
   cantFilas:            number;
 }
 
-export type ProcesoDetalle = {
+export type intProcesoDetalle = {
   idRegProceso:        number;
   llaveProceso:        string;
   idConexion:          number;

@@ -94,7 +94,9 @@ export function InputSection(
               <input
                 name={field.name}
                 id={id + field.name}
-                value={field.value ?? ''}
+                value={String(
+                  field.value
+                ) ?? undefined}
                 ref={field.ref}
                 type={type}
                 placeholder={title}

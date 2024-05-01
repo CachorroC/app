@@ -4,11 +4,9 @@
 //
 //   const intCarpeta = Convert.toIntCarpeta(json);
 
-import { Despachos } from '../project/utils/Procesos/despachos';
 import { outActuacion } from './actuaciones';
 import { outProceso } from './procesos';
 import { WithId } from 'mongodb';
-import { intProceso } from 'types/procesos';
 import { IntTask, SubTarea } from './tareas';
 import { IntNota } from './notas';
 
@@ -370,89 +368,3 @@ export class carpetaConvert {
 }
 
 export type KeyOfCarpeta = keyof IntCarpeta;
-
-function incomingStringFixer(
-  stringValue: string
-) {
-      return stringValue
-            .toLowerCase()
-            .normalize(
-              'NFD'
-            )
-            .replace(
-              /\p{Diacritic}/gu, ''
-            )
-            .trim();
-}
-
-export class DespachoJudicial implements Juzgado {
-  constructor(
-    proceso: intProceso
-  ) {
-            const matchedDespacho = Despachos.find(
-              (
-                dependenciaJudiail
-              ) => {
-                        const {
-                          nombre
-                        } = dependenciaJudiail;
-
-                        const {
-                          despacho
-                        } = proceso;
-
-                        const nombreDependenciaJudicial = incomingStringFixer(
-                          nombre
-                        );
-
-                        const nombreDespachoProceso = incomingStringFixer(
-                          despacho
-                        );
-
-                        const indexOfDesp = nombreDependenciaJudicial.indexOf(
-                          nombreDespachoProceso,
-                        );
-
-                        if ( indexOfDesp >= 0 ) {
-                          console.log(
-                            `procesos despacho is in despachos ${ indexOfDesp + 1 }`
-                          );
-                        }
-
-                        return nombreDependenciaJudicial === nombreDespachoProceso;
-              }
-            );
-
-            if ( matchedDespacho ) {
-              const {
-                nombre, url, especialidad
-              } = matchedDespacho;
-
-              const stringId = nombre.match(
-                /(\d+)/mi
-              );
-              this.tipo = nombre;
-              this.ciudad = especialidad;
-              this.id = stringId
-                ? stringId.toString()
-                      .padStart(
-                        3, '000'
-                      )
-                : '000';
-              this.url = `https://www.ramajudicial.gov.co${ url }`;
-            } else {
-              ( this.tipo = proceso.despacho ),
-              ( this.url = `https://www.ramajudicial.gov.co/web/${ proceso.despacho
-                    .replaceAll(
-                      ' ', '-'
-                    )
-                    .toLowerCase() }` );
-              this.id = '000';
-              this.ciudad = '';
-            }
-  }
-  ciudad: string;
-  id: string;
-  tipo: string;
-  url: string;
-}

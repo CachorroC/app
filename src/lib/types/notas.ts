@@ -12,15 +12,13 @@ export interface NotaEditorAction {
   error: boolean;
 }
 
-export interface NewNota {
+export type NewNota  = {
   carpetaNumero: number | null;
   content: string[];
   dueDate: Date | null;
   pathname: string | null;
   text: string;
   id: string;
-
-
 }
 
 export interface IntNota extends NewNota {

@@ -35,6 +35,11 @@ export async function generateMetadata(
 
       const returnedMetadata: Metadata = {
         title      : product.nombre,
+        appleWebApp: {
+          capable       : true,
+          title         : product.nombre,
+          statusBarStyle: 'black'
+        },
         description: `el proceso de ${ product.nombre }`,
       };
       return returnedMetadata;

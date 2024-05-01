@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import layout from '#@/styles/layout.module.css';
 import {  Suspense } from 'react';
 import { Loader } from '#@/components/Loader';
-import { ProcesoCard, ProcesosComponent } from '#@/components/Proceso/server-components';
+import {  ProcesosComponent } from '#@/components/Proceso/server-components';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
@@ -14,10 +14,7 @@ import { NotasSortProvider } from '#@/app/Context/notas-sort-context';
 import { NotasLinkList } from '../notas-list';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { containerEnabled } from '#@/components/Card/filled.module.css';
-import { consultaProcesosPorRazonSocial } from '#@/lib/project/utils/main';
-import { ConsultaProcesos, ProcesoDetalle, outProceso } from '#@/lib/types/procesos';
-import { NewJuzgado } from '#@/lib/models/demanda';
-import { JuzgadoComponent } from '#@/components/Proceso/juzgado-component';
+import { ProcesoHibrido } from '#@/components/Proceso/hibrido';
 
 async function NotasList(
   {
@@ -29,85 +26,23 @@ async function NotasList(
       );
 
       return (
-        <NotasSortProvider notas={ notas }>
-          <table>
-            <thead>
-              <tr>
-                <th>id</th>
-                <th>Numero</th>
-                <th>contenido</th>
-                <th>children</th>
-                <th>eliminar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {notas.map(
-                (
-                  nota
-                ) => {
-                          return (
-                            <Nota
-                              nota={nota}
-                              key={nota.id}
-                            >
-                              <td>
-                                <OutputDateHelper incomingDate={ nota.dueDate} />
-                              </td>
-                            </Nota>
-                          );
-                }
-              )}
-            </tbody>
-          </table>
-
+        <NotasSortProvider notas={ notas }>{notas.map(
+          (
+            nota
+          ) => {
+                    return (
+                      <Nota
+                        nota={nota}
+                        key={nota.id}
+                      >
+                        <td>
+                          <OutputDateHelper incomingDate={ nota.dueDate} />
+                        </td>
+                      </Nota>
+                    );
+          }
+        )}
         </NotasSortProvider>
-      );
-}
-
-async function AvailableProcesosByName (
-  {
-    nombre
-  }: {nombre: string}
-) {
-      const urlNameMaker = consultaProcesosPorRazonSocial(
-        nombre
-      );
-
-      const fetchProc = await fetch(
-        urlNameMaker
-      );
-
-      if ( !fetchProc.ok ) {
-        return null;
-      }
-
-      const jsonString = await fetchProc.json() as ConsultaProcesos;
-      return (
-        <table>
-          { jsonString.procesos.map(
-            (
-              proceso
-            ) => {
-                      const outgoinProceso:outProceso = {
-                        ...proceso,
-                        juzgado: new NewJuzgado(
-                          proceso.despacho
-                        ),
-                      };
-                      return (
-                        <tr
-                          key={proceso.idProceso}
-                        >
-                          <Suspense fallback={<Loader />}>
-                            <ProcesoDetalles key={proceso.idProceso} idProceso={proceso.idProceso} />
-                          </Suspense>
-                          <Suspense fallback={<Loader />}>
-                            <JuzgadoComponent juzgado={outgoinProceso.juzgado} />
-                          </Suspense>
-                        </tr> );
-            }
-          )}
-        </table>
       );
 }
 
@@ -253,19 +188,8 @@ export default async function Page (
 
       return (
         <>
-          <AvailableProcesosByName nombre={carpeta.nombre}/>
-          {llaveProceso && (
-            <div className={containerEnabled}>
-              <Suspense fallback={<Loader />}>
-                <CopyButton
-                  key={numero}
-                  name={'numero de expediente'}
-                  copyTxt={llaveProceso}
-                />
-              </Suspense>
-            </div>
-          )}
-          <div className={containerEnabled}>
+          <div className={ containerEnabled }>
+            <ProcesoHibrido llaveProceso={carpeta.llaveProceso}/>
             <h1>Notas</h1>
             <Suspense fallback={<SearchOutputListSkeleton />}>
               <NotasList carpetaNumero={Number(
@@ -281,6 +205,18 @@ export default async function Page (
               />
             </Suspense>
           </div>
+          {llaveProceso && (
+            <div className={containerEnabled}>
+              <Suspense fallback={<Loader />}>
+                <CopyButton
+                  key={numero}
+                  name={'numero de expediente'}
+                  copyTxt={llaveProceso}
+                />
+              </Suspense>
+            </div>
+          )}
+
           <div className={containerEnabled}>
             <Suspense fallback={<Loader />}>
               {fechasMaper.map(

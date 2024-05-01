@@ -324,11 +324,7 @@ export const Form = () => {
                           title={'fecha de entrega de las garantias al abogado'}
                         />
                       )}
-                  <InputSection
-                    name={'demanda.etapaProcesal'}
-                    title={'etapaprocesal'}
-                    type={'text'}
-                  />
+
                   <InputSection
                     name={'demanda.llaveProceso'}
                     title={'Expediente'}

@@ -18,9 +18,72 @@ import { getProceso } from '#@/lib/project/utils/Procesos';
 import styles from './styles.module.css';
 import { NotificacionComponent } from '#@/components/Notificacion/notificacion';
 import FruitPicker from '#@/components/Buttons/etapaProsesalSelector';
+import { ProcesoTableDetalleComponent } from '#@/components/Proceso/proceso-detalles-component';
+import { consultaProcesosPorRazonSocial } from '#@/lib/project/utils/main';
+import { ConsultaProcesos, outProceso } from '#@/lib/types/procesos';
+import { NewJuzgado } from '#@/lib/models/demanda';
 
 //SECTION Generate metadata for [numero]
 
+
+async function AvailableProcesosByName (
+  {
+    nombre
+  }: {nombre: string}
+) {
+      const urlNameMaker = consultaProcesosPorRazonSocial(
+        nombre
+      );
+
+      const fetchProc = await fetch(
+        urlNameMaker
+      );
+
+      if ( !fetchProc.ok ) {
+        return null;
+      }
+
+      const jsonString = await fetchProc.json() as ConsultaProcesos;
+      return (
+        <table>
+          <thead>
+            <tr>
+              <th>Sujetos Procesales</th>
+              <th>Contenido de radicacion</th>
+              <th>Juzgado</th>
+              <th>fecha del Proceso</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            { jsonString.procesos.map(
+              (
+                proceso
+              ) => {
+                        const outgoinProceso:outProceso = {
+                          ...proceso,
+                          juzgado: new NewJuzgado(
+                            proceso.despacho
+                          ),
+                        };
+                        return (
+                          <tr
+                            key={proceso.idProceso}
+                          >
+                            <td>{proceso.sujetosProcesales}</td>
+                            <Suspense fallback={<Loader />}>
+                              <ProcesoTableDetalleComponent key={proceso.idProceso} idProceso={proceso.idProceso} />
+                            </Suspense>
+                            <Suspense fallback={<Loader />}>
+                              <JuzgadoComponent juzgado={outgoinProceso.juzgado} />
+                            </Suspense>
+                          </tr> );
+              }
+            )}
+          </tbody>
+        </table>
+      );
+}
 
 async function ProcesosComponent(
   {
@@ -220,6 +283,8 @@ export default async function Page(
           </section>
 
           {idProcesoContent}
+          <AvailableProcesosByName nombre={carpeta.nombre}/>
+
         </>
       );
 }

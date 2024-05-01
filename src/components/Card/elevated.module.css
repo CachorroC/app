@@ -9,7 +9,6 @@
   flex-flow: column nowrap;
 }
 .container:before, .containerDisabled:before, .containerEnabled:before {
-  position: absolute;
   background-color: var(--on-surface);
   border-radius: var(--shape-corner-medium);
   width: 100%;

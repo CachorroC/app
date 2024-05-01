@@ -8,7 +8,6 @@
   display: flex;
   flex-flow: column nowrap;
   &:before {
-    position: absolute;
     background-color: var(--on-surface);
     border-radius: var(--shape-corner-medium);
     width: 100%;

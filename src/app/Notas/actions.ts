@@ -4,6 +4,28 @@ import { notasCollection } from '#@/lib/connection/collections';
 import { prisma } from '#@/lib/connection/prisma';
 import { IntNota, NewNota } from '#@/lib/types/notas';
 
+export async function addNotaFormAction (
+  prevState: { value: NewNota; submitted: boolean; success: boolean}, queryData: FormData
+) {
+      const text = queryData.get(
+        'text'
+      );
+
+      if ( text ) {
+        return {
+          ...prevState,
+          value: {
+            ...prevState.value,
+            text: String(
+              text
+            )
+          }
+        };
+      }
+
+      return prevState;
+}
+
 export async function notasCount (
   carpetaNumero: number| null
 ) {
