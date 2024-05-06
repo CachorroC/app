@@ -1,6 +1,7 @@
 import { fetchDetalleProceso } from '#@/lib/project/utils/Procesos';
-import styles from '../Card/outlined.module.css';
-import { JuzgadoComponent } from './juzgado-component';
+import Link from 'next/link';
+import styles from '../Card/elevated.module.css';
+import { CopyButton } from '../Buttons/copy-buttons';
 
 export async function ProcesoTableDetalleComponent(
   {
@@ -17,12 +18,16 @@ export async function ProcesoTableDetalleComponent(
         return null;
       }
 
+      const {
+        llaveProceso, idConexion, idRegProceso, contenidoRadicacion, fechaProceso, tipoProceso, claseProceso, ponente, recurso, subclaseProceso
+      } = fetchDetails;
       return (
         <>
-          <td>{ fetchDetails.contenidoRadicacion }</td>
-          <td><JuzgadoComponent juzgado={ fetchDetails.juzgado} /></td>
+          <td>{ idConexion }</td>
+          <td>{idRegProceso}</td>
+          <td>{ contenidoRadicacion }</td>
           <td>{new Date(
-            fetchDetails.fechaProceso
+            fechaProceso
           )
                 .toLocaleDateString(
                   'es-co', {
@@ -32,10 +37,12 @@ export async function ProcesoTableDetalleComponent(
                     day    : 'numeric',
                   }
                 )}</td>
-          <td>{ fetchDetails.tipoProceso }</td>
-          <td>{fetchDetails.contenidoRadicacion}</td>
-          <td>{ fetchDetails.claseProceso }</td>
-          <td>{fetchDetails.subclaseProceso}</td>
+          <td>{ tipoProceso }</td>
+          <td><Link href={`/RamaJudicial/Expediente/${ llaveProceso }`}><CopyButton copyTxt={ llaveProceso } name={ `expediente numero ${ llaveProceso }` }/></Link></td>
+          <td>{ claseProceso }</td>
+          <td>{ ponente }</td>
+          <td>{recurso}</td>
+          <td>{subclaseProceso}</td>
         </>
       );
 }
@@ -56,12 +63,15 @@ export async function ProcesoDetalleComponent(
         return null;
       }
 
+      const {
+        contenidoRadicacion, despacho, fechaProceso, tipoProceso, claseProceso, subclaseProceso
+      } = fetchDetails;
       return (
         <div className={styles.container}>
-          <h1>{ fetchDetails.contenidoRadicacion }</h1>
-          <h2>{ fetchDetails.despacho }</h2>
+          <h1>{ contenidoRadicacion }</h1>
+          <h2>{ despacho }</h2>
           <h3>{new Date(
-            fetchDetails.fechaProceso
+            fechaProceso
           )
                 .toLocaleDateString(
                   'es-co', {
@@ -71,10 +81,10 @@ export async function ProcesoDetalleComponent(
                     day    : 'numeric',
                   }
                 )}</h3>
-          <h4>{ fetchDetails.tipoProceso }</h4>
-          <h5>{fetchDetails.contenidoRadicacion}</h5>
-          <h6>{ fetchDetails.claseProceso }</h6>
-          <sub>{fetchDetails.subclaseProceso}</sub>
+          <h4>{ tipoProceso }</h4>
+          <h5>{contenidoRadicacion}</h5>
+          <h6>{ claseProceso }</h6>
+          <sub>{subclaseProceso}</sub>
         </div>
       );
 }

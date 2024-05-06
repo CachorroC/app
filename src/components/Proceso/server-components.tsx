@@ -1,13 +1,15 @@
-import typography from '#@/styles/fonts/typography.module.css';
+
 import { outProceso } from 'types/procesos';
-import { getProceso } from '#@/lib/project/utils/Procesos';
+import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos';
 import { ReactNode, Suspense } from 'react';
 import { ActuacionLoader } from '../Actuaciones/actuacion-loader';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { JuzgadoComponent } from './juzgado-component';
-import { Loader } from '../Loader';
+import { Loader } from '../Loader/main-loader';
 import layout from '#@/styles/layout.module.css';
 import { containerEnabled } from '../Card/outlined.module.css';
+import SujetosProcesales from './sujetos-procesales';
+import { ProcesoDetalleComponent } from './proceso-detalles-component';
 
 export const ProcesoCard = (
   {
@@ -18,44 +20,15 @@ export const ProcesoCard = (
     proceso: outProceso;
   }
 ) => {
-          const mapperObject = new Map();
-
           const {
             sujetosProcesales
           } = proceso;
 
-          const matcher = sujetosProcesales.matchAll(
-            /(\s?)([A-Za-z\s/]+)(:)(\s?)([A-Za-z\s.ÓóÚúÍíÁáÉéÑñ()]+)(\|?)/gm,
-          );
-
-          for ( const matchedValue of matcher ) {
-            mapperObject.set(
-              matchedValue[ 2 ].trim(), matchedValue[ 5 ].trim()
-            );
-          }
-
-          const objectify = Array.from(
-            mapperObject.entries()
-          );
 
           return (
             <div className={containerEnabled}>
               <div className={layout.sectionRow}>
-                { objectify.map(
-                  (
-                    object
-                  ) => {
-                            const [ key, value ] = object;
-                            return (
-                              <div className={layout.sectionRow} key={ key }>
-                                <sub style={{
-                                  color: 'var(--primary)'
-                                }} className={typography.labelSmall}>{ key }</sub>
-                                <h5 className={typography.titleMedium}>{value}</h5>
-                              </div>
-                            );
-                  }
-                ) }
+                <SujetosProcesales sujetosProcesalesRaw={ sujetosProcesales }/>
               </div>
               <div className={layout.sectionColumn}>{children}</div>
             </div>
@@ -69,7 +42,7 @@ export async function ProcesosComponent(
     llaveProceso: string;
   }
 ) {
-      const procesos = await getProceso(
+      const procesos = await getProcesosByllaveProceso(
         llaveProceso
       );
 
@@ -90,7 +63,9 @@ export async function ProcesosComponent(
                         <ProcesoCard
                           key={proceso.idProceso}
                           proceso={proceso}
-                        >
+                        ><Suspense>
+                            <ProcesoDetalleComponent idProceso={ proceso.idProceso } />
+                          </Suspense>
                           <Suspense fallback={<ActuacionLoader />}>
                             <FechaActuacionComponent
                               key={idProceso}

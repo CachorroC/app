@@ -7,14 +7,14 @@ import typography from '#@/styles/fonts/typography.module.css';
 import type {  Route } from 'next';
 import { Suspense } from 'react';
 import layout from '#@/styles/layout.module.css';
-import { Loader } from '#@/components/Loader';
+import { Loader, TableLoader } from '#@/components/Loader/main-loader';
 import { ProcesoCard } from '#@/components/Proceso/server-components';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { InputSection } from '#@/components/Form/input-section';
 import { DeudorFormComponent } from '../../../components/Form/deudor-form-component';
 import { ActuacionLoader } from '#@/components/Actuaciones/actuacion-loader';
-import { JuzgadoComponent } from '#@/components/Proceso/juzgado-component';
-import { getProceso } from '#@/lib/project/utils/Procesos';
+import { JuzgadoComponent, JuzgadoTableComponent } from '#@/components/Proceso/juzgado-component';
+import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos';
 import styles from './styles.module.css';
 import { NotificacionComponent } from '#@/components/Notificacion/notificacion';
 import FruitPicker from '#@/components/Buttons/etapaProsesalSelector';
@@ -22,6 +22,7 @@ import { ProcesoTableDetalleComponent } from '#@/components/Proceso/proceso-deta
 import { consultaProcesosPorRazonSocial } from '#@/lib/project/utils/main';
 import { ConsultaProcesos, outProceso } from '#@/lib/types/procesos';
 import { NewJuzgado } from '#@/lib/models/demanda';
+import SujetosProcesales from '#@/components/Proceso/sujetos-procesales';
 
 //SECTION Generate metadata for [numero]
 
@@ -29,7 +30,7 @@ import { NewJuzgado } from '#@/lib/models/demanda';
 async function AvailableProcesosByName (
   {
     nombre
-  }: {nombre: string}
+  }: { nombre: string }
 ) {
       const urlNameMaker = consultaProcesosPorRazonSocial(
         nombre
@@ -45,13 +46,23 @@ async function AvailableProcesosByName (
 
       const jsonString = await fetchProc.json() as ConsultaProcesos;
       return (
-        <table>
+        <table style={{
+          gridArea: 'span 2 / span 4'
+        }}>
           <thead>
             <tr>
               <th>Sujetos Procesales</th>
+              <th>idConexion</th>
+              <th>idRegProceso</th>
               <th>Contenido de radicacion</th>
-              <th>Juzgado</th>
               <th>fecha del Proceso</th>
+              <th>tipo del proceso</th>
+              <th>Enlace hibrido</th>
+              <th>Clase del proceso</th>
+              <th>Ponente</th>
+              <th>recurso</th>
+              <th>sub clase del proceso</th>
+              <th>Juzgado</th>
             </tr>
           </thead>
           <tbody>
@@ -70,12 +81,14 @@ async function AvailableProcesosByName (
                           <tr
                             key={proceso.idProceso}
                           >
-                            <td>{proceso.sujetosProcesales}</td>
-                            <Suspense fallback={<Loader />}>
+                            <td>
+                              <SujetosProcesales sujetosProcesalesRaw={ proceso.sujetosProcesales } />
+                            </td>
+                            <Suspense fallback={<TableLoader />}>
                               <ProcesoTableDetalleComponent key={proceso.idProceso} idProceso={proceso.idProceso} />
                             </Suspense>
-                            <Suspense fallback={<Loader />}>
-                              <JuzgadoComponent juzgado={outgoinProceso.juzgado} />
+                            <Suspense fallback={<TableLoader />}>
+                              <JuzgadoTableComponent juzgado={outgoinProceso.juzgado} />
                             </Suspense>
                           </tr> );
               }
@@ -94,7 +107,7 @@ async function ProcesosComponent(
     numero: number;
   }
 ) {
-      const procesos = await getProceso(
+      const procesos = await getProcesosByllaveProceso(
         llaveProceso
       );
 
@@ -182,7 +195,7 @@ export default async function Page(
       }
 
       const {
-        demanda, idProcesos, numero, llaveProceso
+        idProcesos, numero, llaveProceso
       } = carpeta;
 
       let idProcesoContent;
@@ -206,7 +219,7 @@ export default async function Page(
 
       return (
         <>
-          <div className={ layout.sectionRow }>
+          <div className={ layout.sectionColumn }>
             {
               carpeta.demanda?.capitalAdeudado && (
                 <div className={ styles.valueCard }>
@@ -246,16 +259,14 @@ export default async function Page(
               <NotificacionComponent notificacion={ carpeta.demanda.notificacion } />
             </Suspense>
           )}
-          <div className={layout.sectionRow}>
-            <section className={layout.segmentRow}>
-              <h3 className={typography.titleLarge}>Procesos</h3>
-              <Suspense fallback={<Loader />}>
-                <ProcesosComponent
-                  llaveProceso={llaveProceso}
-                  numero={numero}
-                />
-              </Suspense>
-            </section>
+          <div className={layout.sectionColumn}>
+            <h3 className={typography.titleLarge}>Procesos</h3>
+            <Suspense fallback={<Loader />}>
+              <ProcesosComponent
+                llaveProceso={llaveProceso}
+                numero={numero}
+              />
+            </Suspense>
           </div>
           <DeudorFormComponent />
 
@@ -267,21 +278,6 @@ export default async function Page(
               type={'text'}
             />
           </Suspense>
-
-          <section className={layout.segmentColumn}>
-            <h5 className={typography.titleMedium}>Capital Adeudado:</h5>
-            <p className={typography.bodyMedium}>
-              {' '}
-              {demanda?.capitalAdeudado
-            && fixMoney(
-              Number(
-                demanda.capitalAdeudado
-              ),
-
-            )}
-            </p>
-          </section>
-
           {idProcesoContent}
           <AvailableProcesosByName nombre={carpeta.nombre}/>
 

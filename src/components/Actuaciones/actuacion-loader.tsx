@@ -1,6 +1,6 @@
 import styles from 'components/Card/card.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
-import { Loader } from '../Loader';
+import { Loader } from '../Loader/main-loader';
 import layout from '#@/styles/layout.module.css';
 
 export function ActuacionLoader() {

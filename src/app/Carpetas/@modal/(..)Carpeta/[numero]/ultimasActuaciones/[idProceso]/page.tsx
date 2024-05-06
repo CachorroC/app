@@ -3,47 +3,10 @@ import { Suspense } from 'react';
 import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
 import  { ActuacionesLoader } from '#@/components/Actuaciones/actuacion-loader';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
-import { Modal } from '#@/components/Modal';
 import { NombreComponent } from '#@/components/nombre';
 import styles from '#@/styles/layout.module.css';
 import { ActuacionesListContainer } from '#@/components/Actuaciones/actuaciones-list';
-import { Loader } from '#@/components/Loader';
-import { Metadata } from 'next';
-
-export async function generateMetadata(
-  {
-    params,
-  }: {
-    params: { numero: string };
-  }
-): Promise<Metadata> {
-      const {
-        numero
-      } = params;
-
-      const product = await getCarpetabyNumero(
-        Number(
-          numero
-        )
-      );
-
-      if ( !product ) {
-        return {
-          title: 'sin carpeta',
-        };
-      }
-
-      const returnedMetadata: Metadata = {
-        title      : product.nombre,
-        appleWebApp: {
-          capable       : true,
-          title         : product.nombre,
-          statusBarStyle: 'black'
-        },
-        description: `el proceso de ${ product.nombre }`,
-      };
-      return returnedMetadata;
-}
+import { ModalLoader } from '#@/components/Loader/main-loader';
 
 async function ActuacionesListModalget (
   {
@@ -59,7 +22,7 @@ async function ActuacionesListModalget (
       );
 
       return (
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<ActuacionesLoader />}>
           <ActuacionesListContainer actuacionesPromise={  actuacionesPromise} />
         </Suspense>
       );
@@ -87,23 +50,18 @@ export default async function Page(
 
 
       return (
-
-
-        <Modal>
+        <>
           <div className={styles.segmentRow}>
-            <NombreComponent primerNombre={ carpeta.deudor?.primerNombre ?? '' }
-              primerApellido={ carpeta.deudor?.primerApellido ?? '' }
-              segundoApellido={ carpeta.deudor?.segundoApellido ?? null }
-              segundoNombre={ carpeta.deudor?.segundoNombre ?? null }/>
+            <NombreComponent nombre={ carpeta.nombre } carpetaNumero={ carpeta.numero} />
 
           </div>
 
 
-          <Suspense fallback={<ActuacionesLoader />}>
+          <Suspense fallback={<ModalLoader />}>
             <ActuacionesListModalget  idProceso={Number(
               params.idProceso
             )} />
           </Suspense>
-        </Modal>
+        </>
       );
 }

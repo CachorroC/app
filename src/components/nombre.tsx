@@ -1,50 +1,38 @@
 
 import typography from '#@/styles/fonts/typography.module.css';
-
-function capitalizeFirstLetter(
-  string : string
-) {
-      return string.charAt(
-        0
-      )
-            .toUpperCase() + string.slice(
-        1
-      )
-            .toLowerCase();
-}
+import Link from 'next/link';
 
 export function NombreComponent(
   {
-    primerNombre, segundoNombre, primerApellido, segundoApellido
-  }: { primerNombre: string; primerApellido: string; segundoNombre: string | null; segundoApellido: string | null}
+    nombre, carpetaNumero
+  }: {nombre: string; carpetaNumero: number}
 ) {
-      const nombres = segundoNombre
-        ? capitalizeFirstLetter(
-          primerNombre
-        )+ ' ' + capitalizeFirstLetter(
-          segundoNombre
-        )
-        : capitalizeFirstLetter(
-          primerNombre
-        );
+      const rawName = nombre.split(
+        ' '
+      )
+            .map(
+              (
+                palabra
+              ) => {
 
-      const apellidos = segundoApellido
-        ? capitalizeFirstLetter(
-          primerApellido
-        ) + ' ' + capitalizeFirstLetter(
-          segundoApellido
-        )
-        : capitalizeFirstLetter(
-          primerApellido
-        );
 
-      const rawName = nombres + ' ' + apellidos;
+                        return palabra.charAt(
+                          0
+                        )
+                              .toUpperCase() + palabra.toLowerCase()
+                              .substring(
+                                1
+                              );
+              }
+            );
 
       return (
-        <h4
+        <Link href={`/Carpeta/${ carpetaNumero }`}
           className={typography.displayLarge}
         >
-          {rawName}
-        </h4>
+          {rawName.join(
+            ' '
+          )}
+        </Link>
       );
 }

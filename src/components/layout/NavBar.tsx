@@ -5,7 +5,7 @@ import { DrawerMenuButton, NewNoteButton } from '../Buttons/nav-buttons';
 import { Drawer } from './Drawer';
 import { NavLink } from './NavLink';
 import { Route } from 'next';
-import { Loader } from '../Loader';
+import { Loader } from '../Loader/main-loader';
 import { Suspense } from 'react';
 
 export const NavBar = () => {

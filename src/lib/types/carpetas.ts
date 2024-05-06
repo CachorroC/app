@@ -10,6 +10,7 @@ import { WithId } from 'mongodb';
 import { IntTask, SubTarea } from './tareas';
 import { IntNota } from './notas';
 
+
 export type IntCarpeta  = {
   category: string;
   ciudad: string | null;

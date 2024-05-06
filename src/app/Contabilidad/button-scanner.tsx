@@ -2,18 +2,18 @@
 
 import { useState } from 'react';
 import { useNuevaFacturaContext } from './nueva-factura-context-provider';
-import { QrScanner } from '@yudiel/react-qr-scanner';
+import { Scanner } from '@yudiel/react-qr-scanner';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { useFacturaSort } from './facturas-context-provider';
 import { parseFacturaElectronica } from './helper/factura-electronica-parser';
 
 export function ButtonScan() {
       const {
-        valorState, setValorState 
+        valorState, setValorState
       } = useNuevaFacturaContext();
 
       const [ isScannerOpen, setIsScannerOpen ] = useState(
-        false 
+        false
       );
       return (
         <>
@@ -21,10 +21,10 @@ export function ButtonScan() {
             onClick={() => {
                       return setIsScannerOpen(
                         (
-                          e 
+                          e
                         ) => {
                                   return !e;
-                        } 
+                        }
                       );
             }}
           >
@@ -38,27 +38,26 @@ export function ButtonScan() {
                 height: '250px',
               }}
             >
-              <QrScanner
-                scanDelay={0}
-                onDecode={(
-                  result 
+              <Scanner
+                onResult={(
+                  result
                 ) => {
                           const parsedValues = parseFacturaElectronica(
-                            result 
+                            result
                           );
 
                           return setValorState(
                             {
                               ...valorState,
                               ...parsedValues,
-                            } 
+                            }
                           );
                 }}
                 onError={(
-                  error 
+                  error
                 ) => {
                           return console.log(
-                            error?.message 
+                            error?.message
                           );
                 }}
               />
@@ -73,7 +72,7 @@ export function CopyButtonContabilidad() {
       return (
         <CopyButton
           copyTxt={JSON.stringify(
-            facturas 
+            facturas
           )}
           name={'facturas'}
         />

@@ -141,12 +141,19 @@
   background-color: var(--surface);
   grid-area: left;
   border-radius: var(--shape-corner-large);
-  max-width: 100vw;
+  max-width: 100%;
   padding: 2vmin;
   overflow: auto;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  counter-reset: num;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 300px;
+}
+.left > *:before, .leftGrid > *:before, .leftColumn > *:before {
+  content: counter(num);
+  counter-increment: num;
 }
 .leftColumn {
   flex-flow: column wrap;

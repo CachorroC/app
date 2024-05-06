@@ -25,11 +25,7 @@ export default async function Page(
         <>
           {deudor && (
             <NombreComponent
-              key={llaveProceso}
-              primerNombre={ deudor.primerNombre }
-              primerApellido={ deudor.primerApellido }
-              segundoApellido={ deudor.segundoApellido }
-              segundoNombre={ deudor.segundoNombre }
+              key={ llaveProceso } nombre={ carpeta.nombre } carpetaNumero={ carpeta.numero }
             />
           )}
           {idProceso && <p className={typography.bodySmall}>Ultimas Actuaciones</p>}

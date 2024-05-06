@@ -27,11 +27,7 @@ export const CarpetaCard = (
               <div className={styles.card}>
                 {deudor && (
                   <NombreComponent
-                    key={numero}
-                    primerNombre={ deudor.primerNombre }
-                    primerApellido={ deudor.primerApellido }
-                    segundoApellido={ deudor.segundoApellido }
-                    segundoNombre={ deudor.segundoNombre }
+                    key={ numero } nombre={ carpeta.nombre } carpetaNumero={ carpeta.numero }
                   />
                 )}
                 <sub className={card.sub}>{carpeta.numero}</sub>

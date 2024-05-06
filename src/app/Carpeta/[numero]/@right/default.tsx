@@ -3,7 +3,7 @@ import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { notFound } from 'next/navigation';
 import layout from '#@/styles/layout.module.css';
 import {  Suspense } from 'react';
-import { Loader } from '#@/components/Loader';
+import { Loader } from '#@/components/Loader/main-loader';
 import {  ProcesosComponent } from '#@/components/Proceso/server-components';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';

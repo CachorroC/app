@@ -2,11 +2,10 @@
 import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
 import {  Suspense, useDeferredValue } from 'react';
 import { ClientCardRow } from '#@/components/Card/client-card';
-import  OutputDateHelper from '#@/lib/project/output-date-helper';
 import { Route } from 'next';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
-import { Loader } from '#@/components/Loader';
+import { Loader } from '#@/components/Loader/main-loader';
 import { TableRowCarpetaSortingButton } from './carpetasButtonsSort';
 import { ActuacionTableComponent, ActuacionTableErrorComponent } from '#@/components/Actuaciones/actuacion-table-component';
 
@@ -32,9 +31,6 @@ export function CarpetasTable() {
                 <TableRowCarpetaSortingButton sortKey={ 'nombre' } />
               </Suspense>
               <Suspense fallback={<Loader/>}>
-                <TableRowCarpetaSortingButton sortKey={ 'fecha' } />
-              </Suspense>
-              <Suspense fallback={<Loader/>}>
                 <TableRowCarpetaSortingButton sortKey={ 'category' } />
               </Suspense>
               <th>Actuaciones</th>
@@ -50,8 +46,27 @@ export function CarpetasTable() {
                 carpeta
               ) => {
                         const {
-                          ultimaActuacion, numero, nombre, fecha, category, llaveProceso, revisado,
+                          ultimaActuacion, numero, nombre,  category, llaveProceso, revisado,
                         } = carpeta;
+
+                        let words = nombre.split(
+                          ' '
+                        )
+                              .map(
+                                (
+                                  palabra
+                                ) => {
+
+
+                                          return palabra.charAt(
+                                            0
+                                          )
+                                                .toUpperCase() + palabra.toLowerCase()
+                                                .substring(
+                                                  1
+                                                );
+                                }
+                              );
 
 
                         return (
@@ -60,11 +75,10 @@ export function CarpetasTable() {
                             rowHref={`/Carpeta/${ numero }` as Route}
                             carpeta={carpeta}
                           >
-                            <td>{nombre.trim()
-                                  .toLocaleLowerCase()}</td>
-                            <td>
-                              <OutputDateHelper incomingDate={ fecha } />
-                            </td>
+                            <td>{words.join(
+                              ' '
+                            )}</td>
+
                             <td>{category}</td>
 
                             { ultimaActuacion

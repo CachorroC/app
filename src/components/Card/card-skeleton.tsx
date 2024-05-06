@@ -1,4 +1,4 @@
-import { Loader } from '#@/components/Loader';
+import { Loader } from '#@/components/Loader/main-loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import card from 'components/Card/card.module.css';
 import { containerEnabled } from './outlined.module.css';

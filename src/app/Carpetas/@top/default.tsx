@@ -1,6 +1,6 @@
 
 import { Suspense } from 'react';
-import { Loader } from '#@/components/Loader';
+import { Loader } from '#@/components/Loader/main-loader';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { InputSearchBar } from '#@/components/layout/InputSearchBar';
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';

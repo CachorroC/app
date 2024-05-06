@@ -384,6 +384,7 @@ a:link, a:visited {
 table {
   text-align: left;
   position: relative;
+  grid-column: span 4;
   width: 100%;
   border-collapse: collapse;
 }

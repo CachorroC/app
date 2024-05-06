@@ -13,7 +13,7 @@ import { ChipButton } from '#@/components/Chip';
 import chip from '#@/components/Chip/styles.module.css';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import MoneyFixer from '#@/lib/project/money-fixer';
-import { Loader } from '#@/components/Loader';
+import { Loader } from '#@/components/Loader/main-loader';
 
 export default function InformationComponent(
   {

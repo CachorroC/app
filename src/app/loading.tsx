@@ -1,4 +1,4 @@
-import { Loader } from '#@/components/Loader';
+import { Loader } from '#@/components/Loader/main-loader';
 import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
 import styles from '#@/styles/layout.module.css';
 import typography from '#@/styles/fonts/typography.module.css';

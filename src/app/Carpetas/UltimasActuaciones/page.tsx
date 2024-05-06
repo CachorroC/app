@@ -10,7 +10,7 @@ import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { Route } from 'next';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { TableRowCarpetaSortingButton } from '#@/components/Carpetas/client/carpetasButtonsSort';
-import { Loader } from '#@/components/Loader';
+import { Loader } from '#@/components/Loader/main-loader';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export type SortActionType = {

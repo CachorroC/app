@@ -94,7 +94,7 @@ export class NewJuzgado implements Juzgado {
                               .normalize(
                                 'NFD'
                               )
-                              .replace(
+                              .replaceAll(
                                 /\p{Diacritic}/gu, ''
                               )
                               .trim();
@@ -104,7 +104,7 @@ export class NewJuzgado implements Juzgado {
                                 .normalize(
                                   'NFD'
                                 )
-                                .replace(
+                                .replaceAll(
                                   /\p{Diacritic}/gu, ''
                                 )
                                 .trim()
@@ -114,7 +114,7 @@ export class NewJuzgado implements Juzgado {
                                 .normalize(
                                   'NFD'
                                 )
-                                .replace(
+                                .replaceAll(
                                   /\p{Diacritic}/gu, ''
                                 )
                                 .trim();

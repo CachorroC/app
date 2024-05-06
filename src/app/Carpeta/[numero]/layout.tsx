@@ -1,5 +1,5 @@
 import { CarpetaFormProvider } from '#@/app/Context/carpeta-form-context';
-import { Loader } from '#@/components/Loader';
+import { Loader } from '#@/components/Loader/main-loader';
 import { NombreComponent } from '#@/components/nombre';
 import styles from '#@/styles/layout.module.css';
 import { Metadata, Route } from 'next';
@@ -78,11 +78,7 @@ export default async function LayoutCarpetaMain(
               <Link href={`/Carpeta/${ params.numero }` as Route}>
                 {carpeta.deudor && (
                   <NombreComponent
-                    key={ params.numero }
-                    primerNombre={ carpeta.deudor.primerNombre }
-                    primerApellido={ carpeta.deudor.primerApellido }
-                    segundoApellido={ carpeta.deudor.segundoApellido }
-                    segundoNombre={ carpeta.deudor.segundoNombre }
+                    key={ params.numero } nombre={ carpeta.nombre} carpetaNumero={carpeta.numero}
                   />
                 )}
               </Link>

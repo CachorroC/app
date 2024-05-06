@@ -60,7 +60,7 @@ export type intProceso  = {
   cantFilas:            number;
 }
 
-export type intProcesoDetalle = {
+export type DetalleProceso  ={
   idRegProceso:        number;
   llaveProceso:        string;
   idConexion:          number;
@@ -76,6 +76,7 @@ export type intProcesoDetalle = {
   contenidoRadicacion: null | string;
   fechaConsulta:       Date;
   ultimaActualizacion: Date;
+  juzgado ?: Juzgado
 }
 
 export type ClaseProceso = 'EJECUTIVO' | 'Ejecutivo con Título Hipotecario' | 'Ejecutivo Singular' | 'Ejecutivo con Título Prendario' | 'Abreviado' | 'PROCESOS EJECUTIVOS HIPOTECARIOS O PRENDARIOS' | 'Despachos Comisorios' | 'Sin Tipo de Proceso' | 'Ejecutivo Mixto' | 'Solicitud entrega inmueble' | 'Sucesión' | 'SUCESIÓN' | 'EJECUTIVOS DE MENOR Y MINIMA CUANTIA' | 'DESPACHOS COMISORIOS' | 'EJECUTIVO HIPOTECARIO' | 'Tutelas' | 'EJECUTIVO SINGULAR' | 'Ordinario';

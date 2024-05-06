@@ -44,8 +44,6 @@ export function NotificacionComponent(
                           }
                 }}
               />
-              {/* <span className={ styles.slider }aria-hidden="true"></span> */}
-
               <span
                 className={formStyles.decor}
                 data-switch-input-state="on"
