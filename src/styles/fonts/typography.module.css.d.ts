@@ -1,4 +1,7 @@
 declare const styles: {
+  readonly 'bodyLarge': string;
+  readonly 'bodyMedium': string;
+  readonly 'bodySmall': string;
   readonly 'container': string;
   readonly 'displayLarge': string;
   readonly 'displayMedium': string;
@@ -6,9 +9,6 @@ declare const styles: {
   readonly 'headlineLarge': string;
   readonly 'headlineMedium': string;
   readonly 'headlineSmall': string;
-  readonly 'bodyLarge': string;
-  readonly 'bodyMedium': string;
-  readonly 'bodySmall': string;
   readonly 'labelLarge': string;
   readonly 'labelMedium': string;
   readonly 'labelSmall': string;
