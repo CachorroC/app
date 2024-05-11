@@ -1,7 +1,8 @@
 'use client';
+
 import styles from '#@/components/Card/card.module.css';
 import { useEffect } from 'react';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 
 export default function Error(
   {
@@ -10,17 +11,16 @@ export default function Error(
   }: {
   error: Error & { digest?: string };
   reset: () => void;
-}
+} 
 ) {
   useEffect(
     () => {
-      // Log the error to an error reporting service
       console.error(
-        error
+        error 
       );
     }, [
       error
-    ]
+    ] 
   );
 
   return (
@@ -29,13 +29,10 @@ export default function Error(
       <p className={typography.bodyMedium}>{error.message}</p>
       <span>{error.digest}</span>
       <button
-        className={styles.error}
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => {
-            return reset();
-          }
-        }
+        className={styles.errorContainer}
+        onClick={() => {
+          return reset();
+        }}
       >
         Try again
       </button>

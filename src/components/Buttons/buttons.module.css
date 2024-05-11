@@ -1,161 +1,151 @@
-.buttonsRow {
-  flex: 1 1 100%;
-}
-
-.button, .buttonHome,
-.activeHome, .buttonModal,
-.activeModal, .buttonDrawerMenu,
-.activeDrawerMenu, .buttonBackwards,
-.activeBackwards, .buttonForward,
-.activeForward, .buttonCategory,
-.activeCategory,
-.active {
-  border: none;
+.button, .buttonChip, .buttonActuacion, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
+  border: 0.07rem solid var(--outline);
   box-sizing: border-box;
-  padding: 0.5vmin 2vmin;
-  border-radius: 2vmin;
+  padding: 0.5rem;
   flex: 1;
   display: flex;
-  flex-flow: column nowrap;
-  justify-items: center;
+  flex-flow: row nowrap;
+  justify-items: stretch;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   align-content: center;
+  border-radius: var(--shape-corner-full);
   transition: all 0.3s;
+  position: relative;
 }
-.buttonCategory,
-.activeCategory {
+.button:hover:before, .buttonChip:hover:before, .buttonActuacion:hover:before, .buttonPassiveCategory:hover:before, .buttonActiveCategory:hover:before, .buttonEdit:hover:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  content: "";
+  opacity: 0.08;
+}
+.buttonEdit {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+.buttonActiveCategory {
+  flex-flow: column nowrap;
+  flex: 2;
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  border: 0.02rem solid var(--outline);
+}
+.buttonActiveCategory > .icon, .buttonActiveCategory > .text {
+  color: var(--on-secondary-container);
+}
+.buttonActiveCategory:hover:before {
+  opacity: 0.08;
+  background-color: var(--on-secondary-container);
+}
+.buttonActiveCategory:focus:before, .buttonActiveCategory:active:before {
+  opacity: 0.1;
+  background-color: var(--on-secondary-container);
+}
+.buttonPassiveCategory {
+  flex: 1;
+  flex-flow: column nowrap;
   background-color: var(--surface-container-high);
+  color: var(--secondary);
+  border: 0.02rem solid var(--outline);
 }
-.buttonCategory > .icon,
-.activeCategory > .icon {
+.buttonPassiveCategory > .icon {
   color: var(--secondary);
 }
-.buttonForward,
-.activeForward {
-  grid-area: forwardButton;
-  background-color: var(--primary-container);
-}
-.buttonForward > .icon, .buttonForward > .text,
-.activeForward > .icon,
-.activeForward > .text {
-  color: var(--on-primary-container);
-}
-.buttonBackwards,
-.activeBackwards {
-  background-color: var(--primary-container);
-  grid-area: backwardsButton;
-}
-.buttonBackwards > .icon, .buttonBackwards > .text,
-.activeBackwards > .icon,
-.activeBackwards > .text {
-  color: var(--on-primary-container);
-}
-.buttonDrawerMenu,
-.activeDrawerMenu {
-  grid-area: drawerMenuButton;
-  background-color: var(--primary-fixed);
-}
-.buttonDrawerMenu > .icon, .buttonDrawerMenu > .text,
-.activeDrawerMenu > .icon,
-.activeDrawerMenu > .text {
-  color: var(--on-primary-fixed);
-}
-.buttonModal,
-.activeModal {
-  grid-area: modal;
-  background-color: var(--tertiary-container);
-}
-.buttonModal > .icon, .buttonModal > .text,
-.activeModal > .icon,
-.activeModal > .text {
-  color: var(--on-tertirary-container);
-}
-.buttonHome,
-.activeHome {
-  grid-area: homeButton;
-  box-shadow: var(--dp2);
-  background-color: var(--primary);
-}
-.buttonHome > .icon, .buttonHome > .text,
-.activeHome > .icon,
-.activeHome > .text {
-  color: var(--on-primary);
-}
-.button:link, .buttonCategory:link,
-.activeCategory:link, .buttonForward:link,
-.activeForward:link, .buttonBackwards:link,
-.activeBackwards:link, .buttonDrawerMenu:link,
-.activeDrawerMenu:link, .buttonModal:link,
-.activeModal:link, .buttonHome:link,
-.activeHome:link, .button:visited, .buttonCategory:visited,
-.activeCategory:visited, .buttonForward:visited,
-.activeForward:visited, .buttonBackwards:visited,
-.activeBackwards:visited, .buttonDrawerMenu:visited,
-.activeDrawerMenu:visited, .buttonModal:visited,
-.activeModal:visited, .buttonHome:visited,
-.activeHome:visited,
-.active:link,
-.active:visited {
-  background-color: var(--surface-container);
+.buttonPassiveCategory > .text {
   color: var(--on-surface);
 }
-.button:link > .icon, .buttonCategory:link > .icon,
-.activeCategory:link > .icon, .buttonForward:link > .icon,
-.activeForward:link > .icon, .buttonBackwards:link > .icon,
-.activeBackwards:link > .icon, .buttonDrawerMenu:link > .icon,
-.activeDrawerMenu:link > .icon, .buttonModal:link > .icon,
-.activeModal:link > .icon, .buttonHome:link > .icon,
-.activeHome:link > .icon, .button:visited > .icon, .buttonCategory:visited > .icon,
-.activeCategory:visited > .icon, .buttonForward:visited > .icon,
-.activeForward:visited > .icon, .buttonBackwards:visited > .icon,
-.activeBackwards:visited > .icon, .buttonDrawerMenu:visited > .icon,
-.activeDrawerMenu:visited > .icon, .buttonModal:visited > .icon,
-.activeModal:visited > .icon, .buttonHome:visited > .icon,
-.activeHome:visited > .icon,
-.active:link > .icon,
-.active:visited > .icon {
-  color: var(--on-surface-variant);
+.buttonPassiveCategory:hover:before {
+  opacity: 0.08;
+  background-color: var(--on-secondary-container);
 }
-.button:hover, .buttonCategory:hover,
-.activeCategory:hover, .buttonForward:hover,
-.activeForward:hover, .buttonBackwards:hover,
-.activeBackwards:hover, .buttonDrawerMenu:hover,
-.activeDrawerMenu:hover, .buttonModal:hover,
-.activeModal:hover, .buttonHome:hover,
-.activeHome:hover, .button:active, .buttonCategory:active,
-.activeCategory:active, .buttonForward:active,
-.activeForward:active, .buttonBackwards:active,
-.activeBackwards:active, .buttonDrawerMenu:active,
-.activeDrawerMenu:active, .buttonModal:active,
-.activeModal:active, .buttonHome:active,
-.activeHome:active,
-.active:hover,
-.active:active {
-  background-color: var(--primary-fixed);
-  box-shadow: var(--dp6);
-  border: 2px solid var(--outline);
+.buttonPassiveCategory:focus:before, .buttonPassiveCategory:active:before {
+  opacity: 0.1;
+  background-color: var(--on-secondary-container);
 }
-.button:hover > span, .buttonCategory:hover > span,
-.activeCategory:hover > span, .buttonForward:hover > span,
-.activeForward:hover > span, .buttonBackwards:hover > span,
-.activeBackwards:hover > span, .buttonDrawerMenu:hover > span,
-.activeDrawerMenu:hover > span, .buttonModal:hover > span,
-.activeModal:hover > span, .buttonHome:hover > span,
-.activeHome:hover > span, .button:active > span, .buttonCategory:active > span,
-.activeCategory:active > span, .buttonForward:active > span,
-.activeForward:active > span, .buttonBackwards:active > span,
-.activeBackwards:active > span, .buttonDrawerMenu:active > span,
-.activeDrawerMenu:active > span, .buttonModal:active > span,
-.activeModal:active > span, .buttonHome:active > span,
-.activeHome:active > span,
-.active:hover > span,
-.active:active > span {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
-  color: var(--on-primary-fixed);
+.buttonActuacion {
+  flex: 0 1 auto;
+}
+.buttonChip {
+  height: minmax(2rem, 3rem);
+  flex: 0 1 auto;
+  box-sizing: border-box;
+}
+.button:hover:before, .buttonEdit:hover:before, .buttonActiveCategory:hover:before, .buttonPassiveCategory:hover:before, .buttonActuacion:hover:before, .buttonChip:hover:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: "";
+  top: 0;
+  left: 0;
+  opacity: 0.08;
 }
 
 .active {
   background-color: var(--tertiary-container);
   color: var(--on-tertiary-container);
+}
+
+.snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: var(--inverse-surface);
+  color: var(--inverse-on-surface);
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+.snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }

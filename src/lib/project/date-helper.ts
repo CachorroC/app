@@ -1,43 +1,35 @@
-export function InputDateHelper (
-  incomingDate: string | Date
-) {
-  let daterBuilder;
-
-  if ( typeof incomingDate === 'string' ) {
-    daterBuilder = new Date(
-      incomingDate
-    );
-  } else {
-    daterBuilder = incomingDate;
+export function InputDateHelper(
+  incomingDate?: string | Date | null | undefined,
+): string {
+  if ( !incomingDate || incomingDate === null || incomingDate === undefined ) {
+    return '';
   }
-
-  return daterBuilder.toISOString()
-    .slice(
-      0, 10
-    );
-}
-
-// !prints the output of the datehelper
-export function OutputDateHelper (
-  incomingDate: string | Date
-) {
 
   let daterBuilder;
 
   if ( typeof incomingDate === 'string' ) {
     daterBuilder = new Date(
-      incomingDate
+      incomingDate 
     );
   } else {
     daterBuilder = incomingDate;
   }
 
-  return daterBuilder.toLocaleString(
-    'es-CO', {
-      year   : 'numeric',
-      weekday: 'short',
-      month  : 'long',
-      day    : 'numeric',
-    }
-  );
+  const yearBuilder = daterBuilder.getFullYear();
+
+  const inputMonth = String(
+    daterBuilder.getMonth() + 1 
+  )
+    .padStart(
+      2, '0' 
+    );
+
+  const inputDate = String(
+    daterBuilder.getDate() + 1 
+  )
+    .padStart(
+      2, '0' 
+    );
+
+  return `${ yearBuilder }-${ inputMonth }-${ inputDate }`;
 }

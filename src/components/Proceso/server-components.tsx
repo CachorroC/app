@@ -1,106 +1,47 @@
-import { MonCarpeta } from 'types/carpetas';
-import { Fragment } from 'react';
-import styles from './procesos.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
-import Link from 'next/link';
-import type { Route } from 'next';
-import { Proceso } from 'types/procesos';
-import { fixDemandado, fixFechas } from '#@/lib/project/helper';
-import { getProceso } from '#@/lib/Procesos';
+import { outProceso } from 'types/procesos';
+import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos';
+import { ReactNode, Suspense } from 'react';
+import { ActuacionLoader } from '../Actuaciones/actuacion-loader';
+import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
+import { JuzgadoComponent } from './juzgado-component';
+import { Loader } from '../Loader/main-loader';
+import layout from '#@/styles/layout.module.css';
+import { containerEnabled } from '../Card/outlined.module.css';
+import SujetosProcesales from './sujetos-procesales';
+import { ProcesoDetalleComponent } from './proceso-detalles-component';
 
 export const ProcesoCard = (
   {
-    proceso
-  }: { proceso: Proceso }
+    children,
+    proceso,
+  }: {
+  children: ReactNode;
+  proceso: outProceso;
+} 
 ) => {
   const {
-    idProceso,
-    llaveProceso,
-    sujetosProcesales,
-    despacho,
-    esPrivado,
-    fechaUltimaActuacion,
+    sujetosProcesales 
   } = proceso;
 
-  if ( esPrivado ) {
-    return null;
-  }
-
-  const juzgado = despacho
-    ? despacho.replace(
-      / /g, '-'
-    )
-      .toLocaleLowerCase()
-      .slice(
-        0, -1
-      )
-    : null;
-
   return (
-    <div
-      className={styles.container}
-      key={proceso.idProceso}
-    >
-      <div className={styles.card}>
-        <h1 className={`${ typography.titleLarge } ${ styles.title }`}>
-          {fixDemandado(
-            sujetosProcesales
-          )}
-        </h1>
-        <Link
-          className={styles.button}
-          href={`/Procesos/${ llaveProceso }/${ idProceso }` as Route}
-        >
-          <span className={`material-symbols-outlined ${ styles.icon }`}>
-            open_in_new
-          </span>
-        </Link>
-        <p className={`${ typography.bodyMedium } ${ styles.content }`}>
-          {despacho}
-        </p>
-        {fechaUltimaActuacion && (
-          <sub className={styles.date}>{fixFechas(
-            fechaUltimaActuacion.toString()
-          )}</sub>
-        )}
-        {juzgado && (
-          <Link
-            className={styles.button}
-            href={`https://ramajudicial.gov.co/web/${ juzgado.replaceAll(
-              'á',
-              'a',
-            ) }`}
-          >
-            <p className={typography.bodySmall}>
-              {juzgado.replaceAll(
-                'á', 'a'
-              )}
-            </p>
-          </Link>
-        )}
+    <div className={containerEnabled}>
+      <div className={layout.sectionRow}>
+        <SujetosProcesales sujetosProcesalesRaw={sujetosProcesales} />
       </div>
+      <div className={layout.sectionColumn}>{children}</div>
     </div>
   );
 };
 
-export const ProcesoComponent = async (
+export async function ProcesosComponent(
   {
-    carpeta,
-    index,
+    llaveProceso,
   }: {
-  carpeta: MonCarpeta;
-  index: number;
-}
-) => {
-  if ( !carpeta.llaveProceso ) {
-    return null;
-  }
-
-  const procesos = await getProceso(
-    {
-      llaveProceso: carpeta.llaveProceso,
-      index       : index,
-    }
+  llaveProceso: string;
+} 
+) {
+  const procesos = await getProcesosByllaveProceso(
+    llaveProceso 
   );
 
   if ( !procesos || procesos.length === 0 ) {
@@ -108,19 +49,35 @@ export const ProcesoComponent = async (
   }
 
   return (
-    <Fragment key={carpeta.llaveProceso}>
+    <>
       {procesos.map(
         (
-          proceso
+          proceso 
         ) => {
+          const {
+            idProceso 
+          } = proceso;
           return (
             <ProcesoCard
               key={proceso.idProceso}
               proceso={proceso}
-            />
+            >
+              <Suspense>
+                <ProcesoDetalleComponent idProceso={proceso.idProceso} />
+              </Suspense>
+              <Suspense fallback={<ActuacionLoader />}>
+                <FechaActuacionComponent
+                  key={idProceso}
+                  idProceso={idProceso}
+                />
+              </Suspense>
+              <Suspense fallback={<Loader />}>
+                <JuzgadoComponent juzgado={proceso.juzgado} />
+              </Suspense>
+            </ProcesoCard>
           );
-        }
+        } 
       )}
-    </Fragment>
+    </>
   );
-};
+}

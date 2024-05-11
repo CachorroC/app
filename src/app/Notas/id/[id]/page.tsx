@@ -1,50 +1,70 @@
-
-import { getNotaById } from '#@/lib/project/notas';
+import { getNotaById } from '#@/lib/project/utils/Notas/notas';
 import { Edit } from '#@/components/Nota/Edit';
-import typography from '#@/styles/fonts/typography.module.scss';
-import layout from '#@/styles/layout.module.css';
 import { notFound } from 'next/navigation';
+import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 
-export default async function NuevaNotallaveProceso(
-  {
-    params: {
-      id
-    },
+//? Generate segments for [numero]
 
-  }: {
-  params: { id: string };
-}
-) {
-  let notaScope;
-  let notaNumber;
+export async function generateStaticParams() {
+  const carpetas = await getNotas();
 
-  if ( id === 'Nueva' ) {
-    notFound();
+  const flattenUp = carpetas.map(
+    (
+      carpeta 
+    ) => {
+      const {
+        id 
+      } = carpeta;
+
+      return {
+        id: String(
+          id 
+        ),
+      };
+    } 
+  );
+
+  const chunkSize = 20;
+
+  const chunks = [];
+
+  for ( let i = 0; i < flattenUp.length; i += chunkSize ) {
+    const chunk = flattenUp.slice(
+      i, i + chunkSize 
+    );
+    chunks.push(
+      chunk 
+    );
   }
 
-  if ( id ) {
-    const nota = await getNotaById(
-      {
-        id: id
-      }
-    );
-    notaNumber= nota?.cod;
-    notaScope = (
-      nota && <Edit
-        key={id}
-        nota={nota}
-      />
-    );
+  return chunks[ 0 ];
+}
+
+export default async function Page(
+  {
+    params: {
+      id 
+    },
+  }: {
+  params: { id: string };
+} 
+) {
+  const nota = await getNotaById(
+    Number(
+      id 
+    ) 
+  );
+
+  if ( !nota ) {
+    return notFound();
   }
 
   return (
     <>
-      <div className={ layout.top }>
-        <h1 className={typography.displayLarge}>{`Nota numero: ${ notaNumber }`}</h1>
-      </div>
-      <div className={ layout.left }>
-        {notaScope}
-      </div>
+      <Edit
+        key={id}
+        nota={nota}
+      />
     </>
   );
 }

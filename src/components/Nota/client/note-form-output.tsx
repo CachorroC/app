@@ -1,42 +1,31 @@
 'use client';
 
-import { useNotaContext } from '#@/app/context/main-context';
 import styles from 'components/Nota/note.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
+import { useNuevaNotaContext } from '#@/app/Notas/nueva-nota-form-context';
 
 export default function NoteFormOutput() {
   const {
-    inputNota
-  } = useNotaContext();
+    notaFormState 
+  } = useNuevaNotaContext();
 
   return (
     <div className={styles.container}>
-      <sub className={styles.sup}>{inputNota.cod}</sub>
-      {inputNota.llaveProceso && (
-        <span>{`llaveProceso: ${ inputNota.llaveProceso }`}</span>
+      {notaFormState.carpetaNumero && (
+        <span>{`llaveProceso: ${ notaFormState.carpetaNumero }`}</span>
       )}
       <section className={styles.section}>
-        <p className={`${ typography.bodyLarge } ${ styles.textArea }`}>
-          {inputNota.text}
-        </p>
-        <p className={`${ typography.bodyMedium } ${ styles.textArea }`}>
-          {' '}
-          {inputNota.date && fixFechas(
-            inputNota.date.toString()
-          )}
-        </p>
+        <p className={typography.displayMedium}>{notaFormState.text}</p>
+        <p className={typography.bodyMedium}>{notaFormState.text}</p>
+        {notaFormState.dueDate && (
+          <p className={typography.labelSmall}>
+            {fixFechas(
+              notaFormState.dueDate?.toString() 
+            )}
+          </p>
+        )}
       </section>
-      <span>{inputNota.pathname}</span>
-
-      <label className={styles.switchBox}>
-        <input
-          className={styles.inputElement}
-          defaultChecked={inputNota.done}
-          type="checkbox"
-        />
-        <span className={styles.slider}></span>
-      </label>
     </div>
   );
 }

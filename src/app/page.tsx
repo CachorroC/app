@@ -1,72 +1,65 @@
 import layout from '#@/styles/layout.module.css';
 import Link from 'next/link';
 import typography from '#@/styles/fonts/typography.module.css';
-import { Metadata } from 'next';
-import type { Route } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Procesos',
-};
+import { Calendar } from '#@/components/Calendar/main';
+import { Route } from 'next';
 
 export default function Page() {
   return (
     <>
-      <div className={layout.top}><h1 className={ typography.displayLarge }>
-        { 'R&S Asesoría Jurídica S.A.S' }
-      </h1>
-      </div><div className={ layout.left }>
+      <div className={layout.top}>
+        <h1 className={typography.displayLarge}>
+          {'R&S Asesoría Jurídica S.A.S'}
+        </h1>
+      </div>
+      <div className={layout.leftGrid}>
         <Link
-          className={ layout.link }
-          href={ '/Procesos' as Route }
+          className={layout.button}
+          href={'/Carpetas/UltimasActuaciones' as Route}
         >
           <span className="material-symbols-outlined">pace</span>
-          <h1 className={ typography.displayMedium }>{ 'Ultimos Movimientos' }</h1>
+          <h1 className={typography.headlineMedium}>{'Ultimas Actuaciones'}</h1>
         </Link>
         <Link
-          className={ layout.link }
-          href={ '/Notas' as Route }
+          className={layout.button}
+          href={'/Notas'}
         >
           <span className="material-symbols-outlined">note</span>
-          <h1 className={ typography.displayMedium }>{ 'Notas' }</h1>
+          <h1 className={typography.headlineMedium}>{'Notas'}</h1>
         </Link>
         <Link
-          className={ layout.link }
-          href={ '/Carpetas' as Route}
+          className={layout.button}
+          href={'/Carpetas'}
         >
           <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.displayMedium }>{ 'Carpetas' }</h1>
-        </Link>
-        <Link
-          className={ layout.link }
-          href={ '/Tareas' }
-        >
-          <span className="material-symbols-outlined">api</span>
-          <h1 className={ typography.displayMedium }>{ 'Tareas' }</h1>
+          <h1 className={typography.headlineMedium}>{'Carpetas'}</h1>
         </Link>
 
         <Link
-          className={ layout.link }
-          href={ '/Costos' }
+          className={layout.button}
+          href={'/Costos'}
         >
           <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.displayMedium }>{ 'Costos' }</h1>
+          <h1 className={typography.headlineMedium}>{'Costos'}</h1>
         </Link>
         <Link
-          className={ layout.link }
-          href={ '/Contacto' as Route }
+          className={layout.button}
+          href={'/Contacto'}
         >
           <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.displayMedium }>{ 'Contacto' }</h1>
+          <h1 className={typography.headlineMedium}>{'Contacto'}</h1>
         </Link>
         <Link
-          className={ layout.link }
-          href={ '/QuienesSomos' }
+          className={layout.button}
+          href={'/QuienesSomos'}
         >
           <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={ typography.displayMedium }>{ 'Quienes Somos' }</h1>
+          <h1 className={typography.headlineMedium}>{'Quienes Somos'}</h1>
         </Link>
-
-
-      </div></>
+      </div>
+      <div className={layout.right}>
+        <Calendar />
+      </div>
+    </>
   );
 }

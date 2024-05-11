@@ -1,0 +1,30 @@
+.container {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  border-radius: var(--shape-corner-medium);
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+  &:hover {
+    box-shadow: var(--elevation-1);
+  }
+
+  &Enabled {
+    @extend .container;
+    background-color: var(--surface-container-high);
+    box-shadow: var(--elevation-0);
+    & > & {
+      background-color: var(--surface-container-highest);
+    }
+    &:hover {
+      box-shadow: var(--elevation-1);
+    }
+  }
+  &Disabled {
+    @extend .container;
+    background-color: var(--surface-variant);
+    opacity: 0.38;
+  }
+}

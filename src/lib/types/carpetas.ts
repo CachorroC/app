@@ -4,474 +4,367 @@
 //
 //   const intCarpeta = Convert.toIntCarpeta(json);
 
+import { outActuacion } from './actuaciones';
+import { outProceso } from './procesos';
 import { WithId } from 'mongodb';
-import { Actuacion } from './actuaciones';
+import { IntTask, SubTarea } from './tareas';
+import { IntNota } from './notas';
 
-export interface IntCarpeta {
+export type IntCarpeta = {
+  category: string;
+  ciudad: string | null;
+  codeudor: Codeudor | null;
   demanda: intDemanda;
-  category: Category;
-  categoryTag: number;
-  deudor: intDeudor;
-  numero: number;
+  deudor: Deudor | null;
+  fecha: Date | null;
+  fechaUltimaRevision: Date | null;
+  id: number;
+  idProcesos: number[];
+  idRegUltimaAct: number | null;
+  juzgado: Juzgado | null;
+  juzgadoCiudad: string | null;
+  juzgadoId: string | null;
+  juzgadoTipo: string | null;
   llaveProceso: string;
-  tipoProceso: TipoProceso;
-  idProceso?: number;
-  nombre?: string;
-  fecha?: Date;
-
-  ultimaActuacion?: Actuacion;
-}
+  nombre: string;
+  notas: IntNota[];
+  notasCount: number | null;
+  numero: number;
+  procesos: outProceso[];
+  revisado: boolean;
+  tareas: IntTask[];
+  terminado: boolean;
+  tipoProceso: string;
+  ultimaActuacion: outActuacion | null;
+  updatedAt: Date;
+};
 
 export type Category =
   | 'Terminados'
-  | 'LiosJuridicos'
-  | 'Bancolombia'
   | 'Reintegra'
-  | 'Insolvencia';
+  | 'Bancolombia'
+  | 'Insolvencia'
+  | 'LiosJuridicos'
+  | 'todos'
+  | 'SinEspecificar';
 
-export interface intDemanda {
-  departamento: Departamento | null;
-  capitalAdeudado: number | string | null;
-  entregagarantiasAbogado: Date | null;
-  etapaProcesal: null | string;
-  fechaPresentacion: Date | null;
-  municipio: string;
-  obligacion: { [key: string]: number | string };
-  radicado: string;
-  vencimientoPagare:  Array<Date | null> | Date | null;
-  expediente: string;
-  juzgados: intJuzgado[];
-}
-
-export interface Departamento {
-  idCatalogoDetalle: number;
-  idCatalogoDetallePadre: number;
-  descripcion: Descripcion;
-  codigo: string;
-}
-
-export type Descripcion = 'CUNDINAMARCA' | 'TOLIMA';
-
-export interface intJuzgado {
+export type Codeudor = {
+  carpetaNumero: number | null;
+  cedula: null | string;
+  direccion: null | string;
   id: number;
+  nombre: null | string;
+  telefono: null | string;
+};
+
+export type intDemanda = {
+  avaluo: null | number;
+  capitalAdeudado: null | number;
+  carpetaNumero?: number;
+  departamento: string | null;
+  despacho: null | string;
+  entregaGarantiasAbogado: Date | null;
+  etapaProcesal: null | string;
+  fechaPresentacion: Date[];
+  id: number;
+  liquidacion: number | null;
+  llaveProceso: string | null;
+  mandamientoPago: Date[];
+  medidasCautelares: MedidasCautelares | null;
+  municipio: string | null;
+  notificacion: Notificacion | null;
+  obligacion: string[];
+  radicado: null | string;
+  tipoProceso: string;
+  vencimientoPagare: Date[];
+};
+
+export type intDemandaDepartamento =
+  | 'CUNDINAMARCA'
+  | 'CUNDINNAMARCA'
+  | 'TOLIMA'
+  | 'CUN DINAMARCA'
+  | 'BOYACÁ'
+  | 'CUNDINAMRCA'
+  | 'CNDINAMARCA'
+  | 'ATLANTICO';
+
+export type MedidasCautelares = {
+  demandaId: number | null;
+  fechaOrdenaMedida: Date | null;
+  id: number;
+  medidaSolicitada: null | string;
+};
+
+export type Notificacion = {
+  autoNotificado: null | Date;
+  demandaId: number | null;
+  certimail: boolean | null;
+  fisico: boolean | null;
+  id: number;
+  notifiers: Notifier[];
+};
+
+export type Notifier = {
+  fechaAporta: Date | null;
+  fechaRecibido: Date | null;
+  id?: number;
+  notificacionId: number | null;
+  resultado: boolean | null;
   tipo: string;
-  url: string;
-}
-
-export interface intDeudor {
-  tel: intTel;
-  primerNombre: string;
-  segundoNombre?:  string;
-  primerApellido: string;
-  segundoApellido?: string;
-  cedula: number | null;
-  direccion: string;
-  email: string;
-}
-
-export interface intTel {
-  fijo: number | null;
-  celular: number | null;
-}
+};
 
 export type TipoProceso =
-  | 'HIPOTECARIO'
-  | 'PRENDARIO'
   | 'SINGULAR'
-  | 'SINGULAR ACUMULADO CON HIPOTECARIO'
-  | 'SINGULAR ACUM HIPOTECARIO'
-  | '11001400308320170071700'
-  | '25473418900120170092400'
-  | 'PRENDARO'
-  | ' HIPOTECARIO'
-  | 'HMM PISO 1'
-  | '  SINGULAR'
-  | 'HIPOTECARIA'
-  | 'HIPOTECARO'
-  | 'SINGULAR ACUMULADO CON HIPOTECARIO CAJA SOCIAL'
-  | 'SOACHA'
-  | 'HIPOTECARIO ';
+  | 'PRENDARIO'
+  | 'HIPOTECARIO'
+  | 'ACUMULADO';
+
+export type Deudor = {
+  carpetaNumero: number | null;
+  cedula: string;
+  direccion: null | string;
+  email: null | string;
+  id: number;
+  primerApellido: string;
+  primerNombre: string;
+  segundoApellido: null | string;
+  segundoNombre: null | string;
+  telCelular: null | string;
+  telFijo: null | string;
+};
+
+export type ProcesoDepartamento =
+  | 'BOGOTÁ'
+  | 'CUNDINAMARCA'
+  | 'ANTIOQUIA'
+  | 'META';
+
+export type Juzgado = {
+  id: string;
+  tipo: string;
+  url: string;
+  ciudad: string;
+};
 
 export type CodRegla = '00                              ';
 
 export interface MonCarpeta extends IntCarpeta {
-  _id: string;
-  nombre: string;
-  fecha?: Date;
-
-  ultimaActuacion?: Actuacion;
-}
-
-export type CarpetaKeys = keyof IntCarpeta;
-
-export class BuildCarpeta implements MonCarpeta {
-  constructor(
-    {
-      _id,
-      tipoProceso,
-      llaveProceso,
-      demanda,
-      category,
-      categoryTag,
-      numero,
-      deudor: {
-        primerNombre,
-        segundoNombre,
-        primerApellido,
-        segundoApellido,
-        direccion = '',
-        email = '',
-        tel: {
-          fijo = 0, celular = 0
-        },
-        cedula,
-      },
-    }: WithId<IntCarpeta>
-  ) {
-    const pN
-      = primerNombre.charAt(
-        0
-      )
-        .toUpperCase()
-      + primerNombre.toLowerCase()
-        .slice(
-          1
-        );
-
-    const pA
-      = primerApellido.charAt(
-        0
-      )
-        .toUpperCase()
-      + primerApellido.toLowerCase()
-        .slice(
-          1
-        );
-
-    const sN
-      = segundoNombre
-      && segundoNombre.charAt(
-        0
-      )
-        .toUpperCase()
-        + segundoNombre.toLowerCase()
-          .slice(
-            1
-          );
-
-    const sA
-      = segundoApellido
-      && segundoApellido.charAt(
-        0
-      )
-        .toUpperCase()
-        + segundoApellido.toLowerCase()
-          .slice(
-            1
-          );
-    this.deudor = {
-      primerNombre   : pN,
-      segundoNombre  : sN,
-      primerApellido : pA,
-      segundoApellido: sA,
-      cedula         : Number(
-        cedula
-      ),
-      direccion,
-      email,
-      tel: {
-        fijo,
-        celular,
-      },
-    };
-    this._id = _id.toString();
-    this.tipoProceso = tipoProceso;
-    this.numero = numero;
-    this.demanda = demanda;
-    this.category = category;
-    this.categoryTag = categoryTag;
-    this.llaveProceso = llaveProceso;
-  }
-  _id: string;
-  fecha?: Date | undefined;
-  ultimaActuacion?: Actuacion | undefined;
-  demanda: intDemanda;
-  category: Category;
-  categoryTag: number;
-  deudor: intDeudor;
-  numero: number;
-  llaveProceso: string;
-  tipoProceso: TipoProceso;
-  idProceso?: number | undefined;
-  get nombre() {
-    const nombres
-      = this.deudor.primerNombre
-      + ( this.deudor.segundoNombre
-        ? ' ' + this.deudor.segundoNombre
-        : ' ' );
-
-    const apellidos = this.deudor.segundoApellido
-      ? this.deudor.primerApellido + ' ' + this.deudor.segundoApellido
-      : this.deudor.primerApellido;
-
-    const rawName = nombres + apellidos;
-
-    return rawName;
-  }
+  id: number;
 }
 
 // Converts JSON strings to/from your types
 export class carpetaConvert {
+  public static toIntCarpeta(
+    json: string 
+  ): IntCarpeta {
+    return JSON.parse(
+      json 
+    );
+  }
+
+  public static toIntCarpetas(
+    json: string 
+  ): IntCarpeta[] {
+    return JSON.parse(
+      json 
+    );
+  }
+
   public static toMonCarpeta(
-    carpeta: WithId<IntCarpeta>
+    carpeta: WithId<IntCarpeta> 
   ): MonCarpeta {
-    const pN
-      = carpeta.deudor.primerNombre.charAt(
-        0
-      )
-        .toUpperCase()
-      + carpeta.deudor.primerNombre.toLowerCase()
-        .slice(
-          1
-        );
-
-    const pA
-      = carpeta.deudor.primerApellido.charAt(
-        0
-      )
-        .toUpperCase()
-      + carpeta.deudor.primerApellido.toLowerCase()
-        .slice(
-          1
-        );
-
-    const sN
-      = carpeta.deudor.segundoNombre
-      && carpeta.deudor.segundoNombre.charAt(
-        0
-      )
-        .toUpperCase()
-        + carpeta.deudor.segundoNombre.toLowerCase()
-          .slice(
-            1
-          );
-
-    const sA
-      = carpeta.deudor.segundoApellido
-      && carpeta.deudor.segundoApellido.charAt(
-        0
-      )
-        .toUpperCase()
-        + carpeta.deudor.segundoApellido.toLowerCase()
-          .slice(
-            1
-          );
-
     return {
       ...carpeta,
-      _id   : carpeta._id.toString(),
-      deudor: {
-        ...carpeta.deudor,
-        primerNombre   : pN,
-        primerApellido : pA,
-        segundoNombre  : sN,
-        segundoApellido: sA,
-      },
-      get nombre() {
-        const nombres
-          = this.deudor.primerNombre
-          + ( this.deudor.segundoNombre
-            ? ' ' + this.deudor.segundoNombre
-            : ' ' );
-
-        const apellidos = this.deudor.segundoApellido
-          ? this.deudor.primerApellido + ' ' + this.deudor.segundoApellido
-          : this.deudor.primerApellido;
-
-        const rawName = nombres + apellidos;
-
-        return rawName;
-      },
+      fecha: carpeta.fecha
+        ? new Date(
+          carpeta.fecha 
+        )
+        : null,
+      idRegUltimaAct: carpeta.idRegUltimaAct
+        ? carpeta.idRegUltimaAct
+        : null,
+      ultimaActuacion: carpeta.ultimaActuacion
+        ? carpeta.ultimaActuacion
+        : null,
+      nombre: carpeta.deudor
+        ? `${ carpeta.deudor.primerNombre } ${ carpeta.deudor.segundoNombre } ${ carpeta.deudor.primerApellido } ${ carpeta.deudor.segundoApellido }`
+        : carpeta.nombre,
     };
   }
   public static toMonCarpetas(
-    carpetas: WithId<IntCarpeta>[]
+    carpetas: WithId<IntCarpeta>[] 
   ): MonCarpeta[] {
-    const newCarpetas = carpetas.map(
+    return carpetas.map(
       (
-        carpeta
+        carpeta 
       ) => {
         return this.toMonCarpeta(
-          carpeta
+          carpeta 
         );
-      }
+      } 
     );
-
-    return newCarpetas;
   }
-  public static toIntCarpetas(
-    json: string
-  ): IntCarpeta[] {
+
+  public static toCodeudor(
+    json: string 
+  ): Codeudor {
     return JSON.parse(
-      json
+      json 
     );
   }
 
-  public static intCarpetasToJson(
-    value: IntCarpeta[]
+  public static codeudorToJson(
+    value: Codeudor 
   ): string {
     return JSON.stringify(
-      value
+      value 
     );
   }
 
-  public static toIntCarpeta(
-    json: string
-  ): IntCarpeta {
-    return JSON.parse(
-      json
-    );
-  }
-
-  public static intCarpetaToJson(
-    value: IntCarpeta
-  ): string {
-    return JSON.stringify(
-      value
-    );
-  }
-
-  public static toDemanda(
-    json: string
+  public static tointDemanda(
+    json: string 
   ): intDemanda {
     return JSON.parse(
-      json
+      json 
     );
   }
 
   public static demandaToJson(
-    value: intDemanda
+    value: intDemanda 
   ): string {
     return JSON.stringify(
-      value
+      value 
     );
   }
 
-  public static toDepartamento(
-    json: string
-  ): Departamento {
+  public static toMedidasCautelares(
+    json: string 
+  ): MedidasCautelares {
     return JSON.parse(
-      json
+      json 
     );
   }
 
-  public static departamentoToJson(
-    value: Departamento
+  public static medidasCautelaresToJson(
+    value: MedidasCautelares 
   ): string {
     return JSON.stringify(
-      value
+      value 
     );
   }
 
-  public static toJuzgado(
-    json: string
-  ): intJuzgado {
+  public static toNotificacion(
+    json: string 
+  ): Notificacion {
     return JSON.parse(
-      json
+      json 
     );
   }
 
-  public static juzgadoToJson(
-    value: intJuzgado
+  public static notificacionToJson(
+    value: Notificacion 
   ): string {
     return JSON.stringify(
-      value
+      value 
+    );
+  }
+
+  public static toNotifier(
+    json: string 
+  ): Notifier {
+    return JSON.parse(
+      json 
+    );
+  }
+
+  public static notifierToJson(
+    value: Notifier 
+  ): string {
+    return JSON.stringify(
+      value 
     );
   }
 
   public static toDeudor(
-    json: string
-  ): intDeudor {
+    json: string 
+  ): Deudor {
     return JSON.parse(
-      json
+      json 
     );
   }
 
   public static deudorToJson(
-    value: intDeudor
+    value: Deudor 
   ): string {
     return JSON.stringify(
-      value
+      value 
     );
   }
 
-  public static toTel(
-    json: string
-  ): intTel {
+  public static toNota(
+    json: string 
+  ): IntNota {
     return JSON.parse(
-      json
+      json 
     );
   }
 
-  public static telToJson(
-    value: intTel
+  public static notaToJson(
+    value: IntNota 
   ): string {
     return JSON.stringify(
-      value
+      value 
+    );
+  }
+
+  public static toJuzgado(
+    json: string 
+  ): Juzgado {
+    return JSON.parse(
+      json 
+    );
+  }
+
+  public static juzgadoToJson(
+    value: Juzgado 
+  ): string {
+    return JSON.stringify(
+      value 
+    );
+  }
+
+  public static toTarea(
+    json: string 
+  ): IntTask {
+    return JSON.parse(
+      json 
+    );
+  }
+
+  public static tareaToJson(
+    value: IntTask 
+  ): string {
+    return JSON.stringify(
+      value 
+    );
+  }
+
+  public static toSubTarea(
+    json: string 
+  ): SubTarea {
+    return JSON.parse(
+      json 
+    );
+  }
+
+  public static subTareaToJson(
+    value: SubTarea 
+  ): string {
+    return JSON.stringify(
+      value 
     );
   }
 }
 
-
-export type KeyOfCarpeta = keyof IntCarpeta
-
-export const mockCarpeta: IntCarpeta =  {
-  fecha       : new Date(),
-  nombre      : '',
-  idProceso   : 0,
-  category    : 'Terminados',
-  categoryTag : 0,
-  numero      : 0,
-  llaveProceso: '',
-  tipoProceso : 'HIPOTECARIO',
-  deudor      : {
-    tel: {
-      fijo   : 0,
-      celular: 0
-    },
-    primerNombre   : '',
-    segundoNombre  : '',
-    primerApellido : '',
-    segundoApellido: '',
-    cedula         : 0,
-    direccion      : '',
-    email          : ''
-  },
-  demanda: {
-    departamento           : null,
-    capitalAdeudado        : '',
-    entregagarantiasAbogado: new Date(),
-    etapaProcesal          : null,
-    fechaPresentacion      : new Date(),
-    municipio              : '',
-    obligacion             : {},
-    radicado               : '',
-    vencimientoPagare      : new Date(),
-    expediente             : '',
-    juzgados               : []
-  },
-  ultimaActuacion: {
-    idRegActuacion: 0,
-    llaveProceso  : '',
-    consActuacion : 0,
-    fechaActuacion: '',
-    actuacion     : '',
-    anotacion     : '',
-    fechaInicial  : '',
-    fechaFinal    : '',
-    fechaRegistro : '',
-    codRegla      : '00                              ',
-    conDocumentos : false,
-    cant          : 0
-  }
-};
+export type KeyOfCarpeta = keyof IntCarpeta;

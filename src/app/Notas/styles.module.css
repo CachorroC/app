@@ -1,0 +1,6 @@
+.listItemContainer {
+  background-color: var(--surface);
+  padding: 8px 1rem;
+  border-bottom: 0.2rem solid var(--outline);
+  box-sizing: border-box;
+}

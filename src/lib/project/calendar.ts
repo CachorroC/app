@@ -1,10 +1,12 @@
 export interface calendarData {
   href: string;
   className: string;
+  year: number;
+  month: number;
+  date: number;
   current: boolean;
   dayOfWeek: number;
 }
-
 
 export const nombresDeMeses = [
   'Enero',
@@ -22,104 +24,127 @@ export const nombresDeMeses = [
 ];
 
 export function CalendarBuilder(
-  date: Date
+  date: Date 
 ) {
   const rows = new Set<calendarData>();
 
+  const incomingMonth = date.getMonth();
 
-  console.log(
-    date
-  );
-
-
-  const currentMonth = date.getMonth();
-
-  const currentYear = date.getFullYear();
+  const incomingYear = date.getFullYear();
 
   const today = new Date()
     .getDate();
 
-  const firstDayofCurrentMonth = new Date(
-    currentYear,
-    currentMonth,
+  const firstWeekDayofIncomingMonth = new Date(
+    incomingYear,
+    incomingMonth,
     1,
   )
     .getDay();
 
-
-
-  const lastDateofMonth = new Date(
-    currentYear, currentMonth + 1, 0
+  const lastDateofIncomingMonth = new Date(
+    incomingYear,
+    incomingMonth + 1,
+    0,
   )
     .getDate();
 
-  const lastDayofMonth = new Date(
-    currentYear,
-    currentMonth,
-    lastDateofMonth,
+  const lastWeekDayofIncomingMonth = new Date(
+    incomingYear,
+    incomingMonth,
+    lastDateofIncomingMonth,
   )
     .getDay();
 
-  const lastDateofPastMonth = new Date(
-    currentYear, currentMonth, 0
+  const lastDateofIncomingPastMonth = new Date(
+    incomingYear,
+    incomingMonth,
+    0,
   )
     .getDate();
 
-  for ( let dayBefore = firstDayofCurrentMonth; dayBefore > 0; dayBefore-- ) {
+  for (
+    let dayBefore = firstWeekDayofIncomingMonth;
+    dayBefore > 0;
+    dayBefore--
+  ) {
+    const date = lastDateofIncomingPastMonth - dayBefore + 1;
 
-    const href = `${ currentYear }/${ currentMonth }/${
-      lastDateofPastMonth - dayBefore + 1
-    }`;
+    const href = `${ incomingYear }/${ incomingMonth }/${ date }`;
     rows.add(
       {
         href     : href,
+        year     : incomingYear,
+        month    : incomingMonth,
+        date     : date,
         className: 'disabled',
         current  : false,
         dayOfWeek: new Date(
-          href
+          href 
         )
           .getDay(),
-      }
+      } 
     );
   }
 
-  for ( let dayInMonth = 1; dayInMonth <= lastDateofMonth; dayInMonth++ ) {
+  for (
+    let dayInMonth = 1;
+    dayInMonth <= lastDateofIncomingMonth;
+    dayInMonth++
+  ) {
     const isToday = today === dayInMonth;
 
-    const href = `${ currentYear }/${ currentMonth +1 }/${ dayInMonth }`;
+    const href = `${ incomingYear }/${
+      incomingMonth === 12
+        ? 0
+        : incomingMonth + 1
+    }/${ dayInMonth }`;
 
     rows.add(
       {
         href     : href,
+        year     : incomingYear,
+        month    : incomingMonth + 1,
+        date     : dayInMonth,
         current  : true,
         dayOfWeek: new Date(
-          href
+          href 
         )
           .getDay(),
         className: isToday
           ? 'today'
-          : 'innactive',
-      }
+          : 'inactive',
+      } 
     );
   }
 
-  for ( let dayAfterMonth = lastDayofMonth; dayAfterMonth < 6; dayAfterMonth++ ) {
-    const href = `${ currentYear }/${ currentMonth +2 }/${ dayAfterMonth }`;
+  for (
+    let dayAfterMonth = lastWeekDayofIncomingMonth;
+    dayAfterMonth < 6;
+    dayAfterMonth++
+  ) {
+    const href = `${ incomingYear }/${ incomingMonth + 2 }/${ dayAfterMonth }`;
+    console.log(
+      `next month: ${ href }` 
+    );
 
     rows.add(
       {
         href     : href,
+        year     : incomingYear,
+        month    : incomingMonth + 2,
+        date     : dayAfterMonth,
         current  : false,
         dayOfWeek: new Date(
-          href
+          href 
         )
           .getDay(),
         className: 'disabled',
-      }
+      } 
     );
   }
 
   return Array.from(
-    rows
+    rows 
   );
 }

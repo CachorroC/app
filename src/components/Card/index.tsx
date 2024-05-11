@@ -1,123 +1,92 @@
-'use client';
-
 import { MonCarpeta } from '#@/lib/types/carpetas';
-import type { Route } from 'next';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import styles from './card.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
-import InputEntregaGarantias from './demanda/entrega-garantias';
+import typography from '#@/styles/fonts/typography.module.css';
+import type { Route } from 'next';
+import layout from '#@/styles/layout.module.css';
+import { CopyButton } from '../Buttons/copy-buttons';
+import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
+import { containerEnabled } from './filled.module.css';
 
 export const Card = (
   {
-    path,
     carpeta,
     children,
-    complementaryChildren,
   }: {
-  path: string;
   carpeta: MonCarpeta;
-      children: ReactNode;
-  complementaryChildren?: ReactNode
-}
+  children: ReactNode;
+} 
 ) => {
+  let contentIdProcesos;
 
-  const [
-    isContentOpen,
-    setIsContentOpen
-  ] = useState(
-    false
-  );
+  const llaveLength = carpeta.llaveProceso?.length;
 
+  const errorLLaveProceso = llaveLength
+    ? llaveLength < 23
+    : true;
 
-  const llaveLength = carpeta.llaveProceso.length;
+  const {
+    idProcesos, nombre, numero 
+  } = carpeta;
 
-  const errorLLaveProceso = llaveLength < 23;
-
-  const pathname = usePathname();
-
-  const href = carpeta.idProceso
-    ? `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProceso }`
-    : `${ path }/${ carpeta.llaveProceso }`;
-
-  const isActive
-    = pathname === href
-    || pathname === `${ path }/${ carpeta.llaveProceso }/${ carpeta.idProceso }`
-    || pathname === `${ path }/${ carpeta.llaveProceso }`;
-
-
+  if ( !idProcesos || idProcesos.length === 0 ) {
+    contentIdProcesos = <span>no hay idProcesos</span>;
+  } else {
+    contentIdProcesos = idProcesos.map(
+      (
+        idProceso 
+      ) => {
+        return (
+          <Link
+            key={idProceso}
+            href={
+            `/Carpeta/${ String(
+              numero 
+            ) }/ultimasActuaciones/${ String(
+              idProceso,
+            ) }` as Route
+            }
+            className={styles.link}
+          >
+            <span className={`material-symbols-outlined ${ styles.icon }`}>
+            inventory
+            </span>
+          </Link>
+        );
+      } 
+    );
+  }
 
   return (
-    <div className={styles.container} onClick={ () => {
-      setIsContentOpen(
-        (
-          n
-        ) => {
-          return !n;
-        }
-      );
-    }}>
+    <div className={containerEnabled}>
       <div
         className={`${ styles.card } ${
           errorLLaveProceso && styles.errorContainer
         }`}
       >
-        {carpeta.demanda.entregagarantiasAbogado && ( <InputEntregaGarantias entregaGarantiasAbogado={ carpeta.demanda.entregagarantiasAbogado} /> )}
-        <section className={styles.section}>
-          <div className={styles.title}>
-            <h4 className={typography.displaySmall}>{ carpeta.nombre}</h4>
-            <sub className={`${ typography.labelSmall } ${ styles.sub }`}>
-              {carpeta.numero}
-            </sub>
-          </div>
-
-          { isContentOpen && complementaryChildren }
-          {children}
+        <section className={layout.sectionRow}>
+          <h4 className={typography.titleMedium}>{nombre}</h4>
+          <Link
+            className={styles.link}
+            href={`/Carpeta/${ numero }` as Route}
+          >
+            <span className={`${ typography.labelLarge } ${ layout.text }`}>
+              {numero.toString()}
+            </span>
+            <span className={`material-symbols-outlined ${ layout.icon }`}>
+              folder
+            </span>
+          </Link>
         </section>
+        {children}
+        <div className={layout.segmentRow}>{contentIdProcesos}</div>
 
         <div className={styles.links}>
-          <Link
-            className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={href as Route}
-          >
-            <span className={`${ styles.icon } material-symbols-outlined`}>
-              file_open
-            </span>
-            <span className={styles.tooltiptext}>
-              {'Actuaciones del proceso'}
-            </span>
-          </Link>
-          <Link
-            className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Procesos/${ carpeta.llaveProceso }/Editar` as Route}
-          >
-            <span className={`material-symbols-outlined ${ styles.icon }`}>
-              folder_shared
-            </span>
-            <span className={styles.tooltiptext}>{'Perfil del Demandado'}</span>
-          </Link>
-          <Link
-            className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Procesos/${ carpeta.llaveProceso }` as Route}
-          >
-            <span className={`material-symbols-outlined ${ styles.icon }`}>
-              badge
-            </span>
-            <span className={styles.tooltiptext}>Procesos</span>
-          </Link>
-          <Link
-            className={`${ styles.link } ${ isActive && styles.isActive }`}
-            href={`/Notas/Nueva?llaveProceso=${ carpeta.llaveProceso }` as Route}
-          >
-            <span className={`material-symbols-outlined ${ styles.icon }`}>
-              add
-            </span>
-            <span className={styles.tooltiptext}>{' Agregar nota'}</span>
-          </Link>
           {errorLLaveProceso && (
             <Link
-              href={`/Carpetas/numero/${ carpeta.numero }` as Route}
+              href={`/Carpeta/${ numero }/Editar` as Route}
               className={styles.link}
             >
               {'error con el numero de expediente'}
@@ -126,5 +95,121 @@ export const Card = (
         </div>
       </div>
     </div>
+  );
+};
+
+export const CardRow = (
+  {
+    carpeta,
+    children,
+  }: {
+  carpeta: MonCarpeta;
+  children: ReactNode;
+} 
+) => {
+  const llaveLength = carpeta.llaveProceso?.length;
+
+  const errorLLaveProceso = llaveLength
+    ? llaveLength < 23
+    : true;
+
+  const {
+    numero, idProcesos, revisado 
+  } = carpeta;
+
+  const idProcesosLength = idProcesos.length;
+  let carpetaHref;
+
+  if ( idProcesosLength > 1 ) {
+    carpetaHref = idProcesos.map(
+      (
+        idProceso, index 
+      ) => {
+        return (
+          <Link
+            key={idProceso}
+            href={
+            `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }` as Route
+            }
+          >
+            <span className={`${ typography.labelLarge } ${ layout.text }`}>
+              {`#${ numero } - ${ index }`}
+            </span>
+          </Link>
+        );
+      } 
+    );
+  } else if ( idProcesosLength === 1 ) {
+    carpetaHref = (
+      <Link
+        key={idProcesos[ 0 ]}
+        href={
+          `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }` as Route
+        }
+      >
+        <span className={`${ typography.labelLarge } ${ layout.text }`}>
+          {`#${ numero }`}
+        </span>
+      </Link>
+    );
+  } else {
+    carpetaHref = (
+      <Link
+        key={numero}
+        href={`/Carpeta/${ numero }`}
+      >
+        <span className={`${ typography.labelLarge } ${ layout.text }`}>
+          {`#${ numero }`}
+        </span>
+      </Link>
+    );
+  }
+
+  return (
+    <tr>
+      <td>{carpetaHref}</td>
+      <td>
+        {
+          <Link
+            href={`/Carpeta/${ numero }`}
+            className={typography.titleSmall}
+          >
+            {carpeta.nombre.toLocaleLowerCase()}
+          </Link>
+        }
+      </td>
+      <td>
+        <OutputDateHelper incomingDate={carpeta.fecha} />
+      </td>
+
+      <td>{carpeta.category}</td>
+      {errorLLaveProceso
+        ? (
+            <>
+              <td>
+                <Link
+                  href={`/Carpeta/${ numero }/Editar` as Route}
+                  className={styles.link}
+                >
+                  {'error con el numero de expediente'}
+                </Link>
+              </td>
+              <td>Sin anotaciones</td>
+            </>
+          )
+        : (
+            children
+          )}
+      <RevisadoCheckBox
+        numero={numero}
+        initialRevisadoState={revisado}
+      />
+      <td>
+        <CopyButton
+          copyTxt={carpeta.llaveProceso}
+          name={'expediente'}
+        />
+      </td>
+    </tr>
   );
 };

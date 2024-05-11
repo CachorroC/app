@@ -1,21 +1,20 @@
-
-import { getNotaById } from '#@/lib/project/notas';
+import { getNotaById } from '#@/lib/project/utils/Notas/notas';
 import { notFound } from 'next/navigation';
 import { Edit } from '#@/components/Nota/Edit';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 
 export default async function NuevaNotallaveProceso(
   {
-    params,
+    params: {
+      id 
+    },
   }: {
-  params: { id: string };
-}
+  params: { id: number };
+} 
 ) {
   const nota = await getNotaById(
-    {
-      id: params.id
-    }
+    id 
   );
 
   if ( !nota ) {
@@ -24,12 +23,12 @@ export default async function NuevaNotallaveProceso(
 
   return (
     <>
-      <div className={ layout.top }>
-        <h1 className={typography.displayLarge}>{`Nota numero: ${ nota.cod }`}</h1>
+      <div className={layout.top}>
+        <h1 className={typography.displayLarge}>{`Nota numero: ${ nota.id }`}</h1>
       </div>
-      <div className={ layout.left }>
+      <div className={layout.left}>
         <Edit
-          key={params.id}
+          key={id}
           nota={nota}
         />
       </div>

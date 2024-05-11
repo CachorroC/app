@@ -1,10 +1,10 @@
 export type Styles = {
-  'container': string;
-  'flex': string;
-  'grid': string;
+  container: string;
+  flex: string;
+  grid: string;
 };
 
-export type ClassNames = keyof Styles;
+export type ClassesType = keyof Styles;
 
 declare const styles: Styles;
 

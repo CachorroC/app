@@ -28,7 +28,7 @@
   display: flex;
   flex-flow: column wrap;
   .label {
-    font-family: var(--font-poiret);
+    font-family: var(--play-display);
     flex: 1 1 25%;
   }
   .titleInput {
@@ -37,7 +37,7 @@
 }
 .task {
   display: flex;
- flex-flow: column nowrap;
+  flex-flow: column nowrap;
   justify-content: space-between;
   justify-items: stretch;
   &Container {

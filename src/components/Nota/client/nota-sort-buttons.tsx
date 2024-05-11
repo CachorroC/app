@@ -1,78 +1,86 @@
 'use client';
 
-import { useNotaSortDispatch } from '#@/app/context/notas-sort-context';
+import { useNotaSortDispatch } from '#@/app/Context/notas-sort-context';
 import button from '#@/components/Buttons/buttons.module.css';
-import { ActionNotaType } from '#@/lib/types/context-actions';
 import { useState } from 'react';
-import typography from '#@/styles/fonts/typography.module.scss';
-import styles from '#@/components/form/form.module.css';
+import typography from '#@/styles/fonts/typography.module.css';
+import layout from '#@/styles/layout.module.css';
 
-export function NotasSortButtons () {
-  const keys: ActionNotaType[] = [
-    'date',
-    'done',
+export function NotasSortButtons() {
+  const keys: (
+    | 'carpetaNumero'
+    | 'id'
+    | 'dueDate'
+    | 'createdAt'
+    | 'text'
+    | 'updatedAt'
+  )[] = [
+    'dueDate',
     'text',
-    'llaveProceso',
-    'cod',
+    'updatedAt',
+    'carpetaNumero',
+    'id'
   ];
 
   const dispatchNotas = useNotaSortDispatch();
-
-
 
   const [
     sortDirection,
     setSortDirection
   ] = useState(
-    true
+    true 
   );
 
-
   return (
-    <div className={styles.section}>
-      <section className={styles.section}>
-        <h2 className={typography.titleMedium}>{ 'ordenar:' }</h2>
-        <span className={typography.labelMedium}> {sortDirection
-          ? 'ascendente'
-          : 'descendente' } </span>
-        <span className='material-symbols-outlined'>{sortDirection
-          ? 'arrow_upward'
-          : 'arrow_downward' }</span>
+    <div className={layout.sectionColumn}>
+      <section className={layout.sectionRow}>
+        <h2 className={typography.titleMedium}>{'ordenar:'}</h2>
+        <span className={typography.labelMedium}>
+          {' '}
+          {sortDirection
+            ? 'ascendente'
+            : 'descendente'}{' '}
+        </span>
+        <span className="material-symbols-outlined">
+          {sortDirection
+            ? 'arrow_upward'
+            : 'arrow_downward'}
+        </span>
       </section>
 
-      <section className={styles.section}>
-
-        { keys.map(
+      <section className={layout.sectionRow}>
+        {keys.map(
           (
-            key
+            key 
           ) => {
             return (
-              <button type='button' onClick={
-                () => {
+              <button
+                type="button"
+                onClick={() => {
                   setSortDirection(
                     (
-                      d
+                      d 
                     ) => {
                       return !d;
-                    }
+                    } 
                   );
                   dispatchNotas(
                     {
-                      type         : key,
-                      sortDirection: sortDirection
-                    }
+                      type      : 'sort',
+                      dir       : sortDirection,
+                      sortingKey: key,
+                    } 
                   );
-                }
-              } className={ button.buttonCategory } key={ key }>
-
-
+                }}
+                className={button.buttonPassiveCategory}
+                key={key}
+              >
                 {key}
               </button>
             );
-          }
-        )
-        }
-      </section></div>
-
+          } 
+        )}
+      </section>
+    </div>
   );
 }

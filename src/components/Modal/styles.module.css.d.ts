@@ -1,7 +1,12 @@
 declare const styles: {
-  readonly 'closed': string;
   readonly 'open': string;
   readonly 'wrapper': string;
+  readonly 'closed': string;
+  readonly 'snackbar': string;
+  readonly 'show': string;
+  readonly 'fadein': string;
+  readonly 'fadeout': string;
+  readonly 'hide': string;
 };
 export = styles;
 

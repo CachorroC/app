@@ -5,7 +5,7 @@
   "scripts": {
     "styles:tcm": "tcm src",
     "sass": "sass --no-source-map src:src && tcm src",
-    "lint": "next lint --fix && next lint",
+    "lint": "next lint --fix --strict && next lint --strict",
     "prebuild": "pnpm sass && pnpm lint",
     "devbuild": "pnpm prebuild && next build",
     "build": "next build",
@@ -16,31 +16,33 @@
     "json-to-prisma": "json-to-prisma-schema-convertor convert --inputPath='./prisma/schema.json' --outputPath='./prisma/new/schema.prisma'"
   },
   "dependencies": {
-    "@prisma/client": "^5.3.1",
-    "@types/bcrypt": "^5.0.0",
+    "@eslint/js": "^9.2.0",
+    "@prisma/client": "^5.13.0",
+    "@stylistic/eslint-plugin": "^2.1.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/eslint__js": "^8.42.3",
     "@types/node": "20.6.3",
-    "@types/react": "18.2.22",
-    "@types/react-dom": "18.2.7",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "@yudiel/react-qr-scanner": "2.0.0-beta.3",
     "bcrypt": "^5.1.1",
     "eslint": "8.49.0",
     "eslint-config-next": "13.5.2",
-    "material-symbols": "^0.13.0",
-    "mongodb": "^6.1.0",
-    "next": "13.5.4-canary.0",
-    "prisma": "^5.3.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hook-form": "^7.46.1",
-    "sass": "^1.67.0",
+    "material-symbols": "^0.13.2",
+    "mongodb": "^6.6.1",
+    "next": "14.3.0-canary.54",
+    "prisma": "^5.13.0",
+    "react": "19.0.0-beta-04b058868c-20240508",
+    "react-currency-input-field": "^3.8.0",
+    "react-dom": "19.0.0-beta-04b058868c-20240508",
+    "react-error-boundary": "^4.0.13",
+    "react-hook-form": "^7.51.4",
+    "sass": "^1.77.0",
     "server-only": "^0.0.1",
     "typed-css-modules": "^0.7.2",
     "typed-scss-modules": "^7.1.4",
     "typescript": "5.2.2",
-    "zod": "^3.22.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "postcss@<7.0.36": ">=7.0.36"
-    }
+    "xlsx": "^0.18.5",
+    "zod": "^3.23.8"
   }
 }

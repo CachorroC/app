@@ -1,25 +1,29 @@
 'use client';
-import { useNotaSort } from '#@/app/context/notas-sort-context';
-import { Task } from './nota';
+import { useNotaSort } from '#@/app/Context/notas-sort-context';
+import { Nota } from '#@/app/Notas/nota';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 import styles from 'components/Nota/note.module.css';
 
-export default function TaskList () {
+export function NotasList() {
   const notas = useNotaSort();
 
-
   return (
-    <div  className={ styles.taskList }>
+    <div className={styles.taskList}>
       {notas.map(
         (
-          task
+          nota 
         ) => {
           return (
-            <Task
-              task={task}
-              key={task._id}
-            />
+            <Nota
+              nota={nota}
+              key={nota.id}
+            >
+              <td>
+                <OutputDateHelper incomingDate={nota.createdAt} />
+              </td>
+            </Nota>
           );
-        }
+        } 
       )}
     </div>
   );

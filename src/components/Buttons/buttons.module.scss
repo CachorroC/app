@@ -1,101 +1,179 @@
-.buttonsRow {
-  flex: 1 1 100%;
-}
-.button,
-.active {
-  border: none;
+.button {
+  border: 0.07rem solid var(--outline);
   box-sizing: border-box;
-  padding: .5vmin 2vmin;
-  border-radius: 2vmin;
+  padding: 0.5rem;
   flex: 1;
   display: flex;
-  flex-flow: column nowrap;
-  justify-items: center;
+  flex-flow: row nowrap;
+  justify-items: stretch;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   align-content: center;
+  border-radius: var(--shape-corner-full);
   transition: all 0.3s;
-  &Category {
+  position: relative;
+  &:hover {
+    &:before {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      content: '';
+      opacity: 0.08;
+    }
+  }
+  &Edit {
     @extend .button;
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+  }
+  &ActiveCategory {
+    @extend .button;
+    flex-flow: column nowrap;
+    flex: 2;
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+    border: 0.02rem solid var(--outline);
+
+    & > .icon,
+    & > .text {
+      color: var(--on-secondary-container);
+    }
+    &:hover {
+      &:before {
+        opacity: 0.08;
+        background-color: var(--on-secondary-container);
+      }
+    }
+    &:focus,
+    &:active {
+      &:before {
+        opacity: 0.1;
+        background-color: var(--on-secondary-container);
+      }
+    }
+  }
+  &PassiveCategory {
+    @extend .button;
+    flex: 1;
+    flex-flow: column nowrap;
     background-color: var(--surface-container-high);
+    color: var(--secondary);
+    border: 0.02rem solid var(--outline);
     & > .icon {
       color: var(--secondary);
     }
-  }
-  &Forward {
-    @extend .button;
-    grid-area: forwardButton;
-    background-color: var(--primary-container);
-    & > .icon,
     & > .text {
-      color: var(--on-primary-container);
+      color: var(--on-surface);
     }
-  }
-  &Backwards {
-    @extend .button;
-    background-color: var(--primary-container);
-    grid-area: backwardsButton;
-    & > .icon,
-    & > .text {
-      color: var(--on-primary-container);
+    &:hover {
+      &:before {
+        opacity: 0.08;
+        background-color: var(--on-secondary-container);
+      }
+    }
+    &:focus,
+    &:active {
+      &:before {
+        opacity: 0.1;
+        background-color: var(--on-secondary-container);
+      }
     }
   }
 
-  &DrawerMenu {
+  &Actuacion {
     @extend .button;
-    grid-area: drawerMenuButton;
-    background-color: var(--primary-fixed);
-    & > .icon,
-    & > .text {
-      color: var(--on-primary-fixed);
-    }
+    flex: 0 1 auto;
   }
-
-  &Modal {
+  &Chip {
     @extend .button;
-    grid-area: modal;
-    background-color: var(--tertiary-container);
-    & > .icon,
-    & > .text {
-      color: var(--on-tertirary-container);
-    }
+    height: minmax(2rem, 3rem);
+    flex: 0 1 auto;
+    box-sizing: border-box;
   }
-  &Home {
-    @extend .button;
-    grid-area: homeButton;
-    box-shadow: var(--dp2);
-    background-color: var(--primary);
-    & > .icon,
-    & > .text {
-      color: var(--on-primary);
-    }
-  }
-  &:link,
-  &:visited {
-    background-color: var(--surface-container);
-    color: var(--on-surface);
-    & > .icon {
-      color: var(--on-surface-variant);
-    }
-  }
-
-  &:hover,
-  &:active {
-    background-color: var(--primary-fixed);
-    box-shadow: var(--dp6);
-    border: 2px solid var(--outline);
-    & > span {
-      font-variation-settings:
-        'FILL' 1,
-        'wght' 400,
-        'GRAD' 200,
-        'opsz' 24;
-      color: var(--on-primary-fixed);
+  &:hover {
+    &:before {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      content: '';
+      top: 0;
+      left: 0;
+      opacity: 0.08;
     }
   }
 }
-
 .active {
   background-color: var(--tertiary-container);
   color: var(--on-tertiary-container);
+}
+
+.snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: var(--inverse-surface);
+  color: var(--inverse-on-surface);
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+  &.show {
+    visibility: visible;
+    -webkit-animation:
+      fadein 0.5s,
+      fadeout 0.5s 2.5s;
+    animation:
+      fadein 0.5s,
+      fadeout 0.5s 2.5s;
+  }
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }

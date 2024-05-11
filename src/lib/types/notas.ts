@@ -1,63 +1,128 @@
-import { WithId } from 'mongodb';
 // To parse this data:
 //
 //   import { Convert } from "./file";
 //
-//   const intNota = Convert.toIntNota(json);
+//   const IntNota = Convert.toIntNota(json);
 
-export interface intNota
-{
-  cod: number;
-  text: string;
-  pathname: string;
-  date: Date;
-  done: boolean;
-  llaveProceso?: string | null;
+import { WithId } from 'mongodb';
+
+export interface NotaEditorAction {
+  message: string;
+  data: monNota | null | IntNota | NewNota;
+  error: boolean;
 }
 
-export interface monNota extends intNota {
+export type NewNota = {
+  carpetaNumero: number | null;
+  content: string[];
+  dueDate: Date | null;
+  pathname: string | null;
+  text: string;
+  id: string;
+};
+
+export interface IntNota extends NewNota {
+  id: string;
+  updatedAt: Date;
+  createdAt: Date;
+}
+
+export interface monNota extends IntNota {
   _id: string;
 }
 
-export class notasConvert {
-  public static toMonNotas(
-    rawNotas: WithId<intNota>[]
-  ): monNota[] {
-    const newNotas = rawNotas.map(
-      (
-        nota
-      ) => {
-        return this.toMonNota(
-          nota
-        );
-      }
-    );
+export type SortActionType = {
+  type: 'sort';
+  dir: boolean;
+  sortingKey:
+    | 'carpetaNumero'
+    | 'id'
+    | 'dueDate'
+    | 'createdAt'
+    | 'text'
+    | 'updatedAt';
+};
 
-    return newNotas;
-  }
+export type UpdateActionType = {
+  type: 'changed';
+  nota: IntNota;
+};
+
+export type DeleteActionType = {
+  type: 'deleted';
+  id: string;
+};
+
+export type ResetActionType = {
+  type: 'reset';
+  payload: IntNota[];
+};
+
+export type AddActiontype = {
+  type: 'added';
+  nota: IntNota;
+};
+
+export interface IntNotaAction {
+  type: 'added' | 'changed' | 'deleted';
+  nota: IntNota;
+}
+
+export type NotaAction =
+  | AddActiontype
+  | DeleteActionType
+  | ResetActionType
+  | UpdateActionType
+  | SortActionType;
+
+export class notasConvert {
   public static monNotasToJson(
-    value: monNota[]
+    value: monNota[] 
   ): string {
     return JSON.stringify(
-      value
+      value 
+    );
+  }
+
+  public static monNotaToJson(
+    value: monNota 
+  ): string {
+    return JSON.stringify(
+      value 
     );
   }
 
   public static toMonNota(
-    nota: WithId<intNota>
+    nota: WithId<IntNota> 
   ): monNota {
     const newNota = {
       ...nota,
-      _id: nota._id.toString(),
+      createdAt    : new Date(),
+      _id          : nota._id.toString(),
+      carpetaNumero: nota.carpetaNumero
+        ? nota.carpetaNumero
+        : null,
+      pathname: nota.pathname
+        ? nota.pathname
+        : null,
     };
 
     return newNota;
   }
-  public static monNotaToJson(
-    value: monNota
-  ): string {
-    return JSON.stringify(
-      value
+
+  public static toMonNotas(
+    rawNotas: WithId<IntNota>[] 
+  ): monNota[] {
+    const newNotas = rawNotas.map(
+      (
+        nota 
+      ) => {
+        return this.toMonNota(
+          nota 
+        );
+      } 
     );
+
+    return newNotas;
   }
 }

@@ -1,79 +1,125 @@
 'use client';
-import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
-import styles from 'components/Card/card.module.css';
-import { Card } from '#@/components/Card';
-import { fixFechas } from '#@/lib/project/helper';
-import card from 'components/Card/card.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
-import { useSearch } from '#@/app/context/search-context';
-import { useCategory } from '#@/app/context/main-context';
-import { JSX } from 'react';
+import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
+import { Suspense, useDeferredValue } from 'react';
+import { ClientCardRow } from '#@/components/Card/client-card';
+import { Route } from 'next';
+import { CopyButton } from '#@/components/Buttons/copy-buttons';
+import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import { Loader } from '#@/components/Loader/main-loader';
+import { TableRowCarpetaSortingButton } from './carpetasButtonsSort';
+import { ActuacionTableComponent,
+  ActuacionTableErrorComponent, } from '#@/components/Actuaciones/actuacion-table-component';
 
-
-export default function CarpetasList(
-  {
-    path,
-  }: {
-  path: string;
-}
-) {
-  const rows: JSX.Element[] = [];
-
-
-  const carpetasReduced = useCarpetaSort();
-
+export function CarpetasTable() {
   const {
-    search
-  } = useSearch();
+    carpetas 
+  } = useCarpetaSort();
 
-  const {
-    category
-  } = useCategory();
-
-
-  carpetasReduced.forEach(
-    (
-      proceso
-    ) => {
-      const {
-        ultimaActuacion
-      } = proceso;
-
-      if ( proceso.nombre.toLowerCase()
-        .indexOf(
-          search.toLowerCase()
-        ) === -1 ) {
-        return;
-      }
-
-      if ( category === 'todos' || category === proceso.category ) {
-        rows.push(
-          <Card key={ proceso._id } path={ path } carpeta={ proceso } >
-            <div className={styles.section}>
-              { ultimaActuacion && (
-                <h5 className={ ` ${ card.actuacion } ${ typography.headlineMedium }` }>
-                  { `ultima actuacion registrada en el servidor: ${ ultimaActuacion.actuacion }` }
-                </h5>
-              ) }
-
-              {ultimaActuacion?.anotacion && (
-                <p className={` ${ card.anotacion } ${ typography.labelSmall }`}>
-                  {ultimaActuacion.anotacion}
-                </p>
-              )}
-              <sub className={card.date}>
-                {fixFechas(
-                  ultimaActuacion?.fechaActuacion ?? ''
-                )}
-              </sub>
-
-            </div>
-          </Card>
-        );
-      }
-    }
+  const deferredCarpetas = useDeferredValue(
+    carpetas 
   );
 
-  return <>
-    {rows}</>;
+  return (
+    <table>
+      <thead>
+        <tr>
+          <Suspense fallback={<Loader />}>
+            <TableRowCarpetaSortingButton sortKey={'numero'} />
+          </Suspense>
+          <Suspense fallback={<Loader />}>
+            <TableRowCarpetaSortingButton sortKey={'nombre'} />
+          </Suspense>
+          <Suspense fallback={<Loader />}>
+            <TableRowCarpetaSortingButton sortKey={'category'} />
+          </Suspense>
+          <th>Actuaciones</th>
+          <th>Revisado</th>
+          <th>expediente</th>
+          <th>Fecha de ultima revision</th>
+          <th>ciudad</th>
+        </tr>
+      </thead>
+      <tbody>
+        {deferredCarpetas.flatMap(
+          (
+            carpeta 
+          ) => {
+            const {
+              ultimaActuacion,
+              numero,
+              nombre,
+              category,
+              llaveProceso,
+              revisado,
+            } = carpeta;
+
+            let words = nombre.split(
+              ' ' 
+            )
+              .map(
+                (
+                  palabra 
+                ) => {
+                  return (
+                    palabra.charAt(
+                      0 
+                    )
+                      .toUpperCase()
+              + palabra.toLowerCase()
+                .substring(
+                  1 
+                )
+                  );
+                } 
+              );
+
+            return (
+              <ClientCardRow
+                key={numero}
+                rowHref={`/Carpeta/${ numero }` as Route}
+                carpeta={carpeta}
+              >
+                <td>{words.join(
+                  ' ' 
+                )}</td>
+
+                <td>{category}</td>
+
+                {ultimaActuacion
+                  ? (
+                      <ActuacionTableComponent
+                        numero={numero}
+                        title={ultimaActuacion.actuacion}
+                        content={ultimaActuacion.anotacion}
+                        idProceso={ultimaActuacion.idProceso}
+                      />
+                    )
+                  : (
+                      <ActuacionTableErrorComponent />
+                    )}
+
+                <td>
+                  <RevisadoCheckBox
+                    numero={numero}
+                    initialRevisadoState={revisado}
+                  />
+                </td>
+                <td>
+                  <CopyButton
+                    copyTxt={llaveProceso}
+                    name={'expediente'}
+                  />
+                </td>
+                <td>
+                  {carpeta.fechaUltimaRevision?.toLocaleString()
+                  ?? 'no hay fecha ultima revision '}
+                </td>
+                <td>{carpeta.demanda.municipio}</td>
+              </ClientCardRow>
+            );
+          } 
+        )}
+      </tbody>
+    </table>
+  );
 }

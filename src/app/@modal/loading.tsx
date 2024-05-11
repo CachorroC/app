@@ -1,10 +1,19 @@
+import { Loader } from '#@/components/Loader/main-loader';
+import { Modal } from '#@/components/Modal';
+import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
+import typography from '#@/styles/fonts/typography.module.css';
+import layout from '#@/styles/layout.module.css';
 
-import typography from '#@/styles/fonts/typography.module.scss';
-
-export default function MainRightLoading() {
+export default function Loading() {
   return (
-    <>
-      <h1 className={typography.displayLarge}>Cargando</h1>
-    </>
+    <Modal>
+      <h4 className={typography.titleLarge}>Cargando</h4>
+      <section className={layout.sectionColumn}>
+        <Loader />
+        <Loader />
+        <Loader />
+        <ProcesosCardSkeleton />
+      </section>
+    </Modal>
   );
 }

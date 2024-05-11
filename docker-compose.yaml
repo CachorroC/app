@@ -31,7 +31,7 @@ services:
     restart: always
     networks:
       - internal
-    command:  tunnel --no-autoupdate run --token eyJhIjoiZWQ2NmE1NDZlYWVhMWNlMDBlYjE2YmI1Yzc1NmFkY2EiLCJ0IjoiYzI2MmFhYTYtOTVkYi00YzE5LTk4NzktZTI2YzMwMTg1YmU4IiwicyI6IllUQmhOelk0WkRJdE5HVTNZeTAwTjJZeUxUaGxOVEF0TVRVd1l6WTBNakpqWWpreCJ9
+    command: tunnel --no-autoupdate run --token eyJhIjoiZWQ2NmE1NDZlYWVhMWNlMDBlYjE2YmI1Yzc1NmFkY2EiLCJ0IjoiNjRlN2ZmZjQtZTg1My00OWNjLTljMDgtM2JkOWRlMjk2ZTZlIiwicyI6IlpqY3pNamMyT1RndE1XSXhOUzAwT1RjeExXSmhNV1V0T1RBMFpXUmxZV05qTVdVMiJ9
   app:
     image: app
     hostname: app

@@ -1,21 +1,38 @@
-import { button } from '#@/components/Buttons/buttons.module.css';
-import typography from '#@/styles/fonts/typography.module.css';
-import { Route } from 'next';
-import Link from 'next/link';
+import { headers } from 'next/headers';
 
-export default function NotFound() {
+export default async function NotFound() {
+  const mapper = new Set<string>();
+
+  const headersList = headers();
+
+  for ( const [
+    key,
+    value
+  ] of headersList ) {
+    mapper.add(
+      `${ key } : ${ value }` 
+    );
+  }
+
+  const domain = headersList.get(
+    'next-url' 
+  ) ?? '';
+
+  const arrMap = Array.from(
+    mapper 
+  );
+
   return (
-    <>
-      <h2 className={typography.displayMedium}>{'No encontrado'}</h2>
-      <p className={typography.bodyLarge}>
-        {'No pudimos localizar el recurso que consultaste'}
-      </p>
-      <Link
-        href={'/' as Route}
-        className={button}
-      >
-        {'Inicio'}
-      </Link>
-    </>
+    <div>
+      <h2>Not Found: {domain}</h2>
+      {arrMap.map(
+        (
+          mp, i 
+        ) => {
+          return <p key={i}>{mp}</p>;
+        } 
+      )}
+      <p>Could not find requested resource</p>
+    </div>
   );
 }

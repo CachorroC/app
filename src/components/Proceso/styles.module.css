@@ -1,0 +1,123 @@
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+  text-align: center;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  width: 100%;
+  flex: 1;
+  box-sizing: border-box;
+  border: 0.2 rem solid var(--outline-variant);
+}
+.container .title {
+  color: var(--secondary);
+  text-align: right;
+}
+.container .content {
+  text-align: center;
+  background-color: var(--surface-container);
+  padding: 2cqmin;
+  border-radius: 2cqmin;
+}
+.container .button, .container .buttonActive, .container .buttonInnactive {
+  display: flex;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  border-radius: var(--shape-corner-medium);
+  position: relative;
+  align-items: center;
+  justify-items: center;
+  border: none;
+}
+.container .button:after, .container .buttonActive:after, .container .buttonInnactive:after {
+  transition: all 0.5s;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--shape-corner-medium);
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary);
+  opacity: 0.02;
+}
+.container .button .text, .container .buttonActive .text, .container .buttonInnactive .text {
+  font-family: var(--raleway);
+}
+.container .buttonInnactive {
+  background-color: var(--surface-container-low);
+  box-shadow: var(--dp1);
+}
+.container .buttonInnactive .text,
+.container .buttonInnactive .icon {
+  color: var(--on-surface);
+}
+.container .buttonInnactive:after {
+  background-color: var(--on-surface);
+}
+.container .buttonInnactive:hover .text,
+.container .buttonInnactive:hover .icon {
+  color: var(--secondary);
+}
+.container .buttonInnactive:hover:after {
+  background-color: var(--secondary);
+}
+.container .buttonInnactive:focus, .container .buttonInnactive:active {
+  background-color: var(--secondary-container);
+}
+.container .buttonInnactive:focus .text,
+.container .buttonInnactive:focus .icon, .container .buttonInnactive:active .text,
+.container .buttonInnactive:active .icon {
+  color: var(--on-secondary-container);
+}
+.container .buttonInnactive:focus:after, .container .buttonInnactive:active:after {
+  background-color: var(--on-secondary-container);
+}
+.container .buttonActive {
+  background-color: var(--primary);
+}
+.container .buttonActive .text,
+.container .buttonActive .icon {
+  color: var(--on-primary);
+}
+.container .buttonActive:hover {
+  box-shadow: var(--elevation-4);
+}
+.container .buttonActive:hover .text,
+.container .buttonActive:hover .icon {
+  color: var(--on-primary);
+}
+.container .buttonActive:hover:after {
+  background-color: var(--on-primary);
+  opacity: 0.8;
+}
+.container .buttonActive:focus, .container .buttonActive:active {
+  background-color: var(--primary-container);
+}
+.container .buttonActive:focus .text,
+.container .buttonActive:focus .icon, .container .buttonActive:active .text,
+.container .buttonActive:active .icon {
+  color: var(--on-primary-container);
+}
+.container .buttonActive:focus:after, .container .buttonActive:active:after {
+  background-color: var(--on-primary-container);
+}
+.container .button:hover, .container .buttonInnactive:hover, .container .buttonActive:hover {
+  box-shadow: var(--dp6);
+}
+.container .button:hover > .icon, .container .buttonInnactive:hover > .icon, .container .buttonActive:hover > .icon {
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 40;
+}
+.container .button:focus, .container .buttonInnactive:focus, .container .buttonActive:focus, .container .button:active, .container .buttonInnactive:active, .container .buttonActive:active {
+  box-shadow: var(--dp1);
+}
+.container .button:focus:after, .container .buttonInnactive:focus:after, .container .buttonActive:focus:after, .container .button:active:after, .container .buttonInnactive:active:after, .container .buttonActive:active:after {
+  opacity: 0.1;
+}
+.container .button:focus > .icon, .container .buttonInnactive:focus > .icon, .container .buttonActive:focus > .icon, .container .button:active > .icon, .container .buttonInnactive:active > .icon, .container .buttonActive:active > .icon {
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 40;
+}

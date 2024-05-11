@@ -1,62 +1,64 @@
-import { Poiret_One,
-  Inter,
-  Raleway,
+import { Raleway,
+  Playfair_Display,
   Josefin_Sans,
-  Roboto, } from 'next/font/google';
+  PT_Serif_Caption,
+  Radio_Canada, } from 'next/font/google';
 
-// define your variable fonts
-export const inter = Inter(
+const playDisp = Playfair_Display(
   {
     subsets: [
       'latin-ext',
       'latin'
     ],
-    variable: '--inter',
+    preload : true,
+    variable: '--play-display',
+    weight  : 'variable',
   } 
 );
 
-export const josefina = Josefin_Sans(
+const ptserif = PT_Serif_Caption(
   {
     subsets: [
       'latin'
     ],
+    display : 'auto',
+    preload : false,
+    variable: '--ptserif',
+    weight  : '400',
+  } 
+);
+
+const josefina = Josefin_Sans(
+  {
+    subsets: [
+      'latin'
+    ],
+    preload : false,
     variable: '--josefa',
+    weight  : 'variable',
   } 
 );
 
-export const raleway = Raleway(
+const radio = Radio_Canada(
+  {
+    subsets: [
+      'latin-ext'
+    ],
+    preload : false,
+    variable: '--radio',
+  } 
+);
+
+const raleway = Raleway(
   {
     subsets: [
       'latin'
     ],
+    preload : true,
     variable: '--raleway',
   } 
 );
 
-export const roboto = Roboto(
-  {
-    subsets: [
-      'latin'
-    ],
-    variable: '--roboto',
-    weight  : [
-      '100',
-      '300',
-      '400',
-      '500',
-      '700',
-      '900'
-    ],
-  } 
-);
-
-export const poiret = Poiret_One(
-  {
-    weight  : '400',
-    variable: '--font-poiret',
-    subsets : [
-      'latin',
-      'latin-ext'
-    ],
-  } 
-);
+export {
+  playDisp, ptserif, josefina, radio, raleway 
+};

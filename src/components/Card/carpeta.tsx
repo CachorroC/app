@@ -1,195 +1,199 @@
 import { fixFechas, fixMoney } from '#@/lib/project/helper';
-import { MonCarpeta } from '#@/lib/types/carpetas';
 import { Route } from 'next';
 import Link from 'next/link';
 import { NombreComponent } from '../nombre';
 import styles from './card.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import card from 'components/Card/card.module.css';
 import { button } from '../Buttons/buttons.module.css';
+import layout from '#@/styles/layout.module.css';
+import { MonCarpeta } from '#@/lib/types/carpetas';
+import { containerEnabled } from './filled.module.css';
 
 export const CarpetaCard = (
   {
-    carpeta
-  }: { carpeta: MonCarpeta }
+    carpeta 
+  }: { carpeta: MonCarpeta } 
 ) => {
   const {
-    llaveProceso,
-    idProceso,
-    _id
+    idProcesos, deudor, demanda, numero, procesos 
   } = carpeta;
-
-  const {
-    tel,
-    email
-  } = carpeta.deudor;
-
-  const {
-    juzgados
-  } = carpeta.demanda;
-
-  const path = '/Procesos';
-
-  const href = llaveProceso
-    ? idProceso
-      ? `${ path }/${ llaveProceso }/${ idProceso }`
-      : `${ path }/${ llaveProceso }`
-    : `${ path }`;
 
   return (
     <div
-      className={styles.container}
-      key={_id}
+      className={containerEnabled}
+      key={numero}
     >
       <div className={styles.card}>
-        <NombreComponent
-          key={_id}
-          deudor={carpeta.deudor}
-        />
+        {deudor && (
+          <NombreComponent
+            key={numero}
+            nombre={carpeta.nombre}
+            carpetaNumero={carpeta.numero}
+          />
+        )}
         <sub className={card.sub}>{carpeta.numero}</sub>
         <p className={typography.bodySmall}>{carpeta.category}</p>
         <p className={typography.labelSmall}>{carpeta.tipoProceso}</p>
-        <p className={typography.titleSmall}>{carpeta.deudor.cedula}</p>
-
-        <Link
-          className={button}
-          key={_id}
-          href={href as Route}
-        >
-          <span className={`material-symbols-outlined ${ styles.icon }`}>
-              folder_open
-          </span>
-          <span className={styles.tooltiptext}>Abrir</span>
-        </Link>
-        {juzgados
-            && juzgados.map(
+        <p className={typography.titleSmall}>{deudor?.cedula}</p>
+        <section className={layout.segmentRow}>
+          {idProcesos
+            && idProcesos.map(
               (
-                despacho
+                idProceso 
               ) => {
                 return (
                   <Link
-                    key={despacho.url}
-                    target={'_blank'}
-                    className={card.link}
-                    href={despacho.url as Route}
+                    className={button}
+                    key={idProceso}
+                    href={
+                    `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
+                    }
                   >
-                    <span className={`material-symbols-outlined ${ card.icon }`}>
-                    enable
+                    <span className={`material-symbols-outlined ${ styles.icon }`}>
+                    update
                     </span>
-                    <sub className={typography.displaySmall}>
-                      {`${ despacho.id }`}
-                    </sub>
-                    <p className={typography.labelSmall}>
-                      {`Juzgado de origen: ${ despacho.tipo }`}
-                    </p>
+                    <span className={styles.tooltiptext}>
+                    Ultimas Actiaciones
+                    </span>
                   </Link>
                 );
-              }
+              } 
             )}
-        {tel.celular && (
+        </section>
+        {procesos.map(
+          (
+            {
+              juzgado 
+            } 
+          ) => {
+            return (
+              <Link
+                key={juzgado.url}
+                target={'_blank'}
+                className={card.link}
+                href={new URL(
+                  juzgado.url 
+                )}
+              >
+                <span className={`material-symbols-outlined ${ card.icon }`}>
+                enable
+                </span>
+                <sub className={typography.displaySmall}>{`${ juzgado.id }`}</sub>
+                <p className={typography.labelSmall}>
+                  {`Juzgado de origen: ${ juzgado.tipo }`}
+                </p>
+              </Link>
+            );
+          } 
+        )}
+        {deudor?.telCelular && (
           <Link
-            key={tel.celular}
+            key={deudor.telCelular}
             target={'_blank'}
             className={card.link}
-            href={`tel:${ tel.celular }`}
+            href={`tel:${ deudor.telCelular }`}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
-                phone_iphone
+              phone_iphone
             </span>
-            <span className={styles.tooltiptext}>
-              {tel.celular.toString()}
-            </span>
+            <span className={styles.tooltiptext}>{deudor.telCelular}</span>
           </Link>
         )}
-        {tel.fijo && (
+        {deudor?.telFijo && (
           <Link
-            key={tel.fijo}
+            key={deudor.telFijo}
             target={'_blank'}
             className={card.link}
-            href={`tel:${ tel.fijo }`}
+            href={`tel:${ deudor.telFijo }`}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
-                call
+              call
             </span>
-            <span className={styles.tooltiptext}>{tel.fijo.toString()}</span>
+            <span className={styles.tooltiptext}>{deudor.telFijo}</span>
           </Link>
         )}
-        {carpeta.demanda.vencimientoPagare && (
-          <p className={typography.labelMedium}>
-            {fixFechas(
-              carpeta.demanda.vencimientoPagare.toString()
-            )}
-          </p>
-        )}
-        {email && (
+        {demanda?.vencimientoPagare
+          && demanda.vencimientoPagare.map(
+            (
+              pagare, index 
+            ) => {
+              return (
+                <p
+                  key={index}
+                  className={typography.labelMedium}
+                >
+                  {fixFechas(
+                    pagare 
+                  )}
+                </p>
+              );
+            } 
+          )}
+        {deudor?.email && (
           <Link
             className={button}
             target={'_blank'}
-            href={`mailto:${ email }`}
+            href={`mailto:${ deudor.email }`}
           >
             <span className={`material-symbols-outlined ${ styles.icon }`}>
-                forward_to_inbox
+              forward_to_inbox
             </span>
-            <span className={styles.tooltiptext}>Email</span>
+            <span
+              className={styles.tooltiptext}
+            >{`correo electrónico ${ deudor.email }`}</span>
           </Link>
         )}
 
-        {carpeta.demanda.entregagarantiasAbogado && (
+        {demanda?.entregaGarantiasAbogado && (
           <p className={typography.labelSmall}>
             {fixFechas(
-              carpeta.demanda.entregagarantiasAbogado.toString()
+              demanda.entregaGarantiasAbogado 
             )}
           </p>
         )}
         <div>
-          {carpeta.demanda.capitalAdeudado
-              && fixMoney(
-                {
-                  valor: Number(
-                    carpeta.demanda.capitalAdeudado
-                  ),
-                }
-              )}
+          {demanda?.capitalAdeudado
+            && fixMoney(
+              Number(
+                demanda.capitalAdeudado 
+              ) 
+            )}
         </div>
       </div>
-      {email && (
+      {deudor?.email && (
         <Link
           className={card.link}
-          href={email as Route}
+          href={deudor.email as Route}
           target={'_blank'}
         >
-          <span className={`material-symbols-outlined ${ card.icon }`}>
-              mail
-          </span>
+          <span className={`material-symbols-outlined ${ card.icon }`}>mail</span>
           <span className={card.tooltiptext}>{'Correo Electrónico'}</span>
         </Link>
       )}
-      {tel.celular && (
+      {deudor?.telCelular && (
         <Link
-          key={tel.celular}
+          key={deudor.telCelular}
           className={card.link}
           target={'_blank'}
-          href={`tel:${ tel.celular }`}
+          href={`tel:${ deudor.telCelular }`}
         >
           <span className={`material-symbols-outlined ${ card.icon }`}>
-              phone_iphone
+            phone_iphone
           </span>
-          <span className={card.tooltiptext}>{tel.celular.toString()}</span>
+          <span className={card.tooltiptext}>{deudor.telCelular}</span>
         </Link>
       )}
-      {tel.fijo && (
+      {deudor?.telFijo && (
         <Link
-          key={tel.fijo}
+          key={deudor.telFijo}
           className={card.link}
-          href={`tel:${ tel.fijo }`}
+          href={`tel:${ deudor.telFijo }`}
         >
-          <span className={`material-symbols-outlined ${ card.icon }`}>
-              call
-          </span>
-          <span className={card.tooltiptext}>{tel.fijo.toString()}</span>
+          <span className={`material-symbols-outlined ${ card.icon }`}>call</span>
+          <span className={card.tooltiptext}>{deudor.telFijo.toString()}</span>
         </Link>
       )}
     </div>
-
   );
 };

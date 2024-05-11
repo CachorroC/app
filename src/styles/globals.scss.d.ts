@@ -1,9 +1,9 @@
 export type Styles = {
-  'installButton': string;
-  'materialSymbolsOutlined': string;
+  installButton: string;
+  materialSymbolsOutlined: string;
 };
 
-export type ClassNames = keyof Styles;
+export type ClassesType = keyof Styles;
 
 declare const styles: Styles;
 

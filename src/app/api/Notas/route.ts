@@ -1,11 +1,23 @@
 import 'server-only';
-import { notasCollection } from '#@/lib/connection/mongodb';
-import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
-import getNotas from '#@/lib/project/getNotas';
+import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
+import clientPromise from '#@/lib/connection/mongodb';
+import { IntNota } from '#@/lib/types/notas';
+/*
+export async function GET () {
+  const collection = await notasCollection();
 
-export async function GET() {
-  const notas = await getNotas();
+  const notasRaw = await collection.find()
+    .sort(
+      {
+        cod: 1
+      }
+    )
+    .toArray();
+
+  const notas = notasConvert.toMonNotas(
+    notasRaw
+  );
 
   return new NextResponse(
     JSON.stringify(
@@ -18,101 +30,170 @@ export async function GET() {
     }
   );
 }
+*/
 
-export async function POST(
-  request: NextRequest
+export async function GET(
+  request: NextRequest 
 ) {
-  const incomingRequest = await request.json();
+  try {
+    let notas;
 
-  const collection = await notasCollection();
+    const {
+      searchParams 
+    } = new URL(
+      request.url 
+    );
 
-  const outgoingRequest = await collection.insertOne(
-    incomingRequest
-  );
+    const carpetaNumero = searchParams.get(
+      'carpetaNumero' 
+    );
 
-  if ( !outgoingRequest ) {
-    return new NextResponse(
-      null, {
-        status: 404,
-      }
+    if ( carpetaNumero ) {
+      notas = await getNotas(
+        Number(
+          carpetaNumero 
+        ) 
+      );
+    } else {
+      notas = await getNotas();
+    }
+
+    return NextResponse.json(
+      notas 
+    );
+  } catch ( error ) {
+    return NextResponse.json(
+      null 
     );
   }
-
-  return new NextResponse(
-    JSON.stringify(
-      outgoingRequest
-    ), {
-      status : 200,
-      headers: {
-        'content-type': 'application/json',
-      },
-    }
-  );
 }
 
-export async function PUT(
-  Request: NextRequest
+export async function POST(
+  request: NextRequest 
 ) {
-  const collection = await notasCollection();
+  try {
+    const incomingNote = ( await request.json() ) as IntNota;
 
-  const updatedNote = await Request.json();
+    const client = await clientPromise;
 
-  const {
-    searchParams
-  } = new URL(
-    Request.url
-  );
-
-  const id = searchParams.get(
-    'id'
-  );
-
-  if ( id ) {
-    const query = {
-      _id: new ObjectId(
-        id
-      ),
-    };
-
-    const result = await collection.updateOne(
-      query, {
-        $set: updatedNote,
-      }
-    );
-
-    if ( result.acknowledged ) {
-      return new NextResponse(
-        `Successfully updated game with id ${ id }`, {
-          status : 200,
-          headers: {
-            'content-type': 'text/html',
-          },
-        }
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico' 
       );
     }
 
-    return new NextResponse(
-      `the result was ${
-        result.acknowledged
-          ? 'true'
-          : 'false'
-      } with ${ result.modifiedCount.toString() }`,
-      {
-        status : 200,
-        headers: {
-          'content-type': 'text/html',
-        },
-      },
+    const db = client.db(
+      'RyS' 
+    );
+
+    const collection = db.collection<IntNota>(
+      'Notas' 
+    );
+
+    const updatedNote = await collection.insertOne(
+      incomingNote 
+    );
+
+    if ( !updatedNote ) {
+      throw new Error(
+        'no se actualizó la notas' 
+      );
+    }
+
+    const json = JSON.stringify(
+      updatedNote, null, 2 
+    );
+    console.log(
+      `POST en api/Notas es ${ json }` 
+    );
+    return NextResponse.json(
+      updatedNote 
+    );
+  } catch ( error ) {
+    console.log(
+      `POST en api/Notas arrojó un error ${ JSON.stringify(
+        error, null, 2 
+      ) }`,
+    );
+    return NextResponse.json(
+      error, {
+        status: 300,
+      } 
     );
   }
-
-  return new NextResponse(
-    null, {
-      status: 404,
-    }
-  );
 }
 
+export async function PUT(
+  request: NextRequest 
+) {
+  try {
+    const incomingNote = ( await request.json() ) as IntNota;
+
+    const client = await clientPromise;
+
+    if ( !client ) {
+      throw new Error(
+        'no hay cliente mongólico' 
+      );
+    }
+
+    const db = client.db(
+      'RyS' 
+    );
+
+    const collection = db.collection<IntNota>(
+      'Notas' 
+    );
+
+    const updatedNote = await collection.findOneAndUpdate(
+      {
+        id: incomingNote.id,
+      },
+      {
+        $set: incomingNote,
+      },
+      {
+        upsert        : true,
+        returnDocument: 'after',
+      },
+    );
+
+    if ( !updatedNote ) {
+      throw new Error(
+        'no se actualizó la notas' 
+      );
+    }
+
+    const json = JSON.stringify(
+      updatedNote, null, 2 
+    );
+    console.log(
+      `PUT en api/Notas es ${ json }` 
+    );
+    return new NextResponse(
+      JSON.stringify(
+        updatedNote 
+      ), {
+        status : 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      } 
+    );
+  } catch ( error ) {
+    console.log(
+      `PUT en api/Notas arrojó un error ${ JSON.stringify(
+        error, null, 2 
+      ) }`,
+    );
+    return NextResponse.json(
+      error, {
+        status: 300,
+      } 
+    );
+  }
+}
+/*
 export async function DELETE(
   Request: NextRequest
 ) {
@@ -164,7 +245,6 @@ export async function DELETE(
       throw new Error(
         'no pudimos eliminar esta nota, inténtalo de nuevo'
       );
-
     }
 
     return new NextResponse(
@@ -178,7 +258,7 @@ export async function DELETE(
 
   return new NextResponse(
     null, {
-      status: 405
+      status: 405,
     }
   );
-}
+} */

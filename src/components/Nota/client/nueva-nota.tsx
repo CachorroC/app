@@ -1,204 +1,215 @@
 'use client';
-import { createNota } from '#@/app/actions';
-import { useNotaContext } from '#@/app/context/main-context';
-import { usePathname, useRouter } from 'next/navigation';
-import styles from 'components/form/form.module.scss';
-import typography from '#@/styles/fonts/typography.module.scss';
-import { useOnlineStatus } from '#@/lib/hooks/online-state';
+import styles from 'components/Form/form.module.css';
+import typography from '#@/styles/fonts/typography.module.css';
+import layout from '#@/styles/layout.module.css';
+import { ChangeEvent } from 'react';
+import { InputDateHelper } from '#@/lib/project/date-helper';
+import { useNuevaNotaContext } from '#@/app/Notas/nueva-nota-form-context';
+import { addNotaToMongo,
+  addNotaToPrisma,
+  notasCount, } from '#@/app/Notas/actions';
+import { NewNota } from '#@/lib/types/notas';
+import { usePathname } from 'next/navigation';
+import { ParseContentNota } from '#@/app/Notas/parse-text-area';
+import { ParseContenidoArea } from './nota-contenido';
 
-export const NuevaNota = (
-  {
-    llaveProceso, cod
-  }: { llaveProceso?: string; cod: number }
-) => {
-  const isOnline = useOnlineStatus();
-
-  const {
-    inputNota, setInputNota
-  } = useNotaContext();
-
-  const inputMonth = String(
-    inputNota.date.getMonth() + 1
-  )
-    .padStart(
-      2, '0'
-    );
-
-  const inputDate = String(
-    inputNota.date.getDate()
-  )
-    .padStart(
-      2, '0'
-    );
-
-
+export const NuevaNota = () => {
   const pathname = usePathname();
 
+  const {
+    notaFormState, setNotaFormState 
+  } = useNuevaNotaContext();
 
-  const router = useRouter();
-
-  async function onCreate(
-    formData: FormData
+  function handleStringChange(
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) {
-
-    const res = await createNota(
-      formData
-    );
-    alert(
-      res.message
-    );
-    router.replace(
-      `/Notas/id/${ res.id }`
+    return setNotaFormState(
+      {
+        ...notaFormState,
+        [ e.target.name ]: String(
+          e.target.value 
+        ),
+      } 
     );
   }
 
+  function handleNumericChange(
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) {
+    return setNotaFormState(
+      {
+        ...notaFormState,
+        [ e.target.name ]: Number(
+          e.target.value 
+        ),
+      } 
+    );
+  }
+
+  async function createNoteInDatabase() {
+    const newDater = new Date();
+
+    const sender = await addNotaToPrisma(
+      notaFormState 
+    );
+
+    const adder = await addNotaToMongo(
+      notaFormState 
+    );
+
+    if ( adder.success ) {
+      alert(
+        `se ingresó la informacion a la base de datos in prisma ${ adder.data }`,
+      );
+    } else {
+      alert(
+        `error, no se pudo ingresar la forma a la base de dato in prismas ${ adder.data }`,
+      );
+    }
+
+    if ( sender.success ) {
+      alert(
+        `se ingresó la informacion a la base de datos ${ sender.data }` 
+      );
+    } else {
+      alert(
+        `error, no se pudo ingresar la forma a la base de datos ${ sender.data }`,
+      );
+    }
+
+    if ( !adder.success || !sender.success ) {
+      return setNotaFormState(
+        {
+          ...notaFormState,
+        } 
+      );
+    }
+
+    const newFactura: NewNota = {
+      text   : '',
+      content: [
+        ''
+      ],
+      pathname     : pathname,
+      carpetaNumero: null,
+      id           : '',
+      dueDate      : new Date(
+        newDater.getFullYear(),
+        newDater.getMonth(),
+        newDater.getDate(),
+      ),
+    };
+    return setNotaFormState(
+      {
+        ...newFactura,
+      } 
+    );
+  }
 
   return (
-    <div className={styles.container}>
+    <>
       <form
-        className={ styles.form }
-        action={ onCreate }
+        className={styles.container}
+        action={createNoteInDatabase}
       >
         <h1 className={typography.displayLarge}>Nueva Nota</h1>
-        <section className={ styles.section }>
-          {isOnline && ( <p>isOnline</p> )}
-          <section className={styles.section}>
+        <button
+          type="button"
+          onClick={async () => {
+            const nextId = await notasCount(
+              notaFormState.carpetaNumero 
+            );
+            return setNotaFormState(
+              {
+                ...notaFormState,
+                id: notaFormState.carpetaNumero
+                  ? `${ notaFormState.carpetaNumero }-${ nextId }`
+                  : `NC-${ nextId }`,
+              } 
+            );
+          }}
+        >
+          <span>id</span>
+        </button>
+        <section className={layout.sectionColumn}>
+          <section className={layout.sectionRow}>
             <label
-              htmlFor="llaveProceso"
+              htmlFor="carpetaNumero"
               className={styles.label}
             >
-              {'Expediente'}
-            </label>
-            <input
-              type="text"
-              className={styles.textArea}
-              name="llaveProceso"
-              defaultValue={llaveProceso}
-            />
-          </section>
-          <section className={styles.section}>
-            <label
-              htmlFor="cod"
-              className={styles.label}
-            >
-              {'Numero'}
+              {'carpeta'}
             </label>
             <input
               type="number"
               className={styles.textArea}
-              name="cod"
-              value={ cod }
-              onChange={ (
-                e
-              ) => {
-                setInputNota(
-                  {
-                    ...inputNota,
-                    cod: Number(
-                      e.target.value
-                    )
-                  }
-                );
-              }}
+              name="carpetaNumero"
+              value={notaFormState.carpetaNumero ?? ''}
+              onChange={handleNumericChange}
             />
           </section>
-
-          <section className={ styles.section }>
-            <label htmlFor='text' className={styles.label}>{'Nota:'}</label>
-            <input
-              type="text"
-              className={styles.textArea}
-              name="text"
-              value={inputNota.text}
-              onChange={
-                (
-                  e
-                ) => {
-                  setInputNota(
-                    {
-                      ...inputNota,
-                      text: e.target.value,
-                    }
-                  );
-                }
-              }
-            />
-          </section>
-          <section className={ styles.section }>
-            <label htmlFor='date' className={styles.label}>Fecha</label>
+          <section className={layout.sectionRow}>
+            <label
+              htmlFor="dueDate"
+              className={styles.label}
+            >
+              Fecha
+            </label>
 
             <input
               type="date"
-              name="date"
+              name="dueDate"
               className={styles.textArea}
-              value={ `${ inputNota.date.getFullYear() }-${ inputMonth }-${ inputDate }` }
+              value={InputDateHelper(
+                notaFormState.dueDate 
+              )}
               onChange={(
-                e
+                e 
               ) => {
                 const [
                   yearStringer,
                   monthStringer,
                   dayStringer
-                ] = e.target.value.split(
-                  '-'
-                );
+                ]
+                  = e.target.value.split(
+                    '-' 
+                  );
 
-                const newYear = Number(
-                  yearStringer
-                );
-
-                const newMonth= Number(
-                  monthStringer
-                ) - 1;
-
-                const newDay = Number(
-                  dayStringer
-                );
-                setInputNota(
+                setNotaFormState(
                   {
-                    ...inputNota,
-                    date: new Date(
-                      newYear, newMonth, newDay
-                    )
-                  }
+                    ...notaFormState,
+                    dueDate: new Date(
+                      `${ yearStringer }-${ monthStringer }-${ dayStringer }`,
+                    ),
+                  } 
                 );
-
               }}
-
             />
           </section>
-          <input
-            type="text"
-            className={styles.textArea}
-            name="pathname"
-            defaultValue={pathname}
-          />
-          <section className={ styles.section }>
-
-            <label className={styles.switchBox}>
-              <input
-                type="checkbox"
-                className={styles.inputElement}
-                name="done"
-                checked={inputNota.done}
-                onChange={(
-                  e
-                ) => {
-                  setInputNota(
-                    {
-                      ...inputNota,
-                      done: e.target.checked
-                    }
-                  );
-                }}
-              />
-              <span className={styles.slider}></span>
+          <section className={layout.sectionRow}>
+            <label
+              htmlFor="text"
+              className={styles.label}
+            >
+              {'Nota'}
             </label>
+            <input
+              type="text"
+              className={styles.textArea}
+              name="text"
+              value={notaFormState.text}
+              onChange={handleStringChange}
+            />
           </section>
-
-          <button type="submit">Add</button>
+          <ParseContentNota value={notaFormState.content} />
+          <ParseContenidoArea />
+          <section className={layout.segmentRow}>
+            <button type="submit">Add</button>P
+          </section>
         </section>
       </form>
-    </div>
+      <pre>{JSON.stringify(
+        notaFormState, null, 2 
+      )}</pre>
+    </>
   );
 };

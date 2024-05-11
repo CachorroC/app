@@ -1,56 +1,52 @@
-
-export const getBaseUrl = () => {
-  const isDev = process.env.NODE_ENV === 'development';
-
-  const isProd = process.env.NODE_ENV === 'production';
-
-  const portToUse = process.env.PORT ?? '3000';
-
-  if ( isProd ) {
-    return 'https://app.rsasesorjuridico.com';
-  }
-
-  if ( isDev ) {
-    return 'https://beta.rsasesorjuridico.com';
-  }
-
-  return `http://localhost:${ portToUse }`;
-};
-
 export const fixFechas = (
-  rawDate: string
-): string => {
-  return new Date(
-    rawDate
-  )
-    .toLocaleString(
-      'es-CO', {
-        year   : 'numeric',
-        weekday: 'short',
-        month  : 'long',
-        day    : 'numeric',
-      }
-    );
+  rawDate?: string | Date | null | undefined 
+) => {
+  if ( !rawDate || rawDate === null || rawDate === undefined ) {
+    return 'sin especificar';
+  }
+
+  if ( typeof rawDate === 'string' ) {
+    return new Date(
+      rawDate 
+    )
+      .toLocaleString(
+        'es-CO', {
+          timeZone: 'UTC',
+          year    : 'numeric',
+          weekday : 'short',
+          month   : 'long',
+          day     : 'numeric',
+        } 
+      );
+  }
+
+  return rawDate.toLocaleString(
+    'es-CO', {
+      timeZone: 'UTC',
+      year    : 'numeric',
+      weekday : 'short',
+      month   : 'long',
+      day     : 'numeric',
+    } 
+  );
 };
 
 export const sleep = (
-  ms: number
+  ms: number 
 ) => {
   return new Promise(
     (
-      resolve
+      resolve 
     ) => {
-      const newMs = ms * 100;
-
       return setTimeout(
-        resolve, newMs
+        resolve, ms 
       );
-    }
+    } 
   );
 };
 
 export const trimmer = (
-  sujetosProcesales: string
+  sujetosProcesales: string 
 ) => {
   const locateDemandado = sujetosProcesales.search(
     /(demandado|causante)+:(?:\s*?|'\s*?')/gi,
@@ -58,21 +54,21 @@ export const trimmer = (
 
   const extractDemandado = sujetosProcesales
     .slice(
-      locateDemandado + 10
+      locateDemandado + 10 
     )
     .toLowerCase();
 
   const trimDemandado = extractDemandado.replace(
-    /^\s+|\s+$/gm, ''
+    /^\s+|\s+$/gm, '' 
   );
 
   const splitDemandado = trimDemandado.split(
-    ' '
+    ' ' 
   );
 
   const splitDemandadotoUnify = splitDemandado.map(
     (
-      nombreOapellido: string, index: number
+      nombreOapellido: string, index: number 
     ) => {
       if ( index >= 5 ) {
         return '';
@@ -83,96 +79,73 @@ export const trimmer = (
       }
 
       if ( nombreOapellido.includes(
-        's.a.s'
+        's.a.s' 
       ) ) {
         return '';
       }
 
       if ( nombreOapellido.includes(
-        'sas'
+        'sas' 
       ) ) {
         return '';
       }
 
       if ( nombreOapellido.includes(
-        '(emplazado)'
+        '(emplazado)' 
       ) ) {
         return '';
       }
 
       return nombreOapellido.replace(
         /^./, (
-          str: string
+          str: string 
         ) => {
           return str.toUpperCase();
-        }
+        } 
       );
     },
   );
 
   const unifyDemandado = splitDemandadotoUnify.join(
-    ' '
+    ' ' 
   );
 
   return unifyDemandado;
 };
 
 export const fixDemandado = (
-  sujetosProcesales: string
+  sujetosProcesales: string 
 ): string => {
-  const mySubString = 'Demandado';
-
   const count = sujetosProcesales.split(
-    mySubString
-  ).length - 1;
+    '|' 
+  );
 
-  if ( count === 1 ) {
-    return trimmer(
-      sujetosProcesales
+  for ( const stringerCount of count ) {
+    const hasDemandante = stringerCount.includes(
+      'Demandante' 
     );
+
+    if ( hasDemandante ) {
+      continue;
+    }
+
+    return stringerCount;
   }
 
   return sujetosProcesales;
 };
 
-export const toNameString = (
-  {
-    nameRaw
-  }: { nameRaw: string }
-): string => {
-  const str = nameRaw.toLowerCase();
-
-  const arr = str.split(
-    ' '
-  );
-
-  for ( let i = 0; i < arr.length; i++ ) {
-    arr[ i ] = arr[ i ].charAt(
-      0
-    )
-      .toUpperCase() + arr[ i ].slice(
-      1
-    );
-  }
-
-  const str2 = arr.join(
-    ' '
-  );
-
-  return str2;
-};
-
-export function fixMoney(
-  {
-    valor
-  }: { valor: number }
-) {
-  const precioEnCop = valor.toLocaleString(
+export const fixMoney = (
+  valor: number | bigint 
+) => {
+  return new Intl.NumberFormat(
     'es-CO', {
-      currency: 'COP',
-      style   : 'currency',
-    }
-  );
-
-  return precioEnCop;
-}
+      style          : 'currency',
+      currency       : 'COP',
+      currencyDisplay: 'symbol',
+    } 
+  )
+    .format(
+      valor 
+    );
+};

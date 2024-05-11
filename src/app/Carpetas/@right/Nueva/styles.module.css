@@ -1,0 +1,243 @@
+.divider {
+  width: auto;
+  height: auto;
+  border: 5px solid var(--primary);
+  box-sizing: border-box;
+}
+
+.container {
+  container-name: form;
+  container-type: inline-size;
+  grid-area: span 4/span 6;
+  display: flex;
+  border-radius: 2vmin;
+  flex-flow: column nowrap;
+}
+.container .form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  flex-flow: column nowrap;
+  padding: 2cqmin;
+  gap: 2cqmin;
+}
+.container .form sub {
+  color: var(--primary);
+}
+.container .form .buttonsRow {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.section {
+  gap: 1cqmin;
+  padding: 2vmin;
+  flex: 1;
+  display: flex;
+  flex-flow: column wrap;
+}
+.section > .section {
+  gap: 5cqmin;
+  padding: 1cqmin;
+  display: flex;
+  flex: 1;
+  flex-flow: row wrap;
+}
+.section > .section > .section {
+  gap: 2cqmin;
+  padding: 5cqh;
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+}
+.section .label {
+  font-family: var(--play-display);
+  flex: 1;
+}
+.section .titleInput,
+.section .title {
+  flex: 2;
+}
+
+.submitButton {
+  border: none;
+  box-shadow: var(--dp5);
+  border-radius: 2vmax;
+  flex-grow: 1;
+  width: 20em;
+  background-color: var(--secondary);
+}
+.submitButton > span {
+  color: var(--on-secondary);
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+}
+.submitButton:hover, .submitButton:active {
+  background-color: var(--secondary);
+  box-shadow: var(--dp8);
+}
+.submitButton:hover > span, .submitButton:active > span {
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 48;
+  color: var(--on-secondary);
+}
+
+.textArea,
+.selectArea {
+  font-family: var(--raleway);
+  box-sizing: border-box;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  flex: 2;
+  border-bottom: solid 3px var(--outline);
+  border-radius: 1cqmax 1cqmax 0 0;
+  resize: both;
+  text-align: center;
+  padding: 1vmin;
+}
+.textArea:hover,
+.selectArea:hover {
+  box-shadow: var(--dp8);
+  border-bottom: var(--outline-variant) solid 1cqmin;
+}
+.textArea:focus,
+.selectArea:focus {
+  border-bottom: var(--secondary) solid 1cqmin;
+}
+
+.editButton {
+  grid-area: editButton;
+}
+
+.deleteButton {
+  grid-area: deleteButton;
+}
+
+.addButton {
+  grid-area: addButton;
+}
+
+.HomeButton {
+  grid-area: HomeButton;
+}
+
+.button,
+.editButton,
+.deleteButton,
+.addButton,
+.HomeButton {
+  border: none;
+  box-shadow: var(--dp5);
+  border-radius: 2vmin;
+  padding: 1vmin;
+  flex-grow: 1;
+  background-color: var(--secondary);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+.button > .ButtonTextHelper,
+.editButton > .ButtonTextHelper,
+.deleteButton > .ButtonTextHelper,
+.addButton > .ButtonTextHelper,
+.HomeButton > .ButtonTextHelper {
+  display: none;
+  opacity: 0;
+  transition: all 1s;
+}
+.button > span,
+.editButton > span,
+.deleteButton > span,
+.addButton > span,
+.HomeButton > span {
+  color: var(--on-secondary);
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+}
+.button:hover, .button:active,
+.editButton:hover,
+.editButton:active,
+.deleteButton:hover,
+.deleteButton:active,
+.addButton:hover,
+.addButton:active,
+.HomeButton:hover,
+.HomeButton:active {
+  background-color: var(--tertiary-container);
+  box-shadow: var(--dp8);
+}
+.button:hover > span, .button:active > span,
+.editButton:hover > span,
+.editButton:active > span,
+.deleteButton:hover > span,
+.deleteButton:active > span,
+.addButton:hover > span,
+.addButton:active > span,
+.HomeButton:hover > span,
+.HomeButton:active > span {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+  color: var(--tertiary);
+}
+
+/* The switchBox - the box around the slider */
+.switchBox {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 0.1cqmin solid var(--outline-variant);
+  border-radius: 50vw;
+  width: 5cqmin;
+  height: 2cqmin;
+}
+
+/* Hide default HTML checkbox */
+.switchBox .inputElement {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  border-radius: 50vw;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--surface-container-highest);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  border-radius: 2cqmin 2cqmin 0 0;
+  position: absolute;
+  content: "";
+  height: 1.6cqmin;
+  width: 1.6cqmin;
+  left: 0.1cqmin;
+  bottom: 0.1cqmin;
+  background-color: var(--outline);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.inputElement:checked + .slider {
+  background-color: var(--primary);
+}
+.inputElement:checked + .slider:before {
+  background-color: var(--on-primary);
+}
+
+.inputElement:focus + .slider {
+  box-shadow: 0 0 1px var(--primary);
+}
+
+.inputElement:checked + .slider:before {
+  -webkit-transform: translateX(3cqmin);
+  -ms-transform: translateX(3cqmin);
+  transform: translateX(3cqmin);
+}

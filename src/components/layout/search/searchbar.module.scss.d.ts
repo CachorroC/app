@@ -1,17 +1,22 @@
 export type Styles = {
-  'container': string;
-  'date': string;
-  'icon': string;
-  'input': string;
-  'inputForm': string;
-  'isActive': string;
-  'notActive': string;
-  'searchBarLink': string;
-  'sub': string;
-  'title': string;
+  date: string;
+  icon: string;
+  input: string;
+  inputContainer: string;
+  inputForm: string;
+  isActive: string;
+  link: string;
+  linkIsActive: string;
+  linkNotActive: string;
+  notActive: string;
+  searchBarLink: string;
+  searchBarLinkIsActive: string;
+  searchBarLinkNotActive: string;
+  sub: string;
+  title: string;
 };
 
-export type ClassNames = keyof Styles;
+export type ClassesType = keyof Styles;
 
 declare const styles: Styles;
 

@@ -1,16 +1,16 @@
-import { Loader } from '#@/components/Loader';
+import { Loader } from '#@/components/Loader/main-loader';
 import typography from '#@/styles/fonts/typography.module.css';
 import card from 'components/Card/card.module.css';
-import { section } from '../form/form.module.css';
+import { containerEnabled } from './outlined.module.css';
 
 export const CardSkeleton = () => {
   return (
-    <div className={card.container}>
+    <div className={containerEnabled}>
       <div className={card.card}>
         <h1 className={`${ typography.displayMedium } ${ card.title }`}>
           {'Nombre'}
         </h1>
-        <div className={section}>
+        <div>
           <sub className={`${ typography.labelSmall } ${ card.sub }`}>
             {'Numero'}
           </sub>

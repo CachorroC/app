@@ -2,11 +2,15 @@
   padding: 2vmin;
   border-radius: 2vmin;
   box-sizing: border-box;
-  background-color: var(--surface-variant);
+  background-color: var(--surface-container-high);
+  container-name: calendar;
+  container-type: inline-size;
   flex: 1;
   .calendar {
     flex: 1;
     width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
     height: 100%;
     .weeks {
       display: flex;
@@ -15,47 +19,56 @@
     }
     .days {
       display: grid;
-      text-align: center;
       grid-template-columns: repeat(7, 1fr);
+      grid-gap: 0;
+      text-align: center;
       grid-auto-rows: 1fr;
-      a {
-        padding: 1vmin;
-
-        cursor: pointer;
+      padding: 1vmin;
+      cursor: pointer;
+      align-content: center;
+      justify-items: center;
+      position: relative;
+      .day {
         position: relative;
-        &.today {
-          border: solid 2px var(--outline-variant);
-        }
-        &.inactive {
-          color: var(--on-primary-container);
-        }
-        &.disabled {
-          color: var(--outline);
-        }
-        &.active {
-          color: var(--on-primary);
-
-          &::before {
-            background: var(--primary);
-          }
-        }
-
-        &::before {
+        padding: 0.6rem;
+        box-sizing: border-box;
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        &:after {
           position: absolute;
           content: '';
           left: 50%;
           top: 50%;
           height: 40px;
           width: 40px;
-
           border-radius: 50%;
           -webkit-transform: translate(-50%, -50%);
           -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
         }
-
-        &:not(.active):hover::before {
+        &:not(.dayActive):hover:after {
           background: #f2f2f2;
+        }
+        &Today {
+          @extend .day;
+          color: var(--primary);
+          border: solid 0.2rem var(--primary);
+        }
+        &Inactive {
+          @extend .day;
+          color: var(--on-surface);
+        }
+        &Disabled {
+          @extend .day;
+          color: var(--on-surface-variant);
+          opacity: 0.8;
+        }
+        &Active {
+          @extend .day;
+          color: var(--on-primary);
+
+          background: var(--primary);
         }
       }
     }

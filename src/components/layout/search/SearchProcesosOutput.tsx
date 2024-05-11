@@ -1,55 +1,56 @@
 'use client';
-import { useCarpetaSort } from '#@/app/context/carpetas-sort-context';
-import { useSearch } from '#@/app/context/search-context';
-import { useCategory } from '#@/app/context/main-context';
+import { useSearch } from '#@/app/Context/search-context';
 import { JSX } from 'react';
 import { LinkCard } from './link';
+import { Route } from 'next';
+import { useCategory } from '#@/app/Context/category-context';
+import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
 
+export function SearchOutputList() {
+  const {
+    carpetas 
+  } = useCarpetaSort();
 
-export default function SearchOutputList(
-  {
-    path,
-  }: {
-  path: string;
-}
-) {
   const rows: JSX.Element[] = [];
 
-
-  const carpetasReduced = useCarpetaSort();
-
   const {
-    search
+    search 
   } = useSearch();
 
   const {
-    category
+    currentCategory 
   } = useCategory();
-
-
-  carpetasReduced.forEach(
+  carpetas.forEach(
     (
-      proceso
+      proceso 
     ) => {
       if ( proceso.nombre.toLowerCase()
         .indexOf(
-          search.toLowerCase()
+          search.toLowerCase() 
         ) === -1 ) {
         return;
       }
 
-      if ( category === 'todos' || category === proceso.category ) {
+      if ( currentCategory === 'todos' || currentCategory === proceso.category ) {
         rows.push(
           <LinkCard
-            path={path}
+            path={`/Carpeta/${ proceso.numero }` as Route}
             carpeta={proceso}
-            key={proceso._id}
-          />
+            key={proceso.numero}
+          />,
         );
       }
-    }
+    } 
   );
 
-  return <>
-    {rows}</>;
+  return (
+    <table>
+      <thead>
+        <tr>
+          <td>nombre</td>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </table>
+  );
 }

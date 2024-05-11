@@ -1,12 +1,14 @@
 import { NotaComponent } from '#@/components/Nota/server';
-import { notasCollection } from '#@/lib/connection/mongodb';
-import { notasConvert } from '#@/lib/types/notas';
+import clientPromise from '#@/lib/connection/mongodb';
+import { IntNota, notasConvert } from '#@/lib/types/notas';
 import { notFound } from 'next/navigation';
 
-export default async function DatePage (
+export default async function DatePage(
   {
-    params
-  }: { params: { date: string[] } }
+    params,
+  }: {
+  params: { date: string[] };
+} 
 ) {
   const [
     incomingAno,
@@ -14,21 +16,34 @@ export default async function DatePage (
     incomingDia
   ] = params.date;
 
-  const incomingDate =  new Date(
-    `${ incomingAno }-${ incomingMes }-${ incomingDia }`
+  const incomingDate = new Date(
+    `${ incomingAno }-${ incomingMes }-${ incomingDia }` 
   );
 
-  const collection = await notasCollection();
+  const client = await clientPromise;
 
-  const rawNotas = await collection.find(
+  if ( !client ) {
+    throw new Error(
+      'no hay cliente mongólico' 
+    );
+  }
 
-    {
-      date: {
-        $gte: incomingDate
-      }
-    }
+  const db = client.db(
+    'RyS' 
+  );
 
-  )
+  const collection = db.collection<IntNota>(
+    'Notas' 
+  );
+
+  const rawNotas = await collection
+    .find(
+      {
+        date: {
+          $gte: incomingDate,
+        },
+      } 
+    )
     .toArray();
 
   if ( rawNotas.length === 0 ) {
@@ -36,7 +51,7 @@ export default async function DatePage (
   }
 
   const notas = notasConvert.toMonNotas(
-    rawNotas
+    rawNotas 
   );
 
   return (
@@ -47,16 +62,20 @@ export default async function DatePage (
           weekday: 'short',
           month  : 'long',
           day    : 'numeric',
-        }
+        } 
       )}
-      {
-        notas.map(
-          (
-            nota
-          ) => {
-            return ( <NotaComponent key={nota._id} notaRaw={ nota}/> );
-          }
-        )
-      }</>
+      {notas.map(
+        (
+          nota 
+        ) => {
+          return (
+            <NotaComponent
+              key={nota.id}
+              notaRaw={nota}
+            />
+          );
+        } 
+      )}
+    </>
   );
 }

@@ -1,28 +1,22 @@
 import { CalendarBuilder, nombresDeMeses } from '#@/lib/project/calendar';
-import type { Route } from 'next';
 import Link from 'next/link';
 import calendar from './calendar.module.css';
 
 export function Calendar(
   {
-    date
-  }: { date?: Date }
+    date 
+  }: { date?: Date } 
 ) {
-
   const today = date
     ? date
     : new Date();
-
-  console.log(
-    `calndar: ${ today }`
-  );
 
   const currentMonth = today.getMonth();
 
   const currentYear = today.getFullYear();
 
   const rows = CalendarBuilder(
-    today
+    today 
   );
 
   return (
@@ -41,33 +35,32 @@ export function Calendar(
         <div className={calendar.days}>
           {rows.map(
             (
-              row
+              row 
             ) => {
-              const day = new Date(
-                row.href
-              )
-                .getDate();
+              const {
+                date, href, current, className 
+              } = row;
 
-              const setToday = day === today.getDate();
+              const setToday = date === today.getDate();
 
               return (
                 <Link
-                  key={row.href}
-                  href={`/Notas/Fecha/${ row.href }` as Route}
+                  key={href}
+                  href={`/Tareas/${ href }`}
                   className={
-                    row.current
+                    current
                       ? setToday
-                        ? calendar.active
-                        : row.className === 'today'
-                          ? calendar.today
-                          : calendar.inactive
-                      : calendar.disabled
+                        ? calendar.dayActive
+                        : className === 'today'
+                          ? calendar.dayToday
+                          : calendar.dayInactive
+                      : calendar.dayDisabled
                   }
                 >
-                  {day}
+                  {date.toString()}
                 </Link>
               );
-            }
+            } 
           )}
         </div>
       </div>

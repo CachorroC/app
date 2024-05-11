@@ -1,6 +1,8 @@
 'use client';
 import styles from 'components/Buttons/buttons.module.css';
-import { useCategory } from '#@/app/context/main-context';
+import layout from '#@/styles/layout.module.css';
+import { usePathname } from 'next/navigation';
+import { useCategory } from '#@/app/Context/category-context';
 
 export const CategoryButton = (
   {
@@ -9,24 +11,28 @@ export const CategoryButton = (
   }: {
   categoria: string;
   icon: string;
-}
+} 
 ) => {
   const {
-    category, setCategory
+    currentCategory, setCurrentCategory 
   } = useCategory();
+
+  const pathname = usePathname();
+
+  const isActive
+    = pathname === `/Carpetas/${ categoria }` || categoria === currentCategory;
 
   return (
     <button
       onClick={() => {
-        setCategory(
-          categoria
+        return setCurrentCategory(
+          categoria 
         );
       }}
-      type="button"
       className={
-        category === categoria
-          ? styles.activeCategory
-          : styles.buttonCategory
+        isActive
+          ? styles.buttonActiveCategory
+          : styles.buttonPassiveCategory
       }
     >
       <span className={`material-symbols-outlined ${ styles.icon }`}>{icon}</span>
@@ -55,20 +61,20 @@ export const CategoryFilterButton = () => {
   ];
 
   return (
-    <>
+    <section className={layout.sectionColumn}>
       {categorias.map(
         (
-          categoria, index
+          category, index 
         ) => {
           return (
             <CategoryButton
-              key={categoria}
-              categoria={categoria}
+              key={category}
+              categoria={category}
               icon={icons[ index ]}
             />
           );
-        }
+        } 
       )}
-    </>
+    </section>
   );
 };

@@ -1,10 +1,10 @@
 export type Styles = {
-  'backgroundColor': string;
-  'primaryColor': string;
-  'secondaryColor': string;
+  backgroundColor: string;
+  primaryColor: string;
+  secondaryColor: string;
 };
 
-export type ClassNames = keyof Styles;
+export type ClassesType = keyof Styles;
 
 declare const styles: Styles;
 

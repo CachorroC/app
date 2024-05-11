@@ -1,21 +1,25 @@
 import * as z from 'zod';
 
-
 export const ZodNotaElementSchema = z.object(
   {
-    'cod'         : z.coerce.number(),
-    'text'        : z.coerce.string(),
-    'date'        : z.coerce.date(),
-    'pathname'    : z.coerce.string(),
-    'done'        : z.coerce.boolean(),
-    'llaveProceso': z.union(
+    id     : z.coerce.string(),
+    text   : z.coerce.string(),
+    content: z.coerce.string()
+      .array(),
+    dueDate : z.coerce.date(),
+    pathname: z.union(
       [
         z.null(),
         z.coerce.string()
-      ]
-    )
-      .optional(),
-  }
+      ] 
+    ),
+    carpetaNumero: z.union(
+      [
+        z.coerce.number(),
+        z.null()
+      ] 
+    ),
+  } 
 );
 
 export type ZodNotaElement = z.infer<typeof ZodNotaElementSchema>;

@@ -2,44 +2,44 @@ import { fixFechas } from '#@/lib/project/helper';
 import { Suspense } from 'react';
 import { ButtonSkeleton } from 'components/Buttons/ButtonSkeleton';
 import note from './note.module.css';
-import typography from '#@/styles/fonts/typography.module.scss';
+import typography from '#@/styles/fonts/typography.module.css';
 import { EditNoteButton,
   DeleteNoteButton, } from 'components/Buttons/noteButtons';
-import { monNota } from '#@/lib/types/notas';
+import { IntNota } from '#@/lib/types/notas';
 
 export const NotaComponent = (
   {
-    notaRaw
-  }: { notaRaw: monNota }
+    notaRaw 
+  }: { notaRaw: IntNota } 
 ) => {
   const {
-    _id, text, date
+    id, text, dueDate 
   } = notaRaw;
 
   return (
-    <div
-      className={note.container}
-      key={_id}
-    >
+    <div className={note.container}>
+      <section>
+        <sup className={typography.labelSmall}>{id}</sup>
+      </section>
       <p
         className={`${ typography.bodySmall } ${ note.textArea }`}
       >{`Nota: ${ text }`}</p>
       <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
-        {date && fixFechas(
-          date.toISOString()
+        {dueDate && fixFechas(
+          dueDate 
         )}
       </sub>
       <div className={note.buttonsRow}>
         <Suspense fallback={<ButtonSkeleton />}>
           <EditNoteButton
-            key={_id}
+            key={id}
             nota={notaRaw}
           />
         </Suspense>
         <Suspense fallback={<ButtonSkeleton />}>
           <DeleteNoteButton
-            key={_id}
-            id={_id}
+            key={id}
+            id={id}
           />
         </Suspense>
       </div>

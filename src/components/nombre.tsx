@@ -1,27 +1,40 @@
-import { intDeudor } from '#@/lib/types/carpetas';
 import typography from '#@/styles/fonts/typography.module.css';
+import Link from 'next/link';
 
 export function NombreComponent(
   {
-    deudor
-  }: { deudor: intDeudor }
+    nombre,
+    carpetaNumero,
+  }: {
+  nombre: string;
+  carpetaNumero: number;
+} 
 ) {
-  const nombres = deudor.segundoNombre
-    ? deudor.primerNombre + ' ' + deudor.segundoNombre
-    : deudor.primerNombre;
-
-  const apellidos = deudor.segundoApellido
-    ? deudor.primerApellido + ' ' + deudor.segundoApellido
-    : deudor.primerApellido;
-
-  const rawName = nombres + ' ' + apellidos;
+  const rawName = nombre.split(
+    ' ' 
+  )
+    .map(
+      (
+        palabra 
+      ) => {
+        return palabra.charAt(
+          0 
+        )
+          .toUpperCase() + palabra.toLowerCase()
+          .substring(
+            1 
+          );
+      } 
+    );
 
   return (
-    <h4
-      key={deudor.cedula}
-      className={typography.headlineMedium}
+    <Link
+      href={`/Carpeta/${ carpetaNumero }`}
+      className={typography.displayLarge}
     >
-      {rawName}
-    </h4>
+      {rawName.join(
+        ' ' 
+      )}
+    </Link>
   );
 }

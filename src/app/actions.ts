@@ -1,253 +1,28 @@
 'use server';
 
-import { redirect } from 'next/navigation';
-import { revalidateTag } from 'next/cache';
-import { ZodNotaElementSchema } from '#@/lib/types/zod/nota';
-import { notasCollection } from '#@/lib/connection/mongodb';
-import { ObjectId } from 'mongodb';
-import { notasConvert } from '#@/lib/types/notas';
+import { intDemanda } from '#@/lib/types/carpetas';
 
-export async function createNota(
-  formData: FormData
+export async function updateDemandaAction(
+  prevState: { success: boolean; demanda: intDemanda },
+  queryData: FormData,
 ) {
-  try {/*
-    const formDataMap = new Map();
+  const itemID = queryData.get(
+    'numero' 
+  );
 
-    for ( const [
-              key,
-              value
-    ] of formData ) {
-      if ( key === 'date' ) {
-        formDataMap.set(
-          key, new Date(
-            value.toString()
-          )
-        );
-
-        continue;
-      }
-
-      if ( key === 'done' ) {
-        const isOn = value === 'on'
-          ? true
-          : false;
-        formDataMap.set(
-          key, isOn
-        );
-
-        continue;
-      }
-      formDataMap.set(
-        key, value
-      );
-    }
-
-    const obj = Object.fromEntries(
-      formDataMap
-    );
-    console.log(
-      obj
-    );
-
-    const newNota = {
-      ...obj,
-      done: obj.done ?? false
-    };
-    console.log(
-      newNota
-    );
- */
-    const parsed = ZodNotaElementSchema.safeParse(
-      {
-        cod: formData.get(
-          'cod'
-        ),
-        text: formData.get(
-          'text'
-        ),
-        date: formData.get(
-          'date'
-        ),
-        done: formData.get(
-          'done'
-        ),
-        pathname: formData.get(
-          'pathname'
-        ),
-        llaveProceso: formData.get(
-          'llaveProceso'
-        )
-
-      }
-    );
-    console.log(
-      parsed
-    );
-
-    if ( !parsed.success ) {
-      throw new Error(
-        'no pudimos parsear con zodla nota que ingresaste. Intentalo nuevamente'
-      );
-
-    }
-
-    const {
-      data
-    } = parsed;
-
-    const collection = await notasCollection();
-
-    const nota = await collection.insertOne(
-      {
-        ...data,
-      }
-    );
-
-    revalidateTag(
-      'notas'
-    );
-
+  if ( itemID ) {
     return {
-      message: `success: ${ nota.insertedId }`,
-      id     : nota.insertedId.toString()
-    };
-  } catch ( e ) {
-    console.log(
-      `there was an error: ${ JSON.stringify(
-        e
-      ) }`
-    );
-
-    return {
-      message: `there was an error in createNota: ${ JSON.stringify(
-        e
-      ) }`,
-      id: null
+      demanda: {
+        ...prevState.demanda,
+      },
+      success: true,
     };
   }
-}
 
-
-export async function deleteNota(
-  id: string
-) {
-  try {
-    const collection = await notasCollection();
-
-    await collection.deleteOne(
-      {
-        _id: new ObjectId(
-          id
-        )
-      }
-    );
-
-    revalidateTag(
-      'notas'
-    );
-    redirect(
-      '/Notas'
-    );
-  } catch ( error ) {
-    console.log(
-      `error, ${ JSON.stringify(
-        error
-      ) }`
-    );
-  }
-}
-
-
-export async function editNota(
-  formData: FormData
-) {
-  try {
-    const parsed = ZodNotaElementSchema.safeParse(
-      {
-        cod: formData.get(
-          'cod'
-        ),
-        text: formData.get(
-          'text'
-        ),
-        date: formData.get(
-          'date'
-        ),
-        done: formData.get(
-          'done'
-        ),
-        pathname: formData.get(
-          'pathname'
-        ),
-        llaveProceso: formData.get(
-          'llaveProceso'
-        )
-
-      }
-    );
-
-    const {
-      success
-    } = parsed;
-
-    if ( !success ) {
-      throw new Error(
-        `hubo un error en la consulta: ${ parsed.error }`
-      );
-    }
-
-    const {
-
-      data
-    } = parsed;
-
-    const collection = await notasCollection();
-
-
-
-    const nota = await collection.findOneAndUpdate(
-      {
-        cod: data.cod
-      }, {
-        $set: data
-      }, {
-        upsert: true
-      }
-
-    );
-
-    if ( !nota ) {
-      throw new Error(
-        'nota not acknlowledged'
-      );
-
-    }
-
-    const notaSerialized = notasConvert.toMonNota(
-      nota
-    );
-
-    return {
-      message: `success: ${ notaSerialized._id }`,
-      data   : notaSerialized
-    };
-  } catch ( errorSubmitNota ) {
-    console.log(
-      JSON.stringify(
-        errorSubmitNota
-      )
-    );
-
-    if ( errorSubmitNota instanceof Error ) {
-      return {
-        message: errorSubmitNota.message,
-        data   : null
-      };
-    }
-
-    return {
-      message: `error: ${ errorSubmitNota }`,
-      data   : null
-    };
-  }
+  return {
+    success: false,
+    demanda: {
+      ...prevState.demanda,
+    },
+  };
 }

@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "done": false,
+    "text": "primer tarea",
+    "content": [
+      "primer tarea",
+      "se recepciona el memorial ",
+      "queda pendiente enviar a martica "
+    ],
+    "dueDate": "2024-02-27T00:00:00.000Z",
+    "createdAt": "2024-01-02T02:16:56.948Z",
+    "updatedAt": "2024-01-02T02:16:28.931Z",
+    "carpetaNumero": 174
+  },
+  {
+    "id": 2,
+    "done": false,
+    "text": "segunda tarea",
+    "content": [],
+    "dueDate": "2024-04-13T00:00:00.000Z",
+    "createdAt": "2024-01-02T02:17:20.755Z",
+    "updatedAt": "2024-01-02T02:17:21.214Z",
+    "carpetaNumero": 174
+  },
+  {
+    "id": 3,
+    "done": true,
+    "text": "tercer tarea",
+    "content": ["ya se le envio a martica "],
+    "dueDate": null,
+    "createdAt": "2024-01-02T02:17:42.441Z",
+    "updatedAt": "2024-01-02T02:17:44.046Z",
+    "carpetaNumero": 174
+  },
+  {
+    "id": 4,
+    "done": true,
+    "text": "otra sin na ",
+    "content": [],
+    "dueDate": null,
+    "createdAt": "2024-01-02T02:18:16.382Z",
+    "updatedAt": "2024-01-02T02:18:26.532Z",
+    "carpetaNumero": 174
+  },
+  {
+    "text": "primer tarea",
+    "content": [
+      "primer tarea",
+      "se recepciona el memorial ",
+      "queda pendiente enviar a martica "
+    ],
+    "dueDate": "2024-02-27T00:00:00.000Z",
+    "carpetaNumero": 174
+  },
+  {
+    "done": false,
+    "text": "segunda tarea",
+    "content": [],
+    "dueDate": null,
+    "carpetaNumero": null
+  },
+  {
+    "text": "tercer tarea",
+    "content": ["ya se le envio a martica "],
+    "carpetaNumero": 174,
+    "dueDate": null
+  },
+  {
+    "id": 4,
+    "done": true,
+    "text": "otra sin na ",
+    "content": [],
+    "dueDate": null,
+    "createdAt": "2024-01-02T02:18:16.382Z",
+    "updatedAt": "2024-01-02T02:18:26.532Z",
+    "carpetaNumero": 174
+  }
+]

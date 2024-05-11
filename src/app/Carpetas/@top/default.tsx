@@ -1,18 +1,24 @@
+import { Suspense } from 'react';
+import { Loader } from '#@/components/Loader/main-loader';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import { InputSearchBar } from '#@/components/layout/InputSearchBar';
+import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
+import CategoryFilteringButtons from '../@right/category-filtering-buttons';
 
+export default async function Default() {
+  const carpetas = await getCarpetas();
 
-import { CarpetasSortButtons } from '#@/components/Carpetas/client/carpetasButtonsSort';
-import InputSearchBar from '#@/components/layout/search/InputSearchBar';
-import typography from '#@/styles/fonts/typography.module.scss';
-import styles from '#@/styles/layout.module.css';
-
-export default function TopProcesos () {
   return (
     <>
-      <h1 className={ typography.displayLarge }>Ultimas Actuaciones</h1>
-      <div className={ styles.section }>
-        <InputSearchBar />
-        <CarpetasSortButtons />
-      </div>
+      <Suspense fallback={<Loader />}>
+        <InputSearchBar carpetas={carpetas} />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <ForwardBackwardNavButtons />
+      </Suspense>
+      <Suspense fallback={null}>
+        <CategoryFilteringButtons row={true} />
+      </Suspense>
     </>
   );
 }

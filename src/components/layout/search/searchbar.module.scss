@@ -1,64 +1,39 @@
-.container {
-  container-type: inline-size;
-  container-name: link;
-
-  & > * {
-    width: 100%;
-  }
-
-  &:link {
-    background-color: var(--surface-container-lowest);
-    color: var(--on-surface);
-  }
-
-  &:visited {
-    background-color: var(--surface-container-low);
-    color: var(--on-surface-variant);
-  }
-
-  &:hover {
-    background-color: var(--surface-container-high);
-    color: var(--on-surface);
-    box-shadow: var(--dp8);
-  }
-
-  &:focus {
-    background-color: var(--surface-container-high);
-    color: var(--on-surface);
-    box-shadow: var(--dp8);
-    border: 5px solid var(--outline);
-  }
-  &:active {
-    background-color: var(--surface-container-highest);
-    color: var(--primary);
-  }
-}
-.searchBarLink {
+.searchBarLink,
+.link {
   width: 100%;
-  height: 100%;
+  max-height: 5rem;
   box-sizing: border-box;
   align-items: stretch;
   display: flex;
   justify-content: space-between;
   align-content: stretch;
-  flex-flow: row nowrap;
-  padding: 5cqmin;
-  gap: 5cqmin;
+  flex-flow: column wrap;
+  padding: 0.5rem;
+  gap: 0.3rem;
   border-radius: 2vmin;
   text-align: center;
 
   .date {
     grid-area: date;
     background-color: var(--surface);
-    padding: 2cqmin;
+    padding: 0.2rem;
     color: var(--on-surface);
-    font-family: var(--font-poiret);
-    border-radius: 2cqmin;
+    font-family: var(--play-display);
+    border-radius: 2vmin;
     align-self: center;
   }
-
   .sub {
     color: var(--secondary);
+  }
+  &NotActive {
+    @extend .link;
+    background-color: var(--surface-container);
+    color: var(--on-surface);
+  }
+  &IsActive {
+    @extend .link;
+    background-color: var(--primary);
+    color: var(--on-primary);
   }
 }
 
@@ -78,27 +53,81 @@
   }
 }
 
-.input {
-  background-color: var(--surface-container-lowest);
-  border: 2px solid var(--outline-variant);
-  color: var(--on-surface);
+.searchContainer {
+  background-color: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  box-sizing: border-box;
+  box-shadow: var(--elevation-3);
   grid-area: inputSearchBar;
-  border-radius: 10cqmin;
-  text-align: center;
-  flex: 4 0 auto;
+  border-radius: var(--shape-corner-full);
+  padding: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  .input {
+    color: var(--on-surface-variant);
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    font-family: var(--josefa);
+    position: relative;
+    border-radius: var(--shape-corner-extra-large-start);
+    &:before {
+      position: absolute;
+      width: 100%;
+      border-radius: var(--shape-corner-extra-large-start);
+      height: 100%;
+      top: 0;
+      background-color: var(--on-surface);
+      left: 0;
+      content: '';
+      opacity: 0;
+    }
+    &Container {
+      @extend .input;
+      display: flex;
+      width: 100%;
+      margin-bottom: 15px;
+    }
 
-  &:hover,
-  &:active,
-  &:focus {
-    border: 2px dashed var(--tertiary);
-    background-color: var(--tertiary-container);
-    color: var(--on-tertiary-container);
-    box-shadow: var(--dp4);
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: var(--dp4);
+      background-color: var(--primary-container);
+      &:before {
+        opacity: 0.08;
+      }
+    }
+  }
+  .icon {
+    &:before {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      background-color: var(--on-surface);
+      left: 0;
+      content: '';
+      border-radius: var(--shape-corner-extra-large-end);
+      opacity: 0;
+    }
+    color: var(--on-surface);
+    border: none;
+    position: relative;
+    padding: 0 1rem;
+    border-radius: var(--shape-corner-extra-large-end);
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: var(--dp4);
+      &:before {
+        opacity: 0.08;
+      }
+    }
   }
 }
-
 .inputForm {
-  padding: 1cqmin;
+  padding: 0.2rem;
   box-sizing: border-box;
   grid-area: InputSearchBar;
   background-color: var(--tertiary-container);
@@ -136,20 +165,6 @@
         'opsz' 48;
       color: var(--secondary);
     }
-  }
-}
-
-@container link (width < 100px) {
-  .isActive,
-  .notActive {
-    background-color: red;
-  }
-}
-
-@container link (100px < width < 200px) {
-  .isActive,
-  .notActive {
-    background-color: orange;
   }
 }
 
