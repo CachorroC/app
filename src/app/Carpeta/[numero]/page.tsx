@@ -22,22 +22,22 @@ import FruitPicker from '#@/components/Buttons/etapaProsesalSelector';
 import { ProcesoTableDetalleComponent } from '#@/components/Proceso/proceso-detalles-component';
 import { consultaProcesosPorRazonSocial } from '#@/lib/project/utils/main';
 import { ConsultaProcesos, outProceso } from '#@/lib/types/procesos';
-import { NewJuzgado } from '#@/lib/models/demanda';
 import SujetosProcesales from '#@/components/Proceso/sujetos-procesales';
+import { NewJuzgado } from '#@/lib/models/juzgado';
 
 //SECTION Generate metadata for [numero]
 
 async function AvailableProcesosByName(
   {
-    nombre 
-  }: { nombre: string } 
+    nombre
+  }: { nombre: string }
 ) {
   const urlNameMaker = consultaProcesosPorRazonSocial(
-    nombre 
+    nombre
   );
 
   const fetchProc = await fetch(
-    urlNameMaker 
+    urlNameMaker
   );
 
   if ( !fetchProc.ok ) {
@@ -70,12 +70,12 @@ async function AvailableProcesosByName(
       <tbody>
         {jsonString.procesos.map(
           (
-            proceso 
+            proceso
           ) => {
             const outgoinProceso: outProceso = {
               ...proceso,
               juzgado: new NewJuzgado(
-                proceso.despacho 
+                proceso.despacho
               ),
             };
             return (
@@ -96,7 +96,7 @@ async function AvailableProcesosByName(
                 </Suspense>
               </tr>
             );
-          } 
+          }
         )}
       </tbody>
     </table>
@@ -110,10 +110,10 @@ async function ProcesosComponent(
   }: {
   llaveProceso: string;
   numero: number;
-} 
+}
 ) {
   const procesos = await getProcesosByllaveProceso(
-    llaveProceso 
+    llaveProceso
   );
 
   if ( !procesos || procesos.length === 0 ) {
@@ -124,10 +124,10 @@ async function ProcesosComponent(
     <>
       {procesos.map(
         (
-          proceso 
+          proceso
         ) => {
           const {
-            idProceso 
+            idProceso
           } = proceso;
           return (
             <div
@@ -177,7 +177,7 @@ async function ProcesosComponent(
               </Suspense>
             </div>
           );
-        } 
+        }
       )}
     </>
   );
@@ -185,13 +185,13 @@ async function ProcesosComponent(
 
 export default async function Page(
   {
-    params 
-  }: { params: { numero: string } } 
+    params
+  }: { params: { numero: string } }
 ) {
   const carpeta = await getCarpetabyNumero(
     Number(
-      params.numero 
-    ) 
+      params.numero
+    )
   );
 
   if ( !carpeta ) {
@@ -199,7 +199,7 @@ export default async function Page(
   }
 
   const {
-    idProcesos, numero, llaveProceso 
+    idProcesos, numero, llaveProceso
   } = carpeta;
 
   let idProcesoContent;
@@ -207,7 +207,7 @@ export default async function Page(
   if ( idProcesos && idProcesos.length > 0 ) {
     idProcesoContent = idProcesos.map(
       (
-        idProceso 
+        idProceso
       ) => {
         return (
           <Link
@@ -217,7 +217,7 @@ export default async function Page(
             }
           ></Link>
         );
-      } 
+      }
     );
   }
 
@@ -229,7 +229,7 @@ export default async function Page(
             <h2 className={styles.valueCardTitle}>Capital Adeudado</h2>
             <h3 className={styles.valueCardValue}>
               {fixMoney(
-                carpeta.demanda.capitalAdeudado 
+                carpeta.demanda.capitalAdeudado
               )}
             </h3>
           </div>
@@ -239,7 +239,7 @@ export default async function Page(
             <h2 className={styles.valueCardTitle}>Valor del Avaluo</h2>
             <h3 className={styles.valueCardValue}>
               {fixMoney(
-                carpeta.demanda.avaluo 
+                carpeta.demanda.avaluo
               )}
             </h3>
           </div>
@@ -249,7 +249,7 @@ export default async function Page(
             <h2 className={styles.valueCardTitle}>Valor de la liquidacion</h2>
             <h3 className={styles.valueCardValue}>
               {fixMoney(
-                carpeta.demanda.liquidacion 
+                carpeta.demanda.liquidacion
               )}
             </h3>
           </div>

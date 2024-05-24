@@ -1,11 +1,61 @@
-export function extrapolateTipoToCorrectType(
-  tipo: string 
-) {
-  let outputTipo = tipo,
-    completeValue = tipo;
+export function tipoGenerator (
+  tipoRaw: string
+): string {
 
-  const matchedNumbers = tipo.match(
-    /(\d+)/im 
+  let output = tipoRaw;
+
+  const hasEjecucion = /EJE|E/gim.test(
+    tipoRaw
+  );
+
+  const isPequeñasCausas = /PCCM|PCYCM|Peque/gim.test(
+    tipoRaw
+  );
+
+  const isPromiscuoMunicipal = /PM|PROM|P M/gim.test(
+    tipoRaw
+  );
+
+  const isCivilMunicipal = /(CM|municipal|C M)/g.test(
+    tipoRaw
+  );
+
+  const isCivilCircuito = /(CC|CIRCUITO|CTO)/gim.test(
+    tipoRaw
+  );
+
+  if ( hasEjecucion ) {
+    if ( isCivilMunicipal ) {
+      output = 'CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS';
+    } else if ( isCivilCircuito ) {
+      output = 'CIVIL DEL CIRCUITO DE EJECUCIÓN DE SENTENCIAS';
+    } else if ( isPequeñasCausas ) {
+      output = 'DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE';
+    } else if ( isPromiscuoMunicipal ) {
+      output = 'PROMISCUO MUNICIPAL';
+    }
+  } else {
+    if ( isCivilMunicipal ) {
+      output = 'CIVIL MUNICIPAL';
+    } else if ( isCivilCircuito ) {
+      output = 'CIVIL DEL CIRCUITO';
+    } else if ( isPequeñasCausas ) {
+      output = 'DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE';
+    } else if ( isPromiscuoMunicipal ) {
+      output = 'PROMISCUO MUNICIPAL';
+    }
+  }
+
+  return output;
+}
+
+export function idGenerator (
+  idRaw: string
+) {
+
+
+  const matchedNumbers = idRaw.match(
+    /(\d+)/im
   );
 
   const idNotPadded = matchedNumbers
@@ -13,27 +63,51 @@ export function extrapolateTipoToCorrectType(
     : '';
 
   const idPadded = idNotPadded.padStart(
-    3, '000' 
+    3, '000'
+  );
+  return {
+    id      : idNotPadded,
+    paddedid: idPadded
+  };
+
+}
+
+export function extrapolateTipoToCorrectType (
+  tipo: string
+) {
+  let outputTipo = tipo,
+    completeValue = tipo;
+
+  const matchedNumbers = tipo.match(
+    /(\d+)/im
+  );
+
+  const idNotPadded = matchedNumbers
+    ? matchedNumbers[ 1 ]
+    : '';
+
+  const idPadded = idNotPadded.padStart(
+    3, '000'
   );
 
   const hasEjecucion = /EJE|E/gim.test(
-    tipo 
+    tipo
   );
 
   const isPequeñasCausas = /PCCM|PCYCM|Peque/gim.test(
-    tipo 
+    tipo
   );
 
   const isPromiscuoMunicipal = /PM|PROM|P M/gim.test(
-    tipo 
+    tipo
   );
 
   const isCivilMunicipal = /(CM|municipal|C M)/g.test(
-    tipo 
+    tipo
   );
 
   const isCivilCircuito = /(CC|CIRCUITO|CTO)/gim.test(
-    tipo 
+    tipo
   );
 
   if ( hasEjecucion ) {

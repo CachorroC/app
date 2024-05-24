@@ -1,6 +1,6 @@
 import { ConsultaActuacion, intActuacion } from '../types/actuaciones';
 import { ConsultaProcesos, outProceso } from '../types/procesos';
-import { NewJuzgado } from './demanda';
+import { NewJuzgado } from './juzgado';
 
 export class Carpeta {
   nombre: string;
@@ -13,7 +13,7 @@ export class Carpeta {
   fecha: Date | null = null;
   idRegUltimaAct: number | null = null;
   constructor(
-    llaveProceso: string, numero: number, nombre: string 
+    llaveProceso: string, numero: number, nombre: string
   ) {
     this.llaveProceso = llaveProceso;
     this.numero = numero;
@@ -30,15 +30,15 @@ export class Carpeta {
 
         throw new Error(
           JSON.stringify(
-            json 
-          ) 
+            json
+          )
         );
       }
 
       const consultaProcesos = ( await request.json() ) as ConsultaProcesos;
 
       const {
-        procesos 
+        procesos
       } = consultaProcesos;
 
       for ( const rawProceso of procesos ) {
@@ -50,23 +50,23 @@ export class Carpeta {
           ...rawProceso,
           fechaProceso: rawProceso.fechaProceso
             ? new Date(
-              rawProceso.fechaProceso 
+              rawProceso.fechaProceso
             )
             : null,
           fechaUltimaActuacion: rawProceso.fechaUltimaActuacion
             ? new Date(
-              rawProceso.fechaUltimaActuacion 
+              rawProceso.fechaUltimaActuacion
             )
             : null,
           juzgado: new NewJuzgado(
-            rawProceso.despacho 
+            rawProceso.despacho
           ),
         };
         this.procesos.push(
-          proceso 
+          proceso
         );
         this.idProcesos.push(
-          proceso.idProceso 
+          proceso.idProceso
         );
       }
 
@@ -92,19 +92,19 @@ export class Carpeta {
 
         if ( !request.ok ) {
           throw new Error(
-            request.statusText 
+            request.statusText
           );
         }
 
         const consultaActuaciones = ( await request.json() ) as ConsultaActuacion;
 
         const {
-          actuaciones 
+          actuaciones
         } = consultaActuaciones;
 
         const outActuaciones = actuaciones.map(
           (
-            actuacion 
+            actuacion
           ) => {
             return {
               ...actuacion,
@@ -114,33 +114,33 @@ export class Carpeta {
                 ? true
                 : false,
               fechaActuacion: new Date(
-                actuacion.fechaActuacion 
+                actuacion.fechaActuacion
               ),
               fechaRegistro: new Date(
-                actuacion.fechaRegistro 
+                actuacion.fechaRegistro
               ),
               fechaInicial: actuacion.fechaInicial
                 ? new Date(
-                  actuacion.fechaInicial 
+                  actuacion.fechaInicial
                 )
                 : null,
               fechaFinal: actuacion.fechaFinal
                 ? new Date(
-                  actuacion.fechaFinal 
+                  actuacion.fechaFinal
                 )
                 : null,
             };
-          } 
+          }
         );
 
         outActuaciones.forEach(
           (
-            actuacion 
+            actuacion
           ) => {
             this.actuaciones.push(
-              actuacion 
+              actuacion
             );
-          } 
+          }
         );
         continue;
       } catch ( error ) {
@@ -162,7 +162,7 @@ export class Carpeta {
         ...this.actuaciones
       ].sort(
         (
-          a, b 
+          a, b
         ) => {
           const fechaA = a.fechaActuacion;
 
@@ -175,15 +175,15 @@ export class Carpeta {
           }
 
           return 0;
-        } 
+        }
       );
 
       const ultimaActuacion = sorted.find(
         (
-          actuacion 
+          actuacion
         ) => {
           return actuacion.consActuacion === actuacion.cant;
-        } 
+        }
       );
 
       if ( ultimaActuacion ) {
