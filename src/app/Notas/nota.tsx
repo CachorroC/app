@@ -14,13 +14,13 @@ export function Nota(
   }: {
   nota: IntNota;
   children: ReactNode;
-} 
+}
 ) {
   const [
     isEditing,
     setIsEditing
   ] = useState(
-    false 
+    false
   );
 
   const [
@@ -29,7 +29,7 @@ export function Nota(
   ] = useState(
     {
       ...nota,
-    } 
+    }
   );
 
   const dispatch = useNotaSortDispatch();
@@ -41,20 +41,20 @@ export function Nota(
         <input
           value={notaState.text}
           onChange={(
-            e 
+            e
           ) => {
             return setNotaState(
               {
                 ...notaState,
                 text: e.target.value,
-              } 
+              }
             );
           }}
         />
         <input
           value={notaState.id}
           onChange={(
-            e 
+            e
           ) => {
             return setNotaState(
               {
@@ -62,7 +62,7 @@ export function Nota(
                 id: notaState.carpetaNumero
                   ? `${ notaState.carpetaNumero }-${ e.target.value }`
                   : `NC-${ e.target.value }`,
-              } 
+              }
             );
           }}
         />
@@ -70,12 +70,12 @@ export function Nota(
           type="button"
           onClick={async () => {
             const revis = await updateNotaTextState(
-              notaState 
+              notaState
             );
             alert(
               JSON.stringify(
-                revis 
-              ) 
+                revis
+              )
             );
 
             dispatch(
@@ -85,10 +85,10 @@ export function Nota(
                   ...notaState,
                   ...revis,
                 },
-              } 
+              }
             );
             return setIsEditing(
-              false 
+              false
             );
           }}
         >
@@ -104,7 +104,7 @@ export function Nota(
           type="button"
           onClick={() => {
             return setIsEditing(
-              true 
+              true
             );
           }}
         >
@@ -127,7 +127,7 @@ export function Nota(
             {
               type: 'deleted',
               id  : nota.id,
-            } 
+            }
           );
         }}
       >

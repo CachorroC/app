@@ -7,7 +7,7 @@ export async function updateDemandaAction(
   queryData: FormData,
 ) {
   const itemID = queryData.get(
-    'numero' 
+    'numero'
   );
 
   if ( itemID ) {
