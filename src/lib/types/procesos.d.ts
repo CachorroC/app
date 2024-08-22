@@ -58,22 +58,22 @@ export type intProceso = {
 };
 
 export type DetalleProceso = {
-  idRegProceso: number;
-  llaveProceso: string;
-  idConexion: number;
-  esPrivado: boolean;
-  fechaProceso: Date;
-  despacho: string;
-  ponente: string;
-  tipoProceso: TipoProceso;
   claseProceso: ClaseProceso;
-  subclaseProceso: SubclaseProceso;
-  recurso: Recurso | null;
-  ubicacion: null | string;
   contenidoRadicacion: null | string;
+  despacho: string;
+  esPrivado: boolean;
   fechaConsulta: Date;
-  ultimaActualizacion: Date;
+  fechaProceso: Date;
+  idConexion: number;
+  idRegProceso: number;
   juzgado?: Juzgado;
+  llaveProceso: string;
+  ponente: string;
+  recurso: Recurso | null;
+  subclaseProceso: SubclaseProceso;
+  tipoProceso: TipoProceso;
+  ubicacion: null | string;
+  ultimaActualizacion: Date;
 };
 
 export type ClaseProceso =

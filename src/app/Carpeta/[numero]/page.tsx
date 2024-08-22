@@ -54,16 +54,21 @@ async function AvailableProcesosByName(
       <thead>
         <tr>
           <th>Sujetos Procesales</th>
-          <th>idConexion</th>
-          <th>idRegProceso</th>
-          <th>Contenido de radicacion</th>
-          <th>fecha del Proceso</th>
-          <th>tipo del proceso</th>
-          <th>Enlace hibrido</th>
           <th>Clase del proceso</th>
+          <th>Contenido de radicacion</th>
+          <th>Despacho</th>
+          <th>privado</th>
+          <th>fecha de consulta</th>
+          <th>fecha del Proceso</th>
+          <th>id Conexion</th>
+          <th>id Registro Proceso</th>
+          <th>llaveProceso</th>
           <th>Ponente</th>
           <th>recurso</th>
           <th>sub clase del proceso</th>
+          <th>tipo del proceso</th>
+          <th>ubicacion</th>
+          <th>fecha ultima actualizacion</th>
           <th>Juzgado</th>
         </tr>
       </thead>
