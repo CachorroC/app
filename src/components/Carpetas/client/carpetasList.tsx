@@ -9,6 +9,9 @@ import { Loader } from '#@/components/Loader/main-loader';
 import { TableRowCarpetaSortingButton } from './carpetasButtonsSort';
 import { ActuacionTableComponent,
   ActuacionTableErrorComponent, } from '#@/components/Actuaciones/actuacion-table-component';
+import OutputDateHelper from '#@/lib/project/output-date-helper';
+import { JuzgadoComponent,
+  JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
 
 export function CarpetasTable() {
   const {
@@ -35,8 +38,9 @@ export function CarpetasTable() {
           <th>Actuaciones</th>
           <th>Revisado</th>
           <th>expediente</th>
-          <th>Fecha de ultima revision</th>
+          <th>Fecha de ultima Actuacion</th>
           <th>ciudad</th>
+          <th>Juzgado</th>
         </tr>
       </thead>
       <tbody>
@@ -49,8 +53,10 @@ export function CarpetasTable() {
               numero,
               nombre,
               category,
+              fecha,
               llaveProceso,
               revisado,
+              juzgado,
             } = carpeta;
 
             let words = nombre.split(
@@ -111,10 +117,18 @@ export function CarpetasTable() {
                   />
                 </td>
                 <td>
-                  {carpeta.fechaUltimaRevision?.toLocaleString()
-                  ?? 'no hay fecha ultima revision '}
+                  <OutputDateHelper incomingDate={fecha} />
                 </td>
                 <td>{carpeta.demanda.municipio}</td>
+                <td>
+                  {juzgado
+                    ? (
+                        <JuzgadoComponent juzgado={juzgado} />
+                      )
+                    : (
+                        <JuzgadoErrorComponent />
+                      )}
+                </td>
               </ClientCardRow>
             );
           } 

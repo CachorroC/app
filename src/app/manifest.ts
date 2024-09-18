@@ -8,7 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color                : '#7aa4dd',
     prefer_related_applications: false,
     display                    : 'standalone',
-    start_url                  : `https://${ process.env.BASE_URL ?? 'app.rsasesorjuridico.com' }`,
+    start_url                  : '/',
+    //start_url                  : `https://${ process.env.BASE_URL ?? 'app.rsasesorjuridico.com' }`,
     description                : 'Somos una firma legal comprometida con brindar something',
     display_override           : [
       'standalone',

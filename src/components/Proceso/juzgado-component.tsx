@@ -3,19 +3,19 @@ import styles from './styles.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import Link from 'next/link';
 import { Route } from 'next';
-import { NewJuzgado } from '#@/lib/models/juzgado';
+import { JuzgadoClass } from '#@/lib/models/juzgado';
 
 export function JuzgadoTableComponent(
   {
-    juzgado
-  }: { juzgado: Juzgado }
+    juzgado 
+  }: { juzgado: Juzgado } 
 ) {
   const {
-    tipo, url, id, ciudad
+    tipo, url, id, ciudad 
   } = juzgado;
 
   const indexOfTipo = tipo.search(
-    /([Ee][Jj][Ee][Cc])/gm
+    /([Ee][Jj][Ee][Cc])/gm 
   );
   return (
     <td className={styles.container}>
@@ -52,16 +52,16 @@ export function JuzgadoStringComponent(
     juzgadoString,
   }: {
   juzgadoString: string;
-}
+} 
 ) {
   const {
-    tipo, url, id, ciudad
-  } = new NewJuzgado(
-    juzgadoString
+    tipo, url, id, ciudad 
+  } = JuzgadoClass.fromLongName(
+    juzgadoString 
   );
 
   const indexOfTipo = tipo.search(
-    /([Ee][Jj][Ee][Cc])/gm
+    /([Ee][Jj][Ee][Cc])/gm 
   );
   return (
     <div className={styles.container}>
@@ -95,15 +95,15 @@ export function JuzgadoStringComponent(
 
 export function JuzgadoComponent(
   {
-    juzgado
-  }: { juzgado: Juzgado }
+    juzgado 
+  }: { juzgado: Juzgado } 
 ) {
   const {
-    tipo, url, id, ciudad
+    tipo, url, id, ciudad 
   } = juzgado;
 
   const indexOfTipo = tipo.search(
-    /([Ee][Jj][Ee][Cc])/gm
+    /([Ee][Jj][Ee][Cc])/gm 
   );
   return (
     <div className={styles.container}>
@@ -131,6 +131,17 @@ export function JuzgadoComponent(
           className={styles.text}
         >{`Juzgado ${ id } ${ tipo } de ${ ciudad }`}</span>
       </Link>
+    </div>
+  );
+}
+
+export function JuzgadoErrorComponent() {
+  return (
+    <div className={styles.container}>
+      <span className={`material-symbols-outlined ${ styles.icon }`}>
+        assured_workload
+      </span>
+      <span className={styles.text}>No hay juzgado asignado</span>
     </div>
   );
 }

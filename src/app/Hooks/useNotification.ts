@@ -13,7 +13,7 @@ type Options = NotificationOptions & {
 };
 
 const useNotification = (
-  title: string, options?: Options
+  title: string, options?: Options 
 ) => {
   const [
     isPermissionGranted,
@@ -22,13 +22,13 @@ const useNotification = (
     Notification.permission === 'granted',
   );
   let notification = useRef<Notification | null>(
-    null
+    null 
   );
 
   const notify = () => {
     if ( isPermissionGranted ) {
       notification.current = new Notification(
-        title, options
+        title, options 
       );
 
       if ( typeof options?.onClick === 'function' ) {
@@ -59,19 +59,19 @@ const useNotification = (
         Notification.requestPermission()
           .then(
             (
-              status
+              status 
             ) => {
               return setIsPermissionGranted(
-                status === 'granted'
+                status === 'granted' 
               );
-            }
+            } 
           );
       }
     }, [
       isPermissionGranted,
       notification,
       options
-    ]
+    ] 
   );
 
   return {

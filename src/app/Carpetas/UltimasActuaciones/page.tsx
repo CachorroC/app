@@ -2,8 +2,6 @@ import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { FechaActuacionComponent } from './actuaciones';
 import { Suspense } from 'react';
 import { ActuacionLoader } from '#@/components/Actuaciones/actuacion-loader';
-import typography from '#@/styles/fonts/typography.module.css';
-import styles from '#@/components/Card/card.module.css';
 import { ClientCardRow } from '#@/components/Card/client-card';
 import { RevisadoCheckBox } from '../revisado-checkbox';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
@@ -274,7 +272,6 @@ export default async function Page(
                     rowHref={`/Carpeta/${ numero }` as Route}
                     carpeta={carpeta}
                   >
-                    <td>{numero}</td>
                     <td>{nombre}</td>
                     <td>
                       <OutputDateHelper incomingDate={fecha} />
@@ -288,29 +285,12 @@ export default async function Page(
                       />
                     </td>
                     <td>
-                      {idProcesos.length === 0
-                        ? (
-                            <>
-                              <h5
-                                className={` ${ styles.actuacion } ${ typography.titleSmall }`}
-                              >
-                        Sin idProceso
-                              </h5>
-                              <sub className={typography.labelSmall}>0 de 0</sub>
-                              <sub className={typography.labelMedium}>
-                        por favor revise que el numero de expediente esté bien o
-                        si la informacion la brinda el juzgado por otro canal
-                              </sub>
-                            </>
-                          )
-                        : (
-                            <Suspense fallback={<ActuacionLoader />}>
-                              <FechaActuacionComponent
-                                idProceso={idProceso}
-                                key={idProceso}
-                              />
-                            </Suspense>
-                          )}
+                      <Suspense fallback={<ActuacionLoader />}>
+                        <FechaActuacionComponent
+                          idProceso={idProceso}
+                          key={idProceso}
+                        />
+                      </Suspense>
                     </td>
                     <td>
                       <RevisadoCheckBox

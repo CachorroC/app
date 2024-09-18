@@ -1,7 +1,7 @@
 import { Loader } from '#@/components/Loader/main-loader';
-import { ProcesoDetalleComponent } from '#@/components/Proceso/proceso-detalles-component';
+import { ProcesoDetalle } from '#@/components/Proceso/server-components';
 import SujetosProcesales from '#@/components/Proceso/sujetos-procesales';
-import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos';
+import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos/procesos';
 import { Fragment, Suspense } from 'react';
 
 export default async function Page(
@@ -9,16 +9,16 @@ export default async function Page(
     params,
   }: {
   params: { llaveProceso: string };
-}
+} 
 ) {
   const procesos = await getProcesosByllaveProceso(
-    params.llaveProceso
+    params.llaveProceso 
   );
   return (
     <>
       {procesos.map(
         (
-          proceso,
+          proceso 
         ) => {
           return (
             <Fragment key={proceso.idProceso}>
@@ -27,14 +27,14 @@ export default async function Page(
               />
 
               <Suspense fallback={<Loader />}>
-                <ProcesoDetalleComponent
+                <ProcesoDetalle
                   key={proceso.idProceso}
                   idProceso={proceso.idProceso}
                 />
               </Suspense>
             </Fragment>
           );
-        }
+        } 
       )}
     </>
   );

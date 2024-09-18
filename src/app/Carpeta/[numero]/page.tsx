@@ -5,17 +5,18 @@ import button from '#@/components/Buttons/buttons.module.css';
 import { fixMoney } from '#@/lib/project/helper';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
-import { Suspense } from 'react';
-import layout from '#@/styles/layout.module.css';
+import { Fragment, Suspense } from 'react';
+import layout, { buttonActiveCategory } from '#@/styles/layout.module.css';
 import { Loader, TableLoader } from '#@/components/Loader/main-loader';
 import { ProcesoCard } from '#@/components/Proceso/server-components';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { InputSection } from '#@/components/Form/input-section';
-import { DeudorFormComponent } from '../../../components/Form/deudor-form-component';
+import { DeudorFormComponent } from '#@/components/Form/deudor-form-component';
 import { ActuacionLoader } from '#@/components/Actuaciones/actuacion-loader';
 import { JuzgadoComponent,
+  JuzgadoErrorComponent,
   JuzgadoTableComponent, } from '#@/components/Proceso/juzgado-component';
-import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos';
+import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos/procesos';
 import styles from './styles.module.css';
 import { NotificacionComponent } from '#@/components/Notificacion/notificacion';
 import FruitPicker from '#@/components/Buttons/etapaProsesalSelector';
@@ -23,21 +24,19 @@ import { ProcesoTableDetalleComponent } from '#@/components/Proceso/proceso-deta
 import { consultaProcesosPorRazonSocial } from '#@/lib/project/utils/main';
 import { ConsultaProcesos, outProceso } from '#@/lib/types/procesos';
 import SujetosProcesales from '#@/components/Proceso/sujetos-procesales';
-import { NewJuzgado } from '#@/lib/models/juzgado';
-
-//SECTION Generate metadata for [numero]
+import { JuzgadoClass } from '#@/lib/models/juzgado';
 
 async function AvailableProcesosByName(
   {
-    nombre
-  }: { nombre: string }
+    nombre 
+  }: { nombre: string } 
 ) {
   const urlNameMaker = consultaProcesosPorRazonSocial(
-    nombre
+    nombre 
   );
 
   const fetchProc = await fetch(
-    urlNameMaker
+    urlNameMaker 
   );
 
   if ( !fetchProc.ok ) {
@@ -75,12 +74,12 @@ async function AvailableProcesosByName(
       <tbody>
         {jsonString.procesos.map(
           (
-            proceso
+            proceso 
           ) => {
             const outgoinProceso: outProceso = {
               ...proceso,
-              juzgado: new NewJuzgado(
-                proceso.despacho
+              juzgado: JuzgadoClass.fromProceso(
+                proceso 
               ),
             };
             return (
@@ -101,7 +100,7 @@ async function AvailableProcesosByName(
                 </Suspense>
               </tr>
             );
-          }
+          } 
         )}
       </tbody>
     </table>
@@ -115,10 +114,10 @@ async function ProcesosComponent(
   }: {
   llaveProceso: string;
   numero: number;
-}
+} 
 ) {
   const procesos = await getProcesosByllaveProceso(
-    llaveProceso
+    llaveProceso 
   );
 
   if ( !procesos || procesos.length === 0 ) {
@@ -129,10 +128,10 @@ async function ProcesosComponent(
     <>
       {procesos.map(
         (
-          proceso
+          proceso 
         ) => {
           const {
-            idProceso
+            idProceso 
           } = proceso;
           return (
             <div
@@ -144,12 +143,9 @@ async function ProcesosComponent(
                   key={proceso.idProceso}
                   proceso={proceso}
                 >
-                  <div className={layout.segmentColumn}>
+                  <Fragment>
                     <Suspense fallback={<Loader />}>
-                      <JuzgadoComponent
-                        key={proceso.juzgado.url}
-                        juzgado={proceso.juzgado}
-                      />
+                      <JuzgadoComponent juzgado={proceso.juzgado} />
                     </Suspense>
                     <Suspense fallback={<Loader />}>
                       <FruitPicker />
@@ -171,7 +167,7 @@ async function ProcesosComponent(
                       Todas las actuaciones de este juzgado
                       </span>
                     </Link>
-                  </div>
+                  </Fragment>
                   <Suspense fallback={<ActuacionLoader />}>
                     <FechaActuacionComponent
                       key={idProceso}
@@ -182,7 +178,7 @@ async function ProcesosComponent(
               </Suspense>
             </div>
           );
-        }
+        } 
       )}
     </>
   );
@@ -190,13 +186,13 @@ async function ProcesosComponent(
 
 export default async function Page(
   {
-    params
-  }: { params: { numero: string } }
+    params 
+  }: { params: { numero: string } } 
 ) {
   const carpeta = await getCarpetabyNumero(
     Number(
-      params.numero
-    )
+      params.numero 
+    ) 
   );
 
   if ( !carpeta ) {
@@ -204,7 +200,7 @@ export default async function Page(
   }
 
   const {
-    idProcesos, numero, llaveProceso
+    idProcesos, numero, llaveProceso, juzgado, nombre 
   } = carpeta;
 
   let idProcesoContent;
@@ -212,29 +208,32 @@ export default async function Page(
   if ( idProcesos && idProcesos.length > 0 ) {
     idProcesoContent = idProcesos.map(
       (
-        idProceso
+        idProceso 
       ) => {
         return (
           <Link
             key={idProceso}
+            className={buttonActiveCategory}
             href={
             `/Carpeta/${ params.numero }/ultimasActuaciones/${ idProceso }` as Route
             }
-          ></Link>
+          >
+            <span>{nombre}</span>
+          </Link>
         );
-      }
+      } 
     );
   }
 
   return (
     <>
-      <div className={layout.sectionColumn}>
+      <div className={layout.sectionRow}>
         {carpeta.demanda?.capitalAdeudado && (
           <div className={styles.valueCard}>
             <h2 className={styles.valueCardTitle}>Capital Adeudado</h2>
             <h3 className={styles.valueCardValue}>
               {fixMoney(
-                carpeta.demanda.capitalAdeudado
+                carpeta.demanda.capitalAdeudado 
               )}
             </h3>
           </div>
@@ -244,7 +243,7 @@ export default async function Page(
             <h2 className={styles.valueCardTitle}>Valor del Avaluo</h2>
             <h3 className={styles.valueCardValue}>
               {fixMoney(
-                carpeta.demanda.avaluo
+                carpeta.demanda.avaluo 
               )}
             </h3>
           </div>
@@ -254,18 +253,35 @@ export default async function Page(
             <h2 className={styles.valueCardTitle}>Valor de la liquidacion</h2>
             <h3 className={styles.valueCardValue}>
               {fixMoney(
-                carpeta.demanda.liquidacion
+                carpeta.demanda.liquidacion 
               )}
             </h3>
           </div>
         )}
+      </div>
+
+      <div className={styles.valueCard}>
+        <h2 className={styles.valueCardTitle}>Tipo de Proceso</h2>
+        <h3 className={styles.valueCardValue}>{carpeta.tipoProceso}</h3>
       </div>
       {carpeta.demanda?.notificacion && (
         <Suspense fallback={<Loader />}>
           <NotificacionComponent notificacion={carpeta.demanda.notificacion} />
         </Suspense>
       )}
+
       <div className={layout.sectionColumn}>
+        <Suspense fallback={<Loader />}>
+          {juzgado
+            ? (
+                <JuzgadoComponent juzgado={juzgado} />
+              )
+            : (
+                <JuzgadoErrorComponent />
+              )}
+        </Suspense>
+      </div>
+      <div className={layout.sectionRow}>
         <h3 className={typography.titleLarge}>Procesos</h3>
         <Suspense fallback={<Loader />}>
           <ProcesosComponent
@@ -274,18 +290,26 @@ export default async function Page(
           />
         </Suspense>
       </div>
-      <DeudorFormComponent />
+      <div className={layout.sectionColumn}>
+        <Suspense fallback={<Loader />}>
+          <DeudorFormComponent />
+        </Suspense>
+      </div>
 
+      <div className={layout.sectionColumn}>
+        <Suspense fallback={<Loader />}>
+          <InputSection
+            key={params.numero}
+            name={'llaveProceso'}
+            title={'Numero de expediente'}
+            type={'text'}
+          />
+        </Suspense>
+      </div>
+      <div className={layout.sectionColumn}>{idProcesoContent}</div>
       <Suspense fallback={<Loader />}>
-        <InputSection
-          key={params.numero}
-          name={'llaveProceso'}
-          title={'Numero de expediente'}
-          type={'text'}
-        />
+        <AvailableProcesosByName nombre={carpeta.nombre} />
       </Suspense>
-      {idProcesoContent}
-      <AvailableProcesosByName nombre={carpeta.nombre} />
     </>
   );
 }

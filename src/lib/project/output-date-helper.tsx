@@ -22,11 +22,10 @@ export default function OutputDateHelper(
 
   return daterBuilder.toLocaleString(
     'es-CO', {
-      timeZone: 'UTC',
-      year    : 'numeric',
-      weekday : 'short',
-      month   : 'long',
-      day     : 'numeric',
+      year   : 'numeric',
+      weekday: 'long',
+      month  : 'long',
+      day    : 'numeric',
     } 
   );
 }

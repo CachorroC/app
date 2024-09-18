@@ -11,7 +11,9 @@
   transition: all 0.3s;
   position: relative;
 }
-.buttons .button, .buttons .buttonCategoryActive, .buttons .buttonCategoryPasive {
+.buttons .button,
+.buttons .buttonCategoryActive,
+.buttons .buttonCategoryPasive {
   border: 0.07rem solid var(--outline);
   box-sizing: border-box;
   padding: 0.5rem;
@@ -26,37 +28,54 @@
   transition: all 0.3s;
   position: relative;
 }
-.buttons .button:before, .buttons .buttonCategoryActive:before, .buttons .buttonCategoryPasive:before {
+.buttons .button:before,
+.buttons .buttonCategoryActive:before,
+.buttons .buttonCategoryPasive:before {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  content: "";
+  content: '';
   border-radius: inherit;
 }
-.buttons .button:hover:before, .buttons .buttonCategoryActive:hover:before, .buttons .buttonCategoryPasive:hover:before {
+.buttons .button:hover:before,
+.buttons .buttonCategoryActive:hover:before,
+.buttons .buttonCategoryPasive:hover:before {
   opacity: 0.08;
 }
-.buttons .button:focus:before, .buttons .buttonCategoryActive:focus:before, .buttons .buttonCategoryPasive:focus:before, .buttons .button:active:before, .buttons .buttonCategoryActive:active:before, .buttons .buttonCategoryPasive:active:before {
+.buttons .button:focus:before,
+.buttons .buttonCategoryActive:focus:before,
+.buttons .buttonCategoryPasive:focus:before,
+.buttons .button:active:before,
+.buttons .buttonCategoryActive:active:before,
+.buttons .buttonCategoryPasive:active:before {
   opacity: 0.1;
 }
-.buttons .button:first-child, .buttons .buttonCategoryActive:first-child, .buttons .buttonCategoryPasive:first-child {
+.buttons .button:first-child,
+.buttons .buttonCategoryActive:first-child,
+.buttons .buttonCategoryPasive:first-child {
   border-radius: var(--shape-corner-large-start);
 }
-.buttons .button:last-child, .buttons .buttonCategoryActive:last-child, .buttons .buttonCategoryPasive:last-child {
+.buttons .button:last-child,
+.buttons .buttonCategoryActive:last-child,
+.buttons .buttonCategoryPasive:last-child {
   border-radius: var(--shape-corner-large-end);
 }
 .buttons .buttonCategoryPasive {
   color: var(--on-surface);
 }
-.buttons .buttonCategoryPasive:hover:before, .buttons .buttonCategoryPasive:focus:before, .buttons .buttonCategoryPasive:active:before {
+.buttons .buttonCategoryPasive:hover:before,
+.buttons .buttonCategoryPasive:focus:before,
+.buttons .buttonCategoryPasive:active:before {
   background-color: var(--on-surface);
 }
 .buttons .buttonCategoryActive {
   background-color: var(--secondary-container);
   color: var(--on-secondary-container);
 }
-.buttons .buttonCategoryActive:hover:before, .buttons .buttonCategoryActive:focus:before, .buttons .buttonCategoryActive:active:before {
+.buttons .buttonCategoryActive:hover:before,
+.buttons .buttonCategoryActive:focus:before,
+.buttons .buttonCategoryActive:active:before {
   background-color: var(--on-secondary-container);
 }

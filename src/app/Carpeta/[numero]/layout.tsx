@@ -9,6 +9,7 @@ import { ReactNode, Suspense } from 'react';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import { ExpedienteFormComponent } from './expediente-form-component';
+import { ProcesosComponent } from '#@/components/Proceso/server-components';
 
 export async function generateMetadata(
   {
@@ -91,16 +92,21 @@ export default async function LayoutCarpetaMain(
         </Suspense>
       </div>
       <div className={styles.left}>
+        <Suspense fallback={<Loader />}>
+          <ProcesosComponent llaveProceso={carpeta.llaveProceso} />
+        </Suspense>
         <Suspense fallback={<Loader />}>{children}</Suspense>
       </div>
       <div className={styles.right}>
         <Suspense fallback={<Loader />}>{right}</Suspense>
-        <ExpedienteFormComponent
-          initialLLave={carpeta.llaveProceso}
-          numero={Number(
-            params.numero 
-          )}
-        />
+        <Suspense fallback={<Loader />}>
+          <ExpedienteFormComponent
+            initialLLave={carpeta.llaveProceso}
+            numero={Number(
+              params.numero 
+            )}
+          />
+        </Suspense>
       </div>
     </CarpetaFormProvider>
   );

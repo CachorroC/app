@@ -6,7 +6,7 @@ export default function SujetosProcesales(
     sujetosProcesalesRaw,
   }: {
   sujetosProcesalesRaw: string;
-}
+} 
 ) {
   const mapperObject = new Map();
 
@@ -16,16 +16,16 @@ export default function SujetosProcesales(
 
   for ( const matchedValue of matcher ) {
     mapperObject.set(
-      matchedValue[ 2 ].trim(), matchedValue[ 5 ].trim()
+      matchedValue[ 2 ].trim(), matchedValue[ 5 ].trim() 
     );
   }
 
   const objectify = Array.from(
-    mapperObject.entries()
+    mapperObject.entries() 
   );
   return objectify.map(
     (
-      object
+      object 
     ) => {
       const [
         key,
@@ -41,11 +41,16 @@ export default function SujetosProcesales(
           >
             {key}
           </sub>
-          <h5  style={{
-            color: 'var(--secondary)',
-          }}className={typography.titleMedium}>{value}</h5>
+          <h5
+            style={{
+              color: 'var(--secondary)',
+            }}
+            className={typography.titleMedium}
+          >
+            {value}
+          </h5>
         </Fragment>
       );
-    }
+    } 
   );
 }

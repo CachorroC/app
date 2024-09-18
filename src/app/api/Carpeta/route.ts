@@ -3,7 +3,6 @@ import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { NextRequest, NextResponse } from 'next/server';
 
-//? aqui van las peticiones a todas las carpetas y colleccion carpetas
 export async function GET(
   Request: NextRequest 
 ) {

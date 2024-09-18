@@ -5,14 +5,10 @@
  **/
 const nextConfig = {
   output: 'standalone',
-
+  crossOrigin: 'use-credentials',
+  serverExternalPackages: ['mongodb', 'eslint'],
   experimental: {
-    typedRoutes                     : true,
-    serverActions                   : true,
-    serverComponentsExternalPackages: [
-      'mongodb',
-      'eslint'
-    ],
+    typedRoutes: true,
   },
 };
 module.exports = nextConfig;

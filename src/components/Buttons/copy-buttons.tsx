@@ -3,10 +3,9 @@
 import { useCopyToClipboard } from '#@/app/Hooks/useCopyToClipboard';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import typography from '#@/styles/fonts/typography.module.css';
-import { useEffect, useState } from 'react';
-import styles from '../Proceso/styles.module.css';
+import { Fragment, useEffect, useState } from 'react';
 import layout from '#@/styles/layout.module.css';
-import buttons from './buttons.module.css';
+import buttons, { icon } from './buttons.module.css';
 
 export const CopyButton = (
   {
@@ -55,12 +54,28 @@ export const CopyButton = (
     ] 
   );
   return (
-    <div className={styles.container}>
+    <Fragment>
       <div className={horizontal
         ? layout.segmentRow
         : layout.segmentColumn}>
-        <span className={typography.labelSmall}>{name}</span>
-        <span className={typography.labelMedium}>{copyTxt}</span>
+        <h5
+          style={{
+            color: 'var(--primary)',
+            flex : 1,
+          }}
+          className={typography.labelSmall}
+        >
+          {name}
+        </h5>
+        <p
+          style={{
+            color: 'var(--on-surface)',
+            flex : 1,
+          }}
+          className={typography.titleMedium}
+        >
+          {copyTxt}
+        </p>
         <button
           type="button"
           onClick={() => {
@@ -71,13 +86,21 @@ export const CopyButton = (
               true 
             );
           }}
-          className={styles.buttonActive}
+          style={{
+            flex: 1,
+          }}
         >
-          <span className={`material-symbols-outlined ${ styles.icon }`}>
-            file_copy
-          </span>
+          <span className={`material-symbols-outlined ${ icon }`}>file_copy</span>
 
-          <span className={styles.text}>copiar</span>
+          <p
+            style={{
+              color: 'var(--on-surface)',
+              flex : 0,
+            }}
+            className={typography.titleMedium}
+          >
+            {copyTxt}
+          </p>
         </button>
       </div>
 
@@ -88,7 +111,7 @@ export const CopyButton = (
           {`${ name } : ${ copyTxt } `}
         </div>
       )}
-    </div>
+    </Fragment>
   );
 };
 

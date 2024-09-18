@@ -1,7 +1,7 @@
-import { NewJuzgado } from '#@/lib/models/juzgado';
+import { JuzgadoClass } from '#@/lib/models/juzgado';
 import { cache } from 'react';
 import { Despacho } from 'types/despachos';
-import { ConsultaProcesos, DetalleProceso } from 'types/procesos';
+import { ConsultaProcesos } from 'types/procesos';
 
 export const getDespachos = cache(
   async () => {
@@ -18,7 +18,7 @@ export const getDespachos = cache(
 
       if ( !request.ok ) {
         throw new Error(
-          'error en los despachos'
+          'error en los despachos' 
         );
       }
 
@@ -33,55 +33,16 @@ export const getDespachos = cache(
       }
 
       console.log(
-        ` error en la conexion network del getDespacxho  =>  ${ e }`
+        ` error en la conexion network del getDespacxho  =>  ${ e }` 
       );
 
       return [];
     }
-  }
+  } 
 );
 
-export async function fetchDetalleProceso(
-  {
-    idProceso,
-  }: {
-  idProceso: number;
-}
-): Promise<DetalleProceso | null> {
-  try {
-    const fetchDetails = await fetch(
-      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Detalle/${ idProceso }`,
-    );
-
-    if ( !fetchDetails.ok ) {
-      throw new Error(
-        fetchDetails.statusText
-      );
-    }
-
-    const parsedDetails = ( await fetchDetails.json() ) as DetalleProceso;
-    return {
-      ...parsedDetails,
-      fechaProceso: new Date(
-        parsedDetails.fechaProceso
-      ),
-      fechaConsulta: new Date(
-        parsedDetails.fechaConsulta
-      ),
-      juzgado: new NewJuzgado(
-        parsedDetails.despacho
-      ),
-    };
-  } catch ( error ) {
-    console.log(
-      error
-    );
-    return null;
-  }
-}
-
 export async function fetchProcesosByllaveProceso(
-  llaveProceso: string
+  llaveProceso: string 
 ) {
   try {
     const req = await fetch(
@@ -90,7 +51,7 @@ export async function fetchProcesosByllaveProceso(
 
     if ( !req.ok ) {
       throw new Error(
-        `message: ${ req.statusText }, code: ${ req.status }`
+        `message: ${ req.statusText }, code: ${ req.status }` 
       );
     }
 
@@ -100,34 +61,34 @@ export async function fetchProcesosByllaveProceso(
       //                     ^?
 
       throw new Error(
-        `no hay procesos con esta llaveProceso ${ llaveProceso }`
+        `no hay procesos con esta llaveProceso ${ llaveProceso }` 
       );
     }
 
     const {
-      procesos: rawProcesos
+      procesos: rawProcesos 
     } = response;
     return rawProcesos.map(
       (
-        proceso
+        proceso 
       ) => {
         return {
           ...proceso,
           fechaProceso: proceso.fechaProceso
             ? new Date(
-              proceso.fechaProceso
+              proceso.fechaProceso 
             )
             : null,
           fechaUltimaActuacion: proceso.fechaUltimaActuacion
             ? new Date(
-              proceso.fechaUltimaActuacion
+              proceso.fechaUltimaActuacion 
             )
             : null,
-          juzgado: new NewJuzgado(
-            proceso.despacho
+          juzgado: JuzgadoClass.fromProceso(
+            proceso 
           ),
         };
-      }
+      } 
     );
   } catch ( error ) {
     return [];
@@ -136,10 +97,10 @@ export async function fetchProcesosByllaveProceso(
 
 export const getProcesosByllaveProceso = cache(
   async (
-    llaveProceso: string
+    llaveProceso: string 
   ) => {
     return await fetchProcesosByllaveProceso(
-      llaveProceso
+      llaveProceso 
     );
-  }
+  } 
 );

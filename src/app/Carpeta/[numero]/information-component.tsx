@@ -49,10 +49,9 @@ export default function InformationComponent(
             proceso={proceso}
           >
             <div className={layout.segmentColumn}>
-              <JuzgadoComponent
-                key={juzgado.url}
-                juzgado={juzgado}
-              />
+              <Suspense fallback={<Loader />}>
+                <JuzgadoComponent juzgado={juzgado} />
+              </Suspense>
 
               <Link
                 key={idProceso}

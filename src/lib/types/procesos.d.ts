@@ -51,13 +51,14 @@ export type intProceso = {
   fechaProceso: Date | null;
   fechaUltimaActuacion: Date | null;
   despacho: string;
-  departamento: Departamento;
+  departamento: string;
   sujetosProcesales: string;
   esPrivado: boolean;
   cantFilas: number;
 };
 
 export type DetalleProceso = {
+  [key: string]: string;
   claseProceso: ClaseProceso;
   contenidoRadicacion: null | string;
   despacho: string;

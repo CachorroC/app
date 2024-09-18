@@ -9,7 +9,7 @@ export default function SheetJSReactAoO() {
     pres,
     setPres
   ] = useState<RawDb[]>(
-    []
+    [] 
   );
 
   /* Fetch and update the state once */
@@ -18,50 +18,50 @@ export default function SheetJSReactAoO() {
       ( async () => {
         const f = await (
           await fetch(
-            'https://beta.rsasesorjuridico.com/general.xlsx'
+            'https://beta.rsasesorjuridico.com/general.xlsx' 
           )
         ).arrayBuffer();
 
         const wb = read(
-          f
+          f 
         ); // parse the array buffer
 
         for ( const sheetName of wb.SheetNames ) {
           const ws = wb.Sheets[ sheetName ];
 
           const data = utils.sheet_to_json(
-            ws
+            ws 
           ) as RawDb[]; // generate objects
           setPres(
             [
               ...pres,
               ...data
-            ]
+            ] 
           ); // update state
         }
       } )();
     }, [
       pres
-    ]
+    ] 
   );
 
   /* get state data and export to XLSX */
   const exportFile = useCallback(
     () => {
       const ws = utils.json_to_sheet(
-        pres
+        pres 
       );
 
       const wb = utils.book_new();
       utils.book_append_sheet(
-        wb, ws, 'Data'
+        wb, ws, 'Data' 
       );
       writeFileXLSX(
-        wb, 'SheetJSReactAoO.xlsx'
+        wb, 'SheetJSReactAoO.xlsx' 
       );
     }, [
       pres
-    ]
+    ] 
   );
 
   return (
@@ -81,7 +81,7 @@ export default function SheetJSReactAoO() {
           /* generate row for each president */
           pres.map(
             (
-              pres, index
+              pres, index 
             ) => {
               return (
                 <tr key={index}>
@@ -92,12 +92,12 @@ export default function SheetJSReactAoO() {
                   <td>{pres[ 'RADICADO' ]}</td>
                   <td>
                     <pre key={index}>{JSON.stringify(
-                      pres, null, 2
+                      pres, null, 2 
                     )}</pre>
                   </td>
                 </tr>
               );
-            }
+            } 
           )
         }
       </tbody>

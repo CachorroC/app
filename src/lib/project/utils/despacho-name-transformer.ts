@@ -1,27 +1,26 @@
-export function tipoGenerator (
-  tipoRaw: string
+export function tipoGenerator(
+  tipoRaw: string 
 ): string {
-
   let output = tipoRaw;
 
   const hasEjecucion = /EJE|E/gim.test(
-    tipoRaw
+    tipoRaw 
   );
 
   const isPequeñasCausas = /PCCM|PCYCM|Peque/gim.test(
-    tipoRaw
+    tipoRaw 
   );
 
   const isPromiscuoMunicipal = /PM|PROM|P M/gim.test(
-    tipoRaw
+    tipoRaw 
   );
 
   const isCivilMunicipal = /(CM|municipal|C M)/g.test(
-    tipoRaw
+    tipoRaw 
   );
 
   const isCivilCircuito = /(CC|CIRCUITO|CTO)/gim.test(
-    tipoRaw
+    tipoRaw 
   );
 
   if ( hasEjecucion ) {
@@ -49,13 +48,11 @@ export function tipoGenerator (
   return output;
 }
 
-export function idGenerator (
-  idRaw: string
+export function idGenerator(
+  idRaw: string 
 ) {
-
-
   const matchedNumbers = idRaw.match(
-    /(\d+)/im
+    /(\d+)/im 
   );
 
   const idNotPadded = matchedNumbers
@@ -63,86 +60,66 @@ export function idGenerator (
     : '';
 
   const idPadded = idNotPadded.padStart(
-    3, '000'
+    3, '000' 
   );
   return {
     id      : idNotPadded,
-    paddedid: idPadded
+    paddedid: idPadded,
   };
-
 }
 
-export function extrapolateTipoToCorrectType (
-  tipo: string
-) {
-  let outputTipo = tipo,
-    completeValue = tipo;
+export function extrapolateTipoToCorrectType(
+  tipo: string 
+): string {
+  let output = tipo;
 
-  const matchedNumbers = tipo.match(
-    /(\d+)/im
+  const hasEjecucion = /EJE|E|EJ/gim.test(
+    tipo 
   );
 
-  const idNotPadded = matchedNumbers
-    ? matchedNumbers[ 1 ]
-    : '';
-
-  const idPadded = idNotPadded.padStart(
-    3, '000'
+  const isPromiscuoCircuito = /PCTO/gim.test(
+    tipo 
   );
 
-  const hasEjecucion = /EJE|E/gim.test(
-    tipo
-  );
-
-  const isPequeñasCausas = /PCCM|PCYCM|Peque/gim.test(
-    tipo
+  const isPequeñasCausas = /PCCM|PCYCM|Peque|causas/gim.test(
+    tipo 
   );
 
   const isPromiscuoMunicipal = /PM|PROM|P M/gim.test(
-    tipo
+    tipo 
   );
 
   const isCivilMunicipal = /(CM|municipal|C M)/g.test(
-    tipo
+    tipo 
   );
 
-  const isCivilCircuito = /(CC|CIRCUITO|CTO)/gim.test(
-    tipo
+  const isCivilCircuito = /(CCTO|CIRCUITO|CTO|C CTO|CC)/gim.test(
+    tipo 
   );
 
   if ( hasEjecucion ) {
-    if ( isCivilMunicipal ) {
-      outputTipo = 'CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS';
-      completeValue = `JUZGADO ${ idPadded } CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS`;
-    } else if ( isCivilCircuito ) {
-      outputTipo = 'CIVIL DEL CIRCUITO DE EJECUCIÓN DE SENTENCIAS';
-      completeValue = `JUZGADO ${ idPadded } CIVIL DEL CIRCUITO DE EJECUCIÓN DE SENTENCIAS`;
+    if ( isCivilCircuito ) {
+      output = 'CIVIL DEL CIRCUITO DE EJECUCIÓN DE SENTENCIAS';
     } else if ( isPequeñasCausas ) {
-      outputTipo = 'DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE';
-      completeValue = `JUZGADO ${ idPadded } DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE`;
+      output = 'DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE';
     } else if ( isPromiscuoMunicipal ) {
-      outputTipo = 'PROMISCUO MUNICIPAL';
-      completeValue = `JUZGADO ${ idPadded } PROMISCUO MUNICIPAL`;
+      output = 'PROMISCUO MUNICIPAL';
+    } else if ( isCivilMunicipal ) {
+      output = 'CIVIL MUNICIPAL DE EJECUCIÓN DE SENTENCIAS';
     }
   } else {
-    if ( isCivilMunicipal ) {
-      outputTipo = 'CIVIL MUNICIPAL';
-      completeValue = `JUZGADO ${ idPadded } CIVIL MUNICIPAL`;
+    if ( isPromiscuoCircuito ) {
+      output = 'PROMISCUO DEL CIRCUITO';
     } else if ( isCivilCircuito ) {
-      outputTipo = 'CIVIL DEL CIRCUITO';
-      completeValue = `JUZGADO ${ idPadded } CIVIL DEL CIRCUITO`;
+      output = 'CIVIL DEL CIRCUITO';
     } else if ( isPequeñasCausas ) {
-      outputTipo = 'DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE';
-      completeValue = `JUZGADO ${ idPadded } DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE`;
+      output = 'DE PEQUEÑAS CAUSAS Y COMPETENCIA MÚLTIPLE';
     } else if ( isPromiscuoMunicipal ) {
-      outputTipo = 'PROMISCUO MUNICIPAL';
-      completeValue = `JUZGADO ${ idPadded } PROMISCUO MUNICIPAL`;
+      output = 'PROMISCUO MUNICIPAL';
+    } else if ( isCivilMunicipal ) {
+      output = 'CIVIL MUNICIPAL';
     }
   }
 
-  return {
-    id           : idPadded,
-    tipo         : outputTipo,
-    completeValue: completeValue,
-  };
+  return output;
 }

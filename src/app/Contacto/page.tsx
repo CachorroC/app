@@ -106,7 +106,7 @@ export default function Page() {
               } 
             )}
           />
-        </section>{' '}
+        </section>
         <section className={form.segmentRow}>
           <label
             htmlFor={'email'}

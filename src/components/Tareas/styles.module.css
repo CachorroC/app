@@ -9,7 +9,7 @@
   container-name: form;
   container-type: inline-size;
   display: flex;
-  grid-area: span 1/span 4;
+  grid-area: span 1 / span 4;
   box-sizing: border-box;
   border-radius: 2vmin;
   flex-flow: column nowrap;
@@ -42,18 +42,29 @@
 }
 .submitButton > span {
   color: var(--on-secondary);
-  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 24;
 }
-.submitButton:hover, .submitButton:active {
+.submitButton:hover,
+.submitButton:active {
   background-color: var(--secondary);
   box-shadow: var(--dp8);
 }
-.submitButton:hover > span, .submitButton:active > span {
-  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 48;
+.submitButton:hover > span,
+.submitButton:active > span {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 600,
+    'GRAD' 200,
+    'opsz' 48;
   color: var(--on-secondary);
 }
 
-.textArea, .vencimientoArea,
+.textArea,
+.vencimientoArea,
 .selectArea {
   background-color: var(--surface-container-highest);
   color: var(--on-surface-variant);
@@ -70,13 +81,17 @@
   resize: both;
   padding: 0.16rem;
 }
-.textArea:hover, .vencimientoArea:hover,
+.textArea:hover,
+.vencimientoArea:hover,
 .selectArea:hover {
   box-shadow: var(--dp8);
   color: var(--on-surface);
   border-bottom: dashed 0.1rem var(--primary-fixed-dim);
 }
-.textArea:active, .vencimientoArea:active, .textArea:focus, .vencimientoArea:focus,
+.textArea:active,
+.vencimientoArea:active,
+.textArea:focus,
+.vencimientoArea:focus,
 .selectArea:active,
 .selectArea:focus {
   color: var(--on-surface);
@@ -112,17 +127,28 @@
   justify-content: center;
   align-content: center;
 }
-.button > .icon, .button > .text {
+.button > .icon,
+.button > .text {
   color: var(--on-secondary-container);
   transition: all 1s;
-  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 24;
 }
-.button:hover, .button:active {
+.button:hover,
+.button:active {
   background-color: var(--tertiary-container);
   box-shadow: var(--dp8);
 }
-.button:hover > span, .button:active > span {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+.button:hover > span,
+.button:active > span {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 200,
+    'opsz' 24;
   color: var(--tertiary);
 }
 
@@ -161,7 +187,7 @@
 .slider:before {
   border-radius: 50vw;
   position: absolute;
-  content: "";
+  content: '';
   height: 0.8rem;
   width: 0.8rem;
   left: 0.03rem;

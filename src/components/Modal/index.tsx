@@ -277,7 +277,7 @@ export function NewNotaComponent(
 } 
 ) {
   const {
-    numero, idProceso 
+    numero 
   } = useParams();
 
   const pathname = usePathname();
@@ -297,7 +297,6 @@ export function NewNotaComponent(
         ? pathname
         : null,
       content: [
-        ...idProceso,
         idRegActuacion
           ? String(
             idRegActuacion 

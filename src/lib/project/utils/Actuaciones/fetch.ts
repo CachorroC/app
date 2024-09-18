@@ -5,13 +5,13 @@ export default async function fetchActuaciones(
     idProceso,
   }: {
   idProceso: number;
-}
+} 
 ): Promise<RequestActuacion> {
   try {
     const request = await fetch(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
       {
-        cache: 'no-store'
+        cache: 'no-store',
       },
     );
 
@@ -36,7 +36,7 @@ export default async function fetchActuaciones(
     return {
       StatusCode: 0,
       Message   : JSON.stringify(
-        error
+        error 
       ) as Message,
     };
   }

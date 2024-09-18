@@ -1,7 +1,6 @@
 declare const styles: {
-  readonly 'primaryColor': string;
-  readonly 'secondaryColor': string;
-  readonly 'backgroundColor': string;
+  readonly primaryColor: string;
+  readonly secondaryColor: string;
+  readonly backgroundColor: string;
 };
 export = styles;
-

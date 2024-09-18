@@ -14,7 +14,7 @@ export default function ActiveLink(
   isActive: boolean;
   searchParams: string;
   children: ReactNode;
-}
+} 
 ) {
   const pathname = usePathname();
 

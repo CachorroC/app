@@ -2,8 +2,6 @@ import { outActuacion } from '#@/lib/types/actuaciones';
 import { cache } from 'react';
 import fetchActuaciones from './fetch';
 
-process.env[ 'NODE_TLS_REJECT_UNAUTHORIZED' ] = '0';
-
 export const getActuaciones = cache(
   async (
     {
