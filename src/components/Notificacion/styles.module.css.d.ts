@@ -1,5 +1,6 @@
 declare const styles: {
-  readonly notificacionComponent: string;
-  readonly box: string;
+  readonly 'box': string;
+  readonly 'notificacionComponent': string;
 };
 export = styles;
+

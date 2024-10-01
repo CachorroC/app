@@ -30,46 +30,37 @@ export function ActuacionesSlideshowErrorComponent() {
   );
 }
 
-export function ActuacionesSlideshowContainer(
-  {
-    actuacionesPromise,
-  }: {
+export function ActuacionesSlideshowContainer( {
+  actuacionesPromise,
+}: {
   actuacionesPromise: Promise<outActuacion[]>;
-} 
-) {
+} ) {
   return (
     <ErrorBoundary fallback={<ActuacionesSlideshowErrorComponent />}>
       <Suspense fallback={<ActuacionLoader />}>
-        <ActuacionesSlideshow actuacionesPromise={actuacionesPromise} />
+        <ActuacionesSlideshow actuacionesPromise={actuacionesPromise } />
       </Suspense>
     </ErrorBoundary>
   );
 }
 
-export function ActuacionesSlideshow(
-  {
-    actuacionesPromise,
-  }: {
+export function ActuacionesSlideshow( {
+  actuacionesPromise,
+}: {
   actuacionesPromise: Promise<outActuacion[]>;
-} 
-) {
-  const actuacionesList = use(
-    actuacionesPromise 
-  );
+  } ) {
+
+  const actuacionesList = use( actuacionesPromise );
 
   const [
     index,
     setIndex
-  ] = useState(
-    0 
-  );
+  ] = useState( 0 );
 
   const [
     showMore,
     setShowMore
-  ] = useState(
-    false 
-  );
+  ] = useState( false );
 
   if ( actuacionesList.length === 0 ) {
     return (
@@ -109,15 +100,11 @@ export function ActuacionesSlideshow(
   let sculpture = actuacionesList[ index ];
 
   function handleNextClick() {
-    setIndex(
-      index + 1 
-    );
+    setIndex( index + 1 );
   }
 
   function handleMoreClick() {
-    setShowMore(
-      !showMore 
-    );
+    setShowMore( !showMore );
   }
 
   return (

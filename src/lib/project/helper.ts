@@ -1,14 +1,10 @@
-export const fixFechas = (
-  rawDate?: string | Date | null | undefined 
-) => {
+export const fixFechas = ( rawDate?: string | Date | null | undefined ) => {
   if ( !rawDate || rawDate === null || rawDate === undefined ) {
     return 'sin especificar';
   }
 
   if ( typeof rawDate === 'string' ) {
-    return new Date(
-      rawDate 
-    )
+    return new Date( rawDate )
       .toLocaleString(
         'es-CO', {
           timeZone: 'UTC',
@@ -31,99 +27,67 @@ export const fixFechas = (
   );
 };
 
-export const sleep = (
-  ms: number 
-) => {
-  return new Promise(
-    (
-      resolve 
-    ) => {
-      return setTimeout(
-        resolve, ms 
-      );
-    } 
-  );
+export const sleep = ( ms: number ) => {
+  return new Promise( ( resolve ) => {
+    return setTimeout(
+      resolve, ms 
+    );
+  } );
 };
 
-export const trimmer = (
-  sujetosProcesales: string 
-) => {
-  const locateDemandado = sujetosProcesales.search(
-    /(demandado|causante)+:(?:\s*?|'\s*?')/gi,
-  );
+export const trimmer = ( sujetosProcesales: string ) => {
+  const locateDemandado = sujetosProcesales.search( /(demandado|causante)+:(?:\s*?|'\s*?')/gi, );
 
   const extractDemandado = sujetosProcesales
-    .slice(
-      locateDemandado + 10 
-    )
+    .slice( locateDemandado + 10 )
     .toLowerCase();
 
   const trimDemandado = extractDemandado.replace(
     /^\s+|\s+$/gm, '' 
   );
 
-  const splitDemandado = trimDemandado.split(
-    ' ' 
-  );
+  const splitDemandado = trimDemandado.split( ' ' );
 
-  const splitDemandadotoUnify = splitDemandado.map(
-    (
-      nombreOapellido: string, index: number 
-    ) => {
-      if ( index >= 5 ) {
-        return '';
-      }
+  const splitDemandadotoUnify = splitDemandado.map( (
+    nombreOapellido: string, index: number 
+  ) => {
+    if ( index >= 5 ) {
+      return '';
+    }
 
-      if ( nombreOapellido === '|' ) {
-        return '';
-      }
+    if ( nombreOapellido === '|' ) {
+      return '';
+    }
 
-      if ( nombreOapellido.includes(
-        's.a.s' 
-      ) ) {
-        return '';
-      }
+    if ( nombreOapellido.includes( 's.a.s' ) ) {
+      return '';
+    }
 
-      if ( nombreOapellido.includes(
-        'sas' 
-      ) ) {
-        return '';
-      }
+    if ( nombreOapellido.includes( 'sas' ) ) {
+      return '';
+    }
 
-      if ( nombreOapellido.includes(
-        '(emplazado)' 
-      ) ) {
-        return '';
-      }
+    if ( nombreOapellido.includes( '(emplazado)' ) ) {
+      return '';
+    }
 
-      return nombreOapellido.replace(
-        /^./, (
-          str: string 
-        ) => {
-          return str.toUpperCase();
-        } 
-      );
-    },
-  );
+    return nombreOapellido.replace(
+      /^./, ( str: string ) => {
+        return str.toUpperCase();
+      } 
+    );
+  }, );
 
-  const unifyDemandado = splitDemandadotoUnify.join(
-    ' ' 
-  );
+  const unifyDemandado = splitDemandadotoUnify.join( ' ' );
 
   return unifyDemandado;
 };
 
-export const fixDemandado = (
-  sujetosProcesales: string 
-): string => {
-  const count = sujetosProcesales.split(
-    '|' 
-  );
+export const fixDemandado = ( sujetosProcesales: string ): string => {
+  const count = sujetosProcesales.split( '|' );
 
   for ( const stringerCount of count ) {
-    const hasDemandante = stringerCount.includes(
-      'Demandante' 
-    );
+    const hasDemandante = stringerCount.includes( 'Demandante' );
 
     if ( hasDemandante ) {
       continue;
@@ -135,9 +99,7 @@ export const fixDemandado = (
   return sujetosProcesales;
 };
 
-export const fixMoney = (
-  valor: number | bigint 
-) => {
+export const fixMoney = ( valor: number | bigint ) => {
   return new Intl.NumberFormat(
     'es-CO', {
       style          : 'currency',
@@ -145,7 +107,5 @@ export const fixMoney = (
       currencyDisplay: 'symbol',
     } 
   )
-    .format(
-      valor 
-    );
+    .format( valor );
 };

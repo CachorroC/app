@@ -3,113 +3,54 @@ import { prisma } from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { carpetasCollection } from '#@/lib/connection/collections';
 
-export const getCarpetasByllaveProceso = cache(
-  async (
-    llaveProceso: string 
-  ) => {
-    const prismaCarpetas = await prisma.carpeta.findMany(
-      {
-        where: {
-          llaveProceso: llaveProceso,
-        },
+export const getCarpetasByllaveProceso = cache( async ( llaveProceso: string ) => {
+  const prismaCarpetas = await prisma.carpeta.findMany( {
+    where: {
+      llaveProceso: llaveProceso,
+    },
+    include: {
+      tareas         : true,
+      ultimaActuacion: true,
+      juzgado        : true,
+      notas          : true,
+      procesos       : {
         include: {
-          tareas         : true,
-          ultimaActuacion: true,
-          juzgado        : true,
-          notas          : true,
-          procesos       : {
-            include: {
-              juzgado: true,
-            },
-          },
+          juzgado: true,
         },
-      } 
-    );
+      },
+    },
+  } );
 
-    const collection = await carpetasCollection();
+  const collection = await carpetasCollection();
 
-    const mongoCarpetas = await collection.find()
-      .toArray();
+  const mongoCarpetas = await collection.find()
+    .toArray();
 
-    const mergedArray = mongoCarpetas.map(
-      (
-        item 
-      ) => {
-        const matchedObject = prismaCarpetas.find(
-          (
-            obj 
-          ) => {
-            return obj.numero === item.numero;
-          } 
-        );
-        return {
-          ...item,
-          ...matchedObject,
-        };
-      } 
-    );
-    return mergedArray;
-  } 
-);
+  const mergedArray = mongoCarpetas.map( ( item ) => {
+    const matchedObject = prismaCarpetas.find( ( obj ) => {
+      return obj.numero === item.numero;
+    } );
 
-export const getCarpetaByllaveProceso = cache(
-  async (
-    llaveProceso: string 
-  ) => {
-    const prismaCarpeta = await prisma.carpeta.findFirst(
-      {
-        where: {
-          llaveProceso: llaveProceso,
-        },
-        include: {
-          ultimaActuacion: true,
-          deudor         : true,
-          juzgado        : true,
-          tareas         : true,
-          demanda        : {
-            include: {
-              notificacion: {
-                include: {
-                  notifiers: true,
-                },
-              },
-              medidasCautelares: true,
-            },
-          },
-          notas   : true,
-          procesos: {
-            include: {
-              juzgado: true,
-            },
-          },
-        },
-      } 
-    );
+    return {
+      ...item,
+      ...matchedObject,
+    };
+  } );
 
-    if ( prismaCarpeta ) {
-      return {
-        ...prismaCarpeta,
-        demanda: {
-          ...prismaCarpeta.demanda,
-          capitalAdeudado:
-          prismaCarpeta.demanda?.capitalAdeudado.toString() ?? null,
-        },
-      };
-    }
+  return mergedArray;
+} );
 
-    return null;
-  } 
-);
-
-export const getCarpetabyNumero = cache(
-  async (
-    numero: number 
-  ) => {
-    const demanda = await prisma.demanda.findFirstOrThrow(
-      {
-        where: {
-          id: numero,
-        },
+export const getCarpetaByllaveProceso = cache( async ( llaveProceso: string ) => {
+  const prismaCarpeta = await prisma.carpeta.findFirst( {
+    where: {
+      llaveProceso: llaveProceso,
+    },
+    include: {
+      ultimaActuacion: true,
+      deudor         : true,
+      juzgado        : true,
+      tareas         : true,
+      demanda        : {
         include: {
           notificacion: {
             include: {
@@ -118,97 +59,125 @@ export const getCarpetabyNumero = cache(
           },
           medidasCautelares: true,
         },
-      } 
-    );
-
-    const carpeta = await prisma.carpeta.findFirstOrThrow(
-      {
-        where: {
-          numero: numero,
-        },
+      },
+      notas   : true,
+      procesos: {
         include: {
-          ultimaActuacion: true,
-          deudor         : true,
-          codeudor       : true,
-          juzgado        : true,
-          notas          : true,
-          tareas         : true,
-          demanda        : {
-            include: {
-              notificacion: {
-                include: {
-                  notifiers: true,
-                },
-              },
-              medidasCautelares: true,
-            },
-          },
-          procesos: {
-            include: {
-              juzgado: true,
-            },
-          },
+          juzgado: true,
         },
-      } 
-    );
+      },
+    },
+  } );
 
-    const newCarp: IntCarpeta = {
-      ...carpeta,
+  if ( prismaCarpeta ) {
+    return {
+      ...prismaCarpeta,
       demanda: {
-        ...demanda,
-        capitalAdeudado: demanda.capitalAdeudado
-          ? demanda.capitalAdeudado.toNumber()
-          : null,
-        liquidacion: demanda?.liquidacion
-          ? demanda.liquidacion.toNumber()
-          : null,
-        avaluo: demanda?.avaluo
-          ? demanda.avaluo.toNumber()
-          : null,
-        departamento: demanda?.departamento
-          ? demanda.departamento
-          : null,
+        ...prismaCarpeta.demanda,
+        capitalAdeudado:
+          prismaCarpeta.demanda?.capitalAdeudado.toString() ?? null,
       },
     };
-    return newCarp;
-  } 
-);
+  }
 
-export const getCarpetaByidProceso = cache(
-  async (
-    idProceso: number 
-  ) => {
-    return await prisma.carpeta.findFirstOrThrow(
-      {
-        where: {
-          idProcesos: {
-            has: idProceso,
-          },
-        },
+  return null;
+} );
+
+export const getCarpetabyNumero = cache( async ( numero: number ) => {
+  const demanda = await prisma.demanda.findFirstOrThrow( {
+    where: {
+      id: numero,
+    },
+    include: {
+      notificacion: {
         include: {
-          ultimaActuacion: true,
-          deudor         : true,
-          codeudor       : true,
-          juzgado        : true,
-          notas          : true,
-          tareas         : true,
-          demanda        : {
-            include: {
-              notificacion: {
-                include: {
-                  notifiers: true,
-                },
-              },
-              medidasCautelares: true,
-            },
-          },
-          procesos: {
-            include: {
-              juzgado: true,
-            },
-          },
+          notifiers: true,
         },
-      } 
-    );
-  } 
-);
+      },
+      medidasCautelares: true,
+    },
+  } );
+
+  const carpeta = await prisma.carpeta.findFirstOrThrow( {
+    where: {
+      numero: numero,
+    },
+    include: {
+      ultimaActuacion: true,
+      deudor         : true,
+      codeudor       : true,
+      juzgado        : true,
+      notas          : true,
+      tareas         : true,
+      demanda        : {
+        include: {
+          notificacion: {
+            include: {
+              notifiers: true,
+            },
+          },
+          medidasCautelares: true,
+        },
+      },
+      procesos: {
+        include: {
+          juzgado: true,
+        },
+      },
+    },
+  } );
+
+  const newCarp: IntCarpeta = {
+    ...carpeta,
+    demanda: {
+      ...demanda,
+      capitalAdeudado: demanda.capitalAdeudado
+        ? demanda.capitalAdeudado.toNumber()
+        : null,
+      liquidacion: demanda?.liquidacion
+        ? demanda.liquidacion.toNumber()
+        : null,
+      avaluo: demanda?.avaluo
+        ? demanda.avaluo.toNumber()
+        : null,
+      departamento: demanda?.departamento
+        ? demanda.departamento
+        : null,
+    },
+  };
+
+  return newCarp;
+} );
+
+export const getCarpetaByidProceso = cache( async ( idProceso: number ) => {
+  return await prisma.carpeta.findFirstOrThrow( {
+    where: {
+      idProcesos: {
+        has: idProceso,
+      },
+    },
+    include: {
+      ultimaActuacion: true,
+      deudor         : true,
+      codeudor       : true,
+      juzgado        : true,
+      notas          : true,
+      tareas         : true,
+      demanda        : {
+        include: {
+          notificacion: {
+            include: {
+              notifiers: true,
+            },
+          },
+          medidasCautelares: true,
+        },
+      },
+      procesos: {
+        include: {
+          juzgado: true,
+        },
+      },
+    },
+  } );
+} );

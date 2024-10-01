@@ -4,30 +4,25 @@ import { CarpetasTable } from '#@/components/Carpetas/client/carpetasList';
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function Page(
-  {
-    params: {
-      categoria 
-    },
-  }: {
+export default function Page( {
+  params: {
+    categoria 
+  },
+}: {
   params: { categoria: string };
-} 
-) {
+} ) {
   const {
     setCurrentCategory 
   } = useCategory();
 
   if ( categoria === 'todos' ) {
-    redirect(
-      '/Carpetas' 
-    );
+    redirect( '/Carpetas' );
   }
 
   useEffect(
     () => {
-      setCurrentCategory(
-        categoria 
-      );
+      setCurrentCategory( categoria );
+
       return () => {};
     }, [
       categoria,

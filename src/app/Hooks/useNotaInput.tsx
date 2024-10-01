@@ -1,21 +1,13 @@
 import { useState } from 'react';
 
-export function useFormInput(
-  initialValue: string 
-) {
+export function useFormInput( initialValue: string ) {
   const [
     value,
     setValue
-  ] = useState(
-    initialValue 
-  );
+  ] = useState( initialValue );
 
-  function handleChange(
-    e: any 
-  ) {
-    setValue(
-      e.target.value 
-    );
+  function handleChange( e: any ) {
+    setValue( e.target.value );
   }
 
   const inputProps = {

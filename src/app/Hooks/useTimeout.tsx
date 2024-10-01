@@ -5,9 +5,7 @@ import useIsomorphicLayoutEffect from './useIsomophic';
 export default function useTimeout(
   callback: () => void, delay: number | null 
 ) {
-  const savedCallback = useRef(
-    callback 
-  );
+  const savedCallback = useRef( callback );
 
   // Remember the latest callback if it changes.
   useIsomorphicLayoutEffect(
@@ -35,9 +33,7 @@ export default function useTimeout(
 
       /* eslint-disable-next-line consistent-return */
       return () => {
-        clearTimeout(
-          id 
-        );
+        clearTimeout( id );
       };
     }, [
       delay

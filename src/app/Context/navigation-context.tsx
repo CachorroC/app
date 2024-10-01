@@ -9,23 +9,18 @@ import { Dispatch,
 const NavigationContext = createContext<{
   isNavOpen: boolean;
   setIsNavOpen: Dispatch<SetStateAction<boolean>>;
-} | null>(
-  null 
-);
+} | null>( null );
 
-export function NavigationContextProvider(
-  {
-    children,
-  }: {
+export function NavigationContextProvider( {
+  children,
+}: {
   children: ReactNode;
-} 
-) {
+} ) {
   const [
     isNavOpen,
     setIsNavOpen
-  ] = useState(
-    false 
-  );
+  ] = useState( false );
+
   return (
     <NavigationContext.Provider
       value={{
@@ -39,14 +34,10 @@ export function NavigationContextProvider(
 }
 
 export function useNavigationContext() {
-  const context = useContext(
-    NavigationContext 
-  );
+  const context = useContext( NavigationContext );
 
   if ( context === null ) {
-    throw new Error(
-      'Navigation Context has to be used within a Navigationprovider',
-    );
+    throw new Error( 'Navigation Context has to be used within a Navigationprovider', );
   }
 
   return context;

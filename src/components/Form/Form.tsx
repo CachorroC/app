@@ -28,28 +28,18 @@ export const Form = () => {
     handleSubmit, setError 
   } = useFormContext<MonCarpeta>();
 
-  const onSubmit: SubmitHandler<MonCarpeta> = async (
-    data: MonCarpeta 
-  ) => {
+  const onSubmit: SubmitHandler<MonCarpeta> = async ( data: MonCarpeta ) => {
     const newCarpeta = {
       ...carpetaFormState,
       ...data,
     };
 
-    const parsed = IntCarpetaElementSchema.safeParse(
-      newCarpeta 
-    );
+    const parsed = IntCarpetaElementSchema.safeParse( newCarpeta );
 
     if ( !parsed.success ) {
-      alert(
-        JSON.stringify(
-          parsed 
-        ) 
-      );
+      alert( JSON.stringify( parsed ) );
 
-      throw new Error(
-        'error al hacer el parse' 
-      );
+      throw new Error( 'error al hacer el parse' );
     }
 
     const postCarpeta = await fetch(
@@ -59,16 +49,13 @@ export const Form = () => {
         headers: {
           'content-type': 'application/json',
         },
-        body: JSON.stringify(
-          parsed.data 
-        ),
+        body: JSON.stringify( parsed.data ),
       },
     );
-    alert(
-      JSON.stringify(
-        postCarpeta.status, null, 2 
-      ) 
-    );
+
+    alert( JSON.stringify(
+      postCarpeta.status, null, 2 
+    ) );
 
     if ( postCarpeta.status > 200 ) {
       setError(
@@ -79,23 +66,18 @@ export const Form = () => {
     }
 
     const updatedCarpeta = ( await postCarpeta.json() ) as MonCarpeta;
-    alert(
-      JSON.stringify(
-        updatedCarpeta, null, 2 
-      ) 
-    );
-    console.log(
-      `el estatus de la operacion post en Form arrojó: ${ postCarpeta.status }`,
-    );
+
+    alert( JSON.stringify(
+      updatedCarpeta, null, 2 
+    ) );
+    console.log( `el estatus de la operacion post en Form arrojó: ${ postCarpeta.status }`, );
   };
 
   return (
     <div className={form.container}>
       <form
         className={form.segmentColumn}
-        onSubmit={handleSubmit(
-          onSubmit 
-        )}
+        onSubmit={handleSubmit( onSubmit )}
       >
         <section className={form.segmentColumn}>
           <section className={form.segmentRow}>
@@ -332,20 +314,18 @@ export const Form = () => {
           />
           {demanda?.fechaPresentacion
             ? (
-                demanda.fechaPresentacion.map(
-                  (
-                    fechaP, index 
-                  ) => {
-                    return (
-                      <DateInputSection
-                        key={index}
-                        name={`demanda.fechaPresentacion.${ index }`}
-                        initialValue={fechaP}
-                        title={'fecha de presentacion de la demanda'}
-                      />
-                    );
-                  } 
-                )
+                demanda.fechaPresentacion.map( (
+                  fechaP, index 
+                ) => {
+                  return (
+                    <DateInputSection
+                      key={index}
+                      name={`demanda.fechaPresentacion.${ index }`}
+                      initialValue={fechaP}
+                      title={'fecha de presentacion de la demanda'}
+                    />
+                  );
+                } )
               )
             : (
                 <DateInputSection
@@ -358,19 +338,17 @@ export const Form = () => {
           <ObligacionesComponent />
           {demanda?.vencimientoPagare
             ? (
-                demanda.vencimientoPagare.map(
-                  (
-                    fechaVencimiento, index 
-                  ) => {
-                    return (
-                      <DateInputSection
-                        key={index}
-                        name={`demanda.vencimientoPagare.${ index }`}
-                        title={`Pagaré numero ${ index + 1 }`}
-                      />
-                    );
-                  } 
-                )
+                demanda.vencimientoPagare.map( (
+                  fechaVencimiento, index 
+                ) => {
+                  return (
+                    <DateInputSection
+                      key={index}
+                      name={`demanda.vencimientoPagare.${ index }`}
+                      title={`Pagaré numero ${ index + 1 }`}
+                    />
+                  );
+                } )
               )
             : (
                 <VencimientoPagareSection />

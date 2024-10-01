@@ -1,5 +1,4 @@
-.value,
-.valueCard {
+.value, .valueCard {
   display: flex;
   justify-content: space-between;
   align-items: stretch;

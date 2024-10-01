@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
 import { ActuacionesLoader } from '#@/components/Actuaciones/actuacion-loader';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { NombreComponent } from '#@/components/nombre';
@@ -11,23 +10,18 @@ import { JuzgadoComponent,
   JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
 import { Metadata } from 'next';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
+import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 
-export async function generateMetadata(
-  {
-    params,
-  }: {
+export async function generateMetadata( {
+  params,
+}: {
   params: { numero: string };
-} 
-): Promise<Metadata> {
+} ): Promise<Metadata> {
   const {
-    numero 
+    numero
   } = params;
 
-  const product = await getCarpetabyNumero(
-    Number(
-      numero 
-    ) 
-  );
+  const product = await getCarpetabyNumero( Number( numero ) );
 
   return {
     title: `${ numero } - ${ product.nombre }`,
@@ -42,44 +36,31 @@ export async function generateMetadata(
   };
 }
 
-async function ActuacionesListModalget(
-  {
-    idProceso 
-  }: { idProceso: number } 
-) {
-  const actuacionesPromise = getActuaciones(
-    {
-      idProceso: Number(
-        idProceso 
-      ),
-    } 
-  );
+async function ActuacionesListModalget( {
+  idProceso
+}: { idProceso: number } ) {
+  const actuacionesPromise = fetchActuaciones(   idProceso  );
 
   return (
-    <Suspense fallback={<ActuacionesLoader />}>
+    <Suspense fallback={ <ActuacionesLoader /> }>
+
       <ActuacionesListContainer actuacionesPromise={actuacionesPromise} />
     </Suspense>
   );
 }
 
-export default async function Page(
-  {
-    params,
-  }: {
+export default async function Page( {
+  params,
+}: {
   params: { numero: string; idProceso: string };
-} 
-) {
+} ) {
   if ( params.idProceso === 'idProceso' ) {
     return notFound();
   }
 
-  const carpetaNumero = Number(
-    params.numero 
-  );
+  const carpetaNumero = Number( params.numero );
 
-  const carpeta = await getCarpetabyNumero(
-    carpetaNumero 
-  );
+  const carpeta = await getCarpetabyNumero( carpetaNumero );
 
   return (
     <>
@@ -96,19 +77,19 @@ export default async function Page(
               <JuzgadoErrorComponent />
             )}
         <CopyButton
+          horizontal={true}
           copyTxt={carpeta.demanda.radicado ?? 'sin radicado'}
           name={'radicado'}
         />
         <CopyButton
+          horizontal={true}
           copyTxt={carpeta.llaveProceso}
           name={'expediente'}
         />
       </div>
 
       <Suspense fallback={<ModalLoader />}>
-        <ActuacionesListModalget idProceso={Number(
-          params.idProceso 
-        )} />
+        <ActuacionesListModalget idProceso={Number( params.idProceso )} />
       </Suspense>
     </>
   );

@@ -11,9 +11,7 @@ export async function GET() {
 
   const carpsLen = carpetas.length;
 
-  const daterFixer = InputDateHelper(
-    new Date() 
-  );
+  const daterFixer = InputDateHelper( new Date() );
 
   const defaultValues: NuevaCarpeta = {
     numero  : carpsLen + 1,
@@ -49,9 +47,8 @@ export async function GET() {
     },
   };
 
-  const stringCarpeta = JSON.stringify(
-    defaultValues 
-  );
+  const stringCarpeta = JSON.stringify( defaultValues );
+
   return new NextResponse(
     stringCarpeta, {
       status : 200,
@@ -62,30 +59,20 @@ export async function GET() {
   );
 }
 
-export async function PUT(
-  request: NextRequest 
-) {
+export async function PUT( request: NextRequest ) {
   const json = ( await request.json() ) as IntCarpeta;
 
   const client = await clientPromise;
 
   if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico' 
-    );
+    throw new Error( 'no hay cliente mongólico' );
   }
 
-  const db = client.db(
-    'RyS' 
-  );
+  const db = client.db( 'RyS' );
 
-  const collection = db.collection<IntCarpeta>(
-    'Carpetas' 
-  );
+  const collection = db.collection<IntCarpeta>( 'Carpetas' );
 
-  const insertCarpeta = await collection.insertOne(
-    json 
-  );
+  const insertCarpeta = await collection.insertOne( json );
 
   if ( !insertCarpeta.acknowledged ) {
     return new NextResponse(
@@ -96,9 +83,7 @@ export async function PUT(
     );
   }
 
-  return redirect(
-    `/Carpeta/${ json.numero }` 
-  );
+  return redirect( `/Carpeta/${ json.numero }` );
   /*  return new NextResponse(
     JSON.stringify(
       insertCarpeta.insertedId

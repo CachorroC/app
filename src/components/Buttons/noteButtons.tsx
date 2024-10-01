@@ -5,21 +5,17 @@ import type { Route } from 'next';
 import { deleteNota } from '#@/app/actions/main';
 import { Nota } from '@prisma/client';
 
-export function DeleteNoteButton(
-  {
-    id 
-  }: { id: string } 
-) {
+export function DeleteNoteButton( {
+  id 
+}: { id: string } ) {
   return (
     <>
       <button
         className={note.buttonDelete}
         onClick={() => {
-          return deleteNota(
-            {
-              id: id,
-            } 
-          );
+          return deleteNota( {
+            id: id,
+          } );
         }}
         type="button"
       >
@@ -28,11 +24,9 @@ export function DeleteNoteButton(
       <button
         className={note.buttonDelete}
         onClick={() => {
-          deleteNota(
-            {
-              id: id,
-            } 
-          );
+          deleteNota( {
+            id: id,
+          } );
         }}
         type="button"
       >
@@ -42,11 +36,9 @@ export function DeleteNoteButton(
   );
 }
 
-export function EditNoteButton(
-  {
-    nota 
-  }: { nota: Nota } 
-) {
+export function EditNoteButton( {
+  nota 
+}: { nota: Nota } ) {
   return (
     <Link
       className={note.buttonEdit}

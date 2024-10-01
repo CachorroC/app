@@ -1,7 +1,8 @@
 declare const styles: {
-  readonly switchBox: string;
-  readonly inputElement: string;
-  readonly slider: string;
-  readonly round: string;
+  readonly 'inputElement': string;
+  readonly 'round': string;
+  readonly 'slider': string;
+  readonly 'switchBox': string;
 };
 export = styles;
+

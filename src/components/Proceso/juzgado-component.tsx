@@ -5,18 +5,15 @@ import Link from 'next/link';
 import { Route } from 'next';
 import { JuzgadoClass } from '#@/lib/models/juzgado';
 
-export function JuzgadoTableComponent(
-  {
-    juzgado 
-  }: { juzgado: Juzgado } 
-) {
+export function JuzgadoTableComponent( {
+  juzgado 
+}: { juzgado: Juzgado } ) {
   const {
     tipo, url, id, ciudad 
   } = juzgado;
 
-  const indexOfTipo = tipo.search(
-    /([Ee][Jj][Ee][Cc])/gm 
-  );
+  const indexOfTipo = tipo.search( /([Ee][Jj][Ee][Cc])/gm );
+
   return (
     <td className={styles.container}>
       <h2 className={typography.titleSmall}>{`${
@@ -47,22 +44,17 @@ export function JuzgadoTableComponent(
   );
 }
 
-export function JuzgadoStringComponent(
-  {
-    juzgadoString,
-  }: {
+export function JuzgadoStringComponent( {
+  juzgadoString,
+}: {
   juzgadoString: string;
-} 
-) {
+} ) {
   const {
     tipo, url, id, ciudad 
-  } = JuzgadoClass.fromLongName(
-    juzgadoString 
-  );
+  } = JuzgadoClass.fromLongName( juzgadoString );
 
-  const indexOfTipo = tipo.search(
-    /([Ee][Jj][Ee][Cc])/gm 
-  );
+  const indexOfTipo = tipo.search( /([Ee][Jj][Ee][Cc])/gm );
+
   return (
     <div className={styles.container}>
       <h2 className={typography.titleSmall}>{`${
@@ -93,18 +85,15 @@ export function JuzgadoStringComponent(
   );
 }
 
-export function JuzgadoComponent(
-  {
-    juzgado 
-  }: { juzgado: Juzgado } 
-) {
+export function JuzgadoComponent( {
+  juzgado 
+}: { juzgado: Juzgado } ) {
   const {
     tipo, url, id, ciudad 
   } = juzgado;
 
-  const indexOfTipo = tipo.search(
-    /([Ee][Jj][Ee][Cc])/gm 
-  );
+  const indexOfTipo = tipo.search( /([Ee][Jj][Ee][Cc])/gm );
+
   return (
     <div className={styles.container}>
       <h2 className={typography.titleSmall}>{`${

@@ -30825,16 +30825,10 @@ export const Despachos = [
   },
 ];
 
-export function transformDespacho(
-  juzgado: Juzgado 
-) {
-  const matchedDespacho = Despachos.filter(
-    (
-      despacho 
-    ) => {
-      return despacho.nombre.trim() === juzgado.tipo.trim();
-    } 
-  );
+export function transformDespacho( juzgado: Juzgado ) {
+  const matchedDespacho = Despachos.filter( ( despacho ) => {
+    return despacho.nombre.trim() === juzgado.tipo.trim();
+  } );
 
   if ( matchedDespacho.length > 0 ) {
     const newJuzgado: Juzgado = {

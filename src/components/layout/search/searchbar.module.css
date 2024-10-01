@@ -1,6 +1,4 @@
-.searchBarLink,
-.isActive,
-.notActive,
+.searchBarLink, .isActive, .notActive,
 .link,
 .searchBarLinkIsActive,
 .linkIsActive,
@@ -19,9 +17,7 @@
   border-radius: 2vmin;
   text-align: center;
 }
-.searchBarLink .date,
-.isActive .date,
-.notActive .date,
+.searchBarLink .date, .isActive .date, .notActive .date,
 .link .date,
 .searchBarLinkIsActive .date,
 .linkIsActive .date,
@@ -35,9 +31,7 @@
   border-radius: 2vmin;
   align-self: center;
 }
-.searchBarLink .sub,
-.isActive .sub,
-.notActive .sub,
+.searchBarLink .sub, .isActive .sub, .notActive .sub,
 .link .sub,
 .searchBarLinkIsActive .sub,
 .linkIsActive .sub,
@@ -75,8 +69,7 @@
   display: flex;
   flex-flow: row nowrap;
 }
-.searchContainer .input,
-.searchContainer .inputContainer {
+.searchContainer .input, .searchContainer .inputContainer {
   color: var(--on-surface-variant);
   border: none;
   text-decoration: none;
@@ -85,8 +78,7 @@
   position: relative;
   border-radius: var(--shape-corner-extra-large-start);
 }
-.searchContainer .input:before,
-.searchContainer .inputContainer:before {
+.searchContainer .input:before, .searchContainer .inputContainer:before {
   position: absolute;
   width: 100%;
   border-radius: var(--shape-corner-extra-large-start);
@@ -94,7 +86,7 @@
   top: 0;
   background-color: var(--on-surface);
   left: 0;
-  content: '';
+  content: "";
   opacity: 0;
 }
 .searchContainer .inputContainer {
@@ -102,21 +94,11 @@
   width: 100%;
   margin-bottom: 15px;
 }
-.searchContainer .input:hover,
-.searchContainer .inputContainer:hover,
-.searchContainer .input:active,
-.searchContainer .inputContainer:active,
-.searchContainer .input:focus,
-.searchContainer .inputContainer:focus {
+.searchContainer .input:hover, .searchContainer .inputContainer:hover, .searchContainer .input:active, .searchContainer .inputContainer:active, .searchContainer .input:focus, .searchContainer .inputContainer:focus {
   box-shadow: var(--dp4);
   background-color: var(--primary-container);
 }
-.searchContainer .input:hover:before,
-.searchContainer .inputContainer:hover:before,
-.searchContainer .input:active:before,
-.searchContainer .inputContainer:active:before,
-.searchContainer .input:focus:before,
-.searchContainer .inputContainer:focus:before {
+.searchContainer .input:hover:before, .searchContainer .inputContainer:hover:before, .searchContainer .input:active:before, .searchContainer .inputContainer:active:before, .searchContainer .input:focus:before, .searchContainer .inputContainer:focus:before {
   opacity: 0.08;
 }
 .searchContainer .icon {
@@ -133,18 +115,14 @@
   top: 0;
   background-color: var(--on-surface);
   left: 0;
-  content: '';
+  content: "";
   border-radius: var(--shape-corner-extra-large-end);
   opacity: 0;
 }
-.searchContainer .icon:hover,
-.searchContainer .icon:active,
-.searchContainer .icon:focus {
+.searchContainer .icon:hover, .searchContainer .icon:active, .searchContainer .icon:focus {
   box-shadow: var(--dp4);
 }
-.searchContainer .icon:hover:before,
-.searchContainer .icon:active:before,
-.searchContainer .icon:focus:before {
+.searchContainer .icon:hover:before, .searchContainer .icon:active:before, .searchContainer .icon:focus:before {
   opacity: 0.08;
 }
 
@@ -156,11 +134,7 @@
   box-shadow: var(--dp3);
 }
 .inputForm > .icon {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 200,
-    'GRAD' 0,
-    'opsz' 24;
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
   color: var(--secondary);
 }
 .inputForm:link {
@@ -177,11 +151,7 @@
   border: 3px solid var(--outline);
 }
 .inputForm:hover > .icon {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 600,
-    'GRAD' 200,
-    'opsz' 48;
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 48;
   color: var(--secondary);
 }
 

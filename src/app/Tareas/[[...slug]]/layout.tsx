@@ -6,15 +6,13 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { AddTask } from '#@/components/Tareas/AddTask';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 
-export default async function Layout(
-  {
-    params,
-    children,
-  }: {
+export default async function Layout( {
+  params,
+  children,
+}: {
   params: { slug?: string[] };
   children: ReactNode;
-} 
-) {
+} ) {
   let title;
 
   if ( params.slug ) {
@@ -23,16 +21,11 @@ export default async function Layout(
       mes,
       dia
     ] = params.slug;
+
     title = (
       <OutputDateHelper
         incomingDate={new Date(
-          Number(
-            ano 
-          ), Number(
-            mes 
-          ) - 1, Number(
-            dia 
-          ) 
+          Number( ano ), Number( mes ) - 1, Number( dia ) 
         )}
       />
     );

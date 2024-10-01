@@ -3,11 +3,9 @@ import { usePathname } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 
-export default function Title(
-  {
-    helper 
-  }: { helper?: string } 
-) {
+export default function Title( {
+  helper 
+}: { helper?: string } ) {
   const pathname = usePathname();
 
   const today = new Date();
@@ -24,9 +22,7 @@ export default function Title(
 
   const txt = helper
     ? helper
-    : days[ today.getDay() ] + ' ' + fixFechas(
-      today.toString() 
-    );
+    : days[ today.getDay() ] + ' ' + fixFechas( today.toString() );
 
   return (
     <h1 className={typography.titleSmall}>

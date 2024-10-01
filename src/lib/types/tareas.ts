@@ -1,4 +1,5 @@
-export interface NewTask {
+export interface NewTask
+{
   carpetaNumero: number | null;
   content: string[];
   done: boolean;
@@ -66,35 +67,19 @@ export type TaskAction =
 
 // Converts JSON strings to/from your types
 export class tareaConvert {
-  public static toTarea(
-    json: string 
-  ): IntTask {
-    return JSON.parse(
-      json 
-    );
+  public static toTarea( json: string ): IntTask {
+    return JSON.parse( json );
   }
 
-  public static tareaToJson(
-    value: IntTask 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static tareaToJson( value: IntTask ): string {
+    return JSON.stringify( value );
   }
 
-  public static toSubTarea(
-    json: string 
-  ): SubTarea {
-    return JSON.parse(
-      json 
-    );
+  public static toSubTarea( json: string ): SubTarea {
+    return JSON.parse( json );
   }
 
-  public static subTareaToJson(
-    value: SubTarea 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static subTareaToJson( value: SubTarea ): string {
+    return JSON.stringify( value );
   }
 }

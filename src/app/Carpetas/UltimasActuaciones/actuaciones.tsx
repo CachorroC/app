@@ -1,5 +1,6 @@
-import { getActuaciones } from '#@/lib/project/utils/Actuaciones/actuaciones-main';
+
 import { ActuacionesSlideshowContainer } from '#@/components/Actuaciones/actuaciones-slideshow';
+import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 
 /*
 async function getData(
@@ -66,18 +67,12 @@ async function getData(
 }
 
  */
-export async function FechaActuacionComponent(
-  {
-    idProceso,
-  }: {
+export async function FechaActuacionComponent( {
+  idProceso,
+}: {
   idProceso: number;
-} 
-) {
-  const promiseActs = getActuaciones(
-    {
-      idProceso: idProceso,
-    } 
-  );
+} ) {
+  const promiseActs = fetchActuaciones( idProceso );
 
   return (
     <ActuacionesSlideshowContainer

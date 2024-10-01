@@ -8,13 +8,11 @@ import { gridContainer } from '#@/styles/layout.module.css';
 import { ActuacionComponent } from './actuacion-component';
 import { ActuacionTableErrorComponent } from './actuacion-table-component';
 
-export function ActuacionesListContainer(
-  {
-    actuacionesPromise,
-  }: {
-  actuacionesPromise: Promise<outActuacion[]>;
-} 
-) {
+export function ActuacionesListContainer( {
+  actuacionesPromise,
+}: {
+  actuacionesPromise: Promise<outActuacion[]| null>;
+} ) {
   return (
     <ErrorBoundary fallback={<ActuacionTableErrorComponent />}>
       <Suspense fallback={<ActuacionesLoader />}>
@@ -24,31 +22,25 @@ export function ActuacionesListContainer(
   );
 }
 
-export function ActuacionesList(
-  {
-    actuacionesPromise,
-  }: {
-  actuacionesPromise: Promise<outActuacion[]>;
-} 
-) {
-  const actuaciones = use(
-    actuacionesPromise 
-  );
+export function ActuacionesList( {
+  actuacionesPromise,
+}: {
+  actuacionesPromise: Promise<outActuacion[]| null>;
+} ) {
+  const actuaciones = use( actuacionesPromise );
 
   return (
     <div className={gridContainer}>
-      {actuaciones.map(
-        (
-          actuacion 
-        ) => {
+      {actuaciones
+        ? actuaciones.map( ( actuacion ) => {
           return (
             <ActuacionComponent
               key={actuacion.idRegActuacion}
               incomingActuacion={actuacion}
             />
           );
-        } 
-      )}
+        } )
+        : <ActuacionTableErrorComponent />}
     </div>
   );
 }

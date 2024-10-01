@@ -1,9 +1,4 @@
-.button,
-.buttonChip,
-.buttonActuacion,
-.buttonPassiveCategory,
-.buttonActiveCategory,
-.buttonEdit {
+.button, .buttonChip, .buttonActuacion, .buttonPassiveCategory, .buttonActiveCategory, .buttonEdit {
   border: 0.07rem solid var(--outline);
   box-sizing: border-box;
   padding: 0.5rem;
@@ -18,18 +13,13 @@
   transition: all 0.3s;
   position: relative;
 }
-.button:hover:before,
-.buttonChip:hover:before,
-.buttonActuacion:hover:before,
-.buttonPassiveCategory:hover:before,
-.buttonActiveCategory:hover:before,
-.buttonEdit:hover:before {
+.button:hover:before, .buttonChip:hover:before, .buttonActuacion:hover:before, .buttonPassiveCategory:hover:before, .buttonActiveCategory:hover:before, .buttonEdit:hover:before {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  content: '';
+  content: "";
   opacity: 0.08;
 }
 .buttonEdit {
@@ -43,16 +33,14 @@
   color: var(--on-secondary-container);
   border: 0.02rem solid var(--outline);
 }
-.buttonActiveCategory > .icon,
-.buttonActiveCategory > .text {
+.buttonActiveCategory > .icon, .buttonActiveCategory > .text {
   color: var(--on-secondary-container);
 }
 .buttonActiveCategory:hover:before {
   opacity: 0.08;
   background-color: var(--on-secondary-container);
 }
-.buttonActiveCategory:focus:before,
-.buttonActiveCategory:active:before {
+.buttonActiveCategory:focus:before, .buttonActiveCategory:active:before {
   opacity: 0.1;
   background-color: var(--on-secondary-container);
 }
@@ -73,8 +61,7 @@
   opacity: 0.08;
   background-color: var(--on-secondary-container);
 }
-.buttonPassiveCategory:focus:before,
-.buttonPassiveCategory:active:before {
+.buttonPassiveCategory:focus:before, .buttonPassiveCategory:active:before {
   opacity: 0.1;
   background-color: var(--on-secondary-container);
 }
@@ -86,16 +73,11 @@
   flex: 0 1 auto;
   box-sizing: border-box;
 }
-.button:hover:before,
-.buttonEdit:hover:before,
-.buttonActiveCategory:hover:before,
-.buttonPassiveCategory:hover:before,
-.buttonActuacion:hover:before,
-.buttonChip:hover:before {
+.button:hover:before, .buttonEdit:hover:before, .buttonActiveCategory:hover:before, .buttonPassiveCategory:hover:before, .buttonActuacion:hover:before, .buttonChip:hover:before {
   position: absolute;
   width: 100%;
   height: 100%;
-  content: '';
+  content: "";
   top: 0;
   left: 0;
   opacity: 0.08;
@@ -123,12 +105,8 @@
 }
 .snackbar.show {
   visibility: visible;
-  -webkit-animation:
-    fadein 0.5s,
-    fadeout 0.5s 2.5s;
-  animation:
-    fadein 0.5s,
-    fadeout 0.5s 2.5s;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
 @-webkit-keyframes fadein {

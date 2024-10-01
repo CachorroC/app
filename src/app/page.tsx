@@ -3,6 +3,7 @@ import Link from 'next/link';
 import typography from '#@/styles/fonts/typography.module.css';
 import { Calendar } from '#@/components/Calendar/main';
 import { Route } from 'next';
+import { InstallPrompt, PushNotificationManager } from './notification-components';
 
 export default function Page() {
   return (
@@ -12,7 +13,11 @@ export default function Page() {
           {'R&S Asesoría Jurídica S.A.S'}
         </h1>
       </div>
-      <div className={layout.leftGrid}>
+      <div className={ layout.leftGrid }>
+        <div>
+          <PushNotificationManager />
+          <InstallPrompt />
+        </div>
         <Link
           className={layout.button}
           href={'/Carpetas/UltimasActuaciones' as Route}

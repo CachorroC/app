@@ -1,6 +1,6 @@
 'use client';
 import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
-import { Suspense, useDeferredValue } from 'react';
+import { Suspense } from 'react';
 import { ClientCardRow } from '#@/components/Card/client-card';
 import { Route } from 'next';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
@@ -15,12 +15,8 @@ import { JuzgadoComponent,
 
 export function CarpetasTable() {
   const {
-    carpetas 
+    carpetas
   } = useCarpetaSort();
-
-  const deferredCarpetas = useDeferredValue(
-    carpetas 
-  );
 
   return (
     <table>
@@ -44,95 +40,84 @@ export function CarpetasTable() {
         </tr>
       </thead>
       <tbody>
-        {deferredCarpetas.flatMap(
-          (
-            carpeta 
-          ) => {
-            const {
-              ultimaActuacion,
-              numero,
-              nombre,
-              category,
-              fecha,
-              llaveProceso,
-              revisado,
-              juzgado,
-            } = carpeta;
+        {carpetas.map( ( carpeta ) => {
+          const {
+            ultimaActuacion,
+            numero,
+            nombre, id,
+            category,
+            fecha,
+            llaveProceso,
+            revisado,
+            juzgado,
+          } = carpeta;
 
-            let words = nombre.split(
-              ' ' 
-            )
-              .map(
-                (
-                  palabra 
-                ) => {
-                  return (
-                    palabra.charAt(
-                      0 
-                    )
-                      .toUpperCase()
+          let words = nombre.split( ' ' )
+            .map( ( palabra ) => {
+              return (
+                palabra.charAt( 0 )
+                  .toUpperCase()
               + palabra.toLowerCase()
-                .substring(
-                  1 
-                )
-                  );
-                } 
+                .substring( 1 )
               );
+            } )
+            .join( ' ' );
 
-            return (
-              <ClientCardRow
-                key={numero}
-                rowHref={`/Carpeta/${ numero }` as Route}
-                carpeta={carpeta}
-              >
-                <td>{words.join(
-                  ' ' 
-                )}</td>
 
-                <td>{category}</td>
 
-                {ultimaActuacion
+          return (
+            <ClientCardRow
+              key={numero}
+              rowHref={`/Carpeta/${ numero }` as Route}
+              carpeta={carpeta}
+            >
+              <td>{words}</td>
+
+              <td>{category}</td>
+
+              {ultimaActuacion
+                ? (
+                    <ActuacionTableComponent
+                      numero={numero}
+                      title={ultimaActuacion.actuacion}
+                      content={ultimaActuacion.anotacion}
+                      idProceso={ultimaActuacion.idProceso}
+                    />
+                  )
+                : (
+                    <ActuacionTableErrorComponent />
+                  )}
+
+              <td>
+                <RevisadoCheckBox
+                  numero={ numero }
+                  id={id}
+                  initialRevisadoState={revisado}
+                />
+              </td>
+              <td>
+                <CopyButton
+                  copyTxt={llaveProceso}
+                  name={'expediente'}
+                />
+              </td>
+              <td>
+                <OutputDateHelper incomingDate={fecha} />
+              </td>
+              <td>{carpeta.demanda.municipio}</td>
+              <td>
+                {juzgado
                   ? (
-                      <ActuacionTableComponent
-                        numero={numero}
-                        title={ultimaActuacion.actuacion}
-                        content={ultimaActuacion.anotacion}
-                        idProceso={ultimaActuacion.idProceso}
-                      />
+                      <JuzgadoComponent juzgado={juzgado} />
                     )
                   : (
-                      <ActuacionTableErrorComponent />
+                      <JuzgadoErrorComponent />
                     )}
+              </td>
+            </ClientCardRow>
+          );
 
-                <td>
-                  <RevisadoCheckBox
-                    numero={numero}
-                    initialRevisadoState={revisado}
-                  />
-                </td>
-                <td>
-                  <CopyButton
-                    copyTxt={llaveProceso}
-                    name={'expediente'}
-                  />
-                </td>
-                <td>
-                  <OutputDateHelper incomingDate={fecha} />
-                </td>
-                <td>{carpeta.demanda.municipio}</td>
-                <td>
-                  {juzgado
-                    ? (
-                        <JuzgadoComponent juzgado={juzgado} />
-                      )
-                    : (
-                        <JuzgadoErrorComponent />
-                      )}
-                </td>
-              </ClientCardRow>
-            );
-          } 
-        )}
+        } )}
       </tbody>
     </table>
   );

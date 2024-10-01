@@ -4,20 +4,19 @@ import { NuevaCarpetaFormProvider } from '../Context/nueva-carpeta-form-context'
 import { CarpetasSortProvider } from '../Context/carpetas-sort-context';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 
-export default async function LayoutProcesosMain(
-  {
-    children,
-    top,
-    right,
-    modal,
-  }: {
+export default async function LayoutProcesosMain( {
+  children,
+  top,
+  right,
+  modal,
+}: {
   children: ReactNode;
   top: ReactNode;
   right: ReactNode;
   modal: ReactNode;
-} 
-) {
+} ) {
   const carpetas = await getCarpetas();
+
   return (
     <CarpetasSortProvider initialCarpetas={carpetas}>
       <NuevaCarpetaFormProvider>

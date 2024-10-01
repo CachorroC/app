@@ -7,13 +7,11 @@ import styles from '#@/components/Card/card.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 import { outActuacion } from '#@/lib/types/actuaciones';
 
-export function ActuacionContainer(
-  {
-    actuacionPromise,
-  }: {
+export function ActuacionContainer( {
+  actuacionPromise,
+}: {
   actuacionPromise: Promise<outActuacion>;
-} 
-) {
+} ) {
   return (
     <Suspense fallback={<ActuacionLoader />}>
       <ActuacionClientComponent actuacionPromise={actuacionPromise} />
@@ -21,19 +19,16 @@ export function ActuacionContainer(
   );
 }
 
-export function ActuacionClientComponent(
-  {
-    actuacionPromise,
-  }: {
+export function ActuacionClientComponent( {
+  actuacionPromise,
+}: {
   actuacionPromise: Promise<outActuacion>;
-} 
-) {
+} ) {
   const {
     actuacion, anotacion, fechaActuacion, consActuacion, cant 
   }
-    = use(
-      actuacionPromise 
-    );
+    = use( actuacionPromise );
+
   return (
     <>
       <td>
@@ -47,9 +42,7 @@ export function ActuacionClientComponent(
       <td>
         <sub
           className={typography.labelMedium}
-        >{`actuacion registrada el ${ fixFechas(
-            fechaActuacion 
-          ) }`}</sub>
+        >{`actuacion registrada el ${ fixFechas( fechaActuacion ) }`}</sub>
         {anotacion && (
           <p className={` ${ styles.anotacion } ${ typography.bodyMedium }`}>
             {anotacion}

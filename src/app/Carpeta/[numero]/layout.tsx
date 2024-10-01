@@ -11,22 +11,16 @@ import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import { ExpedienteFormComponent } from './expediente-form-component';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 
-export async function generateMetadata(
-  {
-    params,
-  }: {
+export async function generateMetadata( {
+  params,
+}: {
   params: { numero: string };
-} 
-): Promise<Metadata> {
+} ): Promise<Metadata> {
   const {
-    numero 
+    numero
   } = params;
 
-  const product = await getCarpetabyNumero(
-    Number(
-      numero 
-    ) 
-  );
+  const product = await getCarpetabyNumero( Number( numero ) );
 
   if ( !product ) {
     return {
@@ -46,24 +40,18 @@ export async function generateMetadata(
   };
 }
 
-export default async function LayoutCarpetaMain(
-  {
-    children,
-    top,
-    right,
-    params,
-  }: {
+export default async function LayoutCarpetaMain( {
+  children,
+  top,
+  right,
+  params,
+}: {
   children: ReactNode;
   top: ReactNode;
   right: ReactNode;
   params: { numero: string };
-} 
-) {
-  const carpeta = await getCarpetabyNumero(
-    Number(
-      params.numero 
-    ) 
-  );
+} ) {
+  const carpeta = await getCarpetabyNumero( Number( params.numero ) );
 
   if ( !carpeta ) {
     return notFound();
@@ -101,11 +89,8 @@ export default async function LayoutCarpetaMain(
         <Suspense fallback={<Loader />}>{right}</Suspense>
         <Suspense fallback={<Loader />}>
           <ExpedienteFormComponent
-            initialLLave={carpeta.llaveProceso}
-            numero={Number(
-              params.numero 
-            )}
-          />
+            initialLLave={ carpeta.llaveProceso }
+            numero={ Number( params.numero ) } id={ carpeta.id }          />
         </Suspense>
       </div>
     </CarpetaFormProvider>

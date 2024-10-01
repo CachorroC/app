@@ -5,17 +5,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
-export default function ActiveLink(
-  {
-    isActive,
-    searchParams,
-    children,
-  }: {
+export default function ActiveLink( {
+  isActive,
+  searchParams,
+  children,
+}: {
   isActive: boolean;
   searchParams: string;
   children: ReactNode;
-} 
-) {
+} ) {
   const pathname = usePathname();
 
   return (

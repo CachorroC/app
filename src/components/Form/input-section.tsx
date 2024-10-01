@@ -13,13 +13,12 @@ import styles from './form.module.css';
 import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 import { useCarpetaFormContext } from '#@/app/Context/carpeta-form-context';
 
-export function InputSection(
-  {
-    name,
-    title,
-    type,
-    rls,
-  }: {
+export function InputSection( {
+  name,
+  title,
+  type,
+  rls,
+}: {
   name: FieldPath<NuevaCarpeta | IntCarpeta>;
   title: string;
   type: HTMLInputTypeAttribute;
@@ -27,8 +26,7 @@ export function InputSection(
     RegisterOptions<NuevaCarpeta | IntCarpeta, any>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
-} 
-) {
+} ) {
   const {
     control, getValues 
   } = useFormContext<NuevaCarpeta | IntCarpeta>();
@@ -37,9 +35,7 @@ export function InputSection(
     required: false,
   };
 
-  const propValues = getValues(
-    name 
-  );
+  const propValues = getValues( name );
 
   let isInCarpeta;
 
@@ -47,9 +43,7 @@ export function InputSection(
 
   if ( !propValues || propValues === null || propValues === undefined ) {
     isInCarpeta = false;
-    console.log(
-      `prop values is ${ propValues }` 
-    );
+    console.log( `prop values is ${ propValues }` );
   } else {
     isInCarpeta = true;
   }
@@ -57,19 +51,16 @@ export function InputSection(
   const [
     hasProperty,
     setHasProperty
-  ] = useState(
-    isInCarpeta 
-  );
+  ] = useState( isInCarpeta );
 
   const {
     field, fieldState 
-  } = useController(
-    {
-      name,
-      control,
-      rules,
-    } 
-  );
+  } = useController( {
+    name,
+    control,
+    rules,
+  } );
+
   return (
     <div className={layout.sectionRow}>
       <label className={styles.switchBox}>
@@ -78,12 +69,8 @@ export function InputSection(
           name={`${ name }.hasProperty`}
           checked={hasProperty}
           type="checkbox"
-          onChange={(
-            e 
-          ) => {
-            setHasProperty(
-              e.target.checked 
-            );
+          onChange={( e ) => {
+            setHasProperty( e.target.checked );
           }}
         />
         <span className={styles.slider}></span>
@@ -97,19 +84,13 @@ export function InputSection(
           <input
             name={field.name}
             id={id + field.name}
-            value={String(
-              field.value 
-            ) ?? undefined}
+            value={String( field.value ) ?? undefined}
             ref={field.ref}
             type={type}
             placeholder={title}
             className={form.textArea}
-            onChange={(
-              e 
-            ) => {
-              field.onChange(
-                e.target.value 
-              );
+            onChange={( e ) => {
+              field.onChange( e.target.value );
             }}
           />
         </label>
@@ -121,18 +102,17 @@ export function InputSection(
   );
 }
 
-export function NewInputSection(
-  {
-    name,
-    title,
-  }: {
+export function NewInputSection( {
+  name,
+  title,
+}: {
   name: 'nombre' | 'category' | 'llaveProceso' | 'tipoProceso';
   title: string;
-} 
-) {
+} ) {
   const {
     carpetaFormState, setCarpetaFormState 
   } = useCarpetaFormContext();
+
   return (
     <div className={layout.sectionRow}>
       <label
@@ -147,15 +127,11 @@ export function NewInputSection(
         type="text"
         placeholder={title}
         className={form.textArea}
-        onChange={(
-          e 
-        ) => {
-          return setCarpetaFormState(
-            {
-              ...carpetaFormState,
-              [ name ]: e.target.value,
-            } 
-          );
+        onChange={( e ) => {
+          return setCarpetaFormState( {
+            ...carpetaFormState,
+            [ name ]: e.target.value,
+          } );
         }}
       />
     </div>

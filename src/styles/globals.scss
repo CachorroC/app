@@ -77,14 +77,14 @@
   --body-small-line-height: 16pt;
   --body-small-letter-spacing: 0.4pt;
 
-  --label-large-font-family-name: var(--radio);
+  --label-large-font-family-name: var(--raleway);
   --label-large-font-family-style: Medium;
-  --label-large-font-weight: 500;
+  --label-large-font-weight: 800;
   --label-large-font-size: 1rem;
   --label-large-line-height: 20px;
   --label-large-letter-spacing: 0.1px;
 
-  --label-medium-font-family-name: var(--radio);
+  --label-medium-font-family-name: var(--ptserif);
   --label-medium-font-family-style: Medium;
   --label-medium-font-weight: 500;
   --label-medium-font-size: 0.8rem;
@@ -374,11 +374,7 @@ body {
   align-content: center;
 }
 .material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
   font-size: 1.5rem;
 }
 

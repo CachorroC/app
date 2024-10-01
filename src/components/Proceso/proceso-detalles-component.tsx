@@ -4,25 +4,18 @@ import checkboxStyles from '../Form/checkbox/styles.module.css';
 import { DetalleProceso } from '#@/lib/types/procesos';
 import { consultaProcesoDetalleURL } from '#@/lib/project/utils/main';
 
-export async function ProcesoTableDetalleComponent(
-  {
-    idProceso,
-  }: {
+export async function ProcesoTableDetalleComponent( {
+  idProceso,
+}: {
   idProceso: number;
-} 
-) {
-  const urlNameMaker = consultaProcesoDetalleURL(
-    idProceso 
-  );
+} ) {
+  const urlNameMaker = consultaProcesoDetalleURL( idProceso );
 
-  const fetchProc = await fetch(
-    urlNameMaker 
-  );
+  const fetchProc = await fetch( urlNameMaker );
 
   if ( !fetchProc.ok ) {
-    console.log(
-      `proceso detalle failer with error: ${ fetchProc.statusText }` 
-    );
+    console.log( `proceso detalle failer with error: ${ fetchProc.statusText }` );
+
     return null;
   }
 
@@ -45,6 +38,7 @@ export async function ProcesoTableDetalleComponent(
     recurso,
     subclaseProceso,
   } = fetchDetails;
+
   return (
     <>
       <td>{claseProceso}</td>
@@ -61,9 +55,7 @@ export async function ProcesoTableDetalleComponent(
         </label>
       </td>
       <td>
-        {new Date(
-          fechaConsulta 
-        )
+        {new Date( fechaConsulta )
           .toLocaleDateString(
             'es-co', {
               weekday: 'long',
@@ -74,9 +66,7 @@ export async function ProcesoTableDetalleComponent(
           )}
       </td>
       <td>
-        {new Date(
-          fechaProceso 
-        )
+        {new Date( fechaProceso )
           .toLocaleDateString(
             'es-co', {
               weekday: 'long',
@@ -103,9 +93,7 @@ export async function ProcesoTableDetalleComponent(
       <td>{tipoProceso}</td>
       <td>{ubicacion}</td>
       <td>
-        {new Date(
-          ultimaActualizacion 
-        )
+        {new Date( ultimaActualizacion )
           .toLocaleDateString(
             'es-co', {
               weekday: 'long',

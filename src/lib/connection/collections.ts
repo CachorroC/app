@@ -8,18 +8,12 @@ export async function carpetasCollection() {
   const client = await clientPromise;
 
   if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico' 
-    );
+    throw new Error( 'no hay cliente mongólico' );
   }
 
-  const db = client.db(
-    'RyS' 
-  );
+  const db = client.db( 'RyS' );
 
-  const carpetas = db.collection<IntCarpeta>(
-    'Carpetas' 
-  );
+  const carpetas = db.collection<IntCarpeta>( 'Carpetas' );
 
   return carpetas;
 }
@@ -28,18 +22,12 @@ export async function pruebasCollection() {
   const client = await clientPromise;
 
   if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico' 
-    );
+    throw new Error( 'no hay cliente mongólico' );
   }
 
-  const db = client.db(
-    'RyS' 
-  );
+  const db = client.db( 'RyS' );
 
-  const carpetas = db.collection<IntCarpeta>(
-    'Activas' 
-  );
+  const carpetas = db.collection<IntCarpeta>( 'Activas' );
 
   return carpetas;
 }
@@ -48,18 +36,12 @@ export async function tareasCollection() {
   const client = await clientPromise;
 
   if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico' 
-    );
+    throw new Error( 'no hay cliente mongólico' );
   }
 
-  const db = client.db(
-    'RyS' 
-  );
+  const db = client.db( 'RyS' );
 
-  const notas = db.collection<NewTask>(
-    'Tareas' 
-  );
+  const notas = db.collection<NewTask>( 'Tareas' );
 
   return notas;
 }
@@ -68,18 +50,12 @@ export async function notasCollection() {
   const client = await clientPromise;
 
   if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico' 
-    );
+    throw new Error( 'no hay cliente mongólico' );
   }
 
-  const db = client.db(
-    'RyS' 
-  );
+  const db = client.db( 'RyS' );
 
-  const notas = db.collection<NewNota>(
-    'Notas' 
-  );
+  const notas = db.collection<NewNota>( 'Notas' );
 
   return notas;
 }
@@ -88,18 +64,12 @@ export async function facturasCollection() {
   const client = await clientPromise;
 
   if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico' 
-    );
+    throw new Error( 'no hay cliente mongólico' );
   }
 
-  const db = client.db(
-    'Contabilidad' 
-  );
+  const db = client.db( 'Contabilidad' );
 
-  const facturas = db.collection<intFactura>(
-    'Facturas' 
-  );
+  const facturas = db.collection<intFactura>( 'Facturas' );
 
   return facturas;
 }

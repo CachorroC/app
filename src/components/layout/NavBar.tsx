@@ -10,7 +10,7 @@ import { Suspense } from 'react';
 
 export const NavBar = () => {
   const {
-    isNavOpen 
+    isNavOpen
   } = useNavigationContext();
 
   const newYear = new Date()
@@ -30,7 +30,7 @@ export const NavBar = () => {
         key={'home'}
         iconLabel={'home'}
         textLabel={'Inicio'}
-        hrefLabel="/"
+        hrefLabel={'/' as Route}
       />
       <NavLink
         iconLabel={'gavel'}
@@ -57,7 +57,7 @@ export const NavBar = () => {
             <NavLink
               iconLabel={'home'}
               textLabel={'Inicio'}
-              hrefLabel="/"
+              hrefLabel={'/' as Route}
             />
             <NavLink
               iconLabel={'park'}

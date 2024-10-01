@@ -7,32 +7,27 @@ import { updateNotaTextState } from './actions';
 import { containerEnabled } from '#@/components/Card/outlined.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 
-export function Nota(
-  {
-    nota,
-    children,
-  }: {
+export function Nota( {
+  nota,
+  children,
+}: {
   nota: IntNota;
   children: ReactNode;
-} 
-) {
+} ) {
   const [
     isEditing,
     setIsEditing
-  ] = useState(
-    false 
-  );
+  ] = useState( false );
 
   const [
     notaState,
     setNotaState
-  ] = useState(
-    {
-      ...nota,
-    } 
-  );
+  ] = useState( {
+    ...nota,
+  } );
 
   const dispatch = useNotaSortDispatch();
+
   let notaContent;
 
   if ( isEditing ) {
@@ -40,56 +35,40 @@ export function Nota(
       <>
         <input
           value={notaState.text}
-          onChange={(
-            e 
-          ) => {
-            return setNotaState(
-              {
-                ...notaState,
-                text: e.target.value,
-              } 
-            );
+          onChange={( e ) => {
+            return setNotaState( {
+              ...notaState,
+              text: e.target.value,
+            } );
           }}
         />
         <input
           value={notaState.id}
-          onChange={(
-            e 
-          ) => {
-            return setNotaState(
-              {
-                ...notaState,
-                id: notaState.carpetaNumero
-                  ? `${ notaState.carpetaNumero }-${ e.target.value }`
-                  : `NC-${ e.target.value }`,
-              } 
-            );
+          onChange={( e ) => {
+            return setNotaState( {
+              ...notaState,
+              id: notaState.carpetaNumero
+                ? `${ notaState.carpetaNumero }-${ e.target.value }`
+                : `NC-${ e.target.value }`,
+            } );
           }}
         />
         <button
           type="button"
           onClick={async () => {
-            const revis = await updateNotaTextState(
-              notaState 
-            );
-            alert(
-              JSON.stringify(
-                revis 
-              ) 
-            );
+            const revis = await updateNotaTextState( notaState );
 
-            dispatch(
-              {
-                type: 'changed',
-                nota: {
-                  ...notaState,
-                  ...revis,
-                },
-              } 
-            );
-            return setIsEditing(
-              false 
-            );
+            alert( JSON.stringify( revis ) );
+
+            dispatch( {
+              type: 'changed',
+              nota: {
+                ...notaState,
+                ...revis,
+              },
+            } );
+
+            return setIsEditing( false );
           }}
         >
           Save
@@ -103,9 +82,7 @@ export function Nota(
         <button
           type="button"
           onClick={() => {
-            return setIsEditing(
-              true 
-            );
+            return setIsEditing( true );
           }}
         >
           Edit
@@ -123,12 +100,10 @@ export function Nota(
       <button
         type="button"
         onClick={() => {
-          dispatch(
-            {
-              type: 'deleted',
-              id  : nota.id,
-            } 
-          );
+          dispatch( {
+            type: 'deleted',
+            id  : nota.id,
+          } );
         }}
       >
         Delete

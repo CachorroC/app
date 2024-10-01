@@ -5,20 +5,17 @@ import formStyles from '../Form/form.module.css';
 import styles from './styles.module.css';
 import { editNotificacion } from './actions';
 
-export function NotificacionComponent(
-  {
-    notificacion,
-  }: {
+export function NotificacionComponent( {
+  notificacion,
+}: {
   notificacion: Notificacion;
-} 
-) {
+} ) {
   const [
     notificacionState,
     setNotificacionState
   ]
-    = useState<Notificacion>(
-      notificacion 
-    );
+    = useState<Notificacion>( notificacion );
+
   return (
     <div className={styles.notificacionComponent}>
       <h2>Notificaciones</h2>
@@ -31,22 +28,16 @@ export function NotificacionComponent(
             role="switch"
             name="certimail"
             checked={notificacionState.certimail ?? false}
-            onChange={async (
-              e 
-            ) => {
-              const revis = await editNotificacion(
-                {
-                  ...notificacionState,
-                  certimail: e.target.checked,
-                } 
-              );
+            onChange={async ( e ) => {
+              const revis = await editNotificacion( {
+                ...notificacionState,
+                certimail: e.target.checked,
+              } );
 
               if ( revis.data ) {
-                setNotificacionState(
-                  {
-                    ...revis.data,
-                  } 
-                );
+                setNotificacionState( {
+                  ...revis.data,
+                } );
               }
             }}
           />
@@ -80,22 +71,16 @@ export function NotificacionComponent(
             role="switch"
             name="fisico"
             checked={notificacionState.certimail ?? false}
-            onChange={async (
-              e 
-            ) => {
-              const revis = await editNotificacion(
-                {
-                  ...notificacionState,
-                  fisico: e.target.checked,
-                } 
-              );
+            onChange={async ( e ) => {
+              const revis = await editNotificacion( {
+                ...notificacionState,
+                fisico: e.target.checked,
+              } );
 
               if ( revis.data ) {
-                setNotificacionState(
-                  {
-                    ...revis.data,
-                  } 
-                );
+                setNotificacionState( {
+                  ...revis.data,
+                } );
               }
             }}
           />

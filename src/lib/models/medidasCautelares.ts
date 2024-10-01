@@ -6,11 +6,9 @@ export class ClassMedidasCautelares implements MedidasCautelares {
   fechaOrdenaMedida: Date | null;
   id: number;
   medidaSolicitada: string | null;
-  constructor(
-    {
-      demanda, numero 
-    }: CarpetaRaw 
-  ) {
+  constructor( {
+    demanda, numero 
+  }: CarpetaRaw ) {
     this.demandaId = numero;
     this.id = numero;
 
@@ -22,14 +20,13 @@ export class ClassMedidasCautelares implements MedidasCautelares {
       const {
         fechaOrdenaMedidas, medidaSolicitada 
       } = medidasCautelares;
+
       this.medidaSolicitada = medidaSolicitada
         ? medidaSolicitada
         : null;
 
       if ( fechaOrdenaMedidas ) {
-        const newFecha = new Date(
-          fechaOrdenaMedidas 
-        );
+        const newFecha = new Date( fechaOrdenaMedidas );
 
         const stringer = newFecha.toString();
 

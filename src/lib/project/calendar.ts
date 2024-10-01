@@ -23,9 +23,7 @@ export const nombresDeMeses = [
   'Diciembre',
 ];
 
-export function CalendarBuilder(
-  date: Date 
-) {
+export function CalendarBuilder( date: Date ) {
   const rows = new Set<calendarData>();
 
   const incomingMonth = date.getMonth();
@@ -71,20 +69,17 @@ export function CalendarBuilder(
     const date = lastDateofIncomingPastMonth - dayBefore + 1;
 
     const href = `${ incomingYear }/${ incomingMonth }/${ date }`;
-    rows.add(
-      {
-        href     : href,
-        year     : incomingYear,
-        month    : incomingMonth,
-        date     : date,
-        className: 'disabled',
-        current  : false,
-        dayOfWeek: new Date(
-          href 
-        )
-          .getDay(),
-      } 
-    );
+
+    rows.add( {
+      href     : href,
+      year     : incomingYear,
+      month    : incomingMonth,
+      date     : date,
+      className: 'disabled',
+      current  : false,
+      dayOfWeek: new Date( href )
+        .getDay(),
+    } );
   }
 
   for (
@@ -100,22 +95,18 @@ export function CalendarBuilder(
         : incomingMonth + 1
     }/${ dayInMonth }`;
 
-    rows.add(
-      {
-        href     : href,
-        year     : incomingYear,
-        month    : incomingMonth + 1,
-        date     : dayInMonth,
-        current  : true,
-        dayOfWeek: new Date(
-          href 
-        )
-          .getDay(),
-        className: isToday
-          ? 'today'
-          : 'inactive',
-      } 
-    );
+    rows.add( {
+      href     : href,
+      year     : incomingYear,
+      month    : incomingMonth + 1,
+      date     : dayInMonth,
+      current  : true,
+      dayOfWeek: new Date( href )
+        .getDay(),
+      className: isToday
+        ? 'today'
+        : 'inactive',
+    } );
   }
 
   for (
@@ -124,27 +115,20 @@ export function CalendarBuilder(
     dayAfterMonth++
   ) {
     const href = `${ incomingYear }/${ incomingMonth + 2 }/${ dayAfterMonth }`;
-    console.log(
-      `next month: ${ href }` 
-    );
 
-    rows.add(
-      {
-        href     : href,
-        year     : incomingYear,
-        month    : incomingMonth + 2,
-        date     : dayAfterMonth,
-        current  : false,
-        dayOfWeek: new Date(
-          href 
-        )
-          .getDay(),
-        className: 'disabled',
-      } 
-    );
+    console.log( `next month: ${ href }` );
+
+    rows.add( {
+      href     : href,
+      year     : incomingYear,
+      month    : incomingMonth + 2,
+      date     : dayAfterMonth,
+      current  : false,
+      dayOfWeek: new Date( href )
+        .getDay(),
+      className: 'disabled',
+    } );
   }
 
-  return Array.from(
-    rows 
-  );
+  return Array.from( rows );
 }

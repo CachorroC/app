@@ -12,7 +12,7 @@ export type Message =
 export type RequestActuacion = {
   StatusCode: number;
   Message: string;
-  ConsultaActuaciones?: ConsultaActuacion;
+  ConsultaActuaciones: ConsultaActuacion | null;
 };
 
 export type ConsultaActuacion = {
@@ -46,7 +46,7 @@ export type Paginacion = {
 };
 
 export type outActuacion = {
-  createdAt: Date;
+  createdAt?: Date;
   idProceso: number;
   isUltimaAct: boolean;
   idRegActuacion: number;

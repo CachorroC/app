@@ -16,36 +16,24 @@ export default function AddNota() {
         value={taskFormState.text}
         type="text"
         name="text"
-        onChange={(
-          e 
-        ) => {
-          return setTaskFormState(
-            {
-              ...taskFormState,
-              text: e.target.value,
-            } 
-          );
+        onChange={( e ) => {
+          return setTaskFormState( {
+            ...taskFormState,
+            text: e.target.value,
+          } );
         }}
       />
 
       <input
         placeholder={'fecha de entrega'}
         type={'date'}
-        onChange={(
-          e 
-        ) => {
-          return setTaskFormState(
-            {
-              ...taskFormState,
-              dueDate: new Date(
-                e.target.value 
-              ),
-            } 
-          );
+        onChange={( e ) => {
+          return setTaskFormState( {
+            ...taskFormState,
+            dueDate: new Date( e.target.value ),
+          } );
         }}
-        value={InputDateHelper(
-          taskFormState.dueDate 
-        )}
+        value={InputDateHelper( taskFormState.dueDate )}
       />
 
       <label className={switchBox}>
@@ -54,15 +42,11 @@ export default function AddNota() {
           type="checkbox"
           name="done"
           checked={taskFormState.done}
-          onChange={(
-            e 
-          ) => {
-            return setTaskFormState(
-              {
-                ...taskFormState,
-                done: e.target.checked,
-              } 
-            );
+          onChange={( e ) => {
+            return setTaskFormState( {
+              ...taskFormState,
+              done: e.target.checked,
+            } );
           }}
         />
         <span className={slider}></span>

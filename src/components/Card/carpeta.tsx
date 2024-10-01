@@ -10,11 +10,9 @@ import layout from '#@/styles/layout.module.css';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { containerEnabled } from './filled.module.css';
 
-export const CarpetaCard = (
-  {
-    carpeta 
-  }: { carpeta: MonCarpeta } 
-) => {
+export const CarpetaCard = ( {
+  carpeta 
+}: { carpeta: MonCarpeta } ) => {
   const {
     idProcesos, deudor, demanda, numero, procesos 
   } = carpeta;
@@ -38,55 +36,45 @@ export const CarpetaCard = (
         <p className={typography.titleSmall}>{deudor?.cedula}</p>
         <section className={layout.segmentRow}>
           {idProcesos
-            && idProcesos.map(
-              (
-                idProceso 
-              ) => {
-                return (
-                  <Link
-                    className={button}
-                    key={idProceso}
-                    href={
+            && idProcesos.map( ( idProceso ) => {
+              return (
+                <Link
+                  className={button}
+                  key={idProceso}
+                  href={
                     `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
-                    }
-                  >
-                    <span className={`material-symbols-outlined ${ styles.icon }`}>
+                  }
+                >
+                  <span className={`material-symbols-outlined ${ styles.icon }`}>
                     update
-                    </span>
-                    <span className={styles.tooltiptext}>
+                  </span>
+                  <span className={styles.tooltiptext}>
                     Ultimas Actiaciones
-                    </span>
-                  </Link>
-                );
-              } 
-            )}
+                  </span>
+                </Link>
+              );
+            } )}
         </section>
-        {procesos.map(
-          (
-            {
-              juzgado 
-            } 
-          ) => {
-            return (
-              <Link
-                key={juzgado.url}
-                target={'_blank'}
-                className={card.link}
-                href={new URL(
-                  juzgado.url 
-                )}
-              >
-                <span className={`material-symbols-outlined ${ card.icon }`}>
+        {procesos.map( ( {
+          juzgado 
+        } ) => {
+          return (
+            <Link
+              key={juzgado.url}
+              target={'_blank'}
+              className={card.link}
+              href={new URL( juzgado.url )}
+            >
+              <span className={`material-symbols-outlined ${ card.icon }`}>
                 enable
-                </span>
-                <sub className={typography.displaySmall}>{`${ juzgado.id }`}</sub>
-                <p className={typography.labelSmall}>
-                  {`Juzgado de origen: ${ juzgado.tipo }`}
-                </p>
-              </Link>
-            );
-          } 
-        )}
+              </span>
+              <sub className={typography.displaySmall}>{`${ juzgado.id }`}</sub>
+              <p className={typography.labelSmall}>
+                {`Juzgado de origen: ${ juzgado.tipo }`}
+              </p>
+            </Link>
+          );
+        } )}
         {deudor?.telCelular && (
           <Link
             key={deudor.telCelular}
@@ -114,22 +102,18 @@ export const CarpetaCard = (
           </Link>
         )}
         {demanda?.vencimientoPagare
-          && demanda.vencimientoPagare.map(
-            (
-              pagare, index 
-            ) => {
-              return (
-                <p
-                  key={index}
-                  className={typography.labelMedium}
-                >
-                  {fixFechas(
-                    pagare 
-                  )}
-                </p>
-              );
-            } 
-          )}
+          && demanda.vencimientoPagare.map( (
+            pagare, index 
+          ) => {
+            return (
+              <p
+                key={index}
+                className={typography.labelMedium}
+              >
+                {fixFechas( pagare )}
+              </p>
+            );
+          } )}
         {deudor?.email && (
           <Link
             className={button}
@@ -147,18 +131,12 @@ export const CarpetaCard = (
 
         {demanda?.entregaGarantiasAbogado && (
           <p className={typography.labelSmall}>
-            {fixFechas(
-              demanda.entregaGarantiasAbogado 
-            )}
+            {fixFechas( demanda.entregaGarantiasAbogado )}
           </p>
         )}
         <div>
           {demanda?.capitalAdeudado
-            && fixMoney(
-              Number(
-                demanda.capitalAdeudado 
-              ) 
-            )}
+            && fixMoney( Number( demanda.capitalAdeudado ) )}
         </div>
       </div>
       {deudor?.email && (

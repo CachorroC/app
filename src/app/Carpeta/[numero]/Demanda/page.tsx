@@ -1,45 +1,39 @@
 import { prisma } from '#@/lib/connection/prisma';
 import { notFound } from 'next/navigation';
 
-export default async function DemandaPage(
-  {
-    params,
-  }: {
+export default async function DemandaPage( {
+  params,
+}: {
   params: { numero: string };
-} 
-) {
-  const carpeta = await prisma.carpeta.findUnique(
-    {
-      where: {
-        numero: Number(
-          params.numero 
-        ),
-      },
-      include: {
-        deudor         : true,
-        codeudor       : true,
-        ultimaActuacion: true,
-        procesos       : {
-          include: {
-            juzgado: true,
-          },
-        },
-        demanda: {
-          include: {
-            medidasCautelares: true,
-            notificacion     : true,
-          },
+} ) {
+  const carpeta = await prisma.carpeta.findFirst( {
+    where: {
+      numero: Number( params.numero ),
+    },
+    include: {
+      deudor         : true,
+      codeudor       : true,
+      ultimaActuacion: true,
+      procesos       : {
+        include: {
+          juzgado: true,
         },
       },
-    } 
-  );
+      demanda: {
+        include: {
+          medidasCautelares: true,
+          notificacion     : true,
+        },
+      },
+    },
+  } );
 
   if ( !carpeta ) {
     notFound();
   }
 
   const {
-    demanda, llaveProceso 
+    demanda, llaveProceso
   } = carpeta;
 
   if ( !demanda ) {
@@ -47,7 +41,7 @@ export default async function DemandaPage(
   }
 
   const {
-    capitalAdeudado 
+    capitalAdeudado
   } = demanda;
 
   const moneyFixed = new Intl.NumberFormat(
@@ -55,11 +49,10 @@ export default async function DemandaPage(
       style          : 'currency',
       currency       : 'COP',
       currencyDisplay: 'name',
-    } 
+    }
   )
-    .format(
-      capitalAdeudado.toNumber() 
-    );
+    .format( capitalAdeudado.toNumber() );
+
   return (
     <div>
       <h1>{llaveProceso}</h1>

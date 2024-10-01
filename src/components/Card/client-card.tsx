@@ -5,19 +5,17 @@ import { Route } from 'next';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
-export function ClientCardRow<H extends string>(
-  {
-    carpeta,
-    rowHref,
-    children,
-  }: {
+export function ClientCardRow<H extends string>( {
+  carpeta,
+  rowHref,
+  children,
+}: {
   carpeta: IntCarpeta;
   rowHref: Route<H>;
   children: ReactNode;
-} 
-) {
+} ) {
   const {
-    currentCategory 
+    currentCategory
   } = useCategory();
 
   if ( currentCategory !== 'todos' && currentCategory !== carpeta.category ) {
@@ -25,7 +23,7 @@ export function ClientCardRow<H extends string>(
   }
 
   return (
-    <tr>
+    <tr key={rowHref}>
       <td>
         <Link href={rowHref}>{carpeta.numero}</Link>
       </td>

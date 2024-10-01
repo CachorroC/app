@@ -149,20 +149,12 @@ export type TipoProceso =
 
 // Converts JSON strings to/from your types
 export class ConvertRawDb {
-  public static toRawDb(
-    json: string 
-  ): RawDb {
-    return JSON.parse(
-      json 
-    );
+  public static toRawDb( json: string ): RawDb {
+    return JSON.parse( json );
   }
 
-  public static rawDbToJson(
-    value: RawDb 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static rawDbToJson( value: RawDb ): string {
+    return JSON.stringify( value );
   }
 }
 
@@ -573,114 +565,58 @@ export type TerminadoTipoProceso =
 
 // Converts JSON strings to/from your types
 export class Convert {
-  public static toRawDb(
-    json: string 
-  ): RawDb {
-    return JSON.parse(
-      json 
-    );
+  public static toRawDb( json: string ): RawDb {
+    return JSON.parse( json );
   }
 
-  public static rawDbToJson(
-    value: RawDb 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static rawDbToJson( value: RawDb ): string {
+    return JSON.stringify( value );
   }
-  public static toRawWorkSheets(
-    json: string 
-  ): RawWorkSheets {
-    return JSON.parse(
-      json 
-    );
+  public static toRawWorkSheets( json: string ): RawWorkSheets {
+    return JSON.parse( json );
   }
 
-  public static welcomeToJson(
-    value: RawWorkSheets 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static welcomeToJson( value: RawWorkSheets ): string {
+    return JSON.stringify( value );
   }
 
-  public static toBancolombia(
-    json: string 
-  ): Bancolombia {
-    return JSON.parse(
-      json 
-    );
+  public static toBancolombia( json: string ): Bancolombia {
+    return JSON.parse( json );
   }
 
-  public static bancolombiaToJson(
-    value: Bancolombia 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static bancolombiaToJson( value: Bancolombia ): string {
+    return JSON.stringify( value );
   }
 
-  public static toInsolvencia(
-    json: string 
-  ): Insolvencia {
-    return JSON.parse(
-      json 
-    );
+  public static toInsolvencia( json: string ): Insolvencia {
+    return JSON.parse( json );
   }
 
-  public static insolvenciaToJson(
-    value: Insolvencia 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static insolvenciaToJson( value: Insolvencia ): string {
+    return JSON.stringify( value );
   }
 
-  public static toLiosJuridico(
-    json: string 
-  ): LiosJuridico {
-    return JSON.parse(
-      json 
-    );
+  public static toLiosJuridico( json: string ): LiosJuridico {
+    return JSON.parse( json );
   }
 
-  public static liosJuridicoToJson(
-    value: LiosJuridico 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static liosJuridicoToJson( value: LiosJuridico ): string {
+    return JSON.stringify( value );
   }
 
-  public static toReintegra(
-    json: string 
-  ): Reintegra {
-    return JSON.parse(
-      json 
-    );
+  public static toReintegra( json: string ): Reintegra {
+    return JSON.parse( json );
   }
 
-  public static reintegraToJson(
-    value: Reintegra 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static reintegraToJson( value: Reintegra ): string {
+    return JSON.stringify( value );
   }
 
-  public static toTerminado(
-    json: string 
-  ): Terminado {
-    return JSON.parse(
-      json 
-    );
+  public static toTerminado( json: string ): Terminado {
+    return JSON.parse( json );
   }
 
-  public static terminadoToJson(
-    value: Terminado 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static terminadoToJson( value: Terminado ): string {
+    return JSON.stringify( value );
   }
 }

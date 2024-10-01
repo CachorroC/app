@@ -8,27 +8,23 @@ import layout from '#@/styles/layout.module.css';
 import { addTaskToMongo, addTaskToPrisma } from '#@/app/Tareas/actions';
 import { NewTask } from '#@/lib/types/tareas';
 
-export function AddTask(
-  {
-    carpetaNumero 
-  }: { carpetaNumero?: number } 
-) {
+export function AddTask( {
+  carpetaNumero
+}: { carpetaNumero?: number} ) {
   const [
     taskState,
     setTaskState
-  ] = useState<NewTask>(
-    {
-      text   : '',
-      done   : false,
-      content: [
-        ''
-      ],
-      dueDate      : new Date(),
-      carpetaNumero: carpetaNumero
-        ? carpetaNumero
-        : null,
-    } 
-  );
+  ] = useState<NewTask>( {
+    text   : '',
+    done   : false,
+    content: [
+      ''
+    ],
+    dueDate      : new Date(),
+    carpetaNumero: carpetaNumero
+      ? carpetaNumero
+      : null,
+  } );
 
   const dispatchTasks = useDispatchTasks();
 
@@ -39,42 +35,31 @@ export function AddTask(
               );
             } */
 
-    const taskPrisma = await addTaskToPrisma(
-      {
-        ...taskState,
-      } 
-    );
+    const taskPrisma = await addTaskToPrisma( {
+      ...taskState,
+    } );
 
-    const taskMongo = await addTaskToMongo(
-      taskState 
-    );
+    const taskMongo = await addTaskToMongo( taskState );
 
-    alert(
-      JSON.stringify(
-        taskPrisma, null, 2 
-      ) 
-    );
-    alert(
-      JSON.stringify(
-        taskMongo, null, 2 
-      ) 
-    );
-    setTaskState(
-      {
+    alert( JSON.stringify(
+      taskPrisma, null, 2
+    ) );
+    alert( JSON.stringify(
+      taskMongo, null, 2
+    ) );
+    setTaskState( {
+      ...taskState,
+      ...taskPrisma,
+      text: '',
+    } );
+
+    return dispatchTasks( {
+      type: 'added',
+      task: {
         ...taskState,
         ...taskPrisma,
-        text: '',
-      } 
-    );
-    return dispatchTasks(
-      {
-        type: 'added',
-        task: {
-          ...taskState,
-          ...taskPrisma,
-        },
-      } 
-    );
+      },
+    } );
   }
 
   return (
@@ -98,15 +83,11 @@ export function AddTask(
               name={'text'}
               className={styles.textArea}
               value={taskState.text}
-              onChange={(
-                e 
-              ) => {
-                return setTaskState(
-                  {
-                    ...taskState,
-                    text: e.target.value,
-                  } 
-                );
+              onChange={( e ) => {
+                return setTaskState( {
+                  ...taskState,
+                  text: e.target.value,
+                } );
               }}
             />
           </section>
@@ -116,15 +97,11 @@ export function AddTask(
                 className={styles.inputElement}
                 name="done"
                 checked={taskState.done}
-                onChange={(
-                  e 
-                ) => {
-                  setTaskState(
-                    {
-                      ...taskState,
-                      done: e.target.checked,
-                    } 
-                  );
+                onChange={( e ) => {
+                  setTaskState( {
+                    ...taskState,
+                    done: e.target.checked,
+                  } );
                 }}
                 type="checkbox"
               />
@@ -135,20 +112,12 @@ export function AddTask(
           <input
             type="date"
             name="dueDate"
-            value={InputDateHelper(
-              taskState.dueDate 
-            )}
-            onChange={(
-              e 
-            ) => {
-              return setTaskState(
-                {
-                  ...taskState,
-                  dueDate: new Date(
-                    e.target.value 
-                  ),
-                } 
-              );
+            value={InputDateHelper( taskState.dueDate )}
+            onChange={( e ) => {
+              return setTaskState( {
+                ...taskState,
+                dueDate: new Date( e.target.value ),
+              } );
             }}
           />
           <input
@@ -156,17 +125,11 @@ export function AddTask(
             type="number"
             className={styles.textArea}
             value={taskState.carpetaNumero ?? 0}
-            onChange={(
-              e 
-            ) => {
-              return setTaskState(
-                {
-                  ...taskState,
-                  carpetaNumero: Number(
-                    e.target.value 
-                  ),
-                } 
-              );
+            onChange={( e ) => {
+              return setTaskState( {
+                ...taskState,
+                carpetaNumero: Number( e.target.value ),
+              } );
             }}
           />
           <input
@@ -174,25 +137,21 @@ export function AddTask(
             type="text"
             className={styles.textArea}
             value={taskState.content.toLocaleString() ?? ''}
-            onChange={(
-              e 
-            ) => {
-              return setTaskState(
-                {
-                  ...taskState,
-                  content: [
-                    ...taskState.content,
-                    e.target.value
-                  ],
-                } 
-              );
+            onChange={( e ) => {
+              return setTaskState( {
+                ...taskState,
+                content: [
+                  ...taskState.content,
+                  e.target.value
+                ],
+              } );
             }}
           />
         </fieldset>
         <button type={'submit'}>Add</button>
       </form>
       <pre>{JSON.stringify(
-        taskState, null, 2 
+        taskState, null, 2
       )}</pre>
     </>
   );

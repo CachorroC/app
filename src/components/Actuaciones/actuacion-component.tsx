@@ -5,13 +5,11 @@ import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { NewNotaComponent } from '../Modal';
 import styles from '../Card/elevated.module.css';
 
-export function ActuacionComponent(
-  {
-    incomingActuacion,
-  }: {
+export function ActuacionComponent( {
+  incomingActuacion,
+}: {
   incomingActuacion: outActuacion;
-} 
-) {
+} ) {
   const {
     actuacion, anotacion, fechaActuacion, consActuacion 
   }

@@ -155,31 +155,19 @@ export interface MonCarpeta extends IntCarpeta {
 
 // Converts JSON strings to/from your types
 export class carpetaConvert {
-  public static toIntCarpeta(
-    json: string 
-  ): IntCarpeta {
-    return JSON.parse(
-      json 
-    );
+  public static toIntCarpeta( json: string ): IntCarpeta {
+    return JSON.parse( json );
   }
 
-  public static toIntCarpetas(
-    json: string 
-  ): IntCarpeta[] {
-    return JSON.parse(
-      json 
-    );
+  public static toIntCarpetas( json: string ): IntCarpeta[] {
+    return JSON.parse( json );
   }
 
-  public static toMonCarpeta(
-    carpeta: WithId<IntCarpeta> 
-  ): MonCarpeta {
+  public static toMonCarpeta( carpeta: WithId<IntCarpeta> ): MonCarpeta {
     return {
       ...carpeta,
       fecha: carpeta.fecha
-        ? new Date(
-          carpeta.fecha 
-        )
+        ? new Date( carpeta.fecha )
         : null,
       idRegUltimaAct: carpeta.idRegUltimaAct
         ? carpeta.idRegUltimaAct
@@ -192,178 +180,90 @@ export class carpetaConvert {
         : carpeta.nombre,
     };
   }
-  public static toMonCarpetas(
-    carpetas: WithId<IntCarpeta>[] 
-  ): MonCarpeta[] {
-    return carpetas.map(
-      (
-        carpeta 
-      ) => {
-        return this.toMonCarpeta(
-          carpeta 
-        );
-      } 
-    );
+  public static toMonCarpetas( carpetas: WithId<IntCarpeta>[] ): MonCarpeta[] {
+    return carpetas.map( ( carpeta ) => {
+      return this.toMonCarpeta( carpeta );
+    } );
   }
 
-  public static toCodeudor(
-    json: string 
-  ): Codeudor {
-    return JSON.parse(
-      json 
-    );
+  public static toCodeudor( json: string ): Codeudor {
+    return JSON.parse( json );
   }
 
-  public static codeudorToJson(
-    value: Codeudor 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static codeudorToJson( value: Codeudor ): string {
+    return JSON.stringify( value );
   }
 
-  public static tointDemanda(
-    json: string 
-  ): intDemanda {
-    return JSON.parse(
-      json 
-    );
+  public static tointDemanda( json: string ): intDemanda {
+    return JSON.parse( json );
   }
 
-  public static demandaToJson(
-    value: intDemanda 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static demandaToJson( value: intDemanda ): string {
+    return JSON.stringify( value );
   }
 
-  public static toMedidasCautelares(
-    json: string 
-  ): MedidasCautelares {
-    return JSON.parse(
-      json 
-    );
+  public static toMedidasCautelares( json: string ): MedidasCautelares {
+    return JSON.parse( json );
   }
 
-  public static medidasCautelaresToJson(
-    value: MedidasCautelares 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static medidasCautelaresToJson( value: MedidasCautelares ): string {
+    return JSON.stringify( value );
   }
 
-  public static toNotificacion(
-    json: string 
-  ): Notificacion {
-    return JSON.parse(
-      json 
-    );
+  public static toNotificacion( json: string ): Notificacion {
+    return JSON.parse( json );
   }
 
-  public static notificacionToJson(
-    value: Notificacion 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static notificacionToJson( value: Notificacion ): string {
+    return JSON.stringify( value );
   }
 
-  public static toNotifier(
-    json: string 
-  ): Notifier {
-    return JSON.parse(
-      json 
-    );
+  public static toNotifier( json: string ): Notifier {
+    return JSON.parse( json );
   }
 
-  public static notifierToJson(
-    value: Notifier 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static notifierToJson( value: Notifier ): string {
+    return JSON.stringify( value );
   }
 
-  public static toDeudor(
-    json: string 
-  ): Deudor {
-    return JSON.parse(
-      json 
-    );
+  public static toDeudor( json: string ): Deudor {
+    return JSON.parse( json );
   }
 
-  public static deudorToJson(
-    value: Deudor 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static deudorToJson( value: Deudor ): string {
+    return JSON.stringify( value );
   }
 
-  public static toNota(
-    json: string 
-  ): IntNota {
-    return JSON.parse(
-      json 
-    );
+  public static toNota( json: string ): IntNota {
+    return JSON.parse( json );
   }
 
-  public static notaToJson(
-    value: IntNota 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static notaToJson( value: IntNota ): string {
+    return JSON.stringify( value );
   }
 
-  public static toJuzgado(
-    json: string 
-  ): Juzgado {
-    return JSON.parse(
-      json 
-    );
+  public static toJuzgado( json: string ): Juzgado {
+    return JSON.parse( json );
   }
 
-  public static juzgadoToJson(
-    value: Juzgado 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static juzgadoToJson( value: Juzgado ): string {
+    return JSON.stringify( value );
   }
 
-  public static toTarea(
-    json: string 
-  ): IntTask {
-    return JSON.parse(
-      json 
-    );
+  public static toTarea( json: string ): IntTask {
+    return JSON.parse( json );
   }
 
-  public static tareaToJson(
-    value: IntTask 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static tareaToJson( value: IntTask ): string {
+    return JSON.stringify( value );
   }
 
-  public static toSubTarea(
-    json: string 
-  ): SubTarea {
-    return JSON.parse(
-      json 
-    );
+  public static toSubTarea( json: string ): SubTarea {
+    return JSON.parse( json );
   }
 
-  public static subTareaToJson(
-    value: SubTarea 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static subTareaToJson( value: SubTarea ): string {
+    return JSON.stringify( value );
   }
 }
 

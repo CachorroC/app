@@ -64,6 +64,9 @@ export default function manifest(): MetadataRoute.Manifest {
     },
     icons: [
       {
+        src: '/icon.svg',
+      },
+      {
         src    : '/icon.svg',
         sizes  : '150x150',
         purpose: 'maskable',
@@ -72,6 +75,11 @@ export default function manifest(): MetadataRoute.Manifest {
         src    : '/icon.svg',
         sizes  : '150x150',
         purpose: 'monochrome',
+      },
+      {
+        src    : '/icon.svg',
+        sizes  : '150x150',
+        purpose: 'any',
       },
       {
         src    : '/icon2.png',
@@ -96,36 +104,6 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes  : '512x512',
         type   : 'image/png',
         purpose: 'any',
-      },
-      {
-        src    : '/icon3.png',
-        sizes  : '128x128',
-        type   : 'image/png',
-        purpose: 'monochrome',
-      },
-      {
-        src    : '/icon4.png',
-        sizes  : '144x144',
-        type   : 'image/png',
-        purpose: 'monochrome',
-      },
-      {
-        src    : '/icon5.png',
-        sizes  : '270x270',
-        type   : 'image/png',
-        purpose: 'monochrome',
-      },
-      {
-        src    : '/icon6.png',
-        sizes  : '558x270',
-        type   : 'image/png',
-        purpose: 'monochrome',
-      },
-      {
-        src    : '/icon7.png',
-        sizes  : '558x558',
-        type   : 'image/png',
-        purpose: 'monochrome',
       },
     ],
   };

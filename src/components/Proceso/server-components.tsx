@@ -12,17 +12,15 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { CopyButton } from '../Buttons/copy-buttons';
 import { containerEnabled } from '../Card/elevated.module.css';
 
-export const ProcesoCard = (
-  {
-    children,
-    proceso,
-  }: {
+export const ProcesoCard = ( {
+  children,
+  proceso,
+}: {
   children: ReactNode;
   proceso: outProceso;
-} 
-) => {
+} ) => {
   const {
-    sujetosProcesales, idProceso 
+    sujetosProcesales, idProceso
   } = proceso;
 
   return (
@@ -42,25 +40,18 @@ export const ProcesoCard = (
   );
 };
 
-export async function ProcesoDetalle(
-  {
-    idProceso 
-  }: { idProceso: number } 
-) {
-  const urlNameMaker = consultaProcesoDetalleURL(
-    idProceso 
-  );
+export async function ProcesoDetalle( {
+  idProceso
+}: { idProceso: number } ) {
+  const urlNameMaker = consultaProcesoDetalleURL( idProceso );
 
-  const fetchProc = await fetch(
-    urlNameMaker 
-  );
+  const fetchProc = await fetch( urlNameMaker );
 
   const infoDetalle = [];
 
   if ( !fetchProc.ok ) {
-    console.log(
-      `proceso detalle failer with error: ${ fetchProc.statusText }` 
-    );
+    console.log( `proceso detalle failer with error: ${ fetchProc.statusText }` );
+
     return (
       <div className={layout.segmentColumn}>
         <h4
@@ -89,15 +80,14 @@ export async function ProcesoDetalle(
 
   for ( const key in detalleProceso ) {
     if ( Object.prototype.hasOwnProperty.call(
-      detalleProceso, key 
+      detalleProceso, key
     ) ) {
       const element = detalleProceso[ key ];
-      infoDetalle.push(
-        {
-          key  : key,
-          value: element,
-        } 
-      );
+
+      infoDetalle.push( {
+        key  : key,
+        value: element,
+      } );
     }
   }
 
@@ -105,62 +95,52 @@ export async function ProcesoDetalle(
     <div className={layout.segmentColumn}>
       <h4 className={typography.titleLarge}>Detalles del proceso</h4>
 
-      {infoDetalle.map(
-        (
-          detalleEspecifico, index 
-        ) => {
-          let outputTxt;
+      {infoDetalle.map( (
+        detalleEspecifico, index
+      ) => {
+        let outputTxt;
 
-          if (
-            detalleEspecifico.key === 'fechaConsulta'
+        if (
+          detalleEspecifico.key === 'fechaConsulta'
           || detalleEspecifico.key === 'ultimaActualizacion'
           || detalleEspecifico.key === 'fechaProceso'
-          ) {
-            outputTxt = new Date(
-              detalleEspecifico.value 
-            )
-              .toLocaleDateString(
-                'es-co',
-                {
-                  weekday: 'long',
-                  year   : 'numeric',
-                  month  : 'long',
-                  day    : 'numeric',
-                },
-              );
-          } else {
-            outputTxt = detalleEspecifico.value;
-          }
+        ) {
+          outputTxt = new Date( detalleEspecifico.value )
+            .toLocaleDateString(
+              'es-co',
+              {
+                weekday: 'long',
+                year   : 'numeric',
+                month  : 'long',
+                day    : 'numeric',
+              },
+            );
+        } else {
+          outputTxt = detalleEspecifico.value;
+        }
 
-          return (
-            <div
-              key={index}
-              className={layout.segmentColumn}
-            >
-              <CopyButton
-                copyTxt={String(
-                  outputTxt 
-                )}
-                name={detalleEspecifico.key}
-              />
-            </div>
-          );
-        } 
-      )}
+        return (
+          <div
+            key={index}
+            className={layout.segmentColumn}
+          >
+            <CopyButton
+              copyTxt={String( outputTxt )}
+              name={detalleEspecifico.key}
+            />
+          </div>
+        );
+      } )}
     </div>
   );
 }
 
-export async function ProcesosComponent(
-  {
-    llaveProceso,
-  }: {
+export async function ProcesosComponent( {
+  llaveProceso,
+}: {
   llaveProceso: string;
-} 
-) {
-  const procesos = await getProcesosByllaveProceso(
-    llaveProceso 
-  );
+} ) {
+  const procesos = await getProcesosByllaveProceso( llaveProceso );
 
   if ( !procesos || procesos.length === 0 ) {
     return null;
@@ -168,34 +148,31 @@ export async function ProcesosComponent(
 
   return (
     <>
-      {procesos.map(
-        (
-          proceso 
-        ) => {
-          const {
-            idProceso 
-          } = proceso;
-          return (
-            <ProcesoCard
-              key={proceso.idProceso}
-              proceso={proceso}
-            >
-              <Suspense fallback={<Loader />}>
-                <ProcesoDetalle idProceso={proceso.idProceso} />
-              </Suspense>
-              <Suspense fallback={<ActuacionLoader />}>
-                <FechaActuacionComponent
-                  key={idProceso}
-                  idProceso={idProceso}
-                />
-              </Suspense>
-              <Suspense fallback={<Loader />}>
-                <JuzgadoComponent juzgado={proceso.juzgado} />
-              </Suspense>
-            </ProcesoCard>
-          );
-        } 
-      )}
+      {procesos.map( ( proceso ) => {
+        const {
+          idProceso
+        } = proceso;
+
+        return (
+          <ProcesoCard
+            key={idProceso}
+            proceso={proceso}
+          >
+            <Suspense fallback={<Loader />}>
+              <ProcesoDetalle idProceso={proceso.idProceso} />
+            </Suspense>
+            <Suspense fallback={<ActuacionLoader />}>
+              <FechaActuacionComponent
+                key={idProceso}
+                idProceso={idProceso}
+              />
+            </Suspense>
+            <Suspense fallback={<Loader />}>
+              <JuzgadoComponent juzgado={proceso.juzgado} />
+            </Suspense>
+          </ProcesoCard>
+        );
+      } )}
     </>
   );
 }

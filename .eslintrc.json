@@ -35,7 +35,7 @@
     "function-paren-newline": [
       "error",
       {
-        "minItems": 1
+        "minItems": 2
       }
     ],
     "getter-return": "error",
@@ -64,7 +64,7 @@
         },
         "FunctionExpression": {
           "body": 1,
-          "parameters": 1
+          "parameters": "first"
         },
         "ImportDeclaration": 1,
         "MemberExpression": 1,
@@ -130,6 +130,7 @@
           "case",
           "if",
           "iife",
+          "return",
           "const",
           "class",
           "multiline-block-like",
@@ -144,6 +145,7 @@
           "block",
           "block-like",
           "for",
+          "const",
           "if",
           "continue",
           "return",

@@ -5,34 +5,25 @@ import { editTask } from './actions';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import { IntTask } from '#@/lib/types/tareas';
 
-export function EditTask(
-  {
-    initialTask 
-  }: { initialTask: IntTask } 
-) {
+export function EditTask( {
+  initialTask 
+}: { initialTask: IntTask } ) {
   const [
     taskState,
     setTaskState
-  ] = useState(
-    initialTask 
-  );
+  ] = useState( initialTask );
 
   const dispatchTasks = useDispatchTasks();
 
   async function createTask() {
-    const user = await editTask(
-      taskState 
-    );
+    const user = await editTask( taskState );
 
-    console.log(
-      user 
-    );
-    return dispatchTasks(
-      {
-        type: 'changed',
-        task: user,
-      } 
-    );
+    console.log( user );
+
+    return dispatchTasks( {
+      type: 'changed',
+      task: user,
+    } );
   }
 
   return (
@@ -44,17 +35,11 @@ export function EditTask(
           type={'number'}
           placeholder={'ID'}
           value={taskState.id}
-          onChange={(
-            e 
-          ) => {
-            return setTaskState(
-              {
-                ...taskState,
-                id: Number(
-                  e.target.value 
-                ),
-              } 
-            );
+          onChange={( e ) => {
+            return setTaskState( {
+              ...taskState,
+              id: Number( e.target.value ),
+            } );
           }}
         />
         <input
@@ -62,15 +47,11 @@ export function EditTask(
           type="text"
           name={'text'}
           value={taskState.text}
-          onChange={(
-            e 
-          ) => {
-            return setTaskState(
-              {
-                ...taskState,
-                text: e.target.value,
-              } 
-            );
+          onChange={( e ) => {
+            return setTaskState( {
+              ...taskState,
+              text: e.target.value,
+            } );
           }}
         />
         <input
@@ -81,45 +62,29 @@ export function EditTask(
         <input
           type="date"
           name="dueDate"
-          value={InputDateHelper(
-            taskState.updatedAt 
-          )}
-          onChange={(
-            e 
-          ) => {
-            console.log(
-              `onChange new value for date-section: ${ e.target.valueAsDate }`,
-            );
+          value={InputDateHelper( taskState.updatedAt )}
+          onChange={( e ) => {
+            console.log( `onChange new value for date-section: ${ e.target.valueAsDate }`, );
 
             const [
               yearStringer,
               monthStringer,
               dayStringer
             ]
-              = e.target.value.split(
-                '-' 
-              );
+              = e.target.value.split( '-' );
 
-            const newYear = Number(
-              yearStringer 
-            );
+            const newYear = Number( yearStringer );
 
-            const newMonth = Number(
-              monthStringer 
-            ) - 1;
+            const newMonth = Number( monthStringer ) - 1;
 
-            const newDay = Number(
-              dayStringer 
-            );
+            const newDay = Number( dayStringer );
 
-            return setTaskState(
-              {
-                ...taskState,
-                updatedAt: new Date(
-                  newYear, newMonth, newDay 
-                ),
-              } 
-            );
+            return setTaskState( {
+              ...taskState,
+              updatedAt: new Date(
+                newYear, newMonth, newDay 
+              ),
+            } );
           }}
         />
 

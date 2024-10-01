@@ -17,72 +17,46 @@ export const NuevaNota = () => {
   const pathname = usePathname();
 
   const {
-    notaFormState, setNotaFormState 
+    notaFormState, setNotaFormState
   } = useNuevaNotaContext();
 
-  function handleStringChange(
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) {
-    return setNotaFormState(
-      {
-        ...notaFormState,
-        [ e.target.name ]: String(
-          e.target.value 
-        ),
-      } 
-    );
+  function handleStringChange( e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, ) {
+    return setNotaFormState( {
+      ...notaFormState,
+      [ e.target.name ]: String( e.target.value ),
+    } );
   }
 
-  function handleNumericChange(
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) {
-    return setNotaFormState(
-      {
-        ...notaFormState,
-        [ e.target.name ]: Number(
-          e.target.value 
-        ),
-      } 
-    );
+  function handleNumericChange( e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, ) {
+    return setNotaFormState( {
+      ...notaFormState,
+      [ e.target.name ]: Number( e.target.value ),
+    } );
   }
 
   async function createNoteInDatabase() {
     const newDater = new Date();
 
-    const sender = await addNotaToPrisma(
-      notaFormState 
-    );
+    const sender = await addNotaToPrisma( notaFormState );
 
-    const adder = await addNotaToMongo(
-      notaFormState 
-    );
+    const adder = await addNotaToMongo( notaFormState );
 
     if ( adder.success ) {
-      alert(
-        `se ingresó la informacion a la base de datos in prisma ${ adder.data }`,
-      );
+      alert( `se ingresó la informacion a la base de datos in prisma ${ adder.data }`, );
     } else {
-      alert(
-        `error, no se pudo ingresar la forma a la base de dato in prismas ${ adder.data }`,
-      );
+      alert( `error, no se pudo ingresar la forma a la base de dato in prismas ${ adder.data }`, );
     }
 
     if ( sender.success ) {
-      alert(
-        `se ingresó la informacion a la base de datos ${ sender.data }` 
-      );
+      alert( `se ingresó la informacion a la base de datos ${ sender.data }` );
     } else {
-      alert(
-        `error, no se pudo ingresar la forma a la base de datos ${ sender.data }`,
-      );
+      alert( `error, no se pudo ingresar la forma a la base de datos ${ sender.data }`, );
     }
 
     if ( !adder.success || !sender.success ) {
-      return setNotaFormState(
-        {
-          ...notaFormState,
-        } 
-      );
+      return setNotaFormState( {
+        ...notaFormState,
+      } );
     }
 
     const newFactura: NewNota = {
@@ -99,11 +73,10 @@ export const NuevaNota = () => {
         newDater.getDate(),
       ),
     };
-    return setNotaFormState(
-      {
-        ...newFactura,
-      } 
-    );
+
+    return setNotaFormState( {
+      ...newFactura,
+    } );
   }
 
   return (
@@ -116,17 +89,14 @@ export const NuevaNota = () => {
         <button
           type="button"
           onClick={async () => {
-            const nextId = await notasCount(
-              notaFormState.carpetaNumero 
-            );
-            return setNotaFormState(
-              {
-                ...notaFormState,
-                id: notaFormState.carpetaNumero
-                  ? `${ notaFormState.carpetaNumero }-${ nextId }`
-                  : `NC-${ nextId }`,
-              } 
-            );
+            const nextId = await notasCount( notaFormState.carpetaNumero );
+
+            return setNotaFormState( {
+              ...notaFormState,
+              id: notaFormState.carpetaNumero
+                ? `${ notaFormState.carpetaNumero }-${ nextId }`
+                : `NC-${ nextId }`,
+            } );
           }}
         >
           <span>id</span>
@@ -159,29 +129,19 @@ export const NuevaNota = () => {
               type="date"
               name="dueDate"
               className={styles.textArea}
-              value={InputDateHelper(
-                notaFormState.dueDate 
-              )}
-              onChange={(
-                e 
-              ) => {
+              value={InputDateHelper( notaFormState.dueDate )}
+              onChange={( e ) => {
                 const [
                   yearStringer,
                   monthStringer,
                   dayStringer
                 ]
-                  = e.target.value.split(
-                    '-' 
-                  );
+                  = e.target.value.split( '-' );
 
-                setNotaFormState(
-                  {
-                    ...notaFormState,
-                    dueDate: new Date(
-                      `${ yearStringer }-${ monthStringer }-${ dayStringer }`,
-                    ),
-                  } 
-                );
+                setNotaFormState( {
+                  ...notaFormState,
+                  dueDate: new Date( `${ yearStringer }-${ monthStringer }-${ dayStringer }`, ),
+                } );
               }}
             />
           </section>
@@ -208,7 +168,7 @@ export const NuevaNota = () => {
         </section>
       </form>
       <pre>{JSON.stringify(
-        notaFormState, null, 2 
+        notaFormState, null, 2
       )}</pre>
     </>
   );

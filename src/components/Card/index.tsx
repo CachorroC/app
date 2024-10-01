@@ -10,15 +10,13 @@ import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { containerEnabled } from './filled.module.css';
 
-export const Card = (
-  {
-    carpeta,
-    children,
-  }: {
+export const Card = ( {
+  carpeta,
+  children,
+}: {
   carpeta: MonCarpeta;
   children: ReactNode;
-} 
-) => {
+} ) => {
   let contentIdProcesos;
 
   const llaveLength = carpeta.llaveProceso?.length;
@@ -28,35 +26,27 @@ export const Card = (
     : true;
 
   const {
-    idProcesos, nombre, numero 
+    idProcesos, nombre, numero
   } = carpeta;
 
   if ( !idProcesos || idProcesos.length === 0 ) {
     contentIdProcesos = <span>no hay idProcesos</span>;
   } else {
-    contentIdProcesos = idProcesos.map(
-      (
-        idProceso 
-      ) => {
-        return (
-          <Link
-            key={idProceso}
-            href={
-            `/Carpeta/${ String(
-              numero 
-            ) }/ultimasActuaciones/${ String(
-              idProceso,
-            ) }` as Route
-            }
-            className={styles.link}
-          >
-            <span className={`material-symbols-outlined ${ styles.icon }`}>
+    contentIdProcesos = idProcesos.map( ( idProceso ) => {
+      return (
+        <Link
+          key={idProceso}
+          href={
+            `/Carpeta/${ String( numero ) }/ultimasActuaciones/${ String( idProceso, ) }` as Route
+          }
+          className={styles.link}
+        >
+          <span className={`material-symbols-outlined ${ styles.icon }`}>
             inventory
-            </span>
-          </Link>
-        );
-      } 
-    );
+          </span>
+        </Link>
+      );
+    } );
   }
 
   return (
@@ -98,15 +88,13 @@ export const Card = (
   );
 };
 
-export const CardRow = (
-  {
-    carpeta,
-    children,
-  }: {
+export const CardRow = ( {
+  carpeta,
+  children,
+}: {
   carpeta: MonCarpeta;
   children: ReactNode;
-} 
-) => {
+} ) => {
   const llaveLength = carpeta.llaveProceso?.length;
 
   const errorLLaveProceso = llaveLength
@@ -114,31 +102,30 @@ export const CardRow = (
     : true;
 
   const {
-    numero, idProcesos, revisado 
+    numero, idProcesos, revisado, id
   } = carpeta;
 
   const idProcesosLength = idProcesos.length;
+
   let carpetaHref;
 
   if ( idProcesosLength > 1 ) {
-    carpetaHref = idProcesos.map(
-      (
-        idProceso, index 
-      ) => {
-        return (
-          <Link
-            key={idProceso}
-            href={
+    carpetaHref = idProcesos.map( (
+      idProceso, index
+    ) => {
+      return (
+        <Link
+          key={idProceso}
+          href={
             `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }` as Route
-            }
-          >
-            <span className={`${ typography.labelLarge } ${ layout.text }`}>
-              {`#${ numero } - ${ index }`}
-            </span>
-          </Link>
-        );
-      } 
-    );
+          }
+        >
+          <span className={`${ typography.labelLarge } ${ layout.text }`}>
+            {`#${ numero } - ${ index }`}
+          </span>
+        </Link>
+      );
+    } );
   } else if ( idProcesosLength === 1 ) {
     carpetaHref = (
       <Link
@@ -201,7 +188,8 @@ export const CardRow = (
             children
           )}
       <RevisadoCheckBox
-        numero={numero}
+        numero={ numero }
+        id={id}
         initialRevisadoState={revisado}
       />
       <td>

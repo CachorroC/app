@@ -18,22 +18,18 @@ export default function PrismaNotas() {
         </tr>
       </thead>
       <tbody>
-        {notas.map(
-          (
-            nota 
-          ) => {
-            return (
-              <Nota
-                key={nota.id}
-                nota={nota}
-              >
-                <td>
-                  <OutputDateHelper incomingDate={nota.createdAt} />
-                </td>
-              </Nota>
-            );
-          } 
-        )}
+        {notas.map( ( nota ) => {
+          return (
+            <Nota
+              key={nota.id}
+              nota={nota}
+            >
+              <td>
+                <OutputDateHelper incomingDate={nota.createdAt} />
+              </td>
+            </Nota>
+          );
+        } )}
       </tbody>
     </table>
   );

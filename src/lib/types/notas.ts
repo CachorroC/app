@@ -76,25 +76,15 @@ export type NotaAction =
   | SortActionType;
 
 export class notasConvert {
-  public static monNotasToJson(
-    value: monNota[] 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static monNotasToJson( value: monNota[] ): string {
+    return JSON.stringify( value );
   }
 
-  public static monNotaToJson(
-    value: monNota 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static monNotaToJson( value: monNota ): string {
+    return JSON.stringify( value );
   }
 
-  public static toMonNota(
-    nota: WithId<IntNota> 
-  ): monNota {
+  public static toMonNota( nota: WithId<IntNota> ): monNota {
     const newNota = {
       ...nota,
       createdAt    : new Date(),
@@ -110,18 +100,10 @@ export class notasConvert {
     return newNota;
   }
 
-  public static toMonNotas(
-    rawNotas: WithId<IntNota>[] 
-  ): monNota[] {
-    const newNotas = rawNotas.map(
-      (
-        nota 
-      ) => {
-        return this.toMonNota(
-          nota 
-        );
-      } 
-    );
+  public static toMonNotas( rawNotas: WithId<IntNota>[] ): monNota[] {
+    const newNotas = rawNotas.map( ( nota ) => {
+      return this.toMonNota( nota );
+    } );
 
     return newNotas;
   }

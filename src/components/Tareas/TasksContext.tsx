@@ -6,23 +6,17 @@ import { Dispatch,
   useContext,
   useReducer, } from 'react';
 
-const TasksContext = createContext<IntTask[] | null>(
-  null 
-);
+const TasksContext = createContext<IntTask[] | null>( null );
 
-const TasksDispatchContext = createContext<Dispatch<TaskAction> | null>(
-  null 
-);
+const TasksDispatchContext = createContext<Dispatch<TaskAction> | null>( null );
 
-export function TasksProvider(
-  {
-    children,
-    initialTasks,
-  }: {
+export function TasksProvider( {
+  children,
+  initialTasks,
+}: {
   children: ReactNode;
   initialTasks: IntTask[];
-} 
-) {
+} ) {
   const [
     tasksReduced,
     dispatchTasks
@@ -40,28 +34,20 @@ export function TasksProvider(
 }
 
 export function useTasks() {
-  const tasksContext = useContext(
-    TasksContext 
-  );
+  const tasksContext = useContext( TasksContext );
 
   if ( !tasksContext ) {
-    throw new Error(
-      'tasks context must be used within a tasks provider ' 
-    );
+    throw new Error( 'tasks context must be used within a tasks provider ' );
   }
 
   return tasksContext;
 }
 
 export function useDispatchTasks() {
-  const tasksContext = useContext(
-    TasksDispatchContext 
-  );
+  const tasksContext = useContext( TasksDispatchContext );
 
   if ( !tasksContext ) {
-    throw new Error(
-      'tasks context must be used within a tasks provider ' 
-    );
+    throw new Error( 'tasks context must be used within a tasks provider ' );
   }
 
   return tasksContext;
@@ -79,6 +65,7 @@ function tasksReducer(
         const {
           task 
         } = action;
+
         return [
           ...tasks,
           {
@@ -96,36 +83,28 @@ function tasksReducer(
         const {
           task 
         } = action;
-        return tasks.map(
-          (
-            t 
-          ) => {
-            if ( t.id === task.id ) {
-              return task;
-            }
 
-            return t;
-          } 
-        );
+        return tasks.map( ( t ) => {
+          if ( t.id === task.id ) {
+            return task;
+          }
+
+          return t;
+        } );
       }
 
       case 'deleted': {
         const {
           id 
         } = action;
-        return tasks.filter(
-          (
-            t 
-          ) => {
-            return t.id !== id;
-          } 
-        );
+
+        return tasks.filter( ( t ) => {
+          return t.id !== id;
+        } );
       }
 
       default: {
-        throw Error(
-          'Unknown action: ' + type 
-        );
+        throw Error( 'Unknown action: ' + type );
       }
   }
 }

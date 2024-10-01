@@ -6,17 +6,15 @@ import styles from '#@/styles/layout.module.css';
 import { useNavigationContext } from '#@/app/Context/navigation-context';
 import { Route } from 'next';
 
-export function NavLink<T extends string>(
-  {
-    hrefLabel,
-    iconLabel,
-    textLabel,
-  }: {
+export function NavLink<T extends string>( {
+  hrefLabel,
+  iconLabel,
+  textLabel,
+}: {
   iconLabel: string;
   textLabel: string;
   hrefLabel: Route<T> | URL;
-} 
-) {
+} ) {
   const {
     isNavOpen, setIsNavOpen 
   } = useNavigationContext();
@@ -24,6 +22,7 @@ export function NavLink<T extends string>(
   const pathname = usePathname();
 
   const isActive = pathname === hrefLabel;
+
   return (
     <Link
       key={hrefLabel.toString()}
@@ -37,9 +36,7 @@ export function NavLink<T extends string>(
             : styles.link
       }
       onClick={() => {
-        setIsNavOpen(
-          false 
-        );
+        setIsNavOpen( false );
       }}
       href={hrefLabel as Route}
     >

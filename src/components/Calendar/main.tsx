@@ -2,11 +2,9 @@ import { CalendarBuilder, nombresDeMeses } from '#@/lib/project/calendar';
 import Link from 'next/link';
 import calendar from './calendar.module.css';
 
-export function Calendar(
-  {
-    date 
-  }: { date?: Date } 
-) {
+export function Calendar( {
+  date 
+}: { date?: Date } ) {
   const today = date
     ? date
     : new Date();
@@ -15,9 +13,7 @@ export function Calendar(
 
   const currentYear = today.getFullYear();
 
-  const rows = CalendarBuilder(
-    today 
-  );
+  const rows = CalendarBuilder( today );
 
   return (
     <div className={calendar.container}>
@@ -33,35 +29,31 @@ export function Calendar(
           <li className={calendar.dias}>S</li>
         </div>
         <div className={calendar.days}>
-          {rows.map(
-            (
-              row 
-            ) => {
-              const {
-                date, href, current, className 
-              } = row;
+          {rows.map( ( row ) => {
+            const {
+              date, href, current, className 
+            } = row;
 
-              const setToday = date === today.getDate();
+            const setToday = date === today.getDate();
 
-              return (
-                <Link
-                  key={href}
-                  href={`/Tareas/${ href }`}
-                  className={
-                    current
-                      ? setToday
-                        ? calendar.dayActive
-                        : className === 'today'
-                          ? calendar.dayToday
-                          : calendar.dayInactive
-                      : calendar.dayDisabled
-                  }
-                >
-                  {date.toString()}
-                </Link>
-              );
-            } 
-          )}
+            return (
+              <Link
+                key={href}
+                href={`/Tareas/${ href }`}
+                className={
+                  current
+                    ? setToday
+                      ? calendar.dayActive
+                      : className === 'today'
+                        ? calendar.dayToday
+                        : calendar.dayInactive
+                    : calendar.dayDisabled
+                }
+              >
+                {date.toString()}
+              </Link>
+            );
+          } )}
         </div>
       </div>
     </div>

@@ -4,15 +4,13 @@ import layout from '#@/styles/layout.module.css';
 import { usePathname } from 'next/navigation';
 import { useCategory } from '#@/app/Context/category-context';
 
-export const CategoryButton = (
-  {
-    categoria,
-    icon,
-  }: {
+export const CategoryButton = ( {
+  categoria,
+  icon,
+}: {
   categoria: string;
   icon: string;
-} 
-) => {
+} ) => {
   const {
     currentCategory, setCurrentCategory 
   } = useCategory();
@@ -25,9 +23,7 @@ export const CategoryButton = (
   return (
     <button
       onClick={() => {
-        return setCurrentCategory(
-          categoria 
-        );
+        return setCurrentCategory( categoria );
       }}
       className={
         isActive
@@ -62,19 +58,17 @@ export const CategoryFilterButton = () => {
 
   return (
     <section className={layout.sectionColumn}>
-      {categorias.map(
-        (
-          category, index 
-        ) => {
-          return (
-            <CategoryButton
-              key={category}
-              categoria={category}
-              icon={icons[ index ]}
-            />
-          );
-        } 
-      )}
+      {categorias.map( (
+        category, index 
+      ) => {
+        return (
+          <CategoryButton
+            key={category}
+            categoria={category}
+            icon={icons[ index ]}
+          />
+        );
+      } )}
     </section>
   );
 };

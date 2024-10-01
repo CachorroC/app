@@ -3,25 +3,17 @@ import { Calendar } from '#@/components/Calendar/main';
 import { LabelBoundary } from '#@/components/layout/boundary';
 import { ReactNode } from 'react';
 
-export default function Layout(
-  {
-    params,
-    children,
-  }: {
+export default function Layout( {
+  params,
+  children,
+}: {
   params: { ano: string; mes: string };
   children: ReactNode;
-} 
-) {
-  const mes = Number(
-    params.mes 
-  );
+} ) {
+  const mes = Number( params.mes );
 
   const segmentDate = new Date(
-    Number(
-      params.ano 
-    ), Number(
-      params.mes 
-    ) - 1, 1 
+    Number( params.ano ), Number( params.mes ) - 1, 1 
   );
 
   const months = [
@@ -41,6 +33,7 @@ export default function Layout(
   ];
 
   const dateOutput = months[ mes ];
+
   return (
     <>
       <LabelBoundary color={'secondary'}>

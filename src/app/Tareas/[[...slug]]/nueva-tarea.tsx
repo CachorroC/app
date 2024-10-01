@@ -3,49 +3,37 @@
 import { NewTask } from '#@/lib/types/tareas';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-export function NuevaTarea(
-  {
-    carpetaNumero 
-  }: { carpetaNumero?: number } 
-) {
+export function NuevaTarea( {
+  carpetaNumero 
+}: { carpetaNumero?: number } ) {
   const {
     register,
     handleSubmit,
     formState: {
       errors 
     },
-  } = useForm<NewTask>(
-    {
-      defaultValues: {
-        dueDate: new Date(),
-        done   : false,
-        content: [
-          ''
-        ],
-        text         : '',
-        carpetaNumero: carpetaNumero
-          ? carpetaNumero
-          : 0,
-      },
-    } 
-  );
+  } = useForm<NewTask>( {
+    defaultValues: {
+      dueDate: new Date(),
+      done   : false,
+      content: [
+        ''
+      ],
+      text         : '',
+      carpetaNumero: carpetaNumero
+        ? carpetaNumero
+        : 0,
+    },
+  } );
 
-  const onSubmit: SubmitHandler<NewTask> = (
-    data 
-  ) => {
-    return console.log(
-      `SubmitHandler de Tareas NuevaTarea ${ data }` 
-    );
+  const onSubmit: SubmitHandler<NewTask> = ( data ) => {
+    return console.log( `SubmitHandler de Tareas NuevaTarea ${ data }` );
   };
 
-  console.log(
-    `errores de useForm en Nueva Tarea ${ errors }` 
-  );
+  console.log( `errores de useForm en Nueva Tarea ${ errors }` );
 
   return (
-    <form onSubmit={handleSubmit(
-      onSubmit 
-    )}>
+    <form onSubmit={handleSubmit( onSubmit )}>
       <input
         type="text"
         placeholder="text"

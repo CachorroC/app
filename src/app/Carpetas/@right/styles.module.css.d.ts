@@ -1,9 +1,10 @@
 declare const styles: {
-  readonly segmentedButtons: string;
-  readonly segmentedButtonsColumn: string;
-  readonly segmentedButtonsRow: string;
-  readonly button: string;
-  readonly buttonCategoryActive: string;
-  readonly buttonCategoryPasive: string;
+  readonly 'button': string;
+  readonly 'buttonCategoryActive': string;
+  readonly 'buttonCategoryPasive': string;
+  readonly 'segmentedButtons': string;
+  readonly 'segmentedButtonsColumn': string;
+  readonly 'segmentedButtonsRow': string;
 };
 export = styles;
+

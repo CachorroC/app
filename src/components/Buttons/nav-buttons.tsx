@@ -13,8 +13,9 @@ import { buttonDrawerMenuClosed,
 
 export const DrawerMenuButton = () => {
   const {
-    isNavOpen, setIsNavOpen 
+    isNavOpen, setIsNavOpen
   } = useNavigationContext();
+
   return (
     <button
       type="button"
@@ -22,13 +23,9 @@ export const DrawerMenuButton = () => {
         ? buttonDrawerMenuOpen
         : buttonDrawerMenuClosed}
       onClick={() => {
-        setIsNavOpen(
-          (
-            n 
-          ) => {
-            return !n;
-          } 
-        );
+        setIsNavOpen( ( n ) => {
+          return !n;
+        } );
       }}
     >
       <span className={`material-symbols-outlined ${ styles.icon }`}>
@@ -42,20 +39,16 @@ export const DrawerMenuButton = () => {
 
 export function NewNoteButton() {
   const {
-    isModalNoteOpen, setIsModalNoteOpen 
+    isModalNoteOpen, setIsModalNoteOpen
   } = useModalNoteContext();
 
   return (
     <button
       className={styles.buttonModal}
       onClick={() => {
-        setIsModalNoteOpen(
-          (
-            n 
-          ) => {
-            return !n;
-          } 
-        );
+        setIsModalNoteOpen( ( n ) => {
+          return !n;
+        } );
       }}
     >
       <span className={`material-symbols-outlined ${ styles.icon }`}>
@@ -69,7 +62,7 @@ export function NewNoteButton() {
 
 export default function NavButtons() {
   const {
-    isNavOpen, setIsNavOpen 
+    isNavOpen, setIsNavOpen
   } = useNavigationContext();
 
   return (
@@ -78,9 +71,7 @@ export default function NavButtons() {
         type="button"
         className={styles.buttonDrawerClosed}
         onClick={() => {
-          setIsNavOpen(
-            !isNavOpen 
-          );
+          setIsNavOpen( !isNavOpen );
         }}
       >
         <span className={`material-symbols-outlined ${ styles.icon }`}>
@@ -92,7 +83,7 @@ export default function NavButtons() {
       <NavLink
         iconLabel={'home'}
         textLabel={'Inicio'}
-        hrefLabel="/"
+        hrefLabel={'/' as Route}
       />
       <NavLink
         iconLabel={'gavel'}
@@ -116,6 +107,7 @@ export default function NavButtons() {
 
 export function ForwardBackwardNavButtons() {
   const router = useRouter();
+
   return (
     <section className={styles.segmentRow}>
       <button

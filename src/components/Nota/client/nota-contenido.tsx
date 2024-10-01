@@ -11,30 +11,18 @@ export const ParseContenidoArea = () => {
   const [
     text,
     setText
-  ] = useState<string>(
-    notaFormState.content.join(
-      '\n' 
-    ) 
-  );
+  ] = useState<string>( notaFormState.content.join( '\n' ) );
 
-  const handleChange = (
-    e: ChangeEvent<HTMLTextAreaElement> 
-  ) => {
+  const handleChange = ( e: ChangeEvent<HTMLTextAreaElement> ) => {
     const {
       value 
     } = e.target;
 
-    setText(
-      value 
-    );
-    setNotaFormState(
-      {
-        ...notaFormState,
-        content: value.split(
-          '\n' 
-        ),
-      } 
-    );
+    setText( value );
+    setNotaFormState( {
+      ...notaFormState,
+      content: value.split( '\n' ),
+    } );
   };
 
   return (
