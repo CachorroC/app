@@ -24,7 +24,10 @@
     height: 90svh;
     box-sizing: border-box;
     padding: 2vmin;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 8px;
     flex-flow: column nowrap;
     justify-content: flex-start;
     overflow: scroll;
@@ -58,21 +61,13 @@
   bottom: 2rem;
   &.show {
     visibility: visible;
-    -webkit-animation:
-      fadein 0.5s,
-      fadeout 0.5s 2.5s;
-    animation:
-      fadein 0.5s,
-      fadeout 0.5s 2.5s;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
   }
   &.hide {
     visibility: hidden;
-    -webkit-animation:
-      fadein 0.5s,
-      fadeout 0.5s 2.5s;
-    animation:
-      fadein 0.5s,
-      fadeout 0.5s 2.5s;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
     opacity: 0;
   }
 }

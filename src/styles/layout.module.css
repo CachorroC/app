@@ -35,7 +35,7 @@
   .container {
     grid-template-columns: 5rem repeat(8, 1fr);
     grid-template-rows: repeat(12, minmax(4vh, 1fr));
-    grid-template-areas: "header top top top top top top top top" "header left left left left left right right right" "header left left left left left right right right" "header left left left left left right right right" "header left left left left left right right right" "header left left left left left right right right" "header left left left left left right right right" "header left left left left left right right right" "header left left left left left right right right" "header left left left left left right right right" "header left left left left left right right right" "header left left left left left right right right";
+    grid-template-areas: "header top top top top top top top top" "header left left left left left left right right" "header left left left left left left right right" "header left left left left left left right right" "header left left left left left left right right" "header left left left left left left right right" "header left left left left left left right right" "header left left left left left left right right" "header left left left left left left right right" "header left left left left left left right right" "header left left left left left left right right" "header left left left left left left right right";
   }
 }
 @media (1200px < width) {
@@ -369,7 +369,7 @@
   }
 }
 .segmentRow {
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: space-evenly;
 }
 .segmentRowWrap {

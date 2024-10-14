@@ -91,4 +91,13 @@
   background-color: var(--on-secondary-container);
 }
 
-/*# sourceMappingURL=styles.module.css.map */
+.highlight {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  border: none;
+}
+.highlight:hover {
+  border: 0.2rem solid var(--outline);
+  background-color: var(--primary);
+  color: var(--on-primary);
+}

@@ -12,6 +12,7 @@ import { ActuacionTableComponent,
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { JuzgadoComponent,
   JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
+import styles from './styles.module.css';
 
 export function CarpetasTable() {
   const {
@@ -31,12 +32,12 @@ export function CarpetasTable() {
           <Suspense fallback={<Loader />}>
             <TableRowCarpetaSortingButton sortKey={'category'} />
           </Suspense>
-          <th>Actuaciones</th>
-          <th>Revisado</th>
-          <th>expediente</th>
-          <th>Fecha de ultima Actuacion</th>
-          <th>ciudad</th>
-          <th>Juzgado</th>
+          <th scope="col" className={styles.highlight}>Actuaciones</th>
+          <th scope="col" className={styles.highlight}>Revisado</th>
+          <th scope="col" className={styles.highlight}>expediente</th>
+          <th scope="col" className={styles.highlight}>Fecha de ultima Actuacion</th>
+          <th scope="col" className={styles.highlight}>ciudad</th>
+          <th scope="col" className={styles.highlight}>Juzgado</th>
         </tr>
       </thead>
       <tbody>
@@ -78,6 +79,7 @@ export function CarpetasTable() {
               {ultimaActuacion
                 ? (
                     <ActuacionTableComponent
+                      key={numero}
                       numero={numero}
                       title={ultimaActuacion.actuacion}
                       content={ultimaActuacion.anotacion}
@@ -108,7 +110,7 @@ export function CarpetasTable() {
               <td>
                 {juzgado
                   ? (
-                      <JuzgadoComponent juzgado={juzgado} />
+                      <JuzgadoComponent key={numero} juzgado={juzgado} />
                     )
                   : (
                       <JuzgadoErrorComponent />

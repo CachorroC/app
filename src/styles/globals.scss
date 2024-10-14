@@ -395,10 +395,8 @@ table {
 }
 th,
 td {
-  padding: 0.5rem 0.2rem;
   border-bottom: 0.1rem solid var(--outline-variant);
 }
-
 th {
   position: sticky;
   top: 0; /* Don't forget this, required for the stickiness */
@@ -407,8 +405,7 @@ th {
 }
 tr {
   &:hover {
-    background-color: var(--primary-container);
-    color: var(--on-primary-container);
+    border: var(--outline) 1px solid;
   }
 }
 
@@ -424,6 +421,12 @@ input:focus,
 select:focus,
 textarea:focus {
   box-shadow: none;
-  outline: #000 dotted 2px;
+  outline: var(--outline) solid 2px;
   outline-offset: 0.05em;
+}
+/*
+	Max width before this PARTICULAR table gets nasty. This query will take effect for any screen smaller than 760px and also iPads specifically.
+	*/
+tr:nth-child(odd) {
+  background: var(--surface-container-low);
 }

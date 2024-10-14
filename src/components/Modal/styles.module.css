@@ -25,7 +25,10 @@
   height: 90svh;
   box-sizing: border-box;
   padding: 2vmin;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: 8px;
   flex-flow: column nowrap;
   justify-content: flex-start;
   overflow: scroll;
@@ -109,3 +112,5 @@
     opacity: 0;
   }
 }
+
+/*# sourceMappingURL=styles.module.css.map */

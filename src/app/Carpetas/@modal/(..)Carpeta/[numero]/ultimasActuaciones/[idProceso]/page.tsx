@@ -1,52 +1,43 @@
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { ActuacionesLoader } from '#@/components/Actuaciones/actuacion-loader';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { NombreComponent } from '#@/components/nombre';
 import styles from '#@/styles/layout.module.css';
-import { ActuacionesListContainer } from '#@/components/Actuaciones/actuaciones-list';
 import { ModalLoader } from '#@/components/Loader/main-loader';
 import { JuzgadoComponent,
   JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
-import { Metadata } from 'next';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
-import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
+import { ConsultaActuacion } from '#@/lib/types/actuaciones';
+import { ActuacionComponent } from '#@/components/Actuaciones/actuacion-component';
 
-export async function generateMetadata( {
-  params,
-}: {
-  params: { numero: string };
-} ): Promise<Metadata> {
-  const {
-    numero
-  } = params;
-
-  const product = await getCarpetabyNumero( Number( numero ) );
-
-  return {
-    title: `${ numero } - ${ product.nombre }`,
-
-    keywords: [
-      product.nombre,
-      product.tipoProceso,
-      product.numero.toString(),
-      product.tipoProceso,
-      product.category,
-    ],
-  };
-}
 
 async function ActuacionesListModalget( {
   idProceso
-}: { idProceso: number } ) {
-  const actuacionesPromise = fetchActuaciones(   idProceso  );
+}: { idProceso: number; } ) {
 
-  return (
-    <Suspense fallback={ <ActuacionesLoader /> }>
-
-      <ActuacionesListContainer actuacionesPromise={actuacionesPromise} />
-    </Suspense>
+  const data = await fetch(
+    `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, {
+      cache: 'no-store'
+    }
   );
+
+  if ( !data.ok ) {
+    notFound();
+  }
+
+  const {
+    actuaciones
+  } = await data.json() as ConsultaActuacion;
+
+
+  return actuaciones.map( ( actuacion ) => {
+    return (
+
+      <ActuacionComponent key={actuacion.idRegActuacion} incomingActuacion={actuacion } />
+
+    );
+  } );
+
 }
 
 export default async function Page( {
@@ -64,7 +55,9 @@ export default async function Page( {
 
   return (
     <>
-      <div className={styles.segmentRow}>
+      <div className={styles.segmentRow} style={{
+        gridColumn: 'span 4',
+      }}>
         <NombreComponent
           nombre={carpeta.nombre}
           carpetaNumero={carpeta.numero}

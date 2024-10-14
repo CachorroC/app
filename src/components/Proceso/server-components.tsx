@@ -92,7 +92,7 @@ export async function ProcesoDetalle( {
   }
 
   return (
-    <div className={layout.segmentColumn}>
+    <div className={layout.segmentRow}>
       <h4 className={typography.titleLarge}>Detalles del proceso</h4>
 
       {infoDetalle.map( (

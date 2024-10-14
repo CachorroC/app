@@ -14,8 +14,7 @@ import { InputSection } from '#@/components/Form/input-section';
 import { DeudorFormComponent } from '#@/components/Form/deudor-form-component';
 import { ActuacionLoader } from '#@/components/Actuaciones/actuacion-loader';
 import { JuzgadoComponent,
-  JuzgadoErrorComponent,
-  JuzgadoTableComponent, } from '#@/components/Proceso/juzgado-component';
+  JuzgadoErrorComponent } from '#@/components/Proceso/juzgado-component';
 import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos/procesos';
 import styles from './styles.module.css';
 import { NotificacionComponent } from '#@/components/Notificacion/notificacion';
@@ -87,7 +86,7 @@ async function AvailableProcesosByName( {
                 />
               </Suspense>
               <Suspense fallback={<TableLoader />}>
-                <JuzgadoTableComponent juzgado={outgoinProceso.juzgado} />
+                <JuzgadoComponent juzgado={outgoinProceso.juzgado} />
               </Suspense>
             </tr>
           );

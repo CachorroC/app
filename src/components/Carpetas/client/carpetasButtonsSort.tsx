@@ -3,7 +3,7 @@
 import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
 import { Fragment, useState } from 'react';
 import { SortActionType } from '#@/app/Hooks/useCarpetasreducer';
-import styles from '#@/app/Carpetas/@right/styles.module.css';
+import styles from './styles.module.css';
 
 export function CarpetasSortButtons( {
   options,
@@ -30,7 +30,7 @@ export function CarpetasSortButtons( {
       <h1>{'ordenar:'}</h1>
 
       {options.map( ( {
-        name, value, items 
+        name, value, items
       } ) => {
         return (
           <Fragment key={value}>
@@ -108,7 +108,7 @@ export function TableRowCarpetaSortingButton( {
   } );
 
   return (
-    <th>
+    <th scope="col" className={styles.highlight}>
       <button
         type="button"
         onClick={() => {

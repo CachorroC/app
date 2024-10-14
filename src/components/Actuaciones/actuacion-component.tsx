@@ -1,6 +1,6 @@
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
-import { outActuacion } from '#@/lib/types/actuaciones';
+import { intActuacion, outActuacion } from '#@/lib/types/actuaciones';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { NewNotaComponent } from '../Modal';
 import styles from '../Card/elevated.module.css';
@@ -8,10 +8,10 @@ import styles from '../Card/elevated.module.css';
 export function ActuacionComponent( {
   incomingActuacion,
 }: {
-  incomingActuacion: outActuacion;
+  incomingActuacion: outActuacion | intActuacion;
 } ) {
   const {
-    actuacion, anotacion, fechaActuacion, consActuacion 
+    actuacion, anotacion, fechaActuacion, consActuacion
   }
     = incomingActuacion;
 
