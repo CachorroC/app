@@ -382,16 +382,11 @@ a:link, a:visited {
 }
 
 table {
-  text-align: left;
+  text-align: center;
   position: relative;
   grid-column: span 4;
   width: 100%;
   border-collapse: collapse;
-}
-
-th,
-td {
-  border-bottom: 0.1rem solid var(--outline-variant);
 }
 
 th {
@@ -401,6 +396,12 @@ th {
   background-color: var(--secondary-container);
 }
 
+tr {
+  padding: 2px;
+}
+tr:nth-child(odd) {
+  background: var(--surface-container-low);
+}
 tr:hover {
   border: var(--outline) 1px solid;
 }
@@ -424,8 +425,3 @@ textarea:focus {
 /*
 	Max width before this PARTICULAR table gets nasty. This query will take effect for any screen smaller than 760px and also iPads specifically.
 	*/
-tr:nth-child(odd) {
-  background: var(--surface-container-low);
-}
-
-/*# sourceMappingURL=globals.css.map */

@@ -387,16 +387,13 @@ a {
   }
 }
 table {
-  text-align: left;
+  text-align: center;
   position: relative;
   grid-column: span 4;
   width: 100%;
   border-collapse: collapse;
 }
-th,
-td {
-  border-bottom: 0.1rem solid var(--outline-variant);
-}
+
 th {
   position: sticky;
   top: 0; /* Don't forget this, required for the stickiness */
@@ -404,6 +401,10 @@ th {
   background-color: var(--secondary-container);
 }
 tr {
+  padding: 2px;
+  &:nth-child(odd) {
+    background: var(--surface-container-low);
+  }
   &:hover {
     border: var(--outline) 1px solid;
   }
@@ -415,18 +416,17 @@ hr {
   width: 100%;
 }
 
-a:focus,
-button:focus,
-input:focus,
-select:focus,
-textarea:focus {
-  box-shadow: none;
-  outline: var(--outline) solid 2px;
-  outline-offset: 0.05em;
+a,
+button,
+input,
+select,
+textarea {
+  &:focus {
+    box-shadow: none;
+    outline: var(--outline) solid 2px;
+    outline-offset: 0.05em;
+  }
 }
 /*
 	Max width before this PARTICULAR table gets nasty. This query will take effect for any screen smaller than 760px and also iPads specifically.
 	*/
-tr:nth-child(odd) {
-  background: var(--surface-container-low);
-}

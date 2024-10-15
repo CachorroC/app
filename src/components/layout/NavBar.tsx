@@ -24,8 +24,8 @@ export const NavBar = () => {
 
   return (
     <div className={styles.header}>
-      <NewNoteButton />
       <DrawerMenuButton />
+      <NewNoteButton />
       <NavLink
         key={'home'}
         iconLabel={'home'}
@@ -33,10 +33,10 @@ export const NavBar = () => {
         hrefLabel={'/' as Route}
       />
       <NavLink
-        iconLabel={'gavel'}
-        textLabel={'Reciente'}
+        iconLabel={'folder'}
+        textLabel={'Carpetas'}
         key={'actuaciones'}
-        hrefLabel={'/Carpetas/UltimasActuaciones'}
+        hrefLabel={'/Carpetas'}
       />
 
       {isNavOpen && (

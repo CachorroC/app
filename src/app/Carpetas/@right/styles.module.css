@@ -90,5 +90,3 @@
 .buttonCategoryActive:hover:before, .buttonCategoryActive:focus:before, .buttonCategoryActive:active:before {
   background-color: var(--on-secondary-container);
 }
-
-/*# sourceMappingURL=styles.module.css.map */

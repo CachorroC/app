@@ -16,7 +16,7 @@ export function NavLink<T extends string>( {
   hrefLabel: Route<T> | URL;
 } ) {
   const {
-    isNavOpen, setIsNavOpen 
+    isNavOpen, setIsNavOpen
   } = useNavigationContext();
 
   const pathname = usePathname();
@@ -38,7 +38,7 @@ export function NavLink<T extends string>( {
       onClick={() => {
         setIsNavOpen( false );
       }}
-      href={hrefLabel as Route}
+      href={hrefLabel}
     >
       <span className={`material-symbols-outlined ${ styles.icon }`}>
         {iconLabel}
