@@ -1,5 +1,6 @@
 import typography from '#@/styles/fonts/typography.module.css';
 import Link from 'next/link';
+import { CopyButton } from './Buttons/copy-buttons';
 
 export function NombreComponent( {
   nombre,
@@ -15,12 +16,17 @@ export function NombreComponent( {
         .substring( 1 );
     } );
 
+  const joinedName = rawName.join( ' ' );
+
   return (
-    <Link
-      href={`/Carpeta/${ carpetaNumero }`}
-      className={typography.displayLarge}
-    >
-      {rawName.join( ' ' )}
-    </Link>
+    <>
+      <Link
+        href={`/Carpeta/${ carpetaNumero }`}
+        className={typography.displayLarge}
+      >
+        {joinedName}
+      </Link>
+      <CopyButton copyTxt={ joinedName } name={ 'copiar' } />
+    </>
   );
 }

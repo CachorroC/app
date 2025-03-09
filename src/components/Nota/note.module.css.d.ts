@@ -1,12 +1,12 @@
 declare const styles: {
+  readonly 'Add': string;
   readonly 'ButtonTextHelper': string;
+  readonly 'Delete': string;
+  readonly 'Edit': string;
   readonly 'HomeButton': string;
   readonly 'active': string;
   readonly 'addButton': string;
   readonly 'button': string;
-  readonly 'buttonAdd': string;
-  readonly 'buttonDelete': string;
-  readonly 'buttonEdit': string;
   readonly 'buttonsRow': string;
   readonly 'checkboxItem': string;
   readonly 'container': string;

@@ -38,12 +38,6 @@ export const getCarpetas = cache( async () => {
   return rawCarpetas.map( ( carpeta ) => {
     return {
       ...carpeta,
-      demanda: {
-        ...carpeta.demanda,
-        capitalAdeudado: carpeta.demanda?.capitalAdeudado.toNumber() ?? null,
-        avaluo         : carpeta.demanda?.avaluo.toNumber() ?? null,
-        liquidacion    : carpeta.demanda?.liquidacion.toNumber() ?? null,
-      },
-    } as IntCarpeta;
+    } as unknown as IntCarpeta;
   } );
 } );

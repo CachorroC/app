@@ -6,12 +6,12 @@ import { deleteNota } from '#@/app/actions/main';
 import { Nota } from '@prisma/client';
 
 export function DeleteNoteButton( {
-  id 
+  id
 }: { id: string } ) {
   return (
     <>
       <button
-        className={note.buttonDelete}
+        className={note.deleteButton}
         onClick={() => {
           return deleteNota( {
             id: id,
@@ -22,7 +22,7 @@ export function DeleteNoteButton( {
         <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
       </button>
       <button
-        className={note.buttonDelete}
+        className={note.deleteButton}
         onClick={() => {
           deleteNota( {
             id: id,
@@ -37,11 +37,11 @@ export function DeleteNoteButton( {
 }
 
 export function EditNoteButton( {
-  nota 
+  nota
 }: { nota: Nota } ) {
   return (
     <Link
-      className={note.buttonEdit}
+      className={note.Add}
       href={`/Notas/id/${ nota.id }/Editar` as Route}
     >
       <span className={`material-symbols-outlined ${ note.icon }`}>edit</span>

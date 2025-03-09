@@ -153,6 +153,7 @@ export function carpetasReducer(
           ? asc
           : dsc;
 
+
         const categoriesSorter: string[] = [
           'todos',
           'Bancolombia',

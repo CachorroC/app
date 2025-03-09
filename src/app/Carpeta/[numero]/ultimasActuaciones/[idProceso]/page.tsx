@@ -62,7 +62,7 @@ export default async function Page( {
     return notFound();
   }
 
-  const actuaciones = await fetchActuaciones(  Number( params.idProceso ), );
+  const actuaciones = await fetchActuaciones( Number( params.idProceso ), );
 
   if ( !actuaciones || actuaciones.length === 0 ) {
     return notFound();

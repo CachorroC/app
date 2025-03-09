@@ -38,7 +38,7 @@ export function NavLink<T extends string>( {
       onClick={() => {
         setIsNavOpen( false );
       }}
-      href={hrefLabel}
+      href={hrefLabel as Route}
     >
       <span className={`material-symbols-outlined ${ styles.icon }`}>
         {iconLabel}

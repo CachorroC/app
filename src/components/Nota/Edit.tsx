@@ -1,14 +1,14 @@
 'use client';
 import { editNota } from '#@/app/actions/main';
-import { useState } from 'react';
+import { useActionState, useState } from 'react';
 import styles from 'components/Form/form.module.css';
 import layout from '#@/styles/layout.module.css';
-import { useFormState } from 'react-dom';
 import cardStyles from '../Card/card.module.css';
 import { IntNota } from '#@/lib/types/notas';
+import { card } from '../Proceso/procesos.module.css';
 
 export const Edit = ( {
-  nota 
+  nota
 }: { nota: IntNota } ) => {
   const [
     hasContent,
@@ -17,13 +17,14 @@ export const Edit = ( {
 
   const [
     formState,
-    onCreate
-  ] = useFormState(
+    onFormCreate,
+    isFormPending
+  ] = useActionState(
     editNota, {
       message: 'sin enviar',
       data   : nota,
       error  : false,
-    } 
+    }
   );
 
   const [
@@ -33,7 +34,7 @@ export const Edit = ( {
 
   const dateString = inputNota.dueDate?.toISOString()
     .slice(
-      0, 10 
+      0, 10
     );
 
   return (
@@ -44,9 +45,10 @@ export const Edit = ( {
     >
       <form
         className={styles.container}
-        action={onCreate}
+        action={onFormCreate}
       >
-        <section className={layout.sectionRow}>
+        <fieldset className={ layout.sectionRow }>
+          <legend>Cédula</legend>
           <label
             className={styles.label}
             htmlFor={'id'}
@@ -59,8 +61,8 @@ export const Edit = ( {
             name="id"
             defaultValue={nota.id}
           />
-        </section>
-        <section className={layout.sectionRow}>
+        </fieldset>
+        <fieldset className={layout.sectionRow}>
           <label
             className={styles.label}
             htmlFor={'llaveProceso'}
@@ -77,8 +79,8 @@ export const Edit = ( {
                 : ''
             }
           />
-        </section>
-        <section className={layout.sectionRow}>
+        </fieldset>
+        <fieldset className={layout.sectionRow}>
           <label
             className={styles.label}
             htmlFor={'text'}
@@ -97,8 +99,8 @@ export const Edit = ( {
               } );
             }}
           />
-        </section>
-        <section className={layout.sectionRow}>
+        </fieldset>
+        <fieldset className={layout.sectionRow}>
           <label
             className={styles.label}
             htmlFor={'date'}
@@ -118,8 +120,8 @@ export const Edit = ( {
             }}
           />
           <p>{dateString}</p>
-        </section>
-        <section className={layout.segmentColumn}>
+        </fieldset>
+        <fieldset className={layout.segmentColumn}>
           <label className={styles.switchBox}>
             <input
               className={styles.inputElement}
@@ -153,10 +155,18 @@ export const Edit = ( {
               </label>
             </section>
           )}
-        </section>
+        </fieldset>
         <button type="submit">Add</button>
         <p>{formState.message}</p>
       </form>
+
+      <div className={ card }>
+        <h1>{isFormPending
+          ? 'formulario no registrado'
+          : 'formulario registrado'}</h1>
+      </div>
+
+
     </div>
   );
 };

@@ -26,6 +26,23 @@ export function Nota( {
     ...nota,
   } );
 
+  async function saveAction() {
+
+    const revis = await updateNotaTextState( notaState );
+
+    alert( JSON.stringify( revis ) );
+
+    dispatch( {
+      type: 'changed',
+      nota: {
+        ...notaState,
+        ...revis,
+      },
+    } );
+
+    return setIsEditing( false );
+  }
+
   const dispatch = useNotaSortDispatch();
 
   let notaContent;
@@ -47,29 +64,13 @@ export function Nota( {
           onChange={( e ) => {
             return setNotaState( {
               ...notaState,
-              id: notaState.carpetaNumero
-                ? `${ notaState.carpetaNumero }-${ e.target.value }`
-                : `NC-${ e.target.value }`,
+              id: `${ notaState.carpetaNumero ?? 'NC' }-${ e.target.value }`
             } );
           }}
         />
         <button
           type="button"
-          onClick={async () => {
-            const revis = await updateNotaTextState( notaState );
-
-            alert( JSON.stringify( revis ) );
-
-            dispatch( {
-              type: 'changed',
-              nota: {
-                ...notaState,
-                ...revis,
-              },
-            } );
-
-            return setIsEditing( false );
-          }}
+          onClick={saveAction}
         >
           Save
         </button>

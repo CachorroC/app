@@ -2,9 +2,11 @@
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { Dispatch,
   ReactNode,
+  SetStateAction,
   createContext,
   useContext,
-  useReducer, } from 'react';
+  useReducer,
+  useState, } from 'react';
 import { IntAction,
   CarpetasReducerState,
   carpetasReducer, } from '../Hooks/useCarpetasreducer';
@@ -12,6 +14,11 @@ import { IntAction,
 const CarpetasSortContext = createContext<CarpetasReducerState | null>( null );
 
 const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>( null, );
+
+const CarpetasContext = createContext<{
+  currentCarpetas: MonCarpeta[];
+  setCurrentCarpetas: Dispatch<SetStateAction<MonCarpeta[]>>;
+}|null>( null );
 
 export function CarpetasSortProvider( {
   children,
@@ -30,13 +37,34 @@ export function CarpetasSortProvider( {
     }
   );
 
+  const [
+    currentCarpetas,
+    setCurrentCarpetas
+  ] = useState( initialCarpetas );
+
   return (
-    <CarpetasSortContext.Provider value={carpetasReduced}>
-      <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
-        {children}
-      </CarpetasSortDispatchContext.Provider>
-    </CarpetasSortContext.Provider>
+    <CarpetasContext.Provider value={{
+      currentCarpetas,
+      setCurrentCarpetas
+    }}>
+      <CarpetasSortContext.Provider value={carpetasReduced}>
+        <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
+          {children}
+        </CarpetasSortDispatchContext.Provider>
+      </CarpetasSortContext.Provider>
+    </CarpetasContext.Provider>
   );
+}
+
+export function useCarpetasContext () {
+
+  const context = useContext( CarpetasContext );
+
+  if ( context === null ) {
+    throw new Error( 'useCarpetas  must be used inside a carpetasprovider', );
+  }
+
+  return context;
 }
 
 export function useCarpetaSort() {
