@@ -15,13 +15,6 @@ export default function manifest(): MetadataRoute.Manifest {
       'standalone',
       'minimal-ui'
     ],
-    screenshots: [
-      {
-        src  : '/desktop.png',
-        sizes: '2520x1412',
-        type : 'image/png',
-      },
-    ],
     shortcuts: [
       {
         name: 'Ultimas Actuaciones',
@@ -63,9 +56,7 @@ export default function manifest(): MetadataRoute.Manifest {
       src: '/service-worker.js',
     },
     icons: [
-      {
-        src: '/icon.svg',
-      },
+
       {
         src    : '/icon.svg',
         sizes  : '150x150',

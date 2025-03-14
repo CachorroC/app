@@ -53,6 +53,11 @@ export type CategoryFilterActionType = {
   )[];
 };
 
+export type CiudadFlterActionType = {
+  type: 'ciudad-filter';
+  include: string[];
+}
+
 export type ResetActionType = {
   type: 'reset';
 };
@@ -63,7 +68,8 @@ export type IntAction =
   | SortActionType
   | ResetActionType
   | UpdateActionType
-  | CategoryFilterActionType;
+  | CategoryFilterActionType
+  | CiudadFlterActionType;
 
 export function carpetasReducer(
   reducerState: CarpetasReducerState,
@@ -105,6 +111,38 @@ export function carpetasReducer(
           } = carpeta;
 
           const indexOf = exclude.indexOf( category );
+
+          if ( indexOf !== -1 ) {
+            outgoingCarpetas.push( carpeta );
+          }
+        }
+
+        return {
+          carpetas        : outgoingCarpetas,
+          completeCarpetas: completeCarpetas,
+        };
+      }
+
+      case 'ciudad-filter': {
+        const {
+          include
+        } = action;
+
+        if ( !include || include.length === 0 || include.includes( 'todos' ) ) {
+          return {
+            carpetas        : completeCarpetas,
+            completeCarpetas: completeCarpetas,
+          };
+        }
+
+        const outgoingCarpetas = [];
+
+        for ( const carpeta of completeCarpetas ) {
+          const {
+            ciudad
+          } = carpeta;
+
+          const indexOf = include.indexOf( ciudad ?? 'Bogota' );
 
           if ( indexOf !== -1 ) {
             outgoingCarpetas.push( carpeta );

@@ -11,6 +11,54 @@ import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import { ExpedienteFormComponent } from './expediente-form-component';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 
+/*
+export async function generateStaticParams() {
+  const carpetas = await getCarpetas();
+
+  const flattenUp = carpetas.flatMap( ( carpeta ) => {
+    const {
+      numero, procesos
+    } = carpeta;
+
+    if ( procesos.length === 0 ) {
+      return {
+        numero   : String( numero ),
+        idProceso: 'idProceso',
+      };
+    }
+
+    return procesos.map( ( proceso ) => {
+      if ( proceso.esPrivado ) {
+        return {
+          numero   : String( numero ),
+          idProceso: 'idProceso',
+        };
+      }
+
+      return {
+        numero   : String( numero ),
+        idProceso: String( proceso.idProceso ),
+      };
+    } );
+  } );
+
+  const chunkSize = 100;
+
+  const chunks = [];
+
+  for ( let i = 0; i < flattenUp.length; i += chunkSize ) {
+    const chunk = flattenUp.slice(
+      i, i + chunkSize
+    );
+
+    chunks.push( chunk );
+  }
+
+  console.log( chunks.length );
+
+  return chunks[ chunks.length - 1 ];
+}
+ */
 export async function generateMetadata( {
   params,
 }: {

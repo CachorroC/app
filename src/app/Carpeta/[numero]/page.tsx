@@ -25,6 +25,7 @@ import { ConsultaProcesos, outProceso } from '#@/lib/types/procesos';
 import SujetosProcesales from '#@/components/Proceso/sujetos-procesales';
 import { JuzgadoClass } from '#@/lib/models/juzgado';
 
+
 async function AvailableProcesosByName( {
   nombre
 }: { nombre: string } ) {

@@ -1,6 +1,7 @@
 import { CarpetasSortButtons } from '#@/components/Carpetas/client/carpetasButtonsSort';
 import { ResetButtonSorter } from '../UltimasActuaciones/reset-button';
 import CategoryFilteringButtons from './category-filtering-buttons';
+import CiudadFilteringButtons from './ciudad-filter';
 
 const options = [
   {
@@ -32,7 +33,8 @@ export default function Default() {
     <>
       <ResetButtonSorter />
       <CarpetasSortButtons options={options} />
-      <CategoryFilteringButtons row={false} />
+      <CategoryFilteringButtons row={ false } />
+      <CiudadFilteringButtons row={false} />
     </>
   );
 }
