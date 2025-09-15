@@ -20,10 +20,10 @@ self.addEventListener(
       };
 
       event.waitUntil( self.registration.showNotification(
-        data.title, options
+        data.title, options 
       ) );
     }
-  }
+  } 
 );
 
 self.addEventListener(
@@ -32,5 +32,5 @@ self.addEventListener(
     event.notification.close();
     // @ts-ignore
     event.waitUntil( clients.openWindow( '<https://app.rsasesorjuridico.com>' ) );
-  }
+  } 
 );

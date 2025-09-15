@@ -105,7 +105,11 @@
     box-shadow: var(--dp6);
 
     & > .icon {
-      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 200, 'opsz' 40;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 600,
+        'GRAD' 200,
+        'opsz' 40;
     }
   }
   &:focus,
@@ -116,7 +120,11 @@
     }
 
     & > .icon {
-      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 200, 'opsz' 40;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 600,
+        'GRAD' 200,
+        'opsz' 40;
     }
   }
 }

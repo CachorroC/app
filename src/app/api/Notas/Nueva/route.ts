@@ -29,17 +29,17 @@ export async function POST( request: NextRequest ) {
     } );
 
     console.log( `POST en api/Notas/Nueva es ${ JSON.stringify(
-      inserterPrisma, null, 2
+      inserterPrisma, null, 2 
     ) }`, );
 
     return NextResponse.json(
       inserterPrisma, {
         status: 200,
-      }
+      } 
     );
   } catch ( error ) {
     console.log( `POST en api/Notas/Nueva arrojó un error ${ error }` );
 
-    return NextResponse.error( );
+    return NextResponse.error();
   }
 }

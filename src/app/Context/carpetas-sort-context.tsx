@@ -18,7 +18,7 @@ const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>( n
 const CarpetasContext = createContext<{
   currentCarpetas: MonCarpeta[];
   setCurrentCarpetas: Dispatch<SetStateAction<MonCarpeta[]>>;
-}|null>( null );
+} | null>( null );
 
 export function CarpetasSortProvider( {
   children,
@@ -34,7 +34,7 @@ export function CarpetasSortProvider( {
     carpetasReducer, {
       carpetas        : initialCarpetas,
       completeCarpetas: initialCarpetas,
-    }
+    } 
   );
 
   const [
@@ -43,10 +43,12 @@ export function CarpetasSortProvider( {
   ] = useState( initialCarpetas );
 
   return (
-    <CarpetasContext.Provider value={{
-      currentCarpetas,
-      setCurrentCarpetas
-    }}>
+    <CarpetasContext.Provider
+      value={{
+        currentCarpetas,
+        setCurrentCarpetas,
+      }}
+    >
       <CarpetasSortContext.Provider value={carpetasReduced}>
         <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
           {children}
@@ -56,12 +58,11 @@ export function CarpetasSortProvider( {
   );
 }
 
-export function useCarpetasContext () {
-
+export function useCarpetasContext() {
   const context = useContext( CarpetasContext );
 
   if ( context === null ) {
-    throw new Error( 'useCarpetas  must be used inside a carpetasprovider', );
+    throw new Error( 'useCarpetas  must be used inside a carpetasprovider' );
   }
 
   return context;

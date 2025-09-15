@@ -17,7 +17,7 @@ import { containerEnabled } from '#@/components/Card/filled.module.css';
 import { ProcesoHibrido } from '#@/components/Proceso/hibrido';
 
 async function NotasList( {
-  carpetaNumero 
+  carpetaNumero
 }: { carpetaNumero: number } ) {
   const notas = await getNotas( carpetaNumero );
 
@@ -41,7 +41,7 @@ async function NotasList( {
 
 export default async function Page( {
   params: {
-    numero 
+    numero
   },
 }: {
   params: { numero: string };
@@ -53,7 +53,7 @@ export default async function Page( {
   }
 
   const {
-    llaveProceso, demanda, fecha, updatedAt 
+    llaveProceso, demanda, fecha, updatedAt
   } = carpeta;
 
   const allFechas = new Set<{ name: string; date: Date }>();
@@ -96,7 +96,7 @@ export default async function Page( {
 
     if ( mandamientoPago !== null ) {
       mandamientoPago.forEach( (
-        mandamiento, index 
+        mandamiento, index
       ) => {
         allFechas.add( {
           name: `mandamientoPago.${ index }`,
@@ -125,7 +125,7 @@ export default async function Page( {
   const fechasMaper = [
     ...allFechasArray
   ].sort( (
-    a, b 
+    a, b
   ) => {
     const x = a.date.getTime();
 
@@ -190,9 +190,9 @@ export default async function Page( {
       <Suspense fallback={<ProcesosCardSkeleton />}>
         {llaveProceso && (
           <ProcesosComponent
-            key={llaveProceso}
-            llaveProceso={llaveProceso}
-          />
+            key={ llaveProceso }
+            llaveProceso={ llaveProceso }
+            numero={ Number( numero ) } />
         )}
       </Suspense>
     </>

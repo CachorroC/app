@@ -19,9 +19,7 @@ export default async function NotFound() {
   const domain = headersList.get( 'next-url' ) ?? '';
 
   const [
-    , firstRoute,
-    ,
-    thirdRoute
+    , firstRoute, , thirdRoute
   ] = domain.split( '/' );
 
   const arrMap = Array.from( mapper );
@@ -38,7 +36,7 @@ export default async function NotFound() {
     <div>
       <h2>Not Found: {domain}</h2>
       {arrMap.map( (
-        mp, i
+        mp, i 
       ) => {
         return <p key={i}>{mp}</p>;
       } )}

@@ -14,7 +14,7 @@ export default function ActuacionClientFetcher( {
       return fetchActuaciones( idProceso );
     }, [
       idProceso
-    ]
+    ] 
   );
 
   return (

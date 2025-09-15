@@ -15,34 +15,40 @@
     "json-to-prisma": "json-to-prisma-schema-convertor convert --inputPath='./prisma/schema.json' --outputPath='./prisma/new/schema.prisma'"
   },
   "dependencies": {
-    "@eslint/js": "^9.21.0",
+    "@base-ui-components/react": "1.0.0-alpha.7",
+    "@eslint/js": "^9.35.0",
     "@prisma/client": "^5.22.0",
     "@stylistic/eslint-plugin": "^2.13.0",
     "@types/bcrypt": "^5.0.2",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "20.6.3",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
     "@yudiel/react-qr-scanner": "2.0.0-beta.3",
     "bcrypt": "^5.1.1",
-    "eslint": "8.49.0",
+    "eslint": "9.35.0",
     "eslint-config-next": "13.5.2",
     "material-symbols": "^0.13.2",
-    "mongodb": "^6.14.2",
-    "next": "^14.2.24",
+    "mongodb": "^6.19.0",
+    "next": "^15.5.3",
     "prisma": "^5.22.0",
-    "react": "19.0.0-rc-67fee58b-20240926",
+    "react": "19.1.1",
     "react-currency-input-field": "^3.10.0",
-    "react-dom": "19.0.0-rc-67fee58b-20240926",
+    "react-dom": "19.1.1",
     "react-error-boundary": "^4.1.2",
-    "react-hook-form": "^7.54.2",
-    "sass": "^1.85.1",
+    "react-hook-form": "^7.62.0",
+    "sass": "^1.92.1",
     "server-only": "^0.0.1",
     "typed-css-modules": "^0.9.1",
     "typed-scss-modules": "^8.1.1",
     "typescript": "5.2.2",
     "web-push": "^3.6.7",
     "xlsx": "^0.18.5",
-    "zod": "^3.24.2"
+    "zod": "^3.25.76"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "unrs-resolver"
+    ]
   }
 }

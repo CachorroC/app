@@ -3,15 +3,16 @@ import { ConsultaActuacion } from '#@/lib/types/actuaciones';
 export default async function fetchActuaciones( idProceso: number ) {
   try {
     const request = await fetch(
-      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,  {
+      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
+      {
         next: {
-          revalidate: 86400
-        }
-      }
+          revalidate: 86400,
+        },
+      },
     );
 
     if ( !request.ok ) {
-      throw new Error( `request is not ok: ${ request.status }: ${ request.statusText }` );
+      throw new Error( `request is not ok: ${ request.status }: ${ request.statusText }`, );
     }
 
     const consultaActuaciones = ( await request.json() ) as ConsultaActuacion;
@@ -31,19 +32,17 @@ export default async function fetchActuaciones( idProceso: number ) {
           fechaFinal: actuacion.fechaFinal
             ? new Date( actuacion.fechaFinal )
             : null,
-        } ;
+        };
       } );
     }
 
     throw new Error( 'el length del array actuaciones es 0' );
-
-
   } catch ( error ) {
     console.log( `${ idProceso }ERROR ===> FETCHACTUACIONES ${ JSON.stringify(
       error,
       null,
-      2
-    ) }` );
+      2,
+    ) }`, );
 
     return [];
   }

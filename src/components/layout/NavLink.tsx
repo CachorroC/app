@@ -16,7 +16,7 @@ export function NavLink<T extends string>( {
   hrefLabel: Route<T> | URL;
 } ) {
   const {
-    isNavOpen, setIsNavOpen
+    isNavOpen, setIsNavOpen 
   } = useNavigationContext();
 
   const pathname = usePathname();

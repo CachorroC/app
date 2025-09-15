@@ -11,7 +11,7 @@ export function ActuacionComponent( {
   incomingActuacion: outActuacion | intActuacion;
 } ) {
   const {
-    actuacion, anotacion, fechaActuacion, consActuacion
+    actuacion, anotacion, fechaActuacion, consActuacion 
   }
     = incomingActuacion;
 

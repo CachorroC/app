@@ -26,7 +26,7 @@ export const Card = ( {
     : true;
 
   const {
-    idProcesos, nombre, numero
+    idProcesos, nombre, numero 
   } = carpeta;
 
   if ( !idProcesos || idProcesos.length === 0 ) {
@@ -37,7 +37,7 @@ export const Card = ( {
         <Link
           key={idProceso}
           href={
-            `/Carpeta/${ String( numero ) }/ultimasActuaciones/${ String( idProceso, ) }` as Route
+            `/Carpeta/${ String( numero ) }/ultimasActuaciones/${ String( idProceso ) }` as Route
           }
           className={styles.link}
         >
@@ -102,7 +102,7 @@ export const CardRow = ( {
     : true;
 
   const {
-    numero, idProcesos, revisado, id
+    numero, idProcesos, revisado, id 
   } = carpeta;
 
   const idProcesosLength = idProcesos.length;
@@ -111,7 +111,7 @@ export const CardRow = ( {
 
   if ( idProcesosLength > 1 ) {
     carpetaHref = idProcesos.map( (
-      idProceso, index
+      idProceso, index 
     ) => {
       return (
         <Link
@@ -188,7 +188,7 @@ export const CardRow = ( {
             children
           )}
       <RevisadoCheckBox
-        numero={ numero }
+        numero={numero}
         id={id}
         initialRevisadoState={revisado}
       />

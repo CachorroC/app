@@ -38,7 +38,7 @@ export function ActuacionesSlideshowContainer( {
   return (
     <ErrorBoundary fallback={<ActuacionesSlideshowErrorComponent />}>
       <Suspense fallback={<ActuacionLoader />}>
-        <ActuacionesSlideshow actuacionesPromise={actuacionesPromise } />
+        <ActuacionesSlideshow actuacionesPromise={actuacionesPromise} />
       </Suspense>
     </ErrorBoundary>
   );
@@ -48,8 +48,7 @@ export function ActuacionesSlideshow( {
   actuacionesPromise,
 }: {
   actuacionesPromise: Promise<outActuacion[]>;
-  } ) {
-
+} ) {
   const actuacionesList = use( actuacionesPromise );
 
   const [

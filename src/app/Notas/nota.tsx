@@ -27,7 +27,6 @@ export function Nota( {
   } );
 
   async function saveAction() {
-
     const revis = await updateNotaTextState( notaState );
 
     alert( JSON.stringify( revis ) );
@@ -64,7 +63,7 @@ export function Nota( {
           onChange={( e ) => {
             return setNotaState( {
               ...notaState,
-              id: `${ notaState.carpetaNumero ?? 'NC' }-${ e.target.value }`
+              id: `${ notaState.carpetaNumero ?? 'NC' }-${ e.target.value }`,
             } );
           }}
         />

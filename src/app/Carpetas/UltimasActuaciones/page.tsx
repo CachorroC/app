@@ -24,10 +24,10 @@ export type SortActionType = {
 };
 
 function sortCarpetas(
-  carpetas: MonCarpeta[], action: SortActionType
+  carpetas: MonCarpeta[], action: SortActionType 
 ) {
   const {
-    dir, sortingKey
+    dir, sortingKey 
   } = action;
 
   const asc = [
@@ -61,7 +61,7 @@ function sortCarpetas(
         return [
           ...carpetas
         ].sort( (
-          a, b
+          a, b 
         ) => {
           if ( !a.fecha || a.fecha === undefined ) {
             return sorter[ 2 ];
@@ -91,7 +91,7 @@ function sortCarpetas(
         return [
           ...carpetas
         ].sort( (
-          a, b
+          a, b 
         ) => {
           const x = categoriesSorter.indexOf( a.category );
 
@@ -113,7 +113,7 @@ function sortCarpetas(
         return [
           ...carpetas
         ].sort( (
-          a, b
+          a, b 
         ) => {
           const x = a.numero;
 
@@ -131,7 +131,7 @@ function sortCarpetas(
         return [
           ...carpetas
         ].sort( (
-          a, b
+          a, b 
         ) => {
           const x = a.nombre;
 
@@ -153,7 +153,7 @@ function sortCarpetas(
         return [
           ...carpetas
         ].sort( (
-          a, b
+          a, b 
         ) => {
           const aSortingKey = a[ sortingKey ];
 
@@ -207,7 +207,7 @@ export default async function Page( {
       sortingKey: searchParams.sortingKey
         ? searchParams.sortingKey
         : 'fecha',
-    }
+    } 
   );
 
   return (

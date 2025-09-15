@@ -17,7 +17,7 @@ export const NuevaNota = () => {
   const pathname = usePathname();
 
   const {
-    notaFormState, setNotaFormState
+    notaFormState, setNotaFormState 
   } = useNuevaNotaContext();
 
   function handleStringChange( e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, ) {
@@ -168,7 +168,7 @@ export const NuevaNota = () => {
         </section>
       </form>
       <pre>{JSON.stringify(
-        notaFormState, null, 2
+        notaFormState, null, 2 
       )}</pre>
     </>
   );

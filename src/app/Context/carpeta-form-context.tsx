@@ -18,8 +18,7 @@ const CarpetaFormContext = createContext<{
 
 const DemandaFormContext = createContext<{
   demandaFormState: { demanda: intDemanda; success: boolean };
-  demandaFormAction:( payload: FormData
-  ) => void;
+  demandaFormAction:( payload: FormData ) => void;
     } | null>( null );
 
 export function CarpetaFormProvider( {
@@ -30,7 +29,7 @@ export function CarpetaFormProvider( {
   carpeta: IntCarpeta;
 } ) {
   const {
-    demanda
+    demanda 
   } = carpeta;
 
   const [

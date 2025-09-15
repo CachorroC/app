@@ -9,7 +9,7 @@ export function RevisadoCheckBox( {
   initialRevisadoState,
 }: {
   numero: number;
-    id: number;
+  id: number;
   initialRevisadoState: boolean;
 } ) {
   const [

@@ -56,7 +56,6 @@ export default function manifest(): MetadataRoute.Manifest {
       src: '/service-worker.js',
     },
     icons: [
-
       {
         src    : '/icon.svg',
         sizes  : '150x150',

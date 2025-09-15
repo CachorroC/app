@@ -19,7 +19,7 @@ export async function updateActuacionesInPrisma( incomingActuaciones: outActuaci
 export async function updateUltimaActuacionInPrisma( incomingActuacion: outActuacion, ) {
   try {
     const {
-      fechaActuacion, idProceso, idRegActuacion
+      fechaActuacion, idProceso, idRegActuacion 
     } = incomingActuacion;
 
     const carpeta = await prisma.carpeta.findFirstOrThrow( {
@@ -31,7 +31,7 @@ export async function updateUltimaActuacionInPrisma( incomingActuacion: outActua
     } );
 
     const {
-      fecha: savedDate, idRegUltimaAct, numero
+      fecha: savedDate, idRegUltimaAct, numero 
     } = carpeta;
 
     const incomingDate = new Date( fechaActuacion );
@@ -49,7 +49,6 @@ export async function updateUltimaActuacionInPrisma( incomingActuacion: outActua
         await prisma.carpeta.update( {
           where: {
             numero: numero,
-
           },
           data: {
             fecha          : incomingDate,

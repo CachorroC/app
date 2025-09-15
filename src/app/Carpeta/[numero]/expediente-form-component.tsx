@@ -8,11 +8,11 @@ import { entidadesJudiciales } from '#@/lib/data/keybuilder';
 export function ExpedienteFormComponent( {
   initialLLave,
   numero,
-  id
+  id,
 }: {
   initialLLave: string;
-    numero: number;
-  id: number
+  numero: number;
+  id: number;
 } ) {
   const [
     departamentoState,
@@ -57,7 +57,8 @@ export function ExpedienteFormComponent( {
 
   async function editKey() {
     const editor = await editllaveProceso(
-      numero, id,
+      numero,
+      id,
       `${ departamentoState }${ municipioState }${ entidadState }${ especialidadState }${ despachoState }${ anoState }${ codigoState }${ recursoState }`,
     );
 
@@ -100,7 +101,7 @@ export function ExpedienteFormComponent( {
       }
     }, [
       initialLLave
-    ]
+    ] 
   );
 
   const selectedEntidad = entidadesJudiciales.find( ( entidad ) => {

@@ -3,13 +3,11 @@ import styles from './styles.module.css';
 import Link from 'next/link';
 import { Route } from 'next';
 
-
-
 export function JuzgadoComponent( {
-  juzgado
+  juzgado 
 }: { juzgado: Juzgado } ) {
   const {
-    tipo, url, id, ciudad
+    tipo, url, id, ciudad 
   } = juzgado;
 
   const indexOfTipo = tipo.search( /([Ee][Jj][Ee][Cc])/gm );
@@ -30,9 +28,9 @@ export function JuzgadoComponent( {
           ? 'assured_workload'
           : 'gavel'}
       </span>
-      <span
-        className={styles.text}
-      >{`Juzgado ${ id } ${ tipo } de ${ ciudad }`.toLocaleLowerCase()}</span>
+      <span className={styles.text}>
+        {`Juzgado ${ id } ${ tipo } de ${ ciudad }`.toLocaleLowerCase()}
+      </span>
     </Link>
   );
 }

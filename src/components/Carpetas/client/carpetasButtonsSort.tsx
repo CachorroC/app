@@ -30,7 +30,7 @@ export function CarpetasSortButtons( {
       <h1>{'ordenar:'}</h1>
 
       {options.map( ( {
-        name, value, items
+        name, value, items 
       } ) => {
         return (
           <Fragment key={value}>
@@ -108,7 +108,10 @@ export function TableRowCarpetaSortingButton( {
   } );
 
   return (
-    <th scope="col" className={styles.highlight}>
+    <th
+      scope="col"
+      className={styles.highlight}
+    >
       <button
         type="button"
         onClick={() => {

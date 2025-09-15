@@ -26,7 +26,10 @@ export function NombreComponent( {
       >
         {joinedName}
       </Link>
-      <CopyButton copyTxt={ joinedName } name={ 'copiar' } />
+      <CopyButton
+        copyTxt={joinedName}
+        name={'copiar'}
+      />
     </>
   );
 }

@@ -48,8 +48,8 @@ export const getCarpetas = cache( async () => {
           : 0,
         liquidacion: carpeta.demanda?.liquidacion
           ? Number( carpeta.demanda.liquidacion )
-          : 0
-      }
+          : 0,
+      },
     } as IntCarpeta;
   } );
 } );

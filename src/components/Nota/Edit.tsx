@@ -8,7 +8,7 @@ import { IntNota } from '#@/lib/types/notas';
 import { card } from '../Proceso/procesos.module.css';
 
 export const Edit = ( {
-  nota
+  nota 
 }: { nota: IntNota } ) => {
   const [
     hasContent,
@@ -24,7 +24,7 @@ export const Edit = ( {
       message: 'sin enviar',
       data   : nota,
       error  : false,
-    }
+    } 
   );
 
   const [
@@ -34,7 +34,7 @@ export const Edit = ( {
 
   const dateString = inputNota.dueDate?.toISOString()
     .slice(
-      0, 10
+      0, 10 
     );
 
   return (
@@ -47,7 +47,7 @@ export const Edit = ( {
         className={styles.container}
         action={onFormCreate}
       >
-        <fieldset className={ layout.sectionRow }>
+        <fieldset className={layout.sectionRow}>
           <legend>Cédula</legend>
           <label
             className={styles.label}
@@ -160,13 +160,13 @@ export const Edit = ( {
         <p>{formState.message}</p>
       </form>
 
-      <div className={ card }>
-        <h1>{isFormPending
-          ? 'formulario no registrado'
-          : 'formulario registrado'}</h1>
+      <div className={card}>
+        <h1>
+          {isFormPending
+            ? 'formulario no registrado'
+            : 'formulario registrado'}
+        </h1>
       </div>
-
-
     </div>
   );
 };

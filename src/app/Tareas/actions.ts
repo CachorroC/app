@@ -49,7 +49,7 @@ export async function addTaskToMongo( newData: NewTask ) {
     return {
       success: true,
       data   : JSON.stringify(
-        updateTask, null, 2
+        updateTask, null, 2 
       ),
     };
   }
@@ -57,28 +57,25 @@ export async function addTaskToMongo( newData: NewTask ) {
   return {
     success: false,
     data   : JSON.stringify(
-      updateTask, null, 2
+      updateTask, null, 2 
     ),
   };
 }
 
 export async function addTaskToPrisma( incomingTask: NewTask ) {
   const {
-    carpetaNumero,
-    ...task
+    carpetaNumero, ...task 
   } = incomingTask;
 
   let inserter;
 
-  if ( carpetaNumero  ) {
+  if ( carpetaNumero ) {
     inserter = await prisma.task.create( {
       data: {
         ...task,
         carpeta: {
           connect: {
-
             numero: carpetaNumero,
-
           },
         },
       },

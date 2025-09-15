@@ -6,14 +6,14 @@ import { Prisma } from '@prisma/client';
 
 export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
   const {
-    carpetaNumero, medidasCautelares, notificacion, ...restDemanda
+    carpetaNumero, medidasCautelares, notificacion, ...restDemanda 
   }
     = incomingDemanda;
 
   console.log( carpetaNumero );
 
   const {
-    notifiers, ...restNotificacion
+    notifiers, ...restNotificacion 
   } = notificacion ?? {
     notifiers     : [],
     autoNotificado: new Date(),
@@ -88,7 +88,7 @@ export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
     return {
       success: true,
       data   : JSON.stringify(
-        editor, null, 2
+        editor, null, 2 
       ),
     };
   } catch ( error ) {
@@ -97,27 +97,27 @@ export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
     return {
       success: false,
       data   : JSON.stringify(
-        error, null, 2
+        error, null, 2 
       ),
     };
   }
 }
 
 export async function editllaveProceso(
-  numero: number, id: number, newKey: string
+  numero: number,
+  id: number,
+  newKey: string,
 ) {
   await new Promise( ( res ) => {
     return setTimeout(
-      res, 10000
+      res, 10000 
     );
   } );
 
   try {
     const lookForData = await prisma.carpeta.update( {
       where: {
-
         numero: numero,
-
       },
       data: {
         llaveProceso: newKey,

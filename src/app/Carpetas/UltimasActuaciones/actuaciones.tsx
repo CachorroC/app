@@ -1,4 +1,3 @@
-
 import { ActuacionesSlideshowContainer } from '#@/components/Actuaciones/actuaciones-slideshow';
 import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 

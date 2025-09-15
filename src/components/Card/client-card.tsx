@@ -15,7 +15,7 @@ export function ClientCardRow<H extends string>( {
   children: ReactNode;
 } ) {
   const {
-    currentCategory
+    currentCategory 
   } = useCategory();
 
   if ( currentCategory !== 'todos' && currentCategory !== carpeta.category ) {

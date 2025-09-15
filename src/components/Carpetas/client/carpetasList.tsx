@@ -16,7 +16,7 @@ import styles from './styles.module.css';
 
 export function CarpetasTable() {
   const {
-    carpetas
+    carpetas 
   } = useCarpetaSort();
 
   return (
@@ -32,12 +32,42 @@ export function CarpetasTable() {
           <Suspense fallback={<Loader />}>
             <TableRowCarpetaSortingButton sortKey={'category'} />
           </Suspense>
-          <th scope="col" className={styles.highlight}>Actuaciones</th>
-          <th scope="col" className={styles.highlight}>Revisado</th>
-          <th scope="col" className={styles.highlight}>expediente</th>
-          <th scope="col" className={styles.highlight}>Fecha de ultima Actuacion</th>
-          <th scope="col" className={styles.highlight}>ciudad</th>
-          <th scope="col" className={styles.highlight}>Juzgado</th>
+          <th
+            scope="col"
+            className={styles.highlight}
+          >
+            Actuaciones
+          </th>
+          <th
+            scope="col"
+            className={styles.highlight}
+          >
+            Revisado
+          </th>
+          <th
+            scope="col"
+            className={styles.highlight}
+          >
+            expediente
+          </th>
+          <th
+            scope="col"
+            className={styles.highlight}
+          >
+            Fecha de ultima Actuacion
+          </th>
+          <th
+            scope="col"
+            className={styles.highlight}
+          >
+            ciudad
+          </th>
+          <th
+            scope="col"
+            className={styles.highlight}
+          >
+            Juzgado
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -45,7 +75,8 @@ export function CarpetasTable() {
           const {
             ultimaActuacion,
             numero,
-            nombre, id,
+            nombre,
+            id,
             category,
             fecha,
             llaveProceso,
@@ -53,18 +84,17 @@ export function CarpetasTable() {
             juzgado,
           } = carpeta;
 
-          let words = nombre.split( ' ' )
+          let words = nombre
+            .split( ' ' )
             .map( ( palabra ) => {
               return (
                 palabra.charAt( 0 )
                   .toUpperCase()
-              + palabra.toLowerCase()
-                .substring( 1 )
+                + palabra.toLowerCase()
+                  .substring( 1 )
               );
             } )
             .join( ' ' );
-
-
 
           return (
             <ClientCardRow
@@ -92,7 +122,7 @@ export function CarpetasTable() {
 
               <td>
                 <RevisadoCheckBox
-                  numero={ numero }
+                  numero={numero}
                   id={id}
                   initialRevisadoState={revisado}
                 />
@@ -110,7 +140,10 @@ export function CarpetasTable() {
               <td>
                 {juzgado
                   ? (
-                      <JuzgadoComponent key={numero} juzgado={juzgado} />
+                      <JuzgadoComponent
+                        key={numero}
+                        juzgado={juzgado}
+                      />
                     )
                   : (
                       <JuzgadoErrorComponent />
@@ -118,7 +151,6 @@ export function CarpetasTable() {
               </td>
             </ClientCardRow>
           );
-
         } )}
       </tbody>
     </table>

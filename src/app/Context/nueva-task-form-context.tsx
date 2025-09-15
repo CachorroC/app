@@ -14,7 +14,7 @@ const NuevaTaskContext = createContext<{
 } | null>( null );
 
 export function NuevaTaskFormProvider( {
-  children
+  children 
 }: { children: ReactNode } ) {
   const newDater = new Date();
 

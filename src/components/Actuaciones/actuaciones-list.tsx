@@ -11,7 +11,7 @@ import { ActuacionTableErrorComponent } from './actuacion-table-component';
 export function ActuacionesListContainer( {
   actuacionesPromise,
 }: {
-  actuacionesPromise: Promise<outActuacion[]| null>;
+  actuacionesPromise: Promise<outActuacion[] | null>;
 } ) {
   return (
     <ErrorBoundary fallback={<ActuacionTableErrorComponent />}>
@@ -25,22 +25,26 @@ export function ActuacionesListContainer( {
 export function ActuacionesList( {
   actuacionesPromise,
 }: {
-  actuacionesPromise: Promise<outActuacion[]| null>;
+  actuacionesPromise: Promise<outActuacion[] | null>;
 } ) {
   const actuaciones = use( actuacionesPromise );
 
   return (
     <div className={gridContainer}>
       {actuaciones
-        ? actuaciones.map( ( actuacion ) => {
-          return (
-            <ActuacionComponent
-              key={actuacion.idRegActuacion}
-              incomingActuacion={actuacion}
-            />
-          );
-        } )
-        : <ActuacionTableErrorComponent />}
+        ? (
+            actuaciones.map( ( actuacion ) => {
+              return (
+                <ActuacionComponent
+                  key={actuacion.idRegActuacion}
+                  incomingActuacion={actuacion}
+                />
+              );
+            } )
+          )
+        : (
+            <ActuacionTableErrorComponent />
+          )}
     </div>
   );
 }

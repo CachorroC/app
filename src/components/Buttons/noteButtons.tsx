@@ -6,7 +6,7 @@ import { deleteNota } from '#@/app/actions/main';
 import { Nota } from '@prisma/client';
 
 export function DeleteNoteButton( {
-  id
+  id 
 }: { id: string } ) {
   return (
     <>
@@ -37,7 +37,7 @@ export function DeleteNoteButton( {
 }
 
 export function EditNoteButton( {
-  nota
+  nota 
 }: { nota: Nota } ) {
   return (
     <Link

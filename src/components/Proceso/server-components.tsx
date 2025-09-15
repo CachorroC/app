@@ -1,7 +1,6 @@
 import { DetalleProceso, outProceso } from 'types/procesos';
 import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos/procesos';
-import { Fragment, ReactNode, Suspense } from 'react';
-import { ActuacionLoader } from '../Actuaciones/actuacion-loader';
+import { ReactNode, Suspense } from 'react';
 import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { JuzgadoComponent } from './juzgado-component';
 import { Loader } from '../Loader/main-loader';
@@ -11,6 +10,9 @@ import { consultaProcesoDetalleURL } from '#@/lib/project/utils/main';
 import typography from '#@/styles/fonts/typography.module.css';
 import { CopyButton } from '../Buttons/copy-buttons';
 import { containerEnabled } from '../Card/elevated.module.css';
+import FruitPicker from '../Buttons/etapaProsesalSelector';
+import buttonStyles from '../Buttons/buttons.module.css';
+import Link from 'next/link';
 
 export const ProcesoCard = ( {
   children,
@@ -25,7 +27,7 @@ export const ProcesoCard = ( {
 
   return (
     <div className={containerEnabled}>
-      <h4>Proceso Card</h4>
+      <h4>{`numero ${ proceso.idProceso }`}</h4>
       <div className={layout.segmentRow}>
         <SujetosProcesales sujetosProcesalesRaw={sujetosProcesales} />
       </div>
@@ -137,8 +139,10 @@ export async function ProcesoDetalle( {
 
 export async function ProcesosComponent( {
   llaveProceso,
+  numero,
 }: {
   llaveProceso: string;
+  numero: number;
 } ) {
   const procesos = await getProcesosByllaveProceso( llaveProceso );
 
@@ -147,7 +151,7 @@ export async function ProcesosComponent( {
   }
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       {procesos.map( ( proceso ) => {
         const {
           idProceso
@@ -158,21 +162,30 @@ export async function ProcesosComponent( {
             key={idProceso}
             proceso={proceso}
           >
-            <Suspense fallback={<Loader />}>
-              <ProcesoDetalle idProceso={proceso.idProceso} />
-            </Suspense>
-            <Suspense fallback={<ActuacionLoader />}>
-              <FechaActuacionComponent
-                key={idProceso}
-                idProceso={idProceso}
-              />
-            </Suspense>
-            <Suspense fallback={<Loader />}>
-              <JuzgadoComponent juzgado={proceso.juzgado} />
-            </Suspense>
+            <ProcesoDetalle idProceso={proceso.idProceso} />
+            <FechaActuacionComponent
+              key={idProceso}
+              idProceso={idProceso}
+            />
+            <JuzgadoComponent juzgado={proceso.juzgado} />
+            <FruitPicker />
+            <Link
+              key={idProceso}
+              className={buttonStyles.buttonPassiveCategory}
+              href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`}
+            >
+              <span
+                className={`material-symbols-outlined ${ buttonStyles.icon }`}
+              >
+                description
+              </span>
+              <span className={buttonStyles.text}>
+                Todas las actuaciones de este juzgado
+              </span>
+            </Link>
           </ProcesoCard>
         );
       } )}
-    </>
+    </Suspense>
   );
 }

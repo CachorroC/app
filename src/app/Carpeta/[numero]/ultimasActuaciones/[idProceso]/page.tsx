@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { outActuacion } from '#@/lib/types/actuaciones';
 import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 
-
 export default async function Page( {
   params,
 }: {
@@ -16,7 +15,7 @@ export default async function Page( {
     return notFound();
   }
 
-  const actuaciones = await fetchActuaciones( Number( params.idProceso ), );
+  const actuaciones = await fetchActuaciones( Number( params.idProceso ) );
 
   if ( !actuaciones || actuaciones.length === 0 ) {
     return notFound();
@@ -25,7 +24,7 @@ export default async function Page( {
   return (
     <>
       {actuaciones.map( (
-        actuacion, index
+        actuacion, index 
       ) => {
         const newActuacion: outActuacion = {
           ...actuacion,

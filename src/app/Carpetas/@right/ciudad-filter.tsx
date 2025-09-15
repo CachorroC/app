@@ -6,10 +6,8 @@ import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
 export default function CiudadFilteringButtons( {
-  row
+  row 
 }: { row: boolean } ) {
-
-
   const [
     layout,
     setLayout
@@ -23,7 +21,7 @@ export default function CiudadFilteringButtons( {
   const dispatchCarpetas = useCarpetaSortDispatch();
 
   const {
-    completeCarpetas
+    completeCarpetas 
   } = useCarpetaSort();
 
   const ciudadesSet = new Set<string>();
@@ -51,16 +49,16 @@ export default function CiudadFilteringButtons( {
     }, [
       dispatchCarpetas,
       selectedExcluded
-    ]
+    ] 
   );
 
   return (
     <>
-      <button onClick={ () => {
-        return setLayout( !layout );
-      }}>
-
-      </button>
+      <button
+        onClick={() => {
+          return setLayout( !layout );
+        }}
+      ></button>
       <section
         className={
           layout

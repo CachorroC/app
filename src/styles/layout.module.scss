@@ -16,7 +16,11 @@ $MaxSW: 480px; //maximum sma width
   box-sizing: border-box;
   background-color: var(--surface-container);
   grid-auto-flow: row;
-  font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 48;
   grid-template-columns: 1fr;
   grid-template-areas:
     'top'
@@ -309,7 +313,11 @@ $MaxSW: 480px; //maximum sma width
     }
 
     & > .icon {
-      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 200, 'opsz' 40;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 600,
+        'GRAD' 200,
+        'opsz' 40;
     }
 
     &:after {
@@ -645,7 +653,11 @@ $MaxSW: 480px; //maximum sma width
 
   &:hover {
     & > .icon {
-      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
       color: var(--primary-container);
     }
     &:after {

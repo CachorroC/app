@@ -4,14 +4,13 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
 
-
 export async function generateMetadata( {
   params,
 }: {
   params: { numero: string };
 } ): Promise<Metadata> {
   const {
-    numero
+    numero 
   } = params;
 
   const product = await getCarpetabyNumero( Number( numero ) );
@@ -29,7 +28,7 @@ export async function generateMetadata( {
   };
 }
 
-export default async function Layout ( {
+export default async function Layout( {
   params,
   children,
 }: {

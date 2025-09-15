@@ -13,7 +13,7 @@ import { buttonDrawerMenuClosed,
 
 export const DrawerMenuButton = () => {
   const {
-    isNavOpen, setIsNavOpen
+    isNavOpen, setIsNavOpen 
   } = useNavigationContext();
 
   return (
@@ -39,7 +39,7 @@ export const DrawerMenuButton = () => {
 
 export function NewNoteButton() {
   const {
-    isModalNoteOpen, setIsModalNoteOpen
+    isModalNoteOpen, setIsModalNoteOpen 
   } = useModalNoteContext();
 
   return (
@@ -62,7 +62,7 @@ export function NewNoteButton() {
 
 export default function NavButtons() {
   const {
-    isNavOpen, setIsNavOpen
+    isNavOpen, setIsNavOpen 
   } = useNavigationContext();
 
   return (

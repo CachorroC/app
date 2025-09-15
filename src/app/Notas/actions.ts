@@ -84,7 +84,7 @@ export async function addNotaToMongo( newData: NewNota ) {
     return {
       success: true,
       data   : JSON.stringify(
-        updateTask, null, 2
+        updateTask, null, 2 
       ),
     };
   }
@@ -92,7 +92,7 @@ export async function addNotaToMongo( newData: NewNota ) {
   return {
     success: false,
     data   : JSON.stringify(
-      updateTask, null, 2
+      updateTask, null, 2 
     ),
   };
 }
@@ -100,7 +100,7 @@ export async function addNotaToMongo( newData: NewNota ) {
 export async function addNotaToPrisma( incomingTask: NewNota ) {
   try {
     const {
-      carpetaNumero, ...task
+      carpetaNumero, ...task 
     } = incomingTask;
 
     let inserter;
@@ -109,9 +109,7 @@ export async function addNotaToPrisma( incomingTask: NewNota ) {
     if ( carpetaNumero ) {
       const carpeta = await prisma.carpeta.findUnique( {
         where: {
-
           numero: carpetaNumero,
-
         },
         include: {
           notas: true,
@@ -119,7 +117,7 @@ export async function addNotaToPrisma( incomingTask: NewNota ) {
       } );
 
       if ( carpeta ) {
-        if (   carpeta.notasCount ) {
+        if ( carpeta.notasCount ) {
           count = carpeta.notasCount + 1;
         } else {
           count = carpeta.notas.length + 1;
@@ -134,7 +132,6 @@ export async function addNotaToPrisma( incomingTask: NewNota ) {
     }
 
     if ( carpetaNumero ) {
-
       inserter = await prisma.nota.create( {
         data: {
           ...task,
@@ -161,7 +158,7 @@ export async function addNotaToPrisma( incomingTask: NewNota ) {
       success: true,
       nextId : inserter.id + 1,
       data   : JSON.stringify(
-        inserter, null, 2
+        inserter, null, 2 
       ),
     };
   } catch ( error ) {
@@ -171,7 +168,7 @@ export async function addNotaToPrisma( incomingTask: NewNota ) {
       success: false,
       nextId : 0,
       data   : JSON.stringify(
-        error, null, 2
+        error, null, 2 
       ),
     };
   }

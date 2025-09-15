@@ -8,7 +8,7 @@ const nextConfig = {
 
   experimental: {
     typedRoutes : true,
-    esmExternals: false
+    esmExternals: false,
   },
 
   async headers() {

@@ -6,27 +6,25 @@ import { capitalize } from '#@/lib/project/utils/main';
 import { Category } from '#@/lib/types/carpetas';
 
 export type Data = {
-  numero: number,
-  nombre: string,
-  category: Category,
-  actuacion: string,
-  anotacion: string,
-  revisado: boolean,
-  expediente: string,
-  fechaUltimaActuacion:  string,
-  ciudad: string,
-  juzgado: string,
-}[]
+  numero: number;
+  nombre: string;
+  category: Category;
+  actuacion: string;
+  anotacion: string;
+  revisado: boolean;
+  expediente: string;
+  fechaUltimaActuacion: string;
+  ciudad: string;
+  juzgado: string;
+}[];
 
 export type TableProps = {
-  rows: Data
-}
-
+  rows: Data;
+};
 
 export const Table = ( {
-  rows
+  rows 
 }: TableProps ) => {
-
   const [
     sortedRows,
     setRows
@@ -42,7 +40,7 @@ export const Table = ( {
     setSortKey
   ] = useState( Object.keys( rows[ 0 ] )[ 0 ] );
 
-  const formatEntry = ( entry?: string | number | boolean |null ) => {
+  const formatEntry = ( entry?: string | number | boolean | null ) => {
     if ( typeof entry === 'boolean' ) {
       return entry
         ? '✅'
@@ -54,17 +52,17 @@ export const Table = ( {
 
   const filter = ( event: React.ChangeEvent<HTMLInputElement> ) => {
     const {
-      value
+      value 
     } = event.target;
 
     if ( value ) {
       setRows( [
-        ...rows.filter( row => {
+        ...rows.filter( ( row ) => {
           return Object.values( row )
             .join( '' )
             .toLowerCase()
             .includes( value );
-        } )
+        } ),
       ] );
     } else {
       setRows( rows );
@@ -72,7 +70,7 @@ export const Table = ( {
   };
 
   const sort = (
-    value: keyof Data[0], order: string
+    value: keyof Data[0], order: string 
   ) => {
     const returnValue = order === 'desc'
       ? 1
@@ -81,7 +79,7 @@ export const Table = ( {
     setSortKey( value );
     setRows( [
       ...sortedRows.sort( (
-        a, b
+        a, b 
       ) => {
         const aValue = a[ value ];
 
@@ -106,7 +104,7 @@ export const Table = ( {
         return a[ value ] > b[ value ]
           ? returnValue * -1
           : returnValue;
-      } )
+      } ),
     ] );
   };
 
@@ -117,7 +115,7 @@ export const Table = ( {
 
     setOrder( updatedOrder );
     sort(
- sortKey as keyof Data[0], updatedOrder
+ sortKey as keyof Data[0], updatedOrder 
     );
   };
 
@@ -129,18 +127,23 @@ export const Table = ( {
           placeholder="Filter items"
           onChange={filter}
         />
-        <select onChange={( event ) => {
-          return sort(
- event.target.value as keyof Data[0], order
-          );
-        }}>
+        <select
+          onChange={( event ) => {
+            return sort(
+ event.target.value as keyof Data[0], order 
+            );
+          }}
+        >
           {Object.keys( rows[ 0 ] )
             .map( (
-              entry, index
+              entry, index 
             ) => {
               return (
-                <option value={entry} key={index}>
-              Order by {capitalize( entry )}
+                <option
+                  value={entry}
+                  key={index}
+                >
+                Order by {capitalize( entry )}
                 </option>
               );
             } )}
@@ -152,36 +155,30 @@ export const Table = ( {
           <tr>
             {Object.keys( rows[ 0 ] )
               .map( (
-                entry, index
+                entry, index 
               ) => {
-                return (
-                  <th key={index}>{capitalize( entry )}</th>
-                );
+                return <th key={index}>{capitalize( entry )}</th>;
               } )}
           </tr>
         </thead>
         <tbody>
           {sortedRows.map( (
-            row, index
+            row, index 
           ) => {
             return (
               <tr key={index}>
                 {Object.values( row )
                   .map( (
-                    entry, columnIndex
+                    entry, columnIndex 
                   ) => {
-                    return (
-                      <td key={columnIndex}>{formatEntry( entry )}</td>
-                    );
+                    return <td key={columnIndex}>{formatEntry( entry )}</td>;
                   } )}
               </tr>
             );
           } )}
         </tbody>
       </table>
-      {!sortedRows.length && (
-        <h1>No results... Try expanding the search</h1>
-      )}
+      {!sortedRows.length && <h1>No results... Try expanding the search</h1>}
     </>
   );
 };

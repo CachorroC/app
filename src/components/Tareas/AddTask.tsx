@@ -9,8 +9,8 @@ import { addTaskToMongo, addTaskToPrisma } from '#@/app/Tareas/actions';
 import { NewTask } from '#@/lib/types/tareas';
 
 export function AddTask( {
-  carpetaNumero
-}: { carpetaNumero?: number} ) {
+  carpetaNumero 
+}: { carpetaNumero?: number } ) {
   const [
     taskState,
     setTaskState
@@ -42,10 +42,10 @@ export function AddTask( {
     const taskMongo = await addTaskToMongo( taskState );
 
     alert( JSON.stringify(
-      taskPrisma, null, 2
+      taskPrisma, null, 2 
     ) );
     alert( JSON.stringify(
-      taskMongo, null, 2
+      taskMongo, null, 2 
     ) );
     setTaskState( {
       ...taskState,
@@ -151,7 +151,7 @@ export function AddTask( {
         <button type={'submit'}>Add</button>
       </form>
       <pre>{JSON.stringify(
-        taskState, null, 2
+        taskState, null, 2 
       )}</pre>
     </>
   );

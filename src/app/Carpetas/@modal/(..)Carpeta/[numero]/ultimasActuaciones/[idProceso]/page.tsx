@@ -10,15 +10,14 @@ import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { ConsultaActuacion } from '#@/lib/types/actuaciones';
 import { ActuacionComponent } from '#@/components/Actuaciones/actuacion-component';
 
-
 async function ActuacionesListModalget( {
-  idProceso
-}: { idProceso: number; } ) {
-
+  idProceso 
+}: { idProceso: number } ) {
   const data = await fetch(
-    `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, {
-      cache: 'no-store'
-    }
+    `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
+    {
+      cache: 'no-store',
+    },
   );
 
   if ( !data.ok ) {
@@ -26,18 +25,17 @@ async function ActuacionesListModalget( {
   }
 
   const {
-    actuaciones
-  } = await data.json() as ConsultaActuacion;
-
+    actuaciones 
+  } = ( await data.json() ) as ConsultaActuacion;
 
   return actuaciones.map( ( actuacion ) => {
     return (
-
-      <ActuacionComponent key={actuacion.idRegActuacion} incomingActuacion={actuacion } />
-
+      <ActuacionComponent
+        key={actuacion.idRegActuacion}
+        incomingActuacion={actuacion}
+      />
     );
   } );
-
 }
 
 export default async function Page( {
@@ -55,9 +53,12 @@ export default async function Page( {
 
   return (
     <>
-      <div className={styles.segmentRow} style={{
-        gridColumn: 'span 4',
-      }}>
+      <div
+        className={styles.segmentRow}
+        style={{
+          gridColumn: 'span 4',
+        }}
+      >
         <NombreComponent
           nombre={carpeta.nombre}
           carpetaNumero={carpeta.numero}

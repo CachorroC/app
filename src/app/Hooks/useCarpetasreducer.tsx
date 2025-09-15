@@ -56,7 +56,7 @@ export type CategoryFilterActionType = {
 export type CiudadFlterActionType = {
   type: 'ciudad-filter';
   include: string[];
-}
+};
 
 export type ResetActionType = {
   type: 'reset';
@@ -76,11 +76,11 @@ export function carpetasReducer(
   action: IntAction,
 ): CarpetasReducerState {
   const {
-    type
+    type 
   } = action;
 
   const {
-    carpetas, completeCarpetas
+    carpetas, completeCarpetas 
   } = reducerState;
 
   switch ( type ) {
@@ -93,7 +93,7 @@ export function carpetasReducer(
 
       case 'category-filter': {
         const {
-          exclude
+          exclude 
         } = action;
 
         if ( !exclude || exclude.length === 0 || exclude.includes( 'todos' ) ) {
@@ -107,7 +107,7 @@ export function carpetasReducer(
 
         for ( const carpeta of completeCarpetas ) {
           const {
-            category
+            category 
           } = carpeta;
 
           const indexOf = exclude.indexOf( category );
@@ -125,7 +125,7 @@ export function carpetasReducer(
 
       case 'ciudad-filter': {
         const {
-          include
+          include 
         } = action;
 
         if ( !include || include.length === 0 || include.includes( 'todos' ) ) {
@@ -139,7 +139,7 @@ export function carpetasReducer(
 
         for ( const carpeta of completeCarpetas ) {
           const {
-            ciudad
+            ciudad 
           } = carpeta;
 
           const indexOf = include.indexOf( ciudad ?? 'Bogota' );
@@ -172,7 +172,7 @@ export function carpetasReducer(
 
       case 'sort': {
         const {
-          dir, sortingKey
+          dir, sortingKey 
         } = action;
 
         const asc = [
@@ -191,7 +191,6 @@ export function carpetasReducer(
           ? asc
           : dsc;
 
-
         const categoriesSorter: string[] = [
           'todos',
           'Bancolombia',
@@ -207,7 +206,7 @@ export function carpetasReducer(
               const sorted = [
                 ...carpetas
               ].sort( (
-                a, b
+                a, b 
               ) => {
                 if ( !a.fecha || a.fecha === undefined ) {
                   return sorter[ 2 ];
@@ -242,7 +241,7 @@ export function carpetasReducer(
               const sorted = [
                 ...carpetas
               ].sort( (
-                a, b
+                a, b 
               ) => {
                 const x = categoriesSorter.indexOf( a.category );
 
@@ -269,7 +268,7 @@ export function carpetasReducer(
               const sorted = [
                 ...carpetas
               ].sort( (
-                a, b
+                a, b 
               ) => {
                 const x = a.numero;
 
@@ -294,7 +293,7 @@ export function carpetasReducer(
               const sorted = [
                 ...carpetas
               ].sort( (
-                a, b
+                a, b 
               ) => {
                 const x = a.nombre.trim()
                   .toLocaleLowerCase();
@@ -340,7 +339,7 @@ export function carpetasReducer(
               const sorted = [
                 ...carpetas
               ].sort( (
-                a, b
+                a, b 
               ) => {
                 const aSortingKey = a[ sortingKey ];
 
@@ -377,7 +376,7 @@ export function carpetasReducer(
         const searchQuery = action.payload
           .normalize( 'NFD' )
           .replace(
-            /[\u0300-\u036f]/g, ''
+            /[\u0300-\u036f]/g, '' 
           )
           .trim()
           .toLocaleLowerCase();
@@ -388,13 +387,13 @@ export function carpetasReducer(
           ...completeCarpetas
         ].filter( ( carpeta ) => {
           const {
-            nombre
+            nombre 
           } = carpeta;
 
           const normalizedName = nombre
             .normalize( 'NFD' )
             .replace(
-              /[\u0300-\u036f]/g, ''
+              /[\u0300-\u036f]/g, '' 
             )
             .trim()
             .toLocaleLowerCase();
@@ -443,7 +442,7 @@ export function carpetasReducer(
         const sorted = [
           ...carpetas
         ].sort( (
-          a, b
+          a, b 
         ) => {
           if ( !a.fecha || a.fecha === undefined ) {
             return 1;

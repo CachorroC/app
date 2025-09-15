@@ -1,33 +1,27 @@
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import button from '#@/components/Buttons/buttons.module.css';
 import { fixMoney } from '#@/lib/project/helper';
 import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import { Fragment, Suspense } from 'react';
 import layout, { buttonActiveCategory } from '#@/styles/layout.module.css';
 import { Loader, TableLoader } from '#@/components/Loader/main-loader';
-import { ProcesoCard } from '#@/components/Proceso/server-components';
-import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
 import { InputSection } from '#@/components/Form/input-section';
 import { DeudorFormComponent } from '#@/components/Form/deudor-form-component';
-import { ActuacionLoader } from '#@/components/Actuaciones/actuacion-loader';
 import { JuzgadoComponent,
-  JuzgadoErrorComponent } from '#@/components/Proceso/juzgado-component';
-import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos/procesos';
+  JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
 import styles from './styles.module.css';
 import { NotificacionComponent } from '#@/components/Notificacion/notificacion';
-import FruitPicker from '#@/components/Buttons/etapaProsesalSelector';
 import { ProcesoTableDetalleComponent } from '#@/components/Proceso/proceso-detalles-component';
 import { consultaProcesosPorRazonSocial } from '#@/lib/project/utils/main';
 import { ConsultaProcesos, outProceso } from '#@/lib/types/procesos';
 import SujetosProcesales from '#@/components/Proceso/sujetos-procesales';
 import { JuzgadoClass } from '#@/lib/models/juzgado';
-
+import { ProcesosComponent } from '#@/components/Proceso/server-components';
 
 async function AvailableProcesosByName( {
-  nombre
+  nombre 
 }: { nombre: string } ) {
   const urlNameMaker = consultaProcesosPorRazonSocial( nombre );
 
@@ -97,75 +91,8 @@ async function AvailableProcesosByName( {
   );
 }
 
-async function ProcesosComponent( {
-  llaveProceso,
-  numero,
-}: {
-  llaveProceso: string;
-  numero: number;
-} ) {
-  const procesos = await getProcesosByllaveProceso( llaveProceso );
-
-  if ( !procesos || procesos.length === 0 ) {
-    return null;
-  }
-
-  return (
-    <>
-      {procesos.map( ( proceso ) => {
-        const {
-          idProceso
-        } = proceso;
-
-        return (
-
-          <Suspense key={idProceso} fallback={<Loader />}>
-            <ProcesoCard
-              key={idProceso}
-              proceso={proceso}
-            >
-
-              <Suspense fallback={<Loader />}>
-                <JuzgadoComponent juzgado={proceso.juzgado} />
-              </Suspense>
-              <Suspense fallback={<Loader />}>
-                <FruitPicker />
-              </Suspense>
-
-              <Link
-                key={idProceso}
-                className={button.buttonPassiveCategory}
-                href={
-                      `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
-                }
-              >
-                <span
-                  className={`material-symbols-outlined ${ button.icon }`}
-                >
-                      description
-                </span>
-                <span className={button.text}>
-                      Todas las actuaciones de este juzgado
-                </span>
-              </Link>
-
-              <Suspense fallback={<ActuacionLoader />}>
-                <FechaActuacionComponent
-                  key={idProceso}
-                  idProceso={idProceso}
-                />
-              </Suspense>
-            </ProcesoCard>
-          </Suspense>
-
-        );
-      } )}
-    </>
-  );
-}
-
 export default async function Page( {
-  params
+  params 
 }: { params: { numero: string } } ) {
   const carpeta = await getCarpetabyNumero( Number( params.numero ) );
 
@@ -174,7 +101,7 @@ export default async function Page( {
   }
 
   const {
-    idProcesos, numero, llaveProceso, juzgado, nombre
+    idProcesos, numero, llaveProceso, juzgado, nombre 
   } = carpeta;
 
   let idProcesoContent;

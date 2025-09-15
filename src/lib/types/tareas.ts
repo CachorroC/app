@@ -1,5 +1,4 @@
-export interface NewTask
-{
+export interface NewTask {
   carpetaNumero: number | null;
   content: string[];
   done: boolean;

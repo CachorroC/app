@@ -52,14 +52,12 @@ export async function resetCarpetas() {
 export async function updateRevisadoState( prevState: {
   revisado: boolean;
   numero: number;
-  id: number
+  id: number;
 } ) {
   try {
     const updater = await prisma.carpeta.update( {
       where: {
-
         numero: prevState.numero,
-
       },
       data: {
         revisado: prevState.revisado,

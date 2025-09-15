@@ -32,7 +32,7 @@ export const CopyButton = ( {
       const timer = setTimeout(
         () => {
           setIsSnackbarOpen( false );
-        }, 5000
+        }, 5000 
       );
 
       if ( isSnackbarOpen ) {
@@ -44,7 +44,7 @@ export const CopyButton = ( {
       };
     }, [
       isSnackbarOpen
-    ]
+    ] 
   );
 
   return (
@@ -62,12 +62,10 @@ export const CopyButton = ( {
           {name}
         </h5>
         <p
-          style={
-            {
-              color: 'var(--on-surface)',
-              flex : 1,
-            }
-          }
+          style={{
+            color: 'var(--on-surface)',
+            flex : 1,
+          }}
           className={typography.titleMedium}
         >
           {copyTxt}
@@ -75,23 +73,16 @@ export const CopyButton = ( {
         <button
           type="button"
           className={styles.button}
-          onClick={
-            () => {
-              copy( copyTxt );
-              setIsSnackbarOpen( true );
-            }
-          }
+          onClick={() => {
+            copy( copyTxt );
+            setIsSnackbarOpen( true );
+          }}
         >
           <span className={`material-symbols-outlined ${ styles.icon }`}>
             file_copy
           </span>
 
-          <p
-
-            className={`${ typography.labelLarge } ${ styles.text }`}
-          >
-            {copyTxt}
-          </p>
+          <p className={`${ typography.labelLarge } ${ styles.text }`}>{copyTxt}</p>
         </button>
       </div>
 
@@ -107,7 +98,7 @@ export const CopyButton = ( {
 };
 
 export function CopyButtons( {
-  carpeta
+  carpeta 
 }: { carpeta: MonCarpeta } ) {
   return (
     <>

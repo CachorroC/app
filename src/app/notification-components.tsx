@@ -8,10 +8,10 @@ function urlBase64ToUint8Array( base64String: string ) {
 
   const base64 = ( base64String + padding )
     .replace(
-      /\\-/g, '+'
+      /\\-/g, '+' 
     )
     .replace(
-      /_/g, '/'
+      /_/g, '/' 
     );
 
   const rawData = window.atob( base64 );
@@ -34,7 +34,7 @@ export function PushNotificationManager() {
   const [
     subscription,
     setSubscription
-  ] = useState<PushSubscription | null>( null );
+  ] = useState<PushSubscription | null>( null, );
 
   const [
     message,
@@ -47,7 +47,7 @@ export function PushNotificationManager() {
         setIsSupported( true );
         registerServiceWorker();
       }
-    }, []
+    }, [] 
   );
 
   async function registerServiceWorker() {
@@ -55,7 +55,7 @@ export function PushNotificationManager() {
       '/sw.js', {
         scope         : '/',
         updateViaCache: 'none',
-      }
+      } 
     );
 
     const sub = await registration.pushManager.getSubscription();
@@ -68,7 +68,7 @@ export function PushNotificationManager() {
 
     const sub = await registration.pushManager.subscribe( {
       userVisibleOnly     : true,
-      applicationServerKey: urlBase64ToUint8Array( process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY! ),
+      applicationServerKey: urlBase64ToUint8Array( process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!, ),
     } );
 
     setSubscription( sub );
@@ -134,10 +134,10 @@ export function InstallPrompt() {
 
   useEffect(
     () => {
-      setIsIOS( /iPad|iPhone|iPod/.test( navigator.userAgent ) && !( window as any ).MSStream );
+      setIsIOS( /iPad|iPhone|iPod/.test( navigator.userAgent ) && !( window as any ).MSStream, );
 
       setIsStandalone( window.matchMedia( '(display-mode: standalone)' ).matches );
-    }, []
+    }, [] 
   );
 
   if ( isStandalone ) {
@@ -151,15 +151,22 @@ export function InstallPrompt() {
       {isIOS && (
         <p>
           To install this app on your iOS device, tap the share button
-          <span role="img" aria-label="share icon">
+          <span
+            role="img"
+            aria-label="share icon"
+          >
             {' '}
             ⎋{' '}
           </span>
           and then Add to Home Screen
-          <span role="img" aria-label="plus icon">
+          <span
+            role="img"
+            aria-label="plus icon"
+          >
             {' '}
             ➕{' '}
-          </span>.
+          </span>
+          .
         </p>
       )}
     </div>

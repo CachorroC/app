@@ -10,7 +10,7 @@ import { Suspense } from 'react';
 
 export const NavBar = () => {
   const {
-    isNavOpen
+    isNavOpen 
   } = useNavigationContext();
 
   const newYear = new Date()

@@ -18,12 +18,12 @@ import { textArea } from '../Form/form.module.css';
 import { containerEnabled } from '../Card/elevated.module.css';
 
 export function Modal( {
-  children
+  children 
 }: { children: ReactNode } ) {
   const pathname = usePathname();
 
   const {
-    setIsModalOpen
+    setIsModalOpen 
   } = useModalContext();
 
   const overlay = useRef( null );
@@ -40,7 +40,7 @@ export function Modal( {
     }, [
       router,
       setIsModalOpen
-    ]
+    ] 
   );
 
   const onBackspace = useCallback(
@@ -51,7 +51,7 @@ export function Modal( {
     }, [
       router,
       setIsModalOpen
-    ]
+    ] 
   );
 
   const onEnter = useCallback(
@@ -61,7 +61,7 @@ export function Modal( {
     }, [
       router,
       setIsModalOpen
-    ]
+    ] 
   );
 
   const onClick: MouseEventHandler = useCallback(
@@ -103,18 +103,18 @@ export function Modal( {
     () => {
       console.log( 'on useEffect' );
       document.addEventListener(
-        'keydown', onKeyDown
+        'keydown', onKeyDown 
       );
 
       return () => {
         return document.removeEventListener(
-          'keydown', onKeyDown
+          'keydown', onKeyDown 
         );
       };
     }, [
       pathname,
       onKeyDown
-    ]
+    ] 
   );
 
   return (
@@ -134,12 +134,12 @@ export function Modal( {
 }
 
 export function ModalNote( {
-  children
+  children 
 }: { children: ReactNode } ) {
   const pathname = usePathname();
 
   const {
-    isModalNoteOpen, setIsModalNoteOpen
+    isModalNoteOpen, setIsModalNoteOpen 
   } = useModalNoteContext();
 
   const overlay = useRef( null );
@@ -151,7 +151,7 @@ export function ModalNote( {
       setIsModalNoteOpen( false );
     }, [
       setIsModalNoteOpen
-    ]
+    ] 
   );
 
   const onClick: MouseEventHandler = useCallback(
@@ -183,18 +183,18 @@ export function ModalNote( {
   useEffect(
     () => {
       document.addEventListener(
-        'keydown', onKeyDown
+        'keydown', onKeyDown 
       );
 
       return () => {
         return document.removeEventListener(
-          'keydown', onKeyDown
+          'keydown', onKeyDown 
         );
       };
     }, [
       pathname,
       onKeyDown
-    ]
+    ] 
   );
 
   return (
@@ -219,7 +219,7 @@ export function ModalNote( {
 
 function Submit() {
   const {
-    pending
+    pending 
   } = useFormStatus();
 
   return (
@@ -238,7 +238,7 @@ export function NewNotaComponent( {
   idRegActuacion?: number;
 } ) {
   const {
-    numero
+    numero 
   } = useParams();
 
   const pathname = usePathname();
@@ -274,7 +274,7 @@ export function NewNotaComponent( {
       value    : notaState,
       submitted: false,
       success  : false,
-    }
+    } 
   );
 
   return (

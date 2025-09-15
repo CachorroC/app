@@ -25,7 +25,7 @@ export async function createNota( formData: FormData ) {
     }
 
     const {
-      data
+      data 
     } = parsed;
 
     const client = await clientPromise;
@@ -66,7 +66,7 @@ export async function createNota( formData: FormData ) {
 }
 
 export async function deleteNota( {
-  id
+  id 
 }: { id: string } ) {
   try {
     const client = await clientPromise;
@@ -96,7 +96,7 @@ export async function deleteNota( {
     }
 
     console.log( `error deleteNota: ${ JSON.stringify(
-      error, null, 2
+      error, null, 2 
     ) }` );
 
     const deleteRes: DeleteResult = {
@@ -122,7 +122,7 @@ export async function editNota(
     } );
 
     const {
-      success
+      success 
     } = parsed;
 
     if ( !success ) {
@@ -130,7 +130,7 @@ export async function editNota(
     }
 
     const {
-      data
+      data 
     } = parsed;
 
     const client = await clientPromise;
@@ -172,7 +172,7 @@ export async function editNota(
 
     return notaActionReturn;
   } catch ( errorSubmitNota ) {
-    console.log( `se ha producido un error en editNota: ${ JSON.stringify( errorSubmitNota, ) }`, );
+    console.log( `se ha producido un error en editNota: ${ JSON.stringify( errorSubmitNota ) }`, );
 
     if ( errorSubmitNota instanceof Error ) {
       const notaActionReturn: NotaEditorAction = {
