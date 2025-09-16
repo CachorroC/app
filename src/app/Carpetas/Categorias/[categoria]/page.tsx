@@ -4,15 +4,17 @@ import { CarpetasTable } from '#@/components/Carpetas/client/carpetasList';
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function Page( {
-  params: {
-    categoria 
-  },
+export default async function Page( {
+  params
 }: {
-  params: { categoria: string };
-} ) {
+  params: Promise<{ categoria: string }>;
+  } ) {
   const {
-    setCurrentCategory 
+    categoria 
+  } = await params;
+
+  const {
+    setCurrentCategory
   } = useCategory();
 
   if ( categoria === 'todos' ) {
@@ -27,7 +29,7 @@ export default function Page( {
     }, [
       categoria,
       setCurrentCategory
-    ] 
+    ]
   );
 
   return (

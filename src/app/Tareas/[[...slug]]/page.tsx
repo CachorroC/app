@@ -6,20 +6,24 @@ import { NuevaTarea } from './nueva-tarea';
 export default async function Page( {
   params,
 }: {
-  params: { slug?: string[] };
+  params: Promise<{ slug?: string[] }>;
 } ) {
   let content;
 
-  if ( params.slug ) {
+  const {
+    slug 
+  } = await params;
+
+  if ( slug ) {
     const [
       ano,
       mes,
       dia
-    ] = params.slug;
+    ] = slug;
 
     content = (
       <Calendar date={new Date(
-        Number( ano ), Number( mes ) - 1, Number( dia ) 
+        Number( ano ), Number( mes ) - 1, Number( dia )
       )} />
     );
   } else {

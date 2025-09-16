@@ -11,7 +11,7 @@ import { ConsultaActuacion } from '#@/lib/types/actuaciones';
 import { ActuacionComponent } from '#@/components/Actuaciones/actuacion-component';
 
 async function ActuacionesListModalget( {
-  idProceso 
+  idProceso
 }: { idProceso: number } ) {
   const data = await fetch(
     `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
@@ -25,7 +25,7 @@ async function ActuacionesListModalget( {
   }
 
   const {
-    actuaciones 
+    actuaciones
   } = ( await data.json() ) as ConsultaActuacion;
 
   return actuaciones.map( ( actuacion ) => {
@@ -41,13 +41,17 @@ async function ActuacionesListModalget( {
 export default async function Page( {
   params,
 }: {
-  params: { numero: string; idProceso: string };
-} ) {
-  if ( params.idProceso === 'idProceso' ) {
+  params: Promise<{ numero: string; idProceso: string }>;
+  } ) {
+  const {
+    numero, idProceso 
+  } = await params;
+
+  if ( idProceso === 'idProceso' ) {
     return notFound();
   }
 
-  const carpetaNumero = Number( params.numero );
+  const carpetaNumero = Number( numero );
 
   const carpeta = await getCarpetabyNumero( carpetaNumero );
 
@@ -83,7 +87,7 @@ export default async function Page( {
       </div>
 
       <Suspense fallback={<ModalLoader />}>
-        <ActuacionesListModalget idProceso={Number( params.idProceso )} />
+        <ActuacionesListModalget idProceso={Number( idProceso )} />
       </Suspense>
     </>
   );

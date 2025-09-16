@@ -10,22 +10,26 @@ export default async function Layout( {
   params,
   children,
 }: {
-  params: { slug?: string[] };
+  params: Promise<{ slug?: string[] }>;
   children: ReactNode;
 } ) {
   let title;
 
-  if ( params.slug ) {
+  const {
+    slug 
+  } = await params;
+
+  if ( slug ) {
     const [
       ano,
       mes,
       dia
-    ] = params.slug;
+    ] = slug;
 
     title = (
       <OutputDateHelper
         incomingDate={new Date(
-          Number( ano ), Number( mes ) - 1, Number( dia ) 
+          Number( ano ), Number( mes ) - 1, Number( dia )
         )}
       />
     );

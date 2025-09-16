@@ -52,9 +52,7 @@ export default function manifest(): MetadataRoute.Manifest {
         ],
       },
     ],
-    serviceworker: {
-      src: '/service-worker.js',
-    },
+
     icons: [
       {
         src    : '/icon.svg',

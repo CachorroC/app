@@ -29,7 +29,7 @@ export async function addTaskToMongo( newData: NewTask ) {
     };
   }
 
-  /* eslint-disable-next-line no-unused-vars */
+   
 
   const updateTask = await collection.updateOne(
     {

@@ -10,7 +10,7 @@ export async function generateStaticParams() {
 
   const flattenUp = carpetas.map( ( carpeta ) => {
     const {
-      id 
+      id
     } = carpeta;
 
     return {
@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 
   for ( let i = 0; i < flattenUp.length; i += chunkSize ) {
     const chunk = flattenUp.slice(
-      i, i + chunkSize 
+      i, i + chunkSize
     );
 
     chunks.push( chunk );
@@ -34,12 +34,14 @@ export async function generateStaticParams() {
 }
 
 export default async function Page( {
-  params: {
-    id 
-  },
+  params
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 } ) {
+  const {
+    id 
+  } = await params;
+
   const nota = await getNotaById( Number( id ) );
 
   if ( !nota ) {

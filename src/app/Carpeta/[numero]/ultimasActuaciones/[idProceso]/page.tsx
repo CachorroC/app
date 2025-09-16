@@ -6,16 +6,20 @@ import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 export default async function Page( {
   params,
 }: {
-  params: {
+  params: Promise<{
     numero: string;
     idProceso: string;
-  };
-} ) {
-  if ( params.idProceso === 'idProceso' ) {
+  }>;
+  } ) {
+  const {
+    numero, idProceso 
+  } = await params;
+
+  if ( idProceso === 'idProceso' ) {
     return notFound();
   }
 
-  const actuaciones = await fetchActuaciones( Number( params.idProceso ) );
+  const actuaciones = await fetchActuaciones( Number( idProceso ) );
 
   if ( !actuaciones || actuaciones.length === 0 ) {
     return notFound();
@@ -23,18 +27,16 @@ export default async function Page( {
 
   return (
     <>
-      {actuaciones.map( (
-        actuacion, index 
-      ) => {
+      {actuaciones.map( ( actuacion ) => {
         const newActuacion: outActuacion = {
           ...actuacion,
           isUltimaAct: actuacion.cant === actuacion.consActuacion,
-          idProceso  : Number( params.idProceso ),
+          idProceso  : Number( idProceso ),
         };
 
         return (
           <ActuacionComponent
-            key={index}
+            key={ newActuacion.idRegActuacion}
             incomingActuacion={newActuacion}
           />
         );

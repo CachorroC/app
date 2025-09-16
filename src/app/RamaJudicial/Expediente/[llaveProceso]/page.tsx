@@ -8,9 +8,13 @@ import { Fragment, Suspense } from 'react';
 export default async function Page( {
   params,
 }: {
-  params: { llaveProceso: string };
-} ) {
-  const procesos = await getProcesosByllaveProceso( params.llaveProceso );
+  params: Promise<{ llaveProceso: string }>;
+  } ) {
+  const {
+    llaveProceso 
+  } = await params;
+
+  const procesos = await getProcesosByllaveProceso( llaveProceso );
 
   if ( procesos.length === 0 ) {
     notFound();

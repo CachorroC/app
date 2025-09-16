@@ -62,11 +62,11 @@ export async function generateStaticParams() {
 export async function generateMetadata( {
   params,
 }: {
-  params: { numero: string };
+  params: Promise<{ numero: string }>;
 } ): Promise<Metadata> {
   const {
     numero
-  } = params;
+  } = await params;
 
   const product = await getCarpetabyNumero( Number( numero ) );
 
@@ -77,7 +77,9 @@ export async function generateMetadata( {
   }
 
   return {
-    title   : product.nombre,
+    title      : product.nombre,
+    description: `Carpeta de ${ product.nombre } - ${ product.tipoProceso }`,
+
     keywords: [
       product.nombre,
       product.tipoProceso,
@@ -97,9 +99,13 @@ export default async function LayoutCarpetaMain( {
   children: ReactNode;
   top: ReactNode;
   right: ReactNode;
-  params: { numero: string };
-} ) {
-  const carpeta = await getCarpetabyNumero( Number( params.numero ) );
+  params: Promise<{ numero: string }>;
+  } ) {
+  const {
+    numero 
+  } = await params;
+
+  const carpeta = await getCarpetabyNumero( Number( numero ) );
 
   if ( !carpeta ) {
     return notFound();
@@ -107,15 +113,15 @@ export default async function LayoutCarpetaMain( {
 
   return (
     <CarpetaFormProvider
-      key={params.numero}
+      key={numero}
       carpeta={carpeta}
     >
       <div className={styles.top}>
         <Suspense fallback={<Loader />}>
-          <Link href={`/Carpeta/${ params.numero }` as Route}>
+          <Link href={`/Carpeta/${ numero }` as Route}>
             {carpeta.deudor && (
               <NombreComponent
-                key={params.numero}
+                key={numero}
                 nombre={carpeta.nombre}
                 carpetaNumero={carpeta.numero}
               />
@@ -131,7 +137,7 @@ export default async function LayoutCarpetaMain( {
         <Suspense fallback={<Loader />}>
           <ProcesosComponent
             llaveProceso={carpeta.llaveProceso}
-            numero={carpeta.numero}
+            numero={Number( numero )}
           />
         </Suspense>
         <Suspense fallback={<Loader />}>{children}</Suspense>
@@ -141,7 +147,7 @@ export default async function LayoutCarpetaMain( {
         <Suspense fallback={<Loader />}>
           <ExpedienteFormComponent
             initialLLave={carpeta.llaveProceso}
-            numero={Number( params.numero )}
+            numero={Number( numero )}
             id={carpeta.id}
           />
         </Suspense>

@@ -7,11 +7,11 @@ import { ReactNode } from 'react';
 export async function generateMetadata( {
   params,
 }: {
-  params: { numero: string };
+  params: Promise<{ numero: string }>;
 } ): Promise<Metadata> {
   const {
-    numero 
-  } = params;
+    numero
+  } = await params;
 
   const product = await getCarpetabyNumero( Number( numero ) );
 
@@ -32,18 +32,22 @@ export default async function Layout( {
   params,
   children,
 }: {
-  params: { numero: string; idProceso: string };
+  params: Promise<{ numero: string; idProceso: string }>;
   children: ReactNode;
-} ) {
-  if ( params.idProceso === 'idProceso' ) {
+  } ) {
+  const {
+    numero, idProceso 
+  } = await params;
+
+  if ( idProceso === 'idProceso' ) {
     return notFound();
   }
 
-  const carpeta = await getCarpetabyNumero( Number( params.numero ) );
+  const carpeta = await getCarpetabyNumero( Number( numero ) );
 
   return (
     <CarpetaFormProvider
-      key={params.numero}
+      key={numero}
       carpeta={carpeta}
     >
       {children}

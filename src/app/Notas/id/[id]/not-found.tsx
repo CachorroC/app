@@ -7,7 +7,7 @@ export default async function NotFound() {
 
   const mapper = new Set<string>();
 
-  const headersList = headers();
+  const headersList = await headers();
 
   for ( const [
     key,
@@ -36,7 +36,7 @@ export default async function NotFound() {
     <div>
       <h2>Not Found: {domain}</h2>
       {arrMap.map( (
-        mp, i 
+        mp, i
       ) => {
         return <p key={i}>{mp}</p>;
       } )}

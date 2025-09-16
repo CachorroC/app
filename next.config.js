@@ -4,12 +4,11 @@
  * @type {import('next').NextConfig}
  **/
 const nextConfig = {
-  output: 'standalone',
-
   experimental: {
-    typedRoutes : true,
-    esmExternals: false,
+    globalNotFound: true,
   },
+  output     : 'standalone',
+  typedRoutes: true,
 
   async headers() {
     return [

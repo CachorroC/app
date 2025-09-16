@@ -21,7 +21,7 @@ import { JuzgadoClass } from '#@/lib/models/juzgado';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 
 async function AvailableProcesosByName( {
-  nombre 
+  nombre
 }: { nombre: string } ) {
   const urlNameMaker = consultaProcesosPorRazonSocial( nombre );
 
@@ -92,16 +92,20 @@ async function AvailableProcesosByName( {
 }
 
 export default async function Page( {
-  params 
-}: { params: { numero: string } } ) {
-  const carpeta = await getCarpetabyNumero( Number( params.numero ) );
+  params
+}: { params: Promise<{ numero: string; }>; } ) {
+  const {
+    numero 
+  } = await params;
+
+  const carpeta = await getCarpetabyNumero( Number( numero ) );
 
   if ( !carpeta ) {
     return notFound();
   }
 
   const {
-    idProcesos, numero, llaveProceso, juzgado, nombre 
+    idProcesos, llaveProceso, juzgado, nombre
   } = carpeta;
 
   let idProcesoContent;
@@ -113,7 +117,7 @@ export default async function Page( {
           key={idProceso}
           className={buttonActiveCategory}
           href={
-            `/Carpeta/${ params.numero }/ultimasActuaciones/${ idProceso }` as Route
+            `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`
           }
         >
           <span>{nombre}</span>
@@ -177,7 +181,7 @@ export default async function Page( {
         <Suspense fallback={<Loader />}>
           <ProcesosComponent
             llaveProceso={llaveProceso}
-            numero={numero}
+            numero={Number( numero )}
           />
         </Suspense>
       </div>
@@ -190,7 +194,7 @@ export default async function Page( {
       <div className={layout.sectionColumn}>
         <Suspense fallback={<Loader />}>
           <InputSection
-            key={params.numero}
+            key={numero}
             name={'llaveProceso'}
             title={'Numero de expediente'}
             type={'text'}

@@ -1,9 +1,17 @@
-export default function Page( {
+export default async function Page( {
   params,
 }: {
-  params: { ano: string; mes: string; dia: string };
-} ) {
+  params: Promise<{ ano: string; mes: string; dia: string }>;
+  } ) {
+  const {
+    ano, mes, dia 
+  } = await params;
+
   return <pre>{JSON.stringify(
-    params, null, 2 
+    {
+      ano,
+      mes,
+      dia
+    }, null, 2
   )}</pre>;
 }

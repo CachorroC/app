@@ -3,17 +3,21 @@ import { LabelBoundary } from '#@/components/layout/boundary';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { ReactNode } from 'react';
 
-export default function Layout( {
+export default async function Layout( {
   params,
   children,
 }: {
-  params: { ano: string; mes: string; dia: string };
+  params: Promise<{ ano: string; mes: string; dia: string }>;
   children: ReactNode;
-} ) {
+  } ) {
+  const {
+    ano, mes, dia 
+  } = await params;
+
   const segmentDate = new Date(
-    Number( params.ano ),
-    Number( params.mes ) - 1,
-    Number( params.dia ),
+    Number( ano ),
+    Number( mes ) - 1,
+    Number( dia ),
   );
 
   return (

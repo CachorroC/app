@@ -10,7 +10,7 @@ import { Suspense } from 'react';
 
 export const NavBar = () => {
   const {
-    isNavOpen 
+    isNavOpen
   } = useNavigationContext();
 
   const newYear = new Date()
@@ -52,6 +52,11 @@ export const NavBar = () => {
               iconLabel={'contact_support'}
               textLabel={'contacto'}
               hrefLabel={'/Contacto'}
+            />
+            <NavLink
+              iconLabel={'task'}
+              textLabel={'Tareas'}
+              hrefLabel={'/Tareas'as Route}
             />
 
             <NavLink
@@ -97,11 +102,7 @@ export const NavBar = () => {
               textLabel={'Notas'}
               hrefLabel={'/Notas'}
             />
-            <NavLink
-              iconLabel={'add_comment'}
-              textLabel={'Nueva Nota'}
-              hrefLabel={'/(.)Notas/Nueva'}
-            />
+
             <NavLink
               iconLabel={'badge'}
               textLabel={'Quienes Somos'}
@@ -117,6 +118,11 @@ export const NavBar = () => {
               iconLabel={''}
               textLabel={'Bancolombia'}
               hrefLabel={'/Carpetas/Categorias/Bancolombia'}
+            />
+            <NavLink
+              iconLabel={''}
+              textLabel={'Reintegra'}
+              hrefLabel={'/Carpetas/Categorias/Reintegra'}
             />
           </Drawer>
         </Suspense>

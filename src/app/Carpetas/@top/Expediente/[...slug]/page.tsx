@@ -4,12 +4,16 @@ import { notFound } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.css';
 
 export default async function Page( {
-  params 
-}: { params: { slug: string[] } } ) {
+  params
+}: { params: Promise<{ slug: string[]; }>; } ) {
+  const {
+    slug 
+  } = await params;
+
   const [
     llaveProceso,
     idProceso
-  ] = params.slug;
+  ] = slug;
 
   const carpeta = await getCarpetaByllaveProceso( llaveProceso );
 
@@ -18,7 +22,7 @@ export default async function Page( {
   }
 
   const {
-    deudor 
+    deudor
   } = carpeta;
 
   return (

@@ -1,17 +1,18 @@
 import { headers } from 'next/headers';
+import style from '#@/components/Card/card.module.css';
 
 export default async function NotFound() {
-  const headersList = headers();
+  const headersList = await headers();
 
   const domain = headersList.get( 'host' );
 
   return (
-    <div>
-      <h2>Not Found: {domain}</h2>
+    <div className={style.card}>
+      <h2>Not Found {domain}</h2>
       <p>Could not find requested resource</p>
-      {JSON.stringify(
-        headersList, null, 2 
-      )}
+      <pre> {JSON.stringify(
+        headersList, null, 2
+      )}</pre>
     </div>
   );
 }
