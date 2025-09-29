@@ -1,10 +1,12 @@
-export default function MoneyFixer( {
-  valor,
-  className,
-}: {
-  valor: number | bigint;
-  className: string;
-} ) {
+export default function MoneyFixer(
+  {
+    valor,
+    className,
+  }: {
+    valor: number | bigint;
+    className: string;
+  } 
+) {
   const formatedValue = new Intl.NumberFormat(
     'es-CO', {
       style          : 'currency',
@@ -12,7 +14,9 @@ export default function MoneyFixer( {
       currencyDisplay: 'symbol',
     } 
   )
-    .format( valor );
+    .format(
+      valor 
+    );
 
   return <strong className={className}>{formatedValue}</strong>;
 }

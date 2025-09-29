@@ -3,10 +3,14 @@ import { ReactNode, useRef } from 'react';
 import { useCarpetaFormContext } from '../../app/Context/carpeta-form-context';
 import { editDemandaInPrisma } from '#@/app/Carpeta/[numero]/actions';
 
-export function CarpetaForm( {
-  children 
-}: { children: ReactNode } ) {
-  const formRef = useRef( null );
+export function CarpetaForm(
+  {
+    children 
+  }: { children: ReactNode } 
+) {
+  const formRef = useRef(
+    null 
+  );
 
   const {
     carpetaFormState 
@@ -17,12 +21,18 @@ export function CarpetaForm( {
       return;
     }
 
-    const editer = await editDemandaInPrisma( carpetaFormState.demanda );
+    const editer = await editDemandaInPrisma(
+      carpetaFormState.demanda 
+    );
 
     if ( editer.success ) {
-      alert( `se ingresó exitosamente la edición a la base de datos: ${ editer.data }`, );
+      alert(
+        `se ingresó exitosamente la edición a la base de datos: ${ editer.data }`, 
+      );
     } else {
-      alert( `falló la sincronizacion con la base de datos: ${ editer.data }` );
+      alert(
+        `falló la sincronizacion con la base de datos: ${ editer.data }` 
+      );
     }
   }
 

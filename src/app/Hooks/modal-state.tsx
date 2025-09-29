@@ -7,12 +7,18 @@ import { useCallback,
 import styles from 'components/Modal/styles.module.css';
 import { useModalContext } from '../Context/modal-context';
 
-export default function ModalDialog( {
-  children 
-}: { children: ReactNode } ) {
-  const overlay = useRef( null );
+export default function ModalDialog(
+  {
+    children 
+  }: { children: ReactNode } 
+) {
+  const overlay = useRef(
+    null 
+  );
 
-  const wrapper = useRef( null );
+  const wrapper = useRef(
+    null 
+  );
 
   const {
     isModalOpen, setIsModalOpen 
@@ -20,16 +26,22 @@ export default function ModalDialog( {
 
   const onDismiss = useCallback(
     () => {
-      setIsModalOpen( ( n ) => {
-        return !n;
-      } );
+      setIsModalOpen(
+        (
+          n 
+        ) => {
+          return !n;
+        } 
+      );
     }, [
       setIsModalOpen
     ] 
   );
 
   const onClick: MouseEventHandler = useCallback(
-    ( e ) => {
+    (
+      e 
+    ) => {
       if ( e.target === overlay.current || e.target === wrapper.current ) {
         if ( onDismiss ) {
           onDismiss();
@@ -44,7 +56,9 @@ export default function ModalDialog( {
   );
 
   const onKeyDown = useCallback(
-    ( e: KeyboardEvent ) => {
+    (
+      e: KeyboardEvent 
+    ) => {
       if ( e.key === 'Escape' ) {
         onDismiss();
       }

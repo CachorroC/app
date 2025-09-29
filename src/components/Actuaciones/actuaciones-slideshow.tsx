@@ -30,11 +30,13 @@ export function ActuacionesSlideshowErrorComponent() {
   );
 }
 
-export function ActuacionesSlideshowContainer( {
-  actuacionesPromise,
-}: {
-  actuacionesPromise: Promise<outActuacion[]>;
-} ) {
+export function ActuacionesSlideshowContainer(
+  {
+    actuacionesPromise,
+  }: {
+    actuacionesPromise: Promise<outActuacion[]>;
+  }
+) {
   return (
     <ErrorBoundary fallback={<ActuacionesSlideshowErrorComponent />}>
       <Suspense fallback={<ActuacionLoader />}>
@@ -44,22 +46,52 @@ export function ActuacionesSlideshowContainer( {
   );
 }
 
-export function ActuacionesSlideshow( {
-  actuacionesPromise,
-}: {
-  actuacionesPromise: Promise<outActuacion[]>;
-} ) {
-  const actuacionesList = use( actuacionesPromise );
+export function ActuacionesSlideshow(
+  {
+    actuacionesPromise,
+  }: {
+    actuacionesPromise: Promise<outActuacion[]>;
+  }
+) {
+  const actuacionesList = use(
+    actuacionesPromise
+  );
 
   const [
     index,
     setIndex
-  ] = useState( 0 );
+  ] = useState(
+    0
+  );
 
   const [
     showMore,
     setShowMore
-  ] = useState( false );
+  ] = useState(
+    false
+  );
+
+
+
+  const sculpture = actuacionesList[ index ];
+
+  function handleNextClick() {
+    setIndex(
+      index + 1
+    );
+  }
+
+  function handlePreviousClick () {
+    setIndex(
+      index - 1
+    );
+  }
+
+  function handleMoreClick() {
+    setShowMore(
+      !showMore
+    );
+  }
 
   if ( actuacionesList.length === 0 ) {
     return (
@@ -80,6 +112,12 @@ export function ActuacionesSlideshow( {
           >
             Next
           </button>
+          <button
+            type={'button'}
+            onClick={handlePreviousClick}
+          >
+            previous
+          </button>
         </div>
         {showMore && (
           <>
@@ -94,16 +132,6 @@ export function ActuacionesSlideshow( {
         )}
       </div>
     );
-  }
-
-  let sculpture = actuacionesList[ index ];
-
-  function handleNextClick() {
-    setIndex( index + 1 );
-  }
-
-  function handleMoreClick() {
-    setShowMore( !showMore );
   }
 
   return (
@@ -123,6 +151,12 @@ export function ActuacionesSlideshow( {
           onClick={handleNextClick}
         >
           Next
+        </button>
+        <button
+          type={'button'}
+          onClick={handlePreviousClick}
+        >
+          previous
         </button>
       </div>
       {showMore && (

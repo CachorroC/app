@@ -17,7 +17,9 @@ export default function Page() {
       <div className={styles.divider}></div>
       <div className={styles.divider}></div>
       <pre>
-        {Number( nuevaCarpeta.demanda.capitalAdeudado ?? 0 )
+        {Number(
+          nuevaCarpeta.demanda.capitalAdeudado ?? 0 
+        )
           .toLocaleString(
             'es-CO',
             {
@@ -42,9 +44,11 @@ export default function Page() {
       <button
         type="button"
         onClick={() => {
-          alert( JSON.stringify(
-            nuevaCarpeta, null, 2 
-          ) );
+          alert(
+            JSON.stringify(
+              nuevaCarpeta, null, 2 
+            ) 
+          );
         }}
       ></button>
       <div className={styles.divider}></div>

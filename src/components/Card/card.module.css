@@ -32,7 +32,6 @@
   padding: 1rem 0.5rem;
   gap: 0.5rem;
   border-radius: var(--shape-corner-medium);
-  text-align: center;
 }
 .card .content {
   text-align: center;
@@ -129,8 +128,6 @@
   line-height: var(--label-small-height);
   text-transform: var(--label-small-text-transform);
   text-decoration: var(--label-small-text-decoration);
-  grid-area: link;
-  position: relative;
 }
 .link .icon {
   margin: 0;
@@ -158,6 +155,10 @@
 .link:active {
   background-color: var(--ssurface-container-high);
   box-shadow: var(--dp3);
+}
+.link {
+  grid-area: link;
+  position: relative;
 }
 .link > .tooltiptext {
   visibility: hidden;

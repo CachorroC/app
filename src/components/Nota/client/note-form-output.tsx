@@ -20,7 +20,9 @@ export default function NoteFormOutput() {
         <p className={typography.bodyMedium}>{notaFormState.text}</p>
         {notaFormState.dueDate && (
           <p className={typography.labelSmall}>
-            {fixFechas( notaFormState.dueDate?.toString() )}
+            {fixFechas(
+              notaFormState.dueDate?.toString() 
+            )}
           </p>
         )}
       </section>

@@ -1,12 +1,13 @@
-import { CarpetasSortButtons } from '#@/components/Carpetas/client/carpetasButtonsSort';
-import { sectionColumn } from '#@/styles/layout.module.css';
-import { ResetButtonSorter } from '../UltimasActuaciones/reset-button';
+import { CarpetasSortButtons } from '#@/app/Carpetas/@right/carpetasButtonsSort';
+import { sectionColumn, sectionRow } from '#@/styles/layout.module.css';
+import { ResetButtonSorter } from './reset-button';
 import CategoryFilteringButtons from './category-filtering-buttons';
 import CiudadFilteringButtons from './ciudad-filter';
+import React from 'react';
 
 const options = [
   {
-    name : 'sort direction',
+    name : 'direccion de sorteo',
     value: 'dir',
     items: [
       'asc',
@@ -14,7 +15,7 @@ const options = [
     ],
   },
   {
-    name : 'sorting key',
+    name : 'valor del sorteo',
     value: 'sortingKey',
     items: [
       'fecha',
@@ -32,11 +33,15 @@ const options = [
 export default function Default() {
   return (
     <>
-      <section className={sectionColumn}>
-        <ResetButtonSorter />
-        <CarpetasSortButtons options={options} />
-        <CategoryFilteringButtons row={false} />
+      <section className={ sectionColumn }>
+        <div className={sectionRow} >
+          <ResetButtonSorter />
+          <CarpetasSortButtons options={ options } row={true} />
+          <CategoryFilteringButtons row={false} />
+        </div>
+
         <CiudadFilteringButtons row={false} />
+
       </section>
 
     </>

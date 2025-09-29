@@ -21,20 +21,28 @@ export function SearchOutputList() {
     currentCategory 
   } = useCategory();
 
-  carpetas.forEach( ( proceso ) => {
-    if ( proceso.nombre.toLowerCase()
-      .indexOf( search.toLowerCase() ) === -1 ) {
-      return;
-    }
+  carpetas.forEach(
+    (
+      proceso 
+    ) => {
+      if ( proceso.nombre.toLowerCase()
+        .indexOf(
+          search.toLowerCase() 
+        ) === -1 ) {
+        return;
+      }
 
-    if ( currentCategory === 'todos' || currentCategory === proceso.category ) {
-      rows.push( <LinkCard
-        path={`/Carpeta/${ proceso.numero }` as Route}
-        carpeta={proceso}
-        key={proceso.numero}
-      />, );
-    }
-  } );
+      if ( currentCategory === 'todos' || currentCategory === proceso.category ) {
+        rows.push(
+          <LinkCard
+            path={`/Carpeta/${ proceso.numero }` as Route}
+            carpeta={proceso}
+            key={proceso.numero}
+          />, 
+        );
+      }
+    } 
+  );
 
   return (
     <table>

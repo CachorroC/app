@@ -70,9 +70,19 @@ export const NavBar = () => {
               hrefLabel={'/Ayudante/Navidad'}
             />
             <NavLink
+              iconLabel={'park'}
+              textLabel={'christmas'}
+              hrefLabel={'/Ayudante/Navidad/New'}
+            />
+            <NavLink
               iconLabel={'forest'}
               textLabel={'Christmas Router'}
               hrefLabel={'/Ayudante/Navidad/Router'}
+            />
+            <NavLink
+              iconLabel={'forest'}
+              textLabel={'Christmas'}
+              hrefLabel={'/Ayudante/Navidad'}
             />
             <NavLink
               iconLabel={'gavel'}
@@ -97,11 +107,18 @@ export const NavBar = () => {
               hrefLabel={'/Contabilidad/NuevaFactura' as Route}
             />
 
+            <NavLink iconLabel={ 'task' } textLabel={ 'tareas' } hrefLabel={ '/Tareas' as Route}  />
             <NavLink
               iconLabel={'sticky_note_2'}
               textLabel={'Notas'}
               hrefLabel={'/Notas'}
             />
+            <NavLink
+              iconLabel={'note_add'}
+              textLabel={'Nueva Nota'}
+              hrefLabel={'/Notas/Nueva'}
+            />
+
 
             <NavLink
               iconLabel={'badge'}

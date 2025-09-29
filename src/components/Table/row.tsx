@@ -7,13 +7,15 @@ import { switchBox, inputElement, slider } from '../Nota/note.module.css';
 import { useCategory } from '#@/app/Context/category-context';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 
-export function CarpetaUltimaActuacionRow( {
-  children,
-  carpeta,
-}: {
-  children: ReactNode;
-  carpeta: IntCarpeta;
-} ) {
+export function CarpetaUltimaActuacionRow(
+  {
+    children,
+    carpeta,
+  }: {
+    children: ReactNode;
+    carpeta: IntCarpeta;
+  } 
+) {
   const {
     currentCategory 
   } = useCategory();

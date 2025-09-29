@@ -8,15 +8,17 @@ import layout from '#@/styles/layout.module.css';
 import styles from './tonal.module.css';
 import buttons from './buttons.module.css';
 
-export const CopyButton = ( {
-  copyTxt,
-  horizontal,
-  name,
-}: {
-  copyTxt: string;
-  horizontal?: boolean;
-  name: string;
-} ) => {
+export const CopyButton = (
+  {
+    copyTxt,
+    horizontal,
+    name,
+  }: {
+    copyTxt: string;
+    horizontal?: boolean;
+    name: string;
+  }
+) => {
   const [
     value,
     copy
@@ -25,39 +27,47 @@ export const CopyButton = ( {
   const [
     isSnackbarOpen,
     setIsSnackbarOpen
-  ] = useState( false );
+  ] = useState(
+    false
+  );
 
   useEffect(
     () => {
       const timer = setTimeout(
         () => {
-          setIsSnackbarOpen( false );
-        }, 5000 
+          setIsSnackbarOpen(
+            false
+          );
+        }, 5000
       );
 
       if ( isSnackbarOpen ) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         timer;
       }
 
       return () => {
-        return clearTimeout( timer );
+        return clearTimeout(
+          timer
+        );
       };
     }, [
       isSnackbarOpen
-    ] 
+    ]
   );
 
   return (
     <Fragment key={copyTxt}>
       <div className={horizontal
         ? layout.segmentRow
-        : layout.segmentColumn}>
+        : layout.segmentColumn}
+      >
         <h5
           style={{
             color: 'var(--primary)',
             flex : 1,
           }}
-          className={typography.labelSmall}
+          className={typography.labelLarge}
         >
           {name}
         </h5>
@@ -66,16 +76,21 @@ export const CopyButton = ( {
             color: 'var(--on-surface)',
             flex : 1,
           }}
-          className={typography.titleMedium}
+          className={typography.bodySmall}
         >
           {copyTxt}
         </p>
         <button
           type="button"
-          className={styles.button}
+          className={ styles.button }
+
           onClick={() => {
-            copy( copyTxt );
-            setIsSnackbarOpen( true );
+            copy(
+              copyTxt
+            );
+            setIsSnackbarOpen(
+              true
+            );
           }}
         >
           <span className={`material-symbols-outlined ${ styles.icon }`}>
@@ -97,9 +112,11 @@ export const CopyButton = ( {
   );
 };
 
-export function CopyButtons( {
-  carpeta 
-}: { carpeta: MonCarpeta } ) {
+export function CopyButtons(
+  {
+    carpeta
+  }: { carpeta: MonCarpeta }
+) {
   return (
     <>
       {carpeta.llaveProceso && (

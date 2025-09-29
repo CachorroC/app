@@ -7,13 +7,17 @@ import cardStyles from '../Card/card.module.css';
 import { IntNota } from '#@/lib/types/notas';
 import { card } from '../Proceso/procesos.module.css';
 
-export const Edit = ( {
-  nota 
-}: { nota: IntNota } ) => {
+export const Edit = (
+  {
+    nota 
+  }: { nota: IntNota } 
+) => {
   const [
     hasContent,
     setHasContent
-  ] = useState( false );
+  ] = useState(
+    false 
+  );
 
   const [
     formState,
@@ -30,7 +34,9 @@ export const Edit = ( {
   const [
     inputNota,
     setInputNota
-  ] = useState( formState.data ?? nota );
+  ] = useState(
+    formState.data ?? nota 
+  );
 
   const dateString = inputNota.dueDate?.toISOString()
     .slice(
@@ -92,11 +98,15 @@ export const Edit = ( {
             type="text"
             name="text"
             value={inputNota.text}
-            onChange={( e ) => {
-              setInputNota( {
-                ...inputNota,
-                text: e.target.value,
-              } );
+            onChange={(
+              e 
+            ) => {
+              setInputNota(
+                {
+                  ...inputNota,
+                  text: e.target.value,
+                } 
+              );
             }}
           />
         </fieldset>
@@ -112,11 +122,17 @@ export const Edit = ( {
             className={styles.textArea}
             name="date"
             value={dateString}
-            onChange={( e ) => {
-              setInputNota( {
-                ...inputNota,
-                dueDate: new Date( e.target.value ),
-              } );
+            onChange={(
+              e 
+            ) => {
+              setInputNota(
+                {
+                  ...inputNota,
+                  dueDate: new Date(
+                    e.target.value 
+                  ),
+                } 
+              );
             }}
           />
           <p>{dateString}</p>
@@ -128,9 +144,13 @@ export const Edit = ( {
               name="done"
               checked={hasContent}
               onChange={() => {
-                setHasContent( ( c ) => {
-                  return !c;
-                } );
+                setHasContent(
+                  (
+                    c 
+                  ) => {
+                    return !c;
+                  } 
+                );
               }}
               type="checkbox"
             />
@@ -144,12 +164,20 @@ export const Edit = ( {
                   className={styles.textArea}
                   type="text"
                   name="content"
-                  value={inputNota.content.join( '\n' )}
-                  onChange={( e ) => {
-                    setInputNota( {
-                      ...inputNota,
-                      content: e.target.value.split( '\n' ),
-                    } );
+                  value={inputNota.content.join(
+                    '\n' 
+                  )}
+                  onChange={(
+                    e 
+                  ) => {
+                    setInputNota(
+                      {
+                        ...inputNota,
+                        content: e.target.value.split(
+                          '\n' 
+                        ),
+                      } 
+                    );
                   }}
                 />
               </label>

@@ -23,9 +23,13 @@ export const DrawerMenuButton = () => {
         ? buttonDrawerMenuOpen
         : buttonDrawerMenuClosed}
       onClick={() => {
-        setIsNavOpen( ( n ) => {
-          return !n;
-        } );
+        setIsNavOpen(
+          (
+            n 
+          ) => {
+            return !n;
+          } 
+        );
       }}
     >
       <span className={`material-symbols-outlined ${ styles.icon }`}>
@@ -46,9 +50,13 @@ export function NewNoteButton() {
     <button
       className={styles.buttonModal}
       onClick={() => {
-        setIsModalNoteOpen( ( n ) => {
-          return !n;
-        } );
+        setIsModalNoteOpen(
+          (
+            n 
+          ) => {
+            return !n;
+          } 
+        );
       }}
     >
       <span className={`material-symbols-outlined ${ styles.icon }`}>
@@ -71,7 +79,9 @@ export default function NavButtons() {
         type="button"
         className={styles.buttonDrawerClosed}
         onClick={() => {
-          setIsNavOpen( !isNavOpen );
+          setIsNavOpen(
+            !isNavOpen 
+          );
         }}
       >
         <span className={`material-symbols-outlined ${ styles.icon }`}>

@@ -11,11 +11,15 @@ import { FormProvider, useForm } from 'react-hook-form';
 const NuevaTaskContext = createContext<{
   taskFormState: NewTask;
   setTaskFormState: Dispatch<SetStateAction<NewTask>>;
-} | null>( null );
+} | null>(
+  null 
+);
 
-export function NuevaTaskFormProvider( {
-  children 
-}: { children: ReactNode } ) {
+export function NuevaTaskFormProvider(
+  {
+    children 
+  }: { children: ReactNode } 
+) {
   const newDater = new Date();
 
   const newNota: NewTask = {
@@ -35,13 +39,17 @@ export function NuevaTaskFormProvider( {
   const [
     taskFormState,
     setTaskFormState
-  ] = useState<NewTask>( newNota );
+  ] = useState<NewTask>(
+    newNota 
+  );
 
-  const nuevaNotaMethods = useForm<NewTask>( {
-    defaultValues   : taskFormState,
-    shouldFocusError: true,
-    criteriaMode    : 'all',
-  } );
+  const nuevaNotaMethods = useForm<NewTask>(
+    {
+      defaultValues   : taskFormState,
+      shouldFocusError: true,
+      criteriaMode    : 'all',
+    } 
+  );
 
   return (
     <NuevaTaskContext.Provider
@@ -56,10 +64,14 @@ export function NuevaTaskFormProvider( {
 }
 
 export function useNuevaTaskContext() {
-  const context = useContext( NuevaTaskContext );
+  const context = useContext(
+    NuevaTaskContext 
+  );
 
   if ( !context ) {
-    throw new Error( 'Nueva intTask context must be used within a new task provider', );
+    throw new Error(
+      'Nueva intTask context must be used within a new task provider', 
+    );
   }
 
   return context;

@@ -14,27 +14,29 @@ export default function TaskList() {
 
   const tasks = [
     ...tasksRaw
-  ].sort( (
-    a, b 
-  ) => {
-    if ( !a.id ) {
-      return -1;
-    }
+  ].sort(
+    (
+      a, b 
+    ) => {
+      if ( !a.id ) {
+        return -1;
+      }
 
-    if ( !b.id ) {
-      return 1;
-    }
+      if ( !b.id ) {
+        return 1;
+      }
 
-    if ( a.id < b.id ) {
-      return -1;
-    }
+      if ( a.id < b.id ) {
+        return -1;
+      }
 
-    if ( b.id < a.id ) {
-      return 1;
-    }
+      if ( b.id < a.id ) {
+        return 1;
+      }
 
-    return 0;
-  } );
+      return 0;
+    } 
+  );
 
   return (
     <table>
@@ -49,26 +51,34 @@ export default function TaskList() {
         </tr>
       </thead>
       <tbody>
-        {tasks.map( ( task ) => {
-          return (
-            <Task
-              task={task}
-              key={task.id}
-            />
-          );
-        } )}
+        {tasks.map(
+          (
+            task 
+          ) => {
+            return (
+              <Task
+                task={task}
+                key={task.id}
+              />
+            );
+          } 
+        )}
       </tbody>
     </table>
   );
 }
 
-function Task( {
-  task 
-}: { task: IntTask } ) {
+function Task(
+  {
+    task 
+  }: { task: IntTask } 
+) {
   const [
     isEditing,
     setIsEditing
-  ] = useState( false );
+  ] = useState(
+    false 
+  );
 
   const dispatchTasks = useDispatchTasks();
 
@@ -87,7 +97,9 @@ function Task( {
           <button
             type={'button'}
             onClick={() => {
-              return setIsEditing( false );
+              return setIsEditing(
+                false 
+              );
             }}
           >
             Save
@@ -103,7 +115,9 @@ function Task( {
           <button
             type={'button'}
             onClick={() => {
-              return setIsEditing( true );
+              return setIsEditing(
+                true 
+              );
             }}
           >
             Edit
@@ -143,14 +157,18 @@ function Task( {
             name="done"
             className={inputElement}
             checked={task.done}
-            onChange={( e ) => {
-              dispatchTasks( {
-                type: 'changed',
-                task: {
-                  ...task,
-                  done: e.target.checked,
-                },
-              } );
+            onChange={(
+              e 
+            ) => {
+              dispatchTasks(
+                {
+                  type: 'changed',
+                  task: {
+                    ...task,
+                    done: e.target.checked,
+                  },
+                } 
+              );
             }}
             type="checkbox"
           />

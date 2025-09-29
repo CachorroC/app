@@ -1,74 +1,114 @@
 'use client';
-import { useState } from 'react';
-import { useDispatchTasks } from './TasksContext';
+import { useActionState, } from 'react';
 import typography from '#@/styles/fonts/typography.module.css';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import styles from './styles.module.css';
 import layout from '#@/styles/layout.module.css';
-import { addTaskToMongo, addTaskToPrisma } from '#@/app/Tareas/actions';
-import { NewTask } from '#@/lib/types/tareas';
+import {  addTaskToPrisma } from '#@/app/Tareas/actions';
 
-export function AddTask( {
-  carpetaNumero 
-}: { carpetaNumero?: number } ) {
+export function AddTask(
+  {
+    carpetaNumero
+  }: { carpetaNumero?: number }
+) {
+  /*
   const [
     taskState,
     setTaskState
-  ] = useState<NewTask>( {
-    text   : '',
-    done   : false,
-    content: [
-      ''
-    ],
-    dueDate      : new Date(),
-    carpetaNumero: carpetaNumero
-      ? carpetaNumero
-      : null,
-  } );
+  ] = useState<NewTask>(
+    {
+      text   : '',
+      done   : false,
+      content: [
+        ''
+      ],
+      dueDate      : new Date(),
+      carpetaNumero: carpetaNumero
+        ? carpetaNumero
+        : null,
+    }
+  ); */
+  /*
+  const dispatchTasks = useDispatchTasks(); */
 
-  const dispatchTasks = useDispatchTasks();
+  const [
+    taskState,
+    formAction,
+    isPending
+  ] = useActionState(
+    addTaskToPrisma, {
+      text     : '',
+      done     : false,
+      createdAt: new Date(),
+      id       : 0,
+      updatedAt: new Date(),
+      content  : [
+        ''
+      ],
+      dueDate      : new Date(),
+      carpetaNumero: carpetaNumero
+        ? carpetaNumero
+        : null,
+    }
+  );
 
+  /*
   async function createTask() {
     /*  for ( const contenido of taskState.content ) {
               formData.append(
                 'content', contenido
               );
-            } */
+            }
 
-    const taskPrisma = await addTaskToPrisma( {
-      ...taskState,
-    } );
+    const taskPrisma = await addTaskToPrisma(
+      {
+        ...taskState,
+      }
+    );
 
-    const taskMongo = await addTaskToMongo( taskState );
+    const taskMongo = await addTaskToMongo(
+      taskState
+    );
 
-    alert( JSON.stringify(
-      taskPrisma, null, 2 
-    ) );
-    alert( JSON.stringify(
-      taskMongo, null, 2 
-    ) );
-    setTaskState( {
-      ...taskState,
-      ...taskPrisma,
-      text: '',
-    } );
-
-    return dispatchTasks( {
-      type: 'added',
-      task: {
+    alert(
+      JSON.stringify(
+        taskPrisma, null, 2
+      )
+    );
+    alert(
+      JSON.stringify(
+        taskMongo, null, 2
+      )
+    );
+    setTaskState(
+      {
         ...taskState,
         ...taskPrisma,
-      },
-    } );
-  }
+        text: '',
+      }
+    );
+
+    return dispatchTasks(
+      {
+        type: 'added',
+        task: {
+          ...taskState,
+          ...taskPrisma,
+        },
+      }
+    );
+  } */
 
   return (
     <>
       <form
-        action={createTask}
+        action={formAction}
         className={styles.container}
       >
         <fieldset>
+          {isPending
+            ? 'Loading...'
+            : taskState.text}
           <legend>Agregar Tarea</legend>
           <section className={layout.sectionRow}>
             <label
@@ -82,13 +122,17 @@ export function AddTask( {
               type="text"
               name={'text'}
               className={styles.textArea}
-              value={taskState.text}
-              onChange={( e ) => {
-                return setTaskState( {
-                  ...taskState,
-                  text: e.target.value,
-                } );
-              }}
+              defaultValue={taskState.text}/*
+              onChange={(
+                e
+              ) => {
+                return setTaskState(
+                  {
+                    ...taskState,
+                    text: e.target.value,
+                  }
+                );
+              }} */
             />
           </section>
           <section className={layout.segmentRow}>
@@ -96,13 +140,17 @@ export function AddTask( {
               <input
                 className={styles.inputElement}
                 name="done"
-                checked={taskState.done}
-                onChange={( e ) => {
-                  setTaskState( {
-                    ...taskState,
-                    done: e.target.checked,
-                  } );
-                }}
+                defaultChecked={taskState.done}/*
+                onChange={(
+                  e
+                ) => {
+                  setTaskState(
+                    {
+                      ...taskState,
+                      done: e.target.checked,
+                    }
+                  );
+                }} */
                 type="checkbox"
               />
               <span className={styles.slider}></span>
@@ -112,46 +160,64 @@ export function AddTask( {
           <input
             type="date"
             name="dueDate"
-            value={InputDateHelper( taskState.dueDate )}
-            onChange={( e ) => {
-              return setTaskState( {
-                ...taskState,
-                dueDate: new Date( e.target.value ),
-              } );
-            }}
+            defaultValue={InputDateHelper(
+              taskState.dueDate
+            )}/*
+            onChange={(
+              e
+            ) => {
+              return setTaskState(
+                {
+                  ...taskState,
+                  dueDate: new Date(
+                    e.target.value
+                  ),
+                }
+              );
+            }} */
           />
           <input
             name="carpetaNumero"
             type="number"
             className={styles.textArea}
-            value={taskState.carpetaNumero ?? 0}
-            onChange={( e ) => {
-              return setTaskState( {
-                ...taskState,
-                carpetaNumero: Number( e.target.value ),
-              } );
-            }}
+            defaultValue={taskState.carpetaNumero ?? 0}/*
+            onChange={(
+              e
+            ) => {
+              return setTaskState(
+                {
+                  ...taskState,
+                  carpetaNumero: Number(
+                    e.target.value
+                  ),
+                }
+              );
+            }} */
           />
           <input
             name="content"
             type="text"
             className={styles.textArea}
-            value={taskState.content.toLocaleString() ?? ''}
-            onChange={( e ) => {
-              return setTaskState( {
-                ...taskState,
-                content: [
-                  ...taskState.content,
-                  e.target.value
-                ],
-              } );
-            }}
+            defaultValue={taskState.content.toLocaleString() ?? ''}/*
+            onChange={(
+              e
+            ) => {
+              return setTaskState(
+                {
+                  ...taskState,
+                  content: [
+                    ...taskState.content,
+                    e.target.value
+                  ],
+                }
+              );
+            }} */
           />
         </fieldset>
         <button type={'submit'}>Add</button>
       </form>
       <pre>{JSON.stringify(
-        taskState, null, 2 
+        taskState, null, 2
       )}</pre>
     </>
   );

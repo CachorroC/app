@@ -2,8 +2,6 @@ import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fixMoney } from '#@/lib/project/helper';
-import typography from '#@/styles/fonts/typography.module.css';
-import type { Route } from 'next';
 import { Fragment, Suspense } from 'react';
 import layout, { buttonActiveCategory } from '#@/styles/layout.module.css';
 import { Loader, TableLoader } from '#@/components/Loader/main-loader';
@@ -20,12 +18,18 @@ import SujetosProcesales from '#@/components/Proceso/sujetos-procesales';
 import { JuzgadoClass } from '#@/lib/models/juzgado';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 
-async function AvailableProcesosByName( {
-  nombre
-}: { nombre: string } ) {
-  const urlNameMaker = consultaProcesosPorRazonSocial( nombre );
+async function AvailableProcesosByName(
+  {
+    nombre
+  }: { nombre: string }
+) {
+  const urlNameMaker = consultaProcesosPorRazonSocial(
+    nombre
+  );
 
-  const fetchProc = await fetch( urlNameMaker );
+  const fetchProc = await fetch(
+    urlNameMaker
+  );
 
   if ( !fetchProc.ok ) {
     return null;
@@ -61,44 +65,56 @@ async function AvailableProcesosByName( {
         </tr>
       </thead>
       <tbody>
-        {jsonString.procesos.map( ( proceso ) => {
-          const outgoinProceso: outProceso = {
-            ...proceso,
-            juzgado: JuzgadoClass.fromProceso( proceso ),
-          };
+        {jsonString.procesos.map(
+          (
+            proceso
+          ) => {
+            const outgoinProceso: outProceso = {
+              ...proceso,
+              juzgado: JuzgadoClass.fromProceso(
+                proceso
+              ),
+            };
 
-          return (
-            <tr key={proceso.idProceso}>
-              <td>
-                <SujetosProcesales
-                  sujetosProcesalesRaw={proceso.sujetosProcesales}
-                />
-              </td>
-              <Suspense fallback={<TableLoader />}>
-                <ProcesoTableDetalleComponent
-                  key={proceso.idProceso}
-                  idProceso={proceso.idProceso}
-                />
-              </Suspense>
-              <Suspense fallback={<TableLoader />}>
-                <JuzgadoComponent juzgado={outgoinProceso.juzgado} />
-              </Suspense>
-            </tr>
-          );
-        } )}
+            return (
+              <tr key={proceso.idProceso}>
+                <td>
+                  <SujetosProcesales
+                    sujetosProcesalesRaw={proceso.sujetosProcesales}
+                  />
+                </td>
+                <Suspense fallback={<TableLoader />}>
+                  <ProcesoTableDetalleComponent
+                    key={proceso.idProceso}
+                    idProceso={proceso.idProceso}
+                  />
+                </Suspense>
+                <Suspense fallback={<TableLoader />}>
+                  <JuzgadoComponent juzgado={outgoinProceso.juzgado} />
+                </Suspense>
+              </tr>
+            );
+          }
+        )}
       </tbody>
     </table>
   );
 }
 
-export default async function Page( {
-  params
-}: { params: Promise<{ numero: string; }>; } ) {
+export default async function Page(
+  {
+    params
+  }: { params: Promise<{ numero: string; }>; }
+) {
   const {
-    numero 
+    numero
   } = await params;
 
-  const carpeta = await getCarpetabyNumero( Number( numero ) );
+  const carpeta = await getCarpetabyNumero(
+    Number(
+      numero
+    )
+  );
 
   if ( !carpeta ) {
     return notFound();
@@ -111,29 +127,35 @@ export default async function Page( {
   let idProcesoContent;
 
   if ( idProcesos && idProcesos.length > 0 ) {
-    idProcesoContent = idProcesos.map( ( idProceso ) => {
-      return (
-        <Link
-          key={idProceso}
-          className={buttonActiveCategory}
-          href={
-            `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`
-          }
-        >
-          <span>{nombre}</span>
-        </Link>
-      );
-    } );
+    idProcesoContent = idProcesos.map(
+      (
+        idProceso
+      ) => {
+        return (
+          <Link
+            key={idProceso}
+            className={buttonActiveCategory}
+            href={
+              `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`
+            }
+          >
+            <span>{nombre}</span>
+          </Link>
+        );
+      }
+    );
   }
 
   return (
     <>
-      <div className={layout.sectionRow}>
+      <div className={ layout.sectionRow }>
         {carpeta.demanda?.capitalAdeudado && (
           <div className={styles.valueCard}>
             <h2 className={styles.valueCardTitle}>Capital Adeudado</h2>
             <h3 className={styles.valueCardValue}>
-              {fixMoney( carpeta.demanda.capitalAdeudado )}
+              {fixMoney(
+                carpeta.demanda.capitalAdeudado
+              )}
             </h3>
           </div>
         )}
@@ -141,7 +163,9 @@ export default async function Page( {
           <div className={styles.valueCard}>
             <h2 className={styles.valueCardTitle}>Valor del Avaluo</h2>
             <h3 className={styles.valueCardValue}>
-              {fixMoney( carpeta.demanda.avaluo )}
+              {fixMoney(
+                carpeta.demanda.avaluo
+              )}
             </h3>
           </div>
         )}
@@ -149,39 +173,43 @@ export default async function Page( {
           <div className={styles.valueCard}>
             <h2 className={styles.valueCardTitle}>Valor de la liquidacion</h2>
             <h3 className={styles.valueCardValue}>
-              {fixMoney( carpeta.demanda.liquidacion )}
+              {fixMoney(
+                carpeta.demanda.liquidacion
+              )}
             </h3>
           </div>
         )}
-      </div>
 
-      <div className={styles.valueCard}>
-        <h2 className={styles.valueCardTitle}>Tipo de Proceso</h2>
-        <h3 className={styles.valueCardValue}>{carpeta.tipoProceso}</h3>
-      </div>
-      {carpeta.demanda?.notificacion && (
-        <Suspense fallback={<Loader />}>
-          <NotificacionComponent notificacion={carpeta.demanda.notificacion} />
-        </Suspense>
-      )}
 
-      <div className={layout.sectionColumn}>
-        <Suspense fallback={<Loader />}>
-          {juzgado
-            ? (
-                <JuzgadoComponent juzgado={juzgado} />
-              )
-            : (
-                <JuzgadoErrorComponent />
-              )}
-        </Suspense>
+        <div className={styles.valueCard}>
+          <h2 className={styles.valueCardTitle}>Tipo de Proceso</h2>
+          <h3 className={styles.valueCardValue}>{carpeta.tipoProceso}</h3>
+        </div>
+        {carpeta.demanda?.notificacion && (
+          <Suspense fallback={<Loader />}>
+            <NotificacionComponent notificacion={carpeta.demanda.notificacion} />
+          </Suspense>
+        )}
+
+        <div className={layout.sectionColumn}>
+          <Suspense fallback={<Loader />}>
+            {juzgado
+              ? (
+                  <JuzgadoComponent juzgado={juzgado} />
+                )
+              : (
+                  <JuzgadoErrorComponent />
+                )}
+          </Suspense>
+        </div>
       </div>
       <div className={layout.sectionRow}>
-        <h3 className={typography.titleLarge}>Procesos</h3>
         <Suspense fallback={<Loader />}>
           <ProcesosComponent
             llaveProceso={llaveProceso}
-            numero={Number( numero )}
+            numero={Number(
+              numero
+            )}
           />
         </Suspense>
       </div>
@@ -201,10 +229,17 @@ export default async function Page( {
           />
         </Suspense>
       </div>
-      <div className={layout.sectionColumn}>{idProcesoContent}</div>
-      <Suspense fallback={<Loader />}>
-        <AvailableProcesosByName nombre={carpeta.nombre} />
-      </Suspense>
+      <div className={ layout.sectionColumn }>{ idProcesoContent }</div>
+      <div style={ {
+        gridArea: 'span 2 / span 4',
+        overflow: 'scroll'
+
+      }}
+      >
+        <Suspense fallback={<Loader />}>
+          <AvailableProcesosByName nombre={carpeta.nombre} />
+        </Suspense>
+      </div>
     </>
   );
 }

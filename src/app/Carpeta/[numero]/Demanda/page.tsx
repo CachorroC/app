@@ -1,36 +1,42 @@
 import { prisma } from '#@/lib/connection/prisma';
 import { notFound } from 'next/navigation';
 
-export default async function DemandaPage( {
-  params,
-}: {
-  params: Promise<{ numero: string }>;
-  } ) {
+export default async function DemandaPage(
+  {
+    params,
+  }: {
+    params: Promise<{ numero: string }>;
+  } 
+) {
   const {
     numero 
   } = await params;
 
-  const carpeta = await prisma.carpeta.findFirst( {
-    where: {
-      numero: Number( numero ),
-    },
-    include: {
-      deudor         : true,
-      codeudor       : true,
-      ultimaActuacion: true,
-      procesos       : {
-        include: {
-          juzgado: true,
+  const carpeta = await prisma.carpeta.findFirst(
+    {
+      where: {
+        numero: Number(
+          numero 
+        ),
+      },
+      include: {
+        deudor         : true,
+        codeudor       : true,
+        ultimaActuacion: true,
+        procesos       : {
+          include: {
+            juzgado: true,
+          },
+        },
+        demanda: {
+          include: {
+            medidasCautelares: true,
+            notificacion     : true,
+          },
         },
       },
-      demanda: {
-        include: {
-          medidasCautelares: true,
-          notificacion     : true,
-        },
-      },
-    },
-  } );
+    } 
+  );
 
   if ( !carpeta ) {
     notFound();
@@ -55,7 +61,9 @@ export default async function DemandaPage( {
       currencyDisplay: 'name',
     }
   )
-    .format( capitalAdeudado.toNumber() );
+    .format(
+      capitalAdeudado.toNumber() 
+    );
 
   return (
     <div>

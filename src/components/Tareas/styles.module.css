@@ -8,11 +8,11 @@
 .container {
   container-name: form;
   container-type: inline-size;
-  display: flex;
-  grid-area: span 1/span 4;
+  display: flex; /*
+grid-area: span 1 / span 4; */
   box-sizing: border-box;
   border-radius: 2vmin;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
 }
 .container .form {
   overflow: auto;

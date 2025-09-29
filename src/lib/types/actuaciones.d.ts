@@ -21,7 +21,7 @@ export type ConsultaActuacion = {
 };
 
 export type intActuacion = {
-  idRegActuacion: number;
+  idRegActuacion: string;
   llaveProceso: string;
   consActuacion: number;
   fechaActuacion: Date;
@@ -49,7 +49,7 @@ export type outActuacion = {
   createdAt?: Date;
   idProceso: number;
   isUltimaAct: boolean;
-  idRegActuacion: number;
+  idRegActuacion: string;
   llaveProceso: string;
   consActuacion: number;
   fechaActuacion: Date;

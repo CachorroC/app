@@ -26,7 +26,9 @@ export function CategoryCarpetasReducer(
           continue;
         }
 
-        return Array.from( temporryCarpetasMap.values() );
+        return Array.from(
+          temporryCarpetasMap.values() 
+        );
       }
 
       case 'LiosJuridicos': {
@@ -46,7 +48,9 @@ export function CategoryCarpetasReducer(
           continue;
         }
 
-        return Array.from( temporryCarpetasMap.values() );
+        return Array.from(
+          temporryCarpetasMap.values() 
+        );
       }
 
       case 'Insolvencia': {
@@ -66,25 +70,33 @@ export function CategoryCarpetasReducer(
           continue;
         }
 
-        return Array.from( temporryCarpetasMap.values() );
+        return Array.from(
+          temporryCarpetasMap.values() 
+        );
       }
 
       case 'Reintegra': {
         const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
-        carpetas.forEach( ( carpeta ) => {
-          const {
-            category 
-          } = carpeta;
+        carpetas.forEach(
+          (
+            carpeta 
+          ) => {
+            const {
+              category 
+            } = carpeta;
 
-          if ( category === 'Reintegra' ) {
-            temporryCarpetasMap.set(
-              carpeta.id, carpeta 
-            );
-          }
-        } );
+            if ( category === 'Reintegra' ) {
+              temporryCarpetasMap.set(
+                carpeta.id, carpeta 
+              );
+            }
+          } 
+        );
 
-        return Array.from( temporryCarpetasMap.values() );
+        return Array.from(
+          temporryCarpetasMap.values() 
+        );
       }
 
       case 'Terminados': {
@@ -102,7 +114,9 @@ export function CategoryCarpetasReducer(
           }
         }
 
-        return Array.from( temporryCarpetasMap.values() );
+        return Array.from(
+          temporryCarpetasMap.values() 
+        );
       }
 
       default: {

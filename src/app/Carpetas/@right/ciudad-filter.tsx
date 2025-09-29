@@ -5,60 +5,74 @@ import { useCarpetaSort,
 import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
-export default function CiudadFilteringButtons( {
-  row 
-}: { row: boolean } ) {
+export default function CiudadFilteringButtons(
+  {
+    row
+  }: { row: boolean }
+) {
   const [
     layout,
     setLayout
-  ] = useState( row );
+  ] = useState(
+    row
+  );
 
   const [
     selectedExcluded,
     setSelectedExcluded
-  ] = useState<string[]>( [] );
+  ] = useState<string[]>(
+    []
+  );
 
   const dispatchCarpetas = useCarpetaSortDispatch();
 
   const {
-    completeCarpetas 
+    completeCarpetas
   } = useCarpetaSort();
 
   const ciudadesSet = new Set<string>();
 
-  completeCarpetas.forEach( ( carpeta ) => {
-    ciudadesSet.add( carpeta.ciudad
-      ? carpeta.ciudad
-      : 'Bogotá' );
-  } );
+  completeCarpetas.forEach(
+    (
+      carpeta
+    ) => {
+      ciudadesSet.add(
+        carpeta.ciudad
+          ? carpeta.ciudad
+          : 'Bogotá'
+      );
+    }
+  );
 
-  const categories = Array.from( ciudadesSet );
+  const categories = Array.from(
+    ciudadesSet
+  );
 
   useEffect(
     () => {
       if ( selectedExcluded && selectedExcluded.length > 0 ) {
-        dispatchCarpetas( {
-          type   : 'ciudad-filter',
-          include: selectedExcluded,
-        } );
+        dispatchCarpetas(
+          {
+            type   : 'ciudad-filter',
+            include: selectedExcluded,
+          }
+        );
       } else if ( selectedExcluded.length === 0 ) {
-        dispatchCarpetas( {
-          type: 'reset',
-        } );
+        dispatchCarpetas(
+          {
+            type: 'reset',
+          }
+        );
       }
     }, [
       dispatchCarpetas,
       selectedExcluded
-    ] 
+    ]
   );
 
   return (
     <>
-      <button
-        onClick={() => {
-          return setLayout( !layout );
-        }}
-      ></button>
+
       <section
         className={
           layout
@@ -66,41 +80,56 @@ export default function CiudadFilteringButtons( {
             : styles.segmentedButtonsColumn
         }
       >
-        {categories.map( ( category ) => {
-          const isActive = selectedExcluded.includes( category );
 
-          return (
-            <button
-              key={category}
-              type="button"
-              className={
-                isActive
-                  ? styles.buttonCategoryActive
-                  : styles.buttonCategoryPasive
-              }
-              onClick={() => {
-                if ( isActive ) {
-                  return setSelectedExcluded( selectedExcluded.filter( ( a ) => {
-                    return a !== category;
-                  } ), );
+        {categories.map(
+          (
+            category
+          ) => {
+            const isActive = selectedExcluded.includes(
+              category
+            );
+
+            return (
+              <button
+                key={category}
+                type="button"
+                className={
+                  isActive
+                    ? styles.buttonCategoryActive
+                    : styles.buttonCategoryPasive
                 }
+                onClick={() => {
+                  if ( isActive ) {
+                    return setSelectedExcluded(
+                      selectedExcluded.filter(
+                        (
+                          a
+                        ) => {
+                          return a !== category;
+                        }
+                      ),
+                    );
+                  }
 
-                return setSelectedExcluded( [
-                  ...selectedExcluded,
-                  category
-                ] );
-              }}
-            >
-              {category}
-              <input
-                type={'checkbox'}
-                checked={isActive}
-                readOnly={true}
-                name={category}
-              />
-            </button>
-          );
-        } )}
+                  return setSelectedExcluded(
+                    [
+                      ...selectedExcluded,
+                      category
+                    ]
+                  );
+                }}
+              >
+                {category}
+                <input
+                  type={'checkbox'}
+                  checked={isActive}
+                  readOnly={true}
+                  name={category}
+                />
+              </button>
+            );
+          }
+        )}
       </section>
     </>
   );

@@ -9,11 +9,15 @@ export default function Checkbox() {
     contactoForm, setContactoForm 
   } = useContactContext();
 
-  const handleTextareaChange: ChangeEventHandler<HTMLInputElement> = ( e ) => {
-    setContactoForm( {
-      ...contactoForm,
-      newsLetter: e.target.checked,
-    } );
+  const handleTextareaChange: ChangeEventHandler<HTMLInputElement> = (
+    e 
+  ) => {
+    setContactoForm(
+      {
+        ...contactoForm,
+        newsLetter: e.target.checked,
+      } 
+    );
   };
 
   return (

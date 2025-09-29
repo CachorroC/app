@@ -51,7 +51,7 @@
   }
 }
 .button {
-  border: 0.07rem solid var(--outline);
+  border: none;
   box-sizing: border-box;
   padding: 0.5rem;
   flex: 1;
@@ -64,6 +64,9 @@
   align-content: center;
   transition: all 0.3s;
   position: relative;
+  box-shadow: var(--elevation-1);
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
   &:before {
     position: absolute;
     width: 100%;
@@ -88,26 +91,41 @@
   &Category {
     &Pasive {
       @extend .button;
-      color: var(--on-surface);
       &:hover,
       &:focus,
       &:active {
         &:before {
-          background-color: var(--on-surface);
+          background-color: var(--primary);
+          color: var(--on-primary);
+          box-shadow: var(--elevation-4);
         }
       }
     }
     &Active {
       @extend .button;
-      background-color: var(--secondary-container);
-      color: var(--on-secondary-container);
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
       &:hover,
       &:focus,
       &:active {
         &:before {
-          background-color: var(--on-secondary-container);
+           background-color: var(--primary);
+          color: var(--on-primary);
+          box-shadow: var(--elevation-4);
         }
       }
     }
+  }
+}
+
+
+.highlight {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  border: none;
+  &:hover {
+    border: 0.2rem solid var(--outline);
+    background-color: var(--primary);
+    color: var(--on-primary);
   }
 }

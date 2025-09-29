@@ -2,20 +2,26 @@
 import { useDispatchTasks } from './TasksContext';
 import { deleteTask } from './actions';
 
-export function DeleteTaskButton( {
-  id 
-}: { id: number } ) {
+export function DeleteTaskButton(
+  {
+    id 
+  }: { id: number } 
+) {
   const dispatchTasks = useDispatchTasks();
 
   async function deleter() {
-    const deleted = await deleteTask( {
-      id: id,
-    } );
+    const deleted = await deleteTask(
+      {
+        id: id,
+      } 
+    );
 
-    return dispatchTasks( {
-      type: 'deleted',
-      id  : deleted.id,
-    } );
+    return dispatchTasks(
+      {
+        type: 'deleted',
+        id  : deleted.id,
+      } 
+    );
   }
 
   return (

@@ -10,13 +10,17 @@ type FormValues = {
   }[];
 };
 
-const Total = ( {
-  control 
-}: { control: Control<FormValues> } ) => {
-  const formValues = useWatch( {
-    name: 'cart',
-    control,
-  } );
+const Total = (
+  {
+    control 
+  }: { control: Control<FormValues> } 
+) => {
+  const formValues = useWatch(
+    {
+      name: 'cart',
+      control,
+    } 
+  );
 
   const total = formValues.reduce(
     (
@@ -37,109 +41,128 @@ export default function Costos() {
     formState: {
       errors 
     },
-  } = useForm<FormValues>( {
-    defaultValues: {
-      cart: [
-        {
-          name    : 'test',
-          quantity: 1,
-          price   : 23000,
-        },
-      ],
-    },
-    mode: 'onBlur',
-  } );
+  } = useForm<FormValues>(
+    {
+      defaultValues: {
+        cart: [
+          {
+            name    : 'test',
+            quantity: 1,
+            price   : 23000,
+          },
+        ],
+      },
+      mode: 'onBlur',
+    } 
+  );
 
   const {
     fields, append, remove 
-  } = useFieldArray( {
-    name: 'cart',
-    control,
-  } );
+  } = useFieldArray(
+    {
+      name: 'cart',
+      control,
+    } 
+  );
 
-  const onSubmit = ( data: FormValues ) => {
-    return console.log( `datos en app/Costos: ${ JSON.stringify(
-      data, null, 2 
-    ) }` );
+  const onSubmit = (
+    data: FormValues 
+  ) => {
+    return console.log(
+      `datos en app/Costos: ${ JSON.stringify(
+        data, null, 2 
+      ) }` 
+    );
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit( onSubmit )}>
+      <form onSubmit={handleSubmit(
+        onSubmit 
+      )}
+      >
         <input
-          {...register( 'firstName' )}
+          {...register(
+            'firstName' 
+          )}
           placeholder="First Name"
         />
-        {fields.map( (
-          field, index 
-        ) => {
-          return (
-            <div key={field.id}>
-              <section
-                className={'section'}
-                key={field.id}
-              >
-                <input
-                  placeholder="name"
-                  {...register(
- `cart.${ index }.name` as const, {
-   required: true,
- } 
-                  )}
-                  className={errors?.cart?.[ index ]?.name
-                    ? 'error'
-                    : ''}
-                  defaultValue={field.name}
-                />
-                <input
-                  placeholder="quantity"
-                  type="number"
-                  {...register(
- `cart.${ index }.quantity` as const, {
-   valueAsNumber: true,
-   required     : true,
- } 
-                  )}
-                  className={errors?.cart?.[ index ]?.quantity
-                    ? 'error'
-                    : ''}
-                  defaultValue={field.quantity}
-                />
-                <input
-                  placeholder="value"
-                  type="number"
-                  {...register(
- `cart.${ index }.price` as const, {
-   valueAsNumber: true,
-   required     : true,
- } 
-                  )}
-                  className={errors?.cart?.[ index ]?.price
-                    ? 'error'
-                    : ''}
-                  defaultValue={field.price}
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    return remove( index );
-                  }}
+        {fields.map(
+          (
+            field, index 
+          ) => {
+            return (
+              <div key={field.id}>
+                <section
+                  className={'section'}
+                  key={field.id}
                 >
-                  DELETE
-                </button>
-              </section>
-            </div>
-          );
-        } )}
+                  <input
+                    placeholder="name"
+                    {...register(
+                      `cart.${ index }.name` as const, {
+                        required: true,
+                      } 
+                    )}
+                    className={errors?.cart?.[ index ]?.name
+                      ? 'error'
+                      : ''}
+                    defaultValue={field.name}
+                  />
+                  <input
+                    placeholder="quantity"
+                    type="number"
+                    {...register(
+                      `cart.${ index }.quantity` as const, {
+                        valueAsNumber: true,
+                        required     : true,
+                      } 
+                    )}
+                    className={errors?.cart?.[ index ]?.quantity
+                      ? 'error'
+                      : ''}
+                    defaultValue={field.quantity}
+                  />
+                  <input
+                    placeholder="value"
+                    type="number"
+                    {...register(
+                      `cart.${ index }.price` as const, {
+                        valueAsNumber: true,
+                        required     : true,
+                      } 
+                    )}
+                    className={errors?.cart?.[ index ]?.price
+                      ? 'error'
+                      : ''}
+                    defaultValue={field.price}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      return remove(
+                        index 
+                      );
+                    }}
+                  >
+                    DELETE
+                  </button>
+                </section>
+              </div>
+            );
+          } 
+        )}
         <Total control={control} />
         <button
           type="button"
           onClick={() => {
-            return append( {
-              name    : '',
-              quantity: 0,
-              price   : 0,
-            } );
+            return append(
+              {
+                name    : '',
+                quantity: 0,
+                price   : 0,
+              } 
+            );
           }}
         >
           APPEND

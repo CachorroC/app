@@ -3,15 +3,17 @@ import { Calendar } from '#@/components/Calendar/main';
 import layout from '#@/styles/layout.module.css';
 import { NuevaTarea } from './nueva-tarea';
 
-export default async function Page( {
-  params,
-}: {
-  params: Promise<{ slug?: string[] }>;
-} ) {
+export default async function Page(
+  {
+    params,
+  }: {
+    params: Promise<{ slug?: string[] }>;
+  }
+) {
   let content;
 
   const {
-    slug 
+    slug
   } = await params;
 
   if ( slug ) {
@@ -23,8 +25,16 @@ export default async function Page( {
 
     content = (
       <Calendar date={new Date(
-        Number( ano ), Number( mes ) - 1, Number( dia )
-      )} />
+        Number(
+          ano
+        ), Number(
+          mes
+        ) - 1, Number(
+          dia
+        )
+      )}
+      />
+
     );
   } else {
     content = <Calendar />;

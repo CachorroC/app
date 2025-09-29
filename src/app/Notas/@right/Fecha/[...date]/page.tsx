@@ -5,16 +5,20 @@ import { NotasList } from '#@/components/Nota/tasks-list';
 import { CurrentRoute } from '#@/lib/client/current-route';
 import { Suspense } from 'react';
 
-export default function DatePage( {
-  params 
-}: { params: { date: string[] } } ) {
+export default function DatePage(
+  {
+    params 
+  }: { params: { date: string[] } } 
+) {
   const [
     incomingAno,
     incomingMes,
     incomingDia
   ] = params.date;
 
-  const incomingDate = new Date( `${ incomingAno }-${ incomingMes }-${ incomingDia }` );
+  const incomingDate = new Date(
+    `${ incomingAno }-${ incomingMes }-${ incomingDia }` 
+  );
 
   return (
     <>

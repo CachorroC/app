@@ -69,12 +69,7 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes  : '150x150',
         purpose: 'any',
       },
-      {
-        src    : '/icon2.png',
-        sizes  : '192x192',
-        type   : 'image/png',
-        purpose: 'maskable',
-      },
+
       {
         src    : '/icon1.png',
         sizes  : '512x512',
@@ -82,11 +77,12 @@ export default function manifest(): MetadataRoute.Manifest {
         purpose: 'maskable',
       },
       {
-        src    : '/icon2.png',
-        sizes  : '192x192',
+        src    : '/icon7.png',
+        sizes  : '512x512',
         type   : 'image/png',
-        purpose: 'any',
+        purpose: 'maskable',
       },
+
       {
         src    : '/icon1.png',
         sizes  : '512x512',

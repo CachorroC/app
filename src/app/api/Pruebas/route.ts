@@ -4,25 +4,39 @@ import { NextRequest, NextResponse } from 'next/server';
 import 'server-only';
 
 //? aqui van las peticiones a todas las carpetas y colleccion carpetas
-export async function GET( Request: NextRequest ) {
+export async function GET(
+  Request: NextRequest 
+) {
   const {
     searchParams 
-  } = new URL( Request.url );
+  } = new URL(
+    Request.url 
+  );
 
   const collection = await carpetasCollection();
 
-  const carpetas = await collection.find( {} )
+  const carpetas = await collection.find(
+    {} 
+  )
     .toArray();
 
-  const llaveProceso = searchParams.get( 'llaveProceso' );
+  const llaveProceso = searchParams.get(
+    'llaveProceso' 
+  );
 
   if ( llaveProceso ) {
-    const Demandados = carpetas.filter( ( carpeta ) => {
-      return carpeta.llaveProceso === llaveProceso;
-    } );
+    const Demandados = carpetas.filter(
+      (
+        carpeta 
+      ) => {
+        return carpeta.llaveProceso === llaveProceso;
+      } 
+    );
 
     return new NextResponse(
-      JSON.stringify( Demandados ), {
+      JSON.stringify(
+        Demandados 
+      ), {
         status : 200,
         headers: {
           'content-type': 'application/json',
@@ -31,15 +45,23 @@ export async function GET( Request: NextRequest ) {
     );
   }
 
-  const idProceso = searchParams.get( 'idProceso' );
+  const idProceso = searchParams.get(
+    'idProceso' 
+  );
 
   if ( idProceso ) {
-    const Demandados = carpetas.filter( ( carpeta ) => {
-      return carpeta.llaveProceso === llaveProceso;
-    } );
+    const Demandados = carpetas.filter(
+      (
+        carpeta 
+      ) => {
+        return carpeta.llaveProceso === llaveProceso;
+      } 
+    );
 
     return new NextResponse(
-      JSON.stringify( Demandados ), {
+      JSON.stringify(
+        Demandados 
+      ), {
         status : 200,
         headers: {
           'content-type': 'application/json',
@@ -48,15 +70,23 @@ export async function GET( Request: NextRequest ) {
     );
   }
 
-  const _id = searchParams.get( '_id' );
+  const _id = searchParams.get(
+    '_id' 
+  );
 
   if ( _id ) {
-    const Carpeta = carpetas.filter( ( carpeta ) => {
-      return carpeta._id.toString() === _id;
-    } );
+    const Carpeta = carpetas.filter(
+      (
+        carpeta 
+      ) => {
+        return carpeta._id.toString() === _id;
+      } 
+    );
 
     return new NextResponse(
-      JSON.stringify( Carpeta ), {
+      JSON.stringify(
+        Carpeta 
+      ), {
         status : 200,
         headers: {
           'content-type': 'application/json',
@@ -66,7 +96,9 @@ export async function GET( Request: NextRequest ) {
   }
 
   return new NextResponse(
-    JSON.stringify( carpetas ), {
+    JSON.stringify(
+      carpetas 
+    ), {
       status : 200,
       headers: {
         'content-type': 'application/json',
@@ -75,7 +107,9 @@ export async function GET( Request: NextRequest ) {
   );
 }
 
-export async function POST( request: NextRequest ) {
+export async function POST(
+  request: NextRequest 
+) {
   const incomingCarpeta = ( await request.json() ) as IntCarpeta;
 
   const collection = await carpetasCollection();
@@ -111,25 +145,37 @@ export async function POST( request: NextRequest ) {
     );
   }
 
-  return NextResponse.json( updateOne );
+  return NextResponse.json(
+    updateOne 
+  );
 }
 
-export async function PUT( request: Request ) {
+export async function PUT(
+  request: Request 
+) {
   const {
     searchParams 
-  } = new URL( request.url );
+  } = new URL(
+    request.url 
+  );
 
-  const id = searchParams.get( '_id' );
+  const id = searchParams.get(
+    '_id' 
+  );
 
   const collection = await carpetasCollection();
 
   try {
     if ( !id ) {
-      throw new Error( 'no se proporcionó un id con la accion, quiso decir POST? ', );
+      throw new Error(
+        'no se proporcionó un id con la accion, quiso decir POST? ', 
+      );
     }
 
     const query = {
-      numero: Number( id ),
+      numero: Number(
+        id 
+      ),
     };
 
     const updatedCarpeta = ( await request.json() ) as IntCarpeta;
@@ -142,7 +188,9 @@ export async function PUT( request: Request ) {
 
     if ( result ) {
       return new NextResponse(
-        JSON.stringify( result ), {
+        JSON.stringify(
+          result 
+        ), {
           status    : 200,
           statusText: `Successfully updated game with id ${ id }`,
           headers   : {
@@ -160,13 +208,17 @@ export async function PUT( request: Request ) {
     );
   } catch ( error ) {
     if ( error instanceof Error ) {
-      console.error( `error en api/Pruebas: ${ error.message }` );
+      console.error(
+        `error en api/Pruebas: ${ error.message }` 
+      );
 
       return new NextResponse(
-        JSON.stringify( {
-          error  : error.name,
-          message: error.message,
-        } ),
+        JSON.stringify(
+          {
+            error  : error.name,
+            message: error.message,
+          } 
+        ),
         {
           status    : 400,
           statusText: error.message,

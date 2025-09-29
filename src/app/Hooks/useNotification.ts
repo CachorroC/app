@@ -1,5 +1,5 @@
 /*global NotificationOptions*/
-/* eslint-disable no-unused-vars */
+ 
 /*eslint no-undef: "error"*/
 'use client';
 
@@ -18,9 +18,13 @@ const useNotification = (
   const [
     isPermissionGranted,
     setIsPermissionGranted
-  ] = useState<boolean>( Notification.permission === 'granted', );
+  ] = useState<boolean>(
+    Notification.permission === 'granted', 
+  );
 
-  let notification = useRef<Notification | null>( null );
+  const notification = useRef<Notification | null>(
+    null 
+  );
 
   const notify = () => {
     if ( isPermissionGranted ) {
@@ -54,9 +58,15 @@ const useNotification = (
     () => {
       if ( !isPermissionGranted ) {
         Notification.requestPermission()
-          .then( ( status ) => {
-            return setIsPermissionGranted( status === 'granted' );
-          } );
+          .then(
+            (
+              status 
+            ) => {
+              return setIsPermissionGranted(
+                status === 'granted' 
+              );
+            } 
+          );
       }
     }, [
       isPermissionGranted,

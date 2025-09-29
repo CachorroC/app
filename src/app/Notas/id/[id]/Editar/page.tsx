@@ -4,16 +4,20 @@ import { Edit } from '#@/components/Nota/Edit';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 
-export default async function NuevaNotallaveProceso( {
-  params
-}: {
-  params: Promise<{ id: number }>;
-} ) {
+export default async function NuevaNotallaveProceso(
+  {
+    params
+  }: {
+    params: Promise<{ id: number }>;
+  } 
+) {
   const {
     id 
   } = await params;
 
-  const nota = await getNotaById( id );
+  const nota = await getNotaById(
+    id 
+  );
 
   if ( !nota ) {
     return notFound();

@@ -1,9 +1,11 @@
 // !prints the output of the datehelper
-export default function OutputDateHelper( {
-  incomingDate,
-}: {
-  incomingDate: string | Date | null | undefined;
-} ) {
+export default function OutputDateHelper(
+  {
+    incomingDate,
+  }: {
+    incomingDate: string | Date | null | undefined;
+  } 
+) {
   if ( !incomingDate || incomingDate === null || incomingDate === undefined ) {
     return 'sin especificar';
   }
@@ -11,7 +13,9 @@ export default function OutputDateHelper( {
   let daterBuilder;
 
   if ( typeof incomingDate === 'string' ) {
-    daterBuilder = new Date( incomingDate );
+    daterBuilder = new Date(
+      incomingDate 
+    );
   } else {
     daterBuilder = incomingDate;
   }

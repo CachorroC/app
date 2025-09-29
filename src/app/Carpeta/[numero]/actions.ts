@@ -4,13 +4,17 @@ import { prisma } from '#@/lib/connection/prisma';
 import { intDemanda } from '#@/lib/types/carpetas';
 import { Prisma } from '@prisma/client';
 
-export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
+export async function editDemandaInPrisma(
+  incomingDemanda: intDemanda 
+) {
   const {
     carpetaNumero, medidasCautelares, notificacion, ...restDemanda 
   }
     = incomingDemanda;
 
-  console.log( carpetaNumero );
+  console.log(
+    carpetaNumero 
+  );
 
   const {
     notifiers, ...restNotificacion 
@@ -22,68 +26,84 @@ export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
     id            : incomingDemanda.id,
   };
 
-  console.log( notifiers );
+  console.log(
+    notifiers 
+  );
 
   try {
-    const editor = await prisma.demanda.update( {
-      where: {
-        id: incomingDemanda.id,
-      },
-      include: {
-        notificacion: {
-          include: {
-            notifiers: true,
-          },
+    const editor = await prisma.demanda.update(
+      {
+        where: {
+          id: incomingDemanda.id,
         },
-        medidasCautelares: true,
-      },
-      data: {
-        ...restDemanda,
-        avaluo: incomingDemanda.avaluo
-          ? new Prisma.Decimal( incomingDemanda.avaluo )
-          : undefined,
-        liquidacion: incomingDemanda.liquidacion
-          ? new Prisma.Decimal( incomingDemanda.liquidacion )
-          : undefined,
-        capitalAdeudado: incomingDemanda.capitalAdeudado
-          ? new Prisma.Decimal( incomingDemanda.capitalAdeudado )
-          : undefined,
-        medidasCautelares: {
-          upsert: {
-            where: {
-              id: restDemanda.id,
-            },
-            create: {
-              ...medidasCautelares,
-              id: incomingDemanda.id,
-            },
-            update: {
-              fechaOrdenaMedida: medidasCautelares?.fechaOrdenaMedida
-                ? new Date( medidasCautelares.fechaOrdenaMedida )
-                : null,
-              medidaSolicitada: medidasCautelares?.medidaSolicitada
-                ? String( medidasCautelares.medidaSolicitada )
-                : null,
+        include: {
+          notificacion: {
+            include: {
+              notifiers: true,
             },
           },
+          medidasCautelares: true,
         },
-        notificacion: {
-          upsert: {
-            where: {
-              id: incomingDemanda.id,
+        data: {
+          ...restDemanda,
+          avaluo: incomingDemanda.avaluo
+            ? new Prisma.Decimal(
+              incomingDemanda.avaluo 
+            )
+            : undefined,
+          liquidacion: incomingDemanda.liquidacion
+            ? new Prisma.Decimal(
+              incomingDemanda.liquidacion 
+            )
+            : undefined,
+          capitalAdeudado: incomingDemanda.capitalAdeudado
+            ? new Prisma.Decimal(
+              incomingDemanda.capitalAdeudado 
+            )
+            : undefined,
+          medidasCautelares: {
+            upsert: {
+              where: {
+                id: restDemanda.id,
+              },
+              create: {
+                ...medidasCautelares,
+                id: incomingDemanda.id,
+              },
+              update: {
+                fechaOrdenaMedida: medidasCautelares?.fechaOrdenaMedida
+                  ? new Date(
+                    medidasCautelares.fechaOrdenaMedida 
+                  )
+                  : null,
+                medidaSolicitada: medidasCautelares?.medidaSolicitada
+                  ? String(
+                      medidasCautelares.medidaSolicitada 
+                    )
+                  : null,
+              },
             },
-            update: {
-              ...restNotificacion,
-            },
-            create: {
-              ...restNotificacion,
+          },
+          notificacion: {
+            upsert: {
+              where: {
+                id: incomingDemanda.id,
+              },
+              update: {
+                ...restNotificacion,
+              },
+              create: {
+                ...restNotificacion,
+              },
             },
           },
         },
-      },
-    } );
+      } 
+    );
 
-    console.log( editor );
+    console.log(
+      editor 
+    );
 
     return {
       success: true,
@@ -92,7 +112,9 @@ export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
       ),
     };
   } catch ( error ) {
-    console.log( error );
+    console.log(
+      error 
+    );
 
     return {
       success: false,
@@ -108,21 +130,27 @@ export async function editllaveProceso(
   id: number,
   newKey: string,
 ) {
-  await new Promise( ( res ) => {
-    return setTimeout(
-      res, 10000 
-    );
-  } );
+  await new Promise(
+    (
+      res 
+    ) => {
+      return setTimeout(
+        res, 10000 
+      );
+    } 
+  );
 
   try {
-    const lookForData = await prisma.carpeta.update( {
-      where: {
-        numero: numero,
-      },
-      data: {
-        llaveProceso: newKey,
-      },
-    } );
+    const lookForData = await prisma.carpeta.update(
+      {
+        where: {
+          numero: numero,
+        },
+        data: {
+          llaveProceso: newKey,
+        },
+      } 
+    );
 
     return {
       success     : true,
@@ -131,7 +159,9 @@ export async function editllaveProceso(
   } catch ( error ) {
     return {
       success     : false,
-      llaveProceso: JSON.stringify( error ),
+      llaveProceso: JSON.stringify(
+        error 
+      ),
     };
   }
 }

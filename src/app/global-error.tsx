@@ -2,13 +2,15 @@
 
 import styles from '#@/components/Card/card.module.css';
 
-export default function GlobalError( {
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-} ) {
+export default function GlobalError(
+  {
+    error,
+    reset,
+  }: {
+    error: Error;
+    reset: () => void;
+  } 
+) {
   return (
     <html>
       <body>

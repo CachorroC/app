@@ -4,9 +4,11 @@ import { useCopyToClipboard } from '#@/app/Hooks/useCopyToClipboard';
 import Link from 'next/link';
 import { containerEnabled } from '../Card/filled.module.css';
 
-export const ProcesoHibrido = ( {
-  llaveProceso 
-}: { llaveProceso: string } ) => {
+export const ProcesoHibrido = (
+  {
+    llaveProceso 
+  }: { llaveProceso: string } 
+) => {
   const [
     copyText,
     setCopyText
@@ -18,7 +20,9 @@ export const ProcesoHibrido = ( {
       href={'https://consultasexternas.ramajudicial.gov.co/'}
       target={'_blank'}
       onClick={() => {
-        return setCopyText( llaveProceso );
+        return setCopyText(
+          llaveProceso 
+        );
       }}
     >
       <sub>ir a hibrido</sub>

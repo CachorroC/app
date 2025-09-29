@@ -3,60 +3,98 @@ import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET( Request: NextRequest ) {
+export async function GET(
+  Request: NextRequest 
+) {
   const {
     searchParams 
-  } = new URL( Request.url );
+  } = new URL(
+    Request.url 
+  );
 
   const carpetas = await getCarpetas();
 
-  const llaveProceso = searchParams.get( 'llaveProceso' );
+  const llaveProceso = searchParams.get(
+    'llaveProceso' 
+  );
 
   if ( llaveProceso ) {
     const Demandados = [
       ...carpetas
-    ].filter( ( carpeta ) => {
-      return carpeta.llaveProceso === llaveProceso;
-    } );
+    ].filter(
+      (
+        carpeta 
+      ) => {
+        return carpeta.llaveProceso === llaveProceso;
+      } 
+    );
 
-    return NextResponse.json( Demandados );
+    return NextResponse.json(
+      Demandados 
+    );
   }
 
-  const idProceso = searchParams.get( 'idProceso' );
+  const idProceso = searchParams.get(
+    'idProceso' 
+  );
 
   if ( idProceso ) {
-    const Demandados = carpetas.filter( ( carpeta ) => {
-      return carpeta.llaveProceso === llaveProceso;
-    } );
+    const Demandados = carpetas.filter(
+      (
+        carpeta 
+      ) => {
+        return carpeta.llaveProceso === llaveProceso;
+      } 
+    );
 
-    return NextResponse.json( Demandados );
+    return NextResponse.json(
+      Demandados 
+    );
   }
 
-  const _id = searchParams.get( '_id' );
+  const _id = searchParams.get(
+    '_id' 
+  );
 
   if ( _id ) {
-    const Carpeta = carpetas.filter( ( carpeta ) => {
-      return carpeta.id.toString() === _id;
-    } );
+    const Carpeta = carpetas.filter(
+      (
+        carpeta 
+      ) => {
+        return carpeta.id.toString() === _id;
+      } 
+    );
 
-    return NextResponse.json( Carpeta );
+    return NextResponse.json(
+      Carpeta 
+    );
   }
 
-  return NextResponse.json( carpetas );
+  return NextResponse.json(
+    carpetas 
+  );
 }
 
-export async function POST( request: NextRequest ) {
+export async function POST(
+  request: NextRequest 
+) {
   const incomingCarpeta = ( await request.json() ) as IntCarpeta;
 
   const client = await clientPromise;
 
   if ( !client ) {
-    throw new Error( 'no hay cliente mongólico' );
+    throw new Error(
+      'no hay cliente mongólico' 
+    );
   }
 
-  const db = client.db( 'RyS' );
+  const db = client.db(
+    'RyS' 
+  );
 
-  const collection = db.collection<IntCarpeta>( 'Carpetas' );
+  const collection = db.collection<IntCarpeta>(
+    'Carpetas' 
+  );
 
   const updateOne = await collection.findOneAndUpdate(
     {
@@ -82,33 +120,51 @@ export async function POST( request: NextRequest ) {
     return NextResponse.error();
   }
 
-  return NextResponse.json( updateOne );
+  return NextResponse.json(
+    updateOne 
+  );
 }
 
-export async function PUT( request: Request ) {
+export async function PUT(
+  request: Request 
+) {
   const {
     searchParams 
-  } = new URL( request.url );
+  } = new URL(
+    request.url 
+  );
 
-  const id = searchParams.get( '_id' );
+  const id = searchParams.get(
+    '_id' 
+  );
 
   const client = await clientPromise;
 
   if ( !client ) {
-    throw new Error( 'no hay cliente mongólico' );
+    throw new Error(
+      'no hay cliente mongólico' 
+    );
   }
 
-  const db = client.db( 'RyS' );
+  const db = client.db(
+    'RyS' 
+  );
 
-  const collection = db.collection<IntCarpeta>( 'Carpetas' );
+  const collection = db.collection<IntCarpeta>(
+    'Carpetas' 
+  );
 
   try {
     if ( !id ) {
-      throw new Error( 'no se proporcionó un id con la accion, quiso decir POST? ', );
+      throw new Error(
+        'no se proporcionó un id con la accion, quiso decir POST? ', 
+      );
     }
 
     const query = {
-      numero: Number( id ),
+      numero: Number(
+        id 
+      ),
     };
 
     const updatedCarpeta = ( await request.json() ) as IntCarpeta;
@@ -120,13 +176,17 @@ export async function PUT( request: Request ) {
     );
 
     if ( result ) {
-      return NextResponse.json( result );
+      return NextResponse.json(
+        result 
+      );
     }
 
     return NextResponse.error();
   } catch ( error ) {
     if ( error instanceof Error ) {
-      console.error( `error en api/Carpetas: ${ error.message }` );
+      console.error(
+        `error en api/Carpetas: ${ error.message }` 
+      );
 
       return NextResponse.error();
     }

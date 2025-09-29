@@ -2,45 +2,59 @@ import { CarpetaFormProvider } from '#@/app/Context/carpeta-form-context';
 import { Loader } from '#@/components/Loader/main-loader';
 import { NombreComponent } from '#@/components/nombre';
 import styles from '#@/styles/layout.module.css';
-import { Metadata, Route } from 'next';
-import Link from 'next/link';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import { ExpedienteFormComponent } from './expediente-form-component';
-import { ProcesosComponent } from '#@/components/Proceso/server-components';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 
-/*
 export async function generateStaticParams() {
   const carpetas = await getCarpetas();
 
-  const flattenUp = carpetas.flatMap( ( carpeta ) => {
-    const {
-      numero, procesos
-    } = carpeta;
+  const flattenUp = carpetas.flatMap(
+    (
+      carpeta 
+    ) => {
+      const {
+        numero, procesos
+      } = carpeta;
 
-    if ( procesos.length === 0 ) {
-      return {
-        numero   : String( numero ),
-        idProceso: 'idProceso',
-      };
-    }
-
-    return procesos.map( ( proceso ) => {
-      if ( proceso.esPrivado ) {
+      if ( procesos.length === 0 ) {
         return {
-          numero   : String( numero ),
+          numero: String(
+            numero 
+          ),
           idProceso: 'idProceso',
         };
       }
 
-      return {
-        numero   : String( numero ),
-        idProceso: String( proceso.idProceso ),
-      };
-    } );
-  } );
+      return procesos.map(
+        (
+          proceso 
+        ) => {
+          if ( proceso.esPrivado ) {
+            return {
+              numero: String(
+                numero 
+              ),
+              idProceso: 'idProceso',
+            };
+          }
+
+          return {
+            numero: String(
+              numero 
+            ),
+            idProceso: String(
+              proceso.idProceso 
+            ),
+          };
+        } 
+      );
+    } 
+  );
 
   const chunkSize = 100;
 
@@ -51,24 +65,34 @@ export async function generateStaticParams() {
       i, i + chunkSize
     );
 
-    chunks.push( chunk );
+    chunks.push(
+      chunk 
+    );
   }
 
-  console.log( chunks.length );
+  console.log(
+    chunks.length 
+  );
 
   return chunks[ chunks.length - 1 ];
 }
- */
-export async function generateMetadata( {
-  params,
-}: {
-  params: Promise<{ numero: string }>;
-} ): Promise<Metadata> {
+
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ numero: string }>;
+  }
+): Promise<Metadata> {
   const {
     numero
   } = await params;
 
-  const product = await getCarpetabyNumero( Number( numero ) );
+  const product = await getCarpetabyNumero(
+    Number(
+      numero
+    )
+  );
 
   if ( !product ) {
     return {
@@ -90,22 +114,28 @@ export async function generateMetadata( {
   };
 }
 
-export default async function LayoutCarpetaMain( {
-  children,
-  top,
-  right,
-  params,
-}: {
-  children: ReactNode;
-  top: ReactNode;
-  right: ReactNode;
-  params: Promise<{ numero: string }>;
-  } ) {
+export default async function LayoutCarpetaMain(
+  {
+    children,
+    top,
+    right,
+    params,
+  }: {
+    children: ReactNode;
+    top: ReactNode;
+    right: ReactNode;
+    params: Promise<{ numero: string }>;
+  }
+) {
   const {
-    numero 
+    numero
   } = await params;
 
-  const carpeta = await getCarpetabyNumero( Number( numero ) );
+  const carpeta = await getCarpetabyNumero(
+    Number(
+      numero
+    )
+  );
 
   if ( !carpeta ) {
     return notFound();
@@ -118,15 +148,15 @@ export default async function LayoutCarpetaMain( {
     >
       <div className={styles.top}>
         <Suspense fallback={<Loader />}>
-          <Link href={`/Carpeta/${ numero }` as Route}>
-            {carpeta.deudor && (
-              <NombreComponent
-                key={numero}
-                nombre={carpeta.nombre}
-                carpetaNumero={carpeta.numero}
-              />
-            )}
-          </Link>
+
+          {carpeta.deudor && (
+            <NombreComponent
+              key={numero}
+              nombre={carpeta.nombre}
+              carpetaNumero={carpeta.numero}
+            />
+          )}
+
         </Suspense>
         <Suspense fallback={<Loader />}>{top}</Suspense>
         <Suspense fallback={<Loader />}>
@@ -134,20 +164,29 @@ export default async function LayoutCarpetaMain( {
         </Suspense>
       </div>
       <div className={styles.left}>
+
+        <Suspense fallback={ <Loader /> }>{ children }</Suspense>
+        {/* <hr style={{
+          border: '1px solid red'
+        }}
+        ></hr>
         <Suspense fallback={<Loader />}>
           <ProcesosComponent
             llaveProceso={carpeta.llaveProceso}
-            numero={Number( numero )}
+            numero={Number(
+              numero
+            )}
           />
-        </Suspense>
-        <Suspense fallback={<Loader />}>{children}</Suspense>
+        </Suspense> */}
       </div>
       <div className={styles.right}>
         <Suspense fallback={<Loader />}>{right}</Suspense>
         <Suspense fallback={<Loader />}>
           <ExpedienteFormComponent
             initialLLave={carpeta.llaveProceso}
-            numero={Number( numero )}
+            numero={Number(
+              numero
+            )}
             id={carpeta.id}
           />
         </Suspense>

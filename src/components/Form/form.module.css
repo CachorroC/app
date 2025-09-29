@@ -45,6 +45,7 @@
   gap: 0.2rem;
   flex: 1;
   border-radius: 2vmin;
+  grid-column: span 4;
 }
 .segmentDetached {
   flex-flow: column nowrap;

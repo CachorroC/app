@@ -27,7 +27,9 @@ export function NotasSortButtons() {
   const [
     sortDirection,
     setSortDirection
-  ] = useState( true );
+  ] = useState(
+    true 
+  );
 
   return (
     <div className={layout.sectionColumn}>
@@ -47,27 +49,37 @@ export function NotasSortButtons() {
       </section>
 
       <section className={layout.sectionRow}>
-        {keys.map( ( key ) => {
-          return (
-            <button
-              type="button"
-              onClick={() => {
-                setSortDirection( ( d ) => {
-                  return !d;
-                } );
-                dispatchNotas( {
-                  type      : 'sort',
-                  dir       : sortDirection,
-                  sortingKey: key,
-                } );
-              }}
-              className={button.buttonPassiveCategory}
-              key={key}
-            >
-              {key}
-            </button>
-          );
-        } )}
+        {keys.map(
+          (
+            key 
+          ) => {
+            return (
+              <button
+                type="button"
+                onClick={() => {
+                  setSortDirection(
+                    (
+                      d 
+                    ) => {
+                      return !d;
+                    } 
+                  );
+                  dispatchNotas(
+                    {
+                      type      : 'sort',
+                      dir       : sortDirection,
+                      sortingKey: key,
+                    } 
+                  );
+                }}
+                className={button.buttonPassiveCategory}
+                key={key}
+              >
+                {key}
+              </button>
+            );
+          } 
+        )}
       </section>
     </div>
   );

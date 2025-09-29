@@ -3,17 +3,19 @@ import Link from 'next/link';
 import { buttonEnabled } from '../Buttons/filled.module.css';
 import { Route } from 'next';
 
-export function ActuacionTableComponent( {
-  numero,
-  title,
-  content,
-  idProceso,
-}: {
-  numero: number;
-  title: string;
-  content: string | null;
-  idProceso: number;
-} ) {
+export function ActuacionTableComponent(
+  {
+    numero,
+    title,
+    content,
+    idProceso,
+  }: {
+    numero: number;
+    title: string;
+    content: string | null;
+    idProceso: number;
+  }
+) {
   return (
     <td>
       <h2 className={typography.titleMedium}>{title}</h2>

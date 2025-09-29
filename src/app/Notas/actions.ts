@@ -8,14 +8,18 @@ export async function addNotaFormAction(
   prevState: { value: NewNota; submitted: boolean; success: boolean },
   queryData: FormData,
 ) {
-  const text = queryData.get( 'text' );
+  const text = queryData.get(
+    'text' 
+  );
 
   if ( text ) {
     return {
       ...prevState,
       value: {
         ...prevState.value,
-        text: String( text ),
+        text: String(
+          text 
+        ),
       },
     };
   }
@@ -23,15 +27,19 @@ export async function addNotaFormAction(
   return prevState;
 }
 
-export async function notasCount( carpetaNumero: number | null ) {
+export async function notasCount(
+  carpetaNumero: number | null 
+) {
   let notasCount;
 
   if ( carpetaNumero ) {
-    notasCount = await prisma.nota.findMany( {
-      where: {
-        carpetaNumero: carpetaNumero,
-      },
-    } );
+    notasCount = await prisma.nota.findMany(
+      {
+        where: {
+          carpetaNumero: carpetaNumero,
+        },
+      } 
+    );
   } else {
     notasCount = await prisma.nota.findMany();
   }
@@ -41,28 +49,38 @@ export async function notasCount( carpetaNumero: number | null ) {
   return nextCount;
 }
 
-export async function addNotaToMongo( newData: NewNota ) {
+export async function addNotaToMongo(
+  newData: NewNota 
+) {
   const collection = await notasCollection();
 
-  const existentTask = await collection.findOne( {
-    text: newData.text,
-  } );
+  const existentTask = await collection.findOne(
+    {
+      text: newData.text,
+    } 
+  );
 
   if ( !existentTask ) {
-    const insertTask = await collection.insertOne( {
-      ...newData,
-    } );
+    const insertTask = await collection.insertOne(
+      {
+        ...newData,
+      } 
+    );
 
     if ( insertTask.acknowledged ) {
       return {
         success: true,
-        data   : JSON.stringify( insertTask ),
+        data   : JSON.stringify(
+          insertTask 
+        ),
       };
     }
 
     return {
       success: false,
-      data   : JSON.stringify( insertTask ),
+      data   : JSON.stringify(
+        insertTask 
+      ),
     };
   }
 
@@ -97,7 +115,9 @@ export async function addNotaToMongo( newData: NewNota ) {
   };
 }
 
-export async function addNotaToPrisma( incomingTask: NewNota ) {
+export async function addNotaToPrisma(
+  incomingTask: NewNota 
+) {
   try {
     const {
       carpetaNumero, ...task 
@@ -107,14 +127,16 @@ export async function addNotaToPrisma( incomingTask: NewNota ) {
     let count;
 
     if ( carpetaNumero ) {
-      const carpeta = await prisma.carpeta.findUnique( {
-        where: {
-          numero: carpetaNumero,
-        },
-        include: {
-          notas: true,
-        },
-      } );
+      const carpeta = await prisma.carpeta.findUnique(
+        {
+          where: {
+            numero: carpetaNumero,
+          },
+          include: {
+            notas: true,
+          },
+        } 
+      );
 
       if ( carpeta ) {
         if ( carpeta.notasCount ) {
@@ -132,27 +154,33 @@ export async function addNotaToPrisma( incomingTask: NewNota ) {
     }
 
     if ( carpetaNumero ) {
-      inserter = await prisma.nota.create( {
-        data: {
-          ...task,
-          id     : `${ carpetaNumero }-${ count++ }`,
-          carpeta: {
-            connect: {
-              numero: carpetaNumero,
+      inserter = await prisma.nota.create(
+        {
+          data: {
+            ...task,
+            id     : `${ carpetaNumero }-${ count++ }`,
+            carpeta: {
+              connect: {
+                numero: carpetaNumero,
+              },
             },
           },
-        },
-      } );
+        } 
+      );
     } else {
-      inserter = await prisma.nota.create( {
-        data: {
-          ...task,
-          id: `NC-${ count++ }`,
-        },
-      } );
+      inserter = await prisma.nota.create(
+        {
+          data: {
+            ...task,
+            id: `NC-${ count++ }`,
+          },
+        } 
+      );
     }
 
-    console.log( inserter );
+    console.log(
+      inserter 
+    );
 
     return {
       success: true,
@@ -162,7 +190,9 @@ export async function addNotaToPrisma( incomingTask: NewNota ) {
       ),
     };
   } catch ( error ) {
-    console.log( error );
+    console.log(
+      error 
+    );
 
     return {
       success: false,
@@ -174,32 +204,42 @@ export async function addNotaToPrisma( incomingTask: NewNota ) {
   }
 }
 
-export async function updateNotaTextState( prevState: IntNota ) {
+export async function updateNotaTextState(
+  prevState: IntNota 
+) {
   try {
-    const existingNota = await prisma.nota.findFirstOrThrow( {
-      where: {
-        id: prevState.id,
-      },
-    } );
-
-    if ( existingNota.text !== prevState.text ) {
-      const updater = await prisma.nota.update( {
+    const existingNota = await prisma.nota.findFirstOrThrow(
+      {
         where: {
           id: prevState.id,
         },
-        data: {
-          text: prevState.text,
-        },
-      } );
+      } 
+    );
+
+    if ( existingNota.text !== prevState.text ) {
+      const updater = await prisma.nota.update(
+        {
+          where: {
+            id: prevState.id,
+          },
+          data: {
+            text: prevState.text,
+          },
+        } 
+      );
 
       return {
         ...updater,
       };
     }
 
-    throw new Error( 'LA NOTA GUARDADA Y LA NOTA EDITADA SON IGUALES' );
+    throw new Error(
+      'LA NOTA GUARDADA Y LA NOTA EDITADA SON IGUALES' 
+    );
   } catch ( error ) {
-    console.log( error );
+    console.log(
+      error 
+    );
 
     return prevState;
   }

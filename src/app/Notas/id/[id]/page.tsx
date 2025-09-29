@@ -8,15 +8,21 @@ import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 export async function generateStaticParams() {
   const carpetas = await getNotas();
 
-  const flattenUp = carpetas.map( ( carpeta ) => {
-    const {
-      id
-    } = carpeta;
+  const flattenUp = carpetas.map(
+    (
+      carpeta
+    ) => {
+      const {
+        id
+      } = carpeta;
 
-    return {
-      id: String( id ),
-    };
-  } );
+      return {
+        id: String(
+          id
+        ),
+      };
+    }
+  );
 
   const chunkSize = 20;
 
@@ -27,22 +33,30 @@ export async function generateStaticParams() {
       i, i + chunkSize
     );
 
-    chunks.push( chunk );
+    chunks.push(
+      chunk
+    );
   }
 
   return chunks[ 0 ];
 }
 
-export default async function Page( {
-  params
-}: {
-  params: Promise<{ id: string }>;
-} ) {
+export default async function Page(
+  {
+    params
+  }: {
+    params: Promise<{ id: string }>;
+  }
+) {
   const {
-    id 
+    id
   } = await params;
 
-  const nota = await getNotaById( Number( id ) );
+  const nota = await getNotaById(
+    Number(
+      id
+    )
+  );
 
   if ( !nota ) {
     return notFound();

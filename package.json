@@ -7,8 +7,8 @@
     "sass": "sass --no-source-map src:src && tcm src",
     "lint": "next lint --fix --strict && next lint --strict",
     "devbuild": "sass --no-source-map src:src && tcm src && eslint --fix . && next build",
-    "build": "next build",
-    "dev": "URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com next dev",
+    "build": "sass --no-source-map src:src && tcm src && next build",
+    "dev": "sass --no-source-map src:src && tcm src && URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com next dev ",
     "start": "next start",
     "db:migrate": "prisma migrate dev --name init --create-only && prisma generate",
     "db:push": "prisma db push",
@@ -16,19 +16,15 @@
   },
   "dependencies": {
     "@base-ui-components/react": "1.0.0-alpha.7",
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.35.0",
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.16.2",
     "@stylistic/eslint-plugin": "^2.13.0",
     "@types/node": "20.6.3",
     "@types/react": "^18.3.24",
     "@types/react-dom": "^18.3.7",
     "@yudiel/react-qr-scanner": "latest",
     "bcrypt": "^5.1.1",
-    "eslint": "^9.35.0",
-    "eslint-config-next": "latest",
     "material-symbols": "^0.13.2",
-    "mongodb": "^6.19.0",
+    "mongodb": "^6.20.0",
     "next": "^15.5.3",
     "prisma": "^5.22.0",
     "react": "19.1.1",
@@ -44,5 +40,13 @@
     "web-push": "^3.6.7",
     "xlsx": "^0.18.5",
     "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "eslint": "^9.35.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "jiti": "^2.5.1",
+    "typescript-eslint": "^8.44.0"
   }
 }

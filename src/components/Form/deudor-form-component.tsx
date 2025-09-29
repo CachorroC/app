@@ -23,14 +23,18 @@ export function DeudorFormComponent() {
         value={deudor.primerNombre}
         type="text"
         placeholder={'primer nombre'}
-        onChange={( e ) => {
-          return setCarpetaFormState( {
-            ...carpetaFormState,
-            deudor: {
-              ...deudor,
-              primerNombre: e.target.value,
-            },
-          } );
+        onChange={(
+          e 
+        ) => {
+          return setCarpetaFormState(
+            {
+              ...carpetaFormState,
+              deudor: {
+                ...deudor,
+                primerNombre: e.target.value,
+              },
+            } 
+          );
         }}
       />
     </fieldset>

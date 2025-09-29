@@ -8,25 +8,35 @@ import React, { createContext,
 const ModalContext = createContext<{
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-} | null>( null );
+} | null>(
+  null 
+);
 
 const ModalNoteContext = createContext<{
   isModalNoteOpen: boolean;
   setIsModalNoteOpen: Dispatch<SetStateAction<boolean>>;
-} | null>( null );
+} | null>(
+  null 
+);
 
-export function ModalProvider( {
-  children 
-}: { children: React.ReactNode } ) {
+export function ModalProvider(
+  {
+    children 
+  }: { children: React.ReactNode } 
+) {
   const [
     isModalOpen,
     setIsModalOpen
-  ] = useState( false );
+  ] = useState(
+    false 
+  );
 
   const [
     isModalNoteOpen,
     setIsModalNoteOpen
-  ] = useState( false );
+  ] = useState(
+    false 
+  );
 
   return (
     <ModalNoteContext.Provider
@@ -48,20 +58,28 @@ export function ModalProvider( {
 }
 
 export function useModalContext() {
-  const context = useContext( ModalContext );
+  const context = useContext(
+    ModalContext 
+  );
 
   if ( context === null ) {
-    throw new Error( 'useModalContext must be used inside a ModalProvider' );
+    throw new Error(
+      'useModalContext must be used inside a ModalProvider' 
+    );
   }
 
   return context;
 }
 
 export function useModalNoteContext() {
-  const context = useContext( ModalNoteContext );
+  const context = useContext(
+    ModalNoteContext 
+  );
 
   if ( context === null ) {
-    throw new Error( 'useModalContext must be used inside a ModalProvider' );
+    throw new Error(
+      'useModalContext must be used inside a ModalProvider' 
+    );
   }
 
   return context;

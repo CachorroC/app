@@ -19,7 +19,9 @@ function getServerSnapshot() {
   return true;
 }
 
-function subscribe( callback: any ) {
+function subscribe(
+  callback: any 
+) {
   window.addEventListener(
     'online', callback 
   );

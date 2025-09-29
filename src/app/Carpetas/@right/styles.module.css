@@ -48,7 +48,7 @@
 }
 
 .button, .buttonCategoryActive, .buttonCategoryPasive {
-  border: 0.07rem solid var(--outline);
+  border: none;
   box-sizing: border-box;
   padding: 0.5rem;
   flex: 1;
@@ -61,6 +61,9 @@
   align-content: center;
   transition: all 0.3s;
   position: relative;
+  box-shadow: var(--elevation-1);
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
 }
 .button:before, .buttonCategoryActive:before, .buttonCategoryPasive:before {
   position: absolute;
@@ -77,16 +80,28 @@
 .button:focus:before, .buttonCategoryActive:focus:before, .buttonCategoryPasive:focus:before, .button:active:before, .buttonCategoryActive:active:before, .buttonCategoryPasive:active:before {
   opacity: 0.1;
 }
-.buttonCategoryPasive {
-  color: var(--on-surface);
-}
 .buttonCategoryPasive:hover:before, .buttonCategoryPasive:focus:before, .buttonCategoryPasive:active:before {
-  background-color: var(--on-surface);
+  background-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--elevation-4);
 }
 .buttonCategoryActive {
-  background-color: var(--secondary-container);
-  color: var(--on-secondary-container);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
 }
 .buttonCategoryActive:hover:before, .buttonCategoryActive:focus:before, .buttonCategoryActive:active:before {
-  background-color: var(--on-secondary-container);
+  background-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--elevation-4);
+}
+
+.highlight {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  border: none;
+}
+.highlight:hover {
+  border: 0.2rem solid var(--outline);
+  background-color: var(--primary);
+  color: var(--on-primary);
 }

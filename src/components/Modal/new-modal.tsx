@@ -3,9 +3,11 @@ import { ReactNode } from 'react';
 import styles from './styles.module.css';
 import { useModalContext } from '#@/app/Context/modal-context';
 
-export default function NewModal( {
-  children 
-}: { children: ReactNode } ) {
+export default function NewModal(
+  {
+    children 
+  }: { children: ReactNode } 
+) {
   const {
     isModalOpen, setIsModalOpen 
   } = useModalContext();
@@ -17,15 +19,21 @@ export default function NewModal( {
           className={styles.open}
           onClick={() => {
             if ( isModalOpen ) {
-              return setIsModalOpen( false );
+              return setIsModalOpen(
+                false 
+              );
             }
 
-            return setIsModalOpen( true );
+            return setIsModalOpen(
+              true 
+            );
           }}
         >
           <div
             className={styles.wrapper}
-            onClick={( e ) => {
+            onClick={(
+              e 
+            ) => {
               e.stopPropagation();
             }}
           >

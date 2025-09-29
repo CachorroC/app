@@ -3,15 +3,28 @@
 import { intDemanda } from '#@/lib/types/carpetas';
 
 export async function updateDemandaAction(
-  prevState: { success: boolean; demanda: intDemanda },
+  prevState: { success: boolean; demanda: intDemanda | null },
   queryData: FormData,
 ) {
-  const itemID = queryData.get( 'numero' );
+  const itemID = queryData.get(
+    'numero'
+  );
 
-  if ( itemID ) {
+  const {
+    demanda
+  } = prevState;
+
+  if ( demanda === null ) {
+    return {
+      demanda: null,
+      success: true,
+    };
+  }
+
+  if ( itemID && demanda ) {
     return {
       demanda: {
-        ...prevState.demanda,
+        ...demanda,
       },
       success: true,
     };
@@ -27,7 +40,9 @@ export async function updateDemandaAction(
 
 let subscription: PushSubscription | null = null;
 
-export async function subscribeUser( sub: PushSubscription ) {
+export async function subscribeUser(
+  sub: PushSubscription
+) {
   subscription = sub;
 
   // In a production environment, you would want to store the subscription in a database
@@ -47,21 +62,27 @@ export async function unsubscribeUser() {
   };
 }
 
-export async function sendNotification( message: string ) {
+export async function sendNotification(
+  message: string
+) {
   if ( !subscription ) {
-    throw new Error( 'No subscription available' );
+    throw new Error(
+      'No subscription available'
+    );
   }
 
   try {
     await Notification.requestPermission();
-    new Notification( message );
+    new Notification(
+      message
+    );
 
     return {
       success: true,
     };
   } catch ( error ) {
     console.error(
-      'Error sending push notification:', error 
+      'Error sending push notification:', error
     );
 
     return {

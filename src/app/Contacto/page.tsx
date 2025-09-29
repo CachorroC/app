@@ -9,32 +9,40 @@ import { useContactContext } from '../Context/main-context';
 export default function Page() {
   const {
     register, handleSubmit 
-  } = useForm<RawContactoFormValues>( {
-    defaultValues: {
-      nombre    : ' ',
-      grupo     : 'otros',
-      newsLetter: false,
-      email     : ' ',
-      telefono  : 1,
-      comentario: 'Este es el espacio para registrar información adicional',
-    },
-  } );
+  } = useForm<RawContactoFormValues>(
+    {
+      defaultValues: {
+        nombre    : ' ',
+        grupo     : 'otros',
+        newsLetter: false,
+        email     : ' ',
+        telefono  : 1,
+        comentario: 'Este es el espacio para registrar información adicional',
+      },
+    } 
+  );
 
   const {
     contactoForm, setContactoForm 
   } = useContactContext();
 
-  const onSubmit: SubmitHandler<RawContactoFormValues> = async ( data ) => {
+  const onSubmit: SubmitHandler<RawContactoFormValues> = async (
+    data 
+  ) => {
     const newData: ContactoForm = {
       ...data,
-      telefono: Number( data.telefono ),
-      fecha   : new Date(),
+      telefono: Number(
+        data.telefono 
+      ),
+      fecha: new Date(),
     };
 
-    setContactoForm( {
-      ...contactoForm,
-      ...newData,
-    } );
+    setContactoForm(
+      {
+        ...contactoForm,
+        ...newData,
+      } 
+    );
 
     try {
       const postData = await fetch(
@@ -43,30 +51,44 @@ export default function Page() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify( newData ),
+          body: JSON.stringify(
+            newData 
+          ),
         } 
       );
 
       if ( !postData.ok ) {
-        throw new Error( `${ postData.status }: ${ postData.statusText }` );
+        throw new Error(
+          `${ postData.status }: ${ postData.statusText }` 
+        );
       }
 
       const msg = await postData.json();
 
-      alert( JSON.stringify( msg ) );
+      alert(
+        JSON.stringify(
+          msg 
+        ) 
+      );
 
-      console.log( `mensaje en app/Contacto/Page: ${ JSON.stringify(
-        msg, null, 2 
-      ) }`, );
+      console.log(
+        `mensaje en app/Contacto/Page: ${ JSON.stringify(
+          msg, null, 2 
+        ) }`, 
+      );
     } catch ( e ) {
-      alert( 'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente', );
+      alert(
+        'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente', 
+      );
     }
   };
 
   return (
     <div className={form.container}>
       <form
-        onSubmit={handleSubmit( onSubmit )}
+        onSubmit={handleSubmit(
+          onSubmit 
+        )}
         className={form.segmentColumn}
       >
         <section className={form.segmentRow}>
@@ -136,7 +158,9 @@ export default function Page() {
             <label className={checkbox.switchBox}>
               <input
                 className={checkbox.inputElement}
-                {...register( 'newsLetter' )}
+                {...register(
+                  'newsLetter' 
+                )}
                 type="checkbox"
               />
               <span className={checkbox.slider}></span>

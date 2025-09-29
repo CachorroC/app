@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '#@/lib/connection/prisma';
 import { Nota, Prisma } from '@prisma/client';
 
-export async function POST( request: NextRequest ) {
+export async function POST(
+  request: NextRequest 
+) {
   try {
     const incomingNote = ( await request.json() ) as Nota;
 
@@ -24,13 +26,17 @@ export async function POST( request: NextRequest ) {
     }
 
     // Pass 'user' object into query
-    const inserterPrisma = await prisma.nota.create( {
-      data: nota,
-    } );
+    const inserterPrisma = await prisma.nota.create(
+      {
+        data: nota,
+      } 
+    );
 
-    console.log( `POST en api/Notas/Nueva es ${ JSON.stringify(
-      inserterPrisma, null, 2 
-    ) }`, );
+    console.log(
+      `POST en api/Notas/Nueva es ${ JSON.stringify(
+        inserterPrisma, null, 2 
+      ) }`, 
+    );
 
     return NextResponse.json(
       inserterPrisma, {
@@ -38,7 +44,9 @@ export async function POST( request: NextRequest ) {
       } 
     );
   } catch ( error ) {
-    console.log( `POST en api/Notas/Nueva arrojó un error ${ error }` );
+    console.log(
+      `POST en api/Notas/Nueva arrojó un error ${ error }` 
+    );
 
     return NextResponse.error();
   }

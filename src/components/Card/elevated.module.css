@@ -4,22 +4,30 @@
   flex: 1;
   border-radius: var(--shape-corner-medium);
   gap: 1rem;
-  padding: 1rem 0.5rem;
   display: flex;
   flex-flow: column nowrap;
+  border: none;
+  padding: 1rem;
+  background: var(--surface-container-low);
+  backdrop-filter: blur(20px);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: var(--elevation-1);
 }
 .container:before, .containerDisabled:before, .containerEnabled:before {
-  background-color: var(--on-surface);
+  background-color: var(--surface-tint);
   border-radius: var(--shape-corner-medium);
-  width: 100%;
+  display: block;
   height: 100%;
+  position: absolute;
+  width: 100%;
   top: 0;
   left: 0;
   content: "";
-  opacity: 0;
+  opacity: 0.2;
+  z-index: -1;
 }
 .containerEnabled {
-  background-color: var(--surface-container-low);
+  background-color: var(--surface-container);
   box-shadow: var(--elevation-1);
 }
 .containerDisabled {
@@ -29,9 +37,10 @@
 }
 .container:hover, .containerEnabled:hover, .containerDisabled:hover {
   box-shadow: var(--elevation-2);
+  background-color: var(--surface-container-high);
 }
 .container:hover:before, .containerEnabled:hover:before, .containerDisabled:hover:before {
-  opacity: 0.08;
+  opacity: 0.5;
 }
 .container:focus, .containerEnabled:focus, .containerDisabled:focus {
   border: 0.3rem solid var(--secondary);

@@ -6,39 +6,59 @@ import clientPromise from '#@/lib/connection/mongodb';
 export async function GET() {
   const carpetas = await getCarpetas();
 
-  return NextResponse.json( carpetas );
+  return NextResponse.json(
+    carpetas 
+  );
 }
 
-export async function POST( request: NextRequest ) {
+export async function POST(
+  request: NextRequest 
+) {
   const {
     searchParams 
-  } = new URL( request.url );
+  } = new URL(
+    request.url 
+  );
 
   const incomingRequest = await request.json();
 
-  const destino = searchParams.get( 'destino' );
+  const destino = searchParams.get(
+    'destino' 
+  );
 
   const nowTime = new Date()
     .getTime();
 
   if ( destino ) {
     fs.writeFile(
-      `${ destino }.${ nowTime }.json`, JSON.stringify( incomingRequest ) 
+      `${ destino }.${ nowTime }.json`, JSON.stringify(
+        incomingRequest 
+      ) 
     );
 
     const client = await clientPromise;
 
     if ( !client ) {
-      throw new Error( 'no hay cliente mongólico' );
+      throw new Error(
+        'no hay cliente mongólico' 
+      );
     }
 
-    const db = client.db( 'RyS' )
-      .collection( destino );
+    const db = client.db(
+      'RyS' 
+    )
+      .collection(
+        destino 
+      );
 
-    const insertOne = await db.insertOne( incomingRequest );
+    const insertOne = await db.insertOne(
+      incomingRequest 
+    );
 
     if ( insertOne.acknowledged ) {
-      return NextResponse.json( incomingRequest );
+      return NextResponse.json(
+        incomingRequest 
+      );
     }
 
     return new NextResponse(

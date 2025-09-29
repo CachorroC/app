@@ -14,11 +14,13 @@ import OutputDateHelper from '#@/lib/project/output-date-helper';
 import MoneyFixer from '#@/lib/project/money-fixer';
 import { Loader } from '#@/components/Loader/main-loader';
 
-export default function InformationComponent( {
-  carpeta,
-}: {
-  carpeta: MonCarpeta;
-} ) {
+export default function InformationComponent(
+  {
+    carpeta,
+  }: {
+    carpeta: MonCarpeta;
+  } 
+) {
   const {
     deudor,
     demanda,
@@ -33,45 +35,49 @@ export default function InformationComponent( {
   let content;
 
   if ( procesos.length > 0 ) {
-    content = procesos.map( ( proceso ) => {
-      const {
-        idProceso, juzgado 
-      } = proceso;
+    content = procesos.map(
+      (
+        proceso 
+      ) => {
+        const {
+          idProceso, juzgado 
+        } = proceso;
 
-      return (
-        <ProcesoCard
-          key={idProceso}
-          proceso={proceso}
-        >
-          <div className={layout.segmentColumn}>
+        return (
+          <ProcesoCard
+            key={idProceso}
+            proceso={proceso}
+          >
+            <div className={layout.segmentColumn}>
+              <Suspense fallback={<Loader />}>
+                <JuzgadoComponent juzgado={juzgado} />
+              </Suspense>
+
+              <Link
+                key={idProceso}
+                className={button.buttonPassiveCategory}
+                href={
+                  `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
+                }
+              >
+                <span className={`material-symbols-outlined ${ button.icon }`}>
+                  description
+                </span>
+                <span className={button.text}>
+                  Todas las actuaciones de este juzgado
+                </span>
+              </Link>
+            </div>
             <Suspense fallback={<Loader />}>
-              <JuzgadoComponent juzgado={juzgado} />
+              <FechaActuacionComponent
+                key={idProceso}
+                idProceso={idProceso}
+              />
             </Suspense>
-
-            <Link
-              key={idProceso}
-              className={button.buttonPassiveCategory}
-              href={
-                `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
-              }
-            >
-              <span className={`material-symbols-outlined ${ button.icon }`}>
-                description
-              </span>
-              <span className={button.text}>
-                Todas las actuaciones de este juzgado
-              </span>
-            </Link>
-          </div>
-          <Suspense fallback={<Loader />}>
-            <FechaActuacionComponent
-              key={idProceso}
-              idProceso={idProceso}
-            />
-          </Suspense>
-        </ProcesoCard>
-      );
-    } );
+          </ProcesoCard>
+        );
+      } 
+    );
   } else {
     content = <p>no hay procesos</p>;
   }
@@ -165,16 +171,18 @@ export default function InformationComponent( {
       {demanda?.vencimientoPagare && (
         <>
           <h4 className={typography.titleSmall}>Pagarés</h4>
-          {demanda.vencimientoPagare.map( (
-            pagare, index 
-          ) => {
-            return (
-              <OutputDateHelper
-                incomingDate={pagare}
-                key={index}
-              />
-            );
-          } )}
+          {demanda.vencimientoPagare.map(
+            (
+              pagare, index 
+            ) => {
+              return (
+                <OutputDateHelper
+                  incomingDate={pagare}
+                  key={index}
+                />
+              );
+            } 
+          )}
         </>
       )}
 
@@ -184,7 +192,9 @@ export default function InformationComponent( {
 
       {demanda?.capitalAdeudado && (
         <MoneyFixer
-          valor={Number( demanda.capitalAdeudado )}
+          valor={Number(
+            demanda.capitalAdeudado 
+          )}
           className={typography.labelSmall}
         />
       )}

@@ -21,30 +21,38 @@ export default async function JSXLSX() {
 
   const arrBuff = await request.arrayBuffer();
 
-  const wb = read( arrBuff );
+  const wb = read(
+    arrBuff 
+  );
 
   for ( const sheetName of wb.SheetNames ) {
     const ws = wb.Sheets[ sheetName ];
 
-    const data = utils.sheet_to_json( ws ) as RawDb[]; // generate objects
+    const data = utils.sheet_to_json(
+      ws 
+    ) as RawDb[]; // generate objects
 
-    data.forEach( (
-      carpeta, index 
-    ) => {
-      rows.push( <tr key={index}>
-        <td>{carpeta[ 'NUMERO' ]}</td>
-        <td>{carpeta[ 'DEMANDADO_NOMBRE' ]}</td>
-        <td>{carpeta[ 'DEMANDADO_IDENTIFICACION' ]}</td>
-        <td>{carpeta[ 'EXPEDIENTE' ]}</td>
-        <td>{carpeta[ 'RADICADO' ]}</td>
-        <td>{carpeta[ 'JUZGADO_EJECUCION' ] ?? carpeta[ 'JUZGADO_ORIGEN' ]}</td>
-        <td>
-          <pre>{carpeta[ 'OBSERVACIONES' ]?.replaceAll(
-            '//', '\n-' 
-          )}</pre>
-        </td>
-      </tr>, );
-    } );
+    data.forEach(
+      (
+        carpeta, index 
+      ) => {
+        rows.push(
+          <tr key={index}>
+            <td>{carpeta[ 'NUMERO' ]}</td>
+            <td>{carpeta[ 'DEMANDADO_NOMBRE' ]}</td>
+            <td>{carpeta[ 'DEMANDADO_IDENTIFICACION' ]}</td>
+            <td>{carpeta[ 'EXPEDIENTE' ]}</td>
+            <td>{carpeta[ 'RADICADO' ]}</td>
+            <td>{carpeta[ 'JUZGADO_EJECUCION' ] ?? carpeta[ 'JUZGADO_ORIGEN' ]}</td>
+            <td>
+              <pre>{carpeta[ 'OBSERVACIONES' ]?.replaceAll(
+                '//', '\n-' 
+              )}</pre>
+            </td>
+          </tr>, 
+        );
+      } 
+    );
   }
 
   return (

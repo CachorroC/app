@@ -9,18 +9,22 @@ export function NotasList() {
 
   return (
     <div className={styles.taskList}>
-      {notas.map( ( nota ) => {
-        return (
-          <Nota
-            nota={nota}
-            key={nota.id}
-          >
-            <td>
-              <OutputDateHelper incomingDate={nota.createdAt} />
-            </td>
-          </Nota>
-        );
-      } )}
+      {notas.map(
+        (
+          nota 
+        ) => {
+          return (
+            <Nota
+              nota={nota}
+              key={nota.id}
+            >
+              <td>
+                <OutputDateHelper incomingDate={nota.createdAt} />
+              </td>
+            </Nota>
+          );
+        } 
+      )}
     </div>
   );
 }

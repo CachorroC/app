@@ -101,13 +101,6 @@
 .searchContainer .input:hover:before, .searchContainer .inputContainer:hover:before, .searchContainer .input:active:before, .searchContainer .inputContainer:active:before, .searchContainer .input:focus:before, .searchContainer .inputContainer:focus:before {
   opacity: 0.08;
 }
-.searchContainer .icon {
-  color: var(--on-surface);
-  border: none;
-  position: relative;
-  padding: 0 1rem;
-  border-radius: var(--shape-corner-extra-large-end);
-}
 .searchContainer .icon:before {
   position: absolute;
   width: 100%;
@@ -118,6 +111,13 @@
   content: "";
   border-radius: var(--shape-corner-extra-large-end);
   opacity: 0;
+}
+.searchContainer .icon {
+  color: var(--on-surface);
+  border: none;
+  position: relative;
+  padding: 0 1rem;
+  border-radius: var(--shape-corner-extra-large-end);
 }
 .searchContainer .icon:hover, .searchContainer .icon:active, .searchContainer .icon:focus {
   box-shadow: var(--dp4);
