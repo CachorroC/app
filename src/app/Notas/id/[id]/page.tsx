@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 
 //? Generate segments for [numero]
-
+/*
 export async function generateStaticParams() {
   const carpetas = await getNotas();
 
@@ -40,7 +40,7 @@ export async function generateStaticParams() {
 
   return chunks[ 0 ];
 }
-
+ */
 export default async function Page(
   {
     params

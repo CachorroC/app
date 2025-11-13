@@ -32,7 +32,11 @@ async function AvailableProcesosByName(
   );
 
   if ( !fetchProc.ok ) {
-    return null;
+    return (
+      <div>
+        <h1> No hay procesos disponibles</h1>
+      </div>
+    );
   }
 
   const jsonString = ( await fetchProc.json() ) as ConsultaProcesos;
@@ -230,16 +234,16 @@ export default async function Page(
         </Suspense>
       </div>
       <div className={ layout.sectionColumn }>{ idProcesoContent }</div>
-      <div style={ {
+      {/*  <div style={ {
         gridArea: 'span 2 / span 4',
         overflow: 'scroll'
 
       }}
-      >
-        <Suspense fallback={<Loader />}>
-          <AvailableProcesosByName nombre={carpeta.nombre} />
-        </Suspense>
-      </div>
+      > */}
+      <Suspense fallback={<Loader />}>
+        <AvailableProcesosByName nombre={carpeta.nombre} />
+      </Suspense>
+      {/*  </div> */}
     </>
   );
 }

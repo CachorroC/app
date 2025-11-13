@@ -3,6 +3,7 @@ import Link from 'next/link';
 import typography from '#@/styles/fonts/typography.module.css';
 import { Calendar } from '#@/components/Calendar/main';
 import { Route } from 'next';
+import PageClient from './client';
 import { InstallPrompt,
   PushNotificationManager, } from './notification-components';
 
@@ -65,6 +66,7 @@ export default function Page() {
       </div>
       <div className={layout.right}>
         <Calendar />
+        <PageClient />
       </div>
     </>
   );

@@ -17,6 +17,7 @@ COPY src ./src
 COPY public ./public
 COPY next.config.js .
 COPY tsconfig.json .
+RUN pnpm update
 RUN npx prisma generate
 
 # Environment variables must be present at build time

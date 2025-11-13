@@ -4,13 +4,40 @@
   flex: 1;
   border-radius: var(--shape-corner-medium);
   gap: 1rem;
-  padding: 1rem 0.5rem;
-  display: grid;
   grid-auto-rows: auto;
   background-color: var(--surface-container-highest);
+  display: flex;
+  flex-flow: column nowrap;
+  border: none;
+  padding: 1rem;
+  background: var(--surface-container-low);
+  backdrop-filter: blur(20px);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: var(--elevation-1);
+}
+.actuacionContainer:before {
+  background-color: var(--surface-tint);
+  border-radius: var(--shape-corner-medium);
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  content: "";
+  opacity: 0.2;
+  z-index: -1;
 }
 .actuacionContainer:hover {
+  box-shadow: var(--elevation-2);
+  background-color: var(--surface-container-high);
+}
+.actuacionContainer:focus {
+  border: 0.3rem solid var(--secondary);
   box-shadow: var(--elevation-1);
+}
+.actuacionContainer:focus:before {
+  opacity: 0.08;
 }
 .actuacionContainer .action {
   display: flex;
@@ -204,4 +231,118 @@
 .errorContainer {
   background-color: var(--error-container);
   color: var(--on-error-container);
+}
+
+.segmentedButtons, .segmentedButtonsColumn, .segmentedButtonsRow {
+  display: flex;
+  flex: 1;
+  gap: 0;
+  justify-content: space-evenly;
+  align-items: stretch;
+  align-content: stretch;
+  padding: 0;
+  border: 1px solid var(--outline);
+  border-radius: var(--shape-corner-large);
+}
+@media (width < 600px) {
+  .segmentedButtons, .segmentedButtonsColumn, .segmentedButtonsRow {
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+.segmentedButtonsRow {
+  flex-flow: row nowrap;
+}
+.segmentedButtonsRow .button:first-child, .segmentedButtonsRow .buttonCategoryActive:first-child, .segmentedButtonsRow .buttonCategoryPasive:first-child {
+  border-radius: var(--shape-corner-large-start);
+}
+.segmentedButtonsRow .button:last-child, .segmentedButtonsRow .buttonCategoryActive:last-child, .segmentedButtonsRow .buttonCategoryPasive:last-child {
+  border-radius: var(--shape-corner-large-end);
+}
+.segmentedButtonsRow .button:only-child, .segmentedButtonsRow .buttonCategoryActive:only-child, .segmentedButtonsRow .buttonCategoryPasive:only-child {
+  border-radius: var(--shape-corner-large);
+}
+.segmentedButtonsColumn {
+  flex-flow: column nowrap;
+}
+.segmentedButtonsColumn .button:first-child, .segmentedButtonsColumn .buttonCategoryActive:first-child, .segmentedButtonsColumn .buttonCategoryPasive:first-child {
+  border-radius: var(--shape-corner-large-top);
+}
+.segmentedButtonsColumn .button:last-child, .segmentedButtonsColumn .buttonCategoryActive:last-child, .segmentedButtonsColumn .buttonCategoryPasive:last-child {
+  border-radius: var(--shape-corner-large-bottom);
+}
+.segmentedButtonsColumn .button:only-child, .segmentedButtonsColumn .buttonCategoryActive:only-child, .segmentedButtonsColumn .buttonCategoryPasive:only-child {
+  border-radius: var(--shape-corner-large);
+}
+@media (width < 600px) {
+  .segmentedButtonsColumn .button:first-child, .segmentedButtonsColumn .buttonCategoryActive:first-child, .segmentedButtonsColumn .buttonCategoryPasive:first-child {
+    border-radius: var(--shape-corner-large-start);
+  }
+  .segmentedButtonsColumn .button:last-child, .segmentedButtonsColumn .buttonCategoryActive:last-child, .segmentedButtonsColumn .buttonCategoryPasive:last-child {
+    border-radius: var(--shape-corner-large-end);
+  }
+}
+
+.button, .buttonCategoryActive, .buttonCategoryPasive {
+  border: none;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  flex: 1;
+  border-radius: none;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-items: stretch;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
+  transition: all 0.3s;
+  position: relative;
+  box-shadow: var(--elevation-1);
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
+}
+.button:before, .buttonCategoryActive:before, .buttonCategoryPasive:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  content: "";
+  border-radius: inherit;
+}
+.button:hover, .buttonCategoryActive:hover, .buttonCategoryPasive:hover {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+.button:hover:before, .buttonCategoryActive:hover:before, .buttonCategoryPasive:hover:before {
+  opacity: 0.08;
+}
+.button:focus:before, .buttonCategoryActive:focus:before, .buttonCategoryPasive:focus:before, .button:active:before, .buttonCategoryActive:active:before, .buttonCategoryPasive:active:before {
+  opacity: 0.1;
+}
+.buttonCategoryPasive:hover:before, .buttonCategoryPasive:focus:before, .buttonCategoryPasive:active:before {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--elevation-4);
+}
+.buttonCategoryActive {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+.buttonCategoryActive:hover:before, .buttonCategoryActive:focus:before, .buttonCategoryActive:active:before {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--elevation-4);
+}
+
+.highlight {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  border: none;
+}
+.highlight:hover {
+  border: 0.2rem solid var(--outline);
+  background-color: var(--primary);
+  color: var(--on-primary);
 }

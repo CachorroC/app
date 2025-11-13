@@ -2,6 +2,10 @@
 
 import { intDemanda } from '#@/lib/types/carpetas';
 
+import webpush from 'web-push';
+
+import type { PushSubscription as WebPushSubscription } from 'web-push';
+
 export async function updateDemandaAction(
   prevState: { success: boolean; demanda: intDemanda | null },
   queryData: FormData,
@@ -38,17 +42,25 @@ export async function updateDemandaAction(
   };
 }
 
-let subscription: PushSubscription | null = null;
+
+webpush.setVapidDetails(
+  '<mailto:juankpato87@gmail.com>',
+  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
+  process.env.VAPID_PRIVATE_KEY!
+);
+
+
+let subscription: WebPushSubscription | null = null;
 
 export async function subscribeUser(
-  sub: PushSubscription
+  sub: WebPushSubscription
 ) {
   subscription = sub;
 
   // In a production environment, you would want to store the subscription in a database
   // For example: await db.subscriptions.create({ data: sub })
   return {
-    success: true,
+    success: true
   };
 }
 
@@ -58,7 +70,7 @@ export async function unsubscribeUser() {
   // In a production environment, you would want to remove the subscription from the database
   // For example: await db.subscriptions.delete({ where: { ... } })
   return {
-    success: true,
+    success: true
   };
 }
 
@@ -72,13 +84,19 @@ export async function sendNotification(
   }
 
   try {
-    await Notification.requestPermission();
-    new Notification(
-      message
+    await webpush.sendNotification(
+      subscription,
+      JSON.stringify(
+        {
+          title: 'Test Notification',
+          body : message,
+          icon : '/icon.png',
+        }
+      )
     );
 
     return {
-      success: true,
+      success: true
     };
   } catch ( error ) {
     console.error(
@@ -87,7 +105,7 @@ export async function sendNotification(
 
     return {
       success: false,
-      error  : 'Failed to send notification',
+      error  : 'Failed to send notification'
     };
   }
 }

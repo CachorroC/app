@@ -8,14 +8,14 @@ import { ReactNode, Suspense } from 'react';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import { ExpedienteFormComponent } from './expediente-form-component';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 
+/*
 export async function generateStaticParams() {
   const carpetas = await getCarpetas();
 
   const flattenUp = carpetas.flatMap(
     (
-      carpeta 
+      carpeta
     ) => {
       const {
         numero, procesos
@@ -24,7 +24,7 @@ export async function generateStaticParams() {
       if ( procesos.length === 0 ) {
         return {
           numero: String(
-            numero 
+            numero
           ),
           idProceso: 'idProceso',
         };
@@ -32,12 +32,12 @@ export async function generateStaticParams() {
 
       return procesos.map(
         (
-          proceso 
+          proceso
         ) => {
           if ( proceso.esPrivado ) {
             return {
               numero: String(
-                numero 
+                numero
               ),
               idProceso: 'idProceso',
             };
@@ -45,15 +45,15 @@ export async function generateStaticParams() {
 
           return {
             numero: String(
-              numero 
+              numero
             ),
             idProceso: String(
-              proceso.idProceso 
+              proceso.idProceso
             ),
           };
-        } 
+        }
       );
-    } 
+    }
   );
 
   const chunkSize = 100;
@@ -66,17 +66,17 @@ export async function generateStaticParams() {
     );
 
     chunks.push(
-      chunk 
+      chunk
     );
   }
 
   console.log(
-    chunks.length 
+    chunks.length
   );
 
   return chunks[ chunks.length - 1 ];
 }
-
+ */
 export async function generateMetadata(
   {
     params,

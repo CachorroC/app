@@ -4,27 +4,66 @@ import checkboxStyles from '../Form/checkbox/styles.module.css';
 import { DetalleProceso } from '#@/lib/types/procesos';
 import { consultaProcesoDetalleURL } from '#@/lib/project/utils/main';
 
+
+
 export async function ProcesoTableDetalleComponent(
   {
     idProceso,
   }: {
     idProceso: number;
-  } 
+  }
 ) {
   const urlNameMaker = consultaProcesoDetalleURL(
-    idProceso 
+    idProceso
   );
 
   const fetchProc = await fetch(
-    urlNameMaker 
+    urlNameMaker
   );
 
   if ( !fetchProc.ok ) {
     console.log(
-      `proceso detalle failer with error: ${ fetchProc.statusText }` 
+      `proceso detalle failer with error: ${ fetchProc.statusText }`
     );
 
-    return null;
+    return (
+
+      <>
+        <td>{'no hay clase proceso'}</td>
+        <td>{'no hay contenido radicacion'}</td>
+        <td>{'no hay despacho'}</td>
+        <td>
+          <label className={checkboxStyles.switchBox}>
+            <input
+              className={checkboxStyles.inputElement}
+              defaultChecked={false}
+              type="checkbox"
+            />
+            <span className={checkboxStyles.slider}></span>
+          </label>
+        </td>
+        <td>
+          {'no hay fecha de la consulta'}
+        </td>
+        <td>
+          {'no hay fecha proceso'}
+        </td>
+        <td>{'no hay idConexion'}</td>
+        <td>{'no hay idRegProceso'}</td>
+        <td>
+          {'no hay llaveProceso'}
+
+        </td>
+        <td>{'no hay ponente'}</td>
+        <td>{'no hay recurso'}</td>
+        <td>{'no hay subClaseProceso'}</td>
+        <td>{'no hay tipoProceso'}</td>
+        <td>{'no hay ubicacion'}</td>
+        <td>
+          {'no hay ultimaActuacion'}
+        </td>
+      </>
+    );
   }
 
   const fetchDetails = ( await fetchProc.json() ) as DetalleProceso;
@@ -64,7 +103,7 @@ export async function ProcesoTableDetalleComponent(
       </td>
       <td>
         {new Date(
-          fechaConsulta 
+          fechaConsulta
         )
           .toLocaleDateString(
             'es-co', {
@@ -72,12 +111,12 @@ export async function ProcesoTableDetalleComponent(
               year   : 'numeric',
               month  : 'long',
               day    : 'numeric',
-            } 
+            }
           )}
       </td>
       <td>
         {new Date(
-          fechaProceso 
+          fechaProceso
         )
           .toLocaleDateString(
             'es-co', {
@@ -85,7 +124,7 @@ export async function ProcesoTableDetalleComponent(
               year   : 'numeric',
               month  : 'long',
               day    : 'numeric',
-            } 
+            }
           )}
       </td>
       <td>{idConexion}</td>
@@ -106,7 +145,7 @@ export async function ProcesoTableDetalleComponent(
       <td>{ubicacion}</td>
       <td>
         {new Date(
-          ultimaActualizacion 
+          ultimaActualizacion
         )
           .toLocaleDateString(
             'es-co', {
@@ -114,7 +153,7 @@ export async function ProcesoTableDetalleComponent(
               year   : 'numeric',
               month  : 'long',
               day    : 'numeric',
-            } 
+            }
           )}
       </td>
     </>

@@ -8,8 +8,7 @@ import layout from '#@/styles/layout.module.css';
 import SujetosProcesales from './sujetos-procesales';
 import { consultaProcesoDetalleURL } from '#@/lib/project/utils/main';
 import typography from '#@/styles/fonts/typography.module.css';
-import { CopyButton } from '../Buttons/copy-buttons';
-import { containerEnabled } from '../Card/elevated.module.css';
+import { containerEnabled } from '../Card/outlined.module.css';
 import FruitPicker from '../Buttons/etapaProsesalSelector';
 import buttonStyles from '../Buttons/buttons.module.css';
 import Link from 'next/link';
@@ -64,10 +63,13 @@ export async function ProcesoDetalle(
     );
 
     return (
-      <div className={layout.segmentColumn}>
+      <div className={ layout.segmentColumn } style={ {
+        backgroundColor: 'var(--error-container)'
+      }}
+      >
         <h4
           style={{
-            color: 'var(--primary)',
+            color: 'var(--on-error-container)',
             flex : 1,
           }}
           className={typography.labelSmall}
@@ -76,7 +78,7 @@ export async function ProcesoDetalle(
         </h4>
         <p
           style={{
-            color: 'var(--on-surface)',
+            color: 'var(--on-error-container)',
             flex : 1,
           }}
           className={typography.titleMedium}
@@ -140,12 +142,26 @@ export async function ProcesoDetalle(
               key={index}
               className={layout.segmentColumn}
             >
-              <CopyButton
-                copyTxt={String(
-                  outputTxt
-                )}
-                name={detalleEspecifico.key}
-              />
+
+
+              <h5
+                style={{
+                  color: 'var(--primary)',
+                  flex : 1,
+                }}
+                className={typography.labelLarge}
+              >
+                {detalleEspecifico.key}
+              </h5>
+              <p
+                style={{
+                  color: 'var(--on-surface)',
+                  flex : 1,
+                }}
+                className={typography.bodySmall}
+              >
+                {`${ outputTxt }`}
+              </p>
             </div>
           );
         }
@@ -188,7 +204,7 @@ export async function ProcesosComponent(
               key={idProceso}
               proceso={proceso}
             >
-              <ProcesoDetalle idProceso={proceso.idProceso} />
+
               <Suspense fallback={ <Loader /> }>
                 <FechaActuacionComponent
                   key={idProceso}

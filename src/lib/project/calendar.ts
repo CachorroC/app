@@ -24,8 +24,9 @@ export const nombresDeMeses = [
 ];
 
 export function CalendarBuilder(
-  date: Date 
+  date: Date
 ) {
+
   const rows = new Set<calendarData>();
 
   const incomingMonth = date.getMonth();
@@ -81,10 +82,10 @@ export function CalendarBuilder(
         className: 'disabled',
         current  : false,
         dayOfWeek: new Date(
-          href 
+          href
         )
           .getDay(),
-      } 
+      }
     );
   }
 
@@ -109,13 +110,13 @@ export function CalendarBuilder(
         date     : dayInMonth,
         current  : true,
         dayOfWeek: new Date(
-          href 
+          href
         )
           .getDay(),
         className: isToday
           ? 'today'
           : 'inactive',
-      } 
+      }
     );
   }
 
@@ -127,7 +128,7 @@ export function CalendarBuilder(
     const href = `${ incomingYear }/${ incomingMonth + 2 }/${ dayAfterMonth }`;
 
     console.log(
-      `next month: ${ href }` 
+      `next month: ${ href }`
     );
 
     rows.add(
@@ -138,15 +139,15 @@ export function CalendarBuilder(
         date     : dayAfterMonth,
         current  : false,
         dayOfWeek: new Date(
-          href 
+          href
         )
           .getDay(),
         className: 'disabled',
-      } 
+      }
     );
   }
 
   return Array.from(
-    rows 
+    rows
   );
 }

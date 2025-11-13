@@ -77,12 +77,9 @@ export async function addTaskToPrisma(
   incomingTask: NewTask
 ) {
   const {
-    carpetaNumero, id, ...task
+    carpetaNumero, ...task
   } = incomingTask;
 
-  console.log(
-    `id : ${ id }`
-  );
   let inserter;
 
 

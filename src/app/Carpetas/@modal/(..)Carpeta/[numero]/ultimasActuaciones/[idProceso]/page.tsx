@@ -11,7 +11,7 @@ import { ConsultaActuacion } from '#@/lib/types/actuaciones';
 import { ActuacionComponent, ActuacionErrorComponent } from '#@/components/Actuaciones/actuacion-component';
 import { Metadata } from 'next';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
-
+/*
 export async function generateStaticParams() {
   const carpetas = await getCarpetas();
 
@@ -39,7 +39,7 @@ export async function generateStaticParams() {
   );
 
 }
-
+ */
 export async function generateMetadata(
   {
     params,

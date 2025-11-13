@@ -1,5 +1,5 @@
 import { CarpetasSortButtons } from '#@/app/Carpetas/@right/carpetasButtonsSort';
-import { sectionColumn, sectionRow } from '#@/styles/layout.module.css';
+import { sectionColumn } from '#@/styles/layout.module.css';
 import { ResetButtonSorter } from './reset-button';
 import CategoryFilteringButtons from './category-filtering-buttons';
 import CiudadFilteringButtons from './ciudad-filter';
@@ -34,11 +34,10 @@ export default function Default() {
   return (
     <>
       <section className={ sectionColumn }>
-        <div className={sectionRow} >
-          <ResetButtonSorter />
-          <CarpetasSortButtons options={ options } row={true} />
-          <CategoryFilteringButtons row={false} />
-        </div>
+
+        <ResetButtonSorter />
+        <CarpetasSortButtons options={ options } row={true} />
+        <CategoryFilteringButtons row={false} />
 
         <CiudadFilteringButtons row={false} />
 

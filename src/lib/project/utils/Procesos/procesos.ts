@@ -48,7 +48,9 @@ export async function fetchProcesosByllaveProceso(
 ) {
   try {
     const req = await fetch(
-      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`
+      `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`, {
+        cache: 'no-store' 
+      }
     );
 
     if ( !req.ok ) {

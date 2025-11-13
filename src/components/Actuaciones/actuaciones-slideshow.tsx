@@ -97,10 +97,18 @@ export function ActuacionesSlideshow(
     return (
       <div className={styles.actuacionContainer}>
         <h5 className={typography.headlineSmall}>No hay actuaciones</h5>
-        <div className={sectionRow}>
+        <div className={styles.segmentedButtonsRow}>
+          <button
+            type={'button'}
+            onClick={ handlePreviousClick }
+            className={styles.button}
+          >
+            previous
+          </button>
           <button
             type="button"
-            onClick={handleMoreClick}
+            onClick={ handleMoreClick }
+            className={styles.button}
           >
             {showMore
               ? 'Hide'
@@ -108,15 +116,10 @@ export function ActuacionesSlideshow(
           </button>
           <button
             type={'button'}
-            onClick={handleNextClick}
+            onClick={ handleNextClick }
+            className={styles.button}
           >
             Next
-          </button>
-          <button
-            type={'button'}
-            onClick={handlePreviousClick}
-          >
-            previous
           </button>
         </div>
         {showMore && (
@@ -137,10 +140,18 @@ export function ActuacionesSlideshow(
   return (
     <div className={styles.actuacionContainer}>
       <h5 className={typography.headlineSmall}>{sculpture.actuacion}</h5>
-      <div className={sectionRow}>
+      <div className={styles.segmentedButtonsRow}>
+        <button
+          type={'button'}
+          onClick={ handlePreviousClick }
+          className={styles.button}
+        >
+          previous
+        </button>
         <button
           type="button"
-          onClick={handleMoreClick}
+          onClick={ handleMoreClick }
+          className={styles.button}
         >
           {showMore
             ? 'Hide'
@@ -148,15 +159,10 @@ export function ActuacionesSlideshow(
         </button>
         <button
           type={'button'}
-          onClick={handleNextClick}
+          onClick={ handleNextClick }
+          className={styles.button}
         >
           Next
-        </button>
-        <button
-          type={'button'}
-          onClick={handlePreviousClick}
-        >
-          previous
         </button>
       </div>
       {showMore && (

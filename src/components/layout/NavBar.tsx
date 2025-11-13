@@ -13,15 +13,6 @@ export const NavBar = () => {
     isNavOpen
   } = useNavigationContext();
 
-  const newYear = new Date()
-    .getFullYear();
-
-  const newMonth = new Date()
-    .getMonth();
-
-  const newDate = new Date()
-    .getDate();
-
   return (
     <div className={styles.header}>
       <DrawerMenuButton />
@@ -126,11 +117,7 @@ export const NavBar = () => {
               hrefLabel={'/QuienesSomos'}
             />
 
-            <NavLink
-              iconLabel={'calendar_month'}
-              textLabel={'Calendario'}
-              hrefLabel={`/Calendario/Fecha/${ newYear }/${ newMonth }/${ newDate }`}
-            />
+
             <NavLink
               iconLabel={''}
               textLabel={'Bancolombia'}

@@ -111,32 +111,3 @@ export const CopyButton = (
     </Fragment>
   );
 };
-
-export function CopyButtons(
-  {
-    carpeta
-  }: { carpeta: MonCarpeta }
-) {
-  return (
-    <>
-      {carpeta.llaveProceso && (
-        <CopyButton
-          copyTxt={carpeta.llaveProceso}
-          name={`expediente ${ carpeta.llaveProceso }`}
-        />
-      )}
-      {carpeta.deudor?.cedula && (
-        <CopyButton
-          copyTxt={carpeta.deudor.cedula}
-          name={`cédula de ciudadanía número${ carpeta.deudor.cedula }`}
-        />
-      )}
-      {carpeta.demanda?.radicado && (
-        <CopyButton
-          copyTxt={carpeta.demanda.radicado}
-          name={`radicado ${ carpeta.demanda.radicado }`}
-        />
-      )}
-    </>
-  );
-}

@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { outActuacion } from '#@/lib/types/actuaciones';
 import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page(
   {
     params,

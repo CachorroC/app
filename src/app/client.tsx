@@ -10,10 +10,9 @@ function urlBase64ToUint8Array(
     ( 4 - ( base64String.length % 4 ) ) % 4
   );
 
-  const base64 = ( base64String + padding )
-    .replace(
-      /\\-/g, '+'
-    )
+  const base64 = ( base64String + padding ).replace(
+    /-/g, '+'
+  )
     .replace(
       /_/g, '/'
     );
@@ -35,7 +34,7 @@ function urlBase64ToUint8Array(
   return outputArray;
 }
 
-export function PushNotificationManager() {
+function PushNotificationManager() {
   const [
     isSupported,
     setIsSupported
@@ -47,7 +46,7 @@ export function PushNotificationManager() {
     subscription,
     setSubscription
   ] = useState<PushSubscription | null>(
-    null,
+    null
   );
 
   const [
@@ -90,7 +89,7 @@ export function PushNotificationManager() {
       {
         userVisibleOnly     : true,
         applicationServerKey: urlBase64ToUint8Array(
-          process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
+          process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!
         ),
       }
     );
@@ -99,37 +98,11 @@ export function PushNotificationManager() {
       sub
     );
 
-    // Serialize the browser PushSubscription to match the server-side type
-    const serializedSub = {
-      endpoint      : sub.endpoint,
-      expirationTime: sub.expirationTime,
-      keys          : {
-        p256dh: btoa(
-          String.fromCharCode.apply(
-            null,
-            Array.from(
-              new Uint8Array(
-                sub.getKey(
-                  'p256dh'
-                )!
-              )
-            )
-          )
-        ),
-        auth: btoa(
-          String.fromCharCode.apply(
-            null,
-            Array.from(
-              new Uint8Array(
-                sub.getKey(
-                  'auth'
-                )!
-              )
-            )
-          )
-        ),
-      },
-    };
+    const serializedSub = JSON.parse(
+      JSON.stringify(
+        sub
+      )
+    );
 
     await subscribeUser(
       serializedSub
@@ -192,7 +165,7 @@ export function PushNotificationManager() {
   );
 }
 
-export function InstallPrompt() {
+function InstallPrompt() {
   const [
     isIOS,
     setIsIOS
@@ -212,7 +185,8 @@ export function InstallPrompt() {
       setIsIOS(
         /iPad|iPhone|iPod/.test(
           navigator.userAgent
-        ) && !( window as any ).MSStream,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ) && !( window as any ).MSStream
       );
 
       setIsStandalone(
@@ -234,24 +208,26 @@ export function InstallPrompt() {
       {isIOS && (
         <p>
           To install this app on your iOS device, tap the share button
-          <span
-            role="img"
-            aria-label="share icon"
-          >
+          <span role="img" aria-label="share icon">
             {' '}
             ⎋{' '}
           </span>
-          and then Add to Home Screen
-          <span
-            role="img"
-            aria-label="plus icon"
-          >
+          {'and then "Add to Home Screen"'}
+          <span role="img" aria-label="plus icon">
             {' '}
             ➕{' '}
-          </span>
-          .
+          </span>.
         </p>
       )}
+    </div>
+  );
+}
+
+export default function PageClient() {
+  return (
+    <div>
+      <PushNotificationManager />
+      <InstallPrompt />
     </div>
   );
 }
