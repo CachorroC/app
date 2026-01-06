@@ -1,10 +1,14 @@
 FROM node:latest AS base
-RUN corepack enable && corepack enable pnpm
+WORKDIR /app
+RUN npm install -g pnpm corepack --force
+ARG MONGODB_URI
+ENV MONGODB_URI=${MONGODB_URI}
+ARG NEXT_PUBLIC_MONGODB_URI
+ENV NEXT_PUBLIC_MONGODB_URI=${NEXT_PUBLIC_MONGODB_URI}
 
 # Step 1. Rebuild the source code only when needed
 FROM base AS builder
 
-WORKDIR /app
 
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
@@ -17,7 +21,6 @@ COPY src ./src
 COPY public ./public
 COPY next.config.js .
 COPY tsconfig.json .
-RUN pnpm update
 RUN npx prisma generate
 
 # Environment variables must be present at build time
@@ -61,10 +64,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # Environment variables must be redefined at run time
-ARG MONGODB_URI
-ENV MONGODB_URI=${MONGODB_URI}
-ARG NEXT_PUBLIC_MONGODB_URI
-ENV NEXT_PUBLIC_MONGODB_URI=${NEXT_PUBLIC_MONGODB_URI}
 
 # Uncomment the following line to disable telemetry at run time
 # ENV NEXT_TELEMETRY_DISABLED 1
