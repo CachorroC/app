@@ -1,15 +1,16 @@
-import { prisma } from '#@/lib/connection/prisma';
+'use server';
+import { Prisma } from '#@/app/generated/prisma/client';
+import  prisma from '#@/lib/connection/prisma';
 import { Notificacion } from '#@/lib/types/carpetas';
-import { Prisma } from '@prisma/client';
 
 export async function editNotificacion(
-  notificacion: Notificacion 
+  notificacion: Notificacion
 ) {
   try {
     const newNotifiers: Prisma.NotifierUpdateManyWithWhereWithoutNotificacionInput[]
       = notificacion.notifiers.map(
         (
-          notifier 
+          notifier
         ) => {
           return {
             where: {
@@ -20,7 +21,7 @@ export async function editNotificacion(
               ...notifier,
             },
           };
-        } 
+        }
       );
 
     const newNotificacion: Prisma.NotificacionUpdateInput = {
@@ -39,7 +40,7 @@ export async function editNotificacion(
         include: {
           notifiers: true,
         },
-      } 
+      }
     );
 
     return {
@@ -48,7 +49,7 @@ export async function editNotificacion(
     };
   } catch ( error ) {
     console.log(
-      error 
+      error
     );
 
     return {

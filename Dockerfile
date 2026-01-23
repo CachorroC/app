@@ -6,6 +6,7 @@ ENV MONGODB_URI=${MONGODB_URI}
 ARG NEXT_PUBLIC_MONGODB_URI
 ENV NEXT_PUBLIC_MONGODB_URI=${NEXT_PUBLIC_MONGODB_URI}
 
+
 # Step 1. Rebuild the source code only when needed
 FROM base AS builder
 
@@ -14,7 +15,6 @@ COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
 
 RUN pnpm i
-
 RUN pnpm add typescript-plugin-css-modules prisma
 COPY . .
 COPY src ./src
@@ -22,6 +22,7 @@ COPY public ./public
 COPY next.config.js .
 COPY tsconfig.json .
 RUN npx prisma generate
+
 
 # Environment variables must be present at build time
 # https://github.com/vercel/next.js/discussions/14030

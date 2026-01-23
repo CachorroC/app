@@ -1,4 +1,4 @@
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -33,19 +33,19 @@ export async function GET() {
             nulls: 'last',
           },
         },
-      } 
+      }
     );
 
     return NextResponse.json(
-      carpetas 
+      carpetas
     );
   } catch ( error ) {
     console.log(
-      `error en Api/Carpetas: ${ error }` 
+      `error en Api/Carpetas: ${ error }`
     );
 
     return NextResponse.json(
-      [] 
+      []
     );
   }
 }

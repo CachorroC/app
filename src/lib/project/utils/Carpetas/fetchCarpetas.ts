@@ -1,9 +1,9 @@
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 
 export async function fetchCarpetaByNumero(
   {
-    numero 
-  }: { numero: number } 
+    numero
+  }: { numero: number }
 ) {
   const carpeta = await prisma.carpeta.findFirstOrThrow(
     {
@@ -32,10 +32,10 @@ export async function fetchCarpetaByNumero(
           },
         },
       },
-    } 
+    }
   );
 
   return JSON.stringify(
-    carpeta 
+    carpeta
   );
 }

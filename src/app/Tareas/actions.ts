@@ -1,7 +1,7 @@
 'use server';
 
 import { tareasCollection } from '#@/lib/connection/collections';
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 import { IntTask, NewTask } from '#@/lib/types/tareas';
 
 

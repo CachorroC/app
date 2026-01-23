@@ -1,6 +1,6 @@
 'use server';
 
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 
 export async function resetCarpetas() {
@@ -35,12 +35,12 @@ export async function resetCarpetas() {
           nulls: 'last',
         },
       },
-    } 
+    }
   );
 
   return rawCarpetas.map(
     (
-      carpeta 
+      carpeta
     ) => {
       return {
         ...carpeta,
@@ -51,7 +51,7 @@ export async function resetCarpetas() {
           liquidacion    : carpeta.demanda?.liquidacion.toNumber() ?? null,
         },
       } as IntCarpeta;
-    } 
+    }
   );
 }
 
@@ -60,7 +60,7 @@ export async function updateRevisadoState(
     revisado: boolean;
     numero: number;
     id: number;
-  } 
+  }
 ) {
   try {
     const updater = await prisma.carpeta.update(
@@ -71,7 +71,7 @@ export async function updateRevisadoState(
         data: {
           revisado: prevState.revisado,
         },
-      } 
+      }
     );
 
     return {
@@ -81,7 +81,7 @@ export async function updateRevisadoState(
     };
   } catch ( error ) {
     console.log(
-      error 
+      error
     );
 
     return prevState;

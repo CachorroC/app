@@ -3,7 +3,7 @@ import { cache } from 'react';
 import { Despacho } from 'types/despachos';
 import { ConsultaProcesos } from 'types/procesos';
 
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 
 export const getDespachos = cache(
   async () => {
@@ -49,7 +49,7 @@ export async function fetchProcesosByllaveProceso(
   try {
     const req = await fetch(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`, {
-        cache: 'no-store' 
+        cache: 'no-store'
       }
     );
 

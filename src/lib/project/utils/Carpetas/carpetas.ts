@@ -1,11 +1,11 @@
 import { cache } from 'react';
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { carpetasCollection } from '#@/lib/connection/collections';
 
 export const getCarpetasByllaveProceso = cache(
   async (
-    llaveProceso: string 
+    llaveProceso: string
   ) => {
     const prismaCarpetas = await prisma.carpeta.findMany(
       {
@@ -23,7 +23,7 @@ export const getCarpetasByllaveProceso = cache(
             },
           },
         },
-      } 
+      }
     );
 
     const collection = await carpetasCollection();
@@ -33,30 +33,30 @@ export const getCarpetasByllaveProceso = cache(
 
     const mergedArray = mongoCarpetas.map(
       (
-        item 
+        item
       ) => {
         const matchedObject = prismaCarpetas.find(
           (
-            obj 
+            obj
           ) => {
             return obj.numero === item.numero;
-          } 
+          }
         );
 
         return {
           ...item,
           ...matchedObject,
         };
-      } 
+      }
     );
 
     return mergedArray;
-  } 
+  }
 );
 
 export const getCarpetaByllaveProceso = cache(
   async (
-    llaveProceso: string 
+    llaveProceso: string
   ) => {
     const prismaCarpeta = await prisma.carpeta.findFirst(
       {
@@ -85,7 +85,7 @@ export const getCarpetaByllaveProceso = cache(
             },
           },
         },
-      } 
+      }
     );
 
     if ( prismaCarpeta ) {
@@ -100,12 +100,12 @@ export const getCarpetaByllaveProceso = cache(
     }
 
     return null;
-  } 
+  }
 );
 
 export const getCarpetabyNumero = cache(
   async (
-    numero: number 
+    numero: number
   ) => {
     const demanda = await prisma.demanda.findFirstOrThrow(
       {
@@ -120,7 +120,7 @@ export const getCarpetabyNumero = cache(
           },
           medidasCautelares: true,
         },
-      } 
+      }
     );
 
     const carpeta = await prisma.carpeta.findFirstOrThrow(
@@ -151,7 +151,7 @@ export const getCarpetabyNumero = cache(
             },
           },
         },
-      } 
+      }
     );
 
     const newCarp: IntCarpeta = {
@@ -174,12 +174,12 @@ export const getCarpetabyNumero = cache(
     };
 
     return newCarp;
-  } 
+  }
 );
 
 export const getCarpetaByidProceso = cache(
   async (
-    idProceso: number 
+    idProceso: number
   ) => {
     return await prisma.carpeta.findFirstOrThrow(
       {
@@ -211,7 +211,7 @@ export const getCarpetaByidProceso = cache(
             },
           },
         },
-      } 
+      }
     );
-  } 
+  }
 );

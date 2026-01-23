@@ -1,4 +1,4 @@
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { cache } from 'react';
 
@@ -35,12 +35,12 @@ export const getCarpetas = cache(
             nulls: 'last',
           },
         },
-      } 
+      }
     );
 
     return rawCarpetas.map(
       (
-        carpeta 
+        carpeta
       ) => {
         return {
           ...carpeta,
@@ -48,22 +48,22 @@ export const getCarpetas = cache(
             ...carpeta.demanda,
             avaluo: carpeta.demanda?.avaluo
               ? Number(
-                  carpeta.demanda.avaluo 
+                  carpeta.demanda.avaluo
                 )
               : 0,
             capitalAdeudado: carpeta.demanda?.capitalAdeudado
               ? Number(
-                  carpeta.demanda.capitalAdeudado 
+                  carpeta.demanda.capitalAdeudado
                 )
               : 0,
             liquidacion: carpeta.demanda?.liquidacion
               ? Number(
-                  carpeta.demanda.liquidacion 
+                  carpeta.demanda.liquidacion
                 )
               : 0,
           },
         } as IntCarpeta;
-      } 
+      }
     );
-  } 
+  }
 );

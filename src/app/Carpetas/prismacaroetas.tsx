@@ -1,4 +1,4 @@
-import { prisma } from '#@/lib/connection/prisma';
+import prisma  from '#@/lib/connection/prisma';
 import { Route } from 'next';
 import typography from '#@/styles/fonts/typography.module.css';
 import Link from 'next/link';
@@ -35,13 +35,13 @@ export default async function PrismaCarpetas() {
           },
         },
       },
-    } 
+    }
   );
 
   const carpetas = rawCarpetas
     .map(
       (
-        mapper 
+        mapper
       ) => {
         return {
           ...mapper,
@@ -50,11 +50,11 @@ export default async function PrismaCarpetas() {
             capitalAdeudado: mapper.demanda?.capitalAdeudado.toNumber() ?? 1000,
           },
         };
-      } 
+      }
     )
     .sort(
       (
-        a, b 
+        a, b
       ) => {
         if ( !a.fecha || a.fecha === undefined ) {
           return 1;
@@ -77,14 +77,14 @@ export default async function PrismaCarpetas() {
         }
 
         return 0;
-      } 
+      }
     );
 
   return (
     <>
       {carpetas.map(
         (
-          carpeta 
+          carpeta
         ) => {
           const llaveLength = carpeta.llaveProceso?.length;
 
@@ -93,7 +93,7 @@ export default async function PrismaCarpetas() {
             : true;
 
           const {
-            numero, idProcesos 
+            numero, idProcesos
           } = carpeta;
 
           const idProcesosLength = idProcesos.length;
@@ -161,8 +161,8 @@ export default async function PrismaCarpetas() {
                 {carpeta.demanda?.capitalAdeudado
                 && fixMoney(
                   Number(
-                    carpeta.demanda.capitalAdeudado 
-                  ) 
+                    carpeta.demanda.capitalAdeudado
+                  )
                 )}
               </td>
               <td>
@@ -177,7 +177,7 @@ export default async function PrismaCarpetas() {
               </td>
             </tr>
           );
-        } 
+        }
       )}
     </>
   );

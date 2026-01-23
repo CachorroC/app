@@ -1,23 +1,23 @@
 'use server';
 
-import { prisma } from '#@/lib/connection/prisma';
+import { Prisma } from '#@/app/generated/prisma/client';
+import  prisma  from '#@/lib/connection/prisma';
 import { intDemanda } from '#@/lib/types/carpetas';
-import { Prisma } from '@prisma/client';
 
 export async function editDemandaInPrisma(
-  incomingDemanda: intDemanda 
+  incomingDemanda: intDemanda
 ) {
   const {
-    carpetaNumero, medidasCautelares, notificacion, ...restDemanda 
+    carpetaNumero, medidasCautelares, notificacion, ...restDemanda
   }
     = incomingDemanda;
 
   console.log(
-    carpetaNumero 
+    carpetaNumero
   );
 
   const {
-    notifiers, ...restNotificacion 
+    notifiers, ...restNotificacion
   } = notificacion ?? {
     notifiers     : [],
     autoNotificado: new Date(),
@@ -27,7 +27,7 @@ export async function editDemandaInPrisma(
   };
 
   console.log(
-    notifiers 
+    notifiers
   );
 
   try {
@@ -48,17 +48,17 @@ export async function editDemandaInPrisma(
           ...restDemanda,
           avaluo: incomingDemanda.avaluo
             ? new Prisma.Decimal(
-              incomingDemanda.avaluo 
+              incomingDemanda.avaluo
             )
             : undefined,
           liquidacion: incomingDemanda.liquidacion
             ? new Prisma.Decimal(
-              incomingDemanda.liquidacion 
+              incomingDemanda.liquidacion
             )
             : undefined,
           capitalAdeudado: incomingDemanda.capitalAdeudado
             ? new Prisma.Decimal(
-              incomingDemanda.capitalAdeudado 
+              incomingDemanda.capitalAdeudado
             )
             : undefined,
           medidasCautelares: {
@@ -73,12 +73,12 @@ export async function editDemandaInPrisma(
               update: {
                 fechaOrdenaMedida: medidasCautelares?.fechaOrdenaMedida
                   ? new Date(
-                    medidasCautelares.fechaOrdenaMedida 
+                    medidasCautelares.fechaOrdenaMedida
                   )
                   : null,
                 medidaSolicitada: medidasCautelares?.medidaSolicitada
                   ? String(
-                      medidasCautelares.medidaSolicitada 
+                      medidasCautelares.medidaSolicitada
                     )
                   : null,
               },
@@ -98,28 +98,28 @@ export async function editDemandaInPrisma(
             },
           },
         },
-      } 
+      }
     );
 
     console.log(
-      editor 
+      editor
     );
 
     return {
       success: true,
       data   : JSON.stringify(
-        editor, null, 2 
+        editor, null, 2
       ),
     };
   } catch ( error ) {
     console.log(
-      error 
+      error
     );
 
     return {
       success: false,
       data   : JSON.stringify(
-        error, null, 2 
+        error, null, 2
       ),
     };
   }
@@ -132,12 +132,12 @@ export async function editllaveProceso(
 ) {
   await new Promise(
     (
-      res 
+      res
     ) => {
       return setTimeout(
-        res, 10000 
+        res, 10000
       );
-    } 
+    }
   );
 
   try {
@@ -149,7 +149,7 @@ export async function editllaveProceso(
         data: {
           llaveProceso: newKey,
         },
-      } 
+      }
     );
 
     return {
@@ -160,7 +160,7 @@ export async function editllaveProceso(
     return {
       success     : false,
       llaveProceso: JSON.stringify(
-        error 
+        error
       ),
     };
   }

@@ -1,17 +1,17 @@
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 
 export async function fetchNotaById(
-  id: number 
+  id: number
 ) {
   try {
     const nota = await prisma.nota.findFirst(
       {
         where: {
           id: String(
-            id 
+            id
           ),
         },
-      } 
+      }
     );
 
     return nota;
@@ -21,7 +21,7 @@ export async function fetchNotaById(
         error,
         null,
         2,
-      ) } & ${ error }`, 
+      ) } & ${ error }`,
     );
 
     return null;
@@ -29,7 +29,7 @@ export async function fetchNotaById(
 }
 
 export async function fetchNotasByPathname(
-  path: string 
+  path: string
 ) {
   try {
     const notas = await prisma.nota.findMany(
@@ -37,12 +37,12 @@ export async function fetchNotasByPathname(
         where: {
           pathname: path,
         },
-      } 
+      }
     );
 
     if ( notas.length === 0 ) {
       throw new Error(
-        `noexisten notas con este pathname ${ path }` 
+        `noexisten notas con este pathname ${ path }`
       );
     }
 
@@ -53,7 +53,7 @@ export async function fetchNotasByPathname(
         error,
         null,
         2,
-      ) } & ${ error }`, 
+      ) } & ${ error }`,
     );
 
     return [];
@@ -61,7 +61,7 @@ export async function fetchNotasByPathname(
 }
 
 export async function fetchNotasByNumero(
-  carpetaNumero: number 
+  carpetaNumero: number
 ) {
   try {
     const notas = await prisma.nota.findMany(
@@ -69,7 +69,7 @@ export async function fetchNotasByNumero(
         where: {
           carpetaNumero: carpetaNumero,
         },
-      } 
+      }
     );
 
     return notas;
@@ -79,7 +79,7 @@ export async function fetchNotasByNumero(
         error,
         null,
         2,
-      ) } & ${ error }`, 
+      ) } & ${ error }`,
     );
 
     return [];
@@ -87,7 +87,7 @@ export async function fetchNotasByNumero(
 }
 
 export async function fetchNotas(
-  carpetaId?: number 
+  carpetaId?: number
 ) {
   try {
     let notas;
@@ -98,7 +98,7 @@ export async function fetchNotas(
           where: {
             carpetaNumero: carpetaId,
           },
-        } 
+        }
       );
     } else {
       notas = await prisma.nota.findMany();
@@ -108,8 +108,8 @@ export async function fetchNotas(
   } catch ( error ) {
     console.log(
       `error en getNotas ${ JSON.stringify(
-        error, null, 2 
-      ) }` 
+        error, null, 2
+      ) }`
     );
 
     return [];

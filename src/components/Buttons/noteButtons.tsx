@@ -3,12 +3,12 @@ import note from 'components/Nota/note.module.css';
 import Link from 'next/link';
 import type { Route } from 'next';
 import { deleteNota } from '#@/app/actions/main';
-import { Nota } from '@prisma/client';
+import { Nota } from '#@/app/generated/prisma/client';
 
 export function DeleteNoteButton(
   {
-    id 
-  }: { id: string } 
+    id
+  }: { id: string }
 ) {
   return (
     <>
@@ -18,7 +18,7 @@ export function DeleteNoteButton(
           return deleteNota(
             {
               id: id,
-            } 
+            }
           );
         }}
         type="button"
@@ -31,7 +31,7 @@ export function DeleteNoteButton(
           deleteNota(
             {
               id: id,
-            } 
+            }
           );
         }}
         type="button"
@@ -44,8 +44,8 @@ export function DeleteNoteButton(
 
 export function EditNoteButton(
   {
-    nota 
-  }: { nota: Nota } 
+    nota
+  }: { nota: Nota }
 ) {
   return (
     <Link

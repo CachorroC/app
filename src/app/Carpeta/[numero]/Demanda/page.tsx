@@ -1,4 +1,4 @@
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 import { notFound } from 'next/navigation';
 
 export default async function DemandaPage(
@@ -6,17 +6,17 @@ export default async function DemandaPage(
     params,
   }: {
     params: Promise<{ numero: string }>;
-  } 
+  }
 ) {
   const {
-    numero 
+    numero
   } = await params;
 
   const carpeta = await prisma.carpeta.findFirst(
     {
       where: {
         numero: Number(
-          numero 
+          numero
         ),
       },
       include: {
@@ -35,7 +35,7 @@ export default async function DemandaPage(
           },
         },
       },
-    } 
+    }
   );
 
   if ( !carpeta ) {
@@ -62,7 +62,7 @@ export default async function DemandaPage(
     }
   )
     .format(
-      capitalAdeudado.toNumber() 
+      capitalAdeudado.toNumber()
     );
 
   return (

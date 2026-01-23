@@ -1,7 +1,7 @@
 'use server';
 
 import { notasCollection } from '#@/lib/connection/collections';
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 import { IntNota, NewNota } from '#@/lib/types/notas';
 
 export async function addNotaFormAction(
@@ -9,7 +9,7 @@ export async function addNotaFormAction(
   queryData: FormData,
 ) {
   const text = queryData.get(
-    'text' 
+    'text'
   );
 
   if ( text ) {
@@ -18,7 +18,7 @@ export async function addNotaFormAction(
       value: {
         ...prevState.value,
         text: String(
-          text 
+          text
         ),
       },
     };
@@ -28,7 +28,7 @@ export async function addNotaFormAction(
 }
 
 export async function notasCount(
-  carpetaNumero: number | null 
+  carpetaNumero: number | null
 ) {
   let notasCount;
 
@@ -38,7 +38,7 @@ export async function notasCount(
         where: {
           carpetaNumero: carpetaNumero,
         },
-      } 
+      }
     );
   } else {
     notasCount = await prisma.nota.findMany();
@@ -50,28 +50,28 @@ export async function notasCount(
 }
 
 export async function addNotaToMongo(
-  newData: NewNota 
+  newData: NewNota
 ) {
   const collection = await notasCollection();
 
   const existentTask = await collection.findOne(
     {
       text: newData.text,
-    } 
+    }
   );
 
   if ( !existentTask ) {
     const insertTask = await collection.insertOne(
       {
         ...newData,
-      } 
+      }
     );
 
     if ( insertTask.acknowledged ) {
       return {
         success: true,
         data   : JSON.stringify(
-          insertTask 
+          insertTask
         ),
       };
     }
@@ -79,7 +79,7 @@ export async function addNotaToMongo(
     return {
       success: false,
       data   : JSON.stringify(
-        insertTask 
+        insertTask
       ),
     };
   }
@@ -102,7 +102,7 @@ export async function addNotaToMongo(
     return {
       success: true,
       data   : JSON.stringify(
-        updateTask, null, 2 
+        updateTask, null, 2
       ),
     };
   }
@@ -110,17 +110,17 @@ export async function addNotaToMongo(
   return {
     success: false,
     data   : JSON.stringify(
-      updateTask, null, 2 
+      updateTask, null, 2
     ),
   };
 }
 
 export async function addNotaToPrisma(
-  incomingTask: NewNota 
+  incomingTask: NewNota
 ) {
   try {
     const {
-      carpetaNumero, ...task 
+      carpetaNumero, ...task
     } = incomingTask;
 
     let inserter;
@@ -135,7 +135,7 @@ export async function addNotaToPrisma(
           include: {
             notas: true,
           },
-        } 
+        }
       );
 
       if ( carpeta ) {
@@ -165,7 +165,7 @@ export async function addNotaToPrisma(
               },
             },
           },
-        } 
+        }
       );
     } else {
       inserter = await prisma.nota.create(
@@ -174,38 +174,38 @@ export async function addNotaToPrisma(
             ...task,
             id: `NC-${ count++ }`,
           },
-        } 
+        }
       );
     }
 
     console.log(
-      inserter 
+      inserter
     );
 
     return {
       success: true,
       nextId : inserter.id + 1,
       data   : JSON.stringify(
-        inserter, null, 2 
+        inserter, null, 2
       ),
     };
   } catch ( error ) {
     console.log(
-      error 
+      error
     );
 
     return {
       success: false,
       nextId : 0,
       data   : JSON.stringify(
-        error, null, 2 
+        error, null, 2
       ),
     };
   }
 }
 
 export async function updateNotaTextState(
-  prevState: IntNota 
+  prevState: IntNota
 ) {
   try {
     const existingNota = await prisma.nota.findFirstOrThrow(
@@ -213,7 +213,7 @@ export async function updateNotaTextState(
         where: {
           id: prevState.id,
         },
-      } 
+      }
     );
 
     if ( existingNota.text !== prevState.text ) {
@@ -225,7 +225,7 @@ export async function updateNotaTextState(
           data: {
             text: prevState.text,
           },
-        } 
+        }
       );
 
       return {
@@ -234,11 +234,11 @@ export async function updateNotaTextState(
     }
 
     throw new Error(
-      'LA NOTA GUARDADA Y LA NOTA EDITADA SON IGUALES' 
+      'LA NOTA GUARDADA Y LA NOTA EDITADA SON IGUALES'
     );
   } catch ( error ) {
     console.log(
-      error 
+      error
     );
 
     return prevState;

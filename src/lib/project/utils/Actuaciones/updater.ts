@@ -1,28 +1,28 @@
 import { outActuacion } from '#@/lib/types/actuaciones';
-import { prisma } from '#@/lib/connection/prisma';
+import  prisma  from '#@/lib/connection/prisma';
 
 export async function updateActuacionesInPrisma(
-  incomingActuaciones: outActuacion[], 
+  incomingActuaciones: outActuacion[],
 ) {
   try {
     return await prisma.actuacion.createMany(
       {
         data: incomingActuaciones.map(
           (
-            actuacion 
+            actuacion
           ) => {
             return {
               ...actuacion,
               idRegActuacion: `${ actuacion.idRegActuacion }`
             };
-          } 
+          }
         ),
         skipDuplicates: true,
-      } 
+      }
     );
   } catch ( error ) {
     console.log(
-      error 
+      error
     );
 
     return {
@@ -32,7 +32,7 @@ export async function updateActuacionesInPrisma(
 }
 
 export async function updateUltimaActuacionInPrisma(
-  incomingActuacion: outActuacion, 
+  incomingActuacion: outActuacion,
 ) {
   try {
     const {
@@ -46,7 +46,7 @@ export async function updateUltimaActuacionInPrisma(
             has: idProceso,
           },
         },
-      } 
+      }
     );
 
     const {
@@ -54,7 +54,7 @@ export async function updateUltimaActuacionInPrisma(
     } = carpeta;
 
     const incomingDate = new Date(
-      fechaActuacion 
+      fechaActuacion
     );
 
     if (
@@ -64,7 +64,7 @@ export async function updateUltimaActuacionInPrisma(
     ) {
       if ( idRegUltimaAct ) {
         await fixOldActuacion(
-          idRegUltimaAct 
+          idRegUltimaAct
         );
       }
 
@@ -85,19 +85,19 @@ export async function updateUltimaActuacionInPrisma(
                   create: {
                     ...incomingActuacion,
                     fechaActuacion: new Date(
-                      incomingActuacion.fechaActuacion 
+                      incomingActuacion.fechaActuacion
                     ),
                     fechaRegistro: new Date(
-                      incomingActuacion.fechaRegistro 
+                      incomingActuacion.fechaRegistro
                     ),
                     fechaFinal: incomingActuacion.fechaFinal
                       ? new Date(
-                        incomingActuacion.fechaFinal 
+                        incomingActuacion.fechaFinal
                       )
                       : null,
                     fechaInicial: incomingActuacion.fechaInicial
                       ? new Date(
-                        incomingActuacion.fechaInicial 
+                        incomingActuacion.fechaInicial
                       )
                       : null,
                     isUltimaAct:
@@ -108,23 +108,23 @@ export async function updateUltimaActuacionInPrisma(
                 },
               },
             },
-          } 
+          }
         );
       } catch ( error ) {
         console.log(
-          error 
+          error
         );
       }
     }
   } catch ( error ) {
     console.log(
-      error 
+      error
     );
   }
 }
 
 export async function fixOldActuacion(
-  idRegUltimaAct: string 
+  idRegUltimaAct: string
 ) {
   try {
     await prisma.actuacion.update(
@@ -135,11 +135,11 @@ export async function fixOldActuacion(
         data: {
           isUltimaAct: false,
         },
-      } 
+      }
     );
   } catch ( error ) {
     console.log(
-      error 
+      error
     );
   }
 }
