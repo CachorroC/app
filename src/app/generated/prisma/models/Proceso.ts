@@ -515,9 +515,9 @@ export type ProcesoOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ProcesoNullableScalarRelationFilter = {
-  is?: Prisma.ProcesoWhereInput | null
-  isNot?: Prisma.ProcesoWhereInput | null
+export type ProcesoScalarRelationFilter = {
+  is?: Prisma.ProcesoWhereInput
+  isNot?: Prisma.ProcesoWhereInput
 }
 
 export type ProcesoCountOrderByAggregateInput = {
@@ -633,12 +633,10 @@ export type ProcesoCreateNestedOneWithoutActuacionesInput = {
   connect?: Prisma.ProcesoWhereUniqueInput
 }
 
-export type ProcesoUpdateOneWithoutActuacionesNestedInput = {
+export type ProcesoUpdateOneRequiredWithoutActuacionesNestedInput = {
   create?: Prisma.XOR<Prisma.ProcesoCreateWithoutActuacionesInput, Prisma.ProcesoUncheckedCreateWithoutActuacionesInput>
   connectOrCreate?: Prisma.ProcesoCreateOrConnectWithoutActuacionesInput
   upsert?: Prisma.ProcesoUpsertWithoutActuacionesInput
-  disconnect?: Prisma.ProcesoWhereInput | boolean
-  delete?: Prisma.ProcesoWhereInput | boolean
   connect?: Prisma.ProcesoWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProcesoUpdateToOneWithWhereWithoutActuacionesInput, Prisma.ProcesoUpdateWithoutActuacionesInput>, Prisma.ProcesoUncheckedUpdateWithoutActuacionesInput>
 }

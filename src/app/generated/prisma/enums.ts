@@ -24,7 +24,8 @@ export const Category = {
   Reintegra: 'Reintegra',
   Insolvencia: 'Insolvencia',
   SinEspecificar: 'SinEspecificar',
-  todos: 'todos'
+  todos: 'todos',
+  SinTercero: 'SinTercero'
 } as const
 
 export type Category = (typeof Category)[keyof typeof Category]

@@ -1502,7 +1502,6 @@ export const CarpetaScalarFieldEnum = {
   revisado: 'revisado',
   terminado: 'terminado',
   updatedAt: 'updatedAt',
-  category: 'category',
   tipoProceso: 'tipoProceso',
   notasCount: 'notasCount',
   fechaUltimaRevision: 'fechaUltimaRevision',
@@ -1510,7 +1509,8 @@ export const CarpetaScalarFieldEnum = {
   juzgadoTipo: 'juzgadoTipo',
   juzgadoCiudad: 'juzgadoCiudad',
   juzgadoId: 'juzgadoId',
-  idRegUltimaAct: 'idRegUltimaAct'
+  idRegUltimaAct: 'idRegUltimaAct',
+  category: 'category'
 } as const
 
 export type CarpetaScalarFieldEnum = (typeof CarpetaScalarFieldEnum)[keyof typeof CarpetaScalarFieldEnum]
@@ -1821,6 +1821,20 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'Category'
+ */
+export type EnumCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Category'>
+    
+
+
+/**
+ * Reference to a field of type 'Category[]'
+ */
+export type ListEnumCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Category[]'>
     
 
 

@@ -41,6 +41,13 @@ export default function Page() {
           <span className="material-symbols-outlined">folder_open</span>
           <h1 className={typography.headlineMedium}>{'Carpetas'}</h1>
         </Link>
+        <Link
+          className={layout.button}
+          href={'/Carpetas_alt'}
+        >
+          <span className="material-symbols-outlined">folder_open</span>
+          <h1 className={typography.headlineMedium}>{'Carpetas Alternativo'}</h1>
+        </Link>
 
         <Link
           className={layout.button}

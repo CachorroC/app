@@ -17,7 +17,6 @@ model Carpeta {
   revisado            Boolean    @default(false)
   terminado           Boolean    @default(false)
   updatedAt           DateTime   @updatedAt
-  category            String     @default("SinEspecificar")
   tipoProceso         String     @default("SINGULAR")
   notasCount          Int?
   fechaUltimaRevision DateTime?  @db.Date
@@ -26,6 +25,7 @@ model Carpeta {
   juzgadoCiudad       String?
   juzgadoId           String?
   idRegUltimaAct      String?
+  category            Category   @default(SinEspecificar)
   ultimaActuacion     Actuacion? @relation(fields: [idRegUltimaAct], references: [idRegActuacion])
   juzgado             Juzgado?   @relation(fields: [juzgadoId, juzgadoTipo, juzgadoCiudad], references: [id, tipo, ciudad])
   codeudor            Codeudor?
@@ -197,10 +197,10 @@ model Actuacion {
   fechaRegistro  DateTime  @db.Date
   isUltimaAct    Boolean
   llaveProceso   String
-  procesoId      Int?
+  procesoId      Int
   idProceso      Int
   idRegActuacion String    @id
-  proceso        Proceso?  @relation(fields: [procesoId], references: [idProceso])
+  proceso        Proceso   @relation(fields: [procesoId], references: [idProceso])
   Carpeta        Carpeta[]
 }
 
@@ -248,6 +248,7 @@ enum Category {
   Insolvencia
   SinEspecificar
   todos
+  SinTercero
 }
 
 enum Departamento {

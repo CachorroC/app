@@ -26,8 +26,12 @@ export const NavBar = () => {
       <NavLink
         iconLabel={'folder'}
         textLabel={'Carpetas'}
-        key={'actuaciones'}
         hrefLabel={'/Carpetas'}
+      />
+      <NavLink
+        iconLabel={'folder'}
+        textLabel={'Carpetas Alternativo'}
+        hrefLabel={'/Carpetas_alt'}
       />
 
       {isNavOpen && (

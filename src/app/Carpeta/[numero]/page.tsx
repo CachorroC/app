@@ -17,6 +17,7 @@ import { ConsultaProcesos, outProceso } from '#@/lib/types/procesos';
 import SujetosProcesales from '#@/components/Proceso/sujetos-procesales';
 import { JuzgadoClass } from '#@/lib/models/juzgado';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
+import ProtoPage from './proto-page';
 
 async function AvailableProcesosByName(
   {
@@ -152,6 +153,7 @@ export default async function Page(
 
   return (
     <>
+      <ProtoPage carpeta={carpeta} />
       <div className={ layout.sectionRow }>
         {carpeta.demanda?.capitalAdeudado && (
           <div className={styles.valueCard}>

@@ -282,7 +282,7 @@ export type ActuacionGroupByOutputType = {
   fechaRegistro: Date
   isUltimaAct: boolean
   llaveProceso: string
-  procesoId: number | null
+  procesoId: number
   idProceso: number
   idRegActuacion: string
   _count: ActuacionCountAggregateOutputType | null
@@ -325,10 +325,10 @@ export type ActuacionWhereInput = {
   fechaRegistro?: Prisma.DateTimeFilter<"Actuacion"> | Date | string
   isUltimaAct?: Prisma.BoolFilter<"Actuacion"> | boolean
   llaveProceso?: Prisma.StringFilter<"Actuacion"> | string
-  procesoId?: Prisma.IntNullableFilter<"Actuacion"> | number | null
+  procesoId?: Prisma.IntFilter<"Actuacion"> | number
   idProceso?: Prisma.IntFilter<"Actuacion"> | number
   idRegActuacion?: Prisma.StringFilter<"Actuacion"> | string
-  proceso?: Prisma.XOR<Prisma.ProcesoNullableScalarRelationFilter, Prisma.ProcesoWhereInput> | null
+  proceso?: Prisma.XOR<Prisma.ProcesoScalarRelationFilter, Prisma.ProcesoWhereInput>
   Carpeta?: Prisma.CarpetaListRelationFilter
 }
 
@@ -347,7 +347,7 @@ export type ActuacionOrderByWithRelationInput = {
   fechaRegistro?: Prisma.SortOrder
   isUltimaAct?: Prisma.SortOrder
   llaveProceso?: Prisma.SortOrder
-  procesoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  procesoId?: Prisma.SortOrder
   idProceso?: Prisma.SortOrder
   idRegActuacion?: Prisma.SortOrder
   proceso?: Prisma.ProcesoOrderByWithRelationInput
@@ -373,9 +373,9 @@ export type ActuacionWhereUniqueInput = Prisma.AtLeast<{
   fechaRegistro?: Prisma.DateTimeFilter<"Actuacion"> | Date | string
   isUltimaAct?: Prisma.BoolFilter<"Actuacion"> | boolean
   llaveProceso?: Prisma.StringFilter<"Actuacion"> | string
-  procesoId?: Prisma.IntNullableFilter<"Actuacion"> | number | null
+  procesoId?: Prisma.IntFilter<"Actuacion"> | number
   idProceso?: Prisma.IntFilter<"Actuacion"> | number
-  proceso?: Prisma.XOR<Prisma.ProcesoNullableScalarRelationFilter, Prisma.ProcesoWhereInput> | null
+  proceso?: Prisma.XOR<Prisma.ProcesoScalarRelationFilter, Prisma.ProcesoWhereInput>
   Carpeta?: Prisma.CarpetaListRelationFilter
 }, "idRegActuacion">
 
@@ -394,7 +394,7 @@ export type ActuacionOrderByWithAggregationInput = {
   fechaRegistro?: Prisma.SortOrder
   isUltimaAct?: Prisma.SortOrder
   llaveProceso?: Prisma.SortOrder
-  procesoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  procesoId?: Prisma.SortOrder
   idProceso?: Prisma.SortOrder
   idRegActuacion?: Prisma.SortOrder
   _count?: Prisma.ActuacionCountOrderByAggregateInput
@@ -422,7 +422,7 @@ export type ActuacionScalarWhereWithAggregatesInput = {
   fechaRegistro?: Prisma.DateTimeWithAggregatesFilter<"Actuacion"> | Date | string
   isUltimaAct?: Prisma.BoolWithAggregatesFilter<"Actuacion"> | boolean
   llaveProceso?: Prisma.StringWithAggregatesFilter<"Actuacion"> | string
-  procesoId?: Prisma.IntNullableWithAggregatesFilter<"Actuacion"> | number | null
+  procesoId?: Prisma.IntWithAggregatesFilter<"Actuacion"> | number
   idProceso?: Prisma.IntWithAggregatesFilter<"Actuacion"> | number
   idRegActuacion?: Prisma.StringWithAggregatesFilter<"Actuacion"> | string
 }
@@ -444,7 +444,7 @@ export type ActuacionCreateInput = {
   llaveProceso: string
   idProceso: number
   idRegActuacion: string
-  proceso?: Prisma.ProcesoCreateNestedOneWithoutActuacionesInput
+  proceso: Prisma.ProcesoCreateNestedOneWithoutActuacionesInput
   Carpeta?: Prisma.CarpetaCreateNestedManyWithoutUltimaActuacionInput
 }
 
@@ -463,7 +463,7 @@ export type ActuacionUncheckedCreateInput = {
   fechaRegistro: Date | string
   isUltimaAct: boolean
   llaveProceso: string
-  procesoId?: number | null
+  procesoId: number
   idProceso: number
   idRegActuacion: string
   Carpeta?: Prisma.CarpetaUncheckedCreateNestedManyWithoutUltimaActuacionInput
@@ -486,7 +486,7 @@ export type ActuacionUpdateInput = {
   llaveProceso?: Prisma.StringFieldUpdateOperationsInput | string
   idProceso?: Prisma.IntFieldUpdateOperationsInput | number
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string
-  proceso?: Prisma.ProcesoUpdateOneWithoutActuacionesNestedInput
+  proceso?: Prisma.ProcesoUpdateOneRequiredWithoutActuacionesNestedInput
   Carpeta?: Prisma.CarpetaUpdateManyWithoutUltimaActuacionNestedInput
 }
 
@@ -505,7 +505,7 @@ export type ActuacionUncheckedUpdateInput = {
   fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUltimaAct?: Prisma.BoolFieldUpdateOperationsInput | boolean
   llaveProceso?: Prisma.StringFieldUpdateOperationsInput | string
-  procesoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  procesoId?: Prisma.IntFieldUpdateOperationsInput | number
   idProceso?: Prisma.IntFieldUpdateOperationsInput | number
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string
   Carpeta?: Prisma.CarpetaUncheckedUpdateManyWithoutUltimaActuacionNestedInput
@@ -526,7 +526,7 @@ export type ActuacionCreateManyInput = {
   fechaRegistro: Date | string
   isUltimaAct: boolean
   llaveProceso: string
-  procesoId?: number | null
+  procesoId: number
   idProceso: number
   idRegActuacion: string
 }
@@ -565,7 +565,7 @@ export type ActuacionUncheckedUpdateManyInput = {
   fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUltimaAct?: Prisma.BoolFieldUpdateOperationsInput | boolean
   llaveProceso?: Prisma.StringFieldUpdateOperationsInput | string
-  procesoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  procesoId?: Prisma.IntFieldUpdateOperationsInput | number
   idProceso?: Prisma.IntFieldUpdateOperationsInput | number
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -736,7 +736,7 @@ export type ActuacionCreateWithoutCarpetaInput = {
   llaveProceso: string
   idProceso: number
   idRegActuacion: string
-  proceso?: Prisma.ProcesoCreateNestedOneWithoutActuacionesInput
+  proceso: Prisma.ProcesoCreateNestedOneWithoutActuacionesInput
 }
 
 export type ActuacionUncheckedCreateWithoutCarpetaInput = {
@@ -754,7 +754,7 @@ export type ActuacionUncheckedCreateWithoutCarpetaInput = {
   fechaRegistro: Date | string
   isUltimaAct: boolean
   llaveProceso: string
-  procesoId?: number | null
+  procesoId: number
   idProceso: number
   idRegActuacion: string
 }
@@ -792,7 +792,7 @@ export type ActuacionUpdateWithoutCarpetaInput = {
   llaveProceso?: Prisma.StringFieldUpdateOperationsInput | string
   idProceso?: Prisma.IntFieldUpdateOperationsInput | number
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string
-  proceso?: Prisma.ProcesoUpdateOneWithoutActuacionesNestedInput
+  proceso?: Prisma.ProcesoUpdateOneRequiredWithoutActuacionesNestedInput
 }
 
 export type ActuacionUncheckedUpdateWithoutCarpetaInput = {
@@ -810,7 +810,7 @@ export type ActuacionUncheckedUpdateWithoutCarpetaInput = {
   fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUltimaAct?: Prisma.BoolFieldUpdateOperationsInput | boolean
   llaveProceso?: Prisma.StringFieldUpdateOperationsInput | string
-  procesoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  procesoId?: Prisma.IntFieldUpdateOperationsInput | number
   idProceso?: Prisma.IntFieldUpdateOperationsInput | number
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -899,7 +899,7 @@ export type ActuacionScalarWhereInput = {
   fechaRegistro?: Prisma.DateTimeFilter<"Actuacion"> | Date | string
   isUltimaAct?: Prisma.BoolFilter<"Actuacion"> | boolean
   llaveProceso?: Prisma.StringFilter<"Actuacion"> | string
-  procesoId?: Prisma.IntNullableFilter<"Actuacion"> | number | null
+  procesoId?: Prisma.IntFilter<"Actuacion"> | number
   idProceso?: Prisma.IntFilter<"Actuacion"> | number
   idRegActuacion?: Prisma.StringFilter<"Actuacion"> | string
 }
@@ -1031,7 +1031,7 @@ export type ActuacionSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   procesoId?: boolean
   idProceso?: boolean
   idRegActuacion?: boolean
-  proceso?: boolean | Prisma.Actuacion$procesoArgs<ExtArgs>
+  proceso?: boolean | Prisma.ProcesoDefaultArgs<ExtArgs>
   Carpeta?: boolean | Prisma.Actuacion$CarpetaArgs<ExtArgs>
   _count?: boolean | Prisma.ActuacionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["actuacion"]>
@@ -1054,7 +1054,7 @@ export type ActuacionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   procesoId?: boolean
   idProceso?: boolean
   idRegActuacion?: boolean
-  proceso?: boolean | Prisma.Actuacion$procesoArgs<ExtArgs>
+  proceso?: boolean | Prisma.ProcesoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["actuacion"]>
 
 export type ActuacionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1075,7 +1075,7 @@ export type ActuacionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   procesoId?: boolean
   idProceso?: boolean
   idRegActuacion?: boolean
-  proceso?: boolean | Prisma.Actuacion$procesoArgs<ExtArgs>
+  proceso?: boolean | Prisma.ProcesoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["actuacion"]>
 
 export type ActuacionSelectScalar = {
@@ -1100,21 +1100,21 @@ export type ActuacionSelectScalar = {
 
 export type ActuacionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"actuacion" | "anotacion" | "cant" | "carpetaNumero" | "codRegla" | "conDocumentos" | "consActuacion" | "createdAt" | "fechaActuacion" | "fechaFinal" | "fechaInicial" | "fechaRegistro" | "isUltimaAct" | "llaveProceso" | "procesoId" | "idProceso" | "idRegActuacion", ExtArgs["result"]["actuacion"]>
 export type ActuacionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  proceso?: boolean | Prisma.Actuacion$procesoArgs<ExtArgs>
+  proceso?: boolean | Prisma.ProcesoDefaultArgs<ExtArgs>
   Carpeta?: boolean | Prisma.Actuacion$CarpetaArgs<ExtArgs>
   _count?: boolean | Prisma.ActuacionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ActuacionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  proceso?: boolean | Prisma.Actuacion$procesoArgs<ExtArgs>
+  proceso?: boolean | Prisma.ProcesoDefaultArgs<ExtArgs>
 }
 export type ActuacionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  proceso?: boolean | Prisma.Actuacion$procesoArgs<ExtArgs>
+  proceso?: boolean | Prisma.ProcesoDefaultArgs<ExtArgs>
 }
 
 export type $ActuacionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Actuacion"
   objects: {
-    proceso: Prisma.$ProcesoPayload<ExtArgs> | null
+    proceso: Prisma.$ProcesoPayload<ExtArgs>
     Carpeta: Prisma.$CarpetaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1132,7 +1132,7 @@ export type $ActuacionPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     fechaRegistro: Date
     isUltimaAct: boolean
     llaveProceso: string
-    procesoId: number | null
+    procesoId: number
     idProceso: number
     idRegActuacion: string
   }, ExtArgs["result"]["actuacion"]>
@@ -1529,7 +1529,7 @@ readonly fields: ActuacionFieldRefs;
  */
 export interface Prisma__ActuacionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  proceso<T extends Prisma.Actuacion$procesoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actuacion$procesoArgs<ExtArgs>>): Prisma.Prisma__ProcesoClient<runtime.Types.Result.GetResult<Prisma.$ProcesoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  proceso<T extends Prisma.ProcesoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProcesoDefaultArgs<ExtArgs>>): Prisma.Prisma__ProcesoClient<runtime.Types.Result.GetResult<Prisma.$ProcesoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Carpeta<T extends Prisma.Actuacion$CarpetaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actuacion$CarpetaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CarpetaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1970,25 +1970,6 @@ export type ActuacionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many Actuacions to delete.
    */
   limit?: number
-}
-
-/**
- * Actuacion.proceso
- */
-export type Actuacion$procesoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Proceso
-   */
-  select?: Prisma.ProcesoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Proceso
-   */
-  omit?: Prisma.ProcesoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProcesoInclude<ExtArgs> | null
-  where?: Prisma.ProcesoWhereInput
 }
 
 /**

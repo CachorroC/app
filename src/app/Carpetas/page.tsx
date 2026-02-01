@@ -8,7 +8,7 @@ export default async function Page() {
 
   return (
     <Fragment>
-      <Suspense fallback={<LefttableLoader />}>
+      <Suspense fallback={ <LefttableLoader /> }>
         <CarpetasTable />
       </Suspense>
 

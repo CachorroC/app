@@ -93,7 +93,6 @@ export const CarpetaScalarFieldEnum = {
   revisado: 'revisado',
   terminado: 'terminado',
   updatedAt: 'updatedAt',
-  category: 'category',
   tipoProceso: 'tipoProceso',
   notasCount: 'notasCount',
   fechaUltimaRevision: 'fechaUltimaRevision',
@@ -101,7 +100,8 @@ export const CarpetaScalarFieldEnum = {
   juzgadoTipo: 'juzgadoTipo',
   juzgadoCiudad: 'juzgadoCiudad',
   juzgadoId: 'juzgadoId',
-  idRegUltimaAct: 'idRegUltimaAct'
+  idRegUltimaAct: 'idRegUltimaAct',
+  category: 'category'
 } as const
 
 export type CarpetaScalarFieldEnum = (typeof CarpetaScalarFieldEnum)[keyof typeof CarpetaScalarFieldEnum]

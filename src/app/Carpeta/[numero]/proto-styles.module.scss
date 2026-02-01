@@ -1,0 +1,183 @@
+/* --- Layout --- */
+.appContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* --- Header Section (Carpeta Model) --- */
+.headerCard {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.headerInfo h1 {
+  font-size: 2.5rem; /* Display Small */
+  line-height: 1.1;
+  margin-bottom: var(--spacing-sm);
+}
+
+.headerMeta {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-md);
+}
+
+/* Material Chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--outline);
+}
+
+.chip.filled {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border: none;
+}
+
+.chip.statusTerminado {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  border: none;
+}
+
+/* --- Grid System --- */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+/* --- Cards --- */
+.card {
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--surface-variant);
+  /* Subtle elevation */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.cardTitle {
+  font-size: 1.3rem; /* Title Large */
+  color: var(--on-surface);
+}
+
+.cardIcon {
+  font-size: 24px;
+  color: var(--primary);
+}
+
+/* --- Key-Value Data Display --- */
+.dataRow {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--surface-variant);
+}
+
+.dataRow:last-child {
+  border-bottom: none;
+}
+
+.dataLabel {
+  color: var(--on-surface-variant);
+  font-size: 0.9rem;
+}
+
+.dataValue {
+  font-weight: 500;
+  text-align: right;
+}
+
+.dataValue.money {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  color: var(--tertiary);
+}
+
+/* --- Timeline (Actuaciones) --- */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.timelineItem {
+  position: relative;
+  padding-left: var(--spacing-lg);
+  border-left: 2px solid var(--outline);
+}
+
+.timelineItem::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary);
+  border-radius: 50%;
+}
+
+.timelineDate {
+  font-size: 0.75rem;
+  color: var(--on-surface-variant);
+  margin-bottom: 4px;
+}
+
+.timelineContent {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+}
+
+/* --- FAB (Floating Action Button) --- */
+.fab {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 56px;
+  height: 56px;
+  background-color: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.fab:hover {
+  transform: scale(1.05);
+}
