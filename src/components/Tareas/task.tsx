@@ -5,51 +5,37 @@ import { useState } from 'react';
 import { useDispatchTasks } from './TasksContext';
 import { updateTaskTextState } from '#@/app/Tareas/actions';
 
-export function Task(
-  {
-    task 
-  }: { task: IntTask } 
-) {
+export function Task( {
+  task 
+}: { task: IntTask } ) {
   const [
     isEditing,
     setIsEditing
-  ] = useState(
-    false 
-  );
+  ] = useState( false );
 
   const [
     taskState,
     setTaskState
-  ] = useState(
-    {
-      ...task,
-    } 
-  );
+  ] = useState( {
+    ...task,
+  } );
 
   const dispatch = useDispatchTasks();
 
   let taskContent;
 
   async function editTask() {
-    const revis = await updateTaskTextState(
-      taskState 
-    );
+    const revis = await updateTaskTextState( taskState );
 
-    alert(
-      JSON.stringify(
-        revis 
-      ) 
-    );
+    alert( JSON.stringify( revis ) );
 
-    return dispatch(
-      {
-        type: 'changed',
-        task: {
-          ...taskState,
-          ...revis,
-        },
-      } 
-    );
+    return dispatch( {
+      type: 'changed',
+      task: {
+        ...taskState,
+        ...revis,
+      },
+    } );
   }
 
   if ( isEditing ) {
@@ -57,23 +43,17 @@ export function Task(
       <>
         <input
           value={taskState.text}
-          onChange={(
-            e 
-          ) => {
-            return setTaskState(
-              {
-                ...taskState,
-                text: e.target.value,
-              } 
-            );
+          onChange={( e ) => {
+            return setTaskState( {
+              ...taskState,
+              text: e.target.value,
+            } );
           }}
         />
         <button
           type="button"
           onClick={() => {
-            return setIsEditing(
-              false 
-            );
+            return setIsEditing( false );
           }}
         >
           Save
@@ -87,9 +67,7 @@ export function Task(
         <button
           type="button"
           onClick={() => {
-            return setIsEditing(
-              true 
-            );
+            return setIsEditing( true );
           }}
         >
           Edit
@@ -108,12 +86,10 @@ export function Task(
       <button
         type="button"
         onClick={() => {
-          dispatch(
-            {
-              type: 'deleted',
-              id  : task.id,
-            } 
-          );
+          dispatch( {
+            type: 'deleted',
+            id  : task.id,
+          } );
         }}
       >
         Delete

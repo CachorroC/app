@@ -5,6 +5,7 @@ import { NotasList } from '#@/components/Nota/tasks-list';
 import { CurrentRoute } from '#@/lib/client/current-route';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { Suspense } from 'react';
+
 /*
 export async function generateStaticParams() {
   const notas = await getNotas();
@@ -38,13 +39,11 @@ export async function generateStaticParams() {
   );
 }
  */
-export default async function DatePage(
-  {
-    params,
-  }: {
-    params: Promise<{ date: string[] }>;
-  }
-) {
+export default async function DatePage( {
+  params,
+}: {
+  params: Promise<{ date: string[] }>;
+} ) {
   const {
     date
   } = await params;
@@ -55,9 +54,7 @@ export default async function DatePage(
     incomingDia
   ] = date;
 
-  const incomingDate = new Date(
-    `${ incomingAno }-${ incomingMes }-${ incomingDia }`
-  );
+  const incomingDate = new Date( `${ incomingAno }-${ incomingMes }-${ incomingDia }` );
 
   return (
     <>

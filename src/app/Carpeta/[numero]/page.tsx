@@ -19,18 +19,12 @@ import { JuzgadoClass } from '#@/lib/models/juzgado';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import ProtoPage from './proto-page';
 
-async function AvailableProcesosByName(
-  {
-    nombre
-  }: { nombre: string }
-) {
-  const urlNameMaker = consultaProcesosPorRazonSocial(
-    nombre
-  );
+async function AvailableProcesosByName( {
+  nombre
+}: { nombre: string } ) {
+  const urlNameMaker = consultaProcesosPorRazonSocial( nombre );
 
-  const fetchProc = await fetch(
-    urlNameMaker
-  );
+  const fetchProc = await fetch( urlNameMaker );
 
   if ( !fetchProc.ok ) {
     return (
@@ -70,56 +64,44 @@ async function AvailableProcesosByName(
         </tr>
       </thead>
       <tbody>
-        {jsonString.procesos.map(
-          (
-            proceso
-          ) => {
-            const outgoinProceso: outProceso = {
-              ...proceso,
-              juzgado: JuzgadoClass.fromProceso(
-                proceso
-              ),
-            };
+        {jsonString.procesos.map( ( proceso ) => {
+          const outgoinProceso: outProceso = {
+            ...proceso,
+            juzgado: JuzgadoClass.fromProceso( proceso ),
+          };
 
-            return (
-              <tr key={proceso.idProceso}>
-                <td>
-                  <SujetosProcesales
-                    sujetosProcesalesRaw={proceso.sujetosProcesales}
-                  />
-                </td>
-                <Suspense fallback={<TableLoader />}>
-                  <ProcesoTableDetalleComponent
-                    key={proceso.idProceso}
-                    idProceso={proceso.idProceso}
-                  />
-                </Suspense>
-                <Suspense fallback={<TableLoader />}>
-                  <JuzgadoComponent juzgado={outgoinProceso.juzgado} />
-                </Suspense>
-              </tr>
-            );
-          }
-        )}
+          return (
+            <tr key={proceso.idProceso}>
+              <td>
+                <SujetosProcesales
+                  sujetosProcesalesRaw={proceso.sujetosProcesales}
+                />
+              </td>
+              <Suspense fallback={<TableLoader />}>
+                <ProcesoTableDetalleComponent
+                  key={proceso.idProceso}
+                  idProceso={proceso.idProceso}
+                />
+              </Suspense>
+              <Suspense fallback={<TableLoader />}>
+                <JuzgadoComponent juzgado={outgoinProceso.juzgado} />
+              </Suspense>
+            </tr>
+          );
+        } )}
       </tbody>
     </table>
   );
 }
 
-export default async function Page(
-  {
-    params
-  }: { params: Promise<{ numero: string; }>; }
-) {
+export default async function Page( {
+  params
+}: { params: Promise<{ numero: string; }>; } ) {
   const {
     numero
   } = await params;
 
-  const carpeta = await getCarpetabyNumero(
-    Number(
-      numero
-    )
-  );
+  const carpeta = await getCarpetabyNumero( Number( numero ) );
 
   if ( !carpeta ) {
     return notFound();
@@ -132,23 +114,19 @@ export default async function Page(
   let idProcesoContent;
 
   if ( idProcesos && idProcesos.length > 0 ) {
-    idProcesoContent = idProcesos.map(
-      (
-        idProceso
-      ) => {
-        return (
-          <Link
-            key={idProceso}
-            className={buttonActiveCategory}
-            href={
-              `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`
-            }
-          >
-            <span>{nombre}</span>
-          </Link>
-        );
-      }
-    );
+    idProcesoContent = idProcesos.map( ( idProceso ) => {
+      return (
+        <Link
+          key={idProceso}
+          className={buttonActiveCategory}
+          href={
+            `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`
+          }
+        >
+          <span>{nombre}</span>
+        </Link>
+      );
+    } );
   }
 
   return (
@@ -159,9 +137,7 @@ export default async function Page(
           <div className={styles.valueCard}>
             <h2 className={styles.valueCardTitle}>Capital Adeudado</h2>
             <h3 className={styles.valueCardValue}>
-              {fixMoney(
-                carpeta.demanda.capitalAdeudado
-              )}
+              {fixMoney( carpeta.demanda.capitalAdeudado )}
             </h3>
           </div>
         )}
@@ -169,9 +145,7 @@ export default async function Page(
           <div className={styles.valueCard}>
             <h2 className={styles.valueCardTitle}>Valor del Avaluo</h2>
             <h3 className={styles.valueCardValue}>
-              {fixMoney(
-                carpeta.demanda.avaluo
-              )}
+              {fixMoney( carpeta.demanda.avaluo )}
             </h3>
           </div>
         )}
@@ -179,9 +153,7 @@ export default async function Page(
           <div className={styles.valueCard}>
             <h2 className={styles.valueCardTitle}>Valor de la liquidacion</h2>
             <h3 className={styles.valueCardValue}>
-              {fixMoney(
-                carpeta.demanda.liquidacion
-              )}
+              {fixMoney( carpeta.demanda.liquidacion )}
             </h3>
           </div>
         )}
@@ -213,9 +185,7 @@ export default async function Page(
         <Suspense fallback={<Loader />}>
           <ProcesosComponent
             llaveProceso={llaveProceso}
-            numero={Number(
-              numero
-            )}
+            numero={Number( numero )}
           />
         </Suspense>
       </div>

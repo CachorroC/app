@@ -8,55 +8,39 @@ import { containerEnabled } from '#@/components/Card/outlined.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import React from 'react';
 
-export function Nota(
-  {
-    nota,
-    children,
-  }: {
-    nota: IntNota;
-    children: ReactNode;
-  }
-) {
+export function Nota( {
+  nota,
+  children,
+}: {
+  nota    : IntNota;
+  children: ReactNode;
+} ) {
   const [
     isEditing,
     setIsEditing
-  ] = useState(
-    false
-  );
+  ] = useState( false );
 
   const [
     notaState,
     setNotaState
-  ] = useState(
-    {
-      ...nota,
-    }
-  );
+  ] = useState( {
+    ...nota,
+  } );
 
   async function saveAction() {
-    const revis = await updateNotaTextState(
-      notaState
-    );
+    const revis = await updateNotaTextState( notaState );
 
-    alert(
-      JSON.stringify(
-        revis
-      )
-    );
+    alert( JSON.stringify( revis ) );
 
-    dispatch(
-      {
-        type: 'changed',
-        nota: {
-          ...notaState,
-          ...revis,
-        },
-      }
-    );
+    dispatch( {
+      type: 'changed',
+      nota: {
+        ...notaState,
+        ...revis,
+      },
+    } );
 
-    return setIsEditing(
-      false
-    );
+    return setIsEditing( false );
   }
 
   const dispatch = useNotaSortDispatch();
@@ -68,28 +52,20 @@ export function Nota(
       <>
         <input
           value={notaState.text}
-          onChange={(
-            e
-          ) => {
-            return setNotaState(
-              {
-                ...notaState,
-                text: e.target.value,
-              }
-            );
+          onChange={( e ) => {
+            return setNotaState( {
+              ...notaState,
+              text: e.target.value,
+            } );
           }}
         />
         <input
           value={notaState.id}
-          onChange={(
-            e
-          ) => {
-            return setNotaState(
-              {
-                ...notaState,
-                id: `${ notaState.carpetaNumero ?? 'NC' }-${ e.target.value }`,
-              }
-            );
+          onChange={( e ) => {
+            return setNotaState( {
+              ...notaState,
+              id: `${ notaState.carpetaNumero ?? 'NC' }-${ e.target.value }`,
+            } );
           }}
         />
         <button
@@ -107,9 +83,7 @@ export function Nota(
         <button
           type="button"
           onClick={() => {
-            return setIsEditing(
-              true
-            );
+            return setIsEditing( true );
           }}
         >
           Edit
@@ -127,12 +101,10 @@ export function Nota(
       <button
         type="button"
         onClick={() => {
-          dispatch(
-            {
-              type: 'deleted',
-              id  : nota.id,
-            }
-          );
+          dispatch( {
+            type: 'deleted',
+            id  : nota.id,
+          } );
         }}
       >
         Delete
@@ -141,55 +113,39 @@ export function Nota(
   );
 }
 
-export function NotaTable(
-  {
-    nota,
-    children,
-  }: {
-    nota: IntNota;
-    children: ReactNode;
-  }
-) {
+export function NotaTable( {
+  nota,
+  children,
+}: {
+  nota    : IntNota;
+  children: ReactNode;
+} ) {
   const [
     isEditing,
     setIsEditing
-  ] = useState(
-    false
-  );
+  ] = useState( false );
 
   const [
     notaState,
     setNotaState
-  ] = useState(
-    {
-      ...nota,
-    }
-  );
+  ] = useState( {
+    ...nota,
+  } );
 
   async function saveAction() {
-    const revis = await updateNotaTextState(
-      notaState
-    );
+    const revis = await updateNotaTextState( notaState );
 
-    alert(
-      JSON.stringify(
-        revis
-      )
-    );
+    alert( JSON.stringify( revis ) );
 
-    dispatch(
-      {
-        type: 'changed',
-        nota: {
-          ...notaState,
-          ...revis,
-        },
-      }
-    );
+    dispatch( {
+      type: 'changed',
+      nota: {
+        ...notaState,
+        ...revis,
+      },
+    } );
 
-    return setIsEditing(
-      false
-    );
+    return setIsEditing( false );
   }
 
   const dispatch = useNotaSortDispatch();
@@ -202,30 +158,22 @@ export function NotaTable(
         <td>
           <input
             value={notaState.text}
-            onChange={(
-              e
-            ) => {
-              return setNotaState(
-                {
-                  ...notaState,
-                  text: e.target.value,
-                }
-              );
+            onChange={( e ) => {
+              return setNotaState( {
+                ...notaState,
+                text: e.target.value,
+              } );
             }}
           />
         </td>
         <td>
           <input
             value={notaState.id}
-            onChange={(
-              e
-            ) => {
-              return setNotaState(
-                {
-                  ...notaState,
-                  id: `${ notaState.carpetaNumero ?? 'NC' }-${ e.target.value }`,
-                }
-              );
+            onChange={( e ) => {
+              return setNotaState( {
+                ...notaState,
+                id: `${ notaState.carpetaNumero ?? 'NC' }-${ e.target.value }`,
+              } );
             }}
           />
         </td>
@@ -244,9 +192,7 @@ export function NotaTable(
         <td><button
           type="button"
           onClick={() => {
-            return setIsEditing(
-              true
-            );
+            return setIsEditing( true );
           }}
         >
           Edit
@@ -264,12 +210,10 @@ export function NotaTable(
       <td><button
         type="button"
         onClick={() => {
-          dispatch(
-            {
-              type: 'deleted',
-              id  : nota.id,
-            }
-          );
+          dispatch( {
+            type: 'deleted',
+            id  : nota.id,
+          } );
         }}
       >
         Delete

@@ -2,15 +2,13 @@ import { MedidasCautelares } from '../types/carpetas';
 import { CarpetaRaw } from '../types/raw-carpeta';
 
 export class ClassMedidasCautelares implements MedidasCautelares {
-  demandaId: number;
+  demandaId        : number;
   fechaOrdenaMedida: Date | null;
-  id: number;
-  medidaSolicitada: string | null;
-  constructor(
-    {
-      demanda, numero 
-    }: CarpetaRaw 
-  ) {
+  id               : number;
+  medidaSolicitada : string | null;
+  constructor( {
+    demanda, numero 
+  }: CarpetaRaw ) {
     this.demandaId = numero;
     this.id = numero;
 
@@ -28,9 +26,7 @@ export class ClassMedidasCautelares implements MedidasCautelares {
         : null;
 
       if ( fechaOrdenaMedidas ) {
-        const newFecha = new Date(
-          fechaOrdenaMedidas 
-        );
+        const newFecha = new Date( fechaOrdenaMedidas );
 
         const stringer = newFecha.toString();
 

@@ -5,24 +5,18 @@ import { useCarpetaSort,
 import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
-export default function CiudadFilteringButtons(
-  {
-    row
-  }: { row: boolean }
-) {
+export default function CiudadFilteringButtons( {
+  row
+}: { row: boolean } ) {
   const [
     layout,
     setLayout
-  ] = useState(
-    row
-  );
+  ] = useState( row );
 
   const [
     selectedExcluded,
     setSelectedExcluded
-  ] = useState<string[]>(
-    []
-  );
+  ] = useState<string[]>( [] );
 
   const dispatchCarpetas = useCarpetaSortDispatch();
 
@@ -32,37 +26,25 @@ export default function CiudadFilteringButtons(
 
   const ciudadesSet = new Set<string>();
 
-  completeCarpetas.forEach(
-    (
-      carpeta
-    ) => {
-      ciudadesSet.add(
-        carpeta.ciudad
-          ? carpeta.ciudad
-          : 'Bogotá'
-      );
-    }
-  );
+  completeCarpetas.forEach( ( carpeta ) => {
+    ciudadesSet.add( carpeta.ciudad
+      ? carpeta.ciudad
+      : 'Bogotá' );
+  } );
 
-  const categories = Array.from(
-    ciudadesSet
-  );
+  const categories = Array.from( ciudadesSet );
 
   useEffect(
     () => {
       if ( selectedExcluded && selectedExcluded.length > 0 ) {
-        dispatchCarpetas(
-          {
-            type   : 'ciudad-filter',
-            include: selectedExcluded,
-          }
-        );
+        dispatchCarpetas( {
+          type   : 'ciudad-filter',
+          include: selectedExcluded,
+        } );
       } else if ( selectedExcluded.length === 0 ) {
-        dispatchCarpetas(
-          {
-            type: 'reset',
-          }
-        );
+        dispatchCarpetas( {
+          type: 'reset',
+        } );
       }
     }, [
       dispatchCarpetas,
@@ -81,55 +63,41 @@ export default function CiudadFilteringButtons(
         }
       >
 
-        {categories.map(
-          (
-            category
-          ) => {
-            const isActive = selectedExcluded.includes(
-              category
-            );
+        {categories.map( ( category ) => {
+          const isActive = selectedExcluded.includes( category );
 
-            return (
-              <button
-                key={category}
-                type="button"
-                className={
-                  isActive
-                    ? styles.buttonCategoryActive
-                    : styles.buttonCategoryPasive
+          return (
+            <button
+              key={category}
+              type="button"
+              className={
+                isActive
+                  ? styles.buttonCategoryActive
+                  : styles.buttonCategoryPasive
+              }
+              onClick={() => {
+                if ( isActive ) {
+                  return setSelectedExcluded( selectedExcluded.filter( ( a ) => {
+                    return a !== category;
+                  } ), );
                 }
-                onClick={() => {
-                  if ( isActive ) {
-                    return setSelectedExcluded(
-                      selectedExcluded.filter(
-                        (
-                          a
-                        ) => {
-                          return a !== category;
-                        }
-                      ),
-                    );
-                  }
 
-                  return setSelectedExcluded(
-                    [
-                      ...selectedExcluded,
-                      category
-                    ]
-                  );
-                }}
-              >
-                {category}
-                <input
-                  type={'checkbox'}
-                  checked={isActive}
-                  readOnly={true}
-                  name={category}
-                />
-              </button>
-            );
-          }
-        )}
+                return setSelectedExcluded( [
+                  ...selectedExcluded,
+                  category
+                ] );
+              }}
+            >
+              {category}
+              <input
+                type={'checkbox'}
+                checked={isActive}
+                readOnly={true}
+                name={category}
+              />
+            </button>
+          );
+        } )}
       </section>
     </>
   );

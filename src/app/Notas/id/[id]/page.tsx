@@ -41,22 +41,16 @@ export async function generateStaticParams() {
   return chunks[ 0 ];
 }
  */
-export default async function Page(
-  {
-    params
-  }: {
-    params: Promise<{ id: string }>;
-  }
-) {
+export default async function Page( {
+  params
+}: {
+  params: Promise<{ id: string }>;
+} ) {
   const {
     id
   } = await params;
 
-  const nota = await getNotaById(
-    Number(
-      id
-    )
-  );
+  const nota = await getNotaById( Number( id ) );
 
   if ( !nota ) {
     return notFound();

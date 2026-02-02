@@ -8,17 +8,15 @@ import { useState } from 'react';
 import layout from '#@/styles/layout.module.css';
 import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 
-export const DateInputSection = (
-  {
-    name,
-    title,
-    initialValue,
-  }: {
-    name: FieldPath<NuevaCarpeta>;
-    title: string;
-    initialValue?: Date;
-  } 
-) => {
+export const DateInputSection = ( {
+  name,
+  title,
+  initialValue,
+}: {
+  name         : FieldPath<NuevaCarpeta>;
+  title        : string;
+  initialValue?: Date;
+} ) => {
   const dateValue = initialValue
     ? initialValue
     : new Date();
@@ -26,9 +24,7 @@ export const DateInputSection = (
   const [
     stringDateValue,
     setStringDateValue
-  ] = useState(
-    dateValue 
-  );
+  ] = useState( dateValue );
 
   const {
     control, setValue 
@@ -40,14 +36,12 @@ export const DateInputSection = (
 
   const {
     field, fieldState 
-  } = useController(
-    {
-      name,
-      defaultValue: stringDateValue,
-      control,
-      rules,
-    } 
-  );
+  } = useController( {
+    name,
+    defaultValue: stringDateValue,
+    control,
+    rules,
+  } );
 
   return (
     <>
@@ -62,48 +56,30 @@ export const DateInputSection = (
           type="date"
           name={field.name}
           className={form.textArea}
-          value={InputDateHelper(
-            stringDateValue 
-          )}
-          onChange={(
-            e 
-          ) => {
-            console.log(
-              `onChange new value for date-section: ${ e.target.valueAsDate }`, 
-            );
+          value={InputDateHelper( stringDateValue )}
+          onChange={( e ) => {
+            console.log( `onChange new value for date-section: ${ e.target.valueAsDate }`, );
 
             const [
               yearStringer,
               monthStringer,
               dayStringer
             ]
-              = e.target.value.split(
-                '-' 
-              );
+              = e.target.value.split( '-' );
 
-            const newYear = Number(
-              yearStringer 
-            );
+            const newYear = Number( yearStringer );
 
-            const newMonth = Number(
-              monthStringer 
-            ) - 1;
+            const newMonth = Number( monthStringer ) - 1;
 
-            const newDay = Number(
-              dayStringer 
-            );
+            const newDay = Number( dayStringer );
 
-            field.onChange(
-              e.target.value 
-            );
+            field.onChange( e.target.value );
             setValue(
               name, e.target.value 
             );
-            setStringDateValue(
-              new Date(
-                newYear, newMonth, newDay 
-              ) 
-            );
+            setStringDateValue( new Date(
+              newYear, newMonth, newDay 
+            ) );
           }}
         />
       </section>

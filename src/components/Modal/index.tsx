@@ -16,35 +16,25 @@ import { NewNota } from '#@/lib/types/notas';
 import { textArea } from '../Form/form.module.css';
 import { containerEnabled } from '../Card/elevated.module.css';
 
-export function Modal(
-  {
-    children
-  }: { children: ReactNode }
-) {
+export function Modal( {
+  children
+}: { children: ReactNode } ) {
   const pathname = usePathname();
 
   const {
     setIsModalOpen
   } = useModalContext();
 
-  const overlay = useRef(
-    null
-  );
+  const overlay = useRef( null );
 
-  const wrapper = useRef(
-    null
-  );
+  const wrapper = useRef( null );
 
   const router = useRouter();
 
   const onDismiss = useCallback(
     () => {
-      console.log(
-        'onDismiss'
-      );
-      setIsModalOpen(
-        false
-      );
+      console.log( 'onDismiss' );
+      setIsModalOpen( false );
       router.back();
     }, [
       router,
@@ -54,12 +44,8 @@ export function Modal(
 
   const onBackspace = useCallback(
     () => {
-      console.log(
-        'on backspace'
-      );
-      setIsModalOpen(
-        false
-      );
+      console.log( 'on backspace' );
+      setIsModalOpen( false );
       router.back();
     }, [
       router,
@@ -69,9 +55,7 @@ export function Modal(
 
   const onEnter = useCallback(
     () => {
-      setIsModalOpen(
-        false
-      );
+      setIsModalOpen( false );
       router.forward();
     }, [
       router,
@@ -80,12 +64,8 @@ export function Modal(
   );
 
   const onClick: MouseEventHandler = useCallback(
-    (
-      e
-    ) => {
-      console.log(
-        'onCLick'
-      );
+    ( e ) => {
+      console.log( 'onCLick' );
 
       if ( e.target === overlay.current || e.target === wrapper.current ) {
         if ( onDismiss ) {
@@ -101,12 +81,8 @@ export function Modal(
   );
 
   const onKeyDown = useCallback(
-    (
-      e: KeyboardEvent
-    ) => {
-      console.log(
-        'onKeyDown'
-      );
+    ( e: KeyboardEvent ) => {
+      console.log( 'onKeyDown' );
 
       if ( e.key === 'Enter' ) {
         onEnter();
@@ -124,9 +100,7 @@ export function Modal(
 
   useEffect(
     () => {
-      console.log(
-        'on useEffect'
-      );
+      console.log( 'on useEffect' );
       document.addEventListener(
         'keydown', onKeyDown
       );
@@ -158,39 +132,29 @@ export function Modal(
   );
 }
 
-export function ModalNote(
-  {
-    children
-  }: { children: ReactNode }
-) {
+export function ModalNote( {
+  children
+}: { children: ReactNode } ) {
   const pathname = usePathname();
 
   const {
     isModalNoteOpen, setIsModalNoteOpen
   } = useModalNoteContext();
 
-  const overlay = useRef(
-    null
-  );
+  const overlay = useRef( null );
 
-  const wrapper = useRef(
-    null
-  );
+  const wrapper = useRef( null );
 
   const onDismiss = useCallback(
     () => {
-      setIsModalNoteOpen(
-        false
-      );
+      setIsModalNoteOpen( false );
     }, [
       setIsModalNoteOpen
     ]
   );
 
   const onClick: MouseEventHandler = useCallback(
-    (
-      e
-    ) => {
+    ( e ) => {
       if ( e.target === overlay.current || e.target === wrapper.current ) {
         if ( onDismiss ) {
           onDismiss();
@@ -205,9 +169,7 @@ export function ModalNote(
   );
 
   const onKeyDown = useCallback(
-    (
-      e: KeyboardEvent
-    ) => {
+    ( e: KeyboardEvent ) => {
       if ( e.key === 'Escape' ) {
         onDismiss();
       }
@@ -267,15 +229,13 @@ function Submit() {
   );
 }
 
-export function NewNotaComponent(
-  {
-    id,
-    idRegActuacion,
-  }: {
-    id: string;
-    idRegActuacion?: number;
-  }
-) {
+export function NewNotaComponent( {
+  id,
+  idRegActuacion,
+}: {
+  id             : string;
+  idRegActuacion?: number;
+} ) {
   const {
     numero
   } = useParams();
@@ -285,33 +245,25 @@ export function NewNotaComponent(
   const [
     notaState,
     setNotaState
-  ] = useState<NewNota>(
-    {
-      dueDate      : new Date(),
-      id           : id,
-      text         : '',
-      carpetaNumero: Number(
-        numero
-      ),
-      pathname: pathname
-        ? pathname
-        : null,
-      content: [
-        idRegActuacion
-          ? String(
-              idRegActuacion
-            )
-          : ''
-      ],
-    }
-  );
+  ] = useState<NewNota>( {
+    dueDate      : new Date(),
+    id           : id,
+    text         : '',
+    carpetaNumero: Number( numero ),
+    pathname     : pathname
+      ? pathname
+      : null,
+    content: [
+      idRegActuacion
+        ? String( idRegActuacion )
+        : ''
+    ],
+  } );
 
   const [
     isOpen,
     setIsOpen
-  ] = useState(
-    false
-  );
+  ] = useState( false );
 
   const [
     state,
@@ -338,15 +290,11 @@ export function NewNotaComponent(
               value={state.value.text}
               name="text"
               className={textArea}
-              onChange={(
-                e
-              ) => {
-                return setNotaState(
-                  {
-                    ...notaState,
-                    text: e.target.value,
-                  }
-                );
+              onChange={( e ) => {
+                return setNotaState( {
+                  ...notaState,
+                  text: e.target.value,
+                } );
               }}
             />
           </fieldset>
@@ -357,9 +305,7 @@ export function NewNotaComponent(
       <button
         type="button"
         onClick={() => {
-          return setIsOpen(
-            !isOpen
-          );
+          return setIsOpen( !isOpen );
         }}
       >
         <span className="material-symbols-outlined">

@@ -4,91 +4,59 @@ import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import clientPromise from '#@/lib/connection/mongodb';
 import { IntNota } from '#@/lib/types/notas';
 
-export async function GET(
-  request: NextRequest 
-) {
+export async function GET( request: NextRequest ) {
   try {
     let notas;
 
     const {
       searchParams 
-    } = new URL(
-      request.url 
-    );
+    } = new URL( request.url );
 
-    const carpetaNumero = searchParams.get(
-      'carpetaNumero' 
-    );
+    const carpetaNumero = searchParams.get( 'carpetaNumero' );
 
     if ( carpetaNumero ) {
-      notas = await getNotas(
-        Number(
-          carpetaNumero 
-        ) 
-      );
+      notas = await getNotas( Number( carpetaNumero ) );
     } else {
       notas = await getNotas();
     }
 
-    return NextResponse.json(
-      notas 
-    );
+    return NextResponse.json( notas );
   } catch ( error ) {
-    return NextResponse.json(
-      null 
-    );
+    return NextResponse.json( null );
   }
 }
 
-export async function POST(
-  request: NextRequest 
-) {
+export async function POST( request: NextRequest ) {
   try {
     const incomingNote = ( await request.json() ) as IntNota;
 
     const client = await clientPromise;
 
     if ( !client ) {
-      throw new Error(
-        'no hay cliente mongólico' 
-      );
+      throw new Error( 'no hay cliente mongólico' );
     }
 
-    const db = client.db(
-      'RyS' 
-    );
+    const db = client.db( 'RyS' );
 
-    const collection = db.collection<IntNota>(
-      'Notas' 
-    );
+    const collection = db.collection<IntNota>( 'Notas' );
 
-    const updatedNote = await collection.insertOne(
-      incomingNote 
-    );
+    const updatedNote = await collection.insertOne( incomingNote );
 
     if ( !updatedNote ) {
-      throw new Error(
-        'no se actualizó la notas' 
-      );
+      throw new Error( 'no se actualizó la notas' );
     }
 
     const json = JSON.stringify(
       updatedNote, null, 2 
     );
 
-    console.log(
-      `POST en api/Notas es ${ json }` 
-    );
+    console.log( `POST en api/Notas es ${ json }` );
 
-    return NextResponse.json(
-      updatedNote 
-    );
+    return NextResponse.json( updatedNote );
   } catch ( error ) {
-    console.log(
-      `POST en api/Notas arrojó un error ${ JSON.stringify(
-        error, null, 2 
-      ) }`, 
-    );
+    console.log( `POST en api/Notas arrojó un error ${ JSON.stringify(
+      error, null, 2 
+    ) }`, );
 
     return NextResponse.json(
       error, {
@@ -98,27 +66,19 @@ export async function POST(
   }
 }
 
-export async function PUT(
-  request: NextRequest 
-) {
+export async function PUT( request: NextRequest ) {
   try {
     const incomingNote = ( await request.json() ) as IntNota;
 
     const client = await clientPromise;
 
     if ( !client ) {
-      throw new Error(
-        'no hay cliente mongólico' 
-      );
+      throw new Error( 'no hay cliente mongólico' );
     }
 
-    const db = client.db(
-      'RyS' 
-    );
+    const db = client.db( 'RyS' );
 
-    const collection = db.collection<IntNota>(
-      'Notas' 
-    );
+    const collection = db.collection<IntNota>( 'Notas' );
 
     const updatedNote = await collection.findOneAndUpdate(
       {
@@ -134,23 +94,17 @@ export async function PUT(
     );
 
     if ( !updatedNote ) {
-      throw new Error(
-        'no se actualizó la notas' 
-      );
+      throw new Error( 'no se actualizó la notas' );
     }
 
     const json = JSON.stringify(
       updatedNote, null, 2 
     );
 
-    console.log(
-      `PUT en api/Notas es ${ json }` 
-    );
+    console.log( `PUT en api/Notas es ${ json }` );
 
     return new NextResponse(
-      JSON.stringify(
-        updatedNote 
-      ), {
+      JSON.stringify( updatedNote ), {
         status : 200,
         headers: {
           'Content-Type': 'application/json',
@@ -158,11 +112,9 @@ export async function PUT(
       } 
     );
   } catch ( error ) {
-    console.log(
-      `PUT en api/Notas arrojó un error ${ JSON.stringify(
-        error, null, 2 
-      ) }`, 
-    );
+    console.log( `PUT en api/Notas arrojó un error ${ JSON.stringify(
+      error, null, 2 
+    ) }`, );
 
     return NextResponse.json(
       error, {

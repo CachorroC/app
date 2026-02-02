@@ -6,23 +6,17 @@ import { Dispatch,
   useContext,
   useReducer, } from 'react';
 
-const NotasSortContext = createContext<IntNota[] | null>(
-  null 
-);
+const NotasSortContext = createContext<IntNota[] | null>( null );
 
-const NotasSortDispatchContext = createContext<Dispatch<NotaAction> | null>(
-  null, 
-);
+const NotasSortDispatchContext = createContext<Dispatch<NotaAction> | null>( null, );
 
-export function NotasSortProvider(
-  {
-    children,
-    notas,
-  }: {
-    children: ReactNode;
-    notas: IntNota[];
-  } 
-) {
+export function NotasSortProvider( {
+  children,
+  notas,
+}: {
+  children: ReactNode;
+  notas   : IntNota[];
+} ) {
   const [
     notasReduced,
     dispatchNotas
@@ -40,28 +34,20 @@ export function NotasSortProvider(
 }
 
 export function useNotaSort() {
-  const context = useContext(
-    NotasSortContext 
-  );
+  const context = useContext( NotasSortContext );
 
   if ( context === null ) {
-    throw new Error(
-      'useNotaSort  must be used inside a notasort provider r' 
-    );
+    throw new Error( 'useNotaSort  must be used inside a notasort provider r' );
   }
 
   return context;
 }
 
 export function useNotaSortDispatch() {
-  const context = useContext(
-    NotasSortDispatchContext 
-  );
+  const context = useContext( NotasSortDispatchContext );
 
   if ( context === null ) {
-    throw new Error(
-      'useSortDispatchNotas must be used inside a NotasProvider' 
-    );
+    throw new Error( 'useSortDispatchNotas must be used inside a NotasProvider' );
   }
 
   return context;
@@ -100,175 +86,165 @@ export function notasReducer(
             case 'updatedAt': {
               return [
                 ...notas
-              ].sort(
-                (
-                  a, b 
-                ) => {
-                  if (
-                    !a.updatedAt
+              ].sort( (
+                a, b 
+              ) => {
+                if (
+                  !a.updatedAt
               || a.updatedAt === undefined
               || a.updatedAt.toString() === 'Invalid Date'
-                  ) {
-                    return sorter[ 2 ];
-                  }
+                ) {
+                  return sorter[ 2 ];
+                }
 
-                  if (
-                    !b.updatedAt
+                if (
+                  !b.updatedAt
               || b.updatedAt === undefined
               || b.updatedAt.toString() === 'Invalid Date'
-                  ) {
-                    return sorter[ 0 ];
-                  }
+                ) {
+                  return sorter[ 0 ];
+                }
 
-                  const x = a.updatedAt;
+                const x = a.updatedAt;
 
-                  const y = b.updatedAt;
+                const y = b.updatedAt;
 
-                  if ( x < y ) {
-                    return sorter[ 2 ];
-                  }
+                if ( x < y ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( x > y ) {
-                    return sorter[ 0 ];
-                  }
+                if ( x > y ) {
+                  return sorter[ 0 ];
+                }
 
-                  return sorter[ 1 ];
-                } 
-              );
+                return sorter[ 1 ];
+              } );
             }
 
             case 'createdAt': {
               return [
                 ...notas
-              ].sort(
-                (
-                  a, b 
-                ) => {
-                  if (
-                    !a.createdAt
+              ].sort( (
+                a, b 
+              ) => {
+                if (
+                  !a.createdAt
               || a.createdAt === undefined
               || a.createdAt.toString() === 'Invalid Date'
-                  ) {
-                    return sorter[ 2 ];
-                  }
+                ) {
+                  return sorter[ 2 ];
+                }
 
-                  if (
-                    !b.createdAt
+                if (
+                  !b.createdAt
               || b.createdAt === undefined
               || b.createdAt.toString() === 'Invalid Date'
-                  ) {
-                    return sorter[ 0 ];
-                  }
+                ) {
+                  return sorter[ 0 ];
+                }
 
-                  const x = a.createdAt;
+                const x = a.createdAt;
 
-                  const y = b.createdAt;
+                const y = b.createdAt;
 
-                  if ( x < y ) {
-                    return sorter[ 2 ];
-                  }
+                if ( x < y ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( x > y ) {
-                    return sorter[ 0 ];
-                  }
+                if ( x > y ) {
+                  return sorter[ 0 ];
+                }
 
-                  return sorter[ 1 ];
-                } 
-              );
+                return sorter[ 1 ];
+              } );
             }
 
             case 'dueDate': {
               return [
                 ...notas
-              ].sort(
-                (
-                  a, b 
-                ) => {
-                  if (
-                    !a.dueDate
+              ].sort( (
+                a, b 
+              ) => {
+                if (
+                  !a.dueDate
               || a.dueDate === undefined
               || a.dueDate.toString() === 'Invalid Date'
-                  ) {
-                    return sorter[ 2 ];
-                  }
+                ) {
+                  return sorter[ 2 ];
+                }
 
-                  if (
-                    !b.dueDate
+                if (
+                  !b.dueDate
               || b.dueDate === undefined
               || b.dueDate.toString() === 'Invalid Date'
-                  ) {
-                    return sorter[ 0 ];
-                  }
+                ) {
+                  return sorter[ 0 ];
+                }
 
-                  const x = a.dueDate;
+                const x = a.dueDate;
 
-                  const y = b.dueDate;
+                const y = b.dueDate;
 
-                  if ( x < y ) {
-                    return sorter[ 2 ];
-                  }
+                if ( x < y ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( x > y ) {
-                    return sorter[ 0 ];
-                  }
+                if ( x > y ) {
+                  return sorter[ 0 ];
+                }
 
-                  return sorter[ 1 ];
-                } 
-              );
+                return sorter[ 1 ];
+              } );
             }
 
             case 'id': {
               return [
                 ...notas
-              ].sort(
-                (
-                  a, b 
-                ) => {
-                  const valortotalA = a.id ?? 0;
+              ].sort( (
+                a, b 
+              ) => {
+                const valortotalA = a.id ?? 0;
 
-                  const valortotalB = b.id ?? 0;
+                const valortotalB = b.id ?? 0;
 
-                  if ( valortotalA < valortotalB ) {
-                    return sorter[ 2 ];
-                  } else if ( valortotalA > valortotalB ) {
-                    return sorter[ 0 ];
-                  }
+                if ( valortotalA < valortotalB ) {
+                  return sorter[ 2 ];
+                } else if ( valortotalA > valortotalB ) {
+                  return sorter[ 0 ];
+                }
 
-                  return 0;
-                } 
-              );
+                return 0;
+              } );
             }
 
             default: {
               return [
                 ...notas
-              ].sort(
-                (
-                  a, b 
-                ) => {
-                  const aSortingKey = a[ sortingKey ];
+              ].sort( (
+                a, b 
+              ) => {
+                const aSortingKey = a[ sortingKey ];
 
-                  const bSortingKey = b[ sortingKey ];
+                const bSortingKey = b[ sortingKey ];
 
-                  if ( !aSortingKey || aSortingKey === undefined ) {
-                    return sorter[ 2 ];
-                  }
+                if ( !aSortingKey || aSortingKey === undefined ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( !bSortingKey || bSortingKey === undefined ) {
-                    return sorter[ 0 ];
-                  }
+                if ( !bSortingKey || bSortingKey === undefined ) {
+                  return sorter[ 0 ];
+                }
 
-                  if ( aSortingKey < bSortingKey ) {
-                    return sorter[ 2 ];
-                  }
+                if ( aSortingKey < bSortingKey ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( aSortingKey > bSortingKey ) {
-                    return sorter[ 0 ];
-                  }
+                if ( aSortingKey > bSortingKey ) {
+                  return sorter[ 0 ];
+                }
 
-                  return 0;
-                } 
-              );
+                return 0;
+              } );
             }
         }
       }
@@ -283,27 +259,19 @@ export function notasReducer(
       }
 
       case 'changed': {
-        return notas.map(
-          (
-            t 
-          ) => {
-            if ( t.id === action.nota.id ) {
-              return action.nota;
-            }
+        return notas.map( ( t ) => {
+          if ( t.id === action.nota.id ) {
+            return action.nota;
+          }
 
-            return t;
-          } 
-        );
+          return t;
+        } );
       }
 
       case 'deleted': {
-        return notas.filter(
-          (
-            t 
-          ) => {
-            return t.id !== action.id;
-          } 
-        );
+        return notas.filter( ( t ) => {
+          return t.id !== action.id;
+        } );
       }
 
       case 'reset': {
@@ -313,41 +281,39 @@ export function notasReducer(
       default: {
         return [
           ...notas
-        ].sort(
-          (
-            a, b 
-          ) => {
-            if (
-              !a.dueDate
+        ].sort( (
+          a, b 
+        ) => {
+          if (
+            !a.dueDate
           || a.dueDate === undefined
           || a.dueDate.toString() === 'Invalid Date'
-            ) {
-              return 1;
-            }
+          ) {
+            return 1;
+          }
 
-            if (
-              !b.dueDate
+          if (
+            !b.dueDate
           || b.dueDate === undefined
           || b.dueDate.toString() === 'Invalid Date'
-            ) {
-              return -1;
-            }
+          ) {
+            return -1;
+          }
 
-            const x = a.dueDate;
+          const x = a.dueDate;
 
-            const y = b.dueDate;
+          const y = b.dueDate;
 
-            if ( x < y ) {
-              return 1;
-            }
+          if ( x < y ) {
+            return 1;
+          }
 
-            if ( x > y ) {
-              return -1;
-            }
+          if ( x > y ) {
+            return -1;
+          }
 
-            return 0;
-          } 
-        );
+          return 0;
+        } );
       }
   }
 }

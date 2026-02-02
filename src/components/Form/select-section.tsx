@@ -7,19 +7,17 @@ import { useState } from 'react';
 import styles from '#@/components/Buttons/buttons.module.css';
 import layout from '#@/styles/layout.module.css';
 
-export const SelectSection = (
-  {
-    name,
-    title,
-    options,
-    initialValue,
-  }: {
-    name: FieldPath<IntCarpeta>;
-    title: string;
-    options: string[];
-    initialValue?: string;
-  } 
-) => {
+export const SelectSection = ( {
+  name,
+  title,
+  options,
+  initialValue,
+}: {
+  name         : FieldPath<IntCarpeta>;
+  title        : string;
+  options      : string[];
+  initialValue?: string;
+} ) => {
   const {
     setValue 
   } = useFormContext<IntCarpeta>();
@@ -27,21 +25,15 @@ export const SelectSection = (
   const [
     isOptionsOpen,
     setIsOptionsOpen
-  ] = useState(
-    false 
-  );
+  ] = useState( false );
 
   return (
     <section className={layout.sectionColumn}>
       <div
         onClick={() => {
-          setIsOptionsOpen(
-            (
-              o 
-            ) => {
-              return !o;
-            } 
-          );
+          setIsOptionsOpen( ( o ) => {
+            return !o;
+          } );
         }}
         className={layout.segmentRow}
       >
@@ -55,33 +47,27 @@ export const SelectSection = (
 
       {isOptionsOpen && (
         <section className={layout.segmentRow}>
-          {options.map(
-            (
-              option 
-            ) => {
-              return (
-                <button
-                  type="button"
-                  className={
-                    initialValue && option === initialValue
-                      ? styles.buttonActiveCategory
-                      : styles.buttonPassiveCategory
-                  }
-                  onClick={(
-                    e 
-                  ) => {
-                    e.stopPropagation();
-                    setValue(
-                      name, option 
-                    );
-                  }}
-                  key={option}
-                >
-                  <p className={styles.text}>{option}</p>
-                </button>
-              );
-            } 
-          )}
+          {options.map( ( option ) => {
+            return (
+              <button
+                type="button"
+                className={
+                  initialValue && option === initialValue
+                    ? styles.buttonActiveCategory
+                    : styles.buttonPassiveCategory
+                }
+                onClick={( e ) => {
+                  e.stopPropagation();
+                  setValue(
+                    name, option 
+                  );
+                }}
+                key={option}
+              >
+                <p className={styles.text}>{option}</p>
+              </button>
+            );
+          } )}
         </section>
       )}
     </section>

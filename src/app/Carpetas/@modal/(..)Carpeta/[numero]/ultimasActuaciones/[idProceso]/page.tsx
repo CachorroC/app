@@ -11,6 +11,7 @@ import { ConsultaActuacion } from '#@/lib/types/actuaciones';
 import { ActuacionComponent, ActuacionErrorComponent } from '#@/components/Actuaciones/actuacion-component';
 import { Metadata } from 'next';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+
 /*
 export async function generateStaticParams() {
   const carpetas = await getCarpetas();
@@ -40,22 +41,16 @@ export async function generateStaticParams() {
 
 }
  */
-export async function generateMetadata(
-  {
-    params,
-  }: {
-    params: Promise<{ numero: string }>;
-  }
-): Promise<Metadata> {
+export async function generateMetadata( {
+  params,
+}: {
+  params: Promise<{ numero: string }>;
+} ): Promise<Metadata> {
   const {
     numero
   } = await params;
 
-  const product = await getCarpetabyNumero(
-    Number(
-      numero
-    )
-  );
+  const product = await getCarpetabyNumero( Number( numero ) );
 
   if ( !product ) {
     return {
@@ -77,15 +72,10 @@ export async function generateMetadata(
   };
 }
 
-async function ActuacionesListModalget(
-  {
-    idProceso
-  }: { idProceso: number }
-) {
-  const data = await fetch(
-    `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
-
-  );
+async function ActuacionesListModalget( {
+  idProceso
+}: { idProceso: number } ) {
+  const data = await fetch( `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, );
 
   if ( !data.ok ) {
     return ( <ActuacionErrorComponent /> );
@@ -95,27 +85,21 @@ async function ActuacionesListModalget(
     actuaciones
   } = ( await data.json() ) as ConsultaActuacion;
 
-  return actuaciones.map(
-    (
-      actuacion
-    ) => {
-      return (
-        <ActuacionComponent
-          key={actuacion.idRegActuacion}
-          incomingActuacion={actuacion}
-        />
-      );
-    }
-  );
+  return actuaciones.map( ( actuacion ) => {
+    return (
+      <ActuacionComponent
+        key={actuacion.idRegActuacion}
+        incomingActuacion={actuacion}
+      />
+    );
+  } );
 }
 
-export default async function Page(
-  {
-    params,
-  }: {
-    params: Promise<{ numero: string; idProceso: string }>;
-  }
-) {
+export default async function Page( {
+  params,
+}: {
+  params: Promise<{ numero: string; idProceso: string }>;
+} ) {
   const {
     numero, idProceso
   } = await params;
@@ -124,13 +108,9 @@ export default async function Page(
     return notFound();
   }
 
-  const carpetaNumero = Number(
-    numero
-  );
+  const carpetaNumero = Number( numero );
 
-  const carpeta = await getCarpetabyNumero(
-    carpetaNumero
-  );
+  const carpeta = await getCarpetabyNumero( carpetaNumero );
 
   return (
     <>
@@ -165,10 +145,7 @@ export default async function Page(
         </div>
 
         <Suspense fallback={<ModalLoader />}>
-          <ActuacionesListModalget idProceso={Number(
-            idProceso
-          )}
-          />
+          <ActuacionesListModalget idProceso={Number( idProceso )}/>
         </Suspense>
       </Suspense>
     </>

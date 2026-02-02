@@ -6,11 +6,9 @@ import styles from './styles.module.css';
 import layout from '#@/styles/layout.module.css';
 import {  addTaskToPrisma } from '#@/app/Tareas/actions';
 
-export function AddTask(
-  {
-    carpetaNumero
-  }: { carpetaNumero?: number }
-) {
+export function AddTask( {
+  carpetaNumero
+}: { carpetaNumero?: number } ) {
   /*
   const [
     taskState,
@@ -160,9 +158,7 @@ export function AddTask(
           <input
             type="date"
             name="dueDate"
-            defaultValue={InputDateHelper(
-              taskState.dueDate
-            )}/*
+            defaultValue={InputDateHelper( taskState.dueDate )}/*
             onChange={(
               e
             ) => {

@@ -1,10 +1,8 @@
-export default async function Page(
-  {
-    params,
-  }: {
-    params: Promise<{ ano: string; mes: string; dia: string }>;
-  } 
-) {
+export default async function Page( {
+  params,
+}: {
+  params: Promise<{ ano: string; mes: string; dia: string }>;
+} ) {
   const {
     ano, mes, dia 
   } = await params;

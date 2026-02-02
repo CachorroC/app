@@ -13,31 +13,19 @@ export default async function NotFound() {
     key,
     value
   ] of headersList ) {
-    mapper.add(
-      `${ key } : ${ value }` 
-    );
+    mapper.add( `${ key } : ${ value }` );
   }
 
-  const domain = headersList.get(
-    'next-url' 
-  ) ?? '';
+  const domain = headersList.get( 'next-url' ) ?? '';
 
   const [
     , firstRoute, , thirdRoute
-  ] = domain.split(
-    '/' 
-  );
+  ] = domain.split( '/' );
 
-  const arrMap = Array.from(
-    mapper 
-  );
+  const arrMap = Array.from( mapper );
 
   if ( firstRoute === 'Notas' ) {
-    const carpeta = await getNotaById(
-      Number(
-        thirdRoute 
-      ) 
-    );
+    const carpeta = await getNotaById( Number( thirdRoute ) );
 
     if ( carpeta ) {
       linker = <Link href={`/Carpeta/${ carpeta.carpetaNumero }`}></Link>;
@@ -47,13 +35,11 @@ export default async function NotFound() {
   return (
     <div>
       <h2>Not Found: {domain}</h2>
-      {arrMap.map(
-        (
-          mp, i
-        ) => {
-          return <p key={i}>{mp}</p>;
-        } 
-      )}
+      {arrMap.map( (
+        mp, i
+      ) => {
+        return <p key={i}>{mp}</p>;
+      } )}
       <p>Could not find requested resource</p>
       {linker}
     </div>

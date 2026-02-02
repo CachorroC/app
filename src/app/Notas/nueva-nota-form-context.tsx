@@ -10,17 +10,13 @@ import { ReactNode,
 import { FormProvider, useForm } from 'react-hook-form';
 
 const NuevaNotaContext = createContext<{
-  notaFormState: NewNota;
+  notaFormState   : NewNota;
   setNotaFormState: Dispatch<SetStateAction<NewNota>>;
-} | null>(
-  null 
-);
+} | null>( null );
 
-export function NuevaNotaFormProvider(
-  {
-    children 
-  }: { children: ReactNode } 
-) {
+export function NuevaNotaFormProvider( {
+  children 
+}: { children: ReactNode } ) {
   const pathname = usePathname();
 
   const newDater = new Date();
@@ -43,17 +39,13 @@ export function NuevaNotaFormProvider(
   const [
     notaFormState,
     setNotaFormState
-  ] = useState<NewNota>(
-    newNota 
-  );
+  ] = useState<NewNota>( newNota );
 
-  const nuevaNotaMethods = useForm<NewNota>(
-    {
-      defaultValues   : notaFormState,
-      shouldFocusError: true,
-      criteriaMode    : 'all',
-    } 
-  );
+  const nuevaNotaMethods = useForm<NewNota>( {
+    defaultValues   : notaFormState,
+    shouldFocusError: true,
+    criteriaMode    : 'all',
+  } );
 
   return (
     <NuevaNotaContext.Provider
@@ -68,14 +60,10 @@ export function NuevaNotaFormProvider(
 }
 
 export function useNuevaNotaContext() {
-  const context = useContext(
-    NuevaNotaContext 
-  );
+  const context = useContext( NuevaNotaContext );
 
   if ( !context ) {
-    throw new Error(
-      'Nueva Nota context must be used within a nueva nota provider', 
-    );
+    throw new Error( 'Nueva Nota context must be used within a nueva nota provider', );
   }
 
   return context;

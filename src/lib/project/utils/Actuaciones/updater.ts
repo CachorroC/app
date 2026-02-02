@@ -1,29 +1,19 @@
 import { outActuacion } from '#@/lib/types/actuaciones';
 import  prisma  from '#@/lib/connection/prisma';
 
-export async function updateActuacionesInPrisma(
-  incomingActuaciones: outActuacion[],
-) {
+export async function updateActuacionesInPrisma( incomingActuaciones: outActuacion[], ) {
   try {
-    return await prisma.actuacion.createMany(
-      {
-        data: incomingActuaciones.map(
-          (
-            actuacion
-          ) => {
-            return {
-              ...actuacion,
-              idRegActuacion: `${ actuacion.idRegActuacion }`
-            };
-          }
-        ),
-        skipDuplicates: true,
-      }
-    );
+    return await prisma.actuacion.createMany( {
+      data: incomingActuaciones.map( ( actuacion ) => {
+        return {
+          ...actuacion,
+          idRegActuacion: `${ actuacion.idRegActuacion }`
+        };
+      } ),
+      skipDuplicates: true,
+    } );
   } catch ( error ) {
-    console.log(
-      error
-    );
+    console.log( error );
 
     return {
       count: 0,
@@ -31,31 +21,25 @@ export async function updateActuacionesInPrisma(
   }
 }
 
-export async function updateUltimaActuacionInPrisma(
-  incomingActuacion: outActuacion,
-) {
+export async function updateUltimaActuacionInPrisma( incomingActuacion: outActuacion, ) {
   try {
     const {
       fechaActuacion, idProceso, idRegActuacion
     } = incomingActuacion;
 
-    const carpeta = await prisma.carpeta.findFirstOrThrow(
-      {
-        where: {
-          idProcesos: {
-            has: idProceso,
-          },
+    const carpeta = await prisma.carpeta.findFirstOrThrow( {
+      where: {
+        idProcesos: {
+          has: idProceso,
         },
-      }
-    );
+      },
+    } );
 
     const {
       fecha: savedDate, idRegUltimaAct, numero
     } = carpeta;
 
-    const incomingDate = new Date(
-      fechaActuacion
-    );
+    const incomingDate = new Date( fechaActuacion );
 
     if (
       !savedDate
@@ -63,83 +47,61 @@ export async function updateUltimaActuacionInPrisma(
       || savedDate < incomingDate
     ) {
       if ( idRegUltimaAct ) {
-        await fixOldActuacion(
-          idRegUltimaAct
-        );
+        await fixOldActuacion( idRegUltimaAct );
       }
 
       try {
-        await prisma.carpeta.update(
-          {
-            where: {
-              numero: numero,
-            },
-            data: {
-              fecha          : incomingDate,
-              revisado       : false,
-              ultimaActuacion: {
-                connectOrCreate: {
-                  where: {
-                    idRegActuacion: idRegActuacion,
-                  },
-                  create: {
-                    ...incomingActuacion,
-                    fechaActuacion: new Date(
-                      incomingActuacion.fechaActuacion
-                    ),
-                    fechaRegistro: new Date(
-                      incomingActuacion.fechaRegistro
-                    ),
-                    fechaFinal: incomingActuacion.fechaFinal
-                      ? new Date(
-                        incomingActuacion.fechaFinal
-                      )
-                      : null,
-                    fechaInicial: incomingActuacion.fechaInicial
-                      ? new Date(
-                        incomingActuacion.fechaInicial
-                      )
-                      : null,
-                    isUltimaAct:
+        await prisma.carpeta.update( {
+          where: {
+            numero: numero,
+          },
+          data: {
+            fecha          : incomingDate,
+            revisado       : false,
+            ultimaActuacion: {
+              connectOrCreate: {
+                where: {
+                  idRegActuacion: idRegActuacion,
+                },
+                create: {
+                  ...incomingActuacion,
+                  fechaActuacion: new Date( incomingActuacion.fechaActuacion ),
+                  fechaRegistro : new Date( incomingActuacion.fechaRegistro ),
+                  fechaFinal    : incomingActuacion.fechaFinal
+                    ? new Date( incomingActuacion.fechaFinal )
+                    : null,
+                  fechaInicial: incomingActuacion.fechaInicial
+                    ? new Date( incomingActuacion.fechaInicial )
+                    : null,
+                  isUltimaAct:
                     incomingActuacion.cant === incomingActuacion.consActuacion
                       ? true
                       : false,
-                  },
                 },
               },
             },
-          }
-        );
+          },
+        } );
       } catch ( error ) {
-        console.log(
-          error
-        );
+        console.log( error );
       }
     }
   } catch ( error ) {
-    console.log(
-      error
-    );
+    console.log( error );
   }
 }
 
-export async function fixOldActuacion(
-  idRegUltimaAct: string
-) {
+export async function fixOldActuacion( idRegUltimaAct: string ) {
   try {
-    await prisma.actuacion.update(
-      {
-        where: {
-          idRegActuacion: idRegUltimaAct,
-        },
-        data: {
-          isUltimaAct: false,
-        },
-      }
-    );
+    await prisma.actuacion.update( {
+      where: {
+        idRegActuacion: idRegUltimaAct,
+      },
+      data: {
+        isUltimaAct: false,
+      },
+    } );
   } catch ( error ) {
-    console.log(
-      error
-    );
+    console.log( error );
   }
 }

@@ -1,5 +1,5 @@
 export type Styles = {
-  installButton: string;
+  installButton          : string;
   materialSymbolsOutlined: string;
 };
 

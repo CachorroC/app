@@ -11,37 +11,29 @@ import { Dispatch,
 import { FormProvider, useForm } from 'react-hook-form';
 
 const CarpetaFormContext = createContext<{
-  carpetaFormState: IntCarpeta;
+  carpetaFormState   : IntCarpeta;
   setCarpetaFormState: Dispatch<SetStateAction<IntCarpeta>>;
-} | null>(
-  null
-);
+} | null>( null );
 
-export function CarpetaFormProvider(
-  {
-    children,
-    carpeta,
-  }: {
-    children: ReactNode;
-    carpeta: IntCarpeta;
-  }
-) {
+export function CarpetaFormProvider( {
+  children,
+  carpeta,
+}: {
+  children: ReactNode;
+  carpeta : IntCarpeta;
+} ) {
 
   const [
     carpetaFormState,
     setCarpetaFormState
-  ] = useState(
-    carpeta
-  );
+  ] = useState( carpeta );
 
 
-  const methods = useForm<IntCarpeta>(
-    {
-      defaultValues   : carpeta,
-      shouldFocusError: true,
-      criteriaMode    : 'firstError',
-    }
-  );
+  const methods = useForm<IntCarpeta>( {
+    defaultValues   : carpeta,
+    shouldFocusError: true,
+    criteriaMode    : 'firstError',
+  } );
 
   return (
     <CarpetaFormContext.Provider
@@ -58,14 +50,10 @@ export function CarpetaFormProvider(
 }
 
 export function useCarpetaFormContext() {
-  const context = useContext(
-    CarpetaFormContext
-  );
+  const context = useContext( CarpetaFormContext );
 
   if ( context === null ) {
-    throw new Error(
-      'useCarpetaFormContext must be used insed a carpeta form context provider',
-    );
+    throw new Error( 'useCarpetaFormContext must be used insed a carpeta form context provider', );
   }
 
   return context;

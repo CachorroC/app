@@ -5,75 +5,55 @@ import { useEffect, useState } from 'react';
 import { editllaveProceso } from './actions';
 import { entidadesJudiciales } from '#@/lib/data/keybuilder';
 
-export function ExpedienteFormComponent(
-  {
-    initialLLave,
-    numero,
-    id,
-  }: {
-    initialLLave: string;
-    numero: number;
-    id: number;
-  } 
-) {
+export function ExpedienteFormComponent( {
+  initialLLave,
+  numero,
+  id,
+}: {
+  initialLLave: string;
+  numero      : number;
+  id          : number;
+} ) {
   const [
     departamentoState,
     setDepartamentoState
-  ] = useState(
-    '00' 
-  );
+  ] = useState( '00' );
 
   const [
     municipioState,
     setMunicipioState
-  ] = useState(
-    '000' 
-  );
+  ] = useState( '000' );
 
   const [
     entidadState,
     setEntidadState
-  ] = useState(
-    '00' 
-  );
+  ] = useState( '00' );
 
   const [
     especialidadState,
     setEspecialidadState
-  ] = useState(
-    '00' 
-  );
+  ] = useState( '00' );
 
   const [
     despachoState,
     setDespachoState
-  ] = useState(
-    '000' 
-  );
+  ] = useState( '000' );
 
   const [
     anoState,
     setAnoState
-  ] = useState(
-    String(
-      new Date()
-        .getFullYear() 
-    ) 
-  );
+  ] = useState( String( new Date()
+    .getFullYear() ) );
 
   const [
     codigoState,
     setCodigoState
-  ] = useState(
-    '00000' 
-  );
+  ] = useState( '00000' );
 
   const [
     recursoState,
     setRecursoState
-  ] = useState(
-    '00' 
-  );
+  ] = useState( '00' );
 
   async function editKey() {
     const editor = await editllaveProceso(
@@ -83,21 +63,15 @@ export function ExpedienteFormComponent(
     );
 
     if ( editor.success ) {
-      alert(
-        `se cambió bien la llave del proceso: ${ editor.llaveProceso }` 
-      );
+      alert( `se cambió bien la llave del proceso: ${ editor.llaveProceso }` );
     } else {
-      alert(
-        `hubo un error ${ editor.llaveProceso }` 
-      );
+      alert( `hubo un error ${ editor.llaveProceso }` );
     }
   }
 
   useEffect(
     () => {
-      const matcher = initialLLave.matchAll(
-        /(\d{2})(\d{3})(\d{2})(\d{2})(\d{3})(\d{4})(\d{5})(\d+)/gm, 
-      );
+      const matcher = initialLLave.matchAll( /(\d{2})(\d{3})(\d{2})(\d{2})(\d{3})(\d{4})(\d{5})(\d+)/gm, );
 
       for ( const matched of matcher ) {
         const [
@@ -112,55 +86,31 @@ export function ExpedienteFormComponent(
           recurso,
         ] = matched;
 
-        setDepartamentoState(
-          deparamento 
-        );
-        setMunicipioState(
-          ciudad 
-        );
-        setEntidadState(
-          entidad 
-        );
-        setEspecialidadState(
-          especialidad 
-        );
+        setDepartamentoState( deparamento );
+        setMunicipioState( ciudad );
+        setEntidadState( entidad );
+        setEspecialidadState( especialidad );
 
-        setDespachoState(
-          despacho 
-        );
-        setAnoState(
-          ano 
-        );
-        setCodigoState(
-          codigoProceso 
-        );
-        setRecursoState(
-          recurso 
-        );
-        console.log(
-          total 
-        );
+        setDespachoState( despacho );
+        setAnoState( ano );
+        setCodigoState( codigoProceso );
+        setRecursoState( recurso );
+        console.log( total );
 
-        console.log(
-          matched 
-        );
+        console.log( matched );
       }
     }, [
       initialLLave
     ] 
   );
 
-  const selectedEntidad = entidadesJudiciales.find(
-    (
-      entidad 
-    ) => {
-      if ( entidad.codigo === entidadState ) {
-        return true;
-      }
+  const selectedEntidad = entidadesJudiciales.find( ( entidad ) => {
+    if ( entidad.codigo === entidadState ) {
+      return true;
+    }
 
-      return false;
-    } 
-  );
+    return false;
+  } );
 
   return (
     <form action={editKey}>
@@ -172,12 +122,8 @@ export function ExpedienteFormComponent(
           type="text"
           value={departamentoState}
           name="departamento"
-          onChange={(
-            e 
-          ) => {
-            return setDepartamentoState(
-              e.target.value 
-            );
+          onChange={( e ) => {
+            return setDepartamentoState( e.target.value );
           }}
         />
         <label htmlFor="municipio">municipio</label>
@@ -185,12 +131,8 @@ export function ExpedienteFormComponent(
           type="text"
           value={municipioState}
           name="municipio"
-          onChange={(
-            e 
-          ) => {
-            return setMunicipioState(
-              e.target.value 
-            );
+          onChange={( e ) => {
+            return setMunicipioState( e.target.value );
           }}
         />
         <label htmlFor="entidad">Entidad</label>
@@ -198,12 +140,8 @@ export function ExpedienteFormComponent(
           type="text"
           value={entidadState}
           name="entidad"
-          onChange={(
-            e 
-          ) => {
-            return setEntidadState(
-              e.target.value 
-            );
+          onChange={( e ) => {
+            return setEntidadState( e.target.value );
           }}
         />
         <label htmlFor="especialidad">Especialidad</label>
@@ -211,29 +149,36 @@ export function ExpedienteFormComponent(
           type="text"
           value={especialidadState}
           name="especialidad"
-          onChange={(
-            e 
-          ) => {
-            return setEspecialidadState(
-              e.target.value 
-            );
+          onChange={( e ) => {
+            return setEspecialidadState( e.target.value );
           }}
         />
         <label htmlFor="especialidad">especialidad</label>
         <select
           value={entidadState}
-          onChange={(
-            e 
-          ) => {
-            return setEntidadState(
-              e.target.value 
-            );
+          onChange={( e ) => {
+            return setEntidadState( e.target.value );
           }}
         >
-          {entidadesJudiciales.map(
-            (
-              entidad 
-            ) => {
+          {entidadesJudiciales.map( ( entidad ) => {
+            return (
+              <option
+                key={entidad.codigo}
+                value={entidad.codigo}
+              >
+                {entidad.nombre}
+              </option>
+            );
+          } )}
+        </select>
+        {selectedEntidad && (
+          <select
+            value={especialidadState}
+            onChange={( e ) => {
+              return setEspecialidadState( e.target.value );
+            }}
+          >
+            {selectedEntidad.especialidades.map( ( entidad ) => {
               return (
                 <option
                   key={entidad.codigo}
@@ -242,34 +187,7 @@ export function ExpedienteFormComponent(
                   {entidad.nombre}
                 </option>
               );
-            } 
-          )}
-        </select>
-        {selectedEntidad && (
-          <select
-            value={especialidadState}
-            onChange={(
-              e 
-            ) => {
-              return setEspecialidadState(
-                e.target.value 
-              );
-            }}
-          >
-            {selectedEntidad.especialidades.map(
-              (
-                entidad 
-              ) => {
-                return (
-                  <option
-                    key={entidad.codigo}
-                    value={entidad.codigo}
-                  >
-                    {entidad.nombre}
-                  </option>
-                );
-              } 
-            )}
+            } )}
           </select>
         )}
         <input
@@ -277,12 +195,8 @@ export function ExpedienteFormComponent(
           pattern="/(\d{2})/gm"
           value={despachoState}
           name="despacho"
-          onChange={(
-            e 
-          ) => {
-            return setDespachoState(
-              e.target.value 
-            );
+          onChange={( e ) => {
+            return setDespachoState( e.target.value );
           }}
         />
         <input
@@ -291,35 +205,23 @@ export function ExpedienteFormComponent(
           pattern="\d{4}"
           title="año expresado en cuatro digitos"
           name="ano"
-          onChange={(
-            e 
-          ) => {
-            return setAnoState(
-              e.target.value 
-            );
+          onChange={( e ) => {
+            return setAnoState( e.target.value );
           }}
         />
         <input
           type="text"
           value={codigoState}
           name="codigo"
-          onChange={(
-            e 
-          ) => {
-            return setCodigoState(
-              e.target.value 
-            );
+          onChange={( e ) => {
+            return setCodigoState( e.target.value );
           }}
         />
         <input
           value={recursoState}
           name="recurso"
-          onChange={(
-            e 
-          ) => {
-            return setRecursoState(
-              e.target.value 
-            );
+          onChange={( e ) => {
+            return setRecursoState( e.target.value );
           }}
         />
         <button type="submit">

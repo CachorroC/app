@@ -3,11 +3,9 @@ import { useEffect } from 'react';
 import styles from './styles.module.css';
 import { useSnackbarContext } from '#@/app/Context/main-context';
 
-export function Snackbar(
-  {
-    text 
-  }: { text: string } 
-) {
+export function Snackbar( {
+  text 
+}: { text: string } ) {
   const {
     isSnackbarOpen, setIsSnackbarOpen 
   } = useSnackbarContext();
@@ -16,9 +14,7 @@ export function Snackbar(
     () => {
       const timer = setTimeout(
         () => {
-          setIsSnackbarOpen(
-            false 
-          );
+          setIsSnackbarOpen( false );
         }, 1000 
       );
 
@@ -27,9 +23,7 @@ export function Snackbar(
       }
 
       return () => {
-        return clearTimeout(
-          timer 
-        );
+        return clearTimeout( timer );
       };
     }, [
       isSnackbarOpen,

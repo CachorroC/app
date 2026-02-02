@@ -8,17 +8,15 @@ import layout from '#@/styles/layout.module.css';
 import styles from './tonal.module.css';
 import buttons from './buttons.module.css';
 
-export const CopyButton = (
-  {
-    copyTxt,
-    horizontal,
-    name,
-  }: {
-    copyTxt: string;
-    horizontal?: boolean;
-    name: string;
-  }
-) => {
+export const CopyButton = ( {
+  copyTxt,
+  horizontal,
+  name,
+}: {
+  copyTxt    : string;
+  horizontal?: boolean;
+  name       : string;
+} ) => {
   const [
     value,
     copy
@@ -27,17 +25,13 @@ export const CopyButton = (
   const [
     isSnackbarOpen,
     setIsSnackbarOpen
-  ] = useState(
-    false
-  );
+  ] = useState( false );
 
   useEffect(
     () => {
       const timer = setTimeout(
         () => {
-          setIsSnackbarOpen(
-            false
-          );
+          setIsSnackbarOpen( false );
         }, 5000
       );
 
@@ -47,9 +41,7 @@ export const CopyButton = (
       }
 
       return () => {
-        return clearTimeout(
-          timer
-        );
+        return clearTimeout( timer );
       };
     }, [
       isSnackbarOpen
@@ -85,12 +77,8 @@ export const CopyButton = (
           className={ styles.button }
 
           onClick={() => {
-            copy(
-              copyTxt
-            );
-            setIsSnackbarOpen(
-              true
-            );
+            copy( copyTxt );
+            setIsSnackbarOpen( true );
           }}
         >
           <span className={`material-symbols-outlined ${ styles.icon }`}>

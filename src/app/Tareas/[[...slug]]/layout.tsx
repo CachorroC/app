@@ -6,15 +6,13 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { AddTask } from '#@/components/Tareas/AddTask';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 
-export default async function Layout(
-  {
-    params,
-    children,
-  }: {
-    params: Promise<{ slug?: string[] }>;
-    children: ReactNode;
-  }
-) {
+export default async function Layout( {
+  params,
+  children,
+}: {
+  params  : Promise<{ slug?: string[] }>;
+  children: ReactNode;
+} ) {
   let title;
 
   const {
@@ -31,13 +29,7 @@ export default async function Layout(
     title = (
       <OutputDateHelper
         incomingDate={new Date(
-          Number(
-            ano
-          ), Number(
-            mes
-          ) - 1, Number(
-            dia
-          )
+          Number( ano ), Number( mes ) - 1, Number( dia )
         )}
       />
     );

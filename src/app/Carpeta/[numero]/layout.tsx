@@ -77,22 +77,16 @@ export async function generateStaticParams() {
   return chunks[ chunks.length - 1 ];
 }
  */
-export async function generateMetadata(
-  {
-    params,
-  }: {
-    params: Promise<{ numero: string }>;
-  }
-): Promise<Metadata> {
+export async function generateMetadata( {
+  params,
+}: {
+  params: Promise<{ numero: string }>;
+} ): Promise<Metadata> {
   const {
     numero
   } = await params;
 
-  const product = await getCarpetabyNumero(
-    Number(
-      numero
-    )
-  );
+  const product = await getCarpetabyNumero( Number( numero ) );
 
   if ( !product ) {
     return {
@@ -114,28 +108,22 @@ export async function generateMetadata(
   };
 }
 
-export default async function LayoutCarpetaMain(
-  {
-    children,
-    top,
-    right,
-    params,
-  }: {
-    children: ReactNode;
-    top: ReactNode;
-    right: ReactNode;
-    params: Promise<{ numero: string }>;
-  }
-) {
+export default async function LayoutCarpetaMain( {
+  children,
+  top,
+  right,
+  params,
+}: {
+  children: ReactNode;
+  top     : ReactNode;
+  right   : ReactNode;
+  params  : Promise<{ numero: string }>;
+} ) {
   const {
     numero
   } = await params;
 
-  const carpeta = await getCarpetabyNumero(
-    Number(
-      numero
-    )
-  );
+  const carpeta = await getCarpetabyNumero( Number( numero ) );
 
   if ( !carpeta ) {
     return notFound();
@@ -184,9 +172,7 @@ export default async function LayoutCarpetaMain(
         <Suspense fallback={<Loader />}>
           <ExpedienteFormComponent
             initialLLave={carpeta.llaveProceso}
-            numero={Number(
-              numero
-            )}
+            numero={Number( numero )}
             id={carpeta.id}
           />
         </Suspense>

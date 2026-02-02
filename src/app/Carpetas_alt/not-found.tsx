@@ -4,9 +4,7 @@ import style from '#@/components/Card/card.module.css';
 export default async function NotFound() {
   const headersList = await headers();
 
-  const domain = headersList.get(
-    'host' 
-  );
+  const domain = headersList.get( 'host' );
 
   return (
     <div className={style.card}>

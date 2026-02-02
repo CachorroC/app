@@ -8,13 +8,11 @@ export default function Page() {
 
   return (
     <>
-      {lrs.map(
-        (
-          lr, i 
-        ) => {
-          return <p key={i}>{lr}</p>;
-        } 
-      )}
+      {lrs.map( (
+        lr, i 
+      ) => {
+        return <p key={i}>{lr}</p>;
+      } )}
     </>
   );
 }

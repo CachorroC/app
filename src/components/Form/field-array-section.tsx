@@ -12,12 +12,10 @@ export function ObligacionesComponent() {
 
   const {
     fields, append, remove, prepend
-  } = useFieldArray(
-    {
-      control,
-      name: 'demanda.obligacion',
-    }
-  );
+  } = useFieldArray( {
+    control,
+    name: 'demanda.obligacion',
+  } );
 
 
   return (
@@ -28,52 +26,44 @@ export function ObligacionesComponent() {
       >
         {'Obligaciones del deudor'}
       </label>
-      {fields.map(
-        (
-          field, index
-        ) => {
-          return (
-            <section
-              className={layout.segmentRow}
+      {fields.map( (
+        field, index
+      ) => {
+        return (
+          <section
+            className={layout.segmentRow}
+            key={field.id}
+          >
+            <label
+              className={`${ styles.label } ${ typography.titleMedium }`}
+              htmlFor={`demanda.obligacion.${ index }`}
+            >{`Obligacion ${ index + 1 }`}</label>
+            <input
+              className={styles.textArea}
               key={field.id}
+              {...register( `demanda.obligacion.${ index }` )}
+            />
+            <button
+              className={styles.button}
+              type="button"
+              onClick={() => {
+                return remove( index );
+              }}
             >
-              <label
-                className={`${ styles.label } ${ typography.titleMedium }`}
-                htmlFor={`demanda.obligacion.${ index }`}
-              >{`Obligacion ${ index + 1 }`}</label>
-              <input
-                className={styles.textArea}
-                key={field.id}
-                {...register(
-                  `demanda.obligacion.${ index }`
-                )}
-              />
-              <button
-                className={styles.button}
-                type="button"
-                onClick={() => {
-                  return remove(
-                    index
-                  );
-                }}
-              >
-                <span className={`material-symbols-outlined ${ styles.icon }`}>
-                  bookmark_remove
-                </span>
-              </button>
-            </section>
-          );
-        }
-      )}
+              <span className={`material-symbols-outlined ${ styles.icon }`}>
+                bookmark_remove
+              </span>
+            </button>
+          </section>
+        );
+      } )}
 
       <section className={layout.sectionRow}>
         <button
           className={styles.button}
           type="button"
           onClick={() => {
-            append(
-              ''
-            );
+            append( '' );
           }}
         >
           <span className={styles.text}>agregar</span>
@@ -86,9 +76,7 @@ export function ObligacionesComponent() {
           className={styles.button}
           type="button"
           onClick={() => {
-            prepend(
-              ''
-            );
+            prepend( '' );
           }}
         >
           <span className={styles.text}>agregar antes</span>

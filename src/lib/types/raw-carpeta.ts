@@ -1,10 +1,10 @@
 import { Category, TipoProceso } from './carpetas';
 
 export interface TrulyCruda {
-  demanda: DemandaRaw;
+  demanda  : DemandaRaw;
   codeudor?: rawCodeudor;
-  deudor: DeudorRaw;
-  numero: number;
+  deudor   : DeudorRaw;
+  numero   : number;
 }
 
 export interface CarpetaRaw extends TrulyCruda {
@@ -12,89 +12,89 @@ export interface CarpetaRaw extends TrulyCruda {
 }
 
 export interface NuevaCarpeta {
-  numero: number;
+  numero  : number;
   category: Category;
   deudor: {
-    primerNombre: string;
-    segundoNombre?: string;
-    primerApellido: string;
+    primerNombre    : string;
+    segundoNombre?  : string;
+    primerApellido  : string;
     segundoApellido?: string;
-    cedula: number;
+    cedula          : number;
 
     direccion?: string;
-    email?: string;
+    email?    : string;
     tel: {
       celular?: number;
-      fijo?: number;
+      fijo?   : number;
     };
   };
   demanda: {
-    capitalAdeudado: number;
+    capitalAdeudado        : number;
     entregaGarantiasAbogado: string; //? Date
-    obligacion: ( number | string )[] | null;
-    tipoProceso: TipoProceso;
-    vencimientoPagare: string[]; //?Date[]
-    fechaPresentacion?: string[]; //?Date[]
+    obligacion             : ( number | string )[] | null;
+    tipoProceso            : TipoProceso;
+    vencimientoPagare      : string[]; //?Date[]
+    fechaPresentacion?     : string[]; //?Date[]
   };
 }
 
 export interface DeudorRaw {
-  cedula: number | string;
+  cedula    : number | string;
   direccion?: number | string;
-  email?: number | string;
-  nombre: string;
-  telefono?: number | string;
+  email?    : number | string;
+  nombre    : string;
+  telefono? : number | string;
 }
 
 export interface rawCodeudor {
-  cedula?: number | string;
-  nombre?: number | string;
+  cedula?   : number | string;
+  nombre?   : number | string;
   direccion?: number | string;
-  telefono?: number | string;
+  telefono? : number | string;
 }
 
 export interface DemandaRaw {
-  llaveProceso: string;
-  capitalAdeudado?: number | string;
-  departamento?: string;
+  llaveProceso            : string;
+  capitalAdeudado?        : number | string;
+  departamento?           : string;
   entregaGarantiasAbogado?: number | string;
-  tipoProceso?: string;
-  mandamientoPago?: string;
+  tipoProceso?            : string;
+  mandamientoPago?        : string;
   medidasCautelares?: {
     fechaOrdenaMedidas?: string;
-    medidaSolicitada?: string;
+    medidaSolicitada?  : string;
   };
-  etapaProcesal?: number | string;
+  etapaProcesal?    : number | string;
   fechaPresentacion?: number | string;
-  municipio?: string;
+  municipio?        : string;
   obligacion?: {
     A?: number | string;
     B?: number | string;
   };
-  notificacion?: rawNotificacion;
-  radicado?: number | string;
+  notificacion?     : rawNotificacion;
+  radicado?         : number | string;
   vencimientoPagare?: number | string;
 }
 
 export interface rawNotificacion {
-  '291'?: Theraw291;
-  '292'?: Theraw292;
-  certimail?: string;
-  fisico?: FisicoEnum | number;
-  tipo?: number | string;
+  '291'?         : Theraw291;
+  '292'?         : Theraw292;
+  certimail?     : string;
+  fisico?        : FisicoEnum | number;
+  tipo?          : number | string;
   autoNotificado?: number | string;
 }
 
 export interface Theraw291 {
   fechaRecibido?: number | string;
-  resultado?: number | string;
-  fechaAporta?: number | string;
+  resultado?    : number | string;
+  fechaAporta?  : number | string;
 }
 
 export interface Theraw292 {
   fechaRecibido?: string;
-  fechaAporta?: number | string;
-  resultado?: ResultadoEnum | number;
+  fechaAporta?  : number | string;
+  resultado?    : ResultadoEnum | number;
 }
 
 export type ResultadoEnum =

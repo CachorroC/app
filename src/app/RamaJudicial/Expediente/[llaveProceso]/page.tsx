@@ -5,20 +5,16 @@ import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos/proceso
 import { notFound } from 'next/navigation';
 import { Fragment, Suspense } from 'react';
 
-export default async function Page(
-  {
-    params,
-  }: {
-    params: Promise<{ llaveProceso: string }>;
-  } 
-) {
+export default async function Page( {
+  params,
+}: {
+  params: Promise<{ llaveProceso: string }>;
+} ) {
   const {
     llaveProceso 
   } = await params;
 
-  const procesos = await getProcesosByllaveProceso(
-    llaveProceso 
-  );
+  const procesos = await getProcesosByllaveProceso( llaveProceso );
 
   if ( procesos.length === 0 ) {
     notFound();
@@ -26,26 +22,22 @@ export default async function Page(
 
   return (
     <>
-      {procesos.map(
-        (
-          proceso 
-        ) => {
-          return (
-            <Fragment key={proceso.idProceso}>
-              <SujetosProcesales
-                sujetosProcesalesRaw={proceso.sujetosProcesales}
-              />
+      {procesos.map( ( proceso ) => {
+        return (
+          <Fragment key={proceso.idProceso}>
+            <SujetosProcesales
+              sujetosProcesalesRaw={proceso.sujetosProcesales}
+            />
 
-              <Suspense fallback={<Loader />}>
-                <ProcesoDetalle
-                  key={proceso.idProceso}
-                  idProceso={proceso.idProceso}
-                />
-              </Suspense>
-            </Fragment>
-          );
-        } 
-      )}
+            <Suspense fallback={<Loader />}>
+              <ProcesoDetalle
+                key={proceso.idProceso}
+                idProceso={proceso.idProceso}
+              />
+            </Suspense>
+          </Fragment>
+        );
+      } )}
     </>
   );
 }

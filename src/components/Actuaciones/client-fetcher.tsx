@@ -4,18 +4,14 @@ import { useMemo } from 'react';
 import { ActuacionesSlideshowContainer } from './actuaciones-slideshow';
 import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 
-export default function ActuacionClientFetcher(
-  {
-    idProceso,
-  }: {
-    idProceso: number;
-  } 
-) {
+export default function ActuacionClientFetcher( {
+  idProceso,
+}: {
+  idProceso: number;
+} ) {
   const memoizedActuacion = useMemo(
     () => {
-      return fetchActuaciones(
-        idProceso 
-      );
+      return fetchActuaciones( idProceso );
     }, [
       idProceso
     ] 

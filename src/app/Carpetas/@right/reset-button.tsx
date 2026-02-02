@@ -11,11 +11,9 @@ export function ResetButtonSorter() {
         type="button"
         className={styles.buttonCategoryPasive}
         onClick={() => {
-          return dispatchCarpetas(
-            {
-              type: 'reset',
-            }
-          );
+          return dispatchCarpetas( {
+            type: 'reset',
+          } );
         }}
       >
         <span className="material-symbols-outlined">device_reset</span>

@@ -7,18 +7,12 @@ export async function christmasCollection() {
   const client = await clientPromise;
 
   if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico' 
-    );
+    throw new Error( 'no hay cliente mongólico' );
   }
 
-  const db = client.db(
-    'Christmas' 
-  );
+  const db = client.db( 'Christmas' );
 
-  const carpetas = db.collection(
-    'Objetos' 
-  );
+  const carpetas = db.collection( 'Objetos' );
 
   return carpetas;
 }

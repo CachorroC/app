@@ -13,31 +13,25 @@ type CalModel = {
 };
 
 export const CalendarContext = createContext<{
-  calendarState: CalModel;
+  calendarState   : CalModel;
   setCalendarState: Dispatch<SetStateAction<CalModel>>;
-} | null>(
-  null 
-);
+} | null>( null );
 
-export function CalendarContextProvider(
-  {
-    children,
-    date,
-  }: {
-    children: ReactNode;
-    date: Date;
-  } 
-) {
+export function CalendarContextProvider( {
+  children,
+  date,
+}: {
+  children: ReactNode;
+  date    : Date;
+} ) {
   const [
     calendarState,
     setCalendarState
-  ] = useState(
-    {
-      ano: date.getFullYear(),
-      mes: date.getMonth(),
-      dia: date.getDate(),
-    } 
-  );
+  ] = useState( {
+    ano: date.getFullYear(),
+    mes: date.getMonth(),
+    dia: date.getDate(),
+  } );
 
   return (
     <CalendarContext.Provider
@@ -52,13 +46,9 @@ export function CalendarContextProvider(
 }
 
 export function useCalendarContext() {
-  const context = useContext(
-    CalendarContext 
-  );
+  const context = useContext( CalendarContext );
 
   if ( context === null ) {
-    throw new Error(
-      'el calendar context debe ser utilizado dentro de un calendar context.provider', 
-    );
+    throw new Error( 'el calendar context debe ser utilizado dentro de un calendar context.provider', );
   }
 }

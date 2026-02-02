@@ -2,22 +2,18 @@ import { CalendarContextProvider } from '#@/app/Context/calendario-context';
 import { LabelBoundary } from '#@/components/layout/boundary';
 import { ReactNode } from 'react';
 
-export default async function Layout(
-  {
-    params,
-    children,
-  }: {
-    params: Promise<{ ano: string }>;
-    children: ReactNode;
-  } 
-) {
+export default async function Layout( {
+  params,
+  children,
+}: {
+  params  : Promise<{ ano: string }>;
+  children: ReactNode;
+} ) {
   const {
     ano 
   } = await params;
 
-  const segmentDate = new Date(
-    ano 
-  );
+  const segmentDate = new Date( ano );
 
   return (
     <>

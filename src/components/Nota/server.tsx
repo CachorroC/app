@@ -7,11 +7,9 @@ import { EditNoteButton,
   DeleteNoteButton, } from 'components/Buttons/noteButtons';
 import { IntNota } from '#@/lib/types/notas';
 
-export const NotaComponent = (
-  {
-    notaRaw 
-  }: { notaRaw: IntNota } 
-) => {
+export const NotaComponent = ( {
+  notaRaw 
+}: { notaRaw: IntNota } ) => {
   const {
     id, text, dueDate 
   } = notaRaw;
@@ -25,9 +23,7 @@ export const NotaComponent = (
         className={`${ typography.bodySmall } ${ note.textArea }`}
       >{`Nota: ${ text }`}</p>
       <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
-        {dueDate && fixFechas(
-          dueDate 
-        )}
+        {dueDate && fixFechas( dueDate )}
       </sub>
       <div className={note.buttonsRow}>
         <Suspense fallback={<ButtonSkeleton />}>

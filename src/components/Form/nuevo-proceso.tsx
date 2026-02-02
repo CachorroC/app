@@ -16,22 +16,14 @@ export default function NuevoProceso() {
     handleSubmit 
   } = useFormContext<NuevaCarpeta>();
 
-  const onSubmit: SubmitHandler<NuevaCarpeta> = async (
-    data 
-  ) => {
-    alert(
-      JSON.stringify(
-        data 
-      ) 
-    );
+  const onSubmit: SubmitHandler<NuevaCarpeta> = async ( data ) => {
+    alert( JSON.stringify( data ) );
 
     const newCarpeta: NuevaCarpeta = {
       ...data,
     };
 
-    const parsed = NuevaCarpetaSchema.safeParse(
-      newCarpeta 
-    );
+    const parsed = NuevaCarpetaSchema.safeParse( newCarpeta );
 
     const postNewNote = await fetch(
       '/api/Carpetas/Nueva', {
@@ -39,27 +31,19 @@ export default function NuevoProceso() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(
-          parsed 
-        ),
+        body: JSON.stringify( parsed ),
       } 
     );
 
     const nAlert = await postNewNote.json();
 
-    alert(
-      JSON.stringify(
-        nAlert 
-      ) 
-    );
+    alert( JSON.stringify( nAlert ) );
   };
 
   return (
     <form
       className={form.container}
-      onSubmit={handleSubmit(
-        onSubmit 
-      )}
+      onSubmit={handleSubmit( onSubmit )}
     >
       <section className={layout.sectionRow}>
         <InputSection

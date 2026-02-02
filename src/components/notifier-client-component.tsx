@@ -2,29 +2,21 @@
 'use client';
 import useNotification from '../app/Hooks/useNotification';
 
-export default function NotifierClientComponent(
-  {
-    titulo,
-    contenido,
-    tag,
-  }: {
-    titulo: string;
-    tag?: string;
-    contenido?: string;
-  }
-) {
+export default function NotifierClientComponent( {
+  titulo,
+  contenido,
+  tag,
+}: {
+  titulo    : string;
+  tag?      : string;
+  contenido?: string;
+} ) {
   const {
     notify, close
   } = useNotification(
     titulo, {
-      onClick: (
-        ev
-      ) => {
-        alert(
-          JSON.stringify(
-            ev
-          )
-        );
+      onClick: ( ev ) => {
+        alert( JSON.stringify( ev ) );
       },
 
       body              : contenido,
@@ -32,12 +24,8 @@ export default function NotifierClientComponent(
       dir               : 'ltr',
       lang              : 'es',
       tag               : tag,
-      onClose           : (
-        e
-      ) => {
-        console.log(
-          e
-        );
+      onClose           : ( e ) => {
+        console.log( e );
       },
     }
   );

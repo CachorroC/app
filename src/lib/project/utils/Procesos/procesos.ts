@@ -5,47 +5,37 @@ import { ConsultaProcesos } from 'types/procesos';
 
 import  prisma  from '#@/lib/connection/prisma';
 
-export const getDespachos = cache(
-  async () => {
-    try {
-      const request = await fetch(
-        'https://app.rsasesorjuridico.com/despachos.json',
-        {
-          headers: {
-            'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
-            'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`,
-          },
-        }
-      );
-
-      if ( !request.ok ) {
-        throw new Error(
-          'error en los despachos'
-        );
+export const getDespachos = cache( async () => {
+  try {
+    const request = await fetch(
+      'https://app.rsasesorjuridico.com/despachos.json',
+      {
+        headers: {
+          'CF-Access-Client-Id'    : `${ process.env.CF_ACCESS_CLIENT_ID }`,
+          'CF-Access-Client-Secret': `${ process.env.CF_ACCESS_CLIENT_SECRET }`,
+        },
       }
+    );
 
-      const response = ( await request.json() ) as Despacho[];
-
-      return response;
-    } catch ( e ) {
-      if ( e instanceof Error ) {
-        console.log(
-          ` error en la conexion network del getDespacxhos ${ e.name } : ${ e.message }`
-        );
-      }
-
-      console.log(
-        ` error en la conexion network del getDespacxho  =>  ${ e }`
-      );
-
-      return [];
+    if ( !request.ok ) {
+      throw new Error( 'error en los despachos' );
     }
-  }
-);
 
-export async function fetchProcesosByllaveProceso(
-  llaveProceso: string
-) {
+    const response = ( await request.json() ) as Despacho[];
+
+    return response;
+  } catch ( e ) {
+    if ( e instanceof Error ) {
+      console.log( ` error en la conexion network del getDespacxhos ${ e.name } : ${ e.message }` );
+    }
+
+    console.log( ` error en la conexion network del getDespacxho  =>  ${ e }` );
+
+    return [];
+  }
+} );
+
+export async function fetchProcesosByllaveProceso( llaveProceso: string ) {
   try {
     const req = await fetch(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`, {
@@ -54,12 +44,9 @@ export async function fetchProcesosByllaveProceso(
     );
 
     if ( !req.ok ) {
-      console.log(
-        `message: ${ req.statusText }, code: ${ req.status }`
-      );
-      throw new Error(
-        `message: ${ req.statusText }, code: ${ req.status }`
-      );
+      console.log( `message: ${ req.statusText }, code: ${ req.status }` );
+
+      throw new Error( `message: ${ req.statusText }, code: ${ req.status }` );
     }
 
     const response = ( await req.json() ) as ConsultaProcesos;
@@ -78,54 +65,36 @@ export async function fetchProcesosByllaveProceso(
       procesos: rawProcesos
     } = response;
 
-    return rawProcesos.map(
-      (
-        proceso
-      ) => {
-        return {
-          ...proceso,
-          fechaProceso: proceso.fechaProceso
-            ? new Date(
-              proceso.fechaProceso
-            )
-            : null,
-          fechaUltimaActuacion: proceso.fechaUltimaActuacion
-            ? new Date(
-              proceso.fechaUltimaActuacion
-            )
-            : null,
-          juzgado: JuzgadoClass.fromProceso(
-            proceso
-          ),
-        };
-      }
-    );
+    return rawProcesos.map( ( proceso ) => {
+      return {
+        ...proceso,
+        fechaProceso: proceso.fechaProceso
+          ? new Date( proceso.fechaProceso )
+          : null,
+        fechaUltimaActuacion: proceso.fechaUltimaActuacion
+          ? new Date( proceso.fechaUltimaActuacion )
+          : null,
+        juzgado: JuzgadoClass.fromProceso( proceso ),
+      };
+    } );
   } catch ( error ) {
-    console.log(
-      `error al request de fetchProcesosByLlaveProceso: ${ error }`
-    );
+    console.log( `error al request de fetchProcesosByLlaveProceso: ${ error }` );
 
     return null;
   }
 }
 
 export const getProcesosByllaveProceso
-  = cache(
-    async (
-      llaveProceso: string
-    ) => {
+  = cache( async ( llaveProceso: string ) => {
 
-      const procesos = await prisma.proceso.findMany(
-        {
-          where: {
-            llaveProceso: llaveProceso
-          },
-          include: {
-            juzgado: true
-          }
-        }
-      );
+    const procesos = await prisma.proceso.findMany( {
+      where: {
+        llaveProceso: llaveProceso
+      },
+      include: {
+        juzgado: true
+      }
+    } );
 
-      return procesos;
-    }
-  );
+    return procesos;
+  } );

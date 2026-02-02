@@ -6,17 +6,15 @@ import { NuevaNotaFormProvider } from './nueva-nota-form-context';
 
 
 
-export default async function NotasLayoutMain(
-  {
-    children,
-    top,
-    right,
-  }: {
-    children: ReactNode;
-    top: ReactNode;
-    right: ReactNode;
-  }
-) {
+export default async function NotasLayoutMain( {
+  children,
+  top,
+  right,
+}: {
+  children: ReactNode;
+  top     : ReactNode;
+  right   : ReactNode;
+} ) {
   const notas = await getNotas();
 
   return (

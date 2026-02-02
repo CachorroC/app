@@ -1,14 +1,12 @@
 import { ReactNode } from 'react';
 
-export const LabelBoundary = (
-  {
-    children,
-    color,
-  }: {
-    children: ReactNode;
-    color: 'primary' | 'secondary' | 'tertiary' | 'error';
-  }
-) => {
+export const LabelBoundary = ( {
+  children,
+  color,
+}: {
+  children: ReactNode;
+  color   : 'primary' | 'secondary' | 'tertiary' | 'error';
+} ) => {
   return (
     <div
       style={{

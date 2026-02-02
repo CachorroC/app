@@ -3,18 +3,14 @@ import styles from './styles.module.css';
 import Link from 'next/link';
 import { Route } from 'next';
 
-export function JuzgadoComponent(
-  {
-    juzgado 
-  }: { juzgado: Juzgado } 
-) {
+export function JuzgadoComponent( {
+  juzgado 
+}: { juzgado: Juzgado } ) {
   const {
     tipo, url, id, ciudad 
   } = juzgado;
 
-  const indexOfTipo = tipo.search(
-    /([Ee][Jj][Ee][Cc])/gm 
-  );
+  const indexOfTipo = tipo.search( /([Ee][Jj][Ee][Cc])/gm );
 
   return (
     <Link

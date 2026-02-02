@@ -1,57 +1,33 @@
 import { Deudor } from '../types/carpetas';
 import { CarpetaRaw } from '../types/raw-carpeta';
 
-function telefonoFixer(
-  telefono: string 
-) {
-  const celularStringArray = telefono.match(
-    /\d{10}/g 
-  );
+function telefonoFixer( telefono: string ) {
+  const celularStringArray = telefono.match( /\d{10}/g );
 
-  const fijoStringArray = telefono.match(
-    /\d{7}\s/g 
-  );
+  const fijoStringArray = telefono.match( /\d{7}\s/g );
 
-  const celularNumber = celularStringArray?.map(
-    (
-      f 
-    ) => {
-      return Number(
-        f 
-      );
-    } 
-  );
+  const celularNumber = celularStringArray?.map( ( f ) => {
+    return Number( f );
+  } );
 
-  const fijoNumber = fijoStringArray?.map(
-    (
-      f 
-    ) => {
-      return Number(
-        f 
-      );
-    } 
-  );
+  const fijoNumber = fijoStringArray?.map( ( f ) => {
+    return Number( f );
+  } );
 
   return {
     telFijo: fijoNumber
-      ? String(
-          fijoNumber[ 0 ] 
-        )
+      ? String( fijoNumber[ 0 ] )
       : null,
     telCelular: celularNumber
-      ? String(
-          celularNumber[ 0 ] 
-        )
+      ? String( celularNumber[ 0 ] )
       : null,
   };
 }
 
 export class ClassDeudor implements Deudor {
-  constructor(
-    {
-      deudor: deudorRaw, numero 
-    }: CarpetaRaw 
-  ) {
+  constructor( {
+    deudor: deudorRaw, numero 
+  }: CarpetaRaw ) {
     this.id = numero;
     this.carpetaNumero = numero;
 
@@ -61,17 +37,11 @@ export class ClassDeudor implements Deudor {
 
     const {
       telFijo, telCelular 
-    } = telefonoFixer(
-      String(
-        telefono 
-      ) 
-    );
+    } = telefonoFixer( String( telefono ) );
 
     this.telFijo = telFijo;
     this.telCelular = telCelular;
-    this.cedula = String(
-      cedula 
-    );
+    this.cedula = String( cedula );
     this.direccion = direccion
       ? direccion.toString()
       : null;
@@ -79,9 +49,7 @@ export class ClassDeudor implements Deudor {
       ? email.toString()
       : null;
 
-    const nameStringArray = nombre.split(
-      ' ' 
-    );
+    const nameStringArray = nombre.split( ' ' );
 
     const nameArrayLength = nameStringArray.length;
 
@@ -140,19 +108,20 @@ export class ClassDeudor implements Deudor {
           this.primerApellido = primerApellido;
           this.segundoNombre = segundoNombre;
           this.segundoApellido = segundoApellido.toString();
+
           break;
         }
     }
   }
-  carpetaNumero: number;
-  cedula: string;
-  direccion: string | null;
-  email: string | null;
-  id: number;
-  primerApellido: string;
-  primerNombre: string;
+  carpetaNumero  : number;
+  cedula         : string;
+  direccion      : string | null;
+  email          : string | null;
+  id             : number;
+  primerApellido : string;
+  primerNombre   : string;
   segundoApellido: string | null;
-  segundoNombre: string | null;
-  telCelular: string | null;
-  telFijo: string | null;
+  segundoNombre  : string | null;
+  telCelular     : string | null;
+  telFijo        : string | null;
 }

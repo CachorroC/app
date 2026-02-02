@@ -79,17 +79,11 @@ export const PaginationControls = () => {
     >
       <select
         value={state.itemsPerPage}
-        onChange={(
-          e
-        ) => {
-          return dispatch(
-            {
-              type   : 'SET_ITEMS_PER_PAGE',
-              payload: Number(
-                e.target.value
-              )
-            }
-          );
+        onChange={( e ) => {
+          return dispatch( {
+            type   : 'SET_ITEMS_PER_PAGE',
+            payload: Number( e.target.value )
+          } );
 
         }}
       >
@@ -100,12 +94,10 @@ export const PaginationControls = () => {
 
       <button
         onClick={ () => {
-          return dispatch(
-            {
-              type   : 'SET_PAGE',
-              payload: state.currentPage - 1
-            }
-          );
+          return dispatch( {
+            type   : 'SET_PAGE',
+            payload: state.currentPage - 1
+          } );
         }}
         disabled={state.currentPage === 1}
       >
@@ -115,28 +107,20 @@ export const PaginationControls = () => {
       <span>
         Page {state.currentPage} of {totalPages} ({totalItems} items)
       </span>
-      <input value={ state.currentPage } onChange={ (
-        e
-      ) => {
-        return dispatch(
-          {
-            type   : 'SET_PAGE',
-            payload: Number(
-              e.target.value
-            )
-          }
-        );
+      <input value={ state.currentPage } onChange={ ( e ) => {
+        return dispatch( {
+          type   : 'SET_PAGE',
+          payload: Number( e.target.value )
+        } );
       }}
       />
 
       <button
         onClick={ () => {
-          return dispatch(
-            {
-              type   : 'SET_PAGE',
-              payload: state.currentPage + 1
-            }
-          );
+          return dispatch( {
+            type   : 'SET_PAGE',
+            payload: state.currentPage + 1
+          } );
         }}
         disabled={state.currentPage === totalPages}
       >
@@ -158,22 +142,18 @@ export const FilterControls = () => {
   ) => {
     // Check if the filter is already active with this value
     if ( state.filters[ key ] === value ) {
-      dispatch(
-        {
-          type   : 'CLEAR_FILTER',
-          payload: key
-        }
-      );
+      dispatch( {
+        type   : 'CLEAR_FILTER',
+        payload: key
+      } );
     } else {
-      dispatch(
-        {
-          type   : 'SET_FILTER',
-          payload: {
-            key,
-            value
-          }
+      dispatch( {
+        type   : 'SET_FILTER',
+        payload: {
+          key,
+          value
         }
-      );
+      } );
     }
   };
 
@@ -191,15 +171,11 @@ export const FilterControls = () => {
         type="text"
         placeholder="Global search..."
         value={state.searchQuery}
-        onChange={(
-          e
-        ) => {
-          return dispatch(
-            {
-              type   : 'SET_SEARCH',
-              payload: e.target.value
-            }
-          );
+        onChange={( e ) => {
+          return dispatch( {
+            type   : 'SET_SEARCH',
+            payload: e.target.value
+          } );
         }}
         style={{
           padding: '8px'
@@ -230,71 +206,55 @@ export const FilterControls = () => {
 
       <select
         value={state.filters.ciudad || ''}
-        onChange={(
-          e
-        ) => {
+        onChange={( e ) => {
           const val = e.target.value;
 
           if ( val === '' ) {
-            dispatch(
-              {
-                type   : 'CLEAR_FILTER',
-                payload: 'ciudad'
-              }
-            );
+            dispatch( {
+              type   : 'CLEAR_FILTER',
+              payload: 'ciudad'
+            } );
           } else {
-            dispatch(
-              {
-                type   : 'SET_FILTER',
-                payload: {
-                  key  : 'ciudad',
-                  value: val
-                }
+            dispatch( {
+              type   : 'SET_FILTER',
+              payload: {
+                key  : 'ciudad',
+                value: val
               }
-            );
+            } );
           }
         }}
         style={{
           padding: '8px'
         }}
       >
-        { ciudades.map(
-          (
-            ciudad
-          ) => {
-            return (
-              <option key={ciudad} value={ciudad}>{ciudad}</option>
-            );
-          }
-        )}
+        { ciudades.map( ( ciudad ) => {
+          return (
+            <option key={ciudad} value={ciudad}>{ciudad}</option>
+          );
+        } )}
       </select>
       <MultiSelectFilter filterKey={ 'category' } options={ categorias } label={ 'Categories' } />
       <MultiSelectFilter filterKey={ 'ciudad' } options={ ciudades } label={ 'Cities' } />
       {/* 3. Dropdown Filter: "Category" */}
       <select
         value={state.filters.category || ''}
-        onChange={(
-          e
-        ) => {
+        onChange={( e ) => {
           const val = e.target.value;
 
           if ( val === '' ) {
-            dispatch(
-              {
-                type   : 'CLEAR_FILTER',
-                payload: 'category'
-              }
-            );
+            dispatch( {
+              type   : 'CLEAR_FILTER',
+              payload: 'category'
+            } );
           } else {
-            dispatch(
-              {
-                type   : 'SET_FILTER',
-                payload: {
-                  key  : 'category',
-                  value: val
-                }
+            dispatch( {
+              type   : 'SET_FILTER',
+              payload: {
+                key  : 'category',
+                value: val
               }
-            );
+            } );
           }
         }}
         style={{
@@ -311,29 +271,21 @@ export const FilterControls = () => {
       </select>
 
       {/* 4. Reset Button */}
-      {( Object.keys(
-        state.filters
-      ).length > 0 || state.searchQuery ) && (
+      {( Object.keys( state.filters ).length > 0 || state.searchQuery ) && (
         <button onClick={() => {
           // You might want a RESET_ALL action in reducer for this
-          dispatch(
-            {
-              type   : 'SET_SEARCH',
-              payload: ''
-            }
-          );
-          dispatch(
-            {
-              type   : 'CLEAR_FILTER',
-              payload: 'terminado'
-            }
-          );
-          dispatch(
-            {
-              type   : 'CLEAR_FILTER',
-              payload: 'category'
-            }
-          );
+          dispatch( {
+            type   : 'SET_SEARCH',
+            payload: ''
+          } );
+          dispatch( {
+            type   : 'CLEAR_FILTER',
+            payload: 'terminado'
+          } );
+          dispatch( {
+            type   : 'CLEAR_FILTER',
+            payload: 'category'
+          } );
         }} style={{
           color: 'red'
         }}

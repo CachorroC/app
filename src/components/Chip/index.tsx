@@ -5,23 +5,19 @@ import styles from './styles.module.css';
 import { show, snackbar } from '../Buttons/buttons.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 
-export function ChipButton(
-  {
-    copyTxt,
-    icon,
-    name,
-  }: {
-    copyTxt: string;
-    icon?: string;
-    name: string;
-  } 
-) {
+export function ChipButton( {
+  copyTxt,
+  icon,
+  name,
+}: {
+  copyTxt: string;
+  icon?  : string;
+  name   : string;
+} ) {
   const [
     flipper,
     setFlipper
-  ] = useState(
-    false 
-  );
+  ] = useState( false );
 
   const [
     copyToClipboard,
@@ -31,17 +27,13 @@ export function ChipButton(
   const [
     isSnackbarOpen,
     setIsSnackbarOpen
-  ] = useState(
-    false 
-  );
+  ] = useState( false );
 
   useEffect(
     () => {
       const timer = setTimeout(
         () => {
-          setIsSnackbarOpen(
-            false 
-          );
+          setIsSnackbarOpen( false );
         }, 5000 
       );
 
@@ -50,9 +42,7 @@ export function ChipButton(
       }
 
       return () => {
-        return clearTimeout(
-          timer 
-        );
+        return clearTimeout( timer );
       };
     }, [
       isSnackbarOpen
@@ -64,22 +54,14 @@ export function ChipButton(
       <button
         type="button"
         onMouseLeave={() => {
-          setFlipper(
-            false 
-          );
+          setFlipper( false );
         }}
         onMouseEnter={() => {
-          setFlipper(
-            true 
-          );
+          setFlipper( true );
         }}
         onClick={() => {
-          setCopyToClipboard(
-            copyTxt 
-          );
-          setIsSnackbarOpen(
-            true 
-          );
+          setCopyToClipboard( copyTxt );
+          setIsSnackbarOpen( true );
         }}
         className={styles.chip}
       >

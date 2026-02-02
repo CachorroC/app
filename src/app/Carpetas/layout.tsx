@@ -5,19 +5,17 @@ import { CarpetasSortProvider } from '../Context/carpetas-sort-context';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 
 
-export default async function LayoutProcesosMain(
-  {
-    children,
-    top,
-    right,
-    modal,
-  }: {
-    children: ReactNode;
-    top: ReactNode;
-    right: ReactNode;
-    modal: ReactNode;
-  }
-) {
+export default async function LayoutProcesosMain( {
+  children,
+  top,
+  right,
+  modal,
+}: {
+  children: ReactNode;
+  top     : ReactNode;
+  right   : ReactNode;
+  modal   : ReactNode;
+} ) {
   const carpetas = await getCarpetas();
 
   return (

@@ -8,21 +8,21 @@ import { WithId } from 'mongodb';
 
 export interface NotaEditorAction {
   message: string;
-  data: monNota | null | IntNota | NewNota;
-  error: boolean;
+  data   : monNota | null | IntNota | NewNota;
+  error  : boolean;
 }
 
 export type NewNota = {
   carpetaNumero: number | null;
-  content: string[];
-  dueDate: Date | null;
-  pathname: string | null;
-  text: string;
-  id: string;
+  content      : string[];
+  dueDate      : Date | null;
+  pathname     : string | null;
+  text         : string;
+  id           : string;
 };
 
 export interface IntNota extends NewNota {
-  id: string;
+  id       : string;
   updatedAt: Date;
   createdAt: Date;
 }
@@ -32,8 +32,8 @@ export interface monNota extends IntNota {
 }
 
 export type SortActionType = {
-  type: 'sort';
-  dir: boolean;
+  type      : 'sort';
+  dir       : boolean;
   sortingKey:
     | 'carpetaNumero'
     | 'id'
@@ -50,11 +50,11 @@ export type UpdateActionType = {
 
 export type DeleteActionType = {
   type: 'deleted';
-  id: string;
+  id  : string;
 };
 
 export type ResetActionType = {
-  type: 'reset';
+  type   : 'reset';
   payload: IntNota[];
 };
 
@@ -76,25 +76,15 @@ export type NotaAction =
   | SortActionType;
 
 export class notasConvert {
-  public static monNotasToJson(
-    value: monNota[] 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static monNotasToJson( value: monNota[] ): string {
+    return JSON.stringify( value );
   }
 
-  public static monNotaToJson(
-    value: monNota 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static monNotaToJson( value: monNota ): string {
+    return JSON.stringify( value );
   }
 
-  public static toMonNota(
-    nota: WithId<IntNota> 
-  ): monNota {
+  public static toMonNota( nota: WithId<IntNota> ): monNota {
     const newNota = {
       ...nota,
       createdAt    : new Date(),
@@ -110,18 +100,10 @@ export class notasConvert {
     return newNota;
   }
 
-  public static toMonNotas(
-    rawNotas: WithId<IntNota>[] 
-  ): monNota[] {
-    const newNotas = rawNotas.map(
-      (
-        nota 
-      ) => {
-        return this.toMonNota(
-          nota 
-        );
-      } 
-    );
+  public static toMonNotas( rawNotas: WithId<IntNota>[] ): monNota[] {
+    const newNotas = rawNotas.map( ( nota ) => {
+      return this.toMonNota( nota );
+    } );
 
     return newNotas;
   }

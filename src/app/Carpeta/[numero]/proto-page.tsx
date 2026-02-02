@@ -1,11 +1,9 @@
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { appContainer, card, cardHeader, cardIcon, cardTitle, chip, dashboardGrid, dataLabel, dataRow, dataValue, filled, headerCard, headerInfo, headerMeta, money, statusTerminado, timeline, timelineContent, timelineDate, timelineItem } from './proto-styles.module.css';
 
-export default function ProtoPage (
-  {
-    carpeta
-  }: {carpeta: IntCarpeta}
-) {
+export default function ProtoPage ( {
+  carpeta
+}: {carpeta: IntCarpeta} ) {
   const copFormatter = new Intl.NumberFormat(
     'es-CO', {
       style   : 'currency',
@@ -46,9 +44,7 @@ export default function ProtoPage (
               opacity : 0.8
             }}
             >Última actualización</p>
-            <strong>{carpeta.fecha?.toLocaleDateString(
-              'es-ES'
-            )}</strong>
+            <strong>{carpeta.fecha?.toLocaleDateString( 'es-ES' )}</strong>
           </div>
         </header>
 
@@ -103,9 +99,7 @@ export default function ProtoPage (
               </div>
               <div className={dataRow}>
                 <span className={dataLabel}>Capital Adeudado</span>
-                <span className={`${ dataValue } ${ money }`}>{copFormatter.format(
-                  carpeta.demanda?.capitalAdeudado ?? 0 
-                )}</span>
+                <span className={`${ dataValue } ${ money }`}>{copFormatter.format( carpeta.demanda?.capitalAdeudado ?? 0 )}</span>
               </div>
             </section>
 

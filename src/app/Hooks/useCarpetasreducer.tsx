@@ -1,14 +1,14 @@
 import { MonCarpeta } from '#@/lib/types/carpetas';
 
 export type CarpetasReducerState = {
-  carpetas: MonCarpeta[];
+  carpetas        : MonCarpeta[];
   completeCarpetas: MonCarpeta[];
 };
 
 export type SortActionType = {
   [x: string]: string;
-  type: 'sort';
-  dir: 'asc' | 'dsc';
+  type       : 'sort';
+  dir        : 'asc' | 'dsc';
   sortingKey:
     | 'fecha'
     | 'numero'
@@ -21,17 +21,17 @@ export type SortActionType = {
 };
 
 export type UpdateActionType = {
-  type: 'update';
+  type   : 'update';
   payload: MonCarpeta;
 };
 
 export type SearchActionType = {
-  type: 'search';
+  type   : 'search';
   payload: string;
 };
 
 export type FilterActionType = {
-  type: 'filter';
+  type        : 'filter';
   filteringKey:
     | 'category'
     | 'terminado'
@@ -42,7 +42,7 @@ export type FilterActionType = {
 };
 
 export type CategoryFilterActionType = {
-  type: 'category-filter';
+  type   : 'category-filter';
   exclude: (
     | 'Bancolombia'
     | 'Terminados'
@@ -54,7 +54,7 @@ export type CategoryFilterActionType = {
 };
 
 export type CiudadFlterActionType = {
-  type: 'ciudad-filter';
+  type   : 'ciudad-filter';
   include: string[];
 };
 
@@ -96,9 +96,7 @@ export function carpetasReducer(
           exclude 
         } = action;
 
-        if ( !exclude || exclude.length === 0 || exclude.includes(
-          'todos' 
-        ) ) {
+        if ( !exclude || exclude.length === 0 || exclude.includes( 'todos' ) ) {
           return {
             carpetas        : completeCarpetas,
             completeCarpetas: completeCarpetas,
@@ -112,14 +110,10 @@ export function carpetasReducer(
             category 
           } = carpeta;
 
-          const indexOf = exclude.indexOf(
-            category 
-          );
+          const indexOf = exclude.indexOf( category );
 
           if ( indexOf !== -1 ) {
-            outgoingCarpetas.push(
-              carpeta 
-            );
+            outgoingCarpetas.push( carpeta );
           }
         }
 
@@ -134,9 +128,7 @@ export function carpetasReducer(
           include 
         } = action;
 
-        if ( !include || include.length === 0 || include.includes(
-          'todos' 
-        ) ) {
+        if ( !include || include.length === 0 || include.includes( 'todos' ) ) {
           return {
             carpetas        : completeCarpetas,
             completeCarpetas: completeCarpetas,
@@ -150,14 +142,10 @@ export function carpetasReducer(
             ciudad 
           } = carpeta;
 
-          const indexOf = include.indexOf(
-            ciudad ?? 'Bogota' 
-          );
+          const indexOf = include.indexOf( ciudad ?? 'Bogota' );
 
           if ( indexOf !== -1 ) {
-            outgoingCarpetas.push(
-              carpeta 
-            );
+            outgoingCarpetas.push( carpeta );
           }
         }
 
@@ -168,17 +156,13 @@ export function carpetasReducer(
       }
 
       case 'update': {
-        const outGoingCarpetas = carpetas.map(
-          (
-            t 
-          ) => {
-            if ( t.numero === action.payload.numero ) {
-              return action.payload;
-            }
+        const outGoingCarpetas = carpetas.map( ( t ) => {
+          if ( t.numero === action.payload.numero ) {
+            return action.payload;
+          }
 
-            return t;
-          } 
-        );
+          return t;
+        } );
 
         return {
           carpetas        : outGoingCarpetas,
@@ -221,33 +205,31 @@ export function carpetasReducer(
             case 'fecha': {
               const sorted = [
                 ...carpetas
-              ].sort(
-                (
-                  a, b 
-                ) => {
-                  if ( !a.fecha || a.fecha === undefined ) {
-                    return sorter[ 2 ];
-                  }
+              ].sort( (
+                a, b 
+              ) => {
+                if ( !a.fecha || a.fecha === undefined ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( !b.fecha || b.fecha === undefined ) {
-                    return sorter[ 0 ];
-                  }
+                if ( !b.fecha || b.fecha === undefined ) {
+                  return sorter[ 0 ];
+                }
 
-                  const x = a.fecha;
+                const x = a.fecha;
 
-                  const y = b.fecha;
+                const y = b.fecha;
 
-                  if ( x < y ) {
-                    return sorter[ 2 ];
-                  }
+                if ( x < y ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( x > y ) {
-                    return sorter[ 0 ];
-                  }
+                if ( x > y ) {
+                  return sorter[ 0 ];
+                }
 
-                  return sorter[ 1 ];
-                } 
-              );
+                return sorter[ 1 ];
+              } );
 
               return {
                 carpetas        : sorted,
@@ -258,29 +240,23 @@ export function carpetasReducer(
             case 'category': {
               const sorted = [
                 ...carpetas
-              ].sort(
-                (
-                  a, b 
-                ) => {
-                  const x = categoriesSorter.indexOf(
-                    a.category 
-                  );
+              ].sort( (
+                a, b 
+              ) => {
+                const x = categoriesSorter.indexOf( a.category );
 
-                  const y = categoriesSorter.indexOf(
-                    b.category 
-                  );
+                const y = categoriesSorter.indexOf( b.category );
 
-                  if ( x < y ) {
-                    return sorter[ 2 ];
-                  }
+                if ( x < y ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( x > y ) {
-                    return sorter[ 0 ];
-                  }
+                if ( x > y ) {
+                  return sorter[ 0 ];
+                }
 
-                  return sorter[ 1 ];
-                } 
-              );
+                return sorter[ 1 ];
+              } );
 
               return {
                 carpetas        : sorted,
@@ -291,21 +267,19 @@ export function carpetasReducer(
             case 'numero': {
               const sorted = [
                 ...carpetas
-              ].sort(
-                (
-                  a, b 
-                ) => {
-                  const x = a.numero;
+              ].sort( (
+                a, b 
+              ) => {
+                const x = a.numero;
 
-                  const y = b.numero;
+                const y = b.numero;
 
-                  const idk = dir === 'asc'
-                    ? y - x
-                    : x - y;
+                const idk = dir === 'asc'
+                  ? y - x
+                  : x - y;
 
-                  return idk;
-                } 
-              );
+                return idk;
+              } );
 
               return {
                 carpetas: [
@@ -318,27 +292,25 @@ export function carpetasReducer(
             case 'nombre': {
               const sorted = [
                 ...carpetas
-              ].sort(
-                (
-                  a, b 
-                ) => {
-                  const x = a.nombre.trim()
-                    .toLocaleLowerCase();
+              ].sort( (
+                a, b 
+              ) => {
+                const x = a.nombre.trim()
+                  .toLocaleLowerCase();
 
-                  const y = b.nombre.trim()
-                    .toLocaleLowerCase();
+                const y = b.nombre.trim()
+                  .toLocaleLowerCase();
 
-                  if ( x < y ) {
-                    return sorter[ 2 ];
-                  }
+                if ( x < y ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( x > y ) {
-                    return sorter[ 0 ];
-                  }
+                if ( x > y ) {
+                  return sorter[ 0 ];
+                }
 
-                  return sorter[ 1 ];
-                } 
-              );
+                return sorter[ 1 ];
+              } );
 
               return {
                 carpetas        : sorted,
@@ -349,17 +321,13 @@ export function carpetasReducer(
             case 'revisado': {
               const sorted = [
                 ...carpetas
-              ].filter(
-                (
-                  carpeta 
-                ) => {
-                  if ( dir === 'asc' ) {
-                    return carpeta.revisado;
-                  }
+              ].filter( ( carpeta ) => {
+                if ( dir === 'asc' ) {
+                  return carpeta.revisado;
+                }
 
-                  return !carpeta.revisado;
-                } 
-              );
+                return !carpeta.revisado;
+              } );
 
               return {
                 carpetas        : sorted,
@@ -370,33 +338,31 @@ export function carpetasReducer(
             default: {
               const sorted = [
                 ...carpetas
-              ].sort(
-                (
-                  a, b 
-                ) => {
-                  const aSortingKey = a[ sortingKey ];
+              ].sort( (
+                a, b 
+              ) => {
+                const aSortingKey = a[ sortingKey ];
 
-                  const bSortingKey = b[ sortingKey ];
+                const bSortingKey = b[ sortingKey ];
 
-                  if ( !aSortingKey || aSortingKey === undefined ) {
-                    return sorter[ 2 ];
-                  }
+                if ( !aSortingKey || aSortingKey === undefined ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( !bSortingKey || bSortingKey === undefined ) {
-                    return sorter[ 0 ];
-                  }
+                if ( !bSortingKey || bSortingKey === undefined ) {
+                  return sorter[ 0 ];
+                }
 
-                  if ( aSortingKey < bSortingKey ) {
-                    return sorter[ 2 ];
-                  }
+                if ( aSortingKey < bSortingKey ) {
+                  return sorter[ 2 ];
+                }
 
-                  if ( aSortingKey > bSortingKey ) {
-                    return sorter[ 0 ];
-                  }
+                if ( aSortingKey > bSortingKey ) {
+                  return sorter[ 0 ];
+                }
 
-                  return 0;
-                } 
-              );
+                return 0;
+              } );
 
               return {
                 carpetas        : sorted,
@@ -408,44 +374,32 @@ export function carpetasReducer(
 
       case 'search': {
         const searchQuery = action.payload
-          .normalize(
-            'NFD' 
-          )
+          .normalize( 'NFD' )
           .replace(
             /[\u0300-\u036f]/g, '' 
           )
           .trim()
           .toLocaleLowerCase();
 
-        console.log(
-          `searchQuery: ${ searchQuery }` 
-        );
+        console.log( `searchQuery: ${ searchQuery }` );
 
         const sorted = [
           ...completeCarpetas
-        ].filter(
-          (
-            carpeta 
-          ) => {
-            const {
-              nombre 
-            } = carpeta;
+        ].filter( ( carpeta ) => {
+          const {
+            nombre 
+          } = carpeta;
 
-            const normalizedName = nombre
-              .normalize(
-                'NFD' 
-              )
-              .replace(
-                /[\u0300-\u036f]/g, '' 
-              )
-              .trim()
-              .toLocaleLowerCase();
+          const normalizedName = nombre
+            .normalize( 'NFD' )
+            .replace(
+              /[\u0300-\u036f]/g, '' 
+            )
+            .trim()
+            .toLocaleLowerCase();
 
-            return normalizedName.includes(
-              searchQuery 
-            );
-          } 
-        );
+          return normalizedName.includes( searchQuery );
+        } );
 
         return {
           carpetas        : sorted,
@@ -456,33 +410,27 @@ export function carpetasReducer(
       case 'filter': {
         const sorted = [
           ...completeCarpetas
-        ].filter(
-          (
-            carpeta 
-          ) => {
-            const querier = carpeta[ action.filteringKey ];
+        ].filter( ( carpeta ) => {
+          const querier = carpeta[ action.filteringKey ];
 
-            if ( !querier ) {
-              return false;
-            }
+          if ( !querier ) {
+            return false;
+          }
 
-            if ( typeof querier === 'boolean' ) {
-              return querier;
-            }
+          if ( typeof querier === 'boolean' ) {
+            return querier;
+          }
 
-            if (
-              querier
-                .toLocaleLowerCase()
-                .indexOf(
-                  action.filteringKey.toLocaleLowerCase() 
-                ) === -1
-            ) {
-              return false;
-            }
+          if (
+            querier
+              .toLocaleLowerCase()
+              .indexOf( action.filteringKey.toLocaleLowerCase() ) === -1
+          ) {
+            return false;
+          }
 
-            return true;
-          } 
-        );
+          return true;
+        } );
 
         return {
           carpetas        : sorted,
@@ -493,33 +441,31 @@ export function carpetasReducer(
       default: {
         const sorted = [
           ...carpetas
-        ].sort(
-          (
-            a, b 
-          ) => {
-            if ( !a.fecha || a.fecha === undefined ) {
-              return 1;
-            }
+        ].sort( (
+          a, b 
+        ) => {
+          if ( !a.fecha || a.fecha === undefined ) {
+            return 1;
+          }
 
-            if ( !b.fecha || b.fecha === undefined ) {
-              return -1;
-            }
+          if ( !b.fecha || b.fecha === undefined ) {
+            return -1;
+          }
 
-            const x = a.fecha;
+          const x = a.fecha;
 
-            const y = b.fecha;
+          const y = b.fecha;
 
-            if ( x < y ) {
-              return 1;
-            }
+          if ( x < y ) {
+            return 1;
+          }
 
-            if ( x > y ) {
-              return -1;
-            }
+          if ( x > y ) {
+            return -1;
+          }
 
-            return 0;
-          } 
-        );
+          return 0;
+        } );
 
         return {
           carpetas        : sorted,

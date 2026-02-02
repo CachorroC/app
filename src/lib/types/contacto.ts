@@ -7,11 +7,11 @@
 export type Grupo = 'Abogado' | 'Aliado' | 'Demandado' | 'otros';
 
 export interface RawContactoFormValues {
-  nombre: string;
-  grupo: Grupo;
+  nombre    : string;
+  grupo     : Grupo;
   newsLetter: boolean;
-  email: string;
-  telefono: number;
+  email     : string;
+  telefono  : number;
   comentario: string;
 }
 
@@ -21,19 +21,11 @@ export interface ContactoForm extends RawContactoFormValues {
 
 // Converts JSON strings to/from your types
 export class Convert {
-  public static contactoFormToJson(
-    value: ContactoForm 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static contactoFormToJson( value: ContactoForm ): string {
+    return JSON.stringify( value );
   }
 
-  public static toContactoForm(
-    json: string 
-  ): ContactoForm {
-    return JSON.parse(
-      json 
-    );
+  public static toContactoForm( json: string ): ContactoForm {
+    return JSON.parse( json );
   }
 }

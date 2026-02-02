@@ -13,15 +13,13 @@ import FruitPicker from '../Buttons/etapaProsesalSelector';
 import buttonStyles from '../Buttons/buttons.module.css';
 import Link from 'next/link';
 
-export const ProcesoCard = (
-  {
-    children,
-    proceso,
-  }: {
-    children: ReactNode;
-    proceso: outProceso;
-  }
-) => {
+export const ProcesoCard = ( {
+  children,
+  proceso,
+}: {
+  children: ReactNode;
+  proceso : outProceso;
+} ) => {
   const {
     sujetosProcesales, idProceso
   } = proceso;
@@ -42,25 +40,17 @@ export const ProcesoCard = (
   );
 };
 
-export async function ProcesoDetalle(
-  {
-    idProceso
-  }: { idProceso: number }
-) {
-  const urlNameMaker = consultaProcesoDetalleURL(
-    idProceso
-  );
+export async function ProcesoDetalle( {
+  idProceso
+}: { idProceso: number } ) {
+  const urlNameMaker = consultaProcesoDetalleURL( idProceso );
 
-  const fetchProc = await fetch(
-    urlNameMaker
-  );
+  const fetchProc = await fetch( urlNameMaker );
 
   const infoDetalle = [];
 
   if ( !fetchProc.ok ) {
-    console.log(
-      `proceso detalle failer with error: ${ fetchProc.statusText }`
-    );
+    console.log( `proceso detalle failer with error: ${ fetchProc.statusText }` );
 
     return (
       <div className={ layout.segmentColumn } style={ {
@@ -97,12 +87,10 @@ export async function ProcesoDetalle(
     ) ) {
       const element = detalleProceso[ key ];
 
-      infoDetalle.push(
-        {
-          key  : key,
-          value: element,
-        }
-      );
+      infoDetalle.push( {
+        key  : key,
+        value: element,
+      } );
     }
   }
 
@@ -110,78 +98,70 @@ export async function ProcesoDetalle(
     <div className={layout.segmentRow}>
       <h4 className={typography.titleLarge}>Detalles del proceso</h4>
 
-      {infoDetalle.map(
-        (
-          detalleEspecifico, index
-        ) => {
-          let outputTxt;
+      {infoDetalle.map( (
+        detalleEspecifico, index
+      ) => {
+        let outputTxt;
 
-          if (
-            detalleEspecifico.key === 'fechaConsulta'
+        if (
+          detalleEspecifico.key === 'fechaConsulta'
           || detalleEspecifico.key === 'ultimaActualizacion'
           || detalleEspecifico.key === 'fechaProceso'
-          ) {
-            outputTxt = new Date(
-              detalleEspecifico.value
-            )
-              .toLocaleDateString(
-                'es-co',
-                {
-                  weekday: 'long',
-                  year   : 'numeric',
-                  month  : 'long',
-                  day    : 'numeric',
-                },
-              );
-          } else {
-            outputTxt = detalleEspecifico.value;
-          }
-
-          return (
-            <div
-              key={index}
-              className={layout.segmentColumn}
-            >
-
-
-              <h5
-                style={{
-                  color: 'var(--primary)',
-                  flex : 1,
-                }}
-                className={typography.labelLarge}
-              >
-                {detalleEspecifico.key}
-              </h5>
-              <p
-                style={{
-                  color: 'var(--on-surface)',
-                  flex : 1,
-                }}
-                className={typography.bodySmall}
-              >
-                {`${ outputTxt }`}
-              </p>
-            </div>
-          );
+        ) {
+          outputTxt = new Date( detalleEspecifico.value )
+            .toLocaleDateString(
+              'es-co',
+              {
+                weekday: 'long',
+                year   : 'numeric',
+                month  : 'long',
+                day    : 'numeric',
+              },
+            );
+        } else {
+          outputTxt = detalleEspecifico.value;
         }
-      )}
+
+        return (
+          <div
+            key={index}
+            className={layout.segmentColumn}
+          >
+
+
+            <h5
+              style={{
+                color: 'var(--primary)',
+                flex : 1,
+              }}
+              className={typography.labelLarge}
+            >
+              {detalleEspecifico.key}
+            </h5>
+            <p
+              style={{
+                color: 'var(--on-surface)',
+                flex : 1,
+              }}
+              className={typography.bodySmall}
+            >
+              {`${ outputTxt }`}
+            </p>
+          </div>
+        );
+      } )}
     </div>
   );
 }
 
-export async function ProcesosComponent(
-  {
-    llaveProceso,
-    numero,
-  }: {
-    llaveProceso: string;
-    numero: number;
-  }
-) {
-  const procesos = await fetchProcesosByllaveProceso(
-    llaveProceso
-  );
+export async function ProcesosComponent( {
+  llaveProceso,
+  numero,
+}: {
+  llaveProceso: string;
+  numero      : number;
+} ) {
+  const procesos = await fetchProcesosByllaveProceso( llaveProceso );
 
   if ( procesos === null || procesos.length === 0 ) {
     return (
@@ -191,46 +171,42 @@ export async function ProcesosComponent(
 
   return (
     <Suspense fallback={ <Loader /> }>
-      {procesos.map(
-        (
-          proceso
-        ) => {
-          const {
-            idProceso
-          } = proceso;
+      {procesos.map( ( proceso ) => {
+        const {
+          idProceso
+        } = proceso;
 
-          return (
-            <ProcesoCard
-              key={idProceso}
-              proceso={proceso}
-            >
+        return (
+          <ProcesoCard
+            key={idProceso}
+            proceso={proceso}
+          >
 
-              <Suspense fallback={ <Loader /> }>
-                <FechaActuacionComponent
-                  key={idProceso}
-                  idProceso={idProceso}
-                />
-              </Suspense>
-              <JuzgadoComponent juzgado={proceso.juzgado} />
-              <FruitPicker />
-              <Link
+            <Suspense fallback={ <Loader /> }>
+              <FechaActuacionComponent
                 key={idProceso}
-                className={buttonStyles.buttonPassiveCategory}
-                href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`}
+                idProceso={idProceso}
+              />
+            </Suspense>
+            <JuzgadoComponent juzgado={proceso.juzgado} />
+            <FruitPicker />
+            <Link
+              key={idProceso}
+              className={buttonStyles.buttonPassiveCategory}
+              href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`}
+            >
+              <span
+                className={`material-symbols-outlined ${ buttonStyles.icon }`}
               >
-                <span
-                  className={`material-symbols-outlined ${ buttonStyles.icon }`}
-                >
-                  description
-                </span>
-                <span className={buttonStyles.text}>
-                  Todas las actuaciones de este juzgado
-                </span>
-              </Link>
-            </ProcesoCard>
-          );
-        }
-      )}
+                description
+              </span>
+              <span className={buttonStyles.text}>
+                Todas las actuaciones de este juzgado
+              </span>
+            </Link>
+          </ProcesoCard>
+        );
+      } )}
     </Suspense>
   );
 }

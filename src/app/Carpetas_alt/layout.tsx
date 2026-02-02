@@ -4,19 +4,17 @@ import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { TableProvider } from '../Context/TableContext';
 
 
-export default async function LayoutProcesosMain(
-  {
-    children,
-    top,
-    right,
-    modal,
-  }: {
-    children: ReactNode;
-    top: ReactNode;
-    right: ReactNode;
-    modal: ReactNode;
-  }
-) {
+export default async function LayoutProcesosMain( {
+  children,
+  top,
+  right,
+  modal,
+}: {
+  children: ReactNode;
+  top     : ReactNode;
+  right   : ReactNode;
+  modal   : ReactNode;
+} ) {
   const carpetas = await getCarpetas();
 
   return (

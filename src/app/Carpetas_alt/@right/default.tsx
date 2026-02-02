@@ -8,12 +8,9 @@ export default function Default() {
   return (
     <>
       <section className={ sectionColumn }>
-
         <PaginationControls />
         <FilterControls />
-
       </section>
-
     </>
   );
 }

@@ -37,56 +37,42 @@ export async function generateStaticParams() {
   );
 }
  */
-export default async function DatePage(
-  {
-    params,
-  }: {
-    params: { date: string[] };
-  }
-) {
+export default async function DatePage( {
+  params,
+}: {
+  params: { date: string[] };
+} ) {
   const [
     incomingAno,
     incomingMes,
     incomingDia
   ] = params.date;
 
-  const incomingDate = new Date(
-    `${ incomingAno }-${ incomingMes }-${ incomingDia }`
-  );
+  const incomingDate = new Date( `${ incomingAno }-${ incomingMes }-${ incomingDia }` );
 
   const client = await clientPromise;
 
   if ( !client ) {
-    throw new Error(
-      'no hay cliente mongólico'
-    );
+    throw new Error( 'no hay cliente mongólico' );
   }
 
-  const db = client.db(
-    'RyS'
-  );
+  const db = client.db( 'RyS' );
 
-  const collection = db.collection<IntNota>(
-    'Notas'
-  );
+  const collection = db.collection<IntNota>( 'Notas' );
 
   const rawNotas = await collection
-    .find(
-      {
-        date: {
-          $gte: incomingDate,
-        },
-      }
-    )
+    .find( {
+      date: {
+        $gte: incomingDate,
+      },
+    } )
     .toArray();
 
   if ( rawNotas.length === 0 ) {
     return notFound();
   }
 
-  const notas = notasConvert.toMonNotas(
-    rawNotas
-  );
+  const notas = notasConvert.toMonNotas( rawNotas );
 
   return (
     <>
@@ -98,18 +84,14 @@ export default async function DatePage(
           day    : 'numeric',
         }
       )}
-      {notas.map(
-        (
-          nota
-        ) => {
-          return (
-            <NotaComponent
-              key={nota.id}
-              notaRaw={nota}
-            />
-          );
-        }
-      )}
+      {notas.map( ( nota ) => {
+        return (
+          <NotaComponent
+            key={nota.id}
+            notaRaw={nota}
+          />
+        );
+      } )}
     </>
   );
 }

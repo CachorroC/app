@@ -12,7 +12,7 @@ import { Loader } from '#@/components/Loader/main-loader';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export type SortActionType = {
-  dir: 'asc' | 'dsc';
+  dir       : 'asc' | 'dsc';
   sortingKey:
     | 'fecha'
     | 'numero'
@@ -60,149 +60,134 @@ function sortCarpetas(
       case 'fecha': {
         return [
           ...carpetas
-        ].sort(
-          (
-            a, b
-          ) => {
-            if ( !a.fecha || a.fecha === undefined ) {
-              return sorter[ 2 ];
-            }
-
-            if ( !b.fecha || b.fecha === undefined ) {
-              return sorter[ 0 ];
-            }
-
-            const x = a.fecha;
-
-            const y = b.fecha;
-
-            if ( x < y ) {
-              return sorter[ 2 ];
-            }
-
-            if ( x > y ) {
-              return sorter[ 0 ];
-            }
-
-            return sorter[ 1 ];
+        ].sort( (
+          a, b
+        ) => {
+          if ( !a.fecha || a.fecha === undefined ) {
+            return sorter[ 2 ];
           }
-        );
+
+          if ( !b.fecha || b.fecha === undefined ) {
+            return sorter[ 0 ];
+          }
+
+          const x = a.fecha;
+
+          const y = b.fecha;
+
+          if ( x < y ) {
+            return sorter[ 2 ];
+          }
+
+          if ( x > y ) {
+            return sorter[ 0 ];
+          }
+
+          return sorter[ 1 ];
+        } );
       }
 
       case 'category': {
         return [
           ...carpetas
-        ].sort(
-          (
-            a, b
-          ) => {
-            const x = categoriesSorter.indexOf(
-              a.category
-            );
+        ].sort( (
+          a, b
+        ) => {
+          const x = categoriesSorter.indexOf( a.category );
 
-            const y = categoriesSorter.indexOf(
-              b.category
-            );
+          const y = categoriesSorter.indexOf( b.category );
 
-            if ( x < y ) {
-              return sorter[ 2 ];
-            }
-
-            if ( x > y ) {
-              return sorter[ 0 ];
-            }
-
-            return sorter[ 1 ];
+          if ( x < y ) {
+            return sorter[ 2 ];
           }
-        );
+
+          if ( x > y ) {
+            return sorter[ 0 ];
+          }
+
+          return sorter[ 1 ];
+        } );
       }
 
       case 'numero': {
         return [
           ...carpetas
-        ].sort(
-          (
-            a, b
-          ) => {
-            const x = a.numero;
+        ].sort( (
+          a, b
+        ) => {
+          const x = a.numero;
 
-            const y = b.numero;
+          const y = b.numero;
 
-            const idk = dir
-              ? x - y
-              : y - x;
+          const idk = dir
+            ? x - y
+            : y - x;
 
-            return idk;
-          }
-        );
+          return idk;
+        } );
       }
 
       case 'nombre': {
         return [
           ...carpetas
-        ].sort(
-          (
-            a, b
-          ) => {
-            const x = a.nombre;
+        ].sort( (
+          a, b
+        ) => {
+          const x = a.nombre;
 
-            const y = b.nombre;
+          const y = b.nombre;
 
-            if ( x < y ) {
-              return sorter[ 2 ];
-            }
-
-            if ( x > y ) {
-              return sorter[ 0 ];
-            }
-
-            return sorter[ 1 ];
+          if ( x < y ) {
+            return sorter[ 2 ];
           }
-        );
+
+          if ( x > y ) {
+            return sorter[ 0 ];
+          }
+
+          return sorter[ 1 ];
+        } );
       }
 
       default: {
         return [
           ...carpetas
-        ].sort(
-          (
-            a, b
-          ) => {
-            const aSortingKey = a[ sortingKey ];
+        ].sort( (
+          a, b
+        ) => {
+          const aSortingKey = a[ sortingKey ];
 
-            const bSortingKey = b[ sortingKey ];
+          const bSortingKey = b[ sortingKey ];
 
-            if ( !aSortingKey || aSortingKey === undefined ) {
-              return sorter[ 2 ];
-            }
-
-            if ( !bSortingKey || bSortingKey === undefined ) {
-              return sorter[ 0 ];
-            }
-
-            if ( aSortingKey < bSortingKey ) {
-              return sorter[ 2 ];
-            }
-
-            if ( aSortingKey > bSortingKey ) {
-              return sorter[ 0 ];
-            }
-
-            return 0;
+          if ( !aSortingKey || aSortingKey === undefined ) {
+            return sorter[ 2 ];
           }
-        );
+
+          if ( !bSortingKey || bSortingKey === undefined ) {
+            return sorter[ 0 ];
+          }
+
+          if ( aSortingKey < bSortingKey ) {
+            return sorter[ 2 ];
+          }
+
+          if ( aSortingKey > bSortingKey ) {
+            return sorter[ 0 ];
+          }
+
+          return 0;
+        } );
       }
   }
 }
 
-export default async function Page(
-  {
-    searchParams,
-  }: {
-    searchParams: Promise<{
-      [key: string]: string | string[] | undefined;
-      dir?: 'asc' | 'dsc';
-      sortingKey?:
+export default async function Page( {
+  searchParams,
+}: {
+  searchParams: Promise<{
+    [key: string]: string | string[] | undefined;
+    dir?         : 'asc' | 'dsc';
+    sortingKey?:
       | 'fecha'
       | 'numero'
       | 'nombre'
@@ -210,9 +195,8 @@ export default async function Page(
       | 'id'
       | 'tipoProceso'
       | 'updatedAt';
-    }>;
-  }
-) {
+  }>;
+} ) {
 
   const rawCarpetas = await getCarpetas();
 
@@ -253,64 +237,56 @@ export default async function Page(
         </tr>
       </thead>
       <tbody>
-        {carpetas.flatMap(
-          (
-            carpeta
-          ) => {
-            const {
-              idProcesos,
-              numero,
-              id,
-              nombre,
-              fecha,
-              llaveProceso,
-              category,
-              revisado,
-            } = carpeta;
+        {carpetas.flatMap( ( carpeta ) => {
+          const {
+            idProcesos,
+            numero,
+            id,
+            nombre,
+            fecha,
+            llaveProceso,
+            category,
+            revisado,
+          } = carpeta;
 
-            return idProcesos.map(
-              (
-                idProceso
-              ) => {
-                return (
-                  <ClientCardRow
-                    key={idProceso}
-                    rowHref={`/Carpeta/${ numero }` as Route}
-                    carpeta={carpeta}
-                  >
-                    <td>{nombre}</td>
-                    <td>
-                      <OutputDateHelper incomingDate={fecha} />
-                    </td>
-                    <td>{category}</td>
+          return idProcesos.map( ( idProceso ) => {
+            return (
+              <ClientCardRow
+                key={idProceso}
+                rowHref={`/Carpeta/${ numero }` as Route}
+                carpeta={carpeta}
+              >
+                <td>{nombre}</td>
+                <td>
+                  <OutputDateHelper incomingDate={fecha} />
+                </td>
+                <td>{category}</td>
 
-                    <td>
-                      <CopyButton
-                        copyTxt={llaveProceso}
-                        name={'expediente'}
-                      />
-                    </td>
-                    <td>
-                      <Suspense fallback={<ActuacionLoader />}>
-                        <FechaActuacionComponent
-                          idProceso={idProceso}
-                          key={idProceso}
-                        />
-                      </Suspense>
-                    </td>
-                    <td>
-                      <RevisadoCheckBox
-                        numero={numero}
-                        id={id}
-                        initialRevisadoState={revisado}
-                      />
-                    </td>
-                  </ClientCardRow>
-                );
-              }
+                <td>
+                  <CopyButton
+                    copyTxt={llaveProceso}
+                    name={'expediente'}
+                  />
+                </td>
+                <td>
+                  <Suspense fallback={<ActuacionLoader />}>
+                    <FechaActuacionComponent
+                      idProceso={idProceso}
+                      key={idProceso}
+                    />
+                  </Suspense>
+                </td>
+                <td>
+                  <RevisadoCheckBox
+                    numero={numero}
+                    id={id}
+                    initialRevisadoState={revisado}
+                  />
+                </td>
+              </ClientCardRow>
             );
-          }
-        )}
+          } );
+        } )}
       </tbody>
     </table>
   );

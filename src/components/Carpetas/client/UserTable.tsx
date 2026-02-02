@@ -18,9 +18,7 @@ export const UsersTable = () => {
     visibleData, dispatch, state
   } = useTable<MonCarpeta>();
 
-  const getSortIcon = (
-    key: keyof MonCarpeta
-  ) => {
+  const getSortIcon = ( key: keyof MonCarpeta ) => {
     if ( state.sortConfig.key !== key ) {
       return '↕️';
     }
@@ -44,49 +42,37 @@ export const UsersTable = () => {
         }}
         >
           <th onClick={() => {
-            return dispatch(
-              {
-                type   : 'SORT',
-                payload: 'numero'
-              }
-            );
+            return dispatch( {
+              type   : 'SORT',
+              payload: 'numero'
+            } );
           }} style={{
             cursor: 'pointer'
           }}
           >
-            Name {getSortIcon(
-              'numero'
-            )}
+            Name {getSortIcon( 'numero' )}
           </th>
           <th onClick={() => {
-            return dispatch(
-              {
-                type   : 'SORT',
-                payload: 'nombre'
-              }
-            );
+            return dispatch( {
+              type   : 'SORT',
+              payload: 'nombre'
+            } );
           }} style={{
             cursor: 'pointer'
           }}
           >
-            Role {getSortIcon(
-              'nombre'
-            )}
+            Role {getSortIcon( 'nombre' )}
           </th>
           <th onClick={() => {
-            return dispatch(
-              {
-                type   : 'SORT',
-                payload: 'fecha'
-              }
-            );
+            return dispatch( {
+              type   : 'SORT',
+              payload: 'fecha'
+            } );
           }} style={{
             cursor: 'pointer'
           }}
           >
-            Age {getSortIcon(
-              'category'
-            )}
+            Age {getSortIcon( 'category' )}
           </th>
           <th
             scope="col"
@@ -110,20 +96,16 @@ export const UsersTable = () => {
             scope="col"
             className={ styles.highlight }
             onClick={() => {
-              return dispatch(
-                {
-                  type   : 'SORT',
-                  payload: 'fecha'
-                }
-              );
+              return dispatch( {
+                type   : 'SORT',
+                payload: 'fecha'
+              } );
             } }
             style={ {
               cursor: 'pointer'
             }}
           >
-            Fecha de ultima Actuacion{getSortIcon(
-              'fecha'
-            )}
+            Fecha de ultima Actuacion{getSortIcon( 'fecha' )}
           </th>
           <th
             scope="col"
@@ -144,103 +126,87 @@ export const UsersTable = () => {
           ? (
               <tr><td colSpan={3}>No data found</td></tr>
             )
-          : ( visibleData.map(
-              (
-                carpeta
-              ) => {
-                const {
-                  ultimaActuacion,
-                  numero,
-                  nombre,
-                  id,
-                  category,
-                  fecha,
-                  llaveProceso,
-                  revisado,
-                  juzgado,
-                } = carpeta;
+          : ( visibleData.map( ( carpeta ) => {
+              const {
+                ultimaActuacion,
+                numero,
+                nombre,
+                id,
+                category,
+                fecha,
+                llaveProceso,
+                revisado,
+                juzgado,
+              } = carpeta;
 
-                const words = nombre
-                  .split(
-                    ' '
-                  )
-                  .map(
-                    (
-                      palabra: string
-                    ) => {
-                      return (
-                        palabra.charAt(
-                          0
-                        )
-                          .toUpperCase()
+              const words = nombre
+                .split( ' ' )
+                .map( ( palabra: string ) => {
+                  return (
+                    palabra.charAt( 0 )
+                      .toUpperCase()
                 + palabra.toLowerCase()
-                  .substring(
-                    1
-                  )
-                      );
-                    }
-                  )
-                  .join(
-                    ' '
+                  .substring( 1 )
                   );
+                } )
+                .join( ' ' );
 
-                return (
-                  <ClientCardRow
-                    key={numero}
-                    rowHref={`/Carpeta/${ numero }` as Route}
-                    carpeta={carpeta}
-                  >
-                    <td>{words}</td>
+              return (
+                <ClientCardRow
+                  key={numero}
+                  rowHref={`/Carpeta/${ numero }` as Route}
+                  carpeta={carpeta}
+                >
+                  <td>{words}</td>
 
-                    <td>{category}</td>
+                  <td>{category}</td>
 
-                    {ultimaActuacion
+                  {ultimaActuacion
+                    ? (
+                        <ActuacionTableComponent
+                          key={numero}
+                          numero={numero}
+                          title={ultimaActuacion.actuacion}
+                          content={ultimaActuacion.anotacion}
+                          idProceso={ultimaActuacion.idProceso}
+                        />
+                      )
+                    : (
+                        <ActuacionTableErrorComponent />
+                      )}
+
+                  <td>
+                    <RevisadoCheckBox
+                      numero={numero}
+                      id={id}
+                      initialRevisadoState={revisado}
+                    />
+                  </td>
+                  <td>
+                    <CopyButton
+                      copyTxt={llaveProceso}
+                      name={'expediente'}
+                    />
+                  </td>
+                  <td>
+                    <OutputDateHelper incomingDate={fecha} />
+                  </td>
+                  <td>{carpeta.demanda.municipio}</td>
+                  <td>
+                    {juzgado
                       ? (
-                          <ActuacionTableComponent
+                          <JuzgadoComponent
                             key={numero}
-                            numero={numero}
-                            title={ultimaActuacion.actuacion}
-                            content={ultimaActuacion.anotacion}
-                            idProceso={ultimaActuacion.idProceso}
+                            juzgado={juzgado}
                           />
                         )
                       : (
-                          <ActuacionTableErrorComponent />
+                          <JuzgadoErrorComponent />
                         )}
-
-                    <td>
-                      <RevisadoCheckBox
-                        numero={numero}
-                        id={id}
-                        initialRevisadoState={revisado}
-                      />
-                    </td>
-                    <td>
-                      <CopyButton
-                        copyTxt={llaveProceso}
-                        name={'expediente'}
-                      />
-                    </td>
-                    <td>
-                      <OutputDateHelper incomingDate={fecha} />
-                    </td>
-                    <td>{carpeta.demanda.municipio}</td>
-                    <td>
-                      {juzgado
-                        ? (
-                            <JuzgadoComponent
-                              key={numero}
-                              juzgado={juzgado}
-                            />
-                          )
-                        : (
-                            <JuzgadoErrorComponent />
-                          )}
-                    </td>
-                  </ClientCardRow>
-                );
-              }
-            ) )
+                  </td>
+                </ClientCardRow>
+              );
+            } ) )
 
         }
       </tbody>

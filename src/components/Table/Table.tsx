@@ -6,53 +6,41 @@ import { capitalize } from '#@/lib/project/utils/main';
 import { Category } from '#@/lib/types/carpetas';
 
 export type Data = {
-  numero: number;
-  nombre: string;
-  category: Category;
-  actuacion: string;
-  anotacion: string;
-  revisado: boolean;
-  expediente: string;
+  numero              : number;
+  nombre              : string;
+  category            : Category;
+  actuacion           : string;
+  anotacion           : string;
+  revisado            : boolean;
+  expediente          : string;
   fechaUltimaActuacion: string;
-  ciudad: string;
-  juzgado: string;
+  ciudad              : string;
+  juzgado             : string;
 }[];
 
 export type TableProps = {
   rows: Data;
 };
 
-export const Table = (
-  {
-    rows 
-  }: TableProps 
-) => {
+export const Table = ( {
+  rows 
+}: TableProps ) => {
   const [
     sortedRows,
     setRows
-  ] = useState(
-    rows 
-  );
+  ] = useState( rows );
 
   const [
     order,
     setOrder
-  ] = useState(
-    'asc' 
-  );
+  ] = useState( 'asc' );
 
   const [
     sortKey,
     setSortKey
-  ] = useState(
-    Object.keys(
-      rows[ 0 ] 
-    )[ 0 ] 
-  );
+  ] = useState( Object.keys( rows[ 0 ] )[ 0 ] );
 
-  const formatEntry = (
-    entry?: string | number | boolean | null 
-  ) => {
+  const formatEntry = ( entry?: string | number | boolean | null ) => {
     if ( typeof entry === 'boolean' ) {
       return entry
         ? '✅'
@@ -62,38 +50,22 @@ export const Table = (
     return entry;
   };
 
-  const filter = (
-    event: React.ChangeEvent<HTMLInputElement> 
-  ) => {
+  const filter = ( event: React.ChangeEvent<HTMLInputElement> ) => {
     const {
       value 
     } = event.target;
 
     if ( value ) {
-      setRows(
-        [
-          ...rows.filter(
-            (
-              row 
-            ) => {
-              return Object.values(
-                row 
-              )
-                .join(
-                  '' 
-                )
-                .toLowerCase()
-                .includes(
-                  value 
-                );
-            } 
-          ),
-        ] 
-      );
+      setRows( [
+        ...rows.filter( ( row ) => {
+          return Object.values( row )
+            .join( '' )
+            .toLowerCase()
+            .includes( value );
+        } ),
+      ] );
     } else {
-      setRows(
-        rows 
-      );
+      setRows( rows );
     }
   };
 
@@ -104,42 +76,36 @@ export const Table = (
       ? 1
       : -1;
 
-    setSortKey(
-      value 
-    );
-    setRows(
-      [
-        ...sortedRows.sort(
-          (
-            a, b 
-          ) => {
-            const aValue = a[ value ];
+    setSortKey( value );
+    setRows( [
+      ...sortedRows.sort( (
+        a, b 
+      ) => {
+        const aValue = a[ value ];
 
-            const bValue = b[ value ];
+        const bValue = b[ value ];
 
-            const isNumberAValue = typeof aValue === 'number';
+        const isNumberAValue = typeof aValue === 'number';
 
-            const isNumberBValue = typeof bValue === 'number';
+        const isNumberBValue = typeof bValue === 'number';
 
-            const isBooleanValue = typeof aValue === 'boolean';
+        const isBooleanValue = typeof aValue === 'boolean';
 
-            if ( isNumberAValue && isNumberBValue ) {
-              return aValue > bValue
-                ? returnValue * -1
-                : returnValue;
-            } else if ( isBooleanValue ) {
-              return a[ value ] > b[ value ]
-                ? returnValue * -1
-                : returnValue;
-            }
+        if ( isNumberAValue && isNumberBValue ) {
+          return aValue > bValue
+            ? returnValue * -1
+            : returnValue;
+        } else if ( isBooleanValue ) {
+          return a[ value ] > b[ value ]
+            ? returnValue * -1
+            : returnValue;
+        }
 
-            return a[ value ] > b[ value ]
-              ? returnValue * -1
-              : returnValue;
-          } 
-        ),
-      ] 
-    );
+        return a[ value ] > b[ value ]
+          ? returnValue * -1
+          : returnValue;
+      } ),
+    ] );
   };
 
   const updateOrder = () => {
@@ -147,9 +113,7 @@ export const Table = (
       ? 'desc'
       : 'asc';
 
-    setOrder(
-      updatedOrder 
-    );
+    setOrder( updatedOrder );
     sort(
       sortKey as keyof Data[0], updatedOrder 
     );
@@ -164,76 +128,54 @@ export const Table = (
           onChange={filter}
         />
         <select
-          onChange={(
-            event 
-          ) => {
+          onChange={( event ) => {
             return sort(
               event.target.value as keyof Data[0], order 
             );
           }}
         >
-          {Object.keys(
-            rows[ 0 ] 
-          )
-            .map(
-              (
-                entry, index 
-              ) => {
-                return (
-                  <option
-                    value={entry}
-                    key={index}
-                  >
-                    Order by {capitalize(
-                      entry 
-                    )}
-                  </option>
-                );
-              } 
-            )}
+          {Object.keys( rows[ 0 ] )
+            .map( (
+              entry, index 
+            ) => {
+              return (
+                <option
+                  value={entry}
+                  key={index}
+                >
+                  Order by {capitalize( entry )}
+                </option>
+              );
+            } )}
         </select>
         <button onClick={updateOrder}>Switch order ({order})</button>
       </div>
       <table className={styles.Table}>
         <thead>
           <tr>
-            {Object.keys(
-              rows[ 0 ] 
-            )
-              .map(
-                (
-                  entry, index 
-                ) => {
-                  return <th key={index}>{capitalize(
-                    entry 
-                  )}</th>;
-                } 
-              )}
+            {Object.keys( rows[ 0 ] )
+              .map( (
+                entry, index 
+              ) => {
+                return <th key={index}>{capitalize( entry )}</th>;
+              } )}
           </tr>
         </thead>
         <tbody>
-          {sortedRows.map(
-            (
-              row, index 
-            ) => {
-              return (
-                <tr key={index}>
-                  {Object.values(
-                    row 
-                  )
-                    .map(
-                      (
-                        entry, columnIndex 
-                      ) => {
-                        return <td key={columnIndex}>{formatEntry(
-                          entry 
-                        )}</td>;
-                      } 
-                    )}
-                </tr>
-              );
-            } 
-          )}
+          {sortedRows.map( (
+            row, index 
+          ) => {
+            return (
+              <tr key={index}>
+                {Object.values( row )
+                  .map( (
+                    entry, columnIndex 
+                  ) => {
+                    return <td key={columnIndex}>{formatEntry( entry )}</td>;
+                  } )}
+              </tr>
+            );
+          } )}
         </tbody>
       </table>
       {!sortedRows.length && <h1>No results... Try expanding the search</h1>}

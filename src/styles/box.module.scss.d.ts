@@ -1,7 +1,7 @@
 export type Styles = {
   container: string;
-  flex: string;
-  grid: string;
+  flex     : string;
+  grid     : string;
 };
 
 export type ClassesType = keyof Styles;

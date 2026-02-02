@@ -5,10 +5,10 @@
 //   const despacho = Convert.toDespacho(json);
 
 export interface Despacho {
-  nombre: string;
+  nombre      : string;
   especialidad: Especialidad;
-  agrupacion: string;
-  url: string;
+  agrupacion  : string;
+  url         : string;
 }
 
 export type Especialidad =
@@ -66,19 +66,11 @@ export type Especialidad =
 
 // Converts JSON strings to/from your types
 export class despachosConvert {
-  public static despachoToJson(
-    value: Despacho[] 
-  ): string {
-    return JSON.stringify(
-      value 
-    );
+  public static despachoToJson( value: Despacho[] ): string {
+    return JSON.stringify( value );
   }
 
-  public static toDespacho(
-    json: string 
-  ): Despacho[] {
-    return JSON.parse(
-      json 
-    );
+  public static toDespacho( json: string ): Despacho[] {
+    return JSON.parse( json );
   }
 }

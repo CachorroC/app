@@ -10,9 +10,7 @@ export async function updateDemandaAction(
   prevState: { success: boolean; demanda: intDemanda | null },
   queryData: FormData,
 ) {
-  const itemID = queryData.get(
-    'numero'
-  );
+  const itemID = queryData.get( 'numero' );
 
   const {
     demanda
@@ -52,9 +50,7 @@ webpush.setVapidDetails(
 
 let subscription: WebPushSubscription | null = null;
 
-export async function subscribeUser(
-  sub: WebPushSubscription
-) {
+export async function subscribeUser( sub: WebPushSubscription ) {
   subscription = sub;
 
   // In a production environment, you would want to store the subscription in a database
@@ -74,25 +70,19 @@ export async function unsubscribeUser() {
   };
 }
 
-export async function sendNotification(
-  message: string
-) {
+export async function sendNotification( message: string ) {
   if ( !subscription ) {
-    throw new Error(
-      'No subscription available'
-    );
+    throw new Error( 'No subscription available' );
   }
 
   try {
     await webpush.sendNotification(
       subscription,
-      JSON.stringify(
-        {
-          title: 'Test Notification',
-          body : message,
-          icon : '/icon.png',
-        }
-      )
+      JSON.stringify( {
+        title: 'Test Notification',
+        body : message,
+        icon : '/icon.png',
+      } )
     );
 
     return {
