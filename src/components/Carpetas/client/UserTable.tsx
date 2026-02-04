@@ -157,9 +157,9 @@ export const UsersTable = () => {
                   rowHref={`/Carpeta/${ numero }` as Route}
                   carpeta={carpeta}
                 >
-                  <td>{words}</td>
+                  <td data-label='nombre'>{words}</td>
 
-                  <td>{category}</td>
+                  <td data-label='categoria'>{category}</td>
 
                   {ultimaActuacion
                     ? (
@@ -175,24 +175,24 @@ export const UsersTable = () => {
                         <ActuacionTableErrorComponent />
                       )}
 
-                  <td>
+                  <td data-label='revisado'>
                     <RevisadoCheckBox
                       numero={numero}
                       id={id}
                       initialRevisadoState={revisado}
                     />
                   </td>
-                  <td>
+                  <td data-label='expediente'>
                     <CopyButton
                       copyTxt={llaveProceso}
                       name={'expediente'}
                     />
                   </td>
-                  <td>
+                  <td data-label='fecha'>
                     <OutputDateHelper incomingDate={fecha} />
                   </td>
-                  <td>{carpeta.demanda.municipio}</td>
-                  <td>
+                  <td data-label='ciudad'>{carpeta.demanda.municipio}</td>
+                  <td data-label='juzgado'>
                     {juzgado
                       ? (
                           <JuzgadoComponent

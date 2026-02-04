@@ -6,6 +6,7 @@ import { Route } from 'next';
 import PageClient from './client';
 import { InstallPrompt,
   PushNotificationManager, } from './notification-components';
+import NotificationButton from '#@/components/NotificationButton';
 
 export default function Page() {
   return (
@@ -17,6 +18,7 @@ export default function Page() {
       </div>
       <div className={layout.leftGrid}>
         <div>
+          <NotificationButton />
           <PushNotificationManager />
           <InstallPrompt />
         </div>

@@ -4,12 +4,7 @@
 // which require a DOM and browser runtime environment.
 'use client';
 
-import React, { createContext,
-  useReducer,
-  useMemo,
-  useContext,
-  ReactNode,
-  Dispatch } from 'react';
+import React, { createContext, useReducer, useMemo, useContext, ReactNode, Dispatch, Reducer } from 'react';
 import { useDebounce } from '../Hooks/useDebounce';
 
 // --- TYPES ---
@@ -147,9 +142,11 @@ interface TableContextType<T> {
   totalPages : number;
   isSearching: boolean;
   state      : TableState<T>;
+  // FIX 1: Remove "| any". Keep it strict.
   dispatch   : Dispatch<Action<T>>;
 }
 
+// We initialize with 'any' because we can't know 'T' at creation time.
 const TableContext = createContext<TableContextType<any> | null>( null );
 
 interface TableProviderProps<T> {
@@ -169,8 +166,8 @@ export const TableProvider = <T extends Record<string, any>>( {
   const [
     state,
     dispatch
-  ] = useReducer<React.Reducer<TableState<T>, Action<T>>>(
-    tableReducer, {
+  ] = useReducer(
+    tableReducer as Reducer<TableState<T>, Action<T>>, {
       currentPage : 1,
       itemsPerPage: 5,
       searchQuery : '',
@@ -179,7 +176,7 @@ export const TableProvider = <T extends Record<string, any>>( {
         key      : ( defaultSortKey || 'fecha' ) as keyof T,
         direction: 'desc'
       }
-    }
+    } as TableState<T>
   );
 
   // APPROACH: Debouncing
@@ -355,22 +352,24 @@ export const TableProvider = <T extends Record<string, any>>( {
   );
 
   const totalPages = Math.ceil( filteredData.length / state.itemsPerPage );
+  const contextValue: TableContextType<T> = {
+    visibleData,
+    totalItems : filteredData.length,
+    totalPages,
+    isSearching: state.searchQuery !== debouncedSearchQuery,
+    state,
+    dispatch,
+  };
 
   return (
-    <TableContext.Provider value={{
-      visibleData,
-      totalItems : filteredData.length,
-      totalPages,
-      // UI Helper: Allows the UI to show a spinner if the user is typing but the debounce hasn't triggered yet.
-      isSearching: state.searchQuery !== debouncedSearchQuery,
-      state,
-      dispatch,
-    }}
-    >
+    // FIX 3: Cast the value to 'TableContextType<any>' to satisfy the Context definition.
+    // We know this is safe because 'useTable' will cast it back to 'T'.
+    <TableContext.Provider value={contextValue as TableContextType<any>}>
       {children}
     </TableContext.Provider>
   );
 };
+
 
 // APPROACH: Custom Hook Pattern
 // Why? This encapsulates the `useContext` check.
@@ -383,5 +382,6 @@ export const useTable = <T extends Record<string, any>>(): TableContextType<T> =
     throw new Error( 'useTable must be used within a TableProvider' );
   }
 
-  return context;
+  // FIX 4: Cast the context back to the strict generic type 'T'
+  return context as TableContextType<T>;
 };

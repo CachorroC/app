@@ -15,7 +15,7 @@ export function ClientCardRow<H extends string>( {
   children: ReactNode;
 } ) {
   const {
-    currentCategory 
+    currentCategory
   } = useCategory();
 
   if ( currentCategory !== 'todos' && currentCategory !== carpeta.category ) {
@@ -24,7 +24,7 @@ export function ClientCardRow<H extends string>( {
 
   return (
     <tr key={rowHref}>
-      <td>
+      <td data-label='numero'>
         <Link href={rowHref}>{carpeta.numero}</Link>
       </td>
       {children}

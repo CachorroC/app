@@ -20,20 +20,30 @@ export type ConsultaActuacion = {
   paginacion : Paginacion;
 };
 
-export type intActuacion = {
-  idRegActuacion: string;
-  llaveProceso  : string;
-  consActuacion : number;
-  fechaActuacion: Date;
+export interface intActuacion {
   actuacion     : string;
   anotacion     : null | string;
-  fechaInicial  : Date | null;
-  fechaFinal    : Date | null;
-  fechaRegistro : Date;
-  codRegla      : CodRegla;
-  conDocumentos : boolean;
   cant          : number;
+  codRegla      : string;
+  conDocumentos : boolean;
+  consActuacion : number;
+  fechaActuacion: Date | string;
+  fechaFinal    : Date | string |null;
+  fechaInicial  : Date | string | null;
+  fechaRegistro : Date | string;
+  idRegActuacion: string;
+  llaveProceso  : string;
+
 };
+
+export interface newActuacionWehookResponse extends intActuacion
+{
+  idProceso    : number;
+  nombre       : string;
+  carpetaNumero: number;
+  carpetaId    : number;
+  nombre       : string;
+}
 
 export type CodRegla = '00                              ';
 

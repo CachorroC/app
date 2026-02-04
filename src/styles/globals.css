@@ -357,6 +357,7 @@ p {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  overflow-wrap: break-word;
 }
 
 :root,
@@ -433,11 +434,7 @@ body {
 }
 
 .material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
   font-size: 1.5rem;
 }
 
@@ -445,42 +442,52 @@ a {
   text-decoration: none;
   text-align: center;
 }
-a:link,
-a:visited {
+a:link, a:visited {
   color: inherit;
 }
 
-table {
-  text-align: center;
-  position: relative;
-  grid-column: span 4;
-  width: 100%;
-  border-collapse: collapse;
+/* Keep your existing desktop styles above this */
+@media (max-width: 768px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+    width: 100%;
+  }
+  /* Hide table headers but keep them accessible */
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--outline);
+    border-radius: 8px;
+    padding: 10px;
+  }
+  td {
+    /* Use flexbox to align labels and data */
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 5px;
+    text-align: right;
+    border-bottom: 1px solid var(--surface-container-low);
+  }
+  td:last-child {
+    border-bottom: 0;
+  }
+  /* This pulls the label from the HTML data-label attribute */
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-align: left;
+    color: var(--secondary);
+  }
 }
-
-th {
-  position: sticky;
-  top: 0; /* Don't forget this, required for the stickiness */
-  z-index: 1;
-  background-color: var(--secondary-container);
-}
-
-tr {
-  padding: 2px;
-}
-tr:nth-child(odd) {
-  background: var(--surface-container-low);
-}
-tr:hover {
-  border: var(--outline) 1px solid;
-}
-
-hr {
-  height: 0.02rem;
-  background-color: var(--secondary);
-  width: 100%;
-}
-
 a:focus,
 button:focus,
 input:focus,

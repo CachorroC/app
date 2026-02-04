@@ -1,25 +1,6 @@
 import { outActuacion } from '#@/lib/types/actuaciones';
 import  prisma  from '#@/lib/connection/prisma';
 
-export async function updateActuacionesInPrisma( incomingActuaciones: outActuacion[], ) {
-  try {
-    return await prisma.actuacion.createMany( {
-      data: incomingActuaciones.map( ( actuacion ) => {
-        return {
-          ...actuacion,
-          idRegActuacion: `${ actuacion.idRegActuacion }`
-        };
-      } ),
-      skipDuplicates: true,
-    } );
-  } catch ( error ) {
-    console.log( error );
-
-    return {
-      count: 0,
-    };
-  }
-}
 
 export async function updateUltimaActuacionInPrisma( incomingActuacion: outActuacion, ) {
   try {
@@ -77,6 +58,11 @@ export async function updateUltimaActuacionInPrisma( incomingActuacion: outActua
                     incomingActuacion.cant === incomingActuacion.consActuacion
                       ? true
                       : false,
+                  proceso: {
+                    connect: {
+                      idProceso: idProceso
+                    }
+                  }
                 },
               },
             },

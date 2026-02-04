@@ -15,7 +15,7 @@ export function ActuacionTableComponent( {
   idProceso: number;
 } ) {
   return (
-    <td>
+    <td data-label='ultimaActuacion'>
       <h2 className={typography.titleMedium}>{title}</h2>
 
       {content && <span className={typography.labelSmall}>{content}</span>}
@@ -33,7 +33,7 @@ export function ActuacionTableComponent( {
 
 export function ActuacionTableErrorComponent() {
   return (
-    <td>
+    <td data-label='ultimaActuacion'>
       <h5
         className={typography.headlineSmall}
         style={{

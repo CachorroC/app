@@ -1,21 +1,23 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { subscribeUser, unsubscribeUser, sendNotification } from './actions';
+import React, { useState, useEffect } from 'react';
+import { unsubscribeUser, sendNotification } from './actions';
+import styles from '#@/styles/PushNotifications.module.css';
 
-function urlBase64ToUint8Array( base64String: string ) {
+// Type definition for legacy iOS check
+interface CustomWindow extends Window {
+  MSStream?: unknown;
+}
+
+function urlBase64ToUint8Array( base64String: string ): Uint8Array {
   const padding = '='.repeat( ( 4 - ( base64String.length % 4 ) ) % 4 );
-
-  const base64 = ( base64String + padding )
-    .replace(
-      /\\-/g, '+'
-    )
+  const base64 = ( base64String + padding ).replace(
+    /-/g, '+'
+  )
     .replace(
       /_/g, '/'
     );
-
   const rawData = window.atob( base64 );
-
   const outputArray = new Uint8Array( rawData.length );
 
   for ( let i = 0; i < rawData.length; ++i ) {
@@ -25,17 +27,16 @@ function urlBase64ToUint8Array( base64String: string ) {
   return outputArray;
 }
 
+
 export function PushNotificationManager() {
   const [
     isSupported,
     setIsSupported
   ] = useState( false );
-
   const [
     subscription,
     setSubscription
-  ] = useState<PushSubscription | null>( null, );
-
+  ] = useState<PushSubscription | null>( null );
   const [
     message,
     setMessage
@@ -51,45 +52,63 @@ export function PushNotificationManager() {
   );
 
   async function registerServiceWorker() {
-    const registration = await navigator.serviceWorker.register(
-      '/sw.js', {
-        scope         : '/',
-        updateViaCache: 'none',
-      }
-    );
-
-    const sub = await registration.pushManager.getSubscription();
-
-    setSubscription( sub );
+    try {
+      const registration = await navigator.serviceWorker.register(
+        '/service-worker.js', {
+          scope         : '/',
+          updateViaCache: 'none',
+        }
+      );
+      const sub = await registration.pushManager.getSubscription();
+      setSubscription( sub );
+    } catch ( error ) {
+      console.error(
+        'Service Worker registration error:', error
+      );
+    }
   }
 
   async function subscribeToPush() {
-    const registration = await navigator.serviceWorker.ready;
+    try {
+      const registration = await navigator.serviceWorker.ready;
+      const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 
-    const sub = await registration.pushManager.subscribe( {
-      userVisibleOnly     : true,
-      applicationServerKey: urlBase64ToUint8Array( process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!, ),
-    } );
+      if ( !publicKey ) {
+        throw new Error( 'VAPID public key missing' );
+      }
 
-    setSubscription( sub );
+      const sub = await registration.pushManager.subscribe( {
+        userVisibleOnly     : true,
+        applicationServerKey: urlBase64ToUint8Array( publicKey ).buffer as ArrayBuffer,
+      } );
 
-    // Serialize the browser PushSubscription to match the server-side type
-    const serializedSub = {
-      endpoint      : sub.endpoint,
-      expirationTime: sub.expirationTime,
-      keys          : {
-        p256dh: btoa( String.fromCharCode.apply(
-          null,
-          Array.from( new Uint8Array( sub.getKey( 'p256dh' )! ) )
-        ) ),
-        auth: btoa( String.fromCharCode.apply(
-          null,
-          Array.from( new Uint8Array( sub.getKey( 'auth' )! ) )
-        ) ),
-      },
-    };
+      const subscriptionData = {
+        endpoint      : sub.endpoint,
+        expirationTime: sub.expirationTime,
+        keys          : {
+          p256dh: btoa( String.fromCharCode( ...new Uint8Array( sub.getKey( 'p256dh' )! ) ) ),
+          auth  : btoa( String.fromCharCode( ...new Uint8Array( sub.getKey( 'auth' )! ) ) ),
+        },
+      };
 
-    await subscribeUser( serializedSub );
+      const response = await fetch(
+        '/api/subscribe', {
+          method : 'POST',
+          body   : JSON.stringify( subscriptionData ),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }
+      );
+
+      if ( response.ok ) {
+        setSubscription( sub );
+      }
+    } catch ( error ) {
+      console.error(
+        'Subscription failed:', error
+      );
+    }
   }
 
   async function unsubscribeFromPush() {
@@ -99,40 +118,52 @@ export function PushNotificationManager() {
   }
 
   async function sendTestNotification() {
-    if ( subscription ) {
+    if ( subscription && message.trim() ) {
       await sendNotification( message );
       setMessage( '' );
     }
   }
 
   if ( !isSupported ) {
-    return <p>Push notifications are not supported in this browser.</p>;
+    return <p className={styles.statusText}>Push notifications not supported.</p>;
   }
 
   return (
-    <div>
-      <h3>Push Notifications</h3>
+    <div className={styles.container}>
+      <h3 className={styles.title}>Push Notifications</h3>
       {subscription
         ? (
-            <>
-              <p>You are subscribed to push notifications.</p>
-              <button onClick={unsubscribeFromPush}>Unsubscribe</button>
-              <input
-                type="text"
-                placeholder="Enter notification message"
-                value={message}
-                onChange={( e ) => {
-                  return setMessage( e.target.value );
-                }}
-              />
-              <button onClick={sendTestNotification}>Send Test</button>
-            </>
+            <div className={styles.flexGroup}>
+              <p className={styles.statusText} style={{
+                color: '#16a34a'
+              }}
+              >Status: Subscribed</p>
+              <button onClick={unsubscribeFromPush} className={`${ styles.button } styles.btnGhost`}>
+                Unsubscribe
+              </button>
+              <div className={styles.row}>
+                <input
+                  type="text"
+                  className={styles.inputField}
+                  placeholder="Message..."
+                  value={message}
+                  onChange={( e ) => {
+                    return setMessage( e.target.value );
+                  }}
+                />
+                <button onClick={sendTestNotification} className={`${ styles.button } ${ styles.btnPrimary }`}>
+                  Send Test
+                </button>
+              </div>
+            </div>
           )
         : (
-            <>
-              <p>You are not subscribed to push notifications.</p>
-              <button onClick={subscribeToPush}>Subscribe</button>
-            </>
+            <div>
+              <p className={styles.statusText}>Not currently subscribed.</p>
+              <button onClick={subscribeToPush} className={`${ styles.button } ${ styles.btnSuccess }`}>
+                Enable Notifications
+              </button>
+            </div>
           )}
     </div>
   );
@@ -143,7 +174,6 @@ export function InstallPrompt() {
     isIOS,
     setIsIOS
   ] = useState( false );
-
   const [
     isStandalone,
     setIsStandalone
@@ -151,39 +181,27 @@ export function InstallPrompt() {
 
   useEffect(
     () => {
-      setIsIOS( /iPad|iPhone|iPod/.test( navigator.userAgent ) && !( window as any ).MSStream, );
-
+      const win = window as CustomWindow;
+      const isIOSDevice = /iPad|iPhone|iPod/.test( navigator.userAgent ) && !win.MSStream;
+      setIsIOS( isIOSDevice );
       setIsStandalone( window.matchMedia( '(display-mode: standalone)' ).matches );
     }, []
   );
 
   if ( isStandalone ) {
-    return null; // Don't show install button if already installed
+    return null;
   }
 
   return (
-    <div>
-      <h3>Install App</h3>
-      <button>Add to Home Screen</button>
+    <div className={styles.container}>
+      <h3 className={styles.title}>Install App</h3>
+      <button className={`${ styles.button } ${ styles.btnPrimary }`}>Add to Home Screen</button>
       {isIOS && (
-        <p>
-          To install this app on your iOS device, tap the share button
-          <span
-            role="img"
-            aria-label="share icon"
-          >
-            {' '}
-            ⎋{' '}
-          </span>
-          and then Add to Home Screen
-          <span
-            role="img"
-            aria-label="plus icon"
-          >
-            {' '}
-            ➕{' '}
-          </span>
-          .
+        <p className={styles.statusText} style={{
+          marginTop: '0.5rem'
+        }}
+        >
+          Tap share icon ⎋ then Add to Home Screen ➕
         </p>
       )}
     </div>

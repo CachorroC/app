@@ -45,6 +45,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "OLD.eslint.config.js",
-    "public/service-worker.js"
+    "public/service-worker.js",
+    ".next/dev/types/**/*.ts"
   ]
 }

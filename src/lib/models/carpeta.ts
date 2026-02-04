@@ -144,7 +144,7 @@ export class Carpeta {
 
       if ( ultimaActuacion ) {
         this.ultimaActuacion = ultimaActuacion;
-        this.fecha = ultimaActuacion.fechaActuacion;
+        this.fecha = new Date( ultimaActuacion.fechaActuacion );
         this.idRegUltimaAct = `${ ultimaActuacion.idRegActuacion }`;
       }
     }
