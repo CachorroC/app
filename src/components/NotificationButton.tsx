@@ -33,7 +33,14 @@ export default function NotificationButton() {
   useEffect(
     () => {
       if ( 'serviceWorker' in navigator ) {
-        navigator.serviceWorker.register( '/service-worker.js' )
+
+
+        navigator.serviceWorker.register(
+          '/service-worker.js', {
+            scope         : '/',
+            updateViaCache: 'none'
+          }
+        )
           .then( ( registration ) => {
             console.log(
               'Scope: ', registration.scope

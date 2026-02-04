@@ -1,68 +1,100 @@
 /* eslint-disable no-unused-vars */
+// @ts-check
+
 /**
- * @type {ServiceWorkerGlobalScope}
+ * Forzamos a TypeScript a tratar 'self' como un ServiceWorkerGlobalScope
+ * sin usar la palabra reservada 'declare'.
+ * @type {ServiceWorkerGlobalScope & typeof globalThis}
  */
-const sw = self;
+const sw = /** @type {?} */ ( self );
 
 const CACHE_NAME = 'offline-v1';
-const OFFLINE_URL = 'offline.html';
+const OFFLINE_URL = '/offline.html';
+
+//
 
 sw.addEventListener(
-  'install', ( event ) => {
-    event.waitUntil( ( async () => {
-      const cache = await caches.open( CACHE_NAME );
-      // 'reload' asegura que no traiga una versión vieja del cache del navegador
-      await cache.add( new Request(
-        OFFLINE_URL, {
-          cache: 'reload'
-        }
-      ) );
-    } )() );
+  'install', (
+    event
+  ) => {
+    event.waitUntil(
+      ( async () => {
+        const cache = await caches.open(
+          CACHE_NAME
+        );
+        await cache.add(
+          new Request(
+            OFFLINE_URL, {
+              cache: 'reload'
+            }
+          )
+        );
+      } )()
+    );
     sw.skipWaiting();
   }
 );
 
 sw.addEventListener(
-  'activate', ( event ) => {
-    event.waitUntil( ( async () => {
-    // Habilitar navegación precargada si el navegador lo soporta
-      if ( 'navigationPreload' in sw.registration ) {
-        await sw.registration.navigationPreload.enable();
-      }
-    } )() );
-    // Corregido: 'clients' en minúscula
+  'activate', (
+    event
+  ) => {
+    event.waitUntil(
+      ( async () => {
+        if ( 'navigationPreload' in sw.registration ) {
+
+          await sw.registration.navigationPreload.enable();
+        }
+      } )()
+    );
+    // 'clients' ahora será reconocido correctamente
     sw.clients.claim();
   }
 );
 
 sw.addEventListener(
-  'fetch', ( event ) => {
+  'fetch', (
+    event
+  ) => {
     if ( event.request.mode === 'navigate' ) {
-      event.respondWith( ( async () => {
-        try {
-          const preloadResponse = await event.preloadResponse;
+      event.respondWith(
+        ( async () => {
+          try {
+            const preloadResponse = await event.preloadResponse;
 
-          if ( preloadResponse ) {
-            return preloadResponse;
+            if ( preloadResponse ) {
+              return preloadResponse;
+            }
+
+            return await fetch(
+              event.request
+            );
+          } catch ( error ) {
+            const cache = await caches.open(
+              CACHE_NAME
+            );
+            const cachedResponse = await cache.match(
+              OFFLINE_URL
+            );
+
+            return cachedResponse || new Response(
+              'Offline', {
+                headers: {
+                  'Content-Type': 'text/html'
+                }
+              }
+            );
           }
-
-          return await fetch( event.request );
-        } catch ( error ) {
-          console.log(
-            'Fetch failed; returning offline page.', error
-          );
-          const cache = await caches.open( CACHE_NAME );
-          const cachedResponse = await cache.match( OFFLINE_URL );
-
-          return cachedResponse || new Response( 'Offline content unavailable' );
-        }
-      } )() );
+        } )()
+      );
     }
   }
 );
 
 sw.addEventListener(
-  'push', ( event ) => {
+  'push', (
+    event
+  ) => {
     if ( event.data ) {
       let data;
 
@@ -90,16 +122,24 @@ sw.addEventListener(
         },
       };
 
-      event.waitUntil( sw.registration.showNotification(
-        data.title || 'Nuevo Mensaje', options
-      ) );
+      event.waitUntil(
+        sw.registration.showNotification(
+          data.title || 'Mensaje', options
+        )
+      );
     }
   }
 );
 
 sw.addEventListener(
-  'notificationclick', ( event ) => {
+  'notificationclick', (
+    event
+  ) => {
     event.notification.close();
-    event.waitUntil( sw.clients.openWindow( '/' ) );
+    event.waitUntil(
+      sw.clients.openWindow(
+        '/'
+      )
+    );
   }
 );
