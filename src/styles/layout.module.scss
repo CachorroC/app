@@ -6,77 +6,54 @@ $MinMW: 600px;
 $MinSW: 320px; // minimum small width
 $MaxSW: 480px; //maximum sma width
 
+// --- MAIN LAYOUT ---
 .container {
-  transition: all 0.5s;
   display: grid;
-  width: 100vw;
-  gap: 0.03rem;
-  padding: 0;
-  height: 100svh;
+  // 1. FIXED: Use 100% instead of 100vw to avoid scrollbar width issues
+  width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   background-color: var(--surface-container);
-  grid-auto-flow: row;
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 700,
-    'GRAD' 0,
-    'opsz' 48;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    'top'
-    'right'
-    'right'
-    'right'
-    'left'
-    'left'
-    'left'
-    'left'
-    'left'
-    'left'
-    'left'
-    'header'; /*
-  @media (width < 600px) {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(12, 1fr);
-    padding: 0.5rem 0.5rem 0 0.5rem;
-    gap: 0.2rem;
-    grid-template-areas:
-      'top top top top'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'left left left left'
-      'right right right right'
-      'right right right right'
-      'header header header header';
-  } */
+  gap: 0.5rem;
+  padding: 0;
 
-  @media (600px < width < 1200px) {
-    grid-template-columns: 5rem repeat(8, 1fr);
-    grid-template-rows: repeat(12, minmax(4vh, 1fr));
+  // Default Mobile Behavior (Phone)
+  height: auto;
+  min-height: 100svh;
+  overflow-x: hidden; // Prevent horizontal scroll on body
+  overflow-y: visible;
+
+  // 2. FIXED: Mobile Grid (Single Column)
+  // Forces all content to stay within the screen width
+  @media (width < 600px) {
+    grid-template-columns: 100%; // Strict single column
+    grid-template-rows: auto auto auto auto; // Let rows grow naturally
     grid-template-areas:
-      'header top top top top top top top top'
-      'header left left left left left left right right'
-      'header left left left left left left right right'
-      'header left left left left left left right right'
-      'header left left left left left left right right'
-      'header left left left left left left right right'
-      'header left left left left left left right right'
-      'header left left left left left left right right'
-      'header left left left left left left right right'
-      'header left left left left left left right right'
-      'header left left left left left left right right'
-      'header left left left left left left right right';
+      'header'
+      'top'
+      'right'
+      'left';
+    padding: 0.5rem; // Add breathing room
   }
 
+  // Tablet
+  @media (600px <= width <= 1200px) {
+    grid-template-columns: 5rem 1fr;
+    grid-template-rows: auto min-content 1fr;
+    grid-template-areas:
+      'header top'
+      'header right'
+      'header left';
+  }
+
+  // Desktop (App-like view)
   @media (1200px < width) {
+    height: 100svh;
+    overflow: hidden;
     padding: 0;
     gap: 1rem;
-    grid-template-columns: 5rem repeat(9, minmax(8vw, 1fr));
+    // 3. Keep your complex desktop grid
+    grid-template-columns: 5rem repeat(9, minmax(0, 1fr)); // minmax(0,1fr) prevents grid blowouts
     grid-template-rows: repeat(10, minmax(6svh, 1fr));
     grid-template-areas:
       'header top top top top top top top top top'
@@ -91,7 +68,6 @@ $MaxSW: 480px; //maximum sma width
       'header left left left left left left right right right';
   }
 }
-
 .header {
   display: grid;
   transition: 300ms;
@@ -134,41 +110,49 @@ $MaxSW: 480px; //maximum sma width
   padding: 0.5rem;
   align-content: stretch;
   background-color: var(--surface);
-  max-width: 100vw;
   grid-area: right;
   overflow: auto;
   gap: 1rem;
   box-sizing: border-box;
   box-shadow: var(--dp2);
-  @media (width < 600px) {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
+  max-width: 100%;
+
+  // Mobile: Stack vertically or wrap
+  @media (width <= 1200px) {
+    flex-flow: column wrap; // Stack items
+    height: auto;
+    overflow: visible;
+  }
+
+  // Desktop: Scroll inside
+  @media (1200px < width) {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    overflow-y: auto;
   }
 }
 
 .top {
   display: flex;
-  flex-flow: row nowrap;
   border-radius: var(--shape-corner-large);
   background-color: var(--surface-dim);
-  max-width: 100vw;
   color: var(--on-surface);
-  gap: 0;
   justify-content: space-between;
-  align-items: center;
   padding: 0 1rem;
   grid-area: top;
+  box-sizing: border-box;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 1rem;
+  max-width: 100%; // Prevent overflowing parent
   &:first-child {
     flex: 0 1 40%;
   }
-
-  @media (width < 600px) {
-    flex-flow: row nowrap;
-  }
-
-  @media (1200px<width) {
-    flex-flow: row nowrap;
+  @media (1200px < width) {
+    flex-flow: row nowrap; // No wrap on desktop
+    height: 100%;
+    overflow: hidden;
   }
 }
 
@@ -179,7 +163,6 @@ $MaxSW: 480px; //maximum sma width
   background-color: var(--surface);
   grid-area: left;
   border-radius: var(--shape-corner-large);
-  max-width: 100%;
   padding: 2vmin;
   overflow: auto;
   display: flex;
@@ -189,6 +172,20 @@ $MaxSW: 480px; //maximum sma width
   grid-template-columns: repeat(4, 1fr);
   grid-auto-columns: 1fr;
   grid-auto-rows: 300px;
+  max-width: 100%; // Crucial
+
+  // Mobile: Show all content
+  @media (width <= 1200px) {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  // Desktop: Scroll inside
+  @media (1200px < width) {
+    height: 100%;
+    overflow-y: auto;
+  }
 
   &Column {
     @extend .left;
@@ -207,6 +204,10 @@ $MaxSW: 480px; //maximum sma width
     grid-auto-rows: 1fr;
     gap: 0px 0px;
     grid-area: left;
+    // Mobile: Show all content
+    @media (width <= 1200px) {
+      display: flex;
+    }
   }
 
   & > * {
@@ -215,11 +216,6 @@ $MaxSW: 480px; //maximum sma width
     flex-basis: 20%;
     align-self: stretch;
     order: 0;
-  }
-
-  @media (width < 600px) {
-    display: flex;
-    flex-flow: column nowrap;
   }
 }
 
@@ -391,6 +387,8 @@ $MaxSW: 480px; //maximum sma width
   align-items: stretch;
   align-content: stretch;
   padding: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
 
   &Row {
     @extend .section;

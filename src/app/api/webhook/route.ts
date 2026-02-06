@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from 'next/server';
 import webpush from 'web-push';// Importing the mock DB
 import clientPromise from '#@/lib/connection/mongodb';
 import type { PushSubscription as WebPushSubscription } from 'web-push';
-import { newActuacionWehookResponse } from '#@/lib/types/actuaciones';
-
+import { Collection } from 'mongodb';
 interface SubscriptionDoc extends WebPushSubscription {
   _id: string; // MongoDB always adds an _id
 }
@@ -16,51 +16,116 @@ webpush.setVapidDetails(
 );
 
 
+export async function POST(
+  request: Request
+) {
+  const body = await request.json();
+  const {
+    title,
+    body: msgBody,
+    icon,
+    data,
+    actions
+  } = body;
 
-export async function POST( request: Request ) {
-  const body = await request.json() as newActuacionWehookResponse;
-  const notificationPayload = JSON.stringify( {
-    ...body,
-    title: 'Update Received',
-    body : {
-      ...body
+  // 1. Prepare Payload ONCE (Logic Fix: Don't re-stringify inside the loop)
+  const payload = JSON.stringify(
+    {
+      title,
+      body: msgBody,
+      icon,
+      data,
+      actions
     }
-  } );
+  );
 
   const client = await clientPromise;
-  const db = client.db( 'Actuaciones' );
-  const collection = db.collection<SubscriptionDoc>( 'push_subscriptions' );
+  const db = client.db(
+    'Actuaciones'
+  );
+  const collection = db.collection<SubscriptionDoc>(
+    'push_subscriptions'
+  );
 
-  // 1. Fetch all subscriptions
-  const subscriptions = await collection.find( {} )
-    .toArray();
-  // 2. Send notifications in parallel
-  const sendPromises = subscriptions.map( async ( sub ) => {
-    try {
+  // 2. CRITICAL FIX: Targeted vs Broadcast
+  // Currently, your code sends this notification to EVERY user in the DB.
+  // If this notification is for a specific user (e.g. "Your order is ready"),
+  // you MUST filter by userId here.
+  // const cursor = collection.find({ userId: data.userId }); <--- Recommended
 
-      await webpush.sendNotification(
-        sub, notificationPayload
+  // If you genuinely intend to Broadcast to ALL users, use a cursor:
+  const cursor = collection.find(
+    {}
+  );
+
+  // 3. Batch Processing (Prevents Memory Hoarding)
+  const BATCH_SIZE = 50;
+  let batch = [];
+
+  // Iterate using 'for await' to stream docs instead of loading all (.toArray)
+  for await ( const sub of cursor ) {
+    // Add to current batch
+    batch.push(
+      sub
+    );
+
+    // If batch is full, process it
+    if ( batch.length >= BATCH_SIZE ) {
+      await processBatch(
+        batch, payload, collection
       );
-    } catch ( error: any ) {
-      // 3. CLEANUP: If the subscription is invalid (410 Gone or 404 Not Found), delete it
-      if ( error.statusCode === 410 || error.statusCode === 404 ) {
-        console.log(
-          'Subscription expired/invalid, deleting from DB:', sub.endpoint
+      batch = []; // Clear memory
+    }
+  }
+
+  // Process any remaining subscriptions
+  if ( batch.length > 0 ) {
+    await processBatch(
+      batch, payload, collection
+    );
+  }
+
+  return NextResponse.json(
+    {
+      message: 'Notifications sent'
+    }
+  );
+}
+
+// Helper function to handle sending and cleanup
+async function processBatch(
+  subscriptions: SubscriptionDoc[], payload: string, collection: Collection<SubscriptionDoc>
+) {
+  const promises = subscriptions.map(
+    async (
+      sub
+    ) => {
+      try {
+        await webpush.sendNotification(
+          sub, payload
         );
-        await collection.deleteOne( {
-          _id: sub._id
-        } );
-      } else {
-        console.error(
-          'Error sending notification:', error
-        );
+      } catch ( error: any ) {
+
+        if ( error.statusCode === 410 || error.statusCode === 404 ) {
+          // Use ObjectId for deletion if your _id is an ObjectId
+          await collection.deleteOne(
+            {
+              _id: sub._id
+            }
+          );
+          console.log(
+            `Cleaned up invalid sub: ${ sub.endpoint }`
+          );
+        }
+
+        // 4. Cleanup Invalid Subscriptions
+
       }
     }
-  } );
+  );
 
-  await Promise.all( sendPromises );
-
-  return NextResponse.json( {
-    message: 'Notification sent'
-  } );
+  // Wait for this specific batch to finish before moving to the next
+  await Promise.all(
+    promises
+  );
 }

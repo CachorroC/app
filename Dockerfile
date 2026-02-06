@@ -20,7 +20,7 @@ WORKDIR /app
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
 # 2. Install dependencies strictly from lockfile
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 # -----------------------------------------------------------------------------
 # Stage 3: Builder

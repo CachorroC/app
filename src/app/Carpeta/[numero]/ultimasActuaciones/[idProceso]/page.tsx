@@ -5,25 +5,33 @@ import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Page( {
-  params,
-}: {
-  params: Promise<{
-    numero   : string;
-    idProceso: string;
-  }>;
-} ) {
+export default async function Page(
+  {
+    params,
+  }: {
+    params: Promise<{
+      numero   : string;
+      idProceso: string;
+    }>;
+  } 
+) {
   const {
     numero, idProceso
   } = await params;
 
-  console.log( numero );
+  console.log(
+    numero 
+  );
 
   if ( idProceso === 'idProceso' ) {
     return notFound();
   }
 
-  const actuaciones = await fetchActuaciones( Number( idProceso ) );
+  const actuaciones = await fetchActuaciones(
+    Number(
+      idProceso 
+    ) 
+  );
 
   if ( !actuaciones || actuaciones.length === 0 ) {
     return notFound();
@@ -31,21 +39,27 @@ export default async function Page( {
 
   return (
     <>
-      {actuaciones.map( ( actuacion ) => {
-        const newActuacion: outActuacion = {
-          ...actuacion,
-          idRegActuacion: `${ actuacion.idRegActuacion }`,
-          isUltimaAct   : actuacion.cant === actuacion.consActuacion,
-          idProceso     : Number( idProceso ),
-        };
+      {actuaciones.map(
+        (
+          actuacion 
+        ) => {
+          const newActuacion: outActuacion = {
+            ...actuacion,
+            idRegActuacion: `${ actuacion.idRegActuacion }`,
+            isUltimaAct   : actuacion.cant === actuacion.consActuacion,
+            idProceso     : Number(
+              idProceso 
+            ),
+          };
 
-        return (
-          <ActuacionComponent
-            key={ newActuacion.idRegActuacion}
-            incomingActuacion={newActuacion}
-          />
-        );
-      } )}
+          return (
+            <ActuacionComponent
+              key={ newActuacion.idRegActuacion}
+              incomingActuacion={newActuacion}
+            />
+          );
+        } 
+      )}
     </>
   );
 }

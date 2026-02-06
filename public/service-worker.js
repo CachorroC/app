@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 // @ts-check
 
 /**
@@ -70,6 +70,9 @@ sw.addEventListener(
               event.request
             );
           } catch ( error ) {
+            console.log(
+              error
+            );
             const cache = await caches.open(
               CACHE_NAME
             );
@@ -98,9 +101,19 @@ sw.addEventListener(
     if ( event.data ) {
       let data;
 
+
       try {
         data = event.data.json();
+        console.log(
+          `data: ${ data }`
+        );
+        console.error(
+          `data: ${ data }`
+        );
       } catch ( e ) {
+        console.log(
+          e
+        );
         data = {
           title: 'Notificación',
           body : event.data.text()
@@ -108,19 +121,23 @@ sw.addEventListener(
       }
 
       const options = {
+        title  : data.title,
         body   : data.body,
-        icon   : '/icon.png',
-        badge  : '/badge.png',
-        vibrate: [
-          100,
-          50,
-          100
-        ],
-        data: {
-          dateOfArrival: Date.now(),
-          primaryKey   : '2',
-        },
+        icon   : data.icon || '/icons/notification_icon.png',
+        badge  : '/icons/android-chrome-36x36.png',
+        data   : data.data,
+        actions: data.actions || [
+          {
+            action: 'openCarpeta',
+            title : 'Ver Carpeta'
+          },
+          {
+            action: 'openActuaciones',
+            title : 'Ver Actuaciones'
+          }
+        ]
       };
+
 
       event.waitUntil(
         sw.registration.showNotification(
@@ -131,7 +148,7 @@ sw.addEventListener(
   }
 );
 
-sw.addEventListener(
+/* sw.addEventListener(
   'notificationclick', (
     event
   ) => {
@@ -141,5 +158,84 @@ sw.addEventListener(
         '/'
       )
     );
+  }
+); */
+sw.addEventListener(
+  'notificationclick', (
+    event
+  ) => {
+    console.log(
+      'Notification clicked.'
+    );
+
+    // 1. Close the notification
+    event.notification.close();
+
+    const {
+      action, notification
+    } = event;
+    const data = notification.data || {};
+
+    // 2. Determine the URL to open based on the action
+    let urlToOpen;
+
+    if ( action === 'openCarpeta' ) {
+      // Action: openCarpeta -> https://app.rsasesorjuridico.com/Carpeta/${numero}
+      urlToOpen = `https://app.rsasesorjuridico.com/Carpeta/${ data.numero }`;
+
+    } else if ( action === 'openActuaciones' ) {
+      // Action: openActuaciones -> https://app.rsasesorjuridico.com/Carpeta/${numero}/ultimasActuaciones/${idProceso}
+      urlToOpen = `https://app.rsasesorjuridico.com/Carpeta/${ data.numero }/ultimasActuaciones/${ data.idProceso }`;
+
+    } else {
+      // Default Action (Body click) -> data.url
+      urlToOpen = data.url || '/';
+    }
+
+    console.log(
+      `Opening URL: ${ urlToOpen }`
+    );
+
+    // 3. Handle the opening/focusing of the window
+    if ( urlToOpen ) {
+      event.waitUntil(
+        sw.clients.matchAll(
+          {
+            type               : 'window',
+            includeUncontrolled: true
+          }
+        )
+          .then(
+            (
+              clientList
+            ) => {
+            // A. Check if a tab with this URL is already open and focus it
+              for ( const client of clientList ) {
+                const clientUrl = new URL(
+                  client.url, self.location.origin
+                ).href;
+                const targetUrl = new URL(
+                  urlToOpen, self.location.origin
+                ).href;
+
+                // Compare strict equality or just path depending on preference
+                if ( clientUrl === targetUrl && 'focus' in client ) {
+                  return client.focus();
+                }
+              }
+
+              // B. If not open, open a new window
+              if ( sw.clients.openWindow ) {
+                return sw.clients.openWindow(
+                  urlToOpen
+                );
+              }
+
+              // FIX: Add this return to satisfy TypeScript
+              return null;
+            }
+          )
+      );
+    }
   }
 );
