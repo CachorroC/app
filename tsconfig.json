@@ -7,10 +7,13 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "lib": [
-      "dom",
       "dom.iterable",
       "esnext",
-      "webworker"
+      "dom",
+      "WebWorker",
+      "ESNext.Array",
+      "ESNext.AsyncIterable",
+      "ES2022.Object",
     ],
     "moduleResolution": "bundler",
     "noImplicitAny": true,

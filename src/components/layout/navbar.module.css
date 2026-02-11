@@ -44,6 +44,11 @@
 .drawer .sidenav > * {
   width: 100%;
 }
+@media (width < 600px) {
+  .drawer .sidenav {
+    width: 100%;
+  }
+}
 @media screen and (width < 600px) {
   .drawer {
     grid-template-rows: repeat(10, 1fr);

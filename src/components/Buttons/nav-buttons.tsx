@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useModalNoteContext } from '#@/app/Context/modal-context';
 import styles from '#@/styles/layout.module.css';
-import { NavLink } from '../layout/NavLink';
 import { useNavigationContext } from '#@/app/Context/navigation-context';
 import { Route } from 'next';
 import { buttonDrawerMenuClosed,
@@ -13,7 +12,7 @@ import { buttonDrawerMenuClosed,
 
 export const DrawerMenuButton = () => {
   const {
-    isNavOpen, setIsNavOpen 
+    isNavOpen, setIsNavOpen
   } = useNavigationContext();
 
   return (
@@ -39,7 +38,7 @@ export const DrawerMenuButton = () => {
 
 export function NewNoteButton() {
   const {
-    isModalNoteOpen, setIsModalNoteOpen 
+    isModalNoteOpen, setIsModalNoteOpen
   } = useModalNoteContext();
 
   return (
@@ -60,50 +59,6 @@ export function NewNoteButton() {
   );
 }
 
-export default function NavButtons() {
-  const {
-    isNavOpen, setIsNavOpen 
-  } = useNavigationContext();
-
-  return (
-    <>
-      <button
-        type="button"
-        className={styles.buttonDrawerClosed}
-        onClick={() => {
-          setIsNavOpen( !isNavOpen );
-        }}
-      >
-        <span className={`material-symbols-outlined ${ styles.icon }`}>
-          {isNavOpen
-            ? 'close'
-            : 'menu'}
-        </span>
-      </button>
-      <NavLink
-        iconLabel={'home'}
-        textLabel={'Inicio'}
-        hrefLabel={'/' as Route}
-      />
-      <NavLink
-        iconLabel={'gavel'}
-        textLabel={`ultimas
-      actuaciones`}
-        hrefLabel={'/Carpetas/UltimasActuaciones' as Route}
-      />
-      <NavLink
-        iconLabel={'note'}
-        textLabel={'Notas'}
-        hrefLabel="/Notas"
-      />
-      <NavLink
-        iconLabel={'folder_open'}
-        textLabel={'Carpetas'}
-        hrefLabel="/Carpetas"
-      />
-    </>
-  );
-}
 
 export function ForwardBackwardNavButtons() {
   const router = useRouter();

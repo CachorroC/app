@@ -13,7 +13,7 @@ import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 
 export default function NuevoProceso() {
   const {
-    handleSubmit 
+    handleSubmit
   } = useFormContext<NuevaCarpeta>();
 
   const onSubmit: SubmitHandler<NuevaCarpeta> = async ( data ) => {
@@ -32,7 +32,7 @@ export default function NuevoProceso() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify( parsed ),
-      } 
+      }
     );
 
     const nAlert = await postNewNote.json();

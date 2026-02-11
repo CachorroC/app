@@ -7,6 +7,8 @@ import PageClient from './client';
 import { InstallPrompt,
   PushNotificationManager, } from './notification-components';
 import NotificationButton from '#@/components/NotificationButton';
+import { Suspense } from 'react';
+import { Loader } from '#@/components/Loader/main-loader';
 
 export default function Page() {
   return (
@@ -73,8 +75,10 @@ export default function Page() {
           <h1 className={typography.headlineMedium}>{'Quienes Somos'}</h1>
         </Link>
       </div>
-      <div className={layout.right}>
-        <Calendar />
+      <div className={ layout.right }>
+        <Suspense fallback={<Loader />}>
+          <Calendar />
+        </Suspense>
         <PageClient />
       </div>
     </>

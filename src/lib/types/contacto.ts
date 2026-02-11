@@ -16,7 +16,7 @@ export interface RawContactoFormValues {
 }
 
 export interface ContactoForm extends RawContactoFormValues {
-  fecha: Date;
+  fecha: Date | null;
 }
 
 // Converts JSON strings to/from your types

@@ -1,7 +1,10 @@
 import { CalendarContextProvider } from '#@/app/Context/calendario-context';
 import { LabelBoundary } from '#@/components/layout/boundary';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
+
+// Force dynamic rendering if this route depends on data that changes
+// or if you are hitting build errors with params.
 
 export default async function Layout( {
   params,
@@ -11,25 +14,33 @@ export default async function Layout( {
   children: ReactNode;
 } ) {
   const {
-    ano, mes, dia 
+    ano, mes, dia
   } = await params;
 
+  // Ensure numbers are valid to prevent "Invalid Date" errors during build
   const segmentDate = new Date(
-    Number( ano ),
-    Number( mes ) - 1,
-    Number( dia ),
+    parseInt(
+      ano, 10
+    ),
+    parseInt(
+      mes, 10
+    ) - 1,
+    parseInt(
+      dia, 10
+    ),
   );
 
   return (
-    <>
-      <LabelBoundary color={'tertiary'}>
-        <h1>
+    <LabelBoundary color={'tertiary'}>
+      <h1>
+        {/* Wrap components that might trigger data fetching in Suspense */}
+        <Suspense fallback={<span>Cargando fecha...</span>}>
           <OutputDateHelper incomingDate={segmentDate} />
-        </h1>
-        <CalendarContextProvider date={segmentDate}>
-          {children}
-        </CalendarContextProvider>
-      </LabelBoundary>
-    </>
+        </Suspense>
+      </h1>
+      <CalendarContextProvider date={segmentDate}>
+        {children}
+      </CalendarContextProvider>
+    </LabelBoundary>
   );
 }

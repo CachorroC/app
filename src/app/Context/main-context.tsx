@@ -5,6 +5,7 @@ import { Dispatch,
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useState, } from 'react';
 
 const SnackbarContext = createContext<{
@@ -18,7 +19,7 @@ const ContactoContext = createContext<{
 } | null>( null );
 
 export function MainProvider( {
-  children 
+  children
 }: { children: ReactNode } ) {
   const [
     contactoForm,
@@ -30,13 +31,25 @@ export function MainProvider( {
     email     : 'correo electronico',
     telefono  : 1,
     comentario: 'Este es el espacio para registrar información adicional',
-    fecha     : new Date(),
+    fecha     : null as Date | null,
   } );
 
   const [
     isSnackbarOpen,
     setIsSnackbarOpen
   ] = useState( false );
+
+  // Use useEffect to set the date strictly on the client side
+  useEffect(
+    () => {
+      setContactoForm( ( prev ) => {
+        return {
+          ...prev,
+          fecha: new Date(), // This runs only in the browser, solving the mismatch
+        };
+      } );
+    }, []
+  );
 
   return (
     <SnackbarContext.Provider

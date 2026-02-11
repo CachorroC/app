@@ -1,27 +1,32 @@
-// !prints the output of the datehelper
 export default function OutputDateHelper( {
   incomingDate,
 }: {
   incomingDate: string | Date | null | undefined;
 } ) {
-  if ( !incomingDate || incomingDate === null || incomingDate === undefined ) {
+  if ( !incomingDate ) {
     return 'sin especificar';
   }
 
-  let daterBuilder;
+  // 1. Create the Date object safely
+  const dateObj = new Date( incomingDate );
 
-  if ( typeof incomingDate === 'string' ) {
-    daterBuilder = new Date( incomingDate );
-  } else {
-    daterBuilder = incomingDate;
+  // 2. Validate it
+  if ( isNaN( dateObj.getTime() ) ) {
+    return 'Fecha inválida';
   }
 
-  return daterBuilder.toLocaleString(
+  // 3. The Magic Fix:
+  // We force 'UTC' timezone.
+  // - Old dates (00:00 UTC) show as 12:00 AM on the correct day.
+  // - New dates (05:00 UTC) show as 05:00 AM on the correct day.
+  // Neither will shift to "Yesterday".
+  return dateObj.toLocaleString(
     'es-CO', {
-      year   : 'numeric',
-      weekday: 'long',
-      month  : 'long',
-      day    : 'numeric',
+      timeZone: 'UTC',
+      year    : 'numeric',
+      weekday : 'long',
+      month   : 'long',
+      day     : 'numeric',
     } 
   );
 }

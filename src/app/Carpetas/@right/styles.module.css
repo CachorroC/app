@@ -105,3 +105,41 @@
   background-color: var(--primary);
   color: var(--on-primary);
 }
+
+/* CONTROL BAR LAYOUT */
+.tableControls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Allows wrapping on very small screens */
+}
+
+.actionButtons {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
+}
+
+.btnControl {
+  padding: 10px 15px;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap; /* Prevents text breaking */
+}
+
+/* MOBILE ADJUSTMENTS FOR CONTROLS */
+@media screen and (max-width: 480px) {
+  .tableControls {
+    flex-direction: column; /* Stack search on top of buttons */
+  }
+  .actionButtons {
+    width: 100%;
+  }
+  .btnControl {
+    flex: 1; /* Buttons share equal width */
+    text-align: center;
+  }
+}

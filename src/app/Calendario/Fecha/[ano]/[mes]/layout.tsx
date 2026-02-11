@@ -1,7 +1,8 @@
 import { CalendarContextProvider } from '#@/app/Context/calendario-context';
 import { Calendar } from '#@/components/Calendar/main';
 import { LabelBoundary } from '#@/components/layout/boundary';
-import { ReactNode } from 'react';
+import { Loader } from '#@/components/Loader/main-loader';
+import { ReactNode, Suspense } from 'react';
 
 export default async function Layout( {
   params,
@@ -11,7 +12,7 @@ export default async function Layout( {
   children: ReactNode;
 } ) {
   const {
-    ano, mes 
+    ano, mes
   } = await params;
 
   const month = Number( mes );
@@ -43,7 +44,7 @@ export default async function Layout( {
       <LabelBoundary color={'secondary'}>
         <h1>{dateOutput}</h1>
         <CalendarContextProvider date={segmentDate}>
-          <Calendar />
+          <Suspense fallback={<Loader />}><Calendar /></Suspense>
           {children}
         </CalendarContextProvider>
       </LabelBoundary>

@@ -1,8 +1,9 @@
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 import { ConsultaActuacion } from '#@/lib/types/actuaciones';
 
 export default async function fetchActuaciones( idProceso: number ) {
   try {
-    const request = await fetch(
+    const request = await fetchWithSmartRetry(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
       {
         next: {
@@ -15,6 +16,7 @@ export default async function fetchActuaciones( idProceso: number ) {
       throw new Error( `request is not ok: ${ request.status }: ${ request.statusText }`, );
     }
 
+    // 2. PROCESS SUCCESSFUL RESPONSE
     const consultaActuaciones = ( await request.json() ) as ConsultaActuacion;
 
     if ( consultaActuaciones.actuaciones.length > 0 ) {

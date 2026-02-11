@@ -10,6 +10,7 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import { TableRowCarpetaSortingButton } from '#@/app/Carpetas/@right/carpetasButtonsSort';
 import { Loader } from '#@/components/Loader/main-loader';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
+import { connection } from 'next/server';
 
 export type SortActionType = {
   dir       : 'asc' | 'dsc';
@@ -197,6 +198,7 @@ export default async function Page( {
       | 'updatedAt';
   }>;
 } ) {
+  await connection();
 
   const rawCarpetas = await getCarpetas();
 

@@ -14,7 +14,7 @@ export default defineConfig( [
     ],
     plugins: {
       js,
-      '@stylistic': stylistic
+      '@stylistic': stylistic,
     },
     extends: [
       'js/recommended'
@@ -22,8 +22,8 @@ export default defineConfig( [
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.node
-      }
+        ...globals.node,
+      },
     },
     rules: {
       'react/react-in-jsx-scope'        : 'off',
@@ -85,7 +85,7 @@ export default defineConfig( [
       'function-paren-newline': [
         'error',
         {
-          minItems: 1,
+          minItems: 2,
         },
       ],
       'getter-return'       : 'error',
@@ -238,5 +238,5 @@ export default defineConfig( [
         'always'
       ],
     },
-  }
+  },
 ] );

@@ -45,6 +45,9 @@
     & > * {
       width: 100%;
     }
+    @media (width < 600px) {
+      width: 100%;
+    }
   }
   @media screen and (width < 600px) {
     grid-template-rows: repeat(10, 1fr);

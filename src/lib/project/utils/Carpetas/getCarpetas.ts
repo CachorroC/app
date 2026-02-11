@@ -1,8 +1,10 @@
 import  prisma  from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { cache } from 'react';
+import { cacheLife } from 'next/cache';
 
-export const getCarpetas = cache( async () => {
+export const getCarpetas = async () => {
+  'use cache';
+  cacheLife( 'hours' );
   const rawCarpetas = await prisma.carpeta.findMany( {
     include: {
       ultimaActuacion: true,
@@ -27,12 +29,6 @@ export const getCarpetas = cache( async () => {
         },
       },
     },
-    orderBy: {
-      fecha: {
-        sort : 'desc',
-        nulls: 'last',
-      },
-    },
   } );
 
   return rawCarpetas.map( ( carpeta ) => {
@@ -52,4 +48,4 @@ export const getCarpetas = cache( async () => {
       },
     } as IntCarpeta;
   } );
-} );
+};

@@ -1,8 +1,9 @@
 import { CarpetasSortButtons } from '#@/app/Carpetas/@right/carpetasButtonsSort';
-import { sectionColumn } from '#@/styles/layout.module.css';
 import { ResetButtonSorter } from './reset-button';
 import CategoryFilteringButtons from './category-filtering-buttons';
 import CiudadFilteringButtons from './ciudad-filter';
+import { InputSearchBar } from '#@/components/layout/InputSearchBar';
+import { actionButtons, tableControls } from './styles.module.css';
 
 const options = [
   {
@@ -32,14 +33,21 @@ const options = [
 export default function Default() {
   return (
     <>
-      <section className={ sectionColumn }>
-        <ResetButtonSorter />
-        <CarpetasSortButtons options={ options } row={true} />
-        <CategoryFilteringButtons row={false} />
 
-        <CiudadFilteringButtons row={false} />
+      <div className={tableControls}>
+        <InputSearchBar />
 
-      </section>
+        <div className={actionButtons}>
+          <ResetButtonSorter />
+          <CarpetasSortButtons options={ options } />
+          <CategoryFilteringButtons />
+
+          <CiudadFilteringButtons  />
+
+
+        </div>
+      </div>
+
 
     </>
   );

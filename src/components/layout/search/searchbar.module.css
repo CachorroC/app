@@ -77,6 +77,8 @@
   font-family: var(--josefa);
   position: relative;
   border-radius: var(--shape-corner-extra-large-start);
+  flex-grow: 1; /* Takes up available space */
+  padding: 10px;
 }
 .searchContainer .input:before, .searchContainer .inputContainer:before {
   position: absolute;

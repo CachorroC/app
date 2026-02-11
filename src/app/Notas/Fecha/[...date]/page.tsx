@@ -1,55 +1,26 @@
 import { NotaComponent } from '#@/components/Nota/server';
 import clientPromise from '#@/lib/connection/mongodb';
-import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { IntNota, notasConvert } from '#@/lib/types/notas';
 import { notFound } from 'next/navigation';
 
-/*
-export async function generateStaticParams() {
-  const notas = await getNotas();
-
-  return notas.map(
-    (
-      nota
-    ) => {
-      const {
-        createdAt
-      } = nota;
-
-      const noteDate = new Date(
-        createdAt
-      );
-
-      const noteDay = noteDate.getDate();
-
-      const noteMonth = noteDate.getMonth();
-
-      const noteYear = noteDate.getFullYear();
-
-      return {
-        date: [
-          noteYear,
-          noteMonth,
-          noteDay
-        ],
-      };
-    }
-  );
-}
- */
 export default async function DatePage( {
   params,
 }: {
-  params: { date: string[] };
+  params: Promise<{ date: string[] }>;
 } ) {
+  // 2. Await params before using them
+  const {
+    date
+  } = await params;
+
   const [
     incomingAno,
     incomingMes,
     incomingDia
-  ] = params.date;
+  ] = date;
 
+  // Now you are safely in a request context
   const incomingDate = new Date( `${ incomingAno }-${ incomingMes }-${ incomingDia }` );
-
   const client = await clientPromise;
 
   if ( !client ) {

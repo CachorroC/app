@@ -2,10 +2,16 @@ import { CalendarBuilder, nombresDeMeses } from '#@/lib/project/calendar';
 import Link from 'next/link';
 import calendar from './calendar.module.css';
 import { Route } from 'next';
+import { connection } from 'next/server';
 
-export function Calendar( {
+export async function Calendar( {
   date
-}: { date?: Date } ) {
+}: { date?: Date; } ) {
+  // 3. Opt-out of static rendering if we need the current date
+  if ( !date ) {
+    await connection();
+  }
+
   const today = date
     ? date
     : new Date();

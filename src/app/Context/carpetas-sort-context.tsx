@@ -11,6 +11,38 @@ import { IntAction,
   CarpetasReducerState,
   carpetasReducer, } from '../Hooks/useCarpetasreducer';
 
+
+export const sortByDateDesc = (
+  a: MonCarpeta, b: MonCarpeta
+) => {
+  // 1. Normalize inputs to Date objects (or null if missing)
+  // new Date() handles both ISO strings and existing Date objects correctly
+  const dateA = a.fecha
+    ? new Date( a.fecha )
+    : null;
+  const dateB = b.fecha
+    ? new Date( b.fecha )
+    : null;
+
+  // 2. Handle null/undefined dates (push them to the bottom of the list)
+  if ( !dateA && !dateB ) {
+    return 0;
+  }
+
+  if ( !dateA ) {
+    return 1;
+  }
+
+  if ( !dateB ) {
+    return -1;
+  }
+
+  // 3. Compare timestamps
+  // Descending Order (Newest First): dateB - dateA
+  // Ascending Order (Oldest First): dateA - dateB
+  return dateB.getTime() - dateA.getTime();
+};
+
 const CarpetasSortContext = createContext<CarpetasReducerState | null>( null );
 
 const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>( null, );
@@ -27,20 +59,23 @@ export function CarpetasSortProvider( {
   children       : ReactNode;
   initialCarpetas: MonCarpeta[];
 } ) {
+  const sortedInitial = [
+    ...initialCarpetas
+  ].sort( sortByDateDesc );
   const [
     carpetasReduced,
     dispatchCarpetas
   ] = useReducer(
     carpetasReducer, {
-      carpetas        : initialCarpetas,
-      completeCarpetas: initialCarpetas,
-    } 
+      carpetas        : sortedInitial,
+      completeCarpetas: sortedInitial,
+    }
   );
 
   const [
     currentCarpetas,
     setCurrentCarpetas
-  ] = useState( initialCarpetas );
+  ] = useState( sortedInitial );
 
   return (
     <CarpetasContext.Provider

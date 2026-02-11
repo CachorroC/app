@@ -2,6 +2,8 @@ import TaskList from '#@/components/Tareas/TaskList';
 import { Calendar } from '#@/components/Calendar/main';
 import layout from '#@/styles/layout.module.css';
 import { NuevaTarea } from './nueva-tarea';
+import { Suspense } from 'react';
+import { Loader } from '#@/components/Loader/main-loader';
 
 export default async function Page( {
   params,
@@ -33,12 +35,12 @@ export default async function Page( {
   }
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <div className={layout.sectionColumn}>
         <NuevaTarea />
         {content}
       </div>
       <TaskList />
-    </>
+    </Suspense>
   );
 }

@@ -235,6 +235,14 @@ model Proceso {
   juzgado              Juzgado     @relation(fields: [juzgadoId, juzgadoTipo, juzgadoCiudad], references: [id, tipo, ciudad])
 }
 
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+}
+
 enum NotifierName {
   DOS91
   DOS92
