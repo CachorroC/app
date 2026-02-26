@@ -1,7 +1,48 @@
 import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
-import { ConsultaActuacion } from '#@/lib/types/actuaciones';
+import { ConsultaActuacion, intActuacion, outActuacion } from '#@/lib/types/actuaciones';
+import { ensureDate } from '#@/lib/utils/ensureDate';
 
-export default async function fetchActuaciones( idProceso: number ) {
+function getLatestByDate( actuaciones: intActuacion[] ): intActuacion | null {
+  if ( !actuaciones || actuaciones.length === 0 ) {
+    return null;
+  }
+
+  return actuaciones.reduce( (
+    prev, current
+  ) => {
+    const prevDate = ensureDate( prev.fechaActuacion )
+      ?.getTime() || 0;
+    const currDate = ensureDate( current.fechaActuacion )
+      ?.getTime() || 0;
+
+    if ( currDate > prevDate ) {
+      return current;
+    }
+
+    if ( currDate === prevDate ) {
+      const prevReg = ensureDate( prev.fechaRegistro )
+        ?.getTime() || 0;
+      const currReg = ensureDate( current.fechaRegistro )
+        ?.getTime() || 0;
+
+      if ( currReg > prevReg ) {
+        return current;
+      }
+
+      if ( currReg === prevReg ) {
+        return current.consActuacion > prev.consActuacion
+          ? current
+          : prev;
+      }
+    }
+
+    return prev;
+  } );
+}
+
+export default async function fetchActuaciones(
+  idProceso: number, carpetaNumero: number
+): Promise<outActuacion[]> {
   try {
     const request = await fetchWithSmartRetry(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
@@ -20,14 +61,16 @@ export default async function fetchActuaciones( idProceso: number ) {
     const consultaActuaciones = ( await request.json() ) as ConsultaActuacion;
 
     if ( consultaActuaciones.actuaciones.length > 0 ) {
+      const latestActuacion = getLatestByDate( consultaActuaciones.actuaciones );
+
       return consultaActuaciones.actuaciones.map( ( actuacion ) => {
         return {
           ...actuacion,
-          isUltimaAct   : actuacion.cant === actuacion.consActuacion,
+          isUltimaAct   : actuacion.idRegActuacion === latestActuacion?.idRegActuacion,
           idProceso     : idProceso,
-          fechaActuacion: new Date( actuacion.fechaActuacion ),
-          fechaRegistro : new Date( actuacion.fechaRegistro ),
-          carpetaNumero : null,
+          carpetaNumero : carpetaNumero,
+          fechaActuacion: ensureDate( actuacion.fechaActuacion ),
+          fechaRegistro : ensureDate( actuacion.fechaRegistro ),
           fechaInicial  : actuacion.fechaInicial
             ? new Date( actuacion.fechaInicial )
             : null,

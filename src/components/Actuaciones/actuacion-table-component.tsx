@@ -15,18 +15,22 @@ export function ActuacionTableComponent( {
   idProceso: number;
 } ) {
   return (
-    <td data-label='ultimaActuacion'>
+    <td data-label='ultimaActuacion' style={{
+      display : 'flex',
+      flexFlow: 'row wrap'
+    }}
+    >
       <h2 className={typography.titleMedium}>{title}</h2>
 
       {content && <span className={typography.labelSmall}>{content}</span>}
-      <div>
-        <Link
-          className={buttonEnabled}
-          href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
-        >
-          mostras más
-        </Link>
-      </div>
+
+      <Link
+        className={buttonEnabled}
+        href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
+      >
+        mostras más
+      </Link>
+
     </td>
   );
 }

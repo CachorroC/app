@@ -184,7 +184,8 @@ export async function ProcesosComponent( {
 
             <Suspense fallback={ <Loader /> }>
               <FechaActuacionComponent
-                key={idProceso}
+                key={ idProceso }
+                numero={numero}
                 idProceso={idProceso}
               />
             </Suspense>

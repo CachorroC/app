@@ -4,10 +4,12 @@ import { NuevaCarpetaFormProvider } from '../Context/nueva-carpeta-form-context'
 import { CarpetasSortProvider } from '../Context/carpetas-sort-context';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Loader } from '#@/components/Loader/main-loader';
+import { connection } from 'next/server';
 
 async function LayoutAsyncProcess ( {
   children
 }: { children: ReactNode; } ) {
+  await connection();
 
   const carpetas = await getCarpetas();
 

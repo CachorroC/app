@@ -1,8 +1,11 @@
 import { CarpetaFormProvider } from '#@/app/Context/carpeta-form-context';
+import { ModalLoader } from '#@/components/Loader/main-loader';
+import { Modal } from '#@/components/Modal';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
+
 
 export async function generateMetadata( {
   params,
@@ -36,7 +39,7 @@ export default async function Layout( {
   children: ReactNode;
 } ) {
   const {
-    numero, idProceso 
+    numero, idProceso
   } = await params;
 
   if ( idProceso === 'idProceso' ) {
@@ -46,11 +49,15 @@ export default async function Layout( {
   const carpeta = await getCarpetabyNumero( Number( numero ) );
 
   return (
-    <CarpetaFormProvider
-      key={numero}
-      carpeta={carpeta}
-    >
-      {children}
-    </CarpetaFormProvider>
+    <Modal>
+      <CarpetaFormProvider
+        key={numero}
+        carpeta={carpeta}
+      >
+        <Suspense fallback={<ModalLoader />}>
+          { children }
+        </Suspense>
+      </CarpetaFormProvider>
+    </Modal>
   );
 }

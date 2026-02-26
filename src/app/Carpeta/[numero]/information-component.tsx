@@ -35,7 +35,7 @@ export default function InformationComponent( {
   if ( procesos.length > 0 ) {
     content = procesos.map( ( proceso ) => {
       const {
-        idProceso, juzgado 
+        idProceso, juzgado
       } = proceso;
 
       return (
@@ -65,6 +65,7 @@ export default function InformationComponent( {
           </div>
           <Suspense fallback={<Loader />}>
             <FechaActuacionComponent
+              numero={numero}
               key={idProceso}
               idProceso={idProceso}
             />
@@ -166,7 +167,7 @@ export default function InformationComponent( {
         <>
           <h4 className={typography.titleSmall}>Pagarés</h4>
           {demanda.vencimientoPagare.map( (
-            pagare, index 
+            pagare, index
           ) => {
             return (
               <OutputDateHelper

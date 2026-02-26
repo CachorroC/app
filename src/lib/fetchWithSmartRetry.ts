@@ -67,6 +67,8 @@ export async function fetchWithSmartRetry(
       console.log( `⚠️ [Retry] Attempt ${ attempt }/${ totalAttempts } failed for ${ url }. Retrying in ${ delay }ms...` );
       await sleep( delay );
       attempt++;
+
+      continue;
     }
   }
 

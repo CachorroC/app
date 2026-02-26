@@ -5,10 +5,7 @@
  **/
 const nextConfig = {
   cacheComponents: true,
-  output         : 'standalone', /*
-  experimental: {
-    ppr: 'incremental',
-  }, */
+  output         : 'standalone',
   typedRoutes    : true,
   async headers() {
     return [
@@ -30,7 +27,7 @@ const nextConfig = {
         ],
       },
       {
-        source : '/sw.js',
+        source : '/service-worker.js',
         headers: [
           {
             key  : 'Content-Type',

@@ -8,7 +8,7 @@
     "lint": "next lint --fix --strict && next lint --strict",
     "devbuild": "sass --no-source-map src:src && tcm src && eslint --fix . && next build",
     "build": "sass --no-source-map src:src && tcm src && next build",
-    "dev": "sass --no-source-map src:src && tcm src && URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com next dev ",
+    "dev": "sass --no-source-map src:src && tcm src && URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com next dev",
     "start": "next start",
     "db:migrate": "prisma migrate dev --name init --create-only && prisma generate",
     "db:push": "prisma db push",

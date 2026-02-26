@@ -273,7 +273,8 @@ export default async function Page( {
                 <td>
                   <Suspense fallback={<ActuacionLoader />}>
                     <FechaActuacionComponent
-                      idProceso={idProceso}
+                      idProceso={ idProceso }
+                      numero={numero}
                       key={idProceso}
                     />
                   </Suspense>

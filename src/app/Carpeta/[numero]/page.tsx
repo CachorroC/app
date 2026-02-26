@@ -18,13 +18,15 @@ import SujetosProcesales from '#@/components/Proceso/sujetos-procesales';
 import { JuzgadoClass } from '#@/lib/models/juzgado';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import ProtoPage from './proto-page';
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 async function AvailableProcesosByName( {
   nombre
 }: { nombre: string } ) {
   const urlNameMaker = consultaProcesosPorRazonSocial( nombre );
 
-  const fetchProc = await fetch( urlNameMaker );
+
+  const fetchProc = await fetchWithSmartRetry( urlNameMaker.toString() );
 
   if ( !fetchProc.ok ) {
     return (
@@ -37,11 +39,7 @@ async function AvailableProcesosByName( {
   const jsonString = ( await fetchProc.json() ) as ConsultaProcesos;
 
   return (
-    <table
-      style={{
-        gridArea: 'span 2 / span 4',
-      }}
-    >
+    <table >
       <thead>
         <tr>
           <th>Sujetos Procesales</th>

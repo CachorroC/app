@@ -21,7 +21,9 @@ export default async function Page( {
     return notFound();
   }
 
-  const actuaciones = await fetchActuaciones( Number( idProceso ) );
+  const actuaciones = await fetchActuaciones(
+    Number( idProceso ), Number( numero ) 
+  );
 
   if ( !actuaciones || actuaciones.length === 0 ) {
     return notFound();
@@ -33,16 +35,20 @@ export default async function Page( {
         const newActuacion: outActuacion = {
           ...actuacion,
           idRegActuacion: `${ actuacion.idRegActuacion }`,
-          isUltimaAct   : actuacion.cant === actuacion.consActuacion,
+          carpetaNumero : Number( numero ),
           idProceso     : Number( idProceso ),
         };
+        const anchorId = `actuacion-${ newActuacion.idRegActuacion }`;
 
         return (
-
-          <ActuacionComponent
-            key={ newActuacion.idRegActuacion}
-            incomingActuacion={newActuacion}
-          />
+          <div
+            key={ newActuacion.idRegActuacion }
+            id={ anchorId }
+          >
+            <ActuacionComponent
+              incomingActuacion={newActuacion}
+            />
+          </div>
         );
       } )}
     </>

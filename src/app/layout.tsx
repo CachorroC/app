@@ -2,7 +2,6 @@ import './manifest';
 import '#@/styles/globals.css';
 import 'material-symbols';
 import layout from '#@/styles/layout.module.css';
-import Script from 'next/script';
 import { ReactNode, Suspense } from 'react';
 import { MainProvider } from './Context/main-context';
 import { SearchProvider } from './Context/search-context';
@@ -97,9 +96,6 @@ export default function RootLayout( {
   children: ReactNode;
   modal   : ReactNode;
 } ) {
-  const prefix = process.env.NODE_ENV === 'production'
-    ? 'app'
-    : 'beta';
 
   return (
     <html lang="es-CO">

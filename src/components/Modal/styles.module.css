@@ -34,6 +34,11 @@
   overflow: scroll;
   justify-items: stretch;
 }
+@media (max-width: 1200px) {
+  .open .wrapper {
+    display: flex;
+  }
+}
 .open .wrapper > * {
   width: 100%;
 }
