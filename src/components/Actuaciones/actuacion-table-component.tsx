@@ -12,7 +12,7 @@ export function ActuacionTableComponent( {
   numero   : number;
   title    : string;
   content  : string | null;
-  idProceso: number;
+  idProceso: string;
 } ) {
   return (
     <td data-label='ultimaActuacion' style={{

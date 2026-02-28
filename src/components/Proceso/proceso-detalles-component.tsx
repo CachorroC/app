@@ -3,17 +3,18 @@ import { CopyButton } from '../Buttons/copy-buttons';
 import checkboxStyles from '../Form/checkbox/styles.module.css';
 import { DetalleProceso } from '#@/lib/types/procesos';
 import { consultaProcesoDetalleURL } from '#@/lib/project/utils/main';
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 
 
 export async function ProcesoTableDetalleComponent( {
   idProceso,
 }: {
-  idProceso: number;
+  idProceso: string;
 } ) {
   const urlNameMaker = consultaProcesoDetalleURL( idProceso );
 
-  const fetchProc = await fetch( urlNameMaker );
+  const fetchProc = await fetchWithSmartRetry( urlNameMaker.toString() );
 
   if ( !fetchProc.ok ) {
     console.log( `proceso detalle failer with error: ${ fetchProc.statusText }` );

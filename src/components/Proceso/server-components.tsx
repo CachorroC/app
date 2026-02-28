@@ -12,6 +12,7 @@ import { containerEnabled } from '../Card/outlined.module.css';
 import FruitPicker from '../Buttons/etapaProsesalSelector';
 import buttonStyles from '../Buttons/buttons.module.css';
 import Link from 'next/link';
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 export const ProcesoCard = ( {
   children,
@@ -42,10 +43,10 @@ export const ProcesoCard = ( {
 
 export async function ProcesoDetalle( {
   idProceso
-}: { idProceso: number } ) {
+}: { idProceso: string } ) {
   const urlNameMaker = consultaProcesoDetalleURL( idProceso );
 
-  const fetchProc = await fetch( urlNameMaker );
+  const fetchProc = await fetchWithSmartRetry( urlNameMaker );
 
   const infoDetalle = [];
 

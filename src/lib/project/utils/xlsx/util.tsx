@@ -1,4 +1,5 @@
 'use client';
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 import { RawDb } from '#@/lib/types/rawDB';
 import React, { useCallback, useEffect, useState } from 'react';
 import { read, utils, writeFileXLSX } from 'xlsx';
@@ -8,37 +9,27 @@ export default function SheetJSReactAoO() {
   const [
     pres,
     setPres
-  ] = useState<RawDb[]>(
-    [] 
-  );
+  ] = useState<RawDb[]>( [] );
 
   /* Fetch and update the state once */
   useEffect(
     () => {
       ( async () => {
         const f = await (
-          await fetch(
-            'https://app.rsasesorjuridico.com/general.xlsx' 
-          )
+          await fetchWithSmartRetry( 'https://app.rsasesorjuridico.com/general.xlsx' )
         ).arrayBuffer();
 
-        const wb = read(
-          f 
-        ); // parse the array buffer
+        const wb = read( f ); // parse the array buffer
 
         for ( const sheetName of wb.SheetNames ) {
           const ws = wb.Sheets[ sheetName ];
 
-          const data = utils.sheet_to_json(
-            ws 
-          ) as RawDb[]; // generate objects
+          const data = utils.sheet_to_json( ws ) as RawDb[]; // generate objects
 
-          setPres(
-            [
-              ...pres,
-              ...data
-            ] 
-          ); // update state
+          setPres( [
+            ...pres,
+            ...data
+          ] ); // update state
         }
       } )();
     }, [
@@ -49,9 +40,7 @@ export default function SheetJSReactAoO() {
   /* get state data and export to XLSX */
   const exportFile = useCallback(
     () => {
-      const ws = utils.json_to_sheet(
-        pres 
-      );
+      const ws = utils.json_to_sheet( pres );
 
       const wb = utils.book_new();
 
@@ -81,26 +70,24 @@ export default function SheetJSReactAoO() {
       <tbody>
         {
           /* generate row for each president */
-          pres.map(
-            (
-              pres, index
-            ) => {
-              return (
-                <tr key={index}>
-                  <td>{pres[ 'NUMERO' ]}</td>
-                  <td>{pres[ 'DEMANDADO_NOMBRE' ]}</td>
-                  <td>{pres[ 'DEMANDADO_IDENTIFICACION' ]}</td>
-                  <td>{pres[ 'EXPEDIENTE' ]}</td>
-                  <td>{pres[ 'RADICADO' ]}</td>
-                  <td>
-                    <pre key={index}>{JSON.stringify(
-                      pres, null, 2
-                    )}</pre>
-                  </td>
-                </tr>
-              );
-            } 
-          )
+          pres.map( (
+            pres, index
+          ) => {
+            return (
+              <tr key={index}>
+                <td>{pres[ 'NUMERO' ]}</td>
+                <td>{pres[ 'DEMANDADO_NOMBRE' ]}</td>
+                <td>{pres[ 'DEMANDADO_IDENTIFICACION' ]}</td>
+                <td>{pres[ 'EXPEDIENTE' ]}</td>
+                <td>{pres[ 'RADICADO' ]}</td>
+                <td>
+                  <pre key={index}>{JSON.stringify(
+                    pres, null, 2
+                  )}</pre>
+                </td>
+              </tr>
+            );
+          } )
         }
       </tbody>
       <tfoot>

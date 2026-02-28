@@ -1,3 +1,4 @@
+import { fetchWithSmartRetry } from '../fetchWithSmartRetry';
 import { ConsultaActuacion, intActuacion } from '../types/actuaciones';
 import { ConsultaProcesos, outProceso } from '../types/procesos';
 import { JuzgadoClass } from './juzgado';
@@ -6,7 +7,7 @@ export class Carpeta {
   nombre         : string;
   llaveProceso   : string;
   procesos       : outProceso[] = [];
-  idProcesos     : number[] = [];
+  idProcesos     : string[] = [];
   numero         : number;
   actuaciones    : intActuacion[] = [];
   ultimaActuacion: intActuacion | null = null;
@@ -21,7 +22,7 @@ export class Carpeta {
   }
   async getProcesos() {
     try {
-      const request = await fetch( `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ this.llaveProceso }&SoloActivos=false&pagina=1`, );
+      const request = await fetchWithSmartRetry( `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ this.llaveProceso }&SoloActivos=false&pagina=1`, );
 
       if ( !request.ok ) {
         const json = await request.json();
@@ -70,7 +71,7 @@ export class Carpeta {
 
     for ( const idProceso of this.idProcesos ) {
       try {
-        const request = await fetch( `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, );
+        const request = await fetchWithSmartRetry( `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, );
 
         if ( !request.ok ) {
           throw new Error( request.statusText );

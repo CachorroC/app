@@ -41,7 +41,7 @@ function getLatestByDate( actuaciones: intActuacion[] ): intActuacion | null {
 }
 
 export default async function fetchActuaciones(
-  idProceso: number, carpetaNumero: number
+  idProceso: string, carpetaNumero: number
 ): Promise<outActuacion[]> {
   try {
     const request = await fetchWithSmartRetry(

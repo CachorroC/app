@@ -1,3 +1,4 @@
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 import { RawDb } from '#@/lib/types/rawDB';
 import { JSX } from 'react';
 import { read, utils } from 'xlsx';
@@ -9,7 +10,7 @@ export default async function JSXLSX() {
 
   const rows: JSX.Element[] = [];
 
-  const request = await fetch(
+  const request = await fetchWithSmartRetry(
     `https://${ prefix }.rsasesorjuridico.com/general.xlsx`,
     {
       headers: {
@@ -29,7 +30,7 @@ export default async function JSXLSX() {
     const data = utils.sheet_to_json( ws ) as RawDb[]; // generate objects
 
     data.forEach( (
-      carpeta, index 
+      carpeta, index
     ) => {
       rows.push( <tr key={index}>
         <td>{carpeta[ 'NUMERO' ]}</td>
@@ -40,7 +41,7 @@ export default async function JSXLSX() {
         <td>{carpeta[ 'JUZGADO_EJECUCION' ] ?? carpeta[ 'JUZGADO_ORIGEN' ]}</td>
         <td>
           <pre>{carpeta[ 'OBSERVACIONES' ]?.replaceAll(
-            '//', '\n-' 
+            '//', '\n-'
           )}</pre>
         </td>
       </tr>, );

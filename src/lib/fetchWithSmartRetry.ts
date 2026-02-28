@@ -1,8 +1,30 @@
 import { sleep } from './project/helper';
 
-//Wrapper for fetch with retries
+// 60,000ms / 5 requests = 12,000ms required gap between requests
+const RATE_LIMIT_DELAY_MS = 12000;
+
+// A global lock to sequence requests
+let requestQueue = Promise.resolve();
+
+/**
+ * Forces requests to queue up and execute with a mandated delay.
+ */
+// Explicitly define as Promise<void>
+
+async function enforceRateLimit() {
+  const currentWait = requestQueue;
+
+  // Make the callback async and await sleep, which forces it to return Promise<void>
+  requestQueue = requestQueue.then( async () => {
+    await sleep( RATE_LIMIT_DELAY_MS );
+  } );
+
+  await currentWait;
+}
+
+// Wrapper for fetch with retries
 export async function fetchWithSmartRetry(
-  url: string,
+  url: string | URL,
   options: RequestInit = {},
   maxRetries = 5,
   baseDelay = 4000,
@@ -16,6 +38,10 @@ export async function fetchWithSmartRetry(
     }
 
     try {
+      // --- PROACTIVE RATE LIMITING ---
+      // Wait for the global queue before executing the fetch
+      await enforceRateLimit();
+
       const response = await fetch(
         url, options
       );
@@ -53,7 +79,7 @@ export async function fetchWithSmartRetry(
         503,
         504
       ].includes( response.status ) ) {
-        throw new Error( `🚫 failed request: fetchWithSmartRetry: ${ url } statusCode<500 Server Status ${ response.status }`, );
+        throw new Error( `🚫 failed request: fetchWithSmartRetry: ${ url } statusCode<500 Server Status ${ response.status }` );
       }
 
       return response;
@@ -72,5 +98,5 @@ export async function fetchWithSmartRetry(
     }
   }
 
-  throw new Error( `🚫 failed request: fetchWithSmartRetry: ${ url } fetchWithSmartRetry failed unexpectedly`, );
+  throw new Error( `🚫 failed request: fetchWithSmartRetry: ${ url } fetchWithSmartRetry failed unexpectedly` );
 }

@@ -45,7 +45,7 @@ export type Message =
   | 'No se pueden ver actuaciones de un proceso privado';
 
 export type intProceso = {
-  idProceso           : number;
+  idProceso           : string;
   idConexion          : number;
   llaveProceso        : string;
   fechaProceso        : Date | null;
@@ -135,7 +135,7 @@ export type outProceso = {
   fechaProceso        : Date | null;
   fechaUltimaActuacion: Date | null;
   juzgado             : Juzgado;
-  idProceso           : number;
+  idProceso           : string;
   idConexion          : number;
   llaveProceso        : string;
   despacho            : string;

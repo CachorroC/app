@@ -4,10 +4,11 @@ import { Despacho } from 'types/despachos';
 import { ConsultaProcesos } from 'types/procesos';
 
 import  prisma  from '#@/lib/connection/prisma';
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 export const getDespachos = cache( async () => {
   try {
-    const request = await fetch(
+    const request = await fetchWithSmartRetry(
       'https://app.rsasesorjuridico.com/despachos.json',
       {
         headers: {
@@ -37,7 +38,7 @@ export const getDespachos = cache( async () => {
 
 export async function fetchProcesosByllaveProceso( llaveProceso: string ) {
   try {
-    const req = await fetch(
+    const req = await fetchWithSmartRetry(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Procesos/Consulta/NumeroRadicacion?numero=${ llaveProceso }&SoloActivos=false&pagina=1`, {
         cache: 'no-store'
       }

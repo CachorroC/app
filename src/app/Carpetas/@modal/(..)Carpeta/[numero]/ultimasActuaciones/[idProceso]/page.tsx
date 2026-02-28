@@ -74,7 +74,7 @@ export async function generateMetadata( {
 
 async function ActuacionesListModalget( {
   idProceso
-}: { idProceso: number } ) {
+}: { idProceso: string } ) {
   const data = await fetchWithSmartRetry( `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, );
 
   if ( !data.ok ) {
@@ -145,7 +145,7 @@ export default async function Page( {
         </div>
 
         <Suspense fallback={<ModalLoader />}>
-          <ActuacionesListModalget idProceso={Number( idProceso )}/>
+          <ActuacionesListModalget idProceso={idProceso}/>
         </Suspense>
       </Suspense>
     </>

@@ -19,7 +19,7 @@ export type IntCarpeta = {
   fecha              : Date | null;
   fechaUltimaRevision: Date | null;
   id                 : number;
-  idProcesos         : number[];
+  idProcesos         : string[];
   idRegUltimaAct     : string | null;
   juzgado            : Juzgado | null;
   juzgadoCiudad      : string | null;

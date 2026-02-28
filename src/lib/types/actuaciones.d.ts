@@ -57,7 +57,7 @@ export type Paginacion = {
 
 export type outActuacion = {
   createdAt?    : Date;
-  idProceso     : number;
+  idProceso     : string;
   isUltimaAct   : boolean;
   idRegActuacion: string;
   llaveProceso  : string;

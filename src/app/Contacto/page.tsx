@@ -5,10 +5,11 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import checkbox from 'components/Form/checkbox/styles.module.css';
 import { useContactContext } from '../Context/main-context';
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 export default function Page() {
   const {
-    register, handleSubmit 
+    register, handleSubmit
   } = useForm<RawContactoFormValues>( {
     defaultValues: {
       nombre    : ' ',
@@ -21,7 +22,7 @@ export default function Page() {
   } );
 
   const {
-    contactoForm, setContactoForm 
+    contactoForm, setContactoForm
   } = useContactContext();
 
   const onSubmit: SubmitHandler<RawContactoFormValues> = async ( data ) => {
@@ -37,14 +38,14 @@ export default function Page() {
     } );
 
     try {
-      const postData = await fetch(
+      const postData = await fetchWithSmartRetry(
         '/api?destino=contacto', {
           method : 'post',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify( newData ),
-        } 
+        }
       );
 
       if ( !postData.ok ) {
@@ -56,7 +57,7 @@ export default function Page() {
       alert( JSON.stringify( msg ) );
 
       console.log( `mensaje en app/Contacto/Page: ${ JSON.stringify(
-        msg, null, 2 
+        msg, null, 2
       ) }`, );
     } catch ( e ) {
       alert( 'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente', );
@@ -83,7 +84,7 @@ export default function Page() {
             {...register(
               'nombre', {
                 required: true,
-              } 
+              }
             )}
           />
         </section>
@@ -102,7 +103,7 @@ export default function Page() {
               'email', {
                 required: false,
                 pattern : /^\S+@\S+$/i,
-              } 
+              }
             )}
           />
         </section>
@@ -120,7 +121,7 @@ export default function Page() {
             {...register(
               'telefono', {
                 required: false,
-              } 
+              }
             )}
           />
         </section>
@@ -155,7 +156,7 @@ export default function Page() {
               {...register(
                 'comentario', {
                   required: true,
-                } 
+                }
               )}
             />
           </section>
@@ -165,7 +166,7 @@ export default function Page() {
           {...register(
             'grupo', {
               required: true,
-            } 
+            }
           )}
         >
           <option value="Abogado">Abogado</option>

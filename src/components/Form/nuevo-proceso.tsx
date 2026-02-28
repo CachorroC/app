@@ -10,6 +10,7 @@ import { ObligacionesComponent } from './field-array-section';
 import { NuevaCarpetaSchema } from '#@/lib/types/zod/nuevaCarpeta';
 import layout from '#@/styles/layout.module.css';
 import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 export default function NuevoProceso() {
   const {
@@ -25,7 +26,7 @@ export default function NuevoProceso() {
 
     const parsed = NuevaCarpetaSchema.safeParse( newCarpeta );
 
-    const postNewNote = await fetch(
+    const postNewNote = await fetchWithSmartRetry(
       '/api/Carpetas/Nueva', {
         method : 'PUT',
         headers: {

@@ -14,18 +14,19 @@ import { VencimientoPagareSection } from './vencimiento-pagare-section';
 import typography from '#@/styles/fonts/typography.module.css';
 import { CheckboxHasProperty } from './checkboxHasProperty';
 import { useCarpetaFormContext } from '../../app/Context/carpeta-form-context';
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 export const Form = () => {
   const {
-    carpetaFormState 
+    carpetaFormState
   } = useCarpetaFormContext();
 
   const {
-    demanda, numero, category, tipoProceso, deudor 
+    demanda, numero, category, tipoProceso, deudor
   } = carpetaFormState;
 
   const {
-    handleSubmit, setError 
+    handleSubmit, setError
   } = useFormContext<MonCarpeta>();
 
   const onSubmit: SubmitHandler<MonCarpeta> = async ( data: MonCarpeta ) => {
@@ -42,7 +43,7 @@ export const Form = () => {
       throw new Error( 'error al hacer el parse' );
     }
 
-    const postCarpeta = await fetch(
+    const postCarpeta = await fetchWithSmartRetry(
       `https://app.rsasesorjuridico.com/api/Carpeta/${ numero }`,
       {
         method : 'PUT',
@@ -54,21 +55,21 @@ export const Form = () => {
     );
 
     alert( JSON.stringify(
-      postCarpeta.status, null, 2 
+      postCarpeta.status, null, 2
     ) );
 
     if ( postCarpeta.status > 200 ) {
       setError(
         'root.serverError', {
           type: postCarpeta.statusText,
-        } 
+        }
       );
     }
 
     const updatedCarpeta = ( await postCarpeta.json() ) as MonCarpeta;
 
     alert( JSON.stringify(
-      updatedCarpeta, null, 2 
+      updatedCarpeta, null, 2
     ) );
     console.log( `el estatus de la operacion post en Form arrojó: ${ postCarpeta.status }`, );
   };
@@ -315,7 +316,7 @@ export const Form = () => {
           {demanda?.fechaPresentacion
             ? (
                 demanda.fechaPresentacion.map( (
-                  fechaP, index 
+                  fechaP, index
                 ) => {
                   return (
                     <DateInputSection
@@ -339,7 +340,7 @@ export const Form = () => {
           {demanda?.vencimientoPagare
             ? (
                 demanda.vencimientoPagare.map( (
-                  fechaVencimiento, index 
+                  fechaVencimiento, index
                 ) => {
                   return (
                     <DateInputSection

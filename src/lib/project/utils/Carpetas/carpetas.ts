@@ -1,44 +1,7 @@
 import { cache } from 'react';
 import  prisma  from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { carpetasCollection } from '#@/lib/connection/collections';
 
-export const getCarpetasByllaveProceso = cache( async ( llaveProceso: string ) => {
-  const prismaCarpetas = await prisma.carpeta.findMany( {
-    where: {
-      llaveProceso: llaveProceso,
-    },
-    include: {
-      tareas         : true,
-      ultimaActuacion: true,
-      juzgado        : true,
-      notas          : true,
-      procesos       : {
-        include: {
-          juzgado: true,
-        },
-      },
-    },
-  } );
-
-  const collection = await carpetasCollection();
-
-  const mongoCarpetas = await collection.find()
-    .toArray();
-
-  const mergedArray = mongoCarpetas.map( ( item ) => {
-    const matchedObject = prismaCarpetas.find( ( obj ) => {
-      return obj.numero === item.numero;
-    } );
-
-    return {
-      ...item,
-      ...matchedObject,
-    };
-  } );
-
-  return mergedArray;
-} );
 
 export const getCarpetaByllaveProceso = cache( async ( llaveProceso: string ) => {
   const prismaCarpeta = await prisma.carpeta.findFirst( {
@@ -149,7 +112,7 @@ export const getCarpetabyNumero = cache( async ( numero: number ) => {
   return newCarp;
 } );
 
-export const getCarpetaByidProceso = cache( async ( idProceso: number ) => {
+export const getCarpetaByidProceso = cache( async ( idProceso: string ) => {
   return await prisma.carpeta.findFirstOrThrow( {
     where: {
       idProcesos: {

@@ -10,7 +10,7 @@ async function getData(
       index
     );
 
-    const request = await fetch(
+    const request = await fetchWithSmartRetry(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
       {
         next: {
@@ -69,7 +69,7 @@ async function getData(
 export async function FechaActuacionComponent( {
   idProceso, numero
 }: {
-  idProceso: number; numero: number
+  idProceso: string; numero: number
 } ) {
   const promiseActs = fetchActuaciones(
     idProceso, numero

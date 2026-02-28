@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { unsubscribeUser, sendNotification } from './actions';
 import styles from '#@/styles/PushNotifications.module.css';
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 // Type definition for legacy iOS check
 interface CustomWindow extends Window {
@@ -91,7 +92,7 @@ export function PushNotificationManager() {
         },
       };
 
-      const response = await fetch(
+      const response = await fetchWithSmartRetry(
         '/api/subscribe', {
           method : 'POST',
           body   : JSON.stringify( subscriptionData ),

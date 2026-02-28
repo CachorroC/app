@@ -22,7 +22,7 @@ export default async function Page( {
   }
 
   const actuaciones = await fetchActuaciones(
-    Number( idProceso ), Number( numero ) 
+    idProceso, Number( numero )
   );
 
   if ( !actuaciones || actuaciones.length === 0 ) {
@@ -36,7 +36,7 @@ export default async function Page( {
           ...actuacion,
           idRegActuacion: `${ actuacion.idRegActuacion }`,
           carpetaNumero : Number( numero ),
-          idProceso     : Number( idProceso ),
+          idProceso     : idProceso,
         };
         const anchorId = `actuacion-${ newActuacion.idRegActuacion }`;
 

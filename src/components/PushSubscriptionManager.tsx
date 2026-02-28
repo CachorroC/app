@@ -1,34 +1,26 @@
 'use client';
 
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 import { useEffect, useState } from 'react';
 
 // 1. Utility to convert VAPID key for the browser
 // (Browsers require the key as a Uint8Array, not a standard Base64 string)
-function urlBase64ToUint8Array(
-  base64String: string
-) {
-  const padding = '='.repeat(
-    ( 4 - base64String.length % 4 ) % 4
-  );
+function urlBase64ToUint8Array( base64String: string ) {
+  const padding = '='.repeat( ( 4 - base64String.length % 4 ) % 4 );
   const base64 = ( base64String + padding )
     .replace(
+      // eslint-disable-next-line no-useless-escape
       /\-/g, '+'
     )
     .replace(
       /_/g, '/'
     );
 
-  const rawData = window.atob(
-    base64
-  );
-  const outputArray = new Uint8Array(
-    rawData.length
-  );
+  const rawData = window.atob( base64 );
+  const outputArray = new Uint8Array( rawData.length );
 
   for ( let i = 0; i < rawData.length; ++i ) {
-    outputArray[ i ] = rawData.charCodeAt(
-      i
-    );
+    outputArray[ i ] = rawData.charCodeAt( i );
   }
 
   return outputArray;
@@ -38,21 +30,15 @@ export default function PushSubscriptionManager() {
   const [
     isSupported,
     setIsSupported
-  ] = useState(
-    false
-  );
+  ] = useState( false );
   const [
     subscription,
     setSubscription
-  ] = useState<PushSubscription | null>(
-    null
-  );
+  ] = useState<PushSubscription | null>( null );
   const [
     loading,
     setLoading
-  ] = useState(
-    false
-  );
+  ] = useState( false );
 
   // REPLACE THIS WITH YOUR ACTUAL PUBLIC KEY
   const PUBLIC_VAPID_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!;
@@ -60,9 +46,7 @@ export default function PushSubscriptionManager() {
   useEffect(
     () => {
       if ( 'serviceWorker' in navigator && 'PushManager' in window ) {
-        setIsSupported(
-          true
-        );
+        setIsSupported( true );
         registerAndCheckSubscription();
       }
     }, []
@@ -71,17 +55,13 @@ export default function PushSubscriptionManager() {
   async function registerAndCheckSubscription() {
     try {
       // A. Register the Service Worker
-      const registration = await navigator.serviceWorker.register(
-        '/service-worker.js'
-      );
+      const registration = await navigator.serviceWorker.register( '/service-worker.js' );
 
       // B. Check if already subscribed
       const existingSubscription = await registration.pushManager.getSubscription();
 
       if ( existingSubscription ) {
-        setSubscription(
-          existingSubscription
-        );
+        setSubscription( existingSubscription );
       }
     } catch ( error ) {
       console.error(
@@ -91,54 +71,38 @@ export default function PushSubscriptionManager() {
   }
 
   async function handleSubscribe() {
-    setLoading(
-      true
-    );
+    setLoading( true );
 
     try {
       const registration = await navigator.serviceWorker.ready;
 
       // 1. Subscribe to the push manager
-      const sub = await registration.pushManager.subscribe(
-        {
-          userVisibleOnly     : true,
-          applicationServerKey: urlBase64ToUint8Array(
-            PUBLIC_VAPID_KEY
-          ),
-        }
-      );
+      const sub = await registration.pushManager.subscribe( {
+        userVisibleOnly     : true,
+        applicationServerKey: urlBase64ToUint8Array( PUBLIC_VAPID_KEY ),
+      } );
 
       // 2. Send the subscription object to YOUR backend
       // This is how your server knows where to send the notification
-      await fetch(
+      await fetchWithSmartRetry(
         '/api/subscribe', {
           method : 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(
-            sub
-          ),
+          body: JSON.stringify( sub ),
         }
       );
 
-      setSubscription(
-        sub
-      );
-      alert(
-        'Successfully subscribed to notifications!'
-      );
+      setSubscription( sub );
+      alert( 'Successfully subscribed to notifications!' );
     } catch ( error ) {
       console.error(
         'Failed to subscribe:', error
       );
-      alert(
-        'Failed to subscribe. Please try again.'
-      );
+      alert( 'Failed to subscribe. Please try again.' );
     } finally {
-      setLoading(
-        false
-      );
+      setLoading( false );
     }
   }
 
@@ -157,9 +121,7 @@ export default function PushSubscriptionManager() {
               <p className="text-green-600 mb-2">✅ You are subscribed to updates.</p>
               <p className="text-xs text-gray-500 break-all">
                 {/* Optional: Debugging view of the endpoint */}
-                ID: {subscription.endpoint.slice(
-                  -20
-                )}...
+                ID: {subscription.endpoint.slice( -20 )}...
               </p>
             </div>
           )

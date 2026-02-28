@@ -10,7 +10,7 @@ import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { ConsultaActuacion } from '#@/lib/types/actuaciones';
 import { ActuacionComponent, ActuacionErrorComponent } from '#@/components/Actuaciones/actuacion-component';
 import { Metadata } from 'next';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 /*
 export async function generateStaticParams() {
@@ -74,8 +74,8 @@ export async function generateMetadata( {
 
 async function ActuacionesListModalget( {
   idProceso
-}: { idProceso: number } ) {
-  const data = await fetch( `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, );
+}: { idProceso: string } ) {
+  const data = await fetchWithSmartRetry( `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, );
 
   if ( !data.ok ) {
     return ( <ActuacionErrorComponent /> );
@@ -145,7 +145,7 @@ export default async function Page( {
         </div>
 
         <Suspense fallback={<ModalLoader />}>
-          <ActuacionesListModalget idProceso={Number( idProceso )}/>
+          <ActuacionesListModalget idProceso={idProceso}/>
         </Suspense>
       </Suspense>
     </>

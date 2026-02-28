@@ -1,5 +1,6 @@
 'use client';
 
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 import { useEffect, useState } from 'react';
 
 const PUBLIC_VAPID_KEY = 'YOUR_PUBLIC_VAPID_KEY_HERE';
@@ -60,7 +61,7 @@ export default function NotificationButton() {
       } );
 
       // Send subscription to your server to save it in your DB
-      await fetch(
+      await fetchWithSmartRetry(
         '/api/subscribe', {
           method : 'POST',
           body   : JSON.stringify( subscription ),
