@@ -1,7 +1,5 @@
 // lib/mongodb.ts
 import { MongoClient } from 'mongodb';
-process.env[ 'NODE_TLS_REJECT_UNAUTHORIZED' ] = '0';
-console.log( process.env.NODE_TLS_REJECT_UNAUTHORIZED );
 
 
 if ( !process.env.MONGODB_URI ) {
@@ -23,7 +21,7 @@ if ( process.env.NODE_ENV === 'development' ) {
 
   if ( !globalWithMongo._mongoClientPromise ) {
     client = new MongoClient(
-      uri, options 
+      uri, options
     );
     globalWithMongo._mongoClientPromise = client.connect();
   }
@@ -32,7 +30,7 @@ if ( process.env.NODE_ENV === 'development' ) {
 } else {
   // In production mode, it's best to not use a global variable.
   client = new MongoClient(
-    uri, options 
+    uri, options
   );
   clientPromise = client.connect();
 }
