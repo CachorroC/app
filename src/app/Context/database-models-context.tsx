@@ -1,18 +1,27 @@
 'use client';
 import { APISchema, Model } from '#@/lib/types/api-models';
 import { createContext, Dispatch, SetStateAction, useEffect, useState, useContext } from 'react';
+import type { ReactNode } from 'react';
+
+type TableRow<TKeys extends string = string> = Record<TKeys, unknown>;
+type ModelDataResponse<TData extends TableRow = TableRow> = {
+  data: TData[];
+};
+type TableData<TData extends TableRow = TableRow> = ModelDataResponse<TData>[ 'data' ];
 
 const DatabaseModelsContext = createContext<{
   models        : Model[];
   setModels     : Dispatch<SetStateAction<Model[]>>;
   activeModel   : Model | null;
   setActiveModel: Dispatch<SetStateAction<Model | null>>;
-  tableData     : any[];
-  setTableData  : Dispatch<SetStateAction<any[]>>;
+  tableData     : TableData;
+  setTableData  : Dispatch<SetStateAction<TableData>>;
 } | null>( null );
 
 export const DatabaseModelsContextProvider = ( {
   children
+}: {
+  children: ReactNode;
 } ) => {
 
   const [
@@ -26,7 +35,7 @@ export const DatabaseModelsContextProvider = ( {
   const [
     tableData,
     setTableData
-  ] = useState( [] );
+  ] = useState<TableData>( [] );
 
   // 1. Fetch the database schema (DMMF) on load
   useEffect(
@@ -56,7 +65,7 @@ export const DatabaseModelsContextProvider = ( {
         .then( ( res ) => {
           return res.json();
         } )
-        .then( ( data ) => {
+        .then( ( data: ModelDataResponse ) => {
           return setTableData( data.data );
         } );
     }, [
