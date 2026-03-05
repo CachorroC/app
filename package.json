@@ -14,7 +14,8 @@
     "db:push": "prisma db push",
     "json-to-prisma": "json-to-prisma-schema-convertor convert --inputPath='./prisma/schema.json' --outputPath='./prisma/new/schema.prisma'",
     "db:test": "tsx scripts/test-database.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "prisma:generate": "prisma generate && ts-node src/lib/scripts/generate-dmmf.ts"
   },
   "dependencies": {
     "@base-ui-components/react": "1.0.0-rc.0",
@@ -57,6 +58,8 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@types/web-push": "^3.6.4"
+    "@prisma/internals": "^7.4.2",
+    "@types/web-push": "^3.6.4",
+    "ts-node": "^10.9.2"
   }
 }

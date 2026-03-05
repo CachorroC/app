@@ -1,102 +1,143 @@
 import { sleep } from './project/helper';
 
-// 60,000ms / 5 requests = 12,000ms required gap between requests
-const RATE_LIMIT_DELAY_MS = 12000;
+const RATE_LIMIT_DELAY_MS = 13000;
+const urlQueues = new Map<string, Promise<void>>();
 
-// A global lock to sequence requests
-let requestQueue = Promise.resolve();
+export function getRateLimitKey( targetUrl: string | URL ): string {
+  const urlObj = new URL( targetUrl.toString() );
+  let path = urlObj.pathname;
 
-/**
- * Forces requests to queue up and execute with a mandated delay.
- */
-// Explicitly define as Promise<void>
+  // 1. Replace numeric IDs
+  path = path.replace(
+    /\/\d+(?=\/|$)/g, '/{id}'
+  );
 
-async function enforceRateLimit() {
-  const currentWait = requestQueue;
+  // 2. Replace UUIDs
+  path = path.replace(
+    /\/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}(?=\/|$)/g,
+    '/{id}'
+  );
 
-  // Make the callback async and await sleep, which forces it to return Promise<void>
-  requestQueue = requestQueue.then( async () => {
-    await sleep( RATE_LIMIT_DELAY_MS );
+  return `${ urlObj.hostname }${ path }`;
+}
+
+async function enforceRateLimit( url: string | URL ): Promise<void> {
+  const routeKey = getRateLimitKey( url );
+  const currentWait = urlQueues.get( routeKey ) || Promise.resolve();
+
+  const nextWait = currentWait.then( async () => {
+    await sleep( RATE_LIMIT_DELAY_MS ); // 🐛 FIXED: Changed 'wait' to 'sleep'
+
+    if ( urlQueues.get( routeKey ) === nextWait ) {
+      urlQueues.delete( routeKey );
+    }
   } );
 
+  urlQueues.set(
+    routeKey, nextWait
+  );
   await currentWait;
 }
 
-// Wrapper for fetch with retries
 export async function fetchWithSmartRetry(
   url: string | URL,
   options: RequestInit = {},
-  maxRetries = 5,
-  baseDelay = 4000,
+  maxRetries = 7,
+  baseDelay = 8000
 ): Promise<Response> {
-  const totalAttempts = maxRetries + 1;
-  let attempt = 1;
+  let attempt = 0;
 
-  while ( attempt <= totalAttempts ) {
-    if ( attempt > 1 ) {
-      console.log( `🔄 fetchWithSmartRetry Attempt ${ attempt } for ${ url }` );
-    }
-
+  while ( attempt <= maxRetries ) {
     try {
-      // --- PROACTIVE RATE LIMITING ---
-      // Wait for the global queue before executing the fetch
-      await enforceRateLimit();
-
+      // 🛡️ Proactive Rate Limiting (Now applies to retries too)
+      await enforceRateLimit( url );
       const response = await fetch(
         url, options
       );
 
-      // --- HANDLE 429 (RATE LIMITS) ---
+      if ( response.ok ) {
+        return response;
+      }
+
+      // 🛑 429 Too Many Requests
       if ( response.status === 429 ) {
-        const retryAfterHeader = response.headers.get( 'retry-after' );
-        const waitTime = retryAfterHeader
-          ? ( parseInt(
-              retryAfterHeader, 10
-            ) * 1000 ) + 1000
-          : baseDelay * Math.pow(
-            2, attempt
+        const retryAfter = response.headers.get( 'retry-after' );
+        let delay = baseDelay * Math.pow(
+          2, attempt
+        );
+
+        if ( retryAfter ) {
+          const parsedSeconds = parseInt(
+            retryAfter, 10
           );
 
-        console.log( `⚠️ [429 Too Many Requests] Pausing for ${ waitTime }ms...` );
-        await sleep( waitTime );
+          if ( !isNaN( parsedSeconds ) ) {
+            delay = ( parsedSeconds * 1000 ) + 1000;
+          } else {
+            // Handle HTTP-date format
+            const date = new Date( retryAfter )
+              .getTime();
+
+            if ( !isNaN( date ) ) {
+              delay = Math.max(
+                0, date - Date.now()
+              ) + 1000;
+            }
+          }
+        }
+
+        console.warn( `⏳ [429] Route limit hit for ${ getRateLimitKey( url ) }. Pausing for ${ delay }ms...` );
+        await sleep( delay );
         attempt++;
 
         continue;
       }
 
-      if ( response.status === 403 ) {
-        await sleep( 2000 );
-        attempt++;
-        console.log( response.statusText );
-
-        continue;
-      }
-
-      // Check for server errors
-      if ( [
+      const RECOVERABLE_STATUSES = [
+        403,
+        408,
         500,
         502,
         503,
         504
-      ].includes( response.status ) ) {
-        throw new Error( `🚫 failed request: fetchWithSmartRetry: ${ url } statusCode<500 Server Status ${ response.status }` );
+      ];
+
+      if ( RECOVERABLE_STATUSES.includes( response.status ) ) {
+        if ( attempt >= maxRetries ) {
+          return response;
+        }
+
+        const delay = baseDelay * Math.pow(
+          2, attempt
+        );
+        console.warn( `⚠️ [HTTP ${ response.status }] Retrying in ${ delay }ms...` );
+        await sleep( delay );
+        attempt++;
+
+        continue;
       }
 
+      // ❌ Fatal Client Errors (400, 401, 403, 404)
       return response;
 
     } catch ( error ) {
-      if ( attempt >= totalAttempts ) {
+      // 📡 Network Errors
+      if ( attempt >= maxRetries ) {
         throw error;
       }
 
-      const delay = ( baseDelay * attempt );
-      console.log( `⚠️ [Retry] Attempt ${ attempt }/${ totalAttempts } failed for ${ url }. Retrying in ${ delay }ms...` );
+      const delay = baseDelay * Math.pow(
+        2, attempt
+      );
+      const errorMessage = error instanceof Error
+        ? error.message
+        : String( error );
+
+      console.error( `📡 [Network Error] ${ errorMessage }. Retrying in ${ delay }ms...` );
       await sleep( delay );
       attempt++;
-
-      continue;
     }
   }
 
-  throw new Error( `🚫 failed request: fetchWithSmartRetry: ${ url } fetchWithSmartRetry failed unexpectedly` );
+  throw new Error( 'Unexpected end of fetch retry loop' );
 }

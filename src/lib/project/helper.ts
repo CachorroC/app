@@ -12,7 +12,7 @@ export const fixFechas = ( rawDate?: string | Date | null | undefined ) => {
           weekday : 'short',
           month   : 'long',
           day     : 'numeric',
-        } 
+        }
       );
   }
 
@@ -23,14 +23,21 @@ export const fixFechas = ( rawDate?: string | Date | null | undefined ) => {
       weekday : 'short',
       month   : 'long',
       day     : 'numeric',
-    } 
+    }
   );
 };
 
+
+/**
+ * Promisified setTimeout to pause execution.
+ *
+ * @param {number} ms - The number of milliseconds to wait.
+ * @returns {Promise<void>} A promise that resolves after the specified time.
+ */
 export const sleep = ( ms: number ) => {
   return new Promise( ( resolve ) => {
     return setTimeout(
-      resolve, ms 
+      resolve, ms
     );
   } );
 };
@@ -43,13 +50,13 @@ export const trimmer = ( sujetosProcesales: string ) => {
     .toLowerCase();
 
   const trimDemandado = extractDemandado.replace(
-    /^\s+|\s+$/gm, '' 
+    /^\s+|\s+$/gm, ''
   );
 
   const splitDemandado = trimDemandado.split( ' ' );
 
   const splitDemandadotoUnify = splitDemandado.map( (
-    nombreOapellido: string, index: number 
+    nombreOapellido: string, index: number
   ) => {
     if ( index >= 5 ) {
       return '';
@@ -74,7 +81,7 @@ export const trimmer = ( sujetosProcesales: string ) => {
     return nombreOapellido.replace(
       /^./, ( str: string ) => {
         return str.toUpperCase();
-      } 
+      }
     );
   }, );
 
@@ -105,7 +112,7 @@ export const fixMoney = ( valor: number | bigint ) => {
       style          : 'currency',
       currency       : 'COP',
       currencyDisplay: 'symbol',
-    } 
+    }
   )
     .format( valor );
 };
