@@ -4,14 +4,17 @@ import { intActuacion, outActuacion } from '#@/lib/types/actuaciones';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { NewNotaComponent } from '../Modal';
 import styles from '../Card/elevated.module.css';
+import { Loader } from '../Loader/main-loader';
 
-export function ActuacionComponent({
+export function ActuacionComponent( {
   incomingActuacion,
 }: {
   incomingActuacion: outActuacion | intActuacion;
-}) {
-  const { actuacion, anotacion, fechaActuacion, consActuacion } =
-    incomingActuacion;
+} ) {
+  const {
+    actuacion, anotacion, fechaActuacion, consActuacion
+  }
+    = incomingActuacion;
 
   return (
     <div className={styles.containerEnabled}>
@@ -41,7 +44,7 @@ export function ActuacionErrorComponent() {
       className={styles.containerEnabled}
       style={{
         backgroundColor: 'var(--error-container)',
-        color: 'var(--on-error-container)',
+        color          : 'var(--on-error-container)',
       }}
     >
       <div
@@ -60,6 +63,35 @@ export function ActuacionErrorComponent() {
             'hubo un error en la petición de la actuacion, actualize la pagina o intente de nuevo '
           }
         </p>
+      </div>
+    </div>
+  );
+}
+
+
+export function ActuacionLoadingComponent() {
+  return (
+    <div
+      className={styles.containerEnabled}
+
+    >
+      <div
+        className={layout.segmentRow}
+        style={{
+          justifyContent: 'space-between',
+        }}
+      >
+        <sub className={typography.labelMedium}>{0}</sub>
+        <h5 className={typography.titleMedium}>{'Cargando'}</h5>
+      </div>
+      <div className={layout.segmentRow}>
+        <Loader />
+        <p className={typography.bodyMedium}>
+          {
+            'Cargando la información de la actuación, por favor espere...'
+          }
+        </p>
+
       </div>
     </div>
   );

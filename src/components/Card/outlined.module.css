@@ -1,5 +1,4 @@
-.container,
-.containerEnabled {
+.container, .containerEnabled {
   position: relative;
   box-sizing: border-box;
   flex: 1;
@@ -9,8 +8,7 @@
   display: flex;
   flex-flow: column nowrap;
 }
-.container:hover,
-.containerEnabled:hover {
+.container:hover, .containerEnabled:hover {
   box-shadow: var(--elevation-1);
 }
 .containerEnabled {

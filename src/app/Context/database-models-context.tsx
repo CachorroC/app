@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 'use client';
-import { APISchema, Model, ModelDataResponse, TableData } from '#@/lib/types/api-models';
+import { APISchema, Model, ModelDataResponse, TableData, TableRow } from '#@/lib/types/api-models';
 import { createContext,
   Dispatch,
   SetStateAction,
@@ -28,10 +28,8 @@ const CellEditingContext = createContext<{
   setEditingCell   : Dispatch<SetStateAction<{ rowIndex: number; field: string; } | null>>;
   editValue        : string;
   setEditValue     : Dispatch<SetStateAction<string>>;
-  isEditing        : boolean;
-  setIsEditing     : Dispatch<SetStateAction<boolean>>;
   handleDoubleClick: ( rowIndex: number, fieldName: string, currentValue: any ) => void;
-  handleSave       : ( rowIndex: number, fieldName: string, rowId: any ) => void;
+  handleSave       : ( rowIndex: number, fieldName: string, row: TableRow<string> ) => void;
 } | null>( null );
 
 export const DatabaseModelsContextProvider = ( {
@@ -66,17 +64,10 @@ export const DatabaseModelsContextProvider = ( {
     editValue,
     setEditValue
   ] = useState<string>( '' );
-  const [
-    isEditing,
-    setIsEditing
-  ] = useState( false );
 
   const handleDoubleClick = (
     rowIndex: number, fieldName: string, currentValue: any
   ) => {
-    setIsEditing( ( edit ) => {
-      return !edit;
-    } );
     setEditingCell( {
       rowIndex,
       field: fieldName
@@ -85,34 +76,67 @@ export const DatabaseModelsContextProvider = ( {
   };
 
   const handleSave = async (
-    rowIndex: number, fieldName: string, rowId: any
+    rowIndex: number, fieldName: string, row: TableRow<string>
   ) => {
-  // 1. Optimistically update the local UI state so it feels instant
+    if ( !activeModel ) {
+      return;
+    }
+
+    // 1. Find the primary key field from the schema
+    const idField = activeModel.fields.find( ( field ) => {
+      return field.isId;
+    } );
+
+    if ( !idField ) {
+      console.error( 'No primary key found for this model!' );
+
+      return;
+    }
+
+    const idFieldName = idField.name; // e.g., 'numero', 'idRegActuacion', or 'id'
+    let idValue = row[ idFieldName ];
+
+    // 2. Cast the ID to a Number if Prisma expects an Int or Float
+    if ( idField.type === 'Int' || idField.type === 'Float' ) {
+      idValue = Number( idValue );
+    }
+
+    // Find the schema definition for the field being edited to cast its value too
+    const editedFieldSchema = activeModel.fields.find( ( field ) => {
+      return field.name === fieldName;
+    } );
+    let parsedEditValue: string | number | boolean = editValue;
+
+    if ( editedFieldSchema?.type === 'Int' || editedFieldSchema?.type === 'Float' ) {
+      parsedEditValue = Number( editValue );
+    } else if ( editedFieldSchema?.type === 'Boolean' ) {
+      parsedEditValue = editValue === 'true';
+    }
+
+    // 3. Optimistic UI Update
     const updatedTableData = [
       ...tableData
     ];
     updatedTableData[ rowIndex ] = {
       ...updatedTableData[ rowIndex ],
-      [ fieldName ]: editValue,
+      [ fieldName ]: parsedEditValue,
     };
-    setTableData( updatedTableData );
-    setEditingCell( null ); // Exit edit mode
-    setIsEditing( ( edit ) => {
-      return !edit;
-    } );
+    setTableData( updatedTableData as never[] ); // Cast as needed for your TS setup
+    setEditingCell( null );
 
-    // 2. Send the specific cell update to the database
+    // 4. Send the dynamic ID structure to the backend
     try {
       const response = await fetch(
-        `/api/models/${ activeModel?.name }`, {
+        `/api/models/${ activeModel.name }`, {
           method : 'PATCH',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify( {
-            id  : rowId, // We must pass the row's ID so Prisma knows which record to update
-            data: {
-              [ fieldName ]: editValue, // Only send the field that changed
+            idField: idFieldName,       // Tell the backend the name of the PK column
+            idValue: idValue,           // Tell the backend the value of the PK
+            data   : {
+              [ fieldName ]: parsedEditValue,
             },
           } ),
         }
@@ -121,9 +145,13 @@ export const DatabaseModelsContextProvider = ( {
       if ( !response.ok ) {
         throw new Error( 'Failed to update database' );
       }
+
+      const result = await response.json();
+      alert( JSON.stringify(
+        result, null, 2 
+      ) );
     } catch ( error ) {
       console.error( error );
-      // In a real app, you'd want to revert the local state back if the API fails here
       alert( 'Failed to save changes!' );
     }
   };
@@ -191,8 +219,6 @@ export const DatabaseModelsContextProvider = ( {
         setEditValue,
         handleDoubleClick,
         handleSave,
-        isEditing,
-        setIsEditing
       }}
       >
         {children}

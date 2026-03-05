@@ -4,42 +4,45 @@
  * @type {import('next').NextConfig}
  **/
 const nextConfig = {
+  allowedDevOrigins: [
+    'beta.rsasesorjuridico.com'
+  ],
   cacheComponents: true,
-  output: 'standalone',
-  typedRoutes: true,
+  output         : 'standalone',
+  typedRoutes    : true,
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source : '/(.*)',
         headers: [
           {
-            key: 'X-Content-Type-Options',
+            key  : 'X-Content-Type-Options',
             value: 'nosniff',
           },
           {
-            key: 'X-Frame-Options',
+            key  : 'X-Frame-Options',
             value: 'DENY',
           },
           {
-            key: 'Referrer-Policy',
+            key  : 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
         ],
       },
       {
-        source: '/service-worker.js',
+        source : '/service-worker.js',
         headers: [
           {
-            key: 'Content-Type',
+            key  : 'Content-Type',
             value: 'application/javascript; charset=utf-8',
           },
           {
-            key: 'Cache-Control',
+            key  : 'Cache-Control',
             value: 'no-cache, no-store, must-revalidate',
           },
           {
-            key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self'",
+            key  : 'Content-Security-Policy',
+            value: 'default-src \'self\'; script-src \'self\'',
           },
         ],
       },

@@ -13,8 +13,9 @@ export function Cell ( {
     editValue,
     setEditValue,
     handleDoubleClick,
-    handleSave, setIsEditing
+    handleSave,
   } = useCellEditingContext();
+
   const isEditing
     = editingCell?.rowIndex === rowIndex && editingCell?.field === field.name;
 
@@ -41,14 +42,14 @@ export function Cell ( {
               // Save when the user clicks completely outside the input
               onBlur={() => {
                 return handleSave(
-                  rowIndex, field.name, row.id
+                  rowIndex, field.name, row
                 );
               }}
               // Save when the user presses Enter
               onKeyDown={( e ) => {
                 if ( e.key === 'Enter' ) {
                   handleSave(
-                    rowIndex, field.name, row.id
+                    rowIndex, field.name, row
                   );
                 }
 

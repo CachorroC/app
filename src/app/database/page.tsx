@@ -88,13 +88,12 @@ export default function Page() {
                         >
                           {activeModel?.fields.map( ( field ) => {
                             return (
-                              <td
-                                key={field.name}
-                                className={styles.tableCell}
-                              >
-                                <Cell field={ field } rowIndex={ index } row={row} />
-                                {String( row[ field.name ] )}
-                              </td>
+                              <Cell
+                                key={ field.name }
+                                field={ field }
+                                rowIndex={ index }
+                                row={ row }
+                              />
                             );
                           } )}
                         </tr>
