@@ -2,6 +2,7 @@
 
 import { APISchema, Model } from '#@/lib/types/api-models';
 import { useState, useEffect } from 'react';
+import styles from './studio-clone.module.scss';
 
 export function StudioClone() {
   const [
@@ -54,18 +55,25 @@ export function StudioClone() {
   );
 
   return (
-    <div className="flex h-screen font-sans">
+    <div className={styles.container}>
       {/* Sidebar Navigation */}
-      <div className="w-64 bg-gray-100 border-r p-4">
-        <h1 className="text-xl font-bold mb-6 text-gray-800">My Studio</h1>
-        <ul>
+      <div className={styles.sidebar}>
+        <h1 className={styles.sidebarTitle}>My Studio</h1>
+        <ul className={styles.modelList}>
           {models.map( ( model ) => {
+            const itemClass = [
+              styles.modelItem,
+              activeModel?.name === model.name
+                ? styles.active
+                : ''
+            ]
+              .filter( Boolean )
+              .join( ' ' );
+
             return (
               <li
                 key={model.name}
-                className={`cursor-pointer p-2 rounded mb-1 ${ activeModel?.name === model.name
-                  ? 'bg-blue-500 text-white'
-                  : 'hover:bg-gray-200' }`}
+                className={itemClass}
                 onClick={() => {
                   return setActiveModel( model );
                 }}
@@ -78,22 +86,22 @@ export function StudioClone() {
       </div>
 
       {/* Main Data Table Area */}
-      <div className="flex-1 p-8 overflow-auto">
-        <h2 className="text-2xl font-semibold mb-4">{activeModel?.name} Data</h2>
+      <div className={styles.mainContent}>
+        <h2 className={styles.mainTitle}>{activeModel?.name} Data</h2>
 
         {tableData.length === 0
           ? (
-              <p className="text-gray-500">No records found. (Add POST logic to create some!)</p>
+              <p className={styles.emptyMessage}>No records found. (Add POST logic to create some!)</p>
             )
           : (
-              <table className="min-w-full border-collapse border border-gray-300">
-                <thead className="bg-gray-100">
+              <table className={styles.table}>
+                <thead className={styles.tableHead}>
                   <tr>
                     {/* Dynamically generate column headers based on DMMF fields */}
                     {activeModel?.fields.map( ( field ) => {
                       return (
-                        <th key={field.name} className="border p-2 text-left font-medium text-gray-600">
-                          {field.name} <span className="text-xs text-gray-400">({field.type})</span>
+                        <th key={field.name} className={styles.tableHeader}>
+                          {field.name} <span className={styles.fieldType}>({field.type})</span>
                         </th>
                       );
                     } )}
@@ -105,10 +113,10 @@ export function StudioClone() {
                     row, index
                   ) => {
                     return (
-                      <tr key={index} className="hover:bg-gray-50">
+                      <tr key={index} className={styles.tableRow}>
                         {activeModel?.fields.map( ( field ) => {
                           return (
-                            <td key={field.name} className="border p-2 text-gray-800">
+                            <td key={field.name} className={styles.tableCell}>
                               {String( row[ field.name ] )}
                             </td>
                           );
