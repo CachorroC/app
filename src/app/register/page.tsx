@@ -2,7 +2,7 @@
 import { useState } from 'react';
 // Import the styles object
 import styles from './register.module.css';
-import { registerUser } from '../actions/register';
+import { register as registerUser } from '../actions/auth';
 import Link from 'next/link';
 import { Route } from 'next';
 

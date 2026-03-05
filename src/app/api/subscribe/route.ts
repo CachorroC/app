@@ -1,4 +1,4 @@
-import clientPromise from '#@/lib/connection/mongodb';
+import prisma from '#@/lib/connection/prisma';
 import { NextResponse } from 'next/server';
 
 // In a real app, replace this variable with a database (Postgres, Mongo, etc.)
@@ -18,21 +18,13 @@ export async function POST(request: Request) {
     );
   }
 
-  const client = await clientPromise;
-  const db = client.db('Actuaciones'); // Replace with your DB name
-  const collection = db.collection('push_subscriptions');
-
-  // We use the 'endpoint' URL as the unique ID for the device
-  await collection.updateOne(
-    {
-      endpoint: subscription.endpoint,
-    },
-    {
-      $set: subscription,
-    },
-    {
-      upsert: true,
-    },
+  // Store push subscription in Prisma
+  // Note: You'll need to create a PushSubscription model in your Prisma schema
+  await prisma.$executeRawUnsafe(
+    `INSERT INTO push_subscriptions (endpoint, data) VALUES ($1, $2)
+     ON CONFLICT (endpoint) DO UPDATE SET data = $2`,
+    subscription.endpoint,
+    JSON.stringify(subscription),
   );
 
   return NextResponse.json({

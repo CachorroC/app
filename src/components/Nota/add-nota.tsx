@@ -1,5 +1,5 @@
 'use client';
-import { createNota } from '#@/app/actions/main';
+import { createNota } from '#@/app/actions/notas';
 import { useNuevaTaskContext } from '#@/app/Context/nueva-task-form-context';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import { inputElement, slider, switchBox } from '../Form/form.module.css';

@@ -7,11 +7,11 @@ export function EditCarpeta({ numero }: { numero: number }) {
     <>
       <Link
         className={styles.buttonEdit}
-        href={`/Carpeta/${numero}/Editar` as Route}
+        href={`/carpeta/${numero}/editar` as Route}
       >
         <span className="material-symbols-outlined">edit</span>
       </Link>
-      <Link href={'/Notas/Nueva' as Route}>
+      <Link href={'/notas/nueva' as Route}>
         <span className="material-symbols-outlined">note_add</span>
       </Link>
     </>

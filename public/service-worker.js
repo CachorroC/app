@@ -134,11 +134,11 @@ sw.addEventListener('notificationclick', (event) => {
   let urlToOpen;
 
   if (action === 'openCarpeta') {
-    // Action: openCarpeta -> https://app.rsasesorjuridico.com/Carpeta/${numero}
-    urlToOpen = `https://app.rsasesorjuridico.com/Carpeta/${data.numero}`;
+    // Action: openCarpeta -> https://app.rsasesorjuridico.com/carpeta/${numero}
+    urlToOpen = `https://app.rsasesorjuridico.com/carpeta/${data.numero}`;
   } else if (action === 'openActuaciones') {
-    // Action: openActuaciones -> https://app.rsasesorjuridico.com/Carpeta/${numero}/ultimasActuaciones/${idProceso}
-    urlToOpen = `https://app.rsasesorjuridico.com/Carpeta/${data.numero}/ultimasActuaciones/${data.idProceso}#actuacion-${data.idRegActuacion}`;
+    // Action: openActuaciones -> https://app.rsasesorjuridico.com/carpeta/${numero}/ultimas-actuaciones/${idProceso}
+    urlToOpen = `https://app.rsasesorjuridico.com/carpeta/${data.numero}/ultimas-actuaciones/${data.idProceso}#actuacion-${data.idRegActuacion}`;
   } else {
     // Default Action (Body click) -> data.url
     urlToOpen = data.url;

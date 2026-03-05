@@ -1,5 +1,5 @@
 'use client';
-import { editNota } from '#@/app/actions/main';
+import { editNota } from '#@/app/actions/notas';
 import { useActionState, useState } from 'react';
 import styles from 'components/Form/form.module.css';
 import layout from '#@/styles/layout.module.css';

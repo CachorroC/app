@@ -1,10 +1,10 @@
 'use client';
-import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
+import { useCarpetaSort } from '#@/app/carpetas/context';
 import { Suspense } from 'react';
 import { ClientCardRow } from '#@/components/Card/client-card';
 import { Route } from 'next';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
-import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import { RevisadoCheckBox } from '#@/app/carpetas/revisado-checkbox';
 import { Loader } from '#@/components/Loader/main-loader';
 import { TableRowCarpetaSortingButton } from '../../../app/Carpetas/@right/carpetasButtonsSort';
 import {

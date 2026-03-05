@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './form.module.css';
 import { useFormContext } from 'react-hook-form';
 import { KeyOfCarpeta, MonCarpeta } from '#@/lib/types/carpetas';
-import { useCarpetaFormContext } from '../../app/Context/carpeta-form-context';
+import { useCarpetaFormContext } from '#@/app/carpetas/context';
 
 export function CheckboxHasProperty({
   keyOfCarpeta,

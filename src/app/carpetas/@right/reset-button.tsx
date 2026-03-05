@@ -1,0 +1,23 @@
+'use client';
+import { useCarpetaSortDispatch } from '#@/app/carpetas/context';
+import styles from './styles.module.css';
+
+export function ResetButtonSorter() {
+  const dispatchCarpetas = useCarpetaSortDispatch();
+
+  return (
+    <section /* className={styles.segmentedButtons} */>
+      <button
+        type="button"
+        //className={`${ styles.buttonCategoryPasive } ${ styles.btnControl }`}
+        onClick={() => {
+          return dispatchCarpetas({
+            type: 'reset',
+          });
+        }}
+      >
+        <span className="material-symbols-outlined">device_reset</span>
+      </button>
+    </section>
+  );
+}

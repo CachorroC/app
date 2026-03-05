@@ -6,7 +6,6 @@ import { ChangeEvent } from 'react';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import { useNuevaNotaContext } from '#@/app/Notas/nueva-nota-form-context';
 import {
-  addNotaToMongo,
   addNotaToPrisma,
   notasCount,
 } from '#@/app/Notas/actions';
@@ -43,18 +42,6 @@ export const NuevaNota = () => {
 
     const sender = await addNotaToPrisma(notaFormState);
 
-    const adder = await addNotaToMongo(notaFormState);
-
-    if (adder.success) {
-      alert(
-        `se ingresó la informacion a la base de datos in prisma ${adder.data}`,
-      );
-    } else {
-      alert(
-        `error, no se pudo ingresar la forma a la base de dato in prismas ${adder.data}`,
-      );
-    }
-
     if (sender.success) {
       alert(`se ingresó la informacion a la base de datos ${sender.data}`);
     } else {
@@ -63,7 +50,7 @@ export const NuevaNota = () => {
       );
     }
 
-    if (!adder.success || !sender.success) {
+    if (!sender.success) {
       return setNotaFormState({
         ...notaFormState,
       });

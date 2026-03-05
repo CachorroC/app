@@ -40,7 +40,7 @@ export async function Calendar({ date }: { date?: Date }) {
             return (
               <Link
                 key={href}
-                href={`/Calendario/Fecha/${href}` as Route}
+                href={`/calendario/fecha/${href}` as Route}
                 className={
                   current
                     ? setToday

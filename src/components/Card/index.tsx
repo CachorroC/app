@@ -6,7 +6,7 @@ import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import layout from '#@/styles/layout.module.css';
 import { CopyButton } from '../Buttons/copy-buttons';
-import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import { RevisadoCheckBox } from '#@/app/carpetas/revisado-checkbox';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { containerEnabled } from './filled.module.css';
 
@@ -33,7 +33,7 @@ export const Card = ({
         <Link
           key={idProceso}
           href={
-            `/Carpeta/${String(numero)}/ultimasActuaciones/${String(idProceso)}` as Route
+            `/carpeta/${String(numero)}/ultimas-actuaciones/${String(idProceso)}` as Route
           }
           className={styles.link}
         >
@@ -107,7 +107,7 @@ export const CardRow = ({
         <Link
           key={idProceso}
           href={
-            `/Carpeta/${carpeta.numero}/ultimasActuaciones/${idProceso}` as Route
+            `/carpeta/${carpeta.numero}/ultimas-actuaciones/${idProceso}` as Route
           }
         >
           <span className={`${typography.labelLarge} ${layout.text}`}>
@@ -121,7 +121,7 @@ export const CardRow = ({
       <Link
         key={idProcesos[0]}
         href={
-          `/Carpeta/${carpeta.numero}/ultimasActuaciones/${idProcesos[0]}` as Route
+          `/carpeta/${carpeta.numero}/ultimas-actuaciones/${idProcesos[0]}` as Route
         }
       >
         <span className={`${typography.labelLarge} ${layout.text}`}>

@@ -9,7 +9,7 @@ export default function Title({ helper }: { helper?: string }) {
   const today = new Date();
 
   const days = [
-    'mimingo',
+    'Domingo',
     'Lunes',
     'Martes',
     'Miercoles',

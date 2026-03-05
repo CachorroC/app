@@ -11,7 +11,7 @@ import form from './form.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
-import { useCarpetaFormContext } from '#@/app/Context/carpeta-form-context';
+import { useCarpetaFormContext } from '#@/app/carpetas/context';
 
 export const NumberSection = ({
   name,

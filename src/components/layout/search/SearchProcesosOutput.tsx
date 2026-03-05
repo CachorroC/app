@@ -4,7 +4,7 @@ import { JSX } from 'react';
 import { LinkCard } from './link';
 import { Route } from 'next';
 import { useCategory } from '#@/app/Context/category-context';
-import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
+import { useCarpetaSort } from '#@/app/carpetas/context';
 
 export function SearchOutputList() {
   const { carpetas } = useCarpetaSort();

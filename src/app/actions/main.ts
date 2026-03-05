@@ -2,9 +2,8 @@
 
 import { revalidateTag } from 'next/cache';
 import { ZodNotaElementSchema } from '#@/lib/types/zod/nota';
-import { DeleteResult } from 'mongodb';
 import { NotaEditorAction, IntNota } from '#@/lib/types/notas';
-import clientPromise from '#@/lib/connection/mongodb';
+import prisma from '#@/lib/connection/prisma';
 
 export async function createNota(formData: FormData) {
   try {
@@ -22,87 +21,64 @@ export async function createNota(formData: FormData) {
 
     if (!parsed.success) {
       throw new Error(
-        'no pudimos parsear con zodla nota que ingresaste. Intentalo nuevamente',
+        'No pudimos validar la nota que ingresaste. Por favor intenta nuevamente.',
       );
     }
 
     const { data } = parsed;
 
-    const client = await clientPromise;
-
-    if (!client) {
-      throw new Error('no hay cliente mongólico');
-    }
-
-    const db = client.db('RyS');
-
-    const collection = db.collection<IntNota>('Notas');
-
-    const nota = await collection.findOneAndUpdate(
-      {
+    const nota = await prisma.nota.upsert({
+      where: {
         id: data.id,
       },
-      {
-        $set: data,
+      update: {
+        text: data.text,
+        content: data.content,
+        dueDate: new Date(data.dueDate),
+        pathname: data.pathname,
+        carpetaNumero: data.carpetaNumero ? Number(data.carpetaNumero) : null,
       },
-      {
-        upsert: true,
-        returnDocument: 'after',
+      create: {
+        id: data.id,
+        text: data.text,
+        content: data.content,
+        dueDate: new Date(data.dueDate),
+        pathname: data.pathname,
+        carpetaNumero: data.carpetaNumero ? Number(data.carpetaNumero) : null,
       },
-    );
+    });
 
     if (!nota) {
-      throw new Error('no pudimos actyualizar o insertar esa nota');
+      throw new Error('No pudimos actualizar o guardar la nota');
     }
 
     revalidateTag('notas', 'max');
 
-    return;
-  } catch (e) {
-    console.log(`there was an error at createNota: ${JSON.stringify(e)}`);
-
-    return;
+    return { success: true };
+  } catch (error) {
+    console.error('Error creating note:', error);
+    throw error;
   }
 }
 
 export async function deleteNota({ id }: { id: string }) {
   try {
-    const client = await clientPromise;
-
-    if (!client) {
-      throw new Error('no hay cliente mongólico');
-    }
-
-    const db = client.db('RyS');
-
-    const collection = db.collection<IntNota>('Notas');
-
-    const deleter = await collection.deleteOne({
-      id: id,
+    const deleter = await prisma.nota.delete({
+      where: {
+        id: id,
+      },
     });
 
-    if (!deleter.acknowledged) {
-      throw new Error('deleter not acknowledged');
+    if (!deleter) {
+      throw new Error('Fallo al eliminar la nota');
     }
 
-    console.log(`deleNota: se borraron ${deleter.deletedCount} notas`);
+    console.log(`deleteNota: se borró la nota con id ${id}`);
 
-    return deleter;
+    return { acknowledged: true, deletedCount: 1 };
   } catch (error) {
-    if (error instanceof Error) {
-      console.log(
-        `surgió una instancia de error en deleteNota: ${error.message}`,
-      );
-    }
-
-    console.log(`error deleteNota: ${JSON.stringify(error, null, 2)}`);
-
-    const deleteRes: DeleteResult = {
-      acknowledged: false,
-      deletedCount: 0,
-    };
-
-    return deleteRes;
+    console.error('Error deleting note:', error);
+    throw error;
   }
 }
 
@@ -122,70 +98,57 @@ export async function editNota(
     const { success } = parsed;
 
     if (!success) {
-      throw new Error(`hubo un error en la consulta: ${parsed.error}`);
+      throw new Error(`Error al validar los datos de la nota: ${parsed.error}`);
     }
 
     const { data } = parsed;
 
-    const client = await clientPromise;
-
-    if (!client) {
-      throw new Error('no hay cliente mongólico');
-    }
-
-    const db = client.db('RyS');
-
-    const collection = db.collection<IntNota>('Notas');
-
-    const nota = await collection.findOneAndUpdate(
-      {
+    const nota = await prisma.nota.upsert({
+      where: {
         id: data.id,
       },
-      {
-        $set: data,
+      update: {
+        text: data.text,
+        dueDate: new Date(data.dueDate),
+        pathname: data.pathname,
+        carpetaNumero: data.carpetaNumero ? Number(data.carpetaNumero) : null,
       },
-      {
-        upsert: true,
+      create: {
+        id: data.id,
+        text: data.text,
+        content: [],
+        dueDate: new Date(data.dueDate),
+        pathname: data.pathname,
+        carpetaNumero: data.carpetaNumero ? Number(data.carpetaNumero) : null,
       },
-    );
+    });
 
     if (!nota) {
-      throw new Error('nota not acknlowledged');
+      throw new Error('No se pudo actualizar la nota');
     }
 
-    const notaSerialized = {
-      ...nota,
-      _id: nota._id.toString(),
-    };
-
     const notaActionReturn: NotaEditorAction = {
-      message: `success: ${notaSerialized._id}`,
-      data: notaSerialized,
+      message: `success: ${nota.id}`,
+      data: nota as IntNota,
       error: false,
     };
 
     return notaActionReturn;
   } catch (errorSubmitNota) {
-    console.log(
-      `se ha producido un error en editNota: ${JSON.stringify(errorSubmitNota)}`,
-    );
+    console.error('Error editing note:', errorSubmitNota);
 
     if (errorSubmitNota instanceof Error) {
-      const notaActionReturn: NotaEditorAction = {
+      return {
         message: errorSubmitNota.message,
         data: null,
         error: true,
       };
-
-      return notaActionReturn;
     }
 
-    const notaActionReturn: NotaEditorAction = {
-      message: `error: ${errorSubmitNota}`,
+    return {
+      message: `Error: ${errorSubmitNota}`,
       data: null,
       error: true,
     };
-
-    return notaActionReturn;
   }
 }

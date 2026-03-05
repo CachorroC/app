@@ -1,7 +1,7 @@
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
-import clientPromise from '#@/lib/connection/mongodb';
+import prisma from '#@/lib/connection/prisma';
 import { IntNota } from '#@/lib/types/notas';
 
 export async function GET(request: NextRequest) {
@@ -28,20 +28,19 @@ export async function POST(request: NextRequest) {
   try {
     const incomingNote = (await request.json()) as IntNota;
 
-    const client = await clientPromise;
-
-    if (!client) {
-      throw new Error('no hay cliente mongólico');
-    }
-
-    const db = client.db('RyS');
-
-    const collection = db.collection<IntNota>('Notas');
-
-    const updatedNote = await collection.insertOne(incomingNote);
+    const updatedNote = await prisma.nota.create({
+      data: {
+        id: incomingNote.id,
+        text: incomingNote.text || '',
+        content: Array.isArray(incomingNote.content) ? incomingNote.content : [],
+        dueDate: incomingNote.dueDate ? new Date(incomingNote.dueDate) : null,
+        pathname: incomingNote.pathname || null,
+        carpetaNumero: incomingNote.carpetaNumero || null,
+      },
+    });
 
     if (!updatedNote) {
-      throw new Error('no se actualizó la notas');
+      throw new Error('no se pudo crear la nota');
     }
 
     const json = JSON.stringify(updatedNote, null, 2);
@@ -64,31 +63,29 @@ export async function PUT(request: NextRequest) {
   try {
     const incomingNote = (await request.json()) as IntNota;
 
-    const client = await clientPromise;
-
-    if (!client) {
-      throw new Error('no hay cliente mongólico');
-    }
-
-    const db = client.db('RyS');
-
-    const collection = db.collection<IntNota>('Notas');
-
-    const updatedNote = await collection.findOneAndUpdate(
-      {
+    const updatedNote = await prisma.nota.upsert({
+      where: {
         id: incomingNote.id,
       },
-      {
-        $set: incomingNote,
+      update: {
+        text: incomingNote.text || '',
+        content: Array.isArray(incomingNote.content) ? incomingNote.content : [],
+        dueDate: incomingNote.dueDate ? new Date(incomingNote.dueDate) : null,
+        pathname: incomingNote.pathname || null,
+        carpetaNumero: incomingNote.carpetaNumero || null,
       },
-      {
-        upsert: true,
-        returnDocument: 'after',
+      create: {
+        id: incomingNote.id,
+        text: incomingNote.text || '',
+        content: Array.isArray(incomingNote.content) ? incomingNote.content : [],
+        dueDate: incomingNote.dueDate ? new Date(incomingNote.dueDate) : null,
+        pathname: incomingNote.pathname || null,
+        carpetaNumero: incomingNote.carpetaNumero || null,
       },
-    );
+    });
 
     if (!updatedNote) {
-      throw new Error('no se actualizó la notas');
+      throw new Error('no se actualizó la nota');
     }
 
     const json = JSON.stringify(updatedNote, null, 2);

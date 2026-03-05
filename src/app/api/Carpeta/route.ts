@@ -1,4 +1,4 @@
-import clientPromise from '#@/lib/connection/mongodb';
+import prisma from '#@/lib/connection/prisma';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { NextRequest, NextResponse } from 'next/server';
@@ -44,57 +44,25 @@ export async function GET(Request: NextRequest) {
 export async function POST(request: NextRequest) {
   const incomingCarpeta = (await request.json()) as IntCarpeta;
 
-  const client = await clientPromise;
-
-  if (!client) {
-    throw new Error('no hay cliente mongólico');
-  }
-
-  const db = client.db('RyS');
-
-  const collection = db.collection<IntCarpeta>('Carpetas');
-
-  const updateOne = await collection.findOneAndUpdate(
-    {
-      $or: [
-        {
-          numero: incomingCarpeta.numero,
-        },
-        {
-          llaveProceso: incomingCarpeta.llaveProceso,
-        },
-      ],
+  const carpeta = await prisma.carpeta.upsert({
+    where: {
+      numero: incomingCarpeta.numero,
     },
-    {
-      $set: incomingCarpeta,
-    },
-    {
-      upsert: true,
-      returnDocument: 'after',
-    },
-  );
+    update: incomingCarpeta,
+    create: incomingCarpeta,
+  });
 
-  if (!updateOne) {
+  if (!carpeta) {
     return NextResponse.error();
   }
 
-  return NextResponse.json(updateOne);
+  return NextResponse.json(carpeta);
 }
 
 export async function PUT(request: Request) {
   const { searchParams } = new URL(request.url);
 
   const id = searchParams.get('_id');
-
-  const client = await clientPromise;
-
-  if (!client) {
-    throw new Error('no hay cliente mongólico');
-  }
-
-  const db = client.db('RyS');
-
-  const collection = db.collection<IntCarpeta>('Carpetas');
 
   try {
     if (!id) {
@@ -103,14 +71,13 @@ export async function PUT(request: Request) {
       );
     }
 
-    const query = {
-      numero: Number(id),
-    };
-
     const updatedCarpeta = (await request.json()) as IntCarpeta;
 
-    const result = await collection.updateOne(query, {
-      $set: updatedCarpeta,
+    const result = await prisma.carpeta.update({
+      where: {
+        numero: Number(id),
+      },
+      data: updatedCarpeta,
     });
 
     if (result) {

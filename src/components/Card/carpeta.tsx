@@ -38,7 +38,7 @@ export const CarpetaCard = ({ carpeta }: { carpeta: MonCarpeta }) => {
                   className={button}
                   key={idProceso}
                   href={
-                    `/Carpeta/${numero}/ultimasActuaciones/${idProceso}` as Route
+                    `/carpeta/${numero}/ultimas-actuaciones/${idProceso}` as Route
                   }
                 >
                   <span className={`material-symbols-outlined ${styles.icon}`}>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import {
   useCarpetasContext,
   useCarpetaSortDispatch,
-} from '#@/app/Context/carpetas-sort-context';
+} from '#@/app/carpetas/context';
 import { useRouter } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.css';
 

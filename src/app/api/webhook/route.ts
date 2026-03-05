@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from 'next/server';
 import webpush from 'web-push'; // Importing the mock DB
-import clientPromise from '#@/lib/connection/mongodb';
+import prisma from '#@/lib/connection/prisma';
 import type { PushSubscription as WebPushSubscription } from 'web-push';
-import { Collection, Document, OptionalId } from 'mongodb';
+
 interface SubscriptionDoc extends WebPushSubscription {
-  _id: string; // MongoDB always adds an _id
+  id: string;
+  endpoint: string;
+  data: any;
 }
 
 webpush.setVapidDetails(
@@ -14,20 +16,15 @@ webpush.setVapidDetails(
   process.env.VAPID_PRIVATE_KEY!,
 );
 
-async function aggregateNotificationToDatabase(
-  notification: OptionalId<Document>,
-) {
+async function aggregateNotificationToDatabase(notification: any) {
   try {
-    const client = await clientPromise;
-    const db = client.db('Actuaciones');
-    const collection = db.collection('notification_history');
-    const insertNotification = await collection.insertOne(notification);
+    // Use raw SQL to store notifications (you may need to create a NotificationHistory model)
+    await prisma.$executeRawUnsafe(
+      `INSERT INTO notification_history (data) VALUES ($1)`,
+      JSON.stringify(notification),
+    );
 
-    if (!insertNotification.acknowledged) {
-      throw new Error('Failed to insert notification into DB');
-    }
-
-    console.log(`inserted ${insertNotification.insertedId}`);
+    console.log(`inserted notification to database`);
   } catch (error) {
     console.log(
       `failed inserting the notification to the database: ${JSON.stringify(
@@ -59,38 +56,33 @@ export async function POST(request: Request) {
     actions,
   });
   await aggregateNotificationToDatabase(body);
-  const client = await clientPromise;
-  const db = client.db('Actuaciones');
-  const collection = db.collection<SubscriptionDoc>('push_subscriptions');
 
-  // 2. CRITICAL FIX: Targeted vs Broadcast
-  // Currently, your code sends this notification to EVERY user in the DB.
-  // If this notification is for a specific user (e.g. "Your order is ready"),
-  // you MUST filter by userId here.
-  // const cursor = collection.find({ userId: data.userId }); <--- Recommended
-
-  // If you genuinely intend to Broadcast to ALL users, use a cursor:
-  const cursor = collection.find({});
+  // 2. Get all push subscriptions from Prisma
+  // Note: Uses raw SQL since we don't have a specific model yet
+  const subscriptions = await prisma.$queryRawUnsafe<SubscriptionDoc[]>(
+    `SELECT * FROM push_subscriptions`,
+  );
 
   // 3. Batch Processing (Prevents Memory Hoarding)
   const BATCH_SIZE = 50;
   let batch = [];
 
-  // Iterate using 'for await' to stream docs instead of loading all (.toArray)
-  for await (const sub of cursor) {
-    // Add to current batch
-    batch.push(sub);
+  for (const sub of subscriptions) {
+    // Parse the data if it's stored as JSON string
+    const subscription = typeof sub.data === 'string' ? JSON.parse(sub.data) : sub;
+
+    batch.push(subscription);
 
     // If batch is full, process it
     if (batch.length >= BATCH_SIZE) {
-      await processBatch(batch, payload, collection);
+      await processBatch(batch, payload);
       batch = []; // Clear memory
     }
   }
 
   // Process any remaining subscriptions
   if (batch.length > 0) {
-    await processBatch(batch, payload, collection);
+    await processBatch(batch, payload);
   }
 
   return NextResponse.json({
@@ -100,19 +92,19 @@ export async function POST(request: Request) {
 
 // Helper function to handle sending and cleanup
 async function processBatch(
-  subscriptions: SubscriptionDoc[],
+  subscriptions: any[],
   payload: string,
-  collection: Collection<SubscriptionDoc>,
 ) {
   const promises = subscriptions.map(async (sub) => {
     try {
       await webpush.sendNotification(sub, payload);
     } catch (error: any) {
       if (error.statusCode === 410 || error.statusCode === 404) {
-        // Use ObjectId for deletion if your _id is an ObjectId
-        await collection.deleteOne({
-          _id: sub._id,
-        });
+        // Clean up invalid subscription
+        await prisma.$executeRawUnsafe(
+          `DELETE FROM push_subscriptions WHERE endpoint = $1`,
+          sub.endpoint,
+        );
         console.log(`Cleaned up invalid sub: ${sub.endpoint}`);
       }
 

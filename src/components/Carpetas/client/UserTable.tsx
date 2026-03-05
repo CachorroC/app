@@ -2,7 +2,7 @@
 import { ClientCardRow } from '#@/components/Card/client-card';
 import { Route } from 'next';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
-import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import { RevisadoCheckBox } from '#@/app/carpetas/revisado-checkbox';
 import {
   ActuacionTableComponent,
   ActuacionTableErrorComponent,

@@ -2,7 +2,7 @@
 import note from 'components/Nota/note.module.css';
 import Link from 'next/link';
 import type { Route } from 'next';
-import { deleteNota } from '#@/app/actions/main';
+import { deleteNota } from '#@/app/actions/notas';
 import { Nota } from '#@/app/generated/prisma/client';
 
 export function DeleteNoteButton({ id }: { id: string }) {
@@ -38,7 +38,7 @@ export function EditNoteButton({ nota }: { nota: Nota }) {
   return (
     <Link
       className={note.Add}
-      href={`/Notas/id/${nota.id}/Editar` as Route}
+      href={`/notas/id/${nota.id}/editar` as Route}
     >
       <span className={`material-symbols-outlined ${note.icon}`}>edit</span>
     </Link>

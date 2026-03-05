@@ -38,53 +38,6 @@ export function AddTask({ carpetaNumero }: { carpetaNumero?: number }) {
     carpetaNumero: carpetaNumero ? carpetaNumero : null,
   });
 
-  /*
-  async function createTask() {
-    /*  for ( const contenido of taskState.content ) {
-              formData.append(
-                'content', contenido
-              );
-            }
-
-    const taskPrisma = await addTaskToPrisma(
-      {
-        ...taskState,
-      }
-    );
-
-    const taskMongo = await addTaskToMongo(
-      taskState
-    );
-
-    alert(
-      JSON.stringify(
-        taskPrisma, null, 2
-      )
-    );
-    alert(
-      JSON.stringify(
-        taskMongo, null, 2
-      )
-    );
-    setTaskState(
-      {
-        ...taskState,
-        ...taskPrisma,
-        text: '',
-      }
-    );
-
-    return dispatchTasks(
-      {
-        type: 'added',
-        task: {
-          ...taskState,
-          ...taskPrisma,
-        },
-      }
-    );
-  } */
-
   return (
     <>
       <form

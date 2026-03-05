@@ -1,7 +1,7 @@
 import { DetalleProceso, outProceso } from 'types/procesos';
 import { fetchProcesosByllaveProceso } from '#@/lib/project/utils/Procesos/procesos';
 import { ReactNode, Suspense } from 'react';
-import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
+import { FechaActuacionComponent } from '#@/app/carpetas/ultimas-actuaciones/actuaciones';
 import { JuzgadoComponent } from './juzgado-component';
 import { Loader } from '../Loader/main-loader';
 import layout from '#@/styles/layout.module.css';

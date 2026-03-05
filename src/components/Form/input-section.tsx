@@ -13,7 +13,7 @@ import { useState, type HTMLInputTypeAttribute, useId } from 'react';
 import layout from '#@/styles/layout.module.css';
 import styles from './form.module.css';
 import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
-import { useCarpetaFormContext } from '#@/app/Context/carpeta-form-context';
+import { useCarpetaFormContext } from '#@/app/carpetas/context';
 
 export function InputSection({
   name,

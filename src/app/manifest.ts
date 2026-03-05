@@ -17,7 +17,7 @@ export default function manifest(): MetadataRoute.Manifest {
         name: 'Ultimas Actuaciones',
         description:
           'aquí encontrará los procesos ordenados a partir de sus últimas actuaciones, la fecha del movimiento y su relevancia',
-        url: '/Carpetas/UltimasActuaciones',
+        url: '/carpetas/ultimas-actuaciones',
         icons: [
           {
             src: '/icon1.png',

@@ -8,7 +8,7 @@ export async function carpetasCollection() {
   const client = await clientPromise;
 
   if (!client) {
-    throw new Error('no hay cliente mongólico');
+    throw new Error('Error de conexión a la base de datos');
   }
 
   const db = client.db('RyS');
@@ -22,7 +22,7 @@ export async function pruebasCollection() {
   const client = await clientPromise;
 
   if (!client) {
-    throw new Error('no hay cliente mongólico');
+    throw new Error('Error de conexión a la base de datos');
   }
 
   const db = client.db('RyS');
@@ -36,7 +36,7 @@ export async function tareasCollection() {
   const client = await clientPromise;
 
   if (!client) {
-    throw new Error('no hay cliente mongólico');
+    throw new Error('Error de conexión a la base de datos');
   }
 
   const db = client.db('RyS');
@@ -50,7 +50,7 @@ export async function notasCollection() {
   const client = await clientPromise;
 
   if (!client) {
-    throw new Error('no hay cliente mongólico');
+    throw new Error('Error de conexión a la base de datos');
   }
 
   const db = client.db('RyS');
@@ -64,7 +64,7 @@ export async function facturasCollection() {
   const client = await clientPromise;
 
   if (!client) {
-    throw new Error('no hay cliente mongólico');
+    throw new Error('Error de conexión a la base de datos');
   }
 
   const db = client.db('Contabilidad');

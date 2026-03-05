@@ -1,6 +1,6 @@
 'use client';
 
-import { useNotaSortDispatch } from '#@/app/Context/notas-sort-context';
+import { useNotaSortDispatch } from '#@/app/notas/context';
 import button from '#@/components/Buttons/buttons.module.css';
 import { useState } from 'react';
 import typography from '#@/styles/fonts/typography.module.css';

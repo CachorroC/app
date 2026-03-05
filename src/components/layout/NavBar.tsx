@@ -24,12 +24,12 @@ export const NavBar = () => {
       <NavLink
         iconLabel={'folder'}
         textLabel={'Carpetas'}
-        hrefLabel={'/Carpetas'}
+        hrefLabel={'/carpetas'}
       />
       <NavLink
         iconLabel={'folder'}
         textLabel={'Carpetas Alternativo'}
-        hrefLabel={'/Carpetas_alt'}
+        hrefLabel={'/carpetas-alt'}
       />
 
       {isNavOpen && (
@@ -49,7 +49,7 @@ export const NavBar = () => {
             <NavLink
               iconLabel={'task'}
               textLabel={'Tareas'}
-              hrefLabel={'/Tareas' as Route}
+              hrefLabel={'/tareas' as Route}
             />
 
             <NavLink
@@ -60,77 +60,78 @@ export const NavBar = () => {
             <NavLink
               iconLabel={'park'}
               textLabel={'christmas'}
-              hrefLabel={'/Ayudante/Navidad'}
+              hrefLabel={'/ayudante/navidad'}
             />
             <NavLink
               iconLabel={'park'}
               textLabel={'christmas'}
-              hrefLabel={'/Ayudante/Navidad/New'}
+              hrefLabel={'/ayudante/navidad/new'}
             />
             <NavLink
               iconLabel={'forest'}
               textLabel={'Christmas Router'}
-              hrefLabel={'/Ayudante/Navidad/Router'}
+              hrefLabel={'/ayudante/navidad/router'}
             />
             <NavLink
               iconLabel={'forest'}
               textLabel={'Christmas'}
-              hrefLabel={'/Ayudante/Navidad'}
+              hrefLabel={'/ayudante/navidad'}
             />
             <NavLink
               iconLabel={'gavel'}
               textLabel={'ultimas actuaciones'}
-              hrefLabel={'/Carpetas/UltimasActuaciones' as Route}
+              hrefLabel={'/carpetas/ultimas-actuaciones' as Route}
             />
 
             <NavLink
               iconLabel={'folder_open'}
               textLabel={'Carpetas'}
-              hrefLabel="/Carpetas"
+              hrefLabel="/carpetas"
             />
             <NavLink
               iconLabel={'person_add'}
               textLabel={'Nueva Carpeta'}
-              hrefLabel={'/Carpetas/Nueva'}
+              hrefLabel={'/carpetas/nueva'}
             />
 
-            <NavLink
+            {/* NOTE: Contabilidad route doesn't exist yet - disabled for now */}
+            {/* <NavLink
               iconLabel={'add_shopping_cart'}
               textLabel={'ingresar factura'}
-              hrefLabel={'/Contabilidad/NuevaFactura' as Route}
-            />
+              hrefLabel={'/contabilidad/nueva-factura' as Route}
+            /> */}
 
             <NavLink
               iconLabel={'task'}
               textLabel={'tareas'}
-              hrefLabel={'/Tareas' as Route}
+              hrefLabel={'/tareas' as Route}
             />
             <NavLink
               iconLabel={'sticky_note_2'}
               textLabel={'Notas'}
-              hrefLabel={'/Notas'}
+              hrefLabel={'/notas'}
             />
             <NavLink
               iconLabel={'note_add'}
               textLabel={'Nueva Nota'}
-              hrefLabel={'/Notas/Nueva'}
+              hrefLabel={'/notas/nueva'}
             />
 
             <NavLink
               iconLabel={'badge'}
               textLabel={'Quienes Somos'}
-              hrefLabel={'/QuienesSomos'}
+              hrefLabel={'/quienes-somos'}
             />
 
             <NavLink
               iconLabel={''}
               textLabel={'Bancolombia'}
-              hrefLabel={'/Carpetas/Categorias/Bancolombia'}
+              hrefLabel={'/carpetas/categorias/Bancolombia'}
             />
             <NavLink
               iconLabel={''}
               textLabel={'Reintegra'}
-              hrefLabel={'/Carpetas/Categorias/Reintegra'}
+              hrefLabel={'/carpetas/categorias/Reintegra'}
             />
           </Drawer>
         </Suspense>

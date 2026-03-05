@@ -28,28 +28,28 @@ export default function Page() {
         </div>
         <Link
           className={layout.button}
-          href={'/Carpetas/UltimasActuaciones' as Route}
+          href={'/carpetas/ultimas-actuaciones' as Route}
         >
           <span className="material-symbols-outlined">pace</span>
           <h1 className={typography.headlineMedium}>{'Ultimas Actuaciones'}</h1>
         </Link>
         <Link
           className={layout.button}
-          href={'/Notas'}
+          href={'/notas'}
         >
           <span className="material-symbols-outlined">note</span>
           <h1 className={typography.headlineMedium}>{'Notas'}</h1>
         </Link>
         <Link
           className={layout.button}
-          href={'/Carpetas'}
+          href={'/carpetas'}
         >
           <span className="material-symbols-outlined">folder_open</span>
           <h1 className={typography.headlineMedium}>{'Carpetas'}</h1>
         </Link>
         <Link
           className={layout.button}
-          href={'/Carpetas_alt'}
+          href={'/carpetas-alt'}
         >
           <span className="material-symbols-outlined">folder_open</span>
           <h1 className={typography.headlineMedium}>

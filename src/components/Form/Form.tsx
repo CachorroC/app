@@ -4,7 +4,7 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import { IntCarpetaElementSchema } from '#@/lib/types/zod/carpeta';
 import { useFormContext, SubmitHandler } from 'react-hook-form';
 import form from 'components/Form/form.module.css';
-import { divider } from '#@/app/Carpetas/@right/Nueva/styles.module.css';
+import { divider } from '#@/app/carpetas/@right/nueva/styles.module.css';
 import { DateInputSection } from './date-section';
 import { ObligacionesComponent } from './field-array-section';
 import { InputSection } from './input-section';
@@ -13,7 +13,7 @@ import { SelectSection } from './select-section';
 import { VencimientoPagareSection } from './vencimiento-pagare-section';
 import typography from '#@/styles/fonts/typography.module.css';
 import { CheckboxHasProperty } from './checkboxHasProperty';
-import { useCarpetaFormContext } from '../../app/Context/carpeta-form-context';
+import { useCarpetaFormContext } from '#@/app/carpetas/context';
 import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 export const Form = () => {

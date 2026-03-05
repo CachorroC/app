@@ -1,6 +1,6 @@
 'use client';
 
-import { useCarpetaFormContext } from '#@/app/Context/carpeta-form-context';
+import { useCarpetaFormContext } from '#@/app/carpetas/context';
 
 export function DeudorFormComponent() {
   const { carpetaFormState, setCarpetaFormState } = useCarpetaFormContext();
