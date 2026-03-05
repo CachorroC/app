@@ -5,7 +5,6 @@ import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import CategoryFilteringButtons from '../@right/category-filtering-buttons';
 
 export default function Default() {
-
   return (
     <>
       <Suspense fallback={<Loader />}>
@@ -15,7 +14,7 @@ export default function Default() {
         <ForwardBackwardNavButtons />
       </Suspense>
       <Suspense fallback={null}>
-        <CategoryFilteringButtons  />
+        <CategoryFilteringButtons />
       </Suspense>
     </>
   );

@@ -4,25 +4,18 @@ import { ChangeEvent, useState } from 'react';
 import styles from 'components/Form/form.module.css';
 
 export const ParseContenidoArea = () => {
-  const {
-    notaFormState, setNotaFormState 
-  } = useNuevaNotaContext();
+  const { notaFormState, setNotaFormState } = useNuevaNotaContext();
 
-  const [
-    text,
-    setText
-  ] = useState<string>( notaFormState.content.join( '\n' ) );
+  const [text, setText] = useState<string>(notaFormState.content.join('\n'));
 
-  const handleChange = ( e: ChangeEvent<HTMLTextAreaElement> ) => {
-    const {
-      value 
-    } = e.target;
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
 
-    setText( value );
-    setNotaFormState( {
+    setText(value);
+    setNotaFormState({
       ...notaFormState,
-      content: value.split( '\n' ),
-    } );
+      content: value.split('\n'),
+    });
   };
 
   return (

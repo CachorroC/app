@@ -19,7 +19,7 @@ export default function PrismaNotas() {
         </tr>
       </thead>
       <tbody>
-        {notas.map( ( nota ) => {
+        {notas.map((nota) => {
           return (
             <NotaTable
               key={nota.id}
@@ -30,7 +30,7 @@ export default function PrismaNotas() {
               </td>
             </NotaTable>
           );
-        } )}
+        })}
       </tbody>
     </table>
   );

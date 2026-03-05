@@ -1,14 +1,12 @@
 'use client';
-import { useActionState, } from 'react';
+import { useActionState } from 'react';
 import typography from '#@/styles/fonts/typography.module.css';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import styles from './styles.module.css';
 import layout from '#@/styles/layout.module.css';
-import {  addTaskToPrisma } from '#@/app/Tareas/actions';
+import { addTaskToPrisma } from '#@/app/Tareas/actions';
 
-export function AddTask( {
-  carpetaNumero
-}: { carpetaNumero?: number } ) {
+export function AddTask({ carpetaNumero }: { carpetaNumero?: number }) {
   /*
   const [
     taskState,
@@ -29,26 +27,16 @@ export function AddTask( {
   /*
   const dispatchTasks = useDispatchTasks(); */
 
-  const [
-    taskState,
-    formAction,
-    isPending
-  ] = useActionState(
-    addTaskToPrisma, {
-      text     : '',
-      done     : false,
-      createdAt: new Date(),
-      id       : 0,
-      updatedAt: new Date(),
-      content  : [
-        ''
-      ],
-      dueDate      : new Date(),
-      carpetaNumero: carpetaNumero
-        ? carpetaNumero
-        : null,
-    }
-  );
+  const [taskState, formAction, isPending] = useActionState(addTaskToPrisma, {
+    text: '',
+    done: false,
+    createdAt: new Date(),
+    id: 0,
+    updatedAt: new Date(),
+    content: [''],
+    dueDate: new Date(),
+    carpetaNumero: carpetaNumero ? carpetaNumero : null,
+  });
 
   /*
   async function createTask() {
@@ -104,13 +92,11 @@ export function AddTask( {
         className={styles.container}
       >
         <fieldset>
-          {isPending
-            ? 'Loading...'
-            : taskState.text}
+          {isPending ? 'Loading...' : taskState.text}
           <legend>Agregar Tarea</legend>
           <section className={layout.sectionRow}>
             <label
-              className={`${ styles.label } ${ typography.titleMedium }`}
+              className={`${styles.label} ${typography.titleMedium}`}
               htmlFor={'text'}
             >
               tarea:
@@ -120,7 +106,7 @@ export function AddTask( {
               type="text"
               name={'text'}
               className={styles.textArea}
-              defaultValue={taskState.text}/*
+              defaultValue={taskState.text} /*
               onChange={(
                 e
               ) => {
@@ -138,7 +124,7 @@ export function AddTask( {
               <input
                 className={styles.inputElement}
                 name="done"
-                defaultChecked={taskState.done}/*
+                defaultChecked={taskState.done} /*
                 onChange={(
                   e
                 ) => {
@@ -158,7 +144,7 @@ export function AddTask( {
           <input
             type="date"
             name="dueDate"
-            defaultValue={InputDateHelper( taskState.dueDate )}/*
+            defaultValue={InputDateHelper(taskState.dueDate)} /*
             onChange={(
               e
             ) => {
@@ -176,7 +162,7 @@ export function AddTask( {
             name="carpetaNumero"
             type="number"
             className={styles.textArea}
-            defaultValue={taskState.carpetaNumero ?? 0}/*
+            defaultValue={taskState.carpetaNumero ?? 0} /*
             onChange={(
               e
             ) => {
@@ -194,7 +180,7 @@ export function AddTask( {
             name="content"
             type="text"
             className={styles.textArea}
-            defaultValue={taskState.content.toLocaleString() ?? ''}/*
+            defaultValue={taskState.content.toLocaleString() ?? ''} /*
             onChange={(
               e
             ) => {
@@ -212,9 +198,7 @@ export function AddTask( {
         </fieldset>
         <button type={'submit'}>Add</button>
       </form>
-      <pre>{JSON.stringify(
-        taskState, null, 2
-      )}</pre>
+      <pre>{JSON.stringify(taskState, null, 2)}</pre>
     </>
   );
 }

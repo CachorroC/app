@@ -7,47 +7,40 @@ import { useState } from 'react';
 import styles from '#@/components/Buttons/buttons.module.css';
 import layout from '#@/styles/layout.module.css';
 
-export const SelectSection = ( {
+export const SelectSection = ({
   name,
   title,
   options,
   initialValue,
 }: {
-  name         : FieldPath<IntCarpeta>;
-  title        : string;
-  options      : string[];
+  name: FieldPath<IntCarpeta>;
+  title: string;
+  options: string[];
   initialValue?: string;
-} ) => {
-  const {
-    setValue 
-  } = useFormContext<IntCarpeta>();
+}) => {
+  const { setValue } = useFormContext<IntCarpeta>();
 
-  const [
-    isOptionsOpen,
-    setIsOptionsOpen
-  ] = useState( false );
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
   return (
     <section className={layout.sectionColumn}>
       <div
         onClick={() => {
-          setIsOptionsOpen( ( o ) => {
+          setIsOptionsOpen((o) => {
             return !o;
-          } );
+          });
         }}
         className={layout.segmentRow}
       >
-        <span className={`material-symbols-outlined ${ styles.icon }`}>
-          {isOptionsOpen
-            ? 'expand_less'
-            : 'expand_more'}
+        <span className={`material-symbols-outlined ${styles.icon}`}>
+          {isOptionsOpen ? 'expand_less' : 'expand_more'}
         </span>
-        <p className={`${ styles.text } ${ typography.titleMedium }`}> {title}</p>
+        <p className={`${styles.text} ${typography.titleMedium}`}> {title}</p>
       </div>
 
       {isOptionsOpen && (
         <section className={layout.segmentRow}>
-          {options.map( ( option ) => {
+          {options.map((option) => {
             return (
               <button
                 type="button"
@@ -56,18 +49,16 @@ export const SelectSection = ( {
                     ? styles.buttonActiveCategory
                     : styles.buttonPassiveCategory
                 }
-                onClick={( e ) => {
+                onClick={(e) => {
                   e.stopPropagation();
-                  setValue(
-                    name, option 
-                  );
+                  setValue(name, option);
                 }}
                 key={option}
               >
                 <p className={styles.text}>{option}</p>
               </button>
             );
-          } )}
+          })}
         </section>
       )}
     </section>

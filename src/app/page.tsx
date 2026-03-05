@@ -4,8 +4,10 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { Calendar } from '#@/components/Calendar/main';
 import { Route } from 'next';
 import PageClient from './client';
-import { InstallPrompt,
-  PushNotificationManager, } from './notification-components';
+import {
+  InstallPrompt,
+  PushNotificationManager,
+} from './notification-components';
 import NotificationButton from '#@/components/NotificationButton';
 import { Suspense } from 'react';
 import { Loader } from '#@/components/Loader/main-loader';
@@ -50,7 +52,9 @@ export default function Page() {
           href={'/Carpetas_alt'}
         >
           <span className="material-symbols-outlined">folder_open</span>
-          <h1 className={typography.headlineMedium}>{'Carpetas Alternativo'}</h1>
+          <h1 className={typography.headlineMedium}>
+            {'Carpetas Alternativo'}
+          </h1>
         </Link>
 
         <Link
@@ -75,7 +79,7 @@ export default function Page() {
           <h1 className={typography.headlineMedium}>{'Quienes Somos'}</h1>
         </Link>
       </div>
-      <div className={ layout.right }>
+      <div className={layout.right}>
         <Suspense fallback={<Loader />}>
           <Calendar />
         </Suspense>

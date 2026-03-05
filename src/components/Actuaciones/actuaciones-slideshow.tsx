@@ -16,8 +16,8 @@ export function ActuacionesSlideshowErrorComponent() {
         className={typography.headlineSmall}
         style={{
           backgroundColor: 'var(--error-container)',
-          color          : 'var(--on-error-container)',
-          borderBottom   : 'solud 0.2rem var(--error)',
+          color: 'var(--on-error-container)',
+          borderBottom: 'solud 0.2rem var(--error)',
         }}
       >
         Sin actuaciones
@@ -30,11 +30,11 @@ export function ActuacionesSlideshowErrorComponent() {
   );
 }
 
-export function ActuacionesSlideshowContainer( {
+export function ActuacionesSlideshowContainer({
   actuacionesPromise,
 }: {
   actuacionesPromise: Promise<outActuacion[]>;
-} ) {
+}) {
   return (
     <ErrorBoundary fallback={<ActuacionesSlideshowErrorComponent />}>
       <Suspense fallback={<ActuacionLoader />}>
@@ -44,63 +44,53 @@ export function ActuacionesSlideshowContainer( {
   );
 }
 
-export function ActuacionesSlideshow( {
+export function ActuacionesSlideshow({
   actuacionesPromise,
 }: {
   actuacionesPromise: Promise<outActuacion[]>;
-} ) {
-  const actuacionesList = use( actuacionesPromise );
+}) {
+  const actuacionesList = use(actuacionesPromise);
 
-  const [
-    index,
-    setIndex
-  ] = useState( 0 );
+  const [index, setIndex] = useState(0);
 
-  const [
-    showMore,
-    setShowMore
-  ] = useState( false );
+  const [showMore, setShowMore] = useState(false);
 
-
-
-  const sculpture = actuacionesList[ index ];
+  const sculpture = actuacionesList[index];
 
   function handleNextClick() {
-    setIndex( index + 1 );
+    setIndex(index + 1);
   }
 
-  function handlePreviousClick () {
-    setIndex( index - 1 );
+  function handlePreviousClick() {
+    setIndex(index - 1);
   }
 
   function handleMoreClick() {
-    setShowMore( !showMore );
+    setShowMore(!showMore);
   }
 
-  if ( actuacionesList.length === 0 ) {
+  if (actuacionesList.length === 0) {
     return (
       <div className={styles.actuacionContainer}>
         <h5 className={typography.headlineSmall}>No hay actuaciones</h5>
         <div className={styles.segmentedButtonsRow}>
           <button
             type={'button'}
-            onClick={ handlePreviousClick }
+            onClick={handlePreviousClick}
             className={styles.button}
           >
             previous
           </button>
           <button
             type="button"
-            onClick={ handleMoreClick }
+            onClick={handleMoreClick}
             className={styles.button}
           >
-            {showMore
-              ? 'Hide'
-              : 'Show'} details
+            {showMore ? 'Hide' : 'Show'} details
           </button>
           <button
             type={'button'}
-            onClick={ handleNextClick }
+            onClick={handleNextClick}
             className={styles.button}
           >
             Next
@@ -127,23 +117,21 @@ export function ActuacionesSlideshow( {
       <div className={styles.segmentedButtonsRow}>
         <button
           type={'button'}
-          onClick={ handlePreviousClick }
+          onClick={handlePreviousClick}
           className={styles.button}
         >
           previous
         </button>
         <button
           type="button"
-          onClick={ handleMoreClick }
+          onClick={handleMoreClick}
           className={styles.button}
         >
-          {showMore
-            ? 'Hide'
-            : 'Show'} details
+          {showMore ? 'Hide' : 'Show'} details
         </button>
         <button
           type={'button'}
-          onClick={ handleNextClick }
+          onClick={handleNextClick}
           className={styles.button}
         >
           Next

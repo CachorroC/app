@@ -7,25 +7,25 @@ import Link from 'next/link';
 import { Route } from 'next';
 
 export default function RegisterPage() {
-  const [
-    message,
-    setMessage
-  ] = useState( '' );
+  const [message, setMessage] = useState('');
 
-  async function clientAction( formData: FormData ) {
-    const result = await registerUser( formData );
+  async function clientAction(formData: FormData) {
+    const result = await registerUser(formData);
 
-    if ( result.error ) {
-      setMessage( result.error );
+    if (result.error) {
+      setMessage(result.error);
     } else {
-      setMessage( 'Success! You can now login.' );
+      setMessage('Success! You can now login.');
     }
   }
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Register</h1>
-      <form action={clientAction} className={styles.form}>
+      <form
+        action={clientAction}
+        className={styles.form}
+      >
         <input
           name="name"
           type="text"
@@ -47,10 +47,18 @@ export default function RegisterPage() {
           required
           className={styles.input}
         />
-        <button type="submit" className={styles.button}>
+        <button
+          type="submit"
+          className={styles.button}
+        >
           Register
         </button>
-        <Link className={styles.button} href={'/login' as Route}>Login</Link>
+        <Link
+          className={styles.button}
+          href={'/login' as Route}
+        >
+          Login
+        </Link>
         {message && <p className={styles.message}>{message}</p>}
       </form>
     </div>

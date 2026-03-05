@@ -1,32 +1,26 @@
-export const fixFechas = ( rawDate?: string | Date | null | undefined ) => {
-  if ( !rawDate || rawDate === null || rawDate === undefined ) {
+export const fixFechas = (rawDate?: string | Date | null | undefined) => {
+  if (!rawDate || rawDate === null || rawDate === undefined) {
     return 'sin especificar';
   }
 
-  if ( typeof rawDate === 'string' ) {
-    return new Date( rawDate )
-      .toLocaleString(
-        'es-CO', {
-          timeZone: 'UTC',
-          year    : 'numeric',
-          weekday : 'short',
-          month   : 'long',
-          day     : 'numeric',
-        }
-      );
+  if (typeof rawDate === 'string') {
+    return new Date(rawDate).toLocaleString('es-CO', {
+      timeZone: 'UTC',
+      year: 'numeric',
+      weekday: 'short',
+      month: 'long',
+      day: 'numeric',
+    });
   }
 
-  return rawDate.toLocaleString(
-    'es-CO', {
-      timeZone: 'UTC',
-      year    : 'numeric',
-      weekday : 'short',
-      month   : 'long',
-      day     : 'numeric',
-    }
-  );
+  return rawDate.toLocaleString('es-CO', {
+    timeZone: 'UTC',
+    year: 'numeric',
+    weekday: 'short',
+    month: 'long',
+    day: 'numeric',
+  });
 };
-
 
 /**
  * Promisified setTimeout to pause execution.
@@ -34,69 +28,65 @@ export const fixFechas = ( rawDate?: string | Date | null | undefined ) => {
  * @param {number} ms - The number of milliseconds to wait.
  * @returns {Promise<void>} A promise that resolves after the specified time.
  */
-export const sleep = ( ms: number ) => {
-  return new Promise( ( resolve ) => {
-    return setTimeout(
-      resolve, ms
-    );
-  } );
+export const sleep = (ms: number) => {
+  return new Promise((resolve) => {
+    return setTimeout(resolve, ms);
+  });
 };
 
-export const trimmer = ( sujetosProcesales: string ) => {
-  const locateDemandado = sujetosProcesales.search( /(demandado|causante)+:(?:\s*?|'\s*?')/gi, );
-
-  const extractDemandado = sujetosProcesales
-    .slice( locateDemandado + 10 )
-    .toLowerCase();
-
-  const trimDemandado = extractDemandado.replace(
-    /^\s+|\s+$/gm, ''
+export const trimmer = (sujetosProcesales: string) => {
+  const locateDemandado = sujetosProcesales.search(
+    /(demandado|causante)+:(?:\s*?|'\s*?')/gi,
   );
 
-  const splitDemandado = trimDemandado.split( ' ' );
+  const extractDemandado = sujetosProcesales
+    .slice(locateDemandado + 10)
+    .toLowerCase();
 
-  const splitDemandadotoUnify = splitDemandado.map( (
-    nombreOapellido: string, index: number
-  ) => {
-    if ( index >= 5 ) {
-      return '';
-    }
+  const trimDemandado = extractDemandado.replace(/^\s+|\s+$/gm, '');
 
-    if ( nombreOapellido === '|' ) {
-      return '';
-    }
+  const splitDemandado = trimDemandado.split(' ');
 
-    if ( nombreOapellido.includes( 's.a.s' ) ) {
-      return '';
-    }
-
-    if ( nombreOapellido.includes( 'sas' ) ) {
-      return '';
-    }
-
-    if ( nombreOapellido.includes( '(emplazado)' ) ) {
-      return '';
-    }
-
-    return nombreOapellido.replace(
-      /^./, ( str: string ) => {
-        return str.toUpperCase();
+  const splitDemandadotoUnify = splitDemandado.map(
+    (nombreOapellido: string, index: number) => {
+      if (index >= 5) {
+        return '';
       }
-    );
-  }, );
 
-  const unifyDemandado = splitDemandadotoUnify.join( ' ' );
+      if (nombreOapellido === '|') {
+        return '';
+      }
+
+      if (nombreOapellido.includes('s.a.s')) {
+        return '';
+      }
+
+      if (nombreOapellido.includes('sas')) {
+        return '';
+      }
+
+      if (nombreOapellido.includes('(emplazado)')) {
+        return '';
+      }
+
+      return nombreOapellido.replace(/^./, (str: string) => {
+        return str.toUpperCase();
+      });
+    },
+  );
+
+  const unifyDemandado = splitDemandadotoUnify.join(' ');
 
   return unifyDemandado;
 };
 
-export const fixDemandado = ( sujetosProcesales: string ): string => {
-  const count = sujetosProcesales.split( '|' );
+export const fixDemandado = (sujetosProcesales: string): string => {
+  const count = sujetosProcesales.split('|');
 
-  for ( const stringerCount of count ) {
-    const hasDemandante = stringerCount.includes( 'Demandante' );
+  for (const stringerCount of count) {
+    const hasDemandante = stringerCount.includes('Demandante');
 
-    if ( hasDemandante ) {
+    if (hasDemandante) {
       continue;
     }
 
@@ -106,13 +96,10 @@ export const fixDemandado = ( sujetosProcesales: string ): string => {
   return sujetosProcesales;
 };
 
-export const fixMoney = ( valor: number | bigint ) => {
-  return new Intl.NumberFormat(
-    'es-CO', {
-      style          : 'currency',
-      currency       : 'COP',
-      currencyDisplay: 'symbol',
-    }
-  )
-    .format( valor );
+export const fixMoney = (valor: number | bigint) => {
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    currencyDisplay: 'symbol',
+  }).format(valor);
 };

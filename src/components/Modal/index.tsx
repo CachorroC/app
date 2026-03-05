@@ -1,120 +1,90 @@
 'use client';
-import { useCallback,
+import {
+  useCallback,
   useRef,
   useEffect,
   MouseEventHandler,
   ReactNode,
-  useState, useActionState  } from 'react';
+  useState,
+  useActionState,
+} from 'react';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import styles from './styles.module.css';
-import { useModalContext,
-  useModalNoteContext, } from '#@/app/Context/modal-context';
-import { useFormStatus, } from 'react-dom';
+import {
+  useModalContext,
+  useModalNoteContext,
+} from '#@/app/Context/modal-context';
+import { useFormStatus } from 'react-dom';
 import { Snackbar } from './snackbar';
 import { addNotaFormAction } from '#@/app/Notas/actions';
 import { NewNota } from '#@/lib/types/notas';
 import { textArea } from '../Form/form.module.css';
 import { containerEnabled } from '../Card/elevated.module.css';
 
-export function Modal( {
-  children
-}: { children: ReactNode } ) {
+export function Modal({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
-  const {
-    setIsModalOpen
-  } = useModalContext();
+  const { setIsModalOpen } = useModalContext();
 
-  const overlay = useRef( null );
+  const overlay = useRef(null);
 
-  const wrapper = useRef( null );
+  const wrapper = useRef(null);
 
   const router = useRouter();
 
-  const onDismiss = useCallback(
-    () => {
-      console.log( 'onDismiss' );
-      setIsModalOpen( false );
-      router.back();
-    }, [
-      router,
-      setIsModalOpen
-    ]
-  );
+  const onDismiss = useCallback(() => {
+    console.log('onDismiss');
+    setIsModalOpen(false);
+    router.back();
+  }, [router, setIsModalOpen]);
 
-  const onBackspace = useCallback(
-    () => {
-      console.log( 'on backspace' );
-      setIsModalOpen( false );
-      router.back();
-    }, [
-      router,
-      setIsModalOpen
-    ]
-  );
+  const onBackspace = useCallback(() => {
+    console.log('on backspace');
+    setIsModalOpen(false);
+    router.back();
+  }, [router, setIsModalOpen]);
 
-  const onEnter = useCallback(
-    () => {
-      setIsModalOpen( false );
-      router.forward();
-    }, [
-      router,
-      setIsModalOpen
-    ]
-  );
+  const onEnter = useCallback(() => {
+    setIsModalOpen(false);
+    router.forward();
+  }, [router, setIsModalOpen]);
 
   const onClick: MouseEventHandler = useCallback(
-    ( e ) => {
-      console.log( 'onCLick' );
+    (e) => {
+      console.log('onCLick');
 
-      if ( e.target === overlay.current || e.target === wrapper.current ) {
-        if ( onDismiss ) {
+      if (e.target === overlay.current || e.target === wrapper.current) {
+        if (onDismiss) {
           onDismiss();
         }
       }
     },
-    [
-      onDismiss,
-      overlay,
-      wrapper
-    ],
+    [onDismiss, overlay, wrapper],
   );
 
   const onKeyDown = useCallback(
-    ( e: KeyboardEvent ) => {
-      console.log( 'onKeyDown' );
+    (e: KeyboardEvent) => {
+      console.log('onKeyDown');
 
-      if ( e.key === 'Enter' ) {
+      if (e.key === 'Enter') {
         onEnter();
       }
 
-      if ( e.key === 'Escape' || e.key === 'Backspace' ) {
+      if (e.key === 'Escape' || e.key === 'Backspace') {
         onBackspace();
       }
     },
-    [
-      onBackspace,
-      onEnter
-    ],
+    [onBackspace, onEnter],
   );
 
-  useEffect(
-    () => {
-      console.log( 'on useEffect' );
-      document.addEventListener(
-        'keydown', onKeyDown
-      );
+  useEffect(() => {
+    console.log('on useEffect');
+    document.addEventListener('keydown', onKeyDown);
 
-      return () => {
-        return document.removeEventListener(
-          'keydown', onKeyDown
-        );
-      };
-    }, [
-      pathname,
-      onKeyDown
-    ]
-  );
+    return () => {
+      return document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [pathname, onKeyDown]);
 
   return (
     <div
@@ -132,69 +102,46 @@ export function Modal( {
   );
 }
 
-export function ModalNote( {
-  children
-}: { children: ReactNode } ) {
+export function ModalNote({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
-  const {
-    isModalNoteOpen, setIsModalNoteOpen
-  } = useModalNoteContext();
+  const { isModalNoteOpen, setIsModalNoteOpen } = useModalNoteContext();
 
-  const overlay = useRef( null );
+  const overlay = useRef(null);
 
-  const wrapper = useRef( null );
+  const wrapper = useRef(null);
 
-  const onDismiss = useCallback(
-    () => {
-      setIsModalNoteOpen( false );
-    }, [
-      setIsModalNoteOpen
-    ]
-  );
+  const onDismiss = useCallback(() => {
+    setIsModalNoteOpen(false);
+  }, [setIsModalNoteOpen]);
 
   const onClick: MouseEventHandler = useCallback(
-    ( e ) => {
-      if ( e.target === overlay.current || e.target === wrapper.current ) {
-        if ( onDismiss ) {
+    (e) => {
+      if (e.target === overlay.current || e.target === wrapper.current) {
+        if (onDismiss) {
           onDismiss();
         }
       }
     },
-    [
-      onDismiss,
-      overlay,
-      wrapper
-    ],
+    [onDismiss, overlay, wrapper],
   );
 
   const onKeyDown = useCallback(
-    ( e: KeyboardEvent ) => {
-      if ( e.key === 'Escape' ) {
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
         onDismiss();
       }
     },
-    [
-      onDismiss
-    ],
+    [onDismiss],
   );
 
-  useEffect(
-    () => {
-      document.addEventListener(
-        'keydown', onKeyDown
-      );
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown);
 
-      return () => {
-        return document.removeEventListener(
-          'keydown', onKeyDown
-        );
-      };
-    }, [
-      pathname,
-      onKeyDown
-    ]
-  );
+    return () => {
+      return document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [pathname, onKeyDown]);
 
   return (
     <>
@@ -217,9 +164,7 @@ export function ModalNote( {
 }
 
 function Submit() {
-  const {
-    pending
-  } = useFormStatus();
+  const { pending } = useFormStatus();
 
   return (
     <>
@@ -229,52 +174,33 @@ function Submit() {
   );
 }
 
-export function NewNotaComponent( {
+export function NewNotaComponent({
   id,
   idRegActuacion,
 }: {
-  id             : string;
+  id: string;
   idRegActuacion?: number;
-} ) {
-  const {
-    numero
-  } = useParams();
+}) {
+  const { numero } = useParams();
 
   const pathname = usePathname();
 
-  const [
-    notaState,
-    setNotaState
-  ] = useState<NewNota>( {
-    dueDate      : new Date(),
-    id           : id,
-    text         : '',
-    carpetaNumero: Number( numero ),
-    pathname     : pathname
-      ? pathname
-      : null,
-    content: [
-      idRegActuacion
-        ? String( idRegActuacion )
-        : ''
-    ],
-  } );
+  const [notaState, setNotaState] = useState<NewNota>({
+    dueDate: new Date(),
+    id: id,
+    text: '',
+    carpetaNumero: Number(numero),
+    pathname: pathname ? pathname : null,
+    content: [idRegActuacion ? String(idRegActuacion) : ''],
+  });
 
-  const [
-    isOpen,
-    setIsOpen
-  ] = useState( false );
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [
-    state,
-    formAction
-  ] = useActionState(
-    addNotaFormAction, {
-      value    : notaState,
-      submitted: false,
-      success  : false,
-    }
-  );
+  const [state, formAction] = useActionState(addNotaFormAction, {
+    value: notaState,
+    submitted: false,
+    success: false,
+  });
 
   return (
     <>
@@ -290,11 +216,11 @@ export function NewNotaComponent( {
               value={state.value.text}
               name="text"
               className={textArea}
-              onChange={( e ) => {
-                return setNotaState( {
+              onChange={(e) => {
+                return setNotaState({
                   ...notaState,
                   text: e.target.value,
-                } );
+                });
               }}
             />
           </fieldset>
@@ -305,13 +231,11 @@ export function NewNotaComponent( {
       <button
         type="button"
         onClick={() => {
-          return setIsOpen( !isOpen );
+          return setIsOpen(!isOpen);
         }}
       >
         <span className="material-symbols-outlined">
-          {isOpen
-            ? 'close'
-            : 'note_stack_add'}
+          {isOpen ? 'close' : 'note_stack_add'}
         </span>
         <span>nueva nota</span>
       </button>

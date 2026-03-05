@@ -7,15 +7,12 @@ import { actionButtons, tableControls } from './styles.module.css';
 
 const options = [
   {
-    name : 'direccion de sorteo',
+    name: 'direccion de sorteo',
     value: 'dir',
-    items: [
-      'asc',
-      'dsc'
-    ],
+    items: ['asc', 'dsc'],
   },
   {
-    name : 'valor del sorteo',
+    name: 'valor del sorteo',
     value: 'sortingKey',
     items: [
       'fecha',
@@ -33,22 +30,17 @@ const options = [
 export default function Default() {
   return (
     <>
-
       <div className={tableControls}>
         <InputSearchBar />
 
         <div className={actionButtons}>
           <ResetButtonSorter />
-          <CarpetasSortButtons options={ options } />
+          <CarpetasSortButtons options={options} />
           <CategoryFilteringButtons />
 
-          <CiudadFilteringButtons  />
-
-
+          <CiudadFilteringButtons />
         </div>
       </div>
-
-
     </>
   );
 }

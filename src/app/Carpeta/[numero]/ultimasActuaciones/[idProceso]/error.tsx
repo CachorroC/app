@@ -3,21 +3,17 @@
 import { errorContainer } from '#@/components/Card/card.module.css';
 import { useEffect } from 'react';
 
-export default function Error( {
+export default function Error({
   error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
-} ) {
-  useEffect(
-    () => {
+}) {
+  useEffect(() => {
     // Log the error to an error reporting service
-      console.error( error );
-    }, [
-      error
-    ] 
-  );
+    console.error(error);
+  }, [error]);
 
   return (
     <div className={errorContainer}>

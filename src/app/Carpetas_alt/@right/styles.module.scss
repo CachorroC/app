@@ -109,7 +109,7 @@
       &:focus,
       &:active {
         &:before {
-           background-color: var(--primary);
+          background-color: var(--primary);
           color: var(--on-primary);
           box-shadow: var(--elevation-4);
         }
@@ -117,7 +117,6 @@
     }
   }
 }
-
 
 .highlight {
   background-color: var(--primary-container);

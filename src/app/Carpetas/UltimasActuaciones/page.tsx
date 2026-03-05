@@ -13,7 +13,7 @@ import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { connection } from 'next/server';
 
 export type SortActionType = {
-  dir       : 'asc' | 'dsc';
+  dir: 'asc' | 'dsc';
   sortingKey:
     | 'fecha'
     | 'numero'
@@ -24,28 +24,14 @@ export type SortActionType = {
     | 'updatedAt';
 };
 
-function sortCarpetas(
-  carpetas: MonCarpeta[], action: SortActionType
-) {
-  const {
-    dir, sortingKey
-  } = action;
+function sortCarpetas(carpetas: MonCarpeta[], action: SortActionType) {
+  const { dir, sortingKey } = action;
 
-  const asc = [
-    -1,
-    0,
-    1
-  ];
+  const asc = [-1, 0, 1];
 
-  const dsc = [
-    1,
-    0,
-    -1
-  ];
+  const dsc = [1, 0, -1];
 
-  const sorter = dir === 'asc'
-    ? asc
-    : dsc;
+  const sorter = dir === 'asc' ? asc : dsc;
 
   const categoriesSorter: string[] = [
     'todos',
@@ -57,137 +43,115 @@ function sortCarpetas(
     'Terminados',
   ];
 
-  switch ( sortingKey ) {
-      case 'fecha': {
-        return [
-          ...carpetas
-        ].sort( (
-          a, b
-        ) => {
-          if ( !a.fecha || a.fecha === undefined ) {
-            return sorter[ 2 ];
-          }
+  switch (sortingKey) {
+    case 'fecha': {
+      return [...carpetas].sort((a, b) => {
+        if (!a.fecha || a.fecha === undefined) {
+          return sorter[2];
+        }
 
-          if ( !b.fecha || b.fecha === undefined ) {
-            return sorter[ 0 ];
-          }
+        if (!b.fecha || b.fecha === undefined) {
+          return sorter[0];
+        }
 
-          const x = a.fecha;
+        const x = a.fecha;
 
-          const y = b.fecha;
+        const y = b.fecha;
 
-          if ( x < y ) {
-            return sorter[ 2 ];
-          }
+        if (x < y) {
+          return sorter[2];
+        }
 
-          if ( x > y ) {
-            return sorter[ 0 ];
-          }
+        if (x > y) {
+          return sorter[0];
+        }
 
-          return sorter[ 1 ];
-        } );
-      }
+        return sorter[1];
+      });
+    }
 
-      case 'category': {
-        return [
-          ...carpetas
-        ].sort( (
-          a, b
-        ) => {
-          const x = categoriesSorter.indexOf( a.category );
+    case 'category': {
+      return [...carpetas].sort((a, b) => {
+        const x = categoriesSorter.indexOf(a.category);
 
-          const y = categoriesSorter.indexOf( b.category );
+        const y = categoriesSorter.indexOf(b.category);
 
-          if ( x < y ) {
-            return sorter[ 2 ];
-          }
+        if (x < y) {
+          return sorter[2];
+        }
 
-          if ( x > y ) {
-            return sorter[ 0 ];
-          }
+        if (x > y) {
+          return sorter[0];
+        }
 
-          return sorter[ 1 ];
-        } );
-      }
+        return sorter[1];
+      });
+    }
 
-      case 'numero': {
-        return [
-          ...carpetas
-        ].sort( (
-          a, b
-        ) => {
-          const x = a.numero;
+    case 'numero': {
+      return [...carpetas].sort((a, b) => {
+        const x = a.numero;
 
-          const y = b.numero;
+        const y = b.numero;
 
-          const idk = dir
-            ? x - y
-            : y - x;
+        const idk = dir ? x - y : y - x;
 
-          return idk;
-        } );
-      }
+        return idk;
+      });
+    }
 
-      case 'nombre': {
-        return [
-          ...carpetas
-        ].sort( (
-          a, b
-        ) => {
-          const x = a.nombre;
+    case 'nombre': {
+      return [...carpetas].sort((a, b) => {
+        const x = a.nombre;
 
-          const y = b.nombre;
+        const y = b.nombre;
 
-          if ( x < y ) {
-            return sorter[ 2 ];
-          }
+        if (x < y) {
+          return sorter[2];
+        }
 
-          if ( x > y ) {
-            return sorter[ 0 ];
-          }
+        if (x > y) {
+          return sorter[0];
+        }
 
-          return sorter[ 1 ];
-        } );
-      }
+        return sorter[1];
+      });
+    }
 
-      default: {
-        return [
-          ...carpetas
-        ].sort( (
-          a, b
-        ) => {
-          const aSortingKey = a[ sortingKey ];
+    default: {
+      return [...carpetas].sort((a, b) => {
+        const aSortingKey = a[sortingKey];
 
-          const bSortingKey = b[ sortingKey ];
+        const bSortingKey = b[sortingKey];
 
-          if ( !aSortingKey || aSortingKey === undefined ) {
-            return sorter[ 2 ];
-          }
+        if (!aSortingKey || aSortingKey === undefined) {
+          return sorter[2];
+        }
 
-          if ( !bSortingKey || bSortingKey === undefined ) {
-            return sorter[ 0 ];
-          }
+        if (!bSortingKey || bSortingKey === undefined) {
+          return sorter[0];
+        }
 
-          if ( aSortingKey < bSortingKey ) {
-            return sorter[ 2 ];
-          }
+        if (aSortingKey < bSortingKey) {
+          return sorter[2];
+        }
 
-          if ( aSortingKey > bSortingKey ) {
-            return sorter[ 0 ];
-          }
+        if (aSortingKey > bSortingKey) {
+          return sorter[0];
+        }
 
-          return 0;
-        } );
-      }
+        return 0;
+      });
+    }
   }
 }
 
-export default async function Page( {
+export default async function Page({
   searchParams,
 }: {
   searchParams: Promise<{
     [key: string]: string | string[] | undefined;
-    dir?         : 'asc' | 'dsc';
+    dir?: 'asc' | 'dsc';
     sortingKey?:
       | 'fecha'
       | 'numero'
@@ -197,25 +161,17 @@ export default async function Page( {
       | 'tipoProceso'
       | 'updatedAt';
   }>;
-} ) {
+}) {
   await connection();
 
   const rawCarpetas = await getCarpetas();
 
-  const {
-    dir, sortingKey,
-  } = await searchParams;
+  const { dir, sortingKey } = await searchParams;
 
-  const carpetas = sortCarpetas(
-    rawCarpetas, {
-      dir: dir
-        ? dir
-        : 'asc',
-      sortingKey: sortingKey
-        ? sortingKey
-        : 'fecha',
-    }
-  );
+  const carpetas = sortCarpetas(rawCarpetas, {
+    dir: dir ? dir : 'asc',
+    sortingKey: sortingKey ? sortingKey : 'fecha',
+  });
 
   return (
     <table>
@@ -239,7 +195,7 @@ export default async function Page( {
         </tr>
       </thead>
       <tbody>
-        {carpetas.flatMap( ( carpeta ) => {
+        {carpetas.flatMap((carpeta) => {
           const {
             idProcesos,
             numero,
@@ -251,11 +207,11 @@ export default async function Page( {
             revisado,
           } = carpeta;
 
-          return idProcesos.map( ( idProceso ) => {
+          return idProcesos.map((idProceso) => {
             return (
               <ClientCardRow
                 key={idProceso}
-                rowHref={`/Carpeta/${ numero }` as Route}
+                rowHref={`/Carpeta/${numero}` as Route}
                 carpeta={carpeta}
               >
                 <td>{nombre}</td>
@@ -273,7 +229,7 @@ export default async function Page( {
                 <td>
                   <Suspense fallback={<ActuacionLoader />}>
                     <FechaActuacionComponent
-                      idProceso={ idProceso }
+                      idProceso={idProceso}
                       numero={numero}
                       key={idProceso}
                     />
@@ -288,8 +244,8 @@ export default async function Page( {
                 </td>
               </ClientCardRow>
             );
-          } );
-        } )}
+          });
+        })}
       </tbody>
     </table>
   );

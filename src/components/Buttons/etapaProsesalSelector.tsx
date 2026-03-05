@@ -22,23 +22,19 @@ const etapasProcesalesOptions = [
 ];
 
 export default function FruitPicker() {
-
-  const [
-    etapaProcesalState,
-    setEtapaProcesalState
-  ] = useState( '' );
+  const [etapaProcesalState, setEtapaProcesalState] = useState('');
 
   return (
-    <form >
+    <form>
       <label>
         Pick a fruit:
         <select
           value={etapaProcesalState}
-          onChange={( e ) => {
-            return setEtapaProcesalState( e.target.value );
+          onChange={(e) => {
+            return setEtapaProcesalState(e.target.value);
           }}
         >
-          {etapasProcesalesOptions.map( ( optionEtapa ) => {
+          {etapasProcesalesOptions.map((optionEtapa) => {
             return (
               <option
                 key={optionEtapa}
@@ -47,7 +43,7 @@ export default function FruitPicker() {
                 {optionEtapa.toLocaleLowerCase()}
               </option>
             );
-          } )}
+          })}
         </select>
       </label>
 

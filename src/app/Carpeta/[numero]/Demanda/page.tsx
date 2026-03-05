@@ -1,24 +1,22 @@
-import  prisma  from '#@/lib/connection/prisma';
+import prisma from '#@/lib/connection/prisma';
 import { notFound } from 'next/navigation';
 
-export default async function DemandaPage( {
+export default async function DemandaPage({
   params,
 }: {
   params: Promise<{ numero: string }>;
-} ) {
-  const {
-    numero
-  } = await params;
+}) {
+  const { numero } = await params;
 
-  const carpeta = await prisma.carpeta.findFirst( {
+  const carpeta = await prisma.carpeta.findFirst({
     where: {
-      numero: Number( numero ),
+      numero: Number(numero),
     },
     include: {
-      deudor         : true,
-      codeudor       : true,
+      deudor: true,
+      codeudor: true,
       ultimaActuacion: true,
-      procesos       : {
+      procesos: {
         include: {
           juzgado: true,
         },
@@ -26,36 +24,29 @@ export default async function DemandaPage( {
       demanda: {
         include: {
           medidasCautelares: true,
-          notificacion     : true,
+          notificacion: true,
         },
       },
     },
-  } );
+  });
 
-  if ( !carpeta ) {
+  if (!carpeta) {
     notFound();
   }
 
-  const {
-    demanda, llaveProceso
-  } = carpeta;
+  const { demanda, llaveProceso } = carpeta;
 
-  if ( !demanda ) {
+  if (!demanda) {
     return notFound();
   }
 
-  const {
-    capitalAdeudado
-  } = demanda;
+  const { capitalAdeudado } = demanda;
 
-  const moneyFixed = new Intl.NumberFormat(
-    'es-CO', {
-      style          : 'currency',
-      currency       : 'COP',
-      currencyDisplay: 'name',
-    }
-  )
-    .format( capitalAdeudado.toNumber() );
+  const moneyFixed = new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    currencyDisplay: 'name',
+  }).format(capitalAdeudado.toNumber());
 
   return (
     <div>

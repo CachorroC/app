@@ -161,7 +161,11 @@
     margin: 0;
     grid-area: icon;
     color: var(--on-secondary-container);
-    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 300,
+      'GRAD' 0,
+      'opsz' 24;
   }
   &:hover {
     box-shadow: var(--dp8);
@@ -172,7 +176,11 @@
     }
     .icon {
       color: var(--tertiary);
-      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 200, 'opsz' 48;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 500,
+        'GRAD' 200,
+        'opsz' 48;
     }
   }
   &:focus {
@@ -215,7 +223,11 @@
     margin: 0;
     grid-area: icon;
     color: var(--on-secondary-container);
-    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 300,
+      'GRAD' 0,
+      'opsz' 24;
     font-size: 1.5rem;
   }
   &:hover,
@@ -245,7 +257,7 @@
   padding: 0;
   border: 1px solid var(--outline);
 
-   border-radius: var(--shape-corner-large);
+  border-radius: var(--shape-corner-large);
   @media (width < 600px) {
     flex-flow: row wrap;
     align-items: center;
@@ -317,8 +329,8 @@
     border-radius: inherit;
   }
   &:hover {
-     background-color: var(--secondary-container);
-  color: var(--on-secondary-container);
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
     &:before {
       opacity: 0.08;
     }

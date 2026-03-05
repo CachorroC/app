@@ -5,9 +5,7 @@ import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export default function Page() {
-  const {
-    getValues 
-  } = useFormContext<NuevaCarpeta>();
+  const { getValues } = useFormContext<NuevaCarpeta>();
 
   const nuevaCarpeta = useWatch();
 
@@ -17,15 +15,14 @@ export default function Page() {
       <div className={styles.divider}></div>
       <div className={styles.divider}></div>
       <pre>
-        {Number( nuevaCarpeta.demanda.capitalAdeudado ?? 0 )
-          .toLocaleString(
-            'es-CO',
-            {
-              currency       : 'COP',
-              style          : 'currency',
-              currencyDisplay: 'name',
-            },
-          )}
+        {Number(nuevaCarpeta.demanda.capitalAdeudado ?? 0).toLocaleString(
+          'es-CO',
+          {
+            currency: 'COP',
+            style: 'currency',
+            currencyDisplay: 'name',
+          },
+        )}
       </pre>
       <div className={styles.divider}></div>
       <pre>
@@ -35,16 +32,12 @@ export default function Page() {
       </pre>
       <div className={styles.divider}></div>
 
-      <pre>{JSON.stringify(
-        getValues(), null, 2 
-      )}</pre>
+      <pre>{JSON.stringify(getValues(), null, 2)}</pre>
       <div className={styles.divider}></div>
       <button
         type="button"
         onClick={() => {
-          alert( JSON.stringify(
-            nuevaCarpeta, null, 2 
-          ) );
+          alert(JSON.stringify(nuevaCarpeta, null, 2));
         }}
       ></button>
       <div className={styles.divider}></div>

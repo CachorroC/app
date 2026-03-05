@@ -8,7 +8,7 @@
 .container {
   container-name: form;
   container-type: inline-size;
-  grid-area: span 4/span 6;
+  grid-area: span 4 / span 6;
   display: flex;
   border-radius: 2vmin;
   flex-flow: column nowrap;
@@ -70,14 +70,24 @@
 }
 .submitButton > span {
   color: var(--on-secondary);
-  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 24;
 }
-.submitButton:hover, .submitButton:active {
+.submitButton:hover,
+.submitButton:active {
   background-color: var(--secondary);
   box-shadow: var(--dp8);
 }
-.submitButton:hover > span, .submitButton:active > span {
-  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 48;
+.submitButton:hover > span,
+.submitButton:active > span {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 600,
+    'GRAD' 200,
+    'opsz' 48;
   color: var(--on-secondary);
 }
 
@@ -153,9 +163,14 @@
 .addButton > span,
 .HomeButton > span {
   color: var(--on-secondary);
-  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 24;
 }
-.button:hover, .button:active,
+.button:hover,
+.button:active,
 .editButton:hover,
 .editButton:active,
 .deleteButton:hover,
@@ -167,7 +182,8 @@
   background-color: var(--tertiary-container);
   box-shadow: var(--dp8);
 }
-.button:hover > span, .button:active > span,
+.button:hover > span,
+.button:active > span,
 .editButton:hover > span,
 .editButton:active > span,
 .deleteButton:hover > span,
@@ -176,7 +192,11 @@
 .addButton:active > span,
 .HomeButton:hover > span,
 .HomeButton:active > span {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 200,
+    'opsz' 24;
   color: var(--tertiary);
 }
 
@@ -215,7 +235,7 @@
 .slider:before {
   border-radius: 2cqmin 2cqmin 0 0;
   position: absolute;
-  content: "";
+  content: '';
   height: 1.6cqmin;
   width: 1.6cqmin;
   left: 0.1cqmin;

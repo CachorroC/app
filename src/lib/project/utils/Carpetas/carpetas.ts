@@ -1,19 +1,18 @@
 import { cache } from 'react';
-import  prisma  from '#@/lib/connection/prisma';
+import prisma from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 
-
-export const getCarpetaByllaveProceso = cache( async ( llaveProceso: string ) => {
-  const prismaCarpeta = await prisma.carpeta.findFirst( {
+export const getCarpetaByllaveProceso = cache(async (llaveProceso: string) => {
+  const prismaCarpeta = await prisma.carpeta.findFirst({
     where: {
       llaveProceso: llaveProceso,
     },
     include: {
       ultimaActuacion: true,
-      deudor         : true,
-      juzgado        : true,
-      tareas         : true,
-      demanda        : {
+      deudor: true,
+      juzgado: true,
+      tareas: true,
+      demanda: {
         include: {
           notificacion: {
             include: {
@@ -23,16 +22,16 @@ export const getCarpetaByllaveProceso = cache( async ( llaveProceso: string ) =>
           medidasCautelares: true,
         },
       },
-      notas   : true,
+      notas: true,
       procesos: {
         include: {
           juzgado: true,
         },
       },
     },
-  } );
+  });
 
-  if ( prismaCarpeta ) {
+  if (prismaCarpeta) {
     return {
       ...prismaCarpeta,
       demanda: {
@@ -44,10 +43,10 @@ export const getCarpetaByllaveProceso = cache( async ( llaveProceso: string ) =>
   }
 
   return null;
-} );
+});
 
-export const getCarpetabyNumero = cache( async ( numero: number ) => {
-  const demanda = await prisma.demanda.findFirstOrThrow( {
+export const getCarpetabyNumero = cache(async (numero: number) => {
+  const demanda = await prisma.demanda.findFirstOrThrow({
     where: {
       id: numero,
     },
@@ -59,20 +58,20 @@ export const getCarpetabyNumero = cache( async ( numero: number ) => {
       },
       medidasCautelares: true,
     },
-  } );
+  });
 
-  const carpeta = await prisma.carpeta.findFirstOrThrow( {
+  const carpeta = await prisma.carpeta.findFirstOrThrow({
     where: {
       numero: numero,
     },
     include: {
       ultimaActuacion: true,
-      deudor         : true,
-      codeudor       : true,
-      juzgado        : true,
-      notas          : true,
-      tareas         : true,
-      demanda        : {
+      deudor: true,
+      codeudor: true,
+      juzgado: true,
+      notas: true,
+      tareas: true,
+      demanda: {
         include: {
           notificacion: {
             include: {
@@ -88,7 +87,7 @@ export const getCarpetabyNumero = cache( async ( numero: number ) => {
         },
       },
     },
-  } );
+  });
 
   const newCarp: IntCarpeta = {
     ...carpeta,
@@ -97,23 +96,17 @@ export const getCarpetabyNumero = cache( async ( numero: number ) => {
       capitalAdeudado: demanda.capitalAdeudado
         ? demanda.capitalAdeudado.toNumber()
         : null,
-      liquidacion: demanda?.liquidacion
-        ? demanda.liquidacion.toNumber()
-        : null,
-      avaluo: demanda?.avaluo
-        ? demanda.avaluo.toNumber()
-        : null,
-      departamento: demanda?.departamento
-        ? demanda.departamento
-        : null,
+      liquidacion: demanda?.liquidacion ? demanda.liquidacion.toNumber() : null,
+      avaluo: demanda?.avaluo ? demanda.avaluo.toNumber() : null,
+      departamento: demanda?.departamento ? demanda.departamento : null,
     },
   };
 
   return newCarp;
-} );
+});
 
-export const getCarpetaByidProceso = cache( async ( idProceso: string ) => {
-  return await prisma.carpeta.findFirstOrThrow( {
+export const getCarpetaByidProceso = cache(async (idProceso: string) => {
+  return await prisma.carpeta.findFirstOrThrow({
     where: {
       idProcesos: {
         has: idProceso,
@@ -121,12 +114,12 @@ export const getCarpetaByidProceso = cache( async ( idProceso: string ) => {
     },
     include: {
       ultimaActuacion: true,
-      deudor         : true,
-      codeudor       : true,
-      juzgado        : true,
-      notas          : true,
-      tareas         : true,
-      demanda        : {
+      deudor: true,
+      codeudor: true,
+      juzgado: true,
+      notas: true,
+      tareas: true,
+      demanda: {
         include: {
           notificacion: {
             include: {
@@ -142,5 +135,5 @@ export const getCarpetaByidProceso = cache( async ( idProceso: string ) => {
         },
       },
     },
-  } );
-} );
+  });
+});

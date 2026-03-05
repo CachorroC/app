@@ -375,12 +375,8 @@
           "type": "Actuacion",
           "nativeType": null,
           "relationName": "ActuacionToCarpeta",
-          "relationFromFields": [
-            "idRegUltimaAct"
-          ],
-          "relationToFields": [
-            "idRegActuacion"
-          ],
+          "relationFromFields": ["idRegUltimaAct"],
+          "relationToFields": ["idRegActuacion"],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -396,16 +392,8 @@
           "type": "Juzgado",
           "nativeType": null,
           "relationName": "CarpetaToJuzgado",
-          "relationFromFields": [
-            "juzgadoId",
-            "juzgadoTipo",
-            "juzgadoCiudad"
-          ],
-          "relationToFields": [
-            "id",
-            "tipo",
-            "ciudad"
-          ],
+          "relationFromFields": ["juzgadoId", "juzgadoTipo", "juzgadoCiudad"],
+          "relationToFields": ["id", "tipo", "ciudad"],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -675,10 +663,7 @@
           "isReadOnly": false,
           "hasDefaultValue": false,
           "type": "Decimal",
-          "nativeType": [
-            "Money",
-            []
-          ],
+          "nativeType": ["Money", []],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -766,10 +751,7 @@
           "isReadOnly": false,
           "hasDefaultValue": false,
           "type": "Decimal",
-          "nativeType": [
-            "Money",
-            []
-          ],
+          "nativeType": ["Money", []],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -783,10 +765,7 @@
           "isReadOnly": false,
           "hasDefaultValue": false,
           "type": "Decimal",
-          "nativeType": [
-            "Money",
-            []
-          ],
+          "nativeType": ["Money", []],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -800,10 +779,7 @@
           "isReadOnly": false,
           "hasDefaultValue": false,
           "type": "Decimal",
-          "nativeType": [
-            "Money",
-            []
-          ],
+          "nativeType": ["Money", []],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -875,12 +851,8 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToFactura",
-          "relationFromFields": [
-            "carpetaNumero"
-          ],
-          "relationToFields": [
-            "numero"
-          ],
+          "relationFromFields": ["carpetaNumero"],
+          "relationToFields": ["numero"],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -896,12 +868,8 @@
           "type": "EmisorDeFactura",
           "nativeType": null,
           "relationName": "EmisorDeFacturaToFactura",
-          "relationFromFields": [
-            "nit"
-          ],
-          "relationToFields": [
-            "nit"
-          ],
+          "relationFromFields": ["nit"],
+          "relationToFields": ["nit"],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -1280,12 +1248,8 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToDeudor",
-          "relationFromFields": [
-            "carpetaNumero"
-          ],
-          "relationToFields": [
-            "numero"
-          ],
+          "relationFromFields": ["carpetaNumero"],
+          "relationToFields": ["numero"],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -1396,12 +1360,8 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToCodeudor",
-          "relationFromFields": [
-            "carpetaNumero"
-          ],
-          "relationToFields": [
-            "numero"
-          ],
+          "relationFromFields": ["carpetaNumero"],
+          "relationToFields": ["numero"],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -1608,10 +1568,7 @@
           "isReadOnly": false,
           "hasDefaultValue": true,
           "type": "Decimal",
-          "nativeType": [
-            "Money",
-            []
-          ],
+          "nativeType": ["Money", []],
           "default": 0,
           "isGenerated": false,
           "isUpdatedAt": false
@@ -1640,10 +1597,7 @@
           "isReadOnly": false,
           "hasDefaultValue": true,
           "type": "Decimal",
-          "nativeType": [
-            "Money",
-            []
-          ],
+          "nativeType": ["Money", []],
           "default": 0,
           "isGenerated": false,
           "isUpdatedAt": false
@@ -1658,10 +1612,7 @@
           "isReadOnly": false,
           "hasDefaultValue": true,
           "type": "Decimal",
-          "nativeType": [
-            "Money",
-            []
-          ],
+          "nativeType": ["Money", []],
           "default": 0,
           "isGenerated": false,
           "isUpdatedAt": false
@@ -1678,12 +1629,8 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToDemanda",
-          "relationFromFields": [
-            "carpetaNumero"
-          ],
-          "relationToFields": [
-            "numero"
-          ],
+          "relationFromFields": ["carpetaNumero"],
+          "relationToFields": ["numero"],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -1814,12 +1761,8 @@
           "type": "Demanda",
           "nativeType": null,
           "relationName": "DemandaToNotificacion",
-          "relationFromFields": [
-            "demandaId"
-          ],
-          "relationToFields": [
-            "id"
-          ],
+          "relationFromFields": ["demandaId"],
+          "relationToFields": ["id"],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -1919,12 +1862,8 @@
           "type": "Demanda",
           "nativeType": null,
           "relationName": "DemandaToMedidasCautelares",
-          "relationFromFields": [
-            "demandaId"
-          ],
-          "relationToFields": [
-            "id"
-          ],
+          "relationFromFields": ["demandaId"],
+          "relationToFields": ["id"],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -2035,22 +1974,15 @@
           "type": "Notificacion",
           "nativeType": null,
           "relationName": "NotificacionToNotifier",
-          "relationFromFields": [
-            "notificacionId"
-          ],
-          "relationToFields": [
-            "id"
-          ],
+          "relationFromFields": ["notificacionId"],
+          "relationToFields": ["id"],
           "isGenerated": false,
           "isUpdatedAt": false
         }
       ],
       "primaryKey": {
         "name": null,
-        "fields": [
-          "tipo",
-          "carpetaNumero"
-        ]
+        "fields": ["tipo", "carpetaNumero"]
       },
       "uniqueFields": [],
       "uniqueIndexes": [],
@@ -2189,12 +2121,8 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToNota",
-          "relationFromFields": [
-            "carpetaNumero"
-          ],
-          "relationToFields": [
-            "numero"
-          ],
+          "relationFromFields": ["carpetaNumero"],
+          "relationToFields": ["numero"],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -2342,12 +2270,8 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToTask",
-          "relationFromFields": [
-            "carpetaNumero"
-          ],
-          "relationToFields": [
-            "numero"
-          ],
+          "relationFromFields": ["carpetaNumero"],
+          "relationToFields": ["numero"],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -2616,12 +2540,8 @@
           "type": "Proceso",
           "nativeType": null,
           "relationName": "ActuacionToProceso",
-          "relationFromFields": [
-            "procesoId"
-          ],
-          "relationToFields": [
-            "idProceso"
-          ],
+          "relationFromFields": ["procesoId"],
+          "relationToFields": ["idProceso"],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -2746,11 +2666,7 @@
       ],
       "primaryKey": {
         "name": null,
-        "fields": [
-          "id",
-          "tipo",
-          "ciudad"
-        ]
+        "fields": ["id", "tipo", "ciudad"]
       },
       "uniqueFields": [],
       "uniqueIndexes": [],
@@ -2986,12 +2902,8 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToProceso",
-          "relationFromFields": [
-            "carpetaNumero"
-          ],
-          "relationToFields": [
-            "numero"
-          ],
+          "relationFromFields": ["carpetaNumero"],
+          "relationToFields": ["numero"],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -3007,16 +2919,8 @@
           "type": "Juzgado",
           "nativeType": null,
           "relationName": "JuzgadoToProceso",
-          "relationFromFields": [
-            "juzgadoId",
-            "juzgadoTipo",
-            "juzgadoCiudad"
-          ],
-          "relationToFields": [
-            "id",
-            "tipo",
-            "ciudad"
-          ],
+          "relationFromFields": ["juzgadoId", "juzgadoTipo", "juzgadoCiudad"],
+          "relationToFields": ["id", "tipo", "ciudad"],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -3044,9 +2948,7 @@
           "nativeType": null,
           "default": {
             "name": "cuid",
-            "args": [
-              1
-            ]
+            "args": [1]
           },
           "isGenerated": false,
           "isUpdatedAt": false

@@ -5,79 +5,62 @@ import styles from './styles.module.css';
 import { show, snackbar } from '../Buttons/buttons.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 
-export function ChipButton( {
+export function ChipButton({
   copyTxt,
   icon,
   name,
 }: {
   copyTxt: string;
-  icon?  : string;
-  name   : string;
-} ) {
-  const [
-    flipper,
-    setFlipper
-  ] = useState( false );
+  icon?: string;
+  name: string;
+}) {
+  const [flipper, setFlipper] = useState(false);
 
-  const [
-    copyToClipboard,
-    setCopyToClipboard
-  ] = useCopyToClipboard();
+  const [copyToClipboard, setCopyToClipboard] = useCopyToClipboard();
 
-  const [
-    isSnackbarOpen,
-    setIsSnackbarOpen
-  ] = useState( false );
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
-  useEffect(
-    () => {
-      const timer = setTimeout(
-        () => {
-          setIsSnackbarOpen( false );
-        }, 5000 
-      );
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsSnackbarOpen(false);
+    }, 5000);
 
-      if ( isSnackbarOpen ) {
-        timer;
-      }
+    if (isSnackbarOpen) {
+      timer;
+    }
 
-      return () => {
-        return clearTimeout( timer );
-      };
-    }, [
-      isSnackbarOpen
-    ] 
-  );
+    return () => {
+      return clearTimeout(timer);
+    };
+  }, [isSnackbarOpen]);
 
   return (
     <>
       <button
         type="button"
         onMouseLeave={() => {
-          setFlipper( false );
+          setFlipper(false);
         }}
         onMouseEnter={() => {
-          setFlipper( true );
+          setFlipper(true);
         }}
         onClick={() => {
-          setCopyToClipboard( copyTxt );
-          setIsSnackbarOpen( true );
+          setCopyToClipboard(copyTxt);
+          setIsSnackbarOpen(true);
         }}
         className={styles.chip}
       >
         {icon && (
-          <span className={`material-symbols-outlined ${ styles.icon }`}>
+          <span className={`material-symbols-outlined ${styles.icon}`}>
             {icon}
           </span>
         )}
-        <span className={`${ typography.labelMedium } ${ styles.text }`}>
-          {flipper
-            ? copyTxt
-            : name}
+        <span className={`${typography.labelMedium} ${styles.text}`}>
+          {flipper ? copyTxt : name}
         </span>
       </button>
       {copyToClipboard && isSnackbarOpen && (
-        <div className={`${ snackbar } ${ isSnackbarOpen && show }`}>{copyTxt}</div>
+        <div className={`${snackbar} ${isSnackbarOpen && show}`}>{copyTxt}</div>
       )}
     </>
   );

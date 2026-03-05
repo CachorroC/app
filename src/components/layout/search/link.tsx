@@ -8,32 +8,28 @@ import type { Route } from 'next';
 import { useNavigationContext } from '#@/app/Context/navigation-context';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 
-export function LinkCard<T extends string = string>( {
+export function LinkCard<T extends string = string>({
   path,
   carpeta,
 }: {
-  path   : Route<T> | URL;
+  path: Route<T> | URL;
   carpeta: MonCarpeta;
-} ) {
+}) {
   let content;
 
-  const {
-    fecha, numero, nombre 
-  } = carpeta;
+  const { fecha, numero, nombre } = carpeta;
 
-  const {
-    setIsNavOpen 
-  } = useNavigationContext();
+  const { setIsNavOpen } = useNavigationContext();
 
   const params = useParams();
 
-  const isActive = numero === Number( params.numero );
+  const isActive = numero === Number(params.numero);
 
   function handleClickNavigation() {
-    setIsNavOpen( false );
+    setIsNavOpen(false);
   }
 
-  if ( !carpeta.idProcesos || carpeta.idProcesos.length === 0 ) {
+  if (!carpeta.idProcesos || carpeta.idProcesos.length === 0) {
     content = (
       <td key={carpeta.numero}>
         <Link
@@ -41,15 +37,13 @@ export function LinkCard<T extends string = string>( {
           onClick={handleClickNavigation}
           href={path as Route}
           className={
-            isActive
-              ? searchbar.linkIsActive
-              : searchbar.linkNotActive
+            isActive ? searchbar.linkIsActive : searchbar.linkNotActive
           }
         >
-          <sup className={searchbar.sub}>{`# ${ numero }`}</sup>
+          <sup className={searchbar.sub}>{`# ${numero}`}</sup>
           <h4
             key={carpeta.id}
-            className={`${ typography.titleMedium } ${ searchbar.title }`}
+            className={`${typography.titleMedium} ${searchbar.title}`}
           >
             {nombre}
           </h4>
@@ -63,22 +57,20 @@ export function LinkCard<T extends string = string>( {
       </td>
     );
   } else {
-    content = carpeta.idProcesos.map( ( idProceso ) => {
+    content = carpeta.idProcesos.map((idProceso) => {
       return (
         <td key={idProceso}>
           <Link
             onClick={handleClickNavigation}
-            href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
+            href={`/Carpeta/${numero}/ultimasActuaciones/${idProceso}` as Route}
             className={
-              isActive
-                ? searchbar.linkIsActive
-                : searchbar.linkNotActive
+              isActive ? searchbar.linkIsActive : searchbar.linkNotActive
             }
           >
-            <sup className={searchbar.sub}>{`# ${ numero }`}</sup>
+            <sup className={searchbar.sub}>{`# ${numero}`}</sup>
             <h4
               key={idProceso}
-              className={`${ typography.titleMedium } ${ searchbar.title }`}
+              className={`${typography.titleMedium} ${searchbar.title}`}
             >
               {nombre}
             </h4>
@@ -91,7 +83,7 @@ export function LinkCard<T extends string = string>( {
           </Link>
         </td>
       );
-    } );
+    });
   }
 
   return <tr>{content}</tr>;

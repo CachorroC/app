@@ -16,7 +16,8 @@
   padding: 0.5rem 1.5rem 0.5rem 1.5rem;
   position: relative;
 }
-.button > .icon, .button > .text {
+.button > .icon,
+.button > .text {
   color: var(--on-secondary-container);
 }
 .button > .icon {
@@ -29,7 +30,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  content: "";
+  content: '';
   background-color: var(--surface-container-low);
   border-radius: var(--shape-corner-full);
   top: 0;

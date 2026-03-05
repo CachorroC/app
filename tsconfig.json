@@ -13,21 +13,15 @@
       "WebWorker",
       "ESNext.Array",
       "ESNext.AsyncIterable",
-      "ES2022.Object",
+      "ES2022.Object"
     ],
     "moduleResolution": "bundler",
     "noImplicitAny": true,
     "noEmit": true,
     "paths": {
-      "#@/*": [
-        "./src/*"
-      ],
-      "components/*": [
-        "./src/components/*"
-      ],
-      "types/*": [
-        "./src/lib/types/*"
-      ]
+      "#@/*": ["./src/*"],
+      "components/*": ["./src/components/*"],
+      "types/*": ["./src/lib/types/*"]
     },
     "plugins": [
       {
@@ -39,9 +33,7 @@
     "strict": true,
     "target": "ESNext"
   },
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",

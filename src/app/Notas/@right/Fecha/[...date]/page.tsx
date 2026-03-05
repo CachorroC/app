@@ -39,22 +39,16 @@ export async function generateStaticParams() {
   );
 }
  */
-export default async function DatePage( {
+export default async function DatePage({
   params,
 }: {
   params: Promise<{ date: string[] }>;
-} ) {
-  const {
-    date
-  } = await params;
+}) {
+  const { date } = await params;
 
-  const [
-    incomingAno,
-    incomingMes,
-    incomingDia
-  ] = date;
+  const [incomingAno, incomingMes, incomingDia] = date;
 
-  const incomingDate = new Date( `${ incomingAno }-${ incomingMes }-${ incomingDia }` );
+  const incomingDate = new Date(`${incomingAno}-${incomingMes}-${incomingDia}`);
 
   return (
     <>

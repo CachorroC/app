@@ -7,39 +7,22 @@ import cardStyles from '../Card/card.module.css';
 import { IntNota } from '#@/lib/types/notas';
 import { card } from '../Proceso/procesos.module.css';
 
-export const Edit = ( {
-  nota 
-}: { nota: IntNota } ) => {
-  const [
-    hasContent,
-    setHasContent
-  ] = useState( false );
+export const Edit = ({ nota }: { nota: IntNota }) => {
+  const [hasContent, setHasContent] = useState(false);
 
-  const [
-    formState,
-    onFormCreate,
-    isFormPending
-  ] = useActionState(
-    editNota, {
-      message: 'sin enviar',
-      data   : nota,
-      error  : false,
-    } 
-  );
+  const [formState, onFormCreate, isFormPending] = useActionState(editNota, {
+    message: 'sin enviar',
+    data: nota,
+    error: false,
+  });
 
-  const [
-    inputNota,
-    setInputNota
-  ] = useState( formState.data ?? nota );
+  const [inputNota, setInputNota] = useState(formState.data ?? nota);
 
-  const dateString = inputNota.dueDate?.toISOString()
-    .slice(
-      0, 10 
-    );
+  const dateString = inputNota.dueDate?.toISOString().slice(0, 10);
 
   return (
     <div
-      className={`${ styles.container } ${
+      className={`${styles.container} ${
         formState.error && cardStyles.errorContainer
       }`}
     >
@@ -74,9 +57,7 @@ export const Edit = ( {
             type="number"
             name="llaveProceso"
             defaultValue={
-              inputNota.carpetaNumero
-                ? inputNota.carpetaNumero
-                : ''
+              inputNota.carpetaNumero ? inputNota.carpetaNumero : ''
             }
           />
         </fieldset>
@@ -92,11 +73,11 @@ export const Edit = ( {
             type="text"
             name="text"
             value={inputNota.text}
-            onChange={( e ) => {
-              setInputNota( {
+            onChange={(e) => {
+              setInputNota({
                 ...inputNota,
                 text: e.target.value,
-              } );
+              });
             }}
           />
         </fieldset>
@@ -112,11 +93,11 @@ export const Edit = ( {
             className={styles.textArea}
             name="date"
             value={dateString}
-            onChange={( e ) => {
-              setInputNota( {
+            onChange={(e) => {
+              setInputNota({
                 ...inputNota,
-                dueDate: new Date( e.target.value ),
-              } );
+                dueDate: new Date(e.target.value),
+              });
             }}
           />
           <p>{dateString}</p>
@@ -128,9 +109,9 @@ export const Edit = ( {
               name="done"
               checked={hasContent}
               onChange={() => {
-                setHasContent( ( c ) => {
+                setHasContent((c) => {
                   return !c;
-                } );
+                });
               }}
               type="checkbox"
             />
@@ -144,12 +125,12 @@ export const Edit = ( {
                   className={styles.textArea}
                   type="text"
                   name="content"
-                  value={inputNota.content.join( '\n' )}
-                  onChange={( e ) => {
-                    setInputNota( {
+                  value={inputNota.content.join('\n')}
+                  onChange={(e) => {
+                    setInputNota({
                       ...inputNota,
-                      content: e.target.value.split( '\n' ),
-                    } );
+                      content: e.target.value.split('\n'),
+                    });
                   }}
                 />
               </label>
@@ -162,9 +143,7 @@ export const Edit = ( {
 
       <div className={card}>
         <h1>
-          {isFormPending
-            ? 'formulario no registrado'
-            : 'formulario registrado'}
+          {isFormPending ? 'formulario no registrado' : 'formulario registrado'}
         </h1>
       </div>
     </div>

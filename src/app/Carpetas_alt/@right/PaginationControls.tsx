@@ -59,32 +59,28 @@ const ciudades = [
   'VILLETA',
   'MADIRD',
   'SUESCA',
-  'RICAURTE'
+  'RICAURTE',
 ];
 
 export const PaginationControls = () => {
-  const {
-    dispatch,
-    totalPages,
-    totalItems, state
-  } = useTable<MonCarpeta>(); // using <any> because pagination doesn't care about the data shape
+  const { dispatch, totalPages, totalItems, state } = useTable<MonCarpeta>(); // using <any> because pagination doesn't care about the data shape
 
   return (
-    <div style={{
-      display   : 'flex',
-      gap       : '10px',
-      marginTop : '10px',
-      alignItems: 'center'
-    }}
+    <div
+      style={{
+        display: 'flex',
+        gap: '10px',
+        marginTop: '10px',
+        alignItems: 'center',
+      }}
     >
       <select
         value={state.itemsPerPage}
-        onChange={( e ) => {
-          return dispatch( {
-            type   : 'SET_ITEMS_PER_PAGE',
-            payload: Number( e.target.value )
-          } );
-
+        onChange={(e) => {
+          return dispatch({
+            type: 'SET_ITEMS_PER_PAGE',
+            payload: Number(e.target.value),
+          });
         }}
       >
         <option value={2}>Show 2</option>
@@ -93,11 +89,11 @@ export const PaginationControls = () => {
       </select>
 
       <button
-        onClick={ () => {
-          return dispatch( {
-            type   : 'SET_PAGE',
-            payload: state.currentPage - 1
-          } );
+        onClick={() => {
+          return dispatch({
+            type: 'SET_PAGE',
+            payload: state.currentPage - 1,
+          });
         }}
         disabled={state.currentPage === 1}
       >
@@ -107,20 +103,22 @@ export const PaginationControls = () => {
       <span>
         Page {state.currentPage} of {totalPages} ({totalItems} items)
       </span>
-      <input value={ state.currentPage } onChange={ ( e ) => {
-        return dispatch( {
-          type   : 'SET_PAGE',
-          payload: Number( e.target.value )
-        } );
-      }}
+      <input
+        value={state.currentPage}
+        onChange={(e) => {
+          return dispatch({
+            type: 'SET_PAGE',
+            payload: Number(e.target.value),
+          });
+        }}
       />
 
       <button
-        onClick={ () => {
-          return dispatch( {
-            type   : 'SET_PAGE',
-            payload: state.currentPage + 1
-          } );
+        onClick={() => {
+          return dispatch({
+            type: 'SET_PAGE',
+            payload: state.currentPage + 1,
+          });
         }}
         disabled={state.currentPage === totalPages}
       >
@@ -130,135 +128,140 @@ export const PaginationControls = () => {
   );
 };
 
-
 export const FilterControls = () => {
-  const {
-    state, dispatch, isSearching
-  } = useTable<MonCarpeta>();
+  const { state, dispatch, isSearching } = useTable<MonCarpeta>();
 
   // Helper to handle filter changes cleanly
-  const toggleBooleanFilter = (
-    key: keyof MonCarpeta, value: boolean
-  ) => {
+  const toggleBooleanFilter = (key: keyof MonCarpeta, value: boolean) => {
     // Check if the filter is already active with this value
-    if ( state.filters[ key ] === value ) {
-      dispatch( {
-        type   : 'CLEAR_FILTER',
-        payload: key
-      } );
+    if (state.filters[key] === value) {
+      dispatch({
+        type: 'CLEAR_FILTER',
+        payload: key,
+      });
     } else {
-      dispatch( {
-        type   : 'SET_FILTER',
+      dispatch({
+        type: 'SET_FILTER',
         payload: {
           key,
-          value
-        }
-      } );
+          value,
+        },
+      });
     }
   };
 
   return (
-    <div style={{
-      display     : 'flex',
-      gap         : '20px',
-      marginBottom: '20px',
-      alignItems  : 'center'
-    }}
+    <div
+      style={{
+        display: 'flex',
+        gap: '20px',
+        marginBottom: '20px',
+        alignItems: 'center',
+      }}
     >
-
       {/* 1. Global Search */}
       <input
         type="text"
         placeholder="Global search..."
         value={state.searchQuery}
-        onChange={( e ) => {
-          return dispatch( {
-            type   : 'SET_SEARCH',
-            payload: e.target.value
-          } );
+        onChange={(e) => {
+          return dispatch({
+            type: 'SET_SEARCH',
+            payload: e.target.value,
+          });
         }}
         style={{
-          padding: '8px'
+          padding: '8px',
         }}
       />
 
       {/* 2. Boolean Filter: "Is Terminado?" */}
-      <label style={{
-        cursor    : 'pointer',
-        display   : 'flex',
-        alignItems: 'center',
-        gap       : '5px'
-      }}
+      <label
+        style={{
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px',
+        }}
       >
         <input
           type="checkbox"
           checked={state.filters.terminado === true}
           onChange={() => {
-            return toggleBooleanFilter(
-              'terminado', true
-            );
+            return toggleBooleanFilter('terminado', true);
           }}
         />
         Show Only Finished (Boolean)
       </label>
 
-
-
       <select
         value={state.filters.ciudad || ''}
-        onChange={( e ) => {
+        onChange={(e) => {
           const val = e.target.value;
 
-          if ( val === '' ) {
-            dispatch( {
-              type   : 'CLEAR_FILTER',
-              payload: 'ciudad'
-            } );
+          if (val === '') {
+            dispatch({
+              type: 'CLEAR_FILTER',
+              payload: 'ciudad',
+            });
           } else {
-            dispatch( {
-              type   : 'SET_FILTER',
+            dispatch({
+              type: 'SET_FILTER',
               payload: {
-                key  : 'ciudad',
-                value: val
-              }
-            } );
+                key: 'ciudad',
+                value: val,
+              },
+            });
           }
         }}
         style={{
-          padding: '8px'
+          padding: '8px',
         }}
       >
-        { ciudades.map( ( ciudad ) => {
+        {ciudades.map((ciudad) => {
           return (
-            <option key={ciudad} value={ciudad}>{ciudad}</option>
+            <option
+              key={ciudad}
+              value={ciudad}
+            >
+              {ciudad}
+            </option>
           );
-        } )}
+        })}
       </select>
-      <MultiSelectFilter filterKey={ 'category' } options={ categorias } label={ 'Categories' } />
-      <MultiSelectFilter filterKey={ 'ciudad' } options={ ciudades } label={ 'Cities' } />
+      <MultiSelectFilter
+        filterKey={'category'}
+        options={categorias}
+        label={'Categories'}
+      />
+      <MultiSelectFilter
+        filterKey={'ciudad'}
+        options={ciudades}
+        label={'Cities'}
+      />
       {/* 3. Dropdown Filter: "Category" */}
       <select
         value={state.filters.category || ''}
-        onChange={( e ) => {
+        onChange={(e) => {
           const val = e.target.value;
 
-          if ( val === '' ) {
-            dispatch( {
-              type   : 'CLEAR_FILTER',
-              payload: 'category'
-            } );
+          if (val === '') {
+            dispatch({
+              type: 'CLEAR_FILTER',
+              payload: 'category',
+            });
           } else {
-            dispatch( {
-              type   : 'SET_FILTER',
+            dispatch({
+              type: 'SET_FILTER',
               payload: {
-                key  : 'category',
-                value: val
-              }
-            } );
+                key: 'category',
+                value: val,
+              },
+            });
           }
         }}
         style={{
-          padding: '8px'
+          padding: '8px',
         }}
       >
         <option value="">All Categories</option>
@@ -271,24 +274,26 @@ export const FilterControls = () => {
       </select>
 
       {/* 4. Reset Button */}
-      {( Object.keys( state.filters ).length > 0 || state.searchQuery ) && (
-        <button onClick={() => {
-          // You might want a RESET_ALL action in reducer for this
-          dispatch( {
-            type   : 'SET_SEARCH',
-            payload: ''
-          } );
-          dispatch( {
-            type   : 'CLEAR_FILTER',
-            payload: 'terminado'
-          } );
-          dispatch( {
-            type   : 'CLEAR_FILTER',
-            payload: 'category'
-          } );
-        }} style={{
-          color: 'red'
-        }}
+      {(Object.keys(state.filters).length > 0 || state.searchQuery) && (
+        <button
+          onClick={() => {
+            // You might want a RESET_ALL action in reducer for this
+            dispatch({
+              type: 'SET_SEARCH',
+              payload: '',
+            });
+            dispatch({
+              type: 'CLEAR_FILTER',
+              payload: 'terminado',
+            });
+            dispatch({
+              type: 'CLEAR_FILTER',
+              payload: 'category',
+            });
+          }}
+          style={{
+            color: 'red',
+          }}
         >
           Clear All
         </button>

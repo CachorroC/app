@@ -14,20 +14,11 @@ export function NotasSortButtons() {
     | 'createdAt'
     | 'text'
     | 'updatedAt'
-  )[] = [
-    'dueDate',
-    'text',
-    'updatedAt',
-    'carpetaNumero',
-    'id'
-  ];
+  )[] = ['dueDate', 'text', 'updatedAt', 'carpetaNumero', 'id'];
 
   const dispatchNotas = useNotaSortDispatch();
 
-  const [
-    sortDirection,
-    setSortDirection
-  ] = useState( true );
+  const [sortDirection, setSortDirection] = useState(true);
 
   return (
     <div className={layout.sectionColumn}>
@@ -35,31 +26,27 @@ export function NotasSortButtons() {
         <h2 className={typography.titleMedium}>{'ordenar:'}</h2>
         <span className={typography.labelMedium}>
           {' '}
-          {sortDirection
-            ? 'ascendente'
-            : 'descendente'}{' '}
+          {sortDirection ? 'ascendente' : 'descendente'}{' '}
         </span>
         <span className="material-symbols-outlined">
-          {sortDirection
-            ? 'arrow_upward'
-            : 'arrow_downward'}
+          {sortDirection ? 'arrow_upward' : 'arrow_downward'}
         </span>
       </section>
 
       <section className={layout.sectionRow}>
-        {keys.map( ( key ) => {
+        {keys.map((key) => {
           return (
             <button
               type="button"
               onClick={() => {
-                setSortDirection( ( d ) => {
+                setSortDirection((d) => {
                   return !d;
-                } );
-                dispatchNotas( {
-                  type      : 'sort',
-                  dir       : sortDirection,
+                });
+                dispatchNotas({
+                  type: 'sort',
+                  dir: sortDirection,
                   sortingKey: key,
-                } );
+                });
               }}
               className={button.buttonPassiveCategory}
               key={key}
@@ -67,7 +54,7 @@ export function NotasSortButtons() {
               {key}
             </button>
           );
-        } )}
+        })}
       </section>
     </div>
   );

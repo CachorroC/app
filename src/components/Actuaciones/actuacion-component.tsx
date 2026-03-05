@@ -5,15 +5,13 @@ import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { NewNotaComponent } from '../Modal';
 import styles from '../Card/elevated.module.css';
 
-export function ActuacionComponent( {
+export function ActuacionComponent({
   incomingActuacion,
 }: {
   incomingActuacion: outActuacion | intActuacion;
-} ) {
-  const {
-    actuacion, anotacion, fechaActuacion, consActuacion
-  }
-    = incomingActuacion;
+}) {
+  const { actuacion, anotacion, fechaActuacion, consActuacion } =
+    incomingActuacion;
 
   return (
     <div className={styles.containerEnabled}>
@@ -37,15 +35,14 @@ export function ActuacionComponent( {
   );
 }
 
-
 export function ActuacionErrorComponent() {
-
-
   return (
-    <div className={styles.containerEnabled} style={{
-      backgroundColor: 'var(--error-container)',
-      color          : 'var(--on-error-container)'
-    }}
+    <div
+      className={styles.containerEnabled}
+      style={{
+        backgroundColor: 'var(--error-container)',
+        color: 'var(--on-error-container)',
+      }}
     >
       <div
         className={layout.segmentRow}
@@ -58,11 +55,12 @@ export function ActuacionErrorComponent() {
       </div>
       <div className={layout.segmentRow}>
         <OutputDateHelper incomingDate={new Date()} />
-        <p className={ typography.bodyMedium }>{
-          'hubo un error en la petición de la actuacion, actualize la pagina o intente de nuevo '
-        }</p>
+        <p className={typography.bodyMedium}>
+          {
+            'hubo un error en la petición de la actuacion, actualize la pagina o intente de nuevo '
+          }
+        </p>
       </div>
-
     </div>
   );
 }

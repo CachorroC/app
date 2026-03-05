@@ -1,34 +1,32 @@
 'use client';
 import { NewNota } from '#@/lib/types/notas';
 import { usePathname } from 'next/navigation';
-import { ReactNode,
+import {
+  ReactNode,
   createContext,
   useState,
   Dispatch,
   SetStateAction,
-  useContext, } from 'react';
+  useContext,
+} from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 const NuevaNotaContext = createContext<{
-  notaFormState   : NewNota;
+  notaFormState: NewNota;
   setNotaFormState: Dispatch<SetStateAction<NewNota>>;
-} | null>( null );
+} | null>(null);
 
-export function NuevaNotaFormProvider( {
-  children 
-}: { children: ReactNode } ) {
+export function NuevaNotaFormProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   const newDater = new Date();
 
   const newNota: NewNota = {
-    text   : '',
-    content: [
-      ''
-    ],
-    pathname     : pathname,
+    text: '',
+    content: [''],
+    pathname: pathname,
     carpetaNumero: null,
-    dueDate      : new Date(
+    dueDate: new Date(
       newDater.getFullYear(),
       newDater.getMonth(),
       newDater.getDate(),
@@ -36,16 +34,13 @@ export function NuevaNotaFormProvider( {
     id: 'NC-0',
   };
 
-  const [
-    notaFormState,
-    setNotaFormState
-  ] = useState<NewNota>( newNota );
+  const [notaFormState, setNotaFormState] = useState<NewNota>(newNota);
 
-  const nuevaNotaMethods = useForm<NewNota>( {
-    defaultValues   : notaFormState,
+  const nuevaNotaMethods = useForm<NewNota>({
+    defaultValues: notaFormState,
     shouldFocusError: true,
-    criteriaMode    : 'all',
-  } );
+    criteriaMode: 'all',
+  });
 
   return (
     <NuevaNotaContext.Provider
@@ -60,10 +55,12 @@ export function NuevaNotaFormProvider( {
 }
 
 export function useNuevaNotaContext() {
-  const context = useContext( NuevaNotaContext );
+  const context = useContext(NuevaNotaContext);
 
-  if ( !context ) {
-    throw new Error( 'Nueva Nota context must be used within a nueva nota provider', );
+  if (!context) {
+    throw new Error(
+      'Nueva Nota context must be used within a nueva nota provider',
+    );
   }
 
   return context;

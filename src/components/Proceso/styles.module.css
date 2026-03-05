@@ -10,7 +10,9 @@
   border-radius: 2cqmin;
 }
 
-.button, .buttonEjecucion, .buttonOrigen {
+.button,
+.buttonEjecucion,
+.buttonOrigen {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-evenly;
@@ -26,9 +28,11 @@
   position: relative;
   justify-items: center;
 }
-.button:after, .buttonEjecucion:after, .buttonOrigen:after {
+.button:after,
+.buttonEjecucion:after,
+.buttonOrigen:after {
   transition: all 0.5s;
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -38,7 +42,9 @@
   background-color: var(--primary);
   opacity: 0.02;
 }
-.button .text, .buttonEjecucion .text, .buttonOrigen .text {
+.button .text,
+.buttonEjecucion .text,
+.buttonOrigen .text {
   font-family: var(--raleway);
 }
 .buttonOrigen {
@@ -59,15 +65,18 @@
 .buttonOrigen:hover:after {
   background-color: var(--secondary);
 }
-.buttonOrigen:focus, .buttonOrigen:active {
+.buttonOrigen:focus,
+.buttonOrigen:active {
   background-color: var(--secondary-container);
 }
 .buttonOrigen:focus .text,
-.buttonOrigen:focus .icon, .buttonOrigen:active .text,
+.buttonOrigen:focus .icon,
+.buttonOrigen:active .text,
 .buttonOrigen:active .icon {
   color: var(--on-secondary-container);
 }
-.buttonOrigen:focus:after, .buttonOrigen:active:after {
+.buttonOrigen:focus:after,
+.buttonOrigen:active:after {
   background-color: var(--on-secondary-container);
 }
 .buttonEjecucion {
@@ -88,29 +97,59 @@
   background-color: var(--on-primary);
   opacity: 0.8;
 }
-.buttonEjecucion:focus, .buttonEjecucion:active {
+.buttonEjecucion:focus,
+.buttonEjecucion:active {
   background-color: var(--primary-container);
 }
 .buttonEjecucion:focus .text,
-.buttonEjecucion:focus .icon, .buttonEjecucion:active .text,
+.buttonEjecucion:focus .icon,
+.buttonEjecucion:active .text,
 .buttonEjecucion:active .icon {
   color: var(--on-primary-container);
 }
-.buttonEjecucion:focus:after, .buttonEjecucion:active:after {
+.buttonEjecucion:focus:after,
+.buttonEjecucion:active:after {
   background-color: var(--on-primary-container);
 }
-.button:hover, .buttonOrigen:hover, .buttonEjecucion:hover {
+.button:hover,
+.buttonOrigen:hover,
+.buttonEjecucion:hover {
   box-shadow: var(--dp6);
 }
-.button:hover > .icon, .buttonOrigen:hover > .icon, .buttonEjecucion:hover > .icon {
-  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 40;
+.button:hover > .icon,
+.buttonOrigen:hover > .icon,
+.buttonEjecucion:hover > .icon {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 600,
+    'GRAD' 200,
+    'opsz' 40;
 }
-.button:focus, .buttonOrigen:focus, .buttonEjecucion:focus, .button:active, .buttonOrigen:active, .buttonEjecucion:active {
+.button:focus,
+.buttonOrigen:focus,
+.buttonEjecucion:focus,
+.button:active,
+.buttonOrigen:active,
+.buttonEjecucion:active {
   box-shadow: var(--dp1);
 }
-.button:focus:after, .buttonOrigen:focus:after, .buttonEjecucion:focus:after, .button:active:after, .buttonOrigen:active:after, .buttonEjecucion:active:after {
+.button:focus:after,
+.buttonOrigen:focus:after,
+.buttonEjecucion:focus:after,
+.button:active:after,
+.buttonOrigen:active:after,
+.buttonEjecucion:active:after {
   opacity: 0.1;
 }
-.button:focus > .icon, .buttonOrigen:focus > .icon, .buttonEjecucion:focus > .icon, .button:active > .icon, .buttonOrigen:active > .icon, .buttonEjecucion:active > .icon {
-  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 200, "opsz" 40;
+.button:focus > .icon,
+.buttonOrigen:focus > .icon,
+.buttonEjecucion:focus > .icon,
+.button:active > .icon,
+.buttonOrigen:active > .icon,
+.buttonEjecucion:active > .icon {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 600,
+    'GRAD' 200,
+    'opsz' 40;
 }

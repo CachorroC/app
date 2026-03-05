@@ -19,20 +19,12 @@ function getServerSnapshot() {
   return true;
 }
 
-function subscribe( callback: any ) {
-  window.addEventListener(
-    'online', callback 
-  );
-  window.addEventListener(
-    'offline', callback 
-  );
+function subscribe(callback: any) {
+  window.addEventListener('online', callback);
+  window.addEventListener('offline', callback);
 
   return () => {
-    window.removeEventListener(
-      'online', callback 
-    );
-    window.removeEventListener(
-      'offline', callback 
-    );
+    window.removeEventListener('online', callback);
+    window.removeEventListener('offline', callback);
   };
 }

@@ -1,47 +1,42 @@
 'use client';
 import { NewTask } from '#@/lib/types/tareas';
-import { ReactNode,
+import {
+  ReactNode,
   createContext,
   useState,
   Dispatch,
   SetStateAction,
-  useContext, } from 'react';
+  useContext,
+} from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 const NuevaTaskContext = createContext<{
-  taskFormState   : NewTask;
+  taskFormState: NewTask;
   setTaskFormState: Dispatch<SetStateAction<NewTask>>;
-} | null>( null );
+} | null>(null);
 
-export function NuevaTaskFormProvider( {
-  children 
-}: { children: ReactNode } ) {
+export function NuevaTaskFormProvider({ children }: { children: ReactNode }) {
   const newDater = new Date();
 
   const newNota: NewTask = {
-    text   : '',
-    done   : false,
-    content: [
-      ''
-    ],
+    text: '',
+    done: false,
+    content: [''],
     carpetaNumero: null,
-    dueDate      : new Date(
+    dueDate: new Date(
       newDater.getFullYear(),
       newDater.getMonth(),
       newDater.getDate(),
     ),
   };
 
-  const [
-    taskFormState,
-    setTaskFormState
-  ] = useState<NewTask>( newNota );
+  const [taskFormState, setTaskFormState] = useState<NewTask>(newNota);
 
-  const nuevaNotaMethods = useForm<NewTask>( {
-    defaultValues   : taskFormState,
+  const nuevaNotaMethods = useForm<NewTask>({
+    defaultValues: taskFormState,
     shouldFocusError: true,
-    criteriaMode    : 'all',
-  } );
+    criteriaMode: 'all',
+  });
 
   return (
     <NuevaTaskContext.Provider
@@ -56,10 +51,12 @@ export function NuevaTaskFormProvider( {
 }
 
 export function useNuevaTaskContext() {
-  const context = useContext( NuevaTaskContext );
+  const context = useContext(NuevaTaskContext);
 
-  if ( !context ) {
-    throw new Error( 'Nueva intTask context must be used within a new task provider', );
+  if (!context) {
+    throw new Error(
+      'Nueva intTask context must be used within a new task provider',
+    );
   }
 
   return context;

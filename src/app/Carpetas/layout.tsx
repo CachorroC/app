@@ -6,45 +6,42 @@ import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Loader } from '#@/components/Loader/main-loader';
 import { connection } from 'next/server';
 
-async function LayoutAsyncProcess ( {
-  children
-}: { children: ReactNode; } ) {
+async function LayoutAsyncProcess({ children }: { children: ReactNode }) {
   await connection();
 
   const carpetas = await getCarpetas();
 
   return (
-    <CarpetasSortProvider initialCarpetas={carpetas}>{children}</CarpetasSortProvider>
+    <CarpetasSortProvider initialCarpetas={carpetas}>
+      {children}
+    </CarpetasSortProvider>
   );
 }
 
-export default function LayoutProcesosMain( {
+export default function LayoutProcesosMain({
   children,
   top,
   right,
   modal,
 }: {
   children: ReactNode;
-  top     : ReactNode;
-  right   : ReactNode;
-  modal   : ReactNode;
-} ) {
-
+  top: ReactNode;
+  right: ReactNode;
+  modal: ReactNode;
+}) {
   return (
     <Suspense fallback={<Loader />}>
       <LayoutAsyncProcess>
         <NuevaCarpetaFormProvider>
+          <Suspense fallback={<Loader />}>{modal}</Suspense>
           <Suspense fallback={<Loader />}>
-            { modal }
+            <div className={styles.top}>{top}</div>
           </Suspense>
           <Suspense fallback={<Loader />}>
-            <div className={ styles.top }>{ top }</div>
+            <div className={styles.leftGrid}>{children}</div>
           </Suspense>
           <Suspense fallback={<Loader />}>
-            <div className={ styles.leftGrid }>{ children }</div>
-          </Suspense>
-          <Suspense fallback={<Loader />}>
-            <div className={ styles.right }>{ right }</div>
+            <div className={styles.right}>{right}</div>
           </Suspense>
         </NuevaCarpetaFormProvider>
       </LayoutAsyncProcess>

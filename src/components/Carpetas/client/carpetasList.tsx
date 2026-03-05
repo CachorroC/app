@@ -7,17 +7,19 @@ import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
 import { Loader } from '#@/components/Loader/main-loader';
 import { TableRowCarpetaSortingButton } from '../../../app/Carpetas/@right/carpetasButtonsSort';
-import { ActuacionTableComponent,
-  ActuacionTableErrorComponent, } from '#@/components/Actuaciones/actuacion-table-component';
+import {
+  ActuacionTableComponent,
+  ActuacionTableErrorComponent,
+} from '#@/components/Actuaciones/actuacion-table-component';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
-import { JuzgadoComponent,
-  JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
+import {
+  JuzgadoComponent,
+  JuzgadoErrorComponent,
+} from '#@/components/Proceso/juzgado-component';
 import styles from './styles.module.css';
 
 export function CarpetasTable() {
-  const {
-    carpetas
-  } = useCarpetaSort();
+  const { carpetas } = useCarpetaSort();
 
   return (
     <table>
@@ -71,7 +73,7 @@ export function CarpetasTable() {
         </tr>
       </thead>
       <tbody>
-        {carpetas.map( ( carpeta ) => {
+        {carpetas.map((carpeta) => {
           const {
             ultimaActuacion,
             numero,
@@ -85,73 +87,67 @@ export function CarpetasTable() {
           } = carpeta;
 
           const words = nombre
-            .split( ' ' )
-            .map( ( palabra ) => {
+            .split(' ')
+            .map((palabra) => {
               return (
-                palabra.charAt( 0 )
-                  .toUpperCase()
-                + palabra.toLowerCase()
-                  .substring( 1 )
+                palabra.charAt(0).toUpperCase() +
+                palabra.toLowerCase().substring(1)
               );
-            } )
-            .join( ' ' );
+            })
+            .join(' ');
 
           return (
             <ClientCardRow
               key={numero}
-              rowHref={`/Carpeta/${ numero }` as Route}
+              rowHref={`/Carpeta/${numero}` as Route}
               carpeta={carpeta}
             >
-              <td data-label='nombre'>{words}</td>
+              <td data-label="nombre">{words}</td>
 
-              <td data-label='categoria'>{category}</td>
+              <td data-label="categoria">{category}</td>
 
-              {ultimaActuacion
-                ? (
-                    <ActuacionTableComponent
-                      key={numero}
-                      numero={numero}
-                      title={ultimaActuacion.actuacion}
-                      content={ultimaActuacion.anotacion}
-                      idProceso={ultimaActuacion.idProceso}
-                    />
-                  )
-                : (
-                    <ActuacionTableErrorComponent />
-                  )}
+              {ultimaActuacion ? (
+                <ActuacionTableComponent
+                  key={numero}
+                  numero={numero}
+                  title={ultimaActuacion.actuacion}
+                  content={ultimaActuacion.anotacion}
+                  idProceso={ultimaActuacion.idProceso}
+                />
+              ) : (
+                <ActuacionTableErrorComponent />
+              )}
 
-              <td data-label='revisado'>
+              <td data-label="revisado">
                 <RevisadoCheckBox
                   numero={numero}
                   id={id}
                   initialRevisadoState={revisado}
                 />
               </td>
-              <td data-label='expediente'>
+              <td data-label="expediente">
                 <CopyButton
                   copyTxt={llaveProceso}
                   name={'expediente'}
                 />
               </td>
-              <td data-label='fecha'>
+              <td data-label="fecha">
                 <OutputDateHelper incomingDate={fecha} />
               </td>
-              <td data-label='ciudad'>{carpeta.demanda.municipio}</td>
-              <td data-label='juzgado'>
-                {juzgado
-                  ? (
-                      <JuzgadoComponent
-                        key={numero}
-                        juzgado={juzgado}
-                      />
-                    )
-                  : (
-                      <JuzgadoErrorComponent />
-                    )}
+              <td data-label="ciudad">{carpeta.demanda.municipio}</td>
+              <td data-label="juzgado">
+                {juzgado ? (
+                  <JuzgadoComponent
+                    key={numero}
+                    juzgado={juzgado}
+                  />
+                ) : (
+                  <JuzgadoErrorComponent />
+                )}
               </td>
             </ClientCardRow>
           );
-        } )}
+        })}
       </tbody>
     </table>
   );

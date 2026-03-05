@@ -1,44 +1,41 @@
 import { outActuacion } from '#@/lib/types/actuaciones';
-import  prisma  from '#@/lib/connection/prisma';
+import prisma from '#@/lib/connection/prisma';
 
-
-export async function updateUltimaActuacionInPrisma( incomingActuacion: outActuacion, ) {
+export async function updateUltimaActuacionInPrisma(
+  incomingActuacion: outActuacion,
+) {
   try {
-    const {
-      fechaActuacion, idProceso, idRegActuacion
-    } = incomingActuacion;
+    const { fechaActuacion, idProceso, idRegActuacion } = incomingActuacion;
 
-    const carpeta = await prisma.carpeta.findFirstOrThrow( {
+    const carpeta = await prisma.carpeta.findFirstOrThrow({
       where: {
         idProcesos: {
           has: idProceso,
         },
       },
-    } );
+    });
 
-    const {
-      fecha: savedDate, idRegUltimaAct, numero
-    } = carpeta;
+    const { fecha: savedDate, idRegUltimaAct, numero } = carpeta;
 
-    const incomingDate = new Date( fechaActuacion );
+    const incomingDate = new Date(fechaActuacion);
 
     if (
-      !savedDate
-      || savedDate.toString() === 'Invalid Date'
-      || savedDate < incomingDate
+      !savedDate ||
+      savedDate.toString() === 'Invalid Date' ||
+      savedDate < incomingDate
     ) {
-      if ( idRegUltimaAct ) {
-        await fixOldActuacion( idRegUltimaAct );
+      if (idRegUltimaAct) {
+        await fixOldActuacion(idRegUltimaAct);
       }
 
       try {
-        await prisma.carpeta.update( {
+        await prisma.carpeta.update({
           where: {
             numero: numero,
           },
           data: {
-            fecha          : incomingDate,
-            revisado       : false,
+            fecha: incomingDate,
+            revisado: false,
             ultimaActuacion: {
               connectOrCreate: {
                 where: {
@@ -46,13 +43,13 @@ export async function updateUltimaActuacionInPrisma( incomingActuacion: outActua
                 },
                 create: {
                   ...incomingActuacion,
-                  fechaActuacion: new Date( incomingActuacion.fechaActuacion ),
-                  fechaRegistro : new Date( incomingActuacion.fechaRegistro ),
-                  fechaFinal    : incomingActuacion.fechaFinal
-                    ? new Date( incomingActuacion.fechaFinal )
+                  fechaActuacion: new Date(incomingActuacion.fechaActuacion),
+                  fechaRegistro: new Date(incomingActuacion.fechaRegistro),
+                  fechaFinal: incomingActuacion.fechaFinal
+                    ? new Date(incomingActuacion.fechaFinal)
                     : null,
                   fechaInicial: incomingActuacion.fechaInicial
-                    ? new Date( incomingActuacion.fechaInicial )
+                    ? new Date(incomingActuacion.fechaInicial)
                     : null,
                   isUltimaAct:
                     incomingActuacion.cant === incomingActuacion.consActuacion
@@ -60,34 +57,34 @@ export async function updateUltimaActuacionInPrisma( incomingActuacion: outActua
                       : false,
                   proceso: {
                     connect: {
-                      idProceso: idProceso
-                    }
-                  }
+                      idProceso: idProceso,
+                    },
+                  },
                 },
               },
             },
           },
-        } );
-      } catch ( error ) {
-        console.log( error );
+        });
+      } catch (error) {
+        console.log(error);
       }
     }
-  } catch ( error ) {
-    console.log( error );
+  } catch (error) {
+    console.log(error);
   }
 }
 
-export async function fixOldActuacion( idRegUltimaAct: string ) {
+export async function fixOldActuacion(idRegUltimaAct: string) {
   try {
-    await prisma.actuacion.update( {
+    await prisma.actuacion.update({
       where: {
         idRegActuacion: idRegUltimaAct,
       },
       data: {
         isUltimaAct: false,
       },
-    } );
-  } catch ( error ) {
-    console.log( error );
+    });
+  } catch (error) {
+    console.log(error);
   }
 }

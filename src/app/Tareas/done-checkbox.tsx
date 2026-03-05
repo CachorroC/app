@@ -1,23 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { inputElement,
+import {
+  inputElement,
   slider,
-  switchBox, } from '#@/components/Form/form.module.css';
+  switchBox,
+} from '#@/components/Form/form.module.css';
 import { updateTaskDoneState } from './actions';
 import { IntTask } from '#@/lib/types/tareas';
 import { useDispatchTasks } from '#@/components/Tareas/TasksContext';
 
-export function DoneCheckBox( {
-  task 
-}: { task: IntTask } ) {
-  const [
-    revisadoState,
-    setRevisadoState
-  ] = useState( {
-    id  : task.id,
+export function DoneCheckBox({ task }: { task: IntTask }) {
+  const [revisadoState, setRevisadoState] = useState({
+    id: task.id,
     done: task.done,
-  } );
+  });
 
   const dispatch = useDispatchTasks();
 
@@ -28,21 +25,21 @@ export function DoneCheckBox( {
         type="checkbox"
         name="done"
         checked={revisadoState.done}
-        onChange={async ( e ) => {
-          const revis = await updateTaskDoneState( {
+        onChange={async (e) => {
+          const revis = await updateTaskDoneState({
             ...revisadoState,
             done: e.target.checked,
-          } );
+          });
 
-          dispatch( {
+          dispatch({
             type: 'changed',
             task: {
               ...task,
               done: e.target.checked,
             },
-          } );
+          });
 
-          return setRevisadoState( revis );
+          return setRevisadoState(revis);
         }}
       />
       <span className={slider}></span>

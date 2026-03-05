@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type APISchema = {
   models: Model[];
-}
+};
 
 export type Model = {
   name         : string;
@@ -11,7 +12,7 @@ export type Model = {
   uniqueFields : any[];
   uniqueIndexes: any[];
   isGenerated  : boolean;
-}
+};
 
 export type Field = {
   name               : string;
@@ -30,16 +31,25 @@ export type Field = {
   relationName?      : string;
   relationFromFields?: string[];
   relationToFields?  : string[];
-}
+};
 
 export type DefaultClass = {
   name: string;
   args: number[];
-}
+};
 
 export type Kind = 'scalar' | 'enum' | 'object';
 
 export type PrimaryKey = {
   name  : null;
   fields: string[];
-}
+};
+
+export type TableRow<TKeys extends string = string> = Record<TKeys, unknown>;
+
+export type ModelDataResponse<TData extends TableRow = TableRow> = {
+  data: TData[];
+};
+
+export type TableData<TData extends TableRow = TableRow> =
+  ModelDataResponse<TData>['data'];

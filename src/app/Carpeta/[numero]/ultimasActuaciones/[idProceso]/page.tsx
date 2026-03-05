@@ -3,54 +3,48 @@ import { notFound } from 'next/navigation';
 import { outActuacion } from '#@/lib/types/actuaciones';
 import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 
-export default async function Page( {
+export default async function Page({
   params,
 }: {
   params: Promise<{
-    numero   : string;
+    numero: string;
     idProceso: string;
   }>;
-} ) {
-  const {
-    numero, idProceso
-  } = await params;
+}) {
+  const { numero, idProceso } = await params;
 
-  console.log( numero );
+  console.log(numero);
 
-  if ( idProceso === 'idProceso' ) {
+  if (idProceso === 'idProceso') {
     return notFound();
   }
 
-  const actuaciones = await fetchActuaciones(
-    idProceso, Number( numero )
-  );
+  const actuaciones = await fetchActuaciones(idProceso, Number(numero));
 
-  if ( !actuaciones || actuaciones.length === 0 ) {
+  if (!actuaciones || actuaciones.length === 0) {
     return notFound();
   }
 
   return (
     <>
-      {actuaciones.map( ( actuacion ) => {
+      {actuaciones.map((actuacion) => {
         const newActuacion: outActuacion = {
           ...actuacion,
-          idRegActuacion: `${ actuacion.idRegActuacion }`,
-          carpetaNumero : Number( numero ),
-          idProceso     : idProceso,
+          idRegActuacion: `${actuacion.idRegActuacion}`,
+          carpetaNumero: Number(numero),
+          idProceso: idProceso,
         };
-        const anchorId = `actuacion-${ newActuacion.idRegActuacion }`;
+        const anchorId = `actuacion-${newActuacion.idRegActuacion}`;
 
         return (
           <div
-            key={ newActuacion.idRegActuacion }
-            id={ anchorId }
+            key={newActuacion.idRegActuacion}
+            id={anchorId}
           >
-            <ActuacionComponent
-              incomingActuacion={newActuacion}
-            />
+            <ActuacionComponent incomingActuacion={newActuacion} />
           </div>
         );
-      } )}
+      })}
     </>
   );
 }

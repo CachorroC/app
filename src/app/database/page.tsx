@@ -1,14 +1,16 @@
 'use client';
+import { Loader } from '#@/components/Loader/main-loader';
 import { useDatabaseModelsContext } from '../Context/database-models-context';
+import { Cell } from './cell';
 import styles from './studio-clone.module.css';
 
-export default function Page () {
+export default function Page() {
   const {
-    models, activeModel, tableData, setActiveModel
-  } = useDatabaseModelsContext();
+    models, activeModel, tableData, setActiveModel, isLoading
+  }
+    = useDatabaseModelsContext();
 
   return (
-
     <div className={styles.container}>
       {/* Sidebar Navigation */}
       <div className={styles.sidebar}>
@@ -19,7 +21,7 @@ export default function Page () {
               styles.modelItem,
               activeModel?.name === model.name
                 ? styles.active
-                : ''
+                : '',
             ]
               .filter( Boolean )
               .join( ' ' );
@@ -43,44 +45,64 @@ export default function Page () {
       <div className={styles.mainContent}>
         <h2 className={styles.mainTitle}>{activeModel?.name} Data</h2>
 
-        {tableData.length === 0
+        { isLoading
           ? (
-              <p className={styles.emptyMessage}>No records found. (Add POST logic to create some!)</p>
+              <div>
+                <p>Loading {activeModel?.name} records...</p>
+                <Loader />
+              </div>
             )
-          : (
-              <table className={styles.table}>
-                <thead className={styles.tableHead}>
-                  <tr>
-                    {/* Dynamically generate column headers based on DMMF fields */}
-                    {activeModel?.fields.map( ( field ) => {
+          : tableData.length === 0
+            ? (
+                <p className={styles.emptyMessage}>
+                  No records found. (Add POST logic to create some!)
+                </p>
+              )
+            : (
+                <table className={styles.table}>
+                  <thead className={styles.tableHead}>
+                    <tr>
+                      {/* Dynamically generate column headers based on DMMF fields */}
+                      {activeModel?.fields.map( ( field ) => {
+                        return (
+                          <th
+                            key={field.name}
+                            className={styles.tableHeader}
+                          >
+                            {field.name}{' '}
+                            <span className={styles.fieldType}>({field.type})</span>
+                          </th>
+                        );
+                      } )}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* Dynamically render rows and cells */}
+                    {tableData.map( (
+                      row, index
+                    ) => {
                       return (
-                        <th key={field.name} className={styles.tableHeader}>
-                          {field.name} <span className={styles.fieldType}>({field.type})</span>
-                        </th>
+                        <tr
+                          key={index}
+                          className={styles.tableRow}
+                        >
+                          {activeModel?.fields.map( ( field ) => {
+                            return (
+                              <td
+                                key={field.name}
+                                className={styles.tableCell}
+                              >
+                                <Cell field={ field } rowIndex={ index } row={row} />
+                                {String( row[ field.name ] )}
+                              </td>
+                            );
+                          } )}
+                        </tr>
                       );
                     } )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* Dynamically render rows and cells */}
-                  {tableData.map( (
-                    row, index
-                  ) => {
-                    return (
-                      <tr key={index} className={styles.tableRow}>
-                        {activeModel?.fields.map( ( field ) => {
-                          return (
-                            <td key={field.name} className={styles.tableCell}>
-                              {String( row[ field.name ] )}
-                            </td>
-                          );
-                        } )}
-                      </tr>
-                    );
-                  } )}
-                </tbody>
-              </table>
-            )}
+                  </tbody>
+                </table>
+              )}
       </div>
     </div>
   );

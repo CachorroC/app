@@ -3,38 +3,36 @@ import { useState } from 'react';
 import { useDispatchTasks, useTasks } from './TasksContext';
 import { DeleteTaskButton } from './task-buttons';
 import { EditTask } from './EditTask';
-import { inputElement,
+import {
+  inputElement,
   slider,
-  switchBox, } from '#@/components/Form/form.module.css';
+  switchBox,
+} from '#@/components/Form/form.module.css';
 import { IntTask } from '#@/lib/types/tareas';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export default function TaskList() {
   const tasksRaw = useTasks();
 
-  const tasks = [
-    ...tasksRaw
-  ].sort( (
-    a, b 
-  ) => {
-    if ( !a.id ) {
+  const tasks = [...tasksRaw].sort((a, b) => {
+    if (!a.id) {
       return -1;
     }
 
-    if ( !b.id ) {
+    if (!b.id) {
       return 1;
     }
 
-    if ( a.id < b.id ) {
+    if (a.id < b.id) {
       return -1;
     }
 
-    if ( b.id < a.id ) {
+    if (b.id < a.id) {
       return 1;
     }
 
     return 0;
-  } );
+  });
 
   return (
     <table>
@@ -49,32 +47,27 @@ export default function TaskList() {
         </tr>
       </thead>
       <tbody>
-        {tasks.map( ( task ) => {
+        {tasks.map((task) => {
           return (
             <Task
               task={task}
               key={task.id}
             />
           );
-        } )}
+        })}
       </tbody>
     </table>
   );
 }
 
-function Task( {
-  task 
-}: { task: IntTask } ) {
-  const [
-    isEditing,
-    setIsEditing
-  ] = useState( false );
+function Task({ task }: { task: IntTask }) {
+  const [isEditing, setIsEditing] = useState(false);
 
   const dispatchTasks = useDispatchTasks();
 
   let taskContent;
 
-  if ( isEditing ) {
+  if (isEditing) {
     taskContent = (
       <>
         <td>
@@ -87,7 +80,7 @@ function Task( {
           <button
             type={'button'}
             onClick={() => {
-              return setIsEditing( false );
+              return setIsEditing(false);
             }}
           >
             Save
@@ -103,7 +96,7 @@ function Task( {
           <button
             type={'button'}
             onClick={() => {
-              return setIsEditing( true );
+              return setIsEditing(true);
             }}
           >
             Edit
@@ -143,14 +136,14 @@ function Task( {
             name="done"
             className={inputElement}
             checked={task.done}
-            onChange={( e ) => {
-              dispatchTasks( {
+            onChange={(e) => {
+              dispatchTasks({
                 type: 'changed',
                 task: {
                   ...task,
                   done: e.target.checked,
                 },
-              } );
+              });
             }}
             type="checkbox"
           />

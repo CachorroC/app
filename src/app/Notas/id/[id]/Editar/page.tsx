@@ -4,25 +4,23 @@ import { Edit } from '#@/components/Nota/Edit';
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 
-export default async function NuevaNotallaveProceso( {
-  params
+export default async function NuevaNotallaveProceso({
+  params,
 }: {
   params: Promise<{ id: number }>;
-} ) {
-  const {
-    id 
-  } = await params;
+}) {
+  const { id } = await params;
 
-  const nota = await getNotaById( id );
+  const nota = await getNotaById(id);
 
-  if ( !nota ) {
+  if (!nota) {
     return notFound();
   }
 
   return (
     <>
       <div className={layout.top}>
-        <h1 className={typography.displayLarge}>{`Nota numero: ${ nota.id }`}</h1>
+        <h1 className={typography.displayLarge}>{`Nota numero: ${nota.id}`}</h1>
       </div>
       <div className={layout.left}>
         <Edit

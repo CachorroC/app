@@ -1,24 +1,26 @@
-import prisma  from '#@/lib/connection/prisma';
+import prisma from '#@/lib/connection/prisma';
 import { Route } from 'next';
 import typography from '#@/styles/fonts/typography.module.css';
 import Link from 'next/link';
-import { inputElement,
+import {
+  inputElement,
   slider,
-  switchBox, } from '#@/components/Form/form.module.css';
+  switchBox,
+} from '#@/components/Form/form.module.css';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { fixMoney } from '#@/lib/project/helper';
 import styles from '#@/styles/layout.module.css';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 
 export default async function PrismaCarpetas() {
-  const rawCarpetas = await prisma.carpeta.findMany( {
+  const rawCarpetas = await prisma.carpeta.findMany({
     include: {
       ultimaActuacion: true,
-      deudor         : true,
-      codeudor       : true,
-      notas          : true,
-      tareas         : true,
-      demanda        : {
+      deudor: true,
+      codeudor: true,
+      notas: true,
+      tareas: true,
+      demanda: {
         include: {
           notificacion: {
             include: {
@@ -34,10 +36,10 @@ export default async function PrismaCarpetas() {
         },
       },
     },
-  } );
+  });
 
   const carpetas = rawCarpetas
-    .map( ( mapper ) => {
+    .map((mapper) => {
       return {
         ...mapper,
         demanda: {
@@ -45,15 +47,13 @@ export default async function PrismaCarpetas() {
           capitalAdeudado: mapper.demanda?.capitalAdeudado.toNumber() ?? 1000,
         },
       };
-    } )
-    .sort( (
-      a, b
-    ) => {
-      if ( !a.fecha || a.fecha === undefined ) {
+    })
+    .sort((a, b) => {
+      if (!a.fecha || a.fecha === undefined) {
         return 1;
       }
 
-      if ( !b.fecha || b.fecha === undefined ) {
+      if (!b.fecha || b.fecha === undefined) {
         return -1;
       }
 
@@ -61,46 +61,42 @@ export default async function PrismaCarpetas() {
 
       const y = b.fecha;
 
-      if ( x < y ) {
+      if (x < y) {
         return 1;
       }
 
-      if ( x > y ) {
+      if (x > y) {
         return -1;
       }
 
       return 0;
-    } );
+    });
 
   return (
     <>
-      {carpetas.map( ( carpeta ) => {
+      {carpetas.map((carpeta) => {
         const llaveLength = carpeta.llaveProceso?.length;
 
-        const errorLLaveProceso = llaveLength
-          ? llaveLength < 23
-          : true;
+        const errorLLaveProceso = llaveLength ? llaveLength < 23 : true;
 
-        const {
-          numero, idProcesos
-        } = carpeta;
+        const { numero, idProcesos } = carpeta;
 
         const idProcesosLength = idProcesos.length;
 
         let carpetaHref;
 
-        if ( idProcesosLength === 1 ) {
-          carpetaHref = `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }`;
+        if (idProcesosLength === 1) {
+          carpetaHref = `/Carpeta/${carpeta.numero}/ultimasActuaciones/${idProcesos[0]}`;
         } else {
-          carpetaHref = `/Carpeta/${ carpeta.numero }`;
+          carpetaHref = `/Carpeta/${carpeta.numero}`;
         }
 
         return (
           <tr key={carpeta.numero}>
             <td>
               {' '}
-              <Link href={`/Carpeta/${ numero }` as Route}>
-                {`#${ carpeta.numero }`}
+              <Link href={`/Carpeta/${numero}` as Route}>
+                {`#${carpeta.numero}`}
 
                 <span className="material-symbols-outlined">folder</span>
               </Link>
@@ -147,13 +143,13 @@ export default async function PrismaCarpetas() {
             </td>
             <td>{carpeta.category}</td>
             <td>
-              {carpeta.demanda?.capitalAdeudado
-                && fixMoney( Number( carpeta.demanda.capitalAdeudado ) )}
+              {carpeta.demanda?.capitalAdeudado &&
+                fixMoney(Number(carpeta.demanda.capitalAdeudado))}
             </td>
             <td>
               {errorLLaveProceso && (
                 <Link
-                  href={`/Carpeta/${ numero }/Editar` as Route}
+                  href={`/Carpeta/${numero}/Editar` as Route}
                   className={styles.link}
                 >
                   {'error con el numero de expediente'}
@@ -162,7 +158,7 @@ export default async function PrismaCarpetas() {
             </td>
           </tr>
         );
-      } )}
+      })}
     </>
   );
 }

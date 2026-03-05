@@ -10,66 +10,64 @@ export type Message =
   | 'No se pueden ver actuaciones de un proceso privado';
 
 export type RequestActuacion = {
-  StatusCode         : number;
-  Message            : string;
+  StatusCode: number;
+  Message: string;
   ConsultaActuaciones: ConsultaActuacion | null;
 };
 
 export type ConsultaActuacion = {
   actuaciones: intActuacion[];
-  paginacion : Paginacion;
+  paginacion: Paginacion;
 };
 
 export interface intActuacion {
-  actuacion     : string;
-  anotacion     : null | string;
-  cant          : number;
-  codRegla      : string;
-  conDocumentos : boolean;
-  consActuacion : number;
+  actuacion: string;
+  anotacion: null | string;
+  cant: number;
+  codRegla: string;
+  conDocumentos: boolean;
+  consActuacion: number;
   fechaActuacion: Date | string;
-  fechaFinal    : Date | string |null;
-  fechaInicial  : Date | string | null;
-  fechaRegistro : Date | string;
+  fechaFinal: Date | string | null;
+  fechaInicial: Date | string | null;
+  fechaRegistro: Date | string;
   idRegActuacion: string;
-  llaveProceso  : string;
+  llaveProceso: string;
+}
 
-};
-
-export interface newActuacionWehookResponse extends intActuacion
-{
-  idProceso    : number;
-  nombre       : string;
+export interface newActuacionWehookResponse extends intActuacion {
+  idProceso: number;
+  nombre: string;
   carpetaNumero: number;
-  carpetaId    : number;
-  nombre       : string;
+  carpetaId: number;
+  nombre: string;
 }
 
 export type CodRegla = '00                              ';
 
 export type Paginacion = {
   cantidadRegistros: number;
-  registrosPagina  : number;
-  cantidadPaginas  : number;
-  pagina           : number;
-  paginas          : null;
+  registrosPagina: number;
+  cantidadPaginas: number;
+  pagina: number;
+  paginas: null;
 };
 
 export type outActuacion = {
-  createdAt?    : Date;
-  idProceso     : string;
-  isUltimaAct   : boolean;
+  createdAt?: Date;
+  idProceso: string;
+  isUltimaAct: boolean;
   idRegActuacion: string;
-  llaveProceso  : string;
-  consActuacion : number;
+  llaveProceso: string;
+  consActuacion: number;
   fechaActuacion: Date;
-  actuacion     : string;
-  anotacion     : null | string;
-  fechaInicial  : Date | null;
-  carpetaNumero : number | null;
-  fechaFinal    : Date | null;
-  fechaRegistro : Date;
-  codRegla      : string;
-  conDocumentos : boolean;
-  cant          : number;
+  actuacion: string;
+  anotacion: null | string;
+  fechaInicial: Date | null;
+  carpetaNumero: number | null;
+  fechaFinal: Date | null;
+  fechaRegistro: Date;
+  codRegla: string;
+  conDocumentos: boolean;
+  cant: number;
 };

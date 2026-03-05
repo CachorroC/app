@@ -5,31 +5,18 @@ export const authConfig = {
     signIn: '/login',
   },
   callbacks: {
-    authorized(
-      {
-        auth, request: {
-          nextUrl
-        }
-      }
-    ) {
+    authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
 
       // Check if the path starts with /Carpeta
 
-      const isProtectedRoute
-        = nextUrl.pathname.startsWith(
-          '/Carpeta'
-        )
-    || nextUrl.pathname.startsWith(
-      '/Carpetas'
-    )
-    || nextUrl.pathname.startsWith(
-      '/Carpetas_alt'
-    );
+      const isProtectedRoute =
+        nextUrl.pathname.startsWith('/Carpeta') ||
+        nextUrl.pathname.startsWith('/Carpetas') ||
+        nextUrl.pathname.startsWith('/Carpetas_alt');
 
-
-      if ( isProtectedRoute ) {
-        if ( isLoggedIn ) {
+      if (isProtectedRoute) {
+        if (isLoggedIn) {
           return true;
         }
 
@@ -39,23 +26,15 @@ export const authConfig = {
       return true;
     },
     // Add other JWT/Session callbacks here if needed for the frontend
-    async jwt(
-      {
-        token, user
-      }
-    ) {
-      if ( user ) {
+    async jwt({ token, user }) {
+      if (user) {
         token.sub = user.id;
       }
 
       return token;
     },
-    async session(
-      {
-        session, token
-      }
-    ) {
-      if ( session.user && token.sub ) {
+    async session({ session, token }) {
+      if (session.user && token.sub) {
         session.user.id = token.sub;
       }
 

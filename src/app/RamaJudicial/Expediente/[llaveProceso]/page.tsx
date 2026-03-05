@@ -5,24 +5,22 @@ import { getProcesosByllaveProceso } from '#@/lib/project/utils/Procesos/proceso
 import { notFound } from 'next/navigation';
 import { Fragment, Suspense } from 'react';
 
-export default async function Page( {
+export default async function Page({
   params,
 }: {
   params: Promise<{ llaveProceso: string }>;
-} ) {
-  const {
-    llaveProceso 
-  } = await params;
+}) {
+  const { llaveProceso } = await params;
 
-  const procesos = await getProcesosByllaveProceso( llaveProceso );
+  const procesos = await getProcesosByllaveProceso(llaveProceso);
 
-  if ( procesos.length === 0 ) {
+  if (procesos.length === 0) {
     notFound();
   }
 
   return (
     <>
-      {procesos.map( ( proceso ) => {
+      {procesos.map((proceso) => {
         return (
           <Fragment key={proceso.idProceso}>
             <SujetosProcesales
@@ -37,7 +35,7 @@ export default async function Page( {
             </Suspense>
           </Fragment>
         );
-      } )}
+      })}
     </>
   );
 }

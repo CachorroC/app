@@ -7,27 +7,25 @@ import { switchBox, inputElement, slider } from '../Nota/note.module.css';
 import { useCategory } from '#@/app/Context/category-context';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 
-export function CarpetaUltimaActuacionRow( {
+export function CarpetaUltimaActuacionRow({
   children,
   carpeta,
 }: {
   children: ReactNode;
-  carpeta : IntCarpeta;
-} ) {
-  const {
-    currentCategory 
-  } = useCategory();
+  carpeta: IntCarpeta;
+}) {
+  const { currentCategory } = useCategory();
 
-  if ( currentCategory !== 'todos' && currentCategory !== carpeta.category ) {
+  if (currentCategory !== 'todos' && currentCategory !== carpeta.category) {
     return null;
   }
 
   return (
     <tr>
       <td>
-        <Link href={`/Carpeta/${ carpeta.numero }`}>{carpeta.nombre}</Link>
+        <Link href={`/Carpeta/${carpeta.numero}`}>{carpeta.nombre}</Link>
       </td>
-      <td>{`#${ carpeta.numero }`}</td>
+      <td>{`#${carpeta.numero}`}</td>
       <td>
         <label className={switchBox}>
           <input

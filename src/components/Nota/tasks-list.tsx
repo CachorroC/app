@@ -9,7 +9,7 @@ export function NotasList() {
 
   return (
     <div className={styles.taskList}>
-      {notas.map( ( nota ) => {
+      {notas.map((nota) => {
         return (
           <Nota
             nota={nota}
@@ -20,7 +20,7 @@ export function NotasList() {
             </td>
           </Nota>
         );
-      } )}
+      })}
     </div>
   );
 }

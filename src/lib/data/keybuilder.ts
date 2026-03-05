@@ -1,7 +1,7 @@
 export const entidadesJudiciales = [
   {
-    codigo        : '33',
-    nombre        : 'JUZGADO ADMINISTRATIVO',
+    codigo: '33',
+    nombre: 'JUZGADO ADMINISTRATIVO',
     especialidades: [
       {
         codigo: '05',
@@ -54,8 +54,8 @@ export const entidadesJudiciales = [
     ],
   },
   {
-    codigo        : '34',
-    nombre        : 'JUZGADO CIRCUITO DE EJECUCIÓN',
+    codigo: '34',
+    nombre: 'JUZGADO CIRCUITO DE EJECUCIÓN',
     especialidades: [
       {
         codigo: '03',
@@ -72,8 +72,8 @@ export const entidadesJudiciales = [
     ],
   },
   {
-    codigo        : '31',
-    nombre        : 'JUZGADO DE CIRCUITO ',
+    codigo: '31',
+    nombre: 'JUZGADO DE CIRCUITO ',
     especialidades: [
       {
         codigo: '03',
@@ -142,8 +142,8 @@ export const entidadesJudiciales = [
     ],
   },
   {
-    codigo        : '41',
-    nombre        : 'JUZGADO DE PEQUEÑAS CAUSAS',
+    codigo: '41',
+    nombre: 'JUZGADO DE PEQUEÑAS CAUSAS',
     especialidades: [
       {
         codigo: '03',
@@ -160,8 +160,8 @@ export const entidadesJudiciales = [
     ],
   },
   {
-    codigo        : '40',
-    nombre        : 'JUZGADO MUNICIPAL',
+    codigo: '40',
+    nombre: 'JUZGADO MUNICIPAL',
     especialidades: [
       {
         codigo: '65',
@@ -218,8 +218,8 @@ export const entidadesJudiciales = [
     ],
   },
   {
-    codigo        : '43',
-    nombre        : 'JUZGADO MUNICIPAL DE EJECUCIÓN ',
+    codigo: '43',
+    nombre: 'JUZGADO MUNICIPAL DE EJECUCIÓN ',
     especialidades: [
       {
         codigo: '03',
@@ -236,8 +236,8 @@ export const entidadesJudiciales = [
     ],
   },
   {
-    codigo        : '23',
-    nombre        : 'TRIBUNAL ADMINISTRATIVO',
+    codigo: '23',
+    nombre: 'TRIBUNAL ADMINISTRATIVO',
     especialidades: [
       {
         codigo: '34',
@@ -258,8 +258,8 @@ export const entidadesJudiciales = [
     ],
   },
   {
-    codigo        : '22',
-    nombre        : 'TRIBUNAL SUPERIOR',
+    codigo: '22',
+    nombre: 'TRIBUNAL SUPERIOR',
     especialidades: [
       {
         codigo: '03',

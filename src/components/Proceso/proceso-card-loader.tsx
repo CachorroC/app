@@ -7,7 +7,7 @@ export const ProcesoCardLoader = () => {
     <div
       className={layout.sectionColumn}
       style={{
-        opacity        : 0.38,
+        opacity: 0.38,
         backgroundColor: 'var(--surface-variant)',
       }}
     >

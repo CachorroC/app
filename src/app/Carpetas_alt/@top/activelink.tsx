@@ -4,13 +4,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './styles.module.css';
 
-export default function ActiveLink<T extends string>( {
+export default function ActiveLink<T extends string>({
   href,
   category,
 }: {
-  href    : Route<T> | URL;
+  href: Route<T> | URL;
   category: string;
-} ) {
+}) {
   const pathname = usePathname();
 
   const isActive = pathname === href;
@@ -18,11 +18,9 @@ export default function ActiveLink<T extends string>( {
   return (
     <Link
       key={category}
-      href={`/Carpetas/Categorias/${ category }`}
+      href={`/Carpetas/Categorias/${category}`}
       className={
-        isActive
-          ? styles.buttonCategoryActive
-          : styles.buttonCategoryPasive
+        isActive ? styles.buttonCategoryActive : styles.buttonCategoryPasive
       }
     >
       {category}

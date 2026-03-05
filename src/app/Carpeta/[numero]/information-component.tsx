@@ -14,11 +14,11 @@ import OutputDateHelper from '#@/lib/project/output-date-helper';
 import MoneyFixer from '#@/lib/project/money-fixer';
 import { Loader } from '#@/components/Loader/main-loader';
 
-export default function InformationComponent( {
+export default function InformationComponent({
   carpeta,
 }: {
   carpeta: MonCarpeta;
-} ) {
+}) {
   const {
     deudor,
     demanda,
@@ -32,11 +32,9 @@ export default function InformationComponent( {
 
   let content;
 
-  if ( procesos.length > 0 ) {
-    content = procesos.map( ( proceso ) => {
-      const {
-        idProceso, juzgado
-      } = proceso;
+  if (procesos.length > 0) {
+    content = procesos.map((proceso) => {
+      const { idProceso, juzgado } = proceso;
 
       return (
         <ProcesoCard
@@ -52,10 +50,10 @@ export default function InformationComponent( {
               key={idProceso}
               className={button.buttonPassiveCategory}
               href={
-                `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
+                `/Carpeta/${numero}/ultimasActuaciones/${idProceso}` as Route
               }
             >
-              <span className={`material-symbols-outlined ${ button.icon }`}>
+              <span className={`material-symbols-outlined ${button.icon}`}>
                 description
               </span>
               <span className={button.text}>
@@ -72,7 +70,7 @@ export default function InformationComponent( {
           </Suspense>
         </ProcesoCard>
       );
-    } );
+    });
   } else {
     content = <p>no hay procesos</p>;
   }
@@ -81,7 +79,7 @@ export default function InformationComponent( {
     <>
       {content}
       <div className={layout.sectionColumn}>
-        <h2 className={typography.titleMedium}>{`Carpeta número ${ numero }`}</h2>
+        <h2 className={typography.titleMedium}>{`Carpeta número ${numero}`}</h2>
         {fecha && <OutputDateHelper incomingDate={fecha} />}
         <div className={layout.segmentColumn}>
           <div className={layout.segmentRowWrap}>
@@ -114,13 +112,13 @@ export default function InformationComponent( {
             {deudor?.email && (
               <Link
                 className={chip.chip}
-                href={`mailto:${ deudor.email }`}
+                href={`mailto:${deudor.email}`}
                 target={'_blank'}
               >
-                <span className={`material-symbols-outlined ${ chip.icon }`}>
+                <span className={`material-symbols-outlined ${chip.icon}`}>
                   mail
                 </span>
-                <span className={`${ typography.labelMedium } ${ chip.text }`}>
+                <span className={`${typography.labelMedium} ${chip.text}`}>
                   {'Correo Electrónico'}
                 </span>
               </Link>
@@ -130,12 +128,12 @@ export default function InformationComponent( {
                 key={deudor.telCelular}
                 className={chip.chip}
                 target={'_blank'}
-                href={`tel:${ deudor.telCelular }`}
+                href={`tel:${deudor.telCelular}`}
               >
-                <span className={`material-symbols-outlined ${ chip.icon }`}>
+                <span className={`material-symbols-outlined ${chip.icon}`}>
                   phone_iphone
                 </span>
-                <span className={`${ typography.labelMedium } ${ chip.text }`}>
+                <span className={`${typography.labelMedium} ${chip.text}`}>
                   {deudor.telCelular}
                 </span>
               </Link>
@@ -144,12 +142,12 @@ export default function InformationComponent( {
               <Link
                 key={deudor.telFijo}
                 className={chip.chip}
-                href={`tel:${ deudor.telFijo }`}
+                href={`tel:${deudor.telFijo}`}
               >
-                <span className={`material-symbols-outlined ${ chip.icon }`}>
+                <span className={`material-symbols-outlined ${chip.icon}`}>
                   call
                 </span>
-                <span className={`${ typography.labelMedium } ${ chip.text }`}>
+                <span className={`${typography.labelMedium} ${chip.text}`}>
                   {deudor.telFijo}
                 </span>
               </Link>
@@ -166,16 +164,14 @@ export default function InformationComponent( {
       {demanda?.vencimientoPagare && (
         <>
           <h4 className={typography.titleSmall}>Pagarés</h4>
-          {demanda.vencimientoPagare.map( (
-            pagare, index
-          ) => {
+          {demanda.vencimientoPagare.map((pagare, index) => {
             return (
               <OutputDateHelper
                 incomingDate={pagare}
                 key={index}
               />
             );
-          } )}
+          })}
         </>
       )}
 
@@ -185,7 +181,7 @@ export default function InformationComponent( {
 
       {demanda?.capitalAdeudado && (
         <MoneyFixer
-          valor={Number( demanda.capitalAdeudado )}
+          valor={Number(demanda.capitalAdeudado)}
           className={typography.labelSmall}
         />
       )}

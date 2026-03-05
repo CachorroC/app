@@ -1,9 +1,7 @@
 import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
 
-export const Name = ( {
-  helper 
-}: { helper?: string } ) => {
+export const Name = ({ helper }: { helper?: string }) => {
   const today = new Date();
 
   const days = [
@@ -18,8 +16,8 @@ export const Name = ( {
 
   return (
     <h1 className={typography.headlineSmall}>
-      {helper?.toLocaleLowerCase()
-        ?? `${ days[ today.getDay() ] }, ${ fixFechas( today.toString() ) }`}
+      {helper?.toLocaleLowerCase() ??
+        `${days[today.getDay()]}, ${fixFechas(today.toString())}`}
     </h1>
   );
 };

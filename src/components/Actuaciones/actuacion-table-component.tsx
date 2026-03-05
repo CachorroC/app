@@ -3,22 +3,24 @@ import Link from 'next/link';
 import { buttonEnabled } from '../Buttons/filled.module.css';
 import { Route } from 'next';
 
-export function ActuacionTableComponent( {
+export function ActuacionTableComponent({
   numero,
   title,
   content,
   idProceso,
 }: {
-  numero   : number;
-  title    : string;
-  content  : string | null;
+  numero: number;
+  title: string;
+  content: string | null;
   idProceso: string;
-} ) {
+}) {
   return (
-    <td data-label='ultimaActuacion' style={{
-      display : 'flex',
-      flexFlow: 'row wrap'
-    }}
+    <td
+      data-label="ultimaActuacion"
+      style={{
+        display: 'flex',
+        flexFlow: 'row wrap',
+      }}
     >
       <h2 className={typography.titleMedium}>{title}</h2>
 
@@ -26,24 +28,23 @@ export function ActuacionTableComponent( {
 
       <Link
         className={buttonEnabled}
-        href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
+        href={`/Carpeta/${numero}/ultimasActuaciones/${idProceso}` as Route}
       >
         mostras más
       </Link>
-
     </td>
   );
 }
 
 export function ActuacionTableErrorComponent() {
   return (
-    <td data-label='ultimaActuacion'>
+    <td data-label="ultimaActuacion">
       <h5
         className={typography.headlineSmall}
         style={{
           backgroundColor: 'var(--error-container)',
-          color          : 'var(--on-error-container)',
-          borderBottom   : 'solud 0.2rem var(--error)',
+          color: 'var(--on-error-container)',
+          borderBottom: 'solud 0.2rem var(--error)',
         }}
       >
         Sin actuaciones

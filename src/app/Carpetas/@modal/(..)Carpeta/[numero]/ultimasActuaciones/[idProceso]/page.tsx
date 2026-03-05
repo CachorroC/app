@@ -4,11 +4,16 @@ import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { NombreComponent } from '#@/components/nombre';
 import styles from '#@/styles/layout.module.css';
 import { ModalLoader } from '#@/components/Loader/main-loader';
-import { JuzgadoComponent,
-  JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
+import {
+  JuzgadoComponent,
+  JuzgadoErrorComponent,
+} from '#@/components/Proceso/juzgado-component';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { ConsultaActuacion } from '#@/lib/types/actuaciones';
-import { ActuacionComponent, ActuacionErrorComponent } from '#@/components/Actuaciones/actuacion-component';
+import {
+  ActuacionComponent,
+  ActuacionErrorComponent,
+} from '#@/components/Actuaciones/actuacion-component';
 import { Metadata } from 'next';
 import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
@@ -41,26 +46,24 @@ export async function generateStaticParams() {
 
 }
  */
-export async function generateMetadata( {
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ numero: string }>;
-} ): Promise<Metadata> {
-  const {
-    numero
-  } = await params;
+}): Promise<Metadata> {
+  const { numero } = await params;
 
-  const product = await getCarpetabyNumero( Number( numero ) );
+  const product = await getCarpetabyNumero(Number(numero));
 
-  if ( !product ) {
+  if (!product) {
     return {
       title: 'sin carpeta',
     };
   }
 
   return {
-    title      : product.nombre,
-    description: `Carpeta de ${ product.nombre } - ${ product.tipoProceso }`,
+    title: product.nombre,
+    description: `Carpeta de ${product.nombre} - ${product.tipoProceso}`,
 
     keywords: [
       product.nombre,
@@ -72,45 +75,41 @@ export async function generateMetadata( {
   };
 }
 
-async function ActuacionesListModalget( {
-  idProceso
-}: { idProceso: string } ) {
-  const data = await fetchWithSmartRetry( `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`, );
+async function ActuacionesListModalget({ idProceso }: { idProceso: string }) {
+  const data = await fetchWithSmartRetry(
+    `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${idProceso}`,
+  );
 
-  if ( !data.ok ) {
-    return ( <ActuacionErrorComponent /> );
+  if (!data.ok) {
+    return <ActuacionErrorComponent />;
   }
 
-  const {
-    actuaciones
-  } = ( await data.json() ) as ConsultaActuacion;
+  const { actuaciones } = (await data.json()) as ConsultaActuacion;
 
-  return actuaciones.map( ( actuacion ) => {
+  return actuaciones.map((actuacion) => {
     return (
       <ActuacionComponent
         key={actuacion.idRegActuacion}
         incomingActuacion={actuacion}
       />
     );
-  } );
+  });
 }
 
-export default async function Page( {
+export default async function Page({
   params,
 }: {
   params: Promise<{ numero: string; idProceso: string }>;
-} ) {
-  const {
-    numero, idProceso
-  } = await params;
+}) {
+  const { numero, idProceso } = await params;
 
-  if ( idProceso === 'idProceso' ) {
+  if (idProceso === 'idProceso') {
     return notFound();
   }
 
-  const carpetaNumero = Number( numero );
+  const carpetaNumero = Number(numero);
 
-  const carpeta = await getCarpetabyNumero( carpetaNumero );
+  const carpeta = await getCarpetabyNumero(carpetaNumero);
 
   return (
     <>
@@ -125,13 +124,11 @@ export default async function Page( {
             nombre={carpeta.nombre}
             carpetaNumero={carpeta.numero}
           />
-          {carpeta.juzgado
-            ? (
-                <JuzgadoComponent juzgado={carpeta.juzgado} />
-              )
-            : (
-                <JuzgadoErrorComponent />
-              )}
+          {carpeta.juzgado ? (
+            <JuzgadoComponent juzgado={carpeta.juzgado} />
+          ) : (
+            <JuzgadoErrorComponent />
+          )}
           <CopyButton
             horizontal={true}
             copyTxt={carpeta.demanda.radicado ?? 'sin radicado'}
@@ -145,7 +142,7 @@ export default async function Page( {
         </div>
 
         <Suspense fallback={<ModalLoader />}>
-          <ActuacionesListModalget idProceso={idProceso}/>
+          <ActuacionesListModalget idProceso={idProceso} />
         </Suspense>
       </Suspense>
     </>

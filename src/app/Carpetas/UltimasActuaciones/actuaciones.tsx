@@ -66,14 +66,14 @@ async function getData(
 }
 
  */
-export async function FechaActuacionComponent( {
-  idProceso, numero
+export async function FechaActuacionComponent({
+  idProceso,
+  numero,
 }: {
-  idProceso: string; numero: number
-} ) {
-  const promiseActs = fetchActuaciones(
-    idProceso, numero
-  );
+  idProceso: string;
+  numero: number;
+}) {
+  const promiseActs = fetchActuaciones(idProceso, numero);
 
   return (
     <ActuacionesSlideshowContainer

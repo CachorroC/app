@@ -7,11 +7,11 @@ export const CardSkeleton = () => {
   return (
     <div className={containerEnabled}>
       <div className={card.card}>
-        <h1 className={`${ typography.displayMedium } ${ card.title }`}>
+        <h1 className={`${typography.displayMedium} ${card.title}`}>
           {'Nombre'}
         </h1>
         <div>
-          <sub className={`${ typography.labelSmall } ${ card.sub }`}>
+          <sub className={`${typography.labelSmall} ${card.sub}`}>
             {'Numero'}
           </sub>
 
@@ -24,7 +24,7 @@ export const CardSkeleton = () => {
             className={card.link}
             type="button"
           >
-            <span className={`${ card.icon }  material-symbols-outlined`}>
+            <span className={`${card.icon}  material-symbols-outlined`}>
               {'autorenew'}
             </span>
           </button>

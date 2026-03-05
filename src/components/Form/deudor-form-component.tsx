@@ -3,15 +3,11 @@
 import { useCarpetaFormContext } from '#@/app/Context/carpeta-form-context';
 
 export function DeudorFormComponent() {
-  const {
-    carpetaFormState, setCarpetaFormState 
-  } = useCarpetaFormContext();
+  const { carpetaFormState, setCarpetaFormState } = useCarpetaFormContext();
 
-  const {
-    deudor 
-  } = carpetaFormState;
+  const { deudor } = carpetaFormState;
 
-  if ( !deudor ) {
+  if (!deudor) {
     return null;
   }
 
@@ -23,14 +19,14 @@ export function DeudorFormComponent() {
         value={deudor.primerNombre}
         type="text"
         placeholder={'primer nombre'}
-        onChange={( e ) => {
-          return setCarpetaFormState( {
+        onChange={(e) => {
+          return setCarpetaFormState({
             ...carpetaFormState,
             deudor: {
               ...deudor,
               primerNombre: e.target.value,
             },
-          } );
+          });
         }}
       />
     </fieldset>

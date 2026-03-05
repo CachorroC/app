@@ -1,39 +1,36 @@
 'use client';
 import { MonCarpeta } from '#@/lib/types/carpetas';
-import { Dispatch,
+import {
+  Dispatch,
   ReactNode,
   SetStateAction,
   createContext,
   useContext,
   useReducer,
-  useState, } from 'react';
-import { IntAction,
+  useState,
+} from 'react';
+import {
+  IntAction,
   CarpetasReducerState,
-  carpetasReducer, } from '../Hooks/useCarpetasreducer';
+  carpetasReducer,
+} from '../Hooks/useCarpetasreducer';
 
-
-export const sortByDateDesc = (
-  a: MonCarpeta, b: MonCarpeta
-) => {
+export const sortByDateDesc = (a: MonCarpeta, b: MonCarpeta) => {
   // 1. Normalize inputs to Date objects (or null if missing)
   // new Date() handles both ISO strings and existing Date objects correctly
-  const dateA = a.fecha
-    ? new Date( a.fecha )
-    : null;
-  const dateB = b.fecha
-    ? new Date( b.fecha )
-    : null;
+  const dateA = a.fecha ? new Date(a.fecha) : null;
+  const dateB = b.fecha ? new Date(b.fecha) : null;
 
   // 2. Handle null/undefined dates (push them to the bottom of the list)
-  if ( !dateA && !dateB ) {
+  if (!dateA && !dateB) {
     return 0;
   }
 
-  if ( !dateA ) {
+  if (!dateA) {
     return 1;
   }
 
-  if ( !dateB ) {
+  if (!dateB) {
     return -1;
   }
 
@@ -43,39 +40,31 @@ export const sortByDateDesc = (
   return dateB.getTime() - dateA.getTime();
 };
 
-const CarpetasSortContext = createContext<CarpetasReducerState | null>( null );
+const CarpetasSortContext = createContext<CarpetasReducerState | null>(null);
 
-const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>( null, );
+const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>(
+  null,
+);
 
 const CarpetasContext = createContext<{
-  currentCarpetas   : MonCarpeta[];
+  currentCarpetas: MonCarpeta[];
   setCurrentCarpetas: Dispatch<SetStateAction<MonCarpeta[]>>;
-} | null>( null );
+} | null>(null);
 
-export function CarpetasSortProvider( {
+export function CarpetasSortProvider({
   children,
   initialCarpetas,
 }: {
-  children       : ReactNode;
+  children: ReactNode;
   initialCarpetas: MonCarpeta[];
-} ) {
-  const sortedInitial = [
-    ...initialCarpetas
-  ].sort( sortByDateDesc );
-  const [
-    carpetasReduced,
-    dispatchCarpetas
-  ] = useReducer(
-    carpetasReducer, {
-      carpetas        : sortedInitial,
-      completeCarpetas: sortedInitial,
-    }
-  );
+}) {
+  const sortedInitial = [...initialCarpetas].sort(sortByDateDesc);
+  const [carpetasReduced, dispatchCarpetas] = useReducer(carpetasReducer, {
+    carpetas: sortedInitial,
+    completeCarpetas: sortedInitial,
+  });
 
-  const [
-    currentCarpetas,
-    setCurrentCarpetas
-  ] = useState( sortedInitial );
+  const [currentCarpetas, setCurrentCarpetas] = useState(sortedInitial);
 
   return (
     <CarpetasContext.Provider
@@ -94,30 +83,34 @@ export function CarpetasSortProvider( {
 }
 
 export function useCarpetasContext() {
-  const context = useContext( CarpetasContext );
+  const context = useContext(CarpetasContext);
 
-  if ( context === null ) {
-    throw new Error( 'useCarpetas  must be used inside a carpetasprovider' );
+  if (context === null) {
+    throw new Error('useCarpetas  must be used inside a carpetasprovider');
   }
 
   return context;
 }
 
 export function useCarpetaSort() {
-  const context = useContext( CarpetasSortContext );
+  const context = useContext(CarpetasSortContext);
 
-  if ( context === null ) {
-    throw new Error( 'useCarpetaSort  must be used inside a carpetasort provider r', );
+  if (context === null) {
+    throw new Error(
+      'useCarpetaSort  must be used inside a carpetasort provider r',
+    );
   }
 
   return context;
 }
 
 export function useCarpetaSortDispatch() {
-  const context = useContext( CarpetasSortDispatchContext );
+  const context = useContext(CarpetasSortDispatchContext);
 
-  if ( context === null ) {
-    throw new Error( 'useSortDispatchCarpetas must be used inside a CarpetasProvider', );
+  if (context === null) {
+    throw new Error(
+      'useSortDispatchCarpetas must be used inside a CarpetasProvider',
+    );
   }
 
   return context;

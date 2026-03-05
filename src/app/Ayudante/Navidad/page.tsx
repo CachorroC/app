@@ -1,11 +1,11 @@
 import layout from '#@/styles/layout.module.css';
-import  prisma  from '#@/lib/connection/prisma';
+import prisma from '#@/lib/connection/prisma';
 import { TasksProvider } from '#@/components/Tareas/TasksContext';
 import { AddTask } from '#@/components/Tareas/AddTask';
 import TaskList from '#@/components/Tareas/TaskList';
 import { connection } from 'next/server';
 
-export default async function TaskApp () {
+export default async function TaskApp() {
   await connection();
   const tasks = await prisma.task.findMany();
 

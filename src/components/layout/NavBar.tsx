@@ -9,9 +9,7 @@ import { Loader } from '../Loader/main-loader';
 import { Suspense } from 'react';
 
 export const NavBar = () => {
-  const {
-    isNavOpen
-  } = useNavigationContext();
+  const { isNavOpen } = useNavigationContext();
 
   return (
     <div className={styles.header}>
@@ -51,7 +49,7 @@ export const NavBar = () => {
             <NavLink
               iconLabel={'task'}
               textLabel={'Tareas'}
-              hrefLabel={'/Tareas'as Route}
+              hrefLabel={'/Tareas' as Route}
             />
 
             <NavLink
@@ -102,7 +100,11 @@ export const NavBar = () => {
               hrefLabel={'/Contabilidad/NuevaFactura' as Route}
             />
 
-            <NavLink iconLabel={ 'task' } textLabel={ 'tareas' } hrefLabel={ '/Tareas' as Route}  />
+            <NavLink
+              iconLabel={'task'}
+              textLabel={'tareas'}
+              hrefLabel={'/Tareas' as Route}
+            />
             <NavLink
               iconLabel={'sticky_note_2'}
               textLabel={'Notas'}
@@ -114,13 +116,11 @@ export const NavBar = () => {
               hrefLabel={'/Notas/Nueva'}
             />
 
-
             <NavLink
               iconLabel={'badge'}
               textLabel={'Quienes Somos'}
               hrefLabel={'/QuienesSomos'}
             />
-
 
             <NavLink
               iconLabel={''}
