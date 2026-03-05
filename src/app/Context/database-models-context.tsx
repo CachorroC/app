@@ -1,6 +1,6 @@
 'use client';
 import { APISchema, Model } from '#@/lib/types/api-models';
-import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { createContext, Dispatch, SetStateAction, useEffect, useState, useContext } from 'react';
 
 const DatabaseModelsContext = createContext<{
   models        : Model[];
@@ -77,4 +77,14 @@ export const DatabaseModelsContextProvider = ( {
       {children}
     </DatabaseModelsContext.Provider>
   );
+};
+
+export const useDatabaseModelsContext = () => {
+  const context = useContext( DatabaseModelsContext );
+
+  if ( !context ) {
+    throw new Error( 'useDatabaseModelsContext must be used within a DatabaseModelsContextProvider' );
+  }
+
+  return context;
 };
