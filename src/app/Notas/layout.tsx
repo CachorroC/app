@@ -5,15 +5,15 @@ import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { NuevaNotaFormProvider } from './nueva-nota-form-context';
 import { connection } from 'next/server';
 
-export default async function NotasLayoutMain({
+export default async function NotasLayoutMain( {
   children,
   top,
   right,
 }: {
   children: ReactNode;
-  top: ReactNode;
-  right: ReactNode;
-}) {
+  top     : ReactNode;
+  right   : ReactNode;
+} ) {
   await connection();
   const notas = await getNotas();
 

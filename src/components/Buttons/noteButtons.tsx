@@ -5,42 +5,46 @@ import type { Route } from 'next';
 import { deleteNota } from '#@/app/actions/main';
 import { Nota } from '#@/app/generated/prisma/client';
 
-export function DeleteNoteButton({ id }: { id: string }) {
+export function DeleteNoteButton( {
+  id 
+}: { id: string } ) {
   return (
     <>
       <button
         className={note.deleteButton}
         onClick={() => {
-          return deleteNota({
+          return deleteNota( {
             id: id,
-          });
+          } );
         }}
         type="button"
       >
-        <span className={`material-symbols-outlined ${note.icon}`}>delete</span>
+        <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
       </button>
       <button
         className={note.deleteButton}
         onClick={() => {
-          deleteNota({
+          deleteNota( {
             id: id,
-          });
+          } );
         }}
         type="button"
       >
-        <span className={`material-symbols-outlined ${note.icon}`}>delete</span>
+        <span className={`material-symbols-outlined ${ note.icon }`}>delete</span>
       </button>
     </>
   );
 }
 
-export function EditNoteButton({ nota }: { nota: Nota }) {
+export function EditNoteButton( {
+  nota 
+}: { nota: Nota } ) {
   return (
     <Link
       className={note.Add}
-      href={`/Notas/id/${nota.id}/Editar` as Route}
+      href={`/Notas/id/${ nota.id }/Editar` as Route}
     >
-      <span className={`material-symbols-outlined ${note.icon}`}>edit</span>
+      <span className={`material-symbols-outlined ${ note.icon }`}>edit</span>
     </Link>
   );
 }

@@ -9,21 +9,27 @@ export default async function NotFound() {
 
   const headersList = await headers();
 
-  for (const [key, value] of headersList) {
-    mapper.add(`${key} : ${value}`);
+  for ( const [
+    key,
+    value
+  ] of headersList ) {
+    mapper.add( `${ key } : ${ value }` );
   }
 
-  const domain = headersList.get('next-url') ?? '';
+  const domain = headersList.get( 'next-url' ) ?? '';
 
-  const [, firstRoute, secondRoute] = domain.split('/');
+  const [
+    , firstRoute,
+    secondRoute
+  ] = domain.split( '/' );
 
-  const arrMap = Array.from(mapper);
+  const arrMap = Array.from( mapper );
 
-  if (firstRoute === 'Carpetas') {
-    const carpeta = await getCarpetabyNumero(Number(secondRoute));
+  if ( firstRoute === 'Carpetas' ) {
+    const carpeta = await getCarpetabyNumero( Number( secondRoute ) );
 
-    if (carpeta) {
-      linker = <Link href={`/Carpeta/${carpeta.numero}`}></Link>;
+    if ( carpeta ) {
+      linker = <Link href={`/Carpeta/${ carpeta.numero }`}></Link>;
     } else {
       linker = null;
     }
@@ -32,9 +38,11 @@ export default async function NotFound() {
   return (
     <div>
       <h2>Not Found: {domain}</h2>
-      {arrMap.map((mp, i) => {
+      {arrMap.map( (
+        mp, i 
+      ) => {
         return <p key={i}>{mp}</p>;
-      })}
+      } )}
       <p>Could not find requested resource</p>
       {linker}
     </div>

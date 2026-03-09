@@ -5,47 +5,55 @@ import { useState } from 'react';
 import { useDispatchTasks } from './TasksContext';
 import { updateTaskTextState } from '#@/app/Tareas/actions';
 
-export function Task({ task }: { task: IntTask }) {
-  const [isEditing, setIsEditing] = useState(false);
+export function Task( {
+  task 
+}: { task: IntTask } ) {
+  const [
+    isEditing,
+    setIsEditing
+  ] = useState( false );
 
-  const [taskState, setTaskState] = useState({
+  const [
+    taskState,
+    setTaskState
+  ] = useState( {
     ...task,
-  });
+  } );
 
   const dispatch = useDispatchTasks();
 
   let taskContent;
 
   async function editTask() {
-    const revis = await updateTaskTextState(taskState);
+    const revis = await updateTaskTextState( taskState );
 
-    alert(JSON.stringify(revis));
+    alert( JSON.stringify( revis ) );
 
-    return dispatch({
+    return dispatch( {
       type: 'changed',
       task: {
         ...taskState,
         ...revis,
       },
-    });
+    } );
   }
 
-  if (isEditing) {
+  if ( isEditing ) {
     taskContent = (
       <>
         <input
           value={taskState.text}
-          onChange={(e) => {
-            return setTaskState({
+          onChange={( e ) => {
+            return setTaskState( {
               ...taskState,
               text: e.target.value,
-            });
+            } );
           }}
         />
         <button
           type="button"
           onClick={() => {
-            return setIsEditing(false);
+            return setIsEditing( false );
           }}
         >
           Save
@@ -59,7 +67,7 @@ export function Task({ task }: { task: IntTask }) {
         <button
           type="button"
           onClick={() => {
-            return setIsEditing(true);
+            return setIsEditing( true );
           }}
         >
           Edit
@@ -78,10 +86,10 @@ export function Task({ task }: { task: IntTask }) {
       <button
         type="button"
         onClick={() => {
-          dispatch({
+          dispatch( {
             type: 'deleted',
-            id: task.id,
-          });
+            id  : task.id,
+          } );
         }}
       >
         Delete

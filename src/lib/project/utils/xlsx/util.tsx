@@ -6,38 +6,54 @@ import { read, utils, writeFileXLSX } from 'xlsx';
 
 export default function SheetJSReactAoO() {
   /* the component state is an array of presidents */
-  const [pres, setPres] = useState<RawDb[]>([]);
+  const [
+    pres,
+    setPres
+  ] = useState<RawDb[]>( [] );
 
   /* Fetch and update the state once */
-  useEffect(() => {
-    (async () => {
-      const f = await (
-        await fetchWithSmartRetry(
-          'https://app.rsasesorjuridico.com/general.xlsx',
-        )
-      ).arrayBuffer();
+  useEffect(
+    () => {
+      ( async () => {
+        const f = await (
+          await fetchWithSmartRetry( 'https://app.rsasesorjuridico.com/general.xlsx', )
+        ).arrayBuffer();
 
-      const wb = read(f); // parse the array buffer
+        const wb = read( f ); // parse the array buffer
 
-      for (const sheetName of wb.SheetNames) {
-        const ws = wb.Sheets[sheetName];
+        for ( const sheetName of wb.SheetNames ) {
+          const ws = wb.Sheets[ sheetName ];
 
-        const data = utils.sheet_to_json(ws) as RawDb[]; // generate objects
+          const data = utils.sheet_to_json( ws ) as RawDb[]; // generate objects
 
-        setPres([...pres, ...data]); // update state
-      }
-    })();
-  }, [pres]);
+          setPres( [
+            ...pres,
+            ...data
+          ] ); // update state
+        }
+      } )();
+    }, [
+      pres
+    ] 
+  );
 
   /* get state data and export to XLSX */
-  const exportFile = useCallback(() => {
-    const ws = utils.json_to_sheet(pres);
+  const exportFile = useCallback(
+    () => {
+      const ws = utils.json_to_sheet( pres );
 
-    const wb = utils.book_new();
+      const wb = utils.book_new();
 
-    utils.book_append_sheet(wb, ws, 'Data');
-    writeFileXLSX(wb, 'SheetJSReactAoO.xlsx');
-  }, [pres]);
+      utils.book_append_sheet(
+        wb, ws, 'Data' 
+      );
+      writeFileXLSX(
+        wb, 'SheetJSReactAoO.xlsx' 
+      );
+    }, [
+      pres
+    ] 
+  );
 
   return (
     <table>
@@ -54,20 +70,24 @@ export default function SheetJSReactAoO() {
       <tbody>
         {
           /* generate row for each president */
-          pres.map((pres, index) => {
+          pres.map( (
+            pres, index 
+          ) => {
             return (
               <tr key={index}>
-                <td>{pres['NUMERO']}</td>
-                <td>{pres['DEMANDADO_NOMBRE']}</td>
-                <td>{pres['DEMANDADO_IDENTIFICACION']}</td>
-                <td>{pres['EXPEDIENTE']}</td>
-                <td>{pres['RADICADO']}</td>
+                <td>{pres[ 'NUMERO' ]}</td>
+                <td>{pres[ 'DEMANDADO_NOMBRE' ]}</td>
+                <td>{pres[ 'DEMANDADO_IDENTIFICACION' ]}</td>
+                <td>{pres[ 'EXPEDIENTE' ]}</td>
+                <td>{pres[ 'RADICADO' ]}</td>
                 <td>
-                  <pre key={index}>{JSON.stringify(pres, null, 2)}</pre>
+                  <pre key={index}>{JSON.stringify(
+                    pres, null, 2 
+                  )}</pre>
                 </td>
               </tr>
             );
-          })
+          } )
         }
       </tbody>
       <tfoot>

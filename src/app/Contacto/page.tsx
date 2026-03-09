@@ -8,62 +8,66 @@ import { useContactContext } from '../Context/main-context';
 import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 export default function Page() {
-  const { register, handleSubmit } = useForm<RawContactoFormValues>({
+  const {
+    register, handleSubmit 
+  } = useForm<RawContactoFormValues>( {
     defaultValues: {
-      nombre: ' ',
-      grupo: 'otros',
+      nombre    : ' ',
+      grupo     : 'otros',
       newsLetter: false,
-      email: ' ',
-      telefono: 1,
+      email     : ' ',
+      telefono  : 1,
       comentario: 'Este es el espacio para registrar información adicional',
     },
-  });
+  } );
 
-  const { contactoForm, setContactoForm } = useContactContext();
+  const {
+    contactoForm, setContactoForm 
+  } = useContactContext();
 
-  const onSubmit: SubmitHandler<RawContactoFormValues> = async (data) => {
+  const onSubmit: SubmitHandler<RawContactoFormValues> = async ( data ) => {
     const newData: ContactoForm = {
       ...data,
-      telefono: Number(data.telefono),
-      fecha: new Date(),
+      telefono: Number( data.telefono ),
+      fecha   : new Date(),
     };
 
-    setContactoForm({
+    setContactoForm( {
       ...contactoForm,
       ...newData,
-    });
+    } );
 
     try {
-      const postData = await fetchWithSmartRetry('/api?destino=contacto', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newData),
-      });
+      const postData = await fetchWithSmartRetry(
+        '/api?destino=contacto', {
+          method : 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify( newData ),
+        } 
+      );
 
-      if (!postData.ok) {
-        throw new Error(`${postData.status}: ${postData.statusText}`);
+      if ( !postData.ok ) {
+        throw new Error( `${ postData.status }: ${ postData.statusText }` );
       }
 
       const msg = await postData.json();
 
-      alert(JSON.stringify(msg));
+      alert( JSON.stringify( msg ) );
 
-      console.log(
-        `mensaje en app/Contacto/Page: ${JSON.stringify(msg, null, 2)}`,
-      );
-    } catch (e) {
-      alert(
-        'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente',
-      );
+      console.log( `mensaje en app/Contacto/Page: ${ JSON.stringify(
+        msg, null, 2 
+      ) }`, );
+    } catch ( e ) {
+      alert( 'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente', );
     }
   };
 
   return (
     <div className={form.container}>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit( onSubmit )}
         className={form.segmentColumn}
       >
         <section className={form.segmentRow}>
@@ -77,9 +81,11 @@ export default function Page() {
             type="text"
             className={form.textArea}
             placeholder="Nombre y Apellido"
-            {...register('nombre', {
-              required: true,
-            })}
+            {...register(
+              'nombre', {
+                required: true,
+              } 
+            )}
           />
         </section>
         <section className={form.segmentRow}>
@@ -93,10 +99,12 @@ export default function Page() {
             type="email"
             className={form.textArea}
             placeholder="correo electrónico"
-            {...register('email', {
-              required: false,
-              pattern: /^\S+@\S+$/i,
-            })}
+            {...register(
+              'email', {
+                required: false,
+                pattern : /^\S+@\S+$/i,
+              } 
+            )}
           />
         </section>
         <section className={form.segmentRow}>
@@ -110,9 +118,11 @@ export default function Page() {
             type="tel"
             className={form.textArea}
             placeholder="telefono de contacto"
-            {...register('telefono', {
-              required: false,
-            })}
+            {...register(
+              'telefono', {
+                required: false,
+              } 
+            )}
           />
         </section>
         <section className={form.segmentRow}>
@@ -127,7 +137,7 @@ export default function Page() {
             <label className={checkbox.switchBox}>
               <input
                 className={checkbox.inputElement}
-                {...register('newsLetter')}
+                {...register( 'newsLetter' )}
                 type="checkbox"
               />
               <span className={checkbox.slider}></span>
@@ -143,17 +153,21 @@ export default function Page() {
             <input
               type={'text'}
               className={form.textArea}
-              {...register('comentario', {
-                required: true,
-              })}
+              {...register(
+                'comentario', {
+                  required: true,
+                } 
+              )}
             />
           </section>
         </section>
         <select
           className={form.selectArea}
-          {...register('grupo', {
-            required: true,
-          })}
+          {...register(
+            'grupo', {
+              required: true,
+            } 
+          )}
         >
           <option value="Abogado">Abogado</option>
           <option value="Demandado">Demandado</option>

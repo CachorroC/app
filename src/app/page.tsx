@@ -4,10 +4,8 @@ import typography from '#@/styles/fonts/typography.module.css';
 import { Calendar } from '#@/components/Calendar/main';
 import { Route } from 'next';
 import PageClient from './client';
-import {
-  InstallPrompt,
-  PushNotificationManager,
-} from './notification-components';
+import { InstallPrompt,
+  PushNotificationManager, } from './notification-components';
 import NotificationButton from '#@/components/NotificationButton';
 import { Suspense } from 'react';
 import { Loader } from '#@/components/Loader/main-loader';

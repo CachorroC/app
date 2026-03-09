@@ -6,17 +6,19 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 
-export async function generateMetadata({
+export async function generateMetadata( {
   params,
 }: {
   params: Promise<{ numero: string }>;
-}): Promise<Metadata> {
-  const { numero } = await params;
+} ): Promise<Metadata> {
+  const {
+    numero 
+  } = await params;
 
-  const product = await getCarpetabyNumero(Number(numero));
+  const product = await getCarpetabyNumero( Number( numero ) );
 
   return {
-    title: `${numero} - ${product.nombre}`,
+    title: `${ numero } - ${ product.nombre }`,
 
     keywords: [
       product.nombre,
@@ -28,20 +30,22 @@ export async function generateMetadata({
   };
 }
 
-export default async function Layout({
+export default async function Layout( {
   params,
   children,
 }: {
-  params: Promise<{ numero: string; idProceso: string }>;
+  params  : Promise<{ numero: string; idProceso: string }>;
   children: ReactNode;
-}) {
-  const { numero, idProceso } = await params;
+} ) {
+  const {
+    numero, idProceso 
+  } = await params;
 
-  if (idProceso === 'idProceso') {
+  if ( idProceso === 'idProceso' ) {
     return notFound();
   }
 
-  const carpeta = await getCarpetabyNumero(Number(numero));
+  const carpeta = await getCarpetabyNumero( Number( numero ) );
 
   return (
     <Modal>

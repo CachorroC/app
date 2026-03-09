@@ -1,10 +1,10 @@
 export type Styles = {
   drawer: string;
-  head1: string;
-  head2: string;
-  name: string;
+  head1 : string;
+  head2 : string;
+  name  : string;
   navbar: string;
-  sub: string;
+  sub   : string;
 };
 
 export type ClassesType = keyof Styles;

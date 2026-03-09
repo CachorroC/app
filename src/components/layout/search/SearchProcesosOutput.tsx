@@ -7,29 +7,34 @@ import { useCategory } from '#@/app/Context/category-context';
 import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
 
 export function SearchOutputList() {
-  const { carpetas } = useCarpetaSort();
+  const {
+    carpetas 
+  } = useCarpetaSort();
 
   const rows: JSX.Element[] = [];
 
-  const { search } = useSearch();
+  const {
+    search 
+  } = useSearch();
 
-  const { currentCategory } = useCategory();
+  const {
+    currentCategory 
+  } = useCategory();
 
-  carpetas.forEach((proceso) => {
-    if (proceso.nombre.toLowerCase().indexOf(search.toLowerCase()) === -1) {
+  carpetas.forEach( ( proceso ) => {
+    if ( proceso.nombre.toLowerCase()
+      .indexOf( search.toLowerCase() ) === -1 ) {
       return;
     }
 
-    if (currentCategory === 'todos' || currentCategory === proceso.category) {
-      rows.push(
-        <LinkCard
-          path={`/Carpeta/${proceso.numero}` as Route}
-          carpeta={proceso}
-          key={proceso.numero}
-        />,
-      );
+    if ( currentCategory === 'todos' || currentCategory === proceso.category ) {
+      rows.push( <LinkCard
+        path={`/Carpeta/${ proceso.numero }` as Route}
+        carpeta={proceso}
+        key={proceso.numero}
+                 />, );
     }
-  });
+  } );
 
   return (
     <table>

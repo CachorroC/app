@@ -9,7 +9,9 @@ import { Loader } from '../Loader/main-loader';
 import { Suspense } from 'react';
 
 export const NavBar = () => {
-  const { isNavOpen } = useNavigationContext();
+  const {
+    isNavOpen 
+  } = useNavigationContext();
 
   return (
     <div className={styles.header}>

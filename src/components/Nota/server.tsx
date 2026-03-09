@@ -3,14 +3,16 @@ import { Suspense } from 'react';
 import { ButtonSkeleton } from 'components/Buttons/ButtonSkeleton';
 import note from './note.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
-import {
-  EditNoteButton,
-  DeleteNoteButton,
-} from 'components/Buttons/noteButtons';
+import { EditNoteButton,
+  DeleteNoteButton, } from 'components/Buttons/noteButtons';
 import { IntNota } from '#@/lib/types/notas';
 
-export const NotaComponent = ({ notaRaw }: { notaRaw: IntNota }) => {
-  const { id, text, dueDate } = notaRaw;
+export const NotaComponent = ( {
+  notaRaw 
+}: { notaRaw: IntNota } ) => {
+  const {
+    id, text, dueDate 
+  } = notaRaw;
 
   return (
     <div className={note.container}>
@@ -18,10 +20,10 @@ export const NotaComponent = ({ notaRaw }: { notaRaw: IntNota }) => {
         <sup className={typography.labelSmall}>{id}</sup>
       </section>
       <p
-        className={`${typography.bodySmall} ${note.textArea}`}
-      >{`Nota: ${text}`}</p>
-      <sub className={`${typography.labelSmall} ${note.textArea}`}>
-        {dueDate && fixFechas(dueDate)}
+        className={`${ typography.bodySmall } ${ note.textArea }`}
+      >{`Nota: ${ text }`}</p>
+      <sub className={`${ typography.labelSmall } ${ note.textArea }`}>
+        {dueDate && fixFechas( dueDate )}
       </sub>
       <div className={note.buttonsRow}>
         <Suspense fallback={<ButtonSkeleton />}>

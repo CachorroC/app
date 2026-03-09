@@ -8,7 +8,7 @@ export const HomeButton = () => {
       href={'/' as Route}
       className={navbar.buttonHome}
     >
-      <span className={`material-symbols-outlined ${navbar.icon}`}>home</span>
+      <span className={`material-symbols-outlined ${ navbar.icon }`}>home</span>
       <p className={navbar.ButtonTextHelper}>inicio</p>
     </Link>
   );

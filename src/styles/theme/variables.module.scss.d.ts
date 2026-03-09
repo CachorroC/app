@@ -1,6 +1,6 @@
 export type Styles = {
   backgroundColor: string;
-  primaryColor: string;
+  primaryColor   : string;
 };
 
 export type ClassesType = keyof Styles;

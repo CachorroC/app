@@ -1,34 +1,35 @@
 'use client';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import {
-  Dispatch,
+import { Dispatch,
   ReactNode,
   SetStateAction,
   createContext,
   useContext,
-  useState,
-} from 'react';
+  useState, } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 const CarpetaFormContext = createContext<{
-  carpetaFormState: IntCarpeta;
+  carpetaFormState   : IntCarpeta;
   setCarpetaFormState: Dispatch<SetStateAction<IntCarpeta>>;
-} | null>(null);
+} | null>( null );
 
-export function CarpetaFormProvider({
+export function CarpetaFormProvider( {
   children,
   carpeta,
 }: {
   children: ReactNode;
-  carpeta: IntCarpeta;
-}) {
-  const [carpetaFormState, setCarpetaFormState] = useState(carpeta);
+  carpeta : IntCarpeta;
+} ) {
+  const [
+    carpetaFormState,
+    setCarpetaFormState
+  ] = useState( carpeta );
 
-  const methods = useForm<IntCarpeta>({
-    defaultValues: carpeta,
+  const methods = useForm<IntCarpeta>( {
+    defaultValues   : carpeta,
     shouldFocusError: true,
-    criteriaMode: 'firstError',
-  });
+    criteriaMode    : 'firstError',
+  } );
 
   return (
     <CarpetaFormContext.Provider
@@ -43,12 +44,10 @@ export function CarpetaFormProvider({
 }
 
 export function useCarpetaFormContext() {
-  const context = useContext(CarpetaFormContext);
+  const context = useContext( CarpetaFormContext );
 
-  if (context === null) {
-    throw new Error(
-      'useCarpetaFormContext must be used insed a carpeta form context provider',
-    );
+  if ( context === null ) {
+    throw new Error( 'useCarpetaFormContext must be used insed a carpeta form context provider', );
   }
 
   return context;

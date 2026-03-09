@@ -5,21 +5,23 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
-export default function ActiveLink({
+export default function ActiveLink( {
   isActive,
   searchParams,
   children,
 }: {
-  isActive: boolean;
+  isActive    : boolean;
   searchParams: string;
-  children: ReactNode;
-}) {
+  children    : ReactNode;
+} ) {
   const pathname = usePathname();
 
   return (
     <Link
-      className={isActive ? styles.linkIsActive : styles.linkNotActive}
-      href={(pathname + '?' + searchParams) as Route}
+      className={isActive
+        ? styles.linkIsActive
+        : styles.linkNotActive}
+      href={( pathname + '?' + searchParams ) as Route}
     >
       {children}
     </Link>

@@ -10,46 +10,62 @@ interface CustomWindow extends Window {
   MSStream?: unknown;
 }
 
-function urlBase64ToUint8Array(base64String: string): Uint8Array {
-  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
+function urlBase64ToUint8Array( base64String: string ): Uint8Array {
+  const padding = '='.repeat( ( 4 - ( base64String.length % 4 ) ) % 4 );
+  const base64 = ( base64String + padding ).replace(
+    /-/g, '+' 
+  )
+    .replace(
+      /_/g, '/' 
+    );
+  const rawData = window.atob( base64 );
+  const outputArray = new Uint8Array( rawData.length );
 
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
+  for ( let i = 0; i < rawData.length; ++i ) {
+    outputArray[ i ] = rawData.charCodeAt( i );
   }
 
   return outputArray;
 }
 
 export function PushNotificationManager() {
-  const [isSupported, setIsSupported] = useState(false);
-  const [subscription, setSubscription] = useState<PushSubscription | null>(
-    null,
-  );
-  const [message, setMessage] = useState('');
+  const [
+    isSupported,
+    setIsSupported
+  ] = useState( false );
+  const [
+    subscription,
+    setSubscription
+  ] = useState<PushSubscription | null>( null, );
+  const [
+    message,
+    setMessage
+  ] = useState( '' );
 
-  useEffect(() => {
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      setIsSupported(true);
-      registerServiceWorker();
-    }
-  }, []);
+  useEffect(
+    () => {
+      if ( 'serviceWorker' in navigator && 'PushManager' in window ) {
+        setIsSupported( true );
+        registerServiceWorker();
+      }
+    }, [] 
+  );
 
   async function registerServiceWorker() {
     try {
       const registration = await navigator.serviceWorker.register(
         '/service-worker.js',
         {
-          scope: '/',
+          scope         : '/',
           updateViaCache: 'none',
         },
       );
       const sub = await registration.pushManager.getSubscription();
-      setSubscription(sub);
-    } catch (error) {
-      console.error('Service Worker registration error:', error);
+      setSubscription( sub );
+    } catch ( error ) {
+      console.error(
+        'Service Worker registration error:', error 
+      );
     }
   }
 
@@ -58,59 +74,59 @@ export function PushNotificationManager() {
       const registration = await navigator.serviceWorker.ready;
       const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 
-      if (!publicKey) {
-        throw new Error('VAPID public key missing');
+      if ( !publicKey ) {
+        throw new Error( 'VAPID public key missing' );
       }
 
-      const sub = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(publicKey)
+      const sub = await registration.pushManager.subscribe( {
+        userVisibleOnly     : true,
+        applicationServerKey: urlBase64ToUint8Array( publicKey )
           .buffer as ArrayBuffer,
-      });
+      } );
 
       const subscriptionData = {
-        endpoint: sub.endpoint,
+        endpoint      : sub.endpoint,
         expirationTime: sub.expirationTime,
-        keys: {
-          p256dh: btoa(
-            String.fromCharCode(...new Uint8Array(sub.getKey('p256dh')!)),
-          ),
-          auth: btoa(
-            String.fromCharCode(...new Uint8Array(sub.getKey('auth')!)),
-          ),
+        keys          : {
+          p256dh: btoa( String.fromCharCode( ...new Uint8Array( sub.getKey( 'p256dh' )! ) ), ),
+          auth  : btoa( String.fromCharCode( ...new Uint8Array( sub.getKey( 'auth' )! ) ), ),
         },
       };
 
-      const response = await fetchWithSmartRetry('/api/subscribe', {
-        method: 'POST',
-        body: JSON.stringify(subscriptionData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetchWithSmartRetry(
+        '/api/subscribe', {
+          method : 'POST',
+          body   : JSON.stringify( subscriptionData ),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        } 
+      );
 
-      if (response.ok) {
-        setSubscription(sub);
+      if ( response.ok ) {
+        setSubscription( sub );
       }
-    } catch (error) {
-      console.error('Subscription failed:', error);
+    } catch ( error ) {
+      console.error(
+        'Subscription failed:', error 
+      );
     }
   }
 
   async function unsubscribeFromPush() {
     await subscription?.unsubscribe();
-    setSubscription(null);
+    setSubscription( null );
     await unsubscribeUser();
   }
 
   async function sendTestNotification() {
-    if (subscription && message.trim()) {
-      await sendNotification(message);
-      setMessage('');
+    if ( subscription && message.trim() ) {
+      await sendNotification( message );
+      setMessage( '' );
     }
   }
 
-  if (!isSupported) {
+  if ( !isSupported ) {
     return (
       <p className={styles.statusText}>Push notifications not supported.</p>
     );
@@ -119,75 +135,85 @@ export function PushNotificationManager() {
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>Push Notifications</h3>
-      {subscription ? (
-        <div className={styles.flexGroup}>
-          <p
-            className={styles.statusText}
-            style={{
-              color: '#16a34a',
-            }}
-          >
-            Status: Subscribed
-          </p>
-          <button
-            onClick={unsubscribeFromPush}
-            className={`${styles.button} styles.btnGhost`}
-          >
-            Unsubscribe
-          </button>
-          <div className={styles.row}>
-            <input
-              type="text"
-              className={styles.inputField}
-              placeholder="Message..."
-              value={message}
-              onChange={(e) => {
-                return setMessage(e.target.value);
-              }}
-            />
-            <button
-              onClick={sendTestNotification}
-              className={`${styles.button} ${styles.btnPrimary}`}
-            >
-              Send Test
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div>
-          <p className={styles.statusText}>Not currently subscribed.</p>
-          <button
-            onClick={subscribeToPush}
-            className={`${styles.button} ${styles.btnSuccess}`}
-          >
-            Enable Notifications
-          </button>
-        </div>
-      )}
+      {subscription
+        ? (
+            <div className={styles.flexGroup}>
+              <p
+                className={styles.statusText}
+                style={{
+                  color: '#16a34a',
+                }}
+              >
+                Status: Subscribed
+              </p>
+              <button
+                onClick={unsubscribeFromPush}
+                className={`${ styles.button } styles.btnGhost`}
+              >
+                Unsubscribe
+              </button>
+              <div className={styles.row}>
+                <input
+                  type="text"
+                  className={styles.inputField}
+                  placeholder="Message..."
+                  value={message}
+                  onChange={( e ) => {
+                    return setMessage( e.target.value );
+                  }}
+                />
+                <button
+                  onClick={sendTestNotification}
+                  className={`${ styles.button } ${ styles.btnPrimary }`}
+                >
+                  Send Test
+                </button>
+              </div>
+            </div>
+          )
+        : (
+            <div>
+              <p className={styles.statusText}>Not currently subscribed.</p>
+              <button
+                onClick={subscribeToPush}
+                className={`${ styles.button } ${ styles.btnSuccess }`}
+              >
+                Enable Notifications
+              </button>
+            </div>
+          )}
     </div>
   );
 }
 
 export function InstallPrompt() {
-  const [isIOS, setIsIOS] = useState(false);
-  const [isStandalone, setIsStandalone] = useState(false);
+  const [
+    isIOS,
+    setIsIOS
+  ] = useState( false );
+  const [
+    isStandalone,
+    setIsStandalone
+  ] = useState( false );
 
-  useEffect(() => {
-    const win = window as CustomWindow;
-    const isIOSDevice =
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !win.MSStream;
-    setIsIOS(isIOSDevice);
-    setIsStandalone(window.matchMedia('(display-mode: standalone)').matches);
-  }, []);
+  useEffect(
+    () => {
+      const win = window as CustomWindow;
+      const isIOSDevice
+        = /iPad|iPhone|iPod/.test( navigator.userAgent ) && !win.MSStream;
+      setIsIOS( isIOSDevice );
+      setIsStandalone( window.matchMedia( '(display-mode: standalone)' ).matches );
+    }, [] 
+  );
 
-  if (isStandalone) {
+  if ( isStandalone ) {
     return null;
   }
 
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>Install App</h3>
-      <button className={`${styles.button} ${styles.btnPrimary}`}>
+      <button className={`${ styles.button } ${ styles.btnPrimary }`}>
         Add to Home Screen
       </button>
       {isIOS && (

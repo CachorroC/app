@@ -3,22 +3,29 @@ import { getCarpetaByllaveProceso } from '#@/lib/project/utils/Carpetas/carpetas
 import { notFound } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.css';
 
-export default async function Page({
+export default async function Page( {
   params,
 }: {
   params: Promise<{ slug: string[] }>;
-}) {
-  const { slug } = await params;
+} ) {
+  const {
+    slug 
+  } = await params;
 
-  const [llaveProceso, idProceso] = slug;
+  const [
+    llaveProceso,
+    idProceso
+  ] = slug;
 
-  const carpeta = await getCarpetaByllaveProceso(llaveProceso);
+  const carpeta = await getCarpetaByllaveProceso( llaveProceso );
 
-  if (!carpeta) {
+  if ( !carpeta ) {
     return notFound();
   }
 
-  const { deudor } = carpeta;
+  const {
+    deudor 
+  } = carpeta;
 
   return (
     <>

@@ -1,8 +1,8 @@
 import { monFactura } from '#@/lib/types/contabilidad';
 
 export type SortActionType = {
-  type: 'sort';
-  dir: boolean;
+  type      : 'sort';
+  dir       : boolean;
   sortingKey:
     | 'fecha'
     | 'id'
@@ -14,18 +14,18 @@ export type SortActionType = {
 };
 
 export type SearchActionType = {
-  type: 'search';
+  type : 'search';
   query: string;
 };
 
 export type FilterActionType = {
-  type: 'filter';
-  filteringKey: 'hasIva' | 'hasImpoConsumo' | 'hasOtroImp' | 'hasIcui';
+  type          : 'filter';
+  filteringKey  : 'hasIva' | 'hasImpoConsumo' | 'hasOtroImp' | 'hasIcui';
   filteringValue: boolean;
 };
 
 export type ResetActionType = {
-  type: 'reset';
+  type   : 'reset';
   payload: monFactura[];
 };
 
@@ -35,148 +35,188 @@ export type IntAction =
   | SortActionType
   | ResetActionType;
 
-export function facturasReducer(facturas: monFactura[], action: IntAction) {
-  const { type } = action;
+export function facturasReducer(
+  facturas: monFactura[], action: IntAction 
+) {
+  const {
+    type 
+  } = action;
 
-  switch (type) {
-    case 'sort': {
-      const { dir, sortingKey } = action;
+  switch ( type ) {
+      case 'sort': {
+        const {
+          dir, sortingKey 
+        } = action;
 
-      const asc = [-1, 0, 1];
+        const asc = [
+          -1,
+          0,
+          1
+        ];
 
-      const dsc = [1, 0, -1];
+        const dsc = [
+          1,
+          0,
+          -1
+        ];
 
-      const sorter = dir ? asc : dsc;
+        const sorter = dir
+          ? asc
+          : dsc;
 
-      switch (sortingKey) {
-        case 'fecha': {
-          return [...facturas].sort((a, b) => {
-            if (!a.fecha || a.fecha === undefined) {
-              return sorter[2];
+        switch ( sortingKey ) {
+            case 'fecha': {
+              return [
+                ...facturas
+              ].sort( (
+                a, b 
+              ) => {
+                if ( !a.fecha || a.fecha === undefined ) {
+                  return sorter[ 2 ];
+                }
+
+                if ( !b.fecha || b.fecha === undefined ) {
+                  return sorter[ 0 ];
+                }
+
+                const x = a.fecha;
+
+                const y = b.fecha;
+
+                if ( x < y ) {
+                  return sorter[ 2 ];
+                }
+
+                if ( x > y ) {
+                  return sorter[ 0 ];
+                }
+
+                return sorter[ 1 ];
+              } );
             }
 
-            if (!b.fecha || b.fecha === undefined) {
-              return sorter[0];
+            case 'valorTotal': {
+              return [
+                ...facturas
+              ].sort( (
+                a, b 
+              ) => {
+                const valortotalA = parseFloat( a.valorTotal );
+
+                const valortotalB = parseFloat( b.valorTotal );
+
+                if ( valortotalA < valortotalB ) {
+                  return sorter[ 2 ];
+                } else if ( valortotalA > valortotalB ) {
+                  return sorter[ 0 ];
+                }
+
+                return 0;
+              } );
             }
 
-            const x = a.fecha;
+            case 'valorIva': {
+              return [
+                ...facturas
+              ].sort( (
+                a, b 
+              ) => {
+                const valortotalA = parseFloat( a.valorIva );
 
-            const y = b.fecha;
+                const valortotalB = parseFloat( b.valorIva );
 
-            if (x < y) {
-              return sorter[2];
+                if ( valortotalA < valortotalB ) {
+                  return sorter[ 2 ];
+                } else if ( valortotalA > valortotalB ) {
+                  return sorter[ 0 ];
+                }
+
+                return 0;
+              } );
             }
 
-            if (x > y) {
-              return sorter[0];
+            case 'valorOtroImp': {
+              return [
+                ...facturas
+              ].sort( (
+                a, b 
+              ) => {
+                const valortotalA = parseFloat( a.valorOtroImp );
+
+                const valortotalB = parseFloat( b.valorOtroImp );
+
+                if ( valortotalA < valortotalB ) {
+                  return sorter[ 2 ];
+                } else if ( valortotalA > valortotalB ) {
+                  return sorter[ 0 ];
+                }
+
+                return 0;
+              } );
             }
 
-            return sorter[1];
-          });
-        }
+            default: {
+              return [
+                ...facturas
+              ].sort( (
+                a, b 
+              ) => {
+                const aSortingKey = a[ sortingKey ];
 
-        case 'valorTotal': {
-          return [...facturas].sort((a, b) => {
-            const valortotalA = parseFloat(a.valorTotal);
+                const bSortingKey = b[ sortingKey ];
 
-            const valortotalB = parseFloat(b.valorTotal);
+                if ( !aSortingKey || aSortingKey === undefined ) {
+                  return sorter[ 2 ];
+                }
 
-            if (valortotalA < valortotalB) {
-              return sorter[2];
-            } else if (valortotalA > valortotalB) {
-              return sorter[0];
+                if ( !bSortingKey || bSortingKey === undefined ) {
+                  return sorter[ 0 ];
+                }
+
+                if ( aSortingKey < bSortingKey ) {
+                  return sorter[ 2 ];
+                }
+
+                if ( aSortingKey > bSortingKey ) {
+                  return sorter[ 0 ];
+                }
+
+                return 0;
+              } );
             }
-
-            return 0;
-          });
-        }
-
-        case 'valorIva': {
-          return [...facturas].sort((a, b) => {
-            const valortotalA = parseFloat(a.valorIva);
-
-            const valortotalB = parseFloat(b.valorIva);
-
-            if (valortotalA < valortotalB) {
-              return sorter[2];
-            } else if (valortotalA > valortotalB) {
-              return sorter[0];
-            }
-
-            return 0;
-          });
-        }
-
-        case 'valorOtroImp': {
-          return [...facturas].sort((a, b) => {
-            const valortotalA = parseFloat(a.valorOtroImp);
-
-            const valortotalB = parseFloat(b.valorOtroImp);
-
-            if (valortotalA < valortotalB) {
-              return sorter[2];
-            } else if (valortotalA > valortotalB) {
-              return sorter[0];
-            }
-
-            return 0;
-          });
-        }
-
-        default: {
-          return [...facturas].sort((a, b) => {
-            const aSortingKey = a[sortingKey];
-
-            const bSortingKey = b[sortingKey];
-
-            if (!aSortingKey || aSortingKey === undefined) {
-              return sorter[2];
-            }
-
-            if (!bSortingKey || bSortingKey === undefined) {
-              return sorter[0];
-            }
-
-            if (aSortingKey < bSortingKey) {
-              return sorter[2];
-            }
-
-            if (aSortingKey > bSortingKey) {
-              return sorter[0];
-            }
-
-            return 0;
-          });
         }
       }
-    }
 
-    case 'search': {
-      const facturasMap = [];
+      case 'search': {
+        const facturasMap = [];
 
-      const searchQuery = action.query.toLocaleLowerCase();
+        const searchQuery = action.query.toLocaleLowerCase();
 
-      if (!searchQuery || searchQuery === '') {
-        return [...facturas];
-      }
-
-      for (const carpeta of [...facturas]) {
-        const nombreString = carpeta.concepto.toLocaleLowerCase();
-
-        const carpetaQuery = nombreString.indexOf(searchQuery);
-
-        if (carpetaQuery === -1) {
-          continue;
+        if ( !searchQuery || searchQuery === '' ) {
+          return [
+            ...facturas
+          ];
         }
 
-        facturasMap.push(carpeta);
+        for ( const carpeta of [
+          ...facturas
+        ] ) {
+          const nombreString = carpeta.concepto.toLocaleLowerCase();
 
-        console.log(carpetaQuery);
+          const carpetaQuery = nombreString.indexOf( searchQuery );
+
+          if ( carpetaQuery === -1 ) {
+            continue;
+          }
+
+          facturasMap.push( carpeta );
+
+          console.log( carpetaQuery );
+        }
+
+        return facturasMap;
       }
-
-      return facturasMap;
-    }
-    /*
+      /*
         case 'filter': {
           return [ ...facturas ].filter(
             (
@@ -206,34 +246,38 @@ export function facturasReducer(facturas: monFactura[], action: IntAction) {
           );
         } */
 
-    case 'reset': {
-      return action.payload;
-    }
+      case 'reset': {
+        return action.payload;
+      }
 
-    default: {
-      return [...facturas].sort((a, b) => {
-        if (!a.fecha || a.fecha === undefined) {
-          return 1;
-        }
+      default: {
+        return [
+          ...facturas
+        ].sort( (
+          a, b 
+        ) => {
+          if ( !a.fecha || a.fecha === undefined ) {
+            return 1;
+          }
 
-        if (!b.fecha || b.fecha === undefined) {
-          return -1;
-        }
+          if ( !b.fecha || b.fecha === undefined ) {
+            return -1;
+          }
 
-        const x = a.fecha;
+          const x = a.fecha;
 
-        const y = b.fecha;
+          const y = b.fecha;
 
-        if (x < y) {
-          return 1;
-        }
+          if ( x < y ) {
+            return 1;
+          }
 
-        if (x > y) {
-          return -1;
-        }
+          if ( x > y ) {
+            return -1;
+          }
 
-        return 0;
-      });
-    }
+          return 0;
+        } );
+      }
   }
 }

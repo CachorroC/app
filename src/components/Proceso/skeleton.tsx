@@ -5,9 +5,9 @@ export function ProcesosCardSkeleton() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h1 className={`${typography.titleLarge} ${styles.title}`}>Cargando</h1>
+        <h1 className={`${ typography.titleLarge } ${ styles.title }`}>Cargando</h1>
 
-        <p className={`${typography.bodyMedium} ${styles.content}`}>
+        <p className={`${ typography.bodyMedium } ${ styles.content }`}>
           Espere un momento por favor
         </p>
       </div>

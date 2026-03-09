@@ -13,34 +13,38 @@ import { NuevaCarpeta } from '#@/lib/types/raw-carpeta';
 import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 export default function NuevoProceso() {
-  const { handleSubmit } = useFormContext<NuevaCarpeta>();
+  const {
+    handleSubmit 
+  } = useFormContext<NuevaCarpeta>();
 
-  const onSubmit: SubmitHandler<NuevaCarpeta> = async (data) => {
-    alert(JSON.stringify(data));
+  const onSubmit: SubmitHandler<NuevaCarpeta> = async ( data ) => {
+    alert( JSON.stringify( data ) );
 
     const newCarpeta: NuevaCarpeta = {
       ...data,
     };
 
-    const parsed = NuevaCarpetaSchema.safeParse(newCarpeta);
+    const parsed = NuevaCarpetaSchema.safeParse( newCarpeta );
 
-    const postNewNote = await fetchWithSmartRetry('/api/Carpetas/Nueva', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(parsed),
-    });
+    const postNewNote = await fetchWithSmartRetry(
+      '/api/Carpetas/Nueva', {
+        method : 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify( parsed ),
+      } 
+    );
 
     const nAlert = await postNewNote.json();
 
-    alert(JSON.stringify(nAlert));
+    alert( JSON.stringify( nAlert ) );
   };
 
   return (
     <form
       className={form.container}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit( onSubmit )}
     >
       <section className={layout.sectionRow}>
         <InputSection
@@ -109,7 +113,7 @@ export default function NuevoProceso() {
           type={'email'}
           rls={{
             required: false,
-            pattern: /^\S+@\S+$/i,
+            pattern : /^\S+@\S+$/i,
           }}
         />
         <section className={layout.sectionRow}>
@@ -150,7 +154,12 @@ export default function NuevoProceso() {
         <SelectSection
           name={'demanda.tipoProceso'}
           title={'Tipo de Proceso'}
-          options={['SINGULAR', 'HIPOTECARIO', 'PRENDARIO', 'ACUMULADO']}
+          options={[
+            'SINGULAR',
+            'HIPOTECARIO',
+            'PRENDARIO',
+            'ACUMULADO'
+          ]}
         />
 
         <VencimientoPagareSection />

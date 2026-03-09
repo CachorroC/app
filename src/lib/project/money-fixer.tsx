@@ -1,15 +1,18 @@
-export default function MoneyFixer({
+export default function MoneyFixer( {
   valor,
   className,
 }: {
-  valor: number | bigint;
+  valor    : number | bigint;
   className: string;
-}) {
-  const formatedValue = new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
-    currencyDisplay: 'symbol',
-  }).format(valor);
+} ) {
+  const formatedValue = new Intl.NumberFormat(
+    'es-CO', {
+      style          : 'currency',
+      currency       : 'COP',
+      currencyDisplay: 'symbol',
+    } 
+  )
+    .format( valor );
 
   return <strong className={className}>{formatedValue}</strong>;
 }

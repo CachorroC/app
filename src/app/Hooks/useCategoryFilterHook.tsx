@@ -4,87 +4,109 @@ export function CategoryCarpetasReducer(
   carpetas: MonCarpeta[],
   action: { type: Category },
 ) {
-  const { type } = action;
+  const {
+    type 
+  } = action;
 
-  switch (type) {
-    case 'Bancolombia': {
-      const temporryCarpetasMap = new Map<number, MonCarpeta>();
+  switch ( type ) {
+      case 'Bancolombia': {
+        const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
-      for (const carpeta of carpetas) {
-        const { category, id } = carpeta;
+        for ( const carpeta of carpetas ) {
+          const {
+            category, id 
+          } = carpeta;
 
-        if (category === 'Bancolombia') {
-          temporryCarpetasMap.set(id, carpeta);
+          if ( category === 'Bancolombia' ) {
+            temporryCarpetasMap.set(
+              id, carpeta 
+            );
+          }
+
+          continue;
         }
 
-        continue;
+        return Array.from( temporryCarpetasMap.values() );
       }
 
-      return Array.from(temporryCarpetasMap.values());
-    }
+      case 'LiosJuridicos': {
+        const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
-    case 'LiosJuridicos': {
-      const temporryCarpetasMap = new Map<number, MonCarpeta>();
+        for ( const carpeta of carpetas ) {
+          const {
+            category, id 
+          } = carpeta;
 
-      for (const carpeta of carpetas) {
-        const { category, id } = carpeta;
+          if ( category === 'LiosJuridicos' ) {
+            temporryCarpetasMap.set(
+              id, carpeta 
+            );
+          }
 
-        if (category === 'LiosJuridicos') {
-          temporryCarpetasMap.set(id, carpeta);
+          continue;
         }
 
-        continue;
+        return Array.from( temporryCarpetasMap.values() );
       }
 
-      return Array.from(temporryCarpetasMap.values());
-    }
+      case 'Insolvencia': {
+        const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
-    case 'Insolvencia': {
-      const temporryCarpetasMap = new Map<number, MonCarpeta>();
+        for ( const carpeta of carpetas ) {
+          const {
+            category, id 
+          } = carpeta;
 
-      for (const carpeta of carpetas) {
-        const { category, id } = carpeta;
+          if ( category === 'Insolvencia' ) {
+            temporryCarpetasMap.set(
+              id, carpeta 
+            );
+          }
 
-        if (category === 'Insolvencia') {
-          temporryCarpetasMap.set(id, carpeta);
+          continue;
         }
 
-        continue;
+        return Array.from( temporryCarpetasMap.values() );
       }
 
-      return Array.from(temporryCarpetasMap.values());
-    }
+      case 'Reintegra': {
+        const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
-    case 'Reintegra': {
-      const temporryCarpetasMap = new Map<number, MonCarpeta>();
+        carpetas.forEach( ( carpeta ) => {
+          const {
+            category 
+          } = carpeta;
 
-      carpetas.forEach((carpeta) => {
-        const { category } = carpeta;
+          if ( category === 'Reintegra' ) {
+            temporryCarpetasMap.set(
+              carpeta.id, carpeta 
+            );
+          }
+        } );
 
-        if (category === 'Reintegra') {
-          temporryCarpetasMap.set(carpeta.id, carpeta);
-        }
-      });
-
-      return Array.from(temporryCarpetasMap.values());
-    }
-
-    case 'Terminados': {
-      const temporryCarpetasMap = new Map<number, MonCarpeta>();
-
-      for (const carpeta of carpetas) {
-        const { category, id } = carpeta;
-
-        if (category !== 'Terminados') {
-          temporryCarpetasMap.set(id, carpeta);
-        }
+        return Array.from( temporryCarpetasMap.values() );
       }
 
-      return Array.from(temporryCarpetasMap.values());
-    }
+      case 'Terminados': {
+        const temporryCarpetasMap = new Map<number, MonCarpeta>();
 
-    default: {
-      return carpetas;
-    }
+        for ( const carpeta of carpetas ) {
+          const {
+            category, id 
+          } = carpeta;
+
+          if ( category !== 'Terminados' ) {
+            temporryCarpetasMap.set(
+              id, carpeta 
+            );
+          }
+        }
+
+        return Array.from( temporryCarpetasMap.values() );
+      }
+
+      default: {
+        return carpetas;
+      }
   }
 }

@@ -7,15 +7,18 @@ import Link from 'next/link';
 import { Route } from 'next';
 
 export default function RegisterPage() {
-  const [message, setMessage] = useState('');
+  const [
+    message,
+    setMessage
+  ] = useState( '' );
 
-  async function clientAction(formData: FormData) {
-    const result = await registerUser(formData);
+  async function clientAction( formData: FormData ) {
+    const result = await registerUser( formData );
 
-    if (result.error) {
-      setMessage(result.error);
+    if ( result.error ) {
+      setMessage( result.error );
     } else {
-      setMessage('Success! You can now login.');
+      setMessage( 'Success! You can now login.' );
     }
   }
 

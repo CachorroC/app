@@ -6,7 +6,7 @@ import styles from '#@/styles/layout.module.css';
 import { useNavigationContext } from '#@/app/Context/navigation-context';
 import { Route } from 'next';
 
-export function NavLink<T extends string>({
+export function NavLink<T extends string>( {
   hrefLabel,
   iconLabel,
   textLabel,
@@ -14,8 +14,10 @@ export function NavLink<T extends string>({
   iconLabel: string;
   textLabel: string;
   hrefLabel: Route<T> | URL;
-}) {
-  const { isNavOpen, setIsNavOpen } = useNavigationContext();
+} ) {
+  const {
+    isNavOpen, setIsNavOpen 
+  } = useNavigationContext();
 
   const pathname = usePathname();
 
@@ -34,11 +36,11 @@ export function NavLink<T extends string>({
             : styles.link
       }
       onClick={() => {
-        setIsNavOpen(false);
+        setIsNavOpen( false );
       }}
       href={hrefLabel as Route}
     >
-      <span className={`material-symbols-outlined ${styles.icon}`}>
+      <span className={`material-symbols-outlined ${ styles.icon }`}>
         {iconLabel}
       </span>
       <h1 className={styles.text}>{textLabel}</h1>

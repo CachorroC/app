@@ -14,14 +14,16 @@ import buttonStyles from '../Buttons/buttons.module.css';
 import Link from 'next/link';
 import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
-export const ProcesoCard = ({
+export const ProcesoCard = ( {
   children,
   proceso,
 }: {
   children: ReactNode;
-  proceso: outProceso;
-}) => {
-  const { sujetosProcesales, idProceso } = proceso;
+  proceso : outProceso;
+} ) => {
+  const {
+    sujetosProcesales, idProceso 
+  } = proceso;
 
   return (
     <div className={containerEnabled}>
@@ -39,15 +41,17 @@ export const ProcesoCard = ({
   );
 };
 
-export async function ProcesoDetalle({ idProceso }: { idProceso: string }) {
-  const urlNameMaker = consultaProcesoDetalleURL(idProceso);
+export async function ProcesoDetalle( {
+  idProceso 
+}: { idProceso: string } ) {
+  const urlNameMaker = consultaProcesoDetalleURL( idProceso );
 
-  const fetchProc = await fetchWithSmartRetry(urlNameMaker);
+  const fetchProc = await fetchWithSmartRetry( urlNameMaker );
 
   const infoDetalle = [];
 
-  if (!fetchProc.ok) {
-    console.log(`proceso detalle failer with error: ${fetchProc.statusText}`);
+  if ( !fetchProc.ok ) {
+    console.log( `proceso detalle failer with error: ${ fetchProc.statusText }` );
 
     return (
       <div
@@ -59,7 +63,7 @@ export async function ProcesoDetalle({ idProceso }: { idProceso: string }) {
         <h4
           style={{
             color: 'var(--on-error-container)',
-            flex: 1,
+            flex : 1,
           }}
           className={typography.labelSmall}
         >
@@ -68,7 +72,7 @@ export async function ProcesoDetalle({ idProceso }: { idProceso: string }) {
         <p
           style={{
             color: 'var(--on-error-container)',
-            flex: 1,
+            flex : 1,
           }}
           className={typography.titleMedium}
         >
@@ -78,16 +82,18 @@ export async function ProcesoDetalle({ idProceso }: { idProceso: string }) {
     );
   }
 
-  const detalleProceso = (await fetchProc.json()) as DetalleProceso;
+  const detalleProceso = ( await fetchProc.json() ) as DetalleProceso;
 
-  for (const key in detalleProceso) {
-    if (Object.prototype.hasOwnProperty.call(detalleProceso, key)) {
-      const element = detalleProceso[key];
+  for ( const key in detalleProceso ) {
+    if ( Object.prototype.hasOwnProperty.call(
+      detalleProceso, key 
+    ) ) {
+      const element = detalleProceso[ key ];
 
-      infoDetalle.push({
-        key: key,
+      infoDetalle.push( {
+        key  : key,
         value: element,
-      });
+      } );
     }
   }
 
@@ -95,23 +101,26 @@ export async function ProcesoDetalle({ idProceso }: { idProceso: string }) {
     <div className={layout.segmentRow}>
       <h4 className={typography.titleLarge}>Detalles del proceso</h4>
 
-      {infoDetalle.map((detalleEspecifico, index) => {
+      {infoDetalle.map( (
+        detalleEspecifico, index 
+      ) => {
         let outputTxt;
 
         if (
-          detalleEspecifico.key === 'fechaConsulta' ||
-          detalleEspecifico.key === 'ultimaActualizacion' ||
-          detalleEspecifico.key === 'fechaProceso'
+          detalleEspecifico.key === 'fechaConsulta'
+          || detalleEspecifico.key === 'ultimaActualizacion'
+          || detalleEspecifico.key === 'fechaProceso'
         ) {
-          outputTxt = new Date(detalleEspecifico.value).toLocaleDateString(
-            'es-co',
-            {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            },
-          );
+          outputTxt = new Date( detalleEspecifico.value )
+            .toLocaleDateString(
+              'es-co',
+              {
+                weekday: 'long',
+                year   : 'numeric',
+                month  : 'long',
+                day    : 'numeric',
+              },
+            );
         } else {
           outputTxt = detalleEspecifico.value;
         }
@@ -124,7 +133,7 @@ export async function ProcesoDetalle({ idProceso }: { idProceso: string }) {
             <h5
               style={{
                 color: 'var(--primary)',
-                flex: 1,
+                flex : 1,
               }}
               className={typography.labelLarge}
             >
@@ -133,36 +142,38 @@ export async function ProcesoDetalle({ idProceso }: { idProceso: string }) {
             <p
               style={{
                 color: 'var(--on-surface)',
-                flex: 1,
+                flex : 1,
               }}
               className={typography.bodySmall}
             >
-              {`${outputTxt}`}
+              {`${ outputTxt }`}
             </p>
           </div>
         );
-      })}
+      } )}
     </div>
   );
 }
 
-export async function ProcesosComponent({
+export async function ProcesosComponent( {
   llaveProceso,
   numero,
 }: {
   llaveProceso: string;
-  numero: number;
-}) {
-  const procesos = await fetchProcesosByllaveProceso(llaveProceso);
+  numero      : number;
+} ) {
+  const procesos = await fetchProcesosByllaveProceso( llaveProceso );
 
-  if (procesos === null || procesos.length === 0) {
+  if ( procesos === null || procesos.length === 0 ) {
     return <h2>no hay procesos</h2>;
   }
 
   return (
     <Suspense fallback={<Loader />}>
-      {procesos.map((proceso) => {
-        const { idProceso } = proceso;
+      {procesos.map( ( proceso ) => {
+        const {
+          idProceso 
+        } = proceso;
 
         return (
           <ProcesoCard
@@ -181,10 +192,10 @@ export async function ProcesosComponent({
             <Link
               key={idProceso}
               className={buttonStyles.buttonPassiveCategory}
-              href={`/Carpeta/${numero}/ultimasActuaciones/${idProceso}`}
+              href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`}
             >
               <span
-                className={`material-symbols-outlined ${buttonStyles.icon}`}
+                className={`material-symbols-outlined ${ buttonStyles.icon }`}
               >
                 description
               </span>
@@ -194,7 +205,7 @@ export async function ProcesosComponent({
             </Link>
           </ProcesoCard>
         );
-      })}
+      } )}
     </Suspense>
   );
 }

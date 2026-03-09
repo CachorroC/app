@@ -15,7 +15,7 @@ export default function NotFound() {
         className={styles.link}
       >
         <span>Inicio</span>
-        <span className={`material-symbols-outlined ${styles.icon}`}>home</span>
+        <span className={`material-symbols-outlined ${ styles.icon }`}>home</span>
       </Link>
     </div>
   );

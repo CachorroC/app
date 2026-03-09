@@ -9,30 +9,37 @@ export default async function NotFound() {
 
   const headersList = await headers();
 
-  for (const [key, value] of headersList) {
-    mapper.add(`${key} : ${value}`);
+  for ( const [
+    key,
+    value
+  ] of headersList ) {
+    mapper.add( `${ key } : ${ value }` );
   }
 
-  const domain = headersList.get('next-url') ?? '';
+  const domain = headersList.get( 'next-url' ) ?? '';
 
-  const [, firstRoute, , thirdRoute] = domain.split('/');
+  const [
+    , firstRoute, , thirdRoute
+  ] = domain.split( '/' );
 
-  const arrMap = Array.from(mapper);
+  const arrMap = Array.from( mapper );
 
-  if (firstRoute === 'Notas') {
-    const carpeta = await getNotaById(Number(thirdRoute));
+  if ( firstRoute === 'Notas' ) {
+    const carpeta = await getNotaById( Number( thirdRoute ) );
 
-    if (carpeta) {
-      linker = <Link href={`/Carpeta/${carpeta.carpetaNumero}`}></Link>;
+    if ( carpeta ) {
+      linker = <Link href={`/Carpeta/${ carpeta.carpetaNumero }`}></Link>;
     }
   }
 
   return (
     <div>
       <h2>Not Found: {domain}</h2>
-      {arrMap.map((mp, i) => {
+      {arrMap.map( (
+        mp, i 
+      ) => {
         return <p key={i}>{mp}</p>;
-      })}
+      } )}
       <p>Could not find requested resource</p>
       {linker}
     </div>

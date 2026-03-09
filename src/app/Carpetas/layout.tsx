@@ -6,7 +6,9 @@ import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Loader } from '#@/components/Loader/main-loader';
 import { connection } from 'next/server';
 
-async function LayoutAsyncProcess({ children }: { children: ReactNode }) {
+async function LayoutAsyncProcess( {
+  children 
+}: { children: ReactNode } ) {
   await connection();
 
   const carpetas = await getCarpetas();
@@ -18,17 +20,17 @@ async function LayoutAsyncProcess({ children }: { children: ReactNode }) {
   );
 }
 
-export default function LayoutProcesosMain({
+export default function LayoutProcesosMain( {
   children,
   top,
   right,
   modal,
 }: {
   children: ReactNode;
-  top: ReactNode;
-  right: ReactNode;
-  modal: ReactNode;
-}) {
+  top     : ReactNode;
+  right   : ReactNode;
+  modal   : ReactNode;
+} ) {
   return (
     <Suspense fallback={<Loader />}>
       <LayoutAsyncProcess>

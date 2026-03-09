@@ -5,20 +5,25 @@ import { editTask } from './actions';
 import { InputDateHelper } from '#@/lib/project/date-helper';
 import { IntTask } from '#@/lib/types/tareas';
 
-export function EditTask({ initialTask }: { initialTask: IntTask }) {
-  const [taskState, setTaskState] = useState(initialTask);
+export function EditTask( {
+  initialTask 
+}: { initialTask: IntTask } ) {
+  const [
+    taskState,
+    setTaskState
+  ] = useState( initialTask );
 
   const dispatchTasks = useDispatchTasks();
 
   async function createTask() {
-    const user = await editTask(taskState);
+    const user = await editTask( taskState );
 
-    console.log(user);
+    console.log( user );
 
-    return dispatchTasks({
+    return dispatchTasks( {
       type: 'changed',
       task: user,
-    });
+    } );
   }
 
   return (
@@ -30,11 +35,11 @@ export function EditTask({ initialTask }: { initialTask: IntTask }) {
           type={'number'}
           placeholder={'ID'}
           value={taskState.id}
-          onChange={(e) => {
-            return setTaskState({
+          onChange={( e ) => {
+            return setTaskState( {
               ...taskState,
-              id: Number(e.target.value),
-            });
+              id: Number( e.target.value ),
+            } );
           }}
         />
         <input
@@ -42,11 +47,11 @@ export function EditTask({ initialTask }: { initialTask: IntTask }) {
           type="text"
           name={'text'}
           value={taskState.text}
-          onChange={(e) => {
-            return setTaskState({
+          onChange={( e ) => {
+            return setTaskState( {
               ...taskState,
               text: e.target.value,
-            });
+            } );
           }}
         />
         <input
@@ -57,31 +62,37 @@ export function EditTask({ initialTask }: { initialTask: IntTask }) {
         <input
           type="date"
           name="dueDate"
-          value={InputDateHelper(taskState.updatedAt)}
-          onChange={(e) => {
-            console.log(
-              `onChange new value for date-section: ${e.target.valueAsDate}`,
-            );
+          value={InputDateHelper( taskState.updatedAt )}
+          onChange={( e ) => {
+            console.log( `onChange new value for date-section: ${ e.target.valueAsDate }`, );
 
-            const [yearStringer, monthStringer, dayStringer] =
-              e.target.value.split('-');
+            const [
+              yearStringer,
+              monthStringer,
+              dayStringer
+            ]
+              = e.target.value.split( '-' );
 
-            const newYear = Number(yearStringer);
+            const newYear = Number( yearStringer );
 
-            const newMonth = Number(monthStringer) - 1;
+            const newMonth = Number( monthStringer ) - 1;
 
-            const newDay = Number(dayStringer);
+            const newDay = Number( dayStringer );
 
-            return setTaskState({
+            return setTaskState( {
               ...taskState,
-              updatedAt: new Date(newYear, newMonth, newDay),
-            });
+              updatedAt: new Date(
+                newYear, newMonth, newDay 
+              ),
+            } );
           }}
         />
 
         <button type={'submit'}>Add</button>
       </form>
-      <pre>{JSON.stringify(taskState, null, 2)}</pre>
+      <pre>{JSON.stringify(
+        taskState, null, 2 
+      )}</pre>
     </>
   );
 }

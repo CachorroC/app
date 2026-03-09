@@ -4,18 +4,22 @@ import { LabelBoundary } from '#@/components/layout/boundary';
 import { Loader } from '#@/components/Loader/main-loader';
 import { ReactNode, Suspense } from 'react';
 
-export default async function Layout({
+export default async function Layout( {
   params,
   children,
 }: {
-  params: Promise<{ ano: string; mes: string }>;
+  params  : Promise<{ ano: string; mes: string }>;
   children: ReactNode;
-}) {
-  const { ano, mes } = await params;
+} ) {
+  const {
+    ano, mes 
+  } = await params;
 
-  const month = Number(mes);
+  const month = Number( mes );
 
-  const segmentDate = new Date(Number(ano), Number(mes) - 1, 1);
+  const segmentDate = new Date(
+    Number( ano ), Number( mes ) - 1, 1 
+  );
 
   const months = [
     'Zerooo',
@@ -33,7 +37,7 @@ export default async function Layout({
     'Diciembre',
   ];
 
-  const dateOutput = months[month];
+  const dateOutput = months[ month ];
 
   return (
     <>

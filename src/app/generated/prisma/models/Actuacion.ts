@@ -489,7 +489,7 @@ export type ActuacionCreateInput = {
   llaveProceso: string;
   idProceso: string;
   idRegActuacion: string;
-  proceso: Prisma.ProcesoCreateNestedOneWithoutActuacionesInput;
+  proceso: Prisma.ProcesoCreateNestedOneWithDatabaseActuacionTypeesInput;
   Carpeta?: Prisma.CarpetaCreateNestedManyWithoutUltimaActuacionInput;
 };
 
@@ -539,7 +539,7 @@ export type ActuacionUpdateInput = {
   llaveProceso?: Prisma.StringFieldUpdateOperationsInput | string;
   idProceso?: Prisma.StringFieldUpdateOperationsInput | string;
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string;
-  proceso?: Prisma.ProcesoUpdateOneRequiredWithoutActuacionesNestedInput;
+  proceso?: Prisma.ProcesoUpdateOneRequiredWithDatabaseActuacionTypeesNestedInput;
   Carpeta?: Prisma.CarpetaUpdateManyWithoutUltimaActuacionNestedInput;
 };
 
@@ -885,7 +885,7 @@ export type ActuacionCreateWithoutCarpetaInput = {
   llaveProceso: string;
   idProceso: string;
   idRegActuacion: string;
-  proceso: Prisma.ProcesoCreateNestedOneWithoutActuacionesInput;
+  proceso: Prisma.ProcesoCreateNestedOneWithDatabaseActuacionTypeesInput;
 };
 
 export type ActuacionUncheckedCreateWithoutCarpetaInput = {
@@ -961,7 +961,7 @@ export type ActuacionUpdateWithoutCarpetaInput = {
   llaveProceso?: Prisma.StringFieldUpdateOperationsInput | string;
   idProceso?: Prisma.StringFieldUpdateOperationsInput | string;
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string;
-  proceso?: Prisma.ProcesoUpdateOneRequiredWithoutActuacionesNestedInput;
+  proceso?: Prisma.ProcesoUpdateOneRequiredWithDatabaseActuacionTypeesNestedInput;
 };
 
 export type ActuacionUncheckedUpdateWithoutCarpetaInput = {

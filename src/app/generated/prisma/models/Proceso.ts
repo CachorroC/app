@@ -752,29 +752,29 @@ export type ProcesoUncheckedUpdateManyWithoutCarpetaNestedInput = {
     | Prisma.ProcesoScalarWhereInput[];
 };
 
-export type ProcesoCreateNestedOneWithoutActuacionesInput = {
+export type ProcesoCreateNestedOneWithDatabaseActuacionTypeesInput = {
   create?: Prisma.XOR<
-    Prisma.ProcesoCreateWithoutActuacionesInput,
-    Prisma.ProcesoUncheckedCreateWithoutActuacionesInput
+    Prisma.ProcesoCreateWithDatabaseActuacionTypeesInput,
+    Prisma.ProcesoUncheckedCreateWithDatabaseActuacionTypeesInput
   >;
-  connectOrCreate?: Prisma.ProcesoCreateOrConnectWithoutActuacionesInput;
+  connectOrCreate?: Prisma.ProcesoCreateOrConnectWithDatabaseActuacionTypeesInput;
   connect?: Prisma.ProcesoWhereUniqueInput;
 };
 
-export type ProcesoUpdateOneRequiredWithoutActuacionesNestedInput = {
+export type ProcesoUpdateOneRequiredWithDatabaseActuacionTypeesNestedInput = {
   create?: Prisma.XOR<
-    Prisma.ProcesoCreateWithoutActuacionesInput,
-    Prisma.ProcesoUncheckedCreateWithoutActuacionesInput
+    Prisma.ProcesoCreateWithDatabaseActuacionTypeesInput,
+    Prisma.ProcesoUncheckedCreateWithDatabaseActuacionTypeesInput
   >;
-  connectOrCreate?: Prisma.ProcesoCreateOrConnectWithoutActuacionesInput;
-  upsert?: Prisma.ProcesoUpsertWithoutActuacionesInput;
+  connectOrCreate?: Prisma.ProcesoCreateOrConnectWithDatabaseActuacionTypeesInput;
+  upsert?: Prisma.ProcesoUpsertWithDatabaseActuacionTypeesInput;
   connect?: Prisma.ProcesoWhereUniqueInput;
   update?: Prisma.XOR<
     Prisma.XOR<
-      Prisma.ProcesoUpdateToOneWithWhereWithoutActuacionesInput,
-      Prisma.ProcesoUpdateWithoutActuacionesInput
+      Prisma.ProcesoUpdateToOneWithWhereWithDatabaseActuacionTypeesInput,
+      Prisma.ProcesoUpdateWithDatabaseActuacionTypeesInput
     >,
-    Prisma.ProcesoUncheckedUpdateWithoutActuacionesInput
+    Prisma.ProcesoUncheckedUpdateWithDatabaseActuacionTypeesInput
   >;
 };
 
@@ -975,7 +975,7 @@ export type ProcesoScalarWhereInput = {
   juzgadoCiudad?: Prisma.StringFilter<'Proceso'> | string;
 };
 
-export type ProcesoCreateWithoutActuacionesInput = {
+export type ProcesoCreateWithDatabaseActuacionTypeesInput = {
   cantFilas: number;
   departamento: string;
   despacho: string;
@@ -990,7 +990,7 @@ export type ProcesoCreateWithoutActuacionesInput = {
   juzgado: Prisma.JuzgadoCreateNestedOneWithoutProcesoInput;
 };
 
-export type ProcesoUncheckedCreateWithoutActuacionesInput = {
+export type ProcesoUncheckedCreateWithDatabaseActuacionTypeesInput = {
   cantFilas: number;
   carpetaNumero: number;
   departamento: string;
@@ -1007,35 +1007,35 @@ export type ProcesoUncheckedCreateWithoutActuacionesInput = {
   juzgadoCiudad: string;
 };
 
-export type ProcesoCreateOrConnectWithoutActuacionesInput = {
+export type ProcesoCreateOrConnectWithDatabaseActuacionTypeesInput = {
   where: Prisma.ProcesoWhereUniqueInput;
   create: Prisma.XOR<
-    Prisma.ProcesoCreateWithoutActuacionesInput,
-    Prisma.ProcesoUncheckedCreateWithoutActuacionesInput
+    Prisma.ProcesoCreateWithDatabaseActuacionTypeesInput,
+    Prisma.ProcesoUncheckedCreateWithDatabaseActuacionTypeesInput
   >;
 };
 
-export type ProcesoUpsertWithoutActuacionesInput = {
+export type ProcesoUpsertWithDatabaseActuacionTypeesInput = {
   update: Prisma.XOR<
-    Prisma.ProcesoUpdateWithoutActuacionesInput,
-    Prisma.ProcesoUncheckedUpdateWithoutActuacionesInput
+    Prisma.ProcesoUpdateWithDatabaseActuacionTypeesInput,
+    Prisma.ProcesoUncheckedUpdateWithDatabaseActuacionTypeesInput
   >;
   create: Prisma.XOR<
-    Prisma.ProcesoCreateWithoutActuacionesInput,
-    Prisma.ProcesoUncheckedCreateWithoutActuacionesInput
+    Prisma.ProcesoCreateWithDatabaseActuacionTypeesInput,
+    Prisma.ProcesoUncheckedCreateWithDatabaseActuacionTypeesInput
   >;
   where?: Prisma.ProcesoWhereInput;
 };
 
-export type ProcesoUpdateToOneWithWhereWithoutActuacionesInput = {
+export type ProcesoUpdateToOneWithWhereWithDatabaseActuacionTypeesInput = {
   where?: Prisma.ProcesoWhereInput;
   data: Prisma.XOR<
-    Prisma.ProcesoUpdateWithoutActuacionesInput,
-    Prisma.ProcesoUncheckedUpdateWithoutActuacionesInput
+    Prisma.ProcesoUpdateWithDatabaseActuacionTypeesInput,
+    Prisma.ProcesoUncheckedUpdateWithDatabaseActuacionTypeesInput
   >;
 };
 
-export type ProcesoUpdateWithoutActuacionesInput = {
+export type ProcesoUpdateWithDatabaseActuacionTypeesInput = {
   cantFilas?: Prisma.IntFieldUpdateOperationsInput | number;
   departamento?: Prisma.StringFieldUpdateOperationsInput | string;
   despacho?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1058,7 +1058,7 @@ export type ProcesoUpdateWithoutActuacionesInput = {
   juzgado?: Prisma.JuzgadoUpdateOneRequiredWithoutProcesoNestedInput;
 };
 
-export type ProcesoUncheckedUpdateWithoutActuacionesInput = {
+export type ProcesoUncheckedUpdateWithDatabaseActuacionTypeesInput = {
   cantFilas?: Prisma.IntFieldUpdateOperationsInput | number;
   carpetaNumero?: Prisma.IntFieldUpdateOperationsInput | number;
   departamento?: Prisma.StringFieldUpdateOperationsInput | string;

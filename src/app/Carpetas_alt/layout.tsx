@@ -5,17 +5,17 @@ import { TableProvider } from '../Context/TableContext';
 import { connection } from 'next/server';
 import { Loader } from '#@/components/Loader/main-loader';
 
-export default async function LayoutProcesosMain({
+export default async function LayoutProcesosMain( {
   children,
   top,
   right,
   modal,
 }: {
   children: ReactNode;
-  top: ReactNode;
-  right: ReactNode;
-  modal: ReactNode;
-}) {
+  top     : ReactNode;
+  right   : ReactNode;
+  modal   : ReactNode;
+} ) {
   await connection();
   const carpetas = await getCarpetas();
 

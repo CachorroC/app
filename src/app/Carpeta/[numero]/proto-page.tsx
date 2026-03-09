@@ -1,6 +1,5 @@
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import {
-  appContainer,
+import { appContainer,
   card,
   cardHeader,
   cardIcon,
@@ -19,14 +18,17 @@ import {
   timeline,
   timelineContent,
   timelineDate,
-  timelineItem,
-} from './proto-styles.module.css';
+  timelineItem, } from './proto-styles.module.css';
 
-export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
-  const copFormatter = new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
-  });
+export default function ProtoPage( {
+  carpeta 
+}: { carpeta: IntCarpeta } ) {
+  const copFormatter = new Intl.NumberFormat(
+    'es-CO', {
+      style   : 'currency',
+      currency: 'COP',
+    } 
+  );
 
   return (
     <>
@@ -35,10 +37,10 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
           <div className={headerInfo}>
             <div
               style={{
-                fontSize: '0.9rem',
+                fontSize     : '0.9rem',
                 textTransform: 'uppercase',
                 letterSpacing: '1px',
-                marginBottom: '8px',
+                marginBottom : '8px',
               }}
             >
               Carpeta #{carpeta.numero}
@@ -47,9 +49,9 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
             <p>Llave Proceso: {carpeta.llaveProceso}</p>
 
             <div className={headerMeta}>
-              <span className={`${chip} ${filled}`}>Bancolombia</span>
+              <span className={`${ chip } ${ filled }`}>Bancolombia</span>
               <span className={chip}>{carpeta.tipoProceso}</span>
-              <span className={`${chip} ${statusTerminado}`}>En Proceso</span>
+              <span className={`${ chip } ${ statusTerminado }`}>En Proceso</span>
             </div>
           </div>
 
@@ -61,21 +63,21 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
             <p
               style={{
                 fontSize: '0.8rem',
-                opacity: 0.8,
+                opacity : 0.8,
               }}
             >
               Última actualización
             </p>
-            <strong>{carpeta.fecha?.toLocaleDateString('es-ES')}</strong>
+            <strong>{carpeta.fecha?.toLocaleDateString( 'es-ES' )}</strong>
           </div>
         </header>
 
         <div className={dashboardGrid}>
           <div
             style={{
-              display: 'flex',
+              display      : 'flex',
               flexDirection: 'column',
-              gap: '24px',
+              gap          : '24px',
             }}
           >
             <section className={card}>
@@ -122,8 +124,8 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
               </div>
               <div className={dataRow}>
                 <span className={dataLabel}>Capital Adeudado</span>
-                <span className={`${dataValue} ${money}`}>
-                  {copFormatter.format(carpeta.demanda?.capitalAdeudado ?? 0)}
+                <span className={`${ dataValue } ${ money }`}>
+                  {copFormatter.format( carpeta.demanda?.capitalAdeudado ?? 0 )}
                 </span>
               </div>
             </section>
@@ -132,7 +134,7 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
               className={card}
               style={{
                 backgroundColor: 'var(--tertiary-container)',
-                color: 'var(--on-tertiary-container)',
+                color          : 'var(--on-tertiary-container)',
               }}
             >
               <div className={cardHeader}>
@@ -148,13 +150,13 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
                 <span
                   className={dataLabel}
                   style={{
-                    color: 'inherit',
+                    color  : 'inherit',
                     opacity: 0.8,
                   }}
                 >
                   Total Facturado
                 </span>
-                <span className={`${dataValue} ${money}`}>$ 2.500.000</span>
+                <span className={`${ dataValue } ${ money }`}>$ 2.500.000</span>
               </div>
               <div
                 className={dataRow}
@@ -165,7 +167,7 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
                 <span
                   className={dataLabel}
                   style={{
-                    color: 'inherit',
+                    color  : 'inherit',
                     opacity: 0.8,
                   }}
                 >
@@ -178,9 +180,9 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
 
           <div
             style={{
-              display: 'flex',
+              display      : 'flex',
               flexDirection: 'column',
-              gap: 24,
+              gap          : 24,
             }}
           >
             <section className={card}>
@@ -190,17 +192,17 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
               </div>
               <div
                 style={{
-                  display: 'flex',
-                  gap: 12,
+                  display   : 'flex',
+                  gap       : 12,
                   alignItems: 'center',
-                  padding: '8px 0',
+                  padding   : '8px 0',
                 }}
               >
                 <input
                   type="checkbox"
                   style={{
-                    width: 18,
-                    height: 18,
+                    width      : 18,
+                    height     : 18,
                     accentColor: 'var(--primary)',
                   }}
                 />
@@ -219,7 +221,7 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
                   <div
                     style={{
                       fontSize: '0.8rem',
-                      color: 'var(--error)',
+                      color   : 'var(--error)',
                     }}
                   >
                     Vence: Mañana
@@ -228,26 +230,26 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
               </div>
               <div
                 style={{
-                  display: 'flex',
-                  gap: 12,
+                  display   : 'flex',
+                  gap       : 12,
                   alignItems: 'center',
-                  padding: '8px 0',
+                  padding   : '8px 0',
                 }}
               >
                 <input
                   type="checkbox"
                   checked
                   style={{
-                    width: 18,
-                    height: 18,
+                    width      : 18,
+                    height     : 18,
                     accentColor: 'var(--primary)',
                   }}
                 />
                 <div
                   style={{
-                    flex: 1,
+                    flex          : 1,
                     textDecoration: 'line-through',
-                    opacity: 0.6,
+                    opacity       : 0.6,
                   }}
                 >
                   <div
@@ -274,7 +276,7 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
                     <strong>Auto Libra Mandamiento Pago</strong>
                     <p
                       style={{
-                        fontSize: '0.9rem',
+                        fontSize : '0.9rem',
                         marginTop: '4px',
                       }}
                     >
@@ -290,13 +292,13 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
                     className={timelineContent}
                     style={{
                       backgroundColor: 'var(--surface-variant)',
-                      color: 'var(--on-surface-variant)',
+                      color          : 'var(--on-surface-variant)',
                     }}
                   >
                     <strong>Admisión Demanda</strong>
                     <p
                       style={{
-                        fontSize: '0.9rem',
+                        fontSize : '0.9rem',
                         marginTop: '4px',
                       }}
                     >
@@ -326,7 +328,7 @@ export default function ProtoPage({ carpeta }: { carpeta: IntCarpeta }) {
               <p
                 style={{
                   fontSize: '0.9rem',
-                  color: 'var(--on-surface-variant)',
+                  color   : 'var(--on-surface-variant)',
                 }}
               >
                 Cliente indicó que cambiará de dirección el próximo mes.

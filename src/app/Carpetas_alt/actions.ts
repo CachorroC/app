@@ -4,15 +4,15 @@ import prisma from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 
 export async function resetCarpetas() {
-  const rawCarpetas = await prisma.carpeta.findMany({
+  const rawCarpetas = await prisma.carpeta.findMany( {
     include: {
       ultimaActuacion: true,
-      deudor: true,
-      codeudor: true,
-      notas: true,
-      tareas: true,
-      juzgado: true,
-      demanda: {
+      deudor         : true,
+      codeudor       : true,
+      notas          : true,
+      tareas         : true,
+      juzgado        : true,
+      demanda        : {
         include: {
           notificacion: {
             include: {
@@ -30,47 +30,47 @@ export async function resetCarpetas() {
     },
     orderBy: {
       fecha: {
-        sort: 'desc',
+        sort : 'desc',
         nulls: 'last',
       },
     },
-  });
+  } );
 
-  return rawCarpetas.map((carpeta) => {
+  return rawCarpetas.map( ( carpeta ) => {
     return {
       ...carpeta,
       demanda: {
         ...carpeta.demanda,
         capitalAdeudado: carpeta.demanda?.capitalAdeudado.toNumber() ?? null,
-        avaluo: carpeta.demanda?.avaluo.toNumber() ?? null,
-        liquidacion: carpeta.demanda?.liquidacion.toNumber() ?? null,
+        avaluo         : carpeta.demanda?.avaluo.toNumber() ?? null,
+        liquidacion    : carpeta.demanda?.liquidacion.toNumber() ?? null,
       },
     } as IntCarpeta;
-  });
+  } );
 }
 
-export async function updateRevisadoState(prevState: {
+export async function updateRevisadoState( prevState: {
   revisado: boolean;
-  numero: number;
-  id: number;
-}) {
+  numero  : number;
+  id      : number;
+} ) {
   try {
-    const updater = await prisma.carpeta.update({
+    const updater = await prisma.carpeta.update( {
       where: {
         numero: prevState.numero,
       },
       data: {
         revisado: prevState.revisado,
       },
-    });
+    } );
 
     return {
       revisado: updater.revisado,
-      id: updater.id,
-      numero: updater.numero,
+      id      : updater.id,
+      numero  : updater.numero,
     };
-  } catch (error) {
-    console.log(error);
+  } catch ( error ) {
+    console.log( error );
 
     return prevState;
   }

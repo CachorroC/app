@@ -5,13 +5,15 @@ import styles from './styles.module.css';
 import { useContactContext } from '../../../app/Context/main-context';
 
 export default function Checkbox() {
-  const { contactoForm, setContactoForm } = useContactContext();
+  const {
+    contactoForm, setContactoForm 
+  } = useContactContext();
 
-  const handleTextareaChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setContactoForm({
+  const handleTextareaChange: ChangeEventHandler<HTMLInputElement> = ( e ) => {
+    setContactoForm( {
       ...contactoForm,
       newsLetter: e.target.checked,
-    });
+    } );
   };
 
   return (

@@ -10,18 +10,20 @@ export async function updateDemandaAction(
   prevState: { success: boolean; demanda: intDemanda | null },
   queryData: FormData,
 ) {
-  const itemID = queryData.get('numero');
+  const itemID = queryData.get( 'numero' );
 
-  const { demanda } = prevState;
+  const {
+    demanda 
+  } = prevState;
 
-  if (demanda === null) {
+  if ( demanda === null ) {
     return {
       demanda: null,
       success: true,
     };
   }
 
-  if (itemID && demanda) {
+  if ( itemID && demanda ) {
     return {
       demanda: {
         ...demanda,
@@ -46,7 +48,7 @@ webpush.setVapidDetails(
 
 let subscription: WebPushSubscription | null = null;
 
-export async function subscribeUser(sub: WebPushSubscription) {
+export async function subscribeUser( sub: WebPushSubscription ) {
   subscription = sub;
 
   // In a production environment, you would want to store the subscription in a database
@@ -66,30 +68,32 @@ export async function unsubscribeUser() {
   };
 }
 
-export async function sendNotification(message: string) {
-  if (!subscription) {
-    throw new Error('No subscription available');
+export async function sendNotification( message: string ) {
+  if ( !subscription ) {
+    throw new Error( 'No subscription available' );
   }
 
   try {
     await webpush.sendNotification(
       subscription,
-      JSON.stringify({
+      JSON.stringify( {
         title: 'Test Notification',
-        body: message,
-        icon: '/icon.png',
-      }),
+        body : message,
+        icon : '/icon.png',
+      } ),
     );
 
     return {
       success: true,
     };
-  } catch (error) {
-    console.error('Error sending push notification:', error);
+  } catch ( error ) {
+    console.error(
+      'Error sending push notification:', error 
+    );
 
     return {
       success: false,
-      error: 'Failed to send notification',
+      error  : 'Failed to send notification',
     };
   }
 }

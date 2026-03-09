@@ -5,17 +5,17 @@ import { DetalleProceso } from '#@/lib/types/procesos';
 import { consultaProcesoDetalleURL } from '#@/lib/project/utils/main';
 import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
-export async function ProcesoTableDetalleComponent({
+export async function ProcesoTableDetalleComponent( {
   idProceso,
 }: {
   idProceso: string;
-}) {
-  const urlNameMaker = consultaProcesoDetalleURL(idProceso);
+} ) {
+  const urlNameMaker = consultaProcesoDetalleURL( idProceso );
 
-  const fetchProc = await fetchWithSmartRetry(urlNameMaker.toString());
+  const fetchProc = await fetchWithSmartRetry( urlNameMaker.toString() );
 
-  if (!fetchProc.ok) {
-    console.log(`proceso detalle failer with error: ${fetchProc.statusText}`);
+  if ( !fetchProc.ok ) {
+    console.log( `proceso detalle failer with error: ${ fetchProc.statusText }` );
 
     return (
       <>
@@ -47,7 +47,7 @@ export async function ProcesoTableDetalleComponent({
     );
   }
 
-  const fetchDetails = (await fetchProc.json()) as DetalleProceso;
+  const fetchDetails = ( await fetchProc.json() ) as DetalleProceso;
 
   const {
     llaveProceso,
@@ -83,30 +83,36 @@ export async function ProcesoTableDetalleComponent({
         </label>
       </td>
       <td>
-        {new Date(fechaConsulta).toLocaleDateString('es-co', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })}
+        {new Date( fechaConsulta )
+          .toLocaleDateString(
+            'es-co', {
+              weekday: 'long',
+              year   : 'numeric',
+              month  : 'long',
+              day    : 'numeric',
+            } 
+          )}
       </td>
       <td>
-        {new Date(fechaProceso).toLocaleDateString('es-co', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })}
+        {new Date( fechaProceso )
+          .toLocaleDateString(
+            'es-co', {
+              weekday: 'long',
+              year   : 'numeric',
+              month  : 'long',
+              day    : 'numeric',
+            } 
+          )}
       </td>
       <td>{idConexion}</td>
       <td>{idRegProceso}</td>
       <td>
-        <Link href={`/RamaJudicial/Expediente/${llaveProceso}`}>
+        <Link href={`/RamaJudicial/Expediente/${ llaveProceso }`}>
           <span>{llaveProceso}</span>
         </Link>
         <CopyButton
           copyTxt={llaveProceso}
-          name={`expediente numero ${llaveProceso}`}
+          name={`expediente numero ${ llaveProceso }`}
         />
       </td>
       <td>{ponente}</td>
@@ -115,12 +121,15 @@ export async function ProcesoTableDetalleComponent({
       <td>{tipoProceso}</td>
       <td>{ubicacion}</td>
       <td>
-        {new Date(ultimaActualizacion).toLocaleDateString('es-co', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })}
+        {new Date( ultimaActualizacion )
+          .toLocaleDateString(
+            'es-co', {
+              weekday: 'long',
+              year   : 'numeric',
+              month  : 'long',
+              day    : 'numeric',
+            } 
+          )}
       </td>
     </>
   );

@@ -3,20 +3,23 @@ import styles from '#@/components/Form/form.module.css';
 import { useState } from 'react';
 import { updateRevisadoState } from './actions';
 
-export function RevisadoCheckBox({
+export function RevisadoCheckBox( {
   numero,
   id,
   initialRevisadoState,
 }: {
-  numero: number;
-  id: number;
+  numero              : number;
+  id                  : number;
   initialRevisadoState: boolean;
-}) {
-  const [revisadoState, setRevisadoState] = useState({
-    numero: numero,
-    id: id,
+} ) {
+  const [
+    revisadoState,
+    setRevisadoState
+  ] = useState( {
+    numero  : numero,
+    id      : id,
     revisado: initialRevisadoState,
-  });
+  } );
 
   return (
     <label className={styles.switchBox}>
@@ -26,13 +29,13 @@ export function RevisadoCheckBox({
         role="switch"
         name="revisado"
         checked={revisadoState.revisado}
-        onChange={async (e) => {
-          const revis = await updateRevisadoState({
+        onChange={async ( e ) => {
+          const revis = await updateRevisadoState( {
             ...revisadoState,
             revisado: e.target.checked,
-          });
+          } );
 
-          return setRevisadoState(revis);
+          return setRevisadoState( revis );
         }}
       />
       {/* <span className={ styles.slider }aria-hidden="true"></span> */}

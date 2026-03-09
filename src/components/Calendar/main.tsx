@@ -4,23 +4,27 @@ import calendar from './calendar.module.css';
 import { Route } from 'next';
 import { connection } from 'next/server';
 
-export async function Calendar({ date }: { date?: Date }) {
+export async function Calendar( {
+  date 
+}: { date?: Date } ) {
   // 3. Opt-out of static rendering if we need the current date
-  if (!date) {
+  if ( !date ) {
     await connection();
   }
 
-  const today = date ? date : new Date();
+  const today = date
+    ? date
+    : new Date();
 
   const currentMonth = today.getMonth();
 
   const currentYear = today.getFullYear();
 
-  const rows = CalendarBuilder(today);
+  const rows = CalendarBuilder( today );
 
   return (
     <div className={calendar.container}>
-      <p>{nombresDeMeses[currentMonth] + currentYear}</p>
+      <p>{nombresDeMeses[ currentMonth ] + currentYear}</p>
       <div className={calendar.calendar}>
         <div className={calendar.weeks}>
           <li className={calendar.dias}>D</li>
@@ -32,15 +36,17 @@ export async function Calendar({ date }: { date?: Date }) {
           <li className={calendar.dias}>S</li>
         </div>
         <div className={calendar.days}>
-          {rows.map((row) => {
-            const { date, href, current, className } = row;
+          {rows.map( ( row ) => {
+            const {
+              date, href, current, className 
+            } = row;
 
             const setToday = date === today.getDate();
 
             return (
               <Link
                 key={href}
-                href={`/Calendario/Fecha/${href}` as Route}
+                href={`/Calendario/Fecha/${ href }` as Route}
                 className={
                   current
                     ? setToday
@@ -54,7 +60,7 @@ export async function Calendar({ date }: { date?: Date }) {
                 {date.toString()}
               </Link>
             );
-          })}
+          } )}
         </div>
       </div>
     </div>

@@ -6,7 +6,9 @@ import styles from './styles.module.css';
 import layout from '#@/styles/layout.module.css';
 import { addTaskToPrisma } from '#@/app/Tareas/actions';
 
-export function AddTask({ carpetaNumero }: { carpetaNumero?: number }) {
+export function AddTask( {
+  carpetaNumero 
+}: { carpetaNumero?: number } ) {
   /*
   const [
     taskState,
@@ -27,16 +29,26 @@ export function AddTask({ carpetaNumero }: { carpetaNumero?: number }) {
   /*
   const dispatchTasks = useDispatchTasks(); */
 
-  const [taskState, formAction, isPending] = useActionState(addTaskToPrisma, {
-    text: '',
-    done: false,
-    createdAt: new Date(),
-    id: 0,
-    updatedAt: new Date(),
-    content: [''],
-    dueDate: new Date(),
-    carpetaNumero: carpetaNumero ? carpetaNumero : null,
-  });
+  const [
+    taskState,
+    formAction,
+    isPending
+  ] = useActionState(
+    addTaskToPrisma, {
+      text     : '',
+      done     : false,
+      createdAt: new Date(),
+      id       : 0,
+      updatedAt: new Date(),
+      content  : [
+        ''
+      ],
+      dueDate      : new Date(),
+      carpetaNumero: carpetaNumero
+        ? carpetaNumero
+        : null,
+    } 
+  );
 
   /*
   async function createTask() {
@@ -92,11 +104,13 @@ export function AddTask({ carpetaNumero }: { carpetaNumero?: number }) {
         className={styles.container}
       >
         <fieldset>
-          {isPending ? 'Loading...' : taskState.text}
+          {isPending
+            ? 'Loading...'
+            : taskState.text}
           <legend>Agregar Tarea</legend>
           <section className={layout.sectionRow}>
             <label
-              className={`${styles.label} ${typography.titleMedium}`}
+              className={`${ styles.label } ${ typography.titleMedium }`}
               htmlFor={'text'}
             >
               tarea:
@@ -144,7 +158,7 @@ export function AddTask({ carpetaNumero }: { carpetaNumero?: number }) {
           <input
             type="date"
             name="dueDate"
-            defaultValue={InputDateHelper(taskState.dueDate)} /*
+            defaultValue={InputDateHelper( taskState.dueDate )} /*
             onChange={(
               e
             ) => {
@@ -198,7 +212,9 @@ export function AddTask({ carpetaNumero }: { carpetaNumero?: number }) {
         </fieldset>
         <button type={'submit'}>Add</button>
       </form>
-      <pre>{JSON.stringify(taskState, null, 2)}</pre>
+      <pre>{JSON.stringify(
+        taskState, null, 2 
+      )}</pre>
     </>
   );
 }

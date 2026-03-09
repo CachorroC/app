@@ -1,24 +1,25 @@
 'use client';
-import {
-  Dispatch,
+import { Dispatch,
   ReactNode,
   SetStateAction,
   createContext,
   useContext,
-  useState,
-} from 'react';
+  useState, } from 'react';
 
 const NavigationContext = createContext<{
-  isNavOpen: boolean;
+  isNavOpen   : boolean;
   setIsNavOpen: Dispatch<SetStateAction<boolean>>;
-} | null>(null);
+} | null>( null );
 
-export function NavigationContextProvider({
+export function NavigationContextProvider( {
   children,
 }: {
   children: ReactNode;
-}) {
-  const [isNavOpen, setIsNavOpen] = useState(false);
+} ) {
+  const [
+    isNavOpen,
+    setIsNavOpen
+  ] = useState( false );
 
   return (
     <NavigationContext.Provider
@@ -33,12 +34,10 @@ export function NavigationContextProvider({
 }
 
 export function useNavigationContext() {
-  const context = useContext(NavigationContext);
+  const context = useContext( NavigationContext );
 
-  if (context === null) {
-    throw new Error(
-      'Navigation Context has to be used within a Navigationprovider',
-    );
+  if ( context === null ) {
+    throw new Error( 'Navigation Context has to be used within a Navigationprovider', );
   }
 
   return context;

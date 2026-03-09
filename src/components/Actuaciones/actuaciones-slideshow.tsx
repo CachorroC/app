@@ -1,6 +1,6 @@
 'use client';
 
-import { outActuacion } from '#@/lib/types/actuaciones';
+import { DatabaseActuacionType } from '#@/lib/types/actuaciones';
 import { sectionRow } from '#@/styles/layout.module.css';
 import { Suspense, use, useState } from 'react';
 import styles from '../Card/card.module.css';
@@ -16,8 +16,8 @@ export function ActuacionesSlideshowErrorComponent() {
         className={typography.headlineSmall}
         style={{
           backgroundColor: 'var(--error-container)',
-          color: 'var(--on-error-container)',
-          borderBottom: 'solud 0.2rem var(--error)',
+          color          : 'var(--on-error-container)',
+          borderBottom   : 'solud 0.2rem var(--error)',
         }}
       >
         Sin actuaciones
@@ -30,11 +30,11 @@ export function ActuacionesSlideshowErrorComponent() {
   );
 }
 
-export function ActuacionesSlideshowContainer({
+export function ActuacionesSlideshowContainer( {
   actuacionesPromise,
 }: {
-  actuacionesPromise: Promise<outActuacion[]>;
-}) {
+  actuacionesPromise: Promise<DatabaseActuacionType[]>;
+} ) {
   return (
     <ErrorBoundary fallback={<ActuacionesSlideshowErrorComponent />}>
       <Suspense fallback={<ActuacionLoader />}>
@@ -44,32 +44,38 @@ export function ActuacionesSlideshowContainer({
   );
 }
 
-export function ActuacionesSlideshow({
+export function ActuacionesSlideshow( {
   actuacionesPromise,
 }: {
-  actuacionesPromise: Promise<outActuacion[]>;
-}) {
-  const actuacionesList = use(actuacionesPromise);
+  actuacionesPromise: Promise<DatabaseActuacionType[]>;
+} ) {
+  const actuacionesList = use( actuacionesPromise );
 
-  const [index, setIndex] = useState(0);
+  const [
+    index,
+    setIndex
+  ] = useState( 0 );
 
-  const [showMore, setShowMore] = useState(false);
+  const [
+    showMore,
+    setShowMore
+  ] = useState( false );
 
-  const sculpture = actuacionesList[index];
+  const sculpture = actuacionesList[ index ];
 
   function handleNextClick() {
-    setIndex(index + 1);
+    setIndex( index + 1 );
   }
 
   function handlePreviousClick() {
-    setIndex(index - 1);
+    setIndex( index - 1 );
   }
 
   function handleMoreClick() {
-    setShowMore(!showMore);
+    setShowMore( !showMore );
   }
 
-  if (actuacionesList.length === 0) {
+  if ( actuacionesList.length === 0 ) {
     return (
       <div className={styles.actuacionContainer}>
         <h5 className={typography.headlineSmall}>No hay actuaciones</h5>
@@ -86,7 +92,9 @@ export function ActuacionesSlideshow({
             onClick={handleMoreClick}
             className={styles.button}
           >
-            {showMore ? 'Hide' : 'Show'} details
+            {showMore
+              ? 'Hide'
+              : 'Show'} details
           </button>
           <button
             type={'button'}
@@ -127,7 +135,9 @@ export function ActuacionesSlideshow({
           onClick={handleMoreClick}
           className={styles.button}
         >
-          {showMore ? 'Hide' : 'Show'} details
+          {showMore
+            ? 'Hide'
+            : 'Show'} details
         </button>
         <button
           type={'button'}

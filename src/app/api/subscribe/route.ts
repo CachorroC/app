@@ -4,10 +4,10 @@ import { NextResponse } from 'next/server';
 // In a real app, replace this variable with a database (Postgres, Mongo, etc.)
 // You must store every user's subscription object.
 
-export async function POST(request: Request) {
+export async function POST( request: Request ) {
   const subscription = await request.json();
 
-  if (!subscription || !subscription.endpoint) {
+  if ( !subscription || !subscription.endpoint ) {
     return NextResponse.json(
       {
         error: 'Invalid subscription',
@@ -19,8 +19,8 @@ export async function POST(request: Request) {
   }
 
   const client = await clientPromise;
-  const db = client.db('Actuaciones'); // Replace with your DB name
-  const collection = db.collection('push_subscriptions');
+  const db = client.db( 'Actuaciones' ); // Replace with your DB name
+  const collection = db.collection( 'push_subscriptions' );
 
   // We use the 'endpoint' URL as the unique ID for the device
   await collection.updateOne(
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     },
   );
 
-  return NextResponse.json({
+  return NextResponse.json( {
     success: true,
-  });
+  } );
 }
