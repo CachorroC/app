@@ -1,21 +1,25 @@
+/* eslint-disable no-undef */
 import { sleep } from './project/helper';
 
 
 const browserHeaders = {
-  'User-Agent'        : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-  'Accept'            : 'application/json, text/plain, */*',
-  'Accept-Language'   : 'es-CO,es-419;q=0.9,es;q=0.8,en;q=0.7', // Prioritize Colombian Spanish
-  'Accept-Encoding'   : 'gzip, deflate, br',
-  'Connection'        : 'keep-alive',
+  'User-Agent'             : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+  'Accept'                 : 'application/json, text/plain, */*',
+  'Accept-Language'        : 'es-CO,es-419;q=0.9,es;q=0.8,en;q=0.7', // Prioritize Colombian Spanish
+  'Accept-Encoding'        : 'gzip, deflate, br',
+  'Connection'             : 'keep-alive',
   // Some firewalls check these modern "Sec-" headers
-  'Sec-Ch-Ua'         : '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
-  'Sec-Ch-Ua-Mobile'  : '?0',
-  'Sec-Ch-Ua-Platform': '"Windows"',
-  'Sec-Fetch-Dest'    : 'empty',
-  'Sec-Fetch-Mode'    : 'cors',
-  'Sec-Fetch-Site'    : 'same-site',
+  'Sec-Ch-Ua'              : '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+  'Sec-Ch-Ua-Mobile'       : '?0',
+  'Sec-Ch-Ua-Platform'     : '"Windows"',
+  'Sec-Fetch-Dest'         : 'empty',
+  'Sec-Fetch-Mode'         : 'cors',
+  'Sec-Fetch-Site'         : 'same-site',
   // Government APIs often require a Referer to prove you came from their frontend
-  'Referer'           : 'https://consultaprocesos.ramajudicial.gov.co/',
+  //'Referer'                : 'https://consultaprocesos.ramajudicial.gov.co/',
+  'CF-Access-Client-Id'    : `${ process.env.NEXT_PUBLIC_CF_ACCESS_CLIENT_ID }`,
+  'CF-Access-Client-Secret': `${ process.env.NEXT_PUBLIC_CF_ACCESS_CLIENT_SECRET }`,
+
 };
 
 

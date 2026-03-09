@@ -43,7 +43,7 @@ async function aggregateNotificationToDatabase( notification: OptionalId<Documen
 export async function POST( request: Request ) {
   const body = await request.json();
   const {
-    title, body: msgBody, icon, data, actions 
+    title, body: msgBody, icon, data, actions
   } = body;
 
   // 1. Prepare Payload ONCE (Logic Fix: Don't re-stringify inside the loop)
@@ -80,7 +80,7 @@ export async function POST( request: Request ) {
     // If batch is full, process it
     if ( batch.length >= BATCH_SIZE ) {
       await processBatch(
-        batch, payload, collection 
+        batch, payload, collection
       );
       batch = []; // Clear memory
     }
@@ -89,7 +89,7 @@ export async function POST( request: Request ) {
   // Process any remaining subscriptions
   if ( batch.length > 0 ) {
     await processBatch(
-      batch, payload, collection 
+      batch, payload, collection
     );
   }
 
@@ -107,18 +107,25 @@ async function processBatch(
   const promises = subscriptions.map( async ( sub ) => {
     try {
       await webpush.sendNotification(
-        sub, payload 
+        sub, payload
       );
     } catch ( error: any ) {
       if ( error.statusCode === 410 || error.statusCode === 404 ) {
-        // Use ObjectId for deletion if your _id is an ObjectId
         await collection.deleteOne( {
-          _id: sub._id,
+          _id: sub._id
         } );
-        console.log( `Cleaned up invalid sub: ${ sub.endpoint }` );
-      }
 
-      // 4. Cleanup Invalid Subscriptions
+        console.error( `Cleaned up invalid sub: ${ sub.endpoint }` );
+        console.log( `Cleaned up invalid sub: ${ sub.endpoint }` );
+      } else {
+        // Log the actual push service error
+        console.error(
+          `Failed to send push to ${ sub.endpoint }:`, error.body || error.message
+        );
+        console.log(
+          `Failed to send push to ${ sub.endpoint }:`, error.body || error.message
+        );
+      }
     }
   } );
 

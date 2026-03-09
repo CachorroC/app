@@ -91,6 +91,12 @@ export const getCarpetabyNumero = cache( async ( numero: number ) => {
 
   const newCarp: IntCarpeta = {
     ...carpeta,
+    ultimaActuacion: carpeta.ultimaActuacion
+      ? {
+          ...carpeta.ultimaActuacion,
+          carpetaNumero: carpeta.ultimaActuacion.carpetaNumero ?? numero,
+        }
+      : null,
     demanda: {
       ...demanda,
       capitalAdeudado: demanda.capitalAdeudado
