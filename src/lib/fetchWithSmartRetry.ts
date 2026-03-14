@@ -70,6 +70,7 @@ export async function fetchWithSmartRetryNoRateLimit(
   baseDelay = 8000,
 ): Promise<Response> {
   let attempt = 0;
+  console.log( `fetching ${ url }` );
 
   while ( attempt <= maxRetries ) {
     try {

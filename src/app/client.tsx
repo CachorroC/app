@@ -1,16 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { subscribeUser, unsubscribeUser, sendNotification } from './actions';
+import { subscribeUser, unsubscribeUser, sendNotification } from './actions/actions';
 
 function urlBase64ToUint8Array( base64String: string ) {
   const padding = '='.repeat( ( 4 - ( base64String.length % 4 ) ) % 4 );
 
   const base64 = ( base64String + padding ).replace(
-    /-/g, '+' 
+    /-/g, '+'
   )
     .replace(
-      /_/g, '/' 
+      /_/g, '/'
     );
 
   const rawData = window.atob( base64 );
@@ -46,7 +46,7 @@ function PushNotificationManager() {
         setIsSupported( true );
         registerServiceWorker();
       }
-    }, [] 
+    }, []
   );
 
   async function registerServiceWorker() {
@@ -54,7 +54,7 @@ function PushNotificationManager() {
       '/sw.js', {
         scope         : '/',
         updateViaCache: 'none',
-      } 
+      }
     );
 
     const sub = await registration.pushManager.getSubscription();
@@ -141,7 +141,7 @@ function InstallPrompt() {
       ) && !( window as any ).MSStream, );
 
       setIsStandalone( window.matchMedia( '(display-mode: standalone)' ).matches );
-    }, [] 
+    }, []
   );
 
   if ( isStandalone ) {

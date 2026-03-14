@@ -1,6 +1,4 @@
 'use client';
-
-import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 import { useEffect, useState } from 'react';
 
 const PUBLIC_VAPID_KEY = 'YOUR_PUBLIC_VAPID_KEY_HERE';
@@ -9,10 +7,10 @@ function urlBase64ToUint8Array( base64String: string ) {
   const padding = '='.repeat( ( 4 - ( base64String.length % 4 ) ) % 4 );
   const base64 = ( base64String + padding )
     .replace(
-      /\\-/g, '+' 
+      /\\-/g, '+'
     )
     .replace(
-      /_/g, '/' 
+      /_/g, '/'
     );
 
   const rawData = window.atob( base64 );
@@ -39,45 +37,99 @@ export default function NotificationButton() {
             '/service-worker.js', {
               scope         : '/',
               updateViaCache: 'none',
-            } 
+            }
           )
-          .then( ( registration ) => {
+          .then( async ( registration ) => {
             console.log(
-              'Scope: ', registration.scope 
+              'Scope: ', registration.scope
             );
+
+            // Optional but recommended: Check initial subscription state on load
+            const subscription = await registration.pushManager.getSubscription();
+
+            if ( subscription ) {
+              setIsSubscribed( true );
+            }
           } );
       }
-    }, [] 
+    }, []
   );
 
   const subscribeUser = async () => {
     if ( 'serviceWorker' in navigator ) {
-      const register = await navigator.serviceWorker.ready;
+      try {
+        const register = await navigator.serviceWorker.ready;
 
-      const subscription = await register.pushManager.subscribe( {
-        userVisibleOnly     : true,
-        applicationServerKey: urlBase64ToUint8Array( PUBLIC_VAPID_KEY ),
-      } );
+        const subscription = await register.pushManager.subscribe( {
+          userVisibleOnly     : true,
+          applicationServerKey: urlBase64ToUint8Array( PUBLIC_VAPID_KEY ),
+        } );
 
-      // Send subscription to your server to save it in your DB
-      await fetchWithSmartRetry(
-        '/api/subscribe', {
-          method : 'POST',
-          body   : JSON.stringify( subscription ),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        } 
-      );
+        // Send subscription to your server to save it in your DB
+        await fetch(
+          '/api/subscribe', {
+            method : 'POST',
+            body   : JSON.stringify( subscription ),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
-      setIsSubscribed( true );
+        setIsSubscribed( true );
+      } catch ( error ) {
+        console.error(
+          'Failed to subscribe user: ', error
+        );
+      }
+    }
+  };
+
+  const unSubscribeUser = async () => {
+    if ( 'serviceWorker' in navigator ) {
+      try {
+        const register = await navigator.serviceWorker.ready;
+        const subscription = await register.pushManager.getSubscription();
+
+        if ( subscription ) {
+          // Send the subscription to your server to delete it from the DB
+          const response = await fetch(
+            '/api/unsubscribe', {
+              method : 'POST',
+              body   : JSON.stringify( subscription ),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+
+          if ( response.ok ) {
+            // If the server successfully deletes it, unsubscribe locally
+            const successful = await subscription.unsubscribe();
+
+            if ( successful ) {
+              setIsSubscribed( false );
+            }
+          } else {
+            console.error( 'Failed to remove subscription from server.' );
+          }
+        }
+      } catch ( error ) {
+        console.error(
+          'Error unsubscribing', error
+        );
+      }
     }
   };
 
   return (
-    <button onClick={subscribeUser}>
+    // Updated to toggle functions based on current subscription state
+    <button onClick={isSubscribed
+      ? unSubscribeUser
+      : subscribeUser}
+    >
       {isSubscribed
-        ? 'Notifications Enabled!'
+        ? 'Notifications Enabled (Click to Disable)'
         : 'Enable Notifications'}
     </button>
   );

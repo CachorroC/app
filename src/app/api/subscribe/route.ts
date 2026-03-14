@@ -28,7 +28,11 @@ export async function POST( request: Request ) {
       endpoint: subscription.endpoint,
     },
     {
-      $set: subscription,
+      $set: {
+        subscription: subscription,
+        updatedAt   : new Date(),
+        userId      : subscription.userId, // Assuming you send userId in the subscription object
+      },
     },
     {
       upsert: true,

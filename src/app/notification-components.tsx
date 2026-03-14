@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { unsubscribeUser, sendNotification } from './actions';
 import styles from '#@/styles/PushNotifications.module.css';
-import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
+import { sendNotification, unsubscribeUser } from './actions/notifications';
 
 // Type definition for legacy iOS check
 interface CustomWindow extends Window {
@@ -13,10 +12,10 @@ interface CustomWindow extends Window {
 function urlBase64ToUint8Array( base64String: string ): Uint8Array {
   const padding = '='.repeat( ( 4 - ( base64String.length % 4 ) ) % 4 );
   const base64 = ( base64String + padding ).replace(
-    /-/g, '+' 
+    /-/g, '+'
   )
     .replace(
-      /_/g, '/' 
+      /_/g, '/'
     );
   const rawData = window.atob( base64 );
   const outputArray = new Uint8Array( rawData.length );
@@ -48,7 +47,7 @@ export function PushNotificationManager() {
         setIsSupported( true );
         registerServiceWorker();
       }
-    }, [] 
+    }, []
   );
 
   async function registerServiceWorker() {
@@ -64,7 +63,7 @@ export function PushNotificationManager() {
       setSubscription( sub );
     } catch ( error ) {
       console.error(
-        'Service Worker registration error:', error 
+        'Service Worker registration error:', error
       );
     }
   }
@@ -93,14 +92,14 @@ export function PushNotificationManager() {
         },
       };
 
-      const response = await fetchWithSmartRetry(
+      const response = await fetch(
         '/api/subscribe', {
           method : 'POST',
           body   : JSON.stringify( subscriptionData ),
           headers: {
             'Content-Type': 'application/json',
           },
-        } 
+        }
       );
 
       if ( response.ok ) {
@@ -108,7 +107,7 @@ export function PushNotificationManager() {
       }
     } catch ( error ) {
       console.error(
-        'Subscription failed:', error 
+        'Subscription failed:', error
       );
     }
   }
@@ -203,7 +202,7 @@ export function InstallPrompt() {
         = /iPad|iPhone|iPod/.test( navigator.userAgent ) && !win.MSStream;
       setIsIOS( isIOSDevice );
       setIsStandalone( window.matchMedia( '(display-mode: standalone)' ).matches );
-    }, [] 
+    }, []
   );
 
   if ( isStandalone ) {
