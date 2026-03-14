@@ -22,9 +22,23 @@ const urlBase64ToUint8Array = ( base64String: string ) => {
   return outputArray;
 };
 
-export default function NotificationToggle( {
-  userId
-}: { userId: string } ) {
+// NEW HELPER: Get or create the anonymous device ID
+const getOrCreateDeviceId = () => {
+  // Check if we already created one for this browser
+  let deviceId = localStorage.getItem( 'anonymous_device_id' );
+
+  if ( !deviceId ) {
+    // Generate a new standard UUID and save it
+    deviceId = crypto.randomUUID();
+    localStorage.setItem(
+      'anonymous_device_id', deviceId
+    );
+  }
+
+  return deviceId;
+};
+
+export default function NotificationToggle( ) {
   const [
     isSubscribed,
     setIsSubscribed
@@ -33,10 +47,18 @@ export default function NotificationToggle( {
     isLoading,
     setIsLoading
   ] = useState( false );
+  const [
+    deviceId,
+    setDeviceId
+  ] = useState<string | null>( null );
 
   // Check if the user is already subscribed on mount
   useEffect(
     () => {
+      // 1. Grab the anonymous ID on the client side only (avoids hydration errors)
+      const id = getOrCreateDeviceId();
+      setDeviceId( id );
+
       async function checkSubscription() {
         if ( 'serviceWorker' in navigator ) {
           const registration = await navigator.serviceWorker.ready;
@@ -50,6 +72,10 @@ export default function NotificationToggle( {
   );
 
   const handleToggle = async () => {
+    if ( !deviceId ) {
+      return;
+    } // Safeguard
+
     setIsLoading( true );
 
     try {
@@ -61,7 +87,7 @@ export default function NotificationToggle( {
 
         if ( subscription ) {
           // 1. Tell the server to delete it from MongoDB
-          await unSubscribeUser( subscription.endpoint );
+          await unSubscribeUser( deviceId );
           // 2. Unsubscribe locally in the browser
           await subscription.unsubscribe();
           setIsSubscribed( false );
@@ -79,7 +105,7 @@ export default function NotificationToggle( {
 
         // 2. Send the new token to the Server Action to save in MongoDB
         await subscribeUser(
-          JSON.parse( JSON.stringify( subscription ) ), userId
+          JSON.parse( JSON.stringify( subscription ) ), deviceId
         );
         setIsSubscribed( true );
       }
@@ -96,8 +122,7 @@ export default function NotificationToggle( {
   return (
     <button
       onClick={handleToggle}
-      disabled={isLoading}
-      className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+      disabled={isLoading || !deviceId}
     >
       {isLoading
         ? 'Updating...'

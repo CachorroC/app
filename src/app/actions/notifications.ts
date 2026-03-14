@@ -13,7 +13,7 @@ webpush.setVapidDetails(
 
 // We use the subscription 'endpoint' as the unique ID for the device
 export async function subscribeUser(
-  subscription: WebPushSubscription, userId
+  subscription: WebPushSubscription, userId: string
 ) {
   try {
     const client = await clientPromise;
@@ -54,18 +54,17 @@ export async function subscribeUser(
   }
 }
 
-export async function unSubscribeUser( endpoint: string ) {
+export async function unSubscribeUser( userId: string ) {
   try {
     const client = await clientPromise;
-    const db = client.db( 'your_database_name' );
+    const db = client.db( 'Actuaciones' );
 
-    // Delete the specific device's subscription using its unique endpoint URL
+    // Delete all subscriptions tied to this specific userId (deviceId)
     await db.collection( 'push_subscriptions' )
-      .deleteOne( {
-        endpoint: endpoint
+      .deleteMany( {
+        userId: userId
       } );
 
-    revalidatePath( '/settings' );
 
     return {
       success: true

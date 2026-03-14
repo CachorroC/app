@@ -1,13 +1,42 @@
 'use client';
-import { useEffect, useState } from 'react';
 
-const PUBLIC_VAPID_KEY = 'YOUR_PUBLIC_VAPID_KEY_HERE';
+import { useEffect, useState } from 'react';
+import { subscribeUser, unsubscribeUser } from './actions/notifications'; // Adjust import path as needed
+import { unSubscribeUser } from '#@/app/actions/notifications';
+
+// 1. Interface to satisfy the Node.js web-push library types on the server
+interface WebPushSubscription {
+  endpoint       : string;
+  expirationTime?: number | null;
+  keys: {
+    p256dh: string;
+    auth  : string;
+  };
+}
+
+// 2. Helper to get or create an anonymous device ID
+const getOrCreateDeviceId = () => {
+  if ( typeof window === 'undefined' ) {
+    return '';
+  }
+
+  let deviceId = localStorage.getItem( 'anonymous_device_id' );
+
+  if ( !deviceId ) {
+    deviceId = crypto.randomUUID();
+    localStorage.setItem(
+      'anonymous_device_id', deviceId
+    );
+  }
+
+  return deviceId;
+};
 
 function urlBase64ToUint8Array( base64String: string ) {
   const padding = '='.repeat( ( 4 - ( base64String.length % 4 ) ) % 4 );
   const base64 = ( base64String + padding )
     .replace(
-      /\\-/g, '+'
+      /\-/g, '+'
     )
     .replace(
       /_/g, '/'
@@ -28,10 +57,17 @@ export default function NotificationButton() {
     isSubscribed,
     setIsSubscribed
   ] = useState( false );
+  const [
+    deviceId,
+    setDeviceId
+  ] = useState( '' );
 
   useEffect(
     () => {
       if ( 'serviceWorker' in navigator ) {
+      // Initialize the device ID as soon as the component mounts
+        setDeviceId( getOrCreateDeviceId() );
+
         navigator.serviceWorker
           .register(
             '/service-worker.js', {
@@ -40,11 +76,7 @@ export default function NotificationButton() {
             }
           )
           .then( async ( registration ) => {
-            console.log(
-              'Scope: ', registration.scope
-            );
-
-            // Optional but recommended: Check initial subscription state on load
+          // Check initial subscription state on load
             const subscription = await registration.pushManager.getSubscription();
 
             if ( subscription ) {
@@ -55,28 +87,38 @@ export default function NotificationButton() {
     }, []
   );
 
-  const subscribeUser = async () => {
+  const handleSubscribe = async () => {
+    if ( !deviceId ) {
+      return;
+    } // Safeguard
+
     if ( 'serviceWorker' in navigator ) {
       try {
         const register = await navigator.serviceWorker.ready;
+        const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+
+        if ( !publicKey ) {
+          throw new Error( 'VAPID public key missing from env' );
+        }
 
         const subscription = await register.pushManager.subscribe( {
           userVisibleOnly     : true,
-          applicationServerKey: urlBase64ToUint8Array( PUBLIC_VAPID_KEY ),
+          applicationServerKey: urlBase64ToUint8Array( publicKey ),
         } );
 
-        // Send subscription to your server to save it in your DB
-        await fetch(
-          '/api/subscribe', {
-            method : 'POST',
-            body   : JSON.stringify( subscription ),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
+        // 3. Cast the object to remove hidden browser methods before sending
+        const serializedSub = JSON.parse( JSON.stringify( subscription ) ) as WebPushSubscription;
+
+        // 4. Call Server Action instead of fetch POST
+        const response = await subscribeUser(
+          serializedSub, deviceId
         );
 
-        setIsSubscribed( true );
+        if ( response && response.success ) {
+          setIsSubscribed( true );
+        } else {
+          console.error( 'Server action failed to save subscription' );
+        }
       } catch ( error ) {
         console.error(
           'Failed to subscribe user: ', error
@@ -85,33 +127,29 @@ export default function NotificationButton() {
     }
   };
 
-  const unSubscribeUser = async () => {
+  const handleUnsubscribe = async () => {
+    if ( !deviceId ) {
+      return;
+    }
+
     if ( 'serviceWorker' in navigator ) {
       try {
         const register = await navigator.serviceWorker.ready;
         const subscription = await register.pushManager.getSubscription();
 
         if ( subscription ) {
-          // Send the subscription to your server to delete it from the DB
-          const response = await fetch(
-            '/api/unsubscribe', {
-              method : 'POST',
-              body   : JSON.stringify( subscription ),
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          );
+          // 1. Tell the server to delete the record using the deviceId
+          const response = await unSubscribeUser( deviceId );
 
-          if ( response.ok ) {
-            // If the server successfully deletes it, unsubscribe locally
+          if ( response && response.success ) {
+            // 2. If server deletion is successful, unsubscribe locally
             const successful = await subscription.unsubscribe();
 
             if ( successful ) {
               setIsSubscribed( false );
             }
           } else {
-            console.error( 'Failed to remove subscription from server.' );
+            console.error( 'Failed to remove subscription from server database.' );
           }
         }
       } catch ( error ) {
@@ -123,10 +161,11 @@ export default function NotificationButton() {
   };
 
   return (
-    // Updated to toggle functions based on current subscription state
-    <button onClick={isSubscribed
-      ? unSubscribeUser
-      : subscribeUser}
+    <button
+      onClick={isSubscribed
+        ? handleUnsubscribe
+        : handleSubscribe}
+      disabled={!deviceId} // Prevent clicks before ID is generated
     >
       {isSubscribed
         ? 'Notifications Enabled (Click to Disable)'

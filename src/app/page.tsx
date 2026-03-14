@@ -9,6 +9,7 @@ import { InstallPrompt,
 import NotificationButton from '#@/components/NotificationButton';
 import { Suspense } from 'react';
 import { Loader } from '#@/components/Loader/main-loader';
+import NotificationToggle from '#@/components/NotificationToggle';
 
 export default function Page() {
   return (
@@ -22,6 +23,7 @@ export default function Page() {
         <div>
           <NotificationButton />
           <PushNotificationManager />
+          <NotificationToggle />
           <InstallPrompt />
         </div>
         <Link

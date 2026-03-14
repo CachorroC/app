@@ -2,8 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from '#@/styles/PushNotifications.module.css';
-import { sendNotification, unsubscribeUser } from './actions/notifications';
+import { sendNotification, subscribeUser, unSubscribeUser } from './actions/notifications';
 
+// 1. ADD THIS INTERFACE: It mimics the backend web-push type perfectly
+interface WebPushSubscription {
+  endpoint       : string;
+  expirationTime?: number | null;
+  keys: {
+    p256dh: string;
+    auth  : string;
+  };
+}
 // Type definition for legacy iOS check
 interface CustomWindow extends Window {
   MSStream?: unknown;
@@ -27,6 +36,24 @@ function urlBase64ToUint8Array( base64String: string ): Uint8Array {
   return outputArray;
 }
 
+// NEW: Helper to get or create an anonymous ID for this specific device
+const getOrCreateDeviceId = () => {
+  if ( typeof window === 'undefined' ) {
+    return '';
+  }
+
+  let deviceId = localStorage.getItem( 'anonymous_device_id' );
+
+  if ( !deviceId ) {
+    deviceId = crypto.randomUUID();
+    localStorage.setItem(
+      'anonymous_device_id', deviceId
+    );
+  }
+
+  return deviceId;
+};
+
 export function PushNotificationManager() {
   const [
     isSupported,
@@ -35,16 +62,21 @@ export function PushNotificationManager() {
   const [
     subscription,
     setSubscription
-  ] = useState<PushSubscription | null>( null, );
+  ] = useState<PushSubscription | null>( null );
   const [
     message,
     setMessage
+  ] = useState( '' );
+  const [
+    deviceId,
+    setDeviceId
   ] = useState( '' );
 
   useEffect(
     () => {
       if ( 'serviceWorker' in navigator && 'PushManager' in window ) {
         setIsSupported( true );
+        setDeviceId( getOrCreateDeviceId() ); // Grab the device ID on mount
         registerServiceWorker();
       }
     }, []
@@ -53,11 +85,10 @@ export function PushNotificationManager() {
   async function registerServiceWorker() {
     try {
       const registration = await navigator.serviceWorker.register(
-        '/service-worker.js',
-        {
+        '/service-worker.js', {
           scope         : '/',
           updateViaCache: 'none',
-        },
+        }
       );
       const sub = await registration.pushManager.getSubscription();
       setSubscription( sub );
@@ -79,31 +110,22 @@ export function PushNotificationManager() {
 
       const sub = await registration.pushManager.subscribe( {
         userVisibleOnly     : true,
-        applicationServerKey: urlBase64ToUint8Array( publicKey )
-          .buffer as ArrayBuffer,
+        applicationServerKey: urlBase64ToUint8Array( publicKey ).buffer as ArrayBuffer,
       } );
 
-      const subscriptionData = {
-        endpoint      : sub.endpoint,
-        expirationTime: sub.expirationTime,
-        keys          : {
-          p256dh: btoa( String.fromCharCode( ...new Uint8Array( sub.getKey( 'p256dh' )! ) ), ),
-          auth  : btoa( String.fromCharCode( ...new Uint8Array( sub.getKey( 'auth' )! ) ), ),
-        },
-      };
+      // Instead of manually extracting keys, JSON.parse(JSON.stringify())
+      // automatically grabs the endpoint, keys, and expirationTime securely.
+      const subscriptionData = JSON.parse( JSON.stringify( sub ) );
 
-      const response = await fetch(
-        '/api/subscribe', {
-          method : 'POST',
-          body   : JSON.stringify( subscriptionData ),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+      // 🚨 REPLACED FETCH WITH SERVER ACTION 🚨
+      const response = await subscribeUser(
+        subscriptionData, deviceId
       );
 
-      if ( response.ok ) {
+      if ( response.success ) {
         setSubscription( sub );
+      } else {
+        throw new Error( 'Server action failed to save subscription' );
       }
     } catch ( error ) {
       console.error(
@@ -113,22 +135,27 @@ export function PushNotificationManager() {
   }
 
   async function unsubscribeFromPush() {
-    await subscription?.unsubscribe();
-    setSubscription( null );
-    await unsubscribeUser();
+    if ( subscription ) {
+      await subscription.unsubscribe();
+      setSubscription( null );
+      // Pass the deviceId so the DB knows exactly which record to delete
+      await unSubscribeUser( deviceId );
+    }
   }
 
   async function sendTestNotification() {
     if ( subscription && message.trim() ) {
-      await sendNotification( message );
+      const serializedSub = JSON.parse( JSON.stringify( subscription ) ) as WebPushSubscription;
+      // Pass the deviceId so the server knows who to send it to!
+      await sendNotification(
+        message, serializedSub
+      );
       setMessage( '' );
     }
   }
 
   if ( !isSupported ) {
-    return (
-      <p className={styles.statusText}>Push notifications not supported.</p>
-    );
+    return <p className={styles.statusText}>Push notifications not supported.</p>;
   }
 
   return (
