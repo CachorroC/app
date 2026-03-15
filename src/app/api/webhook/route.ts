@@ -1,20 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from 'next/server';
-import webpush from 'web-push'; // Importing the mock DB
+import webpush from 'web-push';
 import clientPromise from '#@/lib/connection/mongodb';
 import type { PushSubscription as WebPushSubscription } from 'web-push';
 import { Collection, Document, OptionalId } from 'mongodb';
-interface SubscriptionDoc extends WebPushSubscription {
-  _id: string; // MongoDB always adds an _id
+interface SubscriptionDoc {
+  _id         : string;
+  endpoint    : string;
+  userId      : string;
+  subscription: WebPushSubscription; // The actual web-push object is nested here!
+  updatedAt   : Date;
 }
-
 webpush.setVapidDetails(
   'mailto:juankpato87@gmail.com',
   process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
   process.env.VAPID_PRIVATE_KEY!,
 );
 
-async function aggregateNotificationToDatabase( notification: OptionalId<Document>, ) {
+async function aggregateNotificationToDatabase( notification: OptionalId<Document> ) {
   try {
     const client = await clientPromise;
     const db = client.db( 'Actuaciones' );
@@ -25,110 +28,138 @@ async function aggregateNotificationToDatabase( notification: OptionalId<Documen
       throw new Error( 'Failed to insert notification into DB' );
     }
 
-    console.log( `inserted ${ insertNotification.insertedId }` );
+    console.log( `Notification logged with ID: ${ insertNotification.insertedId }` );
   } catch ( error ) {
-    console.log( `failed inserting the notification to the database: ${ JSON.stringify(
-      error,
-      null,
-      2,
-    ) }`, );
-    console.error( `failed inserting the notification to the database: ${ JSON.stringify(
-      error,
-      null,
-      2,
-    ) }`, );
+    // We only log here so a DB logging failure doesn't stop the push notifications
+    console.error(
+      'Failed inserting the notification to the database:', error
+    );
   }
 }
 
 export async function POST( request: Request ) {
-  const body = await request.json();
-  const {
-    title, body: msgBody, icon, data, actions
-  } = body;
+  try {
+    const body = await request.json();
+    const {
+      title, body: msgBody, icon, data, actions
+    } = body;
 
-  // 1. Prepare Payload ONCE (Logic Fix: Don't re-stringify inside the loop)
-  const payload = JSON.stringify( {
-    title,
-    body: msgBody,
-    icon,
-    data,
-    actions,
-  } );
-  await aggregateNotificationToDatabase( body );
-  const client = await clientPromise;
-  const db = client.db( 'Actuaciones' );
-  const collection = db.collection<SubscriptionDoc>( 'push_subscriptions' );
+    const payload = JSON.stringify( {
+      title,
+      body: msgBody,
+      icon,
+      data,
+      actions,
+    } );
 
-  // 2. CRITICAL FIX: Targeted vs Broadcast
-  // Currently, your code sends this notification to EVERY user in the DB.
-  // If this notification is for a specific user (e.g. "Your order is ready"),
-  // you MUST filter by userId here.
-  // const cursor = collection.find({ userId: data.userId }); <--- Recommended
+    // Fire and forget (or await if you want to strictly require it)
+    await aggregateNotificationToDatabase( body );
 
-  // If you genuinely intend to Broadcast to ALL users, use a cursor:
-  const cursor = collection.find( {} );
+    const client = await clientPromise;
+    const db = client.db( 'Actuaciones' );
+    const collection = db.collection<SubscriptionDoc>( 'push_subscriptions' );
 
-  // 3. Batch Processing (Prevents Memory Hoarding)
-  const BATCH_SIZE = 50;
-  let batch = [];
+    const cursor = collection.find( {} );
+    const BATCH_SIZE = 50;
+    let batch: SubscriptionDoc[] = [];
 
-  // Iterate using 'for await' to stream docs instead of loading all (.toArray)
-  for await ( const sub of cursor ) {
-    // Add to current batch
-    batch.push( sub );
+    for await ( const sub of cursor ) {
+      batch.push( sub );
 
-    // If batch is full, process it
-    if ( batch.length >= BATCH_SIZE ) {
+      if ( batch.length >= BATCH_SIZE ) {
+        await processBatch(
+          batch, payload, collection
+        );
+        batch = [];
+      }
+    }
+
+    if ( batch.length > 0 ) {
       await processBatch(
         batch, payload, collection
       );
-      batch = []; // Clear memory
     }
-  }
 
-  // Process any remaining subscriptions
-  if ( batch.length > 0 ) {
-    await processBatch(
-      batch, payload, collection
+    return NextResponse.json(
+      {
+        message: 'Notifications processing completed'
+      }, {
+        status: 200
+      }
+    );
+
+  } catch ( error ) {
+    console.error(
+      'Fatal error in POST route:', error
+    );
+
+    return NextResponse.json(
+      {
+        error: 'Internal Server Error processing notifications'
+      },
+      {
+        status: 500
+      }
     );
   }
-
-  return NextResponse.json( {
-    message: 'Notifications sent',
-  } );
 }
 
-// Helper function to handle sending and cleanup
 async function processBatch(
   subscriptions: SubscriptionDoc[],
   payload: string,
   collection: Collection<SubscriptionDoc>,
 ) {
   const promises = subscriptions.map( async ( sub ) => {
-    try {
-      await webpush.sendNotification(
-        sub, payload
-      );
-    } catch ( error: any ) {
-      if ( error.statusCode === 410 || error.statusCode === 404 ) {
+
+    // 1. Target the nested subscription object for the self-healing check
+    const pushSub = sub.subscription;
+
+    if ( !pushSub || !pushSub.keys || !pushSub.keys.auth || !pushSub.keys.p256dh ) {
+      console.warn( `Deleting malformed subscription: ${ sub.endpoint }` );
+
+      try {
         await collection.deleteOne( {
           _id: sub._id
         } );
-
-        console.error( `Cleaned up invalid sub: ${ sub.endpoint }` );
-        console.log( `Cleaned up invalid sub: ${ sub.endpoint }` );
-      } else {
-        // Log the actual push service error
+      } catch ( dbError ) {
         console.error(
-          `Failed to send push to ${ sub.endpoint }:`, error.body || error.message
+          `Failed to delete malformed sub ${ sub._id }:`, dbError
         );
-        console.log(
+      }
+
+      return;
+    }
+
+    try {
+      // 2. THE FIX: Pass the nested 'pushSub' object, NOT the whole DB document
+      await webpush.sendNotification(
+        pushSub, payload
+      );
+    } catch ( error: any ) {
+      const statusCode = error instanceof webpush.WebPushError
+        ? error.statusCode
+        : error?.statusCode;
+
+      if ( statusCode === 410 || statusCode === 404 ) {
+        try {
+          await collection.deleteOne( {
+            _id: sub._id
+          } );
+          console.log( `Cleaned up invalid sub: ${ sub.endpoint }` );
+        } catch ( dbError ) {
+          console.error(
+            `Failed to delete invalid sub ${ sub._id }:`, dbError
+          );
+
+          throw dbError;
+        }
+      } else {
+        console.error(
           `Failed to send push to ${ sub.endpoint }:`, error.body || error.message
         );
       }
     }
   } );
 
-  // Wait for this specific batch to finish before moving to the next
-  await Promise.all( promises );
+  await Promise.allSettled( promises );
 }

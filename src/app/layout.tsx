@@ -13,6 +13,7 @@ import { CategoryContextProvider } from './Context/category-context';
 import { playDisp, ptserif, josefina, radio, raleway } from '#@/styles/fonts';
 import PushManagerComponent from '#@/components/PushManager';
 import { Loader } from '#@/components/Loader/main-loader';
+import { PushNotificationProvider } from './Context/pushNotificationContext';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'
@@ -100,30 +101,32 @@ export default function RootLayout( {
       <body
         className={`${ playDisp.variable } ${ josefina.className } ${ raleway.variable } ${ radio.variable } ${ ptserif.variable } [ color-scheme: light dark ]`}
       >
-        <CategoryContextProvider>
-          <NavigationContextProvider>
-            <SearchProvider>
-              <ModalProvider>
-                <MainProvider>
-                  <PushManagerComponent />
-                  <div className={layout.container}>
-                    <Suspense
-                      fallback={
-                        <nav>
-                          Cargando menú... <Loader />
-                        </nav>
-                      }
-                    >
-                      <NavBar />
-                    </Suspense>
-                    {children}
-                    {modal}
-                  </div>
-                </MainProvider>
-              </ModalProvider>
-            </SearchProvider>
-          </NavigationContextProvider>
-        </CategoryContextProvider>
+        <PushNotificationProvider>
+          <CategoryContextProvider>
+            <NavigationContextProvider>
+              <SearchProvider>
+                <ModalProvider>
+                  <MainProvider>
+                    <PushManagerComponent />
+                    <div className={layout.container}>
+                      <Suspense
+                        fallback={
+                          <nav>
+                            Cargando menú... <Loader />
+                          </nav>
+                        }
+                      >
+                        <NavBar />
+                      </Suspense>
+                      {children}
+                      {modal}
+                    </div>
+                  </MainProvider>
+                </ModalProvider>
+              </SearchProvider>
+            </NavigationContextProvider>
+          </CategoryContextProvider>
+        </PushNotificationProvider>
         {/*  <Script
           src={`https://${ prefix }.rsasesorjuridico.com/install-service-worker.js`}
         /> */}

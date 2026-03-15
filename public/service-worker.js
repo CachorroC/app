@@ -2,7 +2,6 @@
 
 /**
  * Forzamos a TypeScript a tratar 'self' como un ServiceWorkerGlobalScope
- * sin usar la palabra reservada 'declare'.
  * @type {ServiceWorkerGlobalScope & typeof globalThis}
  */
 const sw = /** @type {?} */ ( self );
@@ -10,20 +9,18 @@ const sw = /** @type {?} */ ( self );
 const CACHE_NAME = 'offline-v1';
 const OFFLINE_URL = '/offline.html';
 
-//
-
 sw.addEventListener(
   'install', ( event ) => {
     event.waitUntil( ( async () => {
       const cache = await caches.open( CACHE_NAME );
       await cache.add( new Request(
         OFFLINE_URL, {
-          cache: 'reload',
-        } 
-      ), );
-    } )(), );
+          cache: 'reload'
+        }
+      ) );
+    } )() );
     sw.skipWaiting();
-  } 
+  }
 );
 
 sw.addEventListener(
@@ -32,10 +29,9 @@ sw.addEventListener(
       if ( 'navigationPreload' in sw.registration ) {
         await sw.registration.navigationPreload.enable();
       }
-    } )(), );
-    // 'clients' ahora será reconocido correctamente
+    } )() );
     sw.clients.claim();
-  } 
+  }
 );
 
 sw.addEventListener(
@@ -51,139 +47,125 @@ sw.addEventListener(
 
           return await fetch( event.request );
         } catch ( error ) {
-          console.log( error );
+          console.error(
+            'Fetch failed, returning offline page:', error
+          );
           const cache = await caches.open( CACHE_NAME );
           const cachedResponse = await cache.match( OFFLINE_URL );
 
-          return (
-            cachedResponse
-            || new Response(
-              'Offline', {
-                headers: {
-                  'Content-Type': 'text/html',
-                },
-              } 
-            )
+          return cachedResponse || new Response(
+            'Offline', {
+              headers: {
+                'Content-Type': 'text/html'
+              }
+            }
           );
         }
-      } )(), );
+      } )() );
     }
-  } 
+  }
 );
 
 sw.addEventListener(
   'push', ( event ) => {
-    if ( event.data ) {
-      let data;
-
-      try {
-        data = event.data.json();
-        console.log( `data: ${ data }` );
-        console.error( `data: ${ data }` );
-      } catch ( e ) {
-        console.log( e );
-        data = {
-          title: 'Notificación',
-          body : event.data.text(),
-        };
-      }
-
-      const options = {
-        title  : data.title,
-        body   : data.body,
-        icon   : data.icon || '/icons/notification_icon.png',
-        badge  : '/icons/android-chrome-36x36.png',
-        data   : data.data,
-        actions: data.actions || [
-          {
-            action: 'openCarpeta',
-            title : 'Ver Carpeta',
-          },
-          {
-            action: 'openActuaciones',
-            title : 'Ver Actuaciones',
-          },
-        ],
-      };
-
-      event.waitUntil( sw.registration.showNotification(
-        data.title || 'Mensaje', options 
-      ), );
+    if ( !event.data ) {
+      return;
     }
-  } 
+
+    // THE FIX: Tell TypeScript this object can hold any properties
+    /** @type {any} */
+    let data = {};
+
+    try {
+      data = event.data.json();
+      // FIX: Log the actual object structure
+      console.log(
+        'Push data received:', data
+      );
+    } catch ( e ) {
+      console.error(
+        'Failed to parse push data as JSON:', e
+      );
+      data = {
+        title: 'Notificación',
+        body : event.data.text(),
+      };
+    }
+
+    const options = {
+      body   : data.body,
+      icon   : data.icon || '/icons/notification_icon.png',
+      badge  : '/icons/android-chrome-36x36.png',
+      data   : data.data || {}, // Safely default to empty object
+      actions: data.actions || [
+        {
+          action: 'openCarpeta',
+          title : 'Ver Carpeta'
+        },
+        {
+          action: 'openActuaciones',
+          title : 'Ver Actuaciones'
+        },
+      ],
+    };
+
+    event.waitUntil( sw.registration.showNotification(
+      data.title || 'Nuevo Mensaje', options
+    ) );
+  }
 );
 
-/* sw.addEventListener(
-  'notificationclick', (
-    event
-  ) => {
-    event.notification.close();
-    event.waitUntil(
-      sw.clients.openWindow(
-        '/'
-      )
-    );
-  }
-); */
 sw.addEventListener(
   'notificationclick', ( event ) => {
-    console.log( 'Notification clicked.' );
-
-    // 1. Close the notification
     event.notification.close();
 
     const {
-      action, notification 
+      action, notification
     } = event;
     const data = notification.data || {};
+    let urlToOpen = '/'; // FIX: Default fallback URL
 
-    // 2. Determine the URL to open based on the action
-    let urlToOpen;
-
-    if ( action === 'openCarpeta' ) {
-    // Action: openCarpeta -> https://app.rsasesorjuridico.com/Carpeta/${numero}
+    if ( action === 'openCarpeta' && data.numero ) {
       urlToOpen = `https://app.rsasesorjuridico.com/Carpeta/${ data.numero }`;
-    } else if ( action === 'openActuaciones' ) {
-    // Action: openActuaciones -> https://app.rsasesorjuridico.com/Carpeta/${numero}/ultimasActuaciones/${idProceso}
+    } else if ( action === 'openActuaciones' && data.numero && data.idProceso ) {
       urlToOpen = `https://app.rsasesorjuridico.com/Carpeta/${ data.numero }/ultimasActuaciones/${ data.idProceso }#actuacion-${ data.idRegActuacion }`;
-    } else {
-    // Default Action (Body click) -> data.url
+    } else if ( data.url ) {
       urlToOpen = data.url;
     }
 
-    console.log( `Opening URL: ${ urlToOpen }` );
+    event.waitUntil( sw.clients
+      .matchAll( {
+        type               : 'window',
+        includeUncontrolled: true
+      } )
+      .then( ( clientList ) => {
+        const targetUrl = new URL(
+          urlToOpen, self.location.origin
+        ).href;
 
-    // 3. Handle the opening/focusing of the window
-    if ( urlToOpen ) {
-      event.waitUntil( sw.clients
-        .matchAll( {
-          type               : 'window',
-          includeUncontrolled: true,
-        } )
-        .then( ( clientList ) => {
-        // A. Check if a tab with this URL is already open and focus it
-          for ( const client of clientList ) {
-            const clientUrl = new URL(
-              client.url, self.location.origin 
-            ).href;
-            const targetUrl = new URL(
-              urlToOpen, self.location.origin 
-            ).href;
+        // Find ANY open tab for our app
+        for ( const client of clientList ) {
+          const clientUrlObj = new URL(
+            client.url, self.location.origin
+          );
+          const targetUrlObj = new URL(
+            targetUrl, self.location.origin
+          );
 
-            // Compare strict equality or just path depending on preference
-            if ( clientUrl === targetUrl && 'focus' in client ) {
-              return client.focus();
-            }
+          // FIX/UX UPGRADE: If they have our app open at all, focus it and navigate
+          if ( clientUrlObj.origin === targetUrlObj.origin && 'focus' in client ) {
+            client.navigate( targetUrl ); // Change the route of the existing tab
+
+            return client.focus();      // Bring it to the front
           }
+        }
 
-          // B. If not open, open a new window
-          if ( sw.clients.openWindow ) {
-            return sw.clients.openWindow( urlToOpen );
-          }
+        // If no tabs are open, spawn a new one
+        if ( sw.clients.openWindow ) {
+          return sw.clients.openWindow( urlToOpen );
+        }
 
-          // FIX: Add this return to satisfy TypeScript
-          return null;
-        } ), );
-    }
-  } 
+        return null;
+      } ) );
+  }
 );
