@@ -4,7 +4,7 @@ import React, { createContext,
   SetStateAction,
   useState,
   useContext, } from 'react';
-
+//TODO: refactorizar esto, no es necesario tener dos contextos para manejar el estado de los modales, se puede manejar con un solo contexto y un estado que indique cual modal esta abierto, o incluso con un estado que indique si el modal esta abierto y otro estado que indique el tipo de modal que esta abierto (si es necesario diferenciar entre diferentes tipos de modales)
 const ModalContext = createContext<{
   isModalOpen   : boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -16,7 +16,7 @@ const ModalNoteContext = createContext<{
 } | null>( null );
 
 export function ModalProvider( {
-  children 
+  children
 }: { children: React.ReactNode } ) {
   const [
     isModalOpen,
