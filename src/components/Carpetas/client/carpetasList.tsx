@@ -283,50 +283,12 @@ export function CarpetasTable() {
 
   return (
     <>
-      <Box sx={{
-        height: 400,
-        width : '100%'
+
+      <table style={{
+        width      : '60vw',
+        tableLayout: 'fixed'
       }}
       >
-        <DataGridPro
-          autoHeight
-          rows={rows}
-          columns={columns}
-          initialState={ {
-            sorting: {
-              sortModel: [
-                {
-                  field: 'fecha',
-                  sort : 'desc'
-                }
-              ],
-            },
-            pinnedColumns: {
-              left: [
-                GRID_DETAIL_PANEL_TOGGLE_FIELD
-              ],
-            },
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
-          getDetailPanelHeight={getDetailPanelHeight}
-          getDetailPanelContent={getDetailPanelContent}
-          sx={{
-            '& .MuiDataGrid-detailPanel': {
-              overflow: 'visible',
-            },
-          }}
-          pageSizeOptions={[
-            5
-          ]}
-          checkboxSelection
-          disableRowSelectionOnClick
-        />
-      </Box>
-      <table>
         <thead>
           <tr>
             <Suspense fallback={<Loader />}>
@@ -460,7 +422,49 @@ export function CarpetasTable() {
           } )}
         </tbody>
       </table>
-
+      <Box sx={{
+        height: 400,
+        width : '100%'
+      }}
+      >
+        <DataGridPro
+          autoHeight
+          rows={rows}
+          columns={columns}
+          initialState={ {
+            sorting: {
+              sortModel: [
+                {
+                  field: 'fecha',
+                  sort : 'desc'
+                }
+              ],
+            },
+            pinnedColumns: {
+              left: [
+                GRID_DETAIL_PANEL_TOGGLE_FIELD
+              ],
+            },
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          getDetailPanelHeight={getDetailPanelHeight}
+          getDetailPanelContent={getDetailPanelContent}
+          sx={{
+            '& .MuiDataGrid-detailPanel': {
+              overflow: 'visible',
+            },
+          }}
+          pageSizeOptions={[
+            5
+          ]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box>
     </>
   );
 }
