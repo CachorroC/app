@@ -12,7 +12,7 @@ import { IntAction,
   carpetasReducer, } from '../Hooks/useCarpetasreducer';
 
 export const sortByDateDesc = (
-  a: MonCarpeta, b: MonCarpeta 
+  a: MonCarpeta, b: MonCarpeta
 ) => {
   // 1. Normalize inputs to Date objects (or null if missing)
   // new Date() handles both ISO strings and existing Date objects correctly
@@ -68,7 +68,7 @@ export function CarpetasSortProvider( {
     carpetasReducer, {
       carpetas        : sortedInitial,
       completeCarpetas: sortedInitial,
-    } 
+    }
   );
 
   const [
