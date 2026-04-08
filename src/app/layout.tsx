@@ -1,4 +1,4 @@
-import './manifest';
+
 import '#@/styles/globals.css';
 import 'material-symbols';
 import layout from '#@/styles/layout.module.css';
@@ -98,6 +98,13 @@ export default function RootLayout( {
 } ) {
   return (
     <html lang="es-CO">
+      <head>
+        <link
+          rel="manifest"
+          href="/manifest.webmanifest"
+          crossOrigin="use-credentials"
+        />
+      </head>
       <body
         className={`${ playDisp.variable } ${ josefina.className } ${ raleway.variable } ${ radio.variable } ${ ptserif.variable } [ color-scheme: light dark ]`}
       >

@@ -85,14 +85,41 @@ export function InstallPrompt() {
     isStandalone,
     setIsStandalone
   ] = useState( false );
+  const [
+    deferredPrompt,
+    setDeferredPrompt
+  ] = useState<any>( null );
 
   useEffect(
     () => {
       const isIOSDevice = /iPad|iPhone|iPod/.test( navigator.userAgent ) && !( window as any ).MSStream;
       setIsIOS( isIOSDevice );
       setIsStandalone( window.matchMedia( '(display-mode: standalone)' ).matches );
+
+      const handler = ( e: Event ) => {
+
+        setDeferredPrompt( e );
+      };
+
+      window.addEventListener(
+        'beforeinstallprompt', handler 
+      );
+
+      return () => {
+        return window.removeEventListener(
+          'beforeinstallprompt', handler 
+        );
+      };
     }, []
   );
+
+  async function handleInstallClick() {
+    if ( deferredPrompt ) {
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      setDeferredPrompt( null );
+    }
+  }
 
   if ( isStandalone ) {
     return null;
@@ -101,7 +128,11 @@ export function InstallPrompt() {
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>Install App</h3>
-      <button className={`${ styles.button } ${ styles.btnPrimary }`}>
+      <button
+        onClick={handleInstallClick}
+        className={`${ styles.button } ${ styles.btnPrimary }`}
+        disabled={!isIOS && !deferredPrompt}
+      >
         Add to Home Screen
       </button>
       {isIOS && (
