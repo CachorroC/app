@@ -9,7 +9,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 # Agent Rules
 
 1. **Pre-Edit Sync**: Auto-commit existing pending changes
-   using Conventional Commits and run `git pull` _before_
+   using Conventional Commits that explain what changed in the code and what was implemented and run `git pull` _before_
    modifying files. Include the uncommented `git status`
    file list in the commit message.
 2. **Post-Edit Review**: Do NOT commit your new edits; leave
