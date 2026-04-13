@@ -1,13 +1,16 @@
 # -----------------------------------------------------------------------------
 # Stage 1: Base
 # -----------------------------------------------------------------------------
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 # 1. Install dependencies required for Prisma + Alpine (OpenSSL is critical)
 RUN apk add --no-cache libc6-compat openssl
+
 WORKDIR /app
 
-# Enable pnpm via corepack (included in Node 20)
+# Enable pnpm and configure home for caching
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 # -----------------------------------------------------------------------------
@@ -17,10 +20,11 @@ FROM base AS deps
 WORKDIR /app
 
 # Copy lockfiles first for better caching
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml* ./
 
-# 2. Install dependencies strictly from lockfile
-RUN pnpm install --no-frozen-lockfile
+# 2. Install dependencies using cache mount for speed
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+  pnpm install --frozen-lockfile
 
 # -----------------------------------------------------------------------------
 # Stage 3: Builder
@@ -28,25 +32,19 @@ RUN pnpm install --no-frozen-lockfile
 FROM base AS builder
 WORKDIR /app
 
+# Copy node_modules and source
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# 3. Generate Prisma Client
-# This looks at your local schema.prisma and creates the client in node_modules
-# It does NOT need a database connection to run.
+# 3. Generate Prisma Client (No DB connection needed)
 RUN npx prisma generate
 
-# 4. Handle Next.js Public Environment Variables
-# Note: 'environment' in docker-compose is NOT available here.
-# If you use process.env.NEXT_PUBLIC_... in your client-side code,
-# you MUST define those ARGs here and pass them in docker-compose 'build: args'.
+# 4. Environment variables & Build
 ARG NEXT_PUBLIC_MONGODB_URI
 ENV NEXT_PUBLIC_MONGODB_URI=${NEXT_PUBLIC_MONGODB_URI}
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# Disable telemetry during build
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# Build the application
+# Build the application (Standalone output must be enabled in next.config.js)
 RUN pnpm build
 
 # -----------------------------------------------------------------------------
@@ -55,28 +53,27 @@ RUN pnpm build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Security: Don't run as root
+RUN addgroup --system --gid 1001 nodejs && \
+  adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
 
-# Set permissions for nextjs cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
+# Setup nextjs cache directory
+RUN mkdir .next && chown nextjs:nodejs .next
 
 # Copy the standalone build (Output Tracing)
+# This includes only the necessary files for production
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-# Expose port 3000 (Compose maps this to 5555)
 EXPOSE 3000
+ENV PORT=3000
 
-ENV PORT 3000
-
-# Start the application
+# Start server.js created by Next.js standalone output
 CMD ["node", "server.js"]
