@@ -254,11 +254,12 @@ export function NewNotaComponent( {
     pathname     : pathname
       ? pathname
       : null,
-    content: [
+    content  : [
       idRegActuacion
         ? String( idRegActuacion )
         : ''
     ],
+    completed: false,
   } );
 
   const [

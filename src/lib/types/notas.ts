@@ -1,17 +1,4 @@
-// To parse this data:
-//
-//   import { Convert } from "./file";
-//
-//   const IntNota = Convert.toIntNota(json);
-
-import { WithId } from 'mongodb';
-
-export interface NotaEditorAction {
-  message: string;
-  data   : monNota | null | IntNota | NewNota;
-  error  : boolean;
-}
-
+/** Represents the data required to create a new Nota entry in Prisma. */
 export type NewNota = {
   id           : string;
   text         : string;
@@ -22,14 +9,25 @@ export type NewNota = {
   completed    : boolean;
 };
 
+/** Mirrors the full Prisma Nota model as returned from a database query. */
 export interface IntNota extends NewNota {
-  id       : string;
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt    : Date;
+  createdAt    : Date;
+  RelevantDates?: IntRelevantDate[];
 }
 
-export interface monNota extends IntNota {
-  _id: string;
+/** Mirrors the Prisma RelevantDates model. */
+export type IntRelevantDate = {
+  id    : string;
+  date  : Date;
+  text  : string;
+  notaId: string | null;
+};
+
+export interface NotaEditorAction {
+  message: string;
+  data   : IntNota | NewNota | null;
+  error  : boolean;
 }
 
 export type SortActionType = {
@@ -75,37 +73,3 @@ export type NotaAction =
   | ResetActionType
   | UpdateActionType
   | SortActionType;
-
-export class notasConvert {
-  public static monNotasToJson( value: monNota[] ): string {
-    return JSON.stringify( value );
-  }
-
-  public static monNotaToJson( value: monNota ): string {
-    return JSON.stringify( value );
-  }
-
-  public static toMonNota( nota: WithId<IntNota> ): monNota {
-    const newNota = {
-      ...nota,
-      createdAt    : new Date(),
-      _id          : nota._id.toString(),
-      carpetaNumero: nota.carpetaNumero
-        ? nota.carpetaNumero
-        : null,
-      pathname: nota.pathname
-        ? nota.pathname
-        : null,
-    };
-
-    return newNota;
-  }
-
-  public static toMonNotas( rawNotas: WithId<IntNota>[] ): monNota[] {
-    const newNotas = rawNotas.map( ( nota ) => {
-      return this.toMonNota( nota );
-    } );
-
-    return newNotas;
-  }
-}

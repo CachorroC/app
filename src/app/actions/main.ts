@@ -161,14 +161,9 @@ export async function editNota(
       throw new Error( 'nota not acknlowledged' );
     }
 
-    const notaSerialized = {
-      ...nota,
-      _id: nota._id.toString(),
-    };
-
     const notaActionReturn: NotaEditorAction = {
-      message: `success: ${ notaSerialized._id }`,
-      data   : notaSerialized,
+      message: `success: ${ nota.id }`,
+      data   : nota as unknown as import('#@/lib/types/notas').IntNota,
       error  : false,
     };
 

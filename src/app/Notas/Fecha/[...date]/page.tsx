@@ -1,6 +1,5 @@
 import { NotaComponent } from '#@/components/Nota/server';
-import clientPromise from '#@/lib/connection/mongodb';
-import { IntNota, notasConvert } from '#@/lib/types/notas';
+import prisma from '#@/lib/connection/prisma';
 import { notFound } from 'next/navigation';
 
 export default async function DatePage( {
@@ -8,9 +7,8 @@ export default async function DatePage( {
 }: {
   params: Promise<{ date: string[] }>;
 } ) {
-  // 2. Await params before using them
   const {
-    date 
+    date
   } = await params;
 
   const [
@@ -19,31 +17,22 @@ export default async function DatePage( {
     incomingDia
   ] = date;
 
-  // Now you are safely in a request context
   const incomingDate = new Date( `${ incomingAno }-${ incomingMes }-${ incomingDia }` );
-  const client = await clientPromise;
 
-  if ( !client ) {
-    throw new Error( 'no hay cliente mongólico' );
-  }
-
-  const db = client.db( 'RyS' );
-
-  const collection = db.collection<IntNota>( 'Notas' );
-
-  const rawNotas = await collection
-    .find( {
-      date: {
-        $gte: incomingDate,
+  const notas = await prisma.nota.findMany( {
+    where: {
+      dueDate: {
+        gte: incomingDate,
       },
-    } )
-    .toArray();
+    },
+    include: {
+      RelevantDates: true,
+    },
+  } );
 
-  if ( rawNotas.length === 0 ) {
+  if ( notas.length === 0 ) {
     return notFound();
   }
-
-  const notas = notasConvert.toMonNotas( rawNotas );
 
   return (
     <>
@@ -53,7 +42,7 @@ export default async function DatePage( {
           weekday: 'short',
           month  : 'long',
           day    : 'numeric',
-        } 
+        }
       )}
       {notas.map( ( nota ) => {
         return (

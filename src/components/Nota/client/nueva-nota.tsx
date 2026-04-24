@@ -67,6 +67,7 @@ export const NuevaNota = () => {
       pathname     : pathname,
       carpetaNumero: null,
       id           : '',
+      completed    : false,
       dueDate      : new Date(
         newDater.getFullYear(),
         newDater.getMonth(),
