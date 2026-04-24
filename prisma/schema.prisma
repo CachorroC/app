@@ -160,14 +160,16 @@ model Notifier {
 
 model Nota {
   carpetaNumero Int?
-  createdAt     DateTime  @default(now())
-  id            String    @id
+  createdAt     DateTime        @default(now())
+  id            String          @id
   pathname      String?
-  updatedAt     DateTime  @updatedAt
+  updatedAt     DateTime        @updatedAt
   dueDate       DateTime?
   text          String
   content       String[]
-  carpeta       Carpeta?  @relation(fields: [carpetaNumero], references: [numero])
+  completed     Boolean         @default(false)
+  carpeta       Carpeta?        @relation(fields: [carpetaNumero], references: [numero])
+  RelevantDates RelevantDates[]
 }
 
 model Task {
@@ -241,6 +243,14 @@ model User {
   password  String
   name      String?
   createdAt DateTime @default(now())
+}
+
+model RelevantDates {
+  date   DateTime
+  text   String
+  id     String   @id
+  notaId String?
+  Nota   Nota?    @relation(fields: [notaId], references: [id])
 }
 
 enum NotifierName {

@@ -13,12 +13,13 @@ export interface NotaEditorAction {
 }
 
 export type NewNota = {
-  carpetaNumero: number | null;
-  content      : string[];
-  dueDate      : Date | null;
-  pathname     : string | null;
-  text         : string;
   id           : string;
+  text         : string;
+  dueDate      : Date | null;
+  carpetaNumero: number | null;
+  pathname     : string | null;
+  content      : string[];
+  completed    : boolean;
 };
 
 export interface IntNota extends NewNota {
