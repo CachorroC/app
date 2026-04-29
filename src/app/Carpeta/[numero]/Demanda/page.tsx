@@ -1,13 +1,15 @@
 import prisma from '#@/lib/connection/prisma';
 import { notFound } from 'next/navigation';
+import { connection } from 'next/server';
 
 export default async function DemandaPage( {
   params,
 }: {
   params: Promise<{ numero: string }>;
 } ) {
+  await connection();
   const {
-    numero 
+    numero
   } = await params;
 
   const carpeta = await prisma.carpeta.findFirst( {
@@ -37,7 +39,7 @@ export default async function DemandaPage( {
   }
 
   const {
-    demanda, llaveProceso 
+    demanda, llaveProceso
   } = carpeta;
 
   if ( !demanda ) {
@@ -45,7 +47,7 @@ export default async function DemandaPage( {
   }
 
   const {
-    capitalAdeudado 
+    capitalAdeudado
   } = demanda;
 
   const moneyFixed = new Intl.NumberFormat(
@@ -53,7 +55,7 @@ export default async function DemandaPage( {
       style          : 'currency',
       currency       : 'COP',
       currencyDisplay: 'name',
-    } 
+    }
   )
     .format( capitalAdeudado.toNumber() );
 

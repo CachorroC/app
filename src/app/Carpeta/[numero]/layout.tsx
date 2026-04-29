@@ -7,55 +7,43 @@ import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
-import { ExpedienteFormComponent } from './expediente-form-component';
-import ProtoPage from './proto-page';
+import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 
-/*
+
 export async function generateStaticParams() {
   const carpetas = await getCarpetas();
 
-  const flattenUp = carpetas.flatMap(
-    (
-      carpeta
-    ) => {
-      const {
-        numero, procesos
-      } = carpeta;
+  const flattenUp = carpetas.flatMap( ( carpeta ) => {
+    const {
+      numero, procesos
+    } = carpeta;
 
-      if ( procesos.length === 0 ) {
+    if ( procesos.length === 0 ) {
+      return {
+        numero   : String( numero ),
+        idProceso: 'idProceso',
+      };
+    }
+
+    return procesos.map( ( proceso ) => {
+      if ( proceso.esPrivado ) {
         return {
-          numero: String(
-            numero
-          ),
+          numero   : String( numero ),
           idProceso: 'idProceso',
         };
       }
 
-      return procesos.map(
-        (
-          proceso
-        ) => {
-          if ( proceso.esPrivado ) {
-            return {
-              numero: String(
-                numero
-              ),
-              idProceso: 'idProceso',
-            };
-          }
-
-          return {
-            numero: String(
-              numero
-            ),
-            idProceso: String(
-              proceso.idProceso
-            ),
-          };
-        }
-      );
-    }
-  );
+      return {
+        numero   : String( numero ),
+        idProceso: String( proceso.idProceso ),
+      };
+    } );
+  } )
+    .sort( (
+      a, b
+    ) => {
+      return Number( a.numero ) - Number( b.numero );
+    } );
 
   const chunkSize = 100;
 
@@ -66,25 +54,21 @@ export async function generateStaticParams() {
       i, i + chunkSize
     );
 
-    chunks.push(
-      chunk
-    );
+    chunks.push( chunk );
   }
 
-  console.log(
-    chunks.length
-  );
+  console.log( chunks.length );
 
   return chunks[ chunks.length - 1 ];
 }
- */
+
 export async function generateMetadata( {
   params,
 }: {
   params: Promise<{ numero: string }>;
 } ): Promise<Metadata> {
   const {
-    numero 
+    numero
   } = await params;
 
   const product = await getCarpetabyNumero( Number( numero ) );
@@ -109,6 +93,7 @@ export async function generateMetadata( {
   };
 }
 
+
 export default async function LayoutCarpetaMain( {
   children,
   top,
@@ -121,7 +106,7 @@ export default async function LayoutCarpetaMain( {
   params  : Promise<{ numero: string }>;
 } ) {
   const {
-    numero 
+    numero
   } = await params;
 
   const carpeta = await getCarpetabyNumero( Number( numero ) );
@@ -153,17 +138,7 @@ export default async function LayoutCarpetaMain( {
       </div>
       <div className={styles.right}>
         <Suspense fallback={<Loader />}>{right}</Suspense>
-        <Suspense fallback={<Loader />}>
-          <ProtoPage carpeta={carpeta} />
-        </Suspense>
 
-        <Suspense fallback={<Loader />}>
-          <ExpedienteFormComponent
-            initialLLave={carpeta.llaveProceso}
-            numero={Number( numero )}
-            id={carpeta.id}
-          />
-        </Suspense>
       </div>
     </CarpetaFormProvider>
   );

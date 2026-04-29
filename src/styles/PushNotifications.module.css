@@ -1,9 +1,49 @@
-.container {
+/* .container {
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   margin-top: 1rem;
   font-family: sans-serif;
+
+  &.notifications {
+    bottom: 1.5rem;
+  }
+  &.install {
+    bottom: calc(1.5rem + 160px);
+    @media (max-width: 600px) {
+      bottom: 1.5rem;
+      &.shifted {
+        bottom: calc(1.5rem + 160px);
+      }
+    }
+  }
+
+  @supports (backdrop-filter: blur(0px)) {
+    background: rgba(var(--surface-container-high), 0.7);
+  }
+}
+
+.closeButton {
+  display: flex;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--on-surface-variant);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(var(--on-surface-variant), 0.1);
+  }
 }
 
 .title {
@@ -44,17 +84,14 @@
   background-color: #2563eb;
   color: white;
 }
-
 .btnSecondary {
   background-color: #ef4444;
   color: white;
 }
-
 .btnSuccess {
   background-color: #16a34a;
   color: white;
 }
-
 .btnGhost {
   background-color: #e5e7eb;
   color: #374151;
@@ -70,4 +107,185 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
+} */
+.container {
+  display: flex;
+  position: fixed;
+  right: 1.5rem;
+  z-index: 1000;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(90vw, 320px);
+  padding: 1.25rem;
+  overflow: hidden;
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--shape-corner-large);
+  background: var(--surface-container-high);
+  box-shadow: var(--elevation-3);
+  opacity: 0;
+  transition: all 0.4s var(--md-sys-motion-easing-standard);
+  animation: slideIn 0.5s var(--md-sys-motion-easing-standard) forwards;
+  backdrop-filter: blur(12px);
+}
+.container.notifications {
+  bottom: 1.5rem;
+}
+.container.install {
+  bottom: calc(1.5rem + 160px);
+}
+@media (max-width: 600px) {
+  .container.install {
+    bottom: 1.5rem;
+  }
+  .container.install.shifted {
+    bottom: calc(1.5rem + 160px);
+  }
+}
+@supports (backdrop-filter: blur(0px)) {
+  .container {
+    background: rgba(var(--surface-container-high), 0.7);
+  }
+}
+
+.closeButton {
+  display: flex;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--on-surface-variant);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.closeButton:hover {
+  background: rgba(var(--on-surface-variant), 0.1);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary);
+  font-family: var(--title-medium-font-family-name);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.statusText {
+  margin-bottom: 1rem;
+  color: var(--on-surface-variant);
+  font-family: var(--body-medium-font-family-name);
+  font-size: var(--body-small-font-size);
+  line-height: 1.4;
+}
+
+.inputField {
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--outline);
+  border-radius: var(--shape-corner-small);
+  background: var(--surface-container);
+  color: var(--on-surface);
+  font-family: var(--body-medium-font-family-name);
+  transition: border-color 0.2s;
+}
+.inputField:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: var(--shape-corner-full);
+  font-family: var(--label-large-font-family-name);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.button:active {
+  transform: scale(0.98);
+}
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnPrimary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.btnPrimary:hover:not(:disabled) {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btnSecondary {
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+}
+.btnSecondary:hover:not(:disabled) {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+
+.btnSuccess {
+  background-color: var(--chakra-verde);
+  color: white;
+}
+.btnSuccess:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.btnGhost {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.btnGhost:hover:not(:disabled) {
+  background-color: var(--primary-fixed-dim);
+  color: var(--on-primary-fixed-variant);
+}
+
+.flexGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(2rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

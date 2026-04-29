@@ -17,11 +17,11 @@ import { ConsultaProcesos, outProceso } from '#@/lib/types/procesos';
 import SujetosProcesales from '#@/components/Proceso/sujetos-procesales';
 import { JuzgadoClass } from '#@/lib/models/juzgado';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
-import ProtoPage from './proto-page';
+import ProtoPage from '../../../components/proto-page';
 import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 async function AvailableProcesosByName( {
-  nombre 
+  nombre
 }: { nombre: string } ) {
   const urlNameMaker = consultaProcesosPorRazonSocial( nombre );
 
@@ -97,7 +97,7 @@ export default async function Page( {
   params: Promise<{ numero: string }>;
 } ) {
   const {
-    numero 
+    numero
   } = await params;
 
   const carpeta = await getCarpetabyNumero( Number( numero ) );
@@ -107,7 +107,7 @@ export default async function Page( {
   }
 
   const {
-    idProcesos, llaveProceso, juzgado, nombre 
+    idProcesos, llaveProceso, juzgado, nombre
   } = carpeta;
 
   let idProcesoContent;

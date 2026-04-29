@@ -1,34 +1,16 @@
+import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { appContainer,
-  card,
-  cardHeader,
-  cardIcon,
-  cardTitle,
-  chip,
-  dashboardGrid,
-  dataLabel,
-  dataRow,
-  dataValue,
-  filled,
-  headerCard,
-  headerInfo,
-  headerMeta,
-  money,
-  statusTerminado,
-  timeline,
-  timelineContent,
-  timelineDate,
-  timelineItem, } from './proto-styles.module.css';
+import { appContainer, card, cardHeader, cardIcon, cardTitle, chip, dashboardGrid, dataLabel, dataRow, dataValue, filled, headerCard, headerInfo, headerMeta, money, statusTerminado, timeline, timelineContent, timelineDate, timelineItem } from '#@/styles/proto-styles.module.css';
+import CardHeader from './Proto/card-header';
+import DataRow from './Proto/data-row';
+
+async function ActuacionesList() {
+  const actuaciones = await fetchActuaciones();
+}
 
 export default function ProtoPage( {
-  carpeta 
+  carpeta
 }: { carpeta: IntCarpeta } ) {
-  const copFormatter = new Intl.NumberFormat(
-    'es-CO', {
-      style   : 'currency',
-      currency: 'COP',
-    } 
-  );
 
   return (
     <>
@@ -81,53 +63,19 @@ export default function ProtoPage( {
             }}
           >
             <section className={card}>
-              <div className={cardHeader}>
-                <span className={cardTitle}>Deudor Principal</span>
-                <span className={cardIcon}>👤</span>
-              </div>
-              <div className={dataRow}>
-                <span className={dataLabel}>Nombre</span>
-                <span className={dataValue}>{carpeta.nombre}</span>
-              </div>
-              <div className={dataRow}>
-                <span className={dataLabel}>Cédula</span>
-                <span className={dataValue}>{carpeta.deudor?.cedula}</span>
-              </div>
-              <div className={dataRow}>
-                <span className={dataLabel}>Teléfono</span>
-                <span className={dataValue}>{carpeta.deudor?.telCelular}</span>
-              </div>
-              <div className={dataRow}>
-                <span className={dataLabel}>Email</span>
-                <span className={dataValue}>{carpeta.deudor?.email}</span>
-              </div>
+              <CardHeader title={'Deudor Principal'} icon={'👤'} />
+              <DataRow label={'Nombre'} value={carpeta.nombre} />
+              <DataRow label={'Cédula'} value={carpeta.deudor?.cedula} />
+              <DataRow label={'Teléfono'} value={carpeta.deudor?.telCelular} />
+              <DataRow label={'Email'} value={carpeta.deudor?.email} />
             </section>
 
             <section className={card}>
-              <div className={cardHeader}>
-                <span className={cardTitle}>Detalles Judiciales</span>
-                <span className={cardIcon}>⚖️</span>
-              </div>
-              <div className={dataRow}>
-                <span className={dataLabel}>Juzgado</span>
-                <span className={dataValue}>{carpeta.juzgado?.tipo}</span>
-              </div>
-              <div className={dataRow}>
-                <span className={dataLabel}>Ciudad</span>
-                <span className={dataValue}>
-                  {carpeta.demanda.departamento}
-                </span>
-              </div>
-              <div className={dataRow}>
-                <span className={dataLabel}>Radicado</span>
-                <span className={dataValue}>{carpeta.demanda.radicado}</span>
-              </div>
-              <div className={dataRow}>
-                <span className={dataLabel}>Capital Adeudado</span>
-                <span className={`${ dataValue } ${ money }`}>
-                  {copFormatter.format( carpeta.demanda?.capitalAdeudado ?? 0 )}
-                </span>
-              </div>
+              <CardHeader title={'Detalles Judiciales'} icon={'⚖️'} />
+              <DataRow label={'Juzgado'} value={carpeta.juzgado?.tipo} />
+              <DataRow label={'Ciudad'} value={carpeta.demanda.departamento} />
+              <DataRow label={'Radicado'} value={carpeta.demanda.radicado} />
+              <DataRow label={'Capital Adeudado'} value={carpeta.demanda.capitalAdeudado} money={true} />
             </section>
 
             <section

@@ -16,9 +16,14 @@ import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { containerEnabled } from '#@/components/Card/filled.module.css';
 import { ProcesoHibrido } from '#@/components/Proceso/hibrido';
 import React from 'react';
+import { Carpeta, CarpetaDashboard } from '#@/components/legalDashboard';
+import { ExpedienteFormComponent } from '../expediente-form-component';
+import ProtoPage from '../../../../components/proto-page';
+
+
 
 async function NotasList( {
-  carpetaNumero 
+  carpetaNumero
 }: { carpetaNumero: number } ) {
   const notas = await getNotas( carpetaNumero );
 
@@ -40,14 +45,9 @@ async function NotasList( {
   );
 }
 
-export default async function Page( {
-  params,
-}: {
-  params: Promise<{ numero: string }>;
-} ) {
-  const {
-    numero 
-  } = await params;
+async function ServerRequestedComponent( {
+  numero
+}:{numero: number} )  {
 
   const carpeta = await getCarpetabyNumero( Number( numero ) );
 
@@ -56,7 +56,7 @@ export default async function Page( {
   }
 
   const {
-    llaveProceso, demanda, fecha, updatedAt 
+    llaveProceso, demanda, fecha, updatedAt
   } = carpeta;
 
   const allFechas = new Set<{ name: string; date: Date }>();
@@ -99,7 +99,7 @@ export default async function Page( {
 
     if ( mandamientoPago !== null ) {
       mandamientoPago.forEach( (
-        mandamiento, index 
+        mandamiento, index
       ) => {
         allFechas.add( {
           name: `mandamientoPago.${ index }`,
@@ -129,7 +129,7 @@ export default async function Page( {
   const fechasMaper = [
     ...allFechasArray
   ].sort( (
-    a, b 
+    a, b
   ) => {
     const x = a.date.getTime();
 
@@ -148,19 +148,8 @@ export default async function Page( {
 
   return (
     <>
-      <div className={containerEnabled}>
-        <ProcesoHibrido llaveProceso={carpeta.llaveProceso} />
-        <h1>Notas</h1>
-        <Suspense fallback={<SearchOutputListSkeleton />}>
-          <NotasList carpetaNumero={Number( numero )} />
-        </Suspense>
-        <Suspense fallback={<Loader />}>
-          <NotasLinkList
-            carpetaNumero={Number( numero )}
-            key={numero}
-          />
-        </Suspense>
-      </div>
+      <CarpetaDashboard carpeta={carpeta as unknown as Carpeta} />
+      <ProcesoHibrido llaveProceso={llaveProceso} />
       {llaveProceso && (
         <div className={containerEnabled}>
           <Suspense fallback={<Loader />}>
@@ -200,6 +189,51 @@ export default async function Page( {
           />
         )}
       </Suspense>
+      <Suspense fallback={<Loader />}>
+        <ProtoPage carpeta={carpeta} />
+      </Suspense>
+
+      <Suspense fallback={<Loader />}>
+        <ExpedienteFormComponent
+          initialLLave={carpeta.llaveProceso}
+          numero={Number( numero )}
+          id={carpeta.id}
+        />
+      </Suspense>
+    </>
+  );
+}
+
+export default async function Page( {
+  params,
+}: {
+  params: Promise<{ numero: string }>;
+} ) {
+  const {
+    numero
+  } = await params;
+
+
+
+  return (
+    <>
+      <div className={containerEnabled}>
+        <Suspense fallback={<Loader />}>
+          <ServerRequestedComponent numero={Number( numero )} />
+        </Suspense>
+        <h1>Notas</h1>
+        <Suspense fallback={<SearchOutputListSkeleton />}>
+          <NotasList carpetaNumero={Number( numero )} />
+        </Suspense>
+        <Suspense fallback={<Loader />}>
+          <NotasLinkList
+            carpetaNumero={Number( numero )}
+            key={numero}
+          />
+        </Suspense>
+      </div>
+
+
     </>
   );
 }

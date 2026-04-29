@@ -1,6 +1,8 @@
-import { cache } from 'react';
+
 import { fetchNotas } from './fetcher';
 
-export const getNotas = cache( async ( carpetaId?: number ) => {
+export const getNotas = async ( carpetaId?: number ) => {
+  'use cache';
+
   return await fetchNotas( carpetaId );
-} );
+} ;

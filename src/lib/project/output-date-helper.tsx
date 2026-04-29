@@ -1,3 +1,5 @@
+'use client';
+
 export default function OutputDateHelper( {
   incomingDate,
 }: {
@@ -27,6 +29,6 @@ export default function OutputDateHelper( {
       weekday : 'long',
       month   : 'long',
       day     : 'numeric',
-    } 
+    }
   );
 }

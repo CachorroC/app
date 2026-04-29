@@ -2,7 +2,7 @@
 
 import { APISchema, Model } from '#@/lib/types/api-models';
 import { useState, useEffect } from 'react';
-import styles from './studio-clone.module.scss';
+import styles from './studio-clone.module.css';
 
 export function StudioClone() {
   const [
@@ -32,7 +32,7 @@ export function StudioClone() {
             setActiveModel( data.models[ 0 ] );
           }
         } );
-    }, [] 
+    }, []
   );
 
   // 2. Fetch data whenever a new table/model is selected
@@ -51,7 +51,7 @@ export function StudioClone() {
         } );
     }, [
       activeModel
-    ] 
+    ]
   );
 
   return (
@@ -89,54 +89,56 @@ export function StudioClone() {
       <div className={styles.mainContent}>
         <h2 className={styles.mainTitle}>{activeModel?.name} Data</h2>
 
-        {tableData.length === 0 ? (
-          <p className={styles.emptyMessage}>
-            No records found. (Add POST logic to create some!)
-          </p>
-        ) : (
-          <table className={styles.table}>
-            <thead className={styles.tableHead}>
-              <tr>
-                {/* Dynamically generate column headers based on DMMF fields */}
-                {activeModel?.fields.map( ( field ) => {
-                  return (
-                    <th
-                      key={field.name}
-                      className={styles.tableHeader}
-                    >
-                      {field.name}{' '}
-                      <span className={styles.fieldType}>({field.type})</span>
-                    </th>
-                  );
-                } )}
-              </tr>
-            </thead>
-            <tbody>
-              {/* Dynamically render rows and cells */}
-              {tableData.map( (
-                row, index 
-              ) => {
-                return (
-                  <tr
-                    key={index}
-                    className={styles.tableRow}
-                  >
+        {tableData.length === 0
+          ? (
+              <p className={styles.emptyMessage}>
+                No records found. (Add POST logic to create some!)
+              </p>
+            )
+          : (
+              <table className={styles.table}>
+                <thead className={styles.tableHead}>
+                  <tr>
+                    {/* Dynamically generate column headers based on DMMF fields */}
                     {activeModel?.fields.map( ( field ) => {
                       return (
-                        <td
+                        <th
                           key={field.name}
-                          className={styles.tableCell}
+                          className={styles.tableHeader}
                         >
-                          {String( row[ field.name ] )}
-                        </td>
+                          {field.name}{' '}
+                          <span className={styles.fieldType}>({field.type})</span>
+                        </th>
                       );
                     } )}
                   </tr>
-                );
-              } )}
-            </tbody>
-          </table>
-        )}
+                </thead>
+                <tbody>
+                  {/* Dynamically render rows and cells */}
+                  {tableData.map( (
+                    row, index
+                  ) => {
+                    return (
+                      <tr
+                        key={index}
+                        className={styles.tableRow}
+                      >
+                        {activeModel?.fields.map( ( field ) => {
+                          return (
+                            <td
+                              key={field.name}
+                              className={styles.tableCell}
+                            >
+                              {String( row[ field.name ] )}
+                            </td>
+                          );
+                        } )}
+                      </tr>
+                    );
+                  } )}
+                </tbody>
+              </table>
+            )}
       </div>
     </div>
   );

@@ -15,7 +15,8 @@
     "json-to-prisma": "json-to-prisma-schema-convertor convert --inputPath='./prisma/schema.json' --outputPath='./prisma/new/schema.prisma'",
     "db:test": "tsx scripts/test-database.ts",
     "db:studio": "prisma studio",
-    "prisma:generate": "prisma generate && ts-node src/lib/scripts/generate-dmmf.ts"
+    "prisma:generate": "prisma generate && ts-node src/lib/scripts/generate-dmmf.ts",
+    "postinstall": "node scripts/enforce-strict-css.js"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",

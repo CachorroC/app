@@ -3,6 +3,7 @@ import { ConsultaActuacion,
   FetchResponseActuacionType,
   DatabaseActuacionType, } from '#@/lib/types/actuaciones';
 import { ensureDate } from '#@/lib/utils/ensureDate';
+import { connection } from 'next/server';
 
 function getLatestByDate( actuaciones: FetchResponseActuacionType[] ): FetchResponseActuacionType | null {
   if ( !actuaciones || actuaciones.length === 0 ) {
@@ -46,7 +47,10 @@ export default async function fetchActuaciones(
   idProceso: string,
   carpetaNumero: number,
 ): Promise<DatabaseActuacionType[]> {
+  await connection();
+
   try {
+
     const request = await fetchWithSmartRetry(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
       {

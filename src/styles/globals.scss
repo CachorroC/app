@@ -232,6 +232,19 @@
   --spacing-md: 16px;
   --spacing-lg: 24px;
 
+  --md-sys-state-hover: 0.08;
+  --md-sys-state-focus: 0.1;
+  --md-sys-state-pressed: 0.12;
+
+  --md-btn-height: 40px;
+  --md-btn-padding-inline: 24px;
+  --md-btn-icon-padding-start: 16px;
+  --md-btn-icon-padding-end: 24px;
+  --md-btn-gap: 8px;
+  --md-btn-icon-size: 18px;
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-duration-short: 100ms;
+
   @media (prefers-color-scheme: light) {
     --primary: rgb(2 74 106);
     --surface-tint: rgb(43 100 133);

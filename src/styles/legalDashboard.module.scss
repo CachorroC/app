@@ -1,0 +1,254 @@
+/* Dashboard.module.css */
+
+.container {
+  container-type: inline-size;
+  container-name: dashboard;
+  width: 100%;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+/* --- Base Layout (< 800px Container) --- */
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sidebarPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.mainPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.procesosGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --- Elevated Cards --- */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  border: 1px solid #e2e8f0;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+}
+
+.cardHeader {
+  border-bottom: 2px dashed #f1f5f9;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  letter-spacing: -0.025em;
+}
+
+.cardSubtitle {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+.sectionTitle {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #475569;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionTitle::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+/* --- Badges --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.badgeSuccess {
+  background-color: #f0fdf4;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+.badgeWarning {
+  background-color: #fffbeb;
+  color: #b45309;
+  border-color: #fde68a;
+}
+
+.badgePrimary {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+/* --- Approachable Data Grids --- */
+.dataGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.dataItem {
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.dataItem:hover {
+  background: #f1f5f9;
+}
+
+.dataLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.dataValue {
+  font-size: 0.9rem;
+  color: #0f172a;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* --- Elegant Timeline --- */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 0.5rem;
+}
+
+.timelineItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid #e2e8f0;
+}
+
+.timelineItem::before {
+  box-sizing: border-box;
+  content: '';
+  position: absolute;
+  left: -0.45rem; /* Centered on the 2px border */
+  top: 0.25rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #3b82f6;
+  box-shadow: 0 0 0 4px #eff6ff;
+}
+
+.actuacionHeader {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.actuacionDate {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.actuacionNote {
+  font-size: 0.9rem;
+  color: #475569;
+  margin-top: 0.25rem;
+  background: #f8fafc;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border-left: 3px solid #cbd5e1;
+}
+
+.actuacionDetailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* --- Container Queries (Dashboard / Desktop View) --- */
+
+@container dashboard (min-width: 800px) {
+  .layout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .sidebarPanel {
+    flex: 0 0 380px;
+    position: sticky;
+    top: 1.5rem;
+  }
+
+  .mainPanel {
+    flex: 1;
+    min-width: 0; /* Prevents flex items from overflowing */
+  }
+}
+
+@container dashboard (min-width: 1200px) {
+  .procesosGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    align-items: start;
+  }
+}

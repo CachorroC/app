@@ -5,6 +5,8 @@ import CiudadFilteringButtons from './ciudad-filter';
 import { InputSearchBar } from '#@/components/layout/InputSearchBar';
 import { actionButtons, tableControls } from './styles.module.css';
 
+
+
 const options = [
   {
     name : 'direccion de sorteo',
