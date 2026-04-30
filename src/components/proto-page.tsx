@@ -8,6 +8,8 @@ import { Card } from './Proto/card';
 import CardHeader from './Proto/card-header';
 import DataRow from './Proto/data-row';
 import TimelineItem from './Proto/timeline-item';
+import TaskRow from './Proto/task-row';
+
 
 async function ActuacionesList( {
   idProceso, carpetaNumero
@@ -141,77 +143,15 @@ export default function ProtoPage( {
           >
             <Card>
               <CardHeader title={'Tareas Pendientes'} icon={'✅'} />
-              <div
-                style={{
-                  display   : 'flex',
-                  gap       : 12,
-                  alignItems: 'center',
-                  padding   : '8px 0',
-                }}
-              >
-                <input
-                  type="checkbox"
-                  style={{
-                    width      : 18,
-                    height     : 18,
-                    accentColor: 'var(--primary)',
-                  }}
-                />
-                <div
-                  style={{
-                    flex: 1,
-                  }}
-                >
-                  <div
-                    style={{
-                      fontWeight: 500,
-                    }}
-                  >
-                    Solicitar Liquidación
-                  </div>
-                  <div
-                    style={{
-                      fontSize: '0.8rem',
-                      color   : 'var(--error)',
-                    }}
-                  >
-                    Vence: Mañana
-                  </div>
-                </div>
-              </div>
-              <div
-                style={{
-                  display   : 'flex',
-                  gap       : 12,
-                  alignItems: 'center',
-                  padding   : '8px 0',
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked
-                  style={{
-                    width      : 18,
-                    height     : 18,
-                    accentColor: 'var(--primary)',
-                  }}
-                />
-                <div
-                  style={{
-                    flex          : 1,
-                    textDecoration: 'line-through',
-                    opacity       : 0.6,
-                  }}
-                >
-                  <div
-                    style={{
-                      fontWeight: 500,
-                    }}
-                  >
-                    Revisar Medidas Cautelares
-                  </div>
-                </div>
-              </div>
+              <TaskRow
+                title="Solicitar Liquidación"
+                dueDate="Vence: Mañana"
+              />
+              <TaskRow
+                title="Revisar Medidas Cautelares"
+                isCompleted={true}
+              />
+
             </Card>
 
             <Card>

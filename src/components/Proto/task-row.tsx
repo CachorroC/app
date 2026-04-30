@@ -1,4 +1,53 @@
-export default function TaskRow() {
+'use client';
+
+import React from 'react';
+
+/**
+ * Props for the TaskRow component.
+ * @property {string} title - The title of the task.
+ * @property {string} [dueDate] - Optional due date text.
+ * @property {boolean} [isCompleted] - Whether the task is marked as completed.
+ * @property {string} [color] - Optional color for the due date text.
+ * @property {() => void} [onToggle] - Callback when the checkbox is toggled.
+ */
+interface TaskRowProps {
+  id       : string
+  text     : string;
+  dueDate? : string;
+  color?   : string;
+  onToggle?: () => void;
+  completed: boolean;
+}
+
+/**
+ * A reusable task row component that displays a task with a checkbox,
+ * title, and optional due date.
+ */
+export default function TaskRow( {
+  text,
+  dueDate,
+  completed,
+  color,
+  onToggle,
+}: TaskRowProps ) {
+  const getDueDateColor = () => {
+    if ( color ) {
+      return color;
+    }
+
+    const lowerDue = dueDate?.toLowerCase() || '';
+
+    if ( lowerDue.includes( 'mañana' ) || lowerDue.includes( 'hoy' ) ) {
+      return 'var(--error)';
+    }
+
+    if ( lowerDue.includes( 'próxima semana' ) ) {
+      return 'var(--warning, #ed6c02)';
+    }
+
+    return 'var(--text-secondary, #666)';
+  };
+
   return (
     <div
       style={{
@@ -10,15 +59,25 @@ export default function TaskRow() {
     >
       <input
         type="checkbox"
+        checked={isCompleted}
+        onChange={onToggle}
         style={{
           width      : 18,
           height     : 18,
           accentColor: 'var(--primary)',
+          cursor     : 'pointer',
         }}
       />
       <div
         style={{
-          flex: 1,
+          flex          : 1,
+          textDecoration: isCompleted
+            ? 'line-through'
+            : 'none',
+          opacity: isCompleted
+            ? 0.6
+            : 1,
+          transition: 'all 0.2s ease',
         }}
       >
         <div
@@ -26,16 +85,18 @@ export default function TaskRow() {
             fontWeight: 500,
           }}
         >
-          Solicitar Liquidación
+          {text}
         </div>
-        <div
-          style={{
-            fontSize: '0.8rem',
-            color   : 'var(--error)',
-          }}
-        >
-          Vence: Mañana
-        </div>
+        {!isCompleted && dueDate && (
+          <div
+            style={{
+              fontSize: '0.8rem',
+              color   : getDueDateColor(),
+            }}
+          >
+            {dueDate}
+          </div>
+        )}
       </div>
     </div>
   );
