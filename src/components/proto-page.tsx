@@ -1,11 +1,40 @@
 import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
+import { getTop5LatestActuaciones } from '#@/lib/project/utils/Actuaciones/get-5-latest';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { appContainer, card, cardHeader, cardIcon, cardTitle, chip, dashboardGrid, dataLabel, dataRow, dataValue, filled, headerCard, headerInfo, headerMeta, money, statusTerminado, timeline, timelineContent, timelineDate, timelineItem } from '#@/styles/proto-styles.module.css';
+import { appContainer, chip, dashboardGrid,  filled, headerCard, headerInfo, headerMeta, statusTerminado, timeline,  } from '#@/styles/proto-styles.module.css';
+import { Suspense } from 'react';
+import { Loader } from './Loader/main-loader';
+import { Card } from './Proto/card';
 import CardHeader from './Proto/card-header';
 import DataRow from './Proto/data-row';
+import TimelineItem from './Proto/timeline-item';
 
-async function ActuacionesList() {
-  const actuaciones = await fetchActuaciones();
+async function ActuacionesList( {
+  idProceso, carpetaNumero
+}: { idProceso: string; carpetaNumero: number } ) {
+  const actuaciones = await fetchActuaciones(
+    idProceso, carpetaNumero
+  );
+  const fiveLatest = getTop5LatestActuaciones( actuaciones );
+
+  return (
+    <div className={timeline}>
+      {fiveLatest.map( ( act ) => {
+        return (
+          <TimelineItem
+            key={act.idRegActuacion}
+            date={act.fechaActuacion}
+            contentTitle={act.actuacion}
+            contentDescription={act.anotacion}
+          />
+        );
+      } )}
+    </div>
+  );
+}
+
+async function NotesList() {
+
 }
 
 export default function ProtoPage( {
@@ -27,13 +56,16 @@ export default function ProtoPage( {
             >
               Carpeta #{carpeta.numero}
             </div>
-            <h1>Bancolombia vs. {carpeta.nombre}</h1>
+            <h1>{carpeta.nombre}</h1>
             <p>Llave Proceso: {carpeta.llaveProceso}</p>
 
             <div className={headerMeta}>
-              <span className={`${ chip } ${ filled }`}>Bancolombia</span>
+              <span className={`${ chip } ${ filled }`}>{
+                carpeta.category}</span>
               <span className={chip}>{carpeta.tipoProceso}</span>
-              <span className={`${ chip } ${ statusTerminado }`}>En Proceso</span>
+              <span className={`${ chip } ${ carpeta.category === 'Terminados' &&statusTerminado }`}>{carpeta.category === 'Terminados'
+                ? 'Finalizado'
+                : 'En Proceso'}</span>
             </div>
           </div>
 
@@ -62,68 +94,42 @@ export default function ProtoPage( {
               gap          : '24px',
             }}
           >
-            <section className={card}>
+            <Card>
               <CardHeader title={'Deudor Principal'} icon={'👤'} />
               <DataRow label={'Nombre'} value={carpeta.nombre} />
               <DataRow label={'Cédula'} value={carpeta.deudor?.cedula} />
               <DataRow label={'Teléfono'} value={carpeta.deudor?.telCelular} />
               <DataRow label={'Email'} value={carpeta.deudor?.email} />
-            </section>
+            </Card>
 
-            <section className={card}>
+            <Card>
               <CardHeader title={'Detalles Judiciales'} icon={'⚖️'} />
-              <DataRow label={'Juzgado'} value={carpeta.juzgado?.tipo} />
+              <DataRow label={'Juzgado'} value={`JUZGADO ${ carpeta.juzgado?.id } ${ carpeta.juzgado?.tipo } DE ${ carpeta.juzgado?.ciudad }`} />
               <DataRow label={'Ciudad'} value={carpeta.demanda.departamento} />
               <DataRow label={'Radicado'} value={carpeta.demanda.radicado} />
               <DataRow label={'Capital Adeudado'} value={carpeta.demanda.capitalAdeudado} money={true} />
-            </section>
+            </Card>
 
-            <section
-              className={card}
+            <Card
               style={{
                 backgroundColor: 'var(--tertiary-container)',
                 color          : 'var(--on-tertiary-container)',
               }}
             >
-              <div className={cardHeader}>
-                <span className={cardTitle}>Facturación</span>
-                <span className={cardIcon}>💲</span>
-              </div>
-              <div
-                className={dataRow}
+              <CardHeader title={'Facturación'} icon={'💲'} />
+              <DataRow
                 style={{
                   borderColor: 'rgba(0,0,0,0.1)',
                 }}
-              >
-                <span
-                  className={dataLabel}
-                  style={{
-                    color  : 'inherit',
-                    opacity: 0.8,
-                  }}
-                >
-                  Total Facturado
-                </span>
-                <span className={`${ dataValue } ${ money }`}>$ 2.500.000</span>
-              </div>
-              <div
-                className={dataRow}
-                style={{
-                  borderColor: 'rgba(0,0,0,0.1)',
+                labelStyle={{
+                  color  : 'inherit',
+                  opacity: 0.8,
                 }}
-              >
-                <span
-                  className={dataLabel}
-                  style={{
-                    color  : 'inherit',
-                    opacity: 0.8,
-                  }}
-                >
-                  Última Factura
-                </span>
-                <span className={dataValue}>FE-9921</span>
-              </div>
-            </section>
+                label={'Capital Adeudado'}
+                value={carpeta.demanda.capitalAdeudado}
+                money={true}
+              />
+            </Card>
           </div>
 
           <div
@@ -133,11 +139,8 @@ export default function ProtoPage( {
               gap          : 24,
             }}
           >
-            <section className={card}>
-              <div className={cardHeader}>
-                <span className={cardTitle}>Tareas Pendientes</span>
-                <span className={cardIcon}>✅</span>
-              </div>
+            <Card>
+              <CardHeader title={'Tareas Pendientes'} icon={'✅'} />
               <div
                 style={{
                   display   : 'flex',
@@ -209,70 +212,35 @@ export default function ProtoPage( {
                   </div>
                 </div>
               </div>
-            </section>
+            </Card>
 
-            <section className={card}>
-              <div className={cardHeader}>
-                <span className={cardTitle}>Actuaciones Recientes</span>
-                <span className={cardIcon}>📅</span>
-              </div>
+            <Card>
+              <Suspense fallback={<Loader />}>
+                <CardHeader title="Actuaciones Recientes" icon="📅" />
+                {carpeta.idProcesos && carpeta.idProcesos.map( ( idProceso ) => {
+                  return (
+                    <ActuacionesList
+                      key={idProceso}
+                      idProceso={idProceso}
+                      carpetaNumero={carpeta.numero}
+                    />
+                  );
+                } )}
+              </Suspense>
+            </Card>
 
-              <div className={timeline}>
-                <div className={timelineItem}>
-                  <div className={timelineDate}>28 Ene 2026</div>
-                  <div className={timelineContent}>
-                    <strong>Auto Libra Mandamiento Pago</strong>
-                    <p
-                      style={{
-                        fontSize : '0.9rem',
-                        marginTop: '4px',
-                      }}
-                    >
-                      El juzgado emite orden de pago. Se debe notificar al
-                      demandado.
-                    </p>
-                  </div>
-                </div>
-
-                <div className={timelineItem}>
-                  <div className={timelineDate}>15 Dic 2025</div>
-                  <div
-                    className={timelineContent}
-                    style={{
-                      backgroundColor: 'var(--surface-variant)',
-                      color          : 'var(--on-surface-variant)',
-                    }}
-                  >
-                    <strong>Admisión Demanda</strong>
-                    <p
-                      style={{
-                        fontSize : '0.9rem',
-                        marginTop: '4px',
-                      }}
-                    >
-                      Radicación aceptada en despacho.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section
-              className={card}
+            <Card
               style={{
                 borderStyle: 'dashed',
               }}
             >
-              <div className={cardHeader}>
-                <span
-                  className={cardTitle}
-                  style={{
-                    fontSize: '1rem',
-                  }}
-                >
-                  Notas Rápidas
-                </span>
-              </div>
+              <CardHeader
+                title={'Notas Rápidas'}
+                icon={'note'}
+                titleStyle={{
+                  fontSize: '1rem',
+                }}
+              />
               <p
                 style={{
                   fontSize: '0.9rem',
@@ -282,7 +250,7 @@ export default function ProtoPage( {
                 Cliente indicó que cambiará de dirección el próximo mes.
                 Pendiente actualizar base de datos.
               </p>
-            </section>
+            </Card>
           </div>
         </div>
       </div>

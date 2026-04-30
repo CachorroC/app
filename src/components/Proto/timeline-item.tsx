@@ -3,7 +3,7 @@ import { timelineContent, timelineDate, timelineItem } from '#@/styles/proto-sty
 
 export default function TimelineItem( {
   date, contentTitle, contentDescription
-}: { date: string | Date; contentTitle: string;  contentDescription: string} ) {
+}: { date: string | Date; contentTitle: string;  contentDescription: string | null} ) {
   return (
     <div className={timelineItem}>
       <div className={timelineDate}>
@@ -11,14 +11,16 @@ export default function TimelineItem( {
       </div>
       <div className={timelineContent}>
         <strong>{contentTitle}</strong>
-        <p
-          style={{
-            fontSize : '0.9rem',
-            marginTop: '4px',
-          }}
-        >
-          {contentDescription}
-        </p>
+        {contentDescription && (
+          <p
+            style={{
+              fontSize : '0.9rem',
+              marginTop: '4px',
+            }}
+          >
+            {contentDescription}
+          </p>
+        )}
       </div>
     </div>
   );

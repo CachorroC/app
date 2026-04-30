@@ -5,6 +5,13 @@ import { ConsultaActuacion,
 import { ensureDate } from '#@/lib/utils/ensureDate';
 import { connection } from 'next/server';
 
+/**
+ * Determines the most recent actuation from a list based on chronological criteria.
+ * Prioritizes fechaActuacion, then fechaRegistro, and finally consActuacion.
+ *
+ * @param actuaciones - Array of actuations from the fetch response.
+ * @returns The latest FetchResponseActuacionType or null if the array is empty.
+ */
 function getLatestByDate( actuaciones: FetchResponseActuacionType[] ): FetchResponseActuacionType | null {
   if ( !actuaciones || actuaciones.length === 0 ) {
     return null;
@@ -43,6 +50,14 @@ function getLatestByDate( actuaciones: FetchResponseActuacionType[] ): FetchResp
   } );
 }
 
+/**
+ * Fetches and processes legal actuations for a specific process from the Rama Judicial API.
+ * Maps API response data to the internal DatabaseActuacionType structure.
+ *
+ * @param idProceso - The unique identifier for the legal process.
+ * @param carpetaNumero - The associated folder number for tracking.
+ * @returns A promise resolving to an array of processed DatabaseActuacionType records.
+ */
 export default async function fetchActuaciones(
   idProceso: string,
   carpetaNumero: number,
