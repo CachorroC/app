@@ -24,7 +24,7 @@ WORKDIR /app
 
 # Copy lockfiles first for better caching
 # Only re-run pnpm install if these files change
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml ./
 
 # Copy scripts directory for postinstall scripts
 COPY scripts/ ./scripts/

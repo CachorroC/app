@@ -1,0 +1,8 @@
+allowBuilds:
+  '@parcel/watcher': true
+  '@prisma/engines': true
+  prisma: true
+  bcrypt: true
+  esbuild: true
+  sharp: true
+  '@mui/x-telemetry': false # explicitly skip — not needed
