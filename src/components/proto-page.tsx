@@ -9,6 +9,7 @@ import CardHeader from './Proto/card-header';
 import DataRow from './Proto/data-row';
 import TimelineItem from './Proto/timeline-item';
 import TaskRow from './Proto/task-row';
+import { fetchNotasByNumero } from '#@/lib/project/utils/Notas/fetcher';
 
 
 async function ActuacionesList( {
@@ -21,7 +22,24 @@ async function ActuacionesList( {
 
   return (
     <div className={timeline}>
-      {fiveLatest.map( ( act ) => {
+      {fiveLatest.map( (
+        act, index
+      ) => {
+        if ( index >= 1 ) {
+          return (
+            <TimelineItem
+              key={act.idRegActuacion}
+              date={act.fechaActuacion}
+              contentTitle={act.actuacion}
+              contentStyle={{
+                backgroundColor: 'var(--surface-variant)',
+                color          : 'var(--on-surface-variant)',
+              }}
+              contentDescription={act.anotacion}
+            />
+          );
+        }
+
         return (
           <TimelineItem
             key={act.idRegActuacion}
@@ -35,8 +53,21 @@ async function ActuacionesList( {
   );
 }
 
-async function NotesList() {
+async function NotesList( {
+  idCarpeta
+}: { idCarpeta: number } ) {
+  const notas = await fetchNotasByNumero( idCarpeta );
 
+  return notas.map( ( nota ) => {
+    return (
+      <TaskRow
+        key={nota.id}
+        title={nota.text}
+        dueDate={nota.dueDate}
+        completed={nota.completed}
+      />
+    );
+  } );
 }
 
 export default function ProtoPage( {
@@ -112,6 +143,23 @@ export default function ProtoPage( {
               <DataRow label={'Capital Adeudado'} value={carpeta.demanda.capitalAdeudado} money={true} />
             </Card>
 
+
+            <Card>
+              <CardHeader title={'Tareas Pendientes'} icon={'✅'} />
+              <Suspense fallback={<Loader />}>
+                <NotesList idCarpeta={carpeta.numero} />
+              </Suspense>
+
+            </Card>
+          </div>
+
+          <div
+            style={{
+              display      : 'flex',
+              flexDirection: 'column',
+              gap          : 24,
+            }}
+          >
             <Card
               style={{
                 backgroundColor: 'var(--tertiary-container)',
@@ -132,30 +180,9 @@ export default function ProtoPage( {
                 money={true}
               />
             </Card>
-          </div>
-
-          <div
-            style={{
-              display      : 'flex',
-              flexDirection: 'column',
-              gap          : 24,
-            }}
-          >
-            <Card>
-              <CardHeader title={'Tareas Pendientes'} icon={'✅'} />
-              <TaskRow
-                title="Solicitar Liquidación"
-                dueDate="Vence: Mañana"
-              />
-              <TaskRow
-                title="Revisar Medidas Cautelares"
-                isCompleted={true}
-              />
-
-            </Card>
 
             <Card>
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={<><CardHeader title={'Cargando Actuaciones'} icon={'cached'} /> <Loader /></>}>
                 <CardHeader title="Actuaciones Recientes" icon="📅" />
                 {carpeta.idProcesos && carpeta.idProcesos.map( ( idProceso ) => {
                   return (

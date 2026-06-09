@@ -1,15 +1,19 @@
 import { Form } from '#@/components/Form/Form';
 import { CarpetaForm } from '#@/components/Form/carpeta-form';
 
-export default function PageCarpetaId( {
+export default async function PageCarpetaId( {
   params,
 }: {
-  params: { numero: string };
+  params: Promise<{ numero: string }>;
 } ) {
+  const {
+    numero
+  } = await params;
+
   return (
     <>
       <CarpetaForm>
-        <Form key={params.numero} />
+        <Form key={numero} />
       </CarpetaForm>
     </>
   );

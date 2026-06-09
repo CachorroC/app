@@ -41,6 +41,6 @@ export function getTop5LatestActuaciones( actuaciones: DatabaseActuacionType[] )
     } )
     // Select only the first 5 items from the sorted array
     .slice(
-      0, 5
+      0, 3
     );
 }

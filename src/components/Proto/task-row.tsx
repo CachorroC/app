@@ -1,5 +1,6 @@
 'use client';
 
+import OutputDateHelper from '#@/lib/project/output-date-helper';
 import React from 'react';
 
 /**
@@ -11,12 +12,12 @@ import React from 'react';
  * @property {() => void} [onToggle] - Callback when the checkbox is toggled.
  */
 interface TaskRowProps {
-  id       : string
-  text     : string;
-  dueDate? : string;
+  id?      : string;
+  title    : string;
+  dueDate? : Date | null;
+  completed: boolean;
   color?   : string;
   onToggle?: () => void;
-  completed: boolean;
 }
 
 /**
@@ -24,7 +25,7 @@ interface TaskRowProps {
  * title, and optional due date.
  */
 export default function TaskRow( {
-  text,
+  title,
   dueDate,
   completed,
   color,
@@ -35,15 +36,40 @@ export default function TaskRow( {
       return color;
     }
 
-    const lowerDue = dueDate?.toLowerCase() || '';
-
-    if ( lowerDue.includes( 'mañana' ) || lowerDue.includes( 'hoy' ) ) {
-      return 'var(--error)';
+    if ( !dueDate ) {
+      return 'var(--secondary, #666)';
     }
 
-    if ( lowerDue.includes( 'próxima semana' ) ) {
-      return 'var(--warning, #ed6c02)';
+    // Try to parse the date from the string
+    // Standardizing formats like "Vence: 2026-05-15" or just "2026-05-15"
+    const dateStr = dueDate;
+    const due = new Date( dateStr );
+
+    if ( !isNaN( due.getTime() ) ) {
+      const now = new Date();
+      // Set now to start of day for accurate day difference
+      now.setHours(
+        0, 0, 0, 0
+      );
+
+      const diffTime = due.getTime() - now.getTime();
+      const diffDays = Math.ceil( diffTime / ( 1000 * 60 * 60 * 24 ) );
+
+      if ( diffDays <= 7 ) {
+        // Within the following week or already passed
+        return 'var(--error)';
+      }
+
+      if ( diffDays <= 30 ) {
+        // Within the next month
+        return 'var(--warning)';
+      }
+
+      if ( diffDays >= 30 ) {
+        return 'var(--caution)';
+      }
     }
+
 
     return 'var(--text-secondary, #666)';
   };
@@ -59,7 +85,7 @@ export default function TaskRow( {
     >
       <input
         type="checkbox"
-        checked={isCompleted}
+        checked={completed}
         onChange={onToggle}
         style={{
           width      : 18,
@@ -71,10 +97,10 @@ export default function TaskRow( {
       <div
         style={{
           flex          : 1,
-          textDecoration: isCompleted
+          textDecoration: completed
             ? 'line-through'
             : 'none',
-          opacity: isCompleted
+          opacity: completed
             ? 0.6
             : 1,
           transition: 'all 0.2s ease',
@@ -85,16 +111,16 @@ export default function TaskRow( {
             fontWeight: 500,
           }}
         >
-          {text}
+          {title}
         </div>
-        {!isCompleted && dueDate && (
+        {!completed && dueDate && (
           <div
             style={{
               fontSize: '0.8rem',
               color   : getDueDateColor(),
             }}
           >
-            {dueDate}
+            <OutputDateHelper incomingDate={dueDate} />
           </div>
         )}
       </div>

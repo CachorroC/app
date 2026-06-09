@@ -3,7 +3,6 @@ import { ConsultaActuacion,
   FetchResponseActuacionType,
   DatabaseActuacionType, } from '#@/lib/types/actuaciones';
 import { ensureDate } from '#@/lib/utils/ensureDate';
-import { connection } from 'next/server';
 
 /**
  * Determines the most recent actuation from a list based on chronological criteria.
@@ -62,7 +61,7 @@ export default async function fetchActuaciones(
   idProceso: string,
   carpetaNumero: number,
 ): Promise<DatabaseActuacionType[]> {
-  await connection();
+
 
   try {
 
