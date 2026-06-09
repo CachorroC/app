@@ -30,6 +30,7 @@ export async function AvailableProcesosByName( {
       <thead>
         <tr>
           <th>Sujetos Procesales</th>
+          <th>Despacho</th>
           <th>Clase del proceso</th>
           <th>Contenido de radicacion</th>
           <th>Despacho</th>
@@ -62,6 +63,7 @@ export async function AvailableProcesosByName( {
                   sujetosProcesalesRaw={proceso.sujetosProcesales}
                 />
               </td>
+              <td><p>{ proceso.despacho }</p></td>
               <Suspense fallback={<TableLoader />}>
                 <ProcesoTableDetalleComponent
                   key={proceso.idProceso}
