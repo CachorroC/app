@@ -51,8 +51,6 @@ export async function ProcesoDetalle( {
   const infoDetalle = [];
 
   if ( !fetchProc.ok ) {
-    console.log( `proceso detalle failer with error: ${ fetchProc.statusText }` );
-
     return (
       <div
         className={layout.segmentColumn}

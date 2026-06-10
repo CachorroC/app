@@ -46,8 +46,6 @@ export async function fetchProcesosByllaveProceso( llaveProceso: string ) {
     );
 
     if ( !req.ok ) {
-      console.log( `message: ${ req.statusText }, code: ${ req.status }` );
-
       throw new Error( `message: ${ req.statusText }, code: ${ req.status }` );
     }
 

@@ -31,22 +31,18 @@ export function ChipButton( {
 
   useEffect(
     () => {
+      if ( !isSnackbarOpen ) return;
+
       const timer = setTimeout(
         () => {
           setIsSnackbarOpen( false );
-        }, 5000 
+        }, 5000
       );
 
-      if ( isSnackbarOpen ) {
-        timer;
-      }
-
-      return () => {
-        return clearTimeout( timer );
-      };
+      return () => clearTimeout( timer );
     }, [
       isSnackbarOpen
-    ] 
+    ]
   );
 
   return (

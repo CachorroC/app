@@ -95,9 +95,6 @@ export function ExpedienteFormComponent( {
         setAnoState( ano );
         setCodigoState( codigoProceso );
         setRecursoState( recurso );
-        console.log( total );
-
-        console.log( matched );
       }
     }, [
       initialLLave

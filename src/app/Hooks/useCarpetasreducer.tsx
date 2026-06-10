@@ -381,8 +381,6 @@ export function carpetasReducer(
           .trim()
           .toLocaleLowerCase();
 
-        console.log( `searchQuery: ${ searchQuery }` );
-
         const sorted = [
           ...completeCarpetas
         ].filter( ( carpeta ) => {

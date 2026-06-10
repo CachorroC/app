@@ -58,8 +58,6 @@ export const DateInputSection = ( {
           className={form.textArea}
           value={InputDateHelper( stringDateValue )}
           onChange={( e ) => {
-            console.log( `onChange new value for date-section: ${ e.target.valueAsDate }`, );
-
             const [
               yearStringer,
               monthStringer,

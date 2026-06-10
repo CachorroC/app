@@ -12,23 +12,19 @@ export function Snackbar( {
 
   useEffect(
     () => {
+      if ( !isSnackbarOpen ) return;
+
       const timer = setTimeout(
         () => {
           setIsSnackbarOpen( false );
-        }, 1000 
+        }, 1000
       );
 
-      if ( isSnackbarOpen ) {
-        timer;
-      }
-
-      return () => {
-        return clearTimeout( timer );
-      };
+      return () => clearTimeout( timer );
     }, [
       isSnackbarOpen,
       setIsSnackbarOpen
-    ] 
+    ]
   );
 
   return (

@@ -43,7 +43,6 @@ export function InputSection( {
 
   if ( !propValues || propValues === null || propValues === undefined ) {
     isInCarpeta = false;
-    console.log( `prop values is ${ propValues }` );
   } else {
     isInCarpeta = true;
   }

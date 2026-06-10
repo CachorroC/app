@@ -81,7 +81,7 @@ export async function fetchNotas( carpetaId?: number ) {
     return notas;
   } catch ( error ) {
     console.log( `error en getNotas ${ JSON.stringify(
-      error, null, 2 
+      error, null, 2
     ) }` );
 
     return [];

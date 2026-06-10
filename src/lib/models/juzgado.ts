@@ -54,9 +54,6 @@ export class JuzgadoClass implements Juzgado {
       const includesDespacho = normalizedIteratedName.includes( normalizedName );
 
       if ( indexOfDespacho !== -1 ) {
-        console.log( `Juzgado Class${ includesDespacho }: ${ normalizedIteratedName } === ${ normalizedName }: ${
-          normalizedIteratedName === normalizedName
-        }`, );
 
         return true;
       }
@@ -148,8 +145,6 @@ export class JuzgadoClass implements Juzgado {
       ciudad
     ] = matchedDespachoParts;
 
-    console.log( longName );
-
     return new JuzgadoClass( {
       id,
       tipo,
@@ -173,8 +168,6 @@ export class JuzgadoClass implements Juzgado {
       tipo,
       ciudad
     ] = matchedDespachoParts;
-
-    console.log( longName );
 
     return new JuzgadoClass( {
       id,

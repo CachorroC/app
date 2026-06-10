@@ -210,8 +210,6 @@ export function facturasReducer(
           }
 
           facturasMap.push( carpeta );
-
-          console.log( carpetaQuery );
         }
 
         return facturasMap;

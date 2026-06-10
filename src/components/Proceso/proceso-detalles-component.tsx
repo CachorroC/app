@@ -16,8 +16,6 @@ export async function ProcesoTableDetalleComponent( {
   const fetchProc = await fetchWithSmartRetry( urlNameMaker.toString() );
 
   if ( !fetchProc.ok ) {
-    console.log( `proceso detalle failer with error: ${ fetchProc.statusText }` );
-
     return (
       <>
         <td>{'no hay clase proceso'}</td>

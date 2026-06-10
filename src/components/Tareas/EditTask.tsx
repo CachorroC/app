@@ -18,8 +18,6 @@ export function EditTask( {
   async function createTask() {
     const user = await editTask( taskState );
 
-    console.log( user );
-
     return dispatchTasks( {
       type: 'changed',
       task: user,
@@ -64,8 +62,6 @@ export function EditTask( {
           name="dueDate"
           value={InputDateHelper( taskState.updatedAt )}
           onChange={( e ) => {
-            console.log( `onChange new value for date-section: ${ e.target.valueAsDate }`, );
-
             const [
               yearStringer,
               monthStringer,

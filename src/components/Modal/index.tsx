@@ -34,7 +34,6 @@ export function Modal( {
 
   const onDismiss = useCallback(
     () => {
-      console.log( 'onDismiss' );
       setIsModalOpen( false );
       router.back();
     }, [
@@ -45,7 +44,6 @@ export function Modal( {
 
   const onBackspace = useCallback(
     () => {
-      console.log( 'on backspace' );
       setIsModalOpen( false );
       router.back();
     }, [
@@ -66,8 +64,6 @@ export function Modal( {
 
   const onClick: MouseEventHandler = useCallback(
     ( e ) => {
-      console.log( 'onCLick' );
-
       if ( e.target === overlay.current || e.target === wrapper.current ) {
         if ( onDismiss ) {
           onDismiss();
@@ -83,8 +79,6 @@ export function Modal( {
 
   const onKeyDown = useCallback(
     ( e: KeyboardEvent ) => {
-      console.log( 'onKeyDown' );
-
       if ( e.key === 'Enter' ) {
         onEnter();
       }
@@ -101,7 +95,6 @@ export function Modal( {
 
   useEffect(
     () => {
-      console.log( 'on useEffect' );
       document.addEventListener(
         'keydown', onKeyDown 
       );

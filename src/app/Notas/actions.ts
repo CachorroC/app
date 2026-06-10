@@ -152,8 +152,6 @@ export async function addNotaToPrisma( incomingTask: NewNota ) {
       } );
     }
 
-    console.log( inserter );
-
     return {
       success: true,
       nextId : inserter.id + 1,

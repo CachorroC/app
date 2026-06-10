@@ -86,8 +86,6 @@ export async function addTaskToPrisma( incomingTask: NewTask ) {
     } );
   }
 
-  console.log( inserter );
-
   return {
     ...inserter,
   };

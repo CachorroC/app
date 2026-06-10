@@ -58,6 +58,12 @@ async function enforceRateLimit( url: string | URL ): Promise<void> {
     }
   } );
 
+  if ( urlQueues.size > 500 ) {
+    const firstKey = urlQueues.keys().next().value;
+
+    if ( firstKey ) urlQueues.delete( firstKey );
+  }
+
   urlQueues.set(
     routeKey, nextWait
   );
@@ -71,7 +77,6 @@ export async function fetchWithSmartRetryNoRateLimit(
   baseDelay = 8000,
 ): Promise<Response> {
   let attempt = 0;
-  console.log( `fetching ${ url }` );
 
   while ( attempt <= maxRetries ) {
     try {
@@ -90,8 +95,6 @@ export async function fetchWithSmartRetryNoRateLimit(
       if ( response.ok ) {
         return response;
       }
-
-      console.log( `response text: ${ response.statusText }` );
 
       // 🛑 429 Too Many Requests
       if ( response.status === 429 ) {
@@ -183,9 +186,6 @@ export async function fetchWithSmartRetry(
   maxRetries = 7,
   baseDelay = 8000,
 ): Promise<Response> {
-  console.log(
-    'fetching ', url
-  );
   let attempt = 0;
 
   try {
@@ -205,8 +205,6 @@ export async function fetchWithSmartRetry(
         );
 
         if ( response.ok ) {
-          console.log( 'request was successful, returning the response' );
-
           return response;
         }
 

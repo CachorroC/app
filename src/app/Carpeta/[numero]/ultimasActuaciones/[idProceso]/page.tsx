@@ -15,8 +15,6 @@ export default async function Page( {
     numero, idProceso
   } = await params;
 
-  console.log( numero );
-
   if ( idProceso === 'idProceso' ) {
     return notFound();
   }

@@ -9,9 +9,6 @@ export function NuevaTarea( {
   const {
     register,
     handleSubmit,
-    formState: {
-      errors 
-    },
   } = useForm<NewTask>( {
     defaultValues: {
       dueDate: new Date(),
@@ -26,11 +23,9 @@ export function NuevaTarea( {
     },
   } );
 
-  const onSubmit: SubmitHandler<NewTask> = ( data ) => {
-    return console.log( `SubmitHandler de Tareas NuevaTarea ${ data }` );
+  const onSubmit: SubmitHandler<NewTask> = ( _data ) => {
+    // form submission handler — not yet implemented
   };
-
-  console.log( `errores de useForm en Nueva Tarea ${ errors }` );
 
   return (
     <form onSubmit={handleSubmit( onSubmit )}>

@@ -28,7 +28,6 @@ async function aggregateNotificationToDatabase( notification: OptionalId<Documen
       throw new Error( 'Failed to insert notification into DB' );
     }
 
-    console.log( `Notification logged with ID: ${ insertNotification.insertedId }`, );
   } catch ( error ) {
     // We only log here so a DB logging failure doesn't stop the push notifications
     console.error(
@@ -150,7 +149,6 @@ async function processBatch(
           await collection.deleteOne( {
             _id: sub._id,
           } );
-          console.log( `Cleaned up invalid sub: ${ sub.endpoint }` );
         } catch ( dbError ) {
           console.error(
             `Failed to delete invalid sub ${ sub._id }:`, dbError 

@@ -57,16 +57,12 @@ export function CarpetasSortButtons( {
                         : styles.buttonCategoryPasive
                     }
                     onClick={() => {
-                      console.log( value );
-                      console.log( item );
                       setCurrentDispatcher( ( curdispatch ) => {
                         return {
                           ...curdispatch,
                           [ value ]: item,
                         };
                       } );
-
-                      console.log( currentDispatcher );
 
                       return dispatchCarpetas( {
                         ...currentDispatcher,

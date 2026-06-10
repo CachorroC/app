@@ -71,7 +71,6 @@ export const Form = () => {
     alert( JSON.stringify(
       updatedCarpeta, null, 2 
     ) );
-    console.log( `el estatus de la operacion post en Form arrojó: ${ postCarpeta.status }`, );
   };
 
   return (

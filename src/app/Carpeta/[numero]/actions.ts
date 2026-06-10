@@ -10,8 +10,6 @@ export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
   }
     = incomingDemanda;
 
-  console.log( carpetaNumero );
-
   const {
     notifiers, ...restNotificacion 
   } = notificacion ?? {
@@ -21,8 +19,6 @@ export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
     fisico        : null,
     id            : incomingDemanda.id,
   };
-
-  console.log( notifiers );
 
   try {
     const editor = await prisma.demanda.update( {
@@ -82,8 +78,6 @@ export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
         },
       },
     } );
-
-    console.log( editor );
 
     return {
       success: true,

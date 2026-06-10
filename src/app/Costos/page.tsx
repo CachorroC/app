@@ -57,10 +57,8 @@ export default function Costos() {
     control,
   } );
 
-  const onSubmit = ( data: FormValues ) => {
-    return console.log( `datos en app/Costos: ${ JSON.stringify(
-      data, null, 2 
-    ) }` );
+  const onSubmit = ( _data: FormValues ) => {
+    // form submission handler — not yet implemented
   };
 
   return (

@@ -223,8 +223,6 @@ export function carpetasReducer(
           }
 
           carpetasMap.push( carpeta );
-
-          console.log( carpetaQuery );
         }
 
         return carpetasMap;

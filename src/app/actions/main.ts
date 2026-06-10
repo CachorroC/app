@@ -18,8 +18,6 @@ export async function createNota( formData: FormData ) {
       carpetaNumero: formData.get( 'carpetaNumero' ),
     } );
 
-    console.log( `createNota parsed schema: ${ parsed }` );
-
     if ( !parsed.success ) {
       throw new Error( 'no pudimos parsear con zodla nota que ingresaste. Intentalo nuevamente', );
     }
@@ -89,8 +87,6 @@ export async function deleteNota( {
       throw new Error( 'deleter not acknowledged' );
     }
 
-    console.log( `deleNota: se borraron ${ deleter.deletedCount } notas` );
-
     return deleter;
   } catch ( error ) {
     if ( error instanceof Error ) {
@@ -98,7 +94,7 @@ export async function deleteNota( {
     }
 
     console.log( `error deleteNota: ${ JSON.stringify(
-      error, null, 2 
+      error, null, 2
     ) }` );
 
     const deleteRes: DeleteResult = {

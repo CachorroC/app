@@ -1,58 +1,46 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function useServiceWorker() {
-  const [
-    counter,
-    setCounter
-  ] = useState( 0 );
-
-  const sw = navigator.serviceWorker;
+  const handlerRef = useRef<( ( e: MessageEvent ) => void ) | null>( null );
 
   useEffect(
     () => {
-      const decrement = () => {
-        setCounter( counter - 1 );
+      const sw = navigator.serviceWorker;
+
+      if ( !sw ) return;
+
+      const onLoad = () => {
+        sw.register( './serviceworker.js' )
+          .then( () => sw.ready )
+          .then( () => {
+            handlerRef.current = ( { data }: MessageEvent ) => {
+              if ( data?.state !== undefined ) {
+                // handle incoming service worker message
+              }
+            };
+
+            sw.addEventListener(
+              'message', handlerRef.current
+            );
+          } );
       };
 
-      const increment = () => {
-        setCounter( counter + 1 );
-      };
-
-      if ( sw ) {
-        window.addEventListener(
-          'load', () => {
-            sw.register( './serviceworker.js' )
-              .then( () => {
-                return sw.ready;
-              } )
-              .then( () => {
-                sw.addEventListener(
-                  'message', ( {
-                    data 
-                  } ) => {
-                    if ( data?.state !== undefined ) {
-                      increment();
-                    }
-
-                    decrement();
-                  } 
-                );
-              } );
-          } 
-        );
-      }
+      window.addEventListener(
+        'load', onLoad
+      );
 
       return () => {
-        sw.removeEventListener(
-          'message', ( e ) => {
-            console.log( `useServiceWorker sw removeEventListener ${ e }` );
-          } 
+        window.removeEventListener(
+          'load', onLoad
         );
+
+        if ( handlerRef.current ) {
+          sw.removeEventListener(
+            'message', handlerRef.current
+          );
+          handlerRef.current = null;
+        }
       };
-    }, [
-      counter,
-      setCounter,
-      sw
-    ] 
+    }, []
   );
 }

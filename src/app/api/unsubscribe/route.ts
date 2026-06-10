@@ -26,10 +26,7 @@ export async function POST( request: Request ) {
     } );
 
     if ( result.deletedCount === 0 ) {
-      // It's fine if it's already gone, but good to log for debugging
-      console.log( 'Subscription not found in database; it may have already been deleted.' );
-    } else {
-      console.log( 'Successfully deleted subscription from database.' );
+      // not found in DB; already deleted
     }
 
     return NextResponse.json( {

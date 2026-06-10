@@ -56,9 +56,6 @@ export default function Page() {
 
       alert( JSON.stringify( msg ) );
 
-      console.log( `mensaje en app/Contacto/Page: ${ JSON.stringify(
-        msg, null, 2 
-      ) }`, );
     } catch ( e ) {
       alert( 'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente', );
     }

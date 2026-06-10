@@ -29,23 +29,18 @@ export const CopyButton = ( {
 
   useEffect(
     () => {
+      if ( !isSnackbarOpen ) return;
+
       const timer = setTimeout(
         () => {
           setIsSnackbarOpen( false );
-        }, 5000 
+        }, 5000
       );
 
-      if ( isSnackbarOpen ) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        timer;
-      }
-
-      return () => {
-        return clearTimeout( timer );
-      };
+      return () => clearTimeout( timer );
     }, [
       isSnackbarOpen
-    ] 
+    ]
   );
 
   return (

@@ -28,10 +28,6 @@ export async function POST( request: NextRequest ) {
       data: nota,
     } );
 
-    console.log( `POST en api/Notas/Nueva es ${ JSON.stringify(
-      inserterPrisma, null, 2 
-    ) }`, );
-
     return NextResponse.json(
       inserterPrisma, {
         status: 200,

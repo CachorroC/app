@@ -113,7 +113,6 @@ export class Factura implements intFactura {
     const firstMatcher = qrString.matchAll( /([a-z0-9A-Z_]+)(?::|=)(?:['\s"])?([a-z0-9A-Z_:\-./?=]+)(['\s\n"])?/gm, );
 
     for ( const matchedKeyValues of firstMatcher ) {
-      console.log( matchedKeyValues );
       facturaMap.set(
         matchedKeyValues[ 1 ], matchedKeyValues[ 2 ] 
       );
@@ -201,7 +200,6 @@ export class Factura implements intFactura {
     const firstMatcher = qrString.matchAll( /([a-z0-9A-Z_]+)(?::|=)(?:['\s"])?([a-z0-9A-Z_:\-./?=]+)(['\s\n"])?/gm, );
 
     for ( const matchedKeyValues of firstMatcher ) {
-      console.log( matchedKeyValues );
       facturaMap.set(
         matchedKeyValues[ 1 ], matchedKeyValues[ 2 ] 
       );

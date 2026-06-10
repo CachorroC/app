@@ -57,8 +57,6 @@ export async function generateStaticParams() {
     chunks.push( chunk );
   }
 
-  console.log( chunks.length );
-
   return chunks[ chunks.length - 1 ];
 }
 
