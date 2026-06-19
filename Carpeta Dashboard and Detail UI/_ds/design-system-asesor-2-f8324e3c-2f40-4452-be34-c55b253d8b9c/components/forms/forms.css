@@ -1,0 +1,176 @@
+/* ============================================================
+   Asesor Jurídico — Forms components
+   Button · IconButton · TextField · Select · Checkbox · Switch
+   ============================================================ */
+
+/* ---------- Button ---------- */
+.aj-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 40px;
+  padding: 0 var(--space-5);
+  border: none;
+  border-radius: var(--radius-button);
+  font: var(--type-label-lg);
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: box-shadow var(--duration-short) var(--ease-standard),
+              background-color var(--duration-short) var(--ease-standard);
+  overflow: hidden;
+}
+.aj-btn::after {              /* state layer */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--duration-short) var(--ease-standard);
+  pointer-events: none;
+}
+.aj-btn:hover::after { opacity: var(--md-state-hover); }
+.aj-btn:active::after { opacity: var(--md-state-press); }
+.aj-btn:focus-visible { outline: 3px solid var(--blue-70); outline-offset: 2px; }
+.aj-btn .material-symbols-rounded { font-size: 18px; }
+
+.aj-btn--filled    { background: var(--md-primary); color: var(--md-on-primary); }
+.aj-btn--tonal     { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+.aj-btn--elevated  { background: var(--md-surface-container-low); color: var(--md-primary); box-shadow: var(--elevation-1); }
+.aj-btn--outlined  { background: transparent; color: var(--md-primary); border: 1px solid var(--md-outline-variant); }
+.aj-btn--text      { background: transparent; color: var(--md-primary); padding: 0 var(--space-3); }
+
+.aj-btn--sm { height: 32px; padding: 0 var(--space-4); font: var(--type-label-md); }
+.aj-btn--lg { height: 48px; padding: 0 var(--space-6); }
+
+.aj-btn:disabled {
+  cursor: not-allowed;
+  background: color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+  color: color-mix(in srgb, var(--md-on-surface) 38%, transparent);
+  box-shadow: none;
+  border-color: transparent;
+}
+.aj-btn--outlined:disabled, .aj-btn--text:disabled { background: transparent; }
+.aj-btn:disabled::after { opacity: 0; }
+
+/* ---------- IconButton ---------- */
+.aj-iconbtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color var(--duration-short) var(--ease-standard);
+}
+.aj-iconbtn::after { content:""; position:absolute; inset:0; background: currentColor; opacity:0; transition: opacity var(--duration-short); }
+.aj-iconbtn:hover::after { opacity: var(--md-state-hover); }
+.aj-iconbtn:active::after { opacity: var(--md-state-press); }
+.aj-iconbtn:focus-visible { outline: 3px solid var(--blue-70); outline-offset: 2px; }
+.aj-iconbtn .material-symbols-rounded { font-size: 22px; }
+.aj-iconbtn--filled  { background: var(--md-primary); color: var(--md-on-primary); }
+.aj-iconbtn--tonal   { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+.aj-iconbtn--outlined { border: 1px solid var(--md-outline-variant); }
+.aj-iconbtn--sm { width: 32px; height: 32px; }
+.aj-iconbtn--sm .material-symbols-rounded { font-size: 18px; }
+.aj-iconbtn:disabled { color: color-mix(in srgb, var(--md-on-surface) 38%, transparent); cursor: not-allowed; }
+.aj-iconbtn:disabled::after { opacity: 0; }
+
+/* ---------- TextField (outlined / filled) ---------- */
+.aj-field { display: inline-flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+.aj-field--block { display: flex; width: 100%; }
+.aj-field__label { font: var(--type-label-md); color: var(--md-on-surface-variant); }
+.aj-field__box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 48px;
+  padding: 0 var(--space-4);
+  background: var(--md-surface-container-low);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--radius-field);
+  transition: border-color var(--duration-short), background-color var(--duration-short);
+}
+.aj-field__box:focus-within { border-color: var(--md-primary); border-width: 2px; padding: 0 calc(var(--space-4) - 1px); }
+.aj-field__box .material-symbols-rounded { font-size: 20px; color: var(--md-on-surface-variant); }
+.aj-field__input {
+  flex: 1; min-width: 0;
+  border: none; outline: none; background: transparent;
+  font: var(--type-body-lg);
+  color: var(--md-on-surface);
+}
+.aj-field__input::placeholder { color: var(--md-outline); }
+.aj-field--mono .aj-field__input { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.aj-field__help { font: var(--type-body-sm); color: var(--md-on-surface-variant); }
+.aj-field--error .aj-field__box { border-color: var(--md-error); }
+.aj-field--error .aj-field__label,
+.aj-field--error .aj-field__help { color: var(--md-error); }
+.aj-field--disabled { opacity: 0.55; pointer-events: none; }
+
+/* ---------- Select ---------- */
+.aj-select { position: relative; display: inline-flex; }
+.aj-select select {
+  appearance: none;
+  height: 48px;
+  padding: 0 var(--space-8) 0 var(--space-4);
+  background: var(--md-surface-container-low);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--radius-field);
+  font: var(--type-body-lg);
+  color: var(--md-on-surface);
+  cursor: pointer;
+  width: 100%;
+}
+.aj-select select:focus-visible { outline: none; border-color: var(--md-primary); border-width: 2px; }
+.aj-select__chevron {
+  position: absolute; right: var(--space-3); top: 50%; transform: translateY(-50%);
+  pointer-events: none; color: var(--md-on-surface-variant); font-size: 22px;
+}
+
+/* ---------- Checkbox ---------- */
+.aj-check { display: inline-flex; align-items: center; gap: var(--space-2); cursor: pointer; font: var(--type-body-md); color: var(--md-on-surface); user-select: none; }
+.aj-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+.aj-check__box {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px;
+  border: 2px solid var(--md-outline);
+  border-radius: var(--radius-xs);
+  transition: background-color var(--duration-short), border-color var(--duration-short);
+}
+.aj-check__box .material-symbols-rounded { font-size: 16px; color: var(--md-on-primary); opacity: 0; }
+.aj-check input:checked + .aj-check__box { background: var(--md-primary); border-color: var(--md-primary); }
+.aj-check input:checked + .aj-check__box .material-symbols-rounded { opacity: 1; }
+.aj-check input:focus-visible + .aj-check__box { outline: 3px solid var(--blue-70); outline-offset: 2px; }
+
+/* ---------- Switch ---------- */
+.aj-switch { display: inline-flex; align-items: center; cursor: pointer; }
+.aj-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.aj-switch__track {
+  position: relative;
+  width: 52px; height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--md-surface-container-highest);
+  border: 2px solid var(--md-outline);
+  transition: background-color var(--duration-short), border-color var(--duration-short);
+}
+.aj-switch__thumb {
+  position: absolute; top: 50%; left: 6px;
+  width: 16px; height: 16px;
+  border-radius: var(--radius-full);
+  background: var(--md-outline);
+  transform: translateY(-50%);
+  transition: left var(--duration-short) var(--ease-standard),
+              width var(--duration-short), height var(--duration-short),
+              background-color var(--duration-short);
+}
+.aj-switch input:checked + .aj-switch__track { background: var(--md-primary); border-color: var(--md-primary); }
+.aj-switch input:checked + .aj-switch__track .aj-switch__thumb { left: 26px; width: 24px; height: 24px; background: var(--md-on-primary); }
+.aj-switch input:focus-visible + .aj-switch__track { outline: 3px solid var(--blue-70); outline-offset: 2px; }
