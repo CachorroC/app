@@ -11,7 +11,7 @@ export const capitalize = ( str: string ) => {
 
 export const consultaProcesosPorRazonSocial = ( nombre: string ) => {
   return new URL(
-    `Procesos/Consulta/NombreRazonSocial?nombre=${ nombre }&tipoPersona=nat&SoloActivos=false&codificacionDespacho=&pagina=1`,
+    `Procesos/Consulta/NombreRazonSocial?nombre=${ nombre }&tipoPersona=nat&SoloActivos=true&codificacionDespacho=&pagina=1`,
     ramaJudicialBaseURL,
   );
 };
