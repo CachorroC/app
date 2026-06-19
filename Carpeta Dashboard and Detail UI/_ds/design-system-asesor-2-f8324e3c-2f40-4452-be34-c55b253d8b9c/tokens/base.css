@@ -1,0 +1,33 @@
+/* ============================================================
+   Asesor Jurídico — Base / reset
+   Minimal element defaults wired to design tokens.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root { color-scheme: light; }
+
+body {
+  margin: 0;
+  font: var(--type-body-md);
+  color: var(--md-on-surface);
+  background: var(--md-background);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6, p, figure { margin: 0; }
+
+a { color: var(--md-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button { font-family: inherit; }
+
+/* Tabular figures wherever mono is used */
+.aj-mono, code, kbd {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+::selection { background: var(--md-primary-container); color: var(--md-on-primary-container); }

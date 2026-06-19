@@ -1,0 +1,98 @@
+/* ============================================================
+   Asesor Jurídico — Data display components
+   Card · StatusChip · Chip · Avatar · Badge
+   ============================================================ */
+
+/* ---------- Card ---------- */
+.aj-card {
+  background: var(--md-surface-container-lowest);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--md-outline-variant);
+  overflow: hidden;
+}
+.aj-card--elevated { border: none; box-shadow: var(--elevation-1); }
+.aj-card--filled { background: var(--md-surface-container); border: none; }
+.aj-card--pad { padding: var(--space-5); }
+.aj-card--interactive { cursor: pointer; transition: box-shadow var(--duration-short) var(--ease-standard), border-color var(--duration-short); }
+.aj-card--interactive:hover { box-shadow: var(--elevation-2); border-color: transparent; }
+
+/* ---------- StatusChip (legal status / category) ---------- */
+.aj-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: 24px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-chip);
+  font: var(--type-label-md);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.aj-status .material-symbols-rounded { font-size: 15px; }
+.aj-status__dot { width: 8px; height: 8px; border-radius: var(--radius-full); background: currentColor; }
+
+.aj-status--active   { background: var(--status-active-container);   color: var(--blue-20); }
+.aj-status--review   { background: var(--status-review-container);   color: #5C3D00; }
+.aj-status--done     { background: var(--status-done-container);     color: #0B4D2E; }
+.aj-status--overdue  { background: var(--status-overdue-container);  color: var(--red-10); }
+.aj-status--neutral  { background: var(--md-surface-container-high); color: var(--md-on-surface-variant); }
+
+/* ---------- Chip (filter / assist / input) ---------- */
+.aj-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 32px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font: var(--type-label-lg);
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--duration-short), border-color var(--duration-short), color var(--duration-short);
+}
+.aj-chip .material-symbols-rounded { font-size: 18px; }
+.aj-chip:hover { background: color-mix(in srgb, var(--md-on-surface) 8%, transparent); }
+.aj-chip--selected {
+  background: var(--md-secondary-container);
+  border-color: transparent;
+  color: var(--md-on-secondary-container);
+}
+.aj-chip:focus-visible { outline: 3px solid var(--blue-70); outline-offset: 2px; }
+
+/* ---------- Avatar ---------- */
+.aj-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  font: var(--type-label-lg);
+  text-transform: uppercase;
+  overflow: hidden;
+  flex: none;
+}
+.aj-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.aj-avatar--sm { width: 32px; height: 32px; font: var(--type-label-md); }
+.aj-avatar--lg { width: 56px; height: 56px; font: var(--type-title-lg); }
+
+/* ---------- Badge (numeric count) ---------- */
+.aj-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px; height: 18px;
+  padding: 0 5px;
+  border-radius: var(--radius-full);
+  background: var(--md-error);
+  color: var(--md-on-error);
+  font: var(--type-label-sm);
+  font-family: var(--font-mono);
+}
+.aj-badge--dot { min-width: 8px; width: 8px; height: 8px; padding: 0; }
+.aj-badge--neutral { background: var(--md-secondary); color: var(--md-on-secondary); }
