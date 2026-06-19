@@ -67,13 +67,52 @@ body{font-family:var(--font-sans);background:var(--md-background);color:var(--md
 @keyframes ajfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .aj-fade{animation:ajfade var(--duration,.28s) var(--ease-standard) both}
 input::placeholder{color:var(--md-outline)}
+/* ===== Touch + responsive ===== */
+*{-webkit-tap-highlight-color:transparent}
+button,a,input,select,[role=button],label{touch-action:manipulation}
+.hamburger{display:none}
+.scrim{display:none}
+@media (pointer:coarse){
+  .segbtn{min-width:42px!important;height:42px!important}
+  .revBtn{min-width:44px!important;min-height:44px!important}
+}
+@media (max-width:1080px){
+  .kpiGrid{grid-template-columns:repeat(2,1fr)!important}
+  .dKpi{grid-template-columns:repeat(2,1fr)!important}
+}
+@media (max-width:900px){
+  .dBody{flex-direction:column!important}
+  .rail{width:100%!important;position:static!important}
+}
+@media (max-width:768px){
+  .sb{position:fixed!important;left:0;top:0;height:100dvh!important;width:min(86vw,300px)!important;overflow-y:auto;transform:translateX(-100%);transition:transform .28s var(--ease-standard);z-index:60;box-shadow:var(--elevation-3)}
+  .shell-open .sb{transform:translateX(0)}
+  .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:55;opacity:0;pointer-events:none;transition:opacity .28s var(--ease-standard)}
+  .shell-open .scrim{opacity:1;pointer-events:auto}
+  .hamburger{display:flex!important}
+  .topbar{height:auto!important;min-height:60px;flex-wrap:wrap!important;padding:10px var(--space-4)!important;gap:var(--space-3)!important}
+  .search{order:5;flex-basis:100%!important;max-width:none!important;margin-left:0!important}
+  .dashSwitch{display:none!important}
+  .scrollPad{padding:var(--space-4)!important}
+  .detailPage{padding:var(--space-4)!important}
+  .dHeader{flex-wrap:wrap!important}
+  .dHeaderActions{margin-left:auto}
+  .kpiGrid{gap:var(--space-3)!important}
+  .tableWrap{display:none!important}
+}
+@media (max-width:560px){
+  .kpiGrid{grid-template-columns:1fr 1fr!important}
+  .dKpi{grid-template-columns:1fr 1fr!important}
+  .cardGrid{grid-template-columns:1fr!important}
+  .topbarTitle{font-size:1.15rem!important}
+}
 </style>
 </helmet>
 
-<div data-theme="{{ theme }}" style="display:flex;height:100vh;width:100%;overflow:hidden;background:var(--md-background);color:var(--md-on-surface);font-family:var(--font-sans)">
+<div data-theme="{{ theme }}" class="{{ shellClass }}" style="display:flex;height:100vh;width:100%;overflow:hidden;background:var(--md-background);color:var(--md-on-surface);font-family:var(--font-sans)">
 
   <!-- ===================== SIDEBAR ===================== -->
-  <aside style="width:264px;flex:none;display:flex;flex-direction:column;background:var(--md-surface-container-low);border-right:1px solid var(--md-outline-variant);padding:var(--space-5) var(--space-4)">
+  <aside class="sb" style="width:264px;flex:none;display:flex;flex-direction:column;background:var(--md-surface-container-low);border-right:1px solid var(--md-outline-variant);padding:var(--space-5) var(--space-4)">
     <div style="display:flex;align-items:center;gap:var(--space-3);padding:0 var(--space-2) var(--space-5)">
       <div style="width:38px;height:38px;border-radius:11px;background:linear-gradient(150deg,var(--brand-blue),var(--brand-purple));display:flex;align-items:center;justify-content:center;color:#fff;flex:none"><span class="msr fill" style="font-size:22px">balance</span></div>
       <div style="display:flex;flex-direction:column;line-height:1.1"><span style="font-weight:700;font-size:1rem">Asesor Jurídico</span><span style="font-size:.7rem;color:var(--md-on-surface-variant);letter-spacing:.04em">GESTIÓN DE CARPETAS</span></div>
@@ -107,18 +146,22 @@ input::placeholder{color:var(--md-outline)}
     </div>
   </aside>
 
+  <!-- Mobile drawer scrim -->
+  <div class="scrim" onClick="{{ closeNav }}"></div>
+
   <!-- ===================== MAIN ===================== -->
   <main class="aj-scroll" style="flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden">
 
     <!-- TOP BAR -->
-    <header style="height:68px;flex:none;display:flex;align-items:center;gap:var(--space-4);padding:0 var(--space-6);border-bottom:1px solid var(--md-outline-variant);background:color-mix(in srgb,var(--md-background) 86%,transparent);backdrop-filter:blur(6px);position:relative;z-index:5">
+    <header class="topbar" style="height:68px;flex:none;display:flex;align-items:center;gap:var(--space-4);padding:0 var(--space-6);border-bottom:1px solid var(--md-outline-variant);background:color-mix(in srgb,var(--md-background) 86%,transparent);backdrop-filter:blur(6px);position:relative;z-index:5">
+      <button class="hamburger" onClick="{{ toggleNav }}" aria-label="Menú" style="width:44px;height:44px;border:none;background:transparent;color:var(--md-on-surface-variant);border-radius:99px;align-items:center;justify-content:center;cursor:pointer;flex:none;margin:0 calc(var(--space-2) * -1) 0 calc(var(--space-3) * -1)"><span class="msr" style="font-size:24px">menu</span></button>
       <div style="display:flex;flex-direction:column;line-height:1.15">
         <span style="font-size:.7rem;letter-spacing:.05em;color:var(--md-on-surface-variant)">{{ crumb }}</span>
-        <h1 style="font-size:1.35rem;font-weight:700;margin:0">{{ pageTitle }}</h1>
+        <h1 class="topbarTitle" style="font-size:1.35rem;font-weight:700;margin:0">{{ pageTitle }}</h1>
       </div>
 
       <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
-        <label style="margin-left:var(--space-5);display:flex;align-items:center;gap:var(--space-2);height:44px;flex:1;max-width:420px;background:var(--md-surface-container-low);border:1px solid var(--md-outline-variant);border-radius:var(--radius-full);padding:0 var(--space-4)" style-focus-within="border-color:var(--md-primary)">
+        <label class="search" style="margin-left:var(--space-5);display:flex;align-items:center;gap:var(--space-2);height:44px;flex:1;max-width:420px;background:var(--md-surface-container-low);border:1px solid var(--md-outline-variant);border-radius:var(--radius-full);padding:0 var(--space-4)" style-focus-within="border-color:var(--md-primary)">
           <span class="msr" style="font-size:20px;color:var(--md-on-surface-variant)">search</span>
           <input value="{{ search }}" onInput="{{ onSearch }}" placeholder="Buscar por nombre, número o llave de proceso…" style="flex:1;border:none;outline:none;background:transparent;font-family:var(--font-sans);font-size:.9rem;color:var(--md-on-surface)">
         </label>
@@ -126,9 +169,9 @@ input::placeholder{color:var(--md-outline)}
 
       <div style="margin-left:auto;display:flex;align-items:center;gap:var(--space-3)">
         <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
-          <div style="display:flex;background:var(--md-surface-container);border-radius:var(--radius-full);padding:3px">
+          <div class="dashSwitch" style="display:flex;background:var(--md-surface-container);border-radius:var(--radius-full);padding:3px">
             <sc-for list="{{ viewSwitch }}" as="v" hint-placeholder-count="2">
-              <button onClick="{{ v.onClick }}" title="{{ v.label }}" style="{{ v.style }}"><span class="msr" style="font-size:19px">{{ v.icon }}</span></button>
+              <button class="segbtn" onClick="{{ v.onClick }}" title="{{ v.label }}" style="{{ v.style }}"><span class="msr" style="font-size:19px">{{ v.icon }}</span></button>
             </sc-for>
           </div>
         </sc-if>
@@ -141,10 +184,10 @@ input::placeholder{color:var(--md-outline)}
 
       <!-- ============ DASHBOARD ============ -->
       <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
-      <div class="aj-fade" style="padding:var(--space-6)">
+      <div class="aj-fade scrollPad" style="padding:var(--space-6)">
 
         <!-- KPI STRIP -->
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);margin-bottom:var(--space-5)">
+        <div class="kpiGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);margin-bottom:var(--space-5)">
           <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
             <div style="background:var(--md-surface-container-lowest);border-radius:var(--radius-md);box-shadow:var(--elevation-1);padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-2)">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3)">
@@ -158,7 +201,7 @@ input::placeholder{color:var(--md-outline)}
         </div>
 
         <!-- FILTER CHIPS -->
-        <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);flex-wrap:wrap">
+        <div class="chipRow" style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);flex-wrap:wrap">
           <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
             <button onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="background:color-mix(in srgb,var(--md-on-surface) 8%,transparent)">
               <span style="width:8px;height:8px;border-radius:3px;flex:none;background:{{ c.dot }}"></span>{{ c.label }}<span class="mono" style="font-size:.7rem;opacity:.7">{{ c.count }}</span>
@@ -169,7 +212,7 @@ input::placeholder{color:var(--md-outline)}
 
         <!-- TABLE VIEW -->
         <sc-if value="{{ isTabla }}" hint-placeholder-val="{{ true }}">
-          <div class="aj-scroll" style="background:var(--md-surface-container-lowest);border:1px solid var(--md-outline-variant);border-radius:var(--radius-md);overflow:auto">
+          <div class="aj-scroll tableWrap" style="background:var(--md-surface-container-lowest);border:1px solid var(--md-outline-variant);border-radius:var(--radius-md);overflow:auto">
             <table style="width:100%;border-collapse:collapse;min-width:1180px;font-size:.85rem">
               <thead>
                 <tr>
@@ -216,7 +259,7 @@ input::placeholder{color:var(--md-outline)}
 
         <!-- CARD GRID VIEW -->
         <sc-if value="{{ isTarjetas }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:var(--space-4)">
+          <div class="cardGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:var(--space-4)">
             <sc-for list="{{ rows }}" as="r" hint-placeholder-count="6">
               <div onClick="{{ r.onOpen }}" style="position:relative;background:var(--md-surface-container-lowest);border:1px solid var(--md-outline-variant);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:box-shadow .18s var(--ease-standard),border-color .18s" style-hover="box-shadow:var(--elevation-2);border-color:transparent">
                 <span style="height:4px;background:{{ r.catColor }}"></span>
@@ -253,10 +296,10 @@ input::placeholder{color:var(--md-outline)}
 
       <!-- ============ DETAIL ============ -->
       <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
-      <div class="aj-fade" style="padding:var(--space-6);max-width:1280px;margin:0 auto">
+      <div class="aj-fade detailPage" style="padding:var(--space-6);max-width:1280px;margin:0 auto">
 
         <!-- HEADER -->
-        <div style="display:flex;align-items:flex-start;gap:var(--space-4);margin-bottom:var(--space-5)">
+        <div class="dHeader" style="display:flex;align-items:flex-start;gap:var(--space-4);margin-bottom:var(--space-5)">
           <button onClick="{{ onBack }}" title="Volver" style="width:44px;height:44px;flex:none;border:1px solid var(--md-outline-variant);background:var(--md-surface-container-lowest);border-radius:99px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--md-on-surface-variant)" style-hover="background:var(--md-surface-container)"><span class="msr">arrow_back</span></button>
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:var(--space-2);font-size:.78rem;color:var(--md-on-surface-variant)"><span class="mono">Carpeta N.º {{ sel.numero }}</span><span>·</span><span class="mono">{{ sel.radicado }}</span></div>
@@ -268,10 +311,10 @@ input::placeholder{color:var(--md-outline)}
               <sc-if value="{{ sel.vencido }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:var(--radius-sm);font-size:.74rem;font-weight:600;background:var(--status-overdue-container);color:var(--md-on-error-container)"><span class="msr" style="font-size:15px">warning</span>Vencido</span></sc-if>
             </div>
           </div>
-          <div style="display:flex;gap:var(--space-2);flex:none">
+          <div class="dHeaderActions" style="display:flex;gap:var(--space-2);flex:none">
             <div style="display:flex;background:var(--md-surface-container);border-radius:var(--radius-full);padding:3px">
               <sc-for list="{{ detailSwitch }}" as="v" hint-placeholder-count="2">
-                <button onClick="{{ v.onClick }}" title="{{ v.label }}" style="{{ v.style }}"><span class="msr" style="font-size:19px">{{ v.icon }}</span></button>
+                <button class="segbtn" onClick="{{ v.onClick }}" title="{{ v.label }}" style="{{ v.style }}"><span class="msr" style="font-size:19px">{{ v.icon }}</span></button>
               </sc-for>
             </div>
             <button style="height:40px;padding:0 var(--space-4);border:none;border-radius:99px;background:var(--md-secondary-container);color:var(--md-on-secondary-container);font-family:var(--font-sans);font-weight:600;font-size:.85rem;display:inline-flex;align-items:center;gap:6px;cursor:pointer"><span class="msr" style="font-size:18px">edit</span>Editar</button>
@@ -279,7 +322,7 @@ input::placeholder{color:var(--md-outline)}
         </div>
 
         <!-- KPI MINI -->
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);margin-bottom:var(--space-5)">
+        <div class="dKpi" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);margin-bottom:var(--space-5)">
           <sc-for list="{{ sel.kpis }}" as="k" hint-placeholder-count="4">
             <div style="background:{{ k.bg }};border-radius:var(--radius-md);padding:var(--space-4);display:flex;flex-direction:column;gap:3px;border:1px solid var(--md-outline-variant)">
               <span style="display:flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;color:var(--md-on-surface-variant);text-transform:uppercase;letter-spacing:.04em"><span class="msr" style="font-size:16px">{{ k.icon }}</span>{{ k.label }}</span>
@@ -301,11 +344,11 @@ input::placeholder{color:var(--md-outline)}
         </sc-if>
 
         <!-- BODY: rail (doc) + sections -->
-        <div style="{{ detailBodyStyle }}">
+        <div class="dBody" style="{{ detailBodyStyle }}">
 
           <!-- SUMMARY RAIL (doc variant) -->
           <sc-if value="{{ isDoc }}" hint-placeholder-val="{{ false }}">
-          <aside style="flex:none;width:330px;display:flex;flex-direction:column;gap:var(--space-4);position:sticky;top:0;align-self:flex-start">
+          <aside class="rail" style="flex:none;width:330px;display:flex;flex-direction:column;gap:var(--space-4);position:sticky;top:0;align-self:flex-start">
             <div style="background:var(--md-surface-container-lowest);border:1px solid var(--md-outline-variant);border-radius:var(--radius-md);padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-3)">
               <div style="display:flex;align-items:center;gap:var(--space-3)">
                 <span style="width:52px;height:52px;border-radius:99px;background:var(--md-secondary-container);color:var(--md-on-secondary-container);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;flex:none">{{ sel.deudor.initials }}</span>
@@ -478,6 +521,8 @@ class Component extends DCLogic {
     this.state = {
       theme: 'light',
       screen: 'dashboard',
+      isMobile: false,
+      navOpen: false,
       dashView: 'tabla',
       detailView: 'tabs',
       catFilter: 'todos',
@@ -491,6 +536,22 @@ class Component extends DCLogic {
       carpetas: this.buildData(),
     };
   }
+
+  // ---------- responsive / drawer ----------
+  componentDidMount(){
+    this._mq = window.matchMedia('(max-width:768px)');
+    this._onMq = (e)=>this.setState({isMobile:e.matches, navOpen:false});
+    this.setState({isMobile:this._mq.matches});
+    if(this._mq.addEventListener) this._mq.addEventListener('change', this._onMq);
+    else this._mq.addListener(this._onMq);
+  }
+  componentWillUnmount(){
+    if(!this._mq) return;
+    if(this._mq.removeEventListener) this._mq.removeEventListener('change', this._onMq);
+    else this._mq.removeListener(this._onMq);
+  }
+  toggleNav(){ this.setState(s=>({navOpen:!s.navOpen})); }
+  closeNav(){ this.setState({navOpen:false}); }
 
   // ---------- formatting ----------
   fmtCOP(n){ if(n===0||n===undefined||n===null) return '$ 0'; return '$ '+new Intl.NumberFormat('es-CO').format(Math.round(n)); }
@@ -646,7 +707,7 @@ class Component extends DCLogic {
   }
 
   // ---------- handlers ----------
-  open(numero){ this.setState({screen:'detail', selectedNumero:numero, tab:'resumen'}); const sr=this.scrollRoot(); if(sr) sr.scrollTop=0; }
+  open(numero){ this.setState({screen:'detail', selectedNumero:numero, tab:'resumen', navOpen:false}); const sr=this.scrollRoot(); if(sr) sr.scrollTop=0; }
   back(){ this.setState({screen:'dashboard'}); }
   scrollRoot(){ return null; }
   toggleRevisado(numero, e){ if(e&&e.stopPropagation) e.stopPropagation(); this.setState(s=>({carpetas:s.carpetas.map(c=>c.numero===numero?{...c,revisado:!c.revisado,status:(!c.revisado&&!c.terminado&&!c.vencido)?'active':c.status}:c)})); }
@@ -671,11 +732,11 @@ class Component extends DCLogic {
     const navDef=[['folder_open','Carpetas',true,null],['event','Agenda',false,4],['receipt_long','Facturas',false,null],['account_balance','Juzgados',false,null],['groups','Deudores',false,null]];
     const navItems=navDef.map(([icon,label,active,badge])=>({icon,label,badge, fillClass:active?'fill':'',
       style:`display:flex;align-items:center;gap:var(--space-3);height:44px;padding:0 var(--space-3);border:none;border-radius:99px;cursor:pointer;font-family:var(--font-sans);font-size:.88rem;font-weight:600;text-align:left;background:${active?'var(--md-secondary-container)':'transparent'};color:${active?'var(--md-on-secondary-container)':'var(--md-on-surface-variant)'}`,
-      onClick:()=>{}}));
+      onClick:()=>this.closeNav()}));
 
     const catNav=Object.keys(cm).filter(k=>counts[k]).map(k=>({label:cm[k].label,color:cm[k].color,count:counts[k]||0,
       style:`display:flex;align-items:center;gap:var(--space-3);height:36px;padding:0 var(--space-3);border:none;border-radius:99px;cursor:pointer;font-family:var(--font-sans);font-size:.82rem;font-weight:${S.catFilter===k?'600':'500'};text-align:left;background:${S.catFilter===k?'color-mix(in srgb,var(--md-on-surface) 8%,transparent)':'transparent'};color:var(--md-on-surface)`,
-      onClick:()=>this.setState({catFilter:k})}));
+      onClick:()=>{this.setState({catFilter:k}); this.closeNav();}}));
 
     // stats
     const activas=S.carpetas.filter(c=>!c.terminado).length;
@@ -823,7 +884,8 @@ class Component extends DCLogic {
     return {
       theme:S.theme, themeIcon:S.theme==='dark'?'light_mode':'dark_mode', toggleTheme:()=>this.setState({theme:S.theme==='dark'?'light':'dark'}),
       isDashboard:S.screen==='dashboard', isDetail:S.screen==='detail',
-      isTabla:S.dashView==='tabla', isTarjetas:S.dashView==='tarjetas', isTabs, isDoc,
+      isTabla:(S.dashView==='tabla') && !S.isMobile, isTarjetas:(S.dashView==='tarjetas') || S.isMobile, isTabs, isDoc,
+      shellClass:`shell ${S.navOpen?'shell-open':''}`, toggleNav:()=>this.toggleNav(), closeNav:()=>this.closeNav(),
       crumb: S.screen==='detail'?'Carpetas · Detalle':'Inicio · Asesor Jurídico',
       pageTitle: S.screen==='detail'?'Detalle de la carpeta':'Carpetas',
       navItems, catNav, stats, chips, cols, rows, viewSwitch, detailSwitch,

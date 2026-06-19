@@ -327,6 +327,14 @@
 
 html { -webkit-text-size-adjust: 100%; }
 
+/* Touch: kill the tap flash and the 300ms delay, allow vertical pan. */
+* { -webkit-tap-highlight-color: transparent; }
+button, a, input, select, textarea, label, [role="button"] { touch-action: manipulation; }
+@media (pointer: coarse) {
+  /* Comfortable minimum hit target on touch devices. */
+  button, a[role="button"], [role="button"] { min-height: 44px; }
+}
+
 body {
   font: var(--type-body-md);
   color: var(--on-surface);

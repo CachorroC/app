@@ -33,6 +33,17 @@ Path alias `@/*` → project root (set in `tsconfig.json`: `"paths": { "@/*": ["
 - `<html data-theme="dark">` is set (the in-app toggle does this), or
 - the OS is in dark mode and the app is not pinned with `data-theme="light"`.
 
+## Responsive & touch
+
+Both screens adapt from desktop down to phones:
+
+- **Desktop (>1024px):** fixed 264px sidebar + dense table; detail uses the rail+sections (documento) or tabs layout.
+- **Tablet (≤1080px):** KPI tiles collapse to 2 columns; the table scrolls horizontally inside its card.
+- **Phone (≤768px):** the sidebar becomes an off-canvas **drawer** (hamburger in the top bar, tap-scrim to close); search drops to its own full-width row; the dashboard **forces the card view** (the dense table is hidden); the detail header wraps, the rail stacks above the sections, and key-value grids go to one/two columns.
+- **Touch:** `touch-action: manipulation` (no 300ms delay) and no tap-flash globally; on coarse pointers hit targets grow to ≥44px (row checkboxes, segmented buttons, tabs, table cells). Nothing depends on hover — every affordance is tap-reachable and selecting a drawer item closes the drawer.
+
+Breakpoints live in each component's `.module.css`; the drawer state (`navOpen` + `matchMedia('(max-width:768px)')`) lives in `CarpetasDashboard`.
+
 ## Variable naming
 
 You asked to keep the **old** `globals.css` variable names. They're all kept (`--primary`, `--on-surface`, `--surface-container-low`, `--outline-variant`, `--title-large-*`, `--dp*`, `--elevation-*`, `--shape-corner-*`, …) but **repointed to the new design-system values**. The canonical DS tokens (`--md-*`, `--type-*`, `--space-*`, `--radius-*`) are also exposed, so either convention works. New components in this package use the DS names; your existing code keeps working unchanged.

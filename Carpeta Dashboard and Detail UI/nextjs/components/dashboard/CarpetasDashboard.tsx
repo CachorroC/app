@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './CarpetasDashboard.module.css';
 import Sidebar from '@/components/Sidebar/Sidebar';
@@ -37,11 +37,29 @@ export default function CarpetasDashboard({ initialCarpetas }: { initialCarpetas
   const [search, setSearch] = useState('');
   const [sortKey, setSortKey] = useState<SortKey>('fecha');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
+  const [isMobile, setIsMobile] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const onChange = () => { setIsMobile(mq.matches); setNavOpen(false); };
+    onChange();
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  // On phones the dense table is unusable — always show cards.
+  const effectiveView: DashboardView = isMobile ? 'tarjetas' : view;
 
   function toggleTheme() {
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
     document.documentElement.dataset.theme = next;
+  }
+
+  function openDetail(numero: number) {
+    setNavOpen(false);
+    router.push(`/carpetas/${numero}`);
   }
 
   function toggleRevisado(numero: number, e: React.MouseEvent) {
@@ -95,10 +113,13 @@ export default function CarpetasDashboard({ initialCarpetas }: { initialCarpetas
 
   return (
     <div className={styles.app}>
-      <Sidebar carpetas={carpetas} activeCategory={category} onSelectCategory={setCategory} theme={theme} onToggleTheme={toggleTheme} />
+      <Sidebar carpetas={carpetas} activeCategory={category} onSelectCategory={setCategory} theme={theme} onToggleTheme={toggleTheme} open={navOpen} onClose={() => setNavOpen(false)} />
 
       <main className={styles.main}>
         <header className={styles.topbar}>
+          <button className={styles.hamburger} onClick={() => setNavOpen(true)} aria-label="Abrir menú">
+            <Icon name="menu" size={24} />
+          </button>
           <div className={styles.titleBlock}>
             <span className={styles.crumb}>Inicio · Asesor Jurídico</span>
             <h1 className={styles.title}>Carpetas</h1>
@@ -114,7 +135,7 @@ export default function CarpetasDashboard({ initialCarpetas }: { initialCarpetas
           </label>
 
           <div className={styles.topActions}>
-            <div className={styles.segmented}>
+            <div className={`${styles.segmented} ${styles.dashSwitch}`}>
               {(['tabla', 'tarjetas'] as DashboardView[]).map((v) => (
                 <button
                   key={v}
@@ -165,8 +186,8 @@ export default function CarpetasDashboard({ initialCarpetas }: { initialCarpetas
             <span className={styles.resultCount}>{rows.length} de {carpetas.length} carpetas</span>
           </div>
 
-          {/* Table */}
-          {view === 'tabla' && (
+          {/* Table (desktop / tablet) */}
+          {effectiveView === 'tabla' && (
             <div className={styles.tableWrap}>
               <table className={styles.table}>
                 <thead>
@@ -190,7 +211,7 @@ export default function CarpetasDashboard({ initialCarpetas }: { initialCarpetas
                     const meta = CATEGORY_META[c.category];
                     const last = c.actuaciones[0];
                     return (
-                      <tr key={c.numero} className={c.terminado ? styles.rowDone : ''} onClick={() => router.push(`/carpetas/${c.numero}`)}>
+                      <tr key={c.numero} className={c.terminado ? styles.rowDone : ''} onClick={() => openDetail(c.numero)}>
                         <td className={`${styles.td} aj-mono ${styles.dim}`}>{c.numero}</td>
                         <td className={`${styles.td} aj-mono ${styles.dim} ${styles.nowrap}`}>{fmtDate(c.fecha)}</td>
                         <td className={styles.td}>
@@ -236,14 +257,14 @@ export default function CarpetasDashboard({ initialCarpetas }: { initialCarpetas
             </div>
           )}
 
-          {/* Card grid */}
-          {view === 'tarjetas' && (
+          {/* Card grid (also the forced view on phones) */}
+          {effectiveView === 'tarjetas' && (
             <div className={styles.cardGrid}>
               {rows.map((c) => {
                 const meta = CATEGORY_META[c.category];
                 const last = c.actuaciones[0];
                 return (
-                  <article key={c.numero} className={styles.card} onClick={() => router.push(`/carpetas/${c.numero}`)}>
+                  <article key={c.numero} className={styles.card} onClick={() => openDetail(c.numero)}>
                     <span className={styles.cardAccent} style={{ background: meta.colorVar }} />
                     <div className={styles.cardBody}>
                       <div className={styles.cardHead}>
