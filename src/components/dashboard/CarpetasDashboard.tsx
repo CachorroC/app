@@ -2,12 +2,9 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import styles from './CarpetasDashboard.module.css';
-import Sidebar from '#@/components/Sidebar/Sidebar';
-import { Icon, StatusChip } from '#@/components/ui';
-import { fmtCOP, fmtMoneyShort, fmtDate, CATEGORY_META, TIPO_PROCESO_LABEL, STATUS_META, } from '@/lib/format';
-import { Category, type Carpeta, type DashboardView } from '#@/lib/types';
-import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
+import { Carpeta, Category, DashboardView } from '#@/lib/types/dashboard_types';
+import { Route } from 'next';
+import { fmtMoneyShort } from '#@/lib/format';
 
 type SortKey = 'numero' | 'fecha' | 'nombre' | 'category' | 'etapa' | 'capital';
 type SortDir = 'asc' | 'desc';
@@ -73,54 +70,42 @@ const COLUMNS: Column[] = [
   },
 ];
 
-export default function CarpetasDashboard() {
-  const {
-    carpetas: initialCarpetas
-  } = useCarpetaSort();
-
-
+export default function CarpetasDashboard( {
+  initialCarpetas
+}: { initialCarpetas: Carpeta[] } ) {
   const router = useRouter();
-
   const [
     carpetas,
     setCarpetas
   ] = useState( initialCarpetas );
-
   const [
     theme,
     setTheme
   ] = useState<'light' | 'dark'>( 'light' );
-
   const [
     view,
     setView
   ] = useState<DashboardView>( 'tabla' );
-
   const [
     category,
     setCategory
   ] = useState<Category | 'todos'>( 'todos' );
-
   const [
     search,
     setSearch
   ] = useState( '' );
-
   const [
     sortKey,
     setSortKey
   ] = useState<SortKey>( 'fecha' );
-
   const [
     sortDir,
     setSortDir
   ] = useState<SortDir>( 'desc' );
-
   const [
     isMobile,
     setIsMobile
   ] = useState( false );
-
   const [
     navOpen,
     setNavOpen
@@ -157,14 +142,13 @@ export default function CarpetasDashboard() {
     const next = theme === 'dark'
       ? 'light'
       : 'dark';
-
     setTheme( next );
     document.documentElement.dataset.theme = next;
   }
 
   function openDetail( numero: number ) {
     setNavOpen( false );
-    router.push( `/carpetas/${ numero }` );
+    router.push( `/Carpetas_alt/${ numero }` as Route );
   }
 
   function toggleRevisado(
@@ -201,25 +185,21 @@ export default function CarpetasDashboard() {
       const activas = carpetas.filter( ( c ) => {
         return !c.terminado;
       } ).length;
-
       const totalCap = carpetas.reduce(
         (
           s, c
         ) => {
-          return s + ( c.category === 'Terminado'
+          return s + ( c.terminado
             ? 0
-            : c.demanda.capitalAdeudado ?? 1 );
+            : c.capital );
         }, 0
       );
-
       const porRevisar = carpetas.filter( ( c ) => {
         return !c.revisado && !c.terminado;
       } ).length;
-
       const vencidos = carpetas.filter( ( c ) => {
         return c.vencido;
       } ).length;
-
       const bancol = carpetas.filter( ( c ) => {
         return c.category === Category.Bancolombia;
       } ).length;
@@ -272,7 +252,6 @@ export default function CarpetasDashboard() {
       const c: Record<string, number> = {
         todos: carpetas.length
       };
-
       carpetas.forEach( ( k ) => {
         c[ k.category ] = ( c[ k.category ] ?? 0 ) + 1;
       } );
@@ -286,10 +265,8 @@ export default function CarpetasDashboard() {
   const rows = useMemo(
     () => {
       const q = search.toLowerCase();
-
       const filtered = carpetas.filter( ( c ) => {
         const mc = category === 'todos' || c.category === category;
-
         const mq = !q || c.nombre.toLowerCase()
           .includes( q ) || String( c.numero )
           .includes( q )
@@ -299,7 +276,6 @@ export default function CarpetasDashboard() {
 
         return mc && mq;
       } );
-
       const dir = sortDir === 'asc'
         ? 1
         : -1;
@@ -309,14 +285,10 @@ export default function CarpetasDashboard() {
       ].sort( (
         a, b
       ) => {
-        const av = a[ sortKey ];
-
-        const bv = b[ sortKey ];
-
+        const av = a[ sortKey ]; const bv = b[ sortKey ];
         const x = typeof av === 'string'
           ? av.toLowerCase()
           : av;
-
         const y = typeof bv === 'string'
           ? bv.toLowerCase()
           : bv;
@@ -347,13 +319,15 @@ export default function CarpetasDashboard() {
     <div className={styles.app}>
       <Sidebar carpetas={carpetas} activeCategory={category} onSelectCategory={setCategory} theme={theme} onToggleTheme={toggleTheme} open={navOpen} onClose={() => {
         return setNavOpen( false );
-      }} />
+      }}
+      />
 
       <main className={styles.main}>
         <header className={styles.topbar}>
           <button className={styles.hamburger} onClick={() => {
             return setNavOpen( true );
-          }} aria-label="Abrir menú">
+          }} aria-label="Abrir menú"
+          >
             <Icon name="menu" size={24} />
           </button>
           <div className={styles.titleBlock}>
@@ -393,7 +367,8 @@ export default function CarpetasDashboard() {
                   >
                     <Icon name={v === 'tabla'
                       ? 'table_rows'
-                      : 'grid_view'} size={19} />
+                      : 'grid_view'} size={19}
+                    />
                   </button>
                 );
               } )}
@@ -413,11 +388,13 @@ export default function CarpetasDashboard() {
                     <span className={styles.kpiIcon} style={{
                       background: s.bg,
                       color     : s.fg
-                    }}><Icon name={s.icon} size={20} /></span>
+                    }}
+                    ><Icon name={s.icon} size={20} /></span>
                   </div>
                   <span className={`${ styles.kpiValue } ${ s.mono
                     ? 'aj-mono'
-                    : '' }`}>{s.value}</span>
+                    : '' }`}
+                  >{s.value}</span>
                   <span className={styles.kpiSub}>{s.sub}</span>
                 </div>
               );
@@ -430,7 +407,6 @@ export default function CarpetasDashboard() {
               const meta = key === 'todos'
                 ? null
                 : CATEGORY_META[ key ];
-
               const selected = category === key;
 
               return (
@@ -445,7 +421,8 @@ export default function CarpetasDashboard() {
                 >
                   <span className={styles.chipDot} style={{
                     background: meta?.colorVar ?? 'var(--outline)'
-                  }} />
+                  }}
+                  />
                   {key === 'todos'
                     ? 'Todos'
                     : meta!.label}
@@ -485,7 +462,8 @@ export default function CarpetasDashboard() {
                             {col.label}
                             {sortKey === col.sortable && <Icon name={sortDir === 'asc'
                               ? 'arrow_upward'
-                              : 'arrow_downward'} size={16} />}
+                              : 'arrow_downward'} size={16}
+                            />}
                           </span>
                         </th>
                       );
@@ -495,7 +473,6 @@ export default function CarpetasDashboard() {
                 <tbody>
                   {rows.map( ( c ) => {
                     const meta = CATEGORY_META[ c.category ];
-
                     const last = c.actuaciones[ 0 ];
 
                     return (
@@ -503,7 +480,8 @@ export default function CarpetasDashboard() {
                         ? styles.rowDone
                         : ''} onClick={() => {
                         return openDetail( c.numero );
-                      }}>
+                      }}
+                      >
                         <td className={`${ styles.td } aj-mono ${ styles.dim }`}>{c.numero}</td>
                         <td className={`${ styles.td } aj-mono ${ styles.dim } ${ styles.nowrap }`}>{fmtDate( c.fecha )}</td>
                         <td className={styles.td}>
@@ -515,10 +493,12 @@ export default function CarpetasDashboard() {
                         <td className={styles.td}>
                           <span className={styles.catTag} style={{
                             color: meta.colorVar
-                          }}>
+                          }}
+                          >
                             <span className={styles.catDot} style={{
                               background: meta.colorVar
-                            }} />{meta.label}
+                            }}
+                            />{meta.label}
                           </span>
                         </td>
                         <td className={`${ styles.td } aj-mono ${ styles.dim } ${ styles.tiny } ${ styles.nowrap }`}>{c.llaveProceso}</td>
@@ -554,7 +534,8 @@ export default function CarpetasDashboard() {
                           >
                             <Icon name={c.revisado
                               ? 'task_alt'
-                              : 'radio_button_unchecked'} fill={c.revisado} size={19} />
+                              : 'radio_button_unchecked'} fill={c.revisado} size={19}
+                            />
                           </button>
                         </td>
                       </tr>
@@ -570,16 +551,17 @@ export default function CarpetasDashboard() {
             <div className={styles.cardGrid}>
               {rows.map( ( c ) => {
                 const meta = CATEGORY_META[ c.category ];
-
                 const last = c.actuaciones[ 0 ];
 
                 return (
                   <article key={c.numero} className={styles.card} onClick={() => {
                     return openDetail( c.numero );
-                  }}>
+                  }}
+                  >
                     <span className={styles.cardAccent} style={{
                       background: meta.colorVar
-                    }} />
+                    }}
+                    />
                     <div className={styles.cardBody}>
                       <div className={styles.cardHead}>
                         <div className={styles.cardTitleBlock}>
@@ -593,10 +575,12 @@ export default function CarpetasDashboard() {
                       <div className={styles.cardCat}>
                         <span className={styles.catTag} style={{
                           color: meta.colorVar
-                        }}>
+                        }}
+                        >
                           <span className={styles.catDot} style={{
                             background: meta.colorVar
-                          }} />{meta.label}
+                          }}
+                          />{meta.label}
                         </span>
                         <span className={styles.sub}>· {TIPO_PROCESO_LABEL[ c.tipoProceso ]}</span>
                       </div>

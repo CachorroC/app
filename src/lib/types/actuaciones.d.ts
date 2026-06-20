@@ -196,20 +196,12 @@ export type Paginacion = {
  * @deprecated Consider using JSON.parse/stringify directly in new code
  */
 export class Convert {
-  public static toConsultaActuacion(
-    json: string
-  ): ConsultaActuacion[] {
-    return JSON.parse(
-      json
-    );
+  public static toConsultaActuacion( json: string ): ConsultaActuacion[] {
+    return JSON.parse( json );
   }
 
-  public static ConsultaActuacionToJson(
-    value: ConsultaActuacion[]
-  ): string {
-    return JSON.stringify(
-      value
-    );
+  public static ConsultaActuacionToJson( value: ConsultaActuacion[] ): string {
+    return JSON.stringify( value );
   }
 }
 

@@ -10,6 +10,15 @@ import { WithId } from 'mongodb';
 import { IntTask, SubTarea } from './tareas';
 import { IntNota } from './notas';
 
+
+
+/** Derived lifecycle state used by the UI for the StatusChip. */
+export type CaseStatus = 'active' | 'review' | 'done' | 'overdue';
+
+export type DashboardView = 'tabla' | 'tarjetas';
+
+export type DetailView = 'tabs' | 'doc';
+
 export type IntCarpeta = {
   category           : string;
   ciudad             : string | null;
@@ -37,6 +46,7 @@ export type IntCarpeta = {
   tipoProceso        : string;
   ultimaActuacion    : DatabaseActuacionType | null;
   updatedAt          : Date;
+  actuaciones        : DatabaseActuacionType[];
 };
 
 export type Category =
@@ -47,6 +57,16 @@ export type Category =
   | 'LiosJuridicos'
   | 'todos'
   | 'SinEspecificar';
+
+export enum CategoryEnum {
+  Bancolombia = 'Bancolombia',
+  Reintegra = 'Reintegra',
+  Insolvencia = 'Insolvencia',
+  LiosJuridicos = 'LiosJuridicos',
+  Terminados = 'Terminados',
+  SinTercero = 'SinTercero',
+  SinEspecificar = 'SinEspecificar',
+}
 
 export type Codeudor = {
   carpetaNumero: number | null;
@@ -119,6 +139,13 @@ export type TipoProceso =
   | 'PRENDARIO'
   | 'HIPOTECARIO'
   | 'ACUMULADO';
+
+export enum TipoProcesoEnum {
+  HIPOTECARIO = 'HIPOTECARIO',
+  PRENDARIO = 'PRENDARIO',
+  SINGULAR = 'SINGULAR',
+  ACUMULADO = 'ACUMULADO',
+}
 
 export type Deudor = {
   carpetaNumero  : number | null;

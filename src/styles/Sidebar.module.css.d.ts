@@ -1,0 +1,27 @@
+declare const styles: {
+  readonly "avatar": string;
+  readonly "brand": string;
+  readonly "brandText": string;
+  readonly "catActive": string;
+  readonly "catCount": string;
+  readonly "catDot": string;
+  readonly "catItem": string;
+  readonly "catLabel": string;
+  readonly "catNav": string;
+  readonly "logo": string;
+  readonly "nav": string;
+  readonly "navActive": string;
+  readonly "navBadge": string;
+  readonly "navItem": string;
+  readonly "navLabel": string;
+  readonly "scrim": string;
+  readonly "scrimOpen": string;
+  readonly "sectionLabel": string;
+  readonly "sidebar": string;
+  readonly "sidebarOpen": string;
+  readonly "themeBtn": string;
+  readonly "user": string;
+  readonly "userText": string;
+};
+export = styles;
+
