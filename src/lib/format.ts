@@ -3,7 +3,14 @@
 // Colombian Spanish locale, Material You category/status mapping.
 // ============================================================
 
-import {  CategoryEnum, Deudor } from './types/carpetas';
+import { CaseStatus, Category, TipoProceso } from './types/dashboard_types';
+
+type DeudorLike = {
+  primerNombre    : string;
+  primerApellido  : string;
+  segundoNombre?  : string | null;
+  segundoApellido?: string | null;
+};
 
 const COP = new Intl.NumberFormat( 'es-CO' );
 
@@ -58,7 +65,7 @@ export function isOverdue(
   return new Date( `${ iso }T00:00:00` ) < today;
 }
 
-export function deudorNombre( d: Deudor ): string {
+export function deudorNombre( d: DeudorLike ): string {
   return [
     d.primerNombre,
     d.segundoNombre,
@@ -69,7 +76,7 @@ export function deudorNombre( d: Deudor ): string {
     .join( ' ' );
 }
 
-export function deudorInitials( d: Deudor ): string {
+export function deudorInitials( d: DeudorLike ): string {
   const parts = [
     d.primerNombre,
     d.primerApellido
@@ -87,38 +94,38 @@ export function deudorInitials( d: Deudor ): string {
 // ---- Category metadata (label, accent CSS var, icon ligature) ----
 export interface CategoryMeta { label: string; colorVar: string; icon: string; }
 
-export const CATEGORY_META: Record<CategoryEnum, CategoryMeta> = {
-  [ CategoryEnum.Bancolombia ]: {
+export const CATEGORY_META: Record<Category, CategoryMeta> = {
+  [ Category.Bancolombia ]: {
     label   : 'Bancolombia',
     colorVar: 'var(--cat-bancolombia)',
     icon    : 'account_balance'
   },
-  [ CategoryEnum.Reintegra ]: {
+  [ Category.Reintegra ]: {
     label   : 'Reintegra',
     colorVar: 'var(--cat-reintegra)',
     icon    : 'sync_alt'
   },
-  [ CategoryEnum.Insolvencia ]: {
+  [ Category.Insolvencia ]: {
     label   : 'Insolvencia',
     colorVar: 'var(--cat-insolvencia)',
     icon    : 'balance'
   },
-  [ CategoryEnum.LiosJuridicos ]: {
+  [ Category.LiosJuridicos ]: {
     label   : 'Líos Jurídicos',
     colorVar: 'var(--cat-lios-juridicos)',
     icon    : 'gavel'
   },
-  [ CategoryEnum.Terminados ]: {
+  [ Category.Terminados ]: {
     label   : 'Terminados',
     colorVar: 'var(--cat-terminados)',
     icon    : 'task_alt'
   },
-  [ CategoryEnum.SinTercero ]: {
+  [ Category.SinTercero ]: {
     label   : 'Sin tercero',
     colorVar: 'var(--cat-sin-tercero)',
     icon    : 'help'
   },
-  [ CategoryEnum.SinEspecificar ]: {
+  [ Category.SinEspecificar ]: {
     label   : 'Sin especificar',
     colorVar: 'var(--cat-sin-especificar)',
     icon    : 'folder'
@@ -160,7 +167,7 @@ export const STATUS_META: Record<CaseStatus, StatusMeta> = {
 };
 
 /** Derive a lifecycle status from a carpeta's flags. */
-export function deriveStatus( c: Pick<Carpeta, 'terminado' | 'vencido' | 'revisado'> ): CaseStatus {
+export function deriveStatus( c: { terminado: boolean; vencido: boolean; revisado: boolean } ): CaseStatus {
   if ( c.terminado ) {
     return 'done';
   }

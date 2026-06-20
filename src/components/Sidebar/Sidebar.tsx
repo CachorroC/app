@@ -1,14 +1,19 @@
+/* eslint-disable no-unused-vars */
 'use client';
 
 import { useMemo } from 'react';
 import Link from 'next/link';
-import { Icon } from '@/components/ui';
-import { CATEGORY_META } from '@/lib/format';
+import { IntCarpeta } from '#@/lib/types/carpetas';
+import { Category } from '#@/lib/types/dashboard_types';
+import { CATEGORY_META } from '#@/lib/format';
+import styles from '#@/styles/Sidebar.module.css';
+import { Icon } from '../ui';
+import { Route } from 'next';
 
 interface SidebarProps {
   carpetas         : IntCarpeta[];
   activeCategory?  : Category | 'todos';
-  onSelectCategory?: ( c: CategoryEnum | 'todos' ) => void;
+  onSelectCategory?: ( c: Category | 'todos' ) => void;
   theme            : 'light' | 'dark';
   onToggleTheme    : () => void;
   /** Mobile drawer state (ignored on desktop where the rail is static). */
@@ -22,40 +27,46 @@ const NAV = [
     label : 'Carpetas',
     href  : '/carpetas',
     active: true,
-    badge : null as number | null
+    badge : null as number | null,
   },
   {
     icon  : 'event',
     label : 'Agenda',
     href  : '#',
     active: false,
-    badge : 4
+    badge : 4,
   },
   {
     icon  : 'receipt_long',
     label : 'Facturas',
     href  : '#',
     active: false,
-    badge : null
+    badge : null,
   },
   {
     icon  : 'account_balance',
     label : 'Juzgados',
     href  : '#',
     active: false,
-    badge : null
+    badge : null,
   },
   {
     icon  : 'groups',
     label : 'Deudores',
     href  : '#',
     active: false,
-    badge : null
+    badge : null,
   },
 ];
 
 export default function Sidebar( {
-  carpetas, activeCategory = 'todos', onSelectCategory, theme, onToggleTheme, open = false, onClose
+  carpetas,
+  activeCategory = 'todos',
+  onSelectCategory,
+  theme,
+  onToggleTheme,
+  open = false,
+  onClose,
 }: SidebarProps ) {
   const counts = useMemo(
     () => {
@@ -82,16 +93,25 @@ export default function Sidebar( {
   return (
     <>
       {/* Scrim — only visible/interactive on mobile when the drawer is open */}
-      <div className={`${ styles.scrim } ${ open
-        ? styles.scrimOpen
-        : '' }`} onClick={onClose} aria-hidden
+      <div
+        className={`${ styles.scrim } ${ open
+          ? styles.scrimOpen
+          : '' }`}
+        onClick={onClose}
+        aria-hidden
       />
       <aside className={`${ styles.sidebar } ${ open
         ? styles.sidebarOpen
         : '' }`}
       >
         <div className={styles.brand}>
-          <span className={styles.logo}><Icon name="balance" fill size={22} /></span>
+          <span className={styles.logo}>
+            <Icon
+              name="balance"
+              fill
+              size={22}
+            />
+          </span>
           <span className={styles.brandText}>
             <strong>Asesor Jurídico</strong>
             <small>GESTIÓN DE CARPETAS</small>
@@ -101,13 +121,24 @@ export default function Sidebar( {
         <nav className={styles.nav}>
           {NAV.map( ( n ) => {
             return (
-              <Link key={n.label} href={n.href} className={`${ styles.navItem } ${ n.active
-                ? styles.navActive
-                : '' }`}
+              <Link
+                key={n.label}
+                href={n.href as Route}
+                className={`${ styles.navItem } ${
+                  n.active
+                    ? styles.navActive
+                    : ''
+                }`}
               >
-                <Icon name={n.icon} fill={n.active} size={21} />
+                <Icon
+                  name={n.icon}
+                  fill={n.active}
+                  size={21}
+                />
                 <span className={styles.navLabel}>{n.label}</span>
-                {n.badge != null && <span className={styles.navBadge}>{n.badge}</span>}
+                {n.badge != null && (
+                  <span className={styles.navBadge}>{n.badge}</span>
+                )}
               </Link>
             );
           } )}
@@ -116,16 +147,20 @@ export default function Sidebar( {
         <div className={styles.sectionLabel}>Categorías</div>
         <nav className={styles.catNav}>
           <button
-            className={`${ styles.catItem } ${ activeCategory === 'todos'
-              ? styles.catActive
-              : '' }`}
+            className={`${ styles.catItem } ${
+              activeCategory === 'todos'
+                ? styles.catActive
+                : ''
+            }`}
             onClick={() => {
               return selectCategory( 'todos' );
             }}
           >
-            <span className={styles.catDot} style={{
-              background: 'var(--outline)'
-            }}
+            <span
+              className={styles.catDot}
+              style={{
+                background: 'var(--outline)',
+              }}
             />
             <span className={styles.catLabel}>Todos</span>
             <span className={styles.catCount}>{carpetas.length}</span>
@@ -134,18 +169,24 @@ export default function Sidebar( {
             return (
               <button
                 key={k}
-                className={`${ styles.catItem } ${ activeCategory === k
-                  ? styles.catActive
-                  : '' }`}
+                className={`${ styles.catItem } ${
+                  activeCategory === k
+                    ? styles.catActive
+                    : ''
+                }`}
                 onClick={() => {
                   return selectCategory( k );
                 }}
               >
-                <span className={styles.catDot} style={{
-                  background: CATEGORY_META[ k ].colorVar
-                }}
+                <span
+                  className={styles.catDot}
+                  style={{
+                    background: CATEGORY_META[ k ].colorVar,
+                  }}
                 />
-                <span className={styles.catLabel}>{CATEGORY_META[ k ].label}</span>
+                <span className={styles.catLabel}>
+                  {CATEGORY_META[ k ].label}
+                </span>
                 <span className={styles.catCount}>{counts[ k ]}</span>
               </button>
             );
@@ -158,10 +199,17 @@ export default function Sidebar( {
             <strong>Valentina Arango</strong>
             <small>Abogada titular</small>
           </span>
-          <button className={styles.themeBtn} onClick={onToggleTheme} title="Cambiar tema" aria-label="Cambiar tema">
-            <Icon name={theme === 'dark'
-              ? 'light_mode'
-              : 'dark_mode'} size={20}
+          <button
+            className={styles.themeBtn}
+            onClick={onToggleTheme}
+            title="Cambiar tema"
+            aria-label="Cambiar tema"
+          >
+            <Icon
+              name={theme === 'dark'
+                ? 'light_mode'
+                : 'dark_mode'}
+              size={20}
             />
           </button>
         </div>
