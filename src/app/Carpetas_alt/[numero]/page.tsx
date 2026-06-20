@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import CarpetaDetail from '#@/components/detail/CarpetaDetail';
 import { Carpeta, Category, TipoProceso } from '#@/lib/types/dashboard_types';
 import { getActuacionesByCarpetaNumero } from '#@/lib/project/utils/Actuaciones';
@@ -97,7 +96,7 @@ export default async function CarpetaDetailPage( {
     etapa   : carpeta.demanda.etapaProcesal ?? '',
     facturas: [],
     fecha   : carpeta.fecha?.toISOString() ?? '',
-    juzgado: {
+    juzgado : {
       id    : carpeta.juzgado?.id ?? '',
       nombre: carpeta.juzgado
         ? `JUZGADO ${ carpeta.juzgado.id } ${ carpeta.juzgado.tipo } DE ${ carpeta.juzgado.ciudad }`
