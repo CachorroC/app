@@ -2,8 +2,6 @@ import CarpetasDashboard from '#@/components/dashboard/CarpetasDashboard';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Carpeta, Category, TipoProceso } from '#@/lib/types/dashboard_types';
 
-export const dynamic = 'force-dynamic';
-
 export default async function CarpetasPage () {
   const carpetas = await getCarpetas();
 
