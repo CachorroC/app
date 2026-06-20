@@ -46,7 +46,6 @@ export type IntCarpeta = {
   tipoProceso        : string;
   ultimaActuacion    : DatabaseActuacionType | null;
   updatedAt          : Date;
-  actuaciones        : DatabaseActuacionType[];
 };
 
 export type Category =

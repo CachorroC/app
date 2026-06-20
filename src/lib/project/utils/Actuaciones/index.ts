@@ -1,3 +1,4 @@
+import prisma from '#@/lib/connection/prisma';
 import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 import { ConsultaActuacion,
   FetchResponseActuacionType,
@@ -114,4 +115,15 @@ export default async function fetchActuaciones(
 
     return [];
   }
+}
+
+
+export async function getActuacionesByCarpetaNumero ( carpetaNumero: number ) {
+  const actuaciones = await prisma.actuacion.findMany( {
+    where: {
+      carpetaNumero: carpetaNumero
+    }
+  } );
+
+  return actuaciones;
 }

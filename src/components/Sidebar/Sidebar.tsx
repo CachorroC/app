@@ -3,15 +3,14 @@
 
 import { useMemo } from 'react';
 import Link from 'next/link';
-import { IntCarpeta } from '#@/lib/types/carpetas';
-import { Category } from '#@/lib/types/dashboard_types';
+import { Carpeta, Category } from '#@/lib/types/dashboard_types';
 import { CATEGORY_META } from '#@/lib/format';
 import styles from '#@/styles/Sidebar.module.css';
 import { Icon } from '../ui';
 import { Route } from 'next';
 
 interface SidebarProps {
-  carpetas         : IntCarpeta[];
+  carpetas         : Carpeta[];
   activeCategory?  : Category | 'todos';
   onSelectCategory?: ( c: Category | 'todos' ) => void;
   theme            : 'light' | 'dark';
@@ -25,7 +24,7 @@ const NAV = [
   {
     icon  : 'folder_open',
     label : 'Carpetas',
-    href  : '/carpetas',
+    href  : '/Carpetas_alt',
     active: true,
     badge : null as number | null,
   },

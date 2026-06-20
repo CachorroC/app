@@ -33,7 +33,7 @@
     "strict": true,
     "target": "ESNext"
   },
-  "exclude": [ "node_modules" ],
+  "exclude": [ "node_modules", "Carpeta Dashboard and Detail UI" ],
   "include": [
 
     "**/*.ts",
