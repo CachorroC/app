@@ -5,6 +5,8 @@ import CarpetaDetail from '#@/components/detail/CarpetaDetail';
 import { Carpeta, Category, TipoProceso } from '#@/lib/types/dashboard_types';
 import { getActuacionesByCarpetaNumero } from '#@/lib/project/utils/Actuaciones';
 
+export const dynamic = 'force-dynamic';
+
 // Pre-render every carpeta route at build time (optional).
 export async function generateStaticParams () {
   const carpetas= await getCarpetas();
@@ -96,8 +98,7 @@ export default async function CarpetaDetailPage( {
     },
     etapa   : carpeta.demanda.etapaProcesal ?? '',
     facturas: [],
-    fecha   : carpeta.fecha?.toISOString() ?? new Date()
-      .toISOString(),
+    fecha   : carpeta.fecha?.toISOString() ?? '',
     juzgado: {
       id    : carpeta.juzgado?.id ?? '',
       nombre: carpeta.juzgado
