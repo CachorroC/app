@@ -612,9 +612,10 @@ export default function CarpetaDetail( {
             </div>
           );
         } )}
-        <div className={addRow}>
+        <div className={styles.addRow}>
           <input value={newNota} onChange={( e ) => {
             return setNewNota( e.target.value );
+
           }} onKeyDown={( e ) => {
             return e.key === 'Enter' && addNota();
           }} placeholder="Agregar nota…" className={styles.addInput}
