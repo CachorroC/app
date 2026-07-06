@@ -49,3 +49,19 @@ export const getCarpetas = async () => {
     } as IntCarpeta;
   } );
 };
+
+// Build-time only: used by generateStaticParams, which runs outside any
+// request scope and therefore cannot call connection().
+export const getCarpetasNumeros = async () => {
+  return prisma.carpeta.findMany( {
+    select: {
+      numero  : true,
+      procesos: {
+        select: {
+          idProceso: true,
+          esPrivado: true,
+        },
+      },
+    },
+  } );
+};
