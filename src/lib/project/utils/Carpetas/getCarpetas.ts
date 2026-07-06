@@ -1,10 +1,10 @@
-import { cacheLife } from 'next/cache';
+
 import prisma from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
+import { connection } from 'next/server';
 
 export const getCarpetas = async () => {
-  'use cache';
-  cacheLife( 'hours' );
+  await connection();
   const rawCarpetas = await prisma.carpeta.findMany( {
     include: {
       ultimaActuacion: true,

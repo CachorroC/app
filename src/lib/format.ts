@@ -45,7 +45,7 @@ export function fmtDate( iso?: string | null ): string {
     return '—';
   }
 
-  return new Date( `${ iso }T00:00:00` )
+  return new Date( `${ iso }` )
     .toLocaleDateString(
       'es-CO', {
         day  : '2-digit',

@@ -1,13 +1,4 @@
 services:
-  adminer:
-    image: adminer
-    restart: always
-    hostname: adminer
-    networks:
-      - internal
-    ports:
-      - 8080:8080
-
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
@@ -39,25 +30,7 @@ services:
       - 3000
     networks:
       - internal
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin
-    restart: always
-    environment:
-      # These credentials are used to log into the pgAdmin UI
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-juankpato87@gmail.com}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-Tengo1amo}
-    ports:
-      - '5050:80'
-    expose:
-      - 80 # Access via localhost:5050
-    networks:
-      - internal
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
 
-volumes:
-  pgadmin-data:
 networks:
   internal:
     external: true
