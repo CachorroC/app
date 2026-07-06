@@ -313,8 +313,6 @@ export type DemandaWhereInput = {
   avaluo?: Prisma.DecimalFilter<"Demanda"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   liquidacion?: Prisma.DecimalFilter<"Demanda"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   carpeta?: Prisma.XOR<Prisma.CarpetaScalarRelationFilter, Prisma.CarpetaWhereInput>
-  medidasCautelares?: Prisma.XOR<Prisma.MedidasCautelaresNullableScalarRelationFilter, Prisma.MedidasCautelaresWhereInput> | null
-  notificacion?: Prisma.XOR<Prisma.NotificacionNullableScalarRelationFilter, Prisma.NotificacionWhereInput> | null
 }
 
 export type DemandaOrderByWithRelationInput = {
@@ -336,8 +334,6 @@ export type DemandaOrderByWithRelationInput = {
   avaluo?: Prisma.SortOrder
   liquidacion?: Prisma.SortOrder
   carpeta?: Prisma.CarpetaOrderByWithRelationInput
-  medidasCautelares?: Prisma.MedidasCautelaresOrderByWithRelationInput
-  notificacion?: Prisma.NotificacionOrderByWithRelationInput
 }
 
 export type DemandaWhereUniqueInput = Prisma.AtLeast<{
@@ -362,8 +358,6 @@ export type DemandaWhereUniqueInput = Prisma.AtLeast<{
   avaluo?: Prisma.DecimalFilter<"Demanda"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   liquidacion?: Prisma.DecimalFilter<"Demanda"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   carpeta?: Prisma.XOR<Prisma.CarpetaScalarRelationFilter, Prisma.CarpetaWhereInput>
-  medidasCautelares?: Prisma.XOR<Prisma.MedidasCautelaresNullableScalarRelationFilter, Prisma.MedidasCautelaresWhereInput> | null
-  notificacion?: Prisma.XOR<Prisma.NotificacionNullableScalarRelationFilter, Prisma.NotificacionWhereInput> | null
 }, "id" | "carpetaNumero">
 
 export type DemandaOrderByWithAggregationInput = {
@@ -432,8 +426,6 @@ export type DemandaCreateInput = {
   avaluo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   liquidacion?: runtime.Decimal | runtime.DecimalJsLike | number | string
   carpeta: Prisma.CarpetaCreateNestedOneWithoutDemandaInput
-  medidasCautelares?: Prisma.MedidasCautelaresCreateNestedOneWithoutDemandaInput
-  notificacion?: Prisma.NotificacionCreateNestedOneWithoutDemandaInput
 }
 
 export type DemandaUncheckedCreateInput = {
@@ -454,8 +446,6 @@ export type DemandaUncheckedCreateInput = {
   mandamientoPago?: Prisma.DemandaCreatemandamientoPagoInput | Date[] | string[]
   avaluo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   liquidacion?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  medidasCautelares?: Prisma.MedidasCautelaresUncheckedCreateNestedOneWithoutDemandaInput
-  notificacion?: Prisma.NotificacionUncheckedCreateNestedOneWithoutDemandaInput
 }
 
 export type DemandaUpdateInput = {
@@ -476,8 +466,6 @@ export type DemandaUpdateInput = {
   avaluo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   liquidacion?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   carpeta?: Prisma.CarpetaUpdateOneRequiredWithoutDemandaNestedInput
-  medidasCautelares?: Prisma.MedidasCautelaresUpdateOneWithoutDemandaNestedInput
-  notificacion?: Prisma.NotificacionUpdateOneWithoutDemandaNestedInput
 }
 
 export type DemandaUncheckedUpdateInput = {
@@ -498,8 +486,6 @@ export type DemandaUncheckedUpdateInput = {
   mandamientoPago?: Prisma.DemandaUpdatemandamientoPagoInput | Date[] | string[]
   avaluo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   liquidacion?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  medidasCautelares?: Prisma.MedidasCautelaresUncheckedUpdateOneWithoutDemandaNestedInput
-  notificacion?: Prisma.NotificacionUncheckedUpdateOneWithoutDemandaNestedInput
 }
 
 export type DemandaCreateManyInput = {
@@ -642,11 +628,6 @@ export type DemandaSumOrderByAggregateInput = {
   liquidacion?: Prisma.SortOrder
 }
 
-export type DemandaScalarRelationFilter = {
-  is?: Prisma.DemandaWhereInput
-  isNot?: Prisma.DemandaWhereInput
-}
-
 export type DemandaCreateNestedOneWithoutCarpetaInput = {
   create?: Prisma.XOR<Prisma.DemandaCreateWithoutCarpetaInput, Prisma.DemandaUncheckedCreateWithoutCarpetaInput>
   connectOrCreate?: Prisma.DemandaCreateOrConnectWithoutCarpetaInput
@@ -710,37 +691,17 @@ export type DemandaUpdatevencimientoPagareInput = {
   push?: Date | string | Date[] | string[]
 }
 
+export type DecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
 export type DemandaUpdatemandamientoPagoInput = {
   set?: Date[] | string[]
   push?: Date | string | Date[] | string[]
-}
-
-export type DemandaCreateNestedOneWithoutNotificacionInput = {
-  create?: Prisma.XOR<Prisma.DemandaCreateWithoutNotificacionInput, Prisma.DemandaUncheckedCreateWithoutNotificacionInput>
-  connectOrCreate?: Prisma.DemandaCreateOrConnectWithoutNotificacionInput
-  connect?: Prisma.DemandaWhereUniqueInput
-}
-
-export type DemandaUpdateOneRequiredWithoutNotificacionNestedInput = {
-  create?: Prisma.XOR<Prisma.DemandaCreateWithoutNotificacionInput, Prisma.DemandaUncheckedCreateWithoutNotificacionInput>
-  connectOrCreate?: Prisma.DemandaCreateOrConnectWithoutNotificacionInput
-  upsert?: Prisma.DemandaUpsertWithoutNotificacionInput
-  connect?: Prisma.DemandaWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DemandaUpdateToOneWithWhereWithoutNotificacionInput, Prisma.DemandaUpdateWithoutNotificacionInput>, Prisma.DemandaUncheckedUpdateWithoutNotificacionInput>
-}
-
-export type DemandaCreateNestedOneWithoutMedidasCautelaresInput = {
-  create?: Prisma.XOR<Prisma.DemandaCreateWithoutMedidasCautelaresInput, Prisma.DemandaUncheckedCreateWithoutMedidasCautelaresInput>
-  connectOrCreate?: Prisma.DemandaCreateOrConnectWithoutMedidasCautelaresInput
-  connect?: Prisma.DemandaWhereUniqueInput
-}
-
-export type DemandaUpdateOneRequiredWithoutMedidasCautelaresNestedInput = {
-  create?: Prisma.XOR<Prisma.DemandaCreateWithoutMedidasCautelaresInput, Prisma.DemandaUncheckedCreateWithoutMedidasCautelaresInput>
-  connectOrCreate?: Prisma.DemandaCreateOrConnectWithoutMedidasCautelaresInput
-  upsert?: Prisma.DemandaUpsertWithoutMedidasCautelaresInput
-  connect?: Prisma.DemandaWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DemandaUpdateToOneWithWhereWithoutMedidasCautelaresInput, Prisma.DemandaUpdateWithoutMedidasCautelaresInput>, Prisma.DemandaUncheckedUpdateWithoutMedidasCautelaresInput>
 }
 
 export type DemandaCreateWithoutCarpetaInput = {
@@ -760,8 +721,6 @@ export type DemandaCreateWithoutCarpetaInput = {
   mandamientoPago?: Prisma.DemandaCreatemandamientoPagoInput | Date[] | string[]
   avaluo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   liquidacion?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  medidasCautelares?: Prisma.MedidasCautelaresCreateNestedOneWithoutDemandaInput
-  notificacion?: Prisma.NotificacionCreateNestedOneWithoutDemandaInput
 }
 
 export type DemandaUncheckedCreateWithoutCarpetaInput = {
@@ -781,8 +740,6 @@ export type DemandaUncheckedCreateWithoutCarpetaInput = {
   mandamientoPago?: Prisma.DemandaCreatemandamientoPagoInput | Date[] | string[]
   avaluo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   liquidacion?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  medidasCautelares?: Prisma.MedidasCautelaresUncheckedCreateNestedOneWithoutDemandaInput
-  notificacion?: Prisma.NotificacionUncheckedCreateNestedOneWithoutDemandaInput
 }
 
 export type DemandaCreateOrConnectWithoutCarpetaInput = {
@@ -818,8 +775,6 @@ export type DemandaUpdateWithoutCarpetaInput = {
   mandamientoPago?: Prisma.DemandaUpdatemandamientoPagoInput | Date[] | string[]
   avaluo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   liquidacion?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  medidasCautelares?: Prisma.MedidasCautelaresUpdateOneWithoutDemandaNestedInput
-  notificacion?: Prisma.NotificacionUpdateOneWithoutDemandaNestedInput
 }
 
 export type DemandaUncheckedUpdateWithoutCarpetaInput = {
@@ -839,208 +794,6 @@ export type DemandaUncheckedUpdateWithoutCarpetaInput = {
   mandamientoPago?: Prisma.DemandaUpdatemandamientoPagoInput | Date[] | string[]
   avaluo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   liquidacion?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  medidasCautelares?: Prisma.MedidasCautelaresUncheckedUpdateOneWithoutDemandaNestedInput
-  notificacion?: Prisma.NotificacionUncheckedUpdateOneWithoutDemandaNestedInput
-}
-
-export type DemandaCreateWithoutNotificacionInput = {
-  departamento?: string | null
-  despacho?: string | null
-  entregaGarantiasAbogado?: Date | string | null
-  etapaProcesal?: string | null
-  llaveProceso?: string | null
-  fechaPresentacion?: Prisma.DemandaCreatefechaPresentacionInput | Date[] | string[]
-  id: number
-  tipoProceso: string
-  municipio?: string | null
-  obligacion?: Prisma.DemandaCreateobligacionInput | string[]
-  radicado?: string | null
-  vencimientoPagare?: Prisma.DemandaCreatevencimientoPagareInput | Date[] | string[]
-  capitalAdeudado?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  mandamientoPago?: Prisma.DemandaCreatemandamientoPagoInput | Date[] | string[]
-  avaluo?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  liquidacion?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  carpeta: Prisma.CarpetaCreateNestedOneWithoutDemandaInput
-  medidasCautelares?: Prisma.MedidasCautelaresCreateNestedOneWithoutDemandaInput
-}
-
-export type DemandaUncheckedCreateWithoutNotificacionInput = {
-  carpetaNumero: number
-  departamento?: string | null
-  despacho?: string | null
-  entregaGarantiasAbogado?: Date | string | null
-  etapaProcesal?: string | null
-  llaveProceso?: string | null
-  fechaPresentacion?: Prisma.DemandaCreatefechaPresentacionInput | Date[] | string[]
-  id: number
-  tipoProceso: string
-  municipio?: string | null
-  obligacion?: Prisma.DemandaCreateobligacionInput | string[]
-  radicado?: string | null
-  vencimientoPagare?: Prisma.DemandaCreatevencimientoPagareInput | Date[] | string[]
-  capitalAdeudado?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  mandamientoPago?: Prisma.DemandaCreatemandamientoPagoInput | Date[] | string[]
-  avaluo?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  liquidacion?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  medidasCautelares?: Prisma.MedidasCautelaresUncheckedCreateNestedOneWithoutDemandaInput
-}
-
-export type DemandaCreateOrConnectWithoutNotificacionInput = {
-  where: Prisma.DemandaWhereUniqueInput
-  create: Prisma.XOR<Prisma.DemandaCreateWithoutNotificacionInput, Prisma.DemandaUncheckedCreateWithoutNotificacionInput>
-}
-
-export type DemandaUpsertWithoutNotificacionInput = {
-  update: Prisma.XOR<Prisma.DemandaUpdateWithoutNotificacionInput, Prisma.DemandaUncheckedUpdateWithoutNotificacionInput>
-  create: Prisma.XOR<Prisma.DemandaCreateWithoutNotificacionInput, Prisma.DemandaUncheckedCreateWithoutNotificacionInput>
-  where?: Prisma.DemandaWhereInput
-}
-
-export type DemandaUpdateToOneWithWhereWithoutNotificacionInput = {
-  where?: Prisma.DemandaWhereInput
-  data: Prisma.XOR<Prisma.DemandaUpdateWithoutNotificacionInput, Prisma.DemandaUncheckedUpdateWithoutNotificacionInput>
-}
-
-export type DemandaUpdateWithoutNotificacionInput = {
-  departamento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  despacho?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entregaGarantiasAbogado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  etapaProcesal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  llaveProceso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaPresentacion?: Prisma.DemandaUpdatefechaPresentacionInput | Date[] | string[]
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  tipoProceso?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  obligacion?: Prisma.DemandaUpdateobligacionInput | string[]
-  radicado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vencimientoPagare?: Prisma.DemandaUpdatevencimientoPagareInput | Date[] | string[]
-  capitalAdeudado?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  mandamientoPago?: Prisma.DemandaUpdatemandamientoPagoInput | Date[] | string[]
-  avaluo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  liquidacion?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  carpeta?: Prisma.CarpetaUpdateOneRequiredWithoutDemandaNestedInput
-  medidasCautelares?: Prisma.MedidasCautelaresUpdateOneWithoutDemandaNestedInput
-}
-
-export type DemandaUncheckedUpdateWithoutNotificacionInput = {
-  carpetaNumero?: Prisma.IntFieldUpdateOperationsInput | number
-  departamento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  despacho?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entregaGarantiasAbogado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  etapaProcesal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  llaveProceso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaPresentacion?: Prisma.DemandaUpdatefechaPresentacionInput | Date[] | string[]
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  tipoProceso?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  obligacion?: Prisma.DemandaUpdateobligacionInput | string[]
-  radicado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vencimientoPagare?: Prisma.DemandaUpdatevencimientoPagareInput | Date[] | string[]
-  capitalAdeudado?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  mandamientoPago?: Prisma.DemandaUpdatemandamientoPagoInput | Date[] | string[]
-  avaluo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  liquidacion?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  medidasCautelares?: Prisma.MedidasCautelaresUncheckedUpdateOneWithoutDemandaNestedInput
-}
-
-export type DemandaCreateWithoutMedidasCautelaresInput = {
-  departamento?: string | null
-  despacho?: string | null
-  entregaGarantiasAbogado?: Date | string | null
-  etapaProcesal?: string | null
-  llaveProceso?: string | null
-  fechaPresentacion?: Prisma.DemandaCreatefechaPresentacionInput | Date[] | string[]
-  id: number
-  tipoProceso: string
-  municipio?: string | null
-  obligacion?: Prisma.DemandaCreateobligacionInput | string[]
-  radicado?: string | null
-  vencimientoPagare?: Prisma.DemandaCreatevencimientoPagareInput | Date[] | string[]
-  capitalAdeudado?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  mandamientoPago?: Prisma.DemandaCreatemandamientoPagoInput | Date[] | string[]
-  avaluo?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  liquidacion?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  carpeta: Prisma.CarpetaCreateNestedOneWithoutDemandaInput
-  notificacion?: Prisma.NotificacionCreateNestedOneWithoutDemandaInput
-}
-
-export type DemandaUncheckedCreateWithoutMedidasCautelaresInput = {
-  carpetaNumero: number
-  departamento?: string | null
-  despacho?: string | null
-  entregaGarantiasAbogado?: Date | string | null
-  etapaProcesal?: string | null
-  llaveProceso?: string | null
-  fechaPresentacion?: Prisma.DemandaCreatefechaPresentacionInput | Date[] | string[]
-  id: number
-  tipoProceso: string
-  municipio?: string | null
-  obligacion?: Prisma.DemandaCreateobligacionInput | string[]
-  radicado?: string | null
-  vencimientoPagare?: Prisma.DemandaCreatevencimientoPagareInput | Date[] | string[]
-  capitalAdeudado?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  mandamientoPago?: Prisma.DemandaCreatemandamientoPagoInput | Date[] | string[]
-  avaluo?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  liquidacion?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notificacion?: Prisma.NotificacionUncheckedCreateNestedOneWithoutDemandaInput
-}
-
-export type DemandaCreateOrConnectWithoutMedidasCautelaresInput = {
-  where: Prisma.DemandaWhereUniqueInput
-  create: Prisma.XOR<Prisma.DemandaCreateWithoutMedidasCautelaresInput, Prisma.DemandaUncheckedCreateWithoutMedidasCautelaresInput>
-}
-
-export type DemandaUpsertWithoutMedidasCautelaresInput = {
-  update: Prisma.XOR<Prisma.DemandaUpdateWithoutMedidasCautelaresInput, Prisma.DemandaUncheckedUpdateWithoutMedidasCautelaresInput>
-  create: Prisma.XOR<Prisma.DemandaCreateWithoutMedidasCautelaresInput, Prisma.DemandaUncheckedCreateWithoutMedidasCautelaresInput>
-  where?: Prisma.DemandaWhereInput
-}
-
-export type DemandaUpdateToOneWithWhereWithoutMedidasCautelaresInput = {
-  where?: Prisma.DemandaWhereInput
-  data: Prisma.XOR<Prisma.DemandaUpdateWithoutMedidasCautelaresInput, Prisma.DemandaUncheckedUpdateWithoutMedidasCautelaresInput>
-}
-
-export type DemandaUpdateWithoutMedidasCautelaresInput = {
-  departamento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  despacho?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entregaGarantiasAbogado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  etapaProcesal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  llaveProceso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaPresentacion?: Prisma.DemandaUpdatefechaPresentacionInput | Date[] | string[]
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  tipoProceso?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  obligacion?: Prisma.DemandaUpdateobligacionInput | string[]
-  radicado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vencimientoPagare?: Prisma.DemandaUpdatevencimientoPagareInput | Date[] | string[]
-  capitalAdeudado?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  mandamientoPago?: Prisma.DemandaUpdatemandamientoPagoInput | Date[] | string[]
-  avaluo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  liquidacion?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  carpeta?: Prisma.CarpetaUpdateOneRequiredWithoutDemandaNestedInput
-  notificacion?: Prisma.NotificacionUpdateOneWithoutDemandaNestedInput
-}
-
-export type DemandaUncheckedUpdateWithoutMedidasCautelaresInput = {
-  carpetaNumero?: Prisma.IntFieldUpdateOperationsInput | number
-  departamento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  despacho?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entregaGarantiasAbogado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  etapaProcesal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  llaveProceso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaPresentacion?: Prisma.DemandaUpdatefechaPresentacionInput | Date[] | string[]
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  tipoProceso?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  obligacion?: Prisma.DemandaUpdateobligacionInput | string[]
-  radicado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vencimientoPagare?: Prisma.DemandaUpdatevencimientoPagareInput | Date[] | string[]
-  capitalAdeudado?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  mandamientoPago?: Prisma.DemandaUpdatemandamientoPagoInput | Date[] | string[]
-  avaluo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  liquidacion?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notificacion?: Prisma.NotificacionUncheckedUpdateOneWithoutDemandaNestedInput
 }
 
 
@@ -1064,8 +817,6 @@ export type DemandaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   avaluo?: boolean
   liquidacion?: boolean
   carpeta?: boolean | Prisma.CarpetaDefaultArgs<ExtArgs>
-  medidasCautelares?: boolean | Prisma.Demanda$medidasCautelaresArgs<ExtArgs>
-  notificacion?: boolean | Prisma.Demanda$notificacionArgs<ExtArgs>
 }, ExtArgs["result"]["demanda"]>
 
 export type DemandaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1133,8 +884,6 @@ export type DemandaSelectScalar = {
 export type DemandaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"carpetaNumero" | "departamento" | "despacho" | "entregaGarantiasAbogado" | "etapaProcesal" | "llaveProceso" | "fechaPresentacion" | "id" | "tipoProceso" | "municipio" | "obligacion" | "radicado" | "vencimientoPagare" | "capitalAdeudado" | "mandamientoPago" | "avaluo" | "liquidacion", ExtArgs["result"]["demanda"]>
 export type DemandaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   carpeta?: boolean | Prisma.CarpetaDefaultArgs<ExtArgs>
-  medidasCautelares?: boolean | Prisma.Demanda$medidasCautelaresArgs<ExtArgs>
-  notificacion?: boolean | Prisma.Demanda$notificacionArgs<ExtArgs>
 }
 export type DemandaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   carpeta?: boolean | Prisma.CarpetaDefaultArgs<ExtArgs>
@@ -1147,8 +896,6 @@ export type $DemandaPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "Demanda"
   objects: {
     carpeta: Prisma.$CarpetaPayload<ExtArgs>
-    medidasCautelares: Prisma.$MedidasCautelaresPayload<ExtArgs> | null
-    notificacion: Prisma.$NotificacionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     carpetaNumero: number
@@ -1563,8 +1310,6 @@ readonly fields: DemandaFieldRefs;
 export interface Prisma__DemandaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   carpeta<T extends Prisma.CarpetaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CarpetaDefaultArgs<ExtArgs>>): Prisma.Prisma__CarpetaClient<runtime.Types.Result.GetResult<Prisma.$CarpetaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  medidasCautelares<T extends Prisma.Demanda$medidasCautelaresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demanda$medidasCautelaresArgs<ExtArgs>>): Prisma.Prisma__MedidasCautelaresClient<runtime.Types.Result.GetResult<Prisma.$MedidasCautelaresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  notificacion<T extends Prisma.Demanda$notificacionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demanda$notificacionArgs<ExtArgs>>): Prisma.Prisma__NotificacionClient<runtime.Types.Result.GetResult<Prisma.$NotificacionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2009,44 +1754,6 @@ export type DemandaDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Demandas to delete.
    */
   limit?: number
-}
-
-/**
- * Demanda.medidasCautelares
- */
-export type Demanda$medidasCautelaresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the MedidasCautelares
-   */
-  select?: Prisma.MedidasCautelaresSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the MedidasCautelares
-   */
-  omit?: Prisma.MedidasCautelaresOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MedidasCautelaresInclude<ExtArgs> | null
-  where?: Prisma.MedidasCautelaresWhereInput
-}
-
-/**
- * Demanda.notificacion
- */
-export type Demanda$notificacionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Notificacion
-   */
-  select?: Prisma.NotificacionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Notificacion
-   */
-  omit?: Prisma.NotificacionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.NotificacionInclude<ExtArgs> | null
-  where?: Prisma.NotificacionWhereInput
 }
 
 /**

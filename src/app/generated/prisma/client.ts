@@ -47,16 +47,6 @@ export { Prisma }
  */
 export type Carpeta = Prisma.CarpetaModel
 /**
- * Model Factura
- * 
- */
-export type Factura = Prisma.FacturaModel
-/**
- * Model EmisorDeFactura
- * 
- */
-export type EmisorDeFactura = Prisma.EmisorDeFacturaModel
-/**
  * Model Deudor
  * 
  */
@@ -72,30 +62,10 @@ export type Codeudor = Prisma.CodeudorModel
  */
 export type Demanda = Prisma.DemandaModel
 /**
- * Model Notificacion
- * 
- */
-export type Notificacion = Prisma.NotificacionModel
-/**
- * Model MedidasCautelares
- * 
- */
-export type MedidasCautelares = Prisma.MedidasCautelaresModel
-/**
- * Model Notifier
- * 
- */
-export type Notifier = Prisma.NotifierModel
-/**
  * Model Nota
  * 
  */
 export type Nota = Prisma.NotaModel
-/**
- * Model Task
- * 
- */
-export type Task = Prisma.TaskModel
 /**
  * Model Actuacion
  * 
@@ -111,11 +81,6 @@ export type Juzgado = Prisma.JuzgadoModel
  * 
  */
 export type Proceso = Prisma.ProcesoModel
-/**
- * Model User
- * 
- */
-export type User = Prisma.UserModel
 /**
  * Model RelevantDates
  * 

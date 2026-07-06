@@ -52,20 +52,13 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Carpeta: 'Carpeta',
-  Factura: 'Factura',
-  EmisorDeFactura: 'EmisorDeFactura',
   Deudor: 'Deudor',
   Codeudor: 'Codeudor',
   Demanda: 'Demanda',
-  Notificacion: 'Notificacion',
-  MedidasCautelares: 'MedidasCautelares',
-  Notifier: 'Notifier',
   Nota: 'Nota',
-  Task: 'Task',
   Actuacion: 'Actuacion',
   Juzgado: 'Juzgado',
   Proceso: 'Proceso',
-  User: 'User',
   RelevantDates: 'RelevantDates'
 } as const
 
@@ -107,52 +100,6 @@ export const CarpetaScalarFieldEnum = {
 } as const
 
 export type CarpetaScalarFieldEnum = (typeof CarpetaScalarFieldEnum)[keyof typeof CarpetaScalarFieldEnum]
-
-
-export const FacturaScalarFieldEnum = {
-  id: 'id',
-  facturaElectronica: 'facturaElectronica',
-  secondaryFactura: 'secondaryFactura',
-  ciudad: 'ciudad',
-  dv: 'dv',
-  fecha: 'fecha',
-  razonSocial: 'razonSocial',
-  nombreComercial: 'nombreComercial',
-  direccion: 'direccion',
-  valorBase: 'valorBase',
-  hasOtroImp: 'hasOtroImp',
-  hasIva: 'hasIva',
-  hasIcui: 'hasIcui',
-  hasImpoConsumo: 'hasImpoConsumo',
-  nit: 'nit',
-  valorIva: 'valorIva',
-  valorOtroImp: 'valorOtroImp',
-  valorTotal: 'valorTotal',
-  concepto: 'concepto',
-  carpetaNumero: 'carpetaNumero',
-  CUFE: 'CUFE',
-  QRCode: 'QRCode'
-} as const
-
-export type FacturaScalarFieldEnum = (typeof FacturaScalarFieldEnum)[keyof typeof FacturaScalarFieldEnum]
-
-
-export const EmisorDeFacturaScalarFieldEnum = {
-  nit: 'nit',
-  dv: 'dv',
-  razonSocial: 'razonSocial',
-  nombreComercial: 'nombreComercial',
-  direccion: 'direccion',
-  correo: 'correo',
-  telefono: 'telefono',
-  actividadEconomica: 'actividadEconomica',
-  regimenFiscal: 'regimenFiscal',
-  responsabilidadTributaria: 'responsabilidadTributaria',
-  tipoContribuyente: 'tipoContribuyente',
-  ciudad: 'ciudad'
-} as const
-
-export type EmisorDeFacturaScalarFieldEnum = (typeof EmisorDeFacturaScalarFieldEnum)[keyof typeof EmisorDeFacturaScalarFieldEnum]
 
 
 export const DeudorScalarFieldEnum = {
@@ -207,39 +154,6 @@ export const DemandaScalarFieldEnum = {
 export type DemandaScalarFieldEnum = (typeof DemandaScalarFieldEnum)[keyof typeof DemandaScalarFieldEnum]
 
 
-export const NotificacionScalarFieldEnum = {
-  demandaId: 'demandaId',
-  certimail: 'certimail',
-  fisico: 'fisico',
-  id: 'id',
-  autoNotificado: 'autoNotificado'
-} as const
-
-export type NotificacionScalarFieldEnum = (typeof NotificacionScalarFieldEnum)[keyof typeof NotificacionScalarFieldEnum]
-
-
-export const MedidasCautelaresScalarFieldEnum = {
-  demandaId: 'demandaId',
-  fechaOrdenaMedida: 'fechaOrdenaMedida',
-  id: 'id',
-  medidaSolicitada: 'medidaSolicitada'
-} as const
-
-export type MedidasCautelaresScalarFieldEnum = (typeof MedidasCautelaresScalarFieldEnum)[keyof typeof MedidasCautelaresScalarFieldEnum]
-
-
-export const NotifierScalarFieldEnum = {
-  fechaAporta: 'fechaAporta',
-  fechaRecibido: 'fechaRecibido',
-  notificacionId: 'notificacionId',
-  resultado: 'resultado',
-  tipo: 'tipo',
-  carpetaNumero: 'carpetaNumero'
-} as const
-
-export type NotifierScalarFieldEnum = (typeof NotifierScalarFieldEnum)[keyof typeof NotifierScalarFieldEnum]
-
-
 export const NotaScalarFieldEnum = {
   carpetaNumero: 'carpetaNumero',
   createdAt: 'createdAt',
@@ -253,20 +167,6 @@ export const NotaScalarFieldEnum = {
 } as const
 
 export type NotaScalarFieldEnum = (typeof NotaScalarFieldEnum)[keyof typeof NotaScalarFieldEnum]
-
-
-export const TaskScalarFieldEnum = {
-  carpetaNumero: 'carpetaNumero',
-  done: 'done',
-  createdAt: 'createdAt',
-  dueDate: 'dueDate',
-  id: 'id',
-  text: 'text',
-  updatedAt: 'updatedAt',
-  content: 'content'
-} as const
-
-export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
 
 
 export const ActuacionScalarFieldEnum = {
@@ -322,17 +222,6 @@ export const ProcesoScalarFieldEnum = {
 export type ProcesoScalarFieldEnum = (typeof ProcesoScalarFieldEnum)[keyof typeof ProcesoScalarFieldEnum]
 
 
-export const UserScalarFieldEnum = {
-  id: 'id',
-  email: 'email',
-  password: 'password',
-  name: 'name',
-  createdAt: 'createdAt'
-} as const
-
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
 export const RelevantDatesScalarFieldEnum = {
   date: 'date',
   text: 'text',
@@ -351,14 +240,6 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const NullableJsonNullValueInput = {
-  DbNull: DbNull,
-  JsonNull: JsonNull
-} as const
-
-export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -373,13 +254,4 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-export const JsonNullValueFilter = {
-  DbNull: DbNull,
-  JsonNull: JsonNull,
-  AnyNull: AnyNull
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

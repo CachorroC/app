@@ -9,14 +9,6 @@
 * 🟢 You can import this file directly.
 */
 
-export const NotifierName = {
-  DOS91: 'DOS91',
-  DOS92: 'DOS92'
-} as const
-
-export type NotifierName = (typeof NotifierName)[keyof typeof NotifierName]
-
-
 export const Category = {
   Terminados: 'Terminados',
   LiosJuridicos: 'LiosJuridicos',
