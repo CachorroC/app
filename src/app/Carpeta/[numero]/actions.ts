@@ -6,32 +6,15 @@ import { intDemanda } from '#@/lib/types/carpetas';
 
 export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
   const {
-    carpetaNumero, medidasCautelares, notificacion, ...restDemanda 
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    carpetaNumero, ...restDemanda
   }
     = incomingDemanda;
-
-  const {
-    notifiers, ...restNotificacion 
-  } = notificacion ?? {
-    notifiers     : [],
-    autoNotificado: new Date(),
-    certimail     : null,
-    fisico        : null,
-    id            : incomingDemanda.id,
-  };
 
   try {
     const editor = await prisma.demanda.update( {
       where: {
         id: incomingDemanda.id,
-      },
-      include: {
-        notificacion: {
-          include: {
-            notifiers: true,
-          },
-        },
-        medidasCautelares: true,
       },
       data: {
         ...restDemanda,
@@ -44,38 +27,6 @@ export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
         capitalAdeudado: incomingDemanda.capitalAdeudado
           ? new Prisma.Decimal( incomingDemanda.capitalAdeudado )
           : undefined,
-        medidasCautelares: {
-          upsert: {
-            where: {
-              id: restDemanda.id,
-            },
-            create: {
-              ...medidasCautelares,
-              id: incomingDemanda.id,
-            },
-            update: {
-              fechaOrdenaMedida: medidasCautelares?.fechaOrdenaMedida
-                ? new Date( medidasCautelares.fechaOrdenaMedida )
-                : null,
-              medidaSolicitada: medidasCautelares?.medidaSolicitada
-                ? String( medidasCautelares.medidaSolicitada )
-                : null,
-            },
-          },
-        },
-        notificacion: {
-          upsert: {
-            where: {
-              id: incomingDemanda.id,
-            },
-            update: {
-              ...restNotificacion,
-            },
-            create: {
-              ...restNotificacion,
-            },
-          },
-        },
       },
     } );
 

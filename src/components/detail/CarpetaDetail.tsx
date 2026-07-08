@@ -8,9 +8,8 @@ import { CATEGORY_META,
   deudorNombre,
   fmtCOP,
   fmtDate,
-  isOverdue,
   TIPO_PROCESO_LABEL, } from '#@/lib/format';
-import { Carpeta, DetailView, Nota, Task } from '#@/lib/types/dashboard_types';
+import { Carpeta, DetailView, Nota } from '#@/lib/types/dashboard_types';
 import { Icon, StatusChip } from '../ui';
 import { Route } from 'next';
 
@@ -21,8 +20,7 @@ type TabKey =
   | 'procesos'
   | 'actuaciones'
   | 'facturas'
-  | 'notas'
-  | 'tareas';
+  | 'notas';
 
 interface KV {
   k    : string;
@@ -43,17 +41,9 @@ export default function CarpetaDetail( {
     setTab
   ] = useState<TabKey>( 'resumen' );
   const [
-    tareas,
-    setTareas
-  ] = useState<Task[]>( carpeta.tareas );
-  const [
     notas,
     setNotas
   ] = useState<Nota[]>( carpeta.notas );
-  const [
-    newTarea,
-    setNewTarea
-  ] = useState( '' );
   const [
     newNota,
     setNewNota
@@ -62,40 +52,6 @@ export default function CarpetaDetail( {
   const meta = CATEGORY_META[ carpeta.category ];
   const d = carpeta.deudor;
   const dem = carpeta.demanda;
-
-  function toggleTarea( id: number ) {
-    setTareas( ( p ) => {
-      return p.map( ( t ) => {
-        return t.id === id
-          ? {
-              ...t,
-              done: !t.done,
-            }
-          : t;
-      } );
-    } );
-  }
-
-  function addTarea() {
-    const text = newTarea.trim();
-
-    if ( !text ) {
-      return;
-    }
-
-    setTareas( ( p ) => {
-      return [
-        ...p,
-        {
-          id     : Date.now(),
-          text,
-          dueDate: null,
-          done   : false,
-        },
-      ];
-    } );
-    setNewTarea( '' );
-  }
 
   function addNota() {
     const text = newNota.trim();
@@ -265,15 +221,6 @@ export default function CarpetaDetail( {
       v   : fmtDate( dem.entregaGarantias ),
       mono: true,
     },
-    {
-      k: 'Medida cautelar',
-      v: dem.medidas.medidaSolicitada,
-    },
-    {
-      k   : 'Fecha ordena medida',
-      v   : fmtDate( dem.medidas.fechaOrdena ),
-      mono: true,
-    },
   ];
   const kvDeudor: KV[] = [
     {
@@ -343,30 +290,6 @@ export default function CarpetaDetail( {
       mono: true,
     },
   ];
-  const notifKv: KV[] = [
-    {
-      k: 'Certimail',
-      v: dem.notif.certimail
-        ? 'Enviado'
-        : 'Pendiente',
-    },
-    {
-      k: 'Físico',
-      v: dem.notif.fisico
-        ? 'Realizado'
-        : 'Pendiente',
-    },
-    {
-      k   : 'Auto notificado',
-      v   : fmtDate( dem.notif.autoNotificado ),
-      mono: true,
-    },
-    {
-      k: 'Medida',
-      v: dem.medidas.medidaSolicitada,
-    },
-  ];
-
   const TABS: { key: TabKey; label: string; icon: string; count?: number }[] = [
     {
       key  : 'resumen',
@@ -406,14 +329,6 @@ export default function CarpetaDetail( {
       label: 'Notas',
       icon : 'sticky_note_2',
       count: notas.length,
-    },
-    {
-      key  : 'tareas',
-      label: 'Tareas',
-      icon : 'checklist',
-      count: tareas.filter( ( t ) => {
-        return !t.done;
-      } ).length,
     },
   ];
 
@@ -460,31 +375,6 @@ export default function CarpetaDetail( {
             </div>
             <div className={styles.factList}>
               {juzgadoKv.map( ( i ) => {
-                return (
-                  <div
-                    key={i.k}
-                    className={styles.factRow}
-                  >
-                    <span>{i.k}</span>
-                    <span className={i.mono
-                      ? 'aj-mono'
-                      : ''}
-                    >{i.v}</span>
-                  </div>
-                );
-              } )}
-            </div>
-          </div>
-          <div>
-            <div className={styles.subhead}>
-              <Icon
-                name="mark_email_read"
-                size={18}
-              />
-              Notificación &amp; medidas
-            </div>
-            <div className={styles.factList}>
-              {notifKv.map( ( i ) => {
                 return (
                   <div
                     key={i.k}
@@ -762,85 +652,6 @@ export default function CarpetaDetail( {
     );
   };
 
-  const SecTareas = () => {
-    return (
-      <div className={styles.stackSm}>
-        {tareas.map( ( t ) => {
-          const over = !t.done && isOverdue( t.dueDate );
-
-          return (
-            <div
-              key={t.id}
-              className={styles.tarea}
-            >
-              <button
-                className={`${ styles.checkbox } ${ t.done
-                  ? styles.checked
-                  : '' }`}
-                onClick={() => {
-                  return toggleTarea( t.id );
-                }}
-                aria-label="Completar tarea"
-              >
-                {t.done && (
-                  <Icon
-                    name="check"
-                    size={15}
-                  />
-                )}
-              </button>
-              <span
-                className={`${ styles.tareaText } ${
-                  t.done
-                    ? styles.tareaDone
-                    : ''
-                }`}
-              >
-                {t.text}
-              </span>
-              <span
-                className={`${ styles.tareaDue } ${ over
-                  ? styles.tareaOver
-                  : '' }`}
-              >
-                <Icon
-                  name="event"
-                  size={15}
-                />
-                {t.dueDate
-                  ? fmtDate( t.dueDate )
-                  : 'Sin fecha'}
-              </span>
-            </div>
-          );
-        } )}
-        <div className={styles.addRow}>
-          <input
-            value={newTarea}
-            onChange={( e ) => {
-              return setNewTarea( e.target.value );
-            }}
-            onKeyDown={( e ) => {
-              return e.key === 'Enter' && addTarea();
-            }}
-            placeholder="Agregar tarea…"
-            className={styles.addInput}
-          />
-          <button
-            onClick={addTarea}
-            className={styles.addBtnPrimary}
-          >
-            <Icon
-              name="add"
-              size={17}
-            />
-            Tarea
-          </button>
-        </div>
-      </div>
-    );
-  };
-
   interface Section {
     key   : string;
     icon  : string;
@@ -899,15 +710,6 @@ export default function CarpetaDetail( {
       badge : notas.length,
       render: SecNotas,
     },
-    tareas: {
-      key  : 'tareas',
-      icon : 'checklist',
-      title: 'Tareas',
-      badge: tareas.filter( ( t ) => {
-        return !t.done;
-      } ).length,
-      render: SecTareas,
-    },
   };
 
   const visibleSections = isTabs
@@ -921,7 +723,6 @@ export default function CarpetaDetail( {
         SECTIONS.actuaciones,
         SECTIONS.facturas,
         SECTIONS.notas,
-        SECTIONS.tareas,
       ];
 
   return (

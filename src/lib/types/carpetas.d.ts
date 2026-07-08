@@ -7,7 +7,6 @@
 import { DatabaseActuacionType } from './actuaciones';
 import { outProceso } from './procesos';
 import { WithId } from 'mongodb';
-import { IntTask, SubTarea } from './tareas';
 import { IntNota } from './notas';
 
 
@@ -41,7 +40,6 @@ export type IntCarpeta = {
   numero             : number;
   procesos           : outProceso[];
   revisado           : boolean;
-  tareas             : IntTask[];
   terminado          : boolean;
   tipoProceso        : string;
   ultimaActuacion    : DatabaseActuacionType | null;
@@ -68,7 +66,7 @@ export enum CategoryEnum {
 }
 
 export type Codeudor = {
-  carpetaNumero: number | null;
+  carpetaNumero: number;
   cedula       : null | string;
   direccion    : null | string;
   id           : number;
@@ -79,7 +77,7 @@ export type Codeudor = {
 export type intDemanda = {
   avaluo                 : null | number;
   capitalAdeudado        : null | number;
-  carpetaNumero?         : number;
+  carpetaNumero          : number;
   departamento           : string | null;
   despacho               : null | string;
   entregaGarantiasAbogado: Date | null;
@@ -89,9 +87,7 @@ export type intDemanda = {
   liquidacion            : number | null;
   llaveProceso           : string | null;
   mandamientoPago        : Date[];
-  medidasCautelares      : MedidasCautelares | null;
   municipio              : string | null;
-  notificacion           : Notificacion | null;
   obligacion             : string[];
   radicado               : null | string;
   tipoProceso            : string;
@@ -108,31 +104,6 @@ export type intDemandaDepartamento =
   | 'CNDINAMARCA'
   | 'ATLANTICO';
 
-export type MedidasCautelares = {
-  demandaId        : number | null;
-  fechaOrdenaMedida: Date | null;
-  id               : number;
-  medidaSolicitada : null | string;
-};
-
-export type Notificacion = {
-  autoNotificado: null | Date;
-  demandaId     : number | null;
-  certimail     : boolean | null;
-  fisico        : boolean | null;
-  id            : number;
-  notifiers     : Notifier[];
-};
-
-export type Notifier = {
-  fechaAporta   : Date | null;
-  fechaRecibido : Date | null;
-  id?           : number;
-  notificacionId: number | null;
-  resultado     : boolean | null;
-  tipo          : string;
-};
-
 export type TipoProceso =
   | 'SINGULAR'
   | 'PRENDARIO'
@@ -147,7 +118,7 @@ export enum TipoProcesoEnum {
 }
 
 export type Deudor = {
-  carpetaNumero  : number | null;
+  carpetaNumero  : number;
   cedula         : string;
   direccion      : null | string;
   email          : null | string;
@@ -228,30 +199,6 @@ export class carpetaConvert {
     return JSON.stringify( value );
   }
 
-  public static toMedidasCautelares( json: string ): MedidasCautelares {
-    return JSON.parse( json );
-  }
-
-  public static medidasCautelaresToJson( value: MedidasCautelares ): string {
-    return JSON.stringify( value );
-  }
-
-  public static toNotificacion( json: string ): Notificacion {
-    return JSON.parse( json );
-  }
-
-  public static notificacionToJson( value: Notificacion ): string {
-    return JSON.stringify( value );
-  }
-
-  public static toNotifier( json: string ): Notifier {
-    return JSON.parse( json );
-  }
-
-  public static notifierToJson( value: Notifier ): string {
-    return JSON.stringify( value );
-  }
-
   public static toDeudor( json: string ): Deudor {
     return JSON.parse( json );
   }
@@ -273,22 +220,6 @@ export class carpetaConvert {
   }
 
   public static juzgadoToJson( value: Juzgado ): string {
-    return JSON.stringify( value );
-  }
-
-  public static toTarea( json: string ): IntTask {
-    return JSON.parse( json );
-  }
-
-  public static tareaToJson( value: IntTask ): string {
-    return JSON.stringify( value );
-  }
-
-  public static toSubTarea( json: string ): SubTarea {
-    return JSON.parse( json );
-  }
-
-  public static subTareaToJson( value: SubTarea ): string {
     return JSON.stringify( value );
   }
 }

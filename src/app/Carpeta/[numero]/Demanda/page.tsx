@@ -25,12 +25,7 @@ export default async function DemandaPage( {
           juzgado: true,
         },
       },
-      demanda: {
-        include: {
-          medidasCautelares: true,
-          notificacion     : true,
-        },
-      },
+      demanda: true,
     },
   } );
 

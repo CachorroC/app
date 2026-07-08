@@ -49,15 +49,6 @@ export default async function CarpetasPage () {
         vencimientoPagare: c.demanda.vencimientoPagare[ 0 ]?.toISOString() ?? null,
         mandamientoPago  : c.demanda.mandamientoPago[ 0 ]?.toISOString() ?? null,
         entregaGarantias : c.demanda.entregaGarantiasAbogado?.toISOString() ?? null,
-        medidas          : {
-          medidaSolicitada: c.demanda.medidasCautelares?.medidaSolicitada ?? '',
-          fechaOrdena     : null,
-        },
-        notif: {
-          certimail     : c.demanda.notificacion?.certimail ?? false,
-          fisico        : c.demanda.notificacion?.fisico ?? false,
-          autoNotificado: null,
-        },
       },
       deudor  : c.deudor!,
       etapa   : c.demanda.etapaProcesal ?? '',
@@ -106,14 +97,6 @@ export default async function CarpetasPage () {
       status  : c.category === 'Terminados'
         ? 'done'
         : 'active',
-      tareas: c.tareas.map( ( t ) => {
-        return  {
-          id     : t.id,
-          text   : t.text,
-          dueDate: t.dueDate?.toISOString() ?? null,
-          done   : t.done,
-        };
-      } ),
       terminado  : c.terminado,
       tipoProceso: c.tipoProceso as TipoProceso,
       vencido    : c.category === 'Terminados',

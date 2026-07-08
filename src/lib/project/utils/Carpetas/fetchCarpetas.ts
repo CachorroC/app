@@ -12,18 +12,8 @@ export async function fetchCarpetaByNumero( {
       deudor         : true,
       codeudor       : true,
       notas          : true,
-      tareas         : true,
-      demanda        : {
-        include: {
-          notificacion: {
-            include: {
-              notifiers: true,
-            },
-          },
-          medidasCautelares: true,
-        },
-      },
-      procesos: {
+      demanda        : true,
+      procesos       : {
         include: {
           juzgado: true,
         },
