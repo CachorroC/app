@@ -2,14 +2,17 @@
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { Dispatch,
   ReactNode,
-  SetStateAction,
   createContext,
   useContext,
-  useReducer,
-  useState, } from 'react';
+  useMemo,
+  useReducer, } from 'react';
 import { IntAction,
   CarpetasReducerState,
-  carpetasReducer, } from '../Hooks/useCarpetasreducer';
+  carpetasReducer,
+  getFilterValue,
+  getSortComparator,
+  normalizeSearchText,
+  FilterableColumn, } from '../Hooks/useCarpetasreducer';
 
 export const sortByDateDesc = (
   a: MonCarpeta, b: MonCarpeta
@@ -42,14 +45,11 @@ export const sortByDateDesc = (
   return dateB.getTime() - dateA.getTime();
 };
 
-const CarpetasSortContext = createContext<CarpetasReducerState | null>( null );
+type CarpetasSortContextValue = CarpetasReducerState & { carpetas: MonCarpeta[] };
+
+const CarpetasSortContext = createContext<CarpetasSortContextValue | null>( null );
 
 const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>( null, );
-
-const CarpetasContext = createContext<{
-  currentCarpetas   : MonCarpeta[];
-  setCurrentCarpetas: Dispatch<SetStateAction<MonCarpeta[]>>;
-} | null>( null );
 
 export function CarpetasSortProvider( {
   children,
@@ -66,40 +66,70 @@ export function CarpetasSortProvider( {
     dispatchCarpetas
   ] = useReducer(
     carpetasReducer, {
-      carpetas        : sortedInitial,
       completeCarpetas: sortedInitial,
+      filters         : {},
+      search          : '',
+      sort            : null,
     }
   );
 
-  const [
-    currentCarpetas,
-    setCurrentCarpetas
-  ] = useState( sortedInitial );
+  const carpetas = useMemo(
+    () => {
+      const {
+        completeCarpetas, filters, search, sort
+      } = carpetasReduced;
+
+      let result = completeCarpetas;
+
+      for ( const column of Object.keys( filters ) as FilterableColumn[] ) {
+        const values = filters[ column ];
+
+        if ( !values || values.size === 0 ) {
+          continue;
+        }
+
+        result = result.filter( ( carpeta ) => {
+          return values.has( getFilterValue(
+            carpeta, column
+          ) );
+        } );
+      }
+
+      const query = normalizeSearchText( search.trim() );
+
+      if ( query ) {
+        result = result.filter( ( carpeta ) => {
+          return normalizeSearchText( carpeta.nombre )
+            .includes( query );
+        } );
+      }
+
+      if ( sort ) {
+        result = [
+          ...result
+        ].sort( getSortComparator(
+          sort.column, sort.direction
+        ) );
+      }
+
+      return result;
+    }, [
+      carpetasReduced
+    ]
+  );
 
   return (
-    <CarpetasContext.Provider
+    <CarpetasSortContext.Provider
       value={{
-        currentCarpetas,
-        setCurrentCarpetas,
+        ...carpetasReduced,
+        carpetas,
       }}
     >
-      <CarpetasSortContext.Provider value={carpetasReduced}>
-        <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
-          {children}
-        </CarpetasSortDispatchContext.Provider>
-      </CarpetasSortContext.Provider>
-    </CarpetasContext.Provider>
+      <CarpetasSortDispatchContext.Provider value={dispatchCarpetas}>
+        {children}
+      </CarpetasSortDispatchContext.Provider>
+    </CarpetasSortContext.Provider>
   );
-}
-
-export function useCarpetasContext() {
-  const context = useContext( CarpetasContext );
-
-  if ( context === null ) {
-    throw new Error( 'useCarpetas  must be used inside a carpetasprovider' );
-  }
-
-  return context;
 }
 
 export function useCarpetaSort() {
@@ -121,176 +151,3 @@ export function useCarpetaSortDispatch() {
 
   return context;
 }
-
-/* export function carpetasReducer(
-  carpetas: MonCarpeta[], action: IntAction
-) {
-      const categoriesSorter: Category[] = [
-        'todos',
-        'Bancolombia',
-        'Reintegra',
-        'SinEspecificar',
-        'LiosJuridicos',
-        'Insolvencia',
-        'Terminados',
-      ];
-
-      const {
-        sortDirection, type
-      } = action;
-
-      const asc = [
-        -1,
-        0,
-        1
-      ];
-
-      const dsc = [
-        1,
-        0,
-        -1
-      ];
-
-      const sorter = sortDirection
-        ? asc
-        : dsc;
-
-      switch ( type ) {
-          case 'fecha': {
-            return [
-              ...carpetas
-            ].sort(
-              (
-                a, b
-              ) => {
-                        if ( !a.fecha || a.fecha === undefined ) {
-                          return sorter[ 2 ];
-                        }
-
-                        if ( !b.fecha || b.fecha === undefined ) {
-                          return sorter[ 0 ];
-                        }
-
-                        const x = a.fecha;
-
-                        const y = b.fecha;
-
-                        if ( x < y ) {
-                          return sorter[ 2 ];
-                        }
-
-                        if ( x > y ) {
-                          return sorter[ 0 ];
-                        }
-
-                        return sorter[ 1 ];
-              }
-            );
-          }
-
-          case 'category': {
-            return [
-              ...carpetas
-            ].sort(
-              (
-                a, b
-              ) => {
-                        const x = categoriesSorter.indexOf(
-                          a.category
-                        );
-
-                        const y = categoriesSorter.indexOf(
-                          b.category
-                        );
-
-                        if ( x < y ) {
-                          return sorter[ 2 ];
-                        }
-
-                        if ( x > y ) {
-                          return sorter[ 0 ];
-                        }
-
-                        return sorter[ 1 ];
-              }
-            );
-          }
-
-          case 'numero': {
-            return [
-              ...carpetas
-            ].sort(
-              (
-                a, b
-              ) => {
-                        const x = a.numero;
-
-                        const y = b.numero;
-
-                        const idk = sortDirection
-                          ? x - y
-                          : y - x;
-
-                        return idk;
-              }
-            );
-          }
-
-          case 'nombre': {
-            return [
-              ...carpetas
-            ].sort(
-              (
-                a, b
-              ) => {
-                        const x = a.nombre;
-
-                        const y = b.nombre;
-
-                        if ( x < y ) {
-                          return sorter[ 2 ];
-                        }
-
-                        if ( x > y ) {
-                          return sorter[ 0 ];
-                        }
-
-                        return sorter[ 1 ];
-              }
-            );
-          }
-
-          default: {
-            return [
-              ...carpetas
-            ].sort(
-              (
-                a, b
-              ) => {
-                        const x = a[ type ];
-
-                        const y = b[ type ];
-
-                        if ( !x || x === undefined ) {
-                          return sorter[ 2 ];
-                        }
-
-                        if ( !y || y === undefined ) {
-                          return sorter[ 0 ];
-                        }
-
-                        if ( x < y ) {
-                          return sorter[ 2 ];
-                        }
-
-                        if ( x > y ) {
-                          return sorter[ 0 ];
-                        }
-
-                        return 0;
-              }
-            );
-          }
-      }
-}
- */

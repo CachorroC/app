@@ -10,19 +10,9 @@ export async function resetCarpetas() {
       deudor         : true,
       codeudor       : true,
       notas          : true,
-      tareas         : true,
       juzgado        : true,
-      demanda        : {
-        include: {
-          notificacion: {
-            include: {
-              notifiers: true,
-            },
-          },
-          medidasCautelares: true,
-        },
-      },
-      procesos: {
+      demanda        : true,
+      procesos       : {
         include: {
           juzgado: true,
         },

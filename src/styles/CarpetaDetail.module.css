@@ -642,58 +642,6 @@
   color: var(--primary);
 }
 
-/* ---- Tareas ---- */
-.tarea {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--outline-variant);
-  border-radius: var(--radius-sm);
-}
-
-.checkbox {
-  width: 22px;
-  height: 22px;
-  flex: none;
-  border: 2px solid var(--outline);
-  background: transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  color: var(--on-primary);
-}
-
-.checked {
-  border-color: var(--primary);
-  background: var(--primary);
-}
-
-.tareaText {
-  flex: 1;
-  font: var(--type-body-md);
-}
-
-.tareaDone {
-  text-decoration: line-through;
-  color: var(--on-surface-variant);
-}
-
-.tareaDue {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font: var(--type-label-md);
-  color: var(--on-surface-variant);
-}
-
-.tareaOver {
-  color: var(--error);
-}
-
 /* ---- Add rows ---- */
 .addRow {
   display: flex;
@@ -715,20 +663,6 @@
 
 .addInput:focus {
   border-color: var(--primary);
-}
-
-.addBtnPrimary {
-  height: 40px;
-  padding: 0 var(--space-4);
-  border: none;
-  border-radius: var(--radius-full);
-  background: var(--primary);
-  color: var(--on-primary);
-  font: var(--type-label-md);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
 }
 
 .addBtnSecondary {
@@ -816,10 +750,6 @@
   .segBtn {
     min-width: 42px;
     height: 42px;
-  }
-  .checkbox {
-    width: 26px;
-    height: 26px;
   }
   .tab {
     height: 52px;

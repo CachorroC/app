@@ -1,169 +1,120 @@
-.segmentedButtons {
+/* Segmented group container — mobile-first (base = compact, wraps) */
+.segmentedButtons, .segmentedButtonsColumn, .segmentedButtonsRow {
   display: flex;
   flex: 1;
-  gap: 0;
-  justify-content: space-evenly;
-  align-items: stretch;
-  align-content: stretch;
+  gap: 0.0625rem;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: flex-start;
   padding: 0;
-  @media (width < 600px) {
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: flex-start;
+}
+@media (600px <= width) {
+  .segmentedButtons, .segmentedButtonsColumn, .segmentedButtonsRow {
+    justify-content: space-evenly;
+    align-items: stretch;
+    align-content: stretch;
   }
-  &Row {
-    @extend .segmentedButtons;
+  .segmentedButtonsRow {
     flex-flow: row nowrap;
-    .button {
-      &:first-child {
-        border-radius: var(--shape-corner-large-start);
-      }
-      &:last-child {
-        border-radius: var(--shape-corner-large-end);
-      }
-      &:only-child {
-        border-radius: var(--shape-corner-large);
-      }
-    }
   }
-  &Column {
-    @extend .segmentedButtons;
+  .segmentedButtonsColumn {
     flex-flow: column nowrap;
-    .button {
-      &:first-child {
-        border-radius: var(--shape-corner-large-top);
-      }
-      &:last-child {
-        border-radius: var(--shape-corner-large-bottom);
-      }
-      &:only-child {
-        border-radius: var(--shape-corner-large);
-      }
-      @media (width < 600px) {
-        &:first-child {
-          border-radius: var(--shape-corner-large-start);
-        }
-        &:last-child {
-          border-radius: var(--shape-corner-large-end);
-        }
-      }
-    }
   }
 }
-.button {
+.segmentedButtonsRow .button:first-child, .segmentedButtonsRow .buttonCategoryActive:first-child, .segmentedButtonsRow .buttonCategoryPasive:first-child {
+  border-radius: var(--shape-corner-large-start);
+}
+.segmentedButtonsRow .button:last-child, .segmentedButtonsRow .buttonCategoryActive:last-child, .segmentedButtonsRow .buttonCategoryPasive:last-child {
+  border-radius: var(--shape-corner-large-end);
+}
+.segmentedButtonsRow .button:only-child, .segmentedButtonsRow .buttonCategoryActive:only-child, .segmentedButtonsRow .buttonCategoryPasive:only-child {
+  border-radius: var(--shape-corner-large);
+}
+.segmentedButtonsColumn .button:first-child, .segmentedButtonsColumn .buttonCategoryActive:first-child, .segmentedButtonsColumn .buttonCategoryPasive:first-child {
+  border-radius: var(--shape-corner-large-start);
+}
+.segmentedButtonsColumn .button:last-child, .segmentedButtonsColumn .buttonCategoryActive:last-child, .segmentedButtonsColumn .buttonCategoryPasive:last-child {
+  border-radius: var(--shape-corner-large-end);
+}
+.segmentedButtonsColumn .button:only-child, .segmentedButtonsColumn .buttonCategoryActive:only-child, .segmentedButtonsColumn .buttonCategoryPasive:only-child {
+  border-radius: var(--shape-corner-large);
+}
+@media (600px <= width) {
+  .segmentedButtonsColumn .button:first-child, .segmentedButtonsColumn .buttonCategoryActive:first-child, .segmentedButtonsColumn .buttonCategoryPasive:first-child {
+    border-radius: var(--shape-corner-large-top);
+  }
+  .segmentedButtonsColumn .button:last-child, .segmentedButtonsColumn .buttonCategoryActive:last-child, .segmentedButtonsColumn .buttonCategoryPasive:last-child {
+    border-radius: var(--shape-corner-large-bottom);
+  }
+}
+
+.button, .buttonCategoryActive, .buttonCategoryPasive {
   border: none;
   box-sizing: border-box;
-  padding: 0.5rem;
+  padding: var(--space-2) var(--space-3);
+  min-height: 2.5rem;
   flex: 1;
-  border-radius: none;
   display: flex;
   flex-flow: row nowrap;
   justify-items: stretch;
   align-items: center;
-  justify-content: space-around;
-  align-content: center;
-  transition: all 0.3s;
+  justify-content: center;
+  gap: var(--space-2);
+  transition: background-color var(--duration-short) var(--ease-standard),
+    color var(--duration-short) var(--ease-standard);
   position: relative;
   box-shadow: var(--elevation-1);
   background-color: var(--surface-container-high);
   color: var(--on-surface);
-  &:before {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    content: '';
-    border-radius: inherit;
-  }
-  &:hover {
-    &:before {
-      opacity: 0.08;
-    }
-  }
-  &:focus,
-  &:active {
-    &:before {
-      opacity: 0.1;
-    }
-  }
-
-  &Category {
-    &Pasive {
-      @extend .button;
-      &:hover,
-      &:focus,
-      &:active {
-        &:before {
-          background-color: var(--primary);
-          color: var(--on-primary);
-          box-shadow: var(--elevation-4);
-        }
-      }
-    }
-    &Active {
-      @extend .button;
-      background-color: var(--primary-container);
-      color: var(--on-primary-container);
-      &:hover,
-      &:focus,
-      &:active {
-        &:before {
-          background-color: var(--primary);
-          color: var(--on-primary);
-          box-shadow: var(--elevation-4);
-        }
-      }
-    }
-  }
+}
+.button:before, .buttonCategoryActive:before, .buttonCategoryPasive:before {
+  position: absolute;
+  inset: 0;
+  content: '';
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity var(--duration-short) var(--ease-standard);
+}
+.button:hover:before, .buttonCategoryActive:hover:before, .buttonCategoryPasive:hover:before {
+  opacity: var(--md-state-hover);
+}
+.button:focus-visible:before, .buttonCategoryActive:focus-visible:before, .buttonCategoryPasive:focus-visible:before,
+.button:active:before, .buttonCategoryActive:active:before, .buttonCategoryPasive:active:before {
+  opacity: var(--md-state-press);
+}
+.buttonCategoryActive {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
 }
 
 .highlight {
   background-color: var(--primary-container);
   color: var(--on-primary-container);
   border: none;
-  &:hover {
-    border: 0.2rem solid var(--outline);
-    background-color: var(--primary);
-    color: var(--on-primary);
-  }
 }
-/* CONTROL BAR LAYOUT */
+.highlight:hover {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Toolbar row layout — mobile-first: stacked, gains a single inline row at tablet+ */
 .tableControls {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap; /* Allows wrapping on very small screens */
+  flex-flow: column nowrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
 }
 
 .actionButtons {
   display: flex;
   flex-flow: row wrap;
-  gap: 10px;
+  gap: var(--space-2);
 }
 
-.btnControl {
-  padding: 10px 15px;
-  background: var(--primary);
-  color: var(--on-primary);
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap; /* Prevents text breaking */
-}
-
-/* MOBILE ADJUSTMENTS FOR CONTROLS */
-@media screen and (max-width: 480px) {
+@media (600px <= width) {
   .tableControls {
-    flex-direction: column; /* Stack search on top of buttons */
-  }
-
-  .actionButtons {
-    width: 100%;
-  }
-
-  .btnControl {
-    flex: 1; /* Buttons share equal width */
-    text-align: center;
+    flex-flow: row nowrap;
+    align-items: center;
   }
 }

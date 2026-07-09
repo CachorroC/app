@@ -6,10 +6,10 @@ export function ResetButtonSorter() {
   const dispatchCarpetas = useCarpetaSortDispatch();
 
   return (
-    <section /* className={styles.segmentedButtons} */>
+    <section className={styles.segmentedButtons}>
       <button
         type="button"
-        //className={`${ styles.buttonCategoryPasive } ${ styles.btnControl }`}
+        className={styles.buttonCategoryPasive}
         onClick={() => {
           return dispatchCarpetas( {
             type: 'reset',

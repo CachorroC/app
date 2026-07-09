@@ -1,6 +1,5 @@
 declare const styles: {
   readonly "actionButtons": string;
-  readonly "btnControl": string;
   readonly "button": string;
   readonly "buttonCategoryActive": string;
   readonly "buttonCategoryPasive": string;

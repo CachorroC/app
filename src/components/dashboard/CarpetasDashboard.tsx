@@ -49,16 +49,11 @@ const COLUMNS: Column[] = [
     label: 'Llave proceso',
     align: 'left',
   },
-  {
-    key     : 'etapa',
-    label   : 'Etapa procesal',
-    align   : 'left',
-    sortable: 'etapa',
-  },
+
   {
     key  : 'ult',
-    label: 'Última actuación / anotación',
-    align: 'left',
+    label: 'Última actua/home/cachorro_cami/Documents/notes/ción / anotación',
+    align: 'center',
   },
   {
     key     : 'capital',
@@ -547,9 +542,7 @@ export default function CarpetasDashboard( {
                     const meta = CATEGORY_META[ c.category ];
                     const [
                       last
-                    ] = c.actuaciones.filter( ( c ) => {
-                      return c.isUltima;
-                    } );
+                    ] = c.actuaciones;
 
                     return (
                       <tr
@@ -598,14 +591,11 @@ export default function CarpetasDashboard( {
                         >
                           {c.llaveProceso}
                         </td>
-                        <td className={styles.td}>
-                          <span className={styles.etapaTag}>{c.etapa}</span>
-                        </td>
                         <td className={`${ styles.td } ${ styles.tdDivider }`}>
                           <div className={styles.actCell}>
                             <span className={styles.actTitle}>
-                              {last.actuacion}
-                              {last.conDocumentos && (
+                              {last && last.actuacion }
+                              {last && last.conDocumentos && (
                                 <Icon
                                   name="attach_file"
                                   size={14}
@@ -614,7 +604,7 @@ export default function CarpetasDashboard( {
                               )}
                             </span>
                             <span className={styles.actNote}>
-                              {last.anotacion}
+                              {last && last.anotacion }
                             </span>
                           </div>
                         </td>
@@ -670,9 +660,7 @@ export default function CarpetasDashboard( {
                 const meta = CATEGORY_META[ c.category ];
                 const [
                   last
-                ] = c.actuaciones.filter( ( c ) => {
-                  return c.isUltima;
-                } );
+                ] = c.actuaciones;
 
                 return (
                   <article
@@ -730,9 +718,9 @@ export default function CarpetasDashboard( {
                           Última actuación
                         </span>
                         <span className={styles.actTitle}>
-                          {last.actuacion}
+                          {last && last.actuacion }
                         </span>
-                        <span className={styles.actNote}>{last.anotacion}</span>
+                        <span className={styles.actNote}>{last && last.anotacion}</span>
                       </div>
                       <div className={styles.cardFoot}>
                         <div className={styles.cardCapital}>

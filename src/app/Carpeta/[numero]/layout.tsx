@@ -7,11 +7,11 @@ import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
-import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import { getCarpetasNumeros } from '#@/lib/project/utils/Carpetas/getCarpetas';
 
 
 export async function generateStaticParams() {
-  const carpetas = await getCarpetas();
+  const carpetas = await getCarpetasNumeros();
 
   const flattenUp = carpetas.flatMap( ( carpeta ) => {
     const {

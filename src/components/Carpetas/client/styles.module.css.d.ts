@@ -6,6 +6,7 @@ declare const styles: {
   readonly "segmentedButtons": string;
   readonly "segmentedButtonsColumn": string;
   readonly "segmentedButtonsRow": string;
+  readonly "table": string;
 };
 export = styles;
 

@@ -1,61 +1,60 @@
 'use client';
 
-import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
-import { Fragment, useState } from 'react';
-import { SortActionType } from '#@/app/Hooks/useCarpetasreducer';
+import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
+import { SortColumn, SortDirection } from '#@/app/Hooks/useCarpetasreducer';
 import styles from './styles.module.css';
 
 export function CarpetasSortButtons( {
   options,
 }: {
-  options: {
+  options: readonly {
     name : string;
-    value: string;
-    items: string[];
+    value: 'dir' | 'sortingKey';
+    items: readonly string[];
   }[];
 } ) {
-  const dispatchCarpetas = useCarpetaSortDispatch();
+  const {
+    sort
+  } = useCarpetaSort();
 
-  const [
-    currentDispatcher,
-    setCurrentDispatcher
-  ] = useState<SortActionType>( {
-    type      : 'sort',
-    dir       : 'asc',
-    sortingKey: 'fecha',
-  } );
+  const dispatchCarpetas = useCarpetaSortDispatch();
 
   return (
     <>
       <h1>{'ordenar:'}</h1>
 
       {options.map( ( {
-        name, value, items 
+        name, value, items
       } ) => {
         return (
           <section key={value}>
             <h5>{name}</h5>
-            <section>
+            <section className={styles.segmentedButtonsRow}>
               {items.map( ( item ) => {
-                const isActive = currentDispatcher[ value ] === item;
+                const isActive = value === 'dir'
+                  ? sort?.direction === item
+                  : sort?.column === item;
 
                 return (
                   <button
                     key={item}
                     type="button"
                     onClick={() => {
-                      setCurrentDispatcher( ( curdispatch ) => {
-                        return {
-                          ...curdispatch,
-                          [ value ]: item,
-                        };
-                      } );
-
-                      return dispatchCarpetas( {
-                        ...currentDispatcher,
-                        [ value ]: item,
-                      } );
+                      return dispatchCarpetas( value === 'dir'
+                        ? {
+                            type     : 'sort',
+                            direction: item as SortDirection,
+                          }
+                        : {
+                            type  : 'sort',
+                            column: item as SortColumn,
+                          } );
                     }}
+                    className={
+                      isActive
+                        ? styles.buttonCategoryActive
+                        : styles.buttonCategoryPasive
+                    }
                   >
                     {item === 'asc'
                       ? 'Z-A'
@@ -87,16 +86,11 @@ export function TableRowCarpetaSortingButton( {
     | 'tipoProceso'
     | 'updatedAt';
 } ) {
-  const dispatchCarpetas = useCarpetaSortDispatch();
+  const {
+    sort
+  } = useCarpetaSort();
 
-  const [
-    currentDispatcher,
-    setCurrentDispatcher
-  ] = useState<SortActionType>( {
-    type      : 'sort',
-    dir       : 'asc',
-    sortingKey: 'fecha',
-  } );
+  const dispatchCarpetas = useCarpetaSortDispatch();
 
   return (
     <th
@@ -106,23 +100,18 @@ export function TableRowCarpetaSortingButton( {
       <button
         type="button"
         onClick={() => {
-          setCurrentDispatcher( ( curdispatch ) => {
-            return {
-              ...curdispatch,
-              sortingKey: sortKey,
-              dir       : curdispatch.dir === 'asc'
-                ? 'dsc'
-                : 'asc',
-            };
-          } );
+          const nextDirection: SortDirection = sort?.column === sortKey && sort.direction === 'asc'
+            ? 'dsc'
+            : 'asc';
 
           return dispatchCarpetas( {
-            ...currentDispatcher,
-            sortingKey: sortKey,
+            type     : 'sort',
+            column   : sortKey,
+            direction: nextDirection,
           } );
         }}
         className={
-          currentDispatcher.sortingKey === sortKey
+          sort?.column === sortKey
             ? styles.buttonCategoryActive
             : styles.buttonCategoryPasive
         }

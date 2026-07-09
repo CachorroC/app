@@ -58,17 +58,6 @@ export interface Juzgado {
   url?  : string | null;
 }
 
-export interface MedidasCautelares {
-  medidaSolicitada: string;
-  fechaOrdena?    : string | null; // ISO date
-}
-
-export interface Notificacion {
-  certimail      : boolean;
-  fisico         : boolean;
-  autoNotificado?: string | null; // ISO date
-}
-
 export interface Demanda {
   id                : number;
   departamento      : string;
@@ -85,8 +74,6 @@ export interface Demanda {
   vencimientoPagare?: string | null;
   mandamientoPago?  : string | null;
   entregaGarantias? : string | null;
-  medidas           : MedidasCautelares;
-  notif             : Notificacion;
 }
 
 export interface Actuacion {
@@ -110,10 +97,6 @@ export interface Proceso {
   sujetosProcesales    : string;
 }
 
-export interface EmisorDeFactura {
-  razonSocial: string;
-}
-
 export interface Factura {
   id         : string;
   fecha      : string;
@@ -131,13 +114,6 @@ export interface Nota {
   createdAt: string;
   dueDate? : string | null;
   completed: boolean;
-}
-
-export interface Task {
-  id      : number;
-  text    : string;
-  dueDate?: string | null;
-  done    : boolean;
 }
 
 /** A Carpeta with all of its connected relations eagerly loaded. */
@@ -164,7 +140,6 @@ export interface Carpeta {
   radicado    : string;
   revisado    : boolean;
   status      : CaseStatus;
-  tareas      : Task[];
   terminado   : boolean;
   tipoProceso : TipoProceso;
   vencido     : boolean;

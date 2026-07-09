@@ -62,23 +62,31 @@
   background-color: var(--surface-container-high);
   color: var(--on-surface-variant);
   box-sizing: border-box;
-  box-shadow: var(--elevation-3);
+  box-shadow: var(--elevation-1);
   grid-area: inputSearchBar;
   border-radius: var(--shape-corner-full);
   padding: 0;
   display: flex;
   flex-flow: row nowrap;
+  align-items: stretch;
+  width: 100%;
+  min-height: 3rem;
 }
 .searchContainer .input, .searchContainer .inputContainer {
-  color: var(--on-surface-variant);
+  color: var(--on-surface);
   border: none;
+  background: transparent;
   text-decoration: none;
-  text-align: center;
+  text-align: left;
   font-family: var(--josefa);
   position: relative;
   border-radius: var(--shape-corner-extra-large-start);
   flex-grow: 1; /* Takes up available space */
-  padding: 10px;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+}
+.searchContainer .input::placeholder, .searchContainer .inputContainer::placeholder {
+  color: var(--on-surface-variant);
 }
 .searchContainer .input:before, .searchContainer .inputContainer:before {
   position: absolute;
@@ -97,11 +105,13 @@
   margin-bottom: 15px;
 }
 .searchContainer .input:hover, .searchContainer .inputContainer:hover, .searchContainer .input:active, .searchContainer .inputContainer:active, .searchContainer .input:focus, .searchContainer .inputContainer:focus {
-  box-shadow: var(--dp4);
-  background-color: var(--primary-container);
+  box-shadow: var(--elevation-2);
 }
 .searchContainer .input:hover:before, .searchContainer .inputContainer:hover:before, .searchContainer .input:active:before, .searchContainer .inputContainer:active:before, .searchContainer .input:focus:before, .searchContainer .inputContainer:focus:before {
-  opacity: 0.08;
+  opacity: var(--md-state-hover);
+}
+.searchContainer .input:focus:before, .searchContainer .inputContainer:focus:before {
+  opacity: var(--md-state-focus);
 }
 .searchContainer .icon:before {
   position: absolute;
@@ -117,17 +127,24 @@
 .searchContainer .icon {
   color: var(--on-surface);
   border: none;
+  background: transparent;
   position: relative;
+  min-width: 2.75rem;
   padding: 0 1rem;
   border-radius: var(--shape-corner-extra-large-end);
 }
-.searchContainer .icon:hover, .searchContainer .icon:active, .searchContainer .icon:focus {
-  box-shadow: var(--dp4);
+.searchContainer .icon:hover:before {
+  opacity: var(--md-state-hover);
 }
-.searchContainer .icon:hover:before, .searchContainer .icon:active:before, .searchContainer .icon:focus:before {
-  opacity: 0.08;
+.searchContainer .icon:active:before, .searchContainer .icon:focus:before {
+  opacity: var(--md-state-press);
 }
 
+@media (600px <= width) {
+  .searchContainer {
+    max-width: 28rem;
+  }
+}
 .inputForm {
   padding: 0.2rem;
   box-sizing: border-box;

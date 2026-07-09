@@ -1,13 +1,10 @@
 declare const styles: {
-  readonly "addBtnPrimary": string;
   readonly "addBtnSecondary": string;
   readonly "addInput": string;
   readonly "addRow": string;
   readonly "backBtn": string;
   readonly "bodyDoc": string;
   readonly "bodyTabs": string;
-  readonly "checkbox": string;
-  readonly "checked": string;
   readonly "courtGrid": string;
   readonly "editBtn": string;
   readonly "estado": string;
@@ -77,11 +74,6 @@ declare const styles: {
   readonly "tabCountActive": string;
   readonly "tabsBar": string;
   readonly "tagDot": string;
-  readonly "tarea": string;
-  readonly "tareaDone": string;
-  readonly "tareaDue": string;
-  readonly "tareaOver": string;
-  readonly "tareaText": string;
   readonly "timeline": string;
   readonly "tlBody": string;
   readonly "tlDocs": string;

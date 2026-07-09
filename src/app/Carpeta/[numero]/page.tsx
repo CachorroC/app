@@ -10,7 +10,6 @@ import { DeudorFormComponent } from '#@/components/Form/deudor-form-component';
 import { JuzgadoComponent,
   JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
 import styles from './styles.module.css';
-import { NotificacionComponent } from '#@/components/Notificacion/notificacion';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import ProtoPage from '../../../components/proto-page';
 import { AvailableProcesosByName } from '#@/components/available-procesos-by-name';
@@ -85,13 +84,6 @@ export default async function Page( {
           <h2 className={styles.valueCardTitle}>Tipo de Proceso</h2>
           <h3 className={styles.valueCardValue}>{carpeta.tipoProceso}</h3>
         </div>
-        {carpeta.demanda?.notificacion && (
-          <Suspense fallback={<Loader />}>
-            <NotificacionComponent
-              notificacion={carpeta.demanda.notificacion}
-            />
-          </Suspense>
-        )}
 
         <div className={layout.sectionColumn}>
           <Suspense fallback={<Loader />}>

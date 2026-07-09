@@ -1,5 +1,4 @@
 'use client';
-import { NewTask } from '#@/lib/types/tareas';
 import { ReactNode,
   createContext,
   useState,
@@ -7,6 +6,14 @@ import { ReactNode,
   SetStateAction,
   useContext, } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+
+type NewTask = {
+  text         : string;
+  done         : boolean;
+  content      : string[];
+  carpetaNumero: number | null;
+  dueDate      : Date;
+};
 
 const NuevaTaskContext = createContext<{
   taskFormState   : NewTask;

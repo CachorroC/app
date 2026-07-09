@@ -71,15 +71,6 @@ export default async function CarpetaDetailPage( {
       vencimientoPagare: carpeta.demanda.vencimientoPagare[ 0 ]?.toISOString() ?? null,
       mandamientoPago  : carpeta.demanda.mandamientoPago[ 0 ]?.toISOString() ?? null,
       entregaGarantias : carpeta.demanda.entregaGarantiasAbogado?.toISOString() ?? null,
-      medidas          : {
-        medidaSolicitada: carpeta.demanda.medidasCautelares?.medidaSolicitada ?? '',
-        fechaOrdena     : carpeta.demanda.medidasCautelares?.fechaOrdenaMedida?.toISOString() ?? null,
-      },
-      notif: {
-        certimail     : carpeta.demanda.notificacion?.certimail ?? false,
-        fisico        : carpeta.demanda.notificacion?.fisico ?? false,
-        autoNotificado: carpeta.demanda.notificacion?.autoNotificado?.toISOString() ?? null,
-      },
     },
     deudor: {
       id             : carpeta.deudor?.id ?? 0,
@@ -139,14 +130,6 @@ export default async function CarpetaDetailPage( {
     status  : carpeta.terminado
       ? 'done'
       : 'active',
-    tareas: carpeta.tareas.map( ( t ) => {
-      return  {
-        id     : t.id,
-        text   : t.text,
-        dueDate: t.dueDate.toISOString(),
-        done   : t.done,
-      };
-    } ),
     terminado  : carpeta.terminado,
     tipoProceso: carpeta.tipoProceso as TipoProceso,
     vencido    : carpeta.terminado,

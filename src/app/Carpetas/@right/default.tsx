@@ -30,7 +30,7 @@ const options = [
       'tipoProceso',
     ],
   },
-];
+] as const;
 
 export default function Default() {
   return (

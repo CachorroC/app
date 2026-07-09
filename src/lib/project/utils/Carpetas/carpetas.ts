@@ -12,19 +12,9 @@ export const getCarpetaByllaveProceso = cache( async ( llaveProceso: string ) =>
       ultimaActuacion: true,
       deudor         : true,
       juzgado        : true,
-      tareas         : true,
-      demanda        : {
-        include: {
-          notificacion: {
-            include: {
-              notifiers: true,
-            },
-          },
-          medidasCautelares: true,
-        },
-      },
-      notas   : true,
-      procesos: {
+      demanda        : true,
+      notas          : true,
+      procesos       : {
         include: {
           juzgado: true,
         },
@@ -52,14 +42,6 @@ export const getCarpetabyNumero = async ( numero: number ) => {
     where: {
       id: numero,
     },
-    include: {
-      notificacion: {
-        include: {
-          notifiers: true,
-        },
-      },
-      medidasCautelares: true,
-    },
   } );
 
   const carpeta = await prisma.carpeta.findFirstOrThrow( {
@@ -72,18 +54,8 @@ export const getCarpetabyNumero = async ( numero: number ) => {
       codeudor       : true,
       juzgado        : true,
       notas          : true,
-      tareas         : true,
-      demanda        : {
-        include: {
-          notificacion: {
-            include: {
-              notifiers: true,
-            },
-          },
-          medidasCautelares: true,
-        },
-      },
-      procesos: {
+      demanda        : true,
+      procesos       : {
         include: {
           juzgado: true,
         },
@@ -132,18 +104,8 @@ export const getCarpetaByidProceso = cache( async ( idProceso: string ) => {
       codeudor       : true,
       juzgado        : true,
       notas          : true,
-      tareas         : true,
-      demanda        : {
-        include: {
-          notificacion: {
-            include: {
-              notifiers: true,
-            },
-          },
-          medidasCautelares: true,
-        },
-      },
-      procesos: {
+      demanda        : true,
+      procesos       : {
         include: {
           juzgado: true,
         },

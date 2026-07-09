@@ -2,6 +2,10 @@
 import prisma from '#@/lib/connection/prisma';
 import { NextResponse } from 'next/server';
 
+// TODO(schema-cleanup): generic delegate proxy has no allowlist; requests with
+// model=user|task|notificacion|medidasCautelares|notifier|factura|emisorDeFactura
+// will 404 (GET/POST, guarded below) or 500 (PATCH, unguarded but caught) now that
+// these models are removed — consider an explicit allowlist if this route is still in use.
 // Helper function to safely get the right Prisma delegate (e.g., prisma.user)
 const getDelegate = ( modelName: string ) => {
   // Prisma delegates are always lowercase (e.g., model User -> prisma.user)
