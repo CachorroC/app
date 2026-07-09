@@ -4,18 +4,31 @@
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 
+## Project-specific guidance
+
+- Framework: **Next.js 16+** with the `app` router and modern React 19.
+- Alias conventions: use `#@/*` for imports from `src/*`; also `components/*` and `types/*` are mapped.
+- Styling: uses `sass` plus typed CSS/SCSS modules, with `tcm src` validation enforced in build/dev scripts.
+- Database: Prisma + PostgreSQL is primary; generated Prisma code lives under `src/app/generated/prisma/` and must not be edited directly.
+- Authentication: uses `next-auth` v5 beta.
+- Scripts: prefer `pnpm` when available. Key commands:
+  - `pnpm dev` for local development
+  - `pnpm build` for production build
+  - `pnpm lint` for linting
+  - `pnpm db:migrate`, `pnpm db:push`, `pnpm prisma:generate`
+
+## Important conventions
+
+- Preserve existing workspace structure: `src/app/` is the main app entry point.
+- Do not remove or refactor files in `Carpeta Dashboard and Detail UI/`; they contain design-system assets and exports used by the project.
+- Follow existing naming and folder patterns in `src/components/`, `src/lib/`, and `src/styles/`.
+- Avoid broad automated rewrites across the repo without explicit user approval.
+
 <!-- END:nextjs-agent-rules -->
 
 # Agent Rules
 
-1. **Pre-Edit Sync**: Auto-commit existing pending changes
-   using Conventional Commits that explain what changed in the code and what was implemented and run `git pull` _before_
-   modifying files. Include the uncommented `git status`
-   file list in the commit message.
-2. **Post-Edit Review**: Do NOT commit your new edits; leave
-   them pending for my review. Ask for approval before
-   deleting files or altering core architecture.
-3. **Clean Code**: TS strict mode, single quotes, functional
+1. **Clean Code**: TS strict mode, single quotes, functional
    patterns. Brief JSDocs only for complex types/returns.
-4. **Water Tracker**: Append a 1-line footprint estimate to
+2. **Water Tracker**: Append a 1-line footprint estimate to
    final summaries.
