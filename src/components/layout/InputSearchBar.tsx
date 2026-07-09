@@ -1,7 +1,7 @@
 'use client';
 import searchbar from 'components/layout/search/searchbar.module.css';
 import { useState } from 'react';
-import { useCarpetasContext,
+import { useCarpetaSort,
   useCarpetaSortDispatch, } from '#@/app/Context/carpetas-sort-context';
 import { useRouter } from 'next/navigation';
 import typography from '#@/styles/fonts/typography.module.css';
@@ -14,8 +14,8 @@ export const InputSearchBar = () => {
   ] = useState( '' );
 
   const {
-    currentCarpetas
-  } = useCarpetasContext();
+    completeCarpetas
+  } = useCarpetaSort();
   const router = useRouter();
 
   const dispatchCarpetas = useCarpetaSortDispatch();
@@ -23,7 +23,7 @@ export const InputSearchBar = () => {
   return (
     <div className={searchbar.searchContainer}>
       <datalist id="demandados-list">
-        {currentCarpetas.map( ( carpeta ) => {
+        {completeCarpetas.map( ( carpeta ) => {
           return (
             <option
               value={carpeta.nombre}

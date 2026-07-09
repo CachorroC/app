@@ -1,5 +1,6 @@
 'use client';
 import { useCarpetaSort } from '#@/app/Context/carpetas-sort-context';
+import { DEFAULT_CIUDAD } from '#@/app/Hooks/useCarpetasreducer';
 import { Suspense } from 'react';
 import { ClientCardRow } from '#@/components/Card/client-card';
 import { Route } from 'next';
@@ -140,7 +141,7 @@ export function CarpetasTable() {
               <td data-label="fecha">
                 <OutputDateHelper incomingDate={fecha} />
               </td>
-              <td data-label="ciudad">{carpeta.demanda.municipio}</td>
+              <td data-label="ciudad">{carpeta.ciudad ?? DEFAULT_CIUDAD}</td>
               <td data-label="juzgado">
                 {juzgado
                   ? (

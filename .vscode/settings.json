@@ -30,5 +30,6 @@
     "titleBar.border": "#5537bd",
     "titleBar.inactiveBackground": "#5537bd99",
     "titleBar.inactiveForeground": "#e7e7e799"
-  }
+  },
+  "js/ts.experimental.useTsgo": true
 }

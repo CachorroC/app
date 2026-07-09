@@ -2,6 +2,7 @@
 import styles from '#@/components/Form/form.module.css';
 import { useState } from 'react';
 import { updateRevisadoState } from './actions';
+import { useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
 
 export function RevisadoCheckBox( {
   numero,
@@ -21,6 +22,8 @@ export function RevisadoCheckBox( {
     revisado: initialRevisadoState,
   } );
 
+  const dispatchCarpetas = useCarpetaSortDispatch();
+
   return (
     <label className={styles.switchBox}>
       <input
@@ -33,6 +36,11 @@ export function RevisadoCheckBox( {
           const revis = await updateRevisadoState( {
             ...revisadoState,
             revisado: e.target.checked,
+          } );
+
+          dispatchCarpetas( {
+            type   : 'update',
+            payload: revis,
           } );
 
           return setRevisadoState( revis );

@@ -1,0 +1,51 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.trigger {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: var(--shape-corner-large);
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
+  list-style: none;
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.panel {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  min-width: 12rem;
+  max-height: 16rem;
+  overflow-y: auto;
+  border-radius: var(--shape-corner-large);
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
+  box-shadow: var(--elevation-4);
+}
+
+.option {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.allOption {
+  @extend .option;
+  border-bottom: 0.0625rem solid var(--outline);
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.5rem;
+}

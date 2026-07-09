@@ -1,28 +1,56 @@
+/* eslint-disable no-unused-vars */
 import { MonCarpeta } from '#@/lib/types/carpetas';
 
+export const DEFAULT_CIUDAD = 'Bogotá';
+
+export const categoriesSorter: string[] = [
+  'todos',
+  'Bancolombia',
+  'Reintegra',
+  'SinEspecificar',
+  'LiosJuridicos',
+  'Insolvencia',
+  'Terminados',
+];
+
+export type FilterableColumn = 'category' | 'ciudad';
+
+export type FilterState = Partial<Record<FilterableColumn, Set<string>>>;
+
+export type SortColumn =
+  | 'fecha'
+  | 'numero'
+  | 'revisado'
+  | 'nombre'
+  | 'category'
+  | 'id'
+  | 'tipoProceso'
+  | 'updatedAt';
+
+export type SortDirection = 'asc' | 'dsc';
+
+export type SortState = {
+  column   : SortColumn;
+  direction: SortDirection;
+} | null;
+
 export type CarpetasReducerState = {
-  carpetas        : MonCarpeta[];
   completeCarpetas: MonCarpeta[];
+  filters         : FilterState;
+  search          : string;
+  sort            : SortState;
+};
+
+export type SetFilterActionType = {
+  type  : 'set-filter';
+  column: FilterableColumn;
+  values: Set<string>;
 };
 
 export type SortActionType = {
-  [x: string]: string;
-  type       : 'sort';
-  dir        : 'asc' | 'dsc';
-  sortingKey:
-    | 'fecha'
-    | 'numero'
-    | 'revisado'
-    | 'nombre'
-    | 'category'
-    | 'id'
-    | 'tipoProceso'
-    | 'updatedAt';
-};
-
-export type UpdateActionType = {
-  type   : 'update';
-  payload: MonCarpeta;
+  type      : 'sort';
+  column?   : SortColumn;
+  direction?: SortDirection;
 };
 
 export type SearchActionType = {
@@ -30,32 +58,9 @@ export type SearchActionType = {
   payload: string;
 };
 
-export type FilterActionType = {
-  type        : 'filter';
-  filteringKey:
-    | 'category'
-    | 'terminado'
-    | 'revisado'
-    | 'tipoProceso'
-    | 'ciudad';
-  filteringValue: string;
-};
-
-export type CategoryFilterActionType = {
-  type   : 'category-filter';
-  exclude: (
-    | 'Bancolombia'
-    | 'Terminados'
-    | 'Reintegra'
-    | 'LiosJuridicos'
-    | 'Insolvencia'
-    | string
-  )[];
-};
-
-export type CiudadFlterActionType = {
-  type   : 'ciudad-filter';
-  include: string[];
+export type UpdateActionType = {
+  type   : 'update';
+  payload: Partial<MonCarpeta> & { numero: number };
 };
 
 export type ResetActionType = {
@@ -63,391 +68,66 @@ export type ResetActionType = {
 };
 
 export type IntAction =
-  | FilterActionType
-  | SearchActionType
+  | SetFilterActionType
   | SortActionType
-  | ResetActionType
+  | SearchActionType
   | UpdateActionType
-  | CategoryFilterActionType
-  | CiudadFlterActionType;
-
-export function carpetasReducer(
-  reducerState: CarpetasReducerState,
-  action: IntAction,
-): CarpetasReducerState {
-  const {
-    type 
-  } = action;
-
-  const {
-    carpetas, completeCarpetas 
-  } = reducerState;
-
-  switch ( type ) {
-      case 'reset': {
-        return {
-          carpetas        : completeCarpetas,
-          completeCarpetas: completeCarpetas,
-        };
-      }
-
-      case 'category-filter': {
-        const {
-          exclude 
-        } = action;
-
-        if ( !exclude || exclude.length === 0 || exclude.includes( 'todos' ) ) {
-          return {
-            carpetas        : completeCarpetas,
-            completeCarpetas: completeCarpetas,
-          };
-        }
-
-        const outgoingCarpetas = [];
-
-        for ( const carpeta of completeCarpetas ) {
-          const {
-            category 
-          } = carpeta;
-
-          const indexOf = exclude.indexOf( category );
-
-          if ( indexOf !== -1 ) {
-            outgoingCarpetas.push( carpeta );
-          }
-        }
-
-        return {
-          carpetas        : outgoingCarpetas,
-          completeCarpetas: completeCarpetas,
-        };
-      }
-
-      case 'ciudad-filter': {
-        const {
-          include 
-        } = action;
-
-        if ( !include || include.length === 0 || include.includes( 'todos' ) ) {
-          return {
-            carpetas        : completeCarpetas,
-            completeCarpetas: completeCarpetas,
-          };
-        }
-
-        const outgoingCarpetas = [];
-
-        for ( const carpeta of completeCarpetas ) {
-          const {
-            ciudad 
-          } = carpeta;
-
-          const indexOf = include.indexOf( ciudad ?? 'Bogota' );
-
-          if ( indexOf !== -1 ) {
-            outgoingCarpetas.push( carpeta );
-          }
-        }
-
-        return {
-          carpetas        : outgoingCarpetas,
-          completeCarpetas: completeCarpetas,
-        };
-      }
-
-      case 'update': {
-        const outGoingCarpetas = carpetas.map( ( t ) => {
-          if ( t.numero === action.payload.numero ) {
-            return action.payload;
-          }
-
-          return t;
-        } );
-
-        return {
-          carpetas        : outGoingCarpetas,
-          completeCarpetas: completeCarpetas,
-        };
-      }
-
-      case 'sort': {
-        const {
-          dir, sortingKey 
-        } = action;
-
-        const asc = [
-          -1,
-          0,
-          1
-        ];
-
-        const dsc = [
-          1,
-          0,
-          -1
-        ];
-
-        const sorter = dir === 'asc'
-          ? asc
-          : dsc;
-
-        const categoriesSorter: string[] = [
-          'todos',
-          'Bancolombia',
-          'Reintegra',
-          'SinEspecificar',
-          'LiosJuridicos',
-          'Insolvencia',
-          'Terminados',
-        ];
-
-        switch ( sortingKey ) {
-            case 'fecha': {
-              const sorted = [
-                ...carpetas
-              ].sort( (
-                a, b 
-              ) => {
-                if ( !a.fecha || a.fecha === undefined ) {
-                  return sorter[ 2 ];
-                }
-
-                if ( !b.fecha || b.fecha === undefined ) {
-                  return sorter[ 0 ];
-                }
-
-                const x = a.fecha;
-
-                const y = b.fecha;
-
-                if ( x < y ) {
-                  return sorter[ 2 ];
-                }
-
-                if ( x > y ) {
-                  return sorter[ 0 ];
-                }
-
-                return sorter[ 1 ];
-              } );
-
-              return {
-                carpetas        : sorted,
-                completeCarpetas: completeCarpetas,
-              };
-            }
-
-            case 'category': {
-              const sorted = [
-                ...carpetas
-              ].sort( (
-                a, b 
-              ) => {
-                const x = categoriesSorter.indexOf( a.category );
-
-                const y = categoriesSorter.indexOf( b.category );
-
-                if ( x < y ) {
-                  return sorter[ 2 ];
-                }
-
-                if ( x > y ) {
-                  return sorter[ 0 ];
-                }
-
-                return sorter[ 1 ];
-              } );
-
-              return {
-                carpetas        : sorted,
-                completeCarpetas: completeCarpetas,
-              };
-            }
-
-            case 'numero': {
-              const sorted = [
-                ...carpetas
-              ].sort( (
-                a, b 
-              ) => {
-                const x = a.numero;
-
-                const y = b.numero;
-
-                const idk = dir === 'asc'
-                  ? y - x
-                  : x - y;
-
-                return idk;
-              } );
-
-              return {
-                carpetas: [
-                  ...sorted
-                ],
-                completeCarpetas: completeCarpetas,
-              };
-            }
-
-            case 'nombre': {
-              const sorted = [
-                ...carpetas
-              ].sort( (
-                a, b 
-              ) => {
-                const x = a.nombre.trim()
-                  .toLocaleLowerCase();
-
-                const y = b.nombre.trim()
-                  .toLocaleLowerCase();
-
-                if ( x < y ) {
-                  return sorter[ 2 ];
-                }
-
-                if ( x > y ) {
-                  return sorter[ 0 ];
-                }
-
-                return sorter[ 1 ];
-              } );
-
-              return {
-                carpetas        : sorted,
-                completeCarpetas: completeCarpetas,
-              };
-            }
-
-            case 'revisado': {
-              const sorted = [
-                ...carpetas
-              ].filter( ( carpeta ) => {
-                if ( dir === 'asc' ) {
-                  return carpeta.revisado;
-                }
-
-                return !carpeta.revisado;
-              } );
-
-              return {
-                carpetas        : sorted,
-                completeCarpetas: completeCarpetas,
-              };
-            }
-
-            default: {
-              const sorted = [
-                ...carpetas
-              ].sort( (
-                a, b 
-              ) => {
-                const aSortingKey = a[ sortingKey ];
-
-                const bSortingKey = b[ sortingKey ];
-
-                if ( !aSortingKey || aSortingKey === undefined ) {
-                  return sorter[ 2 ];
-                }
-
-                if ( !bSortingKey || bSortingKey === undefined ) {
-                  return sorter[ 0 ];
-                }
-
-                if ( aSortingKey < bSortingKey ) {
-                  return sorter[ 2 ];
-                }
-
-                if ( aSortingKey > bSortingKey ) {
-                  return sorter[ 0 ];
-                }
-
-                return 0;
-              } );
-
-              return {
-                carpetas        : sorted,
-                completeCarpetas: completeCarpetas,
-              };
-            }
-        }
-      }
-
-      case 'search': {
-        const searchQuery = action.payload
-          .normalize( 'NFD' )
-          .replace(
-            /[\u0300-\u036f]/g, '' 
-          )
-          .trim()
-          .toLocaleLowerCase();
-
-        const sorted = [
-          ...completeCarpetas
-        ].filter( ( carpeta ) => {
-          const {
-            nombre 
-          } = carpeta;
-
-          const normalizedName = nombre
-            .normalize( 'NFD' )
-            .replace(
-              /[\u0300-\u036f]/g, '' 
-            )
-            .trim()
-            .toLocaleLowerCase();
-
-          return normalizedName.includes( searchQuery );
-        } );
-
-        return {
-          carpetas        : sorted,
-          completeCarpetas: completeCarpetas,
-        };
-      }
-
-      case 'filter': {
-        const sorted = [
-          ...completeCarpetas
-        ].filter( ( carpeta ) => {
-          const querier = carpeta[ action.filteringKey ];
-
-          if ( !querier ) {
-            return false;
-          }
-
-          if ( typeof querier === 'boolean' ) {
-            return querier;
-          }
-
-          if (
-            querier
-              .toLocaleLowerCase()
-              .indexOf( action.filteringKey.toLocaleLowerCase() ) === -1
-          ) {
-            return false;
-          }
-
-          return true;
-        } );
-
-        return {
-          carpetas        : sorted,
-          completeCarpetas: completeCarpetas,
-        };
-      }
-
-      default: {
-        const sorted = [
-          ...carpetas
-        ].sort( (
-          a, b 
+  | ResetActionType;
+
+const DIACRITICS_PATTERN = new RegExp(
+  '[\\u0300-\\u036f]', 'g' 
+);
+
+export function normalizeSearchText( value: string ) {
+  return value
+    .normalize( 'NFD' )
+    .replace(
+      DIACRITICS_PATTERN, ''
+    )
+    .trim()
+    .toLocaleLowerCase();
+}
+
+export function getFilterValue(
+  carpeta: MonCarpeta, column: FilterableColumn
+): string {
+  if ( column === 'ciudad' ) {
+    return carpeta.ciudad ?? DEFAULT_CIUDAD;
+  }
+
+  return carpeta.category;
+}
+
+export function getSortComparator(
+  column: SortColumn, direction: SortDirection
+): ( a: MonCarpeta, b: MonCarpeta ) => number {
+  const asc = [
+    -1,
+    0,
+    1
+  ];
+
+  const dsc = [
+    1,
+    0,
+    -1
+  ];
+
+  const sorter = direction === 'asc'
+    ? asc
+    : dsc;
+
+  switch ( column ) {
+      case 'fecha': {
+        return (
+          a, b
         ) => {
           if ( !a.fecha || a.fecha === undefined ) {
-            return 1;
+            return sorter[ 2 ];
           }
 
           if ( !b.fecha || b.fecha === undefined ) {
-            return -1;
+            return sorter[ 0 ];
           }
 
           const x = a.fecha;
@@ -455,20 +135,197 @@ export function carpetasReducer(
           const y = b.fecha;
 
           if ( x < y ) {
-            return 1;
+            return sorter[ 2 ];
           }
 
           if ( x > y ) {
-            return -1;
+            return sorter[ 0 ];
+          }
+
+          return sorter[ 1 ];
+        };
+      }
+
+      case 'category': {
+        return (
+          a, b
+        ) => {
+          const x = categoriesSorter.indexOf( a.category );
+
+          const y = categoriesSorter.indexOf( b.category );
+
+          if ( x < y ) {
+            return sorter[ 2 ];
+          }
+
+          if ( x > y ) {
+            return sorter[ 0 ];
+          }
+
+          return sorter[ 1 ];
+        };
+      }
+
+      case 'numero': {
+        return (
+          a, b
+        ) => {
+          const x = a.numero;
+
+          const y = b.numero;
+
+          return direction === 'asc'
+            ? y - x
+            : x - y;
+        };
+      }
+
+      case 'nombre': {
+        return (
+          a, b
+        ) => {
+          const x = a.nombre.trim()
+            .toLocaleLowerCase();
+
+          const y = b.nombre.trim()
+            .toLocaleLowerCase();
+
+          if ( x < y ) {
+            return sorter[ 2 ];
+          }
+
+          if ( x > y ) {
+            return sorter[ 0 ];
+          }
+
+          return sorter[ 1 ];
+        };
+      }
+
+      case 'revisado': {
+        return (
+          a, b
+        ) => {
+          const x = Number( a.revisado );
+
+          const y = Number( b.revisado );
+
+          return direction === 'asc'
+            ? x - y
+            : y - x;
+        };
+      }
+
+      default: {
+        return (
+          a, b
+        ) => {
+          const aSortingKey = a[ column ];
+
+          const bSortingKey = b[ column ];
+
+          if ( !aSortingKey || aSortingKey === undefined ) {
+            return sorter[ 2 ];
+          }
+
+          if ( !bSortingKey || bSortingKey === undefined ) {
+            return sorter[ 0 ];
+          }
+
+          if ( aSortingKey < bSortingKey ) {
+            return sorter[ 2 ];
+          }
+
+          if ( aSortingKey > bSortingKey ) {
+            return sorter[ 0 ];
           }
 
           return 0;
+        };
+      }
+  }
+}
+
+export function carpetasReducer(
+  reducerState: CarpetasReducerState,
+  action: IntAction,
+): CarpetasReducerState {
+  const {
+    type
+  } = action;
+
+  const {
+    completeCarpetas, filters
+  } = reducerState;
+
+  switch ( type ) {
+      case 'reset': {
+        return {
+          ...reducerState,
+          filters: {},
+          search : '',
+          sort   : null,
+        };
+      }
+
+      case 'set-filter': {
+        const nextFilters = {
+          ...filters
+        };
+
+        if ( action.values.size === 0 ) {
+          delete nextFilters[ action.column ];
+        } else {
+          nextFilters[ action.column ] = action.values;
+        }
+
+        return {
+          ...reducerState,
+          filters: nextFilters,
+        };
+      }
+
+      case 'search': {
+        return {
+          ...reducerState,
+          search: action.payload,
+        };
+      }
+
+      case 'sort': {
+        const column = action.column ?? reducerState.sort?.column ?? 'fecha';
+
+        const direction = action.direction ?? reducerState.sort?.direction ?? 'asc';
+
+        return {
+          ...reducerState,
+          sort: {
+            column,
+            direction,
+          },
+        };
+      }
+
+      case 'update': {
+        const nextCompleteCarpetas = completeCarpetas.map( ( carpeta ) => {
+          if ( carpeta.numero === action.payload.numero ) {
+            return {
+              ...carpeta,
+              ...action.payload,
+            };
+          }
+
+          return carpeta;
         } );
 
         return {
-          carpetas        : sorted,
-          completeCarpetas: completeCarpetas,
+          ...reducerState,
+          completeCarpetas: nextCompleteCarpetas,
         };
+      }
+
+      default: {
+        return reducerState;
       }
   }
 }
