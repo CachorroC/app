@@ -1,10 +1,15 @@
 import styles from '#@/styles/layout.module.css';
+import tokens from './design-tokens.module.css';
+import { quicksandCarpetas, plexMonoCarpetas } from './fonts';
+import 'material-symbols/rounded.css';
 import { ReactNode, Suspense } from 'react';
 import { NuevaCarpetaFormProvider } from '../Context/nueva-carpeta-form-context';
 import { CarpetasSortProvider } from '../Context/carpetas-sort-context';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Loader } from '#@/components/Loader/main-loader';
 import { connection } from 'next/server';
+
+const scopeClassName = `${ tokens.scope } ${ quicksandCarpetas.variable } ${ plexMonoCarpetas.variable }`;
 
 async function LayoutAsyncProcess( {
   children 
@@ -37,13 +42,13 @@ export default function LayoutProcesosMain( {
         <NuevaCarpetaFormProvider>
           <Suspense fallback={<Loader />}>{modal}</Suspense>
           <Suspense fallback={<Loader />}>
-            <div className={styles.top}>{top}</div>
+            <div className={`${ styles.top } ${ scopeClassName }`}>{top}</div>
           </Suspense>
           <Suspense fallback={<Loader />}>
-            <div className={styles.leftGrid}>{children}</div>
+            <div className={`${ styles.leftGrid } ${ scopeClassName }`}>{children}</div>
           </Suspense>
           <Suspense fallback={<Loader />}>
-            <div className={styles.right}>{right}</div>
+            <div className={`${ styles.right } ${ scopeClassName }`}>{right}</div>
           </Suspense>
         </NuevaCarpetaFormProvider>
       </LayoutAsyncProcess>

@@ -1,0 +1,31 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
+  background: var(--md-sys-color-surface-container-lowest);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.title {
+  font: var(--md-sys-typescale-headline-small);
+  color: var(--md-sys-color-on-surface);
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.searchField {
+  flex: 1;
+  min-width: 200px;
+}
+
+.nav {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.categories {
+  flex-basis: 100%;
+}

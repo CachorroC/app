@@ -20,9 +20,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ## Important conventions
 
 - Preserve existing workspace structure: `src/app/` is the main app entry point.
-- Do not remove or refactor files in `Carpeta Dashboard and Detail UI/`; they contain design-system assets and exports used by the project.
 - Follow existing naming and folder patterns in `src/components/`, `src/lib/`, and `src/styles/`.
-- Avoid broad automated rewrites across the repo without explicit user approval.
 
 <!-- END:nextjs-agent-rules -->
 

@@ -2,23 +2,22 @@
 
 import { useCarpetaSort,
   useCarpetaSortDispatch, } from '#@/app/Context/carpetas-sort-context';
-import { DEFAULT_CIUDAD } from '#@/app/Hooks/useCarpetasreducer';
 import { FacetGroup } from './facet-group';
 
-export default function CiudadFilteringButtons() {
+export default function TipoProcesoFilteringButtons() {
   const dispatchCarpetas = useCarpetaSortDispatch();
 
   const {
     completeCarpetas, filters
   } = useCarpetaSort();
 
-  const ciudades = [
+  const tipos = [
     ...new Set( completeCarpetas.map( ( c ) => {
-      return c.ciudad ?? DEFAULT_CIUDAD;
+      return c.tipoProceso;
     } ), ),
   ].sort();
 
-  const selected = filters.ciudad ?? new Set();
+  const selected = filters.tipoProceso ?? new Set();
 
   const toggle = ( value: string ) => {
     const next = new Set( selected );
@@ -31,21 +30,21 @@ export default function CiudadFilteringButtons() {
 
     return dispatchCarpetas( {
       type  : 'set-filter',
-      column: 'ciudad',
+      column: 'tipoProceso',
       values: next,
     } );
   };
 
   return (
     <FacetGroup
-      label="Ciudad"
-      options={ciudades.map( ( ciudad ) => {
+      label="Tipo de proceso"
+      options={tipos.map( ( tipo ) => {
         return {
-          value   : ciudad,
-          label   : ciudad,
-          selected: selected.has( ciudad ),
+          value   : tipo,
+          label   : tipo,
+          selected: selected.has( tipo ),
           onClick : () => {
-            return toggle( ciudad );
+            return toggle( tipo );
           },
         };
       } )}
