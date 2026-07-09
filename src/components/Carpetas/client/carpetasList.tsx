@@ -21,11 +21,7 @@ export function CarpetasTable() {
   } = useCarpetaSort();
 
   return (
-    <table style={{
-      width      : '60vw',
-      tableLayout: 'fixed'
-    }}
-    >
+    <table className={styles.table}>
       <thead>
         <tr>
           <Suspense fallback={<Loader />}>

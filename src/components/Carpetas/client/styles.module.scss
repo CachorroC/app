@@ -122,3 +122,87 @@
     color: var(--on-primary);
   }
 }
+
+/* Data table — mobile-first: base renders as stacked cards */
+.table,
+.table thead,
+.table tbody,
+.table th,
+.table td,
+.table tr {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.table thead tr {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+.table tr {
+  margin-bottom: var(--space-4);
+  border: 0.0625rem solid var(--outline-variant);
+  border-radius: var(--shape-corner-medium);
+  padding: var(--space-3);
+  background-color: var(--surface-container-low);
+}
+.table td {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-1);
+  text-align: right;
+  border-bottom: 0.0625rem solid var(--surface-container-high);
+}
+.table td:last-child {
+  border-bottom: none;
+}
+.table td::before {
+  content: attr(data-label);
+  font-weight: 600;
+  text-align: left;
+  color: var(--secondary);
+}
+
+/* Tablet and up: real table layout */
+@media (600px <= width) {
+  .table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  .table thead {
+    display: table-header-group;
+  }
+  .table tbody {
+    display: table-row-group;
+  }
+  .table tr {
+    display: table-row;
+    margin-bottom: 0;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+  }
+  .table thead tr {
+    position: static;
+  }
+  .table th,
+  .table td {
+    display: table-cell;
+    text-align: left;
+    padding: var(--space-3);
+    border-bottom: none;
+  }
+  .table td::before {
+    content: none;
+  }
+}
+
+@media (1200px < width) {
+  .table th,
+  .table td {
+    padding: var(--space-4);
+  }
+}

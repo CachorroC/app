@@ -57,22 +57,31 @@
   background-color: var(--surface-container-high);
   color: var(--on-surface-variant);
   box-sizing: border-box;
-  box-shadow: var(--elevation-3);
+  box-shadow: var(--elevation-1);
   grid-area: inputSearchBar;
   border-radius: var(--shape-corner-full);
   padding: 0;
   display: flex;
   flex-flow: row nowrap;
+  align-items: stretch;
+  width: 100%;
+  min-height: 3rem;
+
   .input {
-    color: var(--on-surface-variant);
+    color: var(--on-surface);
     border: none;
+    background: transparent;
     text-decoration: none;
-    text-align: center;
+    text-align: left;
     font-family: var(--josefa);
     position: relative;
     border-radius: var(--shape-corner-extra-large-start);
     flex-grow: 1; /* Takes up available space */
-    padding: 10px;
+    min-width: 0;
+    padding: 0.75rem 1rem;
+    &::placeholder {
+      color: var(--on-surface-variant);
+    }
     &:before {
       position: absolute;
       width: 100%;
@@ -94,11 +103,13 @@
     &:hover,
     &:active,
     &:focus {
-      box-shadow: var(--dp4);
-      background-color: var(--primary-container);
+      box-shadow: var(--elevation-2);
       &:before {
-        opacity: 0.08;
+        opacity: var(--md-state-hover);
       }
+    }
+    &:focus:before {
+      opacity: var(--md-state-focus);
     }
   }
   .icon {
@@ -115,17 +126,24 @@
     }
     color: var(--on-surface);
     border: none;
+    background: transparent;
     position: relative;
+    min-width: 2.75rem;
     padding: 0 1rem;
     border-radius: var(--shape-corner-extra-large-end);
-    &:hover,
-    &:active,
-    &:focus {
-      box-shadow: var(--dp4);
-      &:before {
-        opacity: 0.08;
-      }
+    &:hover:before {
+      opacity: var(--md-state-hover);
     }
+    &:active:before,
+    &:focus:before {
+      opacity: var(--md-state-press);
+    }
+  }
+}
+
+@media (600px <= width) {
+  .searchContainer {
+    max-width: 28rem;
   }
 }
 .inputForm {

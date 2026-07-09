@@ -29,7 +29,7 @@ export function CarpetasSortButtons( {
         return (
           <section key={value}>
             <h5>{name}</h5>
-            <section>
+            <section className={styles.segmentedButtonsRow}>
               {items.map( ( item ) => {
                 const isActive = value === 'dir'
                   ? sort?.direction === item
