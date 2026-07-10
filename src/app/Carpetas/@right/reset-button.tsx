@@ -25,7 +25,9 @@ export function ResetButtonSorter() {
         type="button"
         className={styles.clearButton}
         onClick={() => {
-          return dispatchCarpetas( { type: 'reset' } );
+          return dispatchCarpetas( {
+            type: 'reset' 
+          } );
         }}
       >
         <span

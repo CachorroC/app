@@ -26,7 +26,10 @@ export function CarpetaCard( {
   selected      : boolean;
   onToggleSelect: () => void;
 } ) {
-  const [ expanded, setExpanded ] = useState( false );
+  const [
+    expanded,
+    setExpanded 
+  ] = useState( false );
 
   const {
     numero, nombre, id, category, tipoProceso, revisado, llaveProceso, notasCount, ciudad, juzgado, ultimaActuacion,
@@ -48,7 +51,9 @@ export function CarpetaCard( {
     .filter( ( nota ) => {
       return nota.text !== '(sin texto)';
     } )
-    .slice( 0, 5 );
+    .slice(
+      0, 5 
+    );
 
   return (
     <div className={styles.card}>
@@ -200,9 +205,11 @@ export function CarpetaCard( {
           {notas.length > 0 && (
             <div className={styles.notas}>
               <div className={styles.detailLabel}>Notas recientes</div>
-              {notas.map( ( nota, index ) => {
+              {notas.map( (
+                nota, index 
+              ) => {
                 return (
-                  // eslint-disable-next-line react/no-array-index-key
+                   
                   <div
                     key={index}
                     className={styles.nota}

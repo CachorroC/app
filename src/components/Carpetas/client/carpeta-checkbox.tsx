@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -21,7 +22,9 @@ export function CarpetaCheckbox( {
       if ( inputRef.current ) {
         inputRef.current.indeterminate = Boolean( indeterminate );
       }
-    }, [ indeterminate ]
+    }, [
+      indeterminate 
+    ]
   );
 
   return (

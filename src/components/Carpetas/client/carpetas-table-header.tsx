@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use client';
 
 import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
@@ -6,18 +7,48 @@ import { CarpetaCheckbox } from './carpeta-checkbox';
 import styles from './carpetas-table-header.module.css';
 
 const COLUMNS: { label: string; sortKey?: SortColumn }[] = [
-  { label: 'Número', sortKey: 'numero' },
-  { label: 'Parte', sortKey: 'nombre' },
-  { label: 'Fecha', sortKey: 'fecha' },
-  { label: 'Categoría', sortKey: 'category' },
-  { label: 'Tipo', sortKey: 'tipoProceso' },
-  { label: 'Estado', sortKey: 'revisado' },
-  { label: 'Juzgado' },
-  { label: 'Última actuación' },
-  { label: 'Notas' },
-  { label: 'Radicado' },
-  { label: 'Expediente' },
-  { label: 'Revisado' },
+  {
+    label  : 'Número',
+    sortKey: 'numero' 
+  },
+  {
+    label  : 'Parte',
+    sortKey: 'nombre' 
+  },
+  {
+    label  : 'Fecha',
+    sortKey: 'fecha' 
+  },
+  {
+    label  : 'Categoría',
+    sortKey: 'category' 
+  },
+  {
+    label  : 'Tipo',
+    sortKey: 'tipoProceso' 
+  },
+  {
+    label  : 'Estado',
+    sortKey: 'revisado' 
+  },
+  {
+    label: 'Juzgado' 
+  },
+  {
+    label: 'Última actuación' 
+  },
+  {
+    label: 'Notas' 
+  },
+  {
+    label: 'Radicado' 
+  },
+  {
+    label: 'Expediente' 
+  },
+  {
+    label: 'Revisado' 
+  },
 ];
 
 export function CarpetasTableHeader( {
@@ -25,11 +56,13 @@ export function CarpetasTableHeader( {
   someSelected,
   onSelectAll,
 }: {
-  allSelected  : boolean;
-  someSelected : boolean;
-  onSelectAll  : ( next: boolean ) => void;
+  allSelected : boolean;
+  someSelected: boolean;
+  onSelectAll : ( next: boolean ) => void;
 } ) {
-  const { sort } = useCarpetaSort();
+  const {
+    sort 
+  } = useCarpetaSort();
   const dispatchCarpetas = useCarpetaSortDispatch();
 
   return (
@@ -61,12 +94,12 @@ export function CarpetasTableHeader( {
               data-active={active}
               onClick={column.sortKey
                 ? () => {
-                  return dispatchCarpetas( {
-                    type     : 'sort',
-                    column   : column.sortKey,
-                    direction,
-                  } );
-                }
+                    return dispatchCarpetas( {
+                      type  : 'sort',
+                      column: column.sortKey,
+                      direction,
+                    } );
+                  }
                 : undefined}
             >
               <span className={styles.thLabel}>

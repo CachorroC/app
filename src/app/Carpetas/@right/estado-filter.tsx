@@ -16,7 +16,9 @@ const ESTADO_ORDER: EstadoTag[] = [
 export default function EstadoFilteringButtons() {
   const dispatchCarpetas = useCarpetaSortDispatch();
 
-  const { filters } = useCarpetaSort();
+  const {
+    filters 
+  } = useCarpetaSort();
 
   const selected = filters.estado ?? new Set();
 

@@ -11,26 +11,39 @@ const CARD_BREAKPOINT = 1024;
 
 function toCsvCell( value: unknown ) {
   return `"${ String( value ?? '' )
-    .replace( /"/g, '""' ) }"`;
+    .replace(
+      /"/g, '""' 
+    ) }"`;
 }
 
 export function CarpetasTable() {
-  const { carpetas, selected } = useCarpetaSort();
+  const {
+    carpetas, selected 
+  } = useCarpetaSort();
   const dispatchCarpetas = useCarpetaSortDispatch();
 
   const containerRef = useRef<HTMLDivElement>( null );
   const toastTimeout = useRef<ReturnType<typeof setTimeout> | null>( null );
 
-  const [ containerWidth, setContainerWidth ] = useState( CARD_BREAKPOINT );
-  const [ toast, setToast ] = useState<string | null>( null );
-  const [ isBusy, setIsBusy ] = useState( false );
+  const [
+    containerWidth,
+    setContainerWidth 
+  ] = useState( CARD_BREAKPOINT );
+  const [
+    toast,
+    setToast 
+  ] = useState<string | null>( null );
+  const [
+    isBusy,
+    setIsBusy 
+  ] = useState( false );
 
   useEffect(
     () => {
       const el = containerRef.current;
 
       if ( !el || typeof ResizeObserver === 'undefined' ) {
-        return;
+        return undefined;
       }
 
       const observer = new ResizeObserver( ( entries ) => {
@@ -87,8 +100,8 @@ export function CarpetasTable() {
       type   : 'set-selection',
       numeros: next
         ? carpetas.map( ( carpeta ) => {
-          return carpeta.numero;
-        } )
+            return carpeta.numero;
+          } )
         : [],
     } );
   };
@@ -116,7 +129,9 @@ export function CarpetasTable() {
         type   : 'batch-update',
         payload: results,
       } );
-      dispatchCarpetas( { type: 'clear-selection' } );
+      dispatchCarpetas( {
+        type: 'clear-selection' 
+      } );
       showToast( results.length === 1
         ? '1 carpeta marcada como revisada'
         : `${ results.length } carpetas marcadas como revisadas` );
@@ -127,7 +142,14 @@ export function CarpetasTable() {
 
   const onExportar = () => {
     const header = [
-      'Numero', 'Nombre', 'Categoria', 'Tipo de proceso', 'Fecha', 'Radicado', 'Cedula', 'Expediente'
+      'Numero',
+      'Nombre',
+      'Categoria',
+      'Tipo de proceso',
+      'Fecha',
+      'Radicado',
+      'Cedula',
+      'Expediente'
     ];
 
     const rows = visibleSelected.map( ( carpeta ) => {
@@ -137,7 +159,8 @@ export function CarpetasTable() {
         carpeta.category,
         carpeta.tipoProceso,
         carpeta.fecha
-          ? new Date( carpeta.fecha ).toLocaleDateString( 'es-CO' )
+          ? new Date( carpeta.fecha )
+              .toLocaleDateString( 'es-CO' )
           : '',
         carpeta.demanda?.radicado ?? '',
         carpeta.deudor?.cedula ?? '',
@@ -147,14 +170,27 @@ export function CarpetasTable() {
         .join( ',' );
     } );
 
-    const csv = [ header.map( toCsvCell ).join( ',' ), ...rows ].join( '\n' );
-    const blob = new Blob( [ `﻿${ csv }` ], { type: 'text/csv;charset=utf-8;' } );
+    const csv = [
+      header.map( toCsvCell )
+        .join( ',' ),
+      ...rows 
+    ].join( '\n' );
+    const blob = new Blob(
+      [
+        `\uFEFF${ csv }`
+      ], {
+        type: 'text/csv;charset=utf-8;'
+      }
+    );
     const url = URL.createObjectURL( blob );
     const anchor = document.createElement( 'a' );
 
     anchor.href = url;
-    anchor.download = `carpetas-${ new Date().toISOString()
-      .slice( 0, 10 ) }.csv`;
+    anchor.download = `carpetas-${ new Date()
+      .toISOString()
+      .slice(
+        0, 10 
+      ) }.csv`;
     document.body.appendChild( anchor );
     anchor.click();
     anchor.remove();
@@ -219,7 +255,9 @@ export function CarpetasTable() {
             type="button"
             className={styles.textButton}
             onClick={() => {
-              return dispatchCarpetas( { type: 'clear-selection' } );
+              return dispatchCarpetas( {
+                type: 'clear-selection' 
+              } );
             }}
           >
             Cancelar
