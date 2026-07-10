@@ -93,9 +93,10 @@ export function CarpetasSortProvider( {
 
         if ( column === 'estado' ) {
           result = result.filter( ( carpeta ) => {
-            return getEstadoTags( carpeta ).some( ( tag ) => {
-              return values.has( tag );
-            } );
+            return getEstadoTags( carpeta )
+              .some( ( tag ) => {
+                return values.has( tag );
+              } );
           } );
 
           continue;

@@ -9,13 +9,34 @@ export type CategoryMeta = {
 };
 
 const CATEGORY_META: Record<string, CategoryMeta> = {
-  Bancolombia   : { label: 'Bancolombia', color: 'tertiary' },
-  Reintegra     : { label: 'Reintegra', color: 'primary' },
-  Insolvencia   : { label: 'Insolvencia', color: 'error' },
-  LiosJuridicos : { label: 'Líos Jurídicos', color: 'secondary' },
-  Terminados    : { label: 'Terminados', color: 'success' },
-  SinTercero    : { label: 'Sin tercero', color: 'neutral' },
-  SinEspecificar: { label: 'Sin especificar', color: 'neutral' },
+  Bancolombia: {
+    label: 'Bancolombia',
+    color: 'tertiary' 
+  },
+  Reintegra: {
+    label: 'Reintegra',
+    color: 'primary' 
+  },
+  Insolvencia: {
+    label: 'Insolvencia',
+    color: 'error' 
+  },
+  LiosJuridicos: {
+    label: 'Líos Jurídicos',
+    color: 'secondary' 
+  },
+  Terminados: {
+    label: 'Terminados',
+    color: 'success' 
+  },
+  SinTercero: {
+    label: 'Sin tercero',
+    color: 'neutral' 
+  },
+  SinEspecificar: {
+    label: 'Sin especificar',
+    color: 'neutral' 
+  },
 };
 
 export function getCategoryMeta( category: string ): CategoryMeta {
@@ -30,12 +51,13 @@ export const ESTADO_COLOR: Record<EstadoTag, CategoryColor> = {
 };
 
 export function getEstadoBadges( carpeta: MonCarpeta ): { label: EstadoTag; color: CategoryColor }[] {
-  return getEstadoTags( carpeta ).map( ( tag ) => {
-    return {
-      label: tag,
-      color: ESTADO_COLOR[ tag ],
-    };
-  } );
+  return getEstadoTags( carpeta )
+    .map( ( tag ) => {
+      return {
+        label: tag,
+        color: ESTADO_COLOR[ tag ],
+      };
+    } );
 }
 
 export function clean( value: string | null | undefined ): string | null {
@@ -53,7 +75,9 @@ export function clean( value: string | null | undefined ): string | null {
 }
 
 export function deudorNombre( carpeta: MonCarpeta ): string | null {
-  const deudor = carpeta.deudor;
+  const {
+    deudor
+  } = carpeta;
 
   if ( !deudor ) {
     return null;
@@ -114,7 +138,10 @@ export function fmtMoney( value: number | null | undefined ): string | null {
 export function juzgadoText( carpeta: MonCarpeta ): string {
   const tipo = clean( carpeta.juzgado?.tipo ?? carpeta.juzgadoTipo );
   const ciudad = clean( carpeta.juzgado?.ciudad ?? carpeta.juzgadoCiudad ?? carpeta.ciudad );
-  const parts = [ tipo, ciudad ].filter( ( value ): value is string => {
+  const parts = [
+    tipo,
+    ciudad 
+  ].filter( ( value ): value is string => {
     return Boolean( value );
   } );
 
