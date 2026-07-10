@@ -1,0 +1,62 @@
+/*
+ * M3-token styled search field for the /Carpetas view only.
+ * Distinct from ./searchbar.module.scss, which is shared with the
+ * global NavBar search link components and must not be edited here.
+ */
+.searchContainer {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface-variant);
+  box-sizing: border-box;
+  grid-area: inputSearchBar;
+  border-radius: var(--md-sys-shape-corner-full);
+  padding: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.leadingIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 14px;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 20px;
+  flex: 0 0 auto;
+}
+
+.input {
+  color: var(--md-sys-color-on-surface);
+  border: none;
+  background: transparent;
+  text-decoration: none;
+  text-align: left;
+  font-family: var(--md-ref-typeface-plain);
+  font: var(--md-sys-typescale-body-medium);
+  flex-grow: 1;
+  min-width: 0;
+  padding: 0 1rem;
+}
+.input::placeholder {
+  color: var(--md-sys-color-on-surface-variant);
+}
+.input:focus {
+  outline: none;
+}
+
+.icon {
+  color: var(--md-sys-color-on-surface-variant);
+  border: none;
+  background: transparent;
+  position: relative;
+  min-width: 44px;
+  padding: 0 12px;
+  border-radius: var(--md-sys-shape-corner-full);
+  cursor: pointer;
+}
+.icon:hover {
+  background: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+}

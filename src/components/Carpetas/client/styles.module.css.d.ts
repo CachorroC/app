@@ -1,12 +1,24 @@
 declare const styles: {
-  readonly "button": string;
-  readonly "buttonCategoryActive": string;
-  readonly "buttonCategoryPasive": string;
+  readonly "cardGrid": string;
+  readonly "emptyBody": string;
+  readonly "emptyState": string;
+  readonly "emptyTitle": string;
+  readonly "filledButton": string;
   readonly "highlight": string;
-  readonly "segmentedButtons": string;
-  readonly "segmentedButtonsColumn": string;
-  readonly "segmentedButtonsRow": string;
+  readonly "material-symbols-rounded": string;
+  readonly "resultLabel": string;
+  readonly "resultRow": string;
+  readonly "root": string;
+  readonly "rs-fade": string;
+  readonly "rs-toast": string;
+  readonly "selectionBar": string;
+  readonly "selectionLabel": string;
+  readonly "selectionSpacer": string;
   readonly "table": string;
+  readonly "tableWrap": string;
+  readonly "textButton": string;
+  readonly "toast": string;
+  readonly "tonalButton": string;
 };
 export = styles;
 

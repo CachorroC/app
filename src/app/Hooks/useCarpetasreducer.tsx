@@ -13,7 +13,9 @@ export const categoriesSorter: string[] = [
   'Terminados',
 ];
 
-export type FilterableColumn = 'category' | 'ciudad';
+export type FilterableColumn = 'category' | 'ciudad' | 'tipoProceso' | 'estado';
+
+export type EstadoTag = 'Activo' | 'Terminado' | 'Revisado' | 'Pendiente';
 
 export type FilterState = Partial<Record<FilterableColumn, Set<string>>>;
 
@@ -39,12 +41,32 @@ export type CarpetasReducerState = {
   filters         : FilterState;
   search          : string;
   sort            : SortState;
+  selected        : Set<number>;
 };
 
 export type SetFilterActionType = {
   type  : 'set-filter';
   column: FilterableColumn;
   values: Set<string>;
+};
+
+export type ToggleSelectActionType = {
+  type  : 'toggle-select';
+  numero: number;
+};
+
+export type SetSelectionActionType = {
+  type   : 'set-selection';
+  numeros: number[];
+};
+
+export type ClearSelectionActionType = {
+  type: 'clear-selection';
+};
+
+export type BatchUpdateActionType = {
+  type   : 'batch-update';
+  payload: Array<Partial<MonCarpeta> & { numero: number }>;
 };
 
 export type SortActionType = {
@@ -72,7 +94,11 @@ export type IntAction =
   | SortActionType
   | SearchActionType
   | UpdateActionType
-  | ResetActionType;
+  | ResetActionType
+  | ToggleSelectActionType
+  | SetSelectionActionType
+  | ClearSelectionActionType
+  | BatchUpdateActionType;
 
 const DIACRITICS_PATTERN = new RegExp(
   '[\\u0300-\\u036f]', 'g' 
@@ -89,13 +115,51 @@ export function normalizeSearchText( value: string ) {
 }
 
 export function getFilterValue(
-  carpeta: MonCarpeta, column: FilterableColumn
+  carpeta: MonCarpeta, column: 'category' | 'ciudad' | 'tipoProceso'
 ): string {
   if ( column === 'ciudad' ) {
     return carpeta.ciudad ?? DEFAULT_CIUDAD;
   }
 
+  if ( column === 'tipoProceso' ) {
+    return carpeta.tipoProceso;
+  }
+
   return carpeta.category;
+}
+
+export function getEstadoTags( carpeta: MonCarpeta ): EstadoTag[] {
+  return [
+    carpeta.terminado
+      ? 'Terminado'
+      : 'Activo',
+    carpeta.revisado
+      ? 'Revisado'
+      : 'Pendiente',
+  ];
+}
+
+export function matchesSearch(
+  carpeta: MonCarpeta, normalizedQuery: string
+): boolean {
+  if ( !normalizedQuery ) {
+    return true;
+  }
+
+  const haystack = [
+    carpeta.nombre,
+    String( carpeta.numero ),
+    carpeta.llaveProceso,
+    carpeta.demanda?.radicado,
+    carpeta.deudor?.cedula,
+  ]
+    .filter( ( value ): value is string => {
+      return Boolean( value );
+    } )
+    .map( normalizeSearchText )
+    .join( ' ' );
+
+  return haystack.includes( normalizedQuery );
 }
 
 export function getSortComparator(
@@ -262,9 +326,10 @@ export function carpetasReducer(
       case 'reset': {
         return {
           ...reducerState,
-          filters: {},
-          search : '',
-          sort   : null,
+          filters : {},
+          search  : '',
+          sort    : null,
+          selected: new Set(),
         };
       }
 
@@ -321,6 +386,60 @@ export function carpetasReducer(
         return {
           ...reducerState,
           completeCarpetas: nextCompleteCarpetas,
+        };
+      }
+
+      case 'batch-update': {
+        const updatesByNumero = new Map( action.payload.map( ( update ) => {
+          return [
+            update.numero,
+            update
+          ] as const;
+        } ) );
+
+        const nextCompleteCarpetas = completeCarpetas.map( ( carpeta ) => {
+          const update = updatesByNumero.get( carpeta.numero );
+
+          return update
+            ? {
+                ...carpeta,
+                ...update,
+              }
+            : carpeta;
+        } );
+
+        return {
+          ...reducerState,
+          completeCarpetas: nextCompleteCarpetas,
+        };
+      }
+
+      case 'toggle-select': {
+        const nextSelected = new Set( reducerState.selected );
+
+        if ( nextSelected.has( action.numero ) ) {
+          nextSelected.delete( action.numero );
+        } else {
+          nextSelected.add( action.numero );
+        }
+
+        return {
+          ...reducerState,
+          selected: nextSelected,
+        };
+      }
+
+      case 'set-selection': {
+        return {
+          ...reducerState,
+          selected: new Set( action.numeros ),
+        };
+      }
+
+      case 'clear-selection': {
+        return {
+          ...reducerState,
+          selected: new Set(),
         };
       }
 

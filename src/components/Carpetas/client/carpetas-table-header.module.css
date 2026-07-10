@@ -1,0 +1,39 @@
+.headRow {
+  background: var(--md-sys-color-surface-container);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.checkboxCell {
+  width: 44px;
+  padding: 12px 10px 12px 16px !important;
+  text-align: left;
+}
+
+.th {
+  padding: var(--md-sys-spacing-3) var(--md-sys-spacing-2);
+  text-align: left;
+  font: var(--md-sys-typescale-label-large);
+  color: var(--md-sys-color-on-surface-variant);
+  user-select: none;
+  white-space: nowrap;
+}
+.th[data-sortable=true] {
+  cursor: pointer;
+}
+.th[data-sortable=true]:hover {
+  color: var(--md-sys-color-primary);
+}
+.th[data-active=true] {
+  color: var(--md-sys-color-primary);
+}
+
+.thLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.thLabel .material-symbols-rounded {
+  font-size: 14px;
+}

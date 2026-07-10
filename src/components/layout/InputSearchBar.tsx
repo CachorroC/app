@@ -1,10 +1,9 @@
 'use client';
-import searchbar from 'components/layout/search/searchbar.module.css';
+import searchbar from 'components/layout/search/input-search-bar.module.css';
 import { useState } from 'react';
 import { useCarpetaSort,
   useCarpetaSortDispatch, } from '#@/app/Context/carpetas-sort-context';
 import { useRouter } from 'next/navigation';
-import typography from '#@/styles/fonts/typography.module.css';
 import { Route } from 'next';
 
 export const InputSearchBar = () => {
@@ -22,6 +21,12 @@ export const InputSearchBar = () => {
 
   return (
     <div className={searchbar.searchContainer}>
+      <span
+        className={`material-symbols-rounded ${ searchbar.leadingIcon }`}
+        aria-hidden="true"
+      >
+        search
+      </span>
       <datalist id="demandados-list">
         {completeCarpetas.map( ( carpeta ) => {
           return (
@@ -39,9 +44,9 @@ export const InputSearchBar = () => {
         type={'textarea'}
         list="demandados-list"
         name={'query'}
-        placeholder={'Buscar'}
+        placeholder={'Buscar por nombre, número, radicado o cédula'}
         value={newQueryState}
-        className={`${ typography.bodyLarge } ${ searchbar.input }`}
+        className={searchbar.input}
         onChange={( e ) => {
           dispatchCarpetas( {
             type   : 'search',
@@ -63,7 +68,7 @@ export const InputSearchBar = () => {
           } );
         }}
       >
-        <span className="material-symbols-outlined">close</span>
+        <span className="material-symbols-rounded">close</span>
       </button>
     </div>
   );

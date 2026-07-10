@@ -1,51 +1,30 @@
 import { CarpetasSortButtons } from '#@/app/Carpetas/@right/carpetasButtonsSort';
 import { ResetButtonSorter } from './reset-button';
 import CategoryFilteringButtons from './category-filtering-buttons';
+import TipoProcesoFilteringButtons from './tipo-proceso-filter';
 import CiudadFilteringButtons from './ciudad-filter';
+import EstadoFilteringButtons from './estado-filter';
 import { InputSearchBar } from '#@/components/layout/InputSearchBar';
-import { actionButtons, tableControls } from './styles.module.css';
-
-
-
-const options = [
-  {
-    name : 'direccion de sorteo',
-    value: 'dir',
-    items: [
-      'asc',
-      'dsc'
-    ],
-  },
-  {
-    name : 'valor del sorteo',
-    value: 'sortingKey',
-    items: [
-      'fecha',
-      'revisado',
-      'nombre',
-      'id',
-      'updatedAt',
-      'numero',
-      'category',
-      'tipoProceso',
-    ],
-  },
-] as const;
+import styles from './toolbar.module.css';
 
 export default function Default() {
   return (
-    <>
-      <div className={tableControls}>
-        <InputSearchBar />
-
-        <div className={actionButtons}>
-          <ResetButtonSorter />
-          <CarpetasSortButtons options={options} />
-          <CategoryFilteringButtons />
-
-          <CiudadFilteringButtons />
+    <div className={styles.toolbar}>
+      <div className={styles.searchRow}>
+        <div className={styles.searchField}>
+          <InputSearchBar />
         </div>
+        <CarpetasSortButtons />
       </div>
-    </>
+
+      <div className={styles.facets}>
+        <CategoryFilteringButtons />
+        <TipoProcesoFilteringButtons />
+        <CiudadFilteringButtons />
+        <EstadoFilteringButtons />
+      </div>
+
+      <ResetButtonSorter />
+    </div>
   );
 }

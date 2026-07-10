@@ -1,208 +1,175 @@
-.segmentedButtons {
-  display: flex;
-  flex: 1;
-  gap: 0;
-  justify-content: space-evenly;
-  align-items: stretch;
-  align-content: stretch;
-  padding: 0;
-  @media (width < 600px) {
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  &Row {
-    @extend .segmentedButtons;
-    flex-flow: row nowrap;
-    .button {
-      &:first-child {
-        border-radius: var(--shape-corner-large-start);
-      }
-      &:last-child {
-        border-radius: var(--shape-corner-large-end);
-      }
-      &:only-child {
-        border-radius: var(--shape-corner-large);
-      }
-    }
-  }
-  &Column {
-    @extend .segmentedButtons;
-    flex-flow: column nowrap;
-    .button {
-      &:first-child {
-        border-radius: var(--shape-corner-large-top);
-      }
-      &:last-child {
-        border-radius: var(--shape-corner-large-bottom);
-      }
-      &:only-child {
-        border-radius: var(--shape-corner-large);
-      }
-      @media (width < 600px) {
-        &:first-child {
-          border-radius: var(--shape-corner-large-start);
-        }
-        &:last-child {
-          border-radius: var(--shape-corner-large-end);
-        }
-      }
-    }
-  }
-}
-.button {
-  border: 0.07rem solid var(--outline);
-  box-sizing: border-box;
-  padding: 0.5rem;
-  flex: 1;
-  border-radius: none;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-items: stretch;
-  align-items: center;
-  justify-content: space-around;
-  align-content: center;
-  transition: all 0.3s;
-  position: relative;
-  &:before {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    content: '';
-    border-radius: inherit;
-  }
-  &:hover {
-    &:before {
-      opacity: 0.08;
-    }
-  }
-  &:focus,
-  &:active {
-    &:before {
-      opacity: 0.1;
-    }
-  }
-
-  &Category {
-    &Pasive {
-      @extend .button;
-      color: var(--on-surface);
-      &:hover,
-      &:focus,
-      &:active {
-        &:before {
-          background-color: var(--on-surface);
-        }
-      }
-    }
-    &Active {
-      @extend .button;
-      background-color: var(--secondary-container);
-      color: var(--on-secondary-container);
-      &:hover,
-      &:focus,
-      &:active {
-        &:before {
-          background-color: var(--on-secondary-container);
-        }
-      }
-    }
-  }
-}
-
+// Legacy compat class — referenced by the unused (dead-code, unreferenced by
+// any route) UserTable.tsx in this same directory. Kept minimal so that file
+// still compiles; not used by CarpetasTable itself.
 .highlight {
   background-color: var(--primary-container);
   color: var(--on-primary-container);
-  border: none;
-  &:hover {
-    border: 0.2rem solid var(--outline);
-    background-color: var(--primary);
-    color: var(--on-primary);
-  }
 }
 
-/* Data table — mobile-first: base renders as stacked cards */
-.table,
-.table thead,
-.table tbody,
-.table th,
-.table td,
-.table tr {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-}
-.table thead tr {
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
-}
-.table tr {
-  margin-bottom: var(--space-4);
-  border: 0.0625rem solid var(--outline-variant);
-  border-radius: var(--shape-corner-medium);
-  padding: var(--space-3);
-  background-color: var(--surface-container-low);
-}
-.table td {
+.root {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-3);
+  width: 100%;
+}
+
+.resultRow {
+  display: flex;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-2) var(--space-1);
-  text-align: right;
-  border-bottom: 0.0625rem solid var(--surface-container-high);
-}
-.table td:last-child {
-  border-bottom: none;
-}
-.table td::before {
-  content: attr(data-label);
-  font-weight: 600;
-  text-align: left;
-  color: var(--secondary);
+  justify-content: space-between;
+  gap: 12px;
 }
 
-/* Tablet and up: real table layout */
-@media (600px <= width) {
-  .table {
-    width: 100%;
-    table-layout: fixed;
+.resultLabel {
+  font: var(--md-sys-typescale-label-large);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.selectionBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: 10px 16px;
+  animation: rs-fade var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.selectionLabel {
+  font: var(--md-sys-typescale-title-small);
+}
+
+.selectionSpacer {
+  flex: 1;
+}
+
+.filledButton,
+.tonalButton,
+.textButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: var(--md-sys-shape-corner-full);
+  border: none;
+  font: var(--md-sys-typescale-label-large);
+  font-family: var(--md-ref-typeface-plain);
+  cursor: pointer;
+  transition: var(--md-sys-motion-transition-standard);
+
+  .material-symbols-rounded {
+    font-size: 16px;
   }
-  .table thead {
-    display: table-header-group;
-  }
-  .table tbody {
-    display: table-row-group;
-  }
-  .table tr {
-    display: table-row;
-    margin-bottom: 0;
-    border: none;
-    border-radius: 0;
-    background-color: transparent;
-  }
-  .table thead tr {
-    position: static;
-  }
-  .table th,
-  .table td {
-    display: table-cell;
-    text-align: left;
-    padding: var(--space-3);
-    border-bottom: none;
-  }
-  .table td::before {
-    content: none;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 
-@media (1200px < width) {
-  .table th,
-  .table td {
-    padding: var(--space-4);
+.filledButton {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+
+  &:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--md-sys-color-primary) 90%, black);
+  }
+}
+
+.tonalButton {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.textButton {
+  background: transparent;
+  color: inherit;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 64px 24px;
+  background: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-large);
+  border: 1px dashed var(--md-sys-color-outline-variant);
+
+  .material-symbols-rounded {
+    font-size: 44px;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+}
+
+.emptyTitle {
+  font: var(--md-sys-typescale-title-medium);
+  color: var(--md-sys-color-on-surface);
+}
+
+.emptyBody {
+  font: var(--md-sys-typescale-body-medium);
+  color: var(--md-sys-color-on-surface-variant);
+  max-width: 360px;
+}
+
+.tableWrap {
+  background: var(--md-sys-color-surface-container-lowest);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-large);
+  overflow: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--md-ref-typeface-plain);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--md-sys-spacing-4);
+  align-items: start;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  background: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  padding: 12px 20px;
+  border-radius: var(--md-sys-shape-corner-small);
+  box-shadow: var(--md-sys-elevation-level3);
+  font: var(--md-sys-typescale-body-medium);
+  z-index: 50;
+  animation: rs-toast var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard);
+}
+
+@keyframes rs-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rs-toast {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 14px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
   }
 }

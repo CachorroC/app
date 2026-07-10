@@ -10,8 +10,10 @@ import { IntAction,
   CarpetasReducerState,
   carpetasReducer,
   getFilterValue,
+  getEstadoTags,
   getSortComparator,
   normalizeSearchText,
+  matchesSearch,
   FilterableColumn, } from '../Hooks/useCarpetasreducer';
 
 export const sortByDateDesc = (
@@ -70,6 +72,7 @@ export function CarpetasSortProvider( {
       filters         : {},
       search          : '',
       sort            : null,
+      selected        : new Set<number>(),
     }
   );
 
@@ -88,6 +91,16 @@ export function CarpetasSortProvider( {
           continue;
         }
 
+        if ( column === 'estado' ) {
+          result = result.filter( ( carpeta ) => {
+            return getEstadoTags( carpeta ).some( ( tag ) => {
+              return values.has( tag );
+            } );
+          } );
+
+          continue;
+        }
+
         result = result.filter( ( carpeta ) => {
           return values.has( getFilterValue(
             carpeta, column
@@ -99,8 +112,9 @@ export function CarpetasSortProvider( {
 
       if ( query ) {
         result = result.filter( ( carpeta ) => {
-          return normalizeSearchText( carpeta.nombre )
-            .includes( query );
+          return matchesSearch(
+            carpeta, query
+          );
         } );
       }
 
