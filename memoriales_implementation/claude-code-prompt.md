@@ -1,5 +1,10 @@
 # Claude Code prompt — `/memoriales` backend, forms & docx rendering
 
+Use the claude_design MCP (https://api.anthropic.com/v1/design/mcp, auth via /design-login) to import this project:
+https://claude.ai/design/p/3f4c7219-8c8a-4409-80e0-404e835ff71a?file=Memoriales.dc.html
+
+Implement: Memoriales.dc.html
+
 ## Context
 
 Take the existing `/memoriales` UI prototype (built by Claude Design) and make it fully functional: robust form management, validation, and a server action that fills Jinja-style `{{ }}` variables in `.docx` templates and returns a downloadable filled document. Stack and conventions to follow strictly:
@@ -23,7 +28,13 @@ Install: `docxtemplater pizzip`.
 Create a typed manifest registry. Each template is described once; the form, the Zod schema, and the render context all derive from it. Adding a memorial = one manifest entry + one `.docx`.
 
 ```ts
-type FieldType = 'text' | 'number' | 'date' | 'currency' | 'textarea' | 'select';
+type FieldType =
+  | 'text'
+  | 'number'
+  | 'date'
+  | 'currency'
+  | 'textarea'
+  | 'select';
 type FieldFormat = 'cedula' | 'currencyCOP' | 'dateLong' | 'radicado' | 'none';
 
 interface FieldDef {
@@ -34,14 +45,18 @@ interface FieldDef {
   placeholder?: string;
   helpText?: string;
   options?: { value: string; label: string }[];
-  format?: FieldFormat;   // value transform applied before injection
+  format?: FieldFormat; // value transform applied before injection
 }
 
-interface FieldGroup { key: string; legend: string; fields: FieldDef[]; }
+interface FieldGroup {
+  key: string;
+  legend: string;
+  fields: FieldDef[];
+}
 
 interface MemorialTemplate {
   id: string;
-  filename: string;        // "memorial-aporta-liquidacion-template.docx"
+  filename: string; // "memorial-aporta-liquidacion-template.docx"
   displayName: string;
   description: string;
   groups: FieldGroup[];
@@ -68,18 +83,18 @@ interface MemorialTemplate {
 
 ```ts
 const doc = new Docxtemplater(zip, {
-  delimiters: { start: '{{', end: '}}' },   // Jinja-style
+  delimiters: { start: '{{', end: '}}' }, // Jinja-style
   paragraphLoop: true,
   linebreaks: true,
-  nullGetter: () => '',                      // empty for optional/missing
-  parser: (tag) => ({                        // trims inner spaces of "{{ deudor.nombre }}"
+  nullGetter: () => '', // empty for optional/missing
+  parser: (tag) => ({
+    // trims inner spaces of "{{ deudor.nombre }}"
     get(scope) {
       const path = tag.trim();
       if (path === '.') return scope;
-      return path.split('.').reduce(
-        (acc, key) => (acc == null ? undefined : acc[key]),
-        scope,
-      );
+      return path
+        .split('.')
+        .reduce((acc, key) => (acc == null ? undefined : acc[key]), scope);
     },
   }),
 });
@@ -102,14 +117,18 @@ Add a dev-time guard so manifests and templates can't drift. Using docxtemplater
 import InspectModule from 'docxtemplater/js/inspect-module';
 // load each template with the InspectModule, render is not required:
 const iModule = InspectModule();
-new Docxtemplater(zip, { delimiters: { start: '{{', end: '}}' }, modules: [iModule] });
+new Docxtemplater(zip, {
+  delimiters: { start: '{{', end: '}}' },
+  modules: [iModule],
+});
 const tags = iModule.getAllTags(); // structured tags in the doc
 ```
 
 Write a script/test (`predev` or a Vitest/Jest test) that, for every registered template, extracts its `{{ }}` tags and asserts:
+
 - every tag path is covered by a manifest field, and
 - every manifest field maps to an existing tag.
-Fail loudly listing the mismatches. This is the safety net for the whole system.
+  Fail loudly listing the mismatches. This is the safety net for the whole system.
 
 ## File layout (follow existing conventions)
 
