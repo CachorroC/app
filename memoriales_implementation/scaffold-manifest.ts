@@ -4,69 +4,149 @@
 import { basename } from 'node:path';
 import { extractDocxTags } from './extract-docx-tags';
 
-const [, , docxPath, templateId] = process.argv;
-if (!docxPath || !templateId) {
-  console.error('Usage: tsx scaffold-manifest.ts <template.docx> <template-id>');
-  process.exit(1);
+const [
+  , , docxPath,
+  templateId
+] = process.argv;
+
+if ( !docxPath || !templateId ) {
+  console.error( 'Usage: tsx scaffold-manifest.ts <template.docx> <template-id>' );
+  process.exit( 1 );
 }
 
-const { paths, booleans } = extractDocxTags(docxPath);
+const {
+  paths, booleans
+} = extractDocxTags( docxPath );
 
 type Draft = { key?: string; repeatable?: boolean; fields: { name: string; boolean?: boolean }[] };
+
 const groups = new Map<string, Draft>();
 
-const ensure = (key: string | undefined, repeatable = false): Draft => {
+const ensure = (
+  key: string | undefined, repeatable = false
+): Draft => {
   const id = key ?? '__root__';
-  if (!groups.has(id)) groups.set(id, { key, repeatable, fields: [] });
-  const g = groups.get(id)!;
-  if (repeatable) g.repeatable = true;
+
+  if ( !groups.has( id ) ) {
+    groups.set(
+      id, {
+        key,
+        repeatable,
+        fields: []
+      }
+    );
+  }
+
+  const g = groups.get( id )!;
+
+  if ( repeatable ) {
+    g.repeatable = true;
+  }
+
   return g;
 };
 
-const place = (path: string, isBoolean = false) => {
-  const arr = path.match(/^([^[]+)\[\]\.(.+)$/); // pagos[].fecha
-  if (arr) {
-    ensure(arr[1], true).fields.push({ name: arr[2], boolean: isBoolean });
+const place = (
+  path: string, isBoolean = false
+) => {
+  const arr = path.match( /^([^[]+)\[\]\.(.+)$/ ); // pagos[].fecha
+
+  if ( arr ) {
+    ensure(
+      arr[ 1 ], true
+    ).fields.push( {
+      name   : arr[ 2 ],
+      boolean: isBoolean
+    } );
+
     return;
   }
-  const nested = path.match(/^([^.]+)\.(.+)$/); // deudor.nombre
-  if (nested) {
-    ensure(nested[1]).fields.push({ name: nested[2], boolean: isBoolean });
+
+  const nested = path.match( /^([^.]+)\.(.+)$/ ); // deudor.nombre
+
+  if ( nested ) {
+    ensure( nested[ 1 ] ).fields.push( {
+      name   : nested[ 2 ],
+      boolean: isBoolean
+    } );
+
     return;
   }
-  ensure(undefined).fields.push({ name: path, boolean: isBoolean }); // juzgado
+
+  ensure( undefined ).fields.push( {
+    name   : path,
+    boolean: isBoolean
+  } ); // juzgado
 };
 
-paths.forEach((p) => place(p));
-booleans.forEach((b) => place(b, true));
+paths.forEach( ( p ) => {
+  place( p );
+} );
+booleans.forEach( ( b ) => {
+  place(
+    b, true
+  );
+} );
 
-const guessType = (name: string, isBoolean: boolean): string => {
-  if (isBoolean) return 'boolean';
-  if (/cedula|nit|numero|cantidad|monto|valor|total/i.test(name)) return 'number';
-  if (/fecha/i.test(name)) return 'date';
+const guessType = (
+  name: string, isBoolean: boolean
+): string => {
+  if ( isBoolean ) {
+    return 'boolean';
+  }
+
+  if ( /cedula|nit|numero|cantidad|monto|valor|total/i.test( name ) ) {
+    return 'number';
+  }
+
+  if ( /fecha/i.test( name ) ) {
+    return 'date';
+  }
+
   return 'text';
 };
 
-const emitField = (f: { name: string; boolean?: boolean }): string =>
-  `      { name: '${f.name}', label: 'TODO ${f.name}', type: '${guessType(f.name, !!f.boolean)}', required: true },`;
-
-const emitGroup = (g: Draft): string => {
-  const head =
-    (g.key ? `key: '${g.key}', ` : '') +
-    (g.repeatable ? `repeatable: true, ` : '') +
-    `legend: 'TODO ${g.key ?? 'Datos generales'}',`;
-  return `    { ${head}\n      fields: [\n${g.fields.map(emitField).join('\n')}\n      ] },`;
+const emitField = ( f: { name: string; boolean?: boolean } ): string => {
+  return `      { name: '${ f.name }', label: 'TODO ${ f.name }', type: '${ guessType(
+    f.name, !!f.boolean
+  ) }', required: true },`;
 };
 
-const displayName = basename(docxPath).replace(/-template\.docx$/, '').replace(/-/g, ' ');
-console.log(`import type { MemorialTemplate } from './types';
+const emitGroup = ( g: Draft ): string => {
+  const head
+    = ( g.key
+      ? `key: '${ g.key }', `
+      : '' )
+    + ( g.repeatable
+      ? 'repeatable: true, '
+      : '' )
+    + `legend: 'TODO ${ g.key ?? 'Datos generales' }',`;
 
-export const ${templateId.replace(/-/g, '')}: MemorialTemplate = {
-  id: '${templateId}',
-  filename: '${basename(docxPath)}',
-  displayName: 'TODO ${displayName}',
+  return `    { ${ head }\n      fields: [\n${ g.fields.map( emitField )
+    .join( '\n' ) }\n      ] },`;
+};
+
+const displayName = basename( docxPath )
+  .replace(
+    /-template\.docx$/, ''
+  )
+  .replace(
+    /-/g, ' '
+  );
+
+console.log( `import type { MemorialTemplate } from './types';
+
+export const ${ templateId.replace(
+  /-/g, ''
+) }: MemorialTemplate = {
+  id: '${ templateId }',
+  filename: '${ basename( docxPath ) }',
+  displayName: 'TODO ${ displayName }',
   description: 'TODO descripción de una línea',
   groups: [
-${[...groups.values()].map(emitGroup).join('\n')}
+${ [
+  ...groups.values()
+].map( emitGroup )
+  .join( '\n' ) }
   ],
-};`);
+};` );
