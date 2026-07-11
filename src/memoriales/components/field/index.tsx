@@ -1,0 +1,278 @@
+'use client';
+
+import { useController, useFieldArray, useFormContext } from 'react-hook-form';
+import { Icon } from '#@/components/ui';
+import type { FieldDef } from '#@/memoriales/manifests/types';
+import { Button } from '../ui/button';
+import { IconButton } from '../ui/icon-button';
+import { Switch } from '../ui/switch';
+import { TextField } from '../ui/text-field';
+import textFieldStyles from '../ui/text-field/text-field.module.css';
+import fieldStyles from './field.module.css';
+
+interface FieldProps {
+  field    : FieldDef;
+  name     : string;
+  disabled?: boolean;
+}
+
+const INPUT_TYPE: Partial<Record<FieldDef[ 'type' ], string>> = {
+  number  : 'number',
+  currency: 'number',
+  date    : 'date',
+};
+
+export function Field( {
+  field, name, disabled 
+}: FieldProps ) {
+  if ( field.type === 'stringList' ) {
+    return <StringListField field={field} name={name} disabled={disabled} />;
+  }
+
+  if ( field.type === 'boolean' ) {
+    return <BooleanField field={field} name={name} disabled={disabled} />;
+  }
+
+  if ( field.type === 'textarea' ) {
+    return <TextareaField field={field} name={name} disabled={disabled} />;
+  }
+
+  if ( field.type === 'select' ) {
+    return <SelectField field={field} name={name} disabled={disabled} />;
+  }
+
+  return <ScalarField field={field} name={name} disabled={disabled} />;
+}
+
+function ScalarField( {
+  field, name, disabled
+}: FieldProps ) {
+  const {
+    control 
+  } = useFormContext();
+  const {
+    field: rhf, fieldState
+  } = useController( {
+    control,
+    name
+  } );
+
+  return (
+    <TextField
+      id={`f-${ name }`}
+      label={field.label}
+      type={INPUT_TYPE[ field.type ] ?? 'text'}
+      placeholder={field.placeholder}
+      requiredMark={field.required}
+      disabled={disabled}
+      error={fieldState.error?.message}
+      helperText={field.helpText}
+      leadingIcon={field.type === 'currency'
+        ? '$'
+        : undefined}
+      value={( rhf.value as string | number | undefined ) ?? ''}
+      onChange={rhf.onChange}
+      onBlur={rhf.onBlur}
+      name={rhf.name}
+      ref={rhf.ref}
+    />
+  );
+}
+
+function TextareaField( {
+  field, name, disabled
+}: FieldProps ) {
+  const {
+    control 
+  } = useFormContext();
+  const {
+    field: rhf, fieldState
+  } = useController( {
+    control,
+    name
+  } );
+  const id = `f-${ name }`;
+  const errorId = fieldState.error
+    ? `${ id }-error`
+    : undefined;
+
+  return (
+    <div className={textFieldStyles.field}>
+      <label
+        htmlFor={id}
+        className={`${ textFieldStyles.label } ${ fieldState.error
+          ? textFieldStyles.labelError
+          : '' }`}
+      >
+        {field.label}
+        {field.required
+          ? <span className={textFieldStyles.requiredMark}> *</span>
+          : null}
+      </label>
+      <textarea
+        id={id}
+        className={textFieldStyles.textarea}
+        placeholder={field.placeholder}
+        disabled={disabled}
+        aria-invalid={!!fieldState.error}
+        aria-describedby={errorId}
+        rows={3}
+        value={( rhf.value as string | undefined ) ?? ''}
+        onChange={rhf.onChange}
+        onBlur={rhf.onBlur}
+        name={rhf.name}
+        ref={rhf.ref}
+      />
+      {fieldState.error
+        ? <div id={errorId} className={textFieldStyles.error}>{fieldState.error.message}</div>
+        : null}
+      {!fieldState.error && field.helpText
+        ? <div className={textFieldStyles.helper}>{field.helpText}</div>
+        : null}
+    </div>
+  );
+}
+
+function SelectField( {
+  field, name, disabled
+}: FieldProps ) {
+  const {
+    control 
+  } = useFormContext();
+  const {
+    field: rhf, fieldState
+  } = useController( {
+    control,
+    name
+  } );
+  const id = `f-${ name }`;
+  const errorId = fieldState.error
+    ? `${ id }-error`
+    : undefined;
+
+  return (
+    <div className={textFieldStyles.field}>
+      <label
+        htmlFor={id}
+        className={`${ textFieldStyles.label } ${ fieldState.error
+          ? textFieldStyles.labelError
+          : '' }`}
+      >
+        {field.label}
+        {field.required
+          ? <span className={textFieldStyles.requiredMark}> *</span>
+          : null}
+      </label>
+      <select
+        id={id}
+        className={textFieldStyles.select}
+        disabled={disabled}
+        aria-invalid={!!fieldState.error}
+        aria-describedby={errorId}
+        value={( rhf.value as string | undefined ) ?? ''}
+        onChange={rhf.onChange}
+        onBlur={rhf.onBlur}
+        name={rhf.name}
+        ref={rhf.ref}
+      >
+        <option value="" disabled>Seleccione una opción…</option>
+        {( field.options ?? [] ).map( ( option ) => {
+          return (
+            <option key={option.value} value={option.value}>{option.label}</option>
+          );
+        } )}
+      </select>
+      {fieldState.error
+        ? <div id={errorId} className={textFieldStyles.error}>{fieldState.error.message}</div>
+        : null}
+    </div>
+  );
+}
+
+function BooleanField( {
+  field, name, disabled
+}: FieldProps ) {
+  const {
+    control 
+  } = useFormContext();
+  const {
+    field: rhf 
+  } = useController( {
+    control,
+    name
+  } );
+  const id = `f-${ name }`;
+
+  return (
+    <div className={fieldStyles.booleanRow}>
+      <Switch
+        id={id}
+        checked={!!rhf.value}
+        onChange={rhf.onChange}
+        onBlur={rhf.onBlur}
+        name={rhf.name}
+        ref={rhf.ref}
+        disabled={disabled}
+        aria-label={field.label}
+      />
+      <label htmlFor={id} className={fieldStyles.booleanLabel}>{field.label}</label>
+    </div>
+  );
+}
+
+function StringListField( {
+  field, name, disabled
+}: FieldProps ) {
+  const {
+    control, register
+  } = useFormContext();
+  const {
+    fields, append, remove
+  } = useFieldArray( {
+    control,
+    name
+  } );
+
+  return (
+    <div className={fieldStyles.stringList}>
+      <div className={fieldStyles.stringListLabel}>{field.label}</div>
+      {field.helpText
+        ? <div className={textFieldStyles.helper}>{field.helpText}</div>
+        : null}
+      {fields.map( (
+        row, index 
+      ) => {
+        return (
+          <div key={row.id} className={fieldStyles.stringListRow}>
+            <input
+              className={fieldStyles.stringListInput}
+              placeholder="Nombre del documento anexo"
+              disabled={disabled}
+              {...register( `${ name }.${ index }.value` )}
+            />
+            <IconButton aria-label="Eliminar anexo" disabled={disabled} onClick={() => {
+              return remove( index );
+            }}
+            >
+              <Icon name="delete" size={20} />
+            </IconButton>
+          </div>
+        );
+      } )}
+      <Button
+        type="button"
+        variant="text"
+        size="small"
+        disabled={disabled}
+        icon={<Icon name="add" size={18} />}
+        onClick={() => {
+          return append( {
+            value: ''
+          } );
+        }}
+      >
+        Agregar anexo
+      </Button>
+    </div>
+  );
+}

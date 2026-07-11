@@ -1,0 +1,52 @@
+.booleanRow {
+  display: flex;
+  align-items: center;
+  gap: var(--md-sys-spacing-3);
+}
+
+.booleanLabel {
+  font: var(--md-sys-typescale-body-large);
+  color: var(--md-sys-color-on-surface);
+  cursor: pointer;
+}
+
+.stringList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-2);
+  margin-top: var(--md-sys-spacing-1);
+  padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
+  border-radius: var(--md-sys-shape-corner-medium);
+  background: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.stringListLabel {
+  font: var(--md-sys-typescale-label-small);
+  color: var(--md-sys-color-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stringListRow {
+  display: flex;
+  align-items: center;
+  gap: var(--md-sys-spacing-2);
+}
+
+.stringListInput {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 0 var(--md-sys-spacing-4);
+  border-radius: var(--md-sys-shape-corner-extra-small);
+  border: 1px solid var(--md-sys-color-outline);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  font: var(--md-sys-typescale-body-large);
+}
+.stringListInput:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: -1px;
+}

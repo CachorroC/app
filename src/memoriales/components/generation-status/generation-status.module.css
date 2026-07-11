@@ -1,0 +1,83 @@
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.region {
+  display: flex;
+  flex-direction: column;
+}
+
+.busyRow {
+  display: flex;
+  align-items: center;
+  gap: var(--md-sys-spacing-3);
+  background: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: var(--md-sys-spacing-4) var(--md-sys-spacing-5);
+}
+
+.spinner {
+  font-size: 22px;
+  color: var(--md-sys-color-primary);
+  animation: spin 1s linear infinite;
+}
+
+.busyText {
+  font: var(--md-sys-typescale-body-large);
+  color: var(--md-sys-color-on-surface);
+}
+
+.resultBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-4);
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: var(--md-sys-spacing-5);
+}
+
+.successBlock {
+  background: var(--md-sys-color-tertiary-container);
+}
+
+.errorBlock {
+  background: var(--md-sys-color-error-container);
+}
+
+.resultHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--md-sys-spacing-3);
+}
+
+.successIcon {
+  font-size: 26px;
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.errorIcon {
+  font-size: 26px;
+  color: var(--md-sys-color-on-error-container);
+}
+
+.successTitle {
+  font: var(--md-sys-typescale-title-medium);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.errorTitle {
+  font: var(--md-sys-typescale-title-medium);
+  color: var(--md-sys-color-on-error-container);
+}
+
+.errorMessage {
+  font: var(--md-sys-typescale-body-medium);
+  color: var(--md-sys-color-on-error-container);
+}
+
+.actions {
+  display: flex;
+  gap: var(--md-sys-spacing-3);
+  flex-wrap: wrap;
+}

@@ -24,12 +24,31 @@ services:
       MONGODB_URI: ${MONGODB_URI}
       DATABASE_URL: postgresql://postgres:Tengo1amo@postgres:5432/RyS?schema=public
       NODE_ENV: production
+      # Docker service-name DNS on the `internal` network — never 127.0.0.1, the
+      # render service lives in its own container.
+      MEMORIALES_RENDER_URL: http://memoriales-render:8787/render
     ports:
       - 5555:3000
     expose:
       - 3000
     networks:
       - internal
+    depends_on:
+      - memoriales-render
+
+  memoriales-render:
+    image: memoriales-render
+    hostname: memoriales-render
+    container_name: memoriales-render
+    restart: always
+    build:
+      context: ./
+      dockerfile: services/memoriales-render/Dockerfile
+    networks:
+      - internal
+    # Deliberately no `ports`/`expose` and no cloudflared route: this service must
+    # only be reachable from `app` over the internal Docker network, never from the
+    # host or the internet.
 
 networks:
   internal:

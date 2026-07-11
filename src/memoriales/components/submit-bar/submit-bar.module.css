@@ -1,0 +1,7 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--md-sys-spacing-3);
+  flex-wrap: wrap;
+  margin-top: var(--md-sys-spacing-1);
+}

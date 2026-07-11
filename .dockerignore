@@ -32,6 +32,11 @@ yarn-error.log*
 # local env files
 2*.local
 
+# python render service (its own Dockerfile handles this build; keep it out of the
+# app image's build context)
+services/memoriales-render/.venv
+services/memoriales-render/requirements.lock
+
 # vercel
 .vercel
 

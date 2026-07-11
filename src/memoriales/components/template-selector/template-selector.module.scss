@@ -1,0 +1,76 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-5);
+}
+
+.selectWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-2);
+  max-width: 480px;
+}
+
+.label {
+  font: var(--md-sys-typescale-label-large);
+  color: var(--md-sys-color-on-surface);
+}
+
+.select {
+  height: 56px;
+  padding: 0 var(--md-sys-spacing-4);
+  border-radius: var(--md-sys-shape-corner-extra-small);
+  border: 1px solid var(--md-sys-color-outline);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  font: var(--md-sys-typescale-body-large);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--md-sys-color-primary);
+    outline-offset: -1px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--md-sys-spacing-4);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-2);
+  text-align: left;
+  cursor: pointer;
+  padding: var(--md-sys-spacing-5);
+  border-radius: var(--md-sys-shape-corner-large);
+  background: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
+
+  &:focus-visible {
+    outline: 2px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.cardSelected {
+  background: var(--md-sys-color-secondary-container);
+  border-color: var(--md-sys-color-primary);
+}
+
+.cardIcon {
+  color: var(--md-sys-color-primary);
+  font-size: 26px;
+}
+
+.cardTitle {
+  font: var(--md-sys-typescale-title-medium);
+  color: var(--md-sys-color-on-surface);
+}
+
+.cardDescription {
+  font: var(--md-sys-typescale-body-small);
+  color: var(--md-sys-color-on-surface-variant);
+}
