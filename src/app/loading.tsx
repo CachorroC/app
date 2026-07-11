@@ -1,270 +1,74 @@
 import { Loader } from '#@/components/Loader/main-loader';
-import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
-import styles from '#@/styles/layout.module.css';
-import typography from '#@/styles/fonts/typography.module.css';
+import layout from '#@/styles/layout.module.css';
+import styles from './page.module.css';
 
 export default function Loading() {
   return (
-    <>
-      <div className={styles.top}>
-        <pre>cargando</pre>
+    <div className={layout.leftGrid}>
+      <div className={styles.page}>
+
+        <header className={styles.header}>
+          <div className={styles.brandText}>
+            <p className={styles.brandTitle}>{'R&S Asesoría Jurídica'}</p>
+            <p className={styles.brandSubtitle}>{'Panel principal'}</p>
+          </div>
+        </header>
+
+        <div className={styles.statsGrid}>
+          {Array.from( {
+            length: 4
+          } )
+            .map( (
+              _, i
+            ) => {
+              return (
+                <div
+                  key={i}
+                  className={styles.statCard}
+                >
+                  <Loader />
+                </div>
+              );
+            } )}
+        </div>
+
+        <div className={styles.navCards}>
+          {Array.from( {
+            length: 2
+          } )
+            .map( (
+              _, i
+            ) => {
+              return (
+                <div
+                  key={i}
+                  className={`${ styles.navCard } ${ styles.navCardPrimary }`}
+                >
+                  <Loader />
+                </div>
+              );
+            } )}
+        </div>
+
+        <div className={styles.activityList}>
+          {Array.from( {
+            length: 4
+          } )
+            .map( (
+              _, i
+            ) => {
+              return (
+                <div
+                  key={i}
+                  className={styles.activityRow}
+                >
+                  <Loader />
+                </div>
+              );
+            } )}
+        </div>
+
       </div>
-      <div className={styles.leftGrid}>
-        <table>
-          <thead>
-            <tr>
-              <th>cargando</th>
-              <th>cargando</th>
-              <th>cargando</th>
-              <th>cargando</th>
-              <th>Actuaciones</th>
-              <th>Revisado</th>
-              <th>expediente</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-              <td>
-                <Loader />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className={styles.right}>
-        <h4 className={typography.titleLarge}>Cargando</h4>
-        <section className={styles.sectionColumn}>
-          <Loader />
-          <Loader />
-          <Loader />
-          <ProcesosCardSkeleton />
-        </section>
-      </div>
-    </>
+    </div>
   );
 }
