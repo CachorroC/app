@@ -17,8 +17,18 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 
 ID_RE = re.compile(r"^[a-z0-9-]+$")
-DEFAULT_DIR = Path(__file__).resolve().parents[2] / "src" / "memoriales" / "templates"
-TEMPLATES_DIR = Path(os.environ.get("MEMORIALES_TEMPLATES_DIR", DEFAULT_DIR)).resolve()
+
+_env_dir = os.environ.get("MEMORIALES_TEMPLATES_DIR")
+if _env_dir:
+    TEMPLATES_DIR = Path(_env_dir).resolve()
+else:
+    # Only reached in local dev, where this file lives at
+    # services/memoriales-render/render_service.py under the repo root. In the
+    # Docker image it's copied flat to /app/render_service.py, which has too
+    # few parents for this to resolve — MEMORIALES_TEMPLATES_DIR must be set there.
+    TEMPLATES_DIR = (
+        Path(__file__).resolve().parents[2] / "src" / "memoriales" / "templates"
+    ).resolve()
 DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 
 app = FastAPI(title="memoriales-render")

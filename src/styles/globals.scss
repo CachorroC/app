@@ -578,39 +578,22 @@ textarea {
    dark mode AND the app is not pinned to light ([data-theme="light"]).
    ============================================================ */
 
-/* ---------- Self-hosted webfonts ----------
-   Drop the .woff2 files from the design system's assets/fonts/ into
-   /public/fonts/ (or adjust the url()s). Quicksand = UI, Roboto Mono
-   = numeric/IDs, Material Symbols Rounded = icons. */
-@font-face {
-  font-family: "Quicksand";
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap;
-  src: url("/fonts/quicksand-variable-latin.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Roboto Mono";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url("/fonts/roboto-mono-variable-latin.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Material Symbols Rounded";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: block;
-  src: url("/fonts/material-symbols-rounded.woff2") format("woff2");
-}
+/* ---------- Webfonts ----------
+   Quicksand (UI) + IBM Plex Mono (numeric/reference figures) are loaded
+   via next/font/google in src/styles/fonts/index.ts and applied as
+   --font-quicksand / --font-plex-mono on <body> in the root layout —
+   see --font-sans / --font-mono below. Material Symbols Rounded is
+   loaded from the `material-symbols/rounded.css` package import in the
+   root layout, which supplies its own @font-face + .material-symbols-rounded
+   rule (no local declaration needed here). */
 
 /* ============================================================
    1. NON-COLOR TOKENS  (theme-independent)
    ============================================================ */
 :root {
   /* ---- Font families ---- */
-  --font-sans: "Quicksand", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "Roboto Mono", ui-monospace, "SFMono-Regular", "Menlo", monospace;
+  --font-sans: var(--font-quicksand), ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", "Menlo", monospace;
   /* legacy family aliases (old globals referenced these names) */
   --play-display: var(--font-sans);
   --josefa: var(--font-sans);
@@ -865,79 +848,92 @@ textarea {
 [data-theme="light"] {
   color-scheme: light;
 
-  --md-primary: var(--blue-40);
+  /* Retinted to the R&S Asesoría Jurídica design system (purple/blue,
+     seeded from the justice-scales emblem) — see
+     src/app/Carpetas/design-tokens.module.scss, which vendored these
+     exact values locally before this promotion to the app-wide tokens. */
+  --md-primary: #6a4fa8;
   --primary: var(--md-primary);
   --md-on-primary: #ffffff;
   --on-primary: var(--md-on-primary);
-  --md-primary-container: var(--blue-90);
+  --md-primary-container: #eaddff;
   --primary-container: var(--md-primary-container);
-  --md-on-primary-container: var(--blue-10);
+  --md-on-primary-container: #25075e;
   --on-primary-container: var(--md-on-primary-container);
 
-  --md-secondary: var(--purple-40);
+  --md-secondary: #625a70;
   --secondary: var(--md-secondary);
   --md-on-secondary: #ffffff;
   --on-secondary: var(--md-on-secondary);
-  --md-secondary-container: var(--purple-90);
+  --md-secondary-container: #e8def8;
   --secondary-container: var(--md-secondary-container);
-  --md-on-secondary-container: var(--purple-10);
+  --md-on-secondary-container: #1e182b;
   --on-secondary-container: var(--md-on-secondary-container);
 
-  --md-tertiary: var(--teal-40);
+  --md-tertiary: #3a5ba9;
   --tertiary: var(--md-tertiary);
   --md-on-tertiary: #ffffff;
   --on-tertiary: var(--md-on-tertiary);
-  --md-tertiary-container: var(--teal-90);
+  --md-tertiary-container: #dae2ff;
   --tertiary-container: var(--md-tertiary-container);
-  --md-on-tertiary-container: var(--teal-10);
+  --md-on-tertiary-container: #001847;
   --on-tertiary-container: var(--md-on-tertiary-container);
 
-  --md-error: var(--red-40);
+  --md-error: #ba1a1a;
   --error: var(--md-error);
   --md-on-error: #ffffff;
   --on-error: var(--md-on-error);
-  --md-error-container: var(--red-90);
+  --md-error-container: #ffdad6;
   --error-container: var(--md-error-container);
-  --md-on-error-container: var(--red-10);
+  --md-on-error-container: #410002;
   --on-error-container: var(--md-on-error-container);
 
-  --md-background: var(--neutral-98);
-  --background: var(--md-background);
-  --md-on-background: var(--neutral-10);
-  --on-background: var(--md-on-background);
-  --md-surface: var(--neutral-98);
-  --surface: var(--md-surface);
-  --md-on-surface: var(--neutral-10);
-  --on-surface: var(--md-on-surface);
-  --md-on-surface-variant: var(--neutral-30);
-  --on-surface-variant: var(--md-on-surface-variant);
-  --surface-variant: var(--neutral-90);
+  --md-success: #36693e;
+  --success: var(--md-success);
+  --md-on-success: #ffffff;
+  --on-success: var(--md-on-success);
+  --md-success-container: #b7f1b9;
+  --success-container: var(--md-success-container);
+  --md-on-success-container: #00210b;
+  --on-success-container: var(--md-on-success-container);
 
-  --md-surface-dim: #dad9e0;
+  --md-background: #fdfbff;
+  --background: var(--md-background);
+  --md-on-background: #1b1b21;
+  --on-background: var(--md-on-background);
+  --md-surface: #fdfbff;
+  --surface: var(--md-surface);
+  --md-on-surface: #1b1b21;
+  --on-surface: var(--md-on-surface);
+  --md-on-surface-variant: #48454e;
+  --on-surface-variant: var(--md-on-surface-variant);
+  --surface-variant: #e5e0ec;
+
+  --md-surface-dim: #dcd9e0;
   --surface-dim: var(--md-surface-dim);
-  --md-surface-bright: #faf8ff;
+  --md-surface-bright: #fdfbff;
   --surface-bright: var(--md-surface-bright);
   --md-surface-container-lowest: #ffffff;
   --surface-container-lowest: var(--md-surface-container-lowest);
-  --md-surface-container-low: #f4f3fa;
+  --md-surface-container-low: #f6f3fb;
   --surface-container-low: var(--md-surface-container-low);
-  --md-surface-container: #eeedf4;
+  --md-surface-container: #f0edf5;
   --surface-container: var(--md-surface-container);
-  --md-surface-container-high: #e8e7ef;
+  --md-surface-container-high: #eae7ef;
   --surface-container-high: var(--md-surface-container-high);
-  --md-surface-container-highest: #e2e2e9;
+  --md-surface-container-highest: #e5e1e9;
   --surface-container-highest: var(--md-surface-container-highest);
 
-  --md-outline: var(--neutral-50);
+  --md-outline: #79757f;
   --outline: var(--md-outline);
-  --md-outline-variant: var(--neutral-80);
+  --md-outline-variant: #cac4d0;
   --outline-variant: var(--md-outline-variant);
 
-  --md-inverse-surface: var(--neutral-20);
+  --md-inverse-surface: #303036;
   --inverse-surface: var(--md-inverse-surface);
-  --md-inverse-on-surface: var(--neutral-95);
+  --md-inverse-on-surface: #f3eff7;
   --inverse-on-surface: var(--md-inverse-on-surface);
-  --md-inverse-primary: var(--blue-80);
+  --md-inverse-primary: #d2bbff;
   --inverse-primary: var(--md-inverse-primary);
   --md-scrim: rgba(0, 0, 0, 0.4);
   --scrim: var(--md-scrim);
@@ -972,31 +968,31 @@ textarea {
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --md-primary: #98cdf2;
+  --md-primary: #d2bbff;
   --primary: var(--md-primary);
-  --md-on-primary: #00344c;
+  --md-on-primary: #3a1d70;
   --on-primary: var(--md-on-primary);
-  --md-primary-container: #16458c;
+  --md-primary-container: #523688;
   --primary-container: var(--md-primary-container);
-  --md-on-primary-container: #d8e2ff;
+  --md-on-primary-container: #eaddff;
   --on-primary-container: var(--md-on-primary-container);
 
-  --md-secondary: #cbbeff;
+  --md-secondary: #ccc2db;
   --secondary: var(--md-secondary);
-  --md-on-secondary: #321a63;
+  --md-on-secondary: #332d41;
   --on-secondary: var(--md-on-secondary);
-  --md-secondary-container: #49328a;
+  --md-secondary-container: #4a4458;
   --secondary-container: var(--md-secondary-container);
-  --md-on-secondary-container: #e7deff;
+  --md-on-secondary-container: #e8def8;
   --on-secondary-container: var(--md-on-secondary-container);
 
-  --md-tertiary: #8ad6bf;
+  --md-tertiary: #b2c5ff;
   --tertiary: var(--md-tertiary);
-  --md-on-tertiary: #003830;
+  --md-on-tertiary: #002b75;
   --on-tertiary: var(--md-on-tertiary);
-  --md-tertiary-container: #005040;
+  --md-tertiary-container: #1f438f;
   --tertiary-container: var(--md-tertiary-container);
-  --md-on-tertiary-container: #a7f2da;
+  --md-on-tertiary-container: #dae2ff;
   --on-tertiary-container: var(--md-on-tertiary-container);
 
   --md-error: #ffb4ab;
@@ -1008,43 +1004,52 @@ textarea {
   --md-on-error-container: #ffdad6;
   --on-error-container: var(--md-on-error-container);
 
-  --md-background: #111416;
-  --background: var(--md-background);
-  --md-on-background: #e2e2e9;
-  --on-background: var(--md-on-background);
-  --md-surface: #111416;
-  --surface: var(--md-surface);
-  --md-on-surface: #e2e2e9;
-  --on-surface: var(--md-on-surface);
-  --md-on-surface-variant: #c1c7ce;
-  --on-surface-variant: var(--md-on-surface-variant);
-  --surface-variant: #41484d;
+  --md-success: #9cd49e;
+  --success: var(--md-success);
+  --md-on-success: #003914;
+  --on-success: var(--md-on-success);
+  --md-success-container: #1c5121;
+  --success-container: var(--md-success-container);
+  --md-on-success-container: #b7f1b9;
+  --on-success-container: var(--md-on-success-container);
 
-  --md-surface-dim: #111416;
+  --md-background: #131218;
+  --background: var(--md-background);
+  --md-on-background: #e5e1e9;
+  --on-background: var(--md-on-background);
+  --md-surface: #131218;
+  --surface: var(--md-surface);
+  --md-on-surface: #e5e1e9;
+  --on-surface: var(--md-on-surface);
+  --md-on-surface-variant: #cac4d0;
+  --on-surface-variant: var(--md-on-surface-variant);
+  --surface-variant: #48454e;
+
+  --md-surface-dim: #131218;
   --surface-dim: var(--md-surface-dim);
-  --md-surface-bright: #37393c;
+  --md-surface-bright: #393740;
   --surface-bright: var(--md-surface-bright);
-  --md-surface-container-lowest: #0c0e11;
+  --md-surface-container-lowest: #0e0d13;
   --surface-container-lowest: var(--md-surface-container-lowest);
-  --md-surface-container-low: #191c1e;
+  --md-surface-container-low: #1b1b21;
   --surface-container-low: var(--md-surface-container-low);
-  --md-surface-container: #1d2022;
+  --md-surface-container: #1f1e25;
   --surface-container: var(--md-surface-container);
-  --md-surface-container-high: #282a2d;
+  --md-surface-container-high: #2a282f;
   --surface-container-high: var(--md-surface-container-high);
-  --md-surface-container-highest: #333537;
+  --md-surface-container-highest: #35333b;
   --surface-container-highest: var(--md-surface-container-highest);
 
-  --md-outline: #8b9198;
+  --md-outline: #948f99;
   --outline: var(--md-outline);
-  --md-outline-variant: #41484d;
+  --md-outline-variant: #48454e;
   --outline-variant: var(--md-outline-variant);
 
-  --md-inverse-surface: #e2e2e9;
+  --md-inverse-surface: #e5e1e9;
   --inverse-surface: var(--md-inverse-surface);
-  --md-inverse-on-surface: #2f3036;
+  --md-inverse-on-surface: #303036;
   --inverse-on-surface: var(--md-inverse-on-surface);
-  --md-inverse-primary: #3060a8;
+  --md-inverse-primary: #6a4fa8;
   --inverse-primary: var(--md-inverse-primary);
   --surface-tint: var(--md-primary);
 
@@ -1072,60 +1077,66 @@ textarea {
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --md-primary: #98cdf2;
-    --primary: #98cdf2;
-    --md-on-primary: #00344c;
-    --on-primary: #00344c;
-    --md-primary-container: #16458c;
-    --primary-container: #16458c;
-    --md-on-primary-container: #d8e2ff;
-    --on-primary-container: #d8e2ff;
-    --md-secondary: #cbbeff;
-    --secondary: #cbbeff;
-    --md-on-secondary: #321a63;
-    --on-secondary: #321a63;
-    --md-secondary-container: #49328a;
-    --secondary-container: #49328a;
-    --md-on-secondary-container: #e7deff;
-    --on-secondary-container: #e7deff;
-    --md-tertiary: #8ad6bf;
-    --tertiary: #8ad6bf;
-    --md-tertiary-container: #005040;
-    --tertiary-container: #005040;
-    --md-on-tertiary-container: #a7f2da;
-    --on-tertiary-container: #a7f2da;
+    --md-primary: #d2bbff;
+    --primary: #d2bbff;
+    --md-on-primary: #3a1d70;
+    --on-primary: #3a1d70;
+    --md-primary-container: #523688;
+    --primary-container: #523688;
+    --md-on-primary-container: #eaddff;
+    --on-primary-container: #eaddff;
+    --md-secondary: #ccc2db;
+    --secondary: #ccc2db;
+    --md-on-secondary: #332d41;
+    --on-secondary: #332d41;
+    --md-secondary-container: #4a4458;
+    --secondary-container: #4a4458;
+    --md-on-secondary-container: #e8def8;
+    --on-secondary-container: #e8def8;
+    --md-tertiary: #b2c5ff;
+    --tertiary: #b2c5ff;
+    --md-tertiary-container: #1f438f;
+    --tertiary-container: #1f438f;
+    --md-on-tertiary-container: #dae2ff;
+    --on-tertiary-container: #dae2ff;
     --md-error: #ffb4ab;
     --error: #ffb4ab;
     --md-error-container: #93000a;
     --error-container: #93000a;
     --md-on-error-container: #ffdad6;
     --on-error-container: #ffdad6;
-    --md-background: #111416;
-    --background: #111416;
-    --md-on-background: #e2e2e9;
-    --on-background: #e2e2e9;
-    --md-surface: #111416;
-    --surface: #111416;
-    --md-on-surface: #e2e2e9;
-    --on-surface: #e2e2e9;
-    --md-on-surface-variant: #c1c7ce;
-    --on-surface-variant: #c1c7ce;
-    --surface-variant: #41484d;
-    --md-surface-container-lowest: #0c0e11;
-    --surface-container-lowest: #0c0e11;
-    --md-surface-container-low: #191c1e;
-    --surface-container-low: #191c1e;
-    --md-surface-container: #1d2022;
-    --surface-container: #1d2022;
-    --md-surface-container-high: #282a2d;
-    --surface-container-high: #282a2d;
-    --md-surface-container-highest: #333537;
-    --surface-container-highest: #333537;
-    --md-outline: #8b9198;
-    --outline: #8b9198;
-    --md-outline-variant: #41484d;
-    --outline-variant: #41484d;
-    --surface-tint: #98cdf2;
+    --md-success: #9cd49e;
+    --success: #9cd49e;
+    --md-success-container: #1c5121;
+    --success-container: #1c5121;
+    --md-on-success-container: #b7f1b9;
+    --on-success-container: #b7f1b9;
+    --md-background: #131218;
+    --background: #131218;
+    --md-on-background: #e5e1e9;
+    --on-background: #e5e1e9;
+    --md-surface: #131218;
+    --surface: #131218;
+    --md-on-surface: #e5e1e9;
+    --on-surface: #e5e1e9;
+    --md-on-surface-variant: #cac4d0;
+    --on-surface-variant: #cac4d0;
+    --surface-variant: #48454e;
+    --md-surface-container-lowest: #0e0d13;
+    --surface-container-lowest: #0e0d13;
+    --md-surface-container-low: #1b1b21;
+    --surface-container-low: #1b1b21;
+    --md-surface-container: #1f1e25;
+    --surface-container: #1f1e25;
+    --md-surface-container-high: #2a282f;
+    --surface-container-high: #2a282f;
+    --md-surface-container-highest: #35333b;
+    --surface-container-highest: #35333b;
+    --md-outline: #948f99;
+    --outline: #948f99;
+    --md-outline-variant: #48454e;
+    --outline-variant: #48454e;
+    --surface-tint: #d2bbff;
     --status-active: #aec6ff;
     --status-active-container: #16458c;
     --status-review: #ffb870;
@@ -1233,35 +1244,6 @@ samp {
 ::selection {
   background: var(--md-primary-container);
   color: var(--md-on-primary-container);
-}
-
-/* ---- Material Symbols icon helper ---- */
-.material-symbols-rounded {
-  font-family: "Material Symbols Rounded";
-  font-weight: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: "liga";
-  -webkit-font-smoothing: antialiased;
-  font-variation-settings:
-    "FILL" 0,
-    "wght" 400,
-    "GRAD" 0,
-    "opsz" 24;
-  user-select: none;
-}
-.material-symbols-rounded.fill {
-  font-variation-settings:
-    "FILL" 1,
-    "wght" 400,
-    "GRAD" 0,
-    "opsz" 24;
 }
 
 /* ---- Scrollbars (subtle, theme-aware) ---- */

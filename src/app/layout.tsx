@@ -1,6 +1,6 @@
 
 import '#@/styles/globals.css';
-import 'material-symbols';
+import 'material-symbols/rounded.css';
 import layout from '#@/styles/layout.module.css';
 import { ReactNode, Suspense } from 'react';
 import { MainProvider } from './Context/main-context';
@@ -10,7 +10,7 @@ import type { Metadata, Viewport } from 'next';
 import { NavBar } from '#@/components/layout/NavBar';
 import { NavigationContextProvider } from './Context/navigation-context';
 import { CategoryContextProvider } from './Context/category-context';
-import { playDisp, ptserif, josefina, radio, raleway } from '#@/styles/fonts';
+import { quicksand, plexMono } from '#@/styles/fonts';
 import PushManagerComponent from '#@/components/PushManager';
 import { Loader } from '#@/components/Loader/main-loader';
 import { PushNotificationProvider } from './Context/pushNotificationContext';
@@ -106,7 +106,7 @@ export default function RootLayout( {
         />
       </head>
       <body
-        className={`${ playDisp.variable } ${ josefina.className } ${ raleway.variable } ${ radio.variable } ${ ptserif.variable } [ color-scheme: light dark ]`}
+        className={`${ quicksand.variable } ${ plexMono.variable } ${ quicksand.className } [ color-scheme: light dark ]`}
       >
         <PushNotificationProvider>
           <CategoryContextProvider>

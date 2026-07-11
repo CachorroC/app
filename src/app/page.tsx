@@ -55,6 +55,15 @@ export default function Page() {
             {'Carpetas Alternativo'}
           </h1>
         </Link>
+        <Link
+          className={layout.button}
+          href={'/memoriales'}
+        >
+          <span className="material-symbols-outlined">folder_open</span>
+          <h1 className={typography.headlineMedium}>
+            {'Memoriales'}
+          </h1>
+        </Link>
 
         <Link
           className={layout.button}

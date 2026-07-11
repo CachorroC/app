@@ -1,0 +1,375 @@
+/*
+ * Home dashboard ("Landing"), scoped to src/app/page.tsx only. Sits inside
+ * the shared app shell (layout.module.css .container / NavBar rail) and
+ * uses the app-wide design tokens promoted in globals.scss — no local
+ * token scope needed here, unlike /Carpetas or /memoriales.
+ */
+
+.page {
+  min-height: 100%;
+  box-sizing: border-box;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 5vw, 40px);
+}
+
+/* ---------------------------------------------------------------- */
+/* Header                                                            */
+/* ---------------------------------------------------------------- */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.brandIcon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.brandText {
+  flex: 1;
+  min-width: 200px;
+}
+
+.brandTitle {
+  font: var(--type-title-md);
+  color: var(--on-surface);
+  margin: 0;
+}
+
+.brandSubtitle {
+  font: var(--type-body-sm);
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+.today {
+  font: var(--type-label-lg);
+  color: var(--on-surface-variant);
+}
+
+/* ---------------------------------------------------------------- */
+/* Greeting                                                           */
+/* ---------------------------------------------------------------- */
+.greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.greetingTitle {
+  font: var(--type-headline-md);
+  color: var(--on-surface);
+  margin: 0;
+}
+
+.greetingSummary {
+  font: var(--type-body-lg);
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Stats                                                              */
+/* ---------------------------------------------------------------- */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--shape-corner-large);
+  padding: 18px 20px;
+}
+
+.statLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statLabel {
+  font: var(--type-label-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--on-surface-variant);
+}
+
+.statValue {
+  font: var(--type-headline-md);
+  font-family: var(--font-mono);
+  color: var(--on-surface);
+}
+
+/* ---------------------------------------------------------------- */
+/* Primary nav cards                                                  */
+/* ---------------------------------------------------------------- */
+.navCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.navCard {
+  display: block;
+  text-decoration: none;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-radius: var(--shape-corner-large);
+  padding: 26px;
+  box-shadow: var(--dp2);
+  transition: transform 0.16s var(--ease-standard);
+}
+
+.navCard:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.navCardPrimary {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.navCardTertiary {
+  background-color: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+}
+
+.navCardIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--shape-corner-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+
+.navCardPrimary .navCardIcon {
+  background-color: var(--on-primary-container);
+  color: var(--primary-container);
+}
+
+.navCardTertiary .navCardIcon {
+  background-color: var(--on-tertiary-container);
+  color: var(--tertiary-container);
+}
+
+.navCardTitle {
+  font: var(--type-title-lg);
+  margin: 0;
+}
+
+.navCardDescription {
+  font: var(--type-body-md);
+  opacity: 0.85;
+  flex: 1;
+  margin: 0;
+}
+
+.navCardCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: var(--type-label-lg);
+}
+
+/* ---------------------------------------------------------------- */
+/* Recent activity                                                    */
+/* ---------------------------------------------------------------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sectionTitle {
+  font: var(--type-title-lg);
+  margin: 0;
+  color: var(--on-surface);
+}
+
+.sectionLink {
+  font: var(--type-label-lg);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.activityList {
+  background-color: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--shape-corner-large);
+  overflow: hidden;
+}
+
+.activityRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  text-decoration: none;
+  border-top: 1px solid var(--outline-variant);
+}
+
+.activityRow:first-child {
+  border-top: none;
+}
+
+.activityRow:hover {
+  background-color: var(--surface-container-low);
+  text-decoration: none;
+}
+
+.activityBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.activityNombre {
+  font: var(--type-body-md);
+  color: var(--on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activityActuacion {
+  font: var(--type-body-sm);
+  color: var(--on-surface-variant);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activityDate {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--on-surface-variant);
+  flex: 0 0 auto;
+}
+
+.emptyState {
+  padding: 40px;
+  text-align: center;
+  color: var(--on-surface-variant);
+  font: var(--type-body-md);
+  background-color: var(--surface-container-lowest);
+  border: 1px dashed var(--outline-variant);
+  border-radius: var(--shape-corner-large);
+}
+
+/* ---------------------------------------------------------------- */
+/* Category chips (mirrors the Carpeta.category tonal mapping)       */
+/* ---------------------------------------------------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--shape-corner-full);
+  font: var(--type-label-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+.chipBancolombia {
+  background-color: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+}
+
+.chipReintegra {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.chipInsolvencia {
+  background-color: var(--error-container);
+  color: var(--on-error-container);
+}
+
+.chipLiosJuridicos {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+
+.chipTerminados {
+  background-color: var(--success-container);
+  color: var(--on-success-container);
+}
+
+.chipNeutral {
+  background-color: var(--surface-container-high);
+  color: var(--on-surface-variant);
+}
+
+/* ---------------------------------------------------------------- */
+/* Tools panel (push notifications + calendar)                       */
+/* ---------------------------------------------------------------- */
+.toolsPanel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.toolCard {
+  background-color: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--shape-corner-large);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toolCardTitle {
+  font: var(--type-title-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Footer                                                             */
+/* ---------------------------------------------------------------- */
+.footer {
+  border-top: 1px solid var(--outline-variant);
+  padding-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerText {
+  font: var(--type-body-sm);
+  color: var(--on-surface-variant);
+}

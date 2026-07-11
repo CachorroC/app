@@ -8,6 +8,9 @@ import { CarpetasSortProvider } from '../Context/carpetas-sort-context';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Loader } from '#@/components/Loader/main-loader';
 import { connection } from 'next/server';
+import { FilterDrawer, FilterDrawerButton } from '#@/components/layout/FilterDrawer';
+
+const RIGHT_DRAWER_ID = 'carpetas-filters';
 
 const scopeClassName = `${ tokens.scope } ${ quicksandCarpetas.variable } ${ plexMonoCarpetas.variable }`;
 
@@ -42,13 +45,18 @@ export default function LayoutProcesosMain( {
         <NuevaCarpetaFormProvider>
           <Suspense fallback={<Loader />}>{modal}</Suspense>
           <Suspense fallback={<Loader />}>
-            <div className={`${ styles.top } ${ scopeClassName }`}>{top}</div>
+            <div className={`${ styles.top } ${ scopeClassName }`}>
+              {top}
+              <FilterDrawerButton id={RIGHT_DRAWER_ID} />
+            </div>
           </Suspense>
           <Suspense fallback={<Loader />}>
             <div className={`${ styles.leftGrid } ${ scopeClassName }`}>{children}</div>
           </Suspense>
           <Suspense fallback={<Loader />}>
-            <div className={`${ styles.right } ${ scopeClassName }`}>{right}</div>
+            <FilterDrawer id={RIGHT_DRAWER_ID}>
+              <div className={scopeClassName}>{right}</div>
+            </FilterDrawer>
           </Suspense>
         </NuevaCarpetaFormProvider>
       </LayoutAsyncProcess>

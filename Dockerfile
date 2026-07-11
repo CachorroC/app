@@ -30,6 +30,7 @@ COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml ./
 COPY scripts/ ./scripts/
 
 # Install dependencies strictly from the lockfile for deterministic builds
+RUN pnpm approve-builds --all
 RUN pnpm install --frozen-lockfile
 
 # -----------------------------------------------------------------------------

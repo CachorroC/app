@@ -10,7 +10,7 @@ import { Suspense } from 'react';
 
 export const NavBar = () => {
   const {
-    isNavOpen 
+    isNavOpen
   } = useNavigationContext();
 
   return (
@@ -22,6 +22,12 @@ export const NavBar = () => {
         iconLabel={'home'}
         textLabel={'Inicio'}
         hrefLabel={'/' as Route}
+      />
+      <NavLink
+        key={'memoriales'}
+        iconLabel={'home'}
+        textLabel={'Memoriales'}
+        hrefLabel={'/memoriales' as Route}
       />
       <NavLink
         iconLabel={'folder'}

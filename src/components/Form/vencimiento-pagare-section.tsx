@@ -2,7 +2,7 @@
 import { useFormContext, useFieldArray } from 'react-hook-form';
 import styles from './form.module.css';
 import { InputDateHelper } from '#@/lib/project/date-helper';
-import { josefina } from '#@/styles/fonts';
+import { quicksand } from '#@/styles/fonts';
 import layout from '#@/styles/layout.module.css';
 let renderCount = 0;
 
@@ -23,7 +23,7 @@ export function VencimientoPagareSection() {
   return (
     <>
       {renderCount}
-      <h3 className={josefina.className}>Vencimiento Del Pagare</h3>
+      <h3 className={quicksand.className}>Vencimiento Del Pagare</h3>
       <ul>
         {fields.map( (
           item, index 

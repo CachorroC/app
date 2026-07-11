@@ -8,6 +8,9 @@ import { ReactNode, Suspense } from 'react';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import { getCarpetasNumeros } from '#@/lib/project/utils/Carpetas/getCarpetas';
+import { FilterDrawer, FilterDrawerButton } from '#@/components/layout/FilterDrawer';
+
+const RIGHT_DRAWER_ID = 'carpeta-detail-panel';
 
 
 export async function generateStaticParams() {
@@ -130,14 +133,17 @@ export default async function LayoutCarpetaMain( {
         </Suspense>
         <Suspense fallback={<Loader />}>{top}</Suspense>
         <ForwardBackwardNavButtons />
+        <FilterDrawerButton
+          id={RIGHT_DRAWER_ID}
+          label="Abrir panel"
+        />
       </div>
       <div className={styles.left}>
         <Suspense fallback={<Loader />}>{children}</Suspense>
       </div>
-      <div className={styles.right}>
+      <FilterDrawer id={RIGHT_DRAWER_ID}>
         <Suspense fallback={<Loader />}>{right}</Suspense>
-
-      </div>
+      </FilterDrawer>
     </CarpetaFormProvider>
   );
 }

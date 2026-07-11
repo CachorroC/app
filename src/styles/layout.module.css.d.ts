@@ -14,6 +14,8 @@ declare const styles: {
   readonly "buttonPassiveCategory": string;
   readonly "container": string;
   readonly "divission": string;
+  readonly "drawerButton": string;
+  readonly "drawerToggle": string;
   readonly "gridContainer": string;
   readonly "header": string;
   readonly "icon": string;
@@ -28,6 +30,7 @@ declare const styles: {
   readonly "loader": string;
   readonly "nav": string;
   readonly "right": string;
+  readonly "scrim": string;
   readonly "section": string;
   readonly "sectionColumn": string;
   readonly "sectionRow": string;
