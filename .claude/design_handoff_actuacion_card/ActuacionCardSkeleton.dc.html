@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/colors.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/typography.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/shape.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/base.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/styles.css">
+<script src="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/_ds_bundle.js"></script>
+<style>
+  @keyframes racs-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .racs-bone {
+    border-radius: var(--md-sys-shape-corner-small);
+    background: linear-gradient(90deg,
+      var(--md-sys-color-surface-container-high) 25%,
+      var(--md-sys-color-surface-container-highest) 37%,
+      var(--md-sys-color-surface-container-high) 63%);
+    background-size: 400% 100%;
+    animation: racs-shimmer 1.6s ease-in-out infinite;
+  }
+
+  /* Mirrors ActuacionCard's own tiers exactly, so the skeleton escalates
+     the same way the real card does at the same container widths. */
+  .racs-container { container-type: inline-size; container-name: racs; }
+  .racs-card {
+    background: transparent; border: 1px solid transparent; box-shadow: none;
+    border-radius: 0;
+  }
+  .racs-accent { height: 0; }
+  .racs-sm, .racs-md, .racs-lg, .racs-xl { display: none; }
+  .racs-header { flex-direction: column; align-items: flex-start; }
+  .racs-pad { padding: 1px 0; gap: 4px; }
+
+  @container racs (min-width: 240px) {
+    .racs-card {
+      background: var(--md-sys-color-surface-container-low);
+      border-color: var(--md-sys-color-outline-variant);
+      box-shadow: var(--md-sys-elevation-level1);
+      border-radius: var(--md-sys-shape-corner-large);
+    }
+    .racs-accent { height: 4px; }
+    .racs-sm { display: flex; }
+    .racs-pad { padding: 14px; gap: 10px; }
+  }
+  @container racs (min-width: 340px) {
+    .racs-md { display: flex; }
+    .racs-header { flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; }
+  }
+  @container racs (min-width: 460px) {
+    .racs-lg { display: flex; }
+    .racs-pad { padding: 18px; gap: 12px; }
+  }
+  @container racs (min-width: 600px) {
+    .racs-xl { display: grid; }
+    .racs-pad { padding: 22px; gap: 14px; }
+  }
+</style>
+</helmet>
+
+<div class="racs-container" style="width: 100%; box-sizing: border-box;" role="status" aria-live="polite" aria-label="Cargando actuación">
+  <div class="racs-card" style="width: 100%; box-sizing: border-box; overflow: hidden;">
+  <div class="racs-accent" style="width: 100%; background: var(--md-sys-color-surface-container-high);"></div>
+  <div class="racs-pad" style="display: flex; flex-direction: column; box-sizing: border-box;">
+
+    <!-- BASE TIER -->
+    <div class="racs-header" style="display: flex; gap: 8px; min-width: 0;">
+      <div style="display: flex; align-items: flex-start; gap: 8px; min-width: 0; flex: 1;">
+        <div class="racs-bone" style="width: 20px; height: 20px; border-radius: 50%; flex: 0 0 auto;"></div>
+        <div style="min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 6px; padding-top: 2px;">
+          <div class="racs-bone" style="width: 78%; height: 14px;"></div>
+          <div class="racs-bone" style="width: 45%; height: 14px;"></div>
+        </div>
+      </div>
+      <div class="racs-bone" style="width: 64px; height: 14px; flex: 0 0 auto;"></div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div class="racs-bone" style="width: 100%; height: 11px;"></div>
+      <div class="racs-bone" style="width: 60%; height: 11px;"></div>
+    </div>
+
+    <!-- SM TIER -->
+    <div class="racs-sm" style="align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--md-sys-color-outline-variant); margin-top: 2px; padding-top: 8px;">
+      <div class="racs-bone" style="width: 72px; height: 24px; border-radius: var(--md-sys-shape-corner-full);"></div>
+      <div class="racs-bone" style="width: 96px; height: 16px;"></div>
+      <div class="racs-bone" style="width: 56px; height: 16px;"></div>
+    </div>
+
+    <!-- MD TIER -->
+    <div class="racs-md" style="flex-direction: column; gap: 6px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
+        <div class="racs-bone" style="width: 180px; height: 12px;"></div>
+        <div class="racs-bone" style="width: 90px; height: 12px;"></div>
+      </div>
+    </div>
+
+    <!-- LG TIER -->
+    <div class="racs-lg" style="align-items: center; gap: 8px; background: var(--md-sys-color-surface-container); border-radius: var(--md-sys-shape-corner-small); padding: 8px 12px;">
+      <div class="racs-bone" style="width: 100%; height: 14px;"></div>
+    </div>
+
+    <!-- XL TIER -->
+    <div class="racs-xl" style="grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px 20px; border-top: 1px solid var(--md-sys-color-outline-variant); margin-top: 4px; padding-top: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 5px; min-width: 0;">
+        <div class="racs-bone" style="width: 50px; height: 10px;"></div>
+        <div class="racs-bone" style="width: 90px; height: 14px;"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 5px; min-width: 0;">
+        <div class="racs-bone" style="width: 70px; height: 10px;"></div>
+        <div class="racs-bone" style="width: 110px; height: 14px;"></div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 320, &quot;height&quot;: 220}}"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/colors.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/typography.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/shape.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/tokens/base.css">
+<link rel="stylesheet" href="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
+<script src="_ds/r-s-asesor-a-jur-dica-design-system-28e31e8b-96f5-4107-8e05-8203b25a3b63/_ds_bundle.js"></script>
+<style>
+  .material-symbols-rounded { font-variation-settings: 'opsz' 20; }
+
+  /* Mirrors ActuacionCard's own tiers exactly, so the error state escalates
+     the same way the real card does at the same container widths. */
+  .race-container { container-type: inline-size; container-name: race; }
+  .race-card {
+    background: transparent; border: 1px solid transparent; box-shadow: none;
+    border-radius: 0;
+  }
+  .race-accent { height: 0; }
+  .race-sm, .race-md, .race-lg { display: none; }
+  .race-header { flex-direction: column; align-items: flex-start; }
+  .race-pad { padding: 1px 0; gap: 4px; }
+
+  @container race (min-width: 240px) {
+    .race-card {
+      background: var(--md-sys-color-error-container);
+      border-color: var(--md-sys-color-error);
+      box-shadow: var(--md-sys-elevation-level1);
+      border-radius: var(--md-sys-shape-corner-large);
+    }
+    .race-accent { height: 4px; }
+    .race-sm { display: flex; }
+    .race-pad { padding: 14px; gap: 10px; }
+  }
+  @container race (min-width: 340px) {
+    .race-md { display: flex; }
+    .race-header { flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; }
+  }
+  @container race (min-width: 460px) {
+    .race-lg { display: flex; }
+    .race-pad { padding: 18px; gap: 12px; }
+  }
+</style>
+</helmet>
+
+<div class="race-container" style="width: 100%; box-sizing: border-box;" role="alert">
+  <div class="race-card" style="width: 100%; box-sizing: border-box; font-family: 'Quicksand', system-ui, sans-serif; overflow: hidden;">
+  <div class="race-accent" style="width: 100%; background: var(--md-sys-color-error);"></div>
+  <div class="race-pad" style="display: flex; flex-direction: column; box-sizing: border-box;">
+
+    <!-- BASE TIER: siempre visible, incluso por debajo de 240px -->
+    <div class="race-header" style="display: flex; gap: 8px; min-width: 0;">
+      <div style="display: flex; align-items: flex-start; gap: 8px; min-width: 0; flex: 1;">
+        <span class="material-symbols-rounded" style="font-size: 20px; color: var(--md-sys-color-error); flex: 0 0 auto; margin-top: 1px;">error</span>
+        <div style="font: var(--md-sys-typescale-title-small); color: var(--md-sys-color-on-error-container); min-width: 0;">No se pudo cargar la actuación</div>
+      </div>
+    </div>
+
+    <div style="font: var(--md-sys-typescale-body-small); color: var(--md-sys-color-on-error-container); opacity: 0.85;">{{ messageDisplay }}</div>
+
+    <!-- SM TIER: código de referencia + acción de reintentar -->
+    <div class="race-sm" style="align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; border-top: 1px solid color-mix(in srgb, var(--md-sys-color-error) 30%, transparent); margin-top: 2px; padding-top: 8px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--md-sys-color-on-error-container); opacity: 0.7;">{{ refDisplay }}</span>
+      <x-import component-from-global-scope="RSAsesorAJurDicaDesignSystem_28e31e.Button" variant="text" onClick="{{ onRetry }}" hint-size="auto,32px">
+        <span class="material-symbols-rounded" style="font-size: 16px; margin-right: 4px; vertical-align: middle;">refresh</span>Reintentar
+      </x-import>
+    </div>
+
+    <!-- MD TIER: qué carpeta / proceso falló, para orientarse en tablas densas -->
+    <div class="race-md" style="flex-direction: column; gap: 6px;">
+      <div style="display: flex; align-items: center; gap: 6px; min-width: 0;">
+        <span style="font: var(--md-sys-typescale-label-small); color: var(--md-sys-color-on-error-container); opacity: 0.7; text-transform: uppercase; letter-spacing: 0.06em;">Carpeta</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--md-sys-color-on-error-container); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ carpetaDisplay }}</span>
+      </div>
+    </div>
+
+    <!-- LG TIER: detalle técnico (colapsable, solo si hay espacio) -->
+    <sc-if value="{{ hasDetail }}" hint-placeholder-val="{{ false }}">
+      <div class="race-lg" style="align-items: flex-start; gap: 8px; background: var(--md-sys-color-surface); border-radius: var(--md-sys-shape-corner-small); padding: 8px 12px; border: 1px solid var(--md-sys-color-outline-variant);">
+        <span class="material-symbols-rounded" style="font-size: 16px; color: var(--md-sys-color-on-surface-variant); margin-top: 1px;">code</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--md-sys-color-on-surface-variant); word-break: break-word;">{{ detailDisplay }}</span>
+      </div>
+    </sc-if>
+
+  </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: 320, &quot;height&quot;: 220},
+  &quot;message&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Ocurrió un problema al consultar esta actuación en el proceso judicial.&quot;, &quot;tsType&quot;: &quot;string&quot;},
+  &quot;carpetaNumero&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 10482, &quot;tsType&quot;: &quot;number&quot;},
+  &quot;errorCode&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;TIMEOUT_503&quot;, &quot;tsType&quot;: &quot;string | null&quot;},
+  &quot;detail&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Request to consulta.ramajudicial.gov.co timed out after 12000ms&quot;, &quot;tsType&quot;: &quot;string | null&quot;},
+  &quot;onRetry&quot;: {&quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot;}
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props || {};
+    const message = p.message ?? 'Ocurrió un problema al consultar esta actuación en el proceso judicial.';
+    const carpetaNumero = p.carpetaNumero;
+    const errorCode = p.errorCode ?? null;
+    const detail = p.detail ?? null;
+    const onRetry = typeof p.onRetry === 'function' ? p.onRetry : () => {};
+
+    return {
+      messageDisplay: message,
+      refDisplay: errorCode ? `Ref. ${errorCode}` : 'Ref. desconocida',
+      carpetaDisplay: carpetaNumero !== undefined && carpetaNumero !== null ? `N.° ${carpetaNumero}` : '—',
+      hasDetail: !!detail,
+      detailDisplay: detail || '',
+      onRetry,
+    };
+  }
+}
+
+</script>
+</body>
+</html>
