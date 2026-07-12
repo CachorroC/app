@@ -1,10 +1,12 @@
 import { aportandoLiquidacionCredito } from './aportando-liquidacion-credito';
 import { aportando291y292 } from './aportando-291-y-292';
 import type { MemorialTemplate } from './types';
+import { impulso_calificacion_demanda } from './impulso_calificacion_demanda';
 
 export const memorialesRegistry = {
-  [ aportandoLiquidacionCredito.id ]: aportandoLiquidacionCredito,
-  [ aportando291y292.id ]           : aportando291y292,
+  [ aportandoLiquidacionCredito.id ] : aportandoLiquidacionCredito,
+  [ aportando291y292.id ]            : aportando291y292,
+  [ impulso_calificacion_demanda.id ]: impulso_calificacion_demanda,
 } satisfies Record<string, MemorialTemplate>;
 
 export const getTemplateById = ( id: string ): MemorialTemplate | undefined => {

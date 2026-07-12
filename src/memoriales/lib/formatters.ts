@@ -33,12 +33,16 @@ export function formatRadicado( value: string ): string {
 export function formatCedula( value: string | number ): string {
   const digits = String( value )
     .replace(
-      /\D/g, '' 
+      /\D/g, ''
     );
 
   return digits.replace(
-    /\B(?=(\d{3})+(?!\d))/g, '.' 
+    /\B(?=(\d{3})+(?!\d))/g, '.'
   );
+}
+
+export function formatUpper( value: string ): string {
+  return value.toUpperCase();
 }
 
 export function applyFormat(
@@ -56,6 +60,9 @@ export function applyFormat(
 
       case 'cedula':
         return formatCedula( value );
+
+      case 'upper':
+        return formatUpper( String( value ) );
       default:
         return String( value );
   }

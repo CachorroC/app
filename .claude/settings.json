@@ -10,7 +10,9 @@
       "Bash(.venv/bin/uvicorn render_service:app --host 127.0.0.1 --port 8787 --reload)",
       "Bash(disown)",
       "Bash(curl -sf http://127.0.0.1:8787/health)",
-      "Bash(pkill -f \"uvicorn render_service:app\")"
+      "Bash(pkill -f \"uvicorn render_service:app\")",
+      "Bash(pnpm test:memoriales)",
+      "Bash(npx eslint *)"
     ]
   }
 }

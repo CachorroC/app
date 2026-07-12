@@ -134,7 +134,70 @@ test(
       context.anexos_list, [] 
     );
     assert.equal(
-      ( context.juzgado as Record<string, unknown> ).numero_escrito, 'ABC' 
+      ( context.juzgado as Record<string, unknown> ).numero_escrito, 'ABC'
     );
-  } 
+  }
+);
+
+const upperTemplate: MemorialTemplate = {
+  id         : 'fake-upper',
+  filename   : 'fake-upper.docx',
+  displayName: 'Fake upper',
+  description: 'Fake template for the upper format',
+  groups     : [
+    {
+      key   : 'deudor',
+      legend: 'Deudor',
+      fields: [
+        {
+          name    : 'nombre',
+          label   : 'Nombre',
+          type    : 'text',
+          required: true,
+          format  : 'upper'
+        }
+      ],
+    },
+    {
+      key   : 'juzgado',
+      legend: 'Juzgado',
+      fields: [
+        {
+          name    : 'numero',
+          label   : 'Número',
+          type    : 'text',
+          required: true
+        },
+        {
+          name   : 'numero_escrito',
+          label  : 'Número en letras',
+          type   : 'text',
+          derived: true,
+          format : 'upper'
+        },
+      ],
+    },
+  ],
+};
+
+test(
+  'buildContext applies the upper format to plain and derived fields', () => {
+    const context = buildContext(
+      upperTemplate, {
+        deudor: {
+          nombre: 'Juan Pérez'
+        },
+        juzgado: {
+          numero: '4'
+        },
+      }
+    );
+
+    assert.equal(
+      ( context.deudor as Record<string, unknown> ).nombre, 'JUAN PÉREZ'
+    );
+    assert.equal(
+      ( context.juzgado as Record<string, unknown> ).numero_escrito, 'CUARTO'
+    );
+  }
 );

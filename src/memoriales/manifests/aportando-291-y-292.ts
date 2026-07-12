@@ -14,7 +14,8 @@ export const aportando291y292: MemorialTemplate = {
           name    : 'nombre',
           label   : 'Nombre del deudor',
           type    : 'text',
-          required: true
+          required: true,
+          format  : 'upper'
         }
       ],
     },
@@ -26,7 +27,8 @@ export const aportando291y292: MemorialTemplate = {
           name    : 'tipo',
           label   : 'Tipo de juzgado',
           type    : 'text',
-          required: true
+          required: true,
+          format  : 'upper'
         },
         {
           name    : 'numero',
@@ -38,13 +40,15 @@ export const aportando291y292: MemorialTemplate = {
           name   : 'numero_escrito',
           label  : 'Número del juzgado (en letras)',
           type   : 'text',
-          derived: true
+          derived: true,
+          format : 'upper'
         }, // derivado de `numero` — ver lib/derive.ts
         {
           name    : 'ciudad',
           label   : 'Ciudad del juzgado',
           type    : 'text',
-          required: true
+          required: true,
+          format  : 'upper'
         },
       ],
     },
@@ -75,6 +79,7 @@ export const aportando291y292: MemorialTemplate = {
           label   : 'Cuantía del proceso',
           type    : 'select',
           required: true,
+          format  : 'upper',
           options : [
             {
               value: 'mínima cuantía',
@@ -94,7 +99,8 @@ export const aportando291y292: MemorialTemplate = {
           name    : 'tipoproceso',
           label   : 'Tipo de proceso',
           type    : 'text',
-          required: true
+          required: true,
+          format  : 'upper'
         }, // ⚠ template usa `tipoproceso` (sin guion bajo); TODO: unificar en las plantillas
         {
           name    : 'fecha_auto',

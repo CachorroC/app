@@ -80,16 +80,16 @@ function assembleGroup(
 }
 
 function deriveJuzgadoNumeroEscrito(
-  template: MemorialTemplate, context: RenderContext 
+  template: MemorialTemplate, context: RenderContext
 ): void {
   const juzgadoGroup = template.groups.find( ( group ) => {
     return group.key === 'juzgado';
   } );
-  const hasDerivedField = juzgadoGroup?.fields.some( ( field ) => {
+  const numeroEscritoField = juzgadoGroup?.fields.find( ( field ) => {
     return field.name === 'numero_escrito' && field.derived;
   } );
 
-  if ( !hasDerivedField || !isRecord( context.juzgado ) ) {
+  if ( !numeroEscritoField || !isRecord( context.juzgado ) ) {
     return;
   }
 
@@ -97,7 +97,11 @@ function deriveJuzgadoNumeroEscrito(
     juzgado
   } = context;
 
-  juzgado.numero_escrito = deriveNumeroEscrito( String( juzgado.numero ?? '' ) );
+  const derived = deriveNumeroEscrito( String( juzgado.numero ?? '' ) );
+
+  juzgado.numero_escrito = applyFormat(
+    numeroEscritoField.format, derived 
+  );
 }
 
 export function buildContext(

@@ -8,7 +8,7 @@ export type FieldType =
   | 'boolean' // {% if X %} gate  -> checkbox, renders as bool in context
   | 'stringList'; // {% for x in xs %}{{ x }}{% endfor %} -> string[] in context
 
-export type FieldFormat = 'none' | 'cedula' | 'currencyCOP' | 'dateLong' | 'radicado';
+export type FieldFormat = 'none' | 'cedula' | 'currencyCOP' | 'dateLong' | 'radicado' | 'upper';
 
 export interface FieldDef {
   name        : string;

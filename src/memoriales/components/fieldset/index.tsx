@@ -2,6 +2,7 @@
 
 import { useFormContext, useWatch } from 'react-hook-form';
 import type { FieldGroup } from '#@/memoriales/manifests/types';
+import { getPath } from '#@/memoriales/lib/get-path';
 import { Field } from '../field';
 import styles from './fieldset.module.css';
 
@@ -9,23 +10,6 @@ interface FieldsetProps {
   group      : FieldGroup;
   pathPrefix?: string;
   disabled?  : boolean;
-}
-
-function getPath(
-  values: Record<string, unknown>, path: string 
-): unknown {
-  return path.split( '.' )
-    .reduce<unknown>(
-      (
-        acc, key 
-      ) => {
-        if ( acc === null || typeof acc !== 'object' ) {
-          return undefined;
-        }
-
-        return ( acc as Record<string, unknown> )[ key ];
-      }, values 
-    );
 }
 
 export function Fieldset( {
