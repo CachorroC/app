@@ -142,8 +142,7 @@
   margin-top: var(--md-sys-spacing-3);
   padding-top: var(--md-sys-spacing-3);
   border-top: 1px solid var(--md-sys-color-outline-variant);
-  animation: rs-fade var(--md-sys-motion-duration-short3)
-    var(--md-sys-motion-easing-standard);
+  animation: rs-fade var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
 }
 
 .notas {

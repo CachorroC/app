@@ -496,11 +496,7 @@ body {
 }
 
 .material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
   font-size: 1.5rem;
 }
 
@@ -508,8 +504,7 @@ a {
   text-decoration: none;
   text-align: center;
 }
-a:link,
-a:visited {
+a:link, a:visited {
   color: inherit;
 }
 
@@ -851,7 +846,7 @@ textarea:focus {
    the legacy unprefixed name your app already uses.
    ============================================================ */
 :root,
-[data-theme='light'] {
+[data-theme=light] {
   color-scheme: light;
   /* Retinted to the R&S Asesoría Jurídica design system (purple/blue,
      seeded from the justice-scales emblem) — see
@@ -960,7 +955,7 @@ textarea:focus {
    Applied when [data-theme="dark"] is set, or by OS preference when
    the app is not pinned to light.
    ============================================================ */
-[data-theme='dark'] {
+[data-theme=dark] {
   color-scheme: dark;
   --md-primary: #d2bbff;
   --primary: var(--md-primary);
@@ -1059,7 +1054,7 @@ textarea:focus {
 
 /* Auto dark by OS preference, unless the app is pinned to light. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
+  :root:not([data-theme=light]) {
     color-scheme: dark;
     --md-primary: #d2bbff;
     --primary: #d2bbff;
@@ -1164,15 +1159,15 @@ input,
 select,
 textarea,
 label,
-[role='button'] {
+[role=button] {
   touch-action: manipulation;
 }
 
 @media (pointer: coarse) {
   /* Comfortable minimum hit target on touch devices. */
   button,
-  a[role='button'],
-  [role='button'] {
+  a[role=button],
+  [role=button] {
     min-height: 44px;
   }
 }
@@ -1224,7 +1219,7 @@ kbd,
 samp {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum' 1;
+  font-feature-settings: "tnum" 1;
 }
 
 ::selection {

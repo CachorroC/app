@@ -1,4 +1,5 @@
 declare const styles: {
-  readonly scope: string;
+  readonly "scope": string;
 };
 export = styles;
+

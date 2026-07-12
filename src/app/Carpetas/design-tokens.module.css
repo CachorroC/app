@@ -207,5 +207,5 @@
 }
 
 .scope :global(.material-symbols-rounded) {
-  font-variation-settings: 'opsz' 20;
+  font-variation-settings: "opsz" 20;
 }

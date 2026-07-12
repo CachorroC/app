@@ -9,8 +9,7 @@
   border: 1px solid transparent;
   font: var(--md-sys-typescale-label-large);
   cursor: pointer;
-  transition: var(--md-sys-motion-duration-short4)
-    var(--md-sys-motion-easing-standard);
+  transition: var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
   transition-property: background-color, box-shadow, opacity;
   white-space: nowrap;
 }

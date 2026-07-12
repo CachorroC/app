@@ -1,5 +1,6 @@
 declare const styles: {
-  readonly form        : string;
-  readonly formDisabled: string;
+  readonly "form": string;
+  readonly "formDisabled": string;
 };
 export = styles;
+

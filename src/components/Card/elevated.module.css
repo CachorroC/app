@@ -1,6 +1,4 @@
-.container,
-.containerDisabled,
-.containerEnabled {
+.container, .containerDisabled, .containerEnabled {
   position: relative;
   box-sizing: border-box;
   flex: 1;
@@ -15,9 +13,7 @@
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow: var(--elevation-1);
 }
-.container:before,
-.containerDisabled:before,
-.containerEnabled:before {
+.container:before, .containerDisabled:before, .containerEnabled:before {
   background-color: var(--surface-tint);
   border-radius: var(--shape-corner-medium);
   display: block;
@@ -26,7 +22,7 @@
   width: 100%;
   top: 0;
   left: 0;
-  content: '';
+  content: "";
   opacity: 0.2;
   z-index: -1;
 }
@@ -39,25 +35,17 @@
   box-shadow: var(--elevation-0);
   opacity: 0.38;
 }
-.container:hover,
-.containerEnabled:hover,
-.containerDisabled:hover {
+.container:hover, .containerEnabled:hover, .containerDisabled:hover {
   box-shadow: var(--elevation-2);
   background-color: var(--surface-container-high);
 }
-.container:hover:before,
-.containerEnabled:hover:before,
-.containerDisabled:hover:before {
+.container:hover:before, .containerEnabled:hover:before, .containerDisabled:hover:before {
   opacity: 0.5;
 }
-.container:focus,
-.containerEnabled:focus,
-.containerDisabled:focus {
+.container:focus, .containerEnabled:focus, .containerDisabled:focus {
   border: 0.3rem solid var(--secondary);
   box-shadow: var(--elevation-1);
 }
-.container:focus:before,
-.containerEnabled:focus:before,
-.containerDisabled:focus:before {
+.container:focus:before, .containerEnabled:focus:before, .containerDisabled:focus:before {
   opacity: 0.08;
 }
