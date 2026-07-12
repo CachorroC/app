@@ -1,1 +1,1224 @@
-{"namespace":"DesignSystemAsesor2_f8324e","components":[{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"Badge","sourcePath":"components/data/Badge.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"Chip","sourcePath":"components/data/Chip.jsx"},{"name":"StatusChip","sourcePath":"components/data/StatusChip.jsx"},{"name":"Button","sourcePath":"components/forms/Button.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"IconButton","sourcePath":"components/forms/IconButton.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TextField","sourcePath":"components/forms/TextField.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"}],"startingPoints":[{"name":"asesor","path":"ui_kits/asesor/index.html","previewPath":"ui_kits/asesor/index.html","kind":"screen","section":"Asesor Jurídico","subtitle":"Legal case-management dashboard","viewport":"1440x900"},{"name":"Card","path":"components/data/Card.jsx","previewPath":"components/data/data.card.html","kind":"component","section":"Data","subtitle":"Outlined, elevated & filled surfaces","viewport":"700x200"},{"name":"StatusChip","path":"components/data/StatusChip.jsx","previewPath":"components/data/data.card.html","kind":"component","section":"Data","subtitle":"Legal case status & category indicators","viewport":"700x130"},{"name":"Button","path":"components/forms/Button.jsx","previewPath":"components/forms/forms.card.html","kind":"component","section":"Forms","subtitle":"Filled, tonal, outlined & text buttons","viewport":"700x150"},{"name":"TextField","path":"components/forms/TextField.jsx","previewPath":"components/forms/forms.card.html","kind":"component","section":"Forms","subtitle":"Text inputs with labels, icons & validation","viewport":"700x150"}],"cards":[{"path":"ui_kits/asesor/index.html","group":"Asesor Jurídico","viewport":"1440x900","subtitle":"Lista, filtros y detalle de procesos","name":"Dashboard de carpetas"},{"path":"guidelines/brand-logo-dark.card.html","group":"Brand","viewport":"700x150","subtitle":"Mark reversed on the brand-blue app bar","name":"Logo on dark"},{"path":"guidelines/brand-logo.card.html","group":"Brand","viewport":"700x180","subtitle":"Scales-of-justice mark + Quicksand wordmark","name":"Logo & lockup"},{"path":"guidelines/colors-brand.card.html","group":"Colors","viewport":"700x150","subtitle":"Blue primary + purple secondary, sampled from the mark","name":"Brand colors"},{"path":"guidelines/colors-category.card.html","group":"Colors","viewport":"700x150","subtitle":"Prisma Category enum → chip colors","name":"Category accents"},{"path":"guidelines/colors-roles.card.html","group":"Colors","viewport":"700x150","subtitle":"Container pairings for filled / tonal surfaces","name":"Primary & secondary roles"},{"path":"guidelines/colors-status.card.html","group":"Colors","viewport":"700x130","subtitle":"Lifecycle states for carpetas (en proceso → vencido)","name":"Case status colors"},{"path":"guidelines/colors-surface.card.html","group":"Colors","viewport":"700x130","subtitle":"Blue-tinted neutral surfaces, lowest → highest","name":"Surface scale"},{"path":"components/data/data.card.html","group":"Components","viewport":"700x300","subtitle":"Cards, status chips, filter chips, avatars & badges","name":"Data display"},{"path":"components/forms/forms.card.html","group":"Components","viewport":"700x340","subtitle":"Buttons, inputs, selects, checkbox & switch","name":"Forms"},{"path":"components/navigation/navigation.card.html","group":"Components","viewport":"700x140","subtitle":"Section tabs with icons & count pills","name":"Navigation — Tabs"},{"path":"guidelines/spacing-elevation.card.html","group":"Spacing","viewport":"700x160","subtitle":"MD3 shadow levels 1–5 for cards, menus & dialogs","name":"Elevation"},{"path":"guidelines/spacing-radius.card.html","group":"Spacing","viewport":"700x150","subtitle":"MD3 shape scale — xs fields, full buttons & chips","name":"Corner radius"},{"path":"guidelines/spacing-scale.card.html","group":"Spacing","viewport":"700x150","subtitle":"4px baseline grid, space-1 → space-9","name":"Spacing scale"},{"path":"guidelines/type-body.card.html","group":"Type","viewport":"700x210","subtitle":"The working text styles for UI and data tables","name":"Title, body & label"},{"path":"guidelines/type-data.card.html","group":"Type","viewport":"700x150","subtitle":"Roboto Mono tabular figures for IDs, money & dates","name":"Data / numeric"},{"path":"guidelines/type-display.card.html","group":"Type","viewport":"700x190","subtitle":"Quicksand 600/700 — page and section titles","name":"Display & headline"}],"templates":[],"globalCssPaths":["tokens/fonts.css","tokens/colors.css","tokens/typography.css","tokens/spacing.css","tokens/base.css","components/forms/forms.css","components/data/data.css","components/navigation/navigation.css","styles.css"],"tokens":[{"name":"--brand-blue","value":"#3060A8","kind":"color","definedIn":"tokens/colors.css"},{"name":"--brand-purple","value":"#6048A8","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-10","value":"#001B3D","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-20","value":"#002F65","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-30","value":"#16458C","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-40","value":"#3060A8","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-50","value":"#4B79C3","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-60","value":"#6793DF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-70","value":"#84AEFC","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-80","value":"#AEC6FF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-90","value":"#D8E2FF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-95","value":"#EDF0FF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--blue-99","value":"#FDFBFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-10","value":"#1C0D40","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-20","value":"#321A63","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-30","value":"#49328A","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-40","value":"#6048A8","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-50","value":"#7960C3","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-60","value":"#947ADF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-70","value":"#AF95FC","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-80","value":"#CBBEFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-90","value":"#E7DEFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-95","value":"#F5EEFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--purple-99","value":"#FFFBFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--teal-10","value":"#00201A","kind":"color","definedIn":"tokens/colors.css"},{"name":"--teal-30","value":"#00504099","kind":"color","definedIn":"tokens/colors.css"},{"name":"--teal-40","value":"#1F6B5A","kind":"color","definedIn":"tokens/colors.css"},{"name":"--teal-80","value":"#8AD6BF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--teal-90","value":"#A7F2DA","kind":"color","definedIn":"tokens/colors.css"},{"name":"--teal-95","value":"#C5FFEC","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-0","value":"#000000","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-10","value":"#1A1B20","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-20","value":"#2F3036","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-30","value":"#45464C","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-40","value":"#5D5E64","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-50","value":"#76777D","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-60","value":"#909097","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-70","value":"#ABABB2","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-80","value":"#C7C6CD","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-90","value":"#E3E2E9","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-95","value":"#F1F0F7","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-98","value":"#FAF8FF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-99","value":"#FDFBFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--neutral-100","value":"#FFFFFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--red-40","value":"#BA1A1A","kind":"color","definedIn":"tokens/colors.css"},{"name":"--red-90","value":"#FFDAD6","kind":"color","definedIn":"tokens/colors.css"},{"name":"--red-10","value":"#410002","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-primary","value":"var(--blue-40)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-primary","value":"#FFFFFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-primary-container","value":"var(--blue-90)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-primary-container","value":"var(--blue-10)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-secondary","value":"var(--purple-40)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-secondary","value":"#FFFFFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-secondary-container","value":"var(--purple-90)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-secondary-container","value":"var(--purple-10)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-tertiary","value":"var(--teal-40)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-tertiary","value":"#FFFFFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-tertiary-container","value":"var(--teal-90)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-tertiary-container","value":"var(--teal-10)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-error","value":"var(--red-40)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-error","value":"#FFFFFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-error-container","value":"var(--red-90)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-error-container","value":"var(--red-10)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-background","value":"var(--neutral-98)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-background","value":"var(--neutral-10)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-surface","value":"var(--neutral-98)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-surface","value":"var(--neutral-10)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-on-surface-variant","value":"var(--neutral-30)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-surface-dim","value":"#DAD9E0","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-surface-bright","value":"#FAF8FF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-surface-container-lowest","value":"#FFFFFF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-surface-container-low","value":"#F4F3FA","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-surface-container","value":"#EEEDF4","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-surface-container-high","value":"#E8E7EF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-surface-container-highest","value":"#E2E2E9","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-outline","value":"var(--neutral-50)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-outline-variant","value":"var(--neutral-80)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-inverse-surface","value":"var(--neutral-20)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-inverse-on-surface","value":"var(--neutral-95)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-inverse-primary","value":"var(--blue-80)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-scrim","value":"rgba(0, 0, 0, 0.4)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--md-state-hover","value":"0.08","kind":"other","definedIn":"tokens/colors.css","annotation":"other"},{"name":"--md-state-focus","value":"0.12","kind":"other","definedIn":"tokens/colors.css","annotation":"other"},{"name":"--md-state-press","value":"0.12","kind":"other","definedIn":"tokens/colors.css","annotation":"other"},{"name":"--md-state-drag","value":"0.16","kind":"other","definedIn":"tokens/colors.css","annotation":"other"},{"name":"--status-active","value":"var(--blue-40)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--status-active-container","value":"var(--blue-90)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--status-review","value":"#8A5A00","kind":"color","definedIn":"tokens/colors.css"},{"name":"--status-review-container","value":"#FFDDB0","kind":"color","definedIn":"tokens/colors.css"},{"name":"--status-done","value":"#2E6B4F","kind":"color","definedIn":"tokens/colors.css"},{"name":"--status-done-container","value":"#B8F0CF","kind":"color","definedIn":"tokens/colors.css"},{"name":"--status-overdue","value":"var(--red-40)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--status-overdue-container","value":"var(--red-90)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--cat-terminados","value":"#2E6B4F","kind":"color","definedIn":"tokens/colors.css"},{"name":"--cat-lios-juridicos","value":"#B3261E","kind":"color","definedIn":"tokens/colors.css"},{"name":"--cat-bancolombia","value":"#B58300","kind":"color","definedIn":"tokens/colors.css"},{"name":"--cat-reintegra","value":"var(--teal-40)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--cat-insolvencia","value":"#9A4A00","kind":"color","definedIn":"tokens/colors.css"},{"name":"--cat-sin-especificar","value":"var(--neutral-50)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--cat-sin-tercero","value":"var(--purple-40)","kind":"color","definedIn":"tokens/colors.css"},{"name":"--font-sans","value":"'Quicksand', system-ui, -apple-system, 'Segoe UI', sans-serif","kind":"font","definedIn":"tokens/typography.css"},{"name":"--font-mono","value":"'Roboto Mono', ui-monospace, 'SFMono-Regular', 'Menlo', monospace","kind":"font","definedIn":"tokens/typography.css"},{"name":"--weight-regular","value":"400","kind":"font","definedIn":"tokens/typography.css"},{"name":"--weight-medium","value":"500","kind":"font","definedIn":"tokens/typography.css"},{"name":"--weight-semibold","value":"600","kind":"font","definedIn":"tokens/typography.css"},{"name":"--weight-bold","value":"700","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-display-lg","value":"700 3.5rem/1.1 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-display-md","value":"700 2.8125rem/1.15 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-display-sm","value":"600 2.25rem/1.2 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-headline-lg","value":"600 2rem/1.25 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-headline-md","value":"600 1.75rem/1.28 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-headline-sm","value":"600 1.5rem/1.33 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-title-lg","value":"600 1.375rem/1.45 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-title-md","value":"600 1rem/1.5 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-title-sm","value":"600 0.875rem/1.43 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-body-lg","value":"400 1rem/1.5 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-body-md","value":"400 0.875rem/1.43 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-body-sm","value":"400 0.75rem/1.4 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-label-lg","value":"600 0.875rem/1.43 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-label-md","value":"600 0.75rem/1.33 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-label-sm","value":"600 0.6875rem/1.45 var(--font-sans)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-data-lg","value":"500 1rem/1.4 var(--font-mono)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-data-md","value":"500 0.875rem/1.4 var(--font-mono)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--type-data-sm","value":"500 0.75rem/1.4 var(--font-mono)","kind":"font","definedIn":"tokens/typography.css"},{"name":"--tracking-tight","value":"-0.01em","kind":"other","definedIn":"tokens/typography.css","annotation":"other"},{"name":"--tracking-normal","value":"0","kind":"other","definedIn":"tokens/typography.css","annotation":"other"},{"name":"--tracking-label","value":"0.04em","kind":"other","definedIn":"tokens/typography.css","annotation":"other"},{"name":"--space-0","value":"0","kind":"spacing","definedIn":"tokens/spacing.css"},{"name":"--space-1","value":"0.25rem","kind":"spacing","definedIn":"tokens/spacing.css"},{"name":"--space-2","value":"0.5rem","kind":"spacing","definedIn":"tokens/spacing.css"},{"name":"--space-3","value":"0.75rem","kind":"spacing","definedIn":"tokens/spacing.css"},{"name":"--space-4","value":"1rem","kind":"spacing","definedIn":"tokens/spacing.css"},{"name":"--space-5","value":"1.5rem","kind":"spacing","definedIn":"tokens/spacing.css"},{"name":"--space-6","value":"2rem","kind":"spacing","definedIn":"tokens/spacing.css"},{"name":"--space-7","value":"2.5rem","kind":"spacing","definedIn":"tokens/spacing.css"},{"name":"--space-8","value":"3rem","kind":"spacing","definedIn":"tokens/spacing.css"},{"name":"--space-9","value":"4rem","kind":"spacing","definedIn":"tokens/spacing.css"},{"name":"--radius-none","value":"0","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--radius-xs","value":"4px","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--radius-sm","value":"8px","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--radius-md","value":"12px","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--radius-lg","value":"16px","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--radius-xl","value":"28px","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--radius-full","value":"999px","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--radius-card","value":"var(--radius-md)","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--radius-button","value":"var(--radius-full)","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--radius-field","value":"var(--radius-xs)","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--radius-chip","value":"var(--radius-sm)","kind":"radius","definedIn":"tokens/spacing.css"},{"name":"--elevation-0","value":"none","kind":"shadow","definedIn":"tokens/spacing.css"},{"name":"--elevation-1","value":"0 1px 2px rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.15)","kind":"shadow","definedIn":"tokens/spacing.css"},{"name":"--elevation-2","value":"0 1px 2px rgba(0,0,0,0.30), 0 2px 6px 2px rgba(0,0,0,0.15)","kind":"shadow","definedIn":"tokens/spacing.css"},{"name":"--elevation-3","value":"0 1px 3px rgba(0,0,0,0.30), 0 4px 8px 3px rgba(0,0,0,0.15)","kind":"shadow","definedIn":"tokens/spacing.css"},{"name":"--elevation-4","value":"0 2px 3px rgba(0,0,0,0.30), 0 6px 10px 4px rgba(0,0,0,0.15)","kind":"shadow","definedIn":"tokens/spacing.css"},{"name":"--elevation-5","value":"0 4px 4px rgba(0,0,0,0.30), 0 8px 12px 6px rgba(0,0,0,0.15)","kind":"shadow","definedIn":"tokens/spacing.css"},{"name":"--ease-standard","value":"cubic-bezier(0.2, 0, 0, 1)","kind":"other","definedIn":"tokens/spacing.css","annotation":"other"},{"name":"--ease-emphasized","value":"cubic-bezier(0.2, 0, 0, 1)","kind":"other","definedIn":"tokens/spacing.css","annotation":"other"},{"name":"--ease-decelerate","value":"cubic-bezier(0, 0, 0, 1)","kind":"other","definedIn":"tokens/spacing.css","annotation":"other"},{"name":"--ease-accelerate","value":"cubic-bezier(0.3, 0, 1, 1)","kind":"other","definedIn":"tokens/spacing.css","annotation":"other"},{"name":"--duration-short","value":"150ms","kind":"other","definedIn":"tokens/spacing.css","annotation":"other"},{"name":"--duration-medium","value":"250ms","kind":"other","definedIn":"tokens/spacing.css","annotation":"other"},{"name":"--duration-long","value":"400ms","kind":"other","definedIn":"tokens/spacing.css","annotation":"other"},{"name":"--layout-sidebar-width","value":"264px","kind":"spacing","definedIn":"tokens/spacing.css","annotation":"spacing"},{"name":"--layout-rail-width","value":"80px","kind":"spacing","definedIn":"tokens/spacing.css","annotation":"spacing"},{"name":"--layout-topbar-height","value":"64px","kind":"spacing","definedIn":"tokens/spacing.css","annotation":"spacing"},{"name":"--layout-content-max","value":"1440px","kind":"spacing","definedIn":"tokens/spacing.css","annotation":"spacing"}],"themes":[],"fonts":[],"brandFonts":[{"family":"Quicksand","status":"ok","tokens":["--font-sans"],"path":"tokens/typography.css"},{"family":"Roboto Mono","status":"ok","tokens":["--font-mono"],"path":"tokens/typography.css"}],"source":"spa"}
+{
+  "namespace": "DesignSystemAsesor2_f8324e",
+  "components": [
+    { "name": "Avatar", "sourcePath": "components/data/Avatar.jsx" },
+    { "name": "Badge", "sourcePath": "components/data/Badge.jsx" },
+    { "name": "Card", "sourcePath": "components/data/Card.jsx" },
+    { "name": "Chip", "sourcePath": "components/data/Chip.jsx" },
+    { "name": "StatusChip", "sourcePath": "components/data/StatusChip.jsx" },
+    { "name": "Button", "sourcePath": "components/forms/Button.jsx" },
+    { "name": "Checkbox", "sourcePath": "components/forms/Checkbox.jsx" },
+    { "name": "IconButton", "sourcePath": "components/forms/IconButton.jsx" },
+    { "name": "Select", "sourcePath": "components/forms/Select.jsx" },
+    { "name": "Switch", "sourcePath": "components/forms/Switch.jsx" },
+    { "name": "TextField", "sourcePath": "components/forms/TextField.jsx" },
+    { "name": "Tabs", "sourcePath": "components/navigation/Tabs.jsx" }
+  ],
+  "startingPoints": [
+    {
+      "name": "asesor",
+      "path": "ui_kits/asesor/index.html",
+      "previewPath": "ui_kits/asesor/index.html",
+      "kind": "screen",
+      "section": "Asesor Jurídico",
+      "subtitle": "Legal case-management dashboard",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "Card",
+      "path": "components/data/Card.jsx",
+      "previewPath": "components/data/data.card.html",
+      "kind": "component",
+      "section": "Data",
+      "subtitle": "Outlined, elevated & filled surfaces",
+      "viewport": "700x200"
+    },
+    {
+      "name": "StatusChip",
+      "path": "components/data/StatusChip.jsx",
+      "previewPath": "components/data/data.card.html",
+      "kind": "component",
+      "section": "Data",
+      "subtitle": "Legal case status & category indicators",
+      "viewport": "700x130"
+    },
+    {
+      "name": "Button",
+      "path": "components/forms/Button.jsx",
+      "previewPath": "components/forms/forms.card.html",
+      "kind": "component",
+      "section": "Forms",
+      "subtitle": "Filled, tonal, outlined & text buttons",
+      "viewport": "700x150"
+    },
+    {
+      "name": "TextField",
+      "path": "components/forms/TextField.jsx",
+      "previewPath": "components/forms/forms.card.html",
+      "kind": "component",
+      "section": "Forms",
+      "subtitle": "Text inputs with labels, icons & validation",
+      "viewport": "700x150"
+    }
+  ],
+  "cards": [
+    {
+      "path": "ui_kits/asesor/index.html",
+      "group": "Asesor Jurídico",
+      "viewport": "1440x900",
+      "subtitle": "Lista, filtros y detalle de procesos",
+      "name": "Dashboard de carpetas"
+    },
+    {
+      "path": "guidelines/brand-logo-dark.card.html",
+      "group": "Brand",
+      "viewport": "700x150",
+      "subtitle": "Mark reversed on the brand-blue app bar",
+      "name": "Logo on dark"
+    },
+    {
+      "path": "guidelines/brand-logo.card.html",
+      "group": "Brand",
+      "viewport": "700x180",
+      "subtitle": "Scales-of-justice mark + Quicksand wordmark",
+      "name": "Logo & lockup"
+    },
+    {
+      "path": "guidelines/colors-brand.card.html",
+      "group": "Colors",
+      "viewport": "700x150",
+      "subtitle": "Blue primary + purple secondary, sampled from the mark",
+      "name": "Brand colors"
+    },
+    {
+      "path": "guidelines/colors-category.card.html",
+      "group": "Colors",
+      "viewport": "700x150",
+      "subtitle": "Prisma Category enum → chip colors",
+      "name": "Category accents"
+    },
+    {
+      "path": "guidelines/colors-roles.card.html",
+      "group": "Colors",
+      "viewport": "700x150",
+      "subtitle": "Container pairings for filled / tonal surfaces",
+      "name": "Primary & secondary roles"
+    },
+    {
+      "path": "guidelines/colors-status.card.html",
+      "group": "Colors",
+      "viewport": "700x130",
+      "subtitle": "Lifecycle states for carpetas (en proceso → vencido)",
+      "name": "Case status colors"
+    },
+    {
+      "path": "guidelines/colors-surface.card.html",
+      "group": "Colors",
+      "viewport": "700x130",
+      "subtitle": "Blue-tinted neutral surfaces, lowest → highest",
+      "name": "Surface scale"
+    },
+    {
+      "path": "components/data/data.card.html",
+      "group": "Components",
+      "viewport": "700x300",
+      "subtitle": "Cards, status chips, filter chips, avatars & badges",
+      "name": "Data display"
+    },
+    {
+      "path": "components/forms/forms.card.html",
+      "group": "Components",
+      "viewport": "700x340",
+      "subtitle": "Buttons, inputs, selects, checkbox & switch",
+      "name": "Forms"
+    },
+    {
+      "path": "components/navigation/navigation.card.html",
+      "group": "Components",
+      "viewport": "700x140",
+      "subtitle": "Section tabs with icons & count pills",
+      "name": "Navigation — Tabs"
+    },
+    {
+      "path": "guidelines/spacing-elevation.card.html",
+      "group": "Spacing",
+      "viewport": "700x160",
+      "subtitle": "MD3 shadow levels 1–5 for cards, menus & dialogs",
+      "name": "Elevation"
+    },
+    {
+      "path": "guidelines/spacing-radius.card.html",
+      "group": "Spacing",
+      "viewport": "700x150",
+      "subtitle": "MD3 shape scale — xs fields, full buttons & chips",
+      "name": "Corner radius"
+    },
+    {
+      "path": "guidelines/spacing-scale.card.html",
+      "group": "Spacing",
+      "viewport": "700x150",
+      "subtitle": "4px baseline grid, space-1 → space-9",
+      "name": "Spacing scale"
+    },
+    {
+      "path": "guidelines/type-body.card.html",
+      "group": "Type",
+      "viewport": "700x210",
+      "subtitle": "The working text styles for UI and data tables",
+      "name": "Title, body & label"
+    },
+    {
+      "path": "guidelines/type-data.card.html",
+      "group": "Type",
+      "viewport": "700x150",
+      "subtitle": "Roboto Mono tabular figures for IDs, money & dates",
+      "name": "Data / numeric"
+    },
+    {
+      "path": "guidelines/type-display.card.html",
+      "group": "Type",
+      "viewport": "700x190",
+      "subtitle": "Quicksand 600/700 — page and section titles",
+      "name": "Display & headline"
+    }
+  ],
+  "templates": [],
+  "globalCssPaths": [
+    "tokens/fonts.css",
+    "tokens/colors.css",
+    "tokens/typography.css",
+    "tokens/spacing.css",
+    "tokens/base.css",
+    "components/forms/forms.css",
+    "components/data/data.css",
+    "components/navigation/navigation.css",
+    "styles.css"
+  ],
+  "tokens": [
+    {
+      "name": "--brand-blue",
+      "value": "#3060A8",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--brand-purple",
+      "value": "#6048A8",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-10",
+      "value": "#001B3D",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-20",
+      "value": "#002F65",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-30",
+      "value": "#16458C",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-40",
+      "value": "#3060A8",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-50",
+      "value": "#4B79C3",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-60",
+      "value": "#6793DF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-70",
+      "value": "#84AEFC",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-80",
+      "value": "#AEC6FF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-90",
+      "value": "#D8E2FF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-95",
+      "value": "#EDF0FF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-99",
+      "value": "#FDFBFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-10",
+      "value": "#1C0D40",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-20",
+      "value": "#321A63",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-30",
+      "value": "#49328A",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-40",
+      "value": "#6048A8",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-50",
+      "value": "#7960C3",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-60",
+      "value": "#947ADF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-70",
+      "value": "#AF95FC",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-80",
+      "value": "#CBBEFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-90",
+      "value": "#E7DEFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-95",
+      "value": "#F5EEFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--purple-99",
+      "value": "#FFFBFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--teal-10",
+      "value": "#00201A",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--teal-30",
+      "value": "#00504099",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--teal-40",
+      "value": "#1F6B5A",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--teal-80",
+      "value": "#8AD6BF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--teal-90",
+      "value": "#A7F2DA",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--teal-95",
+      "value": "#C5FFEC",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-0",
+      "value": "#000000",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-10",
+      "value": "#1A1B20",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-20",
+      "value": "#2F3036",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-30",
+      "value": "#45464C",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-40",
+      "value": "#5D5E64",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-50",
+      "value": "#76777D",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-60",
+      "value": "#909097",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-70",
+      "value": "#ABABB2",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-80",
+      "value": "#C7C6CD",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-90",
+      "value": "#E3E2E9",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-95",
+      "value": "#F1F0F7",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-98",
+      "value": "#FAF8FF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-99",
+      "value": "#FDFBFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--neutral-100",
+      "value": "#FFFFFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--red-40",
+      "value": "#BA1A1A",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--red-90",
+      "value": "#FFDAD6",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--red-10",
+      "value": "#410002",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-primary",
+      "value": "var(--blue-40)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-primary",
+      "value": "#FFFFFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-primary-container",
+      "value": "var(--blue-90)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-primary-container",
+      "value": "var(--blue-10)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-secondary",
+      "value": "var(--purple-40)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-secondary",
+      "value": "#FFFFFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-secondary-container",
+      "value": "var(--purple-90)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-secondary-container",
+      "value": "var(--purple-10)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-tertiary",
+      "value": "var(--teal-40)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-tertiary",
+      "value": "#FFFFFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-tertiary-container",
+      "value": "var(--teal-90)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-tertiary-container",
+      "value": "var(--teal-10)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-error",
+      "value": "var(--red-40)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-error",
+      "value": "#FFFFFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-error-container",
+      "value": "var(--red-90)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-error-container",
+      "value": "var(--red-10)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-background",
+      "value": "var(--neutral-98)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-background",
+      "value": "var(--neutral-10)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-surface",
+      "value": "var(--neutral-98)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-surface",
+      "value": "var(--neutral-10)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-on-surface-variant",
+      "value": "var(--neutral-30)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-surface-dim",
+      "value": "#DAD9E0",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-surface-bright",
+      "value": "#FAF8FF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-surface-container-lowest",
+      "value": "#FFFFFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-surface-container-low",
+      "value": "#F4F3FA",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-surface-container",
+      "value": "#EEEDF4",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-surface-container-high",
+      "value": "#E8E7EF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-surface-container-highest",
+      "value": "#E2E2E9",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-outline",
+      "value": "var(--neutral-50)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-outline-variant",
+      "value": "var(--neutral-80)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-inverse-surface",
+      "value": "var(--neutral-20)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-inverse-on-surface",
+      "value": "var(--neutral-95)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-inverse-primary",
+      "value": "var(--blue-80)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-scrim",
+      "value": "rgba(0, 0, 0, 0.4)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--md-state-hover",
+      "value": "0.08",
+      "kind": "other",
+      "definedIn": "tokens/colors.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--md-state-focus",
+      "value": "0.12",
+      "kind": "other",
+      "definedIn": "tokens/colors.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--md-state-press",
+      "value": "0.12",
+      "kind": "other",
+      "definedIn": "tokens/colors.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--md-state-drag",
+      "value": "0.16",
+      "kind": "other",
+      "definedIn": "tokens/colors.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--status-active",
+      "value": "var(--blue-40)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--status-active-container",
+      "value": "var(--blue-90)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--status-review",
+      "value": "#8A5A00",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--status-review-container",
+      "value": "#FFDDB0",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--status-done",
+      "value": "#2E6B4F",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--status-done-container",
+      "value": "#B8F0CF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--status-overdue",
+      "value": "var(--red-40)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--status-overdue-container",
+      "value": "var(--red-90)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--cat-terminados",
+      "value": "#2E6B4F",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--cat-lios-juridicos",
+      "value": "#B3261E",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--cat-bancolombia",
+      "value": "#B58300",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--cat-reintegra",
+      "value": "var(--teal-40)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--cat-insolvencia",
+      "value": "#9A4A00",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--cat-sin-especificar",
+      "value": "var(--neutral-50)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--cat-sin-tercero",
+      "value": "var(--purple-40)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--font-sans",
+      "value": "'Quicksand', system-ui, -apple-system, 'Segoe UI', sans-serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-mono",
+      "value": "'Roboto Mono', ui-monospace, 'SFMono-Regular', 'Menlo', monospace",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-regular",
+      "value": "400",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-medium",
+      "value": "500",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-semibold",
+      "value": "600",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-bold",
+      "value": "700",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-display-lg",
+      "value": "700 3.5rem/1.1 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-display-md",
+      "value": "700 2.8125rem/1.15 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-display-sm",
+      "value": "600 2.25rem/1.2 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-headline-lg",
+      "value": "600 2rem/1.25 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-headline-md",
+      "value": "600 1.75rem/1.28 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-headline-sm",
+      "value": "600 1.5rem/1.33 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-title-lg",
+      "value": "600 1.375rem/1.45 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-title-md",
+      "value": "600 1rem/1.5 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-title-sm",
+      "value": "600 0.875rem/1.43 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-body-lg",
+      "value": "400 1rem/1.5 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-body-md",
+      "value": "400 0.875rem/1.43 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-body-sm",
+      "value": "400 0.75rem/1.4 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-label-lg",
+      "value": "600 0.875rem/1.43 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-label-md",
+      "value": "600 0.75rem/1.33 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-label-sm",
+      "value": "600 0.6875rem/1.45 var(--font-sans)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-data-lg",
+      "value": "500 1rem/1.4 var(--font-mono)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-data-md",
+      "value": "500 0.875rem/1.4 var(--font-mono)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--type-data-sm",
+      "value": "500 0.75rem/1.4 var(--font-mono)",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--tracking-tight",
+      "value": "-0.01em",
+      "kind": "other",
+      "definedIn": "tokens/typography.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--tracking-normal",
+      "value": "0",
+      "kind": "other",
+      "definedIn": "tokens/typography.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--tracking-label",
+      "value": "0.04em",
+      "kind": "other",
+      "definedIn": "tokens/typography.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--space-0",
+      "value": "0",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-1",
+      "value": "0.25rem",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-2",
+      "value": "0.5rem",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-3",
+      "value": "0.75rem",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-4",
+      "value": "1rem",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-5",
+      "value": "1.5rem",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-6",
+      "value": "2rem",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-7",
+      "value": "2.5rem",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-8",
+      "value": "3rem",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-9",
+      "value": "4rem",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-none",
+      "value": "0",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-xs",
+      "value": "4px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-sm",
+      "value": "8px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-md",
+      "value": "12px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-lg",
+      "value": "16px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-xl",
+      "value": "28px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-full",
+      "value": "999px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-card",
+      "value": "var(--radius-md)",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-button",
+      "value": "var(--radius-full)",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-field",
+      "value": "var(--radius-xs)",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-chip",
+      "value": "var(--radius-sm)",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--elevation-0",
+      "value": "none",
+      "kind": "shadow",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--elevation-1",
+      "value": "0 1px 2px rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.15)",
+      "kind": "shadow",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--elevation-2",
+      "value": "0 1px 2px rgba(0,0,0,0.30), 0 2px 6px 2px rgba(0,0,0,0.15)",
+      "kind": "shadow",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--elevation-3",
+      "value": "0 1px 3px rgba(0,0,0,0.30), 0 4px 8px 3px rgba(0,0,0,0.15)",
+      "kind": "shadow",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--elevation-4",
+      "value": "0 2px 3px rgba(0,0,0,0.30), 0 6px 10px 4px rgba(0,0,0,0.15)",
+      "kind": "shadow",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--elevation-5",
+      "value": "0 4px 4px rgba(0,0,0,0.30), 0 8px 12px 6px rgba(0,0,0,0.15)",
+      "kind": "shadow",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--ease-standard",
+      "value": "cubic-bezier(0.2, 0, 0, 1)",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--ease-emphasized",
+      "value": "cubic-bezier(0.2, 0, 0, 1)",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--ease-decelerate",
+      "value": "cubic-bezier(0, 0, 0, 1)",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--ease-accelerate",
+      "value": "cubic-bezier(0.3, 0, 1, 1)",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--duration-short",
+      "value": "150ms",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--duration-medium",
+      "value": "250ms",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--duration-long",
+      "value": "400ms",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--layout-sidebar-width",
+      "value": "264px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "spacing"
+    },
+    {
+      "name": "--layout-rail-width",
+      "value": "80px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "spacing"
+    },
+    {
+      "name": "--layout-topbar-height",
+      "value": "64px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "spacing"
+    },
+    {
+      "name": "--layout-content-max",
+      "value": "1440px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "spacing"
+    }
+  ],
+  "themes": [],
+  "fonts": [],
+  "brandFonts": [
+    {
+      "family": "Quicksand",
+      "status": "ok",
+      "tokens": ["--font-sans"],
+      "path": "tokens/typography.css"
+    },
+    {
+      "family": "Roboto Mono",
+      "status": "ok",
+      "tokens": ["--font-mono"],
+      "path": "tokens/typography.css"
+    }
+  ],
+  "source": "spa"
+}

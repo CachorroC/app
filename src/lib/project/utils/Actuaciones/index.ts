@@ -14,13 +14,13 @@ import { connection } from 'next/server';
  * @param actuaciones - Array of actuations from the fetch response.
  * @returns The latest FetchResponseActuacionType or null if the array is empty.
  */
-function getLatestByDate( actuaciones: FetchResponseActuacionType[] ): FetchResponseActuacionType | null {
+function getLatestByDate( actuaciones: FetchResponseActuacionType[], ): FetchResponseActuacionType | null {
   if ( !actuaciones || actuaciones.length === 0 ) {
     return null;
   }
 
   return actuaciones.reduce( (
-    prev, current
+    prev, current 
   ) => {
     const prevDate = ensureDate( prev.fechaActuacion )
       ?.getTime() || 0;
@@ -67,7 +67,6 @@ export default async function fetchActuaciones(
   await connection();
 
   try {
-
     const request = await fetchWithSmartRetry(
       `https://consultaprocesos.ramajudicial.gov.co:448/api/v2/Proceso/Actuaciones/${ idProceso }`,
       {
@@ -90,7 +89,8 @@ export default async function fetchActuaciones(
       return consultaActuaciones.actuaciones.map( ( actuacion ) => {
         return {
           ...actuacion,
-          isUltimaAct   : actuacion.idRegActuacion === latestActuacion?.idRegActuacion,
+          isUltimaAct:
+            actuacion.idRegActuacion === latestActuacion?.idRegActuacion,
           idRegActuacion: `${ actuacion.idRegActuacion }`,
           idProceso     : idProceso,
           carpetaNumero : carpetaNumero,
@@ -119,14 +119,13 @@ export default async function fetchActuaciones(
   }
 }
 
-
-export async function getActuacionesByCarpetaNumero ( carpetaNumero: number ) {
+export async function getActuacionesByCarpetaNumero( carpetaNumero: number ) {
   'use cache';
   cacheLife( 'hours' );
   const actuaciones = await prisma.actuacion.findMany( {
     where: {
-      carpetaNumero: carpetaNumero
-    }
+      carpetaNumero: carpetaNumero,
+    },
   } );
 
   return actuaciones;

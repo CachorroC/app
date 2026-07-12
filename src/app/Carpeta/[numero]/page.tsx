@@ -14,15 +14,13 @@ import { ProcesosComponent } from '#@/components/Proceso/server-components';
 import ProtoPage from '../../../components/proto-page';
 import { AvailableProcesosByName } from '#@/components/available-procesos-by-name';
 
-
-
 export default async function Page( {
   params,
 }: {
   params: Promise<{ numero: string }>;
 } ) {
   const {
-    numero
+    numero 
   } = await params;
 
   const carpeta = await getCarpetabyNumero( Number( numero ) );
@@ -32,7 +30,7 @@ export default async function Page( {
   }
 
   const {
-    idProcesos, llaveProceso, juzgado, nombre
+    idProcesos, llaveProceso, juzgado, nombre 
   } = carpeta;
 
   let idProcesoContent;

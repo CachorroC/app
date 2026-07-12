@@ -1,6 +1,6 @@
 # Claude Design prompt — `/memoriales` UI prototype
 
-> **Before pasting:** replace the `‹…›` placeholders in the "Design system" section with your actual tokens / existing component references, or attach the relevant CSS Modules and token files so the prototype is built *inside* your system rather than inventing one.
+> **Before pasting:** replace the `‹…›` placeholders in the "Design system" section with your actual tokens / existing component references, or attach the relevant CSS Modules and token files so the prototype is built _inside_ your system rather than inventing one.
 
 ---
 
@@ -19,11 +19,12 @@ You are building a UI prototype for a new route `/memoriales` in an existing Nex
 The form and selection must render from this manifest shape. Include 2–3 example manifests (e.g. `memorial-aporta-liquidacion`, `memorial-notificacion`) so the prototype demonstrates different field sets.
 
 ```ts
-type FieldType = 'text' | 'number' | 'date' | 'currency' | 'textarea' | 'select';
+type FieldType =
+  'text' | 'number' | 'date' | 'currency' | 'textarea' | 'select';
 
 interface FieldDef {
-  name: string;        // key within its group, e.g. "nombre"
-  label: string;       // Spanish label, e.g. "Nombre del deudor"
+  name: string; // key within its group, e.g. "nombre"
+  label: string; // Spanish label, e.g. "Nombre del deudor"
   type: FieldType;
   required?: boolean;
   placeholder?: string;
@@ -32,16 +33,16 @@ interface FieldDef {
 }
 
 interface FieldGroup {
-  key: string;         // becomes the nested object key, e.g. "deudor"
-  legend: string;      // fieldset legend, e.g. "Datos del deudor"
+  key: string; // becomes the nested object key, e.g. "deudor"
+  legend: string; // fieldset legend, e.g. "Datos del deudor"
   fields: FieldDef[];
 }
 
 interface MemorialTemplate {
-  id: string;              // "aporta-liquidacion"
-  displayName: string;     // "Memorial que aporta liquidación del crédito"
-  description: string;     // one line for the selector
-  groups: FieldGroup[];    // → assembled into { deudor: {...}, juzgado: "...", ... }
+  id: string; // "aporta-liquidacion"
+  displayName: string; // "Memorial que aporta liquidación del crédito"
+  description: string; // one line for the selector
+  groups: FieldGroup[]; // → assembled into { deudor: {...}, juzgado: "...", ... }
 }
 ```
 
@@ -85,6 +86,6 @@ Design these as generic, composable pieces — they will be reused across every 
 1. The route composition for `/memoriales` orchestrating the three states.
 2. The reusable components above, each with its own kebab-case CSS Module.
 3. 2–3 example manifests conforming to the contract, wired so the prototype actually renders different forms when you switch templates.
-4. Mock submit handling that just *simulates* the `validating → generating → success/error` transitions (no real backend) so all states are demonstrable.
+4. Mock submit handling that just _simulates_ the `validating → generating → success/error` transitions (no real backend) so all states are demonstrable.
 
 Keep the boundary clean: the form emits the nested object and calls an injected `onSubmit(values)` prop — do not implement the real submission. That prop is where the engineering pass attaches the server action.

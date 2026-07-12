@@ -4,7 +4,8 @@ import { getTemplateById } from '#@/memoriales/manifests/registry';
 import { buildSchema } from '#@/memoriales/lib/build-schema';
 import { buildContext } from '#@/memoriales/lib/build-context';
 
-const RENDER_URL = process.env.MEMORIALES_RENDER_URL ?? 'http://127.0.0.1:8787/render';
+const RENDER_URL
+  = process.env.MEMORIALES_RENDER_URL ?? 'http://127.0.0.1:8787/render';
 
 export type GenerateResult =
   | { ok: true; filename: string; base64: string }
@@ -19,7 +20,7 @@ export async function generateMemorial(
   if ( !template ) {
     return {
       ok     : false,
-      message: 'Plantilla no encontrada.'
+      message: 'Plantilla no encontrada.',
     };
   }
 
@@ -60,11 +61,11 @@ export async function generateMemorial(
       RENDER_URL, {
         method : 'POST',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         body: JSON.stringify( {
           templateId,
-          context
+          context,
         } ),
         cache: 'no-store',
       } 
@@ -72,7 +73,7 @@ export async function generateMemorial(
   } catch {
     return {
       ok     : false,
-      message: 'El servicio de documentos no está disponible.'
+      message: 'El servicio de documentos no está disponible.',
     };
   }
 
@@ -86,7 +87,7 @@ export async function generateMemorial(
 
     return {
       ok     : false,
-      message: 'No se pudo generar el documento. Intente de nuevo.'
+      message: 'No se pudo generar el documento. Intente de nuevo.',
     };
   }
 

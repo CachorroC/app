@@ -31,7 +31,11 @@
   justify-items: center;
   position: relative;
 }
-.container .calendar .days .day, .container .calendar .days .dayActive, .container .calendar .days .dayDisabled, .container .calendar .days .dayInactive, .container .calendar .days .dayToday {
+.container .calendar .days .day,
+.container .calendar .days .dayActive,
+.container .calendar .days .dayDisabled,
+.container .calendar .days .dayInactive,
+.container .calendar .days .dayToday {
   position: relative;
   padding: 0.6rem;
   box-sizing: border-box;
@@ -39,9 +43,13 @@
   width: 3rem;
   height: 3rem;
 }
-.container .calendar .days .day:after, .container .calendar .days .dayActive:after, .container .calendar .days .dayDisabled:after, .container .calendar .days .dayInactive:after, .container .calendar .days .dayToday:after {
+.container .calendar .days .day:after,
+.container .calendar .days .dayActive:after,
+.container .calendar .days .dayDisabled:after,
+.container .calendar .days .dayInactive:after,
+.container .calendar .days .dayToday:after {
   position: absolute;
-  content: "";
+  content: '';
   left: 50%;
   top: 50%;
   height: 40px;
@@ -51,7 +59,11 @@
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-.container .calendar .days .day:not(.dayActive):hover:after, .container .calendar .days .dayActive:not(.dayActive):hover:after, .container .calendar .days .dayDisabled:not(.dayActive):hover:after, .container .calendar .days .dayInactive:not(.dayActive):hover:after, .container .calendar .days .dayToday:not(.dayActive):hover:after {
+.container .calendar .days .day:not(.dayActive):hover:after,
+.container .calendar .days .dayActive:not(.dayActive):hover:after,
+.container .calendar .days .dayDisabled:not(.dayActive):hover:after,
+.container .calendar .days .dayInactive:not(.dayActive):hover:after,
+.container .calendar .days .dayToday:not(.dayActive):hover:after {
   background: #f2f2f2;
 }
 .container .calendar .days .dayToday {

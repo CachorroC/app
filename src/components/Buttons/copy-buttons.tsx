@@ -29,18 +29,22 @@ export const CopyButton = ( {
 
   useEffect(
     () => {
-      if ( !isSnackbarOpen ) return;
+      if ( !isSnackbarOpen ) {
+        return;
+      }
 
       const timer = setTimeout(
         () => {
           setIsSnackbarOpen( false );
-        }, 5000
+        }, 5000 
       );
 
-      return () => clearTimeout( timer );
+      return () => {
+        return clearTimeout( timer );
+      };
     }, [
       isSnackbarOpen
-    ]
+    ] 
   );
 
   return (

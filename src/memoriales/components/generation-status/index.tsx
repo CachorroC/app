@@ -5,7 +5,8 @@ import { Icon } from '#@/components/ui';
 import { Button } from '../ui/button';
 import styles from './generation-status.module.css';
 
-export type GenerationState = 'idle' | 'validating' | 'generating' | 'success' | 'error';
+export type GenerationState =
+  'idle' | 'validating' | 'generating' | 'success' | 'error';
 
 interface GenerationStatusProps {
   status           : GenerationState;
@@ -16,7 +17,11 @@ interface GenerationStatusProps {
 }
 
 export function GenerationStatus( {
-  status, errorMessage, onDownload, onGenerateAnother, onRetry
+  status,
+  errorMessage,
+  onDownload,
+  onGenerateAnother,
+  onRetry,
 }: GenerationStatusProps ) {
   const downloadRef = useRef<HTMLButtonElement>( null );
   const retryRef = useRef<HTMLButtonElement>( null );
@@ -29,7 +34,7 @@ export function GenerationStatus( {
         retryRef.current?.focus();
       }
     }, [
-      status 
+      status
     ] 
   );
 
@@ -38,11 +43,19 @@ export function GenerationStatus( {
   }
 
   return (
-    <div className={styles.region} aria-live="polite" aria-busy={status === 'validating' || status === 'generating'}>
+    <div
+      className={styles.region}
+      aria-live="polite"
+      aria-busy={status === 'validating' || status === 'generating'}
+    >
       {status === 'validating'
         ? (
             <div className={styles.busyRow}>
-              <Icon name="progress_activity" className={styles.spinner} size={22} />
+              <Icon
+                name="progress_activity"
+                className={styles.spinner}
+                size={22}
+              />
               <span className={styles.busyText}>Validando información…</span>
             </div>
           )
@@ -51,7 +64,11 @@ export function GenerationStatus( {
       {status === 'generating'
         ? (
             <div className={styles.busyRow}>
-              <Icon name="progress_activity" className={styles.spinner} size={22} />
+              <Icon
+                name="progress_activity"
+                className={styles.spinner}
+                size={22}
+              />
               <span className={styles.busyText}>Generando documento…</span>
             </div>
           )
@@ -61,14 +78,39 @@ export function GenerationStatus( {
         ? (
             <div className={`${ styles.resultBlock } ${ styles.successBlock }`}>
               <div className={styles.resultHeader}>
-                <Icon name="check_circle" className={styles.successIcon} size={26} />
-                <div className={styles.successTitle}>Memorial generado con éxito</div>
+                <Icon
+                  name="check_circle"
+                  className={styles.successIcon}
+                  size={26}
+                />
+                <div className={styles.successTitle}>
+                  Memorial generado con éxito
+                </div>
               </div>
               <div className={styles.actions}>
-                <Button ref={downloadRef} variant="filled" icon={<Icon name="download" size={18} />} onClick={onDownload}>
+                <Button
+                  ref={downloadRef}
+                  variant="filled"
+                  icon={
+                    <Icon
+                      name="download"
+                      size={18}
+                    />
+                  }
+                  onClick={onDownload}
+                >
                   Descargar .docx
                 </Button>
-                <Button variant="text" icon={<Icon name="restart_alt" size={18} />} onClick={onGenerateAnother}>
+                <Button
+                  variant="text"
+                  icon={
+                    <Icon
+                      name="restart_alt"
+                      size={18}
+                    />
+                  }
+                  onClick={onGenerateAnother}
+                >
                   Generar otro
                 </Button>
               </div>
@@ -80,14 +122,31 @@ export function GenerationStatus( {
         ? (
             <div className={`${ styles.resultBlock } ${ styles.errorBlock }`}>
               <div className={styles.resultHeader}>
-                <Icon name="error" className={styles.errorIcon} size={26} />
-                <div className={styles.errorTitle}>No pudimos generar el documento</div>
+                <Icon
+                  name="error"
+                  className={styles.errorIcon}
+                  size={26}
+                />
+                <div className={styles.errorTitle}>
+                  No pudimos generar el documento
+                </div>
               </div>
               <div className={styles.errorMessage}>
-                {errorMessage ?? 'Ocurrió un problema al generar el memorial. Por favor, vuelva a intentarlo.'}
+                {errorMessage
+              ?? 'Ocurrió un problema al generar el memorial. Por favor, vuelva a intentarlo.'}
               </div>
               <div>
-                <Button ref={retryRef} variant="filled" icon={<Icon name="refresh" size={18} />} onClick={onRetry}>
+                <Button
+                  ref={retryRef}
+                  variant="filled"
+                  icon={
+                    <Icon
+                      name="refresh"
+                      size={18}
+                    />
+                  }
+                  onClick={onRetry}
+                >
                   Reintentar
                 </Button>
               </div>

@@ -8,7 +8,7 @@ const UNITS = [
   'sexto',
   'séptimo',
   'octavo',
-  'noveno'
+  'noveno',
 ];
 const TENS = [
   '',
@@ -20,7 +20,7 @@ const TENS = [
   'sexagésimo',
   'septuagésimo',
   'octogésimo',
-  'nonagésimo'
+  'nonagésimo',
 ];
 
 /** Spanish masculine ordinal for 1–99 (e.g. 4 -> "cuarto", 84 -> "octogésimo cuarto"). */
@@ -51,7 +51,7 @@ export function deriveNumeroEscrito( numeroRaw: string ): string {
   const ordinal = ordinalMasculino( parsed );
 
   if ( ordinal === null ) {
-    console.warn( `[memoriales] no se pudo derivar numero_escrito desde "${ numeroRaw }"; se usa el valor original.` );
+    console.warn( `[memoriales] no se pudo derivar numero_escrito desde "${ numeroRaw }"; se usa el valor original.`, );
 
     return numeroRaw;
   }

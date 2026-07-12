@@ -3,6 +3,7 @@
 This repository uses `AGENTS.md` as the canonical AI guidance file.
 
 Key conventions:
+
 - Next.js 16+ with the `app` router and React 19
 - Alias imports: `#@/*`, `components/*`, `types/*`
 - Sass + typed CSS/SCSS modules with `tcm src` validation

@@ -12,12 +12,19 @@ interface TemplateSelectorProps {
 }
 
 export function TemplateSelector( {
-  templates, selectedId, onSelect
+  templates,
+  selectedId,
+  onSelect,
 }: TemplateSelectorProps ) {
   return (
     <section className={styles.section}>
       <div className={styles.selectWrap}>
-        <label htmlFor="template-select" className={styles.label}>Seleccione un memorial</label>
+        <label
+          htmlFor="template-select"
+          className={styles.label}
+        >
+          Seleccione un memorial
+        </label>
         <select
           id="template-select"
           className={styles.select}
@@ -26,10 +33,20 @@ export function TemplateSelector( {
             return onSelect( event.target.value );
           }}
         >
-          <option value="" disabled>Elija un tipo de memorial…</option>
+          <option
+            value=""
+            disabled
+          >
+            Elija un tipo de memorial…
+          </option>
           {templates.map( ( template ) => {
             return (
-              <option key={template.id} value={template.id}>{template.displayName}</option>
+              <option
+                key={template.id}
+                value={template.id}
+              >
+                {template.displayName}
+              </option>
             );
           } )}
         </select>
@@ -54,13 +71,21 @@ export function TemplateSelector( {
                   onSelect( template.id );
                 }
               }}
-              className={`${ styles.card } ${ selected
-                ? styles.cardSelected
-                : '' }`}
+              className={`${ styles.card } ${
+                selected
+                  ? styles.cardSelected
+                  : ''
+              }`}
             >
-              <Icon name="gavel" className={styles.cardIcon} size={26} />
+              <Icon
+                name="gavel"
+                className={styles.cardIcon}
+                size={26}
+              />
               <div className={styles.cardTitle}>{template.displayName}</div>
-              <div className={styles.cardDescription}>{template.description}</div>
+              <div className={styles.cardDescription}>
+                {template.description}
+              </div>
             </div>
           );
         } )}

@@ -23,7 +23,7 @@ export default function NotifierClientComponent( {
       dir               : 'ltr',
       lang              : 'es',
       tag               : tag,
-      onClose: () => {},
+      onClose           : () => {},
     } 
   );
 

@@ -19,7 +19,8 @@ const TEMPLATES_DIR = join(
  * it stays included.
  */
 function manifestPaths(
-  template: MemorialTemplate, docxPaths: Set<string>
+  template: MemorialTemplate,
+  docxPaths: Set<string>,
 ): { paths: Set<string>; booleans: Set<string> } {
   const paths = new Set<string>();
   const booleans = new Set<string>();
@@ -52,7 +53,7 @@ function manifestPaths(
 
   return {
     paths,
-    booleans
+    booleans,
   };
 }
 
@@ -60,7 +61,7 @@ const diff = (
   a: Set<string>, b: Set<string> 
 ): string[] => {
   return [
-    ...a 
+    ...a
   ].filter( ( x ) => {
     return !b.has( x );
   } );
@@ -86,11 +87,11 @@ describe(
               ),
               orphanFields: diff(
                 manifest.paths, inDocx 
-              )
+              ),
             },
             {
               missingFields: [],
-              orphanFields : []
+              orphanFields : [],
             },
           );
 
@@ -98,10 +99,10 @@ describe(
             {
               missingBooleans: diff(
                 new Set( docx.booleans ), manifest.booleans 
-              )
+              ),
             },
             {
-              missingBooleans: []
+              missingBooleans: [],
             },
           );
         } 

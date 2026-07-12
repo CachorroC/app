@@ -16,7 +16,7 @@ export default function Error( {
       console.error( error );
     }, [
       error
-    ]
+    ] 
   );
 
   return (

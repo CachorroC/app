@@ -122,12 +122,7 @@ export type TipoProceso =
   | 'Otros Asuntos';
 
 export type Departamento =
-  | 'BOGOTÁ'
-  | 'CUNDINAMARCA'
-  | 'META'
-  | 'HUILA'
-  | 'ANTIOQUIA'
-  | 'ATLÁNTICO';
+  'BOGOTÁ' | 'CUNDINAMARCA' | 'META' | 'HUILA' | 'ANTIOQUIA' | 'ATLÁNTICO';
 
 export type TipoConsulta = 'NumeroRadicacion' | 'NombreRazonSocial';
 

@@ -1,6 +1,6 @@
 # Asesor Jurídico — Design System
 
-**Asesor Jurídico** is a legal case-management dashboard for Colombian law practices. It tracks lawsuits (*demandas*) and their case folders (*carpetas*) end-to-end: debtors, court proceedings (*actuaciones*), courts (*juzgados*), electronic invoicing (*facturas*), tasks and notes. The product is data-dense and operational — its job is to let an attorney see the state of every process at a glance and drill into any one of them.
+**Asesor Jurídico** is a legal case-management dashboard for Colombian law practices. It tracks lawsuits (_demandas_) and their case folders (_carpetas_) end-to-end: debtors, court proceedings (_actuaciones_), courts (_juzgados_), electronic invoicing (_facturas_), tasks and notes. The product is data-dense and operational — its job is to let an attorney see the state of every process at a glance and drill into any one of them.
 
 The interface is built on **Material You (Material Design 3)** with a **blue → purple** brand palette taken from the scales-of-justice logo, and **Quicksand** as the primary typeface.
 
@@ -16,7 +16,7 @@ The interface is built on **Material You (Material Design 3)** with a **blue →
 
 The product speaks **Colombian Spanish**, in the register of a professional legal tool — precise, neutral, never chatty.
 
-- **Language:** Spanish. Domain terms stay in their legal form: *carpeta, demanda, deudor, actuación, juzgado, radicado, mandamiento de pago, medidas cautelares, liquidación, avalúo.* Don't translate or simplify these.
+- **Language:** Spanish. Domain terms stay in their legal form: _carpeta, demanda, deudor, actuación, juzgado, radicado, mandamiento de pago, medidas cautelares, liquidación, avalúo._ Don't translate or simplify these.
 - **Person & address:** Address the user formally with **usted** ("Iniciar sesión", "Acceda a su tablero"). Avoid first person; the app does not have a "voice/personality."
 - **Casing:** Sentence case for everything user-facing — buttons ("Nueva carpeta", "Exportar"), titles ("Detalle de la demanda"), labels. UPPERCASE + letter-spacing is reserved for small overline labels (column headers, field labels like "CAPITAL ADEUDADO").
 - **Numbers & money:** Colombian formatting — thousands with `.` (`$ 12.450.000`), dates as `dd MMM yyyy` (`09 jun 2026`) or ISO in dense tables. Always set in the mono typeface so columns align. Cédulas and NITs keep their dotted grouping (`52.918.347`, `900.482.112-3`).
@@ -62,6 +62,7 @@ The product speaks **Colombian Spanish**, in the register of a professional lega
 ## Index / manifest
 
 **Root**
+
 - `styles.css` — the single entry point consumers link. `@import`s only.
 - `readme.md` — this guide.
 - `SKILL.md` — Agent-Skill wrapper.
@@ -69,6 +70,7 @@ The product speaks **Colombian Spanish**, in the register of a professional lega
 **`tokens/`** — `fonts.css` (Quicksand, Roboto Mono, Material Symbols), `colors.css` (MD3 roles + status/category domain colors), `typography.css` (type scale), `spacing.css` (spacing, radius, elevation, motion, layout), `base.css` (resets).
 
 **`components/`** — reusable React primitives (each: `Name.jsx` + `Name.d.ts` + `Name.prompt.md`, one card per folder):
+
 - `forms/` — **Button**, **IconButton**, **TextField**, **Select**, **Checkbox**, **Switch**
 - `data/` — **Card**, **StatusChip**, **Chip**, **Avatar**, **Badge**
 - `navigation/` — **Tabs**

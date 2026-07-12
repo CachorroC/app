@@ -1,4 +1,5 @@
-const DOCX_MIME = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+const DOCX_MIME
+  = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
 /** Decodes a base64 .docx payload and triggers a browser download. Client-side only. */
 export function downloadDocx(
@@ -13,9 +14,9 @@ export function downloadDocx(
 
   const blob = new Blob(
     [
-      new Uint8Array( byteNumbers ) 
+      new Uint8Array( byteNumbers )
     ], {
-      type: DOCX_MIME
+      type: DOCX_MIME,
     } 
   );
   const url = URL.createObjectURL( blob );

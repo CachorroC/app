@@ -17,7 +17,7 @@ export const getOrCreateDeviceId = (): string => {
   if ( !deviceId ) {
     deviceId = crypto.randomUUID();
     localStorage.setItem(
-      'anonymous_device_id', deviceId
+      'anonymous_device_id', deviceId 
     );
   }
 
@@ -27,10 +27,10 @@ export const getOrCreateDeviceId = (): string => {
 export function urlBase64ToUint8Array( base64String: string ): Uint8Array {
   const padding = '='.repeat( ( 4 - ( base64String.length % 4 ) ) % 4 );
   const base64 = ( base64String + padding ).replace(
-    /-/g, '+'
+    /-/g, '+' 
   )
     .replace(
-      /_/g, '/'
+      /_/g, '/' 
     );
   const rawData = window.atob( base64 );
   const outputArray = new Uint8Array( rawData.length );

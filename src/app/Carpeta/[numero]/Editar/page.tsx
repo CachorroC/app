@@ -7,7 +7,7 @@ export default async function PageCarpetaId( {
   params: Promise<{ numero: string }>;
 } ) {
   const {
-    numero
+    numero 
   } = await params;
 
   return (

@@ -22,9 +22,27 @@
    Drop the .woff2 files from the design system's assets/fonts/ into
    /public/fonts/ (or adjust the url()s). Quicksand = UI, Roboto Mono
    = numeric/IDs, Material Symbols Rounded = icons. */
-@font-face { font-family:'Quicksand'; font-style:normal; font-weight:400 700; font-display:swap; src:url('/fonts/quicksand-variable-latin.woff2') format('woff2'); }
-@font-face { font-family:'Roboto Mono'; font-style:normal; font-weight:400 600; font-display:swap; src:url('/fonts/roboto-mono-variable-latin.woff2') format('woff2'); }
-@font-face { font-family:'Material Symbols Rounded'; font-style:normal; font-weight:400 600; font-display:block; src:url('/fonts/material-symbols-rounded.woff2') format('woff2'); }
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/quicksand-variable-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/roboto-mono-variable-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: block;
+  src: url('/fonts/material-symbols-rounded.woff2') format('woff2');
+}
 
 /* ============================================================
    1. NON-COLOR TOKENS  (theme-independent)
@@ -32,7 +50,8 @@
 :root {
   /* ---- Font families ---- */
   --font-sans: 'Quicksand', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'Roboto Mono', ui-monospace, 'SFMono-Regular', 'Menlo', monospace;
+  --font-mono:
+    'Roboto Mono', ui-monospace, 'SFMono-Regular', 'Menlo', monospace;
   /* legacy family aliases (old globals referenced these names) */
   --play-display: var(--font-sans);
   --josefa: var(--font-sans);
@@ -43,7 +62,7 @@
   /* ---- Weights ---- */
   --weight-regular: 400;
   --weight-medium: 500;
-  --weight-semibold: 600;   /* workhorse "medium emphasis" — Quicksand 500 reads light */
+  --weight-semibold: 600; /* workhorse "medium emphasis" — Quicksand 500 reads light */
   --weight-bold: 700;
 
   /* ---- Material 3 type scale (composite shorthands) ---- */
@@ -71,30 +90,102 @@
 
   /* ---- Legacy granular type tokens — repointed to the MD3 scale ----
      (kept so existing markup using --title-large-font-size etc. still works) */
-  --display-large-font-family-name: var(--font-sans);  --display-large-font-weight: 700; --display-large-font-size: 3.5rem;    --display-large-line-height: 1.1;  --display-large-letter-spacing: var(--tracking-tight);
-  --display-medium-font-family-name: var(--font-sans); --display-medium-font-weight: 700; --display-medium-font-size: 2.8125rem; --display-medium-line-height: 1.15; --display-medium-letter-spacing: 0;
-  --display-small-font-family-name: var(--font-sans);  --display-small-font-weight: 600; --display-small-font-size: 2.25rem;   --display-small-line-height: 1.2;  --display-small-letter-spacing: 0;
-  --headline-large-font-family-name: var(--font-sans); --headline-large-font-weight: 600; --headline-large-font-size: 2rem;    --headline-large-line-height: 1.25; --headline-large-letter-spacing: 0;
-  --headline-medium-font-family-name: var(--font-sans);--headline-medium-font-weight: 600; --headline-medium-font-size: 1.75rem;--headline-medium-line-height: 1.28; --headline-medium-letter-spacing: 0;
-  --headline-small-font-family-name: var(--font-sans); --headline-small-font-weight: 600; --headline-small-font-size: 1.5rem;  --headline-small-line-height: 1.33; --headline-small-letter-spacing: 0;
-  --title-large-font-family-name: var(--font-sans);    --title-large-font-weight: 600; --title-large-font-size: 1.375rem;     --title-large-line-height: 1.45; --title-large-letter-spacing: 0;
-  --title-medium-font-family-name: var(--font-sans);   --title-medium-font-weight: 600; --title-medium-font-size: 1rem;       --title-medium-line-height: 1.5;  --title-medium-letter-spacing: 0;
-  --title-small-font-family-name: var(--font-sans);    --title-small-font-weight: 600; --title-small-font-size: 0.875rem;     --title-small-line-height: 1.43; --title-small-letter-spacing: 0;
-  --body-large-font-family-name: var(--font-sans);     --body-large-font-weight: 400; --body-large-font-size: 1rem;          --body-large-line-height: 1.5;  --body-large-letter-spacing: 0;
-  --body-medium-font-family-name: var(--font-sans);    --body-medium-font-weight: 400; --body-medium-font-size: 0.875rem;     --body-medium-line-height: 1.43; --body-medium-letter-spacing: 0;
-  --body-small-font-family-name: var(--font-sans);     --body-small-font-weight: 400; --body-small-font-size: 0.75rem;       --body-small-line-height: 1.4;  --body-small-letter-spacing: 0;
-  --label-large-font-family-name: var(--font-sans);    --label-large-font-weight: 600; --label-large-font-size: 0.875rem;     --label-large-line-height: 1.43; --label-large-letter-spacing: var(--tracking-label);
-  --label-medium-font-family-name: var(--font-sans);   --label-medium-font-weight: 600; --label-medium-font-size: 0.75rem;    --label-medium-line-height: 1.33; --label-medium-letter-spacing: var(--tracking-label);
-  --label-small-font-family-name: var(--font-sans);    --label-small-font-weight: 600; --label-small-font-size: 0.6875rem;    --label-small-line-height: 1.45; --label-small-letter-spacing: var(--tracking-label);
+  --display-large-font-family-name: var(--font-sans);
+  --display-large-font-weight: 700;
+  --display-large-font-size: 3.5rem;
+  --display-large-line-height: 1.1;
+  --display-large-letter-spacing: var(--tracking-tight);
+  --display-medium-font-family-name: var(--font-sans);
+  --display-medium-font-weight: 700;
+  --display-medium-font-size: 2.8125rem;
+  --display-medium-line-height: 1.15;
+  --display-medium-letter-spacing: 0;
+  --display-small-font-family-name: var(--font-sans);
+  --display-small-font-weight: 600;
+  --display-small-font-size: 2.25rem;
+  --display-small-line-height: 1.2;
+  --display-small-letter-spacing: 0;
+  --headline-large-font-family-name: var(--font-sans);
+  --headline-large-font-weight: 600;
+  --headline-large-font-size: 2rem;
+  --headline-large-line-height: 1.25;
+  --headline-large-letter-spacing: 0;
+  --headline-medium-font-family-name: var(--font-sans);
+  --headline-medium-font-weight: 600;
+  --headline-medium-font-size: 1.75rem;
+  --headline-medium-line-height: 1.28;
+  --headline-medium-letter-spacing: 0;
+  --headline-small-font-family-name: var(--font-sans);
+  --headline-small-font-weight: 600;
+  --headline-small-font-size: 1.5rem;
+  --headline-small-line-height: 1.33;
+  --headline-small-letter-spacing: 0;
+  --title-large-font-family-name: var(--font-sans);
+  --title-large-font-weight: 600;
+  --title-large-font-size: 1.375rem;
+  --title-large-line-height: 1.45;
+  --title-large-letter-spacing: 0;
+  --title-medium-font-family-name: var(--font-sans);
+  --title-medium-font-weight: 600;
+  --title-medium-font-size: 1rem;
+  --title-medium-line-height: 1.5;
+  --title-medium-letter-spacing: 0;
+  --title-small-font-family-name: var(--font-sans);
+  --title-small-font-weight: 600;
+  --title-small-font-size: 0.875rem;
+  --title-small-line-height: 1.43;
+  --title-small-letter-spacing: 0;
+  --body-large-font-family-name: var(--font-sans);
+  --body-large-font-weight: 400;
+  --body-large-font-size: 1rem;
+  --body-large-line-height: 1.5;
+  --body-large-letter-spacing: 0;
+  --body-medium-font-family-name: var(--font-sans);
+  --body-medium-font-weight: 400;
+  --body-medium-font-size: 0.875rem;
+  --body-medium-line-height: 1.43;
+  --body-medium-letter-spacing: 0;
+  --body-small-font-family-name: var(--font-sans);
+  --body-small-font-weight: 400;
+  --body-small-font-size: 0.75rem;
+  --body-small-line-height: 1.4;
+  --body-small-letter-spacing: 0;
+  --label-large-font-family-name: var(--font-sans);
+  --label-large-font-weight: 600;
+  --label-large-font-size: 0.875rem;
+  --label-large-line-height: 1.43;
+  --label-large-letter-spacing: var(--tracking-label);
+  --label-medium-font-family-name: var(--font-sans);
+  --label-medium-font-weight: 600;
+  --label-medium-font-size: 0.75rem;
+  --label-medium-line-height: 1.33;
+  --label-medium-letter-spacing: var(--tracking-label);
+  --label-small-font-family-name: var(--font-sans);
+  --label-small-font-weight: 600;
+  --label-small-font-size: 0.6875rem;
+  --label-small-line-height: 1.45;
+  --label-small-letter-spacing: var(--tracking-label);
 
   /* ---- Spacing (4px baseline grid) ---- */
   --space-0: 0;
-  --space-1: 0.25rem;  --space-2: 0.5rem;  --space-3: 0.75rem; --space-4: 1rem;
-  --space-5: 1.5rem;   --space-6: 2rem;    --space-7: 2.5rem;  --space-8: 3rem;  --space-9: 4rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-9: 4rem;
 
   /* ---- Shape / corner radius (MD3 scale) ---- */
   --radius-none: 0;
-  --radius-xs: 4px;  --radius-sm: 8px;  --radius-md: 12px;  --radius-lg: 16px;  --radius-xl: 28px;  --radius-full: 999px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
   --radius-card: var(--radius-md);
   --radius-button: var(--radius-full);
   --radius-field: var(--radius-xs);
@@ -109,16 +200,28 @@
 
   /* ---- Elevation (MD3 levels 0–5) ---- */
   --elevation-0: none;
-  --elevation-1: 0 1px 2px rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.15);
-  --elevation-2: 0 1px 2px rgba(0,0,0,0.30), 0 2px 6px 2px rgba(0,0,0,0.15);
-  --elevation-3: 0 1px 3px rgba(0,0,0,0.30), 0 4px 8px 3px rgba(0,0,0,0.15);
-  --elevation-4: 0 2px 3px rgba(0,0,0,0.30), 0 6px 10px 4px rgba(0,0,0,0.15);
-  --elevation-5: 0 4px 4px rgba(0,0,0,0.30), 0 8px 12px 6px rgba(0,0,0,0.15);
+  --elevation-1:
+    0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --elevation-2:
+    0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --elevation-3:
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+  --elevation-4:
+    0 2px 3px rgba(0, 0, 0, 0.3), 0 6px 10px 4px rgba(0, 0, 0, 0.15);
+  --elevation-5:
+    0 4px 4px rgba(0, 0, 0, 0.3), 0 8px 12px 6px rgba(0, 0, 0, 0.15);
   /* legacy --dp* aliases (mapped onto the MD3 levels) */
-  --dp0: var(--elevation-0); --dp1: var(--elevation-1); --dp2: var(--elevation-1);
-  --dp3: var(--elevation-2); --dp4: var(--elevation-2); --dp5: var(--elevation-3);
-  --dp6: var(--elevation-3); --dp8: var(--elevation-4); --dp12: var(--elevation-5);
-  --dp16: var(--elevation-5); --dp24: var(--elevation-5);
+  --dp0: var(--elevation-0);
+  --dp1: var(--elevation-1);
+  --dp2: var(--elevation-1);
+  --dp3: var(--elevation-2);
+  --dp4: var(--elevation-2);
+  --dp5: var(--elevation-3);
+  --dp6: var(--elevation-3);
+  --dp8: var(--elevation-4);
+  --dp12: var(--elevation-5);
+  --dp16: var(--elevation-5);
+  --dp24: var(--elevation-5);
 
   /* ---- Motion ---- */
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
@@ -146,22 +249,57 @@
    2. BRAND TONAL PALETTES  (theme-independent reference scales)
    ============================================================ */
 :root {
-  --brand-blue: #3060A8;
-  --brand-purple: #6048A8;
+  --brand-blue: #3060a8;
+  --brand-purple: #6048a8;
 
-  --blue-10:#001B3D; --blue-20:#002F65; --blue-30:#16458C; --blue-40:#3060A8; --blue-50:#4B79C3;
-  --blue-60:#6793DF; --blue-70:#84AEFC; --blue-80:#AEC6FF; --blue-90:#D8E2FF; --blue-95:#EDF0FF; --blue-99:#FDFBFF;
+  --blue-10: #001b3d;
+  --blue-20: #002f65;
+  --blue-30: #16458c;
+  --blue-40: #3060a8;
+  --blue-50: #4b79c3;
+  --blue-60: #6793df;
+  --blue-70: #84aefc;
+  --blue-80: #aec6ff;
+  --blue-90: #d8e2ff;
+  --blue-95: #edf0ff;
+  --blue-99: #fdfbff;
 
-  --purple-10:#1C0D40; --purple-20:#321A63; --purple-30:#49328A; --purple-40:#6048A8; --purple-50:#7960C3;
-  --purple-60:#947ADF; --purple-70:#AF95FC; --purple-80:#CBBEFF; --purple-90:#E7DEFF; --purple-95:#F5EEFF; --purple-99:#FFFBFF;
+  --purple-10: #1c0d40;
+  --purple-20: #321a63;
+  --purple-30: #49328a;
+  --purple-40: #6048a8;
+  --purple-50: #7960c3;
+  --purple-60: #947adf;
+  --purple-70: #af95fc;
+  --purple-80: #cbbeff;
+  --purple-90: #e7deff;
+  --purple-95: #f5eeff;
+  --purple-99: #fffbff;
 
-  --teal-10:#00201A; --teal-40:#1F6B5A; --teal-80:#8AD6BF; --teal-90:#A7F2DA; --teal-95:#C5FFEC;
+  --teal-10: #00201a;
+  --teal-40: #1f6b5a;
+  --teal-80: #8ad6bf;
+  --teal-90: #a7f2da;
+  --teal-95: #c5ffec;
 
-  --neutral-0:#000; --neutral-10:#1A1B20; --neutral-20:#2F3036; --neutral-30:#45464C; --neutral-40:#5D5E64;
-  --neutral-50:#76777D; --neutral-60:#909097; --neutral-70:#ABABB2; --neutral-80:#C7C6CD; --neutral-90:#E3E2E9;
-  --neutral-95:#F1F0F7; --neutral-98:#FAF8FF; --neutral-99:#FDFBFF; --neutral-100:#FFF;
+  --neutral-0: #000;
+  --neutral-10: #1a1b20;
+  --neutral-20: #2f3036;
+  --neutral-30: #45464c;
+  --neutral-40: #5d5e64;
+  --neutral-50: #76777d;
+  --neutral-60: #909097;
+  --neutral-70: #ababb2;
+  --neutral-80: #c7c6cd;
+  --neutral-90: #e3e2e9;
+  --neutral-95: #f1f0f7;
+  --neutral-98: #faf8ff;
+  --neutral-99: #fdfbff;
+  --neutral-100: #fff;
 
-  --red-40:#BA1A1A; --red-90:#FFDAD6; --red-10:#410002;
+  --red-40: #ba1a1a;
+  --red-90: #ffdad6;
+  --red-10: #410002;
 }
 
 /* ============================================================
@@ -169,65 +307,105 @@
    Each role is declared under BOTH the canonical --md-* name AND
    the legacy unprefixed name your app already uses.
    ============================================================ */
-:root, [data-theme="light"] {
+:root,
+[data-theme='light'] {
   color-scheme: light;
 
-  --md-primary: var(--blue-40);              --primary: var(--md-primary);
-  --md-on-primary: #FFFFFF;                  --on-primary: var(--md-on-primary);
-  --md-primary-container: var(--blue-90);    --primary-container: var(--md-primary-container);
-  --md-on-primary-container: var(--blue-10); --on-primary-container: var(--md-on-primary-container);
+  --md-primary: var(--blue-40);
+  --primary: var(--md-primary);
+  --md-on-primary: #ffffff;
+  --on-primary: var(--md-on-primary);
+  --md-primary-container: var(--blue-90);
+  --primary-container: var(--md-primary-container);
+  --md-on-primary-container: var(--blue-10);
+  --on-primary-container: var(--md-on-primary-container);
 
-  --md-secondary: var(--purple-40);              --secondary: var(--md-secondary);
-  --md-on-secondary: #FFFFFF;                    --on-secondary: var(--md-on-secondary);
-  --md-secondary-container: var(--purple-90);    --secondary-container: var(--md-secondary-container);
-  --md-on-secondary-container: var(--purple-10); --on-secondary-container: var(--md-on-secondary-container);
+  --md-secondary: var(--purple-40);
+  --secondary: var(--md-secondary);
+  --md-on-secondary: #ffffff;
+  --on-secondary: var(--md-on-secondary);
+  --md-secondary-container: var(--purple-90);
+  --secondary-container: var(--md-secondary-container);
+  --md-on-secondary-container: var(--purple-10);
+  --on-secondary-container: var(--md-on-secondary-container);
 
-  --md-tertiary: var(--teal-40);              --tertiary: var(--md-tertiary);
-  --md-on-tertiary: #FFFFFF;                  --on-tertiary: var(--md-on-tertiary);
-  --md-tertiary-container: var(--teal-90);    --tertiary-container: var(--md-tertiary-container);
-  --md-on-tertiary-container: var(--teal-10); --on-tertiary-container: var(--md-on-tertiary-container);
+  --md-tertiary: var(--teal-40);
+  --tertiary: var(--md-tertiary);
+  --md-on-tertiary: #ffffff;
+  --on-tertiary: var(--md-on-tertiary);
+  --md-tertiary-container: var(--teal-90);
+  --tertiary-container: var(--md-tertiary-container);
+  --md-on-tertiary-container: var(--teal-10);
+  --on-tertiary-container: var(--md-on-tertiary-container);
 
-  --md-error: var(--red-40);                 --error: var(--md-error);
-  --md-on-error: #FFFFFF;                     --on-error: var(--md-on-error);
-  --md-error-container: var(--red-90);        --error-container: var(--md-error-container);
-  --md-on-error-container: var(--red-10);     --on-error-container: var(--md-on-error-container);
+  --md-error: var(--red-40);
+  --error: var(--md-error);
+  --md-on-error: #ffffff;
+  --on-error: var(--md-on-error);
+  --md-error-container: var(--red-90);
+  --error-container: var(--md-error-container);
+  --md-on-error-container: var(--red-10);
+  --on-error-container: var(--md-on-error-container);
 
-  --md-background: var(--neutral-98);         --background: var(--md-background);
-  --md-on-background: var(--neutral-10);      --on-background: var(--md-on-background);
-  --md-surface: var(--neutral-98);            --surface: var(--md-surface);
-  --md-on-surface: var(--neutral-10);         --on-surface: var(--md-on-surface);
-  --md-on-surface-variant: var(--neutral-30); --on-surface-variant: var(--md-on-surface-variant);
+  --md-background: var(--neutral-98);
+  --background: var(--md-background);
+  --md-on-background: var(--neutral-10);
+  --on-background: var(--md-on-background);
+  --md-surface: var(--neutral-98);
+  --surface: var(--md-surface);
+  --md-on-surface: var(--neutral-10);
+  --on-surface: var(--md-on-surface);
+  --md-on-surface-variant: var(--neutral-30);
+  --on-surface-variant: var(--md-on-surface-variant);
   --surface-variant: var(--neutral-90);
 
-  --md-surface-dim: #DAD9E0;                       --surface-dim: var(--md-surface-dim);
-  --md-surface-bright: #FAF8FF;                    --surface-bright: var(--md-surface-bright);
-  --md-surface-container-lowest: #FFFFFF;          --surface-container-lowest: var(--md-surface-container-lowest);
-  --md-surface-container-low: #F4F3FA;             --surface-container-low: var(--md-surface-container-low);
-  --md-surface-container: #EEEDF4;                 --surface-container: var(--md-surface-container);
-  --md-surface-container-high: #E8E7EF;            --surface-container-high: var(--md-surface-container-high);
-  --md-surface-container-highest: #E2E2E9;         --surface-container-highest: var(--md-surface-container-highest);
+  --md-surface-dim: #dad9e0;
+  --surface-dim: var(--md-surface-dim);
+  --md-surface-bright: #faf8ff;
+  --surface-bright: var(--md-surface-bright);
+  --md-surface-container-lowest: #ffffff;
+  --surface-container-lowest: var(--md-surface-container-lowest);
+  --md-surface-container-low: #f4f3fa;
+  --surface-container-low: var(--md-surface-container-low);
+  --md-surface-container: #eeedf4;
+  --surface-container: var(--md-surface-container);
+  --md-surface-container-high: #e8e7ef;
+  --surface-container-high: var(--md-surface-container-high);
+  --md-surface-container-highest: #e2e2e9;
+  --surface-container-highest: var(--md-surface-container-highest);
 
-  --md-outline: var(--neutral-50);            --outline: var(--md-outline);
-  --md-outline-variant: var(--neutral-80);    --outline-variant: var(--md-outline-variant);
+  --md-outline: var(--neutral-50);
+  --outline: var(--md-outline);
+  --md-outline-variant: var(--neutral-80);
+  --outline-variant: var(--md-outline-variant);
 
-  --md-inverse-surface: var(--neutral-20);    --inverse-surface: var(--md-inverse-surface);
-  --md-inverse-on-surface: var(--neutral-95); --inverse-on-surface: var(--md-inverse-on-surface);
-  --md-inverse-primary: var(--blue-80);       --inverse-primary: var(--md-inverse-primary);
-  --md-scrim: rgba(0,0,0,0.4);                --scrim: var(--md-scrim); --shadow: #000;
+  --md-inverse-surface: var(--neutral-20);
+  --inverse-surface: var(--md-inverse-surface);
+  --md-inverse-on-surface: var(--neutral-95);
+  --inverse-on-surface: var(--md-inverse-on-surface);
+  --md-inverse-primary: var(--blue-80);
+  --inverse-primary: var(--md-inverse-primary);
+  --md-scrim: rgba(0, 0, 0, 0.4);
+  --scrim: var(--md-scrim);
+  --shadow: #000;
   --surface-tint: var(--md-primary);
 
   /* ---- Domain colors: case lifecycle status ---- */
-  --status-active: var(--blue-40);            --status-active-container: var(--blue-90);
-  --status-review: #8A5A00;                   --status-review-container: #FFDDB0;
-  --status-done: #2E6B4F;                     --status-done-container: #B8F0CF;
-  --status-overdue: var(--red-40);            --status-overdue-container: var(--red-90);
+  --status-active: var(--blue-40);
+  --status-active-container: var(--blue-90);
+  --status-review: #8a5a00;
+  --status-review-container: #ffddb0;
+  --status-done: #2e6b4f;
+  --status-done-container: #b8f0cf;
+  --status-overdue: var(--red-40);
+  --status-overdue-container: var(--red-90);
 
   /* ---- Domain colors: Category enum accents ---- */
-  --cat-terminados: #2E6B4F;
-  --cat-lios-juridicos: #B3261E;
-  --cat-bancolombia: #B58300;
+  --cat-terminados: #2e6b4f;
+  --cat-lios-juridicos: #b3261e;
+  --cat-bancolombia: #b58300;
   --cat-reintegra: var(--teal-40);
-  --cat-insolvencia: #9A4A00;
+  --cat-insolvencia: #9a4a00;
   --cat-sin-especificar: var(--neutral-50);
   --cat-sin-tercero: var(--purple-40);
 }
@@ -237,102 +415,216 @@
    Applied when [data-theme="dark"] is set, or by OS preference when
    the app is not pinned to light.
    ============================================================ */
-[data-theme="dark"] {
+[data-theme='dark'] {
   color-scheme: dark;
 
-  --md-primary: #98CDF2;              --primary: var(--md-primary);
-  --md-on-primary: #00344C;           --on-primary: var(--md-on-primary);
-  --md-primary-container: #16458C;    --primary-container: var(--md-primary-container);
-  --md-on-primary-container: #D8E2FF; --on-primary-container: var(--md-on-primary-container);
+  --md-primary: #98cdf2;
+  --primary: var(--md-primary);
+  --md-on-primary: #00344c;
+  --on-primary: var(--md-on-primary);
+  --md-primary-container: #16458c;
+  --primary-container: var(--md-primary-container);
+  --md-on-primary-container: #d8e2ff;
+  --on-primary-container: var(--md-on-primary-container);
 
-  --md-secondary: #CBBEFF;              --secondary: var(--md-secondary);
-  --md-on-secondary: #321A63;           --on-secondary: var(--md-on-secondary);
-  --md-secondary-container: #49328A;    --secondary-container: var(--md-secondary-container);
-  --md-on-secondary-container: #E7DEFF; --on-secondary-container: var(--md-on-secondary-container);
+  --md-secondary: #cbbeff;
+  --secondary: var(--md-secondary);
+  --md-on-secondary: #321a63;
+  --on-secondary: var(--md-on-secondary);
+  --md-secondary-container: #49328a;
+  --secondary-container: var(--md-secondary-container);
+  --md-on-secondary-container: #e7deff;
+  --on-secondary-container: var(--md-on-secondary-container);
 
-  --md-tertiary: #8AD6BF;              --tertiary: var(--md-tertiary);
-  --md-on-tertiary: #003830;          --on-tertiary: var(--md-on-tertiary);
-  --md-tertiary-container: #005040;   --tertiary-container: var(--md-tertiary-container);
-  --md-on-tertiary-container: #A7F2DA;--on-tertiary-container: var(--md-on-tertiary-container);
+  --md-tertiary: #8ad6bf;
+  --tertiary: var(--md-tertiary);
+  --md-on-tertiary: #003830;
+  --on-tertiary: var(--md-on-tertiary);
+  --md-tertiary-container: #005040;
+  --tertiary-container: var(--md-tertiary-container);
+  --md-on-tertiary-container: #a7f2da;
+  --on-tertiary-container: var(--md-on-tertiary-container);
 
-  --md-error: #FFB4AB;                --error: var(--md-error);
-  --md-on-error: #690005;             --on-error: var(--md-on-error);
-  --md-error-container: #93000A;      --error-container: var(--md-error-container);
-  --md-on-error-container: #FFDAD6;   --on-error-container: var(--md-on-error-container);
+  --md-error: #ffb4ab;
+  --error: var(--md-error);
+  --md-on-error: #690005;
+  --on-error: var(--md-on-error);
+  --md-error-container: #93000a;
+  --error-container: var(--md-error-container);
+  --md-on-error-container: #ffdad6;
+  --on-error-container: var(--md-on-error-container);
 
-  --md-background: #111416;           --background: var(--md-background);
-  --md-on-background: #E2E2E9;        --on-background: var(--md-on-background);
-  --md-surface: #111416;              --surface: var(--md-surface);
-  --md-on-surface: #E2E2E9;           --on-surface: var(--md-on-surface);
-  --md-on-surface-variant: #C1C7CE;   --on-surface-variant: var(--md-on-surface-variant);
-  --surface-variant: #41484D;
+  --md-background: #111416;
+  --background: var(--md-background);
+  --md-on-background: #e2e2e9;
+  --on-background: var(--md-on-background);
+  --md-surface: #111416;
+  --surface: var(--md-surface);
+  --md-on-surface: #e2e2e9;
+  --on-surface: var(--md-on-surface);
+  --md-on-surface-variant: #c1c7ce;
+  --on-surface-variant: var(--md-on-surface-variant);
+  --surface-variant: #41484d;
 
-  --md-surface-dim: #111416;                 --surface-dim: var(--md-surface-dim);
-  --md-surface-bright: #37393C;              --surface-bright: var(--md-surface-bright);
-  --md-surface-container-lowest: #0C0E11;    --surface-container-lowest: var(--md-surface-container-lowest);
-  --md-surface-container-low: #191C1E;       --surface-container-low: var(--md-surface-container-low);
-  --md-surface-container: #1D2022;           --surface-container: var(--md-surface-container);
-  --md-surface-container-high: #282A2D;      --surface-container-high: var(--md-surface-container-high);
-  --md-surface-container-highest: #333537;   --surface-container-highest: var(--md-surface-container-highest);
+  --md-surface-dim: #111416;
+  --surface-dim: var(--md-surface-dim);
+  --md-surface-bright: #37393c;
+  --surface-bright: var(--md-surface-bright);
+  --md-surface-container-lowest: #0c0e11;
+  --surface-container-lowest: var(--md-surface-container-lowest);
+  --md-surface-container-low: #191c1e;
+  --surface-container-low: var(--md-surface-container-low);
+  --md-surface-container: #1d2022;
+  --surface-container: var(--md-surface-container);
+  --md-surface-container-high: #282a2d;
+  --surface-container-high: var(--md-surface-container-high);
+  --md-surface-container-highest: #333537;
+  --surface-container-highest: var(--md-surface-container-highest);
 
-  --md-outline: #8B9198;              --outline: var(--md-outline);
-  --md-outline-variant: #41484D;      --outline-variant: var(--md-outline-variant);
+  --md-outline: #8b9198;
+  --outline: var(--md-outline);
+  --md-outline-variant: #41484d;
+  --outline-variant: var(--md-outline-variant);
 
-  --md-inverse-surface: #E2E2E9;      --inverse-surface: var(--md-inverse-surface);
-  --md-inverse-on-surface: #2F3036;   --inverse-on-surface: var(--md-inverse-on-surface);
-  --md-inverse-primary: #3060A8;      --inverse-primary: var(--md-inverse-primary);
+  --md-inverse-surface: #e2e2e9;
+  --inverse-surface: var(--md-inverse-surface);
+  --md-inverse-on-surface: #2f3036;
+  --inverse-on-surface: var(--md-inverse-on-surface);
+  --md-inverse-primary: #3060a8;
+  --inverse-primary: var(--md-inverse-primary);
   --surface-tint: var(--md-primary);
 
   /* domain — status (bases adjusted for dark contrast) */
-  --status-active: #AEC6FF;           --status-active-container: #16458C;
-  --status-review: #FFB870;           --status-review-container: #5C3D00;
-  --status-done: #86D6A8;             --status-done-container: #0B4D2E;
-  --status-overdue: #FFB4AB;          --status-overdue-container: #93000A;
+  --status-active: #aec6ff;
+  --status-active-container: #16458c;
+  --status-review: #ffb870;
+  --status-review-container: #5c3d00;
+  --status-done: #86d6a8;
+  --status-done-container: #0b4d2e;
+  --status-overdue: #ffb4ab;
+  --status-overdue-container: #93000a;
 
   /* domain — categories (lifted for dark) */
-  --cat-terminados: #86D6A8;
-  --cat-lios-juridicos: #FF897D;
-  --cat-bancolombia: #E0C060;
-  --cat-reintegra: #8AD6BF;
-  --cat-insolvencia: #FFB68A;
-  --cat-sin-especificar: #ABABB2;
-  --cat-sin-tercero: #CBBEFF;
+  --cat-terminados: #86d6a8;
+  --cat-lios-juridicos: #ff897d;
+  --cat-bancolombia: #e0c060;
+  --cat-reintegra: #8ad6bf;
+  --cat-insolvencia: #ffb68a;
+  --cat-sin-especificar: #ababb2;
+  --cat-sin-tercero: #cbbeff;
 }
 
 /* Auto dark by OS preference, unless the app is pinned to light. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme='light']) {
     color-scheme: dark;
-    --md-primary:#98CDF2; --primary:#98CDF2; --md-on-primary:#00344C; --on-primary:#00344C;
-    --md-primary-container:#16458C; --primary-container:#16458C; --md-on-primary-container:#D8E2FF; --on-primary-container:#D8E2FF;
-    --md-secondary:#CBBEFF; --secondary:#CBBEFF; --md-on-secondary:#321A63; --on-secondary:#321A63;
-    --md-secondary-container:#49328A; --secondary-container:#49328A; --md-on-secondary-container:#E7DEFF; --on-secondary-container:#E7DEFF;
-    --md-tertiary:#8AD6BF; --tertiary:#8AD6BF; --md-tertiary-container:#005040; --tertiary-container:#005040; --md-on-tertiary-container:#A7F2DA; --on-tertiary-container:#A7F2DA;
-    --md-error:#FFB4AB; --error:#FFB4AB; --md-error-container:#93000A; --error-container:#93000A; --md-on-error-container:#FFDAD6; --on-error-container:#FFDAD6;
-    --md-background:#111416; --background:#111416; --md-on-background:#E2E2E9; --on-background:#E2E2E9;
-    --md-surface:#111416; --surface:#111416; --md-on-surface:#E2E2E9; --on-surface:#E2E2E9; --md-on-surface-variant:#C1C7CE; --on-surface-variant:#C1C7CE; --surface-variant:#41484D;
-    --md-surface-container-lowest:#0C0E11; --surface-container-lowest:#0C0E11; --md-surface-container-low:#191C1E; --surface-container-low:#191C1E;
-    --md-surface-container:#1D2022; --surface-container:#1D2022; --md-surface-container-high:#282A2D; --surface-container-high:#282A2D; --md-surface-container-highest:#333537; --surface-container-highest:#333537;
-    --md-outline:#8B9198; --outline:#8B9198; --md-outline-variant:#41484D; --outline-variant:#41484D; --surface-tint:#98CDF2;
-    --status-active:#AEC6FF; --status-active-container:#16458C; --status-review:#FFB870; --status-review-container:#5C3D00;
-    --status-done:#86D6A8; --status-done-container:#0B4D2E; --status-overdue:#FFB4AB; --status-overdue-container:#93000A;
-    --cat-terminados:#86D6A8; --cat-lios-juridicos:#FF897D; --cat-bancolombia:#E0C060; --cat-reintegra:#8AD6BF; --cat-insolvencia:#FFB68A; --cat-sin-especificar:#ABABB2; --cat-sin-tercero:#CBBEFF;
+    --md-primary: #98cdf2;
+    --primary: #98cdf2;
+    --md-on-primary: #00344c;
+    --on-primary: #00344c;
+    --md-primary-container: #16458c;
+    --primary-container: #16458c;
+    --md-on-primary-container: #d8e2ff;
+    --on-primary-container: #d8e2ff;
+    --md-secondary: #cbbeff;
+    --secondary: #cbbeff;
+    --md-on-secondary: #321a63;
+    --on-secondary: #321a63;
+    --md-secondary-container: #49328a;
+    --secondary-container: #49328a;
+    --md-on-secondary-container: #e7deff;
+    --on-secondary-container: #e7deff;
+    --md-tertiary: #8ad6bf;
+    --tertiary: #8ad6bf;
+    --md-tertiary-container: #005040;
+    --tertiary-container: #005040;
+    --md-on-tertiary-container: #a7f2da;
+    --on-tertiary-container: #a7f2da;
+    --md-error: #ffb4ab;
+    --error: #ffb4ab;
+    --md-error-container: #93000a;
+    --error-container: #93000a;
+    --md-on-error-container: #ffdad6;
+    --on-error-container: #ffdad6;
+    --md-background: #111416;
+    --background: #111416;
+    --md-on-background: #e2e2e9;
+    --on-background: #e2e2e9;
+    --md-surface: #111416;
+    --surface: #111416;
+    --md-on-surface: #e2e2e9;
+    --on-surface: #e2e2e9;
+    --md-on-surface-variant: #c1c7ce;
+    --on-surface-variant: #c1c7ce;
+    --surface-variant: #41484d;
+    --md-surface-container-lowest: #0c0e11;
+    --surface-container-lowest: #0c0e11;
+    --md-surface-container-low: #191c1e;
+    --surface-container-low: #191c1e;
+    --md-surface-container: #1d2022;
+    --surface-container: #1d2022;
+    --md-surface-container-high: #282a2d;
+    --surface-container-high: #282a2d;
+    --md-surface-container-highest: #333537;
+    --surface-container-highest: #333537;
+    --md-outline: #8b9198;
+    --outline: #8b9198;
+    --md-outline-variant: #41484d;
+    --outline-variant: #41484d;
+    --surface-tint: #98cdf2;
+    --status-active: #aec6ff;
+    --status-active-container: #16458c;
+    --status-review: #ffb870;
+    --status-review-container: #5c3d00;
+    --status-done: #86d6a8;
+    --status-done-container: #0b4d2e;
+    --status-overdue: #ffb4ab;
+    --status-overdue-container: #93000a;
+    --cat-terminados: #86d6a8;
+    --cat-lios-juridicos: #ff897d;
+    --cat-bancolombia: #e0c060;
+    --cat-reintegra: #8ad6bf;
+    --cat-insolvencia: #ffb68a;
+    --cat-sin-especificar: #ababb2;
+    --cat-sin-tercero: #cbbeff;
   }
 }
 
 /* ============================================================
    5. BASE / RESET
    ============================================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+}
 
 /* Touch: kill the tap flash and the 300ms delay, allow vertical pan. */
-* { -webkit-tap-highlight-color: transparent; }
-button, a, input, select, textarea, label, [role="button"] { touch-action: manipulation; }
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+a,
+input,
+select,
+textarea,
+label,
+[role='button'] {
+  touch-action: manipulation;
+}
 @media (pointer: coarse) {
   /* Comfortable minimum hit target on touch devices. */
-  button, a[role="button"], [role="button"] { min-height: 44px; }
+  button,
+  a[role='button'],
+  [role='button'] {
+    min-height: 44px;
+  }
 }
 
 body {
@@ -343,45 +635,99 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1,h2,h3,h4,h5,h6,p,figure { margin: 0; }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure {
+  margin: 0;
+}
 
-a { color: var(--primary); text-decoration: none; }
-a:hover { text-decoration: underline; }
-a:focus-visible, button:focus-visible, input:focus-visible,
-select:focus-visible, textarea:focus-visible {
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: 3px solid var(--blue-70);
   outline-offset: 2px;
 }
 
-button { font-family: inherit; }
+button {
+  font-family: inherit;
+}
 
 /* Tabular figures wherever mono is used */
-.aj-mono, code, kbd, samp {
+.aj-mono,
+code,
+kbd,
+samp {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum' 1;
 }
 
-::selection { background: var(--md-primary-container); color: var(--md-on-primary-container); }
+::selection {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+}
 
 /* ---- Material Symbols icon helper ---- */
 .material-symbols-rounded {
   font-family: 'Material Symbols Rounded';
-  font-weight: normal; font-style: normal; line-height: 1;
-  letter-spacing: normal; text-transform: none; display: inline-block;
-  white-space: nowrap; word-wrap: normal; direction: ltr;
-  -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased;
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
   user-select: none;
 }
-.material-symbols-rounded.fill { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.material-symbols-rounded.fill {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
 
 /* ---- Scrollbars (subtle, theme-aware) ---- */
-* { scrollbar-width: thin; scrollbar-color: var(--outline-variant) transparent; }
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: var(--outline-variant); border-radius: 99px;
-  border: 3px solid transparent; background-clip: content-box;
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--outline-variant) transparent;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--outline); }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--outline-variant);
+  border-radius: 99px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--outline);
+}

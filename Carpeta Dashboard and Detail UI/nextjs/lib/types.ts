@@ -91,7 +91,7 @@ export interface Demanda {
 
 export interface Actuacion {
   id           : number;
-  fecha        : string;       // ISO date
+  fecha        : string; // ISO date
   actuacion    : string;
   anotacion    : string;
   conDocumentos: boolean;
@@ -142,8 +142,7 @@ export interface Task {
 
 /** A Carpeta with all of its connected relations eagerly loaded. */
 export interface Carpeta {
-
-  actuaciones : Actuacion[];      // newest first
+  actuaciones : Actuacion[]; // newest first
   avaluo      : number;
   capital     : number;
   category    : Category;
@@ -153,7 +152,7 @@ export interface Carpeta {
   deudor      : Deudor;
   etapa       : string;
   facturas    : Factura[];
-  fecha       : string;                // ISO date — fecha de apertura
+  fecha       : string; // ISO date — fecha de apertura
   juzgado     : Juzgado;
   liquidacion : number;
   llaveProceso: string;
@@ -171,4 +170,7 @@ export interface Carpeta {
 }
 
 /** Convenience: the most recent actuación (drives the dashboard column). */
-export type UltimaActuacion = Pick<Actuacion, 'actuacion' | 'anotacion' | 'fecha' | 'conDocumentos'>;
+export type UltimaActuacion = Pick<
+  Actuacion,
+  'actuacion' | 'anotacion' | 'fecha' | 'conDocumentos'
+>;

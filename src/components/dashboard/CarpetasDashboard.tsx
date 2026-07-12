@@ -4,7 +4,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Carpeta, Category, DashboardView } from '#@/lib/types/dashboard_types';
 import { Route } from 'next';
-import { CATEGORY_META, fmtCOP, fmtDate, fmtMoneyShort, TIPO_PROCESO_LABEL } from '#@/lib/format';
+import { CATEGORY_META,
+  fmtCOP,
+  fmtDate,
+  fmtMoneyShort,
+  TIPO_PROCESO_LABEL, } from '#@/lib/format';
 import styles from '#@/styles/CarpetasDashboard.module.css';
 import Sidebar from '../Sidebar/Sidebar';
 import { Icon, StatusChip } from '../ui';
@@ -127,15 +131,15 @@ export default function CarpetasDashboard( {
 
       onChange();
       mq.addEventListener(
-        'change', onChange
+        'change', onChange 
       );
 
       return () => {
         return mq.removeEventListener(
-          'change', onChange
+          'change', onChange 
         );
       };
-    }, []
+    }, [] 
   );
 
   // On phones the dense table is unusable — always show cards.
@@ -157,7 +161,7 @@ export default function CarpetasDashboard( {
   }
 
   function toggleRevisado(
-    numero: number, e: React.MouseEvent
+    numero: number, e: React.MouseEvent 
   ) {
     e.stopPropagation();
     setCarpetas( ( prev ) => {
@@ -192,12 +196,12 @@ export default function CarpetasDashboard( {
       } ).length;
       const totalCap = carpetas.reduce(
         (
-          s, c
+          s, c 
         ) => {
           return s + ( c.terminado
             ? 0
             : c.capital );
-        }, 0
+        }, 0 
       );
       const porRevisar = carpetas.filter( ( c ) => {
         return !c.revisado && !c.terminado;
@@ -249,7 +253,7 @@ export default function CarpetasDashboard( {
       ];
     }, [
       carpetas
-    ]
+    ] 
   );
 
   const counts = useMemo(
@@ -264,7 +268,7 @@ export default function CarpetasDashboard( {
       return c;
     }, [
       carpetas
-    ]
+    ] 
   );
 
   const rows = useMemo(
@@ -292,7 +296,7 @@ export default function CarpetasDashboard( {
       return [
         ...filtered
       ].sort( (
-        a, b
+        a, b 
       ) => {
         const av = a[ sortKey ];
         const bv = b[ sortKey ];
@@ -315,7 +319,7 @@ export default function CarpetasDashboard( {
       search,
       sortKey,
       sortDir
-    ]
+    ] 
   );
 
   const categoryChips: ( Category | 'todos' )[] = [
@@ -594,7 +598,7 @@ export default function CarpetasDashboard( {
                         <td className={`${ styles.td } ${ styles.tdDivider }`}>
                           <div className={styles.actCell}>
                             <span className={styles.actTitle}>
-                              {last && last.actuacion }
+                              {last && last.actuacion}
                               {last && last.conDocumentos && (
                                 <Icon
                                   name="attach_file"
@@ -604,7 +608,7 @@ export default function CarpetasDashboard( {
                               )}
                             </span>
                             <span className={styles.actNote}>
-                              {last && last.anotacion }
+                              {last && last.anotacion}
                             </span>
                           </div>
                         </td>
@@ -628,7 +632,7 @@ export default function CarpetasDashboard( {
                             }}
                             onClick={( e ) => {
                               return toggleRevisado(
-                                c.numero, e
+                                c.numero, e 
                               );
                             }}
                             title="Marcar revisado"
@@ -718,9 +722,11 @@ export default function CarpetasDashboard( {
                           Última actuación
                         </span>
                         <span className={styles.actTitle}>
-                          {last && last.actuacion }
+                          {last && last.actuacion}
                         </span>
-                        <span className={styles.actNote}>{last && last.anotacion}</span>
+                        <span className={styles.actNote}>
+                          {last && last.anotacion}
+                        </span>
                       </div>
                       <div className={styles.cardFoot}>
                         <div className={styles.cardCapital}>

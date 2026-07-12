@@ -8,25 +8,23 @@ export function CarpetasSkeleton() {
   return (
     <div className={styles.skeleton}>
       {Array.from( {
-        length: SKELETON_ROWS 
+        length: SKELETON_ROWS,
       } )
         .map( (
           _, rowIndex 
         ) => {
           return (
-           
             <div
               key={rowIndex}
               className={styles.row}
             >
               {Array.from( {
-                length: SKELETON_COLUMNS 
+                length: SKELETON_COLUMNS,
               } )
                 .map( (
                   __, cellIndex 
                 ) => {
                   return (
-                 
                     <div
                       key={cellIndex}
                       className={styles.cell}

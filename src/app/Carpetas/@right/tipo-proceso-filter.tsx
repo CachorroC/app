@@ -8,7 +8,7 @@ export default function TipoProcesoFilteringButtons() {
   const dispatchCarpetas = useCarpetaSortDispatch();
 
   const {
-    completeCarpetas, filters
+    completeCarpetas, filters 
   } = useCarpetaSort();
 
   const tipos = [

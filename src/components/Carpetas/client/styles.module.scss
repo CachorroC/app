@@ -34,7 +34,8 @@
   color: var(--md-sys-color-on-primary-container);
   border-radius: var(--md-sys-shape-corner-large);
   padding: 10px 16px;
-  animation: rs-fade var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+  animation: rs-fade var(--md-sys-motion-duration-short4)
+    var(--md-sys-motion-easing-standard);
 }
 
 .selectionLabel {
@@ -149,7 +150,8 @@
   box-shadow: var(--md-sys-elevation-level3);
   font: var(--md-sys-typescale-body-medium);
   z-index: 50;
-  animation: rs-toast var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard);
+  animation: rs-toast var(--md-sys-motion-duration-medium1)
+    var(--md-sys-motion-easing-standard);
 }
 
 @keyframes rs-fade {

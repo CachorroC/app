@@ -3,12 +3,14 @@
 import { useController, useFieldArray, useFormContext } from 'react-hook-form';
 import { Icon } from '#@/components/ui';
 import type { FieldDef } from '#@/memoriales/manifests/types';
+import { useAutofillContext } from '../memorial-form/autofill-context';
 import { Button } from '../ui/button';
 import { IconButton } from '../ui/icon-button';
 import { Switch } from '../ui/switch';
 import { TextField } from '../ui/text-field';
 import textFieldStyles from '../ui/text-field/text-field.module.css';
 import fieldStyles from './field.module.css';
+import { LookupTextField } from './lookup-text-field';
 
 interface FieldProps {
   field    : FieldDef;
@@ -16,7 +18,7 @@ interface FieldProps {
   disabled?: boolean;
 }
 
-const INPUT_TYPE: Partial<Record<FieldDef[ 'type' ], string>> = {
+const INPUT_TYPE: Partial<Record<FieldDef['type'], string>> = {
   number  : 'number',
   currency: 'number',
   date    : 'date',
@@ -25,37 +27,83 @@ const INPUT_TYPE: Partial<Record<FieldDef[ 'type' ], string>> = {
 export function Field( {
   field, name, disabled 
 }: FieldProps ) {
+  const autofill = useAutofillContext();
+
+  if ( autofill && name === autofill.triggerField ) {
+    return (
+      <LookupTextField
+        field={field}
+        name={name}
+        disabled={disabled}
+        options={autofill.options}
+        loading={autofill.loading}
+        onSelect={autofill.applyCarpeta}
+      />
+    );
+  }
+
   if ( field.type === 'stringList' ) {
-    return <StringListField field={field} name={name} disabled={disabled} />;
+    return (
+      <StringListField
+        field={field}
+        name={name}
+        disabled={disabled}
+      />
+    );
   }
 
   if ( field.type === 'boolean' ) {
-    return <BooleanField field={field} name={name} disabled={disabled} />;
+    return (
+      <BooleanField
+        field={field}
+        name={name}
+        disabled={disabled}
+      />
+    );
   }
 
   if ( field.type === 'textarea' ) {
-    return <TextareaField field={field} name={name} disabled={disabled} />;
+    return (
+      <TextareaField
+        field={field}
+        name={name}
+        disabled={disabled}
+      />
+    );
   }
 
   if ( field.type === 'select' ) {
-    return <SelectField field={field} name={name} disabled={disabled} />;
+    return (
+      <SelectField
+        field={field}
+        name={name}
+        disabled={disabled}
+      />
+    );
   }
 
-  return <ScalarField field={field} name={name} disabled={disabled} />;
+  return (
+    <ScalarField
+      field={field}
+      name={name}
+      disabled={disabled}
+    />
+  );
 }
 
 function ScalarField( {
-  field, name, disabled
+  field, name, disabled 
 }: FieldProps ) {
   const {
     control 
   } = useFormContext();
   const {
-    field: rhf, fieldState
+    field: rhf, fieldState 
   } = useController( {
     control,
-    name
+    name,
   } );
+  const autofill = useAutofillContext();
 
   return (
     <TextField
@@ -71,7 +119,10 @@ function ScalarField( {
         ? '$'
         : undefined}
       value={( rhf.value as string | number | undefined ) ?? ''}
-      onChange={rhf.onChange}
+      onChange={( event ) => {
+        rhf.onChange( event );
+        autofill?.notifyManualEdit( name );
+      }}
       onBlur={rhf.onBlur}
       name={rhf.name}
       ref={rhf.ref}
@@ -80,17 +131,18 @@ function ScalarField( {
 }
 
 function TextareaField( {
-  field, name, disabled
+  field, name, disabled 
 }: FieldProps ) {
   const {
     control 
   } = useFormContext();
   const {
-    field: rhf, fieldState
+    field: rhf, fieldState 
   } = useController( {
     control,
-    name
+    name,
   } );
+  const autofill = useAutofillContext();
   const id = `f-${ name }`;
   const errorId = fieldState.error
     ? `${ id }-error`
@@ -100,13 +152,17 @@ function TextareaField( {
     <div className={textFieldStyles.field}>
       <label
         htmlFor={id}
-        className={`${ textFieldStyles.label } ${ fieldState.error
-          ? textFieldStyles.labelError
-          : '' }`}
+        className={`${ textFieldStyles.label } ${
+          fieldState.error
+            ? textFieldStyles.labelError
+            : ''
+        }`}
       >
         {field.label}
         {field.required
-          ? <span className={textFieldStyles.requiredMark}> *</span>
+          ? (
+              <span className={textFieldStyles.requiredMark}> *</span>
+            )
           : null}
       </label>
       <textarea
@@ -118,33 +174,46 @@ function TextareaField( {
         aria-describedby={errorId}
         rows={3}
         value={( rhf.value as string | undefined ) ?? ''}
-        onChange={rhf.onChange}
+        onChange={( event ) => {
+          rhf.onChange( event );
+          autofill?.notifyManualEdit( name );
+        }}
         onBlur={rhf.onBlur}
         name={rhf.name}
         ref={rhf.ref}
       />
       {fieldState.error
-        ? <div id={errorId} className={textFieldStyles.error}>{fieldState.error.message}</div>
+        ? (
+            <div
+              id={errorId}
+              className={textFieldStyles.error}
+            >
+              {fieldState.error.message}
+            </div>
+          )
         : null}
       {!fieldState.error && field.helpText
-        ? <div className={textFieldStyles.helper}>{field.helpText}</div>
+        ? (
+            <div className={textFieldStyles.helper}>{field.helpText}</div>
+          )
         : null}
     </div>
   );
 }
 
 function SelectField( {
-  field, name, disabled
+  field, name, disabled 
 }: FieldProps ) {
   const {
     control 
   } = useFormContext();
   const {
-    field: rhf, fieldState
+    field: rhf, fieldState 
   } = useController( {
     control,
-    name
+    name,
   } );
+  const autofill = useAutofillContext();
   const id = `f-${ name }`;
   const errorId = fieldState.error
     ? `${ id }-error`
@@ -154,13 +223,17 @@ function SelectField( {
     <div className={textFieldStyles.field}>
       <label
         htmlFor={id}
-        className={`${ textFieldStyles.label } ${ fieldState.error
-          ? textFieldStyles.labelError
-          : '' }`}
+        className={`${ textFieldStyles.label } ${
+          fieldState.error
+            ? textFieldStyles.labelError
+            : ''
+        }`}
       >
         {field.label}
         {field.required
-          ? <span className={textFieldStyles.requiredMark}> *</span>
+          ? (
+              <span className={textFieldStyles.requiredMark}> *</span>
+            )
           : null}
       </label>
       <select
@@ -170,27 +243,47 @@ function SelectField( {
         aria-invalid={!!fieldState.error}
         aria-describedby={errorId}
         value={( rhf.value as string | undefined ) ?? ''}
-        onChange={rhf.onChange}
+        onChange={( event ) => {
+          rhf.onChange( event );
+          autofill?.notifyManualEdit( name );
+        }}
         onBlur={rhf.onBlur}
         name={rhf.name}
         ref={rhf.ref}
       >
-        <option value="" disabled>Seleccione una opción…</option>
+        <option
+          value=""
+          disabled
+        >
+          Seleccione una opción…
+        </option>
         {( field.options ?? [] ).map( ( option ) => {
           return (
-            <option key={option.value} value={option.value}>{option.label}</option>
+            <option
+              key={option.value}
+              value={option.value}
+            >
+              {option.label}
+            </option>
           );
         } )}
       </select>
       {fieldState.error
-        ? <div id={errorId} className={textFieldStyles.error}>{fieldState.error.message}</div>
+        ? (
+            <div
+              id={errorId}
+              className={textFieldStyles.error}
+            >
+              {fieldState.error.message}
+            </div>
+          )
         : null}
     </div>
   );
 }
 
 function BooleanField( {
-  field, name, disabled
+  field, name, disabled 
 }: FieldProps ) {
   const {
     control 
@@ -199,7 +292,7 @@ function BooleanField( {
     field: rhf 
   } = useController( {
     control,
-    name
+    name,
   } );
   const id = `f-${ name }`;
 
@@ -215,46 +308,62 @@ function BooleanField( {
         disabled={disabled}
         aria-label={field.label}
       />
-      <label htmlFor={id} className={fieldStyles.booleanLabel}>{field.label}</label>
+      <label
+        htmlFor={id}
+        className={fieldStyles.booleanLabel}
+      >
+        {field.label}
+      </label>
     </div>
   );
 }
 
 function StringListField( {
-  field, name, disabled
+  field, name, disabled 
 }: FieldProps ) {
   const {
-    control, register
+    control, register 
   } = useFormContext();
   const {
-    fields, append, remove
+    fields, append, remove 
   } = useFieldArray( {
     control,
-    name
+    name,
   } );
 
   return (
     <div className={fieldStyles.stringList}>
       <div className={fieldStyles.stringListLabel}>{field.label}</div>
       {field.helpText
-        ? <div className={textFieldStyles.helper}>{field.helpText}</div>
+        ? (
+            <div className={textFieldStyles.helper}>{field.helpText}</div>
+          )
         : null}
       {fields.map( (
         row, index 
       ) => {
         return (
-          <div key={row.id} className={fieldStyles.stringListRow}>
+          <div
+            key={row.id}
+            className={fieldStyles.stringListRow}
+          >
             <input
               className={fieldStyles.stringListInput}
               placeholder="Nombre del documento anexo"
               disabled={disabled}
               {...register( `${ name }.${ index }.value` )}
             />
-            <IconButton aria-label="Eliminar anexo" disabled={disabled} onClick={() => {
-              return remove( index );
-            }}
+            <IconButton
+              aria-label="Eliminar anexo"
+              disabled={disabled}
+              onClick={() => {
+                return remove( index );
+              }}
             >
-              <Icon name="delete" size={20} />
+              <Icon
+                name="delete"
+                size={20}
+              />
             </IconButton>
           </div>
         );
@@ -264,10 +373,15 @@ function StringListField( {
         variant="text"
         size="small"
         disabled={disabled}
-        icon={<Icon name="add" size={18} />}
+        icon={
+          <Icon
+            name="add"
+            size={18}
+          />
+        }
         onClick={() => {
           return append( {
-            value: ''
+            value: '',
           } );
         }}
       >

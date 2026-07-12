@@ -2,15 +2,16 @@
 import { NextResponse } from 'next/server';
 import { sleep } from './project/helper';
 
-
 const browserHeaders = {
-  'User-Agent'             : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-  'Accept'                 : 'application/json, text/plain, */*',
-  'Accept-Language'        : 'es-CO,es-419;q=0.9,es;q=0.8,en;q=0.7', // Prioritize Colombian Spanish
-  'Accept-Encoding'        : 'gzip, deflate, br',
-  'Connection'             : 'keep-alive',
+  'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+  Accept           : 'application/json, text/plain, */*',
+  'Accept-Language': 'es-CO,es-419;q=0.9,es;q=0.8,en;q=0.7', // Prioritize Colombian Spanish
+  'Accept-Encoding': 'gzip, deflate, br',
+  Connection       : 'keep-alive',
   // Some firewalls check these modern "Sec-" headers
-  'Sec-Ch-Ua'              : '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+  'Sec-Ch-Ua':
+    '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
   'Sec-Ch-Ua-Mobile'       : '?0',
   'Sec-Ch-Ua-Platform'     : '"Windows"',
   'Sec-Fetch-Dest'         : 'empty',
@@ -20,10 +21,7 @@ const browserHeaders = {
   //'Referer'                : 'https://consultaprocesos.ramajudicial.gov.co/',
   'CF-Access-Client-Id'    : `${ process.env.NEXT_PUBLIC_CF_ACCESS_CLIENT_ID }`,
   'CF-Access-Client-Secret': `${ process.env.NEXT_PUBLIC_CF_ACCESS_CLIENT_SECRET }`,
-
 };
-
-
 
 const RATE_LIMIT_DELAY_MS = 13000;
 const urlQueues = new Map<string, Promise<void>>();
@@ -34,7 +32,7 @@ export function getRateLimitKey( targetUrl: string | URL ): string {
 
   // 1. Replace numeric IDs
   path = path.replace(
-    /\/\d+(?=\/|$)/g, '/{id}'
+    /\/\d+(?=\/|$)/g, '/{id}' 
   );
 
   // 2. Replace UUIDs
@@ -59,13 +57,16 @@ async function enforceRateLimit( url: string | URL ): Promise<void> {
   } );
 
   if ( urlQueues.size > 500 ) {
-    const firstKey = urlQueues.keys().next().value;
+    const firstKey = urlQueues.keys()
+      .next().value;
 
-    if ( firstKey ) urlQueues.delete( firstKey );
+    if ( firstKey ) {
+      urlQueues.delete( firstKey );
+    }
   }
 
   urlQueues.set(
-    routeKey, nextWait
+    routeKey, nextWait 
   );
   await currentWait;
 }
@@ -87,9 +88,9 @@ export async function fetchWithSmartRetryNoRateLimit(
           ...options,
           headers: {
             ...browserHeaders,
-            ...options.headers
-          }
-        }
+            ...options.headers,
+          },
+        } 
       );
 
       if ( response.ok ) {
@@ -100,12 +101,12 @@ export async function fetchWithSmartRetryNoRateLimit(
       if ( response.status === 429 ) {
         const retryAfter = response.headers.get( 'retry-after' );
         let delay = baseDelay * Math.pow(
-          2, attempt
+          2, attempt 
         );
 
         if ( retryAfter ) {
           const parsedSeconds = parseInt(
-            retryAfter, 10
+            retryAfter, 10 
           );
 
           if ( !isNaN( parsedSeconds ) ) {
@@ -117,7 +118,7 @@ export async function fetchWithSmartRetryNoRateLimit(
 
             if ( !isNaN( date ) ) {
               delay = Math.max(
-                0, date - Date.now()
+                0, date - Date.now() 
               ) + 1000;
             }
           }
@@ -145,7 +146,7 @@ export async function fetchWithSmartRetryNoRateLimit(
         }
 
         const delay = baseDelay * Math.pow(
-          2, attempt
+          2, attempt 
         );
         console.warn( `⚠️ [HTTP ${ response.status }] Retrying in ${ delay }ms...` );
         await sleep( delay );
@@ -163,7 +164,7 @@ export async function fetchWithSmartRetryNoRateLimit(
       }
 
       const delay = baseDelay * Math.pow(
-        2, attempt
+        2, attempt 
       );
       const errorMessage
         = error instanceof Error
@@ -179,7 +180,6 @@ export async function fetchWithSmartRetryNoRateLimit(
   throw new Error( 'Unexpected end of fetch retry loop' );
 }
 
-
 export async function fetchWithSmartRetry(
   url: string | URL,
   options: RequestInit = {},
@@ -189,19 +189,18 @@ export async function fetchWithSmartRetry(
   let attempt = 0;
 
   try {
-
     while ( attempt <= maxRetries ) {
       try {
-      // 🛡️ Proactive Rate Limiting (Now applies to retries too)
+        // 🛡️ Proactive Rate Limiting (Now applies to retries too)
         await enforceRateLimit( url );
         const response = await fetch(
           url, {
             ...options,
             headers: {
               ...browserHeaders,
-              ...options.headers
-            }
-          }
+              ...options.headers,
+            },
+          } 
         );
 
         if ( response.ok ) {
@@ -212,24 +211,24 @@ export async function fetchWithSmartRetry(
         if ( response.status === 429 ) {
           const retryAfter = response.headers.get( 'retry-after' );
           let delay = baseDelay * Math.pow(
-            2, attempt
+            2, attempt 
           );
 
           if ( retryAfter ) {
             const parsedSeconds = parseInt(
-              retryAfter, 10
+              retryAfter, 10 
             );
 
             if ( !isNaN( parsedSeconds ) ) {
               delay = parsedSeconds * 1000 + 1000;
             } else {
-            // Handle HTTP-date format
+              // Handle HTTP-date format
               const date = new Date( retryAfter )
                 .getTime();
 
               if ( !isNaN( date ) ) {
                 delay = Math.max(
-                  0, date - Date.now()
+                  0, date - Date.now() 
                 ) + 1000;
               }
             }
@@ -257,9 +256,9 @@ export async function fetchWithSmartRetry(
           }
 
           const delay = baseDelay * Math.pow(
-            2, attempt
+            2, attempt 
           );
-          console.warn( `⚠️ [HTTP ${ response.status }] Retrying in ${ delay }ms...` );
+          console.warn( `⚠️ [HTTP ${ response.status }] Retrying in ${ delay }ms...`, );
           await sleep( delay );
           attempt++;
 
@@ -269,13 +268,13 @@ export async function fetchWithSmartRetry(
         // ❌ Fatal Client Errors (400, 401, 403, 404)
         return response;
       } catch ( error ) {
-      // 📡 Network Errors
+        // 📡 Network Errors
         if ( attempt >= maxRetries ) {
           throw error;
         }
 
         const delay = baseDelay * Math.pow(
-          2, attempt
+          2, attempt 
         );
         const errorMessage
           = error instanceof Error
@@ -292,10 +291,11 @@ export async function fetchWithSmartRetry(
   } catch ( error ) {
     return NextResponse.json(
       {
-        error: JSON.stringify( error )
-      }, {
-        status: 400
-      }
+        error: JSON.stringify( error ),
+      },
+      {
+        status: 400,
+      },
     );
   }
 }

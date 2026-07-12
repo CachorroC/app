@@ -9,7 +9,7 @@ export default function CategoryFilteringButtons() {
   const dispatchCarpetas = useCarpetaSortDispatch();
 
   const {
-    completeCarpetas, filters
+    completeCarpetas, filters 
   } = useCarpetaSort();
 
   const categories = [

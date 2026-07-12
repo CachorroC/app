@@ -77,7 +77,7 @@ export default function Sidebar( {
       return c;
     }, [
       carpetas
-    ]
+    ] 
   );
 
   const categories = ( Object.keys( CATEGORY_META ) as Category[] ).filter( ( k ) => {

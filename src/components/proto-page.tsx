@@ -1,7 +1,15 @@
 import fetchActuaciones from '#@/lib/project/utils/Actuaciones';
 import { getTop5LatestActuaciones } from '#@/lib/project/utils/Actuaciones/get-5-latest';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import { appContainer, chip, dashboardGrid,  filled, headerCard, headerInfo, headerMeta, statusTerminado, timeline,  } from '#@/styles/proto-styles.module.css';
+import { appContainer,
+  chip,
+  dashboardGrid,
+  filled,
+  headerCard,
+  headerInfo,
+  headerMeta,
+  statusTerminado,
+  timeline, } from '#@/styles/proto-styles.module.css';
 import { Suspense } from 'react';
 import { Loader } from './Loader/main-loader';
 import { Card } from './Proto/card';
@@ -11,19 +19,22 @@ import TimelineItem from './Proto/timeline-item';
 import TaskRow from './Proto/task-row';
 import { fetchNotasByNumero } from '#@/lib/project/utils/Notas/fetcher';
 
-
 async function ActuacionesList( {
-  idProceso, carpetaNumero
-}: { idProceso: string; carpetaNumero: number } ) {
+  idProceso,
+  carpetaNumero,
+}: {
+  idProceso    : string;
+  carpetaNumero: number;
+} ) {
   const actuaciones = await fetchActuaciones(
-    idProceso, carpetaNumero
+    idProceso, carpetaNumero 
   );
   const fiveLatest = getTop5LatestActuaciones( actuaciones );
 
   return (
     <div className={timeline}>
       {fiveLatest.map( (
-        act, index
+        act, index 
       ) => {
         if ( index >= 1 ) {
           return (
@@ -54,7 +65,7 @@ async function ActuacionesList( {
 }
 
 async function NotesList( {
-  idCarpeta
+  idCarpeta 
 }: { idCarpeta: number } ) {
   const notas = await fetchNotasByNumero( idCarpeta );
 
@@ -71,9 +82,8 @@ async function NotesList( {
 }
 
 export default function ProtoPage( {
-  carpeta
+  carpeta 
 }: { carpeta: IntCarpeta } ) {
-
   return (
     <>
       <div className={appContainer}>
@@ -93,12 +103,15 @@ export default function ProtoPage( {
             <p>Llave Proceso: {carpeta.llaveProceso}</p>
 
             <div className={headerMeta}>
-              <span className={`${ chip } ${ filled }`}>{
-                carpeta.category}</span>
+              <span className={`${ chip } ${ filled }`}>{carpeta.category}</span>
               <span className={chip}>{carpeta.tipoProceso}</span>
-              <span className={`${ chip } ${ carpeta.category === 'Terminados' &&statusTerminado }`}>{carpeta.category === 'Terminados'
-                ? 'Finalizado'
-                : 'En Proceso'}</span>
+              <span
+                className={`${ chip } ${ carpeta.category === 'Terminados' && statusTerminado }`}
+              >
+                {carpeta.category === 'Terminados'
+                  ? 'Finalizado'
+                  : 'En Proceso'}
+              </span>
             </div>
           </div>
 
@@ -128,28 +141,60 @@ export default function ProtoPage( {
             }}
           >
             <Card>
-              <CardHeader title={'Deudor Principal'} icon={'👤'} />
-              <DataRow label={'Nombre'} value={carpeta.nombre} />
-              <DataRow label={'Cédula'} value={carpeta.deudor?.cedula} />
-              <DataRow label={'Teléfono'} value={carpeta.deudor?.telCelular} />
-              <DataRow label={'Email'} value={carpeta.deudor?.email} />
+              <CardHeader
+                title={'Deudor Principal'}
+                icon={'👤'}
+              />
+              <DataRow
+                label={'Nombre'}
+                value={carpeta.nombre}
+              />
+              <DataRow
+                label={'Cédula'}
+                value={carpeta.deudor?.cedula}
+              />
+              <DataRow
+                label={'Teléfono'}
+                value={carpeta.deudor?.telCelular}
+              />
+              <DataRow
+                label={'Email'}
+                value={carpeta.deudor?.email}
+              />
             </Card>
 
             <Card>
-              <CardHeader title={'Detalles Judiciales'} icon={'⚖️'} />
-              <DataRow label={'Juzgado'} value={`JUZGADO ${ carpeta.juzgado?.id } ${ carpeta.juzgado?.tipo } DE ${ carpeta.juzgado?.ciudad }`} />
-              <DataRow label={'Ciudad'} value={carpeta.demanda.departamento} />
-              <DataRow label={'Radicado'} value={carpeta.demanda.radicado} />
-              <DataRow label={'Capital Adeudado'} value={carpeta.demanda.capitalAdeudado} money={true} />
+              <CardHeader
+                title={'Detalles Judiciales'}
+                icon={'⚖️'}
+              />
+              <DataRow
+                label={'Juzgado'}
+                value={`JUZGADO ${ carpeta.juzgado?.id } ${ carpeta.juzgado?.tipo } DE ${ carpeta.juzgado?.ciudad }`}
+              />
+              <DataRow
+                label={'Ciudad'}
+                value={carpeta.demanda.departamento}
+              />
+              <DataRow
+                label={'Radicado'}
+                value={carpeta.demanda.radicado}
+              />
+              <DataRow
+                label={'Capital Adeudado'}
+                value={carpeta.demanda.capitalAdeudado}
+                money={true}
+              />
             </Card>
 
-
             <Card>
-              <CardHeader title={'Tareas Pendientes'} icon={'✅'} />
+              <CardHeader
+                title={'Tareas Pendientes'}
+                icon={'✅'}
+              />
               <Suspense fallback={<Loader />}>
                 <NotesList idCarpeta={carpeta.numero} />
               </Suspense>
-
             </Card>
           </div>
 
@@ -166,7 +211,10 @@ export default function ProtoPage( {
                 color          : 'var(--on-tertiary-container)',
               }}
             >
-              <CardHeader title={'Facturación'} icon={'💲'} />
+              <CardHeader
+                title={'Facturación'}
+                icon={'💲'}
+              />
               <DataRow
                 style={{
                   borderColor: 'rgba(0,0,0,0.1)',
@@ -182,17 +230,31 @@ export default function ProtoPage( {
             </Card>
 
             <Card>
-              <Suspense fallback={<><CardHeader title={'Cargando Actuaciones'} icon={'cached'} /> <Loader /></>}>
-                <CardHeader title="Actuaciones Recientes" icon="📅" />
-                {carpeta.idProcesos && carpeta.idProcesos.map( ( idProceso ) => {
-                  return (
-                    <ActuacionesList
-                      key={idProceso}
-                      idProceso={idProceso}
-                      carpetaNumero={carpeta.numero}
-                    />
-                  );
-                } )}
+              <Suspense
+                fallback={
+                  <>
+                    <CardHeader
+                      title={'Cargando Actuaciones'}
+                      icon={'cached'}
+                    />{' '}
+                    <Loader />
+                  </>
+                }
+              >
+                <CardHeader
+                  title="Actuaciones Recientes"
+                  icon="📅"
+                />
+                {carpeta.idProcesos
+                  && carpeta.idProcesos.map( ( idProceso ) => {
+                    return (
+                      <ActuacionesList
+                        key={idProceso}
+                        idProceso={idProceso}
+                        carpetaNumero={carpeta.numero}
+                      />
+                    );
+                  } )}
               </Suspense>
             </Card>
 

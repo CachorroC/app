@@ -6,7 +6,7 @@ import styles from './studio-clone.module.css';
 
 export default function Page() {
   const {
-    models, activeModel, tableData, setActiveModel, isLoading
+    models, activeModel, tableData, setActiveModel, isLoading 
   }
     = useDatabaseModelsContext();
 
@@ -45,63 +45,59 @@ export default function Page() {
       <div className={styles.mainContent}>
         <h2 className={styles.mainTitle}>{activeModel?.name} Data</h2>
 
-        { isLoading
-          ? (
-              <div>
-                <p>Loading {activeModel?.name} records...</p>
-                <Loader />
-              </div>
-            )
-          : tableData.length === 0
-            ? (
-                <p className={styles.emptyMessage}>
-                  No records found. (Add POST logic to create some!)
-                </p>
-              )
-            : (
-                <table className={styles.table}>
-                  <thead className={styles.tableHead}>
-                    <tr>
-                      {/* Dynamically generate column headers based on DMMF fields */}
-                      {activeModel?.fields.map( ( field ) => {
-                        return (
-                          <th
-                            key={field.name}
-                            className={styles.tableHeader}
-                          >
-                            {field.name}{' '}
-                            <span className={styles.fieldType}>({field.type})</span>
-                          </th>
-                        );
-                      } )}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {/* Dynamically render rows and cells */}
-                    {tableData.map( (
-                      row, index
-                    ) => {
+        {isLoading ? (
+          <div>
+            <p>Loading {activeModel?.name} records...</p>
+            <Loader />
+          </div>
+        ) : tableData.length === 0 ? (
+          <p className={styles.emptyMessage}>
+            No records found. (Add POST logic to create some!)
+          </p>
+        ) : (
+          <table className={styles.table}>
+            <thead className={styles.tableHead}>
+              <tr>
+                {/* Dynamically generate column headers based on DMMF fields */}
+                {activeModel?.fields.map( ( field ) => {
+                  return (
+                    <th
+                      key={field.name}
+                      className={styles.tableHeader}
+                    >
+                      {field.name}{' '}
+                      <span className={styles.fieldType}>({field.type})</span>
+                    </th>
+                  );
+                } )}
+              </tr>
+            </thead>
+            <tbody>
+              {/* Dynamically render rows and cells */}
+              {tableData.map( (
+                row, index 
+              ) => {
+                return (
+                  <tr
+                    key={index}
+                    className={styles.tableRow}
+                  >
+                    {activeModel?.fields.map( ( field ) => {
                       return (
-                        <tr
-                          key={index}
-                          className={styles.tableRow}
-                        >
-                          {activeModel?.fields.map( ( field ) => {
-                            return (
-                              <Cell
-                                key={ field.name }
-                                field={ field }
-                                rowIndex={ index }
-                                row={ row }
-                              />
-                            );
-                          } )}
-                        </tr>
+                        <Cell
+                          key={field.name}
+                          field={field}
+                          rowIndex={index}
+                          row={row}
+                        />
                       );
                     } )}
-                  </tbody>
-                </table>
-              )}
+                  </tr>
+                );
+              } )}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

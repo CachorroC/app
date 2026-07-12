@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 'use client';
-import { APISchema, Model, ModelDataResponse, TableData, TableRow } from '#@/lib/types/api-models';
+import { APISchema,
+  Model,
+  ModelDataResponse,
+  TableData,
+  TableRow, } from '#@/lib/types/api-models';
 import { createContext,
   Dispatch,
   SetStateAction,
@@ -9,8 +13,6 @@ import { createContext,
   useState,
   useContext, } from 'react';
 import type { ReactNode } from 'react';
-
-
 
 const DatabaseModelsContext = createContext<{
   models        : Model[];
@@ -24,12 +26,21 @@ const DatabaseModelsContext = createContext<{
 } | null>( null );
 
 const CellEditingContext = createContext<{
-  editingCell      : { rowIndex: number; field: string; } | null;
-  setEditingCell   : Dispatch<SetStateAction<{ rowIndex: number; field: string; } | null>>;
+  editingCell   : { rowIndex: number; field: string } | null;
+  setEditingCell: Dispatch<
+    SetStateAction<{ rowIndex: number; field: string } | null>
+  >;
   editValue        : string;
   setEditValue     : Dispatch<SetStateAction<string>>;
-  handleDoubleClick: ( rowIndex: number, fieldName: string, currentValue: any ) => void;
-  handleSave       : ( rowIndex: number, fieldName: string, row: TableRow<string> ) => void;
+  handleDoubleClick:( rowIndex: number,
+    fieldName: string,
+    currentValue: any,
+  ) => void;
+  handleSave: (
+    rowIndex: number,
+    fieldName: string,
+    row: TableRow<string>,
+  ) => void;
 } | null>( null );
 
 export const DatabaseModelsContextProvider = ( {
@@ -57,7 +68,10 @@ export const DatabaseModelsContextProvider = ( {
   const [
     editingCell,
     setEditingCell
-  ] = useState<{ rowIndex: number; field: string } | null>( null );
+  ] = useState<{
+    rowIndex: number;
+    field   : string;
+  } | null>( null );
 
   // Tracks the temporary value being typed into the input
   const [
@@ -66,17 +80,21 @@ export const DatabaseModelsContextProvider = ( {
   ] = useState<string>( '' );
 
   const handleDoubleClick = (
-    rowIndex: number, fieldName: string, currentValue: any
+    rowIndex: number,
+    fieldName: string,
+    currentValue: any,
   ) => {
     setEditingCell( {
       rowIndex,
-      field: fieldName
+      field: fieldName,
     } );
     setEditValue( String( currentValue ?? '' ) ); // Convert null/undefined to empty string
   };
 
   const handleSave = async (
-    rowIndex: number, fieldName: string, row: TableRow<string>
+    rowIndex: number,
+    fieldName: string,
+    row: TableRow<string>,
   ) => {
     if ( !activeModel ) {
       return;
@@ -107,7 +125,10 @@ export const DatabaseModelsContextProvider = ( {
     } );
     let parsedEditValue: string | number | boolean = editValue;
 
-    if ( editedFieldSchema?.type === 'Int' || editedFieldSchema?.type === 'Float' ) {
+    if (
+      editedFieldSchema?.type === 'Int'
+      || editedFieldSchema?.type === 'Float'
+    ) {
       parsedEditValue = Number( editValue );
     } else if ( editedFieldSchema?.type === 'Boolean' ) {
       parsedEditValue = editValue === 'true';
@@ -130,16 +151,16 @@ export const DatabaseModelsContextProvider = ( {
         `/api/models/${ activeModel.name }`, {
           method : 'PATCH',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify( {
-            idField: idFieldName,       // Tell the backend the name of the PK column
-            idValue: idValue,           // Tell the backend the value of the PK
+            idField: idFieldName, // Tell the backend the name of the PK column
+            idValue: idValue, // Tell the backend the value of the PK
             data   : {
               [ fieldName ]: parsedEditValue,
             },
           } ),
-        }
+        } 
       );
 
       if ( !response.ok ) {
@@ -170,7 +191,7 @@ export const DatabaseModelsContextProvider = ( {
             setActiveModel( data.models[ 0 ] );
           }
         } );
-    }, []
+    }, [] 
   );
 
   // 2. Fetch data whenever a new table/model is selected
@@ -196,7 +217,7 @@ export const DatabaseModelsContextProvider = ( {
         } );
     }, [
       activeModel
-    ]
+    ] 
   );
 
   return (
@@ -212,14 +233,15 @@ export const DatabaseModelsContextProvider = ( {
         setTableData,
       }}
     >
-      <CellEditingContext.Provider value={{
-        editingCell,
-        setEditingCell,
-        editValue,
-        setEditValue,
-        handleDoubleClick,
-        handleSave,
-      }}
+      <CellEditingContext.Provider
+        value={{
+          editingCell,
+          setEditingCell,
+          editValue,
+          setEditValue,
+          handleDoubleClick,
+          handleSave,
+        }}
       >
         {children}
       </CellEditingContext.Provider>

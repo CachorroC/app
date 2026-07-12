@@ -55,7 +55,6 @@ export default function Page() {
       const msg = await postData.json();
 
       alert( JSON.stringify( msg ) );
-
     } catch ( e ) {
       alert( 'se ha creado un error al enviar tu formulario, por favor verifica la información e intenta nuevamente', );
     }

@@ -12,7 +12,7 @@ export default async function Page( {
   }>;
 } ) {
   const {
-    numero, idProceso
+    numero, idProceso 
   } = await params;
 
   if ( idProceso === 'idProceso' ) {
@@ -20,7 +20,7 @@ export default async function Page( {
   }
 
   const actuaciones = await fetchActuaciones(
-    idProceso, Number( numero )
+    idProceso, Number( numero ) 
   );
 
   if ( !actuaciones || actuaciones.length === 0 ) {

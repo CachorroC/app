@@ -27,7 +27,6 @@ async function aggregateNotificationToDatabase( notification: OptionalId<Documen
     if ( !insertNotification.acknowledged ) {
       throw new Error( 'Failed to insert notification into DB' );
     }
-
   } catch ( error ) {
     // We only log here so a DB logging failure doesn't stop the push notifications
     console.error(

@@ -30,6 +30,7 @@ Path alias `@/*` → project root (set in `tsconfig.json`: `"paths": { "@/*": ["
 ## Theme
 
 `globals.css` ships **light** as the default. Dark applies when:
+
 - `<html data-theme="dark">` is set (the in-app toggle does this), or
 - the OS is in dark mode and the app is not pinned with `data-theme="light"`.
 
@@ -58,9 +59,17 @@ Both routes are server components that currently import `lib/mockData`. Replace 
 
 ```ts
 const carpetas = await prisma.carpeta.findMany({
-  include: { deudor: true, codeudor: true, demanda: { include: { medidas: true, notif: true } },
-             procesos: true, actuaciones: { orderBy: { fecha: 'desc' } },
-             facturas: true, notas: true, tareas: true, juzgado: true },
+  include: {
+    deudor: true,
+    codeudor: true,
+    demanda: { include: { medidas: true, notif: true } },
+    procesos: true,
+    actuaciones: { orderBy: { fecha: 'desc' } },
+    facturas: true,
+    notas: true,
+    tareas: true,
+    juzgado: true,
+  },
 });
 ```
 

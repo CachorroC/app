@@ -5,7 +5,18 @@ export const aportando291y292: MemorialTemplate = {
   filename   : 'aportando-291-y-292.docx',
   displayName: 'Memorial aportando 291 y 292',
   description: 'Aporta los documentos 291 y 292 y (opcionalmente) anexos.',
-  groups     : [
+  autofill   : {
+    triggerField: 'deudor.nombre',
+    fieldMap    : {
+      'juzgado.tipo'   : 'juzgado.tipo',
+      'juzgado.ciudad' : 'juzgado.ciudad',
+      'juzgado.numero' : 'juzgado.numero',
+      'radicado.numero': 'radicado.numero',
+      'radicado.año'   : 'radicado.año',
+      tipoproceso      : 'tipoProceso',
+    },
+  },
+  groups: [
     {
       key   : 'deudor',
       legend: 'Datos del deudor',
@@ -15,8 +26,8 @@ export const aportando291y292: MemorialTemplate = {
           label   : 'Nombre del deudor',
           type    : 'text',
           required: true,
-          format  : 'upper'
-        }
+          format  : 'upper',
+        },
       ],
     },
     {
@@ -28,27 +39,27 @@ export const aportando291y292: MemorialTemplate = {
           label   : 'Tipo de juzgado',
           type    : 'text',
           required: true,
-          format  : 'upper'
+          format  : 'upper',
         },
         {
           name    : 'numero',
           label   : 'Número del juzgado (dígitos)',
           type    : 'text',
-          required: true
+          required: true,
         },
         {
           name   : 'numero_escrito',
           label  : 'Número del juzgado (en letras)',
           type   : 'text',
           derived: true,
-          format : 'upper'
+          format : 'upper',
         }, // derivado de `numero` — ver lib/derive.ts
         {
           name    : 'ciudad',
           label   : 'Ciudad del juzgado',
           type    : 'text',
           required: true,
-          format  : 'upper'
+          format  : 'upper',
         },
       ],
     },
@@ -61,13 +72,13 @@ export const aportando291y292: MemorialTemplate = {
           label   : 'Número de radicado',
           type    : 'text',
           required: true,
-          format  : 'radicado'
+          format  : 'radicado',
         },
         {
           name    : 'año',
           label   : 'Año del radicado',
           type    : 'number',
-          required: true
+          required: true,
         },
       ],
     },
@@ -83,15 +94,15 @@ export const aportando291y292: MemorialTemplate = {
           options : [
             {
               value: 'mínima cuantía',
-              label: 'Mínima cuantía'
+              label: 'Mínima cuantía',
             },
             {
               value: 'menor cuantía',
-              label: 'Menor cuantía'
+              label: 'Menor cuantía',
             },
             {
               value: 'mayor cuantía',
-              label: 'Mayor cuantía'
+              label: 'Mayor cuantía',
             },
           ],
         },
@@ -100,14 +111,14 @@ export const aportando291y292: MemorialTemplate = {
           label   : 'Tipo de proceso',
           type    : 'text',
           required: true,
-          format  : 'upper'
+          format  : 'upper',
         }, // ⚠ template usa `tipoproceso` (sin guion bajo); TODO: unificar en las plantillas
         {
           name    : 'fecha_auto',
           label   : 'Fecha del auto',
           type    : 'date',
           required: true,
-          format  : 'dateLong'
+          format  : 'dateLong',
         },
       ],
     },
@@ -117,13 +128,13 @@ export const aportando291y292: MemorialTemplate = {
         {
           name : 'has_anexos',
           label: '¿Incluye anexos?',
-          type : 'boolean'
+          type : 'boolean',
         },
         {
           name    : 'anexos_list',
           label   : 'Anexos',
           type    : 'stringList',
-          helpText: 'Un anexo por línea.'
+          helpText: 'Un anexo por línea.',
         },
       ],
     },

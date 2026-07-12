@@ -4,7 +4,7 @@ import prisma from '#@/lib/connection/prisma';
 export async function updateUltimaActuacionInPrisma( incomingActuacion: DatabaseActuacionType, ) {
   try {
     const {
-      fechaActuacion, idProceso, idRegActuacion
+      fechaActuacion, idProceso, idRegActuacion 
     } = incomingActuacion;
 
     const carpeta = await prisma.carpeta.findFirstOrThrow( {
@@ -16,7 +16,7 @@ export async function updateUltimaActuacionInPrisma( incomingActuacion: Database
     } );
 
     const {
-      fecha: savedDate, idRegUltimaAct, numero
+      fecha: savedDate, idRegUltimaAct, numero 
     } = carpeta;
 
     const incomingDate = new Date( fechaActuacion );

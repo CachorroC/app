@@ -68,10 +68,10 @@ export function extractDocxTags( docxPath: string ): ExtractedTemplate {
   const resolve = ( path: string ): string => {
     const [
       head,
-      ...rest 
+      ...rest
     ] = path.split( '.' );
     const loop = [
-      ...loopStack 
+      ...loopStack
     ].reverse()
       .find( ( l ) => {
         return l.item === head;
@@ -80,7 +80,7 @@ export function extractDocxTags( docxPath: string ): ExtractedTemplate {
     return loop
       ? [
           `${ loop.source }[]`,
-          ...rest 
+          ...rest
         ].join( '.' )
       : path;
   };
@@ -110,7 +110,7 @@ export function extractDocxTags( docxPath: string ): ExtractedTemplate {
       arrays.add( source );
       loopStack.push( {
         item: forM[ 1 ],
-        source
+        source,
       } );
     } else if ( /^endfor$/.test( stmt ) ) {
       loopStack.pop();
@@ -133,13 +133,13 @@ export function extractDocxTags( docxPath: string ): ExtractedTemplate {
 
   return {
     paths: [
-      ...paths 
+      ...paths
     ].sort(),
     booleans: [
-      ...booleans 
+      ...booleans
     ].sort(),
     arrays: [
-      ...arrays 
+      ...arrays
     ].sort(),
   };
 }

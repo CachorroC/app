@@ -1,6 +1,7 @@
 'use client';
 
-import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
+import { useCarpetaSort,
+  useCarpetaSortDispatch, } from '#@/app/Context/carpetas-sort-context';
 import { SortColumn, SortDirection } from '#@/app/Hooks/useCarpetasreducer';
 import styles from './styles.module.css';
 import toolbarStyles from './toolbar.module.css';
@@ -8,37 +9,37 @@ import toolbarStyles from './toolbar.module.css';
 const SORT_OPTIONS: { value: SortColumn; label: string }[] = [
   {
     value: 'numero',
-    label: 'Número' 
+    label: 'Número',
   },
   {
     value: 'nombre',
-    label: 'Nombre' 
+    label: 'Nombre',
   },
   {
     value: 'fecha',
-    label: 'Fecha' 
+    label: 'Fecha',
   },
   {
     value: 'category',
-    label: 'Categoría' 
+    label: 'Categoría',
   },
   {
     value: 'tipoProceso',
-    label: 'Tipo de proceso' 
+    label: 'Tipo de proceso',
   },
   {
     value: 'revisado',
-    label: 'Revisado' 
+    label: 'Revisado',
   },
   {
     value: 'updatedAt',
-    label: 'Última modificación' 
+    label: 'Última modificación',
   },
 ];
 
 export function CarpetasSortButtons() {
   const {
-    sort
+    sort 
   } = useCarpetaSort();
 
   const dispatchCarpetas = useCarpetaSortDispatch();
@@ -111,7 +112,7 @@ export function TableRowCarpetaSortingButton( {
     | 'updatedAt';
 } ) {
   const {
-    sort
+    sort 
   } = useCarpetaSort();
 
   const dispatchCarpetas = useCarpetaSortDispatch();
@@ -124,9 +125,10 @@ export function TableRowCarpetaSortingButton( {
       <button
         type="button"
         onClick={() => {
-          const nextDirection: SortDirection = sort?.column === sortKey && sort.direction === 'asc'
-            ? 'dsc'
-            : 'asc';
+          const nextDirection: SortDirection
+            = sort?.column === sortKey && sort.direction === 'asc'
+              ? 'dsc'
+              : 'asc';
 
           return dispatchCarpetas( {
             type     : 'sort',

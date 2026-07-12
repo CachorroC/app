@@ -2,11 +2,15 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Asesor Jurídico — Carpetas',
+  title      : 'Asesor Jurídico — Carpetas',
   description: 'Gestión de carpetas y procesos jurídicos',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout( {
+  children,
+}: {
+  children: React.ReactNode;
+} ) {
   return (
     <html lang="es">
       {/*

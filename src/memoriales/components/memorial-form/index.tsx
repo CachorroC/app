@@ -5,6 +5,7 @@ import type { MemorialTemplate } from '#@/memoriales/manifests/types';
 import { buildSchema } from '#@/memoriales/lib/build-schema';
 import { Fieldset } from '../fieldset';
 import { SubmitBar } from '../submit-bar';
+import { AutofillContextProvider, useAutofill } from './autofill-context';
 import { assembleSubmitValues, defaultValuesForTemplate } from './values';
 import styles from './memorial-form.module.css';
 
@@ -17,11 +18,17 @@ interface MemorialFormProps {
 }
 
 export function MemorialForm( {
-  template, onSubmit, disabled = false, submitLabel
+  template,
+  onSubmit,
+  disabled = false,
+  submitLabel,
 }: MemorialFormProps ) {
   const methods = useForm( {
     defaultValues: defaultValuesForTemplate( template ),
   } );
+  const autofill = useAutofill(
+    template, methods 
+  );
 
   async function handleValidSubmit( raw: Record<string, unknown> ) {
     const assembled = assembleSubmitValues(
@@ -43,7 +50,7 @@ export function MemorialForm( {
         methods.setError(
           path, {
             type   : 'manual',
-            message: issue.message
+            message: issue.message,
           } 
         );
 
@@ -69,31 +76,34 @@ export function MemorialForm( {
 
   return (
     <FormProvider {...methods}>
-      <form
-        noValidate
-        onSubmit={methods.handleSubmit( handleValidSubmit )}
-        className={`${ styles.form } ${ disabled
-          ? styles.formDisabled
-          : '' }`}
-      >
-        {template.groups.map( ( group ) => {
-          return (
-            <Fieldset
-              key={group.key ?? group.legend}
-              group={group}
-              pathPrefix={group.key}
-              disabled={disabled}
-            />
-          );
-        } )}
-        <SubmitBar
-          disabled={disabled}
-          submitLabel={submitLabel}
-          onReset={() => {
-            return methods.reset( defaultValuesForTemplate( template ) );
-          }}
-        />
-      </form>
+      <AutofillContextProvider value={autofill}>
+        <form
+          noValidate
+          onSubmit={methods.handleSubmit( handleValidSubmit )}
+          className={`${ styles.form } ${ disabled
+            ? styles.formDisabled
+            : '' }`}
+        >
+          {template.groups.map( ( group ) => {
+            return (
+              <Fieldset
+                key={group.key ?? group.legend}
+                group={group}
+                pathPrefix={group.key}
+                disabled={disabled}
+              />
+            );
+          } )}
+          <SubmitBar
+            disabled={disabled}
+            submitLabel={submitLabel}
+            onReset={() => {
+              autofill?.resetEdited();
+              methods.reset( defaultValuesForTemplate( template ) );
+            }}
+          />
+        </form>
+      </AutofillContextProvider>
     </FormProvider>
   );
 }

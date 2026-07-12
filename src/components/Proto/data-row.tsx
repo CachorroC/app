@@ -1,4 +1,6 @@
-import { dataLabel, dataRow, dataValue } from '#@/styles/proto-styles.module.css';
+import { dataLabel,
+  dataRow,
+  dataValue, } from '#@/styles/proto-styles.module.css';
 import { CSSProperties } from 'react';
 
 export default function DataRow( {
@@ -7,7 +9,7 @@ export default function DataRow( {
   style,
   labelStyle,
   valueStyle,
-  money = false
+  money = false,
 }: {
   label      : string;
   value      : string | number | null | undefined;
@@ -20,15 +22,28 @@ export default function DataRow( {
     'es-CO', {
       style   : 'currency',
       currency: 'COP',
-    }
+    } 
   );
 
   return (
-    <div className={dataRow} style={style}>
-      <span className={dataLabel} style={labelStyle}>{label}</span>
-      <span className={dataValue} style={valueStyle}>{money
-        ? copFormatter.format( Number( value )  )
-        : value}</span>
+    <div
+      className={dataRow}
+      style={style}
+    >
+      <span
+        className={dataLabel}
+        style={labelStyle}
+      >
+        {label}
+      </span>
+      <span
+        className={dataValue}
+        style={valueStyle}
+      >
+        {money
+          ? copFormatter.format( Number( value ) )
+          : value}
+      </span>
     </div>
   );
 }

@@ -54,7 +54,6 @@ export class JuzgadoClass implements Juzgado {
       const includesDespacho = normalizedIteratedName.includes( normalizedName );
 
       if ( indexOfDespacho !== -1 ) {
-
         return true;
       }
 

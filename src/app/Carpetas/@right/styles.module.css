@@ -1,6 +1,8 @@
 @charset "UTF-8";
 /* Segmented group container — mobile-first (base = compact, wraps) */
-.segmentedButtons, .segmentedButtonsColumn, .segmentedButtonsRow {
+.segmentedButtons,
+.segmentedButtonsColumn,
+.segmentedButtonsRow {
   display: flex;
   flex: 1;
   gap: 0.0625rem;
@@ -11,7 +13,9 @@
 }
 
 @media (600px <= width) {
-  .segmentedButtons, .segmentedButtonsColumn, .segmentedButtonsRow {
+  .segmentedButtons,
+  .segmentedButtonsColumn,
+  .segmentedButtonsRow {
     justify-content: space-evenly;
     align-items: stretch;
     align-content: stretch;
@@ -23,39 +27,57 @@
     flex-flow: column nowrap;
   }
 }
-.segmentedButtonsRow .button:first-child, .segmentedButtonsRow .buttonCategoryActive:first-child, .segmentedButtonsRow .buttonCategoryPasive:first-child {
+.segmentedButtonsRow .button:first-child,
+.segmentedButtonsRow .buttonCategoryActive:first-child,
+.segmentedButtonsRow .buttonCategoryPasive:first-child {
   border-radius: var(--shape-corner-large-start);
 }
 
-.segmentedButtonsRow .button:last-child, .segmentedButtonsRow .buttonCategoryActive:last-child, .segmentedButtonsRow .buttonCategoryPasive:last-child {
+.segmentedButtonsRow .button:last-child,
+.segmentedButtonsRow .buttonCategoryActive:last-child,
+.segmentedButtonsRow .buttonCategoryPasive:last-child {
   border-radius: var(--shape-corner-large-end);
 }
 
-.segmentedButtonsRow .button:only-child, .segmentedButtonsRow .buttonCategoryActive:only-child, .segmentedButtonsRow .buttonCategoryPasive:only-child {
+.segmentedButtonsRow .button:only-child,
+.segmentedButtonsRow .buttonCategoryActive:only-child,
+.segmentedButtonsRow .buttonCategoryPasive:only-child {
   border-radius: var(--shape-corner-large);
 }
 
-.segmentedButtonsColumn .button:first-child, .segmentedButtonsColumn .buttonCategoryActive:first-child, .segmentedButtonsColumn .buttonCategoryPasive:first-child {
+.segmentedButtonsColumn .button:first-child,
+.segmentedButtonsColumn .buttonCategoryActive:first-child,
+.segmentedButtonsColumn .buttonCategoryPasive:first-child {
   border-radius: var(--shape-corner-large-start);
 }
 
-.segmentedButtonsColumn .button:last-child, .segmentedButtonsColumn .buttonCategoryActive:last-child, .segmentedButtonsColumn .buttonCategoryPasive:last-child {
+.segmentedButtonsColumn .button:last-child,
+.segmentedButtonsColumn .buttonCategoryActive:last-child,
+.segmentedButtonsColumn .buttonCategoryPasive:last-child {
   border-radius: var(--shape-corner-large-end);
 }
 
-.segmentedButtonsColumn .button:only-child, .segmentedButtonsColumn .buttonCategoryActive:only-child, .segmentedButtonsColumn .buttonCategoryPasive:only-child {
+.segmentedButtonsColumn .button:only-child,
+.segmentedButtonsColumn .buttonCategoryActive:only-child,
+.segmentedButtonsColumn .buttonCategoryPasive:only-child {
   border-radius: var(--shape-corner-large);
 }
 
 @media (600px <= width) {
-  .segmentedButtonsColumn .button:first-child, .segmentedButtonsColumn .buttonCategoryActive:first-child, .segmentedButtonsColumn .buttonCategoryPasive:first-child {
+  .segmentedButtonsColumn .button:first-child,
+  .segmentedButtonsColumn .buttonCategoryActive:first-child,
+  .segmentedButtonsColumn .buttonCategoryPasive:first-child {
     border-radius: var(--shape-corner-large-top);
   }
-  .segmentedButtonsColumn .button:last-child, .segmentedButtonsColumn .buttonCategoryActive:last-child, .segmentedButtonsColumn .buttonCategoryPasive:last-child {
+  .segmentedButtonsColumn .button:last-child,
+  .segmentedButtonsColumn .buttonCategoryActive:last-child,
+  .segmentedButtonsColumn .buttonCategoryPasive:last-child {
     border-radius: var(--shape-corner-large-bottom);
   }
 }
-.button, .buttonCategoryActive, .buttonCategoryPasive {
+.button,
+.buttonCategoryActive,
+.buttonCategoryPasive {
   border: none;
   box-sizing: border-box;
   padding: var(--space-2) var(--space-3);
@@ -67,29 +89,39 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  transition: background-color var(--duration-short) var(--ease-standard), color var(--duration-short) var(--ease-standard);
+  transition:
+    background-color var(--duration-short) var(--ease-standard),
+    color var(--duration-short) var(--ease-standard);
   position: relative;
   box-shadow: var(--elevation-1);
   background-color: var(--surface-container-high);
   color: var(--on-surface);
 }
 
-.button:before, .buttonCategoryActive:before, .buttonCategoryPasive:before {
+.button:before,
+.buttonCategoryActive:before,
+.buttonCategoryPasive:before {
   position: absolute;
   inset: 0;
-  content: "";
+  content: '';
   border-radius: inherit;
   background-color: currentColor;
   opacity: 0;
   transition: opacity var(--duration-short) var(--ease-standard);
 }
 
-.button:hover:before, .buttonCategoryActive:hover:before, .buttonCategoryPasive:hover:before {
+.button:hover:before,
+.buttonCategoryActive:hover:before,
+.buttonCategoryPasive:hover:before {
   opacity: var(--md-state-hover);
 }
 
-.button:focus-visible:before, .buttonCategoryActive:focus-visible:before, .buttonCategoryPasive:focus-visible:before,
-.button:active:before, .buttonCategoryActive:active:before, .buttonCategoryPasive:active:before {
+.button:focus-visible:before,
+.buttonCategoryActive:focus-visible:before,
+.buttonCategoryPasive:focus-visible:before,
+.button:active:before,
+.buttonCategoryActive:active:before,
+.buttonCategoryPasive:active:before {
   opacity: var(--md-state-press);
 }
 

@@ -8,12 +8,7 @@ import layout from '#@/styles/layout.module.css';
 
 export function NotasSortButtons() {
   const keys: (
-    | 'carpetaNumero'
-    | 'id'
-    | 'dueDate'
-    | 'createdAt'
-    | 'text'
-    | 'updatedAt'
+    'carpetaNumero' | 'id' | 'dueDate' | 'createdAt' | 'text' | 'updatedAt'
   )[] = [
     'dueDate',
     'text',

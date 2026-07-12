@@ -29,12 +29,7 @@ Create a typed manifest registry. Each template is described once; the form, the
 
 ```ts
 type FieldType =
-  | 'text'
-  | 'number'
-  | 'date'
-  | 'currency'
-  | 'textarea'
-  | 'select';
+  'text' | 'number' | 'date' | 'currency' | 'textarea' | 'select';
 type FieldFormat = 'cedula' | 'currencyCOP' | 'dateLong' | 'radicado' | 'none';
 
 interface FieldDef {

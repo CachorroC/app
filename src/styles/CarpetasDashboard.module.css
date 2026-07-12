@@ -312,11 +312,19 @@
 }
 
 .table tbody tr:hover {
-  background: color-mix(in srgb, var(--primary) 6%, var(--surface-container-lowest));
+  background: color-mix(
+    in srgb,
+    var(--primary) 6%,
+    var(--surface-container-lowest)
+  );
 }
 
 .rowDone {
-  background: color-mix(in srgb, var(--surface-container) 50%, var(--surface-container-lowest));
+  background: color-mix(
+    in srgb,
+    var(--surface-container) 50%,
+    var(--surface-container-lowest)
+  );
 }
 
 .td {
@@ -447,7 +455,9 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  transition: box-shadow var(--duration-short) var(--ease-standard), border-color var(--duration-short);
+  transition:
+    box-shadow var(--duration-short) var(--ease-standard),
+    border-color var(--duration-short);
 }
 
 .card:hover {

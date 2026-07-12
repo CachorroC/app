@@ -6,7 +6,6 @@ export default function Loading() {
   return (
     <div className={layout.leftGrid}>
       <div className={styles.page}>
-
         <header className={styles.header}>
           <div className={styles.brandText}>
             <p className={styles.brandTitle}>{'R&S Asesoría Jurídica'}</p>
@@ -16,10 +15,10 @@ export default function Loading() {
 
         <div className={styles.statsGrid}>
           {Array.from( {
-            length: 4
+            length: 4,
           } )
             .map( (
-              _, i
+              _, i 
             ) => {
               return (
                 <div
@@ -34,10 +33,10 @@ export default function Loading() {
 
         <div className={styles.navCards}>
           {Array.from( {
-            length: 2
+            length: 2,
           } )
             .map( (
-              _, i
+              _, i 
             ) => {
               return (
                 <div
@@ -52,10 +51,10 @@ export default function Loading() {
 
         <div className={styles.activityList}>
           {Array.from( {
-            length: 4
+            length: 4,
           } )
             .map( (
-              _, i
+              _, i 
             ) => {
               return (
                 <div
@@ -67,7 +66,6 @@ export default function Loading() {
               );
             } )}
         </div>
-
       </div>
     </div>
   );

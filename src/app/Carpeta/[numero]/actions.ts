@@ -7,9 +7,9 @@ import { intDemanda } from '#@/lib/types/carpetas';
 export async function editDemandaInPrisma( incomingDemanda: intDemanda ) {
   const {
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-    carpetaNumero, ...restDemanda
-  }
-    = incomingDemanda;
+    carpetaNumero,
+    ...restDemanda
+  } = incomingDemanda;
 
   try {
     const editor = await prisma.demanda.update( {

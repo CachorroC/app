@@ -1,4 +1,3 @@
-
 import prisma from '#@/lib/connection/prisma';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 import { connection } from 'next/server';

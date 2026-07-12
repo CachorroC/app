@@ -1,7 +1,8 @@
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { EstadoTag, getEstadoTags } from '#@/app/Hooks/useCarpetasreducer';
 
-export type CategoryColor = 'primary' | 'tertiary' | 'secondary' | 'error' | 'success' | 'neutral';
+export type CategoryColor =
+  'primary' | 'tertiary' | 'secondary' | 'error' | 'success' | 'neutral';
 
 export type CategoryMeta = {
   label: string;
@@ -11,31 +12,31 @@ export type CategoryMeta = {
 const CATEGORY_META: Record<string, CategoryMeta> = {
   Bancolombia: {
     label: 'Bancolombia',
-    color: 'tertiary' 
+    color: 'tertiary',
   },
   Reintegra: {
     label: 'Reintegra',
-    color: 'primary' 
+    color: 'primary',
   },
   Insolvencia: {
     label: 'Insolvencia',
-    color: 'error' 
+    color: 'error',
   },
   LiosJuridicos: {
     label: 'Líos Jurídicos',
-    color: 'secondary' 
+    color: 'secondary',
   },
   Terminados: {
     label: 'Terminados',
-    color: 'success' 
+    color: 'success',
   },
   SinTercero: {
     label: 'Sin tercero',
-    color: 'neutral' 
+    color: 'neutral',
   },
   SinEspecificar: {
     label: 'Sin especificar',
-    color: 'neutral' 
+    color: 'neutral',
   },
 };
 
@@ -50,7 +51,7 @@ export const ESTADO_COLOR: Record<EstadoTag, CategoryColor> = {
   Pendiente: 'neutral',
 };
 
-export function getEstadoBadges( carpeta: MonCarpeta ): { label: EstadoTag; color: CategoryColor }[] {
+export function getEstadoBadges( carpeta: MonCarpeta, ): { label: EstadoTag; color: CategoryColor }[] {
   return getEstadoTags( carpeta )
     .map( ( tag ) => {
       return {
@@ -67,7 +68,12 @@ export function clean( value: string | null | undefined ): string | null {
 
   const trimmed = value.trim();
 
-  if ( !trimmed || trimmed === 'N/A' || trimmed === 'undefined' || trimmed === 'null' ) {
+  if (
+    !trimmed
+    || trimmed === 'N/A'
+    || trimmed === 'undefined'
+    || trimmed === 'null'
+  ) {
     return null;
   }
 
@@ -76,7 +82,7 @@ export function clean( value: string | null | undefined ): string | null {
 
 export function deudorNombre( carpeta: MonCarpeta ): string | null {
   const {
-    deudor
+    deudor 
   } = carpeta;
 
   if ( !deudor ) {
@@ -117,7 +123,7 @@ export function fmtDate( date: Date | string | null | undefined ): string | null
       day  : '2-digit',
       month: 'short',
       year : 'numeric',
-    }
+    } 
   );
 }
 
@@ -137,10 +143,10 @@ export function fmtMoney( value: number | null | undefined ): string | null {
 
 export function juzgadoText( carpeta: MonCarpeta ): string {
   const tipo = clean( carpeta.juzgado?.tipo ?? carpeta.juzgadoTipo );
-  const ciudad = clean( carpeta.juzgado?.ciudad ?? carpeta.juzgadoCiudad ?? carpeta.ciudad );
+  const ciudad = clean( carpeta.juzgado?.ciudad ?? carpeta.juzgadoCiudad ?? carpeta.ciudad, );
   const parts = [
     tipo,
-    ciudad 
+    ciudad
   ].filter( ( value ): value is string => {
     return Boolean( value );
   } );
@@ -150,10 +156,13 @@ export function juzgadoText( carpeta: MonCarpeta ): string {
     : 'Sin juzgado';
 }
 
-export function ultimaActuacionText( carpeta: MonCarpeta ): { text: string; date: string | null } {
+export function ultimaActuacionText( carpeta: MonCarpeta ): {
+  text: string;
+  date: string | null;
+} {
   const actuacion = carpeta.ultimaActuacion;
   const text = actuacion
-    ? clean( actuacion.actuacion ) ?? 'Sin actuación registrada'
+    ? ( clean( actuacion.actuacion ) ?? 'Sin actuación registrada' )
     : 'Sin actuación registrada';
   const date = actuacion
     ? fmtDate( actuacion.fechaActuacion )

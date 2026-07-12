@@ -31,10 +31,7 @@ export type ResetActionType = {
 };
 
 export type IntAction =
-  | FilterActionType
-  | SearchActionType
-  | SortActionType
-  | ResetActionType;
+  FilterActionType | SearchActionType | SortActionType | ResetActionType;
 
 export function carpetasReducer(
   carpetas: MonCarpeta[], action: IntAction 

@@ -12,7 +12,14 @@
       "Bash(curl -sf http://127.0.0.1:8787/health)",
       "Bash(pkill -f \"uvicorn render_service:app\")",
       "Bash(pnpm test:memoriales)",
-      "Bash(npx eslint *)"
+      "Bash(npx eslint *)",
+      "Bash(pnpm lint *)",
+      "Bash(sass --no-source-map src:src)",
+      "Bash(tcm src *)",
+      "Bash(URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com next dev -p 3100)",
+      "Bash(npx sass *)",
+      "Bash(npx tcm *)",
+      "Bash(URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com npx next dev -p 3100)"
     ]
   }
 }

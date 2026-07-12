@@ -25,7 +25,7 @@ export function ActuacionClientComponent( {
   actuacionPromise: Promise<DatabaseActuacionType>;
 } ) {
   const {
-    actuacion, anotacion, fechaActuacion, consActuacion, cant
+    actuacion, anotacion, fechaActuacion, consActuacion, cant 
   }
     = use( actuacionPromise );
 

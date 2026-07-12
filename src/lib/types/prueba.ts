@@ -16,11 +16,7 @@ export interface IntPrueba {
 }
 
 export type Category =
-  | 'Bancolombia'
-  | 'Reintegra'
-  | 'Terminados'
-  | 'Insolvencia'
-  | 'LiosJuridicos';
+  'Bancolombia' | 'Reintegra' | 'Terminados' | 'Insolvencia' | 'LiosJuridicos';
 
 export interface Demanda {
   capitalAdeudado        : number | null;

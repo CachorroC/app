@@ -18,10 +18,12 @@ import { getActuacionesByCarpetaNumero } from '#@/lib/project/utils/Actuaciones'
 // In a real app, load the carpeta + all relations here:
 //   const carpeta = await prisma.carpeta.findUnique({ where: { numero }, include: { ... } });
 export default async function CarpetaDetailPage( {
-  params
-}: { params: Promise<{ numero: string }> } ) {
+  params,
+}: {
+  params: Promise<{ numero: string }>;
+} ) {
   const {
-    numero
+    numero 
   } = await params;
   const carpeta = await getCarpetabyNumero( Number( numero ) );
 
@@ -33,7 +35,7 @@ export default async function CarpetaDetailPage( {
 
   const mappedCarpeta: Carpeta = {
     actuaciones: actuaciones.map( ( a ) => {
-      return  {
+      return {
         id           : Number( a.idRegActuacion ),
         fecha        : a.fechaActuacion.toISOString(),
         actuacion    : a.actuacion,
@@ -56,21 +58,25 @@ export default async function CarpetaDetailPage( {
         }
       : null,
     demanda: {
-      id               : carpeta.demanda.id,
-      departamento     : carpeta.demanda.departamento ?? '',
-      municipio        : carpeta.demanda.municipio ?? '',
-      despacho         : carpeta.demanda.despacho ?? '',
-      etapaProcesal    : carpeta.demanda.etapaProcesal ?? '',
-      tipoProceso      : carpeta.demanda.tipoProceso,
-      radicado         : carpeta.demanda.radicado ?? '',
-      capitalAdeudado  : carpeta.demanda.capitalAdeudado ?? 0,
-      avaluo           : carpeta.demanda.avaluo ?? 0,
-      liquidacion      : carpeta.demanda.liquidacion ?? 0,
-      obligacion       : carpeta.demanda.obligacion,
-      fechaPresentacion: carpeta.demanda.fechaPresentacion[ 0 ]?.toISOString() ?? null,
-      vencimientoPagare: carpeta.demanda.vencimientoPagare[ 0 ]?.toISOString() ?? null,
-      mandamientoPago  : carpeta.demanda.mandamientoPago[ 0 ]?.toISOString() ?? null,
-      entregaGarantias : carpeta.demanda.entregaGarantiasAbogado?.toISOString() ?? null,
+      id             : carpeta.demanda.id,
+      departamento   : carpeta.demanda.departamento ?? '',
+      municipio      : carpeta.demanda.municipio ?? '',
+      despacho       : carpeta.demanda.despacho ?? '',
+      etapaProcesal  : carpeta.demanda.etapaProcesal ?? '',
+      tipoProceso    : carpeta.demanda.tipoProceso,
+      radicado       : carpeta.demanda.radicado ?? '',
+      capitalAdeudado: carpeta.demanda.capitalAdeudado ?? 0,
+      avaluo         : carpeta.demanda.avaluo ?? 0,
+      liquidacion    : carpeta.demanda.liquidacion ?? 0,
+      obligacion     : carpeta.demanda.obligacion,
+      fechaPresentacion:
+        carpeta.demanda.fechaPresentacion[ 0 ]?.toISOString() ?? null,
+      vencimientoPagare:
+        carpeta.demanda.vencimientoPagare[ 0 ]?.toISOString() ?? null,
+      mandamientoPago:
+        carpeta.demanda.mandamientoPago[ 0 ]?.toISOString() ?? null,
+      entregaGarantias:
+        carpeta.demanda.entregaGarantiasAbogado?.toISOString() ?? null,
     },
     deudor: {
       id             : carpeta.deudor?.id ?? 0,
@@ -100,7 +106,7 @@ export default async function CarpetaDetailPage( {
     llaveProceso: carpeta.llaveProceso,
     nombre      : carpeta.nombre,
     notas       : carpeta.notas.map( ( n ) => {
-      return  {
+      return {
         id       : n.id,
         text     : n.text,
         content  : n.content,
@@ -111,7 +117,7 @@ export default async function CarpetaDetailPage( {
     } ),
     numero  : carpeta.numero,
     procesos: carpeta.procesos.map( ( p ) => {
-      return  {
+      return {
         idProceso   : p.idProceso,
         despacho    : p.despacho,
         departamento: p.departamento,

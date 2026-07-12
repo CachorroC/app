@@ -10,7 +10,7 @@ const ESTADO_ORDER: EstadoTag[] = [
   'Activo',
   'Terminado',
   'Revisado',
-  'Pendiente'
+  'Pendiente',
 ];
 
 export default function EstadoFilteringButtons() {

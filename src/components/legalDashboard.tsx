@@ -2,7 +2,6 @@ import React from 'react';
 import styles from '#@/styles/legalDashboard.module.css';
 import { Category } from '#@/lib/types/carpetas';
 
-
 export interface Juzgado {
   id    : string;
   tipo  : string;
@@ -89,49 +88,77 @@ const formatDate = ( date: Date | null | undefined ): string => {
       day   : 'numeric',
       hour  : '2-digit',
       minute: '2-digit',
-    }
+    } 
   )
     .format( new Date( date ) );
 };
 
 const DataItem = ( {
-  label, value
-}: { label: string; value: React.ReactNode } ) => {
+  label,
+  value,
+}: {
+  label: string;
+  value: React.ReactNode;
+} ) => {
   return (
     <div className={styles.dataItem}>
       <span className={styles.dataLabel}>{label}</span>
       <span className={styles.dataValue}>
         {value !== null && value !== undefined && value !== ''
-          ? value
-          : <span style={{
-              color: '#94a3b8'
-            }}
-            >N/A</span>}
+          ? (
+              value
+            )
+          : (
+              <span
+                style={{
+                  color: '#94a3b8',
+                }}
+              >
+                N/A
+              </span>
+            )}
       </span>
     </div>
   );
 };
 
 const JuzgadoInfo = ( {
-  juzgado, title = 'Juzgado Asignado'
-}: { juzgado: Juzgado; title?: string } ) => {
+  juzgado,
+  title = 'Juzgado Asignado',
+}: {
+  juzgado: Juzgado;
+  title? : string;
+} ) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
         <h3 className={styles.cardTitle}>{title}</h3>
       </div>
       <div className={styles.dataGrid}>
-        <DataItem label="ID Juzgado" value={juzgado.id} />
-        <DataItem label="Tipo" value={juzgado.tipo} />
-        <DataItem label="Ciudad" value={juzgado.ciudad} />
+        <DataItem
+          label="ID Juzgado"
+          value={juzgado.id}
+        />
+        <DataItem
+          label="Tipo"
+          value={juzgado.tipo}
+        />
+        <DataItem
+          label="Ciudad"
+          value={juzgado.ciudad}
+        />
         <DataItem
           label="Enlace Oficial"
           value={
-            <a href={juzgado.url} target="_blank" rel="noreferrer" style={{
-              color         : '#2563eb',
-              textDecoration: 'none',
-              fontWeight    : 600
-            }}
+            <a
+              href={juzgado.url}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                color         : '#2563eb',
+                textDecoration: 'none',
+                fontWeight    : 600,
+              }}
             >
               Abrir URL ↗
             </a>
@@ -143,29 +170,47 @@ const JuzgadoInfo = ( {
 };
 
 const ActuacionItem = ( {
-  actuacion
+  actuacion 
 }: { actuacion: Actuacion } ) => {
   return (
     <div className={styles.timelineItem}>
       <span className={styles.actuacionHeader}>{actuacion.actuacion}</span>
-      <span className={styles.actuacionDate}>{formatDate( actuacion.fechaActuacion )}</span>
+      <span className={styles.actuacionDate}>
+        {formatDate( actuacion.fechaActuacion )}
+      </span>
 
       {actuacion.anotacion && (
         <div className={styles.actuacionNote}>{actuacion.anotacion}</div>
       )}
 
       <div className={styles.actuacionDetailsGrid}>
-        <DataItem label="ID Registro" value={actuacion.idRegActuacion} />
-        <DataItem label="Regla / Cons" value={`${ actuacion.codRegla } / ${ actuacion.consActuacion }`} />
-        <DataItem label="Inicio - Fin" value={`${ formatDate( actuacion.fechaInicial ) } a ${ formatDate( actuacion.fechaFinal ) }`} />
-        <DataItem label="Registro / Creación" value={`${ formatDate( actuacion.fechaRegistro ) } / ${ formatDate( actuacion.createdAt ) }`} />
-        <DataItem label="Docs Adjuntos" value={actuacion.conDocumentos
-          ? 'Sí'
-          : 'No'}
+        <DataItem
+          label="ID Registro"
+          value={actuacion.idRegActuacion}
         />
-        <DataItem label="Es Última" value={actuacion.isUltimaAct
-          ? 'Sí'
-          : 'No'}
+        <DataItem
+          label="Regla / Cons"
+          value={`${ actuacion.codRegla } / ${ actuacion.consActuacion }`}
+        />
+        <DataItem
+          label="Inicio - Fin"
+          value={`${ formatDate( actuacion.fechaInicial ) } a ${ formatDate( actuacion.fechaFinal ) }`}
+        />
+        <DataItem
+          label="Registro / Creación"
+          value={`${ formatDate( actuacion.fechaRegistro ) } / ${ formatDate( actuacion.createdAt ) }`}
+        />
+        <DataItem
+          label="Docs Adjuntos"
+          value={actuacion.conDocumentos
+            ? 'Sí'
+            : 'No'}
+        />
+        <DataItem
+          label="Es Última"
+          value={actuacion.isUltimaAct
+            ? 'Sí'
+            : 'No'}
         />
       </div>
     </div>
@@ -173,14 +218,18 @@ const ActuacionItem = ( {
 };
 
 const ProcesoCard = ( {
-  proceso
+  proceso 
 }: { proceso: Proceso } ) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
         <h3 className={styles.cardTitle}>
           {proceso.idProceso}
-          {proceso.esPrivado && <span className={`${ styles.badge } ${ styles.badgePrimary }`}>Privado</span>}
+          {proceso.esPrivado && (
+            <span className={`${ styles.badge } ${ styles.badgePrimary }`}>
+              Privado
+            </span>
+          )}
         </h3>
         <div className={styles.cardSubtitle}>
           <strong>Sujetos:</strong> {proceso.sujetosProcesales}
@@ -188,32 +237,70 @@ const ProcesoCard = ( {
       </div>
 
       <div className={styles.dataGrid}>
-        <DataItem label="Llave Proceso" value={proceso.llaveProceso} />
-        <DataItem label="ID Conexión" value={proceso.idConexion} />
-        <DataItem label="Carpeta" value={`#${ proceso.carpetaNumero }`} />
-        <DataItem label="Despacho" value={proceso.despacho} />
-        <DataItem label="Ubicación" value={`${ proceso.juzgadoCiudad }, ${ proceso.departamento }`} />
-        <DataItem label="Fecha Proceso" value={formatDate( proceso.fechaProceso )} />
-        <DataItem label="Últ. Actuación" value={formatDate( proceso.fechaUltimaActuacion )} />
-        <DataItem label="Cant. Filas" value={proceso.cantFilas} />
+        <DataItem
+          label="Llave Proceso"
+          value={proceso.llaveProceso}
+        />
+        <DataItem
+          label="ID Conexión"
+          value={proceso.idConexion}
+        />
+        <DataItem
+          label="Carpeta"
+          value={`#${ proceso.carpetaNumero }`}
+        />
+        <DataItem
+          label="Despacho"
+          value={proceso.despacho}
+        />
+        <DataItem
+          label="Ubicación"
+          value={`${ proceso.juzgadoCiudad }, ${ proceso.departamento }`}
+        />
+        <DataItem
+          label="Fecha Proceso"
+          value={formatDate( proceso.fechaProceso )}
+        />
+        <DataItem
+          label="Últ. Actuación"
+          value={formatDate( proceso.fechaUltimaActuacion )}
+        />
+        <DataItem
+          label="Cant. Filas"
+          value={proceso.cantFilas}
+        />
       </div>
 
       <h4 className={styles.sectionTitle}>Detalles del Juzgado</h4>
       <div className={styles.dataGrid}>
-        <DataItem label="Juzgado ID" value={proceso.juzgadoId} />
-        <DataItem label="Tipo" value={proceso.juzgadoTipo} />
-        <DataItem label="Ciudad" value={proceso.juzgadoCiudad} />
+        <DataItem
+          label="Juzgado ID"
+          value={proceso.juzgadoId}
+        />
+        <DataItem
+          label="Tipo"
+          value={proceso.juzgadoTipo}
+        />
+        <DataItem
+          label="Ciudad"
+          value={proceso.juzgadoCiudad}
+        />
       </div>
 
       {proceso.actuaciones && proceso.actuaciones.length > 0 && (
         <>
-          <h4 className={styles.sectionTitle}>Historial de Actuaciones ({proceso.actuaciones.length})</h4>
+          <h4 className={styles.sectionTitle}>
+            Historial de Actuaciones ({proceso.actuaciones.length})
+          </h4>
           <div className={styles.timeline}>
             {proceso.actuaciones.map( (
-              act, index
+              act, index 
             ) => {
               return (
-                <ActuacionItem key={act.idRegActuacion || index} actuacion={act} />
+                <ActuacionItem
+                  key={act.idRegActuacion || index}
+                  actuacion={act}
+                />
               );
             } )}
           </div>
@@ -224,12 +311,11 @@ const ProcesoCard = ( {
 };
 
 export const CarpetaDashboard: React.FC<DashboardProps> = ( {
-  carpeta
+  carpeta 
 } ) => {
   return (
     <div className={styles.container}>
       <div className={styles.layout}>
-
         {/* Sidebar / Top Metadata Panel */}
         <div className={styles.sidebarPanel}>
           <div className={styles.card}>
@@ -238,12 +324,20 @@ export const CarpetaDashboard: React.FC<DashboardProps> = ( {
                 {carpeta.nombre}
                 {carpeta.terminado
                   ? (
-                      <span className={`${ styles.badge } ${ styles.badgeSuccess }`}>Terminado</span>
+                      <span className={`${ styles.badge } ${ styles.badgeSuccess }`}>
+                        Terminado
+                      </span>
                     )
                   : (
-                      <span className={`${ styles.badge } ${ styles.badgeWarning }`}>Activo</span>
+                      <span className={`${ styles.badge } ${ styles.badgeWarning }`}>
+                        Activo
+                      </span>
                     )}
-                {carpeta.revisado && <span className={`${ styles.badge } ${ styles.badgePrimary }`}>Revisado</span>}
+                {carpeta.revisado && (
+                  <span className={`${ styles.badge } ${ styles.badgePrimary }`}>
+                    Revisado
+                  </span>
+                )}
               </h2>
               <div className={styles.cardSubtitle}>
                 Carpeta #{carpeta.numero} • {carpeta.tipoProceso}
@@ -251,30 +345,70 @@ export const CarpetaDashboard: React.FC<DashboardProps> = ( {
             </div>
 
             <div className={styles.dataGrid}>
-              <DataItem label="ID Interno" value={carpeta.id} />
-              <DataItem label="Categoría" value={carpeta.category} />
-              <DataItem label="Llave Proceso" value={carpeta.llaveProceso} />
-              <DataItem label="Fecha" value={formatDate( carpeta.fecha )} />
-              <DataItem label="Última Actualización" value={formatDate( carpeta.updatedAt )} />
-              <DataItem label="Última Revisión" value={formatDate( carpeta.fechaUltimaRevision )} />
-              <DataItem label="Notas Vinculadas" value={carpeta.notasCount} />
-              <DataItem label="Ciudad" value={carpeta.ciudad} />
-              <DataItem label="Juzgado Relacionado" value={`${ carpeta.juzgadoTipo || '' } ${ carpeta.juzgadoCiudad || '' }`} />
-              <DataItem label="Reg. Última Act." value={carpeta.idRegUltimaAct} />
-              <DataItem label="IDs Procesos" value={carpeta.idProcesos.join( ', ' )} />
+              <DataItem
+                label="ID Interno"
+                value={carpeta.id}
+              />
+              <DataItem
+                label="Categoría"
+                value={carpeta.category}
+              />
+              <DataItem
+                label="Llave Proceso"
+                value={carpeta.llaveProceso}
+              />
+              <DataItem
+                label="Fecha"
+                value={formatDate( carpeta.fecha )}
+              />
+              <DataItem
+                label="Última Actualización"
+                value={formatDate( carpeta.updatedAt )}
+              />
+              <DataItem
+                label="Última Revisión"
+                value={formatDate( carpeta.fechaUltimaRevision )}
+              />
+              <DataItem
+                label="Notas Vinculadas"
+                value={carpeta.notasCount}
+              />
+              <DataItem
+                label="Ciudad"
+                value={carpeta.ciudad}
+              />
+              <DataItem
+                label="Juzgado Relacionado"
+                value={`${ carpeta.juzgadoTipo || '' } ${ carpeta.juzgadoCiudad || '' }`}
+              />
+              <DataItem
+                label="Reg. Última Act."
+                value={carpeta.idRegUltimaAct}
+              />
+              <DataItem
+                label="IDs Procesos"
+                value={carpeta.idProcesos.join( ', ' )}
+              />
             </div>
           </div>
 
           {carpeta.juzgado && (
-            <JuzgadoInfo juzgado={carpeta.juzgado} title="Juzgado de la Carpeta" />
+            <JuzgadoInfo
+              juzgado={carpeta.juzgado}
+              title="Juzgado de la Carpeta"
+            />
           )}
 
           {carpeta.ultimaActuacion && (
             <div className={styles.card}>
-              <h3 className={styles.sectionTitle} style={{
-                marginTop: 0
-              }}
-              >Última Actuación Global</h3>
+              <h3
+                className={styles.sectionTitle}
+                style={{
+                  marginTop: 0,
+                }}
+              >
+                Última Actuación Global
+              </h3>
               <ActuacionItem actuacion={carpeta.ultimaActuacion} />
             </div>
           )}
@@ -285,20 +419,26 @@ export const CarpetaDashboard: React.FC<DashboardProps> = ( {
           <div className={styles.procesosGrid}>
             {carpeta.procesos.map( ( proceso ) => {
               return (
-                <ProcesoCard key={proceso.idProceso} proceso={proceso} />
+                <ProcesoCard
+                  key={proceso.idProceso}
+                  proceso={proceso}
+                />
               );
             } )}
             {carpeta.procesos.length === 0 && (
-              <div className={styles.card} style={{
-                textAlign: 'center',
-                padding  : '3rem 1.5rem'
-              }}
-              >
-                <p style={{
-                  color   : '#64748b',
-                  fontSize: '1.1rem',
-                  margin  : 0
+              <div
+                className={styles.card}
+                style={{
+                  textAlign: 'center',
+                  padding  : '3rem 1.5rem',
                 }}
+              >
+                <p
+                  style={{
+                    color   : '#64748b',
+                    fontSize: '1.1rem',
+                    margin  : 0,
+                  }}
                 >
                   No hay procesos vinculados a esta carpeta actualmente.
                 </p>
@@ -306,7 +446,6 @@ export const CarpetaDashboard: React.FC<DashboardProps> = ( {
             )}
           </div>
         </div>
-
       </div>
     </div>
   );

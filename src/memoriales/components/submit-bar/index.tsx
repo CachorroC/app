@@ -11,14 +11,29 @@ interface SubmitBarProps {
 }
 
 export function SubmitBar( {
-  disabled, submitLabel, onReset
+  disabled, submitLabel, onReset 
 }: SubmitBarProps ) {
   return (
     <div className={styles.bar}>
-      <Button type="submit" variant="filled" disabled={disabled} icon={<Icon name="description" size={18} />}>
+      <Button
+        type="submit"
+        variant="filled"
+        disabled={disabled}
+        icon={
+          <Icon
+            name="description"
+            size={18}
+          />
+        }
+      >
         {submitLabel}
       </Button>
-      <Button type="button" variant="outlined" disabled={disabled} onClick={onReset}>
+      <Button
+        type="button"
+        variant="outlined"
+        disabled={disabled}
+        onClick={onReset}
+      >
         Limpiar campos
       </Button>
     </div>

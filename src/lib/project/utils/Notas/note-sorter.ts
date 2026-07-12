@@ -2,9 +2,9 @@ import { Nota } from '#@/app/generated/prisma/client';
 
 export function notesSorter( notas: Nota[] ) {
   return notas.toSorted( (
-    a, b
+    a, b 
   ) => {
-  // Split the string by ' - ' and convert both parts to numbers
+    // Split the string by ' - ' and convert both parts to numbers
     const [
       carpetaA,
       indexA

@@ -8,7 +8,8 @@ export type FieldType =
   | 'boolean' // {% if X %} gate  -> checkbox, renders as bool in context
   | 'stringList'; // {% for x in xs %}{{ x }}{% endfor %} -> string[] in context
 
-export type FieldFormat = 'none' | 'cedula' | 'currencyCOP' | 'dateLong' | 'radicado' | 'upper';
+export type FieldFormat =
+  'none' | 'cedula' | 'currencyCOP' | 'dateLong' | 'radicado' | 'upper';
 
 export interface FieldDef {
   name        : string;
@@ -29,10 +30,16 @@ export interface FieldGroup {
   repeatable?: boolean; // maps to an array of objects
 }
 
+export interface AutofillConfig {
+  triggerField: string; // dotted form path hosting the datalist, e.g. 'deudor.nombre'
+  fieldMap    : Record<string, string>; // form dotted path -> CarpetaLookup dotted path
+}
+
 export interface MemorialTemplate {
   id         : string;
   filename   : string;
   displayName: string;
   description: string;
   groups     : FieldGroup[];
+  autofill?  : AutofillConfig;
 }

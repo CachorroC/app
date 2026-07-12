@@ -7,40 +7,46 @@ export function useServiceWorker() {
     () => {
       const sw = navigator.serviceWorker;
 
-      if ( !sw ) return;
+      if ( !sw ) {
+        return;
+      }
 
       const onLoad = () => {
         sw.register( './serviceworker.js' )
-          .then( () => sw.ready )
           .then( () => {
-            handlerRef.current = ( { data }: MessageEvent ) => {
+            return sw.ready;
+          } )
+          .then( () => {
+            handlerRef.current = ( {
+              data 
+            }: MessageEvent ) => {
               if ( data?.state !== undefined ) {
-                // handle incoming service worker message
+              // handle incoming service worker message
               }
             };
 
             sw.addEventListener(
-              'message', handlerRef.current
+              'message', handlerRef.current 
             );
           } );
       };
 
       window.addEventListener(
-        'load', onLoad
+        'load', onLoad 
       );
 
       return () => {
         window.removeEventListener(
-          'load', onLoad
+          'load', onLoad 
         );
 
         if ( handlerRef.current ) {
           sw.removeEventListener(
-            'message', handlerRef.current
+            'message', handlerRef.current 
           );
           handlerRef.current = null;
         }
       };
-    }, []
+    }, [] 
   );
 }

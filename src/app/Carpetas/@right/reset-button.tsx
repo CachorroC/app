@@ -1,15 +1,17 @@
 'use client';
-import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
+import { useCarpetaSort,
+  useCarpetaSortDispatch, } from '#@/app/Context/carpetas-sort-context';
 import styles from './toolbar.module.css';
 
 export function ResetButtonSorter() {
   const dispatchCarpetas = useCarpetaSortDispatch();
 
   const {
-    filters, search
+    filters, search 
   } = useCarpetaSort();
 
-  const hasActiveFilters = search.trim().length > 0
+  const hasActiveFilters
+    = search.trim().length > 0
     || Object.values( filters )
       .some( ( values ) => {
         return values && values.size > 0;
@@ -26,7 +28,7 @@ export function ResetButtonSorter() {
         className={styles.clearButton}
         onClick={() => {
           return dispatchCarpetas( {
-            type: 'reset' 
+            type: 'reset',
           } );
         }}
       >

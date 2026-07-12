@@ -19,13 +19,13 @@
   user-select: none;
   white-space: nowrap;
 }
-.th[data-sortable=true] {
+.th[data-sortable='true'] {
   cursor: pointer;
 }
-.th[data-sortable=true]:hover {
+.th[data-sortable='true']:hover {
   color: var(--md-sys-color-primary);
 }
-.th[data-active=true] {
+.th[data-active='true'] {
   color: var(--md-sys-color-primary);
 }
 

@@ -15,12 +15,12 @@ sw.addEventListener(
       const cache = await caches.open( CACHE_NAME );
       await cache.add( new Request(
         OFFLINE_URL, {
-          cache: 'reload'
-        }
-      ) );
-    } )() );
+          cache: 'reload',
+        } 
+      ), );
+    } )(), );
     sw.skipWaiting();
-  }
+  } 
 );
 
 sw.addEventListener(
@@ -29,9 +29,9 @@ sw.addEventListener(
       if ( 'navigationPreload' in sw.registration ) {
         await sw.registration.navigationPreload.enable();
       }
-    } )() );
+    } )(), );
     sw.clients.claim();
-  }
+  } 
 );
 
 sw.addEventListener(
@@ -48,22 +48,25 @@ sw.addEventListener(
           return await fetch( event.request );
         } catch ( error ) {
           console.error(
-            'Fetch failed, returning offline page:', error
+            'Fetch failed, returning offline page:', error 
           );
           const cache = await caches.open( CACHE_NAME );
           const cachedResponse = await cache.match( OFFLINE_URL );
 
-          return cachedResponse || new Response(
-            'Offline', {
-              headers: {
-                'Content-Type': 'text/html'
-              }
-            }
+          return (
+            cachedResponse
+            || new Response(
+              'Offline', {
+                headers: {
+                  'Content-Type': 'text/html',
+                },
+              } 
+            )
           );
         }
-      } )() );
+      } )(), );
     }
-  }
+  } 
 );
 
 sw.addEventListener(
@@ -80,11 +83,11 @@ sw.addEventListener(
       data = event.data.json();
       // FIX: Log the actual object structure
       console.log(
-        'Push data received:', data
+        'Push data received:', data 
       );
     } catch ( e ) {
       console.error(
-        'Failed to parse push data as JSON:', e
+        'Failed to parse push data as JSON:', e 
       );
       data = {
         title: 'Notificación',
@@ -100,19 +103,19 @@ sw.addEventListener(
       actions: data.actions || [
         {
           action: 'openCarpeta',
-          title : 'Ver Carpeta'
+          title : 'Ver Carpeta',
         },
         {
           action: 'openActuaciones',
-          title : 'Ver Actuaciones'
+          title : 'Ver Actuaciones',
         },
       ],
     };
 
     event.waitUntil( sw.registration.showNotification(
-      data.title || 'Nuevo Mensaje', options
-    ) );
-  }
+      data.title || 'Nuevo Mensaje', options 
+    ), );
+  } 
 );
 
 sw.addEventListener(
@@ -120,7 +123,7 @@ sw.addEventListener(
     event.notification.close();
 
     const {
-      action, notification
+      action, notification 
     } = event;
     const data = notification.data || {};
     let urlToOpen = '/'; // FIX: Default fallback URL
@@ -136,27 +139,30 @@ sw.addEventListener(
     event.waitUntil( sw.clients
       .matchAll( {
         type               : 'window',
-        includeUncontrolled: true
+        includeUncontrolled: true,
       } )
       .then( ( clientList ) => {
         const targetUrl = new URL(
-          urlToOpen, self.location.origin
+          urlToOpen, self.location.origin 
         ).href;
 
         // Find ANY open tab for our app
         for ( const client of clientList ) {
           const clientUrlObj = new URL(
-            client.url, self.location.origin
+            client.url, self.location.origin 
           );
           const targetUrlObj = new URL(
-            targetUrl, self.location.origin
+            targetUrl, self.location.origin 
           );
 
           // FIX/UX UPGRADE: If they have our app open at all, focus it and navigate
-          if ( clientUrlObj.origin === targetUrlObj.origin && 'focus' in client ) {
+          if (
+            clientUrlObj.origin === targetUrlObj.origin
+            && 'focus' in client
+          ) {
             client.navigate( targetUrl ); // Change the route of the existing tab
 
-            return client.focus();      // Bring it to the front
+            return client.focus(); // Bring it to the front
           }
         }
 
@@ -166,6 +172,6 @@ sw.addEventListener(
         }
 
         return null;
-      } ) );
-  }
+      } ), );
+  } 
 );

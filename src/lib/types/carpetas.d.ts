@@ -9,8 +9,6 @@ import { outProceso } from './procesos';
 import { WithId } from 'mongodb';
 import { IntNota } from './notas';
 
-
-
 /** Derived lifecycle state used by the UI for the StatusChip. */
 export type CaseStatus = 'active' | 'review' | 'done' | 'overdue';
 
@@ -105,10 +103,7 @@ export type intDemandaDepartamento =
   | 'ATLANTICO';
 
 export type TipoProceso =
-  | 'SINGULAR'
-  | 'PRENDARIO'
-  | 'HIPOTECARIO'
-  | 'ACUMULADO';
+  'SINGULAR' | 'PRENDARIO' | 'HIPOTECARIO' | 'ACUMULADO';
 
 export enum TipoProcesoEnum {
   HIPOTECARIO = 'HIPOTECARIO',
@@ -132,10 +127,7 @@ export type Deudor = {
 };
 
 export type ProcesoDepartamento =
-  | 'BOGOTÁ'
-  | 'CUNDINAMARCA'
-  | 'ANTIOQUIA'
-  | 'META';
+  'BOGOTÁ' | 'CUNDINAMARCA' | 'ANTIOQUIA' | 'META';
 
 export type Juzgado = {
   id    : string;

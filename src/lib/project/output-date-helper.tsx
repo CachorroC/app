@@ -29,6 +29,6 @@ export default function OutputDateHelper( {
       weekday : 'long',
       month   : 'long',
       day     : 'numeric',
-    }
+    } 
   );
 }

@@ -17,7 +17,7 @@ import { IntAction,
   FilterableColumn, } from '../Hooks/useCarpetasreducer';
 
 export const sortByDateDesc = (
-  a: MonCarpeta, b: MonCarpeta
+  a: MonCarpeta, b: MonCarpeta 
 ) => {
   // 1. Normalize inputs to Date objects (or null if missing)
   // new Date() handles both ISO strings and existing Date objects correctly
@@ -47,9 +47,11 @@ export const sortByDateDesc = (
   return dateB.getTime() - dateA.getTime();
 };
 
-type CarpetasSortContextValue = CarpetasReducerState & { carpetas: MonCarpeta[] };
+type CarpetasSortContextValue = CarpetasReducerState & {
+  carpetas: MonCarpeta[];
+};
 
-const CarpetasSortContext = createContext<CarpetasSortContextValue | null>( null );
+const CarpetasSortContext = createContext<CarpetasSortContextValue | null>( null, );
 
 const CarpetasSortDispatchContext = createContext<Dispatch<IntAction> | null>( null, );
 
@@ -73,13 +75,13 @@ export function CarpetasSortProvider( {
       search          : '',
       sort            : null,
       selected        : new Set<number>(),
-    }
+    } 
   );
 
   const carpetas = useMemo(
     () => {
       const {
-        completeCarpetas, filters, search, sort
+        completeCarpetas, filters, search, sort 
       } = carpetasReduced;
 
       let result = completeCarpetas;
@@ -104,7 +106,7 @@ export function CarpetasSortProvider( {
 
         result = result.filter( ( carpeta ) => {
           return values.has( getFilterValue(
-            carpeta, column
+            carpeta, column 
           ) );
         } );
       }
@@ -114,7 +116,7 @@ export function CarpetasSortProvider( {
       if ( query ) {
         result = result.filter( ( carpeta ) => {
           return matchesSearch(
-            carpeta, query
+            carpeta, query 
           );
         } );
       }
@@ -123,14 +125,14 @@ export function CarpetasSortProvider( {
         result = [
           ...result
         ].sort( getSortComparator(
-          sort.column, sort.direction
+          sort.column, sort.direction 
         ) );
       }
 
       return result;
     }, [
       carpetasReduced
-    ]
+    ] 
   );
 
   return (

@@ -11,8 +11,8 @@ export type NewNota = {
 
 /** Mirrors the full Prisma Nota model as returned from a database query. */
 export interface IntNota extends NewNota {
-  updatedAt    : Date;
-  createdAt    : Date;
+  updatedAt     : Date;
+  createdAt     : Date;
   RelevantDates?: IntRelevantDate[];
 }
 
@@ -34,12 +34,7 @@ export type SortActionType = {
   type      : 'sort';
   dir       : boolean;
   sortingKey:
-    | 'carpetaNumero'
-    | 'id'
-    | 'dueDate'
-    | 'createdAt'
-    | 'text'
-    | 'updatedAt';
+    'carpetaNumero' | 'id' | 'dueDate' | 'createdAt' | 'text' | 'updatedAt';
 };
 
 export type UpdateActionType = {

@@ -8,42 +8,43 @@ import { ReactNode, Suspense } from 'react';
 import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { ForwardBackwardNavButtons } from '#@/components/Buttons/nav-buttons';
 import { getCarpetasNumeros } from '#@/lib/project/utils/Carpetas/getCarpetas';
-import { FilterDrawer, FilterDrawerButton } from '#@/components/layout/FilterDrawer';
+import { FilterDrawer,
+  FilterDrawerButton, } from '#@/components/layout/FilterDrawer';
 
 const RIGHT_DRAWER_ID = 'carpeta-detail-panel';
-
 
 export async function generateStaticParams() {
   const carpetas = await getCarpetasNumeros();
 
-  const flattenUp = carpetas.flatMap( ( carpeta ) => {
-    const {
-      numero, procesos
-    } = carpeta;
+  const flattenUp = carpetas
+    .flatMap( ( carpeta ) => {
+      const {
+        numero, procesos 
+      } = carpeta;
 
-    if ( procesos.length === 0 ) {
-      return {
-        numero   : String( numero ),
-        idProceso: 'idProceso',
-      };
-    }
-
-    return procesos.map( ( proceso ) => {
-      if ( proceso.esPrivado ) {
+      if ( procesos.length === 0 ) {
         return {
           numero   : String( numero ),
           idProceso: 'idProceso',
         };
       }
 
-      return {
-        numero   : String( numero ),
-        idProceso: String( proceso.idProceso ),
-      };
-    } );
-  } )
+      return procesos.map( ( proceso ) => {
+        if ( proceso.esPrivado ) {
+          return {
+            numero   : String( numero ),
+            idProceso: 'idProceso',
+          };
+        }
+
+        return {
+          numero   : String( numero ),
+          idProceso: String( proceso.idProceso ),
+        };
+      } );
+    } )
     .sort( (
-      a, b
+      a, b 
     ) => {
       return Number( a.numero ) - Number( b.numero );
     } );
@@ -54,7 +55,7 @@ export async function generateStaticParams() {
 
   for ( let i = 0; i < flattenUp.length; i += chunkSize ) {
     const chunk = flattenUp.slice(
-      i, i + chunkSize
+      i, i + chunkSize 
     );
 
     chunks.push( chunk );
@@ -69,7 +70,7 @@ export async function generateMetadata( {
   params: Promise<{ numero: string }>;
 } ): Promise<Metadata> {
   const {
-    numero
+    numero 
   } = await params;
 
   const product = await getCarpetabyNumero( Number( numero ) );
@@ -94,7 +95,6 @@ export async function generateMetadata( {
   };
 }
 
-
 export default async function LayoutCarpetaMain( {
   children,
   top,
@@ -107,7 +107,7 @@ export default async function LayoutCarpetaMain( {
   params  : Promise<{ numero: string }>;
 } ) {
   const {
-    numero
+    numero 
   } = await params;
 
   const carpeta = await getCarpetabyNumero( Number( numero ) );

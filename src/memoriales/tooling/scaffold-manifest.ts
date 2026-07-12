@@ -111,7 +111,7 @@ const guessType = (
 };
 
 const emitField = ( f: { name: string; boolean?: boolean } ): string => {
-  return `      { name: '${ f.name }', label: 'TODO ${ f.name }', type: '${ guessType(
+  return `      { name: '${ f.name }', label: '${ f.name }', type: '${ guessType(
     f.name,
     !!f.boolean,
   ) }', required: true },`;
@@ -125,7 +125,7 @@ const emitGroup = ( g: Draft ): string => {
     + ( g.repeatable
       ? 'repeatable: true, '
       : '' )
-    + `legend: 'TODO ${ g.key ?? 'Datos generales' }',`;
+    + `legend: '${ g.key ?? 'Datos generales' }',`;
 
   return `    { ${ head }\n      fields: [\n${ g.fields
     .map( emitField )
@@ -147,8 +147,8 @@ export const ${ templateId.replace(
 ) }: MemorialTemplate = {
   id: '${ templateId }',
   filename: '${ basename( docxPath ) }',
-  displayName: 'TODO ${ displayName }',
-  description: 'TODO descripción de una línea',
+  displayName: '${ displayName }',
+  description: 'descripción de una línea',
   groups: [
 ${ [
   ...groups.values()

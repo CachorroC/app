@@ -9,7 +9,7 @@ export async function updateDemandaAction(
   const itemID = queryData.get( 'numero' );
 
   const {
-    demanda
+    demanda 
   } = prevState;
 
   if ( demanda === null ) {

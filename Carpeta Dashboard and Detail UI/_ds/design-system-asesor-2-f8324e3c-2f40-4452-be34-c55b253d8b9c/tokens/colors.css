@@ -7,62 +7,62 @@
 
 :root {
   /* ---- Brand source colors ---- */
-  --brand-blue: #3060A8;
-  --brand-purple: #6048A8;
+  --brand-blue: #3060a8;
+  --brand-purple: #6048a8;
 
   /* ---- Primary (blue) tonal palette ---- */
-  --blue-10: #001B3D;
-  --blue-20: #002F65;
-  --blue-30: #16458C;
-  --blue-40: #3060A8;   /* primary */
-  --blue-50: #4B79C3;
-  --blue-60: #6793DF;
-  --blue-70: #84AEFC;
-  --blue-80: #AEC6FF;
-  --blue-90: #D8E2FF;
-  --blue-95: #EDF0FF;
-  --blue-99: #FDFBFF;
+  --blue-10: #001b3d;
+  --blue-20: #002f65;
+  --blue-30: #16458c;
+  --blue-40: #3060a8; /* primary */
+  --blue-50: #4b79c3;
+  --blue-60: #6793df;
+  --blue-70: #84aefc;
+  --blue-80: #aec6ff;
+  --blue-90: #d8e2ff;
+  --blue-95: #edf0ff;
+  --blue-99: #fdfbff;
 
   /* ---- Secondary (purple) tonal palette ---- */
-  --purple-10: #1C0D40;
-  --purple-20: #321A63;
-  --purple-30: #49328A;
-  --purple-40: #6048A8;   /* secondary */
-  --purple-50: #7960C3;
-  --purple-60: #947ADF;
-  --purple-70: #AF95FC;
-  --purple-80: #CBBEFF;
-  --purple-90: #E7DEFF;
-  --purple-95: #F5EEFF;
-  --purple-99: #FFFBFF;
+  --purple-10: #1c0d40;
+  --purple-20: #321a63;
+  --purple-30: #49328a;
+  --purple-40: #6048a8; /* secondary */
+  --purple-50: #7960c3;
+  --purple-60: #947adf;
+  --purple-70: #af95fc;
+  --purple-80: #cbbeff;
+  --purple-90: #e7deff;
+  --purple-95: #f5eeff;
+  --purple-99: #fffbff;
 
   /* ---- Tertiary (teal — category/chart accent) ---- */
-  --teal-10: #00201A;
+  --teal-10: #00201a;
   --teal-30: #00504099;
-  --teal-40: #1F6B5A;
-  --teal-80: #8AD6BF;
-  --teal-90: #A7F2DA;
-  --teal-95: #C5FFEC;
+  --teal-40: #1f6b5a;
+  --teal-80: #8ad6bf;
+  --teal-90: #a7f2da;
+  --teal-95: #c5ffec;
 
   /* ---- Neutral / surface tonal palette (cool, blue-tinted) ---- */
   --neutral-0: #000000;
-  --neutral-10: #1A1B20;
-  --neutral-20: #2F3036;
-  --neutral-30: #45464C;
-  --neutral-40: #5D5E64;
-  --neutral-50: #76777D;
+  --neutral-10: #1a1b20;
+  --neutral-20: #2f3036;
+  --neutral-30: #45464c;
+  --neutral-40: #5d5e64;
+  --neutral-50: #76777d;
   --neutral-60: #909097;
-  --neutral-70: #ABABB2;
-  --neutral-80: #C7C6CD;
-  --neutral-90: #E3E2E9;
-  --neutral-95: #F1F0F7;
-  --neutral-98: #FAF8FF;
-  --neutral-99: #FDFBFF;
-  --neutral-100: #FFFFFF;
+  --neutral-70: #ababb2;
+  --neutral-80: #c7c6cd;
+  --neutral-90: #e3e2e9;
+  --neutral-95: #f1f0f7;
+  --neutral-98: #faf8ff;
+  --neutral-99: #fdfbff;
+  --neutral-100: #ffffff;
 
   /* ---- Error ---- */
-  --red-40: #BA1A1A;
-  --red-90: #FFDAD6;
+  --red-40: #ba1a1a;
+  --red-90: #ffdad6;
   --red-10: #410002;
 
   /* ============================================================
@@ -71,25 +71,25 @@
 
   /* Primary */
   --md-primary: var(--blue-40);
-  --md-on-primary: #FFFFFF;
+  --md-on-primary: #ffffff;
   --md-primary-container: var(--blue-90);
   --md-on-primary-container: var(--blue-10);
 
   /* Secondary */
   --md-secondary: var(--purple-40);
-  --md-on-secondary: #FFFFFF;
+  --md-on-secondary: #ffffff;
   --md-secondary-container: var(--purple-90);
   --md-on-secondary-container: var(--purple-10);
 
   /* Tertiary */
   --md-tertiary: var(--teal-40);
-  --md-on-tertiary: #FFFFFF;
+  --md-on-tertiary: #ffffff;
   --md-tertiary-container: var(--teal-90);
   --md-on-tertiary-container: var(--teal-10);
 
   /* Error */
   --md-error: var(--red-40);
-  --md-on-error: #FFFFFF;
+  --md-on-error: #ffffff;
   --md-error-container: var(--red-90);
   --md-on-error-container: var(--red-10);
 
@@ -100,13 +100,13 @@
   --md-on-surface: var(--neutral-10);
   --md-on-surface-variant: var(--neutral-30);
 
-  --md-surface-dim: #DAD9E0;
-  --md-surface-bright: #FAF8FF;
-  --md-surface-container-lowest: #FFFFFF;
-  --md-surface-container-low: #F4F3FA;
-  --md-surface-container: #EEEDF4;
-  --md-surface-container-high: #E8E7EF;
-  --md-surface-container-highest: #E2E2E9;
+  --md-surface-dim: #dad9e0;
+  --md-surface-bright: #faf8ff;
+  --md-surface-container-lowest: #ffffff;
+  --md-surface-container-low: #f4f3fa;
+  --md-surface-container: #eeedf4;
+  --md-surface-container-high: #e8e7ef;
+  --md-surface-container-highest: #e2e2e9;
 
   /* Outline / lines */
   --md-outline: var(--neutral-50);
@@ -119,10 +119,10 @@
   --md-scrim: rgba(0, 0, 0, 0.4);
 
   /* State-layer opacities (MD3) */
-  --md-state-hover: 0.08;  /* @kind other */
-  --md-state-focus: 0.12;  /* @kind other */
-  --md-state-press: 0.12;  /* @kind other */
-  --md-state-drag: 0.16;   /* @kind other */
+  --md-state-hover: 0.08; /* @kind other */
+  --md-state-focus: 0.12; /* @kind other */
+  --md-state-press: 0.12; /* @kind other */
+  --md-state-drag: 0.16; /* @kind other */
 
   /* ============================================================
      DOMAIN COLORS — legal status & category
@@ -131,21 +131,21 @@
      ============================================================ */
 
   /* Case lifecycle status (revisado / terminado / pending) */
-  --status-active: var(--blue-40);            /* en proceso */
+  --status-active: var(--blue-40); /* en proceso */
   --status-active-container: var(--blue-90);
-  --status-review: #8A5A00;                   /* por revisar — amber */
-  --status-review-container: #FFDDB0;
-  --status-done: #2E6B4F;                     /* terminado — green */
-  --status-done-container: #B8F0CF;
-  --status-overdue: var(--red-40);            /* vencido */
+  --status-review: #8a5a00; /* por revisar — amber */
+  --status-review-container: #ffddb0;
+  --status-done: #2e6b4f; /* terminado — green */
+  --status-done-container: #b8f0cf;
+  --status-overdue: var(--red-40); /* vencido */
   --status-overdue-container: var(--red-90);
 
   /* Category accents (Prisma `Category` enum) */
-  --cat-terminados: #2E6B4F;
-  --cat-lios-juridicos: #B3261E;
-  --cat-bancolombia: #B58300;     /* Bancolombia yellow, desaturated */
+  --cat-terminados: #2e6b4f;
+  --cat-lios-juridicos: #b3261e;
+  --cat-bancolombia: #b58300; /* Bancolombia yellow, desaturated */
   --cat-reintegra: var(--teal-40);
-  --cat-insolvencia: #9A4A00;
+  --cat-insolvencia: #9a4a00;
   --cat-sin-especificar: var(--neutral-50);
   --cat-sin-tercero: var(--purple-40);
 }

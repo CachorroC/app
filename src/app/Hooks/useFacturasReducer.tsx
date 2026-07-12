@@ -30,10 +30,7 @@ export type ResetActionType = {
 };
 
 export type IntAction =
-  | FilterActionType
-  | SearchActionType
-  | SortActionType
-  | ResetActionType;
+  FilterActionType | SearchActionType | SortActionType | ResetActionType;
 
 export function facturasReducer(
   facturas: monFactura[], action: IntAction 

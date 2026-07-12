@@ -1,9 +1,13 @@
 import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react';
 import styles from './button.module.css';
 
-export type ButtonVariant = 'filled' | 'tonal' | 'elevated' | 'outlined' | 'text';
+export type ButtonVariant =
+  'filled' | 'tonal' | 'elevated' | 'outlined' | 'text';
 
-interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {
+interface ButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'className'
+> {
   variant?: ButtonVariant;
   size?   : 'small' | 'medium';
   icon?   : ReactNode;
@@ -20,8 +24,14 @@ const VARIANT_CLASS: Record<ButtonVariant, string> = {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>( function Button(
   {
-    variant = 'filled', size = 'medium', icon, children, type = 'button', ...rest
-  }, ref 
+    variant = 'filled',
+    size = 'medium',
+    icon,
+    children,
+    type = 'button',
+    ...rest
+  },
+  ref,
 ) {
   const sizeClass = size === 'small'
     ? styles.small
@@ -35,9 +45,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>( function Butto
       {...rest}
     >
       {icon
-        ? <span className={styles.icon} aria-hidden>{icon}</span>
+        ? (
+            <span
+              className={styles.icon}
+              aria-hidden
+            >
+              {icon}
+            </span>
+          )
         : null}
       {children}
     </button>
   );
-} );
+}, );

@@ -8,10 +8,10 @@ import { EditNoteButton,
 import { IntNota } from '#@/lib/types/notas';
 
 export const NotaComponent = ( {
-  notaRaw
+  notaRaw 
 }: { notaRaw: IntNota } ) => {
   const {
-    id, text, dueDate
+    id, text, dueDate 
   } = notaRaw;
 
   return (

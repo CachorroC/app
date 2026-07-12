@@ -1,6 +1,7 @@
 import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
-import { FetchResponseActuacionType, DatabaseActuacionType } from '#@/lib/types/actuaciones';
+import { FetchResponseActuacionType,
+  DatabaseActuacionType, } from '#@/lib/types/actuaciones';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { NewNotaComponent } from '../Modal';
 import styles from '../Card/elevated.module.css';
@@ -12,7 +13,7 @@ export function ActuacionComponent( {
   incomingActuacion: DatabaseActuacionType | FetchResponseActuacionType;
 } ) {
   const {
-    actuacion, anotacion, fechaActuacion, consActuacion
+    actuacion, anotacion, fechaActuacion, consActuacion 
   }
     = incomingActuacion;
 
@@ -68,13 +69,9 @@ export function ActuacionErrorComponent() {
   );
 }
 
-
 export function ActuacionLoadingComponent() {
   return (
-    <div
-      className={styles.containerEnabled}
-
-    >
+    <div className={styles.containerEnabled}>
       <div
         className={layout.segmentRow}
         style={{
@@ -87,11 +84,8 @@ export function ActuacionLoadingComponent() {
       <div className={layout.segmentRow}>
         <Loader />
         <p className={typography.bodyMedium}>
-          {
-            'Cargando la información de la actuación, por favor espere...'
-          }
+          {'Cargando la información de la actuación, por favor espere...'}
         </p>
-
       </div>
     </div>
   );

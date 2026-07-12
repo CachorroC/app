@@ -53,7 +53,7 @@ export async function POST( request: NextRequest ) {
     return NextResponse.json( updatedNote );
   } catch ( error ) {
     console.log( `POST en api/Notas arrojó un error ${ JSON.stringify(
-      error, null, 2
+      error, null, 2 
     ) }`, );
 
     return NextResponse.json(
@@ -109,7 +109,7 @@ export async function PUT( request: NextRequest ) {
     );
   } catch ( error ) {
     console.log( `PUT en api/Notas arrojó un error ${ JSON.stringify(
-      error, null, 2
+      error, null, 2 
     ) }`, );
 
     return NextResponse.json(

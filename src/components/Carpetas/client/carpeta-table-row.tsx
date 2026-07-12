@@ -6,8 +6,12 @@ import { CategoryChip } from './category-chip';
 import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
 import { ActuacionTableComponent,
   ActuacionTableErrorComponent, } from '#@/components/Actuaciones/actuacion-table-component';
-import { JuzgadoComponent, JuzgadoErrorComponent } from '#@/components/Proceso/juzgado-component';
-import { clean, fmtDate, getCategoryMeta, getEstadoBadges } from './carpeta-meta';
+import { JuzgadoComponent,
+  JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
+import { clean,
+  fmtDate,
+  getCategoryMeta,
+  getEstadoBadges, } from './carpeta-meta';
 import styles from './carpeta-table-row.module.css';
 
 export function CarpetaTableRow( {
@@ -20,7 +24,17 @@ export function CarpetaTableRow( {
   onToggleSelect: () => void;
 } ) {
   const {
-    numero, nombre, id, category, tipoProceso, revisado, llaveProceso, notasCount, fecha, juzgado, ultimaActuacion,
+    numero,
+    nombre,
+    id,
+    category,
+    tipoProceso,
+    revisado,
+    llaveProceso,
+    notasCount,
+    fecha,
+    juzgado,
+    ultimaActuacion,
   } = carpeta;
 
   const categoryMeta = getCategoryMeta( category );

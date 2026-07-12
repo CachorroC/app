@@ -8,7 +8,7 @@ export default async function DatePage( {
   params: Promise<{ date: string[] }>;
 } ) {
   const {
-    date
+    date 
   } = await params;
 
   const [
@@ -42,7 +42,7 @@ export default async function DatePage( {
           weekday: 'short',
           month  : 'long',
           day    : 'numeric',
-        }
+        } 
       )}
       {notas.map( ( nota ) => {
         return (

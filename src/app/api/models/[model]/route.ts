@@ -16,13 +16,14 @@ const getDelegate = ( modelName: string ) => {
 };
 
 // FETCH DATA (GET)
-export async function GET (
-  request: Request, {
-    params
+export async function GET(
+  request: Request,
+  {
+    params 
   }: { params: Promise<{ model: string }> },
 ) {
   const {
-    model
+    model 
   } = await params;
   const delegate = getDelegate( model );
 
@@ -59,11 +60,11 @@ export async function GET (
 export async function POST(
   request: Request,
   {
-    params
+    params 
   }: { params: Promise<{ model: string }> },
 ) {
   const {
-    model
+    model 
   } = await params;
   const delegate = getDelegate( model );
 
@@ -105,7 +106,7 @@ export async function PATCH(
   request: Request,
   {
     params 
-  }: { params: Promise<{ model: string }> }
+  }: { params: Promise<{ model: string }> },
 ) {
   // Await the params object (Required in Next.js 15+)
   const {
@@ -124,14 +125,14 @@ export async function PATCH(
     const updatedRecord = await ( prisma as any )[ modelName ].update( {
       where: {
         // Use brackets to dynamically set the key name (e.g., numero: 123)
-        [ idField ]: idValue
+        [ idField ]: idValue,
       },
       data: data,
     } );
 
     return NextResponse.json( {
       success: true,
-      record : updatedRecord 
+      record : updatedRecord,
     } );
   } catch ( error ) {
     console.error(
@@ -140,10 +141,11 @@ export async function PATCH(
 
     return NextResponse.json(
       {
-        error: 'Failed to update record' 
-      }, {
-        status: 500 
-      } 
+        error: 'Failed to update record',
+      },
+      {
+        status: 500,
+      },
     );
   }
 }

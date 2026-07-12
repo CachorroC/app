@@ -16,7 +16,7 @@ const ModalNoteContext = createContext<{
 } | null>( null );
 
 export function ModalProvider( {
-  children
+  children 
 }: { children: React.ReactNode } ) {
   const [
     isModalOpen,

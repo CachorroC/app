@@ -13,7 +13,8 @@ webpush.setVapidDetails(
 
 // We use the subscription 'endpoint' as the unique ID for the device
 export async function subscribeUser(
-  subscription: WebPushSubscription, userId: string
+  subscription: WebPushSubscription,
+  userId: string,
 ) {
   try {
     const client = await clientPromise;
@@ -23,33 +24,33 @@ export async function subscribeUser(
     await db.collection( 'push_subscriptions' )
       .updateOne(
         {
-          endpoint: subscription.endpoint
+          endpoint: subscription.endpoint,
         },
         {
           $set: {
             subscription: subscription,
             userId      : userId,
-            updatedAt   : new Date()
-          }
+            updatedAt   : new Date(),
+          },
         },
         {
-          upsert: true
-        }
+          upsert: true,
+        },
       );
 
     revalidatePath( '/settings' ); // Refresh the UI state if needed
 
     return {
-      success: true
+      success: true,
     };
   } catch ( error ) {
     console.error(
-      'Failed to save subscription:', error
+      'Failed to save subscription:', error 
     );
 
     return {
       success: false,
-      error  : 'Database error'
+      error  : 'Database error',
     };
   }
 }
@@ -62,28 +63,27 @@ export async function unSubscribeUser( userId: string ) {
     // Delete all subscriptions tied to this specific userId (deviceId)
     await db.collection( 'push_subscriptions' )
       .deleteMany( {
-        userId: userId
+        userId: userId,
       } );
 
-
     return {
-      success: true
+      success: true,
     };
   } catch ( error ) {
     console.error(
-      'Failed to remove subscription:', error
+      'Failed to remove subscription:', error 
     );
 
     return {
       success: false,
-      error  : 'Database error'
+      error  : 'Database error',
     };
   }
 }
 
-
 export async function sendNotification(
-  message: string, subscription: WebPushSubscription | null
+  message: string,
+  subscription: WebPushSubscription | null,
 ) {
   if ( !subscription ) {
     throw new Error( 'No subscription available' );
@@ -120,7 +120,7 @@ export async function sendNotification(
     };
   } catch ( error ) {
     console.error(
-      'Error sending push notification:', error
+      'Error sending push notification:', error 
     );
 
     return {

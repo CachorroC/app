@@ -30,14 +30,15 @@ export function PushNotificationManager() {
 
   useEffect(
     () => {
-      const dismissed = localStorage.getItem( 'grimorio_notifications_dismissed' ) === 'true';
+      const dismissed
+        = localStorage.getItem( 'grimorio_notifications_dismissed' ) === 'true';
       setIsDismissed( dismissed );
 
       if ( !dismissed && !isSubscribed && isSupported ) {
         const timer = setTimeout(
           () => {
             return setIsVisible( true );
-          }, 3000
+          }, 3000 
         );
 
         return () => {
@@ -49,14 +50,14 @@ export function PushNotificationManager() {
     }, [
       isSubscribed,
       isSupported
-    ]
+    ] 
   );
 
   const handleDismiss = () => {
     setIsVisible( false );
     setIsDismissed( true );
     localStorage.setItem(
-      'grimorio_notifications_dismissed', 'true'
+      'grimorio_notifications_dismissed', 'true' 
     );
   };
 
@@ -68,7 +69,7 @@ export function PushNotificationManager() {
     if ( subscription && message.trim() ) {
       const serializedSub = JSON.parse( JSON.stringify( subscription ), ) as WebPushSubscription;
       await sendNotification(
-        message, serializedSub
+        message, serializedSub 
       );
       setMessage( '' );
     }
@@ -107,7 +108,7 @@ export function PushNotificationManager() {
                   }}
                 />
                 <button
-                  type='button'
+                  type="button"
                   onClick={sendTestNotification}
                   className={`${ styles.button } ${ styles.btnPrimary }`}
                 >
@@ -115,7 +116,7 @@ export function PushNotificationManager() {
                 </button>
               </div>
               <button
-                type='button'
+                type="button"
                 onClick={unsubscribeFromPush}
                 className={`${ styles.button } ${ styles.btnGhost }`}
               >
@@ -169,7 +170,8 @@ export function InstallPrompt() {
       setIsIOS( isIOSDevice );
       setIsStandalone( window.matchMedia( '(display-mode: standalone)' ).matches );
 
-      const dismissed = localStorage.getItem( 'grimorio_install_dismissed' ) === 'true';
+      const dismissed
+        = localStorage.getItem( 'grimorio_install_dismissed' ) === 'true';
       setIsDismissed( dismissed );
 
       const handler = ( e: Event ) => {
@@ -178,15 +180,15 @@ export function InstallPrompt() {
       };
 
       window.addEventListener(
-        'beforeinstallprompt', handler
+        'beforeinstallprompt', handler 
       );
 
       return () => {
         return window.removeEventListener(
-          'beforeinstallprompt', handler
+          'beforeinstallprompt', handler 
         );
       };
-    }, []
+    }, [] 
   );
 
   useEffect(
@@ -195,7 +197,7 @@ export function InstallPrompt() {
         const timer = setTimeout(
           () => {
             return setIsVisible( true );
-          }, 3000
+          }, 3000 
         );
 
         return () => {
@@ -209,14 +211,14 @@ export function InstallPrompt() {
       isDismissed,
       isIOS,
       deferredPrompt
-    ]
+    ] 
   );
 
   const handleDismiss = () => {
     setIsVisible( false );
     setIsDismissed( true );
     localStorage.setItem(
-      'grimorio_install_dismissed', 'true'
+      'grimorio_install_dismissed', 'true' 
     );
   };
 
@@ -224,7 +226,7 @@ export function InstallPrompt() {
     if ( deferredPrompt ) {
       deferredPrompt.prompt();
       const {
-        outcome
+        outcome 
       } = await deferredPrompt.userChoice;
 
       if ( outcome === 'accepted' ) {
@@ -269,7 +271,9 @@ export function InstallPrompt() {
             opacity  : 0.8,
           }}
         >
-          {'Toca el botón de compartir ⎋ y luego "Agregar a pantalla de inicio" ➕'}
+          {
+            'Toca el botón de compartir ⎋ y luego "Agregar a pantalla de inicio" ➕'
+          }
         </p>
       )}
     </div>

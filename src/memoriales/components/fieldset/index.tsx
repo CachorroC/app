@@ -13,22 +13,22 @@ interface FieldsetProps {
 }
 
 export function Fieldset( {
-  group, pathPrefix, disabled
+  group, pathPrefix, disabled 
 }: FieldsetProps ) {
   const {
     control 
   } = useFormContext();
   const values = useWatch( {
-    control
+    control,
   } ) as Record<string, unknown>;
 
   const booleanField = group.fields.find( ( field ) => {
     return field.type === 'boolean';
   } );
   const gateName = booleanField
-    ? ( pathPrefix
-        ? `${ pathPrefix }.${ booleanField.name }`
-        : booleanField.name )
+    ? pathPrefix
+      ? `${ pathPrefix }.${ booleanField.name }`
+      : booleanField.name
     : undefined;
   const gateValue = gateName
     ? !!getPath(
@@ -37,7 +37,10 @@ export function Fieldset( {
     : true;
 
   return (
-    <fieldset disabled={disabled} className={styles.fieldset}>
+    <fieldset
+      disabled={disabled}
+      className={styles.fieldset}
+    >
       <legend className={styles.legend}>{group.legend}</legend>
       {group.fields.map( ( field ) => {
         if ( field.derived ) {
@@ -52,7 +55,14 @@ export function Fieldset( {
           ? `${ pathPrefix }.${ field.name }`
           : field.name;
 
-        return <Field key={field.name} name={name} field={field} disabled={disabled} />;
+        return (
+          <Field
+            key={field.name}
+            name={name}
+            field={field}
+            disabled={disabled}
+          />
+        );
       } )}
     </fieldset>
   );

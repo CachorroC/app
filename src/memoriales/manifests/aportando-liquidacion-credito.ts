@@ -5,7 +5,18 @@ export const aportandoLiquidacionCredito: MemorialTemplate = {
   filename   : 'aportando-liquidacion-credito.docx',
   displayName: 'Memorial aportando liquidación del crédito',
   description: 'Aporta la liquidación del crédito al proceso ejecutivo.',
-  groups     : [
+  autofill   : {
+    triggerField: 'deudor.nombre',
+    fieldMap    : {
+      'juzgado.tipo'   : 'juzgado.tipo',
+      'juzgado.ciudad' : 'juzgado.ciudad',
+      'juzgado.numero' : 'juzgado.numero',
+      'radicado.numero': 'radicado.numero',
+      'radicado.año'   : 'radicado.año',
+      tipo_proceso     : 'tipoProceso',
+    },
+  },
+  groups: [
     {
       key   : 'deudor',
       legend: 'Datos del deudor',
@@ -15,8 +26,8 @@ export const aportandoLiquidacionCredito: MemorialTemplate = {
           label   : 'Nombre del deudor',
           type    : 'text',
           required: true,
-          format  : 'upper'
-        }
+          format  : 'upper',
+        },
       ],
     },
     {
@@ -28,27 +39,27 @@ export const aportandoLiquidacionCredito: MemorialTemplate = {
           label   : 'Tipo de juzgado',
           type    : 'text',
           required: true,
-          format  : 'upper'
+          format  : 'upper',
         }, // revisar: ¿select? p.ej. "Civil Municipal"
         {
           name    : 'numero',
           label   : 'Número del juzgado (dígitos)',
           type    : 'text',
-          required: true
+          required: true,
         },
         {
           name   : 'numero_escrito',
           label  : 'Número del juzgado (en letras)',
           type   : 'text',
           derived: true,
-          format : 'upper'
+          format : 'upper',
         }, // derivado de `numero` — ver lib/derive.ts
         {
           name    : 'ciudad',
           label   : 'Ciudad del juzgado',
           type    : 'text',
           required: true,
-          format  : 'upper'
+          format  : 'upper',
         },
       ],
     },
@@ -61,13 +72,13 @@ export const aportandoLiquidacionCredito: MemorialTemplate = {
           label   : 'Número de radicado',
           type    : 'text',
           required: true,
-          format  : 'radicado'
+          format  : 'radicado',
         },
         {
           name    : 'año',
           label   : 'Año del radicado',
           type    : 'number',
-          required: true
+          required: true,
         },
       ],
     },
@@ -83,15 +94,15 @@ export const aportandoLiquidacionCredito: MemorialTemplate = {
           options : [
             {
               value: 'mínima cuantía',
-              label: 'Mínima cuantía'
+              label: 'Mínima cuantía',
             },
             {
               value: 'menor cuantía',
-              label: 'Menor cuantía'
+              label: 'Menor cuantía',
             },
             {
               value: 'mayor cuantía',
-              label: 'Mayor cuantía'
+              label: 'Mayor cuantía',
             },
           ],
         },
@@ -100,7 +111,7 @@ export const aportandoLiquidacionCredito: MemorialTemplate = {
           label   : 'Tipo de proceso',
           type    : 'text',
           required: true,
-          format  : 'upper'
+          format  : 'upper',
         }, // revisar: ¿select? p.ej. "Ejecutivo" — TODO: unificar en las plantillas (ver aportando-291-y-292: `tipoproceso`)
       ],
     },

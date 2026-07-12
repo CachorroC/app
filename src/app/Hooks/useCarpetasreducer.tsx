@@ -108,14 +108,15 @@ export function normalizeSearchText( value: string ) {
   return value
     .normalize( 'NFD' )
     .replace(
-      DIACRITICS_PATTERN, ''
+      DIACRITICS_PATTERN, '' 
     )
     .trim()
     .toLocaleLowerCase();
 }
 
 export function getFilterValue(
-  carpeta: MonCarpeta, column: 'category' | 'ciudad' | 'tipoProceso'
+  carpeta: MonCarpeta,
+  column: 'category' | 'ciudad' | 'tipoProceso',
 ): string {
   if ( column === 'ciudad' ) {
     return carpeta.ciudad ?? DEFAULT_CIUDAD;
@@ -140,7 +141,8 @@ export function getEstadoTags( carpeta: MonCarpeta ): EstadoTag[] {
 }
 
 export function matchesSearch(
-  carpeta: MonCarpeta, normalizedQuery: string
+  carpeta: MonCarpeta,
+  normalizedQuery: string,
 ): boolean {
   if ( !normalizedQuery ) {
     return true;
@@ -163,7 +165,8 @@ export function matchesSearch(
 }
 
 export function getSortComparator(
-  column: SortColumn, direction: SortDirection
+  column: SortColumn,
+  direction: SortDirection,
 ): ( a: MonCarpeta, b: MonCarpeta ) => number {
   const asc = [
     -1,
@@ -184,7 +187,7 @@ export function getSortComparator(
   switch ( column ) {
       case 'fecha': {
         return (
-          a, b
+          a, b 
         ) => {
           if ( !a.fecha || a.fecha === undefined ) {
             return sorter[ 2 ];
@@ -212,7 +215,7 @@ export function getSortComparator(
 
       case 'category': {
         return (
-          a, b
+          a, b 
         ) => {
           const x = categoriesSorter.indexOf( a.category );
 
@@ -232,7 +235,7 @@ export function getSortComparator(
 
       case 'numero': {
         return (
-          a, b
+          a, b 
         ) => {
           const x = a.numero;
 
@@ -246,7 +249,7 @@ export function getSortComparator(
 
       case 'nombre': {
         return (
-          a, b
+          a, b 
         ) => {
           const x = a.nombre.trim()
             .toLocaleLowerCase();
@@ -268,7 +271,7 @@ export function getSortComparator(
 
       case 'revisado': {
         return (
-          a, b
+          a, b 
         ) => {
           const x = Number( a.revisado );
 
@@ -282,7 +285,7 @@ export function getSortComparator(
 
       default: {
         return (
-          a, b
+          a, b 
         ) => {
           const aSortingKey = a[ column ];
 
@@ -315,11 +318,11 @@ export function carpetasReducer(
   action: IntAction,
 ): CarpetasReducerState {
   const {
-    type
+    type 
   } = action;
 
   const {
-    completeCarpetas, filters
+    completeCarpetas, filters 
   } = reducerState;
 
   switch ( type ) {
@@ -335,7 +338,7 @@ export function carpetasReducer(
 
       case 'set-filter': {
         const nextFilters = {
-          ...filters
+          ...filters,
         };
 
         if ( action.values.size === 0 ) {
@@ -360,7 +363,8 @@ export function carpetasReducer(
       case 'sort': {
         const column = action.column ?? reducerState.sort?.column ?? 'fecha';
 
-        const direction = action.direction ?? reducerState.sort?.direction ?? 'asc';
+        const direction
+          = action.direction ?? reducerState.sort?.direction ?? 'asc';
 
         return {
           ...reducerState,
@@ -395,7 +399,7 @@ export function carpetasReducer(
             update.numero,
             update
           ] as const;
-        } ) );
+        } ), );
 
         const nextCompleteCarpetas = completeCarpetas.map( ( carpeta ) => {
           const update = updatesByNumero.get( carpeta.numero );

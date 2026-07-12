@@ -1,4 +1,5 @@
-import type { FieldGroup, MemorialTemplate } from '#@/memoriales/manifests/types';
+import type { FieldGroup,
+  MemorialTemplate, } from '#@/memoriales/manifests/types';
 
 type ValuesRecord = Record<string, unknown>;
 
@@ -14,8 +15,8 @@ function defaultForField( field: { type: string } ): unknown {
   if ( field.type === 'stringList' ) {
     return [
       {
-        value: ''
-      }
+        value: '',
+      },
     ];
   }
 
@@ -37,7 +38,7 @@ function defaultGroupValues( group: FieldGroup ): ValuesRecord {
 }
 
 /** RHF default values — `stringList` fields use the `{value: string}[]` shadow shape `useFieldArray` needs. */
-export function defaultValuesForTemplate( template: MemorialTemplate ): ValuesRecord {
+export function defaultValuesForTemplate( template: MemorialTemplate, ): ValuesRecord {
   const values: ValuesRecord = {};
 
   for ( const group of template.groups ) {
@@ -56,7 +57,8 @@ export function defaultValuesForTemplate( template: MemorialTemplate ): ValuesRe
 }
 
 function assembleGroupValues(
-  group: FieldGroup, rawGroup: ValuesRecord 
+  group: FieldGroup,
+  rawGroup: ValuesRecord,
 ): ValuesRecord {
   const booleanField = group.fields.find( ( field ) => {
     return field.type === 'boolean';
@@ -73,13 +75,14 @@ function assembleGroupValues(
 
     if ( field.type === 'stringList' ) {
       const rows = Array.isArray( rawGroup[ field.name ] )
-        ? rawGroup[ field.name ] as { value?: string }[]
+        ? ( rawGroup[ field.name ] as { value?: string }[] )
         : [];
 
       result[ field.name ] = gateValue
-        ? rows.map( ( row ) => {
-            return ( row?.value ?? '' ).trim();
-          } )
+        ? rows
+            .map( ( row ) => {
+              return ( row?.value ?? '' ).trim();
+            } )
             .filter( ( value ) => {
               return value.length > 0;
             } )
@@ -96,7 +99,8 @@ function assembleGroupValues(
 
 /** Flattens the RHF shadow shape (stringList rows, has_anexos gating) into plain submit values. */
 export function assembleSubmitValues(
-  template: MemorialTemplate, raw: ValuesRecord 
+  template: MemorialTemplate,
+  raw: ValuesRecord,
 ): ValuesRecord {
   const values: ValuesRecord = {};
 
@@ -118,9 +122,10 @@ export function assembleSubmitValues(
         } );
       } else {
         values[ group.key ] = assembleGroupValues(
-          group, isRecord( rawGroupValue )
+          group,
+          isRecord( rawGroupValue )
             ? rawGroupValue
-            : {} 
+            : {},
         );
       }
     } else {

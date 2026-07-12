@@ -29,7 +29,7 @@ interface KV {
 }
 
 export default function CarpetaDetail( {
-  carpeta
+  carpeta 
 }: { carpeta: Carpeta } ) {
   const router = useRouter();
   const [
@@ -69,7 +69,7 @@ export default function CarpetaDetail( {
           createdAt: new Date()
             .toISOString()
             .slice(
-              0, 10
+              0, 10 
             ),
           completed: false,
         },
@@ -336,7 +336,7 @@ export default function CarpetaDetail( {
 
   // -------- section renderers --------
   const KvGrid = ( {
-    rows
+    rows 
   }: { rows: KV[] } ) => {
     return (
       <div className={styles.kvGrid}>
@@ -602,7 +602,7 @@ export default function CarpetaDetail( {
                 <span className="aj-mono">{fmtDate( n.createdAt )}</span>
               </div>
               {n.content.map( (
-                line, i
+                line, i 
               ) => {
                 return (
                   <div
@@ -931,7 +931,7 @@ export default function CarpetaDetail( {
                   v   : d.direccion ?? '—',
                 },
               ].map( (
-                c, i
+                c, i 
               ) => {
                 return (
                   <div

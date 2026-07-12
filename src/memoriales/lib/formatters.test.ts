@@ -1,6 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { formatCedula, formatCurrencyCOP, formatDateLong, formatRadicado, formatUpper } from './formatters';
+import { formatCedula,
+  formatCurrencyCOP,
+  formatDateLong,
+  formatRadicado,
+  formatUpper, } from './formatters';
 
 test(
   'formatCurrencyCOP renders grouped digits with no decimals', () => {
@@ -34,21 +38,22 @@ test(
 test(
   'formatCedula groups digits with thousands separators', () => {
     assert.equal(
-      formatCedula( 1234567 ), '1.234.567'
+      formatCedula( 1234567 ), '1.234.567' 
     );
     assert.equal(
-      formatCedula( '1.020.304' ), '1.020.304'
+      formatCedula( '1.020.304' ), '1.020.304' 
     );
-  }
+  } 
 );
 
 test(
   'formatUpper uppercases accented Spanish text', () => {
     assert.equal(
-      formatUpper( 'mínima cuantía' ), 'MÍNIMA CUANTÍA'
+      formatUpper( 'mínima cuantía' ), 'MÍNIMA CUANTÍA' 
     );
     assert.equal(
-      formatUpper( 'juzgado civil municipal' ), 'JUZGADO CIVIL MUNICIPAL'
+      formatUpper( 'juzgado civil municipal' ),
+      'JUZGADO CIVIL MUNICIPAL',
     );
-  }
+  } 
 );

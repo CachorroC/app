@@ -8,7 +8,8 @@ import { CarpetasSortProvider } from '../Context/carpetas-sort-context';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Loader } from '#@/components/Loader/main-loader';
 import { connection } from 'next/server';
-import { FilterDrawer, FilterDrawerButton } from '#@/components/layout/FilterDrawer';
+import { FilterDrawer,
+  FilterDrawerButton, } from '#@/components/layout/FilterDrawer';
 
 const RIGHT_DRAWER_ID = 'carpetas-filters';
 
@@ -51,7 +52,9 @@ export default function LayoutProcesosMain( {
             </div>
           </Suspense>
           <Suspense fallback={<Loader />}>
-            <div className={`${ styles.leftGrid } ${ scopeClassName }`}>{children}</div>
+            <div className={`${ styles.leftGrid } ${ scopeClassName }`}>
+              {children}
+            </div>
           </Suspense>
           <Suspense fallback={<Loader />}>
             <FilterDrawer id={RIGHT_DRAWER_ID}>

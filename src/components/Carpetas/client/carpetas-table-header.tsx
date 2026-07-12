@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 'use client';
 
-import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
+import { useCarpetaSort,
+  useCarpetaSortDispatch, } from '#@/app/Context/carpetas-sort-context';
 import { SortColumn, SortDirection } from '#@/app/Hooks/useCarpetasreducer';
 import { CarpetaCheckbox } from './carpeta-checkbox';
 import styles from './carpetas-table-header.module.css';
@@ -9,45 +10,45 @@ import styles from './carpetas-table-header.module.css';
 const COLUMNS: { label: string; sortKey?: SortColumn }[] = [
   {
     label  : 'Número',
-    sortKey: 'numero' 
+    sortKey: 'numero',
   },
   {
     label  : 'Parte',
-    sortKey: 'nombre' 
+    sortKey: 'nombre',
   },
   {
     label  : 'Fecha',
-    sortKey: 'fecha' 
+    sortKey: 'fecha',
   },
   {
     label  : 'Categoría',
-    sortKey: 'category' 
+    sortKey: 'category',
   },
   {
     label  : 'Tipo',
-    sortKey: 'tipoProceso' 
+    sortKey: 'tipoProceso',
   },
   {
     label  : 'Estado',
-    sortKey: 'revisado' 
+    sortKey: 'revisado',
   },
   {
-    label: 'Juzgado' 
+    label: 'Juzgado',
   },
   {
-    label: 'Última actuación' 
+    label: 'Última actuación',
   },
   {
-    label: 'Notas' 
+    label: 'Notas',
   },
   {
-    label: 'Radicado' 
+    label: 'Radicado',
   },
   {
-    label: 'Expediente' 
+    label: 'Expediente',
   },
   {
-    label: 'Revisado' 
+    label: 'Revisado',
   },
 ];
 
@@ -80,10 +81,12 @@ export function CarpetasTableHeader( {
           />
         </th>
         {COLUMNS.map( ( column ) => {
-          const active = column.sortKey !== undefined && sort?.column === column.sortKey;
-          const direction: SortDirection = active && sort?.direction === 'asc'
-            ? 'dsc'
-            : 'asc';
+          const active
+            = column.sortKey !== undefined && sort?.column === column.sortKey;
+          const direction: SortDirection
+            = active && sort?.direction === 'asc'
+              ? 'dsc'
+              : 'asc';
 
           return (
             <th
@@ -92,15 +95,17 @@ export function CarpetasTableHeader( {
               className={styles.th}
               data-sortable={column.sortKey !== undefined}
               data-active={active}
-              onClick={column.sortKey
-                ? () => {
-                    return dispatchCarpetas( {
-                      type  : 'sort',
-                      column: column.sortKey,
-                      direction,
-                    } );
-                  }
-                : undefined}
+              onClick={
+                column.sortKey
+                  ? () => {
+                      return dispatchCarpetas( {
+                        type  : 'sort',
+                        column: column.sortKey,
+                        direction,
+                      } );
+                    }
+                  : undefined
+              }
             >
               <span className={styles.thLabel}>
                 {column.label}

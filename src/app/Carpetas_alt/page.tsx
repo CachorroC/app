@@ -2,13 +2,13 @@ import CarpetasDashboard from '#@/components/dashboard/CarpetasDashboard';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Carpeta, Category, TipoProceso } from '#@/lib/types/dashboard_types';
 
-export default async function CarpetasPage () {
+export default async function CarpetasPage() {
   const carpetas = await getCarpetas();
 
   const newCarpetas: Carpeta[] = carpetas.map( ( c ) => {
     console.log( c.fecha );
 
-    return  {
+    return {
       actuaciones: c.ultimaActuacion
         ? [
             {
@@ -18,7 +18,7 @@ export default async function CarpetasPage () {
               anotacion    : c.ultimaActuacion.anotacion ?? 'sin anotacion',
               conDocumentos: c.ultimaActuacion.conDocumentos,
               isUltima     : true,
-            }
+            },
           ]
         : [],
       avaluo  : c.demanda.avaluo ?? 0,
@@ -34,30 +34,34 @@ export default async function CarpetasPage () {
           }
         : null,
       demanda: {
-        id               : c.demanda.id,
-        departamento     : c.demanda.departamento ?? '',
-        municipio        : c.demanda.municipio ?? '',
-        despacho         : c.demanda.despacho ?? '',
-        etapaProcesal    : c.demanda.etapaProcesal ?? '',
-        tipoProceso      : c.demanda.tipoProceso,
-        radicado         : c.demanda.radicado ?? '',
-        capitalAdeudado  : c.demanda.capitalAdeudado ?? 0,
-        avaluo           : c.demanda.avaluo ?? 0,
-        liquidacion      : c.demanda.liquidacion ?? 0,
-        obligacion       : c.demanda.obligacion,
-        fechaPresentacion: c.demanda.fechaPresentacion[ 0 ]?.toISOString() ?? null,
-        vencimientoPagare: c.demanda.vencimientoPagare[ 0 ]?.toISOString() ?? null,
-        mandamientoPago  : c.demanda.mandamientoPago[ 0 ]?.toISOString() ?? null,
-        entregaGarantias : c.demanda.entregaGarantiasAbogado?.toISOString() ?? null,
+        id             : c.demanda.id,
+        departamento   : c.demanda.departamento ?? '',
+        municipio      : c.demanda.municipio ?? '',
+        despacho       : c.demanda.despacho ?? '',
+        etapaProcesal  : c.demanda.etapaProcesal ?? '',
+        tipoProceso    : c.demanda.tipoProceso,
+        radicado       : c.demanda.radicado ?? '',
+        capitalAdeudado: c.demanda.capitalAdeudado ?? 0,
+        avaluo         : c.demanda.avaluo ?? 0,
+        liquidacion    : c.demanda.liquidacion ?? 0,
+        obligacion     : c.demanda.obligacion,
+        fechaPresentacion:
+          c.demanda.fechaPresentacion[ 0 ]?.toISOString() ?? null,
+        vencimientoPagare:
+          c.demanda.vencimientoPagare[ 0 ]?.toISOString() ?? null,
+        mandamientoPago: c.demanda.mandamientoPago[ 0 ]?.toISOString() ?? null,
+        entregaGarantias:
+          c.demanda.entregaGarantiasAbogado?.toISOString() ?? null,
       },
       deudor  : c.deudor!,
       etapa   : c.demanda.etapaProcesal ?? '',
       facturas: [],
-      fecha   : typeof c.fecha === 'string'
-        ? c.fecha
-        : c.fecha === null
-          ? ''
-          :c.fecha.toISOString(),
+      fecha:
+        typeof c.fecha === 'string'
+          ? c.fecha
+          : c.fecha === null
+            ? ''
+            : c.fecha.toISOString(),
       juzgado: {
         id    : c.juzgado!.id,
         nombre: c.juzgado!.id,
@@ -69,7 +73,7 @@ export default async function CarpetasPage () {
       llaveProceso: c.llaveProceso,
       nombre      : c.nombre,
       notas       : c.notas.map( ( n ) => {
-        return  {
+        return {
           id       : n.id,
           text     : n.text,
           content  : n.content,
@@ -80,7 +84,7 @@ export default async function CarpetasPage () {
       } ),
       numero  : c.numero,
       procesos: c.procesos.map( ( p ) => {
-        return  {
+        return {
           idProceso           : p.idProceso,
           despacho            : p.despacho,
           departamento        : p.departamento,

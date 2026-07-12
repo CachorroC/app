@@ -1,6 +1,5 @@
-
 import '#@/styles/globals.css';
-import 'material-symbols/rounded.css';
+import 'material-symbols';
 import layout from '#@/styles/layout.module.css';
 import { ReactNode, Suspense } from 'react';
 import { MainProvider } from './Context/main-context';

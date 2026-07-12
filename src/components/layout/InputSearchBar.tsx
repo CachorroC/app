@@ -13,7 +13,7 @@ export const InputSearchBar = () => {
   ] = useState( '' );
 
   const {
-    completeCarpetas
+    completeCarpetas 
   } = useCarpetaSort();
   const router = useRouter();
 

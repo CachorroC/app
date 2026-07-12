@@ -6,64 +6,79 @@ import { sendNotification } from './actions/notifications';
 import { usePushNotifications } from './Context/pushNotificationContext';
 
 function PushNotificationManager() {
-  const { isSupported, subscription, subscribeToPush, unsubscribeFromPush } =
-    usePushNotifications();
+  const {
+    isSupported, subscription, subscribeToPush, unsubscribeFromPush 
+  }
+    = usePushNotifications();
 
-  const [message, setMessage] = useState('');
+  const [
+    message,
+    setMessage
+  ] = useState( '' );
 
   async function sendTestNotification() {
-    if (subscription) {
+    if ( subscription ) {
       const serializedSub = subscription.toJSON() as any;
-      await sendNotification(message, serializedSub);
-      setMessage('');
+      await sendNotification(
+        message, serializedSub 
+      );
+      setMessage( '' );
     }
   }
 
-  if (!isSupported) {
+  if ( !isSupported ) {
     return <p>Push notifications are not supported in this browser.</p>;
   }
 
   return (
     <div>
       <h3>Push Notifications</h3>
-      {subscription ? (
-        <>
-          <p>You are subscribed to push notifications.</p>
-          <button onClick={unsubscribeFromPush}>Unsubscribe</button>
-          <input
-            type="text"
-            placeholder="Enter notification message"
-            value={message}
-            onChange={(e) => {
-              return setMessage(e.target.value);
-            }}
-          />
-          <button onClick={sendTestNotification}>Send Test</button>
-        </>
-      ) : (
-        <>
-          <p>You are not subscribed to push notifications.</p>
-          <button onClick={subscribeToPush}>Subscribe</button>
-        </>
-      )}
+      {subscription
+        ? (
+            <>
+              <p>You are subscribed to push notifications.</p>
+              <button onClick={unsubscribeFromPush}>Unsubscribe</button>
+              <input
+                type="text"
+                placeholder="Enter notification message"
+                value={message}
+                onChange={( e ) => {
+                  return setMessage( e.target.value );
+                }}
+              />
+              <button onClick={sendTestNotification}>Send Test</button>
+            </>
+          )
+        : (
+            <>
+              <p>You are not subscribed to push notifications.</p>
+              <button onClick={subscribeToPush}>Subscribe</button>
+            </>
+          )}
     </div>
   );
 }
 
 function InstallPrompt() {
-  const [isIOS, setIsIOS] = useState(false);
+  const [
+    isIOS,
+    setIsIOS
+  ] = useState( false );
 
-  const [isStandalone, setIsStandalone] = useState(false);
+  const [
+    isStandalone,
+    setIsStandalone
+  ] = useState( false );
 
-  useEffect(() => {
-    setIsIOS(
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream,
-    );
+  useEffect(
+    () => {
+      setIsIOS( /iPad|iPhone|iPod/.test( navigator.userAgent ) && !( window as any ).MSStream, );
 
-    setIsStandalone(window.matchMedia('(display-mode: standalone)').matches);
-  }, []);
+      setIsStandalone( window.matchMedia( '(display-mode: standalone)' ).matches );
+    }, [] 
+  );
 
-  if (isStandalone) {
+  if ( isStandalone ) {
     return null; // Don't show install button if already installed
   }
 

@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useCarpetaSort, useCarpetaSortDispatch } from '#@/app/Context/carpetas-sort-context';
+import { useCarpetaSort,
+  useCarpetaSortDispatch, } from '#@/app/Context/carpetas-sort-context';
 import { updateRevisadoState } from '#@/app/Carpetas/actions';
 import { CarpetaCard } from './carpeta-card';
 import { CarpetaTableRow } from './carpeta-table-row';
@@ -27,15 +28,15 @@ export function CarpetasTable() {
 
   const [
     containerWidth,
-    setContainerWidth 
+    setContainerWidth
   ] = useState( CARD_BREAKPOINT );
   const [
     toast,
-    setToast 
+    setToast
   ] = useState<string | null>( null );
   const [
     isBusy,
-    setIsBusy 
+    setIsBusy
   ] = useState( false );
 
   useEffect(
@@ -58,7 +59,7 @@ export function CarpetasTable() {
       return () => {
         observer.disconnect();
       };
-    }, []
+    }, [] 
   );
 
   useEffect(
@@ -68,7 +69,7 @@ export function CarpetasTable() {
           clearTimeout( toastTimeout.current );
         }
       };
-    }, []
+    }, [] 
   );
 
   const showToast = useCallback(
@@ -82,9 +83,9 @@ export function CarpetasTable() {
       toastTimeout.current = setTimeout(
         () => {
           setToast( null );
-        }, 2800
+        }, 2800 
       );
-    }, []
+    }, [] 
   );
 
   const visibleSelected = carpetas.filter( ( carpeta ) => {
@@ -123,18 +124,18 @@ export function CarpetasTable() {
           id      : carpeta.id,
           revisado: true,
         } );
-      } ) );
+      } ), );
 
       dispatchCarpetas( {
         type   : 'batch-update',
         payload: results,
       } );
       dispatchCarpetas( {
-        type: 'clear-selection' 
+        type: 'clear-selection',
       } );
       showToast( results.length === 1
         ? '1 carpeta marcada como revisada'
-        : `${ results.length } carpetas marcadas como revisadas` );
+        : `${ results.length } carpetas marcadas como revisadas`, );
     } finally {
       setIsBusy( false );
     }
@@ -149,7 +150,7 @@ export function CarpetasTable() {
       'Fecha',
       'Radicado',
       'Cedula',
-      'Expediente'
+      'Expediente',
     ];
 
     const rows = visibleSelected.map( ( carpeta ) => {
@@ -173,14 +174,14 @@ export function CarpetasTable() {
     const csv = [
       header.map( toCsvCell )
         .join( ',' ),
-      ...rows 
+      ...rows
     ].join( '\n' );
     const blob = new Blob(
       [
         `\uFEFF${ csv }`
       ], {
-        type: 'text/csv;charset=utf-8;'
-      }
+        type: 'text/csv;charset=utf-8;',
+      } 
     );
     const url = URL.createObjectURL( blob );
     const anchor = document.createElement( 'a' );
@@ -198,7 +199,7 @@ export function CarpetasTable() {
 
     showToast( visibleSelected.length === 1
       ? 'Exportando 1 carpeta…'
-      : `Exportando ${ visibleSelected.length } carpetas…` );
+      : `Exportando ${ visibleSelected.length } carpetas…`, );
   };
 
   const showTable = containerWidth >= CARD_BREAKPOINT;
@@ -256,7 +257,7 @@ export function CarpetasTable() {
             className={styles.textButton}
             onClick={() => {
               return dispatchCarpetas( {
-                type: 'clear-selection' 
+                type: 'clear-selection',
               } );
             }}
           >

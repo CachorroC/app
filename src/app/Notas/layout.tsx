@@ -4,7 +4,8 @@ import { NotasSortProvider } from '../Context/notas-sort-context';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { NuevaNotaFormProvider } from './nueva-nota-form-context';
 import { connection } from 'next/server';
-import { FilterDrawer, FilterDrawerButton } from '#@/components/layout/FilterDrawer';
+import { FilterDrawer,
+  FilterDrawerButton, } from '#@/components/layout/FilterDrawer';
 
 const RIGHT_DRAWER_ID = 'notas-panel';
 

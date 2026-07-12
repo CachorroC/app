@@ -20,10 +20,8 @@ import { Carpeta, CarpetaDashboard } from '#@/components/legalDashboard';
 import { ExpedienteFormComponent } from '../expediente-form-component';
 import ProtoPage from '../../../../components/proto-page';
 
-
-
 async function NotasList( {
-  carpetaNumero
+  carpetaNumero 
 }: { carpetaNumero: number } ) {
   const notas = await getNotas( carpetaNumero );
 
@@ -46,9 +44,8 @@ async function NotasList( {
 }
 
 async function ServerRequestedComponent( {
-  numero
-}:{numero: number} )  {
-
+  numero 
+}: { numero: number } ) {
   const carpeta = await getCarpetabyNumero( Number( numero ) );
 
   if ( !carpeta ) {
@@ -56,7 +53,7 @@ async function ServerRequestedComponent( {
   }
 
   const {
-    llaveProceso, demanda, fecha, updatedAt
+    llaveProceso, demanda, fecha, updatedAt 
   } = carpeta;
 
   const allFechas = new Set<{ name: string; date: Date }>();
@@ -99,7 +96,7 @@ async function ServerRequestedComponent( {
 
     if ( mandamientoPago !== null ) {
       mandamientoPago.forEach( (
-        mandamiento, index
+        mandamiento, index 
       ) => {
         allFechas.add( {
           name: `mandamientoPago.${ index }`,
@@ -129,7 +126,7 @@ async function ServerRequestedComponent( {
   const fechasMaper = [
     ...allFechasArray
   ].sort( (
-    a, b
+    a, b 
   ) => {
     const x = a.date.getTime();
 
@@ -210,10 +207,8 @@ export default async function Page( {
   params: Promise<{ numero: string }>;
 } ) {
   const {
-    numero
+    numero 
   } = await params;
-
-
 
   return (
     <>
@@ -232,8 +227,6 @@ export default async function Page( {
           />
         </Suspense>
       </div>
-
-
     </>
   );
 }

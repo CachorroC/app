@@ -6,7 +6,8 @@ import { Suspense } from 'react';
 import { connection } from 'next/server';
 import { getCarpetas } from '#@/lib/project/utils/Carpetas/getCarpetas';
 import { Calendar } from '#@/components/Calendar/main';
-import { PushNotificationManager, InstallPrompt } from '#@/components/pushNotificationManager';
+import { PushNotificationManager,
+  InstallPrompt, } from '#@/components/pushNotificationManager';
 import { Loader } from '#@/components/Loader/main-loader';
 import { IntCarpeta } from '#@/lib/types/carpetas';
 
@@ -15,31 +16,33 @@ const BOGOTA_TZ = 'America/Bogota';
 const CATEGORY_CHIP: Record<string, { label: string; className: string }> = {
   Bancolombia: {
     label    : 'Bancolombia',
-    className: styles.chipBancolombia 
+    className: styles.chipBancolombia,
   },
   Reintegra: {
     label    : 'Reintegra',
-    className: styles.chipReintegra 
+    className: styles.chipReintegra,
   },
   Insolvencia: {
     label    : 'Insolvencia',
-    className: styles.chipInsolvencia 
+    className: styles.chipInsolvencia,
   },
   LiosJuridicos: {
     label    : 'Líos Jurídicos',
-    className: styles.chipLiosJuridicos 
+    className: styles.chipLiosJuridicos,
   },
   Terminados: {
     label    : 'Terminados',
-    className: styles.chipTerminados 
+    className: styles.chipTerminados,
   },
 };
 
 function categoryChip( category: string ) {
-  return CATEGORY_CHIP[ category ] ?? {
-    label    : 'Sin categoría',
-    className: styles.chipNeutral
-  };
+  return (
+    CATEGORY_CHIP[ category ] ?? {
+      label    : 'Sin categoría',
+      className: styles.chipNeutral,
+    }
+  );
 }
 
 function greetingFor( hour: number ) {
@@ -64,17 +67,17 @@ export default async function Page() {
     'es-CO', {
       timeZone: BOGOTA_TZ,
       hour    : 'numeric',
-      hour12  : false
-    }
+      hour12  : false,
+    } 
   )
-    .format( now ) );
+    .format( now ), );
   const todayLabel = new Intl.DateTimeFormat(
     'es-CO', {
       timeZone: BOGOTA_TZ,
       weekday : 'long',
       day     : 'numeric',
-      month   : 'long'
-    }
+      month   : 'long',
+    } 
   )
     .format( now );
 
@@ -87,52 +90,56 @@ export default async function Page() {
   } ).length;
   const notas = carpetas.reduce(
     (
-      acc, c
+      acc, c 
     ) => {
       return acc + c.notas.length;
-    }, 0
+    }, 0 
   );
 
   const activity = carpetas
-    .filter( ( c ): c is IntCarpeta & { ultimaActuacion: NonNullable<IntCarpeta[ 'ultimaActuacion' ]> } => {
+    .filter( ( c, ): c is IntCarpeta & {
+      ultimaActuacion: NonNullable<IntCarpeta['ultimaActuacion']>;
+    } => {
       return Boolean( c.ultimaActuacion?.fechaActuacion );
-    } )
+    }, )
     .sort( (
-      a, b
+      a, b 
     ) => {
-      return b.ultimaActuacion.fechaActuacion.getTime() - a.ultimaActuacion.fechaActuacion.getTime();
+      return (
+        b.ultimaActuacion.fechaActuacion.getTime()
+        - a.ultimaActuacion.fechaActuacion.getTime()
+      );
     } )
     .slice(
-      0, 6
+      0, 6 
     );
 
   const stats = [
     {
       icon : 'folder_managed',
       label: 'Total carpetas',
-      value: total
+      value: total,
     },
     {
       icon : 'pending_actions',
       label: 'Pendientes',
-      value: pendientes
+      value: pendientes,
     },
     {
       icon : 'task_alt',
       label: 'Terminados',
-      value: terminados
+      value: terminados,
     },
     {
       icon : 'sticky_note_2',
       label: 'Notas registradas',
-      value: notas
+      value: notas,
     },
   ];
 
   return (
     <div className={layout.leftGrid}>
       <div className={styles.page}>
-
         <header className={styles.header}>
           <img
             src="/icon.png"
@@ -147,7 +154,9 @@ export default async function Page() {
         </header>
 
         <div className={styles.greeting}>
-          <h1 className={styles.greetingTitle}>{`${ greetingFor( hour ) }, equipo`}</h1>
+          <h1
+            className={styles.greetingTitle}
+          >{`${ greetingFor( hour ) }, equipo`}</h1>
           <p className={styles.greetingSummary}>
             {`${ total } carpetas en gestión · ${ pendientes } pendientes de revisión`}
           </p>
@@ -180,7 +189,9 @@ export default async function Page() {
             </div>
             <h2 className={styles.navCardTitle}>{'Carpetas'}</h2>
             <p className={styles.navCardDescription}>
-              {'Consulte, filtre y actualice el estado de todos los expedientes en gestión.'}
+              {
+                'Consulte, filtre y actualice el estado de todos los expedientes en gestión.'
+              }
             </p>
             <span className={styles.navCardCta}>
               {'Ir a Carpetas'}
@@ -196,7 +207,9 @@ export default async function Page() {
             </div>
             <h2 className={styles.navCardTitle}>{'Memoriales'}</h2>
             <p className={styles.navCardDescription}>
-              {'Genere memoriales a partir de las plantillas del despacho y descargue el .docx.'}
+              {
+                'Genere memoriales a partir de las plantillas del despacho y descargue el .docx.'
+              }
             </p>
             <span className={styles.navCardCta}>
               {'Ir a Memoriales'}
@@ -207,7 +220,9 @@ export default async function Page() {
 
         <div className={styles.section}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>{'Actividad reciente de los juzgados'}</h2>
+            <h2 className={styles.sectionTitle}>
+              {'Actividad reciente de los juzgados'}
+            </h2>
             <Link
               href={'/Carpetas'}
               className={styles.sectionLink}
@@ -232,8 +247,8 @@ export default async function Page() {
                         timeZone: BOGOTA_TZ,
                         day     : '2-digit',
                         month   : 'short',
-                        year    : 'numeric'
-                      }
+                        year    : 'numeric',
+                      } 
                     )
                       .format( carpeta.ultimaActuacion.fechaActuacion );
 
@@ -243,13 +258,16 @@ export default async function Page() {
                         href={`/Carpeta/${ carpeta.numero }` as Route}
                         className={styles.activityRow}
                       >
-                        <span className={`${ styles.chip } ${ chip.className }`}>{chip.label}</span>
+                        <span className={`${ styles.chip } ${ chip.className }`}>
+                          {chip.label}
+                        </span>
                         <div className={styles.activityBody}>
                           <div className={styles.activityNombre}>
                             {carpeta.nombre.trim() || `Carpeta ${ carpeta.numero }`}
                           </div>
                           <div className={styles.activityActuacion}>
-                            {carpeta.ultimaActuacion.actuacion || 'Sin actuación registrada'}
+                            {carpeta.ultimaActuacion.actuacion
+                          || 'Sin actuación registrada'}
                           </div>
                         </div>
                         <span className={styles.activityDate}>{fecha}</span>
@@ -277,9 +295,10 @@ export default async function Page() {
         <InstallPrompt />
 
         <footer className={styles.footer}>
-          <span className={styles.footerText}>{'R&S Asesoría Jurídica S.A.S · Uso interno'}</span>
+          <span className={styles.footerText}>
+            {'R&S Asesoría Jurídica S.A.S · Uso interno'}
+          </span>
         </footer>
-
       </div>
     </div>
   );

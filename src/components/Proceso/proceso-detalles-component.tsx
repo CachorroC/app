@@ -12,7 +12,6 @@ export async function ProcesoTableDetalleComponent( {
 } ) {
   const urlNameMaker = consultaProcesoDetalleURL( idProceso );
 
-
   const fetchProc = await fetchWithSmartRetry( urlNameMaker.toString() );
 
   if ( !fetchProc.ok ) {
@@ -89,7 +88,7 @@ export async function ProcesoTableDetalleComponent( {
               year   : 'numeric',
               month  : 'long',
               day    : 'numeric',
-            }
+            } 
           )}
       </td>
       <td>
@@ -100,7 +99,7 @@ export async function ProcesoTableDetalleComponent( {
               year   : 'numeric',
               month  : 'long',
               day    : 'numeric',
-            }
+            } 
           )}
       </td>
       <td>{idConexion}</td>
@@ -127,7 +126,7 @@ export async function ProcesoTableDetalleComponent( {
               year   : 'numeric',
               month  : 'long',
               day    : 'numeric',
-            }
+            } 
           )}
       </td>
     </>

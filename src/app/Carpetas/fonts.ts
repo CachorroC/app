@@ -2,7 +2,7 @@ import { Quicksand, IBM_Plex_Mono } from 'next/font/google';
 
 export const quicksandCarpetas = Quicksand( {
   subsets: [
-    'latin' 
+    'latin'
   ],
   variable: '--font-quicksand-carpetas',
   weight  : 'variable',
@@ -11,12 +11,12 @@ export const quicksandCarpetas = Quicksand( {
 
 export const plexMonoCarpetas = IBM_Plex_Mono( {
   subsets: [
-    'latin' 
+    'latin'
   ],
   variable: '--font-plex-mono-carpetas',
   weight  : [
     '400',
-    '500' 
+    '500'
   ],
   display: 'swap',
 } );

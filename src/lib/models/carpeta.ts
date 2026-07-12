@@ -1,5 +1,7 @@
 import { fetchWithSmartRetry } from '../fetchWithSmartRetry';
-import { ConsultaActuacion, DatabaseActuacionType, FetchResponseActuacionType } from '../types/actuaciones';
+import { ConsultaActuacion,
+  DatabaseActuacionType,
+  FetchResponseActuacionType, } from '../types/actuaciones';
 import { ConsultaProcesos, outProceso } from '../types/procesos';
 import { JuzgadoClass } from './juzgado';
 
@@ -14,7 +16,7 @@ export class Carpeta {
   fecha          : Date | null = null;
   idRegUltimaAct : string | null = null;
   constructor(
-    llaveProceso: string, numero: number, nombre: string
+    llaveProceso: string, numero: number, nombre: string 
   ) {
     this.llaveProceso = llaveProceso;
     this.numero = numero;
@@ -33,7 +35,7 @@ export class Carpeta {
       const consultaProcesos = ( await request.json() ) as ConsultaProcesos;
 
       const {
-        procesos
+        procesos 
       } = consultaProcesos;
 
       for ( const rawProceso of procesos ) {
@@ -80,30 +82,30 @@ export class Carpeta {
         const consultaActuaciones = ( await request.json() ) as ConsultaActuacion;
 
         const {
-          actuaciones
+          actuaciones 
         } = consultaActuaciones;
 
         const outActuaciones: DatabaseActuacionType[] = actuaciones.map( ( actuacion ) => {
           return {
             ...actuacion,
-            idProceso: idProceso,
-            idRegActuacion :`${ actuacion.idRegActuacion }`,
+            idProceso     : idProceso,
+            idRegActuacion: `${ actuacion.idRegActuacion }`,
             fechaActuacion: new Date( actuacion.fechaActuacion ),
             fechaRegistro : new Date( actuacion.fechaRegistro ),
-            createdAt: new Date(),
-            carpetaNumero: this.numero,
+            createdAt     : new Date(),
+            carpetaNumero : this.numero,
             isUltimaAct:
-              actuacion.cant === actuacion.consActuacion
-                ? true
-                : false,
-            fechaInicial  : actuacion.fechaInicial
+                actuacion.cant === actuacion.consActuacion
+                  ? true
+                  : false,
+            fechaInicial: actuacion.fechaInicial
               ? new Date( actuacion.fechaInicial )
               : null,
             fechaFinal: actuacion.fechaFinal
               ? new Date( actuacion.fechaFinal )
               : null,
           };
-        } );
+        }, );
 
         outActuaciones.forEach( ( actuacion ) => {
           this.actuaciones.push( actuacion );
@@ -127,7 +129,7 @@ export class Carpeta {
       const sorted = [
         ...this.actuaciones
       ].sort( (
-        a, b
+        a, b 
       ) => {
         const fechaA = a.fechaActuacion;
 

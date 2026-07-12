@@ -34,10 +34,10 @@ $bp-desktop: 1200px;
   box-sizing: border-box;
   background-color: var(--surface-container);
   font-variation-settings:
-    "FILL" 1,
-    "wght" 700,
-    "GRAD" 0,
-    "opsz" 48;
+    'FILL' 1,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 48;
   overflow-x: hidden;
 }
 
@@ -172,7 +172,8 @@ $bp-desktop: 1200px;
   justify-content: space-evenly;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.375rem max(0.5rem, env(safe-area-inset-right)) max(0.375rem, env(safe-area-inset-bottom))
+  padding: 0.375rem max(0.5rem, env(safe-area-inset-right))
+    max(0.375rem, env(safe-area-inset-bottom))
     max(0.5rem, env(safe-area-inset-left));
   box-sizing: border-box;
   background-color: var(--surface);
@@ -201,8 +202,8 @@ $bp-desktop: 1200px;
     grid-template-columns: 5rem 1fr;
     grid-template-rows: auto 1fr;
     grid-template-areas:
-      "header top"
-      "header left";
+      'header top'
+      'header left';
     overflow: visible;
   }
 
@@ -242,8 +243,8 @@ $bp-desktop: 1200px;
     grid-template-columns: 5rem 1fr minmax(280px, 25vw);
     grid-template-rows: auto 1fr;
     grid-template-areas:
-      "header top top"
-      "header left right";
+      'header top top'
+      'header left right';
     gap: 1rem;
     padding: 1rem;
   }
@@ -306,7 +307,7 @@ $bp-desktop: 1200px;
   & > .text {
     opacity: 1;
     font-size: 0.7rem;
-    font-variation-settings: "wght" 500;
+    font-variation-settings: 'wght' 500;
     font-style: var(--label-medium-font-family-style);
     font-weight: var(--label-medium-font-weight);
     color: var(--on-surface-variant);
@@ -371,15 +372,15 @@ $bp-desktop: 1200px;
 
     & > .icon {
       font-variation-settings:
-        "FILL" 1,
-        "wght" 600,
-        "GRAD" 200,
-        "opsz" 40;
+        'FILL' 1,
+        'wght' 600,
+        'GRAD' 200,
+        'opsz' 40;
     }
 
     &:after {
       transition: all 0.5s;
-      content: ""; // ::before and ::after both require content
+      content: ''; // ::before and ::after both require content
       position: absolute;
       display: block;
       top: 0;
@@ -535,7 +536,7 @@ $bp-desktop: 1200px;
   outline: inherit;
 
   &:after {
-    content: "";
+    content: '';
     opacity: 0;
   }
 
@@ -713,15 +714,15 @@ $bp-desktop: 1200px;
   &:hover {
     & > .icon {
       font-variation-settings:
-        "FILL" 1,
-        "wght" 400,
-        "GRAD" 0,
-        "opsz" 48;
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
       color: var(--primary-container);
     }
     &:after {
       transition: all 0.5s;
-      content: ""; // ::before and ::after both require content
+      content: ''; // ::before and ::after both require content
       position: absolute;
       display: block;
       top: 0;
@@ -737,7 +738,7 @@ $bp-desktop: 1200px;
   &:active {
     &:after {
       transition: all 0.5s;
-      content: ""; // ::before and ::after both require content
+      content: ''; // ::before and ::after both require content
       position: absolute;
       display: block;
       top: 0;

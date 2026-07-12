@@ -1,7 +1,6 @@
 // lib/mongodb.ts
 import { MongoClient } from 'mongodb';
 
-
 if ( !process.env.MONGODB_URI ) {
   throw new Error( 'Invalid/Missing environment variable: "MONGODB_URI"' );
 }
@@ -21,7 +20,7 @@ if ( process.env.NODE_ENV === 'development' ) {
 
   if ( !globalWithMongo._mongoClientPromise ) {
     client = new MongoClient(
-      uri, options
+      uri, options 
     );
     globalWithMongo._mongoClientPromise = client.connect();
   }
@@ -30,7 +29,7 @@ if ( process.env.NODE_ENV === 'development' ) {
 } else {
   // In production mode, it's best to not use a global variable.
   client = new MongoClient(
-    uri, options
+    uri, options 
   );
   clientPromise = client.connect();
 }

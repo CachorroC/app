@@ -28,7 +28,7 @@ export function fmtMoneyShort( n: number ): string {
   if ( n >= 1e9 ) {
     return `$ ${ ( n / 1e9 ).toFixed( 1 )
       .replace(
-        '.', ','
+        '.', ',' 
       ) } MM`;
   }
 
@@ -51,12 +51,12 @@ export function fmtDate( iso?: string | null ): string {
         day  : '2-digit',
         month: 'short',
         year : 'numeric',
-      }
+      } 
     );
 }
 
 export function isOverdue(
-  iso?: string | null, today = new Date()
+  iso?: string | null, today = new Date() 
 ): boolean {
   if ( !iso ) {
     return false;
@@ -82,53 +82,61 @@ export function deudorInitials( d: DeudorLike ): string {
     d.primerApellido
   ].filter( Boolean ) as string[];
 
-  return ( parts.map( ( p ) => {
-    return p[ 0 ];
-  } )
-    .join( '' ) || '?' ).toUpperCase()
+  return (
+    parts
+      .map( ( p ) => {
+        return p[ 0 ];
+      } )
+      .join( '' ) || '?'
+  )
+    .toUpperCase()
     .slice(
-      0, 2
+      0, 2 
     );
 }
 
 // ---- Category metadata (label, accent CSS var, icon ligature) ----
-export interface CategoryMeta { label: string; colorVar: string; icon: string; }
+export interface CategoryMeta {
+  label   : string;
+  colorVar: string;
+  icon    : string;
+}
 
 export const CATEGORY_META: Record<Category, CategoryMeta> = {
   [ Category.Bancolombia ]: {
     label   : 'Bancolombia',
     colorVar: 'var(--cat-bancolombia)',
-    icon    : 'account_balance'
+    icon    : 'account_balance',
   },
   [ Category.Reintegra ]: {
     label   : 'Reintegra',
     colorVar: 'var(--cat-reintegra)',
-    icon    : 'sync_alt'
+    icon    : 'sync_alt',
   },
   [ Category.Insolvencia ]: {
     label   : 'Insolvencia',
     colorVar: 'var(--cat-insolvencia)',
-    icon    : 'balance'
+    icon    : 'balance',
   },
   [ Category.LiosJuridicos ]: {
     label   : 'Líos Jurídicos',
     colorVar: 'var(--cat-lios-juridicos)',
-    icon    : 'gavel'
+    icon    : 'gavel',
   },
   [ Category.Terminados ]: {
     label   : 'Terminados',
     colorVar: 'var(--cat-terminados)',
-    icon    : 'task_alt'
+    icon    : 'task_alt',
   },
   [ Category.SinTercero ]: {
     label   : 'Sin tercero',
     colorVar: 'var(--cat-sin-tercero)',
-    icon    : 'help'
+    icon    : 'help',
   },
   [ Category.SinEspecificar ]: {
     label   : 'Sin especificar',
     colorVar: 'var(--cat-sin-especificar)',
-    icon    : 'folder'
+    icon    : 'folder',
   },
 };
 
@@ -141,33 +149,41 @@ export const TIPO_PROCESO_LABEL: Record<TipoProceso, string> = {
 };
 
 // ---- Status metadata (label + CSS container/text vars) ----
-export interface StatusMeta { label: string; bgVar: string; fgVar: string; }
+export interface StatusMeta {
+  label: string;
+  bgVar: string;
+  fgVar: string;
+}
 
 export const STATUS_META: Record<CaseStatus, StatusMeta> = {
   active: {
     label: 'En proceso',
     bgVar: 'var(--status-active-container)',
-    fgVar: 'var(--blue-20)'
+    fgVar: 'var(--blue-20)',
   },
   review: {
     label: 'Por revisar',
     bgVar: 'var(--status-review-container)',
-    fgVar: '#5C3D00'
+    fgVar: '#5C3D00',
   },
   done: {
     label: 'Terminado',
     bgVar: 'var(--status-done-container)',
-    fgVar: '#0B4D2E'
+    fgVar: '#0B4D2E',
   },
   overdue: {
     label: 'Vencido',
     bgVar: 'var(--status-overdue-container)',
-    fgVar: 'var(--on-error-container)'
+    fgVar: 'var(--on-error-container)',
   },
 };
 
 /** Derive a lifecycle status from a carpeta's flags. */
-export function deriveStatus( c: { terminado: boolean; vencido: boolean; revisado: boolean } ): CaseStatus {
+export function deriveStatus( c: {
+  terminado: boolean;
+  vencido  : boolean;
+  revisado : boolean;
+} ): CaseStatus {
   if ( c.terminado ) {
     return 'done';
   }

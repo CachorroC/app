@@ -1,15 +1,15 @@
-import { fetchWithSmartRetry } from "#@/lib/fetchWithSmartRetry";
-import { consultaProcesosPorRazonSocial } from "#@/lib/project/utils/main";
-import { ConsultaProcesos, outProceso } from "#@/lib/types/procesos";
-import { Suspense } from "react";
-import SujetosProcesales from "./Proceso/sujetos-procesales";
-import { ProcesoTableDetalleComponent } from "./Proceso/proceso-detalles-component";
-import { TableLoader } from "./Loader/main-loader";
-import { JuzgadoComponent } from "./Proceso/juzgado-component";
-import { JuzgadoClass } from "#@/lib/models/juzgado";
+import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
+import { consultaProcesosPorRazonSocial } from '#@/lib/project/utils/main';
+import { ConsultaProcesos, outProceso } from '#@/lib/types/procesos';
+import { Suspense } from 'react';
+import SujetosProcesales from './Proceso/sujetos-procesales';
+import { ProcesoTableDetalleComponent } from './Proceso/proceso-detalles-component';
+import { TableLoader } from './Loader/main-loader';
+import { JuzgadoComponent } from './Proceso/juzgado-component';
+import { JuzgadoClass } from '#@/lib/models/juzgado';
 
 export async function AvailableProcesosByName( {
-  nombre
+  nombre 
 }: { nombre: string } ) {
   const urlNameMaker = consultaProcesosPorRazonSocial( nombre );
 
@@ -63,7 +63,9 @@ export async function AvailableProcesosByName( {
                   sujetosProcesalesRaw={proceso.sujetosProcesales}
                 />
               </td>
-              <td><p>{ proceso.despacho }</p></td>
+              <td>
+                <p>{proceso.despacho}</p>
+              </td>
               <Suspense fallback={<TableLoader />}>
                 <ProcesoTableDetalleComponent
                   key={proceso.idProceso}

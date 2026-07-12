@@ -3,11 +3,15 @@
   background: transparent;
   transition: var(--md-sys-motion-transition-standard);
 }
-.row[data-selected=true] {
+.row[data-selected='true'] {
   background: color-mix(in srgb, var(--md-sys-color-primary) 6%, transparent);
 }
 .row:hover {
-  background: color-mix(in srgb, var(--md-sys-color-on-surface) 4%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--md-sys-color-on-surface) 4%,
+    transparent
+  );
 }
 .row td {
   padding: var(--md-sys-spacing-3) var(--md-sys-spacing-2);

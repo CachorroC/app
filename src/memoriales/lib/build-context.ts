@@ -1,4 +1,6 @@
-import type { FieldDef, FieldGroup, MemorialTemplate } from '#@/memoriales/manifests/types';
+import type { FieldDef,
+  FieldGroup,
+  MemorialTemplate, } from '#@/memoriales/manifests/types';
 import { applyFormat } from './formatters';
 import { deriveNumeroEscrito } from './derive';
 
@@ -18,10 +20,11 @@ function formatFieldValue(
 
   if ( field.type === 'stringList' ) {
     return Array.isArray( value )
-      ? value.map( ( item ) => {
-          return String( item )
-            .trim();
-        } )
+      ? value
+          .map( ( item ) => {
+            return String( item )
+              .trim();
+          } )
           .filter( ( item ) => {
             return item.length > 0;
           } )
@@ -38,7 +41,8 @@ function formatFieldValue(
 }
 
 function assembleGroupFields(
-  fields: FieldDef[], groupValues: ValuesRecord 
+  fields: FieldDef[],
+  groupValues: ValuesRecord,
 ): ValuesRecord {
   const result: ValuesRecord = {};
 
@@ -56,7 +60,8 @@ function assembleGroupFields(
 }
 
 function assembleGroup(
-  group: FieldGroup, rawValue: unknown 
+  group: FieldGroup,
+  rawValue: unknown,
 ): ValuesRecord | ValuesRecord[] {
   if ( group.repeatable ) {
     const rows = Array.isArray( rawValue )
@@ -80,7 +85,8 @@ function assembleGroup(
 }
 
 function deriveJuzgadoNumeroEscrito(
-  template: MemorialTemplate, context: RenderContext
+  template: MemorialTemplate,
+  context: RenderContext,
 ): void {
   const juzgadoGroup = template.groups.find( ( group ) => {
     return group.key === 'juzgado';
@@ -94,7 +100,7 @@ function deriveJuzgadoNumeroEscrito(
   }
 
   const {
-    juzgado
+    juzgado 
   } = context;
 
   const derived = deriveNumeroEscrito( String( juzgado.numero ?? '' ) );
@@ -105,7 +111,8 @@ function deriveJuzgadoNumeroEscrito(
 }
 
 export function buildContext(
-  template: MemorialTemplate, values: ValuesRecord 
+  template: MemorialTemplate,
+  values: ValuesRecord,
 ): RenderContext {
   const context: RenderContext = {};
 

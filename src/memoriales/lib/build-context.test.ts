@@ -18,8 +18,8 @@ const fakeTemplate: MemorialTemplate = {
           name    : 'nombre',
           label   : 'Nombre',
           type    : 'text',
-          required: true
-        }
+          required: true,
+        },
       ],
     },
     {
@@ -30,13 +30,13 @@ const fakeTemplate: MemorialTemplate = {
           name    : 'numero',
           label   : 'Número',
           type    : 'text',
-          required: true
+          required: true,
         },
         {
           name   : 'numero_escrito',
           label  : 'Número en letras',
           type   : 'text',
-          derived: true
+          derived: true,
         },
       ],
     },
@@ -48,8 +48,8 @@ const fakeTemplate: MemorialTemplate = {
           label   : 'Cuantía',
           type    : 'currency',
           required: true,
-          format  : 'currencyCOP'
-        }
+          format  : 'currencyCOP',
+        },
       ],
     },
     {
@@ -58,12 +58,12 @@ const fakeTemplate: MemorialTemplate = {
         {
           name : 'has_anexos',
           label: '¿Anexos?',
-          type : 'boolean'
+          type : 'boolean',
         },
         {
           name : 'anexos_list',
           label: 'Anexos',
-          type : 'stringList'
+          type : 'stringList',
         },
       ],
     },
@@ -75,28 +75,29 @@ test(
     const context = buildContext(
       fakeTemplate, {
         deudor: {
-          nombre: 'Juan Pérez'
+          nombre: 'Juan Pérez',
         },
         juzgado: {
-          numero: '4'
+          numero: '4',
         },
         cuantia_value: 1500000,
         has_anexos   : true,
         anexos_list  : [
           ' Cédula ',
           '',
-          ' Poder ' 
+          ' Poder '
         ],
       } 
     );
 
     assert.deepEqual(
       context.deudor, {
-        nombre: 'Juan Pérez'
+        nombre: 'Juan Pérez',
       } 
     );
     assert.equal(
-      ( context.juzgado as Record<string, unknown> ).numero_escrito, 'cuarto' 
+      ( context.juzgado as Record<string, unknown> ).numero_escrito,
+      'cuarto',
     );
     assert.equal(
       context.cuantia_value, formatCurrencyCOP( 1500000 ) 
@@ -107,7 +108,7 @@ test(
     assert.deepEqual(
       context.anexos_list, [
         'Cédula',
-        'Poder' 
+        'Poder'
       ] 
     );
   } 
@@ -118,10 +119,10 @@ test(
     const context = buildContext(
       fakeTemplate, {
         deudor: {
-          nombre: 'Ana'
+          nombre: 'Ana',
         },
         juzgado: {
-          numero: 'ABC'
+          numero: 'ABC',
         },
         cuantia_value: 0,
       } 
@@ -134,9 +135,10 @@ test(
       context.anexos_list, [] 
     );
     assert.equal(
-      ( context.juzgado as Record<string, unknown> ).numero_escrito, 'ABC'
+      ( context.juzgado as Record<string, unknown> ).numero_escrito,
+      'ABC',
     );
-  }
+  } 
 );
 
 const upperTemplate: MemorialTemplate = {
@@ -154,8 +156,8 @@ const upperTemplate: MemorialTemplate = {
           label   : 'Nombre',
           type    : 'text',
           required: true,
-          format  : 'upper'
-        }
+          format  : 'upper',
+        },
       ],
     },
     {
@@ -166,14 +168,14 @@ const upperTemplate: MemorialTemplate = {
           name    : 'numero',
           label   : 'Número',
           type    : 'text',
-          required: true
+          required: true,
         },
         {
           name   : 'numero_escrito',
           label  : 'Número en letras',
           type   : 'text',
           derived: true,
-          format : 'upper'
+          format : 'upper',
         },
       ],
     },
@@ -185,19 +187,21 @@ test(
     const context = buildContext(
       upperTemplate, {
         deudor: {
-          nombre: 'Juan Pérez'
+          nombre: 'Juan Pérez',
         },
         juzgado: {
-          numero: '4'
+          numero: '4',
         },
-      }
+      } 
     );
 
     assert.equal(
-      ( context.deudor as Record<string, unknown> ).nombre, 'JUAN PÉREZ'
+      ( context.deudor as Record<string, unknown> ).nombre,
+      'JUAN PÉREZ',
     );
     assert.equal(
-      ( context.juzgado as Record<string, unknown> ).numero_escrito, 'CUARTO'
+      ( context.juzgado as Record<string, unknown> ).numero_escrito,
+      'CUARTO',
     );
-  }
+  } 
 );

@@ -23,8 +23,8 @@ export function CarpetaCheckbox( {
         inputRef.current.indeterminate = Boolean( indeterminate );
       }
     }, [
-      indeterminate 
-    ]
+      indeterminate
+    ] 
   );
 
   return (

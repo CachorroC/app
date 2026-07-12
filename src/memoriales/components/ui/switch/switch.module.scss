@@ -29,7 +29,8 @@
   border-radius: var(--md-sys-shape-corner-full);
   background: var(--md-sys-color-surface-container-high);
   border: 2px solid var(--md-sys-color-outline);
-  transition: background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+  transition: background-color var(--md-sys-motion-duration-short4)
+    var(--md-sys-motion-easing-standard);
   pointer-events: none;
 }
 
@@ -42,7 +43,8 @@
   border-radius: var(--md-sys-shape-corner-full);
   background: var(--md-sys-color-outline);
   transform: translateY(-50%);
-  transition: var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+  transition: var(--md-sys-motion-duration-short4)
+    var(--md-sys-motion-easing-standard);
   transition-property: transform, width, height, background-color;
 }
 

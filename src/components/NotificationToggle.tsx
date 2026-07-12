@@ -7,10 +7,10 @@ import { useState, useEffect } from 'react';
 const urlBase64ToUint8Array = ( base64String: string ) => {
   const padding = '='.repeat( ( 4 - ( base64String.length % 4 ) ) % 4 );
   const base64 = ( base64String + padding ).replace(
-    /-/g, '+'
+    /-/g, '+' 
   )
     .replace(
-      /_/g, '/'
+      /_/g, '/' 
     );
   const rawData = window.atob( base64 );
   const outputArray = new Uint8Array( rawData.length );
@@ -31,14 +31,14 @@ const getOrCreateDeviceId = () => {
     // Generate a new standard UUID and save it
     deviceId = crypto.randomUUID();
     localStorage.setItem(
-      'anonymous_device_id', deviceId
+      'anonymous_device_id', deviceId 
     );
   }
 
   return deviceId;
 };
 
-export default function NotificationToggle( ) {
+export default function NotificationToggle() {
   const [
     isSubscribed,
     setIsSubscribed
@@ -55,7 +55,7 @@ export default function NotificationToggle( ) {
   // Check if the user is already subscribed on mount
   useEffect(
     () => {
-      // 1. Grab the anonymous ID on the client side only (avoids hydration errors)
+    // 1. Grab the anonymous ID on the client side only (avoids hydration errors)
       const id = getOrCreateDeviceId();
       setDeviceId( id );
 
@@ -68,7 +68,7 @@ export default function NotificationToggle( ) {
       }
 
       checkSubscription();
-    }, []
+    }, [] 
   );
 
   const handleToggle = async () => {
@@ -105,13 +105,13 @@ export default function NotificationToggle( ) {
 
         // 2. Send the new token to the Server Action to save in MongoDB
         await subscribeUser(
-          JSON.parse( JSON.stringify( subscription ) ), deviceId
+          JSON.parse( JSON.stringify( subscription ) ), deviceId 
         );
         setIsSubscribed( true );
       }
     } catch ( error ) {
       console.error(
-        'Error toggling notifications:', error
+        'Error toggling notifications:', error 
       );
       alert( 'Failed to update notification preferences.' );
     } finally {

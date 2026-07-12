@@ -14,12 +14,13 @@
 .checkbox:hover {
   border-color: var(--md-sys-color-primary);
 }
-.checkbox:checked, .checkbox:indeterminate {
+.checkbox:checked,
+.checkbox:indeterminate {
   background: var(--md-sys-color-primary);
   border-color: var(--md-sys-color-primary);
 }
 .checkbox:checked::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 5px;
   top: 1px;
@@ -30,7 +31,7 @@
   transform: rotate(45deg);
 }
 .checkbox:indeterminate::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 3px;
   top: 8px;

@@ -94,7 +94,7 @@ export async function deleteNota( {
     }
 
     console.log( `error deleteNota: ${ JSON.stringify(
-      error, null, 2
+      error, null, 2 
     ) }` );
 
     const deleteRes: DeleteResult = {
@@ -159,7 +159,7 @@ export async function editNota(
 
     const notaActionReturn: NotaEditorAction = {
       message: `success: ${ nota.id }`,
-      data   : nota as unknown as import('#@/lib/types/notas').IntNota,
+      data   : nota as unknown as import( '#@/lib/types/notas' ).IntNota,
       error  : false,
     };
 

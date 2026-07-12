@@ -4,9 +4,9 @@ import { getCarpetabyNumero } from '#@/lib/project/utils/Carpetas/carpetas';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-async function WithCarpeta ( {
+async function WithCarpeta( {
   numero 
-}: { numero: string; } ) {
+}: { numero: string } ) {
   const carpeta = await getCarpetabyNumero( Number( numero ) );
 
   if ( !carpeta ) {
@@ -20,18 +20,18 @@ async function WithCarpeta ( {
   );
 }
 
-export default async function page ( {
-  params 
-}: { params: Promise<{ numero: string; }>; } ) {
+export default async function page( {
+  params,
+}: {
+  params: Promise<{ numero: string }>;
+} ) {
   const {
     numero 
   } = await params;
 
   return (
-
-    <Suspense fallback={<Loader/>}>
+    <Suspense fallback={<Loader />}>
       <WithCarpeta numero={numero} />
     </Suspense>
-
   );
 }

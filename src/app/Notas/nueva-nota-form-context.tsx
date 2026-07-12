@@ -15,7 +15,7 @@ const NuevaNotaContext = createContext<{
 } | null>( null );
 
 export function NuevaNotaFormProvider( {
-  children
+  children 
 }: { children: ReactNode } ) {
   const pathname = usePathname();
 

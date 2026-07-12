@@ -49,7 +49,7 @@ export default function TaskRow( {
       const now = new Date();
       // Set now to start of day for accurate day difference
       now.setHours(
-        0, 0, 0, 0
+        0, 0, 0, 0 
       );
 
       const diffTime = due.getTime() - now.getTime();
@@ -69,7 +69,6 @@ export default function TaskRow( {
         return 'var(--caution)';
       }
     }
-
 
     return 'var(--text-secondary, #666)';
   };

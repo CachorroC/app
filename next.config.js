@@ -28,13 +28,13 @@ const nextConfig = {
             value: 'strict-origin-when-cross-origin',
           },
           {
-            key: 'CF-Access-Client-Id',
-            value:process.env.CF_ACCESS_CLIENT_ID ?? ''
-
-          }, {
-            key: 'CF-Access-Client-Secret',
-            value: process.env.CF_ACCESS_CLIENT_SECRET ?? ''
-          }
+            key  : 'CF-Access-Client-Id',
+            value: process.env.CF_ACCESS_CLIENT_ID ?? '',
+          },
+          {
+            key  : 'CF-Access-Client-Secret',
+            value: process.env.CF_ACCESS_CLIENT_SECRET ?? '',
+          },
         ],
       },
       {
@@ -53,13 +53,13 @@ const nextConfig = {
             value: 'default-src \'self\'; script-src \'self\'',
           },
           {
-            key: 'CF-Access-Client-Id',
-            value:process.env.CF_ACCESS_CLIENT_ID ?? ''
-
-          }, {
-            key: 'CF-Access-Client-Secret',
-            value: process.env.CF_ACCESS_CLIENT_SECRET ?? ''
-          }
+            key  : 'CF-Access-Client-Id',
+            value: process.env.CF_ACCESS_CLIENT_ID ?? '',
+          },
+          {
+            key  : 'CF-Access-Client-Secret',
+            value: process.env.CF_ACCESS_CLIENT_SECRET ?? '',
+          },
         ],
       },
     ];

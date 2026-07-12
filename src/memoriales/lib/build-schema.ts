@@ -4,7 +4,7 @@ import type { FieldDef, MemorialTemplate } from '#@/memoriales/manifests/types';
 function fieldSchema( field: FieldDef ): z.ZodTypeAny {
   if ( field.type === 'number' || field.type === 'currency' ) {
     const base = z.coerce.number( {
-      error: 'Ingrese un número válido' 
+      error: 'Ingrese un número válido',
     } );
 
     return field.required
@@ -31,9 +31,11 @@ function fieldSchema( field: FieldDef ): z.ZodTypeAny {
       return z.string();
     }
 
-    const enumSchema = z.enum( values as [ string, ...string[] ], {
-      error: 'Seleccione una opción válida'
-    } );
+    const enumSchema = z.enum(
+      values as [string, ...string[]], {
+        error: 'Seleccione una opción válida',
+      } 
+    );
 
     return field.required
       ? enumSchema
@@ -63,7 +65,7 @@ function groupShape( fields: FieldDef[] ): Record<string, z.ZodTypeAny> {
   return shape;
 }
 
-export function buildSchema( template: MemorialTemplate ): z.ZodObject<z.ZodRawShape> {
+export function buildSchema( template: MemorialTemplate, ): z.ZodObject<z.ZodRawShape> {
   const shape: Record<string, z.ZodTypeAny> = {};
 
   for ( const group of template.groups ) {

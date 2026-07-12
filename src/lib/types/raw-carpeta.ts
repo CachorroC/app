@@ -60,9 +60,9 @@ export interface DemandaRaw {
   entregaGarantiasAbogado?: number | string;
   tipoProceso?            : string;
   mandamientoPago?        : string;
-  etapaProcesal?    : number | string;
-  fechaPresentacion?: number | string;
-  municipio?        : string;
+  etapaProcesal?          : number | string;
+  fechaPresentacion?      : number | string;
+  municipio?              : string;
   obligacion?: {
     A?: number | string;
     B?: number | string;

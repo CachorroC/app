@@ -31,9 +31,7 @@ export interface Result {
 }
 
 export type Valor =
-  | 'framosg@deaj.ramajudicial.gov.co'
-  | 'gruizh@deaj.ramajudicial.gov.co'
-  | ' ';
+  'framosg@deaj.ramajudicial.gov.co' | 'gruizh@deaj.ramajudicial.gov.co' | ' ';
 
 // Converts JSON strings to/from your types
 export class Convert {

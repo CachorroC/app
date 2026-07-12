@@ -8,7 +8,8 @@ import { DEFAULT_CIUDAD } from '#@/app/Hooks/useCarpetasreducer';
 import { CarpetaCheckbox } from './carpeta-checkbox';
 import { CategoryChip } from './category-chip';
 import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
-import { JuzgadoComponent, JuzgadoErrorComponent } from '#@/components/Proceso/juzgado-component';
+import { JuzgadoComponent,
+  JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
 import { clean,
   deudorNombre,
   fmtDate,
@@ -28,11 +29,21 @@ export function CarpetaCard( {
 } ) {
   const [
     expanded,
-    setExpanded 
+    setExpanded
   ] = useState( false );
 
   const {
-    numero, nombre, id, category, tipoProceso, revisado, llaveProceso, notasCount, ciudad, juzgado, ultimaActuacion,
+    numero,
+    nombre,
+    id,
+    category,
+    tipoProceso,
+    revisado,
+    llaveProceso,
+    notasCount,
+    ciudad,
+    juzgado,
+    ultimaActuacion,
   } = carpeta;
 
   const categoryMeta = getCategoryMeta( category );
@@ -117,10 +128,18 @@ export function CarpetaCard( {
           {ultimaActuacion
             ? (
                 <>
-                  <div className={styles.detailValue}>{ultimaActuacion.actuacion}</div>
-                  {ultimaActuacion.anotacion && <div className={styles.detailMono}>{ultimaActuacion.anotacion}</div>}
+                  <div className={styles.detailValue}>
+                    {ultimaActuacion.actuacion}
+                  </div>
+                  {ultimaActuacion.anotacion && (
+                    <div className={styles.detailMono}>
+                      {ultimaActuacion.anotacion}
+                    </div>
+                  )}
                   <Link
-                    href={`/Carpeta/${ numero }/ultimasActuaciones/${ ultimaActuacion.idProceso }` as Route}
+                    href={
+                      `/Carpeta/${ numero }/ultimasActuaciones/${ ultimaActuacion.idProceso }` as Route
+                    }
                     className={styles.moreLink}
                   >
                     mostrar más
@@ -128,7 +147,9 @@ export function CarpetaCard( {
                 </>
               )
             : (
-                <div className={styles.detailValue}>Sin actuaciones en la Rama Judicial</div>
+                <div className={styles.detailValue}>
+                  Sin actuaciones en la Rama Judicial
+                </div>
               )}
         </div>
       </div>
@@ -178,7 +199,9 @@ export function CarpetaCard( {
           <div className={styles.detailGrid}>
             <div>
               <div className={styles.detailLabel}>Deudor</div>
-              <div className={styles.detailValue}>{deudorNombre( carpeta ) ?? nombre.trim() ?? '—'}</div>
+              <div className={styles.detailValue}>
+                {deudorNombre( carpeta ) ?? nombre.trim() ?? '—'}
+              </div>
             </div>
             <div>
               <div className={styles.detailLabel}>Cédula / NIT</div>
@@ -186,7 +209,9 @@ export function CarpetaCard( {
             </div>
             <div>
               <div className={styles.detailLabel}>Capital adeudado</div>
-              <div className={styles.detailMono}>{capital ?? 'No registrado'}</div>
+              <div className={styles.detailMono}>
+                {capital ?? 'No registrado'}
+              </div>
             </div>
             <div>
               <div className={styles.detailLabel}>Radicado</div>
@@ -198,7 +223,9 @@ export function CarpetaCard( {
             </div>
             <div className={styles.detailFull}>
               <div className={styles.detailLabel}>Ciudad</div>
-              <div className={styles.detailValue}>{ciudad ?? DEFAULT_CIUDAD}</div>
+              <div className={styles.detailValue}>
+                {ciudad ?? DEFAULT_CIUDAD}
+              </div>
             </div>
           </div>
 
@@ -209,7 +236,6 @@ export function CarpetaCard( {
                 nota, index 
               ) => {
                 return (
-                   
                   <div
                     key={index}
                     className={styles.nota}

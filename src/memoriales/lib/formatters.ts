@@ -33,11 +33,11 @@ export function formatRadicado( value: string ): string {
 export function formatCedula( value: string | number ): string {
   const digits = String( value )
     .replace(
-      /\D/g, ''
+      /\D/g, '' 
     );
 
   return digits.replace(
-    /\B(?=(\d{3})+(?!\d))/g, '.'
+    /\B(?=(\d{3})+(?!\d))/g, '.' 
   );
 }
 
@@ -46,7 +46,8 @@ export function formatUpper( value: string ): string {
 }
 
 export function applyFormat(
-  format: FieldFormat | undefined, value: string | number 
+  format: FieldFormat | undefined,
+  value: string | number,
 ): string {
   switch ( format ) {
       case 'currencyCOP':

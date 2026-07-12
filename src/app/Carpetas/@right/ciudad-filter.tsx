@@ -9,7 +9,7 @@ export default function CiudadFilteringButtons() {
   const dispatchCarpetas = useCarpetaSortDispatch();
 
   const {
-    completeCarpetas, filters
+    completeCarpetas, filters 
   } = useCarpetaSort();
 
   const ciudades = [
