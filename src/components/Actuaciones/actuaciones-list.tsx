@@ -5,8 +5,8 @@ import { Suspense, use } from 'react';
 import { ActuacionesLoader } from './actuacion-loader';
 import { ErrorBoundary } from 'react-error-boundary';
 import { gridContainer } from '#@/styles/layout.module.css';
-import { ActuacionComponent } from './actuacion-component';
-import { ActuacionTableErrorComponent } from './actuacion-table-component';
+import { ActuacionComponent,
+  ActuacionErrorComponent, } from './actuacion-component';
 
 export function ActuacionesListContainer( {
   actuacionesPromise,
@@ -14,7 +14,7 @@ export function ActuacionesListContainer( {
   actuacionesPromise: Promise<DatabaseActuacionType[] | null>;
 } ) {
   return (
-    <ErrorBoundary fallback={<ActuacionTableErrorComponent />}>
+    <ErrorBoundary fallback={<ActuacionErrorComponent />}>
       <Suspense fallback={<ActuacionesLoader />}>
         <ActuacionesList actuacionesPromise={actuacionesPromise} />
       </Suspense>
@@ -43,7 +43,7 @@ export function ActuacionesList( {
             } )
           )
         : (
-            <ActuacionTableErrorComponent />
+            <ActuacionErrorComponent />
           )}
     </div>
   );

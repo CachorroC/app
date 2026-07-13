@@ -1,57 +1,35 @@
-import typography from '#@/styles/fonts/typography.module.css';
 import Link from 'next/link';
-import { buttonEnabled } from '../Buttons/filled.module.css';
 import { Route } from 'next';
+import { DatabaseActuacionType } from '#@/lib/types/actuaciones';
+import { ActuacionCard } from './actuacion-card';
+import { ActuacionCardError,
+  ActuacionCardErrorProps, } from './actuacion-card-error';
+import { mapDbActuacionToCardProps } from './actuacion-card-props';
+import styles from './actuacion-table-component.module.css';
 
 export function ActuacionTableComponent( {
   numero,
-  title,
-  content,
-  idProceso,
+  incomingActuacion,
 }: {
-  numero   : number;
-  title    : string;
-  content  : string | null;
-  idProceso: string;
+  numero           : number;
+  incomingActuacion: DatabaseActuacionType;
 } ) {
   return (
-    <td
-      data-label="ultimaActuacion"
-      style={{
-        display : 'flex',
-        flexFlow: 'row wrap',
-      }}
-    >
-      <h2 className={typography.titleMedium}>{title}</h2>
-
-      {content && <span className={typography.labelSmall}>{content}</span>}
-
+    <td data-label="ultimaActuacion">
       <Link
-        className={buttonEnabled}
-        href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
+        className={styles.cardLink}
+        href={`/Carpeta/${ numero }/ultimasActuaciones/${ incomingActuacion.idProceso }` as Route}
       >
-        mostras más
+        <ActuacionCard {...mapDbActuacionToCardProps( incomingActuacion )} />
       </Link>
     </td>
   );
 }
 
-export function ActuacionTableErrorComponent() {
+export function ActuacionTableErrorComponent( props: ActuacionCardErrorProps = {} ) {
   return (
     <td data-label="ultimaActuacion">
-      <h5
-        className={typography.headlineSmall}
-        style={{
-          backgroundColor: 'var(--error-container)',
-          color          : 'var(--on-error-container)',
-          borderBottom   : 'solud 0.2rem var(--error)',
-        }}
-      >
-        Sin actuaciones
-      </h5>
-      <span className={typography.labelSmall}>
-        Esta carpeta no tiene registros en la Rama Judicial
-      </span>
+      <ActuacionCardError {...props} />
     </td>
   );
 }

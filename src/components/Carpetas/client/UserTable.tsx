@@ -176,9 +176,7 @@ export const UsersTable = () => {
                           <ActuacionTableComponent
                             key={numero}
                             numero={numero}
-                            title={ultimaActuacion.actuacion}
-                            content={ultimaActuacion.anotacion}
-                            idProceso={ultimaActuacion.idProceso}
+                            incomingActuacion={ultimaActuacion}
                           />
                         )
                       : (

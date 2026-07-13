@@ -1,92 +1,50 @@
-import typography from '#@/styles/fonts/typography.module.css';
-import layout from '#@/styles/layout.module.css';
 import { FetchResponseActuacionType,
   DatabaseActuacionType, } from '#@/lib/types/actuaciones';
-import OutputDateHelper from '#@/lib/project/output-date-helper';
-import { NewNotaComponent } from '../Modal';
-import styles from '../Card/elevated.module.css';
-import { Loader } from '../Loader/main-loader';
+import { ActuacionCard } from './actuacion-card';
+import { ActuacionCardError,
+  ActuacionCardErrorProps, } from './actuacion-card-error';
+import { ActuacionCardSkeleton } from './actuacion-card-skeleton';
 
 export function ActuacionComponent( {
   incomingActuacion,
 }: {
   incomingActuacion: DatabaseActuacionType | FetchResponseActuacionType;
 } ) {
-  const {
-    actuacion, anotacion, fechaActuacion, consActuacion 
-  }
-    = incomingActuacion;
+  const isDb = 'idProceso' in incomingActuacion;
 
   return (
-    <div className={styles.containerEnabled}>
-      <div
-        className={layout.segmentRow}
-        style={{
-          justifyContent: 'space-between',
-        }}
-      >
-        <sub className={typography.labelMedium}>{consActuacion}</sub>
-        <h5 className={typography.titleMedium}>{actuacion}</h5>
-      </div>
-      <div className={layout.segmentRow}>
-        <OutputDateHelper incomingDate={fechaActuacion} />
-        {anotacion && <p className={typography.bodyMedium}>{anotacion}</p>}
-      </div>
-      <div className={layout.segmentRow}>
-        <NewNotaComponent id={''} />
-      </div>
-    </div>
+    <ActuacionCard
+      actuacion={incomingActuacion.actuacion}
+      fechaActuacion={incomingActuacion.fechaActuacion}
+      anotacion={incomingActuacion.anotacion}
+      fechaInicial={incomingActuacion.fechaInicial}
+      fechaFinal={incomingActuacion.fechaFinal}
+      fechaRegistro={incomingActuacion.fechaRegistro}
+      codRegla={incomingActuacion.codRegla}
+      conDocumentos={incomingActuacion.conDocumentos}
+      cant={incomingActuacion.cant}
+      llaveProceso={incomingActuacion.llaveProceso}
+      consActuacion={incomingActuacion.consActuacion}
+      isUltimaAct={isDb
+        ? incomingActuacion.isUltimaAct
+        : undefined}
+      carpetaNumero={isDb
+        ? incomingActuacion.carpetaNumero
+        : undefined}
+      idProceso={isDb
+        ? incomingActuacion.idProceso
+        : undefined}
+      createdAt={isDb
+        ? incomingActuacion.createdAt
+        : undefined}
+    />
   );
 }
 
-export function ActuacionErrorComponent() {
-  return (
-    <div
-      className={styles.containerEnabled}
-      style={{
-        backgroundColor: 'var(--error-container)',
-        color          : 'var(--on-error-container)',
-      }}
-    >
-      <div
-        className={layout.segmentRow}
-        style={{
-          justifyContent: 'space-between',
-        }}
-      >
-        <sub className={typography.labelMedium}>{0}</sub>
-        <h5 className={typography.titleMedium}>{'No hay actuacion'}</h5>
-      </div>
-      <div className={layout.segmentRow}>
-        <OutputDateHelper incomingDate={new Date()} />
-        <p className={typography.bodyMedium}>
-          {
-            'hubo un error en la petición de la actuacion, actualize la pagina o intente de nuevo '
-          }
-        </p>
-      </div>
-    </div>
-  );
+export function ActuacionErrorComponent( props: ActuacionCardErrorProps = {} ) {
+  return <ActuacionCardError {...props} />;
 }
 
 export function ActuacionLoadingComponent() {
-  return (
-    <div className={styles.containerEnabled}>
-      <div
-        className={layout.segmentRow}
-        style={{
-          justifyContent: 'space-between',
-        }}
-      >
-        <sub className={typography.labelMedium}>{0}</sub>
-        <h5 className={typography.titleMedium}>{'Cargando'}</h5>
-      </div>
-      <div className={layout.segmentRow}>
-        <Loader />
-        <p className={typography.bodyMedium}>
-          {'Cargando la información de la actuación, por favor espere...'}
-        </p>
-      </div>
-    </div>
-  );
+  return <ActuacionCardSkeleton />;
 }
