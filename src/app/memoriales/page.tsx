@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Icon } from '#@/components/ui';
+import layout from '#@/styles/layout.module.css';
 import { generateMemorial } from '#@/memoriales/actions/generate-memorial';
 import { GenerationState,
   GenerationStatus, } from '#@/memoriales/components/generation-status';
@@ -131,93 +132,95 @@ export default function MemorialesPage() {
         : 'Generar documento';
 
   return (
-    <div
-      className={`${ tokens.scope } ${ quicksandMemoriales.variable } ${ plexMonoMemoriales.variable } ${ styles.page }`}
-    >
-      <header className={styles.header}>
-        <Icon
-          name="gavel"
-          className={styles.headerIcon}
-          size={32}
-        />
-        <div>
-          <div className={styles.breadcrumb}>
-            <span>Carpetas</span>
-            <Icon
-              name="chevron_right"
-              size={16}
-            />
-            <span className={styles.breadcrumbCurrent}>Memoriales</span>
+    <div className={layout.left}>
+      <div
+        className={`${ tokens.scope } ${ quicksandMemoriales.variable } ${ plexMonoMemoriales.variable } ${ styles.page }`}
+      >
+        <header className={styles.header}>
+          <Icon
+            name="gavel"
+            className={styles.headerIcon}
+            size={32}
+          />
+          <div>
+            <div className={styles.breadcrumb}>
+              <span>Carpetas</span>
+              <Icon
+                name="chevron_right"
+                size={16}
+              />
+              <span className={styles.breadcrumbCurrent}>Memoriales</span>
+            </div>
+            <h1 className={styles.title}>Memoriales</h1>
           </div>
-          <h1 className={styles.title}>Memoriales</h1>
-        </div>
-      </header>
-      <p className={styles.intro}>
-        Genere memoriales a partir de las plantillas del despacho y descargue el
-        documento en formato .docx.
-      </p>
+        </header>
+        <p className={styles.intro}>
+          Genere memoriales a partir de las plantillas del despacho y descargue el
+          documento en formato .docx.
+        </p>
 
-      {view === 'selection'
-        ? (
-            <TemplateSelector
-              templates={TEMPLATES}
-              selectedId={selectedId}
-              onSelect={handleSelect}
-            />
-          )
-        : null}
+        {view === 'selection'
+          ? (
+              <TemplateSelector
+                templates={TEMPLATES}
+                selectedId={selectedId}
+                onSelect={handleSelect}
+              />
+            )
+          : null}
 
-      {view === 'form' && selectedTemplate
-        ? (
-            <section className={styles.formSection}>
-              <div className={styles.selectedBar}>
-                <div className={styles.selectedInfo}>
-                  <Icon
-                    name="description"
-                    className={styles.selectedIcon}
-                    size={22}
-                  />
-                  <div>
-                    <div className={styles.selectedLabel}>
-                      Memorial seleccionado
-                    </div>
-                    <div className={styles.selectedName}>
-                      {selectedTemplate.displayName}
+        {view === 'form' && selectedTemplate
+          ? (
+              <section className={styles.formSection}>
+                <div className={styles.selectedBar}>
+                  <div className={styles.selectedInfo}>
+                    <Icon
+                      name="description"
+                      className={styles.selectedIcon}
+                      size={22}
+                    />
+                    <div>
+                      <div className={styles.selectedLabel}>
+                        Memorial seleccionado
+                      </div>
+                      <div className={styles.selectedName}>
+                        {selectedTemplate.displayName}
+                      </div>
                     </div>
                   </div>
+                  <Button
+                    variant="text"
+                    icon={
+                      <Icon
+                        name="arrow_back"
+                        size={18}
+                      />
+                    }
+                    onClick={handleBackToSelection}
+                  >
+                    Cambiar memorial
+                  </Button>
                 </div>
-                <Button
-                  variant="text"
-                  icon={
-                    <Icon
-                      name="arrow_back"
-                      size={18}
-                    />
-                  }
-                  onClick={handleBackToSelection}
-                >
-                  Cambiar memorial
-                </Button>
-              </div>
 
-              <GenerationStatus
-                status={status}
-                errorMessage={errorMessage}
-                onDownload={handleDownload}
-                onGenerateAnother={handleGenerateAnother}
-                onRetry={handleRetry}
-              />
+                <GenerationStatus
+                  status={status}
+                  errorMessage={errorMessage}
+                  onDownload={handleDownload}
+                  onGenerateAnother={handleGenerateAnother}
+                  onRetry={handleRetry}
+                />
 
-              <MemorialForm
-                key={`${ selectedTemplate.id }-${ formInstanceKey }`}
-                template={selectedTemplate}
-                onSubmit={handleSubmit}
-                disabled={formDisabled}
-                submitLabel={submitLabel}
-              />
-            </section>
-          )
-        : null}
+                <MemorialForm
+                  key={`${ selectedTemplate.id }-${ formInstanceKey }`}
+                  template={selectedTemplate}
+                  onSubmit={handleSubmit}
+                  disabled={formDisabled}
+                  submitLabel={submitLabel}
+                />
+              </section>
+            )
+          : null}
+      </div>
     </div>
   );
 }
