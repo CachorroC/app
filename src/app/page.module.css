@@ -9,6 +9,7 @@
   min-height: 100%;
   box-sizing: border-box;
   max-width: 1240px;
+  width: 100%;
   margin: 0 auto;
   padding: clamp(16px, 4vw, 40px);
   display: flex;
@@ -126,7 +127,6 @@
 }
 
 .navCard {
-  display: block;
   text-decoration: none;
   height: 100%;
   box-sizing: border-box;

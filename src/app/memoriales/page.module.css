@@ -4,6 +4,7 @@
   box-sizing: border-box;
   max-width: 1040px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .header {
@@ -84,4 +85,5 @@
 .selectedName {
   font: var(--md-sys-typescale-title-medium);
   color: var(--md-sys-color-on-surface);
+  word-wrap: break-word;
 }
