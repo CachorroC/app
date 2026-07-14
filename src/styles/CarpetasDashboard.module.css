@@ -155,7 +155,7 @@
 /* ---- KPI strip ---- */
 .kpiGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-4);
   margin-bottom: var(--space-5);
 }
@@ -195,6 +195,8 @@
 .kpiValue {
   font: var(--type-headline-md);
   line-height: 1;
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
 .kpiSub {
@@ -545,7 +547,7 @@
 
 @media (max-width: 1080px) {
   .kpiGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 768px) {
@@ -578,7 +580,7 @@
 }
 @media (max-width: 560px) {
   .kpiGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .cardGrid {
     grid-template-columns: 1fr;

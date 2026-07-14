@@ -124,6 +124,26 @@ test(
 );
 
 test(
+  'toCarpetaLookup maps a non-empty llaveProceso through, and defaults empty to null', () => {
+    const withLlave = toCarpetaLookup( baseCarpeta( {
+      llaveProceso: 'ABC-123',
+    } ), );
+
+    assert.equal(
+      withLlave.llaveProceso, 'ABC-123' 
+    );
+
+    const withoutLlave = toCarpetaLookup( baseCarpeta( {
+      llaveProceso: '',
+    } ), );
+
+    assert.equal(
+      withoutLlave.llaveProceso, null 
+    );
+  } 
+);
+
+test(
   'toCarpetaLookup leaves radicado numero unpadded when already 5+ digits, and null when malformed', () => {
     const longNumero = toCarpetaLookup( baseCarpeta( {
       demanda: {

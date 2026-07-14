@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { formatCedula,
   formatCurrencyCOP,
   formatDateLong,
+  formatPositivaNegativa,
   formatRadicado,
   formatUpper, } from './formatters';
 
@@ -54,6 +55,17 @@ test(
     assert.equal(
       formatUpper( 'juzgado civil municipal' ),
       'JUZGADO CIVIL MUNICIPAL',
+    );
+  } 
+);
+
+test(
+  'formatPositivaNegativa maps true/false to POSITIVA/NEGATIVA', () => {
+    assert.equal(
+      formatPositivaNegativa( true ), 'POSITIVA' 
+    );
+    assert.equal(
+      formatPositivaNegativa( false ), 'NEGATIVA' 
     );
   } 
 );

@@ -13,7 +13,9 @@ const TEMPLATES_DIR = join(
 
 /**
  * `stringList` fields normalize to `${base}[]` (matching the loop the extractor sees).
- * `boolean` fields go into the booleans set. A `derived` field is included in `paths`
+ * `boolean` fields go into the booleans set, unless they carry a `format` (e.g.
+ * 'positivaNegativa'), in which case they render as text and go into `paths` instead.
+ * A `derived` field is included in `paths`
  * unless its tag is entirely absent from the extracted docx (i.e. it's purely computed,
  * with no `{{ }}` of its own) — `numero_escrito` is derived but does appear as a tag, so
  * it stays included.
@@ -34,7 +36,12 @@ function manifestPaths(
         : field.name;
 
       if ( field.type === 'boolean' ) {
-        booleans.add( base );
+        if ( field.format ) {
+          // A formatted boolean (e.g. 'positivaNegativa') renders as text, not an `{% if %}` gate.
+          paths.add( base );
+        } else {
+          booleans.add( base );
+        }
 
         continue;
       }

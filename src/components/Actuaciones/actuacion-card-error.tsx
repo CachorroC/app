@@ -18,14 +18,16 @@ export function ActuacionCardError( {
   detail,
   onRetry,
 }: ActuacionCardErrorProps ) {
-  const messageDisplay = message
+  const messageDisplay
+    = message
     ?? 'Ocurrió un problema al consultar esta actuación en el proceso judicial.';
   const refDisplay = errorCode
     ? `Ref. ${ errorCode }`
     : 'Ref. desconocida';
-  const carpetaDisplay = carpetaNumero !== undefined && carpetaNumero !== null
-    ? `N.° ${ carpetaNumero }`
-    : '—';
+  const carpetaDisplay
+    = carpetaNumero !== undefined && carpetaNumero !== null
+      ? `N.° ${ carpetaNumero }`
+      : '—';
   const hasDetail = !!detail;
   const handleRetry = onRetry ?? ( () => {} );
 
@@ -37,7 +39,6 @@ export function ActuacionCardError( {
       <div className={styles.raceCard}>
         <div className={styles.raceAccent} />
         <div className={styles.racePad}>
-
           {/* BASE TIER: siempre visible, incluso por debajo de 240px */}
           <div className={styles.raceHeader}>
             <div className={styles.raceTitleRow}>
@@ -47,13 +48,15 @@ export function ActuacionCardError( {
                   fontSize : 20,
                   color    : 'var(--md-sys-color-error)',
                   flex     : '0 0 auto',
-                  marginTop: 1 
+                  marginTop: 1,
                 }}
                 aria-hidden
               >
                 error
               </span>
-              <div className={styles.raceTitle}>No se pudo cargar la actuación</div>
+              <div className={styles.raceTitle}>
+                No se pudo cargar la actuación
+              </div>
             </div>
           </div>
 
@@ -65,7 +68,12 @@ export function ActuacionCardError( {
             <Button
               variant="text"
               size="small"
-              icon={<Icon name="refresh" size={16} />}
+              icon={
+                <Icon
+                  name="refresh"
+                  size={16}
+                />
+              }
               onClick={handleRetry}
             >
               Reintentar
@@ -88,7 +96,7 @@ export function ActuacionCardError( {
                 style={{
                   fontSize : 16,
                   color    : 'var(--md-sys-color-on-surface-variant)',
-                  marginTop: 1 
+                  marginTop: 1,
                 }}
                 aria-hidden
               >
@@ -97,7 +105,6 @@ export function ActuacionCardError( {
               <span className={styles.raceDetail}>{detail}</span>
             </div>
           )}
-
         </div>
       </div>
     </div>

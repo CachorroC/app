@@ -75,7 +75,7 @@ export const CARPETAS: Carpeta[] = [
       notif: {
         certimail     : true,
         fisico        : true,
-        autoNotificado: '2026-06-10' 
+        autoNotificado: '2026-06-10',
       },
     },
     procesos: [
@@ -257,7 +257,7 @@ export const CARPETAS: Carpeta[] = [
       notif: {
         certimail     : true,
         fisico        : false,
-        autoNotificado: null 
+        autoNotificado: null,
       },
     },
     procesos: [
@@ -407,7 +407,7 @@ export const CARPETAS: Carpeta[] = [
       notif: {
         certimail     : true,
         fisico        : true,
-        autoNotificado: '2024-10-20' 
+        autoNotificado: '2024-10-20',
       },
     },
     procesos: [
@@ -559,7 +559,7 @@ export const CARPETAS: Carpeta[] = [
       notif: {
         certimail     : true,
         fisico        : true,
-        autoNotificado: '2023-09-01' 
+        autoNotificado: '2023-09-01',
       },
     },
     procesos: [
@@ -737,7 +737,7 @@ export const CARPETAS: Carpeta[] = [
       notif: {
         certimail     : true,
         fisico        : false,
-        autoNotificado: '2025-12-05' 
+        autoNotificado: '2025-12-05',
       },
     },
     procesos: [
@@ -878,7 +878,7 @@ export const CARPETAS: Carpeta[] = [
       notif: {
         certimail     : true,
         fisico        : true,
-        autoNotificado: '2022-06-15' 
+        autoNotificado: '2022-06-15',
       },
     },
     procesos: [
@@ -1006,7 +1006,7 @@ export const CARPETAS: Carpeta[] = [
       notif: {
         certimail     : false,
         fisico        : false,
-        autoNotificado: null 
+        autoNotificado: null,
       },
     },
     procesos: [

@@ -18,11 +18,13 @@ export function Icon( {
     <span
       className={`material-symbols-rounded${ fill
         ? ' fill'
-        : '' }${ className
-        ? ` ${ className }`
-        : '' }`}
+        : '' }${
+        className
+          ? ` ${ className }`
+          : ''
+      }`}
       style={{
-        fontSize: size 
+        fontSize: size,
       }}
       aria-hidden
     >
@@ -46,7 +48,7 @@ export function StatusChip( {
       className={styles.statusChip}
       style={{
         background: meta.bgVar,
-        color     : meta.fgVar 
+        color     : meta.fgVar,
       }}
     >
       <span className={styles.statusDot} />
@@ -69,7 +71,7 @@ export function CategoryDot( {
       style={{
         background: color,
         width     : size,
-        height    : size 
+        height    : size,
       }}
     />
   );

@@ -18,7 +18,9 @@ export function ActuacionTableComponent( {
     <td data-label="ultimaActuacion">
       <Link
         className={styles.cardLink}
-        href={`/Carpeta/${ numero }/ultimasActuaciones/${ incomingActuacion.idProceso }` as Route}
+        href={
+          `/Carpeta/${ numero }/ultimasActuaciones/${ incomingActuacion.idProceso }` as Route
+        }
       >
         <ActuacionCard {...mapDbActuacionToCardProps( incomingActuacion )} />
       </Link>
@@ -26,7 +28,7 @@ export function ActuacionTableComponent( {
   );
 }
 
-export function ActuacionTableErrorComponent( props: ActuacionCardErrorProps = {} ) {
+export function ActuacionTableErrorComponent( props: ActuacionCardErrorProps = {}, ) {
   return (
     <td data-label="ultimaActuacion">
       <ActuacionCardError {...props} />

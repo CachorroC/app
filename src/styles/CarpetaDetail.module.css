@@ -133,7 +133,7 @@
 /* ---- KPI mini ---- */
 .kpiRow {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-3);
   margin-bottom: var(--space-5);
 }
@@ -159,6 +159,8 @@
 
 .kpiValue {
   font: var(--type-title-lg);
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
 /* ---- Tabs ---- */
@@ -688,7 +690,7 @@
 
 @media (max-width: 1080px) {
   .kpiRow {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 1000px) {
@@ -726,7 +728,7 @@
 }
 @media (max-width: 560px) {
   .kpiRow {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .kvGrid {
     grid-template-columns: 1fr;

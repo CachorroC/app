@@ -2,7 +2,7 @@ import { DatabaseActuacionType } from '#@/lib/types/actuaciones';
 import type { ActuacionCardProps } from './actuacion-card';
 
 /** Compact `dd mmm yyyy` formatter matching the design's fmtDate(). */
-export function formatCompactDate( value: string | Date | null | undefined ): string | null {
+export function formatCompactDate( value: string | Date | null | undefined, ): string | null {
   if ( !value ) {
     return null;
   }
@@ -16,12 +16,11 @@ export function formatCompactDate( value: string | Date | null | undefined ): st
   }
 
   return new Intl.DateTimeFormat(
-    'es-CO',
-    {
+    'es-CO', {
       day  : '2-digit',
       month: 'short',
       year : 'numeric',
-    },
+    } 
   )
     .format( date );
 }

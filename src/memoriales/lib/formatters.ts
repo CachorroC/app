@@ -45,6 +45,12 @@ export function formatUpper( value: string ): string {
   return value.toUpperCase();
 }
 
+export function formatPositivaNegativa( value: boolean ): string {
+  return value
+    ? 'POSITIVA'
+    : 'NEGATIVA';
+}
+
 export function applyFormat(
   format: FieldFormat | undefined,
   value: string | number,

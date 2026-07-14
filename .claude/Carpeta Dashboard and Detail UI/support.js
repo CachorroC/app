@@ -23,9 +23,11 @@
     obj, key, value 
   ) => {
     return __defNormalProp(
-      obj, typeof key !== 'symbol'
+      obj,
+      typeof key !== 'symbol'
         ? key + ''
-        : key, value 
+        : key,
+      value,
     );
   };
 
@@ -117,7 +119,7 @@
     if ( !raw ) {
       return {
         props  : null,
-        preview: null 
+        preview: null,
       };
     }
 
@@ -128,14 +130,14 @@
     } catch {
       return {
         props  : null,
-        preview: null 
+        preview: null,
       };
     }
 
     if ( !parsed || typeof parsed !== 'object' || Array.isArray( parsed ) ) {
       return {
         props  : null,
-        preview: null 
+        preview: null,
       };
     }
 
@@ -156,7 +158,7 @@
       props: Object.keys( rest ).length
         ? rest
         : null,
-      preview 
+      preview,
     };
   }
 
@@ -266,9 +268,9 @@
     );
     fetch( location.href )
       .then( ( res ) => {
-        return ( res.ok
+        return res.ok
           ? res.text()
-          : '' );
+          : '';
       } )
       .then( ( t ) => {
         const raw = t
@@ -456,7 +458,11 @@
         depth++;
       } else if ( c === ']' || c === ')' ) {
         depth--;
-      } else if ( depth === 0 && ( c === '=' || c === '!' ) && expr[ i + 1 ] === '=' ) {
+      } else if (
+        depth === 0
+        && ( c === '=' || c === '!' )
+        && expr[ i + 1 ] === '='
+      ) {
         if ( i > 0 && ( expr[ i - 1 ] === '=' || expr[ i - 1 ] === '!' ) ) {
           continue;
         }
@@ -474,7 +480,7 @@
 
         return {
           index: i,
-          op 
+          op,
         };
       }
     }
@@ -599,12 +605,11 @@
 
   function encodeCase( html ) {
     html = html.replace(
-      IMPORT_SELF_CLOSE_RE,
-      (
+      IMPORT_SELF_CLOSE_RE, (
         _, t, a 
       ) => {
         return '<' + t + a + '></' + t + '>';
-      },
+      } 
     );
     html = html.replace(
       /<helmet(\s|>)/gi, '<sc-helmet$1' 
@@ -613,19 +618,20 @@
       /<\/helmet\s*>/gi, '</sc-helmet>' 
     );
     html = html.replace(
-      CAMEL_ATTR_RE,
-      (
+      CAMEL_ATTR_RE, (
         _, sp, name, eq 
       ) => {
-        return sp
+        return (
+          sp
         + CAMEL_ATTR
         + name.replace(
           /[A-Z]/g, ( c ) => {
             return '-' + c.toLowerCase();
           } 
         )
-        + eq;
-      },
+        + eq
+        );
+      } 
     );
 
     for ( const [
@@ -694,15 +700,16 @@
       const parts = raw.split( /\{\{([\s\S]+?)\}\}/g );
 
       return ( vals ) => {
-        return parts.map( (
-          s, i 
-        ) => {
-          return ( i & 1
-            ? ( resolve(
-                vals, s 
-              ) ?? '' )
-            : s );
-        } )
+        return parts
+          .map( (
+            s, i 
+          ) => {
+            return i & 1
+              ? ( resolve(
+                  vals, s 
+                ) ?? '' )
+              : s;
+          } )
           .join( '' );
       };
     }
@@ -772,7 +779,7 @@
     return {
       propGetters,
       pseudoClasses,
-      hintSize 
+      hintSize,
     };
   }
 
@@ -963,7 +970,7 @@
       return h(
         getReact().Fragment,
         {
-          key 
+          key,
         },
         ...parts.map( (
           p, i 
@@ -983,7 +990,7 @@
                   'span',
                   {
                     key      : i,
-                    className: 'sc-interp sc-unresolved' 
+                    className: 'sc-interp sc-unresolved',
                   },
                   '{{ ' + p.trim() + ' }}',
                 );
@@ -1003,7 +1010,7 @@
               'span',
               {
                 key      : i,
-                className: 'sc-interp sc-missing' 
+                className: 'sc-interp sc-missing',
               },
               p.trim(),
             );
@@ -1012,9 +1019,11 @@
           if ( getReact()
             .isValidElement( v ) || Array.isArray( v ) ) {
             return h(
-              getReact().Fragment, {
-                key: i 
-              }, v 
+              getReact().Fragment,
+              {
+                key: i,
+              },
+              v,
             );
           }
 
@@ -1023,10 +1032,12 @@
           }
 
           return h(
-            'span', {
+            'span',
+            {
               key      : i,
-              className: 'sc-interp' 
-            }, String( v ) 
+              className: 'sc-interp',
+            },
+            String( v ),
           );
         } ),
       );
@@ -1077,7 +1088,7 @@
       return h(
         getReact().Fragment,
         {
-          key 
+          key,
         },
         list.map( (
           item, i 
@@ -1085,13 +1096,13 @@
           const sub = {
             ...vals,
             [ asName ]: item,
-            $index    : i 
+            $index    : i,
           };
 
           return h(
             getReact().Fragment,
             {
-              key: i 
+              key: i,
             },
             kids.map( (
               b, j 
@@ -1131,7 +1142,7 @@
         ? h(
             getReact().Fragment,
             {
-              key 
+              key,
             },
             kids.map( (
               b, j 
@@ -1282,7 +1293,7 @@
             className    : 'sc-host-x',
             'data-dc-tpl': tplId,
             style        : hostStyle || {
-              display: 'contents' 
+              display: 'contents',
             },
           }
         : null;
@@ -1312,7 +1323,7 @@
       const props = wrapper
         ? {}
         : {
-            key 
+            key,
           };
       let unresolvedHole = false;
 
@@ -1398,7 +1409,7 @@
     ) => {
       const props = {
         key,
-        'data-dc-tpl': tplId 
+        'data-dc-tpl': tplId,
       };
 
       for ( const [
@@ -1430,13 +1441,15 @@
       }
 
       return h(
-        realTag, props, ...kids.map( (
+        realTag,
+        props,
+        ...kids.map( (
           b, j 
         ) => {
           return b(
             vals, ctx, j 
           );
-        } ) 
+        } ),
       );
     };
   }
@@ -1535,7 +1548,7 @@
           : '' ),
         style: {
           width : w.trim(),
-          height: hgt && hgt.trim() 
+          height: hgt && hgt.trim(),
         },
         title: name,
       },
@@ -1543,7 +1556,7 @@
         ? h(
             'div',
             {
-              className: 'sc-placeholder-error' 
+              className: 'sc-placeholder-error',
             },
             ( name
               ? name + ': '
@@ -1565,7 +1578,7 @@
 
     return {
       minWidth : w.trim(),
-      minHeight: hgt && hgt.trim() 
+      minHeight: hgt && hgt.trim(),
     };
   }
 
@@ -1623,13 +1636,13 @@
         this.__name = props.__name;
         this.state = {
           __v  : 0,
-          __err: null 
+          __err: null,
         };
 
         this.__sub = () => {
           if ( this.state.__err ) {
             this.setState( {
-              __err: null 
+              __err: null,
             } );
           }
 
@@ -1691,7 +1704,7 @@
         if ( prevState ) {
           this.logic.state = {
             ...( this.logic.state || {} ),
-            ...prevState 
+            ...prevState,
           };
         }
       }
@@ -1714,12 +1727,12 @@
           : update;
         this.logic.state = {
           ...prev,
-          ...patch 
+          ...patch,
         };
         this.setState(
           ( s ) => {
             return {
-              __v: s.__v + 1 
+              __v: s.__v + 1,
             };
           }, cb 
         );
@@ -1817,7 +1830,7 @@
           = this.props.__hostStyle || hintStyle
             ? {
                 ...( hintStyle || {} ),
-                ...( this.props.__hostStyle || {} ) 
+                ...( this.props.__hostStyle || {} ),
               }
             : void 0;
         const hostBase = {
@@ -1840,7 +1853,7 @@
             'div',
             {
               ...hostBase,
-              className: cls + ' sc-has-error' 
+              className: cls + ' sc-has-error',
             },
             h(
               Placeholder, {
@@ -1857,12 +1870,12 @@
             'div',
             {
               ...hostBase,
-              className: cls + ' sc-has-error' 
+              className: cls + ' sc-has-error',
             },
             h(
               'div',
               {
-                className: 'sc-logic-error' 
+                className: 'sc-logic-error',
               },
               this.__name + ': ' + this.state.__err,
             ),
@@ -1899,7 +1912,7 @@
         try {
           vals = {
             ...userProps,
-            ...( this.logic.renderVals() || {} ) 
+            ...( this.logic.renderVals() || {} ),
           };
         } catch ( e ) {
           console.error( e );
@@ -1920,20 +1933,23 @@
             ...hostBase,
             className: cls + ( renderErr
               ? ' sc-has-error'
-              : '' ) 
+              : '' ),
           },
-          renderErr && h(
-            'div', {
-              className: 'sc-logic-error' 
-            }, renderErr 
-          ),
+          renderErr
+            && h(
+              'div',
+              {
+                className: 'sc-logic-error',
+              },
+              renderErr,
+            ),
           h(
             AncestorContext.Provider,
             {
               value: [
                 ...chain,
                 this.__name
-              ] 
+              ],
             },
             r.tpl(
               vals, this 
@@ -1978,7 +1994,7 @@
         return h(
           StreamableComponent, {
             ...p,
-            __name: name 
+            __name: name,
           } 
         );
       }
@@ -2106,7 +2122,7 @@
               ).code
               : src;
           const module = {
-            exports: {} 
+            exports: {},
           };
           const before = new Set( Object.keys( window ) );
           //! nosemgrep: eval-and-function-constructor
@@ -2131,7 +2147,7 @@
           cache.set(
             url, {
               mod: module.exports,
-              globals 
+              globals,
             } 
           );
           console.info(
@@ -2356,7 +2372,7 @@
       load,
       resolve: resolve2,
       resolveGlobal,
-      getError 
+      getError,
     };
   }
 
@@ -2486,7 +2502,7 @@
     }
 
     return {
-      compile 
+      compile,
     };
   }
 
@@ -2575,10 +2591,9 @@
     const registry = createRegistry();
     const pseudoClass = createPseudoSheet( doc );
     const helmet = createHelmetManager(
-      doc,
-      ( name ) => {
+      doc, ( name ) => {
         return registry.get( name ).htmlStreaming;
-      },
+      } 
     );
     const external = createExternalModules( () => {
       return registry.bumpAll();
@@ -2697,7 +2712,7 @@
             url,
             e,
           );
-        }, );
+        } );
     }
 
     function updateHtml(
@@ -2832,7 +2847,7 @@
       registry.get( name ).propOverrides
         = overrides && typeof overrides === 'object'
           ? {
-              ...overrides 
+              ...overrides,
             }
           : null;
       registry.bump( name );

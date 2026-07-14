@@ -1,7 +1,7 @@
 import type { FieldDef,
   FieldGroup,
   MemorialTemplate, } from '#@/memoriales/manifests/types';
-import { applyFormat } from './formatters';
+import { applyFormat, formatPositivaNegativa } from './formatters';
 import { deriveNumeroEscrito } from './derive';
 
 export type RenderContext = Record<string, unknown>;
@@ -15,7 +15,9 @@ function formatFieldValue(
   field: FieldDef, value: unknown 
 ): unknown {
   if ( field.type === 'boolean' ) {
-    return Boolean( value );
+    return field.format === 'positivaNegativa'
+      ? formatPositivaNegativa( Boolean( value ) )
+      : Boolean( value );
   }
 
   if ( field.type === 'stringList' ) {

@@ -96,7 +96,8 @@
   min-height: 0;
   width: 100%;
   box-sizing: border-box;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 1rem;
   padding-bottom: calc(var(--rs-bottomnav-h) + 1rem);
   background-color: var(--surface);

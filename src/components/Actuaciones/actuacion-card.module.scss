@@ -14,8 +14,10 @@
   box-shadow: none;
   border-radius: 0;
   transition:
-    box-shadow var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard),
-    background var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+    box-shadow var(--md-sys-motion-duration-short3)
+      var(--md-sys-motion-easing-standard),
+    background var(--md-sys-motion-duration-short3)
+      var(--md-sys-motion-easing-standard);
 }
 
 .ractAccent {
@@ -218,15 +220,28 @@
     box-shadow: var(--md-sys-elevation-level1);
     border-radius: var(--md-sys-shape-corner-large);
   }
-  .ractAccent { height: 4px; }
-  .ractSm { display: flex; }
-  .ractPad { padding: 14px; gap: 10px; }
-  .ractTitle { font: var(--md-sys-typescale-title-small); }
-  .ractAnot { -webkit-line-clamp: 2; }
+  .ractAccent {
+    height: 4px;
+  }
+  .ractSm {
+    display: flex;
+  }
+  .ractPad {
+    padding: 14px;
+    gap: 10px;
+  }
+  .ractTitle {
+    font: var(--md-sys-typescale-title-small);
+  }
+  .ractAnot {
+    -webkit-line-clamp: 2;
+  }
 }
 
 @container ract (min-width: 340px) {
-  .ractMd { display: flex; }
+  .ractMd {
+    display: flex;
+  }
   .ractHeader {
     flex-direction: row;
     align-items: center;
@@ -236,12 +251,24 @@
 }
 
 @container ract (min-width: 460px) {
-  .ractLg { display: flex; }
-  .ractPad { padding: 18px; gap: 12px; }
-  .ractTitle { font: var(--md-sys-typescale-title-medium); }
+  .ractLg {
+    display: flex;
+  }
+  .ractPad {
+    padding: 18px;
+    gap: 12px;
+  }
+  .ractTitle {
+    font: var(--md-sys-typescale-title-medium);
+  }
 }
 
 @container ract (min-width: 600px) {
-  .ractXl { display: grid; }
-  .ractPad { padding: 22px; gap: 14px; }
+  .ractXl {
+    display: grid;
+  }
+  .ractPad {
+    padding: 22px;
+    gap: 14px;
+  }
 }

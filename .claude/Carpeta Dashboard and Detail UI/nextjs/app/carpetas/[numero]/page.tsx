@@ -6,7 +6,7 @@ import { getCarpeta, CARPETAS } from '@/lib/mockData';
 export function generateStaticParams() {
   return CARPETAS.map( ( c ) => {
     return {
-      numero: String( c.numero ) 
+      numero: String( c.numero ),
     };
   } );
 }

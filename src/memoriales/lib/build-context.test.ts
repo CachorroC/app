@@ -182,6 +182,48 @@ const upperTemplate: MemorialTemplate = {
   ],
 };
 
+const positivaNegativaTemplate: MemorialTemplate = {
+  id         : 'fake-positiva-negativa',
+  filename   : 'fake-positiva-negativa.docx',
+  displayName: 'Fake positiva/negativa',
+  description: 'Fake template for the positivaNegativa format',
+  groups     : [
+    {
+      legend: 'Datos generales',
+      fields: [
+        {
+          name    : 'is_positiva',
+          label   : '¿Es positiva?',
+          type    : 'boolean',
+          format  : 'positivaNegativa',
+          required: true,
+        },
+      ],
+    },
+  ],
+};
+
+test(
+  'buildContext renders a formatted boolean as POSITIVA/NEGATIVA text, not a raw boolean', () => {
+    assert.equal(
+      buildContext(
+        positivaNegativaTemplate, {
+          is_positiva: true,
+        } 
+      ).is_positiva,
+      'POSITIVA',
+    );
+    assert.equal(
+      buildContext(
+        positivaNegativaTemplate, {
+          is_positiva: false,
+        } 
+      ).is_positiva,
+      'NEGATIVA',
+    );
+  } 
+);
+
 test(
   'buildContext applies the upper format to plain and derived fields', () => {
     const context = buildContext(

@@ -68,7 +68,8 @@
   justify-content: space-between;
   gap: 10px;
   flex-wrap: wrap;
-  border-top: 1px solid color-mix(in srgb, var(--md-sys-color-error) 30%, transparent);
+  border-top: 1px solid
+    color-mix(in srgb, var(--md-sys-color-error) 30%, transparent);
   margin-top: 2px;
   padding-top: 8px;
 }
@@ -132,13 +133,22 @@
     box-shadow: var(--md-sys-elevation-level1);
     border-radius: var(--md-sys-shape-corner-large);
   }
-  .raceAccent { height: 4px; }
-  .raceSm { display: flex; }
-  .racePad { padding: 14px; gap: 10px; }
+  .raceAccent {
+    height: 4px;
+  }
+  .raceSm {
+    display: flex;
+  }
+  .racePad {
+    padding: 14px;
+    gap: 10px;
+  }
 }
 
 @container race (min-width: 340px) {
-  .raceMd { display: flex; }
+  .raceMd {
+    display: flex;
+  }
   .raceHeader {
     flex-direction: row;
     align-items: center;
@@ -148,6 +158,11 @@
 }
 
 @container race (min-width: 460px) {
-  .raceLg { display: flex; }
-  .racePad { padding: 18px; gap: 12px; }
+  .raceLg {
+    display: flex;
+  }
+  .racePad {
+    padding: 18px;
+    gap: 12px;
+  }
 }

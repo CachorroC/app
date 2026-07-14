@@ -155,8 +155,8 @@ export default function MemorialesPage() {
           </div>
         </header>
         <p className={styles.intro}>
-          Genere memoriales a partir de las plantillas del despacho y descargue el
-          documento en formato .docx.
+          Genere memoriales a partir de las plantillas del despacho y descargue
+          el documento en formato .docx.
         </p>
 
         {view === 'selection'

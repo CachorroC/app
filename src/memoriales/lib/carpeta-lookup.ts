@@ -13,7 +13,8 @@ export interface CarpetaLookup {
     numero: string | null;
     año   : string | null;
   };
-  tipoProceso: string | null;
+  tipoProceso : string | null;
+  llaveProceso: string | null;
 }
 
 const RADICADO_NUMERO_LENGTH = 5;
@@ -80,7 +81,8 @@ export function toCarpetaLookup( carpeta: IntCarpeta ): CarpetaLookup {
       ciudad: carpeta.juzgado?.ciudad ?? null,
       numero: carpeta.juzgado?.id ?? null,
     },
-    radicado   : parseRadicado( carpeta.demanda?.radicado ),
-    tipoProceso: carpeta.demanda?.tipoProceso ?? carpeta.tipoProceso ?? null,
+    radicado    : parseRadicado( carpeta.demanda?.radicado ),
+    tipoProceso : carpeta.demanda?.tipoProceso ?? carpeta.tipoProceso ?? null,
+    llaveProceso: carpeta.llaveProceso || null,
   };
 }

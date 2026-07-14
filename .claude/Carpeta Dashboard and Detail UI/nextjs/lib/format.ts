@@ -78,10 +78,14 @@ export function deudorInitials( d: Deudor ): string {
     d.primerApellido
   ].filter( Boolean ) as string[];
 
-  return ( parts.map( ( p ) => {
-    return p[ 0 ];
-  } )
-    .join( '' ) || '?' ).toUpperCase()
+  return (
+    parts
+      .map( ( p ) => {
+        return p[ 0 ];
+      } )
+      .join( '' ) || '?'
+  )
+    .toUpperCase()
     .slice(
       0, 2 
     );

@@ -31,7 +31,7 @@ const NAV = [
     label : 'Agenda',
     href  : '#',
     active: false,
-    badge : 4 
+    badge : 4,
   },
   {
     icon  : 'receipt_long',
@@ -52,7 +52,7 @@ const NAV = [
     label : 'Deudores',
     href  : '#',
     active: false,
-    badge : null 
+    badge : null,
   },
 ];
 
@@ -80,7 +80,7 @@ export default function Sidebar( {
 
   const categories = ( Object.keys( CATEGORY_META ) as Category[] ).filter( ( k ) => {
     return counts[ k ];
-  }, );
+  } );
 
   function selectCategory( c: Category | 'todos' ) {
     onSelectCategory?.( c );
@@ -121,9 +121,11 @@ export default function Sidebar( {
               <Link
                 key={n.label}
                 href={n.href}
-                className={`${ styles.navItem } ${ n.active
-                  ? styles.navActive
-                  : '' }`}
+                className={`${ styles.navItem } ${
+                  n.active
+                    ? styles.navActive
+                    : ''
+                }`}
               >
                 <Icon
                   name={n.icon}
@@ -142,9 +144,11 @@ export default function Sidebar( {
         <div className={styles.sectionLabel}>Categorías</div>
         <nav className={styles.catNav}>
           <button
-            className={`${ styles.catItem } ${ activeCategory === 'todos'
-              ? styles.catActive
-              : '' }`}
+            className={`${ styles.catItem } ${
+              activeCategory === 'todos'
+                ? styles.catActive
+                : ''
+            }`}
             onClick={() => {
               return selectCategory( 'todos' );
             }}
@@ -152,7 +156,7 @@ export default function Sidebar( {
             <span
               className={styles.catDot}
               style={{
-                background: 'var(--outline)' 
+                background: 'var(--outline)',
               }}
             />
             <span className={styles.catLabel}>Todos</span>
@@ -162,9 +166,11 @@ export default function Sidebar( {
             return (
               <button
                 key={k}
-                className={`${ styles.catItem } ${ activeCategory === k
-                  ? styles.catActive
-                  : '' }`}
+                className={`${ styles.catItem } ${
+                  activeCategory === k
+                    ? styles.catActive
+                    : ''
+                }`}
                 onClick={() => {
                   return selectCategory( k );
                 }}
@@ -172,10 +178,12 @@ export default function Sidebar( {
                 <span
                   className={styles.catDot}
                   style={{
-                    background: CATEGORY_META[ k ].colorVar 
+                    background: CATEGORY_META[ k ].colorVar,
                   }}
                 />
-                <span className={styles.catLabel}>{CATEGORY_META[ k ].label}</span>
+                <span className={styles.catLabel}>
+                  {CATEGORY_META[ k ].label}
+                </span>
                 <span className={styles.catCount}>{counts[ k ]}</span>
               </button>
             );

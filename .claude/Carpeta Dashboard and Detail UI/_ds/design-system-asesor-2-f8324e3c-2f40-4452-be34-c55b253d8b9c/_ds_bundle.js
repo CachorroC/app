@@ -81,7 +81,7 @@
 
       Object.assign(
         __ds_scope, {
-          Avatar 
+          Avatar,
         } 
       );
     } )();
@@ -175,7 +175,7 @@
 
       Object.assign(
         __ds_scope, {
-          Badge 
+          Badge,
         } 
       );
     } )();
@@ -251,7 +251,7 @@
 
       Object.assign(
         __ds_scope, {
-          Card 
+          Card,
         } 
       );
     } )();
@@ -352,7 +352,7 @@
 
       Object.assign(
         __ds_scope, {
-          Chip 
+          Chip,
         } 
       );
     } )();
@@ -464,7 +464,7 @@
 
       Object.assign(
         __ds_scope, {
-          StatusChip 
+          StatusChip,
         } 
       );
     } )();
@@ -559,7 +559,7 @@
 
       Object.assign(
         __ds_scope, {
-          Button 
+          Button,
         } 
       );
     } )();
@@ -648,7 +648,7 @@
 
       Object.assign(
         __ds_scope, {
-          Checkbox 
+          Checkbox,
         } 
       );
     } )();
@@ -733,7 +733,7 @@
 
       Object.assign(
         __ds_scope, {
-          IconButton 
+          IconButton,
         } 
       );
     } )();
@@ -862,7 +862,7 @@
 
       Object.assign(
         __ds_scope, {
-          Select 
+          Select,
         } 
       );
     } )();
@@ -962,7 +962,7 @@
 
       Object.assign(
         __ds_scope, {
-          Switch 
+          Switch,
         } 
       );
     } )();
@@ -1104,7 +1104,7 @@
 
       Object.assign(
         __ds_scope, {
-          TextField 
+          TextField,
         } 
       );
     } )();
@@ -1211,7 +1211,7 @@
 
       Object.assign(
         __ds_scope, {
-          Tabs 
+          Tabs,
         } 
       );
     } )();
@@ -1260,7 +1260,7 @@
 
               c[ cat.key ] = D.carpetas.filter( ( x ) => {
                 return x.category === cat.key;
-              }, ).length;
+              } ).length;
             } );
 
             return c;
@@ -1297,9 +1297,11 @@
         const titles = {
           carpetas: {
             t: 'Carpetas',
-            s: `${ D.carpetas.length } procesos · ${ D.carpetas.filter( ( c ) => {
-              return c.vencido;
-            } ).length } requieren atención`,
+            s: `${ D.carpetas.length } procesos · ${
+              D.carpetas.filter( ( c ) => {
+                return c.vencido;
+              } ).length
+            } requieren atención`,
           },
           agenda: {
             t: 'Agenda',
@@ -1527,8 +1529,7 @@
 
         const kv = (
           k, v, mono 
-        ) =>
-        /*#__PURE__*/ {
+        ) => /*#__PURE__*/ {
           return React.createElement(
             'div',
             {
@@ -1919,8 +1920,7 @@
               },
               data.actuaciones.map( (
                 a, i 
-              ) =>
-              /*#__PURE__*/ {
+              ) => /*#__PURE__*/ {
                 return React.createElement(
                   'div',
                   {
@@ -1972,7 +1972,7 @@
                     ),
                   ),
                 );
-              }, ),
+              } ),
             ),
           ),
           tab === 'facturas'
@@ -1996,8 +1996,7 @@
               ),
               'Facturaci\xF3n',
             ),
-            data.facturas.map( ( f ) =>
-            /*#__PURE__*/ {
+            data.facturas.map( ( f ) => /*#__PURE__*/ {
               return React.createElement(
                 'div',
                 {
@@ -2034,7 +2033,7 @@
                   fmtCOP( f.valorTotal ),
                 ),
               );
-            }, ),
+            } ),
           ),
           tab === 'tareas'
           /*#__PURE__*/ && React.createElement(
@@ -2150,8 +2149,7 @@
             return s + ( c.terminado
               ? 0
               : c.capital );
-          },
-          0,
+          }, 0 
         );
         const activos = carpetas.filter( ( c ) => {
           return !c.terminado;
@@ -2161,7 +2159,7 @@
         } ).length;
         const porRevisar = carpetas.filter( ( c ) => {
           return !c.revisado && !c.terminado;
-        }, ).length;
+        } ).length;
         const stats = [
           {
             label: 'Carpetas activas',
@@ -2221,8 +2219,7 @@
             {
               className: 'aj-stats',
             },
-            stats.map( ( s ) =>
-            /*#__PURE__*/ {
+            stats.map( ( s ) => /*#__PURE__*/ {
               return React.createElement(
                 Card,
                 {
@@ -2277,15 +2274,14 @@
                   s.sub,
                 ),
               );
-            }, ),
+            } ),
           ),
           /*#__PURE__*/ React.createElement(
             'div',
             {
               className: 'aj-filters',
             },
-            categories.map( ( c ) =>
-            /*#__PURE__*/ {
+            categories.map( ( c ) => /*#__PURE__*/ {
               return React.createElement(
                 Chip, {
                   key     : c.key,
@@ -2296,7 +2292,7 @@
                   },
                 } 
               );
-            }, ),
+            } ),
             /*#__PURE__*/ React.createElement(
               'span', {
                 className: 'aj-filters__spacer',
@@ -2711,8 +2707,7 @@
             {
               className: 'aj-sidebar__nav',
             },
-            navMain.map( ( n ) =>
-            /*#__PURE__*/ {
+            navMain.map( ( n ) => /*#__PURE__*/ {
               return React.createElement(
                 'button',
                 {
@@ -2736,7 +2731,7 @@
                 ),
                 n.label,
               );
-            }, ),
+            } ),
           ),
           /*#__PURE__*/ React.createElement(
             'div',
@@ -2750,8 +2745,7 @@
             {
               className: 'aj-sidebar__nav',
             },
-            categories.map( ( c ) =>
-            /*#__PURE__*/ {
+            categories.map( ( c ) => /*#__PURE__*/ {
               return React.createElement(
                 'button',
                 {
@@ -2781,7 +2775,7 @@
                   counts[ c.key ],
                 ),
               );
-            }, ),
+            } ),
           ),
           /*#__PURE__*/ React.createElement(
             'div',

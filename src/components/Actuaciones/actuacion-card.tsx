@@ -49,20 +49,17 @@ export function ActuacionCard( {
   const hasCant = cant !== undefined && cant !== null;
 
   return (
-    <div
-      className={`${ tokens.scope } ${ styles.ractContainer }`}
-    >
+    <div className={`${ tokens.scope } ${ styles.ractContainer }`}>
       <div className={styles.ractCard}>
         <div
           className={styles.ractAccent}
           style={{
             background: isUltimaAct
               ? 'var(--md-sys-color-primary)'
-              : 'transparent'
+              : 'transparent',
           }}
         />
         <div className={styles.ractPad}>
-
           {/* BASE TIER */}
           <div className={styles.ractHeader}>
             <div className={styles.ractTitleRow}>
@@ -72,7 +69,7 @@ export function ActuacionCard( {
                   fontSize : 20,
                   color    : 'var(--md-sys-color-primary)',
                   flex     : '0 0 auto',
-                  marginTop: 1
+                  marginTop: 1,
                 }}
                 aria-hidden
               >
@@ -84,7 +81,7 @@ export function ActuacionCard( {
               <span
                 className="material-symbols-rounded"
                 style={{
-                  fontSize: 15
+                  fontSize: 15,
                 }}
                 aria-hidden
               >
@@ -99,7 +96,7 @@ export function ActuacionCard( {
             style={{
               fontStyle: anotacion
                 ? 'normal'
-                : 'italic'
+                : 'italic',
             }}
           >
             {anotacionDisplay}
@@ -107,9 +104,7 @@ export function ActuacionCard( {
 
           {/* SM TIER (>= 240px): rule code, documents, quantity */}
           <div className={styles.ractSm}>
-            {hasCodRegla && (
-              <span className={styles.chip}>{codRegla}</span>
-            )}
+            {hasCodRegla && <span className={styles.chip}>{codRegla}</span>}
             <div className={styles.metaItem}>
               <span
                 className="material-symbols-rounded"
@@ -117,7 +112,7 @@ export function ActuacionCard( {
                   fontSize: 16,
                   color   : conDocumentos
                     ? 'var(--md-sys-color-primary)'
-                    : 'var(--md-sys-color-outline)'
+                    : 'var(--md-sys-color-outline)',
                 }}
                 aria-hidden
               >
@@ -132,7 +127,7 @@ export function ActuacionCard( {
                 <span
                   className="material-symbols-rounded"
                   style={{
-                    fontSize: 16
+                    fontSize: 16,
                   }}
                   aria-hidden
                 >
@@ -168,7 +163,7 @@ export function ActuacionCard( {
                 className="material-symbols-outlined"
                 style={{
                   fontSize: 16,
-                  color   : 'var(--md-sys-color-tertiary)'
+                  color   : 'var(--md-sys-color-tertiary)',
                 }}
                 aria-hidden
               >
@@ -176,9 +171,13 @@ export function ActuacionCard( {
               </span>
               <span>
                 {'Plazo: '}
-                <strong className={styles.rangoStrong}>{fechaInicialDisplay}</strong>
+                <strong className={styles.rangoStrong}>
+                  {fechaInicialDisplay}
+                </strong>
                 {' — '}
-                <strong className={styles.rangoStrong}>{fechaFinalDisplay}</strong>
+                <strong className={styles.rangoStrong}>
+                  {fechaFinalDisplay}
+                </strong>
               </span>
             </div>
           )}
@@ -187,7 +186,9 @@ export function ActuacionCard( {
           <div className={styles.ractXl}>
             <div className={styles.xlField}>
               <span className={styles.label}>Carpeta</span>
-              <span className={styles.xlValue}>{`N.° ${ carpetaNumero ?? '—' }`}</span>
+              <span
+                className={styles.xlValue}
+              >{`N.° ${ carpetaNumero ?? '—' }`}</span>
             </div>
             <div className={styles.xlField}>
               <span className={styles.label}>Registrado</span>
@@ -198,7 +199,6 @@ export function ActuacionCard( {
               <span className={styles.mono}>{idProceso ?? '—'}</span>
             </div>
           </div>
-
         </div>
       </div>
     </div>

@@ -16,18 +16,27 @@
  * from globals.scss's approximations (see plan for the exact mismatches).
  */
 .scope {
-  --md-ref-typeface-plain: var(--font-quicksand), ui-rounded, 'SF Pro Rounded', system-ui, sans-serif;
-  --md-ref-typeface-mono: var(--font-plex-mono), ui-monospace, 'SF Mono', Menlo, monospace;
+  --md-ref-typeface-plain:
+    var(--font-quicksand), ui-rounded, 'SF Pro Rounded', system-ui, sans-serif;
+  --md-ref-typeface-mono:
+    var(--font-plex-mono), ui-monospace, 'SF Mono', Menlo, monospace;
   --md-sys-typescale-title-font: var(--md-ref-typeface-plain);
   --md-sys-typescale-body-font: var(--md-ref-typeface-plain);
   --md-sys-typescale-label-font: var(--md-ref-typeface-plain);
-  --md-sys-typescale-title-medium: 600 1rem/1.5 var(--md-sys-typescale-title-font);
-  --md-sys-typescale-title-small: 600 0.875rem/1.45 var(--md-sys-typescale-title-font);
-  --md-sys-typescale-body-medium: 400 0.875rem/1.5 var(--md-sys-typescale-body-font);
-  --md-sys-typescale-body-small: 400 0.75rem/1.45 var(--md-sys-typescale-body-font);
-  --md-sys-typescale-label-large: 600 0.875rem/1.3 var(--md-sys-typescale-label-font);
-  --md-sys-typescale-label-medium: 600 0.75rem/1.3 var(--md-sys-typescale-label-font);
-  --md-sys-typescale-label-small: 600 0.6875rem/1.3 var(--md-sys-typescale-label-font);
+  --md-sys-typescale-title-medium: 600 1rem/1.5
+    var(--md-sys-typescale-title-font);
+  --md-sys-typescale-title-small: 600 0.875rem/1.45
+    var(--md-sys-typescale-title-font);
+  --md-sys-typescale-body-medium: 400 0.875rem/1.5
+    var(--md-sys-typescale-body-font);
+  --md-sys-typescale-body-small: 400 0.75rem/1.45
+    var(--md-sys-typescale-body-font);
+  --md-sys-typescale-label-large: 600 0.875rem/1.3
+    var(--md-sys-typescale-label-font);
+  --md-sys-typescale-label-medium: 600 0.75rem/1.3
+    var(--md-sys-typescale-label-font);
+  --md-sys-typescale-label-small: 600 0.6875rem/1.3
+    var(--md-sys-typescale-label-font);
   --md-sys-shape-corner-small: 8px;
   --md-sys-shape-corner-large: 16px;
   --md-sys-shape-corner-full: 9999px;

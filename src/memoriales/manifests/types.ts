@@ -9,7 +9,13 @@ export type FieldType =
   | 'stringList'; // {% for x in xs %}{{ x }}{% endfor %} -> string[] in context
 
 export type FieldFormat =
-  'none' | 'cedula' | 'currencyCOP' | 'dateLong' | 'radicado' | 'upper';
+  | 'none'
+  | 'cedula'
+  | 'currencyCOP'
+  | 'dateLong'
+  | 'radicado'
+  | 'upper'
+  | 'positivaNegativa'; // boolean -> 'POSITIVA' | 'NEGATIVA' text
 
 export interface FieldDef {
   name        : string;

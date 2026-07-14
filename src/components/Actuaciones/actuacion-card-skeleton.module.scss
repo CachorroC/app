@@ -1,6 +1,10 @@
 @keyframes racsShimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .bone {
@@ -98,13 +102,22 @@
     box-shadow: var(--md-sys-elevation-level1);
     border-radius: var(--md-sys-shape-corner-large);
   }
-  .racsAccent { height: 4px; }
-  .racsSm { display: flex; }
-  .racsPad { padding: 14px; gap: 10px; }
+  .racsAccent {
+    height: 4px;
+  }
+  .racsSm {
+    display: flex;
+  }
+  .racsPad {
+    padding: 14px;
+    gap: 10px;
+  }
 }
 
 @container racs (min-width: 340px) {
-  .racsMd { display: flex; }
+  .racsMd {
+    display: flex;
+  }
   .racsHeader {
     flex-direction: row;
     align-items: center;
@@ -114,11 +127,21 @@
 }
 
 @container racs (min-width: 460px) {
-  .racsLg { display: flex; }
-  .racsPad { padding: 18px; gap: 12px; }
+  .racsLg {
+    display: flex;
+  }
+  .racsPad {
+    padding: 18px;
+    gap: 12px;
+  }
 }
 
 @container racs (min-width: 600px) {
-  .racsXl { display: grid; }
-  .racsPad { padding: 22px; gap: 14px; }
+  .racsXl {
+    display: grid;
+  }
+  .racsPad {
+    padding: 22px;
+    gap: 14px;
+  }
 }

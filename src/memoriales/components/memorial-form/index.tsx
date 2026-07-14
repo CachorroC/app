@@ -27,12 +27,12 @@ export function MemorialForm( {
     defaultValues: defaultValuesForTemplate( template ),
   } );
   const autofill = useAutofill(
-    template, methods
+    template, methods 
   );
 
   async function handleValidSubmit( raw: Record<string, unknown> ) {
     const assembled = assembleSubmitValues(
-      template, raw
+      template, raw 
     );
     const parsed = buildSchema( template )
       .safeParse( assembled );
@@ -51,7 +51,7 @@ export function MemorialForm( {
           path, {
             type   : 'manual',
             message: issue.message,
-          }
+          } 
         );
         MemorialForm;
 
