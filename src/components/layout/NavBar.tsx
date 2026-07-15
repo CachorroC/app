@@ -10,13 +10,13 @@ import { Suspense } from 'react';
 
 export const NavBar = () => {
   const {
-    isNavOpen 
+    isNavOpen
   } = useNavigationContext();
 
   return (
     <div className={styles.header}>
       <DrawerMenuButton />
-      <NewNoteButton />
+
       <NavLink
         key={'home'}
         iconLabel={'home'}
@@ -25,7 +25,7 @@ export const NavBar = () => {
       />
       <NavLink
         key={'memoriales'}
-        iconLabel={'home'}
+        iconLabel={'assignment'}
         textLabel={'Memoriales'}
         hrefLabel={'/memoriales' as Route}
       />
@@ -34,16 +34,12 @@ export const NavBar = () => {
         textLabel={'Carpetas'}
         hrefLabel={'/Carpetas'}
       />
-      <NavLink
-        iconLabel={'folder'}
-        textLabel={'Carpetas Alternativo'}
-        hrefLabel={'/Carpetas_alt'}
-      />
 
       {isNavOpen && (
         <Suspense fallback={<Loader />}>
           <Drawer>
             <DrawerMenuButton />
+            <NewNoteButton />
             <NavLink
               iconLabel={'payments'}
               textLabel={'costos'}
