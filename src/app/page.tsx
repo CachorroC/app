@@ -68,7 +68,7 @@ export default async function Page() {
       timeZone: BOGOTA_TZ,
       hour    : 'numeric',
       hour12  : false,
-    } 
+    }
   )
     .format( now ), );
   const todayLabel = new Intl.DateTimeFormat(
@@ -77,7 +77,7 @@ export default async function Page() {
       weekday : 'long',
       day     : 'numeric',
       month   : 'long',
-    } 
+    }
   )
     .format( now );
 
@@ -90,10 +90,10 @@ export default async function Page() {
   } ).length;
   const notas = carpetas.reduce(
     (
-      acc, c 
+      acc, c
     ) => {
       return acc + c.notas.length;
-    }, 0 
+    }, 0
   );
 
   const activity = carpetas
@@ -103,7 +103,7 @@ export default async function Page() {
       return Boolean( c.ultimaActuacion?.fechaActuacion );
     }, )
     .sort( (
-      a, b 
+      a, b
     ) => {
       return (
         b.ultimaActuacion.fechaActuacion.getTime()
@@ -111,7 +111,7 @@ export default async function Page() {
       );
     } )
     .slice(
-      0, 6 
+      0, 6
     );
 
   const stats = [
@@ -137,7 +137,7 @@ export default async function Page() {
     },
   ];
 
-  return (
+  return ( <>
     <div className={layout.leftGrid}>
       <div className={styles.page}>
         <header className={styles.header}>
@@ -248,7 +248,7 @@ export default async function Page() {
                         day     : '2-digit',
                         month   : 'short',
                         year    : 'numeric',
-                      } 
+                      }
                     )
                       .format( carpeta.ultimaActuacion.fechaActuacion );
 
@@ -278,20 +278,7 @@ export default async function Page() {
               )}
         </div>
 
-        <div className={styles.toolsPanel}>
-          <div className={styles.toolCard}>
-            <h3 className={styles.toolCardTitle}>{'Notificaciones'}</h3>
-            <Suspense fallback={<Loader />}>
-              <PushNotificationManager />
-            </Suspense>
-          </div>
-          <div className={styles.toolCard}>
-            <h3 className={styles.toolCardTitle}>{'Calendario'}</h3>
-            <Suspense fallback={<Loader />}>
-              <Calendar />
-            </Suspense>
-          </div>
-        </div>
+
         <InstallPrompt />
 
         <footer className={styles.footer}>
@@ -301,5 +288,22 @@ export default async function Page() {
         </footer>
       </div>
     </div>
+    <div className={ layout.right}>
+      <div className={styles.toolsPanel}>
+        <div className={styles.toolCard}>
+          <h3 className={styles.toolCardTitle}>{'Notificaciones'}</h3>
+          <Suspense fallback={<Loader />}>
+            <PushNotificationManager />
+          </Suspense>
+        </div>
+        <div className={styles.toolCard}>
+          <h3 className={styles.toolCardTitle}>{'Calendario'}</h3>
+          <Suspense fallback={<Loader />}>
+            <Calendar />
+          </Suspense>
+        </div>
+      </div>
+    </div>
+  </>
   );
 }
