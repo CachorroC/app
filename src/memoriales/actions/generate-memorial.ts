@@ -16,12 +16,12 @@ export type GenerateErrorSource =
 export type GenerateResult =
   | { ok: true; filename: string; base64: string }
   | {
-      ok          : false;
-      message     : string;
-      fieldErrors?: Record<string, string[]>;
-      source?     : GenerateErrorSource;
-      technical?  : string;
-    };
+    ok          : false;
+    message     : string;
+    fieldErrors?: Record<string, string[]>;
+    source?     : GenerateErrorSource;
+    technical?  : string;
+  };
 
 export async function generateMemorial(
   templateId: string,
@@ -64,7 +64,7 @@ export async function generateMemorial(
 
   // 2. Apply formatters (cedula / currencyCOP / dateLong …) + derived fields → render-ready context.
   const context = buildContext(
-    template, parsed.data 
+    template, parsed.data
   );
 
   // 3. Hand off to the Python renderer.
@@ -82,7 +82,7 @@ export async function generateMemorial(
           context,
         } ),
         cache: 'no-store',
-      } 
+      }
     );
   } catch ( err ) {
     console.error(
@@ -108,10 +108,12 @@ export async function generateMemorial(
     let detail = body;
 
     try {
-      const parsed = JSON.parse( body ) as { detail?: unknown };
+      const {
+        detail: parsedDetail
+      } = JSON.parse( body ) as { detail?: unknown };
 
-      if ( typeof parsed.detail === 'string' ) {
-        detail = parsed.detail;
+      if ( typeof parsedDetail === 'string' ) {
+        detail = parsedDetail;
       }
     } catch {
       // body wasn't JSON — keep the raw text as detail.
