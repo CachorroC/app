@@ -15,7 +15,7 @@ import styles from './amortizacion.module.css';
 interface FieldState {
   montoUVR         : string;
   tasaEAPct        : string;
-  numeroCuotas     : string;
+  numeroAnios      : string;
   fechaPrimeraCuota: string;
   cuotaEsperadaUVR : string;
 }
@@ -29,7 +29,7 @@ interface CambioTasaRow {
 const CAMPOS_INICIALES: FieldState = {
   montoUVR         : '',
   tasaEAPct        : '',
-  numeroCuotas     : '',
+  numeroAnios      : '',
   fechaPrimeraCuota: '',
   cuotaEsperadaUVR : '',
 };
@@ -40,7 +40,7 @@ function buildCandidate(
   return {
     montoUVR         : Number( fields.montoUVR ),
     tasaEAPct        : Number( fields.tasaEAPct ),
-    numeroCuotas     : Number( fields.numeroCuotas ),
+    numeroCuotas     : Number( fields.numeroAnios ) * 12,
     fechaPrimeraCuota: fields.fechaPrimeraCuota,
     cuotaEsperadaUVR : fields.cuotaEsperadaUVR.trim() === ''
       ? undefined
@@ -73,6 +73,8 @@ interface FieldProps {
   type?      : 'text' | 'number' | 'date';
   step?      : string;
   min?       : string;
+  max?       : string;
+  placeholder?: string;
   inputMode? : 'decimal' | 'numeric';
   errors?    : string[];
   helperText?: string;
@@ -87,6 +89,8 @@ function Field( {
   type = 'text',
   step,
   min,
+  max,
+  placeholder,
   inputMode,
   errors,
   helperText,
@@ -123,6 +127,8 @@ function Field( {
           type={type}
           step={step}
           min={min}
+          max={max}
+          placeholder={placeholder}
           inputMode={inputMode}
           value={value}
           className={styles.input}
@@ -374,18 +380,21 @@ export function AmortizacionForm() {
               errors={errorsFor( 'tasaEAPct' )}
             />
             <Field
-              id="numeroCuotas"
-              label="Número de cuotas"
-              value={fields.numeroCuotas}
+              id="numeroAnios"
+              label="Plazo del crédito (años)"
+              value={fields.numeroAnios}
               onChange={( v ) => {
                 return updateField(
-                  'numeroCuotas', v
+                  'numeroAnios', v
                 );
               }}
               type="number"
               step="1"
               min="1"
+              max="50"
               inputMode="numeric"
+              placeholder="Ej. 30"
+              helperText="Se convierte automáticamente a cuotas mensuales (30 años = 360 cuotas)."
               errors={errorsFor( 'numeroCuotas' )}
             />
             <Field
