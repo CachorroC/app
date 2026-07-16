@@ -13,6 +13,12 @@ type DeudorLike = {
 };
 
 const COP = new Intl.NumberFormat( 'es-CO' );
+const UVR = new Intl.NumberFormat(
+  'es-CO', {
+    minimumFractionDigits: 4,
+    maximumFractionDigits: 4,
+  }
+);
 
 /** "$ 12.450.000" — Colombian thousands grouping. 0 / null → "$ 0". */
 export function fmtCOP( n?: number | null ): string {
@@ -21,6 +27,15 @@ export function fmtCOP( n?: number | null ): string {
   }
 
   return `$ ${ COP.format( Math.round( n ) ) }`;
+}
+
+/** "1.254,4282" — UVR figures, always 4 decimals. 0 / null → "0,0000". */
+export function fmtUVR( n?: number | null ): string {
+  if ( n == null ) {
+    return '0,0000';
+  }
+
+  return UVR.format( n );
 }
 
 /** Compact money for KPI tiles: "$ 1,2 MM" / "$ 423 M". */

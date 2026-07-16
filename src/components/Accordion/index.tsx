@@ -3,8 +3,9 @@ import { ReactNode, useState } from 'react';
 import styles from './accordion.module.css';
 
 export function Accordion( {
-  children 
-}: { children: ReactNode } ) {
+  title,
+  children,
+}: { title?: string; children: ReactNode } ) {
   const [
     isActive,
     setIsActive
@@ -16,11 +17,18 @@ export function Accordion( {
         <button
           type="button"
           className={styles.title}
+          aria-expanded={isActive}
           onClick={() => {
             setIsActive( !isActive );
           }}
         >
-          <span className="material-symbols-outlined">
+          {title
+            ? <span>{title}</span>
+            : null}
+          <span
+            className="material-symbols-outlined"
+            aria-hidden
+          >
             {isActive
               ? 'expand_less'
               : 'expand_more'}

@@ -1,8 +1,10 @@
+packages:
+  - '.'
 allowBuilds:
+  '@mui/x-telemetry': true
   '@parcel/watcher': true
   '@prisma/engines': true
   bcrypt: true
   esbuild: true
   prisma: true
   sharp: true
-  '@mui/x-telemetry': false

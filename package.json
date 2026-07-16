@@ -68,6 +68,7 @@
     "typescript-eslint": "^8.54.0",
     "web-push": "^3.6.7",
     "xlsx": "^0.18.5",
+    "xlsx-js-style": "^1.2.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {

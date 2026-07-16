@@ -1,0 +1,298 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-4);
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--on-surface);
+}
+
+.headerIcon {
+  color: var(--primary);
+}
+
+.title {
+  font: var(--type-headline-sm);
+  margin: 0;
+}
+
+.intro {
+  font: var(--type-body-md);
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.card {
+  background: var(--surface-container-low);
+  border-radius: var(--radius-card);
+  box-shadow: var(--elevation-1);
+  padding: var(--space-5);
+  box-sizing: border-box;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.label {
+  font: var(--type-label-lg);
+  color: var(--on-surface-variant);
+}
+
+.labelError {
+  color: var(--error);
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-field);
+  border: 1px solid var(--outline);
+  background: var(--surface);
+  box-sizing: border-box;
+}
+
+.inputWrapper:focus-within {
+  outline: 2px solid var(--primary);
+  outline-offset: -1px;
+}
+
+.inputWrapperError {
+  border-color: var(--error);
+}
+
+.input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  background: none;
+  font: var(--type-body-lg);
+  color: var(--on-surface);
+  outline: none;
+}
+
+.errorText {
+  font: var(--type-body-sm);
+  color: var(--error);
+}
+
+.helperText {
+  font: var(--type-body-sm);
+  color: var(--on-surface-variant);
+}
+
+.cambiosTasaSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.cambioRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--space-3);
+  align-items: end;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--outline-variant);
+}
+
+.cambioRow:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.removeRowButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--error);
+  cursor: pointer;
+}
+
+.removeRowButton:hover {
+  background: color-mix(in srgb, var(--error) 8%, transparent);
+}
+
+.addRowButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: flex-start;
+  padding: var(--space-2) var(--space-3);
+  border: 1px dashed var(--outline);
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--primary);
+  font: var(--type-label-lg);
+  cursor: pointer;
+}
+
+.addRowButton:hover {
+  background: var(--surface-container);
+}
+
+.summaryPanel {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.summaryTitle {
+  font: var(--type-title-md);
+  margin: 0;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.summaryLabel {
+  font: var(--type-label-md);
+}
+
+.summaryValue {
+  font: var(--type-title-md);
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.summaryPlaceholder {
+  font: var(--type-body-sm);
+  color: var(--on-primary-container);
+  opacity: 0.8;
+}
+
+.statusRegion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.busyRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--on-surface-variant);
+  font: var(--type-body-md);
+}
+
+.spinner {
+  animation: spin var(--duration-long, 400ms) linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.resultBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  font: var(--type-body-md);
+}
+
+.successBlock {
+  background: var(--success-container);
+  color: var(--success);
+}
+
+.errorBlock {
+  background: var(--error-container);
+  color: var(--on-error-container);
+}
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.submitButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 48px;
+  padding: 0 var(--space-5);
+  border: none;
+  border-radius: var(--radius-button);
+  background: var(--primary);
+  color: var(--on-primary);
+  font: var(--type-label-lg);
+  box-shadow: var(--elevation-1);
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (min-width: 600px) {
+  .formGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fieldWide {
+    grid-column: 1 / -1;
+  }
+
+  .layout {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .summaryPanel {
+    position: sticky;
+    top: var(--space-4);
+  }
+}
