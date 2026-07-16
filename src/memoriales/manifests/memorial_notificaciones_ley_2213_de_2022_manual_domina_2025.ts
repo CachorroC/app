@@ -30,6 +30,7 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
             label   : 'nombre',
             type    : 'text',
             required: true,
+            format  : 'upper',
           },
         ],
       },
@@ -41,6 +42,7 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
             label   : 'cuantia_value',
             type    : 'text',
             required: true,
+            format  : 'upper',
           },
           {
             name    : 'guia_number',
@@ -66,6 +68,7 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
             label   : 'tipo_proceso',
             type    : 'text',
             required: true,
+            format  : 'upper',
           },
         ],
       },
@@ -99,7 +102,7 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
           {
             name    : 'numero',
             label   : 'Número del juzgado (dígitos)',
-            type    : 'text',
+            type    : 'number',
             required: true,
           },
           {
@@ -134,6 +137,7 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
             label   : 'Año del radicado',
             type    : 'number',
             required: true,
+            format  : 'radicado',
           },
         ],
       },
