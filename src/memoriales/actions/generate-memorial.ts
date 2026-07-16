@@ -7,12 +7,14 @@ import { buildContext } from '#@/memoriales/lib/build-context';
 const RENDER_URL
   = process.env.MEMORIALES_RENDER_URL ?? 'http://127.0.0.1:8787/render';
 
+/** Tags why a `GenerateResult` failed, so callers can branch UI messaging accordingly. */
 export type GenerateErrorSource =
   | 'validation'
   | 'unknown-template'
   | 'render-service-unreachable'
   | 'render-service-error';
 
+/** Return shape of `generateMemorial`: either the generated document, or a failure with details. */
 export type GenerateResult =
   | { ok: true; filename: string; base64: string }
   | {
@@ -23,6 +25,15 @@ export type GenerateResult =
     technical?  : string;
   };
 
+/**
+ * Server action that generates a memorial document: looks up the template, validates
+ * `rawValues` against its schema, builds the render context, and POSTs it to the Python
+ * render microservice. Maps validation and HTTP failures to Spanish user-facing
+ * messages; on success returns the .docx bytes as base64 for client-side download.
+ * @param templateId - the id of the memorial template to render.
+ * @param rawValues - the raw, unvalidated form values submitted by the client.
+ * @returns a `GenerateResult` describing success (filename + base64 docx) or failure.
+ */
 export async function generateMemorial(
   templateId: string,
   rawValues: unknown,

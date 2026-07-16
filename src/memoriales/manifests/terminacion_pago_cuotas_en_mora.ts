@@ -1,5 +1,10 @@
 import type { MemorialTemplate } from './types';
 
+/**
+ * MemorialTemplate manifest for the memorial terminating a process due to
+ * payment of overdue installments, rendered from
+ * templates/terminacion_pago_cuotas_en_mora.docx.
+ */
 export const terminacion_pago_cuotas_en_mora: MemorialTemplate = {
   id         : 'terminacion_pago_cuotas_en_mora',
   filename   : 'terminacion_pago_cuotas_en_mora.docx',

@@ -9,6 +9,12 @@ import { AutofillContextProvider, useAutofill } from './autofill-context';
 import { assembleSubmitValues, defaultValuesForTemplate } from './values';
 import styles from './memorial-form.module.css';
 
+/**
+ * Props for `MemorialForm` — the `MemorialTemplate` whose groups drive the
+ * rendered fields, the `onSubmit` callback invoked with schema-validated
+ * values, whether the form is disabled (e.g. while a submission is in
+ * flight), and the label shown on the submit button.
+ */
 interface MemorialFormProps {
   template   : MemorialTemplate;
   // eslint-disable-next-line no-unused-vars -- type-only signature, not a real binding
@@ -17,6 +23,19 @@ interface MemorialFormProps {
   submitLabel: string;
 }
 
+/**
+ * Assembles a `MemorialTemplate`'s field groups into a react-hook-form-driven
+ * form.
+ *
+ * On submit, converts the raw RHF values into submit-ready shape via
+ * `assembleSubmitValues` and validates them against `buildSchema(template)`;
+ * on failure, sets RHF field errors from the Zod issues and focuses the
+ * first invalid field, otherwise calls `onSubmit` with the parsed data. Also
+ * wires up the autofill context and the reset-to-defaults behavior. Renders
+ * one `Fieldset` per group plus a `SubmitBar`.
+ *
+ * @param props - See {@link MemorialFormProps}.
+ */
 export function MemorialForm( {
   template,
   onSubmit,

@@ -4,14 +4,17 @@ import { useEffect, useState } from 'react';
 import { getCarpetasLookup } from '#@/memoriales/actions/get-carpetas-lookup';
 import type { CarpetaLookup } from './carpeta-lookup';
 
+/** Memoization cell so the lookup fetch only happens once per page session. */
 let cachedPromise: Promise<CarpetaLookup[]> | null = null;
 
+/** Lazily initializes `cachedPromise` via `getCarpetasLookup()` if unset, and returns it. */
 function fetchCarpetasLookup(): Promise<CarpetaLookup[]> {
   cachedPromise ??= getCarpetasLookup();
 
   return cachedPromise;
 }
 
+/** Shape returned by `useCarpetasLookup`. */
 interface UseCarpetasLookupResult {
   data   : CarpetaLookup[];
   loading: boolean;

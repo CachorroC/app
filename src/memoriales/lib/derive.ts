@@ -1,3 +1,4 @@
+/** Spanish masculine ordinal words for digits 0-9 (index 0 is unused). Lookup table for `ordinalMasculino`. */
 const UNITS = [
   '',
   'primero',
@@ -10,6 +11,7 @@ const UNITS = [
   'octavo',
   'noveno',
 ];
+/** Spanish masculine ordinal words for tens, 0-90 in steps of ten. Lookup table for `ordinalMasculino`. */
 const TENS = [
   '',
   'décimo',

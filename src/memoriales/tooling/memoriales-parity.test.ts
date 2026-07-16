@@ -64,8 +64,14 @@ function manifestPaths(
   };
 }
 
+/**
+ * Returns the elements present in `a` but not in `b`.
+ * @param a - The set to diff from.
+ * @param b - The set to diff against.
+ * @returns Elements of `a` that are absent from `b`.
+ */
 const diff = (
-  a: Set<string>, b: Set<string> 
+  a: Set<string>, b: Set<string>
 ): string[] => {
   return [
     ...a

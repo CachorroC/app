@@ -11,6 +11,13 @@ const REGISTRY_PATH = fileURLToPath( new URL(
   '../manifests/registry.ts', import.meta.url
 ) );
 
+/**
+ * Entry point: builds the import statements and registry entries from every
+ * manifest returned by {@link discoverManifests}, assembles the full
+ * generated `registry.ts` file content, and compares it against the current
+ * on-disk file. Only writes to disk when the content actually changed, and
+ * logs a summary line whenever it does write.
+ */
 const main = async () => {
   const manifests = await discoverManifests();
 
@@ -32,10 +39,22 @@ const main = async () => {
 import type { MemorialTemplate } from './types';
 ${ imports }
 
+/**
+ * Lookup map from template id to its \`MemorialTemplate\` manifest, built from
+ * every manifest module discovered under \`manifests/\`.
+ * Auto-generated — do not edit by hand, regenerate via \`pnpm memoriales:generate-registry\`.
+ */
 export const memorialesRegistry = {
 ${ entries }
 } satisfies Record<string, MemorialTemplate>;
 
+/**
+ * Looks up a \`MemorialTemplate\` by its id in {@link memorialesRegistry}.
+ * Used by \`actions/generate-memorial.ts\` and the template-selector UI to
+ * resolve a template id into its manifest.
+ * @param id - The template's \`id\`.
+ * @returns The matching \`MemorialTemplate\`, or \`undefined\` if no template with that id exists.
+ */
 export const getTemplateById = ( id: string ): MemorialTemplate | undefined => {
   return ( memorialesRegistry as Record<string, MemorialTemplate> )[ id ];
 };

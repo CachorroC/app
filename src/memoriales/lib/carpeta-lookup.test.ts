@@ -3,6 +3,12 @@ import assert from 'node:assert/strict';
 import type { IntCarpeta } from '#@/lib/types/carpetas';
 import { toCarpetaLookup } from './carpeta-lookup';
 
+/**
+ * Builds a fully-populated `IntCarpeta` fixture with sensible defaults, so each test
+ * only needs to override the fields relevant to the scenario it exercises.
+ * @param overrides - Partial fields to override on the base fixture.
+ * @returns A complete `IntCarpeta` object for use in `toCarpetaLookup` tests.
+ */
 function baseCarpeta( overrides: Partial<IntCarpeta> ): IntCarpeta {
   return {
     category           : 'SinEspecificar',

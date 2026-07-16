@@ -18,6 +18,7 @@ const EXCLUDED_FILES = new Set( [
   'registry.ts'
 ] );
 
+/** Shape of one discovered manifest module: which file it came from, how to import it, the name of its exported template binding, and the resolved `MemorialTemplate` itself. */
 export interface DiscoveredManifest {
   file           : string;
   moduleSpecifier: string;
@@ -25,6 +26,14 @@ export interface DiscoveredManifest {
   template       : MemorialTemplate;
 }
 
+/**
+ * Duck-types a value to decide whether it's a `MemorialTemplate` export.
+ * Manifest files don't use a consistent exported identifier name, so
+ * `discoverManifests` has to scan each module's exports and pick out the
+ * one that looks like a template rather than importing a known name.
+ * @param v - Candidate export value from a manifest module.
+ * @returns True if `v` has the string `id`/`filename`/`displayName` and array `groups` fields of a `MemorialTemplate`.
+ */
 const isMemorialTemplate = ( v: unknown ): v is MemorialTemplate => {
   return typeof v === 'object' && v !== null
     && typeof ( v as Record<string, unknown> ).id === 'string'
@@ -33,6 +42,16 @@ const isMemorialTemplate = ( v: unknown ): v is MemorialTemplate => {
     && Array.isArray( ( v as Record<string, unknown> ).groups );
 };
 
+/**
+ * Reads every manifest file under `manifests/` (skipping `types.ts`, `registry.ts`,
+ * test files and `.d.ts` files), dynamically imports each one, and locates its
+ * `MemorialTemplate` export via {@link isMemorialTemplate}. Asserts that each
+ * template's `id` matches its file's basename and that no `id` is duplicated
+ * across files. This is the single source of truth both `generate-registry.ts`
+ * (to build `registry.ts`) and `registry-completeness.test.ts` (to assert the
+ * registry stays in sync) rely on.
+ * @returns The full list of discovered manifests, in filename order.
+ */
 export const discoverManifests = async (): Promise<DiscoveredManifest[]> => {
   const files = readdirSync( MANIFESTS_DIR )
     .filter( ( file ) => {

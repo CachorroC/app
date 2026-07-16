@@ -21,12 +21,14 @@ const {
 
 // --- 1. Group the raw dotted/loop paths into draft field groups -----------------------
 
+/** Intermediate shape used while grouping raw extracted docx paths, before they're converted into real `FieldDef`s. */
 type FieldMeta = {
   name       : string;
   boolean?   : boolean;
   stringList?: boolean;
 };
 
+/** Internal draft representation of a field group being assembled: its group key (if any), whether it's repeatable, and the `FieldMeta`s collected for it so far. */
 type Draft = {
   key?       : string;
   repeatable?: boolean;
@@ -35,6 +37,13 @@ type Draft = {
 
 const groups = new Map<string, Draft>();
 
+/**
+ * Gets or creates a `Draft` field group in `groups`, keyed by `key` (or
+ * `'__root__'` for top-level scalars). Optionally marks the group repeatable.
+ * @param key - The group key, or `undefined` for the root scalar group.
+ * @param repeatable - Whether the group represents a repeatable object array.
+ * @returns The existing or newly created `Draft` for that key.
+ */
 const ensure = (
   key: string | undefined, repeatable = false
 ): Draft => {
@@ -80,6 +89,14 @@ const placeClean = (
   } ); // juzgado
 };
 
+/**
+ * Routes a raw extracted docx path into the right group, via three shape
+ * checks: `group[].field` object-array paths go into a repeatable group,
+ * `name[]` scalar-array paths become a `stringList` field, and everything
+ * else is placed as a plain scalar/boolean field via {@link placeClean}.
+ * @param path - Raw dotted/loop path from `extractDocxTags`.
+ * @param isBoolean - Whether this path came from a `{% if %}` condition.
+ */
 const place = (
   path: string, isBoolean = false
 ) => {
@@ -130,12 +147,15 @@ booleans.forEach( ( b ) => {
 // underscore (see aportando-291-y-292.docx) — the field `name` must stay whatever the
 // .docx says, so both spellings are matched here for the *rule*, never for renaming.
 
+/** Shape of a per-field-name override rule applied when guessing a field's definition. */
 type FieldRule = Partial<Pick<FieldDef, 'type' | 'format' | 'derived' | 'options'>>;
 
+/** Reusable `FieldRule` for `tipo_proceso`-like fields (uppercased). */
 const tipoProcesoRule: FieldRule = {
   format: 'upper'
 };
 
+/** Lookup table of known field-name to `FieldRule` overrides, keyed by field name, used by {@link buildField} to produce better-guessed drafts than pure heuristics would. */
 const FIELD_RULES: Record<string, FieldRule> = {
   'deudor.nombre': {
     format: 'upper'
@@ -179,6 +199,11 @@ const FIELD_RULES: Record<string, FieldRule> = {
   },
 };
 
+/**
+ * Heuristically infers a `FieldType` from a field's name.
+ * @param name - The field's name.
+ * @returns `'number'` for cedula/nit/numero/cantidad/monto/valor/total-like names, `'date'` for fecha-like names, else `'text'`.
+ */
 const guessType = ( name: string ): FieldType => {
   if ( /cedula|nit|numero|cantidad|monto|valor|total/i.test( name ) ) {
     return 'number';
@@ -191,6 +216,14 @@ const guessType = ( name: string ): FieldType => {
   return 'text';
 };
 
+/**
+ * Converts a `FieldMeta` plus its full dotted path into a real `FieldDef`,
+ * applying any matching {@link FIELD_RULES} override and defaulting
+ * non-boolean/non-derived fields to `required: true`.
+ * @param meta - The grouped field metadata.
+ * @param fullPath - The field's full dotted path (`group.field`, or just `field` for root scalars), used to look up a `FIELD_RULES` override.
+ * @returns The resulting `FieldDef`.
+ */
 const buildField = (
   meta: FieldMeta, fullPath: string
 ): FieldDef => {
@@ -236,6 +269,13 @@ const buildField = (
   return field;
 };
 
+/**
+ * Converts an internal `Draft` into an exported `FieldGroup`, mapping each
+ * field through {@link buildField} and setting `legend` to the group key or
+ * `'Datos generales'` for the root group.
+ * @param draft - The draft field group to finalize.
+ * @returns The resulting `FieldGroup`.
+ */
 const toFieldGroup = ( draft: Draft ): FieldGroup => {
   const fields = draft.fields.map( ( meta ) => {
     const fullPath = draft.key
@@ -271,6 +311,12 @@ let fieldGroups = [
 // e.g. `has_anexos` (boolean) + `anexos_list` (stringList) -> a dedicated "Anexos" group,
 // matching every hand-enriched manifest that has an optional attachments list.
 
+/**
+ * Turns a snake_case base name into a human label by replacing underscores
+ * with spaces and capitalizing the first letter (e.g. `anexos` -> `Anexos`).
+ * @param base - The snake_case base name.
+ * @returns The humanized label.
+ */
 const humanize = ( base: string ): string => {
   const spaced = base.replace(
     /_/g, ' '
@@ -351,6 +397,7 @@ if ( deudorIndex > 0 ) {
 
 // --- 4. autofill: gated on `deudor.nombre`, fieldMap built from what's actually there --
 
+/** Known dotted form paths that are candidates for autofill mapping from `CarpetaLookup`, each with the alternate raw path spellings that can produce it and the target field to map onto. */
 const AUTOFILL_CANDIDATES: { paths: string[]; target: string }[] = [
   {
     paths: [
@@ -397,6 +444,13 @@ const AUTOFILL_CANDIDATES: { paths: string[]; target: string }[] = [
   },
 ];
 
+/**
+ * Given the raw extracted docx paths, checks for `deudor.nombre` (the
+ * autofill trigger) and builds a `fieldMap` from whichever
+ * {@link AUTOFILL_CANDIDATES} paths are present in the template.
+ * @param rawPaths - The raw dotted/loop paths extracted from the docx.
+ * @returns The resulting `AutofillConfig`, or `undefined` if there's no trigger or no matching candidates.
+ */
 const buildAutofill = ( rawPaths: string[] ): AutofillConfig | undefined => {
   const pathSet = new Set( rawPaths );
 
@@ -465,6 +519,12 @@ const draftTemplate: MemorialTemplate = {
 const WIDTH = 96;
 const INDENT = '  ';
 
+/**
+ * Escapes backslashes and single quotes for embedding a string inside a
+ * single-quoted TS string literal in generated source.
+ * @param s - The raw string.
+ * @returns The escaped string, safe to wrap in single quotes.
+ */
 const escapeString = ( s: string ): string => {
   return s.replace(
     /\\/g, '\\\\'
@@ -474,20 +534,24 @@ const escapeString = ( s: string ): string => {
     );
 };
 
+/** Type guard: true for non-null, non-array object values. */
 const isPlainObject = ( v: unknown ): v is Record<string, unknown> => {
   return typeof v === 'object' && v !== null && !Array.isArray( v );
 };
 
+/** True if `key` is a valid bare (unquoted) JS identifier/object key. */
 const isKeyBare = ( key: string ): boolean => {
   return /^[A-Za-z_$][\w$]*$/.test( key );
 };
 
+/** Returns `key` as-is if it's a bare/valid identifier, else wraps and escapes it as a quoted string literal, for generated object-literal source. */
 const serializeKey = ( key: string ): string => {
   return isKeyBare( key )
     ? key
     : `'${ escapeString( key ) }'`;
 };
 
+/** Serializes a string/number/boolean to its TS source-literal form (quoting and escaping strings). */
 const serializePrimitive = ( v: string | number | boolean ): string => {
   if ( typeof v === 'string' ) {
     return `'${ escapeString( v ) }'`;
@@ -557,6 +621,16 @@ const tryInline = ( v: unknown ): string | null => {
   return null;
 };
 
+/**
+ * The recursive pretty-printer used to emit the final draft manifest as
+ * formatted TS source. Tries {@link tryInline}'s one-line rendering first —
+ * if it fits within `WIDTH` at the current indent, uses that; otherwise
+ * recursively renders arrays/objects one entry per line, indented by
+ * `INDENT` per nesting level.
+ * @param v - The value to serialize.
+ * @param indent - Current nesting depth, in `INDENT` units.
+ * @returns The TS source text for `v`.
+ */
 const serialize = (
   v: unknown, indent: number
 ): string => {

@@ -1,3 +1,4 @@
+/** MIME type used to construct the Blob for the .docx download. */
 const DOCX_MIME
   = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 

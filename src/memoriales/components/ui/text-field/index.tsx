@@ -1,6 +1,11 @@
 import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
 import styles from './text-field.module.css';
 
+/**
+ * Props for `TextField` — native `<input>` attributes (minus `className`)
+ * plus `label`, an optional `error` message, `helperText`, a `leadingIcon`,
+ * and a `requiredMark` toggle for the "*" indicator.
+ */
 interface TextFieldProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'className'
@@ -12,6 +17,14 @@ interface TextFieldProps extends Omit<
   requiredMark?: boolean;
 }
 
+/**
+ * Full-featured styled text input with a label, optional leading icon,
+ * required marker, error message, and helper text — the base building
+ * block for most scalar and lookup fields in the memoriales form.
+ *
+ * @param props - See {@link TextFieldProps}.
+ * @param ref - Forwarded to the underlying `<input>` element.
+ */
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>( function TextField(
   {
     label,

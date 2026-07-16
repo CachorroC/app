@@ -5,9 +5,15 @@ import { Icon } from '#@/components/ui';
 import { Button } from '../ui/button';
 import styles from './generation-status.module.css';
 
+/** Drives which UI state `GenerationStatus` renders for a memorial document generation attempt. */
 export type GenerationState =
   'idle' | 'validating' | 'generating' | 'success' | 'error';
 
+/**
+ * Props for `GenerationStatus` — the current generation `status`, optional
+ * error details to show when `status === 'error'`, and the action callbacks
+ * for downloading the result, starting a new generation, or retrying.
+ */
 interface GenerationStatusProps {
   status           : GenerationState;
   errorMessage?    : string;
@@ -17,6 +23,17 @@ interface GenerationStatusProps {
   onRetry          : () => void;
 }
 
+/**
+ * Renders an `aria-live` status region for a memorial document generation flow.
+ *
+ * Shows a spinner for `validating`/`generating`, a success block (Download /
+ * Generate-another actions) for `success`, an error block (message, a
+ * collapsible technical detail, and a Retry action) for `error`, and nothing
+ * for `idle`. Auto-focuses the primary action button on success/error
+ * transitions for accessibility.
+ *
+ * @param props - See {@link GenerationStatusProps}.
+ */
 export function GenerationStatus( {
   status,
   errorMessage,

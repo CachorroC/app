@@ -7,6 +7,13 @@ import type { CarpetaLookup } from '#@/memoriales/lib/carpeta-lookup';
 import { useCarpetasLookup } from '#@/memoriales/lib/use-carpetas-lookup';
 import { getPath } from '#@/memoriales/lib/get-path';
 
+/**
+ * Shape of the memorial-form autofill context — the manifest's designated
+ * lookup trigger field, the fetched lookup `options`, their `loading` state,
+ * `applyCarpeta` to push a selected case folder's data into the form,
+ * `notifyManualEdit` to mark a field as user-edited (so autofill won't
+ * overwrite it), and `resetEdited` to clear that edited-set on form reset.
+ */
 export interface AutofillContextValue {
   triggerField    : string;
   options         : CarpetaLookup[];
@@ -18,12 +25,15 @@ export interface AutofillContextValue {
   resetEdited     : () => void;
 }
 
+/** React context carrying the active `AutofillContextValue`, or `null` when the template has no autofill config. */
 const AutofillContext = createContext<AutofillContextValue | null>( null );
 
+/** Reads the current `AutofillContextValue`; returns `null` when no `AutofillContextProvider` is active or the template has no autofill config. */
 export function useAutofillContext(): AutofillContextValue | null {
   return useContext( AutofillContext );
 }
 
+/** Re-export of `AutofillContext.Provider`, used by `MemorialForm` to expose the autofill state to its fields. */
 export const AutofillContextProvider = AutofillContext.Provider;
 
 /** No-ops when the template has no `autofill` config, so callers can always read the context safely. */

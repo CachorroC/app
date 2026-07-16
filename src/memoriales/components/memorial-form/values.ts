@@ -1,12 +1,20 @@
 import type { FieldGroup,
   MemorialTemplate, } from '#@/memoriales/manifests/types';
 
+/** Generic bag of form values keyed by field/group name, used throughout this module. */
 type ValuesRecord = Record<string, unknown>;
 
+/** Type guard for plain, non-null, non-array objects — narrows `unknown` group values to `ValuesRecord`. */
 function isRecord( value: unknown ): value is ValuesRecord {
   return typeof value === 'object' && value !== null && !Array.isArray( value );
 }
 
+/**
+ * Returns the react-hook-form default value for a field, based on its
+ * manifest `type`: `false` for boolean, a single empty row (`[{ value: '' }]`)
+ * for `stringList` (the shadow shape `useFieldArray` needs), and `''`
+ * otherwise.
+ */
 function defaultForField( field: { type: string } ): unknown {
   if ( field.type === 'boolean' ) {
     return false;
@@ -23,6 +31,7 @@ function defaultForField( field: { type: string } ): unknown {
   return '';
 }
 
+/** Builds the default `ValuesRecord` for all non-derived fields in a `FieldGroup`, via `defaultForField`. */
 function defaultGroupValues( group: FieldGroup ): ValuesRecord {
   const result: ValuesRecord = {};
 
@@ -56,6 +65,13 @@ export function defaultValuesForTemplate( template: MemorialTemplate, ): ValuesR
   return values;
 }
 
+/**
+ * Converts one group's raw react-hook-form values into submit-ready values.
+ *
+ * Resolves the group's boolean gate field (if any) to decide whether its
+ * `stringList` rows should be included; when included, trims each row and
+ * filters out empty ones. Derived fields are skipped entirely.
+ */
 function assembleGroupValues(
   group: FieldGroup,
   rawGroup: ValuesRecord,

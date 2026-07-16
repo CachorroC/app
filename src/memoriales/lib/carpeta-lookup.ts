@@ -1,5 +1,10 @@
 import type { IntCarpeta } from '#@/lib/types/carpetas';
 
+/**
+ * The trimmed carpeta shape used for client-side form autofill: identifying info plus
+ * the juzgado and radicado subsets a memorial template may need. Returned by
+ * `getCarpetasLookup`/`toCarpetaLookup` and consumed by `useCarpetasLookup`.
+ */
 export interface CarpetaLookup {
   numero      : number;
   nombre      : string;
@@ -17,6 +22,7 @@ export interface CarpetaLookup {
   llaveProceso: string | null;
 }
 
+/** Fixed digit width the radicado "número" is zero-padded to. Consumed by `parseRadicado`. */
 const RADICADO_NUMERO_LENGTH = 5;
 
 /** DB stores radicado as `"<año>-<numero>"`; the número side is padded to match the 5-digit consecutivo used on the templates. */
@@ -52,6 +58,13 @@ function parseRadicado( raw: string | null | undefined ): {
   };
 }
 
+/**
+ * Builds the debtor's full display name by joining the non-empty name parts
+ * (primer/segundo nombre, primer/segundo apellido). Falls back to `carpeta.nombre`
+ * when there is no debtor or all name parts are empty.
+ * @param carpeta - the raw carpeta record.
+ * @returns the composed debtor name, or `carpeta.nombre` as a fallback.
+ */
 function composeDeudorNombre( carpeta: IntCarpeta ): string {
   if ( !carpeta.deudor ) {
     return carpeta.nombre;
@@ -71,6 +84,13 @@ function composeDeudorNombre( carpeta: IntCarpeta ): string {
     : carpeta.nombre;
 }
 
+/**
+ * Maps a raw `IntCarpeta` domain record into the trimmed `CarpetaLookup` DTO, extracting
+ * juzgado/radicado fields with null fallbacks and normalizing tipoProceso/llaveProceso.
+ * Used by `getCarpetasLookup`.
+ * @param carpeta - the raw carpeta record from the domain layer.
+ * @returns the lookup DTO for client-side autofill.
+ */
 export function toCarpetaLookup( carpeta: IntCarpeta ): CarpetaLookup {
   return {
     numero      : carpeta.numero,

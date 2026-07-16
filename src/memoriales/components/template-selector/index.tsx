@@ -4,6 +4,11 @@ import { Icon } from '#@/components/ui';
 import type { MemorialTemplate } from '#@/memoriales/manifests/types';
 import styles from './template-selector.module.css';
 
+/**
+ * Props for `TemplateSelector` — the available `templates`, the currently
+ * `selectedId` (or `null` if none), and the callback fired when the user
+ * picks a template.
+ */
 interface TemplateSelectorProps {
   templates : MemorialTemplate[];
   selectedId: string | null;
@@ -11,6 +16,13 @@ interface TemplateSelectorProps {
   onSelect  : ( id: string ) => void;
 }
 
+/**
+ * Renders the memorial template picker: a `<select>` dropdown and a
+ * clickable, keyboard-accessible card grid of templates, both kept in sync
+ * via `selectedId`/`onSelect`.
+ *
+ * @param props - See {@link TemplateSelectorProps}.
+ */
 export function TemplateSelector( {
   templates,
   selectedId,

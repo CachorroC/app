@@ -1,5 +1,9 @@
 import type { MemorialTemplate } from './types';
 
+/**
+ * MemorialTemplate manifest for the base/reference memorial template,
+ * rendered from templates/base.docx.
+ */
 export const base: MemorialTemplate = {
   id         : 'base',
   filename   : 'base.docx',

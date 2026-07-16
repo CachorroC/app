@@ -1,6 +1,13 @@
 import { z } from 'zod';
 import type { FieldDef, MemorialTemplate } from '#@/memoriales/manifests/types';
 
+/**
+ * Given a field definition, returns the matching Zod validator for its declared type
+ * (number/currency coerced to number, boolean, stringList, select mapped to an enum,
+ * else plain string), using Spanish user-facing error messages.
+ * @param field - the field definition to build a validator for.
+ * @returns a Zod schema enforcing that field's type and required-ness.
+ */
 function fieldSchema( field: FieldDef ): z.ZodTypeAny {
   if ( field.type === 'number' || field.type === 'currency' ) {
     const base = z.coerce.number( {
@@ -51,6 +58,12 @@ function fieldSchema( field: FieldDef ): z.ZodTypeAny {
         .optional();
 }
 
+/**
+ * Builds a Zod object shape from a group's field definitions, skipping derived fields
+ * (which are computed rather than user-supplied).
+ * @param fields - the group's field definitions.
+ * @returns a shape mapping field name to its Zod validator.
+ */
 function groupShape( fields: FieldDef[] ): Record<string, z.ZodTypeAny> {
   const shape: Record<string, z.ZodTypeAny> = {};
 
@@ -65,6 +78,14 @@ function groupShape( fields: FieldDef[] ): Record<string, z.ZodTypeAny> {
   return shape;
 }
 
+/**
+ * Dynamically builds a Zod validation schema from a memorial template's field groups,
+ * for server-side validation. Nests grouped fields under their group key (wrapping in
+ * `z.array` when the group is repeatable) and inlines ungrouped fields at the top level.
+ * Used by `generateMemorial` to `safeParse` raw client input.
+ * @param template - the memorial template describing the fields to validate.
+ * @returns a Zod object schema matching the template's shape.
+ */
 export function buildSchema( template: MemorialTemplate, ): z.ZodObject<z.ZodRawShape> {
   const shape: Record<string, z.ZodTypeAny> = {};
 

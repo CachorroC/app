@@ -1,5 +1,9 @@
 import type { MemorialTemplate } from './types';
 
+/**
+ * MemorialTemplate manifest for the memorial requesting oficios for medidas
+ * cautelares, rendered from templates/solicitud_oficios_medidas_cautelares.docx.
+ */
 export const solicitud_oficios_medidas_cautelares: MemorialTemplate = {
   id         : 'solicitud_oficios_medidas_cautelares',
   filename   : 'solicitud_oficios_medidas_cautelares.docx',

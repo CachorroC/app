@@ -1,5 +1,10 @@
 import type { MemorialTemplate } from './types';
 
+/**
+ * MemorialTemplate manifest for the memorial aporting the credit
+ * liquidation to an executive process, rendered from
+ * templates/aportando-liquidacion-credito.docx.
+ */
 export const aportandoLiquidacionCredito: MemorialTemplate = {
   id         : 'aportando-liquidacion-credito',
   filename   : 'aportando-liquidacion-credito.docx',

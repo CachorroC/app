@@ -1,5 +1,11 @@
 import type { MemorialTemplate } from './types';
 
+/**
+ * MemorialTemplate manifest for the Ley 2213 de 2022 notifications memorial
+ * (Manual Domina 2025), including a guia_number/is_positiva field pair and
+ * an anexos group, rendered from
+ * templates/memorial_notificaciones_ley_2213_de_2022_manual_domina_2025.docx.
+ */
 export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: MemorialTemplate = {
   id         : 'memorial_notificaciones_ley_2213_de_2022_manual_domina_2025',
   filename   : 'memorial_notificaciones_ley_2213_de_2022_manual_domina_2025.docx',

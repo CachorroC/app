@@ -1,5 +1,9 @@
 import type { MemorialTemplate } from './types';
 
+/**
+ * MemorialTemplate manifest for the memorial pushing along calificación de
+ * la demanda, rendered from templates/impulso_calificacion_demanda.docx.
+ */
 export const impulso_calificacion_demanda: MemorialTemplate = {
   id         : 'impulso_calificacion_demanda',
   filename   : 'impulso_calificacion_demanda.docx',

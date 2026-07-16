@@ -1,5 +1,10 @@
 import type { MemorialTemplate } from './types';
 
+/**
+ * MemorialTemplate manifest for the memorial terminating a process due to
+ * full payment of the obligation, rendered from
+ * templates/terminacion_pago_total_de_obligacion.docx.
+ */
 export const terminacion_pago_total_de_obligacion: MemorialTemplate = {
   id         : 'terminacion_pago_total_de_obligacion',
   filename   : 'terminacion_pago_total_de_obligacion.docx',

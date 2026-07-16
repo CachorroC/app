@@ -11,6 +11,11 @@ import { solicitud_oficios_medidas_cautelares } from './solicitud_oficios_medida
 import { terminacion_pago_cuotas_en_mora } from './terminacion_pago_cuotas_en_mora';
 import { terminacion_pago_total_de_obligacion } from './terminacion_pago_total_de_obligacion';
 
+/**
+ * Lookup map from template id to its `MemorialTemplate` manifest, built from
+ * every manifest module discovered under `manifests/`.
+ * Auto-generated — do not edit by hand, regenerate via `pnpm memoriales:generate-registry`.
+ */
 export const memorialesRegistry = {
   [ aportando291y292.id ]: aportando291y292,
   [ aportandoLiquidacionCredito.id ]: aportandoLiquidacionCredito,
@@ -22,6 +27,13 @@ export const memorialesRegistry = {
   [ terminacion_pago_total_de_obligacion.id ]: terminacion_pago_total_de_obligacion,
 } satisfies Record<string, MemorialTemplate>;
 
+/**
+ * Looks up a `MemorialTemplate` by its id in {@link memorialesRegistry}.
+ * Used by `actions/generate-memorial.ts` and the template-selector UI to
+ * resolve a template id into its manifest.
+ * @param id - The template's `id`.
+ * @returns The matching `MemorialTemplate`, or `undefined` if no template with that id exists.
+ */
 export const getTemplateById = ( id: string ): MemorialTemplate | undefined => {
   return ( memorialesRegistry as Record<string, MemorialTemplate> )[ id ];
 };

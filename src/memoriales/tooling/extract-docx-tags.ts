@@ -3,15 +3,25 @@
 import { readFileSync } from 'node:fs';
 import { unzipSync, strFromU8 } from 'fflate';
 
+/** Normalized set of tags found in a template: scalar/interpolation paths, `{% if %}` condition variables, and `{% for %}` loop sources, respectively. */
 export interface ExtractedTemplate {
   paths   : string[]; // normalized scalar/interpolation paths: "deudor.nombre", "pagos[].fecha"
   booleans: string[]; // condition variables from {% if X %}
   arrays  : string[]; // loop sources: "pagos", "pagos[].abonos"
 }
 
+/** Matches the zip entry names of document/header/footer XML parts inside a .docx (e.g. `word/document.xml`, `word/header1.xml`) — these are the parts scanned for tags. */
 const XML_PART = /^word\/(document|header\d*|footer\d*)\.xml$/;
+/** Matches either a `{{ ... }}` interpolation (capture group 1) or a `{% ... %}` statement (capture group 2) in the joined template text. */
 const TOKEN = /\{\{\s*(.*?)\s*\}\}|\{%\s*(.*?)\s*%\}/g;
 
+/**
+ * Decodes the five basic XML entities (`&lt;` `&gt;` `&quot;` `&apos;` `&amp;`)
+ * back to their literal characters. Needed because text inside Word XML is
+ * entity-escaped, so tag tokens extracted from it must be unescaped first.
+ * @param s - Raw text pulled from a Word XML part.
+ * @returns The text with basic XML entities decoded.
+ */
 function decodeEntities( s: string ): string {
   return s
     .replace(
@@ -58,6 +68,17 @@ function leadingPath( expr: string ): string {
     .split( /[\s(+\-*/=<>!,]/ )[ 0 ];
 }
 
+/**
+ * Extracts every Jinja tag from a .docx template. Unzips the file, joins its
+ * XML text (so tags Word split across runs rejoin), scans for `{{ ... }}` and
+ * `{% ... %}` tokens, and tracks a loop stack so variables referenced inside a
+ * `{% for %}` block resolve to their `source[].field` form. Each tag is then
+ * classified into `paths`, `booleans`, or `arrays` and the result is sorted.
+ * Used by `scaffold-manifest.ts` to draft new manifests and by
+ * `memoriales-parity.test.ts` to check manifest/template parity.
+ * @param docxPath - Filesystem path to the .docx template.
+ * @returns The extracted, normalized, sorted tag paths.
+ */
 export function extractDocxTags( docxPath: string ): ExtractedTemplate {
   const text = joinedTemplateText( docxPath );
   const paths = new Set<string>();

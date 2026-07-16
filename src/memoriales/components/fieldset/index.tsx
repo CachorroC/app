@@ -6,12 +6,26 @@ import { getPath } from '#@/memoriales/lib/get-path';
 import { Field } from '../field';
 import styles from './fieldset.module.css';
 
+/**
+ * Props for `Fieldset` — the manifest `FieldGroup` to render, an optional
+ * dot-path prefix for nested/repeatable group RHF field paths, and whether
+ * the whole group is disabled.
+ */
 interface FieldsetProps {
   group      : FieldGroup;
   pathPrefix?: string;
   disabled?  : boolean;
 }
 
+/**
+ * Renders a `<fieldset>`/`<legend>` for one manifest field group.
+ *
+ * Implements the boolean-gate pattern: when the group has a boolean field,
+ * its `stringList` fields are hidden while the boolean is unchecked. Derived
+ * fields are never rendered directly. Visible fields are delegated to `Field`.
+ *
+ * @param props - See {@link FieldsetProps}.
+ */
 export function Fieldset( {
   group, pathPrefix, disabled 
 }: FieldsetProps ) {

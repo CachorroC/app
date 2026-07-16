@@ -4,6 +4,7 @@ import type { MemorialTemplate } from '#@/memoriales/manifests/types';
 import { buildContext } from './build-context';
 import { formatCurrencyCOP } from './formatters';
 
+/** Minimal template fixture covering nested groups, scalar/boolean/stringList fields, and a derived field; used across buildContext tests. */
 const fakeTemplate: MemorialTemplate = {
   id         : 'fake',
   filename   : 'fake.docx',
@@ -141,6 +142,7 @@ test(
   } 
 );
 
+/** Template fixture with `format: 'upper'` on both a plain field and a derived field, used to verify uppercasing applies to both. */
 const upperTemplate: MemorialTemplate = {
   id         : 'fake-upper',
   filename   : 'fake-upper.docx',
@@ -182,6 +184,7 @@ const upperTemplate: MemorialTemplate = {
   ],
 };
 
+/** Template fixture with a boolean field using `format: 'positivaNegativa'`, used to verify booleans render as POSITIVA/NEGATIVA text. */
 const positivaNegativaTemplate: MemorialTemplate = {
   id         : 'fake-positiva-negativa',
   filename   : 'fake-positiva-negativa.docx',

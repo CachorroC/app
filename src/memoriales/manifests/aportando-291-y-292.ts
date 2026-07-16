@@ -1,5 +1,9 @@
 import type { MemorialTemplate } from './types';
 
+/**
+ * MemorialTemplate manifest for the memorial aporting documents 291 and 292
+ * (with optional anexos), rendered from templates/aportando-291-y-292.docx.
+ */
 export const aportando291y292: MemorialTemplate = {
   id         : 'aportando-291-y-292',
   filename   : 'aportando-291-y-292.docx',

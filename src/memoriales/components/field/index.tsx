@@ -12,18 +12,33 @@ import textFieldStyles from '../ui/text-field/text-field.module.css';
 import fieldStyles from './field.module.css';
 import { LookupTextField } from './lookup-text-field';
 
+/**
+ * Shared prop shape for `Field` and its internal per-type renderers
+ * (`ScalarField`, `TextareaField`, `SelectField`, `BooleanField`, `StringListField`).
+ */
 interface FieldProps {
   field    : FieldDef;
   name     : string;
   disabled?: boolean;
 }
 
+/** Maps a scalar `FieldDef['type']` to its native HTML `<input type>` attribute; used by `ScalarField`. */
 const INPUT_TYPE: Partial<Record<FieldDef['type'], string>> = {
   number  : 'number',
   currency: 'number',
   date    : 'date',
 };
 
+/**
+ * Routes a manifest-driven `FieldDef` to the concrete input renderer for its type.
+ *
+ * Renders `LookupTextField` when this field is the active autofill trigger,
+ * otherwise dispatches on `field.type` (stringList/boolean/textarea/select),
+ * falling back to `ScalarField` for plain scalar types (text/number/currency/date).
+ *
+ * @param props - See {@link FieldProps}.
+ * @returns The input element appropriate for this field's type.
+ */
 export function Field( {
   field, name, disabled 
 }: FieldProps ) {
@@ -91,6 +106,13 @@ export function Field( {
   );
 }
 
+/**
+ * Renders a single-line `TextField` bound to react-hook-form via `useController`
+ * for scalar field types (text/number/currency/date), notifying the autofill
+ * context of manual edits so autofill won't later overwrite them.
+ *
+ * @param props - See {@link FieldProps}.
+ */
 function ScalarField( {
   field, name, disabled 
 }: FieldProps ) {
@@ -130,6 +152,13 @@ function ScalarField( {
   );
 }
 
+/**
+ * Renders a multi-line `<textarea>` bound to react-hook-form via `useController`,
+ * with label, required marker, error message, and help text, notifying the
+ * autofill context of manual edits.
+ *
+ * @param props - See {@link FieldProps}.
+ */
 function TextareaField( {
   field, name, disabled 
 }: FieldProps ) {
@@ -201,6 +230,13 @@ function TextareaField( {
   );
 }
 
+/**
+ * Renders a native `<select>` populated from `field.options`, bound to
+ * react-hook-form via `useController`, notifying the autofill context of
+ * manual edits.
+ *
+ * @param props - See {@link FieldProps}.
+ */
 function SelectField( {
   field, name, disabled 
 }: FieldProps ) {
@@ -282,6 +318,13 @@ function SelectField( {
   );
 }
 
+/**
+ * Renders a `Switch` plus its label for boolean fields — typically a gate
+ * field (e.g. "has anexos") that toggles visibility of a related stringList
+ * field in `Fieldset`.
+ *
+ * @param props - See {@link FieldProps}.
+ */
 function BooleanField( {
   field, name, disabled 
 }: FieldProps ) {
@@ -318,6 +361,13 @@ function BooleanField( {
   );
 }
 
+/**
+ * Renders a dynamic list of text inputs (via `useFieldArray`) for `stringList`
+ * fields, such as attachment/anexo names — one row per entry with a delete
+ * `IconButton`, plus an "Agregar anexo" `Button` to append a new row.
+ *
+ * @param props - See {@link FieldProps}.
+ */
 function StringListField( {
   field, name, disabled 
 }: FieldProps ) {
