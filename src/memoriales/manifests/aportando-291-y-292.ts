@@ -14,6 +14,7 @@ export const aportando291y292: MemorialTemplate = {
       'radicado.numero': 'radicado.numero',
       'radicado.año'   : 'radicado.año',
       tipoproceso      : 'tipoProceso',
+      llaveProceso     : 'llaveProceso'
     },
   },
   groups: [
@@ -119,6 +120,12 @@ export const aportando291y292: MemorialTemplate = {
           type    : 'date',
           required: true,
           format  : 'dateLong',
+        },
+        {
+          name    : 'llaveProceso',
+          label   : 'llaveProceso',
+          type    : 'text',
+          required: true
         },
       ],
     },
