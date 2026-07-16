@@ -16,7 +16,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import Response
 from pydantic import BaseModel
 
-ID_RE = re.compile(r"^[a-z0-9-]+$")
+ID_RE = re.compile(r"^[a-z0-9_-]+$")
 
 _env_dir = os.environ.get("MEMORIALES_TEMPLATES_DIR")
 if _env_dir:

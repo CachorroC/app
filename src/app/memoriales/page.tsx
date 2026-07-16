@@ -42,6 +42,10 @@ export default function MemorialesPage() {
     setErrorMessage
   ] = useState<string | undefined>();
   const [
+    technicalDetail,
+    setTechnicalDetail
+  ] = useState<string | undefined>();
+  const [
     downloadPayload,
     setDownloadPayload
   ]
@@ -64,6 +68,7 @@ export default function MemorialesPage() {
     setView( 'form' );
     setStatus( 'idle' );
     setErrorMessage( undefined );
+    setTechnicalDetail( undefined );
     setDownloadPayload( null );
     setLastValues( null );
   }
@@ -82,7 +87,7 @@ export default function MemorialesPage() {
     setStatus( 'generating' );
 
     const result = await generateMemorial(
-      selectedTemplate.id, values 
+      selectedTemplate.id, values
     );
 
     if ( result.ok ) {
@@ -93,6 +98,7 @@ export default function MemorialesPage() {
       setStatus( 'success' );
     } else {
       setErrorMessage( result.message );
+      setTechnicalDetail( result.technical );
       setStatus( 'error' );
     }
   }
@@ -205,6 +211,7 @@ export default function MemorialesPage() {
                 <GenerationStatus
                   status={status}
                   errorMessage={errorMessage}
+                  technicalDetail={technicalDetail}
                   onDownload={handleDownload}
                   onGenerateAnother={handleGenerateAnother}
                   onRetry={handleRetry}

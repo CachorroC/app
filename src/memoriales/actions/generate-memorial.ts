@@ -7,9 +7,21 @@ import { buildContext } from '#@/memoriales/lib/build-context';
 const RENDER_URL
   = process.env.MEMORIALES_RENDER_URL ?? 'http://127.0.0.1:8787/render';
 
+export type GenerateErrorSource =
+  | 'validation'
+  | 'unknown-template'
+  | 'render-service-unreachable'
+  | 'render-service-error';
+
 export type GenerateResult =
   | { ok: true; filename: string; base64: string }
-  | { ok: false; message: string; fieldErrors?: Record<string, string[]> };
+  | {
+      ok          : false;
+      message     : string;
+      fieldErrors?: Record<string, string[]>;
+      source?     : GenerateErrorSource;
+      technical?  : string;
+    };
 
 export async function generateMemorial(
   templateId: string,
@@ -21,6 +33,7 @@ export async function generateMemorial(
     return {
       ok     : false,
       message: 'Plantilla no encontrada.',
+      source : 'unknown-template',
     };
   }
 
@@ -45,6 +58,7 @@ export async function generateMemorial(
       ok     : false,
       message: 'Revise los campos marcados.',
       fieldErrors,
+      source : 'validation',
     };
   }
 
@@ -70,24 +84,54 @@ export async function generateMemorial(
         cache: 'no-store',
       } 
     );
-  } catch {
+  } catch ( err ) {
+    console.error(
+      `[memoriales] render fetch failed for "${ templateId }":`, err
+    );
+
     return {
-      ok     : false,
-      message: 'El servicio de documentos no está disponible.',
+      ok       : false,
+      message  : 'No se pudo conectar con el servicio de generación de documentos.',
+      source   : 'render-service-unreachable',
+      technical: err instanceof Error
+        ? err.message
+        : String( err ),
     };
   }
 
   if ( !res.ok ) {
-    const detail = await res.text()
+    const body = await res.text()
       .catch( () => {
         return '';
       } );
 
+    let detail = body;
+
+    try {
+      const parsed = JSON.parse( body ) as { detail?: unknown };
+
+      if ( typeof parsed.detail === 'string' ) {
+        detail = parsed.detail;
+      }
+    } catch {
+      // body wasn't JSON — keep the raw text as detail.
+    }
+
     console.error( `[memoriales] render ${ res.status }: ${ detail }` );
 
+    const message = res.status === 404
+      ? 'El generador de documentos no encontró el archivo de la plantilla (problema de despliegue).'
+      : res.status === 422
+        ? 'El generador de documentos no pudo completar la plantilla.'
+        : res.status === 400
+          ? 'El generador de documentos rechazó el identificador de la plantilla.'
+          : 'No se pudo generar el documento. Intente de nuevo.';
+
     return {
-      ok     : false,
-      message: 'No se pudo generar el documento. Intente de nuevo.',
+      ok       : false,
+      message,
+      source   : 'render-service-error',
+      technical: `HTTP ${ res.status }: ${ detail }`,
     };
   }
 

@@ -11,6 +11,7 @@ export type GenerationState =
 interface GenerationStatusProps {
   status           : GenerationState;
   errorMessage?    : string;
+  technicalDetail? : string;
   onDownload       : () => void;
   onGenerateAnother: () => void;
   onRetry          : () => void;
@@ -19,6 +20,7 @@ interface GenerationStatusProps {
 export function GenerationStatus( {
   status,
   errorMessage,
+  technicalDetail,
   onDownload,
   onGenerateAnother,
   onRetry,
@@ -135,6 +137,14 @@ export function GenerationStatus( {
                 {errorMessage
               ?? 'Ocurrió un problema al generar el memorial. Por favor, vuelva a intentarlo.'}
               </div>
+              {technicalDetail
+                ? (
+                    <details className={styles.technicalDetails}>
+                      <summary>Detalles técnicos</summary>
+                      <pre>{technicalDetail}</pre>
+                    </details>
+                  )
+                : null}
               <div>
                 <Button
                   ref={retryRef}

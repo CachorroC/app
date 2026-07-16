@@ -81,3 +81,22 @@
   gap: var(--md-sys-spacing-3);
   flex-wrap: wrap;
 }
+
+.technicalDetails {
+  font: var(--md-sys-typescale-body-small);
+  color: var(--md-sys-color-on-error-container);
+}
+
+.technicalDetails summary {
+  cursor: pointer;
+}
+
+.technicalDetails pre {
+  margin-top: var(--md-sys-spacing-2);
+  padding: var(--md-sys-spacing-3);
+  background: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-medium);
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--font-plex-mono, monospace);
+}

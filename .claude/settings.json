@@ -20,7 +20,8 @@
       "Bash(npx sass *)",
       "Bash(npx tcm *)",
       "Bash(URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com npx next dev -p 3100)",
-      "Bash(pnpm tsc *)"
+      "Bash(pnpm tsc *)",
+      "Bash(npx next *)"
     ]
   }
 }
