@@ -5,6 +5,7 @@ import { formatCedula,
   formatDateLong,
   formatPositivaNegativa,
   formatRadicado,
+  formatRadicadoNumero,
   formatUpper, } from './formatters';
 
 test(
@@ -34,6 +35,20 @@ test(
       formatRadicado( '110 013-103' ), '110013103' 
     );
   } 
+);
+
+test(
+  'formatRadicadoNumero left-pads the digits to 5 characters', () => {
+    assert.equal(
+      formatRadicadoNumero( '789' ), '00789'
+    );
+    assert.equal(
+      formatRadicadoNumero( '' ), '00000'
+    );
+    assert.equal(
+      formatRadicadoNumero( '123456' ), '123456'
+    );
+  }
 );
 
 test(

@@ -14,6 +14,7 @@ export type FieldFormat =
   | 'currencyCOP'
   | 'dateLong'
   | 'radicado'
+  | 'radicadoNumero'
   | 'upper'
   | 'positivaNegativa'; // boolean -> 'POSITIVA' | 'NEGATIVA' text
 

@@ -107,7 +107,7 @@ export const solicitud_oficios_medidas_cautelares: MemorialTemplate = {
           label   : 'numero',
           type    : 'number',
           required: true,
-          format  : 'radicado',
+          format  : 'radicadoNumero',
         },
       ]
     },

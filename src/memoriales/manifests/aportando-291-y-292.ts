@@ -73,7 +73,7 @@ export const aportando291y292: MemorialTemplate = {
           label   : 'Número de radicado',
           type    : 'text',
           required: true,
-          format  : 'radicado',
+          format  : 'radicadoNumero',
         },
         {
           name    : 'año',

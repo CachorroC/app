@@ -119,7 +119,7 @@ export const terminacion_pago_total_de_obligacion: MemorialTemplate = {
           label   : 'numero',
           type    : 'number',
           required: true,
-          format  : 'radicado' 
+          format  : 'radicadoNumero'
         },
       ],
     },

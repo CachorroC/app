@@ -125,7 +125,7 @@ export const base: MemorialTemplate = {
           label   : 'numero',
           type    : 'number',
           required: true,
-          format  : 'radicado' 
+          format  : 'radicadoNumero'
         },
       ],
     },

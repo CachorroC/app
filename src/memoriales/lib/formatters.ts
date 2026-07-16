@@ -26,8 +26,17 @@ export function formatDateLong( value: string ): string {
 
 export function formatRadicado( value: string ): string {
   return value.replace(
-    /\D/g, '' 
+    /\D/g, ''
   );
+}
+
+export const RADICADO_NUMERO_LENGTH = 5;
+
+export function formatRadicadoNumero( value: string ): string {
+  return formatRadicado( value )
+    .padStart(
+      RADICADO_NUMERO_LENGTH, '0'
+    );
 }
 
 export function formatCedula( value: string | number ): string {
@@ -64,6 +73,9 @@ export function applyFormat(
 
       case 'radicado':
         return formatRadicado( String( value ) );
+
+      case 'radicadoNumero':
+        return formatRadicadoNumero( String( value ) );
 
       case 'cedula':
         return formatCedula( value );

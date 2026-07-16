@@ -119,7 +119,7 @@ export const terminacion_pago_cuotas_en_mora: MemorialTemplate = {
           label   : 'numero',
           type    : 'number',
           required: true,
-          format  : 'radicado' 
+          format  : 'radicadoNumero'
         },
       ],
     },

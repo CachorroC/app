@@ -93,6 +93,7 @@ export const impulso_calificacion_demanda: MemorialTemplate = {
           label   : 'numero',
           type    : 'number',
           required: true,
+          format  : 'radicadoNumero',
         },
       ],
     },
