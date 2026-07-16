@@ -15,7 +15,7 @@ if ( !docxPath || !templateId ) {
 }
 
 const {
-  paths, booleans 
+  paths, booleans
 } = extractDocxTags( docxPath );
 
 type Draft = {
@@ -27,7 +27,7 @@ type Draft = {
 const groups = new Map<string, Draft>();
 
 const ensure = (
-  key: string | undefined, repeatable = false 
+  key: string | undefined, repeatable = false
 ): Draft => {
   const id = key ?? '__root__';
 
@@ -37,7 +37,7 @@ const ensure = (
         key,
         repeatable,
         fields: [],
-      } 
+      }
     );
   }
 
@@ -51,13 +51,13 @@ const ensure = (
 };
 
 const place = (
-  path: string, isBoolean = false 
+  path: string, isBoolean = false
 ) => {
   const arr = path.match( /^([^[]+)\[\]\.(.+)$/ ); // pagos[].fecha
 
   if ( arr ) {
     ensure(
-      arr[ 1 ], true 
+      arr[ 1 ], true
     ).fields.push( {
       name   : arr[ 2 ],
       boolean: isBoolean,
@@ -88,12 +88,12 @@ paths.forEach( ( p ) => {
 } );
 booleans.forEach( ( b ) => {
   place(
-    b, true 
+    b, true
   );
 } );
 
 const guessType = (
-  name: string, isBoolean: boolean 
+  name: string, isBoolean: boolean
 ): string => {
   if ( isBoolean ) {
     return 'boolean';
@@ -110,8 +110,22 @@ const guessType = (
   return 'text';
 };
 
-const emitField = ( f: { name: string; boolean?: boolean } ): string => {
-  return `      { name: '${ f.name }', label: '${ f.name }', type: '${ guessType(
+const emitField = ( f: { name: string; boolean?: boolean; } ): string => {
+  if ( f.name === 'nombre' || f.name === 'cuantia_value' || f.name === 'tipo_proceso' || f.name === 'ciudad' || f.name === 'tipo' ) {
+    return `{ name: '${ f.name }', label: '${ f.name }', type: '${ guessType(
+      f.name,
+      !!f.boolean,
+    ) }', required: true, format: 'upper' },`;
+  }
+
+  if ( f.name === 'año'  ) {
+    return `{ name: '${ f.name }', label: '${ f.name }', type: '${ guessType(
+      f.name,
+      !!f.boolean,
+    ) }', required: true, format: 'radicado' },`;
+  }
+
+  return `{ name: '${ f.name }', label: '${ f.name }', type: '${ guessType(
     f.name,
     !!f.boolean,
   ) }', required: true },`;
@@ -134,16 +148,16 @@ const emitGroup = ( g: Draft ): string => {
 
 const displayName = basename( docxPath )
   .replace(
-    /-template\.docx$/, '' 
+    /-template\.docx$/, ''
   )
   .replace(
-    /-/g, ' ' 
+    /-/g, ' '
   );
 
 console.log( `import type { MemorialTemplate } from './types';
 
 export const ${ templateId.replace(
-  /-/g, '' 
+  /-/g, ''
 ) }: MemorialTemplate = {
   id: '${ templateId }',
   filename: '${ basename( docxPath ) }',
