@@ -30,6 +30,12 @@ export const NavBar = () => {
         hrefLabel={'/memoriales' as Route}
       />
       <NavLink
+        key={'amortizacion'}
+        iconLabel={'assignment'}
+        textLabel={'amortizacion'}
+        hrefLabel={'/amortizacion' as Route}
+      />
+      <NavLink
         iconLabel={'folder'}
         textLabel={'Carpetas'}
         hrefLabel={'/Carpetas'}
@@ -40,6 +46,18 @@ export const NavBar = () => {
           <Drawer>
             <DrawerMenuButton />
             <NewNoteButton />
+            <NavLink
+              key={'memoriales'}
+              iconLabel={'assignment'}
+              textLabel={'Memoriales'}
+              hrefLabel={'/memoriales' as Route}
+            />
+            <NavLink
+              key={'amortizacion'}
+              iconLabel={'assignment'}
+              textLabel={'amortizacion'}
+              hrefLabel={'/amortizacion' as Route}
+            />
             <NavLink
               iconLabel={'payments'}
               textLabel={'costos'}
