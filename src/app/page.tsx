@@ -216,6 +216,24 @@ export default async function Page() {
               <span className="material-symbols-rounded">arrow_forward</span>
             </span>
           </Link>
+          <Link
+            href={'/amortizacion' as Route}
+            className={`${ styles.navCard } ${ styles.navCardTertiary }`}
+          >
+            <div className={styles.navCardIcon}>
+              <span className="material-symbols-rounded">description</span>
+            </div>
+            <h2 className={styles.navCardTitle}>{'Amortización'}</h2>
+            <p className={styles.navCardDescription}>
+              {
+                'Calculadora para planes de amortizacion de deudas y créditos, con exportación a Excel.'
+              }
+            </p>
+            <span className={styles.navCardCta}>
+              {'Ir a Amortización'}
+              <span className="material-symbols-rounded">arrow_forward</span>
+            </span>
+          </Link>
         </div>
 
         <div className={styles.section}>
