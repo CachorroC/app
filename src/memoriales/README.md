@@ -15,7 +15,10 @@ flow (`{% if %}` / `{% for %}`) that JS templating libraries don't support.
 3. Enrich the draft: Spanish labels, correct `type`/`format`/`required`, `select` options,
    and mark any computed field `derived: true` (e.g. a written-out ordinal derived from a
    numeric field — see `lib/derive.ts`).
-4. Register it in `src/memoriales/manifests/registry.ts`.
+4. Nothing to do — `pnpm memoriales:generate-registry` runs automatically before `next dev`/
+   `next build` (also runnable standalone) and picks up any new file in `manifests/`
+   automatically. `pnpm test:memoriales` includes a guard that fails if a manifest file and
+   the committed `registry.ts` ever drift.
 5. Run `pnpm test:memoriales-parity` — it must pass before the template is considered done.
    It fails loudly if any `{{ }}`/`{% if %}`/`{% for %}` tag in the `.docx` has no matching
    manifest field, or vice versa.
@@ -35,7 +38,9 @@ flow (`{% if %}` / `{% for %}`) that JS templating libraries don't support.
   fonts (`fonts.ts`), scoped to `/memoriales` only.
 - `tooling/` — dev-time scripts: `extract-docx-tags.ts` (Jinja tag extractor),
   `scaffold-manifest.ts` (manifest scaffolder), `memoriales-parity.test.ts` (the parity
-  check above).
+  check above), `discover-manifests.ts` (finds every manifest file's exported template),
+  `generate-registry.ts` (regenerates `manifests/registry.ts` from what's discovered),
+  `registry-completeness.test.ts` (fails if the registry ever drifts from the directory).
 
 ## Tests
 
