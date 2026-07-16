@@ -14,6 +14,7 @@ declare const styles: {
   readonly "successBlock": string;
   readonly "successIcon": string;
   readonly "successTitle": string;
+  readonly "technicalDetails": string;
 };
 export = styles;
 
