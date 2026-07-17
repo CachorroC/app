@@ -21,7 +21,10 @@
       "Bash(npx tcm *)",
       "Bash(URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com npx next dev -p 3100)",
       "Bash(pnpm tsc *)",
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__click",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_snapshot",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__fill"
     ]
   }
 }

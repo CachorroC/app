@@ -1,0 +1,31 @@
+.panel {
+  z-index: 20;
+  margin: 0;
+  padding: var(--md-sys-spacing-1) 0;
+  list-style: none;
+  overflow-y: auto;
+  border-radius: var(--md-sys-shape-corner-extra-small);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-high);
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.option {
+  padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
+  color: var(--md-sys-color-on-surface);
+  font: var(--md-sys-typescale-body-large);
+  cursor: pointer;
+}
+.option:hover {
+  background: var(--md-sys-color-primary-container);
+}
+
+.optionHighlighted {
+  background: var(--md-sys-color-primary-container);
+}
+
+.empty {
+  padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
+  color: var(--md-sys-color-on-surface-variant);
+  font: var(--md-sys-typescale-body-medium);
+}

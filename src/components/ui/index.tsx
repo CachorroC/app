@@ -16,7 +16,7 @@ export function Icon( {
 } ) {
   return (
     <span
-      className={`material-symbols-rounded${ fill
+      className={`material-symbols-outlined${ fill
         ? ' fill'
         : '' }${
         className
