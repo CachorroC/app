@@ -1,0 +1,278 @@
+/* ============================================================
+   R&S Asesoría Jurídica — Design tokens
+   Extracted verbatim from the Claude Design handoff:
+   project "Design system showcase page"
+   (id a14c1882-cc83-49c6-b36f-7a102a20c03d), design system
+   "R&S Asesoría Jurídica — Design System" (Material 3 / Material You).
+   All values come from tokens/colors.css, tokens/shape.css,
+   tokens/typography.css, tokens/fonts.css and tokens/elevation.css
+   in the handoff. No value was invented.
+   ============================================================ */
+
+/* Webfonts loaded by the handoff (tokens/fonts.css) */
+/* @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Quicksand:wght@500;600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap'); */
+
+/* ================= Colors (light theme, default) ================= */
+:root,
+:root[data-theme='light'] {
+  /* Primary */
+  --color-primary: #6a4fa8;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #eaddff;
+  --color-on-primary-container: #25075e;
+  --color-primary-inverse: #d2bbff;
+
+  /* Secondary */
+  --color-secondary: #625a70;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #e8def8;
+  --color-on-secondary-container: #1e182b;
+
+  /* Tertiary */
+  --color-tertiary: #3a5ba9;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #dae2ff;
+  --color-on-tertiary-container: #001847;
+
+  /* Error */
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #410002;
+
+  /* Success (semantic, custom to the handoff) */
+  --color-success: #36693e;
+  --color-on-success: #ffffff;
+  --color-success-container: #b7f1b9;
+  --color-on-success-container: #00210b;
+
+  /* Background and surfaces */
+  --color-background: #fdfbff;
+  --color-on-background: #1b1b21;
+  --color-surface: #fdfbff;
+  --color-on-surface: #1b1b21;
+  --color-surface-variant: #e5e0ec;
+  --color-on-surface-variant: #48454e;
+
+  --color-surface-dim: #dcd9e0;
+  --color-surface-bright: #fdfbff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3fb;
+  --color-surface-container: #f0edf5;
+  --color-surface-container-high: #eae7ef;
+  --color-surface-container-highest: #e5e1e9;
+
+  --color-inverse-surface: #303036;
+  --color-inverse-on-surface: #f3eff7;
+
+  /* Outlines, tint, scrim */
+  --color-outline: #79757f;
+  --color-outline-variant: #cac4d0;
+  --color-surface-tint: var(--color-primary);
+  --color-shadow: #000000;
+  --color-scrim: #000000;
+
+  /* State-layer opacities */
+  --state-opacity-hover: 0.08;
+  --state-opacity-focus: 0.12;
+  --state-opacity-pressed: 0.12;
+  --state-opacity-dragged: 0.16;
+}
+
+/* ================= Colors (dark theme) ================= */
+:root[data-theme='dark'] {
+  --color-primary: #d2bbff;
+  --color-on-primary: #3a1d70;
+  --color-primary-container: #523688;
+  --color-on-primary-container: #eaddff;
+  --color-primary-inverse: #6a4fa8;
+
+  --color-secondary: #ccc2db;
+  --color-on-secondary: #332d41;
+  --color-secondary-container: #4a4458;
+  --color-on-secondary-container: #e8def8;
+
+  --color-tertiary: #b2c5ff;
+  --color-on-tertiary: #002b75;
+  --color-tertiary-container: #1f438f;
+  --color-on-tertiary-container: #dae2ff;
+
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  --color-success: #9cd49e;
+  --color-on-success: #003914;
+  --color-success-container: #1c5121;
+  --color-on-success-container: #b7f1b9;
+
+  --color-background: #131218;
+  --color-on-background: #e5e1e9;
+  --color-surface: #131218;
+  --color-on-surface: #e5e1e9;
+  --color-surface-variant: #48454e;
+  --color-on-surface-variant: #cac4d0;
+
+  --color-surface-dim: #131218;
+  --color-surface-bright: #393740;
+  --color-surface-container-lowest: #0e0d13;
+  --color-surface-container-low: #1b1b21;
+  --color-surface-container: #1f1e25;
+  --color-surface-container-high: #2a282f;
+  --color-surface-container-highest: #35333b;
+
+  --color-inverse-surface: #e5e1e9;
+  --color-inverse-on-surface: #303036;
+
+  --color-outline: #948f99;
+  --color-outline-variant: #48454e;
+  --color-surface-tint: var(--color-primary);
+  --color-shadow: #000000;
+  --color-scrim: #000000;
+}
+
+/* Auto-dark when the OS asks for it and no explicit
+   [data-theme="light"] override is set (same rule as the handoff). */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #d2bbff;
+    --color-on-primary: #3a1d70;
+    --color-primary-container: #523688;
+    --color-on-primary-container: #eaddff;
+    --color-primary-inverse: #6a4fa8;
+
+    --color-secondary: #ccc2db;
+    --color-on-secondary: #332d41;
+    --color-secondary-container: #4a4458;
+    --color-on-secondary-container: #e8def8;
+
+    --color-tertiary: #b2c5ff;
+    --color-on-tertiary: #002b75;
+    --color-tertiary-container: #1f438f;
+    --color-on-tertiary-container: #dae2ff;
+
+    --color-error: #ffb4ab;
+    --color-on-error: #690005;
+    --color-error-container: #93000a;
+    --color-on-error-container: #ffdad6;
+
+    --color-success: #9cd49e;
+    --color-on-success: #003914;
+    --color-success-container: #1c5121;
+    --color-on-success-container: #b7f1b9;
+
+    --color-background: #131218;
+    --color-on-background: #e5e1e9;
+    --color-surface: #131218;
+    --color-on-surface: #e5e1e9;
+    --color-surface-variant: #48454e;
+    --color-on-surface-variant: #cac4d0;
+
+    --color-surface-dim: #131218;
+    --color-surface-bright: #393740;
+    --color-surface-container-lowest: #0e0d13;
+    --color-surface-container-low: #1b1b21;
+    --color-surface-container: #1f1e25;
+    --color-surface-container-high: #2a282f;
+    --color-surface-container-highest: #35333b;
+
+    --color-inverse-surface: #e5e1e9;
+    --color-inverse-on-surface: #303036;
+
+    --color-outline: #948f99;
+    --color-outline-variant: #48454e;
+  }
+}
+
+/* ================= Spacing (4dp grid) ================= */
+:root {
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+}
+
+/* ================= Corner radius ================= */
+:root {
+  --radius-none: 0px;
+  --radius-extra-small: 4px;
+  --radius-small: 8px;
+  --radius-medium: 12px;
+  --radius-large: 16px;
+  --radius-large-increased: 20px;
+  --radius-extra-large: 28px;
+  --radius-extra-extra-large: 48px;
+  --radius-full: 9999px;
+}
+
+/* ================= Typography ================= */
+:root {
+  /* Font families */
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-ui: 'Quicksand', ui-rounded, 'SF Pro Rounded', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-display-variation: 'opsz' 90;
+
+  /* Typescale — Display (Fraunces) */
+  --type-display-large: 700 clamp(2.75rem, 2.1rem + 3.2vw, 3.875rem)/1.08 var(--font-display);
+  --type-display-medium: 700 clamp(2.375rem, 1.9rem + 2vw, 3.0625rem)/1.12 var(--font-display);
+  --type-display-small: 600 clamp(1.875rem, 1.6rem + 1.3vw, 2.5rem)/1.16 var(--font-display);
+
+  /* Typescale — Headline (Fraunces) */
+  --type-headline-large: 600 2rem/1.22 var(--font-display);
+  --type-headline-medium: 600 1.75rem/1.26 var(--font-display);
+  --type-headline-small: 500 1.5rem/1.32 var(--font-display);
+
+  /* Typescale — Title (Quicksand) */
+  --type-title-large: 700 1.375rem/1.3 var(--font-ui);
+  --type-title-medium: 600 1rem/1.5 var(--font-ui);
+  --type-title-small: 600 0.875rem/1.45 var(--font-ui);
+
+  /* Typescale — Body (Inter) */
+  --type-body-large: 400 1rem/1.55 var(--font-body);
+  --type-body-medium: 400 0.875rem/1.5 var(--font-body);
+  --type-body-small: 400 0.75rem/1.45 var(--font-body);
+
+  /* Typescale — Label (Quicksand) */
+  --type-label-large: 600 0.875rem/1.3 var(--font-ui);
+  --type-label-medium: 600 0.75rem/1.3 var(--font-ui);
+  --type-label-small: 600 0.6875rem/1.3 var(--font-ui);
+
+  /* Tracking (letter-spacing) per role */
+  --type-display-tracking: -0.01em;
+  --type-headline-tracking: -0.005em;
+  --type-title-tracking: 0.005em;
+  --type-body-tracking: 0.01em;
+  --type-label-tracking: 0.04em;
+}
+
+/* ================= Shadows (M3 elevation, levels 0-5) ================= */
+:root {
+  --shadow-level-0: none;
+  --shadow-level-1:
+    0px 1px 2px 0px rgba(0, 0, 0, 0.3),
+    0px 1px 3px 1px rgba(0, 0, 0, 0.12);
+  --shadow-level-2:
+    0px 1px 2px 0px rgba(0, 0, 0, 0.3),
+    0px 2px 6px 2px rgba(0, 0, 0, 0.12);
+  --shadow-level-3:
+    0px 1px 3px 0px rgba(0, 0, 0, 0.3),
+    0px 4px 8px 3px rgba(0, 0, 0, 0.12);
+  --shadow-level-4:
+    0px 2px 3px 0px rgba(0, 0, 0, 0.3),
+    0px 6px 10px 4px rgba(0, 0, 0, 0.12);
+  --shadow-level-5:
+    0px 4px 4px 0px rgba(0, 0, 0, 0.3),
+    0px 8px 12px 6px rgba(0, 0, 0, 0.12);
+}

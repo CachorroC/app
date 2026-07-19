@@ -1,0 +1,31 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - generic [ref=f4e3]:
+      - img "R&S Asesoría Jurídica" [ref=f4e4]
+      - link "home Inicio" [ref=f4e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f4e6]: home
+        - heading "Inicio" [level=1] [ref=f4e7]
+      - link "folder Carpetas" [ref=f4e8] [cursor=pointer]:
+        - /url: /Carpetas
+        - generic [ref=f4e9]: folder
+        - heading "Carpetas" [level=1] [ref=f4e10]
+      - link "sticky_note_2 Notas" [ref=f4e11] [cursor=pointer]:
+        - /url: /Notas
+        - generic [ref=f4e12]: sticky_note_2
+        - heading "Notas" [level=1] [ref=f4e13]
+      - link "description Memoriales" [ref=f4e14] [cursor=pointer]:
+        - /url: /memoriales
+        - generic [ref=f4e15]: description
+        - heading "Memoriales" [level=1] [ref=f4e16]
+      - link "calculate Amortizac." [ref=f4e17] [cursor=pointer]:
+        - /url: /amortizacion
+        - generic [ref=f4e18]: calculate
+        - heading "Amortizac." [level=1] [ref=f4e19]
+      - button "menu" [ref=f4e20]
+    - generic [ref=f4e22]:
+      - heading "Not Found localhost:3000" [level=2] [ref=f4e23]
+      - paragraph [ref=f4e24]: Could not find requested resource
+      - generic [ref=f4e25]: "{ \"headers\": { \"host\": \"localhost:3000\", \"connection\": \"keep-alive\", \"sec-ch-ua\": \"\\\"Not;A=Brand\\\";v=\\\"8\\\", \\\"Chromium\\\";v=\\\"150\\\", \\\"Google Chrome\\\";v=\\\"150\\\"\", \"sec-ch-ua-mobile\": \"?0\", \"sec-ch-ua-platform\": \"\\\"Linux\\\"\", \"upgrade-insecure-requests\": \"1\", \"user-agent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36\", \"accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7\", \"service-worker-navigation-preload\": \"true\", \"sec-fetch-site\": \"none\", \"sec-fetch-mode\": \"navigate\", \"sec-fetch-user\": \"?1\", \"sec-fetch-dest\": \"document\", \"accept-encoding\": \"gzip, deflate, br, zstd\", \"accept-language\": \"es-ES,es;q=0.9\", \"cookie\": \"__next_hmr_refresh_hash__=5\", \"x-forwarded-host\": \"localhost:3000\", \"x-forwarded-port\": \"3000\", \"x-forwarded-proto\": \"http\", \"x-forwarded-for\": \"::1\" } }"
+  - button "Open Next.js Dev Tools" [ref=f4e31] [cursor=pointer]
+  - alert [ref=f4e35]

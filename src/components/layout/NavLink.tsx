@@ -40,7 +40,7 @@ export function NavLink<T extends string>( {
       }}
       href={hrefLabel as Route}
     >
-      <span className={`material-symbols-outlined ${ styles.icon }`}>
+      <span className={`material-symbols-rounded ${ styles.icon }`}>
         {iconLabel}
       </span>
       <h1 className={styles.text}>{textLabel}</h1>

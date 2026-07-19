@@ -30,3 +30,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
    patterns. Brief JSDocs only for complex types/returns.
 2. **Water Tracker**: Append a 1-line footprint estimate to
    final summaries.
+3. **Design System**: Before building or styling any UI, read
+   `design-system/inventory.md` for existing components/variants and
+   `design-system/tokens.css` for color/spacing/radius/font/shadow
+   values (extracted from the R&S Claude Design handoff). Reuse them
+   instead of inventing new markup, colors, or spacing values.
