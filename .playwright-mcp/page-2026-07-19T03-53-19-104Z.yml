@@ -1,0 +1,28 @@
+- generic [active] [ref=f5e1]:
+  - generic [ref=f5e2]:
+    - generic [ref=f5e3]:
+      - img "R&S Asesoría Jurídica" [ref=f5e4]
+      - link "home Inicio" [ref=f5e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f5e6]: home
+        - heading "Inicio" [level=1] [ref=f5e7]
+      - link "folder Carpetas" [ref=f5e8] [cursor=pointer]:
+        - /url: /Carpetas
+        - generic [ref=f5e9]: folder
+        - heading "Carpetas" [level=1] [ref=f5e10]
+      - link "sticky_note_2 Notas" [ref=f5e11] [cursor=pointer]:
+        - /url: /Notas
+        - generic [ref=f5e12]: sticky_note_2
+        - heading "Notas" [level=1] [ref=f5e13]
+      - link "description Memoriales" [ref=f5e14] [cursor=pointer]:
+        - /url: /memoriales
+        - generic [ref=f5e15]: description
+        - heading "Memoriales" [level=1] [ref=f5e16]
+      - link "calculate Amortizac." [ref=f5e17] [cursor=pointer]:
+        - /url: /amortizacion
+        - generic [ref=f5e18]: calculate
+        - heading "Amortizac." [level=1] [ref=f5e19]
+      - button "menu" [ref=f5e20]
+    - checkbox "Abrir filtros"
+  - button "Open Next.js Dev Tools" [ref=f5e57] [cursor=pointer]
+  - alert [ref=f5e61]

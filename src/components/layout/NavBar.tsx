@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import styles from '#@/styles/layout.module.css';
 import { useNavigationContext } from '#@/app/Context/navigation-context';
 import { DrawerMenuButton, NewNoteButton } from '../Buttons/nav-buttons';
@@ -15,31 +16,44 @@ export const NavBar = () => {
 
   return (
     <div className={styles.header}>
-      <DrawerMenuButton />
+      <Image
+        src="/icon.png"
+        alt="R&S Asesoría Jurídica"
+        width={36}
+        height={36}
+        className={styles.navBrand}
+        priority
+      />
 
       <NavLink
-        key={'home'}
         iconLabel={'home'}
         textLabel={'Inicio'}
         hrefLabel={'/' as Route}
-      />
-      <NavLink
-        key={'memoriales'}
-        iconLabel={'assignment'}
-        textLabel={'Memoriales'}
-        hrefLabel={'/memoriales' as Route}
-      />
-      <NavLink
-        key={'amortizacion'}
-        iconLabel={'assignment'}
-        textLabel={'amortizacion'}
-        hrefLabel={'/amortizacion' as Route}
       />
       <NavLink
         iconLabel={'folder'}
         textLabel={'Carpetas'}
         hrefLabel={'/Carpetas'}
       />
+      <NavLink
+        iconLabel={'sticky_note_2'}
+        textLabel={'Notas'}
+        hrefLabel={'/Notas'}
+      />
+      <NavLink
+        iconLabel={'description'}
+        textLabel={'Memoriales'}
+        hrefLabel={'/memoriales' as Route}
+      />
+      <NavLink
+        iconLabel={'calculate'}
+        textLabel={'Amortizac.'}
+        hrefLabel={'/amortizacion' as Route}
+      />
+
+      <div className={styles.navSpacer} />
+
+      <DrawerMenuButton />
 
       {isNavOpen && (
         <Suspense fallback={<Loader />}>
@@ -47,86 +61,34 @@ export const NavBar = () => {
             <DrawerMenuButton />
             <NewNoteButton />
             <NavLink
-              key={'memoriales'}
-              iconLabel={'assignment'}
-              textLabel={'Memoriales'}
-              hrefLabel={'/memoriales' as Route}
-            />
-            <NavLink
-              key={'amortizacion'}
-              iconLabel={'assignment'}
-              textLabel={'amortizacion'}
-              hrefLabel={'/amortizacion' as Route}
-            />
-            <NavLink
-              iconLabel={'payments'}
-              textLabel={'costos'}
-              hrefLabel={'/Costos'}
-            />
-            <NavLink
-              iconLabel={'contact_support'}
-              textLabel={'contacto'}
-              hrefLabel={'/Contacto'}
-            />
-            <NavLink
-              iconLabel={'home'}
-              textLabel={'Inicio'}
-              hrefLabel={'/' as Route}
-            />
-            <NavLink
-              iconLabel={'park'}
-              textLabel={'christmas'}
-              hrefLabel={'/Ayudante/Navidad/New'}
-            />
-            <NavLink
               iconLabel={'gavel'}
-              textLabel={'ultimas actuaciones'}
+              textLabel={'Últ. actuaciones'}
               hrefLabel={'/Carpetas/UltimasActuaciones' as Route}
-            />
-
-            <NavLink
-              iconLabel={'folder_open'}
-              textLabel={'Carpetas'}
-              hrefLabel="/Carpetas"
             />
             <NavLink
               iconLabel={'person_add'}
               textLabel={'Nueva Carpeta'}
               hrefLabel={'/Carpetas/Nueva'}
             />
-
-            <NavLink
-              iconLabel={'add_shopping_cart'}
-              textLabel={'ingresar factura'}
-              hrefLabel={'/Contabilidad/NuevaFactura' as Route}
-            />
-
-            <NavLink
-              iconLabel={'sticky_note_2'}
-              textLabel={'Notas'}
-              hrefLabel={'/Notas'}
-            />
             <NavLink
               iconLabel={'note_add'}
               textLabel={'Nueva Nota'}
               hrefLabel={'/Notas/Nueva'}
             />
-
+            <NavLink
+              iconLabel={'payments'}
+              textLabel={'Costos'}
+              hrefLabel={'/Costos'}
+            />
+            <NavLink
+              iconLabel={'contact_support'}
+              textLabel={'Contacto'}
+              hrefLabel={'/Contacto'}
+            />
             <NavLink
               iconLabel={'badge'}
-              textLabel={'Quienes Somos'}
+              textLabel={'Quiénes Somos'}
               hrefLabel={'/QuienesSomos'}
-            />
-
-            <NavLink
-              iconLabel={''}
-              textLabel={'Bancolombia'}
-              hrefLabel={'/Carpetas/Categorias/Bancolombia'}
-            />
-            <NavLink
-              iconLabel={''}
-              textLabel={'Reintegra'}
-              hrefLabel={'/Carpetas/Categorias/Reintegra'}
             />
           </Drawer>
         </Suspense>

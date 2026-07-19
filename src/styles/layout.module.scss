@@ -157,6 +157,34 @@ $bp-desktop: 1200px;
   transform: translateX(0);
 }
 
+/* Brand mark in the nav rail */
+.navBrand {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+  border-radius: var(--md-sys-shape-corner-small, 8px);
+
+  /* Hidden on mobile bottom tab bar — shown only in side rail */
+  display: none;
+
+  @media (#{$bp-tablet} <= width) {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Pushes the overflow (drawer) button to the bottom of the rail */
+.navSpacer {
+  display: none;
+
+  @media (#{$bp-tablet} <= width) {
+    display: block;
+    flex: 1 1 auto;
+  }
+}
+
 /* ---------------------------------------------------------------- */
 /* nav slot → bottom tab bar on mobile (fixed, safe-area, 56px+)     */
 /* ---------------------------------------------------------------- */
@@ -218,10 +246,11 @@ $bp-desktop: 1200px;
     height: 100svh;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 1rem 0.5rem;
-    gap: 0.8rem;
+    padding: 1.25rem 0.5rem;
+    gap: 0.5rem;
     box-shadow: none;
-    border-right: 1px solid var(--outline-variant);
+    border-right: 1px solid var(--md-sys-color-outline-variant, var(--outline-variant));
+    background-color: var(--md-sys-color-surface-container-low, var(--surface-container-low));
   }
 
   .top {

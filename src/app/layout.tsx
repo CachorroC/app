@@ -1,4 +1,5 @@
 import '#@/styles/globals.css';
+import '../../design-system/tokens.css';
 import 'material-symbols';
 import layout from '#@/styles/layout.module.css';
 import { ReactNode, Suspense } from 'react';
@@ -9,7 +10,7 @@ import type { Metadata, Viewport } from 'next';
 import { NavBar } from '#@/components/layout/NavBar';
 import { NavigationContextProvider } from './Context/navigation-context';
 import { CategoryContextProvider } from './Context/category-context';
-import { quicksand, plexMono } from '#@/styles/fonts';
+import { quicksand, plexMono, fraunces, inter } from '#@/styles/fonts';
 import PushManagerComponent from '#@/components/PushManager';
 import { Loader } from '#@/components/Loader/main-loader';
 import { PushNotificationProvider } from './Context/pushNotificationContext';
@@ -105,7 +106,7 @@ export default function RootLayout( {
         />
       </head>
       <body
-        className={`${ quicksand.variable } ${ plexMono.variable } ${ quicksand.className } [ color-scheme: light dark ]`}
+        className={`${ quicksand.variable } ${ plexMono.variable } ${ fraunces.variable } ${ inter.variable } ${ quicksand.className }`}
       >
         <PushNotificationProvider>
           <CategoryContextProvider>

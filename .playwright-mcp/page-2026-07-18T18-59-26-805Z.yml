@@ -1,0 +1,221 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - img "R&S Asesoría Jurídica" [ref=e4]
+      - link "home Inicio" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: home
+        - heading "Inicio" [level=1] [ref=e7]
+      - link "folder Carpetas" [ref=e8] [cursor=pointer]:
+        - /url: /Carpetas
+        - generic [ref=e9]: folder
+        - heading "Carpetas" [level=1] [ref=e10]
+      - link "sticky_note_2 Notas" [ref=e11] [cursor=pointer]:
+        - /url: /Notas
+        - generic [ref=e12]: sticky_note_2
+        - heading "Notas" [level=1] [ref=e13]
+      - link "description Memoriales" [ref=e14] [cursor=pointer]:
+        - /url: /memoriales
+        - generic [ref=e15]: description
+        - heading "Memoriales" [level=1] [ref=e16]
+      - link "calculate Amortizac." [ref=e17] [cursor=pointer]:
+        - /url: /amortizacion
+        - generic [ref=e18]: calculate
+        - heading "Amortizac." [level=1] [ref=e19]
+      - button "menu" [ref=e20]
+    - generic [ref=e23]:
+      - banner [ref=e24]:
+        - img "R&S" [ref=e25]
+        - generic [ref=e26]:
+          - paragraph [ref=e27]: R&S Asesoría Jurídica
+          - paragraph [ref=e28]: Panel principal
+        - generic [ref=e29]: sábado, 18 de julio
+      - generic [ref=e30]:
+        - heading "Buenas tardes, equipo" [level=1] [ref=e31]
+        - paragraph [ref=e32]: 787 carpetas en gestión · 161 pendientes de revisión
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e36]: folder_managed
+            - generic [ref=e37]: Total carpetas
+          - generic [ref=e38]: "787"
+        - generic [ref=e39]:
+          - generic [ref=e40]:
+            - generic [ref=e41]: pending_actions
+            - generic [ref=e42]: Pendientes
+          - generic [ref=e43]: "161"
+        - generic [ref=e44]:
+          - generic [ref=e45]:
+            - generic [ref=e46]: task_alt
+            - generic [ref=e47]: Terminados
+          - generic [ref=e48]: "626"
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - generic [ref=e51]: sticky_note_2
+            - generic [ref=e52]: Notas registradas
+          - generic [ref=e53]: "5335"
+      - generic [ref=e54]:
+        - link "folder_managed Carpetas Consulte, filtre y actualice el estado de todos los expedientes en gestión. Ir a Carpetas arrow_forward" [ref=e55] [cursor=pointer]:
+          - /url: /Carpetas
+          - generic [ref=e56]: folder_managed
+          - heading "Carpetas" [level=2] [ref=e58]
+          - paragraph [ref=e59]: Consulte, filtre y actualice el estado de todos los expedientes en gestión.
+          - generic [ref=e60]:
+            - text: Ir a Carpetas
+            - generic [ref=e61]: arrow_forward
+        - link "description Memoriales Genere memoriales a partir de las plantillas del despacho y descargue el .docx. Ir a Memoriales arrow_forward" [ref=e62] [cursor=pointer]:
+          - /url: /memoriales
+          - generic [ref=e63]: description
+          - heading "Memoriales" [level=2] [ref=e65]
+          - paragraph [ref=e66]: Genere memoriales a partir de las plantillas del despacho y descargue el .docx.
+          - generic [ref=e67]:
+            - text: Ir a Memoriales
+            - generic [ref=e68]: arrow_forward
+        - link "description Amortización Calculadora para planes de amortizacion de deudas y créditos, con exportación a Excel. Ir a Amortización arrow_forward" [ref=e69] [cursor=pointer]:
+          - /url: /amortizacion
+          - generic [ref=e70]: description
+          - heading "Amortización" [level=2] [ref=e72]
+          - paragraph [ref=e73]: Calculadora para planes de amortizacion de deudas y créditos, con exportación a Excel.
+          - generic [ref=e74]:
+            - text: Ir a Amortización
+            - generic [ref=e75]: arrow_forward
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - heading "Actividad reciente de los juzgados" [level=2] [ref=e78]
+          - link "Ver todas arrow_forward" [ref=e79] [cursor=pointer]:
+            - /url: /Carpetas
+            - text: Ver todas
+            - generic [ref=e80]: arrow_forward
+        - generic [ref=e81]:
+          - link "Bancolombia KAROL PAOLA MORA ACERO Recepción memorial f 17 de jul de 2026" [ref=e82] [cursor=pointer]:
+            - /url: /Carpeta/667
+            - generic [ref=e83]: Bancolombia
+            - generic [ref=e84]:
+              - generic [ref=e85]: KAROL PAOLA MORA ACERO
+              - generic [ref=e86]: Recepción memorial f
+            - generic [ref=e87]: 17 de jul de 2026
+          - link "Bancolombia CARLOS FERNEY VELOZA PEREZ Oficio Enviado Virtualmente 17 de jul de 2026" [ref=e88] [cursor=pointer]:
+            - /url: /Carpeta/753
+            - generic [ref=e89]: Bancolombia
+            - generic [ref=e90]:
+              - generic [ref=e91]: CARLOS FERNEY VELOZA PEREZ
+              - generic [ref=e92]: Oficio Enviado Virtualmente
+            - generic [ref=e93]: 17 de jul de 2026
+          - link "Terminados JOJAN ANDRES LOPEZ PARADA Constancia secretarial 16 de jul de 2026" [ref=e94] [cursor=pointer]:
+            - /url: /Carpeta/613
+            - generic [ref=e95]: Terminados
+            - generic [ref=e96]:
+              - generic [ref=e97]: JOJAN ANDRES LOPEZ PARADA
+              - generic [ref=e98]: Constancia secretarial
+            - generic [ref=e99]: 16 de jul de 2026
+          - link "Bancolombia EDWIN JAIRO SARMIENTO GARZON Envío Comunicaciones 15 de jul de 2026" [ref=e100] [cursor=pointer]:
+            - /url: /Carpeta/723
+            - generic [ref=e101]: Bancolombia
+            - generic [ref=e102]:
+              - generic [ref=e103]: EDWIN JAIRO SARMIENTO GARZON
+              - generic [ref=e104]: Envío Comunicaciones
+            - generic [ref=e105]: 15 de jul de 2026
+          - link "Bancolombia FRANZ GABRIEL MOLANO SANTAMARIA Constancia secretarial 15 de jul de 2026" [ref=e106] [cursor=pointer]:
+            - /url: /Carpeta/738
+            - generic [ref=e107]: Bancolombia
+            - generic [ref=e108]:
+              - generic [ref=e109]: FRANZ GABRIEL MOLANO SANTAMARIA
+              - generic [ref=e110]: Constancia secretarial
+            - generic [ref=e111]: 15 de jul de 2026
+          - link "Bancolombia ADRIANA MILENA PARDO SUAREZ A la Oficina de Ejecución por Reparto50 15 de jul de 2026" [ref=e112] [cursor=pointer]:
+            - /url: /Carpeta/683
+            - generic [ref=e113]: Bancolombia
+            - generic [ref=e114]:
+              - generic [ref=e115]: ADRIANA MILENA PARDO SUAREZ
+              - generic [ref=e116]: A la Oficina de Ejecución por Reparto50
+            - generic [ref=e117]: 15 de jul de 2026
+      - contentinfo [ref=e118]:
+        - generic [ref=e119]: R&S Asesoría Jurídica S.A.S · Uso interno
+    - generic [ref=e121]:
+      - heading "Notificaciones" [level=3] [ref=e123]
+      - generic [ref=e124]:
+        - heading "Calendario" [level=3] [ref=e125]
+        - generic [ref=e126]:
+          - paragraph [ref=e127]: Julio2026
+          - generic [ref=e128]:
+            - generic [ref=e129]:
+              - listitem [ref=e130]: D
+              - listitem [ref=e131]: L
+              - listitem [ref=e132]: M
+              - listitem [ref=e133]: M
+              - listitem [ref=e134]: J
+              - listitem [ref=e135]: V
+              - listitem [ref=e136]: S
+            - generic [ref=e137] [cursor=pointer]:
+              - link "28" [ref=e138]:
+                - /url: /Calendario/Fecha/2026/6/28
+              - link "29" [ref=e139]:
+                - /url: /Calendario/Fecha/2026/6/29
+              - link "30" [ref=e140]:
+                - /url: /Calendario/Fecha/2026/6/30
+              - link "1" [ref=e141]:
+                - /url: /Calendario/Fecha/2026/7/1
+              - link "2" [ref=e142]:
+                - /url: /Calendario/Fecha/2026/7/2
+              - link "3" [ref=e143]:
+                - /url: /Calendario/Fecha/2026/7/3
+              - link "4" [ref=e144]:
+                - /url: /Calendario/Fecha/2026/7/4
+              - link "5" [ref=e145]:
+                - /url: /Calendario/Fecha/2026/7/5
+              - link "6" [ref=e146]:
+                - /url: /Calendario/Fecha/2026/7/6
+              - link "7" [ref=e147]:
+                - /url: /Calendario/Fecha/2026/7/7
+              - link "8" [ref=e148]:
+                - /url: /Calendario/Fecha/2026/7/8
+              - link "9" [ref=e149]:
+                - /url: /Calendario/Fecha/2026/7/9
+              - link "10" [ref=e150]:
+                - /url: /Calendario/Fecha/2026/7/10
+              - link "11" [ref=e151]:
+                - /url: /Calendario/Fecha/2026/7/11
+              - link "12" [ref=e152]:
+                - /url: /Calendario/Fecha/2026/7/12
+              - link "13" [ref=e153]:
+                - /url: /Calendario/Fecha/2026/7/13
+              - link "14" [ref=e154]:
+                - /url: /Calendario/Fecha/2026/7/14
+              - link "15" [ref=e155]:
+                - /url: /Calendario/Fecha/2026/7/15
+              - link "16" [ref=e156]:
+                - /url: /Calendario/Fecha/2026/7/16
+              - link "17" [ref=e157]:
+                - /url: /Calendario/Fecha/2026/7/17
+              - link "18" [ref=e158]:
+                - /url: /Calendario/Fecha/2026/7/18
+              - link "19" [ref=e159]:
+                - /url: /Calendario/Fecha/2026/7/19
+              - link "20" [ref=e160]:
+                - /url: /Calendario/Fecha/2026/7/20
+              - link "21" [ref=e161]:
+                - /url: /Calendario/Fecha/2026/7/21
+              - link "22" [ref=e162]:
+                - /url: /Calendario/Fecha/2026/7/22
+              - link "23" [ref=e163]:
+                - /url: /Calendario/Fecha/2026/7/23
+              - link "24" [ref=e164]:
+                - /url: /Calendario/Fecha/2026/7/24
+              - link "25" [ref=e165]:
+                - /url: /Calendario/Fecha/2026/7/25
+              - link "26" [ref=e166]:
+                - /url: /Calendario/Fecha/2026/7/26
+              - link "27" [ref=e167]:
+                - /url: /Calendario/Fecha/2026/7/27
+              - link "28" [ref=e168]:
+                - /url: /Calendario/Fecha/2026/7/28
+              - link "29" [ref=e169]:
+                - /url: /Calendario/Fecha/2026/7/29
+              - link "30" [ref=e170]:
+                - /url: /Calendario/Fecha/2026/7/30
+              - link "31" [ref=e171]:
+                - /url: /Calendario/Fecha/2026/7/31
+              - link "5" [ref=e172]:
+                - /url: /Calendario/Fecha/2026/8/5
+  - button "Open Next.js Dev Tools" [ref=e178] [cursor=pointer]
+  - alert [ref=e182]

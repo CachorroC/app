@@ -29,6 +29,8 @@ declare const styles: {
   readonly "linkOpenActive": string;
   readonly "loader": string;
   readonly "nav": string;
+  readonly "navBrand": string;
+  readonly "navSpacer": string;
   readonly "right": string;
   readonly "scrim": string;
   readonly "section": string;
