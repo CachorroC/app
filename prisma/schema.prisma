@@ -33,6 +33,8 @@ model Carpeta {
   deudor              Deudor?
   notas               Nota[]
   procesos            Proceso[]
+  notes               notes[]
+  tareas              tareas[]
 }
 
 model Deudor {
@@ -156,6 +158,163 @@ model RelevantDates {
   Nota   Nota?    @relation(fields: [notaId], references: [id])
 }
 
+model bloque_items {
+  id           String       @id
+  bloqueId     String
+  orden        Int
+  texto        String
+  completado   Boolean      @default(false)
+  completadoEn DateTime?
+  tareaId      String?      @unique
+  note_bloques note_bloques @relation(fields: [bloqueId], references: [id], onDelete: Cascade)
+  tareas       tareas?      @relation(fields: [tareaId], references: [id])
+
+  @@unique([bloqueId, orden])
+}
+
+model etiquetas {
+  id                  String                @id
+  nombre              String                @unique @db.VarChar(60)
+  color               String                @db.VarChar(9)
+  etiquetas_en_notes  etiquetas_en_notes[]
+  etiquetas_en_tareas etiquetas_en_tareas[]
+}
+
+model etiquetas_en_notes {
+  noteId     String
+  etiquetaId String
+  etiquetas  etiquetas @relation(fields: [etiquetaId], references: [id], onDelete: Cascade)
+  notes      notes     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+  @@id([noteId, etiquetaId])
+}
+
+model etiquetas_en_tareas {
+  tareaId    String
+  etiquetaId String
+  etiquetas  etiquetas @relation(fields: [etiquetaId], references: [id], onDelete: Cascade)
+  tareas     tareas    @relation(fields: [tareaId], references: [id], onDelete: Cascade)
+
+  @@id([tareaId, etiquetaId])
+}
+
+model note_bloques {
+  id           String         @id
+  noteId       String
+  tipo         TipoBloque
+  orden        Int
+  texto        String?
+  bloque_items bloque_items[]
+  notes        notes          @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+  @@unique([noteId, orden])
+}
+
+model notes {
+  id                             String               @id
+  titulo                         String               @db.VarChar(200)
+  resumen                        String?              @db.VarChar(400)
+  estado                         EstadoNote           @default(PENDIENTE)
+  fijada                         Boolean              @default(false)
+  carpetaId                      Int?
+  creadaEn                       DateTime             @default(now())
+  editadaEn                      DateTime
+  archivadaEn                    DateTime?
+  creadoPorId                    String?
+  userId                         String?
+  etiquetas_en_notes             etiquetas_en_notes[]
+  note_bloques                   note_bloques[]
+  Carpeta                        Carpeta?             @relation(fields: [carpetaId], references: [numero])
+  users_notes_creadoPorIdTousers users?               @relation("notes_creadoPorIdTousers", fields: [creadoPorId], references: [id])
+  users_notes_userIdTousers      users?               @relation("notes_userIdTousers", fields: [userId], references: [id])
+  tareas                         tareas[]
+  usuarios_en_notes              usuarios_en_notes[]
+
+  @@index([carpetaId, editadaEn(sort: Desc)])
+  @@index([creadoPorId, editadaEn(sort: Desc)])
+  @@index([estado, editadaEn(sort: Desc)])
+}
+
+model tareas {
+  id                              String                @id
+  titulo                          String                @db.VarChar(200)
+  descripcion                     String?
+  estado                          EstadoTarea           @default(PENDIENTE)
+  prioridad                       PrioridadTarea        @default(MEDIA)
+  fechaLimite                     DateTime?
+  esTermino                       Boolean               @default(false)
+  responsable                     String?               @db.VarChar(120)
+  carpetaId                       Int?
+  noteOrigenId                    String?
+  creadaEn                        DateTime              @default(now())
+  editadaEn                       DateTime
+  completadaEn                    DateTime?
+  archivadaEn                     DateTime?
+  creadoPorId                     String?
+  userId                          String?
+  bloque_items                    bloque_items?
+  etiquetas_en_tareas             etiquetas_en_tareas[]
+  Carpeta                         Carpeta?              @relation(fields: [carpetaId], references: [numero])
+  users_tareas_creadoPorIdTousers users?                @relation("tareas_creadoPorIdTousers", fields: [creadoPorId], references: [id])
+  notes                           notes?                @relation(fields: [noteOrigenId], references: [id])
+  users_tareas_userIdTousers      users?                @relation("tareas_userIdTousers", fields: [userId], references: [id])
+  usuarios_en_tareas              usuarios_en_tareas[]
+
+  @@index([carpetaId, fechaLimite])
+  @@index([estado, fechaLimite])
+  @@index([fechaLimite, esTermino])
+}
+
+model users {
+  id                               String               @id
+  email                            String               @unique @db.VarChar(180)
+  nombre                           String               @db.VarChar(120)
+  rol                              RolUsuario           @default(ABOGADO)
+  activo                           Boolean              @default(true)
+  passwordHash                     String?              @db.VarChar(100)
+  tarjetaProfesional               String?              @unique @db.VarChar(40)
+  telefono                         String?              @db.VarChar(40)
+  avatarUrl                        String?              @db.VarChar(500)
+  creadoEn                         DateTime             @default(now())
+  editadoEn                        DateTime
+  ultimoAccesoA                    DateTime?
+  desactivadoEn                    DateTime?
+  notes_notes_creadoPorIdTousers   notes[]              @relation("notes_creadoPorIdTousers")
+  notes_notes_userIdTousers        notes[]              @relation("notes_userIdTousers")
+  tareas_tareas_creadoPorIdTousers tareas[]             @relation("tareas_creadoPorIdTousers")
+  tareas_tareas_userIdTousers      tareas[]             @relation("tareas_userIdTousers")
+  usuarios_en_notes                usuarios_en_notes[]
+  usuarios_en_tareas               usuarios_en_tareas[]
+
+  @@index([activo, nombre])
+}
+
+model usuarios_en_notes {
+  userId        String
+  noteId        String
+  rol           RolAsignacion @default(COLABORADOR)
+  asignadoEn    DateTime      @default(now())
+  asignadoPorId String?
+  notes         notes         @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  users         users         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, noteId])
+  @@index([noteId])
+}
+
+model usuarios_en_tareas {
+  userId        String
+  tareaId       String
+  rol           RolAsignacion @default(COLABORADOR)
+  asignadoEn    DateTime      @default(now())
+  asignadoPorId String?
+  tareas        tareas        @relation(fields: [tareaId], references: [id], onDelete: Cascade)
+  users         users         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, tareaId])
+  @@index([tareaId])
+}
+
 enum Category {
   Terminados
   LiosJuridicos
@@ -180,4 +339,44 @@ enum TipoProceso {
   PRENDARIO
   SINGULAR
   ACUMULADO
+}
+
+enum EstadoNote {
+  PENDIENTE
+  EN_REVISION
+  ATENDIDA
+  ARCHIVADA
+}
+
+enum EstadoTarea {
+  PENDIENTE
+  EN_PROGRESO
+  ATENDIDA
+  ARCHIVADA
+}
+
+enum PrioridadTarea {
+  BAJA
+  MEDIA
+  ALTA
+  URGENTE
+}
+
+enum RolAsignacion {
+  RESPONSABLE
+  COLABORADOR
+  OBSERVADOR
+}
+
+enum RolUsuario {
+  ADMIN
+  ABOGADO
+  ASISTENTE
+  LECTOR
+}
+
+enum TipoBloque {
+  PARRAFO
+  LISTA
+  VERIFICACION
 }
