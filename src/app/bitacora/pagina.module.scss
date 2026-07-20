@@ -1,0 +1,76 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  padding: var(--spacing-6);
+}
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  flex-wrap: wrap;
+}
+
+.titulo {
+  margin: 0;
+  font: var(--type-headline-small);
+  color: var(--color-on-surface);
+}
+
+.subtitulo {
+  margin: 4px 0 0;
+  color: var(--color-on-surface-variant);
+}
+
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.seccion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.seccionTitulo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font: var(--type-label-large);
+  color: var(--color-on-surface-variant);
+}
+
+.seccionTitulo span {
+  font-size: 18px;
+  color: var(--color-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-4);
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}

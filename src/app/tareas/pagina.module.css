@@ -1,0 +1,31 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  padding: var(--spacing-6);
+}
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  flex-wrap: wrap;
+}
+
+.titulo {
+  margin: 0;
+  font: var(--type-headline-small);
+  color: var(--color-on-surface);
+}
+
+.subtitulo {
+  margin: 4px 0 0;
+  color: var(--color-on-surface-variant);
+}
+
+.grupos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}

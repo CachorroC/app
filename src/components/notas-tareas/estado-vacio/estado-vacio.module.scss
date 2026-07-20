@@ -1,0 +1,45 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--spacing-4);
+  padding: 64px var(--spacing-6);
+  min-height: 320px;
+}
+
+.halo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-full);
+}
+
+.halo.neutral {
+  background: var(--color-surface-container-high);
+  color: var(--color-primary);
+}
+
+.halo.error {
+  background: var(--color-error-container);
+  color: var(--color-error);
+}
+
+.icono {
+  font-size: 34px;
+}
+
+.titulo {
+  font: var(--type-title-large);
+  color: var(--color-on-surface);
+}
+
+.mensaje {
+  max-width: 380px;
+  margin: 6px auto 0;
+  color: var(--color-on-surface-variant);
+  text-wrap: pretty;
+}

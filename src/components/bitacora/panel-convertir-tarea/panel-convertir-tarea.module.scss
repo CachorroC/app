@@ -1,0 +1,58 @@
+.panel {
+  margin: var(--spacing-3) 0 var(--spacing-2) 28px;
+  padding: var(--spacing-3);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  border: 1px solid var(--color-outline-variant);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.fila {
+  display: flex;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.campo {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campo span {
+  font: var(--type-label-small);
+  color: var(--color-on-surface-variant);
+}
+
+.campo input,
+.campo select {
+  height: 40px;
+  padding: 0 var(--spacing-3);
+  border-radius: var(--radius-extra-small);
+  border: 1px solid var(--color-outline);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font: var(--type-body-medium);
+  color-scheme: light dark;
+}
+
+.terminoFila {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  font: var(--type-body-medium);
+  color: var(--color-on-surface);
+}
+
+.acciones {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.error {
+  font: var(--type-body-small);
+  color: var(--color-error);
+}

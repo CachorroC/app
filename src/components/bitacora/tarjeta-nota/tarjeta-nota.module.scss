@@ -1,0 +1,177 @@
+.enlace {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.casoMarca {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  font: var(--type-label-medium);
+  letter-spacing: 0.02em;
+  color: var(--color-tertiary);
+}
+
+.casoMarca.sinCaso {
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+}
+
+.casoMarca span:first-child {
+  font-size: 15px;
+}
+
+.casoTexto {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
+}
+
+.casoTexto.compacto {
+  max-width: 160px;
+}
+
+.etiquetas {
+  display: flex;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+  align-items: center;
+  min-width: 0;
+}
+
+.masEtiquetas {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 var(--spacing-2);
+  flex: 0 0 auto;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-container-highest);
+  color: var(--color-on-surface-variant);
+  font: var(--type-label-medium);
+}
+
+.filaLista {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: 12px var(--spacing-4);
+}
+
+.pin {
+  color: var(--color-primary);
+  flex: 0 0 auto;
+  display: inline-flex;
+}
+
+.filaListaCuerpo {
+  flex: 1;
+  min-width: 0;
+}
+
+.filaListaTitulo {
+  font: var(--type-title-small);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-on-surface);
+}
+
+.filaListaMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-top: 3px;
+}
+
+.editadaTexto {
+  font: var(--type-body-small);
+  color: var(--color-on-surface-variant);
+  white-space: nowrap;
+}
+
+.filaListaExtras {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.ocultarCompacto {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .ocultarCompacto {
+    display: block;
+  }
+}
+
+.tarjetaGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.encabezadoGrid {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.pinGrid {
+  color: var(--color-primary);
+  margin-top: 2px;
+  flex: 0 0 auto;
+  display: inline-flex;
+}
+
+.tituloGrid {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  color: var(--color-on-surface);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.preview {
+  margin: 0;
+  color: var(--color-on-surface-variant);
+  text-wrap: pretty;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.piePagina {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  border-top: 1px solid var(--color-outline-variant);
+  padding-top: var(--spacing-3);
+  margin-top: auto;
+}
+
+.piePaginaDato {
+  font: var(--type-body-small);
+  color: var(--color-on-surface-variant);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.piePaginaDato span {
+  font-size: 14px;
+}
+
+.espaciador {
+  flex: 1;
+}

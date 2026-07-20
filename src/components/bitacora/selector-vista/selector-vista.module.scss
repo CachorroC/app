@@ -1,0 +1,29 @@
+.grupo {
+  display: flex;
+  gap: 3px;
+  background: var(--color-surface-container-high);
+  border-radius: var(--radius-full);
+  padding: 3px;
+}
+
+.opcion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+}
+
+.opcion.activa {
+  background: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+
+.opcion span {
+  font-size: 20px;
+}

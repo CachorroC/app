@@ -1,0 +1,174 @@
+.fila {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: 12px 16px 12px 20px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-outline-variant);
+  transition: background 150ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.fila.termino {
+  background: color-mix(in srgb, var(--color-error) 6%, var(--color-surface));
+}
+
+.barra {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-outline);
+}
+
+.fila.termino .barra {
+  width: 5px;
+  background: var(--color-error);
+}
+
+.cuerpo {
+  flex: 1;
+  min-width: 0;
+}
+
+.tituloFila {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.chipTermino {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  padding: 1px 8px 1px 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-error);
+  color: var(--color-on-error);
+  font: var(--type-label-small);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.chipTermino span {
+  font-size: 14px;
+}
+
+.titulo {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-on-surface);
+  font: var(--type-body-large);
+}
+
+.termino .titulo {
+  font: var(--type-title-small);
+  font-weight: 700;
+}
+
+.origen {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--color-on-surface-variant);
+}
+
+.origen span {
+  font-size: 16px;
+}
+
+.metaFila {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.caso {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  font: var(--type-label-medium);
+  color: var(--color-tertiary);
+}
+
+.caso.sinCaso {
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+}
+
+.caso span {
+  font-size: 14px;
+}
+
+.responsable {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: var(--type-body-small);
+  color: var(--color-on-surface-variant);
+}
+
+.responsable span {
+  font-size: 14px;
+}
+
+.fecha {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: var(--type-body-small);
+  color: var(--color-on-surface-variant);
+}
+
+.fecha span {
+  font-size: 14px;
+}
+
+.vencidaTexto {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.prioridad {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: 0 0 auto;
+  font: var(--type-label-medium);
+}
+
+.puntoPrioridad {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentcolor;
+}
+
+.baja {
+  color: var(--color-outline);
+}
+
+.media {
+  color: var(--color-tertiary);
+}
+
+.alta {
+  color: var(--color-primary);
+}
+
+.urgente {
+  color: var(--color-error);
+}
+
+@media (max-width: 900px) {
+  .prioridad,
+  .responsable {
+    display: none;
+  }
+}

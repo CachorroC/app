@@ -1,0 +1,62 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-on-surface);
+  font: var(--type-body-large);
+}
+
+.root:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+.box {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  border-radius: var(--radius-extra-small);
+  border: 2px solid var(--color-on-surface-variant);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 150ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.box.marked {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.halo {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.root:hover:not(:disabled) .halo {
+  opacity: var(--state-opacity-hover);
+}
+
+.tick {
+  width: 11px;
+  height: 6px;
+  border-left: 2px solid var(--color-on-primary);
+  border-bottom: 2px solid var(--color-on-primary);
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.dash {
+  width: 10px;
+  height: 0;
+  border-top: 2px solid var(--color-on-primary);
+}

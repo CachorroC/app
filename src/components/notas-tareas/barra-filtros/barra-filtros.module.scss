@@ -1,0 +1,196 @@
+.filaBusqueda {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+}
+
+.campoBusqueda {
+  flex: 1 1 260px;
+  min-width: 220px;
+}
+
+.filaControles {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.grupoLabel {
+  font: var(--type-label-large);
+  color: var(--color-on-surface-variant);
+}
+
+.selectCaso {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 200px;
+}
+
+.selectCaso select {
+  appearance: none;
+  width: 100%;
+  height: 48px;
+  padding: 0 36px 0 40px;
+  border-radius: var(--radius-extra-small);
+  border: 1px solid var(--color-outline);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font: var(--type-body-large);
+  cursor: pointer;
+}
+
+.iconoInicioSelect {
+  position: absolute;
+  left: 12px;
+  font-size: 20px;
+  color: var(--color-on-surface-variant);
+  pointer-events: none;
+}
+
+.iconoFinSelect {
+  position: absolute;
+  right: 10px;
+  font-size: 22px;
+  color: var(--color-on-surface-variant);
+  pointer-events: none;
+}
+
+.campoFecha {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.campoFecha span {
+  font: var(--type-label-small);
+  color: var(--color-on-surface-variant);
+  padding-left: 4px;
+}
+
+.campoFecha input {
+  height: 48px;
+  padding: 0 var(--spacing-3);
+  border-radius: var(--radius-extra-small);
+  border: 1px solid var(--color-outline);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font: var(--type-body-medium);
+  color-scheme: light dark;
+}
+
+.separadorFechas {
+  color: var(--color-on-surface-variant);
+  padding-bottom: 12px;
+}
+
+.filaEstado {
+  display: flex;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: var(--spacing-4);
+}
+
+.etiquetaEstado {
+  font: var(--type-label-medium);
+  color: var(--color-on-surface-variant);
+  margin-right: 2px;
+}
+
+.chipEstado {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  height: 34px;
+  padding: 0 14px;
+  border-radius: var(--radius-small);
+  border: 1px solid var(--color-outline);
+  background: transparent;
+  color: var(--color-on-surface-variant);
+  font: var(--type-label-large);
+  letter-spacing: var(--type-label-tracking);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chipEstado.activo {
+  padding: 0 14px 0 10px;
+  border: none;
+  background: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+
+.chipEstado span {
+  font-size: 18px;
+}
+
+.limpiar {
+  margin-left: var(--spacing-1);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  color: var(--color-primary);
+  font: var(--type-label-large);
+  cursor: pointer;
+}
+
+.limpiar span {
+  font-size: 18px;
+}
+
+/* móvil */
+.filtrosSheet {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--color-scrim) 40%, transparent);
+  z-index: 40;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hojaContenido {
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: var(--color-surface-container-low);
+  border-radius: var(--radius-extra-large) var(--radius-extra-large) 0 0;
+  padding: var(--spacing-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}
+
+.agarradera {
+  width: 32px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-outline-variant);
+  align-self: center;
+}
+
+.hojaEncabezado {
+  display: flex;
+  align-items: center;
+}
+
+.hojaTitulo {
+  flex: 1;
+}
+
+.hojaLimpiar {
+  border: none;
+  background: transparent;
+  color: var(--color-primary);
+  font: var(--type-label-large);
+  cursor: pointer;
+}

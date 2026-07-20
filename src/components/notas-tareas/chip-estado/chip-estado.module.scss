@@ -1,0 +1,45 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 12px;
+  border-radius: var(--radius-full);
+  font: var(--type-label-medium);
+  letter-spacing: var(--type-label-tracking);
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+.conIcono {
+  padding: 0 10px 0 8px;
+}
+
+.icono {
+  font-size: 15px;
+}
+
+.pendiente {
+  background: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+
+.enRevision {
+  background: var(--color-tertiary-container);
+  color: var(--color-on-tertiary-container);
+}
+
+.atendida {
+  background: var(--color-success-container);
+  color: var(--color-on-success-container);
+}
+
+.vencida {
+  background: var(--color-error-container);
+  color: var(--color-on-error-container);
+}
+
+.archivada {
+  background: var(--color-surface-container-highest);
+  color: var(--color-on-surface-variant);
+}
