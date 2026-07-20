@@ -12,6 +12,7 @@ declare const styles: {
   readonly "home": string;
   readonly "icon": string;
   readonly "menu": string;
+  readonly "navSeparator": string;
   readonly "sidenav": string;
   readonly "text": string;
 };
