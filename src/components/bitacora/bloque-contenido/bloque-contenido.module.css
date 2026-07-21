@@ -1,6 +1,16 @@
 .parrafo {
+  display: block;
+  width: 100%;
+  min-height: 46px;
   margin: 0;
-  color: var(--color-on-surface);
+  padding: 0;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  background: transparent;
+  color: var(--on-surface);
+  font: var(--type-body-md);
   text-wrap: pretty;
 }
 
@@ -11,23 +21,23 @@
 }
 
 .tituloBloque {
-  font: var(--type-label-large);
-  color: var(--color-on-surface-variant);
-  margin-bottom: var(--spacing-2);
+  font: var(--type-label-lg);
+  color: var(--on-surface-variant);
+  margin-bottom: var(--space-2);
 }
 
 .fila {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-3);
+  gap: var(--space-3);
   padding: 4px 6px;
-  border-radius: var(--radius-small);
-  transition: background 100ms cubic-bezier(0.2, 0, 0, 1);
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-short) var(--ease-standard);
 }
 
 .fila:hover,
 .fila:focus-within {
-  background: color-mix(in srgb, var(--color-on-surface) 5%, transparent);
+  background: color-mix(in srgb, var(--on-surface) 5%, transparent);
 }
 
 .punto {
@@ -35,7 +45,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: var(--primary);
   flex: 0 0 5px;
 }
 
@@ -46,18 +56,26 @@
 .texto {
   flex: 1;
   min-width: 0;
-  color: var(--color-on-surface);
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--on-surface);
+  font: var(--type-body-md);
+}
+
+.texto::placeholder {
+  color: var(--on-surface-variant);
 }
 
 .texto.completado {
-  color: var(--color-on-surface-variant);
+  color: var(--on-surface-variant);
   text-decoration: line-through;
 }
 
 .promovida {
   margin-left: 6px;
   vertical-align: middle;
-  color: var(--color-primary);
+  color: var(--primary);
 }
 
 .promovida span {
@@ -72,13 +90,13 @@
   flex: 0 0 auto;
   border: none;
   background: transparent;
-  color: var(--color-primary);
-  font: var(--type-label-medium);
-  letter-spacing: var(--type-label-tracking);
+  color: var(--primary);
+  font: var(--type-label-md);
+  letter-spacing: var(--tracking-label);
   cursor: pointer;
   white-space: nowrap;
   padding: 2px 4px;
-  transition: opacity 150ms cubic-bezier(0.2, 0, 0, 1);
+  transition: opacity var(--duration-short) var(--ease-standard);
 }
 
 .fila:hover .convertir,
@@ -89,4 +107,27 @@
 
 .convertir span {
   font-size: 16px;
+}
+
+.agregarItem {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--primary);
+  font: var(--type-label-md);
+  cursor: pointer;
+}
+
+.agregarItem:hover {
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.agregarItem span {
+  font-size: 18px;
 }

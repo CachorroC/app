@@ -1,4 +1,5 @@
 declare const styles: {
+  readonly "agregarItem": string;
   readonly "casilla": string;
   readonly "completado": string;
   readonly "convertir": string;

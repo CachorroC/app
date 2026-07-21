@@ -42,8 +42,37 @@ export type BloqueListaDTO = {
 
 export type BloqueDTO = BloqueParrafoDTO | BloqueListaDTO;
 
+export type RolAsignacionVisible = 'RESPONSABLE' | 'COLABORADOR' | 'OBSERVADOR';
+
+export type UsuarioAsignadoDTO = {
+  id    : string;
+  nombre: string;
+  rol   : RolAsignacionVisible;
+};
+
+export type UsuarioDisponibleDTO = {
+  id    : string;
+  nombre: string;
+};
+
+export type EstadoTareaVisible = 'PENDIENTE' | 'EN_PROGRESO' | 'ATENDIDA' | 'ARCHIVADA';
+
+export type PrioridadTareaVisible = 'BAJA' | 'MEDIA' | 'ALTA' | 'URGENTE';
+
+export type TareaVinculadaDTO = {
+  id         : string;
+  titulo     : string;
+  estado     : EstadoTareaVisible;
+  prioridad  : PrioridadTareaVisible;
+  fechaLimite: string | null;
+  esTermino  : boolean;
+};
+
 export type NotaDetalle = Omit<NotaResumen, 'totalItemsVerificacion' | 'itemsCompletados'> & {
-  bloques: BloqueDTO[];
+  bloques    : BloqueDTO[];
+  archivadaEn: string | null;
+  usuarios   : UsuarioAsignadoDTO[];
+  tareas     : TareaVinculadaDTO[];
 };
 
 export type FiltrosNotas = {

@@ -1,0 +1,70 @@
+.pie {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) clamp(16px, 3vw, 40px);
+  border-top: 1px solid var(--outline-variant);
+  background: var(--surface);
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font: var(--type-data-sm);
+  color: var(--on-surface-variant);
+}
+
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.indicador {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: var(--type-label-md);
+  color: var(--on-surface-variant);
+}
+
+.indicador .material-symbols-rounded {
+  font-size: 18px;
+}
+
+.pendiente {
+  color: var(--primary);
+}
+
+.punto {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.exito {
+  color: var(--success);
+}
+
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--outline-variant);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: girar 0.7s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}

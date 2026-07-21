@@ -1,0 +1,113 @@
+.fila {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--outline-variant);
+  border-left: 4px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--elevation-1);
+  transition: border-color var(--duration-short) var(--ease-standard), background var(--duration-short) var(--ease-standard);
+}
+
+.termino {
+  border-color: var(--error);
+  border-left-color: var(--error);
+  background: color-mix(in srgb, var(--error) 7%, var(--surface));
+}
+
+.vencida {
+  border-left-color: var(--error);
+}
+
+.cuerpo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.tituloFila {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.titulo {
+  font: var(--type-body-md);
+  font-weight: var(--weight-semibold);
+  color: var(--on-surface);
+}
+
+.chipTermino {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: 22px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--error-container);
+  color: var(--on-error-container);
+  font: var(--type-label-sm);
+}
+
+.chipTermino .material-symbols-rounded {
+  font-size: 14px;
+}
+
+.metaFila {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.prioridad {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: var(--type-label-sm);
+  color: var(--on-surface-variant);
+}
+
+.puntoPrioridad {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentcolor;
+}
+
+.baja {
+  color: var(--outline);
+}
+
+.media {
+  color: var(--tertiary);
+}
+
+.alta {
+  color: var(--warning);
+}
+
+.urgente {
+  color: var(--error);
+}
+
+.fecha {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: var(--type-data-sm);
+  color: var(--on-surface-variant);
+}
+
+.fecha .material-symbols-rounded {
+  font-size: 16px;
+}
+
+.fechaVencida {
+  color: var(--error);
+}

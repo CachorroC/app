@@ -188,21 +188,22 @@ export async function listarNotas( filtros: FiltrosNotas ): Promise<ListaNotasRe
 export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
   const fila = await prisma.notes.findUnique( {
     where: {
-      id 
+      id
     },
     select: {
-      id       : true,
-      titulo   : true,
-      resumen  : true,
-      estado   : true,
-      fijada   : true,
-      creadaEn : true,
-      editadaEn: true,
-      Carpeta  : {
+      id         : true,
+      titulo     : true,
+      resumen    : true,
+      estado     : true,
+      fijada     : true,
+      creadaEn   : true,
+      editadaEn  : true,
+      archivadaEn: true,
+      Carpeta    : {
         select: {
           numero: true,
-          nombre: true 
-        } 
+          nombre: true
+        }
       },
       etiquetas_en_notes: {
         select: {
@@ -210,14 +211,38 @@ export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
             select: {
               id    : true,
               nombre: true,
-              color : true 
-            } 
-          } 
+              color : true
+            }
+          }
+        },
+      },
+      usuarios_en_notes: {
+        select: {
+          rol  : true,
+          users: {
+            select: {
+              id    : true,
+              nombre: true
+            }
+          }
+        },
+      },
+      tareas: {
+        orderBy: {
+          creadaEn: 'asc'
+        },
+        select: {
+          id         : true,
+          titulo     : true,
+          estado     : true,
+          prioridad  : true,
+          fechaLimite: true,
+          esTermino  : true,
         },
       },
       note_bloques: {
         orderBy: {
-          orden: 'asc' 
+          orden: 'asc'
         },
         select: {
           id          : true,
@@ -226,7 +251,7 @@ export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
           texto       : true,
           bloque_items: {
             orderBy: {
-              orden: 'asc' 
+              orden: 'asc'
             },
             select: {
               id          : true,
@@ -286,16 +311,77 @@ export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
       ? {
           id        : String( fila.Carpeta.numero ),
           referencia: `Carpeta ${ fila.Carpeta.numero }`,
-          nombre    : fila.Carpeta.nombre 
+          nombre    : fila.Carpeta.nombre
         }
       : null,
     etiquetas: fila.etiquetas_en_notes.map( ( e ) => {
       return e.etiquetas;
     } ),
-    creadaEn : fila.creadaEn.toISOString(),
-    editadaEn: fila.editadaEn.toISOString(),
+    creadaEn   : fila.creadaEn.toISOString(),
+    editadaEn  : fila.editadaEn.toISOString(),
+    archivadaEn: fila.archivadaEn?.toISOString() ?? null,
+    usuarios   : fila.usuarios_en_notes.map( ( u ) => {
+      return {
+        id    : u.users.id,
+        nombre: u.users.nombre,
+        rol   : u.rol as NotaDetalle['usuarios'][number]['rol'],
+      };
+    } ),
+    tareas: fila.tareas.map( ( t ) => {
+      return {
+        id         : t.id,
+        titulo     : t.titulo,
+        estado     : t.estado as NotaDetalle['tareas'][number]['estado'],
+        prioridad  : t.prioridad as NotaDetalle['tareas'][number]['prioridad'],
+        fechaLimite: t.fechaLimite?.toISOString() ?? null,
+        esTermino  : t.esTermino,
+      };
+    } ),
     bloques,
   };
+}
+
+/** Carpetas para el combobox de asociación (numero/nombre por separado, no el rótulo combinado del filtro). */
+export async function listarCarpetasParaCombobox() {
+  const carpetas = await prisma.carpeta.findMany( {
+    select: {
+      numero: true,
+      nombre: true
+    },
+    orderBy: {
+      numero: 'desc'
+    },
+    take: 200,
+  } );
+
+  return carpetas.map( ( c ) => {
+    return {
+      id    : String( c.numero ),
+      numero: c.numero,
+      nombre: c.nombre,
+    };
+  } );
+}
+
+/** Personal activo aún no asignado a la nota, para el menú "Asignar usuario". */
+export async function listarUsuariosDisponibles( idsAsignados: string[] ) {
+  const usuarios = await prisma.users.findMany( {
+    where: {
+      activo: true,
+      id    : {
+        notIn: idsAsignados
+      },
+    },
+    select: {
+      id    : true,
+      nombre: true
+    },
+    orderBy: {
+      nombre: 'asc'
+    },
+  } );
+
+  return usuarios;
 }
 
 /** Casos disponibles para el selector del filtro. TODO: paginar si crece mucho. */

@@ -1,0 +1,33 @@
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 30px;
+}
+
+.input {
+  flex: 1 1 90px;
+  min-width: 90px;
+  height: 30px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: var(--type-body-sm);
+  color: var(--on-surface);
+}
+
+.input::placeholder {
+  color: var(--on-surface-variant);
+}
+
+.ayuda {
+  font: var(--type-body-sm);
+  color: var(--on-surface-variant);
+}

@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import * as z from 'zod';
 import prisma from '#@/lib/connection/prisma';
-import { EstadoNote, PrioridadTarea, TipoBloque } from '#@/app/generated/prisma/enums';
+import { EstadoNote, PrioridadTarea, RolAsignacion, TipoBloque } from '#@/app/generated/prisma/enums';
 
 const RUTA_LISTA = '/bitacora';
 
@@ -15,6 +15,18 @@ const RUTA_TAREAS = '/tareas';
 
 const ESTADOS_NOTE = Object.values( EstadoNote ) as [string, ...string[]];
 const PRIORIDADES_TAREA = Object.values( PrioridadTarea ) as [string, ...string[]];
+const TIPOS_BLOQUE = Object.values( TipoBloque ) as [string, ...string[]];
+const ROLES_ASIGNACION = Object.values( RolAsignacion ) as [string, ...string[]];
+
+/** Paleta round-robin para etiquetas nuevas — una etiqueta nunca elige su propio color. */
+const ETQ_COLORS = [
+  '#6A4FA8',
+  '#3A5BA9',
+  '#7A5900',
+  '#36693E',
+  '#B3261E',
+  '#7D5260',
+];
 
 function esErrorConstraintUnico( error: unknown ): boolean {
   return Boolean( error && typeof error === 'object' && 'code' in error && error.code === 'P2002' );
@@ -61,7 +73,14 @@ const ActualizarNotaSchema = z.object( {
     .min( 1 )
     .max( 200 )
     .optional(),
+  resumen: z.string()
+    .trim()
+    .max( 400 )
+    .nullable()
+    .optional(),
   estado: z.enum( ESTADOS_NOTE )
+    .optional(),
+  fijada: z.boolean()
     .optional(),
   casoId: z.string()
     .nullable()
@@ -69,54 +88,49 @@ const ActualizarNotaSchema = z.object( {
 } );
 
 /**
- * Actualiza una nota. `resumen` se regenera siempre a partir del primer
- * bloque PARRAFO (truncado a 400 caracteres) — nunca se edita a mano.
+ * Actualiza los campos escalares de una nota. Se envían solo los campos que
+ * cambiaron (diff calculado en el cliente) — nunca el documento completo.
  */
 export async function actualizarNota(
-  id: string, input: z.infer<typeof ActualizarNotaSchema> 
+  id: string, input: z.infer<typeof ActualizarNotaSchema>
 ) {
   const datos = ActualizarNotaSchema.parse( input );
 
-  const primerParrafo = await prisma.note_bloques.findFirst( {
-    where: {
-      noteId: id,
-      tipo  : TipoBloque.PARRAFO 
-    },
-    orderBy: {
-      orden: 'asc' 
-    },
-    select: {
-      texto: true 
-    },
-  } );
-
   await prisma.notes.update( {
     where: {
-      id 
+      id
     },
     data: {
       ...( datos.titulo !== undefined
         ? {
-            titulo: datos.titulo 
+            titulo: datos.titulo
+          }
+        : {} ),
+      ...( datos.resumen !== undefined
+        ? {
+            resumen: datos.resumen
           }
         : {} ),
       ...( datos.estado !== undefined
         ? {
-            estado: datos.estado as EstadoNote 
+            estado     : datos.estado as EstadoNote,
+            archivadaEn: datos.estado === EstadoNote.ARCHIVADA
+              ? new Date()
+              : null,
+          }
+        : {} ),
+      ...( datos.fijada !== undefined
+        ? {
+            fijada: datos.fijada
           }
         : {} ),
       ...( datos.casoId !== undefined
         ? {
             carpetaId: datos.casoId
               ? Number( datos.casoId )
-              : null 
+              : null
           }
         : {} ),
-      resumen: primerParrafo?.texto
-        ? primerParrafo.texto.slice(
-            0, 400 
-          )
-        : null,
       editadaEn: new Date(),
     },
   } );
@@ -322,10 +336,309 @@ export async function promoverItemATarea(
     if ( esErrorConstraintUnico( error ) ) {
       return {
         ok   : false,
-        error: 'Este ítem ya fue convertido en una tarea.' 
+        error: 'Este ítem ya fue convertido en una tarea.'
       } as const;
     }
 
     throw error;
   }
+}
+
+/** Agrega un bloque vacío al final de la nota. El id lo decide el cliente (UI optimista sin reconciliar ids). */
+export async function agregarBloque(
+  notaId: string, id: string, tipo: string
+) {
+  const tipoValido = z.enum( TIPOS_BLOQUE )
+    .parse( tipo ) as TipoBloque;
+
+  const ultimo = await prisma.note_bloques.aggregate( {
+    where: {
+      noteId: notaId
+    },
+    _max: {
+      orden: true
+    },
+  } );
+
+  const bloque = await prisma.note_bloques.create( {
+    data: {
+      id,
+      noteId: notaId,
+      tipo  : tipoValido,
+      orden : ( ultimo._max.orden ?? -1 ) + 1,
+      texto : tipoValido === TipoBloque.PARRAFO
+        ? ''
+        : null,
+    },
+    select: {
+      id: true
+    },
+  } );
+
+  revalidatePath( rutaDetalle( notaId ) );
+
+  return bloque;
+}
+
+/** Actualiza el texto de un bloque PARRAFO, o el título de un bloque LISTA/VERIFICACION. */
+export async function actualizarTextoBloque(
+  bloqueId: string, texto: string
+) {
+  const bloque = await prisma.note_bloques.update( {
+    where: {
+      id: bloqueId
+    },
+    data: {
+      texto
+    },
+    select: {
+      noteId: true
+    },
+  } );
+
+  revalidatePath( rutaDetalle( bloque.noteId ) );
+}
+
+/** Elimina un bloque y, en cascada, sus ítems (schema: onDelete: Cascade). */
+export async function eliminarBloque( bloqueId: string ) {
+  const bloque = await prisma.note_bloques.delete( {
+    where: {
+      id: bloqueId
+    },
+    select: {
+      noteId: true
+    },
+  } );
+
+  revalidatePath( rutaDetalle( bloque.noteId ) );
+}
+
+/** Agrega un ítem vacío al final de un bloque LISTA/VERIFICACION. El id lo decide el cliente. */
+export async function agregarItem(
+  bloqueId: string, id: string, texto: string
+) {
+  const ultimo = await prisma.bloque_items.aggregate( {
+    where: {
+      bloqueId
+    },
+    _max: {
+      orden: true
+    },
+  } );
+
+  const item = await prisma.bloque_items.create( {
+    data: {
+      id,
+      bloqueId,
+      texto,
+      orden: ( ultimo._max.orden ?? -1 ) + 1,
+    },
+    select: {
+      id          : true,
+      note_bloques: {
+        select: {
+          noteId: true
+        }
+      }
+    },
+  } );
+
+  revalidatePath( rutaDetalle( item.note_bloques.noteId ) );
+
+  return {
+    id: item.id
+  };
+}
+
+/** Actualiza el texto de un ítem de lista/verificación. */
+export async function actualizarTextoItem(
+  itemId: string, texto: string
+) {
+  const item = await prisma.bloque_items.update( {
+    where: {
+      id: itemId
+    },
+    data: {
+      texto
+    },
+    select: {
+      note_bloques: {
+        select: {
+          noteId: true
+        }
+      }
+    },
+  } );
+
+  revalidatePath( rutaDetalle( item.note_bloques.noteId ) );
+}
+
+/** Elimina un ítem de lista/verificación. */
+export async function eliminarItem( itemId: string ) {
+  const item = await prisma.bloque_items.delete( {
+    where: {
+      id: itemId
+    },
+    select: {
+      note_bloques: {
+        select: {
+          noteId: true
+        }
+      }
+    },
+  } );
+
+  revalidatePath( rutaDetalle( item.note_bloques.noteId ) );
+}
+
+/**
+ * Asocia una etiqueta a la nota por nombre — la crea si no existe (color
+ * asignado round-robin desde una paleta fija). Nunca falla si la etiqueta
+ * ya estaba asociada: ese caso es un no-op silencioso.
+ */
+export async function crearOAsociarEtiqueta(
+  notaId: string, nombre: string
+) {
+  const nombreValido = z.string()
+    .trim()
+    .min( 1 )
+    .max( 60 )
+    .parse( nombre );
+
+  const etiqueta = await prisma.$transaction( async ( tx ) => {
+    const existente = await tx.etiquetas.findUnique( {
+      where: {
+        nombre: nombreValido
+      },
+      select: {
+        id    : true,
+        nombre: true,
+        color : true
+      },
+    } );
+
+    if ( existente ) {
+      return existente;
+    }
+
+    const total = await tx.etiquetas.count();
+
+    return tx.etiquetas.create( {
+      data: {
+        id    : crypto.randomUUID(),
+        nombre: nombreValido,
+        color : ETQ_COLORS[ total % ETQ_COLORS.length ],
+      },
+      select: {
+        id    : true,
+        nombre: true,
+        color : true
+      },
+    } );
+  } );
+
+  try {
+    await prisma.etiquetas_en_notes.create( {
+      data: {
+        noteId    : notaId,
+        etiquetaId: etiqueta.id
+      },
+    } );
+  } catch ( error ) {
+    if ( !esErrorConstraintUnico( error ) ) {
+      throw error;
+    }
+    // Ya estaba asociada a esta nota — no-op.
+  }
+
+  revalidatePath( rutaDetalle( notaId ) );
+
+  return etiqueta;
+}
+
+/** Quita una etiqueta de la nota (la etiqueta en sí no se borra). */
+export async function desasociarEtiqueta(
+  notaId: string, etiquetaId: string
+) {
+  await prisma.etiquetas_en_notes.delete( {
+    where: {
+      noteId_etiquetaId: {
+        noteId: notaId,
+        etiquetaId
+      },
+    },
+  } );
+
+  revalidatePath( rutaDetalle( notaId ) );
+}
+
+/** Asigna un usuario a la nota con un rol de asignación. */
+export async function asignarUsuario(
+  notaId: string, userId: string, rol: string
+) {
+  const rolValido = z.enum( ROLES_ASIGNACION )
+    .parse( rol ) as RolAsignacion;
+
+  try {
+    await prisma.usuarios_en_notes.create( {
+      data: {
+        noteId: notaId,
+        userId,
+        rol   : rolValido,
+      },
+    } );
+  } catch ( error ) {
+    if ( esErrorConstraintUnico( error ) ) {
+      return {
+        ok   : false,
+        error: 'Este usuario ya está asignado a la nota.'
+      } as const;
+    }
+
+    throw error;
+  }
+
+  revalidatePath( rutaDetalle( notaId ) );
+
+  return {
+    ok: true
+  } as const;
+}
+
+/** Cambia el rol de asignación de un usuario ya asignado a la nota. */
+export async function actualizarRolAsignacion(
+  notaId: string, userId: string, rol: string
+) {
+  const rolValido = z.enum( ROLES_ASIGNACION )
+    .parse( rol ) as RolAsignacion;
+
+  await prisma.usuarios_en_notes.update( {
+    where: {
+      userId_noteId: {
+        userId,
+        noteId: notaId
+      },
+    },
+    data: {
+      rol: rolValido
+    },
+  } );
+
+  revalidatePath( rutaDetalle( notaId ) );
+}
+
+/** Quita un usuario asignado de la nota. */
+export async function quitarUsuario(
+  notaId: string, userId: string
+) {
+  await prisma.usuarios_en_notes.delete( {
+    where: {
+      userId_noteId: {
+        userId,
+        noteId: notaId
+      },
+    },
+  } );
+
+  revalidatePath( rutaDetalle( notaId ) );
 }

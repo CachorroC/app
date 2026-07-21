@@ -2,14 +2,16 @@ import { CSSProperties } from 'react';
 import styles from './chip-etiqueta.module.css';
 
 export type ChipEtiquetaProps = {
-  texto    : string;
-  color?   : string;
-  maxChars?: number;
-  style?   : CSSProperties;
+  texto       : string;
+  color?      : string;
+  maxChars?   : number;
+  style?      : CSSProperties;
+  onRemove?   : () => void;
+  removeLabel?: string;
 };
 
 export const ChipEtiqueta = ( {
-  texto, color = '#6a4fa8', maxChars = 18, style 
+  texto, color = '#6a4fa8', maxChars = 18, style, onRemove, removeLabel
 }: ChipEtiquetaProps ) => {
   return (
     <span
@@ -23,10 +25,20 @@ export const ChipEtiqueta = ( {
       }}
     >
       <span className={styles.punto} style={{
-        background: color 
+        background: color
       }} aria-hidden="true"
       />
       <span className={styles.texto}>{texto}</span>
+      {onRemove && (
+        <button
+          type="button"
+          className={styles.quitar}
+          aria-label={removeLabel ?? `Quitar ${ texto }`}
+          onClick={onRemove}
+        >
+          <span className="material-symbols-rounded" aria-hidden="true">close</span>
+        </button>
+      )}
     </span>
   );
 };
