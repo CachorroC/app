@@ -35,3 +35,4 @@ This version has breaking changes — APIs, conventions, and file structure may 
    `design-system/tokens.css` for color/spacing/radius/font/shadow
    values (extracted from the R&S Claude Design handoff). Reuse them
    instead of inventing new markup, colors, or spacing values.
+4. **Prisma Implementation**: This is a repo that only prisma db pull from the main prisma implementation. You can not prisma migrate from this repo, any changes to the prisma schema have to be asked to the user to implement them on the prisma implementation on the backend folder. This folder only consumes from prisma NO migration can be made from here.
