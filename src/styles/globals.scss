@@ -1494,6 +1494,110 @@ samp {
 }
 
 /* ============================================================
+   Ported-component short-name aliases
+   Several components (ds, bitacora, tareas, notas-tareas) were ported
+   from the Claude Design bundle referencing an unprefixed short naming
+   scheme (--color-NAME, --spacing-N, --radius-NAME, --type-SCALE-SIZE)
+   instead of this file's --md-sys- tokens, so those custom properties
+   were previously undefined (silently dropped by the browser — no
+   error, just missing spacing/color/type). These alias every such name
+   straight onto the equivalent --md-sys- token above so the ported
+   markup resolves without editing each component. Add to this block
+   rather than duplicating values if a new ported name turns up.
+   ============================================================ */
+:root {
+  /* ---- --color-* → --md-sys-color-* ---- */
+  --color-primary:                   var(--md-sys-color-primary);
+  --color-on-primary:                var(--md-sys-color-on-primary);
+  --color-primary-container:         var(--md-sys-color-primary-container);
+  --color-on-primary-container:      var(--md-sys-color-on-primary-container);
+
+  --color-secondary:                 var(--md-sys-color-secondary);
+  --color-on-secondary:              var(--md-sys-color-on-secondary);
+  --color-secondary-container:       var(--md-sys-color-secondary-container);
+  --color-on-secondary-container:    var(--md-sys-color-on-secondary-container);
+
+  --color-tertiary:                  var(--md-sys-color-tertiary);
+  --color-on-tertiary:               var(--md-sys-color-on-tertiary);
+  --color-tertiary-container:        var(--md-sys-color-tertiary-container);
+  --color-on-tertiary-container:     var(--md-sys-color-on-tertiary-container);
+
+  --color-error:                     var(--md-sys-color-error);
+  --color-on-error:                  var(--md-sys-color-on-error);
+  --color-error-container:           var(--md-sys-color-error-container);
+  --color-on-error-container:        var(--md-sys-color-on-error-container);
+
+  --color-success:                   var(--md-sys-color-success);
+  --color-on-success:                var(--md-sys-color-on-success);
+  --color-success-container:         var(--md-sys-color-success-container);
+  --color-on-success-container:      var(--md-sys-color-on-success-container);
+
+  --color-background:                var(--md-sys-color-background);
+  --color-on-background:             var(--md-sys-color-on-background);
+  --color-surface:                   var(--md-sys-color-surface);
+  --color-on-surface:                var(--md-sys-color-on-surface);
+  --color-surface-variant:           var(--md-sys-color-surface-variant);
+  --color-on-surface-variant:        var(--md-sys-color-on-surface-variant);
+
+  --color-surface-dim:               var(--md-sys-color-surface-dim);
+  --color-surface-bright:            var(--md-sys-color-surface-bright);
+  --color-surface-container-lowest:  var(--md-sys-color-surface-container-lowest);
+  --color-surface-container-low:     var(--md-sys-color-surface-container-low);
+  --color-surface-container:         var(--md-sys-color-surface-container);
+  --color-surface-container-high:    var(--md-sys-color-surface-container-high);
+  --color-surface-container-highest: var(--md-sys-color-surface-container-highest);
+
+  --color-outline:                   var(--md-sys-color-outline);
+  --color-outline-variant:           var(--md-sys-color-outline-variant);
+  --color-inverse-surface:           var(--md-sys-color-inverse-surface);
+  --color-inverse-on-surface:        var(--md-sys-color-inverse-on-surface);
+  --color-shadow:                    var(--md-sys-color-shadow);
+  --color-scrim:                     var(--md-sys-color-scrim);
+
+  /* ---- --spacing-N → --md-sys-spacing-N ---- */
+  --spacing-0: var(--md-sys-spacing-0);
+  --spacing-1: var(--md-sys-spacing-1);
+  --spacing-2: var(--md-sys-spacing-2);
+  --spacing-3: var(--md-sys-spacing-3);
+  --spacing-4: var(--md-sys-spacing-4);
+  --spacing-5: var(--md-sys-spacing-5);
+  --spacing-6: var(--md-sys-spacing-6);
+  --spacing-8: var(--md-sys-spacing-8);
+
+  /* ---- --radius-<name> → --md-sys-shape-corner-<name> ---- */
+  --radius-none:        var(--md-sys-shape-corner-none);
+  --radius-extra-small: var(--md-sys-shape-corner-extra-small);
+  --radius-small:       var(--md-sys-shape-corner-small);
+  --radius-medium:      var(--md-sys-shape-corner-medium);
+  --radius-large:       var(--md-sys-shape-corner-large);
+  --radius-extra-large: var(--md-sys-shape-corner-extra-large);
+  --radius-full:        var(--md-sys-shape-corner-full);
+
+  /* ---- --type-<scale>-<size> → --md-sys-typescale-<scale>-<size> ---- */
+  --type-display-large:   var(--md-sys-typescale-display-large);
+  --type-display-medium:  var(--md-sys-typescale-display-medium);
+  --type-display-small:   var(--md-sys-typescale-display-small);
+  --type-headline-large:  var(--md-sys-typescale-headline-large);
+  --type-headline-medium: var(--md-sys-typescale-headline-medium);
+  --type-headline-small:  var(--md-sys-typescale-headline-small);
+  --type-title-large:     var(--md-sys-typescale-title-large);
+  --type-title-medium:    var(--md-sys-typescale-title-medium);
+  --type-title-small:     var(--md-sys-typescale-title-small);
+  --type-body-large:      var(--md-sys-typescale-body-large);
+  --type-body-medium:     var(--md-sys-typescale-body-medium);
+  --type-body-small:      var(--md-sys-typescale-body-small);
+  --type-label-large:     var(--md-sys-typescale-label-large);
+  --type-label-medium:    var(--md-sys-typescale-label-medium);
+  --type-label-small:     var(--md-sys-typescale-label-small);
+
+  --type-display-tracking:  var(--md-sys-typescale-display-tracking);
+  --type-headline-tracking: var(--md-sys-typescale-headline-tracking);
+  --type-title-tracking:    var(--md-sys-typescale-title-tracking);
+  --type-body-tracking:     var(--md-sys-typescale-body-tracking);
+  --type-label-tracking:    var(--md-sys-typescale-label-tracking);
+}
+
+/* ============================================================
    M3 typescale utility classes
    Apply to any element to enforce the design system's type role.
    ============================================================ */
