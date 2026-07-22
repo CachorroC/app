@@ -341,8 +341,19 @@ export async function signUp(
       status: 'success'
     };
   } catch ( error ) {
+    console.error(
+      'Error en signUp:',
+      error instanceof Error
+        ? error.message
+        : error,
+      error
+    );
     console.log(
-      'Error en signUp:', error
+      'Error en signUp:',
+      error instanceof Error
+        ? error.message
+        : error,
+      error
     );
 
     return {

@@ -1,8 +1,11 @@
 import { PrismaClient } from '#@/app/generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 
-const connectionString
-  = 'postgresql://postgres:Tengo1amo@192.168.1.101:5432/RyS?schema=public';
+const connectionString = process.env.DATABASE_URL;
+
+if ( !connectionString ) {
+  throw new Error( 'DATABASE_URL no está definida.' );
+}
 
 const adapter = new PrismaPg( {
   connectionString,
