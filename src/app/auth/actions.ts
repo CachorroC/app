@@ -226,118 +226,131 @@ const SignUpSchema = z.object( {
 export async function signUp(
   prevState: AuthActionState, formData: FormData
 ): Promise<AuthActionState> {
-  const parsed = SignUpSchema.safeParse( {
-    nombre            : formData.get( 'nombre' ),
-    email             : formData.get( 'email' ),
-    rol               : formData.get( 'rol' ),
-    tarjetaProfesional: formData.get( 'tarjetaProfesional' ) || undefined,
-    password          : formData.get( 'password' ),
-    password2         : formData.get( 'password2' ),
-    terms             : formData.get( 'terms' ),
-  } );
-
-  if ( !parsed.success ) {
-    const fieldErrors: AuthActionState[ 'fieldErrors' ] = {};
-    let formError: string | undefined;
-
-    for ( const issue of parsed.error.issues ) {
-      const [
-        campo
-      ] = issue.path;
-
-      if ( campo === 'terms' ) {
-        formError = issue.message;
-      } else if ( typeof campo === 'string' && [
-        'nombre',
-        'email',
-        'password',
-        'password2',
-        'tarjetaProfesional'
-      ].includes( campo ) ) {
-        fieldErrors[ campo as keyof typeof fieldErrors ] = issue.message;
-      }
-    }
-
-    return {
-      status: 'error',
-      fieldErrors,
-      formError,
-    };
-  }
-
-  const {
-    nombre, email, rol, tarjetaProfesional, password
-  } = parsed.data;
-
-  let userId: string;
-
   try {
-    const user = await prisma.user.create( {
-      data: {
-        id          : crypto.randomUUID(),
-        email       : email.toLowerCase(),
-        nombre,
-        rol,
-        activo      : true,
-        passwordHash: await bcrypt.hash(
-          password, 10
-        ),
-        tarjetaProfesional: rol === 'ABOGADO'
-          ? tarjetaProfesional
-          : null,
-        emailVerificadoEn: null,
-        editadoEn        : new Date(),
-      },
-      select: {
-        id: true
-      },
+
+    const parsed = SignUpSchema.safeParse( {
+      nombre            : formData.get( 'nombre' ),
+      email             : formData.get( 'email' ),
+      rol               : formData.get( 'rol' ),
+      tarjetaProfesional: formData.get( 'tarjetaProfesional' ) || undefined,
+      password          : formData.get( 'password' ),
+      password2         : formData.get( 'password2' ),
+      terms             : formData.get( 'terms' ),
     } );
 
-    userId = user.id;
-  } catch ( error ) {
-    if ( esErrorConstraintUnico( error ) ) {
-      const campo = campoConflicto( error );
+    if ( !parsed.success ) {
+      const fieldErrors: AuthActionState[ 'fieldErrors' ] = {};
+      let formError: string | undefined;
 
-      if ( campo?.includes( 'tarjetaProfesional' ) ) {
+      for ( const issue of parsed.error.issues ) {
+        const [
+          campo
+        ] = issue.path;
+
+        if ( campo === 'terms' ) {
+          formError = issue.message;
+        } else if ( typeof campo === 'string' && [
+          'nombre',
+          'email',
+          'password',
+          'password2',
+          'tarjetaProfesional'
+        ].includes( campo ) ) {
+          fieldErrors[ campo as keyof typeof fieldErrors ] = issue.message;
+        }
+      }
+
+      return {
+        status: 'error',
+        fieldErrors,
+        formError,
+      };
+    }
+
+    const {
+      nombre, email, rol, tarjetaProfesional, password
+    } = parsed.data;
+
+    let userId: string;
+
+    try {
+      const user = await prisma.user.create( {
+        data: {
+          id          : crypto.randomUUID(),
+          email       : email.toLowerCase(),
+          nombre,
+          rol,
+          activo      : true,
+          passwordHash: await bcrypt.hash(
+            password, 10
+          ),
+          tarjetaProfesional: rol === 'ABOGADO'
+            ? tarjetaProfesional
+            : null,
+          emailVerificadoEn: null,
+          editadoEn        : new Date(),
+        },
+        select: {
+          id: true
+        },
+      } );
+
+      userId = user.id;
+    } catch ( error ) {
+      if ( esErrorConstraintUnico( error ) ) {
+        const campo = campoConflicto( error );
+
+        if ( campo?.includes( 'tarjetaProfesional' ) ) {
+          return {
+            status     : 'error',
+            fieldErrors: {
+              tarjetaProfesional: 'Esta tarjeta profesional ya está registrada.'
+            },
+          };
+        }
+
         return {
           status     : 'error',
           fieldErrors: {
-            tarjetaProfesional: 'Esta tarjeta profesional ya está registrada.'
+            email: 'Este correo ya está registrado.'
           },
         };
       }
 
-      return {
-        status     : 'error',
-        fieldErrors: {
-          email: 'Este correo ya está registrado.'
-        },
-      };
+      throw error;
     }
 
-    throw error;
-  }
+    const token = await issueToken(
+      userId, TipoToken.EMAIL_VERIFICATION
+    );
 
-  const token = await issueToken(
-    userId, TipoToken.EMAIL_VERIFICATION
-  );
-
-  if ( 'raw' in token ) {
-    try {
-      await sendMail( {
-        to: email.toLowerCase(),
-        ...verificationEmail(
-          nombre, `${ baseUrl() }/auth/verificar/${ token.raw }`
-        ),
-      } );
-    } catch {
+    if ( 'raw' in token ) {
+      try {
+        await sendMail( {
+          to: email.toLowerCase(),
+          ...verificationEmail(
+            nombre, `${ baseUrl() }/auth/verificar/${ token.raw }`
+          ),
+        } );
+      } catch {
       // Envío best-effort — no bloquea el registro.
+      }
     }
-  }
 
-  return {
-    status: 'success'
-  };
+    return {
+      status: 'success'
+    };
+  } catch ( error ) {
+    console.log(
+      'Error en signUp:', error
+    );
+
+    return {
+      status   : 'error',
+      formError: 'Ocurrió un error inesperado. Intente de nuevo más tarde.'
+    };
+
+  }
 }
 
 export async function signOut(): Promise<void> {
