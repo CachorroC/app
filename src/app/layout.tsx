@@ -1,5 +1,4 @@
 import '#@/styles/globals.css';
-import '../../design-system/tokens.css';
 import 'material-symbols';
 import layout from '#@/styles/layout.module.css';
 import { ReactNode, Suspense } from 'react';
@@ -8,7 +7,6 @@ import { SearchProvider } from './Context/search-context';
 import { ModalProvider } from './Context/modal-context';
 import type { Metadata, Viewport } from 'next';
 import { NavBar } from '#@/components/layout/NavBar';
-import { Chrome } from '#@/components/layout/chrome';
 import { IdentityBadge } from '#@/components/layout/identity-badge';
 import { NavigationContextProvider } from './Context/navigation-context';
 import { CategoryContextProvider } from './Context/category-context';
@@ -119,20 +117,20 @@ export default function RootLayout( {
                     <PushManagerComponent />
                     <div className={ layout.container }>
                       <Suspense fallback={<Loader />}>
-                        <Chrome>
-                          <Suspense
-                            fallback={
-                              <nav>
-                                Cargando menú... <Loader />
-                              </nav>
-                            }
-                          >
-                            <NavBar />
-                          </Suspense>
-                          <Suspense fallback={null}>
-                            <IdentityBadge />
-                          </Suspense>
-                        </Chrome>
+
+                        <Suspense
+                          fallback={
+                            <nav>
+                              Cargando menú... <Loader />
+                            </nav>
+                          }
+                        >
+                          <NavBar />
+                        </Suspense>
+                        <Suspense fallback={null}>
+                          <IdentityBadge />
+                        </Suspense>
+
                       </Suspense>
                       <Suspense fallback={<Loader />}>
                         {children}
