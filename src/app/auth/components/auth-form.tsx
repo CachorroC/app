@@ -106,6 +106,7 @@ export const AuthForm = ( {
         {isRegister && (
           <div className={styles.registerExtras}>
             <RoleChipRow value={rol} onChange={setRol} disabled={isPending} />
+            <input type="hidden" name="rol" value={rol} />
 
             {rol === 'ABOGADO' && (
               <TextField
