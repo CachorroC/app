@@ -46,7 +46,7 @@ const CrearNotaSchema = z.object( {
 export async function crearNota( input: z.infer<typeof CrearNotaSchema> ) {
   const datos = CrearNotaSchema.parse( input );
 
-  const nota = await prisma.notes.create( {
+  const nota = await prisma.note.create( {
     data: {
       id       : crypto.randomUUID(),
       titulo   : datos.titulo,
@@ -96,7 +96,7 @@ export async function actualizarNota(
 ) {
   const datos = ActualizarNotaSchema.parse( input );
 
-  await prisma.notes.update( {
+  await prisma.note.update( {
     where: {
       id
     },
@@ -151,7 +151,7 @@ export async function reordenarBloques(
     await Promise.all( ordenIds.map( (
       id, indice 
     ) => {
-      return tx.note_bloques.update( {
+      return tx.noteBloque.update( {
         where: {
           id 
         },
@@ -163,7 +163,7 @@ export async function reordenarBloques(
     await Promise.all( ordenIds.map( (
       id, indice 
     ) => {
-      return tx.note_bloques.update( {
+      return tx.noteBloque.update( {
         where: {
           id 
         },
@@ -178,41 +178,41 @@ export async function reordenarBloques(
 }
 
 export async function alternarItem( itemId: string ) {
-  const item = await prisma.bloque_items.findUniqueOrThrow( {
+  const item = await prisma.bloqueItem.findUniqueOrThrow( {
     where: {
       id: itemId 
     },
     select: {
-      completado  : true,
-      note_bloques: {
+      completado: true,
+      bloque    : {
         select: {
-          noteId: true 
-        } 
-      } 
+          noteId: true
+        }
+      }
     },
   } );
 
   const completado = !item.completado;
 
-  await prisma.bloque_items.update( {
+  await prisma.bloqueItem.update( {
     where: {
-      id: itemId 
+      id: itemId
     },
     data: {
       completado,
       completadoEn: completado
         ? new Date()
-        : null 
+        : null
     },
   } );
 
-  revalidatePath( rutaDetalle( item.note_bloques.noteId ) );
+  revalidatePath( rutaDetalle( item.bloque.noteId ) );
 }
 
 export async function fijarNota(
   id: string, fijada: boolean 
 ) {
-  await prisma.notes.update( {
+  await prisma.note.update( {
     where: {
       id 
     },
@@ -226,7 +226,7 @@ export async function fijarNota(
 
 /** Nunca borra: marca ARCHIVADA + archivadaEn. */
 export async function archivarNota( id: string ) {
-  await prisma.notes.update( {
+  await prisma.note.update( {
     where: {
       id 
     },
@@ -263,22 +263,22 @@ export async function promoverItemATarea(
 ) {
   const datos = PromoverItemSchema.parse( input );
 
-  const item = await prisma.bloque_items.findUniqueOrThrow( {
+  const item = await prisma.bloqueItem.findUniqueOrThrow( {
     where: {
       id: itemId 
     },
     select: {
-      texto       : true,
-      tareaId     : true,
-      note_bloques: {
+      texto  : true,
+      tareaId: true,
+      bloque : {
         select: {
           noteId: true,
-          notes : {
+          note  : {
             select: {
-              carpetaId: true 
-            } 
-          } 
-        } 
+              carpetaId: true
+            }
+          }
+        }
       },
     },
   } );
@@ -292,7 +292,7 @@ export async function promoverItemATarea(
 
   try {
     const tarea = await prisma.$transaction( async ( tx ) => {
-      const creada = await tx.tareas.create( {
+      const creada = await tx.tarea.create( {
         data: {
           id    : crypto.randomUUID(),
           titulo: item.texto.slice(
@@ -304,8 +304,8 @@ export async function promoverItemATarea(
             : null,
           prioridad   : ( datos.prioridad as PrioridadTarea ) ?? PrioridadTarea.MEDIA,
           esTermino   : datos.esTermino ?? false,
-          carpetaId   : item.note_bloques.notes.carpetaId,
-          noteOrigenId: item.note_bloques.noteId,
+          carpetaId   : item.bloque.note.carpetaId,
+          noteOrigenId: item.bloque.noteId,
           editadaEn   : new Date(),
         },
         select: {
@@ -313,7 +313,7 @@ export async function promoverItemATarea(
         },
       } );
 
-      await tx.bloque_items.update( {
+      await tx.bloqueItem.update( {
         where: {
           id: itemId 
         },
@@ -326,7 +326,7 @@ export async function promoverItemATarea(
     } );
 
     revalidatePath( RUTA_TAREAS );
-    revalidatePath( rutaDetalle( item.note_bloques.noteId ) );
+    revalidatePath( rutaDetalle( item.bloque.noteId ) );
 
     return {
       ok: true,
@@ -351,7 +351,7 @@ export async function agregarBloque(
   const tipoValido = z.enum( TIPOS_BLOQUE )
     .parse( tipo ) as TipoBloque;
 
-  const ultimo = await prisma.note_bloques.aggregate( {
+  const ultimo = await prisma.noteBloque.aggregate( {
     where: {
       noteId: notaId
     },
@@ -360,7 +360,7 @@ export async function agregarBloque(
     },
   } );
 
-  const bloque = await prisma.note_bloques.create( {
+  const bloque = await prisma.noteBloque.create( {
     data: {
       id,
       noteId: notaId,
@@ -384,7 +384,7 @@ export async function agregarBloque(
 export async function actualizarTextoBloque(
   bloqueId: string, texto: string
 ) {
-  const bloque = await prisma.note_bloques.update( {
+  const bloque = await prisma.noteBloque.update( {
     where: {
       id: bloqueId
     },
@@ -401,7 +401,7 @@ export async function actualizarTextoBloque(
 
 /** Elimina un bloque y, en cascada, sus ítems (schema: onDelete: Cascade). */
 export async function eliminarBloque( bloqueId: string ) {
-  const bloque = await prisma.note_bloques.delete( {
+  const bloque = await prisma.noteBloque.delete( {
     where: {
       id: bloqueId
     },
@@ -417,7 +417,7 @@ export async function eliminarBloque( bloqueId: string ) {
 export async function agregarItem(
   bloqueId: string, id: string, texto: string
 ) {
-  const ultimo = await prisma.bloque_items.aggregate( {
+  const ultimo = await prisma.bloqueItem.aggregate( {
     where: {
       bloqueId
     },
@@ -426,7 +426,7 @@ export async function agregarItem(
     },
   } );
 
-  const item = await prisma.bloque_items.create( {
+  const item = await prisma.bloqueItem.create( {
     data: {
       id,
       bloqueId,
@@ -435,7 +435,7 @@ export async function agregarItem(
     },
     select: {
       id          : true,
-      note_bloques: {
+      bloque: {
         select: {
           noteId: true
         }
@@ -443,7 +443,7 @@ export async function agregarItem(
     },
   } );
 
-  revalidatePath( rutaDetalle( item.note_bloques.noteId ) );
+  revalidatePath( rutaDetalle( item.bloque.noteId ) );
 
   return {
     id: item.id
@@ -454,7 +454,7 @@ export async function agregarItem(
 export async function actualizarTextoItem(
   itemId: string, texto: string
 ) {
-  const item = await prisma.bloque_items.update( {
+  const item = await prisma.bloqueItem.update( {
     where: {
       id: itemId
     },
@@ -462,7 +462,7 @@ export async function actualizarTextoItem(
       texto
     },
     select: {
-      note_bloques: {
+      bloque: {
         select: {
           noteId: true
         }
@@ -470,17 +470,17 @@ export async function actualizarTextoItem(
     },
   } );
 
-  revalidatePath( rutaDetalle( item.note_bloques.noteId ) );
+  revalidatePath( rutaDetalle( item.bloque.noteId ) );
 }
 
 /** Elimina un ítem de lista/verificación. */
 export async function eliminarItem( itemId: string ) {
-  const item = await prisma.bloque_items.delete( {
+  const item = await prisma.bloqueItem.delete( {
     where: {
       id: itemId
     },
     select: {
-      note_bloques: {
+      bloque: {
         select: {
           noteId: true
         }
@@ -488,7 +488,7 @@ export async function eliminarItem( itemId: string ) {
     },
   } );
 
-  revalidatePath( rutaDetalle( item.note_bloques.noteId ) );
+  revalidatePath( rutaDetalle( item.bloque.noteId ) );
 }
 
 /**
@@ -506,7 +506,7 @@ export async function crearOAsociarEtiqueta(
     .parse( nombre );
 
   const etiqueta = await prisma.$transaction( async ( tx ) => {
-    const existente = await tx.etiquetas.findUnique( {
+    const existente = await tx.etiqueta.findUnique( {
       where: {
         nombre: nombreValido
       },
@@ -521,9 +521,9 @@ export async function crearOAsociarEtiqueta(
       return existente;
     }
 
-    const total = await tx.etiquetas.count();
+    const total = await tx.etiqueta.count();
 
-    return tx.etiquetas.create( {
+    return tx.etiqueta.create( {
       data: {
         id    : crypto.randomUUID(),
         nombre: nombreValido,
@@ -538,7 +538,7 @@ export async function crearOAsociarEtiqueta(
   } );
 
   try {
-    await prisma.etiquetas_en_notes.create( {
+    await prisma.etiquetaEnNote.create( {
       data: {
         noteId    : notaId,
         etiquetaId: etiqueta.id
@@ -560,7 +560,7 @@ export async function crearOAsociarEtiqueta(
 export async function desasociarEtiqueta(
   notaId: string, etiquetaId: string
 ) {
-  await prisma.etiquetas_en_notes.delete( {
+  await prisma.etiquetaEnNote.delete( {
     where: {
       noteId_etiquetaId: {
         noteId: notaId,
@@ -580,7 +580,7 @@ export async function asignarUsuario(
     .parse( rol ) as RolAsignacion;
 
   try {
-    await prisma.usuarios_en_notes.create( {
+    await prisma.usuarioEnNote.create( {
       data: {
         noteId: notaId,
         userId,
@@ -612,7 +612,7 @@ export async function actualizarRolAsignacion(
   const rolValido = z.enum( ROLES_ASIGNACION )
     .parse( rol ) as RolAsignacion;
 
-  await prisma.usuarios_en_notes.update( {
+  await prisma.usuarioEnNote.update( {
     where: {
       userId_noteId: {
         userId,
@@ -631,7 +631,7 @@ export async function actualizarRolAsignacion(
 export async function quitarUsuario(
   notaId: string, userId: string
 ) {
-  await prisma.usuarios_en_notes.delete( {
+  await prisma.usuarioEnNote.delete( {
     where: {
       userId_noteId: {
         userId,

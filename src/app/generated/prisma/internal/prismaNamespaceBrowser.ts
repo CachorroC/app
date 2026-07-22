@@ -56,20 +56,22 @@ export const ModelName = {
   Codeudor: 'Codeudor',
   Demanda: 'Demanda',
   Nota: 'Nota',
+  RelevantDates: 'RelevantDates',
   Actuacion: 'Actuacion',
   Juzgado: 'Juzgado',
   Proceso: 'Proceso',
-  RelevantDates: 'RelevantDates',
-  bloque_items: 'bloque_items',
-  etiquetas: 'etiquetas',
-  etiquetas_en_notes: 'etiquetas_en_notes',
-  etiquetas_en_tareas: 'etiquetas_en_tareas',
-  note_bloques: 'note_bloques',
-  notes: 'notes',
-  tareas: 'tareas',
-  users: 'users',
-  usuarios_en_notes: 'usuarios_en_notes',
-  usuarios_en_tareas: 'usuarios_en_tareas'
+  Note: 'Note',
+  NoteBloque: 'NoteBloque',
+  BloqueItem: 'BloqueItem',
+  Tarea: 'Tarea',
+  Etiqueta: 'Etiqueta',
+  EtiquetaEnNote: 'EtiquetaEnNote',
+  EtiquetaEnTarea: 'EtiquetaEnTarea',
+  User: 'User',
+  UsuarioEnNote: 'UsuarioEnNote',
+  UsuarioEnTarea: 'UsuarioEnTarea',
+  Session: 'Session',
+  VerificationToken: 'VerificationToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -179,6 +181,16 @@ export const NotaScalarFieldEnum = {
 export type NotaScalarFieldEnum = (typeof NotaScalarFieldEnum)[keyof typeof NotaScalarFieldEnum]
 
 
+export const RelevantDatesScalarFieldEnum = {
+  date: 'date',
+  text: 'text',
+  id: 'id',
+  notaId: 'notaId'
+} as const
+
+export type RelevantDatesScalarFieldEnum = (typeof RelevantDatesScalarFieldEnum)[keyof typeof RelevantDatesScalarFieldEnum]
+
+
 export const ActuacionScalarFieldEnum = {
   actuacion: 'actuacion',
   anotacion: 'anotacion',
@@ -232,66 +244,7 @@ export const ProcesoScalarFieldEnum = {
 export type ProcesoScalarFieldEnum = (typeof ProcesoScalarFieldEnum)[keyof typeof ProcesoScalarFieldEnum]
 
 
-export const RelevantDatesScalarFieldEnum = {
-  date: 'date',
-  text: 'text',
-  id: 'id',
-  notaId: 'notaId'
-} as const
-
-export type RelevantDatesScalarFieldEnum = (typeof RelevantDatesScalarFieldEnum)[keyof typeof RelevantDatesScalarFieldEnum]
-
-
-export const Bloque_itemsScalarFieldEnum = {
-  id: 'id',
-  bloqueId: 'bloqueId',
-  orden: 'orden',
-  texto: 'texto',
-  completado: 'completado',
-  completadoEn: 'completadoEn',
-  tareaId: 'tareaId'
-} as const
-
-export type Bloque_itemsScalarFieldEnum = (typeof Bloque_itemsScalarFieldEnum)[keyof typeof Bloque_itemsScalarFieldEnum]
-
-
-export const EtiquetasScalarFieldEnum = {
-  id: 'id',
-  nombre: 'nombre',
-  color: 'color'
-} as const
-
-export type EtiquetasScalarFieldEnum = (typeof EtiquetasScalarFieldEnum)[keyof typeof EtiquetasScalarFieldEnum]
-
-
-export const Etiquetas_en_notesScalarFieldEnum = {
-  noteId: 'noteId',
-  etiquetaId: 'etiquetaId'
-} as const
-
-export type Etiquetas_en_notesScalarFieldEnum = (typeof Etiquetas_en_notesScalarFieldEnum)[keyof typeof Etiquetas_en_notesScalarFieldEnum]
-
-
-export const Etiquetas_en_tareasScalarFieldEnum = {
-  tareaId: 'tareaId',
-  etiquetaId: 'etiquetaId'
-} as const
-
-export type Etiquetas_en_tareasScalarFieldEnum = (typeof Etiquetas_en_tareasScalarFieldEnum)[keyof typeof Etiquetas_en_tareasScalarFieldEnum]
-
-
-export const Note_bloquesScalarFieldEnum = {
-  id: 'id',
-  noteId: 'noteId',
-  tipo: 'tipo',
-  orden: 'orden',
-  texto: 'texto'
-} as const
-
-export type Note_bloquesScalarFieldEnum = (typeof Note_bloquesScalarFieldEnum)[keyof typeof Note_bloquesScalarFieldEnum]
-
-
-export const NotesScalarFieldEnum = {
+export const NoteScalarFieldEnum = {
   id: 'id',
   titulo: 'titulo',
   resumen: 'resumen',
@@ -305,10 +258,34 @@ export const NotesScalarFieldEnum = {
   userId: 'userId'
 } as const
 
-export type NotesScalarFieldEnum = (typeof NotesScalarFieldEnum)[keyof typeof NotesScalarFieldEnum]
+export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
 
 
-export const TareasScalarFieldEnum = {
+export const NoteBloqueScalarFieldEnum = {
+  id: 'id',
+  noteId: 'noteId',
+  tipo: 'tipo',
+  orden: 'orden',
+  texto: 'texto'
+} as const
+
+export type NoteBloqueScalarFieldEnum = (typeof NoteBloqueScalarFieldEnum)[keyof typeof NoteBloqueScalarFieldEnum]
+
+
+export const BloqueItemScalarFieldEnum = {
+  id: 'id',
+  bloqueId: 'bloqueId',
+  orden: 'orden',
+  texto: 'texto',
+  completado: 'completado',
+  completadoEn: 'completadoEn',
+  tareaId: 'tareaId'
+} as const
+
+export type BloqueItemScalarFieldEnum = (typeof BloqueItemScalarFieldEnum)[keyof typeof BloqueItemScalarFieldEnum]
+
+
+export const TareaScalarFieldEnum = {
   id: 'id',
   titulo: 'titulo',
   descripcion: 'descripcion',
@@ -327,10 +304,35 @@ export const TareasScalarFieldEnum = {
   userId: 'userId'
 } as const
 
-export type TareasScalarFieldEnum = (typeof TareasScalarFieldEnum)[keyof typeof TareasScalarFieldEnum]
+export type TareaScalarFieldEnum = (typeof TareaScalarFieldEnum)[keyof typeof TareaScalarFieldEnum]
 
 
-export const UsersScalarFieldEnum = {
+export const EtiquetaScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  color: 'color'
+} as const
+
+export type EtiquetaScalarFieldEnum = (typeof EtiquetaScalarFieldEnum)[keyof typeof EtiquetaScalarFieldEnum]
+
+
+export const EtiquetaEnNoteScalarFieldEnum = {
+  noteId: 'noteId',
+  etiquetaId: 'etiquetaId'
+} as const
+
+export type EtiquetaEnNoteScalarFieldEnum = (typeof EtiquetaEnNoteScalarFieldEnum)[keyof typeof EtiquetaEnNoteScalarFieldEnum]
+
+
+export const EtiquetaEnTareaScalarFieldEnum = {
+  tareaId: 'tareaId',
+  etiquetaId: 'etiquetaId'
+} as const
+
+export type EtiquetaEnTareaScalarFieldEnum = (typeof EtiquetaEnTareaScalarFieldEnum)[keyof typeof EtiquetaEnTareaScalarFieldEnum]
+
+
+export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   nombre: 'nombre',
@@ -343,13 +345,14 @@ export const UsersScalarFieldEnum = {
   creadoEn: 'creadoEn',
   editadoEn: 'editadoEn',
   ultimoAccesoA: 'ultimoAccesoA',
-  desactivadoEn: 'desactivadoEn'
+  desactivadoEn: 'desactivadoEn',
+  emailVerificadoEn: 'emailVerificadoEn'
 } as const
 
-export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const Usuarios_en_notesScalarFieldEnum = {
+export const UsuarioEnNoteScalarFieldEnum = {
   userId: 'userId',
   noteId: 'noteId',
   rol: 'rol',
@@ -357,10 +360,10 @@ export const Usuarios_en_notesScalarFieldEnum = {
   asignadoPorId: 'asignadoPorId'
 } as const
 
-export type Usuarios_en_notesScalarFieldEnum = (typeof Usuarios_en_notesScalarFieldEnum)[keyof typeof Usuarios_en_notesScalarFieldEnum]
+export type UsuarioEnNoteScalarFieldEnum = (typeof UsuarioEnNoteScalarFieldEnum)[keyof typeof UsuarioEnNoteScalarFieldEnum]
 
 
-export const Usuarios_en_tareasScalarFieldEnum = {
+export const UsuarioEnTareaScalarFieldEnum = {
   userId: 'userId',
   tareaId: 'tareaId',
   rol: 'rol',
@@ -368,7 +371,31 @@ export const Usuarios_en_tareasScalarFieldEnum = {
   asignadoPorId: 'asignadoPorId'
 } as const
 
-export type Usuarios_en_tareasScalarFieldEnum = (typeof Usuarios_en_tareasScalarFieldEnum)[keyof typeof Usuarios_en_tareasScalarFieldEnum]
+export type UsuarioEnTareaScalarFieldEnum = (typeof UsuarioEnTareaScalarFieldEnum)[keyof typeof UsuarioEnTareaScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tokenHash: 'tokenHash',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const VerificationTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tokenHash: 'tokenHash',
+  tipo: 'tipo',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt'
+} as const
+
+export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
 export const SortOrder = {

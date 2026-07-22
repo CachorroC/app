@@ -37,7 +37,7 @@ const CrearTareaSchema = z.object( {
 export async function crearTarea( input: z.infer<typeof CrearTareaSchema> ) {
   const datos = CrearTareaSchema.parse( input );
 
-  const tarea = await prisma.tareas.create( {
+  const tarea = await prisma.tarea.create( {
     data: {
       id         : crypto.randomUUID(),
       titulo     : datos.titulo,
@@ -100,7 +100,7 @@ export async function actualizarTarea(
 ) {
   const datos = ActualizarTareaSchema.parse( input );
 
-  await prisma.tareas.update( {
+  await prisma.tarea.update( {
     where: {
       id 
     },
@@ -163,7 +163,7 @@ export async function actualizarTarea(
  */
 export async function completarTarea( id: string ) {
   const noteOrigenId = await prisma.$transaction( async ( tx ) => {
-    const tarea = await tx.tareas.update( {
+    const tarea = await tx.tarea.update( {
       where: {
         id 
       },
@@ -174,18 +174,18 @@ export async function completarTarea( id: string ) {
       },
       select: {
         noteOrigenId: true,
-        bloque_items: {
+        itemOrigen: {
           select: {
-            id: true 
-          } 
-        } 
+            id: true
+          }
+        }
       },
     } );
 
-    if ( tarea.bloque_items ) {
-      await tx.bloque_items.update( {
+    if ( tarea.itemOrigen ) {
+      await tx.bloqueItem.update( {
         where: {
-          id: tarea.bloque_items.id 
+          id: tarea.itemOrigen.id
         },
         data: {
           completado  : true,
@@ -206,7 +206,7 @@ export async function completarTarea( id: string ) {
 
 /** Nunca borra: marca ARCHIVADA + archivadaEn. */
 export async function archivarTarea( id: string ) {
-  await prisma.tareas.update( {
+  await prisma.tarea.update( {
     where: {
       id 
     },

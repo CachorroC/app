@@ -1,4 +1,5 @@
 import { connection } from 'next/server';
+import { getCurrentLawyer } from '#@/lib/auth/session';
 import { BarraFiltros } from '#@/components/notas-tareas/barra-filtros';
 import { EstadoVacio } from '#@/components/notas-tareas/estado-vacio';
 import { BotonLimpiarFiltros } from '#@/components/notas-tareas/boton-limpiar-filtros';
@@ -33,19 +34,21 @@ const ESTADOS_FILTRO = [
 ];
 
 type SearchParams = {
-  q?      : string;
-  estado? : string;
-  caso?   : string;
-  termino?: string;
-  desde?  : string;
-  hasta?  : string;
+  q?           : string;
+  estado?      : string;
+  caso?        : string;
+  termino?     : string;
+  desde?       : string;
+  hasta?       : string;
+  asignadasAMi?: string;
 };
 
 export default async function PaginaTareas( {
-  searchParams 
+  searchParams
 }: { searchParams: Promise<SearchParams> } ) {
   await connection();
   const sp = await searchParams;
+  const lawyer = await getCurrentLawyer();
 
   const filtros: FiltrosTareas = {
     q     : sp.q || undefined,
@@ -53,21 +56,24 @@ export default async function PaginaTareas( {
       ? sp.estado.split( ',' )
           .filter( Boolean )
       : undefined,
-    caso   : sp.caso,
-    termino: sp.termino === '1',
-    desde  : sp.desde,
-    hasta  : sp.hasta,
+    caso        : sp.caso,
+    termino     : sp.termino === '1',
+    desde       : sp.desde,
+    hasta       : sp.hasta,
+    asignadasAMi: sp.asignadasAMi === '1',
   };
 
   const [
     grupos,
-    casos 
+    casos
   ] = await Promise.all( [
-    listarTareas( filtros ),
+    listarTareas(
+      filtros, lawyer?.id ?? null 
+    ),
     listarCasosParaFiltroTareas(),
   ] );
 
-  const hayFiltrosActivos = Boolean( sp.q || sp.estado || ( sp.caso && sp.caso !== 'todos' ) || sp.termino || sp.desde || sp.hasta, );
+  const hayFiltrosActivos = Boolean( sp.q || sp.estado || ( sp.caso && sp.caso !== 'todos' ) || sp.termino || sp.desde || sp.hasta || sp.asignadasAMi, );
   const sinResultados = grupos.length === 0;
 
   return (
@@ -80,7 +86,12 @@ export default async function PaginaTareas( {
         <BotonNuevaTarea />
       </div>
 
-      <BarraFiltros casos={casos} estados={ESTADOS_FILTRO} placeholder="Buscar en tareas…" />
+      <BarraFiltros
+        casos={casos}
+        estados={ESTADOS_FILTRO}
+        placeholder="Buscar en tareas…"
+        mostrarAsignadasAMi={Boolean( lawyer )}
+      />
 
       {sinResultados
         ? (

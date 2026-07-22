@@ -1,0 +1,27 @@
+.heading {
+  font: var(--type-headline-medium);
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-on-surface);
+}
+
+.subheading {
+  font: var(--type-body-medium);
+  color: var(--color-on-surface-variant);
+  margin-top: 6px;
+}
+
+.confirm {
+  font: var(--type-body-medium);
+  color: var(--color-on-surface-variant);
+}
+
+.submit {
+  height: 52px;
+  box-shadow: var(--shadow-level-1);
+}
+
+.back {
+  text-align: center;
+  font: var(--type-body-medium);
+}

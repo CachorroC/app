@@ -14,9 +14,10 @@ export type CasoOpcion = { id: string; nombre: string };
 export type EstadoOpcion = { valor: string; label: string };
 
 export type BarraFiltrosProps = {
-  casos       : CasoOpcion[];
-  estados     : EstadoOpcion[];
-  placeholder?: string;
+  casos               : CasoOpcion[];
+  estados             : EstadoOpcion[];
+  placeholder?        : string;
+  mostrarAsignadasAMi?: boolean;
 };
 
 /**
@@ -26,7 +27,7 @@ export type BarraFiltrosProps = {
  * 300ms antes de empujarse.
  */
 export const BarraFiltros = ( {
-  casos, estados, placeholder = 'Buscar…' 
+  casos, estados, placeholder = 'Buscar…', mostrarAsignadasAMi = false
 }: BarraFiltrosProps ) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -40,6 +41,7 @@ export const BarraFiltros = ( {
         .filter( Boolean )
     : [];
   const caso = searchParams.get( 'caso' ) ?? 'todos';
+  const asignadasAMi = searchParams.get( 'asignadasAMi' ) === '1';
   const desde = searchParams.get( 'desde' ) ?? '';
   const hasta = searchParams.get( 'hasta' ) ?? '';
 
@@ -122,14 +124,23 @@ export const BarraFiltros = ( {
     } );
   };
 
+  const toggleAsignadasAMi = () => {
+    actualizar( {
+      asignadasAMi: asignadasAMi
+        ? null
+        : '1',
+    } );
+  };
+
   const limpiar = () => {
     setTexto( '' );
     actualizar( {
-      q     : null,
-      estado: null,
-      caso  : null,
-      desde : null,
-      hasta : null,
+      q           : null,
+      estado      : null,
+      caso        : null,
+      desde       : null,
+      hasta       : null,
+      asignadasAMi: null,
     } );
   };
 
@@ -139,7 +150,22 @@ export const BarraFiltros = ( {
     ? 1
     : 0 ) + ( texto
     ? 1
+    : 0 ) + ( asignadasAMi
+    ? 1
     : 0 );
+
+  const chipAsignadasAMi = mostrarAsignadasAMi && (
+    <button
+      type="button"
+      onClick={toggleAsignadasAMi}
+      className={`${ styles.chipEstado } ${ asignadasAMi
+        ? styles.activo
+        : '' }`}
+    >
+      {asignadasAMi && <span className="material-symbols-rounded" aria-hidden="true">check</span>}
+      Asignadas a mí
+    </button>
+  );
 
   const chipsEstado = estados.map( ( o ) => {
     const on = estSel.includes( o.valor );
@@ -206,9 +232,9 @@ export const BarraFiltros = ( {
       <div className={styles.grupo}>
         <span className={styles.grupoLabel}>Estado</span>
         <div className={styles.filaEstado} style={{
-          marginTop: 0 
+          marginTop: 0
         }}
-        >{chipsEstado}</div>
+        >{chipsEstado}{chipAsignadasAMi}</div>
       </div>
       <div className={styles.grupo}>
         <span className={styles.grupoLabel}>Caso</span>
@@ -325,6 +351,7 @@ export const BarraFiltros = ( {
       <div className={styles.filaEstado}>
         <span className={styles.etiquetaEstado}>Estado:</span>
         {chipsEstado}
+        {chipAsignadasAMi}
         {activos > 0 && (
           <button type="button" className={styles.limpiar} onClick={limpiar}>
             <span className="material-symbols-rounded" aria-hidden="true">close</span>

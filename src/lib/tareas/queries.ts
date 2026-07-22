@@ -17,32 +17,32 @@ const SELECT_RESUMEN = {
   creadaEn    : true,
   editadaEn   : true,
   completadaEn: true,
-  Carpeta     : {
+  carpeta     : {
     select: {
       numero: true,
-      nombre: true 
-    } 
+      nombre: true
+    }
   },
-  notes: {
+  noteOrigen: {
     select: {
       id    : true,
-      titulo: true 
-    } 
+      titulo: true
+    }
   },
-  etiquetas_en_tareas: {
+  etiquetas: {
     select: {
-      etiquetas: {
+      etiqueta: {
         select: {
           id    : true,
           nombre: true,
-          color : true 
-        } 
-      } 
+          color : true
+        }
+      }
     },
   },
 } as const;
 
-type FilaResumen = Awaited<ReturnType<typeof prisma.tareas.findFirstOrThrow<{ select: typeof SELECT_RESUMEN }>>>;
+type FilaResumen = Awaited<ReturnType<typeof prisma.tarea.findFirstOrThrow<{ select: typeof SELECT_RESUMEN }>>>;
 
 function aTareaResumen( fila: FilaResumen ): TareaResumen {
   return {
@@ -57,17 +57,17 @@ function aTareaResumen( fila: FilaResumen ): TareaResumen {
     fechaLimite: fila.fechaLimite?.toISOString() ?? null,
     esTermino  : fila.esTermino,
     responsable: fila.responsable,
-    caso       : fila.Carpeta
+    caso       : fila.carpeta
       ? {
-          id        : String( fila.Carpeta.numero ),
-          referencia: `Carpeta ${ fila.Carpeta.numero }`,
-          nombre    : fila.Carpeta.nombre 
+          id        : String( fila.carpeta.numero ),
+          referencia: `Carpeta ${ fila.carpeta.numero }`,
+          nombre    : fila.carpeta.nombre
         }
       : null,
-    etiquetas: fila.etiquetas_en_tareas.map( ( e ) => {
-      return e.etiquetas;
+    etiquetas: fila.etiquetas.map( ( e ) => {
+      return e.etiqueta;
     } ),
-    origenNota  : fila.notes,
+    origenNota  : fila.noteOrigen,
     creadaEn    : fila.creadaEn.toISOString(),
     editadaEn   : fila.editadaEn.toISOString(),
     completadaEn: fila.completadaEn?.toISOString() ?? null,
@@ -77,7 +77,9 @@ function aTareaResumen( fila: FilaResumen ): TareaResumen {
 // Compone con AND (no con spread) a propósito: tanto la condición de
 // estado como la búsqueda de texto pueden necesitar su propia cláusula OR,
 // y dos OR al mismo nivel de un `where` de Prisma se pisan entre sí.
-function construirWhere( filtros: FiltrosTareas ) {
+function construirWhere(
+  filtros: FiltrosTareas, userId: string | null 
+) {
   const estadosSolicitados = filtros.estado?.filter( ( e ) => {
     return e !== 'VENCIDA';
   } ) as EstadoTarea[] | undefined;
@@ -158,6 +160,26 @@ function construirWhere( filtros: FiltrosTareas ) {
     } );
   }
 
+  if ( filtros.asignadasAMi && userId ) {
+    condiciones.push( {
+      OR: [
+        {
+          userId
+        },
+        {
+          creadoPorId: userId
+        },
+        {
+          asignados: {
+            some: {
+              userId
+            }
+          }
+        },
+      ],
+    } );
+  }
+
   if ( filtros.desde || filtros.hasta ) {
     condiciones.push( {
       fechaLimite: {
@@ -184,9 +206,13 @@ function construirWhere( filtros: FiltrosTareas ) {
  * Lista tareas para /tareas, agrupadas por vencimiento. La agrupación se
  * calcula aquí (servidor, hora de Bogotá) — nunca en el componente.
  */
-export async function listarTareas( filtros: FiltrosTareas ): Promise<GrupoTareasResultado[]> {
-  const filas = await prisma.tareas.findMany( {
-    where  : construirWhere( filtros ),
+export async function listarTareas(
+  filtros: FiltrosTareas, userId: string | null = null 
+): Promise<GrupoTareasResultado[]> {
+  const filas = await prisma.tarea.findMany( {
+    where: construirWhere(
+      filtros, userId 
+    ),
     select : SELECT_RESUMEN,
     orderBy: [
       {

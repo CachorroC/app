@@ -1,0 +1,36 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font: var(--type-label-medium);
+  color: var(--color-on-surface-variant);
+  padding: 0 var(--spacing-3);
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--color-primary-container);
+}
+
+.nombre {
+  color: var(--color-on-surface);
+  font-weight: 600;
+}
+
+.signOutBtn {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font: var(--type-label-medium);
+  cursor: pointer;
+  padding: 0;
+}
+
+.signInLink {
+  font: var(--type-label-medium);
+  color: var(--color-primary);
+  padding: 0 var(--spacing-3);
+}

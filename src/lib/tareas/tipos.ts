@@ -22,12 +22,13 @@ export type TareaResumen = {
 };
 
 export type FiltrosTareas = {
-  q?      : string;
-  estado? : string[];
-  caso?   : string;
-  termino?: boolean;
-  desde?  : string;
-  hasta?  : string;
+  q?           : string;
+  estado?      : string[];
+  caso?        : string;
+  termino?     : boolean;
+  desde?       : string;
+  hasta?       : string;
+  asignadasAMi?: boolean;
 };
 
 export type GrupoTareasResultado = {

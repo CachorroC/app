@@ -1,9 +1,8 @@
 generator client {
-  provider            = "prisma-client"
-  output              = "../src/prisma/generated/prisma"
-  engineType          = "client"
-  importFileExtension = "js"
-  moduleFormat        = "esm"
+  provider     = "prisma-client"
+  output       = "../src/app/generated/prisma"
+  engineType   = "client"
+  moduleFormat = "esm"
 }
 
 datasource db {
@@ -36,8 +35,8 @@ model Carpeta {
   deudor              Deudor?
   notas               Nota[]
   procesos            Proceso[]
-  notes               notes[]
-  tareas              tareas[]
+  notes               Note[]
+  tareas              Tarea[]
 }
 
 model Deudor {
@@ -97,7 +96,15 @@ model Nota {
   content       String[]
   completed     Boolean         @default(false)
   carpeta       Carpeta?        @relation(fields: [carpetaNumero], references: [numero])
-  RelevantDates RelevantDates[]
+  relevantDates RelevantDates[]
+}
+
+model RelevantDates {
+  date   DateTime
+  text   String
+  id     String   @id
+  notaId String?
+  nota   Nota?    @relation(fields: [notaId], references: [id])
 }
 
 model Actuacion {
@@ -119,7 +126,7 @@ model Actuacion {
   idProceso      String
   idRegActuacion String    @id
   proceso        Proceso   @relation(fields: [procesoId], references: [idProceso])
-  Carpeta        Carpeta[]
+  carpetas       Carpeta[]
 }
 
 model Juzgado {
@@ -153,169 +160,202 @@ model Proceso {
   juzgado              Juzgado     @relation(fields: [juzgadoId, juzgadoTipo, juzgadoCiudad], references: [id, tipo, ciudad])
 }
 
-model RelevantDates {
-  date   DateTime
-  text   String
-  id     String   @id
-  notaId String?
-  Nota   Nota?    @relation(fields: [notaId], references: [id])
+model Note {
+  id          String           @id @default(cuid())
+  titulo      String           @db.VarChar(200)
+  resumen     String?          @db.VarChar(400)
+  estado      EstadoNote       @default(PENDIENTE)
+  fijada      Boolean          @default(false)
+  carpetaId   Int?
+  creadaEn    DateTime         @default(now())
+  editadaEn   DateTime         @updatedAt
+  archivadaEn DateTime?
+  creadoPorId String?
+  userId      String?
+  etiquetas   EtiquetaEnNote[]
+  bloques     NoteBloque[]
+  carpeta     Carpeta?         @relation(fields: [carpetaId], references: [numero])
+  creadoPor   User?            @relation("NotesCreadasPorUsuario", fields: [creadoPorId], references: [id])
+  user        User?            @relation(fields: [userId], references: [id])
+  tareas      Tarea[]          @relation("TareasOriginadasEnNote")
+  asignados   UsuarioEnNote[]
+
+  @@index([creadoPorId, editadaEn(sort: Desc)])
+  @@index([carpetaId, editadaEn(sort: Desc)])
+  @@index([estado, editadaEn(sort: Desc)])
+  @@map("notes")
 }
 
-model bloque_items {
-  id           String       @id
+model NoteBloque {
+  id     String       @id @default(cuid())
+  noteId String
+  tipo   TipoBloque
+  orden  Int
+  texto  String?
+  items  BloqueItem[]
+  note   Note         @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+  @@unique([noteId, orden])
+  @@map("note_bloques")
+}
+
+model BloqueItem {
+  id           String     @id @default(cuid())
   bloqueId     String
   orden        Int
   texto        String
-  completado   Boolean      @default(false)
+  completado   Boolean    @default(false)
   completadoEn DateTime?
-  tareaId      String?      @unique
-  note_bloques note_bloques @relation(fields: [bloqueId], references: [id], onDelete: Cascade)
-  tareas       tareas?      @relation(fields: [tareaId], references: [id])
+  tareaId      String?    @unique
+  bloque       NoteBloque @relation(fields: [bloqueId], references: [id], onDelete: Cascade)
+  tarea        Tarea?     @relation("TareaPromovida", fields: [tareaId], references: [id])
 
   @@unique([bloqueId, orden])
+  @@map("bloque_items")
 }
 
-model etiquetas {
-  id                  String                @id
-  nombre              String                @unique @db.VarChar(60)
-  color               String                @db.VarChar(9)
-  etiquetas_en_notes  etiquetas_en_notes[]
-  etiquetas_en_tareas etiquetas_en_tareas[]
-}
-
-model etiquetas_en_notes {
-  noteId     String
-  etiquetaId String
-  etiquetas  etiquetas @relation(fields: [etiquetaId], references: [id], onDelete: Cascade)
-  notes      notes     @relation(fields: [noteId], references: [id], onDelete: Cascade)
-
-  @@id([noteId, etiquetaId])
-}
-
-model etiquetas_en_tareas {
-  tareaId    String
-  etiquetaId String
-  etiquetas  etiquetas @relation(fields: [etiquetaId], references: [id], onDelete: Cascade)
-  tareas     tareas    @relation(fields: [tareaId], references: [id], onDelete: Cascade)
-
-  @@id([tareaId, etiquetaId])
-}
-
-model note_bloques {
-  id           String         @id
-  noteId       String
-  tipo         TipoBloque
-  orden        Int
-  texto        String?
-  bloque_items bloque_items[]
-  notes        notes          @relation(fields: [noteId], references: [id], onDelete: Cascade)
-
-  @@unique([noteId, orden])
-}
-
-model notes {
-  id                             String               @id
-  titulo                         String               @db.VarChar(200)
-  resumen                        String?              @db.VarChar(400)
-  estado                         EstadoNote           @default(PENDIENTE)
-  fijada                         Boolean              @default(false)
-  carpetaId                      Int?
-  creadaEn                       DateTime             @default(now())
-  editadaEn                      DateTime
-  archivadaEn                    DateTime?
-  creadoPorId                    String?
-  userId                         String?
-  etiquetas_en_notes             etiquetas_en_notes[]
-  note_bloques                   note_bloques[]
-  Carpeta                        Carpeta?             @relation(fields: [carpetaId], references: [numero])
-  users_notes_creadoPorIdTousers users?               @relation("notes_creadoPorIdTousers", fields: [creadoPorId], references: [id])
-  users_notes_userIdTousers      users?               @relation("notes_userIdTousers", fields: [userId], references: [id])
-  tareas                         tareas[]
-  usuarios_en_notes              usuarios_en_notes[]
-
-  @@index([carpetaId, editadaEn(sort: Desc)])
-  @@index([creadoPorId, editadaEn(sort: Desc)])
-  @@index([estado, editadaEn(sort: Desc)])
-}
-
-model tareas {
-  id                              String                @id
-  titulo                          String                @db.VarChar(200)
-  descripcion                     String?
-  estado                          EstadoTarea           @default(PENDIENTE)
-  prioridad                       PrioridadTarea        @default(MEDIA)
-  fechaLimite                     DateTime?
-  esTermino                       Boolean               @default(false)
-  responsable                     String?               @db.VarChar(120)
-  carpetaId                       Int?
-  noteOrigenId                    String?
-  creadaEn                        DateTime              @default(now())
-  editadaEn                       DateTime
-  completadaEn                    DateTime?
-  archivadaEn                     DateTime?
-  creadoPorId                     String?
-  userId                          String?
-  bloque_items                    bloque_items?
-  etiquetas_en_tareas             etiquetas_en_tareas[]
-  Carpeta                         Carpeta?              @relation(fields: [carpetaId], references: [numero])
-  users_tareas_creadoPorIdTousers users?                @relation("tareas_creadoPorIdTousers", fields: [creadoPorId], references: [id])
-  notes                           notes?                @relation(fields: [noteOrigenId], references: [id])
-  users_tareas_userIdTousers      users?                @relation("tareas_userIdTousers", fields: [userId], references: [id])
-  usuarios_en_tareas              usuarios_en_tareas[]
+model Tarea {
+  id           String            @id @default(cuid())
+  titulo       String            @db.VarChar(200)
+  descripcion  String?
+  estado       EstadoTarea       @default(PENDIENTE)
+  prioridad    PrioridadTarea    @default(MEDIA)
+  fechaLimite  DateTime?
+  esTermino    Boolean           @default(false)
+  responsable  String?           @db.VarChar(120)
+  carpetaId    Int?
+  noteOrigenId String?
+  creadaEn     DateTime          @default(now())
+  editadaEn    DateTime          @updatedAt
+  completadaEn DateTime?
+  archivadaEn  DateTime?
+  creadoPorId  String?
+  userId       String?
+  itemOrigen   BloqueItem?       @relation("TareaPromovida")
+  etiquetas    EtiquetaEnTarea[]
+  carpeta      Carpeta?          @relation(fields: [carpetaId], references: [numero])
+  creadoPor    User?             @relation("TareasCreadasPorUsuario", fields: [creadoPorId], references: [id])
+  noteOrigen   Note?             @relation("TareasOriginadasEnNote", fields: [noteOrigenId], references: [id])
+  user         User?             @relation(fields: [userId], references: [id])
+  asignados    UsuarioEnTarea[]
 
   @@index([carpetaId, fechaLimite])
   @@index([estado, fechaLimite])
   @@index([fechaLimite, esTermino])
+  @@map("tareas")
 }
 
-model users {
-  id                               String               @id
-  email                            String               @unique @db.VarChar(180)
-  nombre                           String               @db.VarChar(120)
-  rol                              RolUsuario           @default(ABOGADO)
-  activo                           Boolean              @default(true)
-  passwordHash                     String?              @db.VarChar(100)
-  tarjetaProfesional               String?              @unique @db.VarChar(40)
-  telefono                         String?              @db.VarChar(40)
-  avatarUrl                        String?              @db.VarChar(500)
-  creadoEn                         DateTime             @default(now())
-  editadoEn                        DateTime
-  ultimoAccesoA                    DateTime?
-  desactivadoEn                    DateTime?
-  notes_notes_creadoPorIdTousers   notes[]              @relation("notes_creadoPorIdTousers")
-  notes_notes_userIdTousers        notes[]              @relation("notes_userIdTousers")
-  tareas_tareas_creadoPorIdTousers tareas[]             @relation("tareas_creadoPorIdTousers")
-  tareas_tareas_userIdTousers      tareas[]             @relation("tareas_userIdTousers")
-  usuarios_en_notes                usuarios_en_notes[]
-  usuarios_en_tareas               usuarios_en_tareas[]
+model Etiqueta {
+  id     String            @id @default(cuid())
+  nombre String            @unique @db.VarChar(60)
+  color  String            @db.VarChar(9)
+  notes  EtiquetaEnNote[]
+  tareas EtiquetaEnTarea[]
+
+  @@map("etiquetas")
+}
+
+model EtiquetaEnNote {
+  noteId     String
+  etiquetaId String
+  etiqueta   Etiqueta @relation(fields: [etiquetaId], references: [id], onDelete: Cascade)
+  note       Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+  @@id([noteId, etiquetaId])
+  @@map("etiquetas_en_notes")
+}
+
+model EtiquetaEnTarea {
+  tareaId    String
+  etiquetaId String
+  etiqueta   Etiqueta @relation(fields: [etiquetaId], references: [id], onDelete: Cascade)
+  tarea      Tarea    @relation(fields: [tareaId], references: [id], onDelete: Cascade)
+
+  @@id([tareaId, etiquetaId])
+  @@map("etiquetas_en_tareas")
+}
+
+model User {
+  id                 String              @id @default(cuid())
+  email              String              @unique @db.VarChar(180)
+  nombre             String              @db.VarChar(120)
+  rol                RolUsuario          @default(ABOGADO)
+  activo             Boolean             @default(true)
+  passwordHash       String?             @db.VarChar(100)
+  tarjetaProfesional String?             @unique @db.VarChar(40)
+  telefono           String?             @db.VarChar(40)
+  avatarUrl          String?             @db.VarChar(500)
+  creadoEn           DateTime            @default(now())
+  editadoEn          DateTime            @updatedAt
+  ultimoAccesoA      DateTime?
+  desactivadoEn      DateTime?
+  emailVerificadoEn  DateTime?
+  notesCreadas       Note[]              @relation("NotesCreadasPorUsuario")
+  notes              Note[]
+  sessions           Session[]
+  tareasCreadas      Tarea[]             @relation("TareasCreadasPorUsuario")
+  tareas             Tarea[]
+  notesAsignadas     UsuarioEnNote[]
+  tareasAsignadas    UsuarioEnTarea[]
+  verificationTokens VerificationToken[]
 
   @@index([activo, nombre])
+  @@map("users")
 }
 
-model usuarios_en_notes {
+model UsuarioEnNote {
   userId        String
   noteId        String
   rol           RolAsignacion @default(COLABORADOR)
   asignadoEn    DateTime      @default(now())
   asignadoPorId String?
-  notes         notes         @relation(fields: [noteId], references: [id], onDelete: Cascade)
-  users         users         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  note          Note          @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, noteId])
   @@index([noteId])
+  @@map("usuarios_en_notes")
 }
 
-model usuarios_en_tareas {
+model UsuarioEnTarea {
   userId        String
   tareaId       String
   rol           RolAsignacion @default(COLABORADOR)
   asignadoEn    DateTime      @default(now())
   asignadoPorId String?
-  tareas        tareas        @relation(fields: [tareaId], references: [id], onDelete: Cascade)
-  users         users         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tarea         Tarea         @relation(fields: [tareaId], references: [id], onDelete: Cascade)
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, tareaId])
   @@index([tareaId])
+  @@map("usuarios_en_tareas")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique @db.VarChar(64)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+model VerificationToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique @db.VarChar(64)
+  tipo      TipoToken
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  usedAt    DateTime?
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, tipo])
+  @@map("verification_tokens")
 }
 
 enum Category {
@@ -344,6 +384,19 @@ enum TipoProceso {
   ACUMULADO
 }
 
+enum RolUsuario {
+  ADMIN
+  ABOGADO
+  ASISTENTE
+  LECTOR
+}
+
+enum RolAsignacion {
+  RESPONSABLE
+  COLABORADOR
+  OBSERVADOR
+}
+
 enum EstadoNote {
   PENDIENTE
   EN_REVISION
@@ -365,21 +418,13 @@ enum PrioridadTarea {
   URGENTE
 }
 
-enum RolAsignacion {
-  RESPONSABLE
-  COLABORADOR
-  OBSERVADOR
-}
-
-enum RolUsuario {
-  ADMIN
-  ABOGADO
-  ASISTENTE
-  LECTOR
-}
-
 enum TipoBloque {
   PARRAFO
   LISTA
   VERIFICACION
+}
+
+enum TipoToken {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
 }

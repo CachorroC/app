@@ -1,0 +1,25 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-top: -4px;
+}
+
+.track {
+  flex: 1;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-container-highest);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  transition: width 220ms, background 220ms;
+}
+
+.label {
+  font: var(--type-label-small);
+  min-width: 56px;
+  text-align: right;
+}

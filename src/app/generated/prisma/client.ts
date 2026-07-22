@@ -67,6 +67,11 @@ export type Demanda = Prisma.DemandaModel
  */
 export type Nota = Prisma.NotaModel
 /**
+ * Model RelevantDates
+ * 
+ */
+export type RelevantDates = Prisma.RelevantDatesModel
+/**
  * Model Actuacion
  * 
  */
@@ -82,57 +87,62 @@ export type Juzgado = Prisma.JuzgadoModel
  */
 export type Proceso = Prisma.ProcesoModel
 /**
- * Model RelevantDates
+ * Model Note
  * 
  */
-export type RelevantDates = Prisma.RelevantDatesModel
+export type Note = Prisma.NoteModel
 /**
- * Model bloque_items
+ * Model NoteBloque
  * 
  */
-export type bloque_items = Prisma.bloque_itemsModel
+export type NoteBloque = Prisma.NoteBloqueModel
 /**
- * Model etiquetas
+ * Model BloqueItem
  * 
  */
-export type etiquetas = Prisma.etiquetasModel
+export type BloqueItem = Prisma.BloqueItemModel
 /**
- * Model etiquetas_en_notes
+ * Model Tarea
  * 
  */
-export type etiquetas_en_notes = Prisma.etiquetas_en_notesModel
+export type Tarea = Prisma.TareaModel
 /**
- * Model etiquetas_en_tareas
+ * Model Etiqueta
  * 
  */
-export type etiquetas_en_tareas = Prisma.etiquetas_en_tareasModel
+export type Etiqueta = Prisma.EtiquetaModel
 /**
- * Model note_bloques
+ * Model EtiquetaEnNote
  * 
  */
-export type note_bloques = Prisma.note_bloquesModel
+export type EtiquetaEnNote = Prisma.EtiquetaEnNoteModel
 /**
- * Model notes
+ * Model EtiquetaEnTarea
  * 
  */
-export type notes = Prisma.notesModel
+export type EtiquetaEnTarea = Prisma.EtiquetaEnTareaModel
 /**
- * Model tareas
+ * Model User
  * 
  */
-export type tareas = Prisma.tareasModel
+export type User = Prisma.UserModel
 /**
- * Model users
+ * Model UsuarioEnNote
  * 
  */
-export type users = Prisma.usersModel
+export type UsuarioEnNote = Prisma.UsuarioEnNoteModel
 /**
- * Model usuarios_en_notes
+ * Model UsuarioEnTarea
  * 
  */
-export type usuarios_en_notes = Prisma.usuarios_en_notesModel
+export type UsuarioEnTarea = Prisma.UsuarioEnTareaModel
 /**
- * Model usuarios_en_tareas
+ * Model Session
  * 
  */
-export type usuarios_en_tareas = Prisma.usuarios_en_tareasModel
+export type Session = Prisma.SessionModel
+/**
+ * Model VerificationToken
+ * 
+ */
+export type VerificationToken = Prisma.VerificationTokenModel

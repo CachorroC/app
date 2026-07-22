@@ -1,0 +1,26 @@
+@keyframes rsShake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+
+.banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  padding: 12px 14px;
+  border-radius: var(--radius-medium);
+  background: var(--color-error-container);
+  color: var(--color-on-error-container);
+  animation: rsShake 500ms ease;
+}
+
+.icon {
+  font-size: 20px;
+  flex: 0 0 auto;
+}
+
+.message {
+  font: var(--type-body-medium);
+}

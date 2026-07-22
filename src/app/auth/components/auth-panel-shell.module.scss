@@ -1,0 +1,18 @@
+.formPanel {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 5vw, 56px);
+  box-sizing: border-box;
+}
+
+.formInner {
+  width: 100%;
+  max-width: 428px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}

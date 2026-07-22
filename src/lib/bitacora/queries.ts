@@ -11,42 +11,42 @@ const SELECT_RESUMEN = {
   fijada   : true,
   creadaEn : true,
   editadaEn: true,
-  Carpeta  : {
+  carpeta  : {
     select: {
       numero: true,
-      nombre: true 
-    } 
+      nombre: true
+    }
   },
-  etiquetas_en_notes: {
+  etiquetas: {
     select: {
-      etiquetas: {
+      etiqueta: {
         select: {
           id    : true,
           nombre: true,
-          color : true 
-        } 
-      } 
+          color : true
+        }
+      }
     },
   },
-  note_bloques: {
+  bloques: {
     where: {
-      tipo: TipoBloque.VERIFICACION 
+      tipo: TipoBloque.VERIFICACION
     },
     select: {
-      bloque_items: {
+      items: {
         select: {
-          completado: true 
-        } 
-      } 
+          completado: true
+        }
+      }
     },
   },
 } as const;
 
-type FilaResumen = Awaited<ReturnType<typeof prisma.notes.findFirstOrThrow<{ select: typeof SELECT_RESUMEN }>>>;
+type FilaResumen = Awaited<ReturnType<typeof prisma.note.findFirstOrThrow<{ select: typeof SELECT_RESUMEN }>>>;
 
 function aNotaResumen( fila: FilaResumen ): NotaResumen {
-  const items = fila.note_bloques.flatMap( ( b ) => {
-    return b.bloque_items;
+  const items = fila.bloques.flatMap( ( b ) => {
+    return b.items;
   } );
 
   return {
@@ -55,15 +55,15 @@ function aNotaResumen( fila: FilaResumen ): NotaResumen {
     resumen: fila.resumen,
     estado : fila.estado as NotaResumen['estado'],
     fijada : fila.fijada,
-    caso   : fila.Carpeta
+    caso   : fila.carpeta
       ? {
-          id        : String( fila.Carpeta.numero ),
-          referencia: `Carpeta ${ fila.Carpeta.numero }`,
-          nombre    : fila.Carpeta.nombre 
+          id        : String( fila.carpeta.numero ),
+          referencia: `Carpeta ${ fila.carpeta.numero }`,
+          nombre    : fila.carpeta.nombre
         }
       : null,
-    etiquetas: fila.etiquetas_en_notes.map( ( e ) => {
-      return e.etiquetas;
+    etiquetas: fila.etiquetas.map( ( e ) => {
+      return e.etiqueta;
     } ),
     creadaEn              : fila.creadaEn.toISOString(),
     editadaEn             : fila.editadaEn.toISOString(),
@@ -143,7 +143,7 @@ export async function listarNotas( filtros: FiltrosNotas ): Promise<ListaNotasRe
 
   const take = 51;
 
-  const filas = await prisma.notes.findMany( {
+  const filas = await prisma.note.findMany( {
     where,
     select : SELECT_RESUMEN,
     orderBy: ORDEN_CAMPO[ filtros.orden ?? 'editada' ],
@@ -186,7 +186,7 @@ export async function listarNotas( filtros: FiltrosNotas ): Promise<ListaNotasRe
  * componente.
  */
 export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
-  const fila = await prisma.notes.findUnique( {
+  const fila = await prisma.note.findUnique( {
     where: {
       id
     },
@@ -199,15 +199,15 @@ export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
       creadaEn   : true,
       editadaEn  : true,
       archivadaEn: true,
-      Carpeta    : {
+      carpeta    : {
         select: {
           numero: true,
           nombre: true
         }
       },
-      etiquetas_en_notes: {
+      etiquetas: {
         select: {
-          etiquetas: {
+          etiqueta: {
             select: {
               id    : true,
               nombre: true,
@@ -216,10 +216,10 @@ export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
           }
         },
       },
-      usuarios_en_notes: {
+      asignados: {
         select: {
-          rol  : true,
-          users: {
+          rol : true,
+          user: {
             select: {
               id    : true,
               nombre: true
@@ -240,16 +240,16 @@ export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
           esTermino  : true,
         },
       },
-      note_bloques: {
+      bloques: {
         orderBy: {
           orden: 'asc'
         },
         select: {
-          id          : true,
-          tipo        : true,
-          orden       : true,
-          texto       : true,
-          bloque_items: {
+          id   : true,
+          tipo : true,
+          orden: true,
+          texto: true,
+          items: {
             orderBy: {
               orden: 'asc'
             },
@@ -271,7 +271,7 @@ export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
     return null;
   }
 
-  const bloques: BloqueDTO[] = fila.note_bloques.map( ( b ) => {
+  const bloques: BloqueDTO[] = fila.bloques.map( ( b ) => {
     if ( b.tipo === TipoBloque.PARRAFO ) {
       return {
         id   : b.id,
@@ -288,7 +288,7 @@ export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
         : 'VERIFICACION' as const,
       orden : b.orden,
       titulo: b.texto,
-      items : b.bloque_items.map( ( i ) => {
+      items : b.items.map( ( i ) => {
         return {
           id          : i.id,
           texto       : i.texto,
@@ -307,23 +307,23 @@ export async function obtenerNota( id: string ): Promise<NotaDetalle | null> {
     resumen: fila.resumen,
     estado : fila.estado as NotaDetalle['estado'],
     fijada : fila.fijada,
-    caso   : fila.Carpeta
+    caso   : fila.carpeta
       ? {
-          id        : String( fila.Carpeta.numero ),
-          referencia: `Carpeta ${ fila.Carpeta.numero }`,
-          nombre    : fila.Carpeta.nombre
+          id        : String( fila.carpeta.numero ),
+          referencia: `Carpeta ${ fila.carpeta.numero }`,
+          nombre    : fila.carpeta.nombre
         }
       : null,
-    etiquetas: fila.etiquetas_en_notes.map( ( e ) => {
-      return e.etiquetas;
+    etiquetas: fila.etiquetas.map( ( e ) => {
+      return e.etiqueta;
     } ),
     creadaEn   : fila.creadaEn.toISOString(),
     editadaEn  : fila.editadaEn.toISOString(),
     archivadaEn: fila.archivadaEn?.toISOString() ?? null,
-    usuarios   : fila.usuarios_en_notes.map( ( u ) => {
+    usuarios   : fila.asignados.map( ( u ) => {
       return {
-        id    : u.users.id,
-        nombre: u.users.nombre,
+        id    : u.user.id,
+        nombre: u.user.nombre,
         rol   : u.rol as NotaDetalle['usuarios'][number]['rol'],
       };
     } ),
@@ -365,7 +365,7 @@ export async function listarCarpetasParaCombobox() {
 
 /** Personal activo aún no asignado a la nota, para el menú "Asignar usuario". */
 export async function listarUsuariosDisponibles( idsAsignados: string[] ) {
-  const usuarios = await prisma.users.findMany( {
+  const usuarios = await prisma.user.findMany( {
     where: {
       activo: true,
       id    : {

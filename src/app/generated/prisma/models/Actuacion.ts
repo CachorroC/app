@@ -321,7 +321,7 @@ export type ActuacionWhereInput = {
   idProceso?: Prisma.StringFilter<"Actuacion"> | string
   idRegActuacion?: Prisma.StringFilter<"Actuacion"> | string
   proceso?: Prisma.XOR<Prisma.ProcesoScalarRelationFilter, Prisma.ProcesoWhereInput>
-  Carpeta?: Prisma.CarpetaListRelationFilter
+  carpetas?: Prisma.CarpetaListRelationFilter
 }
 
 export type ActuacionOrderByWithRelationInput = {
@@ -343,7 +343,7 @@ export type ActuacionOrderByWithRelationInput = {
   idProceso?: Prisma.SortOrder
   idRegActuacion?: Prisma.SortOrder
   proceso?: Prisma.ProcesoOrderByWithRelationInput
-  Carpeta?: Prisma.CarpetaOrderByRelationAggregateInput
+  carpetas?: Prisma.CarpetaOrderByRelationAggregateInput
 }
 
 export type ActuacionWhereUniqueInput = Prisma.AtLeast<{
@@ -368,7 +368,7 @@ export type ActuacionWhereUniqueInput = Prisma.AtLeast<{
   procesoId?: Prisma.StringFilter<"Actuacion"> | string
   idProceso?: Prisma.StringFilter<"Actuacion"> | string
   proceso?: Prisma.XOR<Prisma.ProcesoScalarRelationFilter, Prisma.ProcesoWhereInput>
-  Carpeta?: Prisma.CarpetaListRelationFilter
+  carpetas?: Prisma.CarpetaListRelationFilter
 }, "idRegActuacion">
 
 export type ActuacionOrderByWithAggregationInput = {
@@ -437,7 +437,7 @@ export type ActuacionCreateInput = {
   idProceso: string
   idRegActuacion: string
   proceso: Prisma.ProcesoCreateNestedOneWithoutActuacionesInput
-  Carpeta?: Prisma.CarpetaCreateNestedManyWithoutUltimaActuacionInput
+  carpetas?: Prisma.CarpetaCreateNestedManyWithoutUltimaActuacionInput
 }
 
 export type ActuacionUncheckedCreateInput = {
@@ -458,7 +458,7 @@ export type ActuacionUncheckedCreateInput = {
   procesoId: string
   idProceso: string
   idRegActuacion: string
-  Carpeta?: Prisma.CarpetaUncheckedCreateNestedManyWithoutUltimaActuacionInput
+  carpetas?: Prisma.CarpetaUncheckedCreateNestedManyWithoutUltimaActuacionInput
 }
 
 export type ActuacionUpdateInput = {
@@ -479,7 +479,7 @@ export type ActuacionUpdateInput = {
   idProceso?: Prisma.StringFieldUpdateOperationsInput | string
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string
   proceso?: Prisma.ProcesoUpdateOneRequiredWithoutActuacionesNestedInput
-  Carpeta?: Prisma.CarpetaUpdateManyWithoutUltimaActuacionNestedInput
+  carpetas?: Prisma.CarpetaUpdateManyWithoutUltimaActuacionNestedInput
 }
 
 export type ActuacionUncheckedUpdateInput = {
@@ -500,7 +500,7 @@ export type ActuacionUncheckedUpdateInput = {
   procesoId?: Prisma.StringFieldUpdateOperationsInput | string
   idProceso?: Prisma.StringFieldUpdateOperationsInput | string
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string
-  Carpeta?: Prisma.CarpetaUncheckedUpdateManyWithoutUltimaActuacionNestedInput
+  carpetas?: Prisma.CarpetaUncheckedUpdateManyWithoutUltimaActuacionNestedInput
 }
 
 export type ActuacionCreateManyInput = {
@@ -649,20 +649,20 @@ export type ActuacionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ActuacionCreateNestedOneWithoutCarpetaInput = {
-  create?: Prisma.XOR<Prisma.ActuacionCreateWithoutCarpetaInput, Prisma.ActuacionUncheckedCreateWithoutCarpetaInput>
-  connectOrCreate?: Prisma.ActuacionCreateOrConnectWithoutCarpetaInput
+export type ActuacionCreateNestedOneWithoutCarpetasInput = {
+  create?: Prisma.XOR<Prisma.ActuacionCreateWithoutCarpetasInput, Prisma.ActuacionUncheckedCreateWithoutCarpetasInput>
+  connectOrCreate?: Prisma.ActuacionCreateOrConnectWithoutCarpetasInput
   connect?: Prisma.ActuacionWhereUniqueInput
 }
 
-export type ActuacionUpdateOneWithoutCarpetaNestedInput = {
-  create?: Prisma.XOR<Prisma.ActuacionCreateWithoutCarpetaInput, Prisma.ActuacionUncheckedCreateWithoutCarpetaInput>
-  connectOrCreate?: Prisma.ActuacionCreateOrConnectWithoutCarpetaInput
-  upsert?: Prisma.ActuacionUpsertWithoutCarpetaInput
+export type ActuacionUpdateOneWithoutCarpetasNestedInput = {
+  create?: Prisma.XOR<Prisma.ActuacionCreateWithoutCarpetasInput, Prisma.ActuacionUncheckedCreateWithoutCarpetasInput>
+  connectOrCreate?: Prisma.ActuacionCreateOrConnectWithoutCarpetasInput
+  upsert?: Prisma.ActuacionUpsertWithoutCarpetasInput
   disconnect?: Prisma.ActuacionWhereInput | boolean
   delete?: Prisma.ActuacionWhereInput | boolean
   connect?: Prisma.ActuacionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActuacionUpdateToOneWithWhereWithoutCarpetaInput, Prisma.ActuacionUpdateWithoutCarpetaInput>, Prisma.ActuacionUncheckedUpdateWithoutCarpetaInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActuacionUpdateToOneWithWhereWithoutCarpetasInput, Prisma.ActuacionUpdateWithoutCarpetasInput>, Prisma.ActuacionUncheckedUpdateWithoutCarpetasInput>
 }
 
 export type ActuacionCreateNestedManyWithoutProcesoInput = {
@@ -707,7 +707,7 @@ export type ActuacionUncheckedUpdateManyWithoutProcesoNestedInput = {
   deleteMany?: Prisma.ActuacionScalarWhereInput | Prisma.ActuacionScalarWhereInput[]
 }
 
-export type ActuacionCreateWithoutCarpetaInput = {
+export type ActuacionCreateWithoutCarpetasInput = {
   actuacion: string
   anotacion?: string | null
   cant: number
@@ -727,7 +727,7 @@ export type ActuacionCreateWithoutCarpetaInput = {
   proceso: Prisma.ProcesoCreateNestedOneWithoutActuacionesInput
 }
 
-export type ActuacionUncheckedCreateWithoutCarpetaInput = {
+export type ActuacionUncheckedCreateWithoutCarpetasInput = {
   actuacion: string
   anotacion?: string | null
   cant: number
@@ -747,23 +747,23 @@ export type ActuacionUncheckedCreateWithoutCarpetaInput = {
   idRegActuacion: string
 }
 
-export type ActuacionCreateOrConnectWithoutCarpetaInput = {
+export type ActuacionCreateOrConnectWithoutCarpetasInput = {
   where: Prisma.ActuacionWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActuacionCreateWithoutCarpetaInput, Prisma.ActuacionUncheckedCreateWithoutCarpetaInput>
+  create: Prisma.XOR<Prisma.ActuacionCreateWithoutCarpetasInput, Prisma.ActuacionUncheckedCreateWithoutCarpetasInput>
 }
 
-export type ActuacionUpsertWithoutCarpetaInput = {
-  update: Prisma.XOR<Prisma.ActuacionUpdateWithoutCarpetaInput, Prisma.ActuacionUncheckedUpdateWithoutCarpetaInput>
-  create: Prisma.XOR<Prisma.ActuacionCreateWithoutCarpetaInput, Prisma.ActuacionUncheckedCreateWithoutCarpetaInput>
+export type ActuacionUpsertWithoutCarpetasInput = {
+  update: Prisma.XOR<Prisma.ActuacionUpdateWithoutCarpetasInput, Prisma.ActuacionUncheckedUpdateWithoutCarpetasInput>
+  create: Prisma.XOR<Prisma.ActuacionCreateWithoutCarpetasInput, Prisma.ActuacionUncheckedCreateWithoutCarpetasInput>
   where?: Prisma.ActuacionWhereInput
 }
 
-export type ActuacionUpdateToOneWithWhereWithoutCarpetaInput = {
+export type ActuacionUpdateToOneWithWhereWithoutCarpetasInput = {
   where?: Prisma.ActuacionWhereInput
-  data: Prisma.XOR<Prisma.ActuacionUpdateWithoutCarpetaInput, Prisma.ActuacionUncheckedUpdateWithoutCarpetaInput>
+  data: Prisma.XOR<Prisma.ActuacionUpdateWithoutCarpetasInput, Prisma.ActuacionUncheckedUpdateWithoutCarpetasInput>
 }
 
-export type ActuacionUpdateWithoutCarpetaInput = {
+export type ActuacionUpdateWithoutCarpetasInput = {
   actuacion?: Prisma.StringFieldUpdateOperationsInput | string
   anotacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cant?: Prisma.IntFieldUpdateOperationsInput | number
@@ -783,7 +783,7 @@ export type ActuacionUpdateWithoutCarpetaInput = {
   proceso?: Prisma.ProcesoUpdateOneRequiredWithoutActuacionesNestedInput
 }
 
-export type ActuacionUncheckedUpdateWithoutCarpetaInput = {
+export type ActuacionUncheckedUpdateWithoutCarpetasInput = {
   actuacion?: Prisma.StringFieldUpdateOperationsInput | string
   anotacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cant?: Prisma.IntFieldUpdateOperationsInput | number
@@ -820,7 +820,7 @@ export type ActuacionCreateWithoutProcesoInput = {
   llaveProceso: string
   idProceso: string
   idRegActuacion: string
-  Carpeta?: Prisma.CarpetaCreateNestedManyWithoutUltimaActuacionInput
+  carpetas?: Prisma.CarpetaCreateNestedManyWithoutUltimaActuacionInput
 }
 
 export type ActuacionUncheckedCreateWithoutProcesoInput = {
@@ -840,7 +840,7 @@ export type ActuacionUncheckedCreateWithoutProcesoInput = {
   llaveProceso: string
   idProceso: string
   idRegActuacion: string
-  Carpeta?: Prisma.CarpetaUncheckedCreateNestedManyWithoutUltimaActuacionInput
+  carpetas?: Prisma.CarpetaUncheckedCreateNestedManyWithoutUltimaActuacionInput
 }
 
 export type ActuacionCreateOrConnectWithoutProcesoInput = {
@@ -928,7 +928,7 @@ export type ActuacionUpdateWithoutProcesoInput = {
   llaveProceso?: Prisma.StringFieldUpdateOperationsInput | string
   idProceso?: Prisma.StringFieldUpdateOperationsInput | string
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string
-  Carpeta?: Prisma.CarpetaUpdateManyWithoutUltimaActuacionNestedInput
+  carpetas?: Prisma.CarpetaUpdateManyWithoutUltimaActuacionNestedInput
 }
 
 export type ActuacionUncheckedUpdateWithoutProcesoInput = {
@@ -948,7 +948,7 @@ export type ActuacionUncheckedUpdateWithoutProcesoInput = {
   llaveProceso?: Prisma.StringFieldUpdateOperationsInput | string
   idProceso?: Prisma.StringFieldUpdateOperationsInput | string
   idRegActuacion?: Prisma.StringFieldUpdateOperationsInput | string
-  Carpeta?: Prisma.CarpetaUncheckedUpdateManyWithoutUltimaActuacionNestedInput
+  carpetas?: Prisma.CarpetaUncheckedUpdateManyWithoutUltimaActuacionNestedInput
 }
 
 export type ActuacionUncheckedUpdateManyWithoutProcesoInput = {
@@ -976,11 +976,11 @@ export type ActuacionUncheckedUpdateManyWithoutProcesoInput = {
  */
 
 export type ActuacionCountOutputType = {
-  Carpeta: number
+  carpetas: number
 }
 
 export type ActuacionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Carpeta?: boolean | ActuacionCountOutputTypeCountCarpetaArgs
+  carpetas?: boolean | ActuacionCountOutputTypeCountCarpetasArgs
 }
 
 /**
@@ -996,7 +996,7 @@ export type ActuacionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
 /**
  * ActuacionCountOutputType without action
  */
-export type ActuacionCountOutputTypeCountCarpetaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ActuacionCountOutputTypeCountCarpetasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CarpetaWhereInput
 }
 
@@ -1020,7 +1020,7 @@ export type ActuacionSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   idProceso?: boolean
   idRegActuacion?: boolean
   proceso?: boolean | Prisma.ProcesoDefaultArgs<ExtArgs>
-  Carpeta?: boolean | Prisma.Actuacion$CarpetaArgs<ExtArgs>
+  carpetas?: boolean | Prisma.Actuacion$carpetasArgs<ExtArgs>
   _count?: boolean | Prisma.ActuacionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["actuacion"]>
 
@@ -1089,7 +1089,7 @@ export type ActuacionSelectScalar = {
 export type ActuacionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"actuacion" | "anotacion" | "cant" | "carpetaNumero" | "codRegla" | "conDocumentos" | "consActuacion" | "createdAt" | "fechaActuacion" | "fechaFinal" | "fechaInicial" | "fechaRegistro" | "isUltimaAct" | "llaveProceso" | "procesoId" | "idProceso" | "idRegActuacion", ExtArgs["result"]["actuacion"]>
 export type ActuacionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proceso?: boolean | Prisma.ProcesoDefaultArgs<ExtArgs>
-  Carpeta?: boolean | Prisma.Actuacion$CarpetaArgs<ExtArgs>
+  carpetas?: boolean | Prisma.Actuacion$carpetasArgs<ExtArgs>
   _count?: boolean | Prisma.ActuacionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ActuacionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1103,7 +1103,7 @@ export type $ActuacionPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   name: "Actuacion"
   objects: {
     proceso: Prisma.$ProcesoPayload<ExtArgs>
-    Carpeta: Prisma.$CarpetaPayload<ExtArgs>[]
+    carpetas: Prisma.$CarpetaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     actuacion: string
@@ -1518,7 +1518,7 @@ readonly fields: ActuacionFieldRefs;
 export interface Prisma__ActuacionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   proceso<T extends Prisma.ProcesoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProcesoDefaultArgs<ExtArgs>>): Prisma.Prisma__ProcesoClient<runtime.Types.Result.GetResult<Prisma.$ProcesoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Carpeta<T extends Prisma.Actuacion$CarpetaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actuacion$CarpetaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CarpetaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  carpetas<T extends Prisma.Actuacion$carpetasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actuacion$carpetasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CarpetaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1966,9 +1966,9 @@ export type ActuacionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * Actuacion.Carpeta
+ * Actuacion.carpetas
  */
-export type Actuacion$CarpetaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Actuacion$carpetasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Carpeta
    */

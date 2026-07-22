@@ -26,7 +26,7 @@ export default async function DatePage( {
       },
     },
     include: {
-      RelevantDates: true,
+      relevantDates: true,
     },
   } );
 

@@ -8,6 +8,8 @@ import { SearchProvider } from './Context/search-context';
 import { ModalProvider } from './Context/modal-context';
 import type { Metadata, Viewport } from 'next';
 import { NavBar } from '#@/components/layout/NavBar';
+import { Chrome } from '#@/components/layout/chrome';
+import { IdentityBadge } from '#@/components/layout/identity-badge';
 import { NavigationContextProvider } from './Context/navigation-context';
 import { CategoryContextProvider } from './Context/category-context';
 import { quicksand, plexMono, fraunces, inter } from '#@/styles/fonts';
@@ -115,18 +117,29 @@ export default function RootLayout( {
                 <ModalProvider>
                   <MainProvider>
                     <PushManagerComponent />
-                    <div className={layout.container}>
-                      <Suspense
-                        fallback={
-                          <nav>
-                            Cargando menú... <Loader />
-                          </nav>
-                        }
-                      >
-                        <NavBar />
+                    <div className={ layout.container }>
+                      <Suspense fallback={<Loader />}>
+                        <Chrome>
+                          <Suspense
+                            fallback={
+                              <nav>
+                                Cargando menú... <Loader />
+                              </nav>
+                            }
+                          >
+                            <NavBar />
+                          </Suspense>
+                          <Suspense fallback={null}>
+                            <IdentityBadge />
+                          </Suspense>
+                        </Chrome>
                       </Suspense>
-                      {children}
-                      {modal}
+                      <Suspense fallback={<Loader />}>
+                        {children}
+                      </Suspense>
+                      <Suspense fallback={null}>
+                        {modal}
+                      </Suspense>
                     </div>
                   </MainProvider>
                 </ModalProvider>

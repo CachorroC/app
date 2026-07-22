@@ -1,0 +1,42 @@
+.page {
+  display: flex;
+  min-height: 100dvh;
+  width: 100%;
+  background: var(--color-background);
+}
+
+.brandPanel {
+  flex: 0 0 42%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--spacing-12);
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(155deg, var(--color-primary-container) 0%, var(--color-surface-container-low) 68%);
+}
+
+@media (max-width: 899px) {
+  .brandPanel {
+    display: none;
+  }
+}
+.formPanel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 5vw, 56px);
+  box-sizing: border-box;
+}
+
+.formInner {
+  width: 100%;
+  max-width: 428px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}

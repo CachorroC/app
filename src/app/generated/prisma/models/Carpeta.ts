@@ -331,8 +331,8 @@ export type CarpetaWhereInput = {
   deudor?: Prisma.XOR<Prisma.DeudorNullableScalarRelationFilter, Prisma.DeudorWhereInput> | null
   notas?: Prisma.NotaListRelationFilter
   procesos?: Prisma.ProcesoListRelationFilter
-  notes?: Prisma.NotesListRelationFilter
-  tareas?: Prisma.TareasListRelationFilter
+  notes?: Prisma.NoteListRelationFilter
+  tareas?: Prisma.TareaListRelationFilter
 }
 
 export type CarpetaOrderByWithRelationInput = {
@@ -361,8 +361,8 @@ export type CarpetaOrderByWithRelationInput = {
   deudor?: Prisma.DeudorOrderByWithRelationInput
   notas?: Prisma.NotaOrderByRelationAggregateInput
   procesos?: Prisma.ProcesoOrderByRelationAggregateInput
-  notes?: Prisma.notesOrderByRelationAggregateInput
-  tareas?: Prisma.tareasOrderByRelationAggregateInput
+  notes?: Prisma.NoteOrderByRelationAggregateInput
+  tareas?: Prisma.TareaOrderByRelationAggregateInput
 }
 
 export type CarpetaWhereUniqueInput = Prisma.AtLeast<{
@@ -394,8 +394,8 @@ export type CarpetaWhereUniqueInput = Prisma.AtLeast<{
   deudor?: Prisma.XOR<Prisma.DeudorNullableScalarRelationFilter, Prisma.DeudorWhereInput> | null
   notas?: Prisma.NotaListRelationFilter
   procesos?: Prisma.ProcesoListRelationFilter
-  notes?: Prisma.NotesListRelationFilter
-  tareas?: Prisma.TareasListRelationFilter
+  notes?: Prisma.NoteListRelationFilter
+  tareas?: Prisma.TareaListRelationFilter
 }, "numero">
 
 export type CarpetaOrderByWithAggregationInput = {
@@ -463,15 +463,15 @@ export type CarpetaCreateInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetaInput
+  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUncheckedCreateInput = {
@@ -498,8 +498,8 @@ export type CarpetaUncheckedCreateInput = {
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoUncheckedCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesUncheckedCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasUncheckedCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaUncheckedCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUpdateInput = {
@@ -517,15 +517,15 @@ export type CarpetaUpdateInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetaNestedInput
+  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateInput = {
@@ -552,8 +552,8 @@ export type CarpetaUncheckedUpdateInput = {
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUncheckedUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUncheckedUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUncheckedUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUncheckedUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaCreateManyInput = {
@@ -968,14 +968,14 @@ export type CarpetaCreateWithoutDeudorInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetaInput
+  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUncheckedCreateWithoutDeudorInput = {
@@ -1001,8 +1001,8 @@ export type CarpetaUncheckedCreateWithoutDeudorInput = {
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoUncheckedCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesUncheckedCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasUncheckedCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaUncheckedCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaCreateOrConnectWithoutDeudorInput = {
@@ -1036,14 +1036,14 @@ export type CarpetaUpdateWithoutDeudorInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetaNestedInput
+  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateWithoutDeudorInput = {
@@ -1069,8 +1069,8 @@ export type CarpetaUncheckedUpdateWithoutDeudorInput = {
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUncheckedUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUncheckedUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUncheckedUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUncheckedUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaCreateWithoutCodeudorInput = {
@@ -1088,14 +1088,14 @@ export type CarpetaCreateWithoutCodeudorInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetaInput
+  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUncheckedCreateWithoutCodeudorInput = {
@@ -1121,8 +1121,8 @@ export type CarpetaUncheckedCreateWithoutCodeudorInput = {
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoUncheckedCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesUncheckedCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasUncheckedCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaUncheckedCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaCreateOrConnectWithoutCodeudorInput = {
@@ -1156,14 +1156,14 @@ export type CarpetaUpdateWithoutCodeudorInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetaNestedInput
+  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateWithoutCodeudorInput = {
@@ -1189,8 +1189,8 @@ export type CarpetaUncheckedUpdateWithoutCodeudorInput = {
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUncheckedUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUncheckedUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUncheckedUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUncheckedUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaCreateWithoutDemandaInput = {
@@ -1208,14 +1208,14 @@ export type CarpetaCreateWithoutDemandaInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetaInput
+  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUncheckedCreateWithoutDemandaInput = {
@@ -1241,8 +1241,8 @@ export type CarpetaUncheckedCreateWithoutDemandaInput = {
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoUncheckedCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesUncheckedCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasUncheckedCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaUncheckedCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaCreateOrConnectWithoutDemandaInput = {
@@ -1276,14 +1276,14 @@ export type CarpetaUpdateWithoutDemandaInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetaNestedInput
+  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateWithoutDemandaInput = {
@@ -1309,8 +1309,8 @@ export type CarpetaUncheckedUpdateWithoutDemandaInput = {
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUncheckedUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUncheckedUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUncheckedUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUncheckedUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaCreateWithoutNotasInput = {
@@ -1328,14 +1328,14 @@ export type CarpetaCreateWithoutNotasInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetaInput
+  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorCreateNestedOneWithoutCarpetaInput
   procesos?: Prisma.ProcesoCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUncheckedCreateWithoutNotasInput = {
@@ -1361,8 +1361,8 @@ export type CarpetaUncheckedCreateWithoutNotasInput = {
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   procesos?: Prisma.ProcesoUncheckedCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesUncheckedCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasUncheckedCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaUncheckedCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaCreateOrConnectWithoutNotasInput = {
@@ -1396,14 +1396,14 @@ export type CarpetaUpdateWithoutNotasInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetaNestedInput
+  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUpdateOneWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateWithoutNotasInput = {
@@ -1429,8 +1429,8 @@ export type CarpetaUncheckedUpdateWithoutNotasInput = {
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUncheckedUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUncheckedUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUncheckedUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUncheckedUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaCreateWithoutUltimaActuacionInput = {
@@ -1454,8 +1454,8 @@ export type CarpetaCreateWithoutUltimaActuacionInput = {
   deudor?: Prisma.DeudorCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUncheckedCreateWithoutUltimaActuacionInput = {
@@ -1481,8 +1481,8 @@ export type CarpetaUncheckedCreateWithoutUltimaActuacionInput = {
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoUncheckedCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesUncheckedCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasUncheckedCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaUncheckedCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaCreateOrConnectWithoutUltimaActuacionInput = {
@@ -1550,14 +1550,14 @@ export type CarpetaCreateWithoutJuzgadoInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetaInput
+  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUncheckedCreateWithoutJuzgadoInput = {
@@ -1581,8 +1581,8 @@ export type CarpetaUncheckedCreateWithoutJuzgadoInput = {
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoUncheckedCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesUncheckedCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasUncheckedCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaUncheckedCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaCreateOrConnectWithoutJuzgadoInput = {
@@ -1626,14 +1626,14 @@ export type CarpetaCreateWithoutProcesosInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetaInput
+  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUncheckedCreateWithoutProcesosInput = {
@@ -1659,8 +1659,8 @@ export type CarpetaUncheckedCreateWithoutProcesosInput = {
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesUncheckedCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasUncheckedCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaUncheckedCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaCreateOrConnectWithoutProcesosInput = {
@@ -1694,14 +1694,14 @@ export type CarpetaUpdateWithoutProcesosInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetaNestedInput
+  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateWithoutProcesosInput = {
@@ -1727,8 +1727,8 @@ export type CarpetaUncheckedUpdateWithoutProcesosInput = {
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUncheckedUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUncheckedUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUncheckedUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaCreateWithoutNotesInput = {
@@ -1746,14 +1746,14 @@ export type CarpetaCreateWithoutNotesInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetaInput
+  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUncheckedCreateWithoutNotesInput = {
@@ -1780,7 +1780,7 @@ export type CarpetaUncheckedCreateWithoutNotesInput = {
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoUncheckedCreateNestedManyWithoutCarpetaInput
-  tareas?: Prisma.tareasUncheckedCreateNestedManyWithoutCarpetaInput
+  tareas?: Prisma.TareaUncheckedCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaCreateOrConnectWithoutNotesInput = {
@@ -1814,14 +1814,14 @@ export type CarpetaUpdateWithoutNotesInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetaNestedInput
+  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateWithoutNotesInput = {
@@ -1848,7 +1848,7 @@ export type CarpetaUncheckedUpdateWithoutNotesInput = {
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUncheckedUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUncheckedUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUncheckedUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaCreateWithoutTareasInput = {
@@ -1866,14 +1866,14 @@ export type CarpetaCreateWithoutTareasInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetaInput
+  ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaUncheckedCreateWithoutTareasInput = {
@@ -1900,7 +1900,7 @@ export type CarpetaUncheckedCreateWithoutTareasInput = {
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
   procesos?: Prisma.ProcesoUncheckedCreateNestedManyWithoutCarpetaInput
-  notes?: Prisma.notesUncheckedCreateNestedManyWithoutCarpetaInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutCarpetaInput
 }
 
 export type CarpetaCreateOrConnectWithoutTareasInput = {
@@ -1934,14 +1934,14 @@ export type CarpetaUpdateWithoutTareasInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetaNestedInput
+  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateWithoutTareasInput = {
@@ -1968,7 +1968,7 @@ export type CarpetaUncheckedUpdateWithoutTareasInput = {
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUncheckedUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUncheckedUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaCreateManyUltimaActuacionInput = {
@@ -2012,8 +2012,8 @@ export type CarpetaUpdateWithoutUltimaActuacionInput = {
   deudor?: Prisma.DeudorUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateWithoutUltimaActuacionInput = {
@@ -2039,8 +2039,8 @@ export type CarpetaUncheckedUpdateWithoutUltimaActuacionInput = {
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUncheckedUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUncheckedUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUncheckedUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUncheckedUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateManyWithoutUltimaActuacionInput = {
@@ -2096,14 +2096,14 @@ export type CarpetaUpdateWithoutJuzgadoInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetaNestedInput
+  ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateWithoutJuzgadoInput = {
@@ -2127,8 +2127,8 @@ export type CarpetaUncheckedUpdateWithoutJuzgadoInput = {
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
   procesos?: Prisma.ProcesoUncheckedUpdateManyWithoutCarpetaNestedInput
-  notes?: Prisma.notesUncheckedUpdateManyWithoutCarpetaNestedInput
-  tareas?: Prisma.tareasUncheckedUpdateManyWithoutCarpetaNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutCarpetaNestedInput
+  tareas?: Prisma.TareaUncheckedUpdateManyWithoutCarpetaNestedInput
 }
 
 export type CarpetaUncheckedUpdateManyWithoutJuzgadoInput = {
@@ -2196,14 +2196,14 @@ export type CarpetaCountOutputTypeCountProcesosArgs<ExtArgs extends runtime.Type
  * CarpetaCountOutputType without action
  */
 export type CarpetaCountOutputTypeCountNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.notesWhereInput
+  where?: Prisma.NoteWhereInput
 }
 
 /**
  * CarpetaCountOutputType without action
  */
 export type CarpetaCountOutputTypeCountTareasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.tareasWhereInput
+  where?: Prisma.TareaWhereInput
 }
 
 
@@ -2337,8 +2337,8 @@ export type $CarpetaPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     deudor: Prisma.$DeudorPayload<ExtArgs> | null
     notas: Prisma.$NotaPayload<ExtArgs>[]
     procesos: Prisma.$ProcesoPayload<ExtArgs>[]
-    notes: Prisma.$notesPayload<ExtArgs>[]
-    tareas: Prisma.$tareasPayload<ExtArgs>[]
+    notes: Prisma.$NotePayload<ExtArgs>[]
+    tareas: Prisma.$TareaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2760,8 +2760,8 @@ export interface Prisma__CarpetaClient<T, Null = never, ExtArgs extends runtime.
   deudor<T extends Prisma.Carpeta$deudorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Carpeta$deudorArgs<ExtArgs>>): Prisma.Prisma__DeudorClient<runtime.Types.Result.GetResult<Prisma.$DeudorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   notas<T extends Prisma.Carpeta$notasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Carpeta$notasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   procesos<T extends Prisma.Carpeta$procesosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Carpeta$procesosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProcesoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  notes<T extends Prisma.Carpeta$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Carpeta$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$notesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  tareas<T extends Prisma.Carpeta$tareasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Carpeta$tareasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$tareasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notes<T extends Prisma.Carpeta$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Carpeta$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tareas<T extends Prisma.Carpeta$tareasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Carpeta$tareasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TareaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3357,23 +3357,23 @@ export type Carpeta$procesosArgs<ExtArgs extends runtime.Types.Extensions.Intern
  */
 export type Carpeta$notesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the notes
+   * Select specific fields to fetch from the Note
    */
-  select?: Prisma.notesSelect<ExtArgs> | null
+  select?: Prisma.NoteSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the notes
+   * Omit specific fields from the Note
    */
-  omit?: Prisma.notesOmit<ExtArgs> | null
+  omit?: Prisma.NoteOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.notesInclude<ExtArgs> | null
-  where?: Prisma.notesWhereInput
-  orderBy?: Prisma.notesOrderByWithRelationInput | Prisma.notesOrderByWithRelationInput[]
-  cursor?: Prisma.notesWhereUniqueInput
+  include?: Prisma.NoteInclude<ExtArgs> | null
+  where?: Prisma.NoteWhereInput
+  orderBy?: Prisma.NoteOrderByWithRelationInput | Prisma.NoteOrderByWithRelationInput[]
+  cursor?: Prisma.NoteWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.NotesScalarFieldEnum | Prisma.NotesScalarFieldEnum[]
+  distinct?: Prisma.NoteScalarFieldEnum | Prisma.NoteScalarFieldEnum[]
 }
 
 /**
@@ -3381,23 +3381,23 @@ export type Carpeta$notesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
  */
 export type Carpeta$tareasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the tareas
+   * Select specific fields to fetch from the Tarea
    */
-  select?: Prisma.tareasSelect<ExtArgs> | null
+  select?: Prisma.TareaSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the tareas
+   * Omit specific fields from the Tarea
    */
-  omit?: Prisma.tareasOmit<ExtArgs> | null
+  omit?: Prisma.TareaOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.tareasInclude<ExtArgs> | null
-  where?: Prisma.tareasWhereInput
-  orderBy?: Prisma.tareasOrderByWithRelationInput | Prisma.tareasOrderByWithRelationInput[]
-  cursor?: Prisma.tareasWhereUniqueInput
+  include?: Prisma.TareaInclude<ExtArgs> | null
+  where?: Prisma.TareaWhereInput
+  orderBy?: Prisma.TareaOrderByWithRelationInput | Prisma.TareaOrderByWithRelationInput[]
+  cursor?: Prisma.TareaWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.TareasScalarFieldEnum | Prisma.TareasScalarFieldEnum[]
+  distinct?: Prisma.TareaScalarFieldEnum | Prisma.TareaScalarFieldEnum[]
 }
 
 /**

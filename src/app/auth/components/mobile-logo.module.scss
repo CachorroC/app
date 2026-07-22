@@ -1,0 +1,23 @@
+.wrap {
+  display: none;
+  align-items: center;
+  gap: var(--spacing-2);
+  justify-content: center;
+}
+
+@media (max-width: 899px) {
+  .wrap {
+    display: flex;
+  }
+}
+
+.logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.wordmark {
+  font: 700 1rem var(--font-ui);
+  color: var(--color-on-surface);
+}

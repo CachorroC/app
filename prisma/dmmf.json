@@ -1,20 +1,6 @@
 {
   "enums": [
     {
-      "name": "NotifierName",
-      "values": [
-        {
-          "name": "DOS91",
-          "dbName": null
-        },
-        {
-          "name": "DOS92",
-          "dbName": null
-        }
-      ],
-      "dbName": null
-    },
-    {
       "name": "Category",
       "values": [
         {
@@ -95,6 +81,144 @@
         },
         {
           "name": "ACUMULADO",
+          "dbName": null
+        }
+      ],
+      "dbName": null
+    },
+    {
+      "name": "RolUsuario",
+      "values": [
+        {
+          "name": "ADMIN",
+          "dbName": null
+        },
+        {
+          "name": "ABOGADO",
+          "dbName": null
+        },
+        {
+          "name": "ASISTENTE",
+          "dbName": null
+        },
+        {
+          "name": "LECTOR",
+          "dbName": null
+        }
+      ],
+      "dbName": null
+    },
+    {
+      "name": "RolAsignacion",
+      "values": [
+        {
+          "name": "RESPONSABLE",
+          "dbName": null
+        },
+        {
+          "name": "COLABORADOR",
+          "dbName": null
+        },
+        {
+          "name": "OBSERVADOR",
+          "dbName": null
+        }
+      ],
+      "dbName": null
+    },
+    {
+      "name": "EstadoNote",
+      "values": [
+        {
+          "name": "PENDIENTE",
+          "dbName": null
+        },
+        {
+          "name": "EN_REVISION",
+          "dbName": null
+        },
+        {
+          "name": "ATENDIDA",
+          "dbName": null
+        },
+        {
+          "name": "ARCHIVADA",
+          "dbName": null
+        }
+      ],
+      "dbName": null
+    },
+    {
+      "name": "EstadoTarea",
+      "values": [
+        {
+          "name": "PENDIENTE",
+          "dbName": null
+        },
+        {
+          "name": "EN_PROGRESO",
+          "dbName": null
+        },
+        {
+          "name": "ATENDIDA",
+          "dbName": null
+        },
+        {
+          "name": "ARCHIVADA",
+          "dbName": null
+        }
+      ],
+      "dbName": null
+    },
+    {
+      "name": "PrioridadTarea",
+      "values": [
+        {
+          "name": "BAJA",
+          "dbName": null
+        },
+        {
+          "name": "MEDIA",
+          "dbName": null
+        },
+        {
+          "name": "ALTA",
+          "dbName": null
+        },
+        {
+          "name": "URGENTE",
+          "dbName": null
+        }
+      ],
+      "dbName": null
+    },
+    {
+      "name": "TipoBloque",
+      "values": [
+        {
+          "name": "PARRAFO",
+          "dbName": null
+        },
+        {
+          "name": "LISTA",
+          "dbName": null
+        },
+        {
+          "name": "VERIFICACION",
+          "dbName": null
+        }
+      ],
+      "dbName": null
+    },
+    {
+      "name": "TipoToken",
+      "values": [
+        {
+          "name": "EMAIL_VERIFICATION",
+          "dbName": null
+        },
+        {
+          "name": "PASSWORD_RESET",
           "dbName": null
         }
       ],
@@ -375,8 +499,12 @@
           "type": "Actuacion",
           "nativeType": null,
           "relationName": "ActuacionToCarpeta",
-          "relationFromFields": ["idRegUltimaAct"],
-          "relationToFields": ["idRegActuacion"],
+          "relationFromFields": [
+            "idRegUltimaAct"
+          ],
+          "relationToFields": [
+            "idRegActuacion"
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -392,8 +520,16 @@
           "type": "Juzgado",
           "nativeType": null,
           "relationName": "CarpetaToJuzgado",
-          "relationFromFields": ["juzgadoId", "juzgadoTipo", "juzgadoCiudad"],
-          "relationToFields": ["id", "tipo", "ciudad"],
+          "relationFromFields": [
+            "juzgadoId",
+            "juzgadoTipo",
+            "juzgadoCiudad"
+          ],
+          "relationToFields": [
+            "id",
+            "tipo",
+            "ciudad"
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -449,23 +585,6 @@
           "isUpdatedAt": false
         },
         {
-          "name": "facturas",
-          "kind": "object",
-          "isList": true,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Factura",
-          "nativeType": null,
-          "relationName": "CarpetaToFactura",
-          "relationFromFields": [],
-          "relationToFields": [],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
           "name": "notas",
           "kind": "object",
           "isList": true,
@@ -500,6 +619,23 @@
           "isUpdatedAt": false
         },
         {
+          "name": "notes",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Note",
+          "nativeType": null,
+          "relationName": "CarpetaToNote",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
           "name": "tareas",
           "kind": "object",
           "isList": true,
@@ -508,564 +644,9 @@
           "isId": false,
           "isReadOnly": false,
           "hasDefaultValue": false,
-          "type": "Task",
+          "type": "Tarea",
           "nativeType": null,
-          "relationName": "CarpetaToTask",
-          "relationFromFields": [],
-          "relationToFields": [],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        }
-      ],
-      "primaryKey": null,
-      "uniqueFields": [],
-      "uniqueIndexes": [],
-      "isGenerated": false
-    },
-    {
-      "name": "Factura",
-      "dbName": null,
-      "schema": null,
-      "fields": [
-        {
-          "name": "id",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": true,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "facturaElectronica",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "secondaryFactura",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Json",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "ciudad",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "dv",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "fecha",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "DateTime",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "razonSocial",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "nombreComercial",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "direccion",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "valorBase",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Decimal",
-          "nativeType": ["Money", []],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "hasOtroImp",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": true,
-          "type": "Boolean",
-          "nativeType": null,
-          "default": false,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "hasIva",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": true,
-          "type": "Boolean",
-          "nativeType": null,
-          "default": false,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "hasIcui",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": true,
-          "type": "Boolean",
-          "nativeType": null,
-          "default": false,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "hasImpoConsumo",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": true,
-          "type": "Boolean",
-          "nativeType": null,
-          "default": false,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "nit",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": true,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "valorIva",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Decimal",
-          "nativeType": ["Money", []],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "valorOtroImp",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Decimal",
-          "nativeType": ["Money", []],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "valorTotal",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Decimal",
-          "nativeType": ["Money", []],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "concepto",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "carpetaNumero",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": true,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "CUFE",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "QRCode",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "carpeta",
-          "kind": "object",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Carpeta",
-          "nativeType": null,
-          "relationName": "CarpetaToFactura",
-          "relationFromFields": ["carpetaNumero"],
-          "relationToFields": ["numero"],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "emisorDeFactura",
-          "kind": "object",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "EmisorDeFactura",
-          "nativeType": null,
-          "relationName": "EmisorDeFacturaToFactura",
-          "relationFromFields": ["nit"],
-          "relationToFields": ["nit"],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        }
-      ],
-      "primaryKey": null,
-      "uniqueFields": [],
-      "uniqueIndexes": [],
-      "isGenerated": false
-    },
-    {
-      "name": "EmisorDeFactura",
-      "dbName": null,
-      "schema": null,
-      "fields": [
-        {
-          "name": "nit",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": true,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "dv",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "razonSocial",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "nombreComercial",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "direccion",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "correo",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "telefono",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "actividadEconomica",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "regimenFiscal",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "responsabilidadTributaria",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "tipoContribuyente",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": true,
-          "type": "String",
-          "nativeType": null,
-          "default": "Juridica",
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "ciudad",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": true,
-          "type": "String",
-          "nativeType": null,
-          "default": "Bogota",
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "facturas",
-          "kind": "object",
-          "isList": true,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Factura",
-          "nativeType": null,
-          "relationName": "EmisorDeFacturaToFactura",
+          "relationName": "CarpetaToTarea",
           "relationFromFields": [],
           "relationToFields": [],
           "isGenerated": false,
@@ -1248,8 +829,12 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToDeudor",
-          "relationFromFields": ["carpetaNumero"],
-          "relationToFields": ["numero"],
+          "relationFromFields": [
+            "carpetaNumero"
+          ],
+          "relationToFields": [
+            "numero"
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -1360,8 +945,12 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToCodeudor",
-          "relationFromFields": ["carpetaNumero"],
-          "relationToFields": ["numero"],
+          "relationFromFields": [
+            "carpetaNumero"
+          ],
+          "relationToFields": [
+            "numero"
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -1568,7 +1157,10 @@
           "isReadOnly": false,
           "hasDefaultValue": true,
           "type": "Decimal",
-          "nativeType": ["Money", []],
+          "nativeType": [
+            "Money",
+            []
+          ],
           "default": 0,
           "isGenerated": false,
           "isUpdatedAt": false
@@ -1597,7 +1189,10 @@
           "isReadOnly": false,
           "hasDefaultValue": true,
           "type": "Decimal",
-          "nativeType": ["Money", []],
+          "nativeType": [
+            "Money",
+            []
+          ],
           "default": 0,
           "isGenerated": false,
           "isUpdatedAt": false
@@ -1612,7 +1207,10 @@
           "isReadOnly": false,
           "hasDefaultValue": true,
           "type": "Decimal",
-          "nativeType": ["Money", []],
+          "nativeType": [
+            "Money",
+            []
+          ],
           "default": 0,
           "isGenerated": false,
           "isUpdatedAt": false
@@ -1629,361 +1227,17 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToDemanda",
-          "relationFromFields": ["carpetaNumero"],
-          "relationToFields": ["numero"],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "medidasCautelares",
-          "kind": "object",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "MedidasCautelares",
-          "nativeType": null,
-          "relationName": "DemandaToMedidasCautelares",
-          "relationFromFields": [],
-          "relationToFields": [],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "notificacion",
-          "kind": "object",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Notificacion",
-          "nativeType": null,
-          "relationName": "DemandaToNotificacion",
-          "relationFromFields": [],
-          "relationToFields": [],
+          "relationFromFields": [
+            "carpetaNumero"
+          ],
+          "relationToFields": [
+            "numero"
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         }
       ],
       "primaryKey": null,
-      "uniqueFields": [],
-      "uniqueIndexes": [],
-      "isGenerated": false
-    },
-    {
-      "name": "Notificacion",
-      "dbName": null,
-      "schema": null,
-      "fields": [
-        {
-          "name": "demandaId",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": true,
-          "isId": false,
-          "isReadOnly": true,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "certimail",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Boolean",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "fisico",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Boolean",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "id",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": true,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "autoNotificado",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "DateTime",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "demanda",
-          "kind": "object",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Demanda",
-          "nativeType": null,
-          "relationName": "DemandaToNotificacion",
-          "relationFromFields": ["demandaId"],
-          "relationToFields": ["id"],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "notifiers",
-          "kind": "object",
-          "isList": true,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Notifier",
-          "nativeType": null,
-          "relationName": "NotificacionToNotifier",
-          "relationFromFields": [],
-          "relationToFields": [],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        }
-      ],
-      "primaryKey": null,
-      "uniqueFields": [],
-      "uniqueIndexes": [],
-      "isGenerated": false
-    },
-    {
-      "name": "MedidasCautelares",
-      "dbName": null,
-      "schema": null,
-      "fields": [
-        {
-          "name": "demandaId",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": true,
-          "isId": false,
-          "isReadOnly": true,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "fechaOrdenaMedida",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "DateTime",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "id",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": true,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "medidaSolicitada",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "demanda",
-          "kind": "object",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Demanda",
-          "nativeType": null,
-          "relationName": "DemandaToMedidasCautelares",
-          "relationFromFields": ["demandaId"],
-          "relationToFields": ["id"],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        }
-      ],
-      "primaryKey": null,
-      "uniqueFields": [],
-      "uniqueIndexes": [],
-      "isGenerated": false
-    },
-    {
-      "name": "Notifier",
-      "dbName": null,
-      "schema": null,
-      "fields": [
-        {
-          "name": "fechaAporta",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "DateTime",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "fechaRecibido",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "DateTime",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "notificacionId",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": true,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "resultado",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Boolean",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "tipo",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "String",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "carpetaNumero",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "notificacion",
-          "kind": "object",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Notificacion",
-          "nativeType": null,
-          "relationName": "NotificacionToNotifier",
-          "relationFromFields": ["notificacionId"],
-          "relationToFields": ["id"],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        }
-      ],
-      "primaryKey": {
-        "name": null,
-        "fields": ["tipo", "carpetaNumero"]
-      },
       "uniqueFields": [],
       "uniqueIndexes": [],
       "isGenerated": false
@@ -2110,49 +1364,7 @@
           "isUpdatedAt": false
         },
         {
-          "name": "carpeta",
-          "kind": "object",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "Carpeta",
-          "nativeType": null,
-          "relationName": "CarpetaToNota",
-          "relationFromFields": ["carpetaNumero"],
-          "relationToFields": ["numero"],
-          "isGenerated": false,
-          "isUpdatedAt": false
-        }
-      ],
-      "primaryKey": null,
-      "uniqueFields": [],
-      "uniqueIndexes": [],
-      "isGenerated": false
-    },
-    {
-      "name": "Task",
-      "dbName": null,
-      "schema": null,
-      "fields": [
-        {
-          "name": "carpetaNumero",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": false,
-          "isUnique": false,
-          "isId": false,
-          "isReadOnly": true,
-          "hasDefaultValue": false,
-          "type": "Int",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "done",
+          "name": "completed",
           "kind": "scalar",
           "isList": false,
           "isRequired": true,
@@ -2167,25 +1379,56 @@
           "isUpdatedAt": false
         },
         {
-          "name": "createdAt",
-          "kind": "scalar",
+          "name": "carpeta",
+          "kind": "object",
           "isList": false,
-          "isRequired": true,
+          "isRequired": false,
           "isUnique": false,
           "isId": false,
           "isReadOnly": false,
-          "hasDefaultValue": true,
-          "type": "DateTime",
+          "hasDefaultValue": false,
+          "type": "Carpeta",
           "nativeType": null,
-          "default": {
-            "name": "now",
-            "args": []
-          },
+          "relationName": "CarpetaToNota",
+          "relationFromFields": [
+            "carpetaNumero"
+          ],
+          "relationToFields": [
+            "numero"
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         },
         {
-          "name": "dueDate",
+          "name": "relevantDates",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "RelevantDates",
+          "nativeType": null,
+          "relationName": "NotaToRelevantDates",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": null,
+      "uniqueFields": [],
+      "uniqueIndexes": [],
+      "isGenerated": false
+    },
+    {
+      "name": "RelevantDates",
+      "dbName": null,
+      "schema": null,
+      "fields": [
+        {
+          "name": "date",
           "kind": "scalar",
           "isList": false,
           "isRequired": true,
@@ -2195,24 +1438,6 @@
           "hasDefaultValue": false,
           "type": "DateTime",
           "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": false
-        },
-        {
-          "name": "id",
-          "kind": "scalar",
-          "isList": false,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": true,
-          "isReadOnly": false,
-          "hasDefaultValue": true,
-          "type": "Int",
-          "nativeType": null,
-          "default": {
-            "name": "autoincrement",
-            "args": []
-          },
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -2231,26 +1456,12 @@
           "isUpdatedAt": false
         },
         {
-          "name": "updatedAt",
+          "name": "id",
           "kind": "scalar",
           "isList": false,
           "isRequired": true,
           "isUnique": false,
-          "isId": false,
-          "isReadOnly": false,
-          "hasDefaultValue": false,
-          "type": "DateTime",
-          "nativeType": null,
-          "isGenerated": false,
-          "isUpdatedAt": true
-        },
-        {
-          "name": "content",
-          "kind": "scalar",
-          "isList": true,
-          "isRequired": true,
-          "isUnique": false,
-          "isId": false,
+          "isId": true,
           "isReadOnly": false,
           "hasDefaultValue": false,
           "type": "String",
@@ -2259,7 +1470,21 @@
           "isUpdatedAt": false
         },
         {
-          "name": "carpeta",
+          "name": "notaId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "nota",
           "kind": "object",
           "isList": false,
           "isRequired": false,
@@ -2267,11 +1492,15 @@
           "isId": false,
           "isReadOnly": false,
           "hasDefaultValue": false,
-          "type": "Carpeta",
+          "type": "Nota",
           "nativeType": null,
-          "relationName": "CarpetaToTask",
-          "relationFromFields": ["carpetaNumero"],
-          "relationToFields": ["numero"],
+          "relationName": "NotaToRelevantDates",
+          "relationFromFields": [
+            "notaId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -2540,13 +1769,17 @@
           "type": "Proceso",
           "nativeType": null,
           "relationName": "ActuacionToProceso",
-          "relationFromFields": ["procesoId"],
-          "relationToFields": ["idProceso"],
+          "relationFromFields": [
+            "procesoId"
+          ],
+          "relationToFields": [
+            "idProceso"
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         },
         {
-          "name": "Carpeta",
+          "name": "carpetas",
           "kind": "object",
           "isList": true,
           "isRequired": true,
@@ -2666,7 +1899,11 @@
       ],
       "primaryKey": {
         "name": null,
-        "fields": ["id", "tipo", "ciudad"]
+        "fields": [
+          "id",
+          "tipo",
+          "ciudad"
+        ]
       },
       "uniqueFields": [],
       "uniqueIndexes": [],
@@ -2902,8 +2139,12 @@
           "type": "Carpeta",
           "nativeType": null,
           "relationName": "CarpetaToProceso",
-          "relationFromFields": ["carpetaNumero"],
-          "relationToFields": ["numero"],
+          "relationFromFields": [
+            "carpetaNumero"
+          ],
+          "relationToFields": [
+            "numero"
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         },
@@ -2919,8 +2160,16 @@
           "type": "Juzgado",
           "nativeType": null,
           "relationName": "JuzgadoToProceso",
-          "relationFromFields": ["juzgadoId", "juzgadoTipo", "juzgadoCiudad"],
-          "relationToFields": ["id", "tipo", "ciudad"],
+          "relationFromFields": [
+            "juzgadoId",
+            "juzgadoTipo",
+            "juzgadoCiudad"
+          ],
+          "relationToFields": [
+            "id",
+            "tipo",
+            "ciudad"
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -2931,8 +2180,8 @@
       "isGenerated": false
     },
     {
-      "name": "User",
-      "dbName": null,
+      "name": "Note",
+      "dbName": "notes",
       "schema": null,
       "fields": [
         {
@@ -2948,7 +2197,1312 @@
           "nativeType": null,
           "default": {
             "name": "cuid",
-            "args": [1]
+            "args": [
+              1
+            ]
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "titulo",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "200"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "resumen",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "400"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "estado",
+          "kind": "enum",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "EstadoNote",
+          "nativeType": null,
+          "default": "PENDIENTE",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "fijada",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "Boolean",
+          "nativeType": null,
+          "default": false,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "carpetaId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "Int",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "creadaEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "DateTime",
+          "nativeType": null,
+          "default": {
+            "name": "now",
+            "args": []
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "editadaEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": true
+        },
+        {
+          "name": "archivadaEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "creadoPorId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "userId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "etiquetas",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "EtiquetaEnNote",
+          "nativeType": null,
+          "relationName": "EtiquetaEnNoteToNote",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "bloques",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "NoteBloque",
+          "nativeType": null,
+          "relationName": "NoteToNoteBloque",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "carpeta",
+          "kind": "object",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Carpeta",
+          "nativeType": null,
+          "relationName": "CarpetaToNote",
+          "relationFromFields": [
+            "carpetaId"
+          ],
+          "relationToFields": [
+            "numero"
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "creadoPor",
+          "kind": "object",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "User",
+          "nativeType": null,
+          "relationName": "NotesCreadasPorUsuario",
+          "relationFromFields": [
+            "creadoPorId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "user",
+          "kind": "object",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "User",
+          "nativeType": null,
+          "relationName": "NoteToUser",
+          "relationFromFields": [
+            "userId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tareas",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Tarea",
+          "nativeType": null,
+          "relationName": "TareasOriginadasEnNote",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "asignados",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "UsuarioEnNote",
+          "nativeType": null,
+          "relationName": "NoteToUsuarioEnNote",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": null,
+      "uniqueFields": [],
+      "uniqueIndexes": [],
+      "isGenerated": false
+    },
+    {
+      "name": "NoteBloque",
+      "dbName": "note_bloques",
+      "schema": null,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": true,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "String",
+          "nativeType": null,
+          "default": {
+            "name": "cuid",
+            "args": [
+              1
+            ]
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "noteId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tipo",
+          "kind": "enum",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "TipoBloque",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "orden",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Int",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "texto",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "items",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "BloqueItem",
+          "nativeType": null,
+          "relationName": "BloqueItemToNoteBloque",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "note",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Note",
+          "nativeType": null,
+          "relationName": "NoteToNoteBloque",
+          "relationFromFields": [
+            "noteId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": null,
+      "uniqueFields": [
+        [
+          "noteId",
+          "orden"
+        ]
+      ],
+      "uniqueIndexes": [
+        {
+          "name": null,
+          "fields": [
+            "noteId",
+            "orden"
+          ]
+        }
+      ],
+      "isGenerated": false
+    },
+    {
+      "name": "BloqueItem",
+      "dbName": "bloque_items",
+      "schema": null,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": true,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "String",
+          "nativeType": null,
+          "default": {
+            "name": "cuid",
+            "args": [
+              1
+            ]
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "bloqueId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "orden",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Int",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "texto",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "completado",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "Boolean",
+          "nativeType": null,
+          "default": false,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "completadoEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tareaId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": true,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "bloque",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "NoteBloque",
+          "nativeType": null,
+          "relationName": "BloqueItemToNoteBloque",
+          "relationFromFields": [
+            "bloqueId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tarea",
+          "kind": "object",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Tarea",
+          "nativeType": null,
+          "relationName": "TareaPromovida",
+          "relationFromFields": [
+            "tareaId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": null,
+      "uniqueFields": [
+        [
+          "bloqueId",
+          "orden"
+        ]
+      ],
+      "uniqueIndexes": [
+        {
+          "name": null,
+          "fields": [
+            "bloqueId",
+            "orden"
+          ]
+        }
+      ],
+      "isGenerated": false
+    },
+    {
+      "name": "Tarea",
+      "dbName": "tareas",
+      "schema": null,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": true,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "String",
+          "nativeType": null,
+          "default": {
+            "name": "cuid",
+            "args": [
+              1
+            ]
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "titulo",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "200"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "descripcion",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "estado",
+          "kind": "enum",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "EstadoTarea",
+          "nativeType": null,
+          "default": "PENDIENTE",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "prioridad",
+          "kind": "enum",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "PrioridadTarea",
+          "nativeType": null,
+          "default": "MEDIA",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "fechaLimite",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "esTermino",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "Boolean",
+          "nativeType": null,
+          "default": false,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "responsable",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "120"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "carpetaId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "Int",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "noteOrigenId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "creadaEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "DateTime",
+          "nativeType": null,
+          "default": {
+            "name": "now",
+            "args": []
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "editadaEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": true
+        },
+        {
+          "name": "completadaEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "archivadaEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "creadoPorId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "userId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "itemOrigen",
+          "kind": "object",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "BloqueItem",
+          "nativeType": null,
+          "relationName": "TareaPromovida",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "etiquetas",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "EtiquetaEnTarea",
+          "nativeType": null,
+          "relationName": "EtiquetaEnTareaToTarea",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "carpeta",
+          "kind": "object",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Carpeta",
+          "nativeType": null,
+          "relationName": "CarpetaToTarea",
+          "relationFromFields": [
+            "carpetaId"
+          ],
+          "relationToFields": [
+            "numero"
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "creadoPor",
+          "kind": "object",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "User",
+          "nativeType": null,
+          "relationName": "TareasCreadasPorUsuario",
+          "relationFromFields": [
+            "creadoPorId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "noteOrigen",
+          "kind": "object",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Note",
+          "nativeType": null,
+          "relationName": "TareasOriginadasEnNote",
+          "relationFromFields": [
+            "noteOrigenId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "user",
+          "kind": "object",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "User",
+          "nativeType": null,
+          "relationName": "TareaToUser",
+          "relationFromFields": [
+            "userId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "asignados",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "UsuarioEnTarea",
+          "nativeType": null,
+          "relationName": "TareaToUsuarioEnTarea",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": null,
+      "uniqueFields": [],
+      "uniqueIndexes": [],
+      "isGenerated": false
+    },
+    {
+      "name": "Etiqueta",
+      "dbName": "etiquetas",
+      "schema": null,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": true,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "String",
+          "nativeType": null,
+          "default": {
+            "name": "cuid",
+            "args": [
+              1
+            ]
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "nombre",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "60"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "color",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "9"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "notes",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "EtiquetaEnNote",
+          "nativeType": null,
+          "relationName": "EtiquetaToEtiquetaEnNote",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tareas",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "EtiquetaEnTarea",
+          "nativeType": null,
+          "relationName": "EtiquetaToEtiquetaEnTarea",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": null,
+      "uniqueFields": [],
+      "uniqueIndexes": [],
+      "isGenerated": false
+    },
+    {
+      "name": "EtiquetaEnNote",
+      "dbName": "etiquetas_en_notes",
+      "schema": null,
+      "fields": [
+        {
+          "name": "noteId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "etiquetaId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "etiqueta",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Etiqueta",
+          "nativeType": null,
+          "relationName": "EtiquetaToEtiquetaEnNote",
+          "relationFromFields": [
+            "etiquetaId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "note",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Note",
+          "nativeType": null,
+          "relationName": "EtiquetaEnNoteToNote",
+          "relationFromFields": [
+            "noteId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": {
+        "name": null,
+        "fields": [
+          "noteId",
+          "etiquetaId"
+        ]
+      },
+      "uniqueFields": [],
+      "uniqueIndexes": [],
+      "isGenerated": false
+    },
+    {
+      "name": "EtiquetaEnTarea",
+      "dbName": "etiquetas_en_tareas",
+      "schema": null,
+      "fields": [
+        {
+          "name": "tareaId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "etiquetaId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "etiqueta",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Etiqueta",
+          "nativeType": null,
+          "relationName": "EtiquetaToEtiquetaEnTarea",
+          "relationFromFields": [
+            "etiquetaId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tarea",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Tarea",
+          "nativeType": null,
+          "relationName": "EtiquetaEnTareaToTarea",
+          "relationFromFields": [
+            "tareaId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": {
+        "name": null,
+        "fields": [
+          "tareaId",
+          "etiquetaId"
+        ]
+      },
+      "uniqueFields": [],
+      "uniqueIndexes": [],
+      "isGenerated": false
+    },
+    {
+      "name": "User",
+      "dbName": "users",
+      "schema": null,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": true,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "String",
+          "nativeType": null,
+          "default": {
+            "name": "cuid",
+            "args": [
+              1
+            ]
           },
           "isGenerated": false,
           "isUpdatedAt": false
@@ -2963,12 +3517,17 @@
           "isReadOnly": false,
           "hasDefaultValue": false,
           "type": "String",
-          "nativeType": null,
+          "nativeType": [
+            "VarChar",
+            [
+              "180"
+            ]
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         },
         {
-          "name": "password",
+          "name": "nombre",
           "kind": "scalar",
           "isList": false,
           "isRequired": true,
@@ -2977,12 +3536,47 @@
           "isReadOnly": false,
           "hasDefaultValue": false,
           "type": "String",
-          "nativeType": null,
+          "nativeType": [
+            "VarChar",
+            [
+              "120"
+            ]
+          ],
           "isGenerated": false,
           "isUpdatedAt": false
         },
         {
-          "name": "name",
+          "name": "rol",
+          "kind": "enum",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "RolUsuario",
+          "nativeType": null,
+          "default": "ABOGADO",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "activo",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "Boolean",
+          "nativeType": null,
+          "default": true,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "passwordHash",
           "kind": "scalar",
           "isList": false,
           "isRequired": false,
@@ -2991,6 +3585,746 @@
           "isReadOnly": false,
           "hasDefaultValue": false,
           "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "100"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tarjetaProfesional",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": true,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "40"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "telefono",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "40"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "avatarUrl",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "500"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "creadoEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "DateTime",
+          "nativeType": null,
+          "default": {
+            "name": "now",
+            "args": []
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "editadoEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": true
+        },
+        {
+          "name": "ultimoAccesoA",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "desactivadoEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "emailVerificadoEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "notesCreadas",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Note",
+          "nativeType": null,
+          "relationName": "NotesCreadasPorUsuario",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "notes",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Note",
+          "nativeType": null,
+          "relationName": "NoteToUser",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "sessions",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Session",
+          "nativeType": null,
+          "relationName": "SessionToUser",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tareasCreadas",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Tarea",
+          "nativeType": null,
+          "relationName": "TareasCreadasPorUsuario",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tareas",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Tarea",
+          "nativeType": null,
+          "relationName": "TareaToUser",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "notesAsignadas",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "UsuarioEnNote",
+          "nativeType": null,
+          "relationName": "UserToUsuarioEnNote",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tareasAsignadas",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "UsuarioEnTarea",
+          "nativeType": null,
+          "relationName": "UserToUsuarioEnTarea",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "verificationTokens",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "VerificationToken",
+          "nativeType": null,
+          "relationName": "UserToVerificationToken",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": null,
+      "uniqueFields": [],
+      "uniqueIndexes": [],
+      "isGenerated": false
+    },
+    {
+      "name": "UsuarioEnNote",
+      "dbName": "usuarios_en_notes",
+      "schema": null,
+      "fields": [
+        {
+          "name": "userId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "noteId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "rol",
+          "kind": "enum",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "RolAsignacion",
+          "nativeType": null,
+          "default": "COLABORADOR",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "asignadoEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "DateTime",
+          "nativeType": null,
+          "default": {
+            "name": "now",
+            "args": []
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "asignadoPorId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "note",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Note",
+          "nativeType": null,
+          "relationName": "NoteToUsuarioEnNote",
+          "relationFromFields": [
+            "noteId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "user",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "User",
+          "nativeType": null,
+          "relationName": "UserToUsuarioEnNote",
+          "relationFromFields": [
+            "userId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": {
+        "name": null,
+        "fields": [
+          "userId",
+          "noteId"
+        ]
+      },
+      "uniqueFields": [],
+      "uniqueIndexes": [],
+      "isGenerated": false
+    },
+    {
+      "name": "UsuarioEnTarea",
+      "dbName": "usuarios_en_tareas",
+      "schema": null,
+      "fields": [
+        {
+          "name": "userId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tareaId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "rol",
+          "kind": "enum",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "RolAsignacion",
+          "nativeType": null,
+          "default": "COLABORADOR",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "asignadoEn",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "DateTime",
+          "nativeType": null,
+          "default": {
+            "name": "now",
+            "args": []
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "asignadoPorId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tarea",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "Tarea",
+          "nativeType": null,
+          "relationName": "TareaToUsuarioEnTarea",
+          "relationFromFields": [
+            "tareaId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "user",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "User",
+          "nativeType": null,
+          "relationName": "UserToUsuarioEnTarea",
+          "relationFromFields": [
+            "userId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": {
+        "name": null,
+        "fields": [
+          "userId",
+          "tareaId"
+        ]
+      },
+      "uniqueFields": [],
+      "uniqueIndexes": [],
+      "isGenerated": false
+    },
+    {
+      "name": "Session",
+      "dbName": "sessions",
+      "schema": null,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": true,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "String",
+          "nativeType": null,
+          "default": {
+            "name": "cuid",
+            "args": [
+              1
+            ]
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "userId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tokenHash",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "64"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "createdAt",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "DateTime",
+          "nativeType": null,
+          "default": {
+            "name": "now",
+            "args": []
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "expiresAt",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "user",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "User",
+          "nativeType": null,
+          "relationName": "SessionToUser",
+          "relationFromFields": [
+            "userId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "primaryKey": null,
+      "uniqueFields": [],
+      "uniqueIndexes": [],
+      "isGenerated": false
+    },
+    {
+      "name": "VerificationToken",
+      "dbName": "verification_tokens",
+      "schema": null,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": true,
+          "isReadOnly": false,
+          "hasDefaultValue": true,
+          "type": "String",
+          "nativeType": null,
+          "default": {
+            "name": "cuid",
+            "args": [
+              1
+            ]
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "userId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tokenHash",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "String",
+          "nativeType": [
+            "VarChar",
+            [
+              "64"
+            ]
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "tipo",
+          "kind": "enum",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "TipoToken",
           "nativeType": null,
           "isGenerated": false,
           "isUpdatedAt": false
@@ -3010,6 +4344,56 @@
             "name": "now",
             "args": []
           },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "expiresAt",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "usedAt",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "DateTime",
+          "nativeType": null,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "user",
+          "kind": "object",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "hasDefaultValue": false,
+          "type": "User",
+          "nativeType": null,
+          "relationName": "UserToVerificationToken",
+          "relationFromFields": [
+            "userId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "relationOnDelete": "Cascade",
           "isGenerated": false,
           "isUpdatedAt": false
         }
@@ -3033,26 +4417,6 @@
       ]
     },
     {
-      "model": "Factura",
-      "type": "id",
-      "isDefinedOnField": true,
-      "fields": [
-        {
-          "name": "id"
-        }
-      ]
-    },
-    {
-      "model": "EmisorDeFactura",
-      "type": "id",
-      "isDefinedOnField": true,
-      "fields": [
-        {
-          "name": "nit"
-        }
-      ]
-    },
-    {
       "model": "Deudor",
       "type": "id",
       "isDefinedOnField": true,
@@ -3107,59 +4471,6 @@
       "type": "unique",
       "isDefinedOnField": true,
       "fields": [
-        {
-          "name": "carpetaNumero"
-        }
-      ]
-    },
-    {
-      "model": "Notificacion",
-      "type": "id",
-      "isDefinedOnField": true,
-      "fields": [
-        {
-          "name": "id"
-        }
-      ]
-    },
-    {
-      "model": "Notificacion",
-      "type": "unique",
-      "isDefinedOnField": true,
-      "fields": [
-        {
-          "name": "demandaId"
-        }
-      ]
-    },
-    {
-      "model": "MedidasCautelares",
-      "type": "id",
-      "isDefinedOnField": true,
-      "fields": [
-        {
-          "name": "id"
-        }
-      ]
-    },
-    {
-      "model": "MedidasCautelares",
-      "type": "unique",
-      "isDefinedOnField": true,
-      "fields": [
-        {
-          "name": "demandaId"
-        }
-      ]
-    },
-    {
-      "model": "Notifier",
-      "type": "id",
-      "isDefinedOnField": false,
-      "fields": [
-        {
-          "name": "tipo"
-        },
         {
           "name": "carpetaNumero"
         }
@@ -3176,7 +4487,7 @@
       ]
     },
     {
-      "model": "Task",
+      "model": "RelevantDates",
       "type": "id",
       "isDefinedOnField": true,
       "fields": [
@@ -3232,6 +4543,209 @@
       ]
     },
     {
+      "model": "Note",
+      "type": "id",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "id"
+        }
+      ]
+    },
+    {
+      "model": "Note",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "creadoPorId"
+        },
+        {
+          "name": "editadaEn",
+          "sortOrder": "desc"
+        }
+      ]
+    },
+    {
+      "model": "Note",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "carpetaId"
+        },
+        {
+          "name": "editadaEn",
+          "sortOrder": "desc"
+        }
+      ]
+    },
+    {
+      "model": "Note",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "estado"
+        },
+        {
+          "name": "editadaEn",
+          "sortOrder": "desc"
+        }
+      ]
+    },
+    {
+      "model": "NoteBloque",
+      "type": "id",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "id"
+        }
+      ]
+    },
+    {
+      "model": "NoteBloque",
+      "type": "unique",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "noteId"
+        },
+        {
+          "name": "orden"
+        }
+      ]
+    },
+    {
+      "model": "BloqueItem",
+      "type": "id",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "id"
+        }
+      ]
+    },
+    {
+      "model": "BloqueItem",
+      "type": "unique",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "tareaId"
+        }
+      ]
+    },
+    {
+      "model": "BloqueItem",
+      "type": "unique",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "bloqueId"
+        },
+        {
+          "name": "orden"
+        }
+      ]
+    },
+    {
+      "model": "Tarea",
+      "type": "id",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "id"
+        }
+      ]
+    },
+    {
+      "model": "Tarea",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "carpetaId"
+        },
+        {
+          "name": "fechaLimite"
+        }
+      ]
+    },
+    {
+      "model": "Tarea",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "estado"
+        },
+        {
+          "name": "fechaLimite"
+        }
+      ]
+    },
+    {
+      "model": "Tarea",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "fechaLimite"
+        },
+        {
+          "name": "esTermino"
+        }
+      ]
+    },
+    {
+      "model": "Etiqueta",
+      "type": "id",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "id"
+        }
+      ]
+    },
+    {
+      "model": "Etiqueta",
+      "type": "unique",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "nombre"
+        }
+      ]
+    },
+    {
+      "model": "EtiquetaEnNote",
+      "type": "id",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "noteId"
+        },
+        {
+          "name": "etiquetaId"
+        }
+      ]
+    },
+    {
+      "model": "EtiquetaEnTarea",
+      "type": "id",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "tareaId"
+        },
+        {
+          "name": "etiquetaId"
+        }
+      ]
+    },
+    {
       "model": "User",
       "type": "id",
       "isDefinedOnField": true,
@@ -3248,6 +4762,148 @@
       "fields": [
         {
           "name": "email"
+        }
+      ]
+    },
+    {
+      "model": "User",
+      "type": "unique",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "tarjetaProfesional"
+        }
+      ]
+    },
+    {
+      "model": "User",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "activo"
+        },
+        {
+          "name": "nombre"
+        }
+      ]
+    },
+    {
+      "model": "UsuarioEnNote",
+      "type": "id",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "userId"
+        },
+        {
+          "name": "noteId"
+        }
+      ]
+    },
+    {
+      "model": "UsuarioEnNote",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "noteId"
+        }
+      ]
+    },
+    {
+      "model": "UsuarioEnTarea",
+      "type": "id",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "userId"
+        },
+        {
+          "name": "tareaId"
+        }
+      ]
+    },
+    {
+      "model": "UsuarioEnTarea",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "tareaId"
+        }
+      ]
+    },
+    {
+      "model": "Session",
+      "type": "id",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "id"
+        }
+      ]
+    },
+    {
+      "model": "Session",
+      "type": "unique",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "tokenHash"
+        }
+      ]
+    },
+    {
+      "model": "Session",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "userId"
+        }
+      ]
+    },
+    {
+      "model": "Session",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "expiresAt"
+        }
+      ]
+    },
+    {
+      "model": "VerificationToken",
+      "type": "id",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "id"
+        }
+      ]
+    },
+    {
+      "model": "VerificationToken",
+      "type": "unique",
+      "isDefinedOnField": true,
+      "fields": [
+        {
+          "name": "tokenHash"
+        }
+      ]
+    },
+    {
+      "model": "VerificationToken",
+      "type": "normal",
+      "isDefinedOnField": false,
+      "fields": [
+        {
+          "name": "userId"
+        },
+        {
+          "name": "tipo"
         }
       ]
     }

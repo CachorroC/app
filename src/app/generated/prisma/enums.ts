@@ -44,6 +44,25 @@ export const TipoProceso = {
 export type TipoProceso = (typeof TipoProceso)[keyof typeof TipoProceso]
 
 
+export const RolUsuario = {
+  ADMIN: 'ADMIN',
+  ABOGADO: 'ABOGADO',
+  ASISTENTE: 'ASISTENTE',
+  LECTOR: 'LECTOR'
+} as const
+
+export type RolUsuario = (typeof RolUsuario)[keyof typeof RolUsuario]
+
+
+export const RolAsignacion = {
+  RESPONSABLE: 'RESPONSABLE',
+  COLABORADOR: 'COLABORADOR',
+  OBSERVADOR: 'OBSERVADOR'
+} as const
+
+export type RolAsignacion = (typeof RolAsignacion)[keyof typeof RolAsignacion]
+
+
 export const EstadoNote = {
   PENDIENTE: 'PENDIENTE',
   EN_REVISION: 'EN_REVISION',
@@ -74,25 +93,6 @@ export const PrioridadTarea = {
 export type PrioridadTarea = (typeof PrioridadTarea)[keyof typeof PrioridadTarea]
 
 
-export const RolAsignacion = {
-  RESPONSABLE: 'RESPONSABLE',
-  COLABORADOR: 'COLABORADOR',
-  OBSERVADOR: 'OBSERVADOR'
-} as const
-
-export type RolAsignacion = (typeof RolAsignacion)[keyof typeof RolAsignacion]
-
-
-export const RolUsuario = {
-  ADMIN: 'ADMIN',
-  ABOGADO: 'ABOGADO',
-  ASISTENTE: 'ASISTENTE',
-  LECTOR: 'LECTOR'
-} as const
-
-export type RolUsuario = (typeof RolUsuario)[keyof typeof RolUsuario]
-
-
 export const TipoBloque = {
   PARRAFO: 'PARRAFO',
   LISTA: 'LISTA',
@@ -100,3 +100,11 @@ export const TipoBloque = {
 } as const
 
 export type TipoBloque = (typeof TipoBloque)[keyof typeof TipoBloque]
+
+
+export const TipoToken = {
+  EMAIL_VERIFICATION: 'EMAIL_VERIFICATION',
+  PASSWORD_RESET: 'PASSWORD_RESET'
+} as const
+
+export type TipoToken = (typeof TipoToken)[keyof typeof TipoToken]

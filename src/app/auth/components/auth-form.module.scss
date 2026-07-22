@@ -1,0 +1,63 @@
+@keyframes rsSpin {
+  to { transform: rotate(360deg); }
+}
+
+.heading {
+  font: var(--type-headline-medium);
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-on-surface);
+}
+
+.subheading {
+  font: var(--type-body-medium);
+  color: var(--color-on-surface-variant);
+  margin-top: 6px;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.registerExtras {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.loginRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+}
+
+.termsError {
+  font: var(--type-body-small);
+  color: var(--color-error);
+  margin-top: 4px;
+  margin-left: 36px;
+}
+
+.submit {
+  height: 52px;
+  box-shadow: var(--shadow-level-1);
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid currentcolor;
+  border-right-color: transparent;
+  display: inline-block;
+  animation: rsSpin 700ms linear infinite;
+}
+
+.switchPrompt {
+  text-align: center;
+  font: var(--type-body-medium);
+  color: var(--color-on-surface-variant);
+}

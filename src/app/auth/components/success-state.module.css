@@ -1,0 +1,57 @@
+@keyframes rsFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes rsPop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-6) var(--spacing-2);
+  animation: rsFade 240ms ease;
+}
+
+.badge {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--color-primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rsPop 340ms cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.badgeIcon {
+  font-size: 40px;
+  color: var(--color-on-primary-container);
+}
+
+.title {
+  font: var(--type-headline-small);
+  color: var(--color-on-surface);
+}
+
+.body {
+  font: var(--type-body-medium);
+  color: var(--color-on-surface-variant);
+  max-width: 340px;
+  text-wrap: pretty;
+}

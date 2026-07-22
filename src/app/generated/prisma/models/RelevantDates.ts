@@ -174,7 +174,7 @@ export type RelevantDatesWhereInput = {
   text?: Prisma.StringFilter<"RelevantDates"> | string
   id?: Prisma.StringFilter<"RelevantDates"> | string
   notaId?: Prisma.StringNullableFilter<"RelevantDates"> | string | null
-  Nota?: Prisma.XOR<Prisma.NotaNullableScalarRelationFilter, Prisma.NotaWhereInput> | null
+  nota?: Prisma.XOR<Prisma.NotaNullableScalarRelationFilter, Prisma.NotaWhereInput> | null
 }
 
 export type RelevantDatesOrderByWithRelationInput = {
@@ -182,7 +182,7 @@ export type RelevantDatesOrderByWithRelationInput = {
   text?: Prisma.SortOrder
   id?: Prisma.SortOrder
   notaId?: Prisma.SortOrderInput | Prisma.SortOrder
-  Nota?: Prisma.NotaOrderByWithRelationInput
+  nota?: Prisma.NotaOrderByWithRelationInput
 }
 
 export type RelevantDatesWhereUniqueInput = Prisma.AtLeast<{
@@ -193,7 +193,7 @@ export type RelevantDatesWhereUniqueInput = Prisma.AtLeast<{
   date?: Prisma.DateTimeFilter<"RelevantDates"> | Date | string
   text?: Prisma.StringFilter<"RelevantDates"> | string
   notaId?: Prisma.StringNullableFilter<"RelevantDates"> | string | null
-  Nota?: Prisma.XOR<Prisma.NotaNullableScalarRelationFilter, Prisma.NotaWhereInput> | null
+  nota?: Prisma.XOR<Prisma.NotaNullableScalarRelationFilter, Prisma.NotaWhereInput> | null
 }, "id">
 
 export type RelevantDatesOrderByWithAggregationInput = {
@@ -220,7 +220,7 @@ export type RelevantDatesCreateInput = {
   date: Date | string
   text: string
   id: string
-  Nota?: Prisma.NotaCreateNestedOneWithoutRelevantDatesInput
+  nota?: Prisma.NotaCreateNestedOneWithoutRelevantDatesInput
 }
 
 export type RelevantDatesUncheckedCreateInput = {
@@ -234,7 +234,7 @@ export type RelevantDatesUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  Nota?: Prisma.NotaUpdateOneWithoutRelevantDatesNestedInput
+  nota?: Prisma.NotaUpdateOneWithoutRelevantDatesNestedInput
 }
 
 export type RelevantDatesUncheckedUpdateInput = {
@@ -416,7 +416,7 @@ export type RelevantDatesSelect<ExtArgs extends runtime.Types.Extensions.Interna
   text?: boolean
   id?: boolean
   notaId?: boolean
-  Nota?: boolean | Prisma.RelevantDates$NotaArgs<ExtArgs>
+  nota?: boolean | Prisma.RelevantDates$notaArgs<ExtArgs>
 }, ExtArgs["result"]["relevantDates"]>
 
 export type RelevantDatesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -424,7 +424,7 @@ export type RelevantDatesSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   text?: boolean
   id?: boolean
   notaId?: boolean
-  Nota?: boolean | Prisma.RelevantDates$NotaArgs<ExtArgs>
+  nota?: boolean | Prisma.RelevantDates$notaArgs<ExtArgs>
 }, ExtArgs["result"]["relevantDates"]>
 
 export type RelevantDatesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -432,7 +432,7 @@ export type RelevantDatesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   text?: boolean
   id?: boolean
   notaId?: boolean
-  Nota?: boolean | Prisma.RelevantDates$NotaArgs<ExtArgs>
+  nota?: boolean | Prisma.RelevantDates$notaArgs<ExtArgs>
 }, ExtArgs["result"]["relevantDates"]>
 
 export type RelevantDatesSelectScalar = {
@@ -444,19 +444,19 @@ export type RelevantDatesSelectScalar = {
 
 export type RelevantDatesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"date" | "text" | "id" | "notaId", ExtArgs["result"]["relevantDates"]>
 export type RelevantDatesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Nota?: boolean | Prisma.RelevantDates$NotaArgs<ExtArgs>
+  nota?: boolean | Prisma.RelevantDates$notaArgs<ExtArgs>
 }
 export type RelevantDatesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Nota?: boolean | Prisma.RelevantDates$NotaArgs<ExtArgs>
+  nota?: boolean | Prisma.RelevantDates$notaArgs<ExtArgs>
 }
 export type RelevantDatesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Nota?: boolean | Prisma.RelevantDates$NotaArgs<ExtArgs>
+  nota?: boolean | Prisma.RelevantDates$notaArgs<ExtArgs>
 }
 
 export type $RelevantDatesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RelevantDates"
   objects: {
-    Nota: Prisma.$NotaPayload<ExtArgs> | null
+    nota: Prisma.$NotaPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     date: Date
@@ -857,7 +857,7 @@ readonly fields: RelevantDatesFieldRefs;
  */
 export interface Prisma__RelevantDatesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Nota<T extends Prisma.RelevantDates$NotaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RelevantDates$NotaArgs<ExtArgs>>): Prisma.Prisma__NotaClient<runtime.Types.Result.GetResult<Prisma.$NotaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  nota<T extends Prisma.RelevantDates$notaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RelevantDates$notaArgs<ExtArgs>>): Prisma.Prisma__NotaClient<runtime.Types.Result.GetResult<Prisma.$NotaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1292,9 +1292,9 @@ export type RelevantDatesDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * RelevantDates.Nota
+ * RelevantDates.nota
  */
-export type RelevantDates$NotaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type RelevantDates$notaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Nota
    */
