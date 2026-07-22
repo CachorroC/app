@@ -25,6 +25,7 @@ $bp-desktop: 1200px;
 .container {
   --rs-topbar-h: 4rem;
   --rs-bottomnav-h: 4.25rem;
+  --rs-rail-w: 5rem;
 
   position: relative;
   display: flex;
@@ -220,30 +221,24 @@ $bp-desktop: 1200px;
 /* off-canvas drawer (still no room to dock it inline).             */
 /* ================================================================ */
 @media (#{$bp-tablet} <= width) {
-  /* Grid, not flex-wrap: a rail column needs to sit beside a STACKED
-     column (top over left), and flex-wrap can't express that — with
-     flex siblings wrapping, .top stretches to full height on line 1 and
-     pushes .left onto its own squashed line 2. Grid areas say exactly
-     which cells each slot occupies. .right stays position:fixed (the
-     off-canvas drawer), so it's out of grid flow and needs no area. */
-  .container {
-    display: grid;
-    grid-template-columns: 5rem 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      'header top'
-      'header left';
-    overflow: visible;
+  /* .header and .right are position:fixed — out of normal flex flow
+     entirely — so .container stays a plain flex column at every
+     breakpoint. .header becomes a full-height rail pinned to the left
+     edge; .container reserves space for it via padding-left, scoped
+     with :has() so unslotted routes (e.g. /auth, where Chrome renders
+     no .header) get zero padding and render full-bleed instead of
+     being crushed the way grid auto-placement used to crush them. */
+  .container:has(> .header) {
+    padding-left: var(--rs-rail-w);
   }
 
   .header {
-    grid-area: header;
-    position: sticky;
+    position: fixed;
     top: 0;
-    left: auto;
+    left: 0;
     right: auto;
-    bottom: auto;
-    height: 100svh;
+    bottom: 0;
+    width: var(--rs-rail-w);
     flex-direction: column;
     justify-content: flex-start;
     padding: 1.25rem 0.5rem;
@@ -253,12 +248,7 @@ $bp-desktop: 1200px;
     background-color: var(--md-sys-color-surface-container-low, var(--surface-container-low));
   }
 
-  .top {
-    grid-area: top;
-  }
-
   .left {
-    grid-area: left;
     padding-bottom: 1rem;
   }
 }
@@ -269,36 +259,45 @@ $bp-desktop: 1200px;
 /* ================================================================ */
 @media (#{$bp-desktop} < width) {
   .container {
-    display: grid;
-    grid-template-columns: 5rem 1fr minmax(280px, 25vw);
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      'header top top'
-      'header left right';
+    --rs-dock-w: max(280px, 25vw);
     gap: 1rem;
     padding: 1rem;
   }
 
-  .header {
-    grid-area: header;
-    position: sticky;
-    height: auto;
+  /* Overrides just the left inset from the unconditional padding above:
+     1rem outer inset + rail width + 1rem gap to content. */
+  .container:has(> .header) {
+    padding-left: calc(2rem + var(--rs-rail-w));
   }
 
-  .top {
-    grid-area: top;
+  .header {
+    top: 1rem;
+    left: 1rem;
+    bottom: 1rem;
+    width: var(--rs-rail-w);
   }
 
   .left {
-    grid-area: left;
     padding-bottom: 1rem;
   }
 
+  /* Reserve room for the docked .right panel — only on routes that
+     actually render one, so /memoriales, /amortizacion (which have no
+     .right) stay full-width with no dead gutter. Uses width, not
+     margin-right: .left's base rule is width:100%, so a margin added on
+     top of that would overflow .container instead of shrinking it. */
+  .container:has(> .right) .left {
+    width: calc(100% - var(--rs-dock-w) - 1rem);
+  }
+
   .right {
-    grid-area: right;
-    position: static;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    left: auto;
+    width: var(--rs-dock-w);
     transform: none;
-    width: auto;
     max-width: none;
     box-shadow: var(--dp2);
     border-radius: var(--shape-corner-large);
