@@ -30,21 +30,36 @@ const SERVICES = [
 
 const STATS: [string, string][] = [
   [
-    '+1.800', 'Procesos gestionados'
+    '+1.800',
+    'Procesos gestionados'
   ],
   [
-    '$ 312 MM', 'Cartera recuperada'
+    '$ 312 MM',
+    'Cartera recuperada'
   ],
   [
-    '18 años', 'De ejercicio'
+    '18 años',
+    'De ejercicio'
   ],
 ];
 
 const NAV_LINKS = [
-  'Servicios',
-  'Proceso',
-  'Firma',
-  'Contacto',
+  {
+    label: 'Ser',
+    href : '#servicios'
+  },
+  {
+    label: 'Firma',
+    href : '#'
+  },
+  {
+    label: 'Contacto',
+    href : '#contacto'
+  },
+  {
+    label: 'Panel de control',
+    href : '/dashboard'
+  },
 ];
 
 const DASHBOARD_HREF: Route = '/dashboard';
@@ -102,11 +117,13 @@ export default function Page() {
           className={styles.nav}
           aria-label="Secciones"
         >
-          {NAV_LINKS.map( ( label ) => {
+          {NAV_LINKS.map( ( {
+            label, href
+          } ) => {
             return (
               <a
                 key={label}
-                href={label === 'Servicios' ? '#servicios' : '#'}
+                href={href}
                 className={styles.navLink}
               >
                 {label}
@@ -157,7 +174,8 @@ export default function Page() {
               </div>
               <div className={styles.statsRow}>
                 {STATS.map( ( [
-                  value, label
+                  value,
+                  label
                 ] ) => {
                   return (
                     <div key={label}>
