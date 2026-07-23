@@ -66,7 +66,7 @@ export type TarjetaNotaProps = {
 export const TarjetaNota = ( {
   nota, layout = 'tarjeta' 
 }: TarjetaNotaProps ) => {
-  const href = `/bitacora/${ nota.id }` as Route;
+  const href: Route<`/dashboard/bitacora/${string}`> = `/dashboard/bitacora/${ nota.id }`;
 
   if ( layout === 'lista' ) {
     return (

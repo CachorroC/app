@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 import { ProcesoCard } from '#@/components/Proceso/server-components';
 import { Route } from 'next';
 import button from '#@/components/Buttons/buttons.module.css';
-import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
+import { FechaActuacionComponent } from '#@/app/dashboard/Carpetas/UltimasActuaciones/actuaciones';
 import { ChipButton } from '#@/components/Chip';
 import chip from '#@/components/Chip/styles.module.css';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
@@ -35,8 +35,10 @@ export default function InformationComponent( {
   if ( procesos.length > 0 ) {
     content = procesos.map( ( proceso ) => {
       const {
-        idProceso, juzgado 
+        idProceso, juzgado
       } = proceso;
+
+      const actuacionesHref: Route<`/dashboard/Carpeta/${number}/ultimasActuaciones/${string}`> = `/dashboard/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`;
 
       return (
         <ProcesoCard
@@ -51,9 +53,7 @@ export default function InformationComponent( {
             <Link
               key={idProceso}
               className={button.buttonPassiveCategory}
-              href={
-                `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
-              }
+              href={actuacionesHref}
             >
               <span className={`material-symbols-outlined ${ button.icon }`}>
                 description

@@ -28,7 +28,7 @@ export default async function NotFound() {
     const carpeta = await getNotaById( Number( thirdRoute ) );
 
     if ( carpeta ) {
-      linker = <Link href={`/Carpeta/${ carpeta.carpetaNumero }`}></Link>;
+      linker = <Link href={`/dashboard/Carpeta/${ carpeta.carpetaNumero }`}></Link>;
     }
   }
 

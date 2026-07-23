@@ -98,7 +98,7 @@ export async function sendNotification(
           numero        : 0,
           idProceso     : 0,
           idRegActuacion: 'sin actuacion',
-          url           : '/Carpetas',
+          url           : '/dashboard/Carpetas',
         },
         actions: [
           {

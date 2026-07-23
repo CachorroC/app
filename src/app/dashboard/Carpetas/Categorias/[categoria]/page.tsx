@@ -18,7 +18,7 @@ export default async function Page( {
   } = useCategory();
 
   if ( categoria === 'todos' ) {
-    redirect( '/Carpetas' );
+    redirect( '/dashboard/Carpetas' );
   }
 
   useEffect(

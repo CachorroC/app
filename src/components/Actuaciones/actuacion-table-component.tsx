@@ -14,13 +14,13 @@ export function ActuacionTableComponent( {
   numero           : number;
   incomingActuacion: DatabaseActuacionType;
 } ) {
+  const actuacionesHref: Route<`/dashboard/Carpeta/${number}/ultimasActuaciones/${string}`> = `/dashboard/Carpeta/${ numero }/ultimasActuaciones/${ incomingActuacion.idProceso }`;
+
   return (
     <td data-label="ultimaActuacion">
       <Link
         className={styles.cardLink}
-        href={
-          `/Carpeta/${ numero }/ultimasActuaciones/${ incomingActuacion.idProceso }` as Route
-        }
+        href={actuacionesHref}
       >
         <ActuacionCard {...mapDbActuacionToCardProps( incomingActuacion )} />
       </Link>

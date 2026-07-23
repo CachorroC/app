@@ -18,7 +18,7 @@ export const CategoryButton = ( {
   const pathname = usePathname();
 
   const isActive
-    = pathname === `/Carpetas/${ categoria }` || categoria === currentCategory;
+    = pathname === `/dashboard/Carpetas/${ categoria }` || categoria === currentCategory;
 
   return (
     <button

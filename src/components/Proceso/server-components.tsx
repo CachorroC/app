@@ -1,7 +1,7 @@
 import { DetalleProceso, outProceso } from 'types/procesos';
 import { fetchProcesosByllaveProceso } from '#@/lib/project/utils/Procesos/procesos';
 import { ReactNode, Suspense } from 'react';
-import { FechaActuacionComponent } from '#@/app/Carpetas/UltimasActuaciones/actuaciones';
+import { FechaActuacionComponent } from '#@/app/dashboard/Carpetas/UltimasActuaciones/actuaciones';
 import { JuzgadoComponent } from './juzgado-component';
 import { Loader } from '../Loader/main-loader';
 import layout from '#@/styles/layout.module.css';
@@ -190,7 +190,7 @@ export async function ProcesosComponent( {
             <Link
               key={idProceso}
               className={buttonStyles.buttonPassiveCategory}
-              href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`}
+              href={`/dashboard/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`}
             >
               <span
                 className={`material-symbols-outlined ${ buttonStyles.icon }`}

@@ -37,12 +37,14 @@ export function DeleteNoteButton( {
 }
 
 export function EditNoteButton( {
-  nota 
+  nota
 }: { nota: Nota } ) {
+  const editarHref: Route<`/dashboard/Notas/id/${string}/Editar`> = `/dashboard/Notas/id/${ nota.id }/Editar`;
+
   return (
     <Link
       className={note.Add}
-      href={`/Notas/id/${ nota.id }/Editar` as Route}
+      href={editarHref}
     >
       <span className={`material-symbols-outlined ${ note.icon }`}>edit</span>
     </Link>

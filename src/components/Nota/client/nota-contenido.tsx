@@ -1,5 +1,5 @@
 'use client';
-import { useNuevaNotaContext } from '#@/app/Notas/nueva-nota-form-context';
+import { useNuevaNotaContext } from '#@/app/dashboard/Notas/nueva-nota-form-context';
 import { ChangeEvent, useState } from 'react';
 import styles from 'components/Form/form.module.css';
 

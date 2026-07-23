@@ -5,13 +5,13 @@ import * as z from 'zod';
 import prisma from '#@/lib/connection/prisma';
 import { EstadoNote, PrioridadTarea, RolAsignacion, TipoBloque } from '#@/app/generated/prisma/enums';
 
-const RUTA_LISTA = '/bitacora';
+const RUTA_LISTA = '/dashboard/bitacora';
 
 function rutaDetalle( id: string ) {
-  return `/bitacora/${ id }`;
+  return `/dashboard/bitacora/${ id }`;
 }
 
-const RUTA_TAREAS = '/tareas';
+const RUTA_TAREAS = '/dashboard/tareas';
 
 const ESTADOS_NOTE = Object.values( EstadoNote ) as [string, ...string[]];
 const PRIORIDADES_TAREA = Object.values( PrioridadTarea ) as [string, ...string[]];

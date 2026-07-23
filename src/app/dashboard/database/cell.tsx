@@ -1,7 +1,7 @@
 'use client';
 
 import { Field, TableRow } from '#@/lib/types/api-models';
-import { useCellEditingContext } from '../Context/database-models-context';
+import { useCellEditingContext } from '../../Context/database-models-context';
 import styles from './studio-clone.module.css';
 
 export function Cell( {

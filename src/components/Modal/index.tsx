@@ -12,7 +12,7 @@ import { useModalContext,
   useModalNoteContext, } from '#@/app/Context/modal-context';
 import { useFormStatus } from 'react-dom';
 import { Snackbar } from './snackbar';
-import { addNotaFormAction } from '#@/app/Notas/actions';
+import { addNotaFormAction } from '#@/app/dashboard/Notas/actions';
 import { NewNota } from '#@/lib/types/notas';
 import { textArea } from '../Form/form.module.css';
 import { containerEnabled } from '../Card/elevated.module.css';

@@ -61,7 +61,7 @@ export const AuthShell = ( {
       if ( isLoginMode && loginState.status === 'success' ) {
         const t = setTimeout(
           () => {
-            router.push( '/Carpetas' );
+            router.push( '/dashboard/Carpetas' );
           }, 900
         );
 

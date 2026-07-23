@@ -105,7 +105,7 @@ export async function ProcesoTableDetalleComponent( {
       <td>{idConexion}</td>
       <td>{idRegProceso}</td>
       <td>
-        <Link href={`/RamaJudicial/Expediente/${ llaveProceso }`}>
+        <Link href={`/dashboard/RamaJudicial/Expediente/${ llaveProceso }`}>
           <span>{llaveProceso}</span>
         </Link>
         <CopyButton

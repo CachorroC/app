@@ -1,5 +1,5 @@
 /*
- * Home dashboard ("Landing"), scoped to src/app/page.tsx only. Sits inside
+ * Dashboard home, scoped to src/app/dashboard/page.tsx only. Sits inside
  * the shared app shell (layout.module.css .container / NavBar rail) and
  * uses the app-wide design tokens promoted in globals.scss — no local
  * token scope needed here, unlike /Carpetas or /memoriales.

@@ -7,7 +7,7 @@ import { RevisadoCheckBox } from '../revisado-checkbox';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { Route } from 'next';
 import { MonCarpeta } from '#@/lib/types/carpetas';
-import { TableRowCarpetaSortingButton } from '#@/app/Carpetas/@right/carpetasButtonsSort';
+import { TableRowCarpetaSortingButton } from '#@/app/dashboard/Carpetas/@right/carpetasButtonsSort';
 import { Loader } from '#@/components/Loader/main-loader';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { connection } from 'next/server';
@@ -251,11 +251,13 @@ export default async function Page( {
             revisado,
           } = carpeta;
 
+          const rowHref: Route<`/dashboard/Carpeta/${number}`> = `/dashboard/Carpeta/${ numero }`;
+
           return idProcesos.map( ( idProceso ) => {
             return (
               <ClientCardRow
                 key={idProceso}
-                rowHref={`/Carpeta/${ numero }` as Route}
+                rowHref={rowHref}
                 carpeta={carpeta}
               >
                 <td>{nombre}</td>

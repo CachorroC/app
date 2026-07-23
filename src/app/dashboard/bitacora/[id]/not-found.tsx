@@ -5,6 +5,8 @@ import { Button } from '#@/components/ds/button';
 import styles from '../pagina.module.css';
 
 export default function NotaNoEncontrada() {
+  const bitacoraHref: Route = '/dashboard/bitacora';
+
   return (
     <div className={styles.pagina}>
       <EstadoVacio
@@ -12,8 +14,8 @@ export default function NotaNoEncontrada() {
         titulo="Nota no encontrada"
         mensaje="Puede que haya sido archivada o que el enlace ya no sea válido."
         accion={(
-          <Link href={'/bitacora' as Route} style={{
-            textDecoration: 'none' 
+          <Link href={bitacoraHref} style={{
+            textDecoration: 'none'
           }}
           >
             <Button variant="tonal">Volver a Notas</Button>

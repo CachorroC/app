@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useCarpetaSort,
   useCarpetaSortDispatch, } from '#@/app/Context/carpetas-sort-context';
-import { updateRevisadoState } from '#@/app/Carpetas/actions';
+import { updateRevisadoState } from '#@/app/dashboard/Carpetas/actions';
 import { CarpetaCard } from './carpeta-card';
 import { CarpetaTableRow } from './carpeta-table-row';
 import { CarpetasTableHeader } from './carpetas-table-header';

@@ -18,7 +18,7 @@ export default function ActiveLink<T extends string>( {
   return (
     <Link
       key={category}
-      href={`/Carpetas/Categorias/${ category }`}
+      href={`/dashboard/Carpetas/Categorias/${ category }`}
       className={
         isActive
           ? styles.buttonCategoryActive

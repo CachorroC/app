@@ -11,7 +11,8 @@ import { JuzgadoComponent,
   JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
 import styles from './styles.module.css';
 import { ProcesosComponent } from '#@/components/Proceso/server-components';
-import ProtoPage from '../../../components/proto-page';
+import ProtoPage from '../../../../components/proto-page';
+import type { Route } from 'next';
 import { AvailableProcesosByName } from '#@/components/available-procesos-by-name';
 
 export default async function Page( {
@@ -37,11 +38,13 @@ export default async function Page( {
 
   if ( idProcesos && idProcesos.length > 0 ) {
     idProcesoContent = idProcesos.map( ( idProceso ) => {
+      const actuacionesHref: Route<`/dashboard/Carpeta/${string}/ultimasActuaciones/${string}`> = `/dashboard/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`;
+
       return (
         <Link
           key={idProceso}
           className={buttonActiveCategory}
-          href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`}
+          href={actuacionesHref}
         >
           <span>{nombre}</span>
         </Link>

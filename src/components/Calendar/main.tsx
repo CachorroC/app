@@ -38,15 +38,17 @@ export async function Calendar( {
         <div className={calendar.days}>
           {rows.map( ( row ) => {
             const {
-              date, href, current, className 
+              date, href, current, className, year, month
             } = row;
 
             const setToday = date === today.getDate();
 
+            const fechaHref: Route<`/dashboard/Calendario/Fecha/${number}/${number}/${number}`> = `/dashboard/Calendario/Fecha/${ year }/${ month }/${ date }`;
+
             return (
               <Link
                 key={href}
-                href={`/Calendario/Fecha/${ href }` as Route}
+                href={fechaHref}
                 className={
                   current
                     ? setToday

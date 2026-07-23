@@ -4,6 +4,8 @@ import type { Route } from 'next';
 import Link from 'next/link';
 
 export default function NotFound() {
+  const homeHref: Route = '/dashboard';
+
   return (
     <div className={styles.errorContainer}>
       <h2 className={typography.displayLarge}>No encontrado</h2>
@@ -11,7 +13,7 @@ export default function NotFound() {
         No pudimos localizar el recurso que consultaste
       </p>
       <Link
-        href={'/' as Route}
+        href={homeHref}
         className={styles.link}
       >
         <span>Inicio</span>

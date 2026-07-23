@@ -725,6 +725,8 @@ export default function CarpetaDetail( {
         SECTIONS.notas,
       ];
 
+  const carpetasAltHref: Route = '/dashboard/Carpetas_alt';
+
   return (
     <div className={styles.page}>
       {/* Header */}
@@ -732,7 +734,7 @@ export default function CarpetaDetail( {
         <button
           className={styles.backBtn}
           onClick={() => {
-            return router.push( '/Carpetas_alt' as Route );
+            return router.push( carpetasAltHref );
           }}
           title="Volver"
           aria-label="Volver"

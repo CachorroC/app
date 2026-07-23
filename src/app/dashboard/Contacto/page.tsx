@@ -4,7 +4,7 @@ import form from 'components/Form/form.module.css';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import checkbox from 'components/Form/checkbox/styles.module.css';
-import { useContactContext } from '../Context/main-context';
+import { useContactContext } from '../../Context/main-context';
 import { fetchWithSmartRetry } from '#@/lib/fetchWithSmartRetry';
 
 export default function Page() {

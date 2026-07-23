@@ -16,12 +16,14 @@ export const BotonNuevaNota = () => {
   const crear = () => {
     iniciarTransicion( async () => {
       const {
-        id 
+        id
       } = await crearNota( {
-        titulo: 'Nota sin título' 
+        titulo: 'Nota sin título'
       } );
 
-      router.push( `/bitacora/${ id }` as Route );
+      const href: Route<`/dashboard/bitacora/${string}`> = `/dashboard/bitacora/${ id }`;
+
+      router.push( href );
     } );
   };
 

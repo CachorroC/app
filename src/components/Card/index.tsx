@@ -6,7 +6,7 @@ import typography from '#@/styles/fonts/typography.module.css';
 import type { Route } from 'next';
 import layout from '#@/styles/layout.module.css';
 import { CopyButton } from '../Buttons/copy-buttons';
-import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import { RevisadoCheckBox } from '#@/app/dashboard/Carpetas/revisado-checkbox';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 import { containerEnabled } from './filled.module.css';
 
@@ -26,19 +26,22 @@ export const Card = ( {
     : true;
 
   const {
-    idProcesos, nombre, numero 
+    idProcesos, nombre, numero
   } = carpeta;
+
+  const carpetaHref: Route<`/dashboard/Carpeta/${number}`> = `/dashboard/Carpeta/${ numero }`;
+  const editarHref: Route<`/dashboard/Carpeta/${number}/Editar`> = `/dashboard/Carpeta/${ numero }/Editar`;
 
   if ( !idProcesos || idProcesos.length === 0 ) {
     contentIdProcesos = <span>no hay idProcesos</span>;
   } else {
     contentIdProcesos = idProcesos.map( ( idProceso ) => {
+      const actuacionesHref: Route<`/dashboard/Carpeta/${string}/ultimasActuaciones/${string}`> = `/dashboard/Carpeta/${ String( numero ) }/ultimasActuaciones/${ String( idProceso ) }`;
+
       return (
         <Link
           key={idProceso}
-          href={
-            `/Carpeta/${ String( numero ) }/ultimasActuaciones/${ String( idProceso ) }` as Route
-          }
+          href={actuacionesHref}
           className={styles.link}
         >
           <span className={`material-symbols-outlined ${ styles.icon }`}>
@@ -60,7 +63,7 @@ export const Card = ( {
           <h4 className={typography.titleMedium}>{nombre}</h4>
           <Link
             className={styles.link}
-            href={`/Carpeta/${ numero }` as Route}
+            href={carpetaHref}
           >
             <span className={`${ typography.labelLarge } ${ layout.text }`}>
               {numero.toString()}
@@ -76,7 +79,7 @@ export const Card = ( {
         <div className={styles.links}>
           {errorLLaveProceso && (
             <Link
-              href={`/Carpeta/${ numero }/Editar` as Route}
+              href={editarHref}
               className={styles.link}
             >
               {'error con el numero de expediente'}
@@ -102,23 +105,24 @@ export const CardRow = ( {
     : true;
 
   const {
-    numero, idProcesos, revisado, id 
+    numero, idProcesos, revisado, id
   } = carpeta;
 
   const idProcesosLength = idProcesos.length;
+  const editarHref: Route<`/dashboard/Carpeta/${number}/Editar`> = `/dashboard/Carpeta/${ numero }/Editar`;
 
   let carpetaHref;
 
   if ( idProcesosLength > 1 ) {
     carpetaHref = idProcesos.map( (
-      idProceso, index 
+      idProceso, index
     ) => {
+      const actuacionesHref: Route<`/dashboard/Carpeta/${number}/ultimasActuaciones/${string}`> = `/dashboard/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }`;
+
       return (
         <Link
           key={idProceso}
-          href={
-            `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProceso }` as Route
-          }
+          href={actuacionesHref}
         >
           <span className={`${ typography.labelLarge } ${ layout.text }`}>
             {`#${ numero } - ${ index }`}
@@ -127,12 +131,12 @@ export const CardRow = ( {
       );
     } );
   } else if ( idProcesosLength === 1 ) {
+    const primerActuacionHref: Route<`/dashboard/Carpeta/${number}/ultimasActuaciones/${string}`> = `/dashboard/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }`;
+
     carpetaHref = (
       <Link
         key={idProcesos[ 0 ]}
-        href={
-          `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }` as Route
-        }
+        href={primerActuacionHref}
       >
         <span className={`${ typography.labelLarge } ${ layout.text }`}>
           {`#${ numero }`}
@@ -143,7 +147,7 @@ export const CardRow = ( {
     carpetaHref = (
       <Link
         key={numero}
-        href={`/Carpeta/${ numero }`}
+        href={`/dashboard/Carpeta/${ numero }`}
       >
         <span className={`${ typography.labelLarge } ${ layout.text }`}>
           {`#${ numero }`}
@@ -158,7 +162,7 @@ export const CardRow = ( {
       <td>
         {
           <Link
-            href={`/Carpeta/${ numero }`}
+            href={`/dashboard/Carpeta/${ numero }`}
             className={typography.titleSmall}
           >
             {carpeta.nombre.toLocaleLowerCase()}
@@ -175,7 +179,7 @@ export const CardRow = ( {
             <>
               <td>
                 <Link
-                  href={`/Carpeta/${ numero }/Editar` as Route}
+                  href={editarHref}
                   className={styles.link}
                 >
                   {'error con el numero de expediente'}

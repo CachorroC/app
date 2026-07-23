@@ -4,13 +4,13 @@ import typography from '#@/styles/fonts/typography.module.css';
 import layout from '#@/styles/layout.module.css';
 import { ChangeEvent } from 'react';
 import { InputDateHelper } from '#@/lib/project/date-helper';
-import { useNuevaNotaContext } from '#@/app/Notas/nueva-nota-form-context';
+import { useNuevaNotaContext } from '#@/app/dashboard/Notas/nueva-nota-form-context';
 import { addNotaToMongo,
   addNotaToPrisma,
-  notasCount, } from '#@/app/Notas/actions';
+  notasCount, } from '#@/app/dashboard/Notas/actions';
 import { NewNota } from '#@/lib/types/notas';
 import { usePathname } from 'next/navigation';
-import { ParseContentNota } from '#@/app/Notas/parse-text-area';
+import { ParseContentNota } from '#@/app/dashboard/Notas/parse-text-area';
 import { ParseContenidoArea } from './nota-contenido';
 
 export const NuevaNota = () => {

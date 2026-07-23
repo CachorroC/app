@@ -20,13 +20,21 @@ interface SidebarProps {
   onClose?         : () => void;
 }
 
-const NAV = [
+interface NavItem {
+  icon  : string;
+  label : string;
+  href  : Route;
+  active: boolean;
+  badge : number | null;
+}
+
+const NAV: NavItem[] = [
   {
     icon  : 'folder_open',
     label : 'Carpetas',
-    href  : '/Carpetas_alt',
+    href  : '/dashboard/Carpetas_alt',
     active: true,
-    badge : null as number | null,
+    badge : null,
   },
   {
     icon  : 'event',
@@ -122,7 +130,7 @@ export default function Sidebar( {
             return (
               <Link
                 key={n.label}
-                href={n.href as Route}
+                href={n.href}
                 className={`${ styles.navItem } ${
                   n.active
                     ? styles.navActive

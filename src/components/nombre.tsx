@@ -22,7 +22,7 @@ export function NombreComponent( {
   return (
     <>
       <Link
-        href={`/Carpeta/${ carpetaNumero }`}
+        href={`/dashboard/Carpeta/${ carpetaNumero }`}
         className={typography.displayLarge}
       >
         {joinedName}

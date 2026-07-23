@@ -44,7 +44,9 @@ export const InputSearchBar = () => {
         type   : 'search',
         payload: option.label,
       } );
-      router.push( `/Carpeta/${ option.numero }` as Route );
+      const href: Route<`/dashboard/Carpeta/${number}`> = `/dashboard/Carpeta/${ option.numero }`;
+
+      router.push( href );
     },
   } );
 

@@ -10,6 +10,33 @@ const nextConfig = {
   cacheComponents: true,
   output         : 'standalone',
   typedRoutes    : true,
+  async redirects() {
+    const movedSegments = [
+      'Ayudante',
+      'Calendario',
+      'Carpeta',
+      'Carpetas',
+      'Carpetas_alt',
+      'Contacto',
+      'Costos',
+      'Notas',
+      'QuienesSomos',
+      'RamaJudicial',
+      'amortizacion',
+      'bitacora',
+      'database',
+      'memoriales',
+      'tareas',
+    ];
+
+    return movedSegments.map( ( segment ) => {
+      return {
+        source     : `/${ segment }/:path*`,
+        destination: `/dashboard/${ segment }/:path*`,
+        permanent  : true,
+      };
+    } );
+  },
   async headers() {
     return [
       {

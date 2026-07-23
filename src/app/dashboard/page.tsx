@@ -13,6 +13,10 @@ import { IntCarpeta } from '#@/lib/types/carpetas';
 
 const BOGOTA_TZ = 'America/Bogota';
 
+const CARPETAS_HREF: Route = '/dashboard/Carpetas';
+const MEMORIALES_HREF: Route = '/dashboard/memoriales';
+const AMORTIZACION_HREF: Route = '/dashboard/amortizacion';
+
 const CATEGORY_CHIP: Record<string, { label: string; className: string }> = {
   Bancolombia: {
     label    : 'Bancolombia',
@@ -181,7 +185,7 @@ export default async function Page() {
 
         <div className={styles.navCards}>
           <Link
-            href={'/Carpetas'}
+            href={CARPETAS_HREF}
             className={`${ styles.navCard } ${ styles.navCardPrimary }`}
           >
             <div className={styles.navCardIcon}>
@@ -199,7 +203,7 @@ export default async function Page() {
             </span>
           </Link>
           <Link
-            href={'/memoriales'}
+            href={MEMORIALES_HREF}
             className={`${ styles.navCard } ${ styles.navCardTertiary }`}
           >
             <div className={styles.navCardIcon}>
@@ -217,7 +221,7 @@ export default async function Page() {
             </span>
           </Link>
           <Link
-            href={'/amortizacion' as Route}
+            href={AMORTIZACION_HREF}
             className={`${ styles.navCard } ${ styles.navCardTertiary }`}
           >
             <div className={styles.navCardIcon}>
@@ -242,7 +246,7 @@ export default async function Page() {
               {'Actividad reciente de los juzgados'}
             </h2>
             <Link
-              href={'/Carpetas'}
+              href={CARPETAS_HREF}
               className={styles.sectionLink}
             >
               {'Ver todas'}
@@ -270,10 +274,12 @@ export default async function Page() {
                     )
                       .format( carpeta.ultimaActuacion.fechaActuacion );
 
+                    const carpetaHref: Route<`/dashboard/Carpeta/${number}`> = `/dashboard/Carpeta/${ carpeta.numero }`;
+
                     return (
                       <Link
                         key={carpeta.numero}
-                        href={`/Carpeta/${ carpeta.numero }` as Route}
+                        href={carpetaHref}
                         className={styles.activityRow}
                       >
                         <span className={`${ styles.chip } ${ chip.className }`}>

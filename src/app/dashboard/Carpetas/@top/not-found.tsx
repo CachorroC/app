@@ -29,7 +29,7 @@ export default async function NotFound() {
     const carpeta = await getCarpetabyNumero( Number( secondRoute ) );
 
     if ( carpeta ) {
-      linker = <Link href={`/Carpeta/${ carpeta.numero }`}></Link>;
+      linker = <Link href={`/dashboard/Carpeta/${ carpeta.numero }`}></Link>;
     } else {
       linker = null;
     }

@@ -21,7 +21,7 @@ export async function GET() {
         name: 'Ultimas Actuaciones',
         description:
           'aquí encontrará los procesos ordenados a partir de sus últimas actuaciones, la fecha del movimiento y su relevancia',
-        url  : '/Carpetas/UltimasActuaciones',
+        url  : '/dashboard/Carpetas/UltimasActuaciones',
         icons: [
           {
             src    : '/icon1.png',
@@ -32,7 +32,7 @@ export async function GET() {
       },
       {
         name : 'Notas',
-        url  : '/Notas',
+        url  : '/dashboard/Notas',
         icons: [
           {
             src    : '/icon.svg',
@@ -43,7 +43,7 @@ export async function GET() {
       },
       {
         name : 'Carpetas',
-        url  : '/Carpetas',
+        url  : '/dashboard/Carpetas',
         icons: [
           {
             src    : '/icon.svg',

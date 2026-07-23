@@ -4,7 +4,7 @@ import { FieldPath, useFormContext, useWatch } from 'react-hook-form';
 import form from 'components/Form/form.module.css';
 import layout from '#@/styles/layout.module.css';
 import { IntCarpeta } from '#@/lib/types/carpetas';
-import styles from '#@/app/Carpetas/@right/Nueva/styles.module.css';
+import styles from '#@/app/dashboard/Carpetas/@right/Nueva/styles.module.css';
 import { fixMoney } from '#@/lib/project/helper';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
 

@@ -3,7 +3,7 @@ import { Route } from 'next';
 import { MonCarpeta } from '#@/lib/types/carpetas';
 import { CarpetaCheckbox } from './carpeta-checkbox';
 import { CategoryChip } from './category-chip';
-import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import { RevisadoCheckBox } from '#@/app/dashboard/Carpetas/revisado-checkbox';
 import { ActuacionTableComponent,
   ActuacionTableErrorComponent, } from '#@/components/Actuaciones/actuacion-table-component';
 import { JuzgadoComponent,
@@ -40,6 +40,7 @@ export function CarpetaTableRow( {
   const categoryMeta = getCategoryMeta( category );
   const estadoBadges = getEstadoBadges( carpeta );
   const radicado = clean( carpeta.demanda?.radicado );
+  const carpetaHref: Route<`/dashboard/Carpeta/${number}`> = `/dashboard/Carpeta/${ numero }`;
 
   return (
     <tr
@@ -55,7 +56,7 @@ export function CarpetaTableRow( {
       </td>
       <td className={styles.mono}>
         <Link
-          href={`/Carpeta/${ numero }` as Route}
+          href={carpetaHref}
           className={styles.numeroLink}
         >
           {numero}

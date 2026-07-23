@@ -1,6 +1,6 @@
 'use client';
 import { Loader } from '#@/components/Loader/main-loader';
-import { useDatabaseModelsContext } from '../Context/database-models-context';
+import { useDatabaseModelsContext } from '../../Context/database-models-context';
 import { Cell } from './cell';
 import styles from './studio-clone.module.css';
 

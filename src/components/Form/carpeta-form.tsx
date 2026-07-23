@@ -1,7 +1,7 @@
 'use client';
 import { ReactNode, useRef } from 'react';
 import { useCarpetaFormContext } from '../../app/Context/carpeta-form-context';
-import { editDemandaInPrisma } from '#@/app/Carpeta/[numero]/actions';
+import { editDemandaInPrisma } from '#@/app/dashboard/Carpeta/[numero]/actions';
 
 export function CarpetaForm( {
   children 

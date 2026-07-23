@@ -1,6 +1,6 @@
 import styles from '#@/styles/layout.module.css';
 import { ReactNode } from 'react';
-import { NotasSortProvider } from '../Context/notas-sort-context';
+import { NotasSortProvider } from '../../Context/notas-sort-context';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { NuevaNotaFormProvider } from './nueva-nota-form-context';
 import { connection } from 'next/server';

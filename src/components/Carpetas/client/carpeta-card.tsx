@@ -7,7 +7,7 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import { DEFAULT_CIUDAD } from '#@/app/Hooks/useCarpetasreducer';
 import { CarpetaCheckbox } from './carpeta-checkbox';
 import { CategoryChip } from './category-chip';
-import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import { RevisadoCheckBox } from '#@/app/dashboard/Carpetas/revisado-checkbox';
 import { JuzgadoComponent,
   JuzgadoErrorComponent, } from '#@/components/Proceso/juzgado-component';
 import { clean,
@@ -63,8 +63,11 @@ export function CarpetaCard( {
       return nota.text !== '(sin texto)';
     } )
     .slice(
-      0, 5 
+      0, 5
     );
+
+  const carpetaHref: Route<`/dashboard/Carpeta/${number}`> = `/dashboard/Carpeta/${ numero }`;
+  const actuacionesHref: Route<`/dashboard/Carpeta/${number}/ultimasActuaciones/${string}` | `/dashboard/Carpeta/${number}/ultimasActuaciones/undefined`> = `/dashboard/Carpeta/${ numero }/ultimasActuaciones/${ ultimaActuacion?.idProceso }`;
 
   return (
     <div className={styles.card}>
@@ -76,7 +79,7 @@ export function CarpetaCard( {
             ariaLabel={`Seleccionar carpeta ${ numero }`}
           />
           <Link
-            href={`/Carpeta/${ numero }` as Route}
+            href={carpetaHref}
             className={styles.numeroLink}
           >
             {`CARPETA ${ numero }`}
@@ -137,9 +140,7 @@ export function CarpetaCard( {
                     </div>
                   )}
                   <Link
-                    href={
-                      `/Carpeta/${ numero }/ultimasActuaciones/${ ultimaActuacion.idProceso }` as Route
-                    }
+                    href={actuacionesHref}
                     className={styles.moreLink}
                   >
                     mostrar más

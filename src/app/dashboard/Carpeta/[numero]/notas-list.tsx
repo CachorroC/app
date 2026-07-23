@@ -12,10 +12,12 @@ export async function NotasLinkList( {
   return (
     <>
       {notas.map( ( nota ) => {
+        const editarHref: Route<`/dashboard/Notas/id/${string}/Editar`> = `/dashboard/Notas/id/${ nota.id }/Editar`;
+
         return (
           <Link
             key={nota.id}
-            href={`/Notas/id/${ nota.id }/Editar` as Route}
+            href={editarHref}
             style={{
               padding: '.5rem',
             }}

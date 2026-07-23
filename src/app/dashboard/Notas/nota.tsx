@@ -2,7 +2,7 @@
 
 import { IntNota } from '#@/lib/types/notas';
 import { ReactNode, useState } from 'react';
-import { useNotaSortDispatch } from '../Context/notas-sort-context';
+import { useNotaSortDispatch } from '../../Context/notas-sort-context';
 import { updateNotaTextState } from './actions';
 import { containerEnabled } from '#@/components/Card/outlined.module.css';
 import typography from '#@/styles/fonts/typography.module.css';

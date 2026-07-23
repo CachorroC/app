@@ -1,13 +1,10 @@
 import '#@/styles/globals.css';
 import 'material-symbols';
-import layout from '#@/styles/layout.module.css';
 import { ReactNode, Suspense } from 'react';
 import { MainProvider } from './Context/main-context';
 import { SearchProvider } from './Context/search-context';
 import { ModalProvider } from './Context/modal-context';
 import type { Metadata, Viewport } from 'next';
-import { NavBar } from '#@/components/layout/NavBar';
-import { IdentityBadge } from '#@/components/layout/identity-badge';
 import { NavigationContextProvider } from './Context/navigation-context';
 import { CategoryContextProvider } from './Context/category-context';
 import { quicksand, plexMono, fraunces, inter } from '#@/styles/fonts';
@@ -91,10 +88,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout( {
   children,
-  modal,
 }: {
   children: ReactNode;
-  modal   : ReactNode;
 } ) {
   return (
     <html lang="es-CO">
@@ -115,39 +110,16 @@ export default function RootLayout( {
                 <ModalProvider>
                   <MainProvider>
                     <PushManagerComponent />
-                    <div className={ layout.container }>
-                      <Suspense fallback={<Loader />}>
-
-                        <Suspense
-                          fallback={
-                            <nav>
-                              Cargando menú... <Loader />
-                            </nav>
-                          }
-                        >
-                          <NavBar />
-                        </Suspense>
-                        <Suspense fallback={null}>
-                          <IdentityBadge />
-                        </Suspense>
-
-                      </Suspense>
-                      <Suspense fallback={<Loader />}>
-                        {children}
-                      </Suspense>
-                      <Suspense fallback={null}>
-                        {modal}
-                      </Suspense>
-                    </div>
+                    <Suspense fallback={<Loader />}>
+                      {children}
+                    </Suspense>
                   </MainProvider>
                 </ModalProvider>
               </SearchProvider>
             </NavigationContextProvider>
           </CategoryContextProvider>
         </PushNotificationProvider>
-        {/*  <Script
-          src={`https://${ prefix }.rsasesorjuridico.com/install-service-worker.js`}
-        /> */}
+
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 'use client';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
-import { useNotaSort } from '../Context/notas-sort-context';
+import { useNotaSort } from '../../Context/notas-sort-context';
 import { NotaTable } from './nota';
 import React from 'react';
 

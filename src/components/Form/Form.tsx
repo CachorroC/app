@@ -4,7 +4,7 @@ import { MonCarpeta } from '#@/lib/types/carpetas';
 import { IntCarpetaElementSchema } from '#@/lib/types/zod/carpeta';
 import { useFormContext, SubmitHandler } from 'react-hook-form';
 import form from 'components/Form/form.module.css';
-import { divider } from '#@/app/Carpetas/@right/Nueva/styles.module.css';
+import { divider } from '#@/app/dashboard/Carpetas/@right/Nueva/styles.module.css';
 import { DateInputSection } from './date-section';
 import { ObligacionesComponent } from './field-array-section';
 import { InputSection } from './input-section';

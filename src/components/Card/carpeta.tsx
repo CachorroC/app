@@ -37,13 +37,13 @@ export const CarpetaCard = ( {
         <section className={layout.segmentRow}>
           {idProcesos
             && idProcesos.map( ( idProceso ) => {
+              const actuacionesHref: Route<`/dashboard/Carpeta/${number}/ultimasActuaciones/${string}`> = `/dashboard/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`;
+
               return (
                 <Link
                   className={button}
                   key={idProceso}
-                  href={
-                    `/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route
-                  }
+                  href={actuacionesHref}
                 >
                   <span className={`material-symbols-outlined ${ styles.icon }`}>
                     update

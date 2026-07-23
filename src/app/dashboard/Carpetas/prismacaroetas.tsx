@@ -77,19 +77,22 @@ export default async function PrismaCarpetas() {
 
         const idProcesosLength = idProcesos.length;
 
-        let carpetaHref;
+        let carpetaHref: Route<`/dashboard/Carpeta/${number}/ultimasActuaciones/${string}` | `/dashboard/Carpeta/${number}`>;
 
         if ( idProcesosLength === 1 ) {
-          carpetaHref = `/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }`;
+          carpetaHref = `/dashboard/Carpeta/${ carpeta.numero }/ultimasActuaciones/${ idProcesos[ 0 ] }`;
         } else {
-          carpetaHref = `/Carpeta/${ carpeta.numero }`;
+          carpetaHref = `/dashboard/Carpeta/${ carpeta.numero }`;
         }
+
+        const folderHref: Route<`/dashboard/Carpeta/${number}`> = `/dashboard/Carpeta/${ numero }`;
+        const editarHref: Route<`/dashboard/Carpeta/${number}/Editar`> = `/dashboard/Carpeta/${ numero }/Editar`;
 
         return (
           <tr key={carpeta.numero}>
             <td>
               {' '}
-              <Link href={`/Carpeta/${ numero }` as Route}>
+              <Link href={folderHref}>
                 {`#${ carpeta.numero }`}
 
                 <span className="material-symbols-outlined">folder</span>
@@ -97,7 +100,7 @@ export default async function PrismaCarpetas() {
             </td>
             <td>
               <Link
-                href={carpetaHref as Route}
+                href={carpetaHref}
                 className={typography.titleMedium}
               >
                 {carpeta.nombre}
@@ -143,7 +146,7 @@ export default async function PrismaCarpetas() {
             <td>
               {errorLLaveProceso && (
                 <Link
-                  href={`/Carpeta/${ numero }/Editar` as Route}
+                  href={editarHref}
                   className={styles.link}
                 >
                   {'error con el numero de expediente'}

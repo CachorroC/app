@@ -1,4 +1,4 @@
-import { CarpetasSortButtons } from '#@/app/Carpetas/@right/carpetasButtonsSort';
+import { CarpetasSortButtons } from '#@/app/dashboard/Carpetas/@right/carpetasButtonsSort';
 import { ResetButtonSorter } from './reset-button';
 import CategoryFilteringButtons from './category-filtering-buttons';
 import TipoProcesoFilteringButtons from './tipo-proceso-filter';

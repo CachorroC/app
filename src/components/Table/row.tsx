@@ -25,7 +25,7 @@ export function CarpetaUltimaActuacionRow( {
   return (
     <tr>
       <td>
-        <Link href={`/Carpeta/${ carpeta.numero }`}>{carpeta.nombre}</Link>
+        <Link href={`/dashboard/Carpeta/${ carpeta.numero }`}>{carpeta.nombre}</Link>
       </td>
       <td>{`#${ carpeta.numero }`}</td>
       <td>

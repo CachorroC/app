@@ -157,7 +157,9 @@ export default function CarpetasDashboard( {
 
   function openDetail( numero: number ) {
     setNavOpen( false );
-    router.push( `/Carpetas_alt/${ numero }` as Route );
+    const href: Route<`/dashboard/Carpetas_alt/${number}`> = `/dashboard/Carpetas_alt/${ numero }`;
+
+    router.push( href );
   }
 
   function toggleRevisado(

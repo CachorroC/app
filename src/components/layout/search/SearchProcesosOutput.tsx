@@ -28,8 +28,10 @@ export function SearchOutputList() {
     }
 
     if ( currentCategory === 'todos' || currentCategory === proceso.category ) {
+      const path: Route<`/dashboard/Carpeta/${number}`> = `/dashboard/Carpeta/${ proceso.numero }`;
+
       rows.push( <LinkCard
-        path={`/Carpeta/${ proceso.numero }` as Route}
+        path={path}
         carpeta={proceso}
         key={proceso.numero}
                  />, );

@@ -5,7 +5,7 @@ import * as z from 'zod';
 import prisma from '#@/lib/connection/prisma';
 import { EstadoTarea, PrioridadTarea } from '#@/app/generated/prisma/enums';
 
-const RUTA_LISTA = '/tareas';
+const RUTA_LISTA = '/dashboard/tareas';
 const PRIORIDADES = Object.values( PrioridadTarea ) as [string, ...string[]];
 const ESTADOS_TAREA = Object.values( EstadoTarea ) as [string, ...string[]];
 
@@ -200,7 +200,7 @@ export async function completarTarea( id: string ) {
   revalidatePath( RUTA_LISTA );
 
   if ( noteOrigenId ) {
-    revalidatePath( `/bitacora/${ noteOrigenId }` );
+    revalidatePath( `/dashboard/bitacora/${ noteOrigenId }` );
   }
 }
 

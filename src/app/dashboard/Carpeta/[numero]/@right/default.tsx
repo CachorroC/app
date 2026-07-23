@@ -9,7 +9,7 @@ import { CopyButton } from '#@/components/Buttons/copy-buttons';
 import { ProcesosCardSkeleton } from '#@/components/Proceso/skeleton';
 import { getNotas } from '#@/lib/project/utils/Notas/getNotas';
 import { SearchOutputListSkeleton } from '#@/components/layout/search/SearchProcesosOutputSkeleton';
-import { Nota } from '#@/app/Notas/nota';
+import { Nota } from '#@/app/dashboard/Notas/nota';
 import { NotasSortProvider } from '#@/app/Context/notas-sort-context';
 import { NotasLinkList } from '../notas-list';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
@@ -18,7 +18,7 @@ import { ProcesoHibrido } from '#@/components/Proceso/hibrido';
 import React from 'react';
 import { Carpeta, CarpetaDashboard } from '#@/components/legalDashboard';
 import { ExpedienteFormComponent } from '../expediente-form-component';
-import ProtoPage from '../../../../components/proto-page';
+import ProtoPage from '../../../../../components/proto-page';
 
 async function NotasList( {
   carpetaNumero 

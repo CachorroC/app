@@ -2,7 +2,7 @@
 import { ClientCardRow } from '#@/components/Card/client-card';
 import { Route } from 'next';
 import { CopyButton } from '#@/components/Buttons/copy-buttons';
-import { RevisadoCheckBox } from '#@/app/Carpetas/revisado-checkbox';
+import { RevisadoCheckBox } from '#@/app/dashboard/Carpetas/revisado-checkbox';
 import { ActuacionTableComponent,
   ActuacionTableErrorComponent, } from '#@/components/Actuaciones/actuacion-table-component';
 import OutputDateHelper from '#@/lib/project/output-date-helper';
@@ -161,10 +161,12 @@ export const UsersTable = () => {
                   } )
                   .join( ' ' );
 
+                const rowHref: Route<`/dashboard/Carpeta/${number}`> = `/dashboard/Carpeta/${ numero }`;
+
                 return (
                   <ClientCardRow
                     key={numero}
-                    rowHref={`/Carpeta/${ numero }` as Route}
+                    rowHref={rowHref}
                     carpeta={carpeta}
                   >
                     <td data-label="nombre">{words}</td>

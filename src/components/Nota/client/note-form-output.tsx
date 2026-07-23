@@ -3,7 +3,7 @@
 import styles from 'components/Nota/note.module.css';
 import typography from '#@/styles/fonts/typography.module.css';
 import { fixFechas } from '#@/lib/project/helper';
-import { useNuevaNotaContext } from '#@/app/Notas/nueva-nota-form-context';
+import { useNuevaNotaContext } from '#@/app/dashboard/Notas/nueva-nota-form-context';
 
 export default function NoteFormOutput() {
   const {

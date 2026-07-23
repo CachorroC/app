@@ -64,11 +64,13 @@ export function LinkCard<T extends string = string>( {
     );
   } else {
     content = carpeta.idProcesos.map( ( idProceso ) => {
+      const actuacionesHref: Route<`/dashboard/Carpeta/${number}/ultimasActuaciones/${string}`> = `/dashboard/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }`;
+
       return (
         <td key={idProceso}>
           <Link
             onClick={handleClickNavigation}
-            href={`/Carpeta/${ numero }/ultimasActuaciones/${ idProceso }` as Route}
+            href={actuacionesHref}
             className={
               isActive
                 ? searchbar.linkIsActive
