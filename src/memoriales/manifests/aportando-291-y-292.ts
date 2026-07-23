@@ -18,7 +18,8 @@ export const aportando291y292: MemorialTemplate = {
       'radicado.numero': 'radicado.numero',
       'radicado.año'   : 'radicado.año',
       tipoproceso      : 'tipoProceso',
-      llaveProceso     : 'llaveProceso'
+      llaveProceso     : 'llaveProceso',
+      'cuantia_value'  : 'cuantiaType'
     },
   },
   groups: [

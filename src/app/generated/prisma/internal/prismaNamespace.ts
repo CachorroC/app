@@ -2035,7 +2035,8 @@ export const CarpetaScalarFieldEnum = {
   juzgadoCiudad: 'juzgadoCiudad',
   juzgadoId: 'juzgadoId',
   idRegUltimaAct: 'idRegUltimaAct',
-  category: 'category'
+  category: 'category',
+  cuantiaType: 'cuantiaType'
 } as const
 
 export type CarpetaScalarFieldEnum = (typeof CarpetaScalarFieldEnum)[keyof typeof CarpetaScalarFieldEnum]
@@ -2415,6 +2416,20 @@ export type EnumCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Category[]'
  */
 export type ListEnumCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Category[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CuantiaValue'
+ */
+export type EnumCuantiaValueFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CuantiaValue'>
+    
+
+
+/**
+ * Reference to a field of type 'CuantiaValue[]'
+ */
+export type ListEnumCuantiaValueFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CuantiaValue[]'>
     
 
 

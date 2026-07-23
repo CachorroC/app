@@ -438,6 +438,12 @@ const AUTOFILL_CANDIDATES: { paths: string[]; target: string }[] = [
   },
   {
     paths: [
+      'cuantia_value'
+    ],
+    target: 'cuantiaType'
+  },
+  {
+    paths: [
       'llaveProceso'
     ],
     target: 'llaveProceso',

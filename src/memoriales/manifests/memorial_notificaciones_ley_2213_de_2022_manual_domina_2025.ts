@@ -15,7 +15,8 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
       'radicado.año'   : 'radicado.año',
       tipo_proceso     : 'tipoProceso',
       llaveProceso     : 'llaveProceso',
-      'deudor.email'   : 'deudor.email'
+      'deudor.email'   : 'deudor.email',
+      'cuantia_value'  : 'cuantiaType'
     },
   },
   groups: [

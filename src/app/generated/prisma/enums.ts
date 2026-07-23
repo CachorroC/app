@@ -108,3 +108,12 @@ export const TipoToken = {
 } as const
 
 export type TipoToken = (typeof TipoToken)[keyof typeof TipoToken]
+
+
+export const CuantiaValue = {
+  MINIMA: 'MINIMA',
+  MENOR: 'MENOR',
+  MAYOR: 'MAYOR'
+} as const
+
+export type CuantiaValue = (typeof CuantiaValue)[keyof typeof CuantiaValue]

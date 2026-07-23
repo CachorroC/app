@@ -20,6 +20,7 @@ export const terminacion_pago_total_de_obligacion: MemorialTemplate = {
       'radicado.año'   : 'radicado.año',
       tipo_proceso     : 'tipoProceso',
       llaveProceso     : 'llaveProceso',
+      'cuantia_value'  : 'cuantiaType'
     },
   },
   groups: [
@@ -32,8 +33,8 @@ export const terminacion_pago_total_de_obligacion: MemorialTemplate = {
           label   : 'nombre',
           type    : 'text',
           required: true,
-          format  : 'upper' 
-        } 
+          format  : 'upper'
+        }
       ],
     },
     {
@@ -48,15 +49,15 @@ export const terminacion_pago_total_de_obligacion: MemorialTemplate = {
           options : [
             {
               value: 'mínima cuantía',
-              label: 'Mínima cuantía' 
+              label: 'Mínima cuantía'
             },
             {
               value: 'menor cuantía',
-              label: 'Menor cuantía' 
+              label: 'Menor cuantía'
             },
             {
               value: 'mayor cuantía',
-              label: 'Mayor cuantía' 
+              label: 'Mayor cuantía'
             },
           ],
         },
@@ -64,7 +65,7 @@ export const terminacion_pago_total_de_obligacion: MemorialTemplate = {
           name    : 'llaveProceso',
           label   : 'llaveProceso',
           type    : 'text',
-          required: true 
+          required: true
         },
         {
           name    : 'tipo_proceso',
@@ -84,13 +85,13 @@ export const terminacion_pago_total_de_obligacion: MemorialTemplate = {
           label   : 'ciudad',
           type    : 'text',
           required: true,
-          format  : 'upper' 
+          format  : 'upper'
         },
         {
           name    : 'numero',
           label   : 'numero',
           type    : 'number',
-          required: true 
+          required: true
         },
         {
           name   : 'numero_escrito',
@@ -104,7 +105,7 @@ export const terminacion_pago_total_de_obligacion: MemorialTemplate = {
           label   : 'tipo',
           type    : 'text',
           required: true,
-          format  : 'upper' 
+          format  : 'upper'
         },
       ],
     },
@@ -117,7 +118,7 @@ export const terminacion_pago_total_de_obligacion: MemorialTemplate = {
           label   : 'año',
           type    : 'text',
           required: true,
-          format  : 'radicado' 
+          format  : 'radicado'
         },
         {
           name    : 'numero',

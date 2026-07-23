@@ -30,7 +30,7 @@ const SERVICES = [
 
 const STATS: [string, string][] = [
   [
-    '+1.800',
+    '+800',
     'Procesos gestionados'
   ],
   [

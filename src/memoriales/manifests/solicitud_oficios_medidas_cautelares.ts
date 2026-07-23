@@ -18,7 +18,8 @@ export const solicitud_oficios_medidas_cautelares: MemorialTemplate = {
       'radicado.numero': 'radicado.numero',
       'radicado.año'   : 'radicado.año',
       tipo_proceso     : 'tipoProceso',
-      llaveProceso     : 'llaveProceso'
+      llaveProceso     : 'llaveProceso',
+      'cuantia_value'  : 'cuantiaType'
     },
   },
   groups: [

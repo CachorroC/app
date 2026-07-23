@@ -100,6 +100,13 @@ export type EnumCategoryFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumCategoryFilter<$PrismaModel> | $Enums.Category
 }
 
+export type EnumCuantiaValueFilter<$PrismaModel = never> = {
+  equals?: $Enums.CuantiaValue | Prisma.EnumCuantiaValueFieldRefInput<$PrismaModel>
+  in?: $Enums.CuantiaValue[] | Prisma.ListEnumCuantiaValueFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CuantiaValue[] | Prisma.ListEnumCuantiaValueFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCuantiaValueFilter<$PrismaModel> | $Enums.CuantiaValue
+}
+
 export type SortOrderInput = {
   sort: Prisma.SortOrder
   nulls?: Prisma.NullsOrder
@@ -217,6 +224,16 @@ export type EnumCategoryWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumCategoryFilter<$PrismaModel>
   _max?: Prisma.NestedEnumCategoryFilter<$PrismaModel>
+}
+
+export type EnumCuantiaValueWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CuantiaValue | Prisma.EnumCuantiaValueFieldRefInput<$PrismaModel>
+  in?: $Enums.CuantiaValue[] | Prisma.ListEnumCuantiaValueFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CuantiaValue[] | Prisma.ListEnumCuantiaValueFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCuantiaValueWithAggregatesFilter<$PrismaModel> | $Enums.CuantiaValue
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCuantiaValueFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCuantiaValueFilter<$PrismaModel>
 }
 
 export type DecimalFilter<$PrismaModel = never> = {
@@ -449,6 +466,13 @@ export type NestedEnumCategoryFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumCategoryFilter<$PrismaModel> | $Enums.Category
 }
 
+export type NestedEnumCuantiaValueFilter<$PrismaModel = never> = {
+  equals?: $Enums.CuantiaValue | Prisma.EnumCuantiaValueFieldRefInput<$PrismaModel>
+  in?: $Enums.CuantiaValue[] | Prisma.ListEnumCuantiaValueFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CuantiaValue[] | Prisma.ListEnumCuantiaValueFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCuantiaValueFilter<$PrismaModel> | $Enums.CuantiaValue
+}
+
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -581,6 +605,16 @@ export type NestedEnumCategoryWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumCategoryFilter<$PrismaModel>
   _max?: Prisma.NestedEnumCategoryFilter<$PrismaModel>
+}
+
+export type NestedEnumCuantiaValueWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CuantiaValue | Prisma.EnumCuantiaValueFieldRefInput<$PrismaModel>
+  in?: $Enums.CuantiaValue[] | Prisma.ListEnumCuantiaValueFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CuantiaValue[] | Prisma.ListEnumCuantiaValueFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCuantiaValueWithAggregatesFilter<$PrismaModel> | $Enums.CuantiaValue
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCuantiaValueFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCuantiaValueFilter<$PrismaModel>
 }
 
 export type NestedDecimalFilter<$PrismaModel = never> = {

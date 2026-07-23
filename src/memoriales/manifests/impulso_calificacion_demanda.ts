@@ -9,7 +9,20 @@ export const impulso_calificacion_demanda: MemorialTemplate = {
   filename   : 'impulso_calificacion_demanda.docx',
   displayName: 'impulso_calificacion_demanda.docx',
   description: 'descripción de una línea',
-  groups     : [
+  autofill   : {
+    triggerField: 'deudor.nombre',
+    fieldMap    : {
+      'juzgado.tipo'   : 'juzgado.tipo',
+      'juzgado.ciudad' : 'juzgado.ciudad',
+      'juzgado.numero' : 'juzgado.numero',
+      'radicado.numero': 'radicado.numero',
+      'radicado.año'   : 'radicado.año',
+      tipo_proceso     : 'tipoProceso',
+      llaveProceso     : 'llaveProceso',
+      'cuantia_value'  : 'cuantiaType'
+    },
+  },
+  groups: [
     {
       key   : 'deudor',
       legend: 'deudor',

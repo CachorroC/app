@@ -19,6 +19,7 @@ export const aportandoLiquidacionCredito: MemorialTemplate = {
       'radicado.numero': 'radicado.numero',
       'radicado.año'   : 'radicado.año',
       tipo_proceso     : 'tipoProceso',
+      'cuantia_value'  : 'cuantiaType'
     },
   },
   groups: [

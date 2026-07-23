@@ -15,11 +15,11 @@ model Carpeta {
   idProcesos          String[]
   llaveProceso        String
   nombre              String
-  numero              Int        @id
-  revisado            Boolean    @default(false)
-  terminado           Boolean    @default(false)
-  updatedAt           DateTime   @updatedAt
-  tipoProceso         String     @default("SINGULAR")
+  numero              Int          @id
+  revisado            Boolean      @default(false)
+  terminado           Boolean      @default(false)
+  updatedAt           DateTime     @updatedAt
+  tipoProceso         String       @default("SINGULAR")
   notasCount          Int?
   fechaUltimaRevision DateTime?
   ciudad              String?
@@ -27,9 +27,10 @@ model Carpeta {
   juzgadoCiudad       String?
   juzgadoId           String?
   idRegUltimaAct      String?
-  category            Category   @default(SinEspecificar)
-  ultimaActuacion     Actuacion? @relation(fields: [idRegUltimaAct], references: [idRegActuacion])
-  juzgado             Juzgado?   @relation(fields: [juzgadoId, juzgadoTipo, juzgadoCiudad], references: [id, tipo, ciudad])
+  category            Category     @default(SinEspecificar)
+  cuantiaType         CuantiaValue @default(MENOR)
+  ultimaActuacion     Actuacion?   @relation(fields: [idRegUltimaAct], references: [idRegActuacion])
+  juzgado             Juzgado?     @relation(fields: [juzgadoId, juzgadoTipo, juzgadoCiudad], references: [id, tipo, ciudad])
   codeudor            Codeudor?
   demanda             Demanda?
   deudor              Deudor?
@@ -427,4 +428,10 @@ enum TipoBloque {
 enum TipoToken {
   EMAIL_VERIFICATION
   PASSWORD_RESET
+}
+
+enum CuantiaValue {
+  MINIMA
+  MENOR
+  MAYOR
 }

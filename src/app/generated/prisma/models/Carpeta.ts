@@ -56,6 +56,7 @@ export type CarpetaMinAggregateOutputType = {
   juzgadoId: string | null
   idRegUltimaAct: string | null
   category: $Enums.Category | null
+  cuantiaType: $Enums.CuantiaValue | null
 }
 
 export type CarpetaMaxAggregateOutputType = {
@@ -76,6 +77,7 @@ export type CarpetaMaxAggregateOutputType = {
   juzgadoId: string | null
   idRegUltimaAct: string | null
   category: $Enums.Category | null
+  cuantiaType: $Enums.CuantiaValue | null
 }
 
 export type CarpetaCountAggregateOutputType = {
@@ -97,6 +99,7 @@ export type CarpetaCountAggregateOutputType = {
   juzgadoId: number
   idRegUltimaAct: number
   category: number
+  cuantiaType: number
   _all: number
 }
 
@@ -131,6 +134,7 @@ export type CarpetaMinAggregateInputType = {
   juzgadoId?: true
   idRegUltimaAct?: true
   category?: true
+  cuantiaType?: true
 }
 
 export type CarpetaMaxAggregateInputType = {
@@ -151,6 +155,7 @@ export type CarpetaMaxAggregateInputType = {
   juzgadoId?: true
   idRegUltimaAct?: true
   category?: true
+  cuantiaType?: true
 }
 
 export type CarpetaCountAggregateInputType = {
@@ -172,6 +177,7 @@ export type CarpetaCountAggregateInputType = {
   juzgadoId?: true
   idRegUltimaAct?: true
   category?: true
+  cuantiaType?: true
   _all?: true
 }
 
@@ -280,6 +286,7 @@ export type CarpetaGroupByOutputType = {
   juzgadoId: string | null
   idRegUltimaAct: string | null
   category: $Enums.Category
+  cuantiaType: $Enums.CuantiaValue
   _count: CarpetaCountAggregateOutputType | null
   _avg: CarpetaAvgAggregateOutputType | null
   _sum: CarpetaSumAggregateOutputType | null
@@ -324,6 +331,7 @@ export type CarpetaWhereInput = {
   juzgadoId?: Prisma.StringNullableFilter<"Carpeta"> | string | null
   idRegUltimaAct?: Prisma.StringNullableFilter<"Carpeta"> | string | null
   category?: Prisma.EnumCategoryFilter<"Carpeta"> | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFilter<"Carpeta"> | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.XOR<Prisma.ActuacionNullableScalarRelationFilter, Prisma.ActuacionWhereInput> | null
   juzgado?: Prisma.XOR<Prisma.JuzgadoNullableScalarRelationFilter, Prisma.JuzgadoWhereInput> | null
   codeudor?: Prisma.XOR<Prisma.CodeudorNullableScalarRelationFilter, Prisma.CodeudorWhereInput> | null
@@ -354,6 +362,7 @@ export type CarpetaOrderByWithRelationInput = {
   juzgadoId?: Prisma.SortOrderInput | Prisma.SortOrder
   idRegUltimaAct?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
+  cuantiaType?: Prisma.SortOrder
   ultimaActuacion?: Prisma.ActuacionOrderByWithRelationInput
   juzgado?: Prisma.JuzgadoOrderByWithRelationInput
   codeudor?: Prisma.CodeudorOrderByWithRelationInput
@@ -387,6 +396,7 @@ export type CarpetaWhereUniqueInput = Prisma.AtLeast<{
   juzgadoId?: Prisma.StringNullableFilter<"Carpeta"> | string | null
   idRegUltimaAct?: Prisma.StringNullableFilter<"Carpeta"> | string | null
   category?: Prisma.EnumCategoryFilter<"Carpeta"> | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFilter<"Carpeta"> | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.XOR<Prisma.ActuacionNullableScalarRelationFilter, Prisma.ActuacionWhereInput> | null
   juzgado?: Prisma.XOR<Prisma.JuzgadoNullableScalarRelationFilter, Prisma.JuzgadoWhereInput> | null
   codeudor?: Prisma.XOR<Prisma.CodeudorNullableScalarRelationFilter, Prisma.CodeudorWhereInput> | null
@@ -417,6 +427,7 @@ export type CarpetaOrderByWithAggregationInput = {
   juzgadoId?: Prisma.SortOrderInput | Prisma.SortOrder
   idRegUltimaAct?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
+  cuantiaType?: Prisma.SortOrder
   _count?: Prisma.CarpetaCountOrderByAggregateInput
   _avg?: Prisma.CarpetaAvgOrderByAggregateInput
   _max?: Prisma.CarpetaMaxOrderByAggregateInput
@@ -446,6 +457,7 @@ export type CarpetaScalarWhereWithAggregatesInput = {
   juzgadoId?: Prisma.StringNullableWithAggregatesFilter<"Carpeta"> | string | null
   idRegUltimaAct?: Prisma.StringNullableWithAggregatesFilter<"Carpeta"> | string | null
   category?: Prisma.EnumCategoryWithAggregatesFilter<"Carpeta"> | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueWithAggregatesFilter<"Carpeta"> | $Enums.CuantiaValue
 }
 
 export type CarpetaCreateInput = {
@@ -463,6 +475,7 @@ export type CarpetaCreateInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
@@ -493,6 +506,7 @@ export type CarpetaUncheckedCreateInput = {
   juzgadoId?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
@@ -517,6 +531,7 @@ export type CarpetaUpdateInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
@@ -547,6 +562,7 @@ export type CarpetaUncheckedUpdateInput = {
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
@@ -575,6 +591,7 @@ export type CarpetaCreateManyInput = {
   juzgadoId?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
 }
 
 export type CarpetaUpdateManyMutationInput = {
@@ -592,6 +609,7 @@ export type CarpetaUpdateManyMutationInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
 }
 
 export type CarpetaUncheckedUpdateManyInput = {
@@ -613,6 +631,7 @@ export type CarpetaUncheckedUpdateManyInput = {
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -642,6 +661,7 @@ export type CarpetaCountOrderByAggregateInput = {
   juzgadoId?: Prisma.SortOrder
   idRegUltimaAct?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  cuantiaType?: Prisma.SortOrder
 }
 
 export type CarpetaAvgOrderByAggregateInput = {
@@ -668,6 +688,7 @@ export type CarpetaMaxOrderByAggregateInput = {
   juzgadoId?: Prisma.SortOrder
   idRegUltimaAct?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  cuantiaType?: Prisma.SortOrder
 }
 
 export type CarpetaMinOrderByAggregateInput = {
@@ -688,6 +709,7 @@ export type CarpetaMinOrderByAggregateInput = {
   juzgadoId?: Prisma.SortOrder
   idRegUltimaAct?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  cuantiaType?: Prisma.SortOrder
 }
 
 export type CarpetaSumOrderByAggregateInput = {
@@ -763,6 +785,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type EnumCategoryFieldUpdateOperationsInput = {
   set?: $Enums.Category
+}
+
+export type EnumCuantiaValueFieldUpdateOperationsInput = {
+  set?: $Enums.CuantiaValue
 }
 
 export type CarpetaCreateNestedOneWithoutDeudorInput = {
@@ -968,6 +994,7 @@ export type CarpetaCreateWithoutDeudorInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
@@ -997,6 +1024,7 @@ export type CarpetaUncheckedCreateWithoutDeudorInput = {
   juzgadoId?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
@@ -1036,6 +1064,7 @@ export type CarpetaUpdateWithoutDeudorInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
@@ -1065,6 +1094,7 @@ export type CarpetaUncheckedUpdateWithoutDeudorInput = {
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
@@ -1088,6 +1118,7 @@ export type CarpetaCreateWithoutCodeudorInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
@@ -1117,6 +1148,7 @@ export type CarpetaUncheckedCreateWithoutCodeudorInput = {
   juzgadoId?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
@@ -1156,6 +1188,7 @@ export type CarpetaUpdateWithoutCodeudorInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
@@ -1185,6 +1218,7 @@ export type CarpetaUncheckedUpdateWithoutCodeudorInput = {
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
@@ -1208,6 +1242,7 @@ export type CarpetaCreateWithoutDemandaInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
@@ -1237,6 +1272,7 @@ export type CarpetaUncheckedCreateWithoutDemandaInput = {
   juzgadoId?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
   notas?: Prisma.NotaUncheckedCreateNestedManyWithoutCarpetaInput
@@ -1276,6 +1312,7 @@ export type CarpetaUpdateWithoutDemandaInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
@@ -1305,6 +1342,7 @@ export type CarpetaUncheckedUpdateWithoutDemandaInput = {
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   notas?: Prisma.NotaUncheckedUpdateManyWithoutCarpetaNestedInput
@@ -1328,6 +1366,7 @@ export type CarpetaCreateWithoutNotasInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
@@ -1357,6 +1396,7 @@ export type CarpetaUncheckedCreateWithoutNotasInput = {
   juzgadoId?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
@@ -1396,6 +1436,7 @@ export type CarpetaUpdateWithoutNotasInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
@@ -1425,6 +1466,7 @@ export type CarpetaUncheckedUpdateWithoutNotasInput = {
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
@@ -1448,6 +1490,7 @@ export type CarpetaCreateWithoutUltimaActuacionInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
@@ -1476,6 +1519,7 @@ export type CarpetaUncheckedCreateWithoutUltimaActuacionInput = {
   juzgadoCiudad?: string | null
   juzgadoId?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
@@ -1533,6 +1577,7 @@ export type CarpetaScalarWhereInput = {
   juzgadoId?: Prisma.StringNullableFilter<"Carpeta"> | string | null
   idRegUltimaAct?: Prisma.StringNullableFilter<"Carpeta"> | string | null
   category?: Prisma.EnumCategoryFilter<"Carpeta"> | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFilter<"Carpeta"> | $Enums.CuantiaValue
 }
 
 export type CarpetaCreateWithoutJuzgadoInput = {
@@ -1550,6 +1595,7 @@ export type CarpetaCreateWithoutJuzgadoInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaCreateNestedOneWithoutCarpetaInput
@@ -1576,6 +1622,7 @@ export type CarpetaUncheckedCreateWithoutJuzgadoInput = {
   ciudad?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
@@ -1626,6 +1673,7 @@ export type CarpetaCreateWithoutProcesosInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
@@ -1655,6 +1703,7 @@ export type CarpetaUncheckedCreateWithoutProcesosInput = {
   juzgadoId?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
@@ -1694,6 +1743,7 @@ export type CarpetaUpdateWithoutProcesosInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
@@ -1723,6 +1773,7 @@ export type CarpetaUncheckedUpdateWithoutProcesosInput = {
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
@@ -1746,6 +1797,7 @@ export type CarpetaCreateWithoutNotesInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
@@ -1775,6 +1827,7 @@ export type CarpetaUncheckedCreateWithoutNotesInput = {
   juzgadoId?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
@@ -1814,6 +1867,7 @@ export type CarpetaUpdateWithoutNotesInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
@@ -1843,6 +1897,7 @@ export type CarpetaUncheckedUpdateWithoutNotesInput = {
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
@@ -1866,6 +1921,7 @@ export type CarpetaCreateWithoutTareasInput = {
   fechaUltimaRevision?: Date | string | null
   ciudad?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionCreateNestedOneWithoutCarpetasInput
   juzgado?: Prisma.JuzgadoCreateNestedOneWithoutCarpetaInput
   codeudor?: Prisma.CodeudorCreateNestedOneWithoutCarpetaInput
@@ -1895,6 +1951,7 @@ export type CarpetaUncheckedCreateWithoutTareasInput = {
   juzgadoId?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedCreateNestedOneWithoutCarpetaInput
   demanda?: Prisma.DemandaUncheckedCreateNestedOneWithoutCarpetaInput
   deudor?: Prisma.DeudorUncheckedCreateNestedOneWithoutCarpetaInput
@@ -1934,6 +1991,7 @@ export type CarpetaUpdateWithoutTareasInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
@@ -1963,6 +2021,7 @@ export type CarpetaUncheckedUpdateWithoutTareasInput = {
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
@@ -1989,6 +2048,7 @@ export type CarpetaCreateManyUltimaActuacionInput = {
   juzgadoCiudad?: string | null
   juzgadoId?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
 }
 
 export type CarpetaUpdateWithoutUltimaActuacionInput = {
@@ -2006,6 +2066,7 @@ export type CarpetaUpdateWithoutUltimaActuacionInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   juzgado?: Prisma.JuzgadoUpdateOneWithoutCarpetaNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
@@ -2034,6 +2095,7 @@ export type CarpetaUncheckedUpdateWithoutUltimaActuacionInput = {
   juzgadoCiudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
@@ -2061,6 +2123,7 @@ export type CarpetaUncheckedUpdateManyWithoutUltimaActuacionInput = {
   juzgadoCiudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   juzgadoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
 }
 
 export type CarpetaCreateManyJuzgadoInput = {
@@ -2079,6 +2142,7 @@ export type CarpetaCreateManyJuzgadoInput = {
   ciudad?: string | null
   idRegUltimaAct?: string | null
   category?: $Enums.Category
+  cuantiaType?: $Enums.CuantiaValue
 }
 
 export type CarpetaUpdateWithoutJuzgadoInput = {
@@ -2096,6 +2160,7 @@ export type CarpetaUpdateWithoutJuzgadoInput = {
   fechaUltimaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   ultimaActuacion?: Prisma.ActuacionUpdateOneWithoutCarpetasNestedInput
   codeudor?: Prisma.CodeudorUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUpdateOneWithoutCarpetaNestedInput
@@ -2122,6 +2187,7 @@ export type CarpetaUncheckedUpdateWithoutJuzgadoInput = {
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
   codeudor?: Prisma.CodeudorUncheckedUpdateOneWithoutCarpetaNestedInput
   demanda?: Prisma.DemandaUncheckedUpdateOneWithoutCarpetaNestedInput
   deudor?: Prisma.DeudorUncheckedUpdateOneWithoutCarpetaNestedInput
@@ -2147,6 +2213,7 @@ export type CarpetaUncheckedUpdateManyWithoutJuzgadoInput = {
   ciudad?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRegUltimaAct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  cuantiaType?: Prisma.EnumCuantiaValueFieldUpdateOperationsInput | $Enums.CuantiaValue
 }
 
 
@@ -2226,6 +2293,7 @@ export type CarpetaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   juzgadoId?: boolean
   idRegUltimaAct?: boolean
   category?: boolean
+  cuantiaType?: boolean
   ultimaActuacion?: boolean | Prisma.Carpeta$ultimaActuacionArgs<ExtArgs>
   juzgado?: boolean | Prisma.Carpeta$juzgadoArgs<ExtArgs>
   codeudor?: boolean | Prisma.Carpeta$codeudorArgs<ExtArgs>
@@ -2257,6 +2325,7 @@ export type CarpetaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   juzgadoId?: boolean
   idRegUltimaAct?: boolean
   category?: boolean
+  cuantiaType?: boolean
   ultimaActuacion?: boolean | Prisma.Carpeta$ultimaActuacionArgs<ExtArgs>
   juzgado?: boolean | Prisma.Carpeta$juzgadoArgs<ExtArgs>
 }, ExtArgs["result"]["carpeta"]>
@@ -2280,6 +2349,7 @@ export type CarpetaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   juzgadoId?: boolean
   idRegUltimaAct?: boolean
   category?: boolean
+  cuantiaType?: boolean
   ultimaActuacion?: boolean | Prisma.Carpeta$ultimaActuacionArgs<ExtArgs>
   juzgado?: boolean | Prisma.Carpeta$juzgadoArgs<ExtArgs>
 }, ExtArgs["result"]["carpeta"]>
@@ -2303,9 +2373,10 @@ export type CarpetaSelectScalar = {
   juzgadoId?: boolean
   idRegUltimaAct?: boolean
   category?: boolean
+  cuantiaType?: boolean
 }
 
-export type CarpetaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fecha" | "idProcesos" | "llaveProceso" | "nombre" | "numero" | "revisado" | "terminado" | "updatedAt" | "tipoProceso" | "notasCount" | "fechaUltimaRevision" | "ciudad" | "juzgadoTipo" | "juzgadoCiudad" | "juzgadoId" | "idRegUltimaAct" | "category", ExtArgs["result"]["carpeta"]>
+export type CarpetaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fecha" | "idProcesos" | "llaveProceso" | "nombre" | "numero" | "revisado" | "terminado" | "updatedAt" | "tipoProceso" | "notasCount" | "fechaUltimaRevision" | "ciudad" | "juzgadoTipo" | "juzgadoCiudad" | "juzgadoId" | "idRegUltimaAct" | "category" | "cuantiaType", ExtArgs["result"]["carpeta"]>
 export type CarpetaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ultimaActuacion?: boolean | Prisma.Carpeta$ultimaActuacionArgs<ExtArgs>
   juzgado?: boolean | Prisma.Carpeta$juzgadoArgs<ExtArgs>
@@ -2359,6 +2430,7 @@ export type $CarpetaPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     juzgadoId: string | null
     idRegUltimaAct: string | null
     category: $Enums.Category
+    cuantiaType: $Enums.CuantiaValue
   }, ExtArgs["result"]["carpeta"]>
   composites: {}
 }
@@ -2809,6 +2881,7 @@ export interface CarpetaFieldRefs {
   readonly juzgadoId: Prisma.FieldRef<"Carpeta", 'String'>
   readonly idRegUltimaAct: Prisma.FieldRef<"Carpeta", 'String'>
   readonly category: Prisma.FieldRef<"Carpeta", 'Category'>
+  readonly cuantiaType: Prisma.FieldRef<"Carpeta", 'CuantiaValue'>
 }
     
 
