@@ -138,7 +138,8 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
           name    : 'fecha',
           label   : 'Fecha de la guía en el anexo',
           type    : 'date',
-          required: true
+          required: true,
+          format  : 'dateLong'
         },
         {
           name    : 'guia',
