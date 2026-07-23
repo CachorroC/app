@@ -1,16 +1,16 @@
 import '#@/styles/globals.css';
 import 'material-symbols';
 import { ReactNode, Suspense } from 'react';
-import { MainProvider } from './Context/main-context';
-import { SearchProvider } from './Context/search-context';
-import { ModalProvider } from './Context/modal-context';
+import { MainProvider } from '#@/app/Context/main-context';
+import { SearchProvider } from '#@/app/Context/search-context';
+import { ModalProvider } from '#@/app/Context/modal-context';
 import type { Metadata, Viewport } from 'next';
-import { NavigationContextProvider } from './Context/navigation-context';
-import { CategoryContextProvider } from './Context/category-context';
+import { NavigationContextProvider } from '#@/app/Context/navigation-context';
+import { CategoryContextProvider } from '#@/app/Context/category-context';
 import { quicksand, plexMono, fraunces, inter } from '#@/styles/fonts';
 import PushManagerComponent from '#@/components/PushManager';
 import { Loader } from '#@/components/Loader/main-loader';
-import { PushNotificationProvider } from './Context/pushNotificationContext';
+import { PushNotificationProvider } from '#@/app/Context/pushNotificationContext';
 
 const prefix = process.env.NODE_ENV === 'production'
   ? 'app'

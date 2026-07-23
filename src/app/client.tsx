@@ -2,8 +2,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { sendNotification } from './actions/notifications';
-import { usePushNotifications } from './Context/pushNotificationContext';
+import { sendNotification } from '#@/app/actions/notifications';
+import { usePushNotifications } from '#@/app/Context/pushNotificationContext';
 
 function PushNotificationManager() {
   const {

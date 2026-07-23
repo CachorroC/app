@@ -57,3 +57,7 @@ Please strictly follow these rules during all interactions:
 ## 4. Operational Requirements
 
 - **Water Tracker:** Append a 1-line footprint estimate to final summaries.
+
+## 5. Plan Mode
+
+- **Plan for implementation:** Always present to me a plan of what where your findings and what you'll be changing or implementing, which files will be edited or modified and why.
