@@ -1,11 +1,5 @@
 import type { MemorialTemplate } from './types';
 
-/**
- * MemorialTemplate manifest for the Ley 2213 de 2022 notifications memorial
- * (Manual Domina 2025), including a guia_number/is_positiva field pair and
- * an anexos group, rendered from
- * templates/memorial_notificaciones_ley_2213_de_2022_manual_domina_2025.docx.
- */
 export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: MemorialTemplate = {
   id         : 'memorial_notificaciones_ley_2213_de_2022_manual_domina_2025',
   filename   : 'memorial_notificaciones_ley_2213_de_2022_manual_domina_2025.docx',
@@ -21,6 +15,7 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
       'radicado.año'   : 'radicado.año',
       tipo_proceso     : 'tipoProceso',
       llaveProceso     : 'llaveProceso',
+      'deudor.email'   : 'deudor.email'
     },
   },
   groups: [
@@ -29,12 +24,18 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
       legend: 'deudor',
       fields: [
         {
+          name    : 'email',
+          label   : 'email',
+          type    : 'text',
+          required: true
+        },
+        {
           name    : 'nombre',
           label   : 'nombre',
           type    : 'text',
           required: true,
           format  : 'upper'
-        }
+        },
       ],
     },
     {
@@ -65,13 +66,6 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
           name    : 'guia_number',
           label   : 'guia_number',
           type    : 'text',
-          required: true
-        },
-        {
-          name    : 'is_positiva',
-          label   : 'is_positiva',
-          type    : 'boolean',
-          format  : 'positivaNegativa',
           required: true
         },
         {
@@ -138,23 +132,26 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
           label   : 'numero',
           type    : 'number',
           required: true,
-          format  : 'radicadoNumero'
+          format  : 'radicado'
         },
       ],
     },
     {
-      legend: 'Anexos',
+      key   : 'state',
+      legend: 'state',
       fields: [
         {
-          name : 'has_anexos',
-          label: '¿Incluye anexos?',
-          type : 'boolean'
+          name    : 'message',
+          label   : 'message',
+          type    : 'text',
+          required: true
         },
         {
-          name    : 'anexos_list',
-          label   : 'Anexos',
-          type    : 'stringList',
-          helpText: 'Un elemento por línea.',
+          name    : 'is_positiva',
+          label   : 'is_positiva',
+          type    : 'boolean',
+          format  : 'positivaNegativa',
+          required: true
         },
       ],
     },
