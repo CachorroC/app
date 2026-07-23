@@ -63,12 +63,6 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
           ],
         },
         {
-          name    : 'guia_number',
-          label   : 'guia_number',
-          type    : 'text',
-          required: true
-        },
-        {
           name    : 'llaveProceso',
           label   : 'llaveProceso',
           type    : 'text',
@@ -141,10 +135,25 @@ export const memorial_notificaciones_ley_2213_de_2022_manual_domina_2025: Memori
       legend: 'state',
       fields: [
         {
-          name    : 'message',
-          label   : 'message',
+          name    : 'fecha',
+          label   : 'Fecha de la guía en el anexo',
+          type    : 'date',
+          required: true
+        },
+        {
+          name    : 'guia',
+          label   : 'Número de guía',
           type    : 'text',
           required: true
+        },
+        {
+          name    : 'message',
+          label   : 'Texto que va despues de POSITIVA cuando es POSITIVA, dejar en blanco si es NEGATIVA',
+          type    : 'text',
+          showWhen: {
+            field : 'is_positiva',
+            equals: true
+          },
         },
         {
           name    : 'is_positiva',

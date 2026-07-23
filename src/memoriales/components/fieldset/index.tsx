@@ -21,8 +21,10 @@ interface FieldsetProps {
  * Renders a `<fieldset>`/`<legend>` for one manifest field group.
  *
  * Implements the boolean-gate pattern: when the group has a boolean field,
- * its `stringList` fields are hidden while the boolean is unchecked. Derived
- * fields are never rendered directly. Visible fields are delegated to `Field`.
+ * its `stringList` fields are hidden while the boolean is unchecked. Fields
+ * with a `showWhen` are hidden unless the named sibling field's value
+ * matches. Derived fields are never rendered directly. Visible fields are
+ * delegated to `Field`.
  *
  * @param props - See {@link FieldsetProps}.
  */
@@ -36,18 +38,21 @@ export function Fieldset( {
     control,
   } ) as Record<string, unknown>;
 
+  const resolveFieldValue = ( name: string ) => {
+    const path = pathPrefix
+      ? `${ pathPrefix }.${ name }`
+      : name;
+
+    return getPath(
+      values, path
+    );
+  };
+
   const booleanField = group.fields.find( ( field ) => {
     return field.type === 'boolean';
   } );
-  const gateName = booleanField
-    ? pathPrefix
-      ? `${ pathPrefix }.${ booleanField.name }`
-      : booleanField.name
-    : undefined;
-  const gateValue = gateName
-    ? !!getPath(
-        values, gateName 
-      )
+  const gateValue = booleanField
+    ? !!resolveFieldValue( booleanField.name )
     : true;
 
   return (
@@ -62,6 +67,13 @@ export function Fieldset( {
         }
 
         if ( field.type === 'stringList' && booleanField && !gateValue ) {
+          return null;
+        }
+
+        if (
+          field.showWhen
+          && Boolean( resolveFieldValue( field.showWhen.field ) ) !== field.showWhen.equals
+        ) {
           return null;
         }
 

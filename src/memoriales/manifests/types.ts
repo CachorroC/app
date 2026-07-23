@@ -46,6 +46,7 @@ export interface FieldDef {
   options?    : { value: string; label: string }[]; // type 'select'
   format?     : FieldFormat;
   derived?    : boolean; // computed into the render context; excluded from the form and input schema
+  showWhen?   : { field: string; equals: boolean }; // hide this field unless the named sibling field's value equals `equals`
 }
 
 /**

@@ -107,6 +107,16 @@ function assembleGroupValues(
       continue;
     }
 
+    if ( field.showWhen ) {
+      const gate = Boolean( rawGroup[ field.showWhen.field ] ) === field.showWhen.equals;
+
+      result[ field.name ] = gate
+        ? rawGroup[ field.name ]
+        : '';
+
+      continue;
+    }
+
     result[ field.name ] = rawGroup[ field.name ];
   }
 
